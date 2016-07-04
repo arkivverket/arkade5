@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.UI", "Ar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade", "Arkivverket.Arkade\Arkivverket.Arkade.csproj", "{D4008C3C-61EF-48A4-B333-793476B7104D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.Test", "Arkivverket.Arkade.Test\Arkivverket.Arkade.Test.csproj", "{24B2B89B-9399-4FBA-9C48-B1DBBBFE6ED7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D4008C3C-61EF-48A4-B333-793476B7104D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4008C3C-61EF-48A4-B333-793476B7104D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4008C3C-61EF-48A4-B333-793476B7104D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24B2B89B-9399-4FBA-9C48-B1DBBBFE6ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24B2B89B-9399-4FBA-9C48-B1DBBBFE6ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24B2B89B-9399-4FBA-9C48-B1DBBBFE6ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24B2B89B-9399-4FBA-9C48-B1DBBBFE6ED7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
