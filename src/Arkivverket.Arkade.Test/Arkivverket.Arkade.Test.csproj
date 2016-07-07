@@ -77,11 +77,25 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\ChecksumTest.cs" />
+    <Compile Include="Util\TarTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="TestData\AliceInWonderland\dokumenter\5001111.pdf" />
+    <None Include="TestData\AliceInWonderland\dokumenter\5011110.pdf" />
+    <None Include="TestData\AliceInWonderland\dokumenter\5011111.pdf" />
+    <None Include="TestData\AliceInWonderland\dokumenter\5011112.pdf" />
+    <None Include="TestData\AliceInWonderland\dokumenter\5011113.pdf" />
+    <None Include="TestData\AliceInWonderland\dokumenter\5011114.pdf" />
+    <None Include="TestData\AliceInWonderland\dokumenter\5011115.pdf" />
+    <None Include="TestData\AliceInWonderland\dokumenter\5011116.pdf" />
+    <None Include="TestData\AliceInWonderland\dokumenter\5011117.pdf" />
+    <None Include="TestData\AliceInWonderland\dokumenter\5011118.pdf" />
+    <None Include="TestData\AliceInWonderland\dokumenter\5011119.pdf" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestData\AliceInWonderland\arkivstrukturAbbreviated.xml" />
     <Content Include="Util\demo.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
