@@ -82,20 +82,44 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="TestData\AliceInWonderland\dokumenter\5001111.pdf" />
-    <None Include="TestData\AliceInWonderland\dokumenter\5011110.pdf" />
-    <None Include="TestData\AliceInWonderland\dokumenter\5011111.pdf" />
-    <None Include="TestData\AliceInWonderland\dokumenter\5011112.pdf" />
-    <None Include="TestData\AliceInWonderland\dokumenter\5011113.pdf" />
-    <None Include="TestData\AliceInWonderland\dokumenter\5011114.pdf" />
-    <None Include="TestData\AliceInWonderland\dokumenter\5011115.pdf" />
-    <None Include="TestData\AliceInWonderland\dokumenter\5011116.pdf" />
-    <None Include="TestData\AliceInWonderland\dokumenter\5011117.pdf" />
-    <None Include="TestData\AliceInWonderland\dokumenter\5011118.pdf" />
-    <None Include="TestData\AliceInWonderland\dokumenter\5011119.pdf" />
+    <None Include="TestData\AliceInWonderland\dokumenter\5001111.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AliceInWonderland\dokumenter\5011110.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AliceInWonderland\dokumenter\5011111.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AliceInWonderland\dokumenter\5011112.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AliceInWonderland\dokumenter\5011113.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AliceInWonderland\dokumenter\5011114.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AliceInWonderland\dokumenter\5011115.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AliceInWonderland\dokumenter\5011116.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AliceInWonderland\dokumenter\5011117.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AliceInWonderland\dokumenter\5011118.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AliceInWonderland\dokumenter\5011119.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\AliceInWonderland\arkivstrukturAbbreviated.xml" />
+    <Content Include="TestData\AliceInWonderland\arkivstrukturAbbreviated.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Util\demo.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

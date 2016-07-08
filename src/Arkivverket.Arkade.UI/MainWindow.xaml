@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="Arkade 5" Height="350" Width="525">
     <Grid>
-        
+        <Menu x:Name="mainMenu" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="517">
+            <MenuItem Header="Fil">
+                <MenuItem Header="_Lagre"/>
+            </MenuItem>
+        </Menu>
+
+
     </Grid>
 </Window>

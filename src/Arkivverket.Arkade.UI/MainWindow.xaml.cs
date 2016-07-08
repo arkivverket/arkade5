@@ -8,6 +8,7 @@ namespace Arkivverket.Arkade.UI
         {
             InitializeComponent();
             Title = Properties.Resources.General_WindowTitle;
+
         }
     }
 }
