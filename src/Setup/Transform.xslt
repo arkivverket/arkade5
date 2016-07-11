@@ -44,8 +44,7 @@
 
 
   <!-- remove unwanted files -->
-  <xsl:key name="kCompsToRemove"
-           match="wix:Component[contains(wix:File/@Source, '.nupkg') 
+  <xsl:key name="kCompsToRemove" match="wix:Component[contains(wix:File/@Source, '.nupkg') 
                   or contains(wix:File/@Source, '.CodeAnalysisLog.xml')
                   or contains(wix:File/@Source, '.lastcodeanalysissucceeded')
            ]"
