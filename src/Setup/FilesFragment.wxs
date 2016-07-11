@@ -2,49 +2,52 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <DirectoryRef Id="INSTALLFOLDER">
-            <Component Id="cmp7F4BF8EE061F6E573B55E18848D2A173" Guid="{D3A065A0-303F-4593-AE27-949D2BC21272}">
+            <Component Id="cmp7F4BF8EE061F6E573B55E18848D2A173" Guid="{A89B8948-7759-4318-96CE-11D48C4A8A06}">
                 <File Id="fil4A541A8A935DEF38CA1624B2E2C1733E" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Arkivverket.Arkade.dll" />
             </Component>
-            <Component Id="cmp7A59761E6AD66EC63A31DFC0B17AADBA" Guid="{83F77915-164E-464E-8470-4B375C737E93}">
+            <Component Id="cmp7A59761E6AD66EC63A31DFC0B17AADBA" Guid="{70C16D2E-BC41-40EE-B62B-7FF1B1A2CD76}">
                 <File Id="fil8C0F0D749EDE99E1CD456C310BC5D195" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Arkivverket.Arkade.pdb" />
             </Component>
-            <Component Id="cmpF3187E995055354817C3EFB0D9580C81" Guid="{C1260C78-DDEE-478B-B36B-B71E2F6BD565}">
-                <File Id="fil645ACC73EBD39164CBEC59427DA927BE" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Arkivverket.Arkade.UI.exe" />
+            <Component Id="cmpF3187E995055354817C3EFB0D9580C81" Guid="{DB386D85-622D-47E0-BCCB-3B7682641AEF}">
+                <File Id="fil645ACC73EBD39164CBEC59427DA927BE" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Arkivverket.Arkade.UI.exe">
+                    <wix:Shortcut Id="ApplicationStartMenuShortcut" Advertise="yes" Directory="ProgramMenuFolder" Name="Arkade 5" Icon="Arkade.ico" WorkingDirectory="INSTALLFOLDER" xmlns:wix="http://schemas.microsoft.com/wix/2006/wi" />
+                </File>
+                <wix:RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" xmlns:wix="http://schemas.microsoft.com/wix/2006/wi" />
             </Component>
-            <Component Id="cmp8E8790600C1621F0EF180BBB9379CC5D" Guid="{524ABE45-7712-47F5-B745-0D95A755A967}">
+            <Component Id="cmp8E8790600C1621F0EF180BBB9379CC5D" Guid="{AC1C424A-1DDD-4371-84D9-273438E97C19}">
                 <File Id="filB4F160AA67F96FA74851C7CFA18B99F2" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Arkivverket.Arkade.UI.exe.config" />
             </Component>
-            <Component Id="cmp3C9DCCA7856E6AA31406879F0F666F43" Guid="{19023A94-2A0A-48CE-899D-90A41E287A98}">
+            <Component Id="cmp3C9DCCA7856E6AA31406879F0F666F43" Guid="{E1484460-D47F-4847-BA85-0726B3629036}">
                 <File Id="fil781BB9F586E3FBE4584CBC7D51D60582" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Arkivverket.Arkade.UI.pdb" />
             </Component>
-            <Component Id="cmpC20D4EE37A920F74AB14F5D699853334" Guid="{1D40C5AF-93A5-4CCD-99BA-A5E274926CF9}">
+            <Component Id="cmpC20D4EE37A920F74AB14F5D699853334" Guid="{F52132D5-954F-497A-A988-FA102E2367DD}">
                 <File Id="filC3D19F3338511B79A92E3DDFA9678AC6" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Arkivverket.Arkade.UI.vshost.exe" />
             </Component>
-            <Component Id="cmpACE095555FC61F9E177D3757ADC0909D" Guid="{B1487E86-7427-4BB8-9B4A-C35F975DFF72}">
+            <Component Id="cmpACE095555FC61F9E177D3757ADC0909D" Guid="{73A5B8FE-37EC-43D7-80ED-5B5801DE13C0}">
                 <File Id="fil4E92F81A2F17CCA7C97ABCB7F896DAF0" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Arkivverket.Arkade.UI.vshost.exe.config" />
             </Component>
-            <Component Id="cmpD3B3F95ED94EC0F991C587F6380A5A7A" Guid="{33F0D358-EB0A-4C10-BFF7-332E019F2599}">
+            <Component Id="cmpD3B3F95ED94EC0F991C587F6380A5A7A" Guid="{CAF4D6A9-092D-499E-94D9-BCBE2BB091B8}">
                 <File Id="fil4B4D7F81BCD7A57E72851F405E13DE6E" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Arkivverket.Arkade.UI.vshost.exe.manifest" />
             </Component>
-            <Component Id="cmpDA27922DC39ABEE4AED51766786E4CFD" Guid="{ACCCBE32-E9B3-48C9-9FC4-55612F7C2947}">
+            <Component Id="cmpDA27922DC39ABEE4AED51766786E4CFD" Guid="{7C80ACA7-845B-4422-8B59-7518CCEC1A00}">
                 <File Id="fil35A245A4D0EADE39BA1ACE4C3747CE4D" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Autofac.dll" />
             </Component>
-            <Component Id="cmp0954EE0015DF324C3FF12053B6FF3978" Guid="{8927CA99-9D2A-47D7-80FF-A431129D5D22}">
+            <Component Id="cmp0954EE0015DF324C3FF12053B6FF3978" Guid="{4D22EB75-0668-47D5-8CC4-8696A5A663E7}">
                 <File Id="fil2B2CBB5D5A9C28A27E3D0000994ED581" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Autofac.xml" />
             </Component>
-            <Component Id="cmpC9CB620E0DB9386EEB2D19353F4065F6" Guid="{FDEBF9A9-743C-43F3-8257-01EFBE875087}">
+            <Component Id="cmpC9CB620E0DB9386EEB2D19353F4065F6" Guid="{86819293-F921-4FAD-A353-3F255A8582FE}">
                 <File Id="fil95CDAD0FA62567C7ABA839237D573690" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\AutofacSerilogIntegration.dll" />
             </Component>
-            <Component Id="cmp28F47D9A07DA0DB70D726116C5513C1D" Guid="{EB0E9E30-B3E3-4332-91EA-5C26C07285E7}">
+            <Component Id="cmp28F47D9A07DA0DB70D726116C5513C1D" Guid="{3902CA77-AFBC-42BF-8E0F-0626E7BF574E}">
                 <File Id="filFBF72465D947A4CEAA8F094AB2ABC988" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\ICSharpCode.SharpZipLib.dll" />
             </Component>
-            <Component Id="cmp74A2C73F11C177073B0A672936A0D5EB" Guid="{7261DC39-CF73-4DF3-9717-83F6A7A86EE9}">
+            <Component Id="cmp74A2C73F11C177073B0A672936A0D5EB" Guid="{36837646-098A-476C-B8FD-7CBBEA81B457}">
                 <File Id="fil1CF141D24266A4E5F331DDFE02166A27" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Serilog.dll" />
             </Component>
-            <Component Id="cmpF9BF28158ACD20247DDF8332577302FB" Guid="{DEB9BABA-934F-409E-8D88-C62EA2D2D59F}">
+            <Component Id="cmpF9BF28158ACD20247DDF8332577302FB" Guid="{F9FC0B02-B0EF-4962-9BBC-CB329AFF8885}">
                 <File Id="fil16F92725942F668C7AAED4E23A2465F1" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Serilog.Sinks.ColoredConsole.dll" />
             </Component>
-            <Component Id="cmp4933C7C5DA965376C36C85D0003C3545" Guid="{93F94CE8-0BFA-497A-9474-5798CBB59603}">
+            <Component Id="cmp4933C7C5DA965376C36C85D0003C3545" Guid="{8EDD7C8B-7C58-4E53-AAFA-1DA9F03CFCA5}">
                 <File Id="fil1B552342F50162567C9342F21D85BFDC" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Serilog.xml" />
             </Component>
         </DirectoryRef>

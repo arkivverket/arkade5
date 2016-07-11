@@ -41,11 +41,13 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Arkade.ico" />
     <Content Include="License.rtf" />
+    <Content Include="Transform.xslt" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PreBuildEvent>"$(WIX)bin\heat.exe" dir "$(ProjectDir)..\Arkivverket.Arkade.UI\bin\$(Configuration)" -cg ProductComponents -gg -scom -sreg -sfrag -srd -dr INSTALLFOLDER -var var.Arkivverket.Arkade.UI.TargetDir -out "$(ProjectDir)FilesFragment.wxs</PreBuildEvent>
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir "$(ProjectDir)..\Arkivverket.Arkade.UI\bin\$(Configuration)" -cg ProductComponents -gg -scom -sreg -sfrag -srd -dr INSTALLFOLDER -var var.Arkivverket.Arkade.UI.TargetDir  -t $(Projectdir)Transform.xslt -out "$(ProjectDir)FilesFragment.wxs</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

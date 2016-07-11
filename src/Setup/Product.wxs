@@ -4,7 +4,8 @@
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <MediaTemplate EmbedCab="yes" />
-
+    <Icon Id="Arkade.ico" SourceFile="Arkade.ico" />
+    
     <Feature Id="ProductFeature" Title="MySetup" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
     </Feature>
@@ -14,16 +15,31 @@
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
 
     <UIRef Id="WixUI_InstallDir" />
-
+<!--
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="*">
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="Arkade 5"
+           Description="My Application Description" Target="[#ApplicationExe]" WorkingDirectory="INSTALLFOLDER"/>
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\Arkade" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+-->
   </Product>
 
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
+      
       <Directory Id="ProgramFilesFolder">
         <Directory Id="ManufacturerFolder" Name="Arkivverket">
           <Directory Id="INSTALLFOLDER" Name="Arkade 5" />
         </Directory>
       </Directory>
+      
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Arkade 5 - Arkivverket"/>
+      </Directory>
+      
     </Directory>
   </Fragment>
 

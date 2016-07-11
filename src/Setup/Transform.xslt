@@ -1,0 +1,49 @@
+﻿<xsl:stylesheet version="1.0"
+            xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+            xmlns:wix="http://schemas.microsoft.com/wix/2006/wi">
+
+  <xsl:output method="xml" indent="yes" />
+
+  <xsl:strip-space elements="*"/>
+
+  <xsl:template match="@*|node()">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  </xsl:template>
+  
+<!-- Add specific ID-tag to exe file for use in Product.wxs
+
+  <xsl:template match="wix:File[contains(@Source, 'Arkade.UI.exe') and not(contains(@Source, '.config'))]">
+    <xsl:copy>
+      <xsl:attribute name="Id">ApplicationExe</xsl:attribute>
+      <xsl:apply-templates select="@*[name()!='Id'] | node()" />
+    </xsl:copy>
+  </xsl:template>
+-->
+  
+  <xsl:template match="wix:File[contains(@Source, 'Arkade.UI.exe') and not(contains(@Source, '.config'))]">
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node()" />
+      <wix:Shortcut Id="ApplicationStartMenuShortcut"
+              Advertise="yes"
+              Directory="ProgramMenuFolder"
+              Name="Arkade 5"
+              Icon="Arkade.ico"
+              WorkingDirectory="INSTALLFOLDER"/>
+    </xsl:copy>
+  </xsl:template>
+  
+
+  <xsl:template match="wix:Component[wix:File[contains(@Source, 'Arkade.UI.exe') and not(contains(@Source, '.config'))]]">
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node()" />
+      <wix:RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall"/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <!-- remove unwanted files -->
+  <xsl:template match="wix:Component[wix:File[contains(@Source, '.CodeAnalysisLog.xml')]]"/>
+  <xsl:template match="wix:Component[wix:File[contains(@Source, '.lastcodeanalysissucceeded')]]"/>
+  
+</xsl:stylesheet>
