@@ -5,14 +5,70 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arkivverket.Arkade.UI"
         mc:Ignorable="d"
-        Title="Arkade 5" Height="350" Width="525">
+        Title="Arkade 5" Height="400" Width="600">
+
     <Grid>
-        <Menu x:Name="mainMenu" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="517">
-            <MenuItem Header="Fil">
-                <MenuItem Header="_Lagre"/>
+        <!-- MAIN MENU BAR -->
+        <Menu x:Name="mainMenu" Height="22.333" VerticalAlignment="Top">
+            <MenuItem Header="Fil" Name="menyItemFile">
+                <MenuItem Header="_Åpne arkiv fil" Name="menuItemOpenArchive"></MenuItem>
+                <MenuItem Header="_Lukk" Name="menuItemClose"></MenuItem>
             </MenuItem>
+
+            <MenuItem Header="Rapport" Name="menyItemReport">
+                <MenuItem Header="Test _Rapport" Name="menuItemTestReport"></MenuItem>
+                <MenuItem Header="Test _Sammendrag" Name="menuItemTestOverview"></MenuItem>
+            </MenuItem>
+
         </Menu>
 
+        <!-- TAB CONTROL/GRID areas -->
+        <Grid Margin="10,27.333,10,125"
+              x:Name="programGrid">
+            <TabControl x:Name="tabControl">
+                <!-- Open archive file/folders -->
+                <TabItem Header="Åpne Arkiv">
+                    <StackPanel>
+                        <Button x:Name="loadArchive" Content="Åpne arkiv"/>
+                        <RadioButton Name="archiveIsNoark3" Content="Noark 3 Arkiv"/>
+                        <RadioButton Name="archiveIsNoark4" Content="Noark 4 Arkiv"/>
+                        <RadioButton Name="archiveIsNoark5" Content="Noark 5 Arkiv"/>
+                        <RadioButton Name="archiveIsFagsystem" Content="Fagsystem Arkiv"/>
+                    </StackPanel>
+                </TabItem>
+                <!-- Add metadata -->
+                <TabItem Header="Beskriv">
+                    <Grid>
+                    </Grid>
+                </TabItem>
+                <!-- Test archive -->
+                <TabItem Header="Test">
+                    <Grid>
+                    </Grid>
+                </TabItem>
+                <!-- Report -->
+                <TabItem Header="Rapport">
+                    <Grid>
+                    </Grid>
+                </TabItem>
+                <!-- Generate Archive Package -->
+                <TabItem Header="Lag Arkiv Pakke">
+                    <Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+
+        </Grid>
+
+        <!-- STATUS GRID -->
+        <Grid Height="110" 
+              Margin="10,0,10,10" 
+              VerticalAlignment="Bottom"
+              x:Name="statusGrid"
+              >
+            <Border BorderBrush="#FFACACAC" BorderThickness="1">
+            </Border>
+        </Grid>
 
     </Grid>
 </Window>

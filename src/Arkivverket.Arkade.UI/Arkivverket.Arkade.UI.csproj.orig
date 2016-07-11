@@ -97,13 +97,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
     <ProjectReference Include="..\Arkivverket.Arkade\Arkivverket.Arkade.csproj">
       <Project>{d4008c3c-61ef-48a4-b333-793476b7104d}</Project>
       <Name>Arkivverket.Arkade</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
+=======
+    <Resource Include="Images\Riksarkivet-og-statsarkivene.gif" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\OctoPack.3.0.71\tools\OctoPack.targets" Condition="Exists('..\packages\OctoPack.3.0.71\tools\OctoPack.targets')" />
