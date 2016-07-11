@@ -41,9 +41,17 @@
       <wix:RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall"/>
     </xsl:copy>
   </xsl:template>
-  
+
+
   <!-- remove unwanted files -->
-  <xsl:template match="wix:Component[wix:File[contains(@Source, '.CodeAnalysisLog.xml')]]"/>
-  <xsl:template match="wix:Component[wix:File[contains(@Source, '.lastcodeanalysissucceeded')]]"/>
+  <xsl:key name="kCompsToRemove"
+           match="wix:Component[contains(wix:File/@Source, '.nupkg') 
+                  or contains(wix:File/@Source, '.CodeAnalysisLog.xml')
+                  or contains(wix:File/@Source, '.lastcodeanalysissucceeded')
+           ]"
+           use="@Id" />
+
+  <xsl:template match="*[self::wix:Component or self::wix:ComponentRef]
+                        [key('kCompsToRemove', @Id)]" />
   
 </xsl:stylesheet>
