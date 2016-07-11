@@ -62,11 +62,14 @@
   <ItemGroup>
     <Compile Include="App_Config\DependencyConfig.cs" />
     <Compile Include="App_Config\LoggerConfig.cs" />
+    <Compile Include="Core\ArchiveExtraction.cs" />
+    <Compile Include="Identify\ArchiveExtractionReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\Runner.cs" />
     <Compile Include="Util\IChecksumGenerator.cs" />
-    <Compile Include="Util\ICompressionDecompressionUtilities.cs" />
+    <Compile Include="Util\ICompressionUtility.cs" />
     <Compile Include="Util\Sha256ChecksumGenerator.cs" />
-    <Compile Include="Util\CompDecompressionTar.cs" />
+    <Compile Include="Util\TarCompressionUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

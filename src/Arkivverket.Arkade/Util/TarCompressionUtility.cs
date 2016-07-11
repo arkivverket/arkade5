@@ -1,26 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ICSharpCode.SharpZipLib.Tar;
 using System.IO;
-using Serilog;
 
 
 namespace Arkivverket.Arkade.Util
 {
-    public class CompressionDecompressionTar : ICompressionDecompressionUtilities
+    public class TarCompressionUtility : ICompressionUtility
     {
 
         // Tar file utilities built on nuget package SharpZipLib.0.86.0
-        public int ExtractFolderFromArchive(string tarFileName, string targetFolderName)
+        public int ExtractFolderFromArchive(string fileName, string targetFolderName)
         {
             int returnValue = 0;
 
             try
             {
-                Stream inStream = File.OpenRead(tarFileName);
+                Stream inStream = File.OpenRead(fileName);
                 TarArchive tarArchive = TarArchive.CreateInputTarArchive(inStream);
                 tarArchive.ExtractContents(targetFolderName);
                 tarArchive.Close();
@@ -36,13 +31,13 @@ namespace Arkivverket.Arkade.Util
 
 
 
-        public int CompressFolderContentToArchiveFile(string tarTargetFileName, string sourceFileFolder)
+        public int CompressFolderContentToArchiveFile(string targetFileName, string sourceFileFolder)
         {
             int returnValue = 0;
 
             try
             {
-                Stream outStream = File.Create(tarTargetFileName);
+                Stream outStream = File.Create(targetFileName);
                 TarOutputStream tarOutputStream = new TarOutputStream(outStream);
                 TarArchive tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
 

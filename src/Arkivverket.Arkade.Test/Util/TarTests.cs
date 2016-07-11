@@ -30,11 +30,11 @@ namespace Arkivverket.Arkade.Test.Util
             _output.WriteLine("Archived TAR    : " + pathToTargetTarFile);
             _output.WriteLine("Extracted folder: " + pathToExtractedDirectory);
 
-            int resultTar = new CompressionDecompressionTar().CompressFolderContentToArchiveFile(pathToTargetTarFile, pathSourceFolder);
+            int resultTar = new TarCompressionUtility().CompressFolderContentToArchiveFile(pathToTargetTarFile, pathSourceFolder);
             resultTar.Should().Be(0);
             _output.WriteLine("Generated Archive");
 
-            int resultUnTar = new CompressionDecompressionTar().ExtractFolderFromArchive(pathToTargetTarFile, pathToExtractedDirectory);
+            int resultUnTar = new TarCompressionUtility().ExtractFolderFromArchive(pathToTargetTarFile, pathToExtractedDirectory);
             resultUnTar.Should().Be(0);
             _output.WriteLine("Extracted Archive");
 
@@ -59,7 +59,7 @@ namespace Arkivverket.Arkade.Test.Util
             _output.WriteLine("TAR file path: " + pathToFile);
             _output.WriteLine("TAR out directory (deleted at end of test): " + pathToExtractedDirectory);
 
-            int result = new CompressionDecompressionTar().ExtractFolderFromArchive(pathToFile, pathToExtractedDirectory);
+            int result = new TarCompressionUtility().ExtractFolderFromArchive(pathToFile, pathToExtractedDirectory);
             result.Should().Be(0);
 
             // Check that correct number of files were extracted:
@@ -81,7 +81,7 @@ namespace Arkivverket.Arkade.Test.Util
             _output.WriteLine("TAR file path: " + pathToTargetTarFile);
             _output.WriteLine("Source folder: " + pathSourceFolder);
 
-            int result = new CompressionDecompressionTar().CompressFolderContentToArchiveFile(pathToTargetTarFile, pathSourceFolder);
+            int result = new TarCompressionUtility().CompressFolderContentToArchiveFile(pathToTargetTarFile, pathSourceFolder);
             result.Should().Be(0);
 
             // Check that correct number of files were extracted:
