@@ -63,6 +63,7 @@
     <Compile Include="App_Config\DependencyConfig.cs" />
     <Compile Include="App_Config\LoggerConfig.cs" />
     <Compile Include="Core\ArchiveExtraction.cs" />
+    <Compile Include="Core\BigSlowAsync.cs" />
     <Compile Include="Identify\ArchiveExtractionReader.cs" />
     <Compile Include="Identify\ArchiveExtractor.cs" />
     <Compile Include="Identify\IArchiveExtractor.cs" />
