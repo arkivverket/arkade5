@@ -64,6 +64,8 @@
     <Compile Include="App_Config\LoggerConfig.cs" />
     <Compile Include="Core\ArchiveExtraction.cs" />
     <Compile Include="Identify\ArchiveExtractionReader.cs" />
+    <Compile Include="Identify\ArchiveExtractor.cs" />
+    <Compile Include="Identify\IArchiveExtractor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Runner.cs" />
     <Compile Include="Util\IChecksumGenerator.cs" />

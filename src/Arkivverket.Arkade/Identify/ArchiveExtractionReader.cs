@@ -1,31 +1,19 @@
 using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Identify
 {
     public class ArchiveExtractionReader
     {
-        const string TemporaryDirectory = "c:\\temp";
+        private readonly IArchiveExtractor _archiveExtractor;
 
-        private readonly ICompressionUtility _compressionUtility;
-
-        public ArchiveExtractionReader(ICompressionUtility compressionUtility)
+        public ArchiveExtractionReader(IArchiveExtractor archiveExtractor)
         {
-            _compressionUtility = compressionUtility;
+            _archiveExtractor = archiveExtractor;
         }
 
-        public ArchiveExtraction ReadFromFile(string filePath)
+        public ArchiveExtraction ReadFromFile(string fileName)
         {
-            _compressionUtility.ExtractFolderFromArchive(filePath, TemporaryDirectory);
-            return new ArchiveExtraction();
+            return _archiveExtractor.Extract(fileName);
         }
-
-        public ArchiveExtraction ReadFromDirectory(string directoryPath)
-        {
-
-            return new ArchiveExtraction();
-        }
-
-
     }
 }
