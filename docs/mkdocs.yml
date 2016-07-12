@@ -1,0 +1,5 @@
+site_name: Arkade - Arkivverket
+
+pages:
+- Home: index.md
+- About: about.md
