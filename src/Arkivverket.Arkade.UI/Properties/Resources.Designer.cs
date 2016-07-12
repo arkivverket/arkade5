@@ -61,6 +61,60 @@ namespace Arkivverket.Arkade.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Det oppstot en fil med den valgte filen.
+        /// </summary>
+        public static string FileException_ErrorWithChosenFile {
+            get {
+                return ResourceManager.GetString("FileException_ErrorWithChosenFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det oppstod en generell feil med filvalget.
+        /// </summary>
+        public static string FileException_GeneralError {
+            get {
+                return ResourceManager.GetString("FileException_GeneralError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingen fil ble valgt.
+        /// </summary>
+        public static string FileException_NoFileChosen {
+            get {
+                return ResourceManager.GetString("FileException_NoFileChosen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .tar.
+        /// </summary>
+        public static string FileSelectionDefaultTar {
+            get {
+                return ResourceManager.GetString("FileSelectionDefaultTar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TAR Files (*.tar)|*.tar|All Files (*.*)|*.*.
+        /// </summary>
+        public static string FileSelectionFilterTar {
+            get {
+                return ResourceManager.GetString("FileSelectionFilterTar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg en arkiv fil.
+        /// </summary>
+        public static string FileSelectionWindowNameArchive {
+            get {
+                return ResourceManager.GetString("FileSelectionWindowNameArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkade 5.
         /// </summary>
         public static string General_WindowTitle {

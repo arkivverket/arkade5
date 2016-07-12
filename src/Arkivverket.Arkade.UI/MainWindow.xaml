@@ -5,70 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arkivverket.Arkade.UI"
         mc:Ignorable="d"
-        Title="Arkade 5" Height="400" Width="600">
+        Title="Arkade 5" Height="400" Width="600"
+        >
 
-    <Grid>
-        <!-- MAIN MENU BAR -->
-        <Menu x:Name="mainMenu" Height="22.333" VerticalAlignment="Top">
-            <MenuItem Header="Fil" Name="menyItemFile">
-                <MenuItem Header="_Åpne arkiv fil" Name="menuItemOpenArchive"></MenuItem>
-                <MenuItem Header="_Lukk" Name="menuItemClose"></MenuItem>
-            </MenuItem>
+    <Viewbox Margin="0" Stretch="Fill" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <Grid Height="369" Width="592">
+            <!-- MAIN MENU BAR -->
+            <Menu x:Name="mainMenu" Height="22.333" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment">
+                <MenuItem Header="Fil" x:Name="menyItemFile">
+                    <MenuItem Header="_Åpne arkiv fil" x:Name="menuItemOpenArchive"/>
+                    <MenuItem Header="_Lukk" x:Name="menuItemClose"/>
+                </MenuItem>
 
-            <MenuItem Header="Rapport" Name="menyItemReport">
-                <MenuItem Header="Test _Rapport" Name="menuItemTestReport"></MenuItem>
-                <MenuItem Header="Test _Sammendrag" Name="menuItemTestOverview"></MenuItem>
-            </MenuItem>
+                <MenuItem Header="Rapport" x:Name="menyItemReport">
+                    <MenuItem Header="Test _Rapport" x:Name="menuItemTestReport"/>
+                    <MenuItem Header="Test _Sammendrag" x:Name="menuItemTestOverview"/>
+                </MenuItem>
 
-        </Menu>
+            </Menu>
 
-        <!-- TAB CONTROL/GRID areas -->
-        <Grid Margin="10,27.333,10,125"
-              x:Name="programGrid">
-            <TabControl x:Name="tabControl">
-                <!-- Open archive file/folders -->
-                <TabItem Header="Åpne Arkiv">
-                    <StackPanel>
-                        <Button x:Name="loadArchive" Content="Åpne arkiv"/>
-                        <RadioButton Name="archiveIsNoark3" Content="Noark 3 Arkiv"/>
-                        <RadioButton Name="archiveIsNoark4" Content="Noark 4 Arkiv"/>
-                        <RadioButton Name="archiveIsNoark5" Content="Noark 5 Arkiv"/>
-                        <RadioButton Name="archiveIsFagsystem" Content="Fagsystem Arkiv"/>
-                    </StackPanel>
-                </TabItem>
-                <!-- Add metadata -->
-                <TabItem Header="Beskriv">
-                    <Grid>
-                    </Grid>
-                </TabItem>
-                <!-- Test archive -->
-                <TabItem Header="Test">
-                    <Grid>
-                    </Grid>
-                </TabItem>
-                <!-- Report -->
-                <TabItem Header="Rapport">
-                    <Grid>
-                    </Grid>
-                </TabItem>
-                <!-- Generate Archive Package -->
-                <TabItem Header="Lag Arkiv Pakke">
-                    <Grid>
-                    </Grid>
-                </TabItem>
-            </TabControl>
+            <!-- Main Program Control -->
+            <ScrollViewer BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" Margin="0,22.333,0,146.667" d:LayoutOverrides="Height">
+                <Grid MinHeight="100">
+                    <Button x:Name="loadArchive" 
+                        Content="Åpne arkiv" 
+                        Height="21" 
+                        Width="100" HorizontalAlignment="Left" Margin="2,2,10,10" VerticalAlignment="Top" Click="loadArchive_Click"/>
+                </Grid>
+            </ScrollViewer>
 
+
+            <!-- Program Status -->
+            <Grid VerticalAlignment="Bottom" Height="127.551" Margin="0,0,0,19.116" d:LayoutOverrides="VerticalAlignment">
+                <Border BorderBrush="#FFACACAC" BorderThickness="1" >
+                    <TextBox x:Name="textBoxLogMessages" TextWrapping="Wrap" Text="" IsReadOnly="True" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
+
+                </Border>
+            </Grid>
+
+
+            <!-- Program footer -->
+            <Grid VerticalAlignment="Bottom" Height="17.551" Margin="0,0,0,1.565" d:LayoutOverrides="VerticalAlignment">
+                <Border BorderBrush="#FFACACAC" BorderThickness="1" >
+
+                </Border>
+            </Grid>
         </Grid>
-
-        <!-- STATUS GRID -->
-        <Grid Height="110" 
-              Margin="10,0,10,10" 
-              VerticalAlignment="Bottom"
-              x:Name="statusGrid"
-              >
-            <Border BorderBrush="#FFACACAC" BorderThickness="1">
-            </Border>
-        </Grid>
-
-    </Grid>
+    </Viewbox>
 </Window>
