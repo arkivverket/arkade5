@@ -64,6 +64,7 @@
     <Compile Include="App_Config\LoggerConfig.cs" />
     <Compile Include="Core\ArchiveExtraction.cs" />
     <Compile Include="Core\BigSlowAsync.cs" />
+    <Compile Include="ExternalModels\Info.cs" />
     <Compile Include="Identify\ArchiveExtractionReader.cs" />
     <Compile Include="Identify\ArchiveExtractor.cs" />
     <Compile Include="Identify\IArchiveExtractor.cs" />
@@ -77,6 +78,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ExternalModels\xsd\GenerateClasses.bat" />
+    <None Include="ExternalModels\xsd\info.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
