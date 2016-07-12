@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="www.arkivverket.no/standarder/info" xmlns="www.arkivverket.no/standarder/info"
+    elementFormDefault="qualified">
+    <xs:element name="info">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="aktor">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="aktorType">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="rolle">
+                                            <xs:complexType>
+                                                <xs:attribute name="navn"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="kontaktperson" type="kontaktPerson"
+                                            minOccurs="0"> </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="uttrekk">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="type" type="type"/>
+                            <xs:element name="typeVersjon"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="system">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="systemType" type="type"/>
+                            <xs:element minOccurs="0" name="systemNavn" type="xs:string"/>
+                            <xs:element minOccurs="0" name="versjon" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="sjekksummer">
+                    <xs:complexType>
+                        <xs:sequence maxOccurs="1">
+                            <xs:element maxOccurs="unbounded" name="fil">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="sjekksum" type="xs:string"/>
+                                        <xs:element name="algoritme" type="xs:string"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="filnavn" type="xs:string"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="integritetsInfo">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="konverteringsHistorikk" type="xs:string"/>
+                            <xs:element fixed="" minOccurs="0" name="kommentar" type="kommentar"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="kryptering">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" name="nokkel" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="kommentar" type="kommentar"/>
+            </xs:sequence>
+            <xs:attribute name="pakkeID"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Noark 3"/>
+            <xs:enumeration value="Noark 4"/>
+            <xs:enumeration value="Noark 5"/>
+            <xs:enumeration value="Fagsystem"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="kontaktPerson">
+        <xs:sequence>
+            <xs:element name="telefon" type="xs:string" minOccurs="0"/>
+            <xs:element name="ePost" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="navn"/>
+    </xs:complexType>
+    <xs:simpleType name="kommentar">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+</xs:schema>
