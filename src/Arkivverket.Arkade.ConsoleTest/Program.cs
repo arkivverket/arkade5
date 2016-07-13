@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.Util;
 using Autofac;
+using Serilog;
 
 namespace Arkivverket.Arkade.ConsoleTest
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -24,7 +21,12 @@ namespace Arkivverket.Arkade.ConsoleTest
             builder.RegisterModule(new ArkadeAutofacModule());
             var container = builder.Build();
 
-            using (var scope = container.BeginLifetimeScope())
+            Log.Logger = new LoggerConfiguration()
+                             .MinimumLevel.Debug()
+                             .WriteTo.ColoredConsole(outputTemplate: "{Timestamp:yyyy-MM-ddTHH:mm:ss.fff} {SourceContext} [{Level}] {Message}{NewLine}{Exception}")
+                             .CreateLogger();
+
+            using (container.BeginLifetimeScope())
             {
                 ArchiveExtractionReader archiveExtractionReader = container.Resolve<ArchiveExtractionReader>();
 
