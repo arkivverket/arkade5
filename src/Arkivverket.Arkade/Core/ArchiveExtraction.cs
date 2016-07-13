@@ -10,5 +10,15 @@ namespace Arkivverket.Arkade.Core
 
         public string Uuid { get; private set; }
         public string WorkingDirectory { get; private set; }
+        public ArchiveType ArchiveType { get; set; }
     }
+
+    public enum ArchiveType
+    {
+        Noark3,
+        Noark4,
+        Noark5,
+        Fagsystem,
+    }
+
 }

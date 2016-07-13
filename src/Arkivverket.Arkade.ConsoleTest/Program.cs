@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.ConsoleTest
         {
             if (args.Length == 0)
             {
-                Console.WriteLine("Please provide file name for archive extraction (.tar).");
+                Console.WriteLine("Please provide file name for archive extraction (.tar) and the corresponding metadata file (info.xml)");
                 return;
             }
 
@@ -30,15 +30,12 @@ namespace Arkivverket.Arkade.ConsoleTest
             {
                 ArchiveExtractionReader archiveExtractionReader = container.Resolve<ArchiveExtractionReader>();
 
-
-                ArchiveExtraction archiveExtraction = archiveExtractionReader.ReadFromFile(args[0]);
+                ArchiveExtraction archiveExtraction = archiveExtractionReader.ReadFromFile(args[0], args[1]);
                 Console.WriteLine($"Reading from archive: {args[0]}");
                 Console.WriteLine($"Uuid: {archiveExtraction.Uuid}");
                 Console.WriteLine($"WorkingDirectory: {archiveExtraction.WorkingDirectory}");
+                Console.WriteLine($"ArchiveType: {archiveExtraction.ArchiveType}");
             }
-
-            
-
 
         }
     }
