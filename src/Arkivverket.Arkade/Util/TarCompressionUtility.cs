@@ -1,6 +1,7 @@
 ﻿using System;
 using ICSharpCode.SharpZipLib.Tar;
 using System.IO;
+using Serilog;
 
 
 namespace Arkivverket.Arkade.Util
@@ -11,8 +12,9 @@ namespace Arkivverket.Arkade.Util
         // Tar file utilities built on nuget package SharpZipLib.0.86.0
         public int ExtractFolderFromArchive(string fileName, string targetFolderName)
         {
-            int returnValue = 0;
+            Log.Debug($"Extract tar file: {fileName} to folder: {targetFolderName}");
 
+            int returnValue = 0;
             try
             {
                 Stream inStream = File.OpenRead(fileName);

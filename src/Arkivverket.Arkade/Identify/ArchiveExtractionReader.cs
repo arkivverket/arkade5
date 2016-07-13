@@ -1,4 +1,5 @@
 using Arkivverket.Arkade.Core;
+using Serilog;
 
 namespace Arkivverket.Arkade.Identify
 {
@@ -11,9 +12,11 @@ namespace Arkivverket.Arkade.Identify
             _archiveExtractor = archiveExtractor;
         }
 
-        public ArchiveExtraction ReadFromFile(string fileName)
+        public ArchiveExtraction ReadFromFile(string archiveFileName)
         {
-            return _archiveExtractor.Extract(fileName);
+            Log.Information("Reading archive from file: " + archiveFileName);
+
+            return _archiveExtractor.Extract(archiveFileName);
         }
     }
 }
