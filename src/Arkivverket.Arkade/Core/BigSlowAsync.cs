@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Core
     public class BigSlowAsync
     {
 
-        public async Task<int> DoSomethingRatherSlow(IProgress<int> progress)
+        public async Task<int> DoSomethingRatherSlow(IProgress<BigSlowStatus> progress)
         {
             int processCount = await Task.Run<int>(() =>
             {
@@ -21,10 +21,11 @@ namespace Arkivverket.Arkade.Core
                     int processed = TheSlowPart(i);
                     if (progress != null)
                     {
-                        progress.Report(i);
+                        progress.Report(new BigSlowStatus(i, $"Kjære {i} landsmenn", false));
                     }
                 }
 
+                progress.Report(new BigSlowStatus(100, "Big slow is done", true));
                 return i;
             });
             return processCount;
@@ -32,7 +33,7 @@ namespace Arkivverket.Arkade.Core
 
         public int TheSlowPart(int i)
         {
-            Thread.Sleep(50);
+            Thread.Sleep(75);
             return i;
         }
 

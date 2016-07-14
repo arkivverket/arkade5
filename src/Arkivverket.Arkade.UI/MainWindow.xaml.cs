@@ -38,17 +38,31 @@ namespace Arkivverket.Arkade.UI
         {
 
             //construct Progress<T>, passing ReportProgress as the Action<T> 
-            var progressIndicator = new Progress<int>(ReportProgress);
+            var progressIndicator = new Progress<BigSlowStatus>(ReportProgress);
             //call async method 
             int counts = await new BigSlowAsync().DoSomethingRatherSlow(progressIndicator);
 
         }
 
-        void ReportProgress(int value)
+        void ReportProgress(BigSlowStatus status)
         {
-            progressBar.Value++;
-            textBoxLogMessages.AppendText("The big slow test is updating\n");
+            progressBar.Value = status.PctDone;
+            LogMessage(status.MyMessageToTheWorld);
+            LogMessage($"Done: {status.IsDone}");
             Log.Information($"Big and slow {progressBar.Value}");
         }
+
+        private void squirrelButton_Click(object sender, RoutedEventArgs e)
+        {
+           LogMessage("Squirrel!!!");
+        }
+
+        public void LogMessage(string log)
+        {
+            textBoxLogMessages.AppendText($"{log}\n");
+            textBoxLogMessages.ScrollToEnd();
+        }
+
+
     }
 }

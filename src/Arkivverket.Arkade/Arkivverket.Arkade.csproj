@@ -64,6 +64,7 @@
     <Compile Include="App_Config\LoggerConfig.cs" />
     <Compile Include="Core\ArchiveExtraction.cs" />
     <Compile Include="Core\BigSlowAsync.cs" />
+    <Compile Include="Core\BigSlowStatus.cs" />
     <Compile Include="ExternalModels\Info.cs" />
     <Compile Include="Identify\ArchiveExtractionReader.cs" />
     <Compile Include="Identify\ArchiveExtractor.cs" />
