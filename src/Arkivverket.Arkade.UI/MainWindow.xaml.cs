@@ -29,7 +29,6 @@ namespace Arkivverket.Arkade.UI
         }
 
 
-
         private void loadArchive_Click(object sender, RoutedEventArgs e)
         {
             string filename = new FileFolderDialogs().ChooseFile(Properties.Resources.FileSelectionWindowNameArchive,
