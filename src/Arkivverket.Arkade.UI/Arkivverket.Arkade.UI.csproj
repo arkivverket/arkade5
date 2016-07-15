@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="UiProcessingExceptions.cs" />
     <Compile Include="Util\FileFolderDialogs.cs" />
+    <Compile Include="Util\LogConfiguration.cs" />
     <Page Include="LoadArchiveWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

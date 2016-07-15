@@ -5,11 +5,18 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Serilog;
 using System.IO;
+using System.Threading;
 
 namespace Arkivverket.Arkade.UI
 {
     public partial class MainWindow : Window
     {
+
+        // Init Async structures
+        public Progress<BigSlowStatus> progressIndicator;
+        public CancellationTokenSource cts = new CancellationTokenSource();
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -17,9 +24,7 @@ namespace Arkivverket.Arkade.UI
             progressBar.Value = 0;
 
             // Init logging
-            Log.Logger = new LoggerConfiguration()
-                            .WriteTo.ColoredConsole(outputTemplate: "{Timestamp:yyyy-MM-ddTHH:mm:ss.fff} {SourceContext} [{Level}] {Message}{NewLine}{Exception}")
-                            .CreateLogger();
+            LogConfiguration.ConfigureSeriLog();
 
         }
 
@@ -37,14 +42,22 @@ namespace Arkivverket.Arkade.UI
         private async void testButton_Click(object sender, RoutedEventArgs e)
         {
 
-            //construct Progress<T>, passing ReportProgress as the Action<T> 
-            var progressIndicator = new Progress<BigSlowStatus>(ReportProgress);
-            //call async method 
-            int counts = await new BigSlowAsync().DoSomethingRatherSlow(progressIndicator);
+
+            progressIndicator = new Progress<BigSlowStatus>(ReportProgress);
+
+            try
+            {
+                int counts = await new BigSlowAsync().DoSomethingRatherSlow(progressIndicator, cts.Token);
+            }
+            catch
+            {
+                LogMessage("Exception in the Async");
+                Log.Fatal("Exception in the Async");
+            }
 
         }
 
-        void ReportProgress(BigSlowStatus status)
+        public void ReportProgress(BigSlowStatus status)
         {
             progressBar.Value = status.PctDone;
             LogMessage(status.MyMessageToTheWorld);
@@ -63,6 +76,9 @@ namespace Arkivverket.Arkade.UI
             textBoxLogMessages.ScrollToEnd();
         }
 
-
+        private void quit_Click(object sender, RoutedEventArgs e)
+        {
+            cts.Cancel();
+        }
     }
 }

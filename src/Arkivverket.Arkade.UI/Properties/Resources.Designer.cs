@@ -122,5 +122,14 @@ namespace Arkivverket.Arkade.UI.Properties {
                 return ResourceManager.GetString("General_WindowTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {Timestamp:yyyy-MM-ddTHH:mm:ss.fff} {SourceContext} [{Level}] ({ThreadId}) {Message}{NewLine}{Exception}.
+        /// </summary>
+        public static string SerilogFormatConfig {
+            get {
+                return ResourceManager.GetString("SerilogFormatConfig", resourceCulture);
+            }
+        }
     }
 }

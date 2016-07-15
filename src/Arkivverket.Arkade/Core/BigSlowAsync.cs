@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Core
     public class BigSlowAsync
     {
 
-        public async Task<int> DoSomethingRatherSlow(IProgress<BigSlowStatus> progress)
+        public async Task<int> DoSomethingRatherSlow(IProgress<BigSlowStatus> progress, CancellationToken ct)
         {
             int processCount = await Task.Run<int>(() =>
             {

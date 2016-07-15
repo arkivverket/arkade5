@@ -138,4 +138,7 @@
   <data name="General_WindowTitle" xml:space="preserve">
     <value>Arkade 5</value>
   </data>
+  <data name="SerilogFormatConfig" xml:space="preserve">
+    <value>{Timestamp:yyyy-MM-ddTHH:mm:ss.fff} {SourceContext} [{Level}] ({ThreadId}) {Message}{NewLine}{Exception}</value>
+  </data>
 </root>
