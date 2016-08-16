@@ -1,0 +1,31 @@
+﻿<Window x:Class="Arkivverket.Arkade.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Arkivverket.Arkade.UI"
+        xmlns:userControl="clr-namespace:Arkivverket.Arkade.UI.View"
+        mc:Ignorable="d"
+        Title="Arkade 5" Height="400" Width="600"
+        >
+
+        <Grid Height="369" Width="592">
+            <!-- MAIN MENU BAR -->
+            <Menu x:Name="mainMenu" Height="22.333" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment">
+                <MenuItem Header="Fil" x:Name="menyItemFile">
+                    <MenuItem Header="_Åpne arkiv fil" x:Name="menuItemOpenArchive"/>
+                    <MenuItem Header="_Lukk" x:Name="menuItemClose"/>
+                </MenuItem>
+
+                <MenuItem Header="Rapport" x:Name="menyItemReport">
+                    <MenuItem Header="Test _Rapport" x:Name="menuItemTestReport"/>
+                    <MenuItem Header="Test _Sammendrag" x:Name="menuItemTestOverview"/>
+                </MenuItem>
+            </Menu>
+
+            
+            <!-- Load UserControlLadArchive view -->
+            <userControl:UserControlLoadArchive></userControl:UserControlLoadArchive>
+
+        </Grid>
+</Window>

@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Identify;
@@ -17,17 +18,18 @@ using Arkivverket.Arkade.UI.Util;
 using Arkivverket.Arkade.Util;
 using Autofac;
 
-namespace Arkivverket.Arkade.UI
+namespace Arkivverket.Arkade.UI.View
 {
     /// <summary>
-    /// Interaction logic for LoadArchiveWindow.xaml
+    /// Interaction logic for UserControlLoadArchive.xaml
     /// </summary>
-    public partial class LoadArchiveWindow : Window
+    public partial class UserControlLoadArchive : UserControl
     {
-        public LoadArchiveWindow()
+        public UserControlLoadArchive()
         {
             InitializeComponent();
         }
+
 
         private void btnSelectArchive_Click(object sender, RoutedEventArgs e)
         {
@@ -57,5 +59,8 @@ namespace Arkivverket.Arkade.UI
                     $"ArchiveType: {archiveExtraction.ArchiveType}";
             }
         }
+
+
+
     }
 }

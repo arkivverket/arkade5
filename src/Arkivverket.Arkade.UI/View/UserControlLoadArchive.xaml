@@ -1,11 +1,11 @@
-﻿<Window x:Class="Arkivverket.Arkade.UI.LoadArchiveWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Arkivverket.Arkade.UI"
-        mc:Ignorable="d"
-        Title="LoadArchiveWindow" Height="314.912" Width="578.947">
+﻿<UserControl x:Class="Arkivverket.Arkade.UI.View.UserControlLoadArchive"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Arkivverket.Arkade.UI.View"
+             mc:Ignorable="d" 
+             >
     <Grid>
         <TextBox x:Name="txtArchiveFileName" HorizontalAlignment="Left" Height="50" Margin="85,18,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="328"/>
         <TextBox x:Name="txtMetadataFileName" HorizontalAlignment="Left" Height="59" Margin="85,73,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="328"/>
@@ -18,4 +18,4 @@
         <Label x:Name="label2" Content="Resultat" HorizontalAlignment="Left" Margin="28,137,0,0" VerticalAlignment="Top"/>
 
     </Grid>
-</Window>
+</UserControl>
