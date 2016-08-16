@@ -15,9 +15,11 @@ namespace Arkivverket.Arkade.UI.Util
         {
             string filename;
 
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.DefaultExt = defaultExtension;
-            dlg.Filter = filter;
+            OpenFileDialog dlg = new OpenFileDialog
+            {
+                DefaultExt = defaultExtension,
+                Filter = filter
+            };
 
             Nullable<bool> status = dlg.ShowDialog();
 

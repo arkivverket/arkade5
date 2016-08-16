@@ -85,7 +85,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="UiProcessingExceptions.cs" />
+    <Compile Include="Util\UiProcessingExceptions.cs" />
     <Compile Include="Util\FileFolderDialogs.cs" />
     <Compile Include="Util\LogConfiguration.cs" />
     <Compile Include="View\UserControlFooter.xaml.cs">

@@ -33,12 +33,36 @@ namespace Arkivverket.Arkade.UI.View
 
         private void btnSelectArchive_Click(object sender, RoutedEventArgs e)
         {
-            txtArchiveFileName.Text = new FileFolderDialogs().ChooseFile(Properties.Resources.FileSelectionWindowNameArchive, "*", "");
+            try
+            {
+                txtArchiveFileName.Text =
+                    new FileFolderDialogs().ChooseFile(Properties.Resources.FileSelectionWindowNameArchive, "*", "");
+            }
+            catch (UiPprocessingExceptions uie)
+            {
+                txtResult.Text = uie.ToString()+"\n";
+            }
+            catch (Exception ex)
+            {
+                txtResult.Text = $"Unspecified exception {ex.ToString()} \n";
+            }
+
         }
 
         private void btnSelectMetadata_Click(object sender, RoutedEventArgs e)
         {
-            txtMetadataFileName.Text = new FileFolderDialogs().ChooseFile(Properties.Resources.FileSelectionWindowNameArchive, "*", "");
+            try
+            {
+                txtMetadataFileName.Text = new FileFolderDialogs().ChooseFile(Properties.Resources.FileSelectionWindowNameArchive, "*", "");
+            }
+            catch (UiPprocessingExceptions uie)
+            {
+                txtResult.Text = uie.ToString() + "\n";
+            }
+            catch (Exception ex)
+            {
+                txtResult.Text = $"Unspecified exception {ex.ToString()} \n";
+            }
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)

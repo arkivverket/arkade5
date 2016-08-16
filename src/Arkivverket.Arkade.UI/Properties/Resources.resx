@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FileException_ErrorWithChosenFile" xml:space="preserve">
-    <value>Det oppstot en fil med den valgte filen</value>
+    <value>Det oppstod en feil med den valgte filen</value>
   </data>
   <data name="FileException_GeneralError" xml:space="preserve">
     <value>Det oppstod en generell feil med filvalget</value>

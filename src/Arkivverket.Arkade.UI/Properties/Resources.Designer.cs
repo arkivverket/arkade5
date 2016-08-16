@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det oppstot en fil med den valgte filen.
+        ///   Looks up a localized string similar to Det oppstod en feil med den valgte filen.
         /// </summary>
         public static string FileException_ErrorWithChosenFile {
             get {
