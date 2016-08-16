@@ -9,23 +9,29 @@
         Title="Arkade 5" Height="400" Width="600"
         >
 
-        <Grid Height="369" Width="592">
-            <!-- MAIN MENU BAR -->
-            <Menu x:Name="mainMenu" Height="22.333" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment">
-                <MenuItem Header="Fil" x:Name="menyItemFile">
-                    <MenuItem Header="_Åpne arkiv fil" x:Name="menuItemOpenArchive"/>
-                    <MenuItem Header="_Lukk" x:Name="menuItemClose"/>
-                </MenuItem>
+    <Grid>
+        <!-- MAIN MENU BAR -->
+        <Menu x:Name="mainMenu" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment">
+            <MenuItem Header="Fil" x:Name="menyItemFile">
+                <!--<MenuItem Header="_Åpne arkiv fil" x:Name="menuItemOpenArchive"/>-->
+                <MenuItem Header="_Lukk" x:Name="menuItemClose"/>
+            </MenuItem>
 
-                <MenuItem Header="Rapport" x:Name="menyItemReport">
-                    <MenuItem Header="Test _Rapport" x:Name="menuItemTestReport"/>
-                    <MenuItem Header="Test _Sammendrag" x:Name="menuItemTestOverview"/>
-                </MenuItem>
-            </Menu>
+            <!--
+            <MenuItem Header="Rapport" x:Name="menyItemReport">
+                <MenuItem Header="Test _Rapport" x:Name="menuItemTestReport"/>
+                <MenuItem Header="Test _Sammendrag" x:Name="menuItemTestOverview"/>
+            </MenuItem>
+            -->
+        </Menu>
 
-            
-            <!-- Load UserControlLadArchive view -->
-            <userControl:UserControlLoadArchive></userControl:UserControlLoadArchive>
 
-        </Grid>
+        <!-- Load UserControlLadArchive view -->
+        <userControl:UserControlLoadArchive 
+            Margin="0,4,0,0"/>
+
+        <!-- Load UserControlLadArchive view -->
+        <userControl:UserControlFooter></userControl:UserControlFooter>
+    </Grid>
+
 </Window>

@@ -88,6 +88,9 @@
     <Compile Include="UiProcessingExceptions.cs" />
     <Compile Include="Util\FileFolderDialogs.cs" />
     <Compile Include="Util\LogConfiguration.cs" />
+    <Compile Include="View\UserControlFooter.xaml.cs">
+      <DependentUpon>UserControlFooter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControlLoadArchive.xaml.cs">
       <DependentUpon>UserControlLoadArchive.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\UserControlFooter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControlLoadArchive.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
