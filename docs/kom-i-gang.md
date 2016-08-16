@@ -1,1 +1,0 @@
-# Kom i gang 
