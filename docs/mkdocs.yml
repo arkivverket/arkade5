@@ -1,4 +1,5 @@
 site_name: Arkade 5 - Arkivverket
 
 pages:
-- About: about.md
+- Hjem: index.md
+- Kom i gang: kom-i-gang.md
