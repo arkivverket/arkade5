@@ -10,7 +10,7 @@
             </Component>
             <Component Id="cmpF3187E995055354817C3EFB0D9580C81" Guid="{9583F94F-72A8-458D-847F-72F1AABCCBD7}">
                 <File Id="fil645ACC73EBD39164CBEC59427DA927BE" KeyPath="yes" Source="$(var.Arkivverket.Arkade.UI.TargetDir)\Arkivverket.Arkade.UI.exe">
-                    <wix:Shortcut Id="ApplicationStartMenuShortcut" Advertise="yes" Directory="ProgramMenuFolder" Name="Arkade 5" Icon="Arkade.ico" WorkingDirectory="INSTALLFOLDER" xmlns:wix="http://schemas.microsoft.com/wix/2006/wi" />
+                    <wix:Shortcut Id="ApplicationStartMenuShortcut" Advertise="yes" Directory="ProgramMenuFolder" Name="Arkade 5" Icon="Arkade5.ico" WorkingDirectory="INSTALLFOLDER" xmlns:wix="http://schemas.microsoft.com/wix/2006/wi" />
                 </File>
                 <wix:RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" xmlns:wix="http://schemas.microsoft.com/wix/2006/wi" />
             </Component>

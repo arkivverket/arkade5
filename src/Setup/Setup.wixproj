@@ -41,7 +41,7 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Arkade.ico" />
+    <Content Include="Arkade5.ico" />
     <Content Include="License.rtf" />
     <Content Include="Transform.xslt" />
   </ItemGroup>

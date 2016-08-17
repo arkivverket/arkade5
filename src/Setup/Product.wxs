@@ -4,7 +4,8 @@
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <MediaTemplate EmbedCab="yes" />
-    <Icon Id="Arkade.ico" SourceFile="Arkade.ico" />
+    <Icon Id="Arkade5.ico" SourceFile=".\Arkade5.ico" />
+    <Property Id="ARPPRODUCTICON" Value="Arkade5.ico.ico" />
     
     <Feature Id="ProductFeature" Title="MySetup" Level="1">
       <ComponentGroupRef Id="ProductComponents" />

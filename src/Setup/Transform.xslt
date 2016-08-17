@@ -29,7 +29,7 @@
               Advertise="yes"
               Directory="ProgramMenuFolder"
               Name="Arkade 5"
-              Icon="Arkade.ico"
+              Icon="Arkade5.ico"
               WorkingDirectory="INSTALLFOLDER"/>
     </xsl:copy>
   </xsl:template>
