@@ -15,7 +15,7 @@
         <Menu x:Name="mainMenu" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment">
             <MenuItem Header="Fil" x:Name="menyItemFile">
                 <!--<MenuItem Header="_Åpne arkiv fil" x:Name="menuItemOpenArchive"/>-->
-                <MenuItem Header="_Lukk" x:Name="menuItemClose"/>
+                <MenuItem Header="_Lukk" x:Name="menuItemClose" Click="menuItemClose_Click"/>
             </MenuItem>
 
             <!--

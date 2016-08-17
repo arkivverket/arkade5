@@ -12,11 +12,6 @@ namespace Arkivverket.Arkade.UI
     public partial class MainWindow : Window
     {
 
-        // Init Async structures
-        public Progress<BigSlowStatus> progressIndicator;
-        public CancellationTokenSource cts = new CancellationTokenSource();
-
-
         public MainWindow()
         {
             InitializeComponent();
@@ -25,6 +20,11 @@ namespace Arkivverket.Arkade.UI
             // Init logging
             LogConfiguration.ConfigureSeriLog();
 
+        }
+
+        private void menuItemClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
