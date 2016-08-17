@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Arkivverket.Arkade.UI"
         xmlns:userControl="clr-namespace:Arkivverket.Arkade.UI.View"
         mc:Ignorable="d"
+        Icon="../Arkade5.ico"
         Title="Arkade 5" Height="350" Width="600"
         >
 
