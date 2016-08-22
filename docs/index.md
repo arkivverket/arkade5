@@ -13,4 +13,14 @@ Last ned siste versjon (beta): [Arkade5-0.0.1.msi](http://download.arkitektum.no
 Test observasjoner fra styringsgruppen, prosjektgruppe og andre testere meldes inn ved ...
 
 ## Installasjon av programmet
-.. image:: Images/ArkadeSetup_01.png
+
+Test 1
+
+![alt text](https://github.com/Arkitektum/arkade/blob/master/docs/img/ArkadeSetup_01.png "Installasjon steg 1")
+
+Test 2
+![alt text](./img/ArkadeSetup_01.png "Installasjon steg 1")
+
+Test 3
+
+![Screenshot](img/ArkadeSetup_01.png)
