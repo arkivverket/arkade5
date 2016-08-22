@@ -14,13 +14,14 @@ Test observasjoner fra styringsgruppen, prosjektgruppe og andre testere meldes i
 
 ## Installasjon av programmet
 
-Test 1
-
-![alt text](https://github.com/Arkitektum/arkade/blob/master/docs/img/ArkadeSetup_01.png "Installasjon steg 1")
-
-Test 2
-![alt text](./img/ArkadeSetup_01.png "Installasjon steg 1")
-
-Test 3
-
+![Screenshot](img/NedlastningerFilViser.png)
+![Screenshot](img/WinSmartScreenWarning.png)
 ![Screenshot](img/ArkadeSetup_01.png)
+![Screenshot](img/ArkadeSetup_02.png)
+![Screenshot](img/ArkadeSetup_03.png)
+![Screenshot](img/ArkadeSetup_04.png)
+![Screenshot](img/ArkadeSetup_05.png)
+![Screenshot](img/ArkadeSetup_06.png)
+![Screenshot](img/RunTool.png)
+![Screenshot](img/toolRunning.png)
+![Screenshot](img/Uninstall_02.png)
