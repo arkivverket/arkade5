@@ -8,9 +8,11 @@ Klikk på arkade5-setup-0.X.YY.msi for å starte installasjon av programmet.
 ## Installasjons veiviser
 ### Windows Smart Screen advarsel
 Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smart Screen" satt på.  
-*   Klikk på "Mer info"
-*   Klikk "Kjør likevel"
-*   Test punkt  
+
+    *   Klikk på "Mer info"
+    *   Klikk "Kjør likevel"
+
+	
 ![](img/WinSmartScreenWarning.png "Advarsel Windowns Smart Screen")  
   
 (fremtidige versjoner av verktøyet kommer trolig ikke til å vise denne advarselen.)
