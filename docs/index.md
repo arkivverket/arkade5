@@ -13,4 +13,3 @@ Last ned siste versjon (beta): [arkade5-beta-0.1.50.msi](https://download.arkite
 Test observasjoner fra styringsgruppen, prosjektgruppe og andre testere meldes inn ved ...
 
 ## Installasjon av programmet
-

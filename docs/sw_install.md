@@ -1,6 +1,8 @@
-# Installering og avinstallering ab Arkade 5 programm
+# Installering og avinstallering av Arkade 5 programm
 
+## Instruksjoner for å installere programmet på Windows10 PC
 
+Test streng ...
 <img src="img/NedlastningerFilViser.png" alt="Fil viser" style="width: 60px;"/>
 <img src="img/WinSmartScreenWarning.png" alt="Advarsel Windowns Smart Screen" style="width: 60px;"/>
 <img src="img/ArkadeSetup_01.png" alt="Installasjon 1" style="width: 60px;"/>
