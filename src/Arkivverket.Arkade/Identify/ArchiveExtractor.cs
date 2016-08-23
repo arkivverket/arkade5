@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Identify
 {
     public class ArchiveExtractor : IArchiveExtractor
     {
-        public const string TemporaryFolder = "c://temp";
+        public const string TemporaryFolder = "c:\\temp";
         private readonly ICompressionUtility _compressionUtility;
 
         public ArchiveExtractor(ICompressionUtility compressionUtility)

@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace Arkivverket.Arkade.Core
 {
     public class ArchiveExtraction
@@ -11,6 +13,11 @@ namespace Arkivverket.Arkade.Core
         public string Uuid { get; private set; }
         public string WorkingDirectory { get; private set; }
         public ArchiveType ArchiveType { get; set; }
+
+        public string GetDescriptionFileName()
+        {
+            return $"{WorkingDirectory}{Path.DirectorySeparatorChar}arkivstruktur.xml"; // noark5 filename
+        }
     }
 
     public enum ArchiveType

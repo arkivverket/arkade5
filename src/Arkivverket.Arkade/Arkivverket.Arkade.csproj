@@ -63,6 +63,7 @@
     <Compile Include="Core\ArchiveExtraction.cs" />
     <Compile Include="Core\BigSlowAsync.cs" />
     <Compile Include="Core\BigSlowStatus.cs" />
+    <Compile Include="Core\TestEngine.cs" />
     <Compile Include="ExternalModels\Info.cs" />
     <Compile Include="Identify\ArchiveExtractionReader.cs" />
     <Compile Include="Identify\ArchiveExtractor.cs" />
@@ -71,6 +72,9 @@
     <Compile Include="Identify\IArchiveIdentifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Runner.cs" />
+    <Compile Include="Tests\BaseTest.cs" />
+    <Compile Include="Tests\Noark5\NumberOfArchiveParts.cs" />
+    <Compile Include="Tests\Noark5\NumberOfArchives.cs" />
     <Compile Include="Util\ArkadeAutofacModule.cs" />
     <Compile Include="Util\IChecksumGenerator.cs" />
     <Compile Include="Util\ICompressionUtility.cs" />
