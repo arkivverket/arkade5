@@ -20,7 +20,7 @@ Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smar
 
 *   Klikk "Next" på velkomst meny
 
-
+  
 ..
 ![](img/ArkadeSetup_02.png "Installasjon 2")
 
@@ -28,26 +28,26 @@ Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smar
 *   Klikk "Accept the terms .." på End-User License Agreement vindu
 *   Klikk "Next"
 
-
+  
 ..
 ![](img/ArkadeSetup_03.png "Installasjon 3")
 
 *   Klikk "Next" på "Destination Folder" vindu (bruk gitt installasjonsmappe)
 
-
+  
 ..
 ![](img/ArkadeSetup_04.png "Installasjon 4")
 
 *   Klikk "Install" for å starte installasjonen av programmet
 *   Legg merket til at administrator rettigheter er nødvending
 
-
+  
 ..
 ![](img/ArkadeSetup_05.png "Installasjon 5 advarsel")
 
 *   Klikk "Ja" på Brukerkontokontroll vindu
 
-
+..
 ..
 ![](img/ArkadeSetup_06.png "Installasjon 6")
 
@@ -60,7 +60,7 @@ Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smar
 *   Finn "Arkade 5" i app listen
 *   Klikk på "Arkade 5" for å kjøre programmet
 
-
+  
 ..
 ![](img/toolRunning.png "Programmet kjorer")
 
