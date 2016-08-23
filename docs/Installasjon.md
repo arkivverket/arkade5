@@ -10,40 +10,40 @@ Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smar
   
 ![](img/WinSmartScreenWarning.png "Advarsel Windowns Smart Screen")  
 
-    *   Klikk på "Mer info"
-    *   Klikk "Kjør likevel"
+*   Klikk på "Mer info"
+*   Klikk "Kjør likevel"
 
 (fremtidige versjoner av verktøyet kommer trolig ikke til å vise denne advarselen.)
 
 ### Installasjons vindu
 ![](img/ArkadeSetup_01.png "Installasjon 1")
 
-    *   Klikk "Next" på velkomst meny
+*   Klikk "Next" på velkomst meny
 
 
 ![](img/ArkadeSetup_02.png "Installasjon 2")
 
 
-    *   Klikk "Accept the terms .." på End-User License Agreement vindu
-    *   Klikk "Next"
+*   Klikk "Accept the terms .." på End-User License Agreement vindu
+*   Klikk "Next"
 
 ![](img/ArkadeSetup_03.png "Installasjon 3")
 
-    *   Klikk "Next" på "Destination Folder" vindu (bruk gitt installasjonsmappe)
+*   Klikk "Next" på "Destination Folder" vindu (bruk gitt installasjonsmappe)
 
 ![](img/ArkadeSetup_04.png "Installasjon 4")
 
-    *   Klikk "Install" for å starte installasjonen av programmet
-    *   Legg merket til at administrator rettigheter er nødvending
+*   Klikk "Install" for å starte installasjonen av programmet
+*   Legg merket til at administrator rettigheter er nødvending
 
 
 ![](img/ArkadeSetup_05.png "Installasjon 5 advarsel")
 
-    *   Klikk "Ja" på Brukerkontokontroll vindu
+*   Klikk "Ja" på Brukerkontokontroll vindu
 
 ![](img/ArkadeSetup_06.png "Installasjon 6")
 
-    *   Klikk "Finish" for å avslutte installasjonen
+*   Klikk "Finish" for å avslutte installasjonen
 
 ## Kjør programmet
 ![](img/RunTool.png "Start program")
@@ -59,9 +59,9 @@ Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smar
 
 ![](img/Uninstall_02.png "Avinstallasjon")
 
-    *   Klikk Start -> Instillinger -> System -> Apper og funksjoner
-    *   Velg "Sorter etter installasjonsdato"
-    *   Velg "Arkade" i listen over installerte programmer
-    *   Klikk "Avinstaller"
-    *   Klikk "Avinstaller" igjen i nytt vindu
-    *   Klikk "Ja" på Brukerkontokontroll advarselen fra Windows
+*   Klikk Start -> Instillinger -> System -> Apper og funksjoner
+*   Velg "Sorter etter installasjonsdato"
+*   Velg "Arkade" i listen over installerte programmer
+*   Klikk "Avinstaller"
+*   Klikk "Avinstaller" igjen i nytt vindu
+*   Klikk "Ja" på Brukerkontokontroll advarselen fra Windows
