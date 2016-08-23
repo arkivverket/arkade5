@@ -11,7 +11,8 @@ Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smar
 1 Klikk på "Mer info" 
 2 Klikk "Kjør likevel"
 * Test punkt  
-![](img/WinSmartScreenWarning.png "Advarsel Windowns Smart Screen")
+![](img/WinSmartScreenWarning.png "Advarsel Windowns Smart Screen")  
+  
 (fremtidige versjoner av verktøyet kommer trolig ikke til å vise denne advarselen.)
 
 ### Installasjons vindu
