@@ -2,5 +2,6 @@ site_name: Arkade 5 - Arkivverket
 
 pages:
 - Hjem: index.md
-- Brukerveiledning: sw_install.md
+- Brukerveiledning:
+	- Installasjon: sw_install.md
   
