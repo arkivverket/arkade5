@@ -14,5 +14,3 @@ Test observasjoner fra styringsgruppen, prosjektgruppe og andre testere meldes i
 
 ## Installasjon av programmet
 
-![](img/NedlastningerFilViser.png)
-<img src="img/Uninstall_02.png" alt="Uninstall" style="width: 100px;"/>
