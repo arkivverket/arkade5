@@ -1,5 +1,5 @@
 # Installering og avinstallering av Arkade 5 program
-Nedlasting av installasjons filen er beskrevet i TODO.
+Nedlasting av installasjons filen er beskrevet i TODO.  
 
 ## Start installasjonen fra .msi fil
 Klikk på arkade5-setup-0.X.YY.msi for å starte installasjon av programmet.
@@ -7,20 +7,20 @@ Klikk på arkade5-setup-0.X.YY.msi for å starte installasjon av programmet.
 
 ## Installasjons veiviser
 ### Windows Smart Screen advarsel
-Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smart Screen" satt på.
-1  Klikk på "Mer info" 
-2  Klikk "Kjør likevel"
-*  Test punkt
+Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smart Screen" satt på.  
+1 Klikk på "Mer info" 
+2 Klikk "Kjør likevel"
+* Test punkt  
 ![](img/WinSmartScreenWarning.png "Advarsel Windowns Smart Screen")
 (fremtidige versjoner av verktøyet kommer trolig ikke til å vise denne advarselen.)
 
 ### Installasjons vindu
 ![](img/ArkadeSetup_01.png "Installasjon 1")
-*  Klikk "Next" på velkomst meny
+* Klikk "Next" på velkomst meny  
 
 ![](img/ArkadeSetup_02.png "Installasjon 2")
-*  Klikk "Accept the terms .." på End-User License Agreement vindu
-*  Klikk "Next"
+* Klikk "Accept the terms .." på End-User License Agreement vindu
+* Klikk "Next"  
 
 ![](img/ArkadeSetup_03.png "Installasjon 3")
 *  Klikk "Next" på "Destination Folder" vindu (bruk gitt installasjonsmappe)
