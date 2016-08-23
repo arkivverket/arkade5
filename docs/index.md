@@ -14,14 +14,5 @@ Test observasjoner fra styringsgruppen, prosjektgruppe og andre testere meldes i
 
 ## Installasjon av programmet
 
-![Nedlasting](img/NedlastningerFilViser.png =20x)
-![Screenshot](img/WinSmartScreenWarning.png =10x)
-![Screenshot](img/ArkadeSetup_01.png =30x30)
-![Screenshot](img/ArkadeSetup_02.png)
-![Screenshot](img/ArkadeSetup_03.png)
-![Screenshot](img/ArkadeSetup_04.png)
-![Screenshot](img/ArkadeSetup_05.png)
-![Screenshot](img/ArkadeSetup_06.png)
-![Screenshot](img/RunTool.png)
-![Screenshot](img/toolRunning.png)
-![Screenshot](img/Uninstall_02.png)
+![](img/NedlastningerFilViser.png)
+<img src="img/Uninstall_02.png" alt="Uninstall" style="width: 100px;"/>
