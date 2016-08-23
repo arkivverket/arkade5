@@ -2,15 +2,15 @@
 
 ## Instruksjoner for å installere programmet på Windows10 PC
 
-Test streng ...
-<img src="img/NedlastningerFilViser.png" alt="Fil viser" style="width: 60px;"/>
-<img src="img/WinSmartScreenWarning.png" alt="Advarsel Windowns Smart Screen" style="width: 60px;"/>
-<img src="img/ArkadeSetup_01.png" alt="Installasjon 1" style="width: 60px;"/>
-<img src="img/ArkadeSetup_02.png" alt="Installasjon 2" style="width: 60px;"/>
-<img src="img/ArkadeSetup_03.png" alt="Installasjon 3" style="width: 60px;"/>
-<img src="img/ArkadeSetup_04.png" alt="Installasjon 4" style="width: 60px;"/>
-<img src="img/ArkadeSetup_05.png" alt="Installasjon 5 advarsel" style="width: 60px;"/>
-<img src="img/ArkadeSetup_06.png" alt="Installasjon 6" style="width: 60px;"/>
-<img src="img/RunTool.png" alt="Start programm" style="width: 60px;"/>
-<img src="img/toolRunning.png" alt="Programmet kjorer" style="width: 60px;"/>
-<img src="img/Uninstall_02.png" alt="Avinstallasjon" style="width: 60px;"/>
+Test streng
+![](img/NedlastningerFilViser.png "Fil viser")
+![](img/WinSmartScreenWarning.png "Advarsel Windowns Smart Screen")
+![](img/ArkadeSetup_01.png "Installasjon 1")
+![](img/ArkadeSetup_02.png "Installasjon 2")
+![](img/ArkadeSetup_03.png "Installasjon 3")
+![](img/ArkadeSetup_04.png "Installasjon 4")
+![](img/ArkadeSetup_05.png "Installasjon 5 advarsel")
+![](img/ArkadeSetup_06.png "Installasjon 6")
+![](img/RunTool.png "Start programm")
+![](img/toolRunning.png "Programmet kjorer")
+![](img/Uninstall_02.png "Avinstallasjon")
