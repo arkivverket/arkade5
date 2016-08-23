@@ -1,8 +1,7 @@
 # Installering og avinstallering av Arkade 5 program
-Nedlasting av installasjons filen er beskrevet i TODO.  
 
 ## Start installasjonen fra .msi fil
-Klikk på arkade5-setup-0.X.YY.msi for å starte installasjon av programmet.
+Klikk på arkade5-0.X.YY.msi for å starte installasjon av programmet.
 ![](img/NedlastningerFilViser.png "Fil viser")
 
 ## Installasjons veiviser
@@ -49,9 +48,9 @@ Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smar
 ## Kjør programmet
 ![](img/RunTool.png "Start program")
 
-    *   Start -> Alle apper
-    *   Finn "Arkade 5" i app listen
-    *   Klikk på "Arkade 5" for å kjøre programmet
+*   Start -> Alle apper
+*   Finn "Arkade 5" i app listen
+*   Klikk på "Arkade 5" for å kjøre programmet
 
   
 ![](img/toolRunning.png "Programmet kjorer")
