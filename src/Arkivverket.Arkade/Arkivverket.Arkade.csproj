@@ -60,10 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\AddmlParser.cs" />
     <Compile Include="Core\ArchiveExtraction.cs" />
     <Compile Include="Core\BigSlowAsync.cs" />
     <Compile Include="Core\BigSlowStatus.cs" />
     <Compile Include="Core\TestEngine.cs" />
+    <Compile Include="ExternalModels\Addml.cs" />
     <Compile Include="ExternalModels\Info.cs" />
     <Compile Include="Identify\ArchiveExtractionReader.cs" />
     <Compile Include="Identify\ArchiveExtractor.cs" />
@@ -87,6 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ExternalModels\xsd\addml.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ExternalModels\xsd\GenerateClasses.bat" />
     <None Include="ExternalModels\xsd\info.xsd">
       <SubType>Designer</SubType>
