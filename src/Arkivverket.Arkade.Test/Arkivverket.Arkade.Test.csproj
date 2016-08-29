@@ -88,50 +88,26 @@
     <Compile Include="Identify\ArchiveExtractorTest.cs" />
     <Compile Include="Identify\ArchiveIdentifierTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Noark5\Structure\ValidateChecksumsTest.cs" />
     <Compile Include="Util\ChecksumTest.cs" />
     <Compile Include="Util\TarTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="TestData\AliceInWonderland\dokumenter\5001111.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\AliceInWonderland\dokumenter\5011110.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\AliceInWonderland\dokumenter\5011111.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\AliceInWonderland\dokumenter\5011112.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\AliceInWonderland\dokumenter\5011113.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\AliceInWonderland\dokumenter\5011114.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\AliceInWonderland\dokumenter\5011115.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\AliceInWonderland\dokumenter\5011116.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\AliceInWonderland\dokumenter\5011117.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\AliceInWonderland\dokumenter\5011118.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\AliceInWonderland\dokumenter\5011119.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5001111.pdf" />
+    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011110.pdf" />
+    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011111.pdf" />
+    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011112.pdf" />
+    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011113.pdf" />
+    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011114.pdf" />
+    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011115.pdf" />
+    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011116.pdf" />
+    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011117.pdf" />
+    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011118.pdf" />
+    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011119.pdf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\AliceInWonderland\arkivstrukturAbbreviated.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="TestData\noark3-info.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -142,6 +118,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\Noark5\AliceInWonderland\arkivstrukturAbbreviated.xml" />
     <Content Include="Util\demo.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -151,6 +128,9 @@
       <Project>{D4008C3C-61EF-48A4-B333-793476B7104D}</Project>
       <Name>Arkivverket.Arkade</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestData\Noark5\StructureChecksums\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

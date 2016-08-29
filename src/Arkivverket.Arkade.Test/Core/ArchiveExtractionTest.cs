@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.Test.Core
             archiveExtraction.GetContentDescriptionFileName().Should().Be($"{workingDirectory}{Path.DirectorySeparatorChar}arkivstruktur.xml");
         }
 
-        [Fact]
+        [Fact] 
         public void ShouldReturnStructureDescriptionFileNameForNoark5()
         {
             var workingDirectory = "c:\\temp";

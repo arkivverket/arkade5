@@ -22,9 +22,9 @@ namespace Arkivverket.Arkade.Test.Util
         {
             string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
 
-            var pathSourceFolder = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\AliceInWonderland\\";
-            var pathToTargetTarFile = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\testSuiteArchive{timestamp}.tar";
-            var pathToExtractedDirectory = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\ExtractedData{timestamp}\\";
+            var pathSourceFolder = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\AliceInWonderland\\";
+            var pathToTargetTarFile = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\testSuiteArchive{timestamp}.tar";
+            var pathToExtractedDirectory = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\ExtractedData{timestamp}\\";
 
             _output.WriteLine("Source folder   : " + pathSourceFolder);
             _output.WriteLine("Archived TAR    : " + pathToTargetTarFile);
@@ -54,8 +54,8 @@ namespace Arkivverket.Arkade.Test.Util
 
         public void ExtractFileToDestinationFolder()
         {
-            var pathToFile = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\noark5_testdata-alice-in-wonderland.tar";
-            var pathToExtractedDirectory = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\ExtractedData{DateTime.Now.ToString("yyyyMMddHHmmss")}\\";
+            var pathToFile = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\Noark5\\noark5_testdata-alice-in-wonderland.tar";
+            var pathToExtractedDirectory = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\ExtractedData{DateTime.Now.ToString("yyyyMMddHHmmss")}\\";
             _output.WriteLine("TAR file path: " + pathToFile);
             _output.WriteLine("TAR out directory (deleted at end of test): " + pathToExtractedDirectory);
 
@@ -76,8 +76,8 @@ namespace Arkivverket.Arkade.Test.Util
 
         public void CompressSourceFolderToArchiveFile()
         {
-            var pathToTargetTarFile = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\testSuiteArchive{DateTime.Now.ToString("yyyyMMddHHmmss")}.tar";
-            var pathSourceFolder = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\AliceInWonderland\\";
+            var pathToTargetTarFile = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\testSuiteArchive{DateTime.Now.ToString("yyyyMMddHHmmss")}.tar";
+            var pathSourceFolder = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\AliceInWonderland\\";
             _output.WriteLine("TAR file path: " + pathToTargetTarFile);
             _output.WriteLine("Source folder: " + pathSourceFolder);
 
