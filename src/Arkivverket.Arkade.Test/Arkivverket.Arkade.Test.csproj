@@ -83,6 +83,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\ArchiveExtractionTest.cs" />
     <Compile Include="Identify\ArchiveExctractionReaderTest.cs" />
     <Compile Include="Identify\ArchiveExtractorTest.cs" />
     <Compile Include="Identify\ArchiveIdentifierTest.cs" />

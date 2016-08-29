@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void Test(ArchiveExtraction archive)
         {
-            using (var reader = XmlReader.Create(archive.GetDescriptionFileName()))
+            using (var reader = XmlReader.Create(archive.GetContentDescriptionFileName()))
             {
                 int counter = 0;
                 if (reader.ReadToDescendant("arkivdel"))
