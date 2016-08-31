@@ -2,8 +2,8 @@
 {
     public interface ICompressionUtility
     {
-        int ExtractFolderFromArchive(string fileName, string targetFolderName);
+        void ExtractFolderFromArchive(string fileName, string targetFolderName);
 
-        int CompressFolderContentToArchiveFile(string targetFileName, string sourceFileFolder);
+        void CompressFolderContentToArchiveFile(string targetFileName, string sourceFileFolder);
     }
 }

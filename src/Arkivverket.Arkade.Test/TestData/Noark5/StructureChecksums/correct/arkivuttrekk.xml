@@ -1,220 +1,236 @@
-﻿<addml
-  xmlns="http://www.arkivverket.no/standarder/addml"
-  name="Noark 5-arkivuttrekk">
-  <dataset>
-    <description>Noark 5-arkivuttrekk</description>
-    <reference>
-      <context>
-        <additionalElements>
-          <additionalElement name="recordCreators">
-            <additionalElements>
-              <additionalElement name="recordCreator">
-                <value>Oslo Kommune</value>
-              </additionalElement>
-            </additionalElements>
-          </additionalElement>
-          <additionalElement name="systemType">
-            <value>Sakarkiv (Noark-5)</value>
-          </additionalElement>
-          <additionalElement name="systemName">
-            <value>arkivlab</value>
-          </additionalElement>
-          <additionalElement name="archive">
-            <value>Oslo Kommune</value>
-          </additionalElement>
-        </additionalElements>
-      </context>
-      <content>
-        <additionalElements>
-          <additionalElement name="archivalPeriod">
-            <properties>
-              <property name="startDate">
-                <value>2011-09-09</value>
-              </property>
-              <property name="endDate">
-                <value>2012-10-10</value>
-              </property>
-            </properties>
-          </additionalElement>
-        </additionalElements>
-      </content>
-    </reference>
-    <dataObjects>
-      <dataObject name="Noark 5 arkivuttrekk">
-        <properties>
-          <property name="info">
-            <properties>
-              <property name="type">
-                <value>Noark 5</value>
-                <properties>
-                  <property name="version">
-                    <value>3.0</value>
-                  </property>
-                </properties>
-              </property>
-              <property name="additionalInfo">
-                <properties>
-                  <property name="periode">
-                    <properties>
-                      <property name="inngaaendeSkille">
-                        <value>mykt</value>
-                      </property>
-                      <property name="utgaaendeSkille">
-                        <value>mykt</value>
-                      </property>
-                    </properties>
-                  </property>
-                  <property dataType="boolean" name="inneholderSkjermetInformasjon">
-                    <value>false</value>
-                  </property>
-                  <property dataType="boolean" name="omfatterDokumenterSomErKassert">
-                    <value>false</value>
-                  </property>
-                  <property dataType="boolean" name="inneholderDokumenterSomSkalKasseres">
-                    <value>false</value>
-                  </property>
-                  <property dataType="boolean" name="inneholderVirksomhetsspesifikkeMetadata">
-                    <value>false</value>
-                  </property>
-                  <property dataType="integer" name="antallDokumentfiler">
-                    <value>4</value>
-                  </property>
-                </properties>
-              </property>
-            </properties>
-          </property>
-        </properties>
-        <dataObjects>
-          <dataObject name="arkivstruktur">
-            <properties>
-              <property name="file">
-                <properties>
-                  <property name="name">
-                    <value>arkivstruktur.xml</value>
-                  </property>
-                  <property name="format">
-                    <value>XML</value>
-                    <properties>
-                      <property name="version">
-                        <value>1.0</value>
-                      </property>
-                    </properties>
-                  </property>
-                  <property name="checksum">
-                    <properties>
-                      <property name="algorithm">
-                        <value>SHA256</value>
-                      </property>
-                      <property name="value">
-                        <value>f96e2ab669eb2740df217cdff3b66df6ad104a5dc79457ac80be67839c623ec4</value>
-                      </property>
-                    </properties>
-                  </property>
-                </properties>
-              </property>
-              <property name="schema">
-                <value>main</value>
-                <properties>
-                  <property name="file">
-                    <properties>
-                      <property name="name">
-                        <value>arkivstruktur.xsd</value>
-                      </property>
-                      <property name="format">
-                        <value>XML</value>
-                        <properties>
-                          <property name="version">
-                            <value>1.0</value>
-                          </property>
-                        </properties>
-                      </property>
-                      <property name="checksum">
-                        <properties>
-                          <property name="algorithm">
-                            <value>SHA256</value>
-                          </property>
-                          <property name="value">
-                            <value>b89da6c744a8559a2311cef78c966b4be9497ecb62c08fc7e9d3b9ae1569e3ce</value>
-                          </property>
-                        </properties>
-                      </property>
-                    </properties>
-                  </property>
-                  <property name="type">
-                    <value>XML Schema</value>
-                    <properties>
-                      <property name="version">
-                        <value>1.0</value>
-                      </property>
-                    </properties>
-                  </property>
-                </properties>
-              </property>
-              <property name="schema">
-                <properties>
-                  <property name="file">
-                    <properties>
-                      <property name="name">
-                        <value>metadatakatalog.xsd</value>
-                      </property>
-                      <property name="format">
-                        <value>XML</value>
-                        <properties>
-                          <property name="version">
-                            <value>1.0</value>
-                          </property>
-                        </properties>
-                      </property>
-                      <property name="checksum">
-                        <properties>
-                          <property name="algorithm">
-                            <value>SHA256</value>
-                          </property>
-                          <property name="value">
-                            <value>29cab7473ed02bb0dc2b1b7ec7573cd60c1c1c2141439af3b4af883f454c86b4</value>
-                          </property>
-                        </properties>
-                      </property>
-                    </properties>
-                  </property>
-                  <property name="type">
-                    <value>XML Schema</value>
-                    <properties>
-                      <property name="version">
-                        <value>1.0</value>
-                      </property>
-                    </properties>
-                  </property>
-                </properties>
-              </property>
-              <property name="info">
-                <properties>
-                  <property name="numberOfOccurrences">
-                    <value>mappe</value>
-                    <properties>
-                      <property name="elementPath">
-                        <value>//mappe</value>
-                      </property>
-                      <property dataType="integer" name="value">
-                        <value>2</value>
-                      </property>
-                    </properties>
-                  </property>
-                  <property name="numberOfOccurrences">
-                    <value>registrering</value>
-                    <properties>
-                      <property name="elementPath">
-                        <value>//registrering</value>
-                      </property>
-                      <property dataType="integer" name="value">
-                        <value>4</value>
-                      </property>
-                    </properties>
-                  </property>
-                </properties>
-              </property>
-            </properties>
-          </dataObject>
+<?xml version="1.0" encoding="UTF-8"?>
+<addml xmlns="http://www.arkivverket.no/standarder/addml"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   name="Noark 5-arkivuttrekk"
+	   xsi:schemaLocation="http://www.arkivverket.no/standarder/addml addml.xsd">
+
+	<!--
+	
+	Endringer i malen
+	
+	2013-03-13 - Endringer fra Noark 5 versjon 3.0 til versjon 3.1:
+	1. Løpende journal (loependeJournal)
+	   - Rettet fra registrering til journalregistrering under info
+	2. Offentlig journal (offentligJournal)
+	   - Rettet fra registrering til journalregistrering under info
+	3. Endret navnet på malfilen til arkivuttrekk_Noark_5_v_3_1_mal.xml
+	4. Endret første dataobjekts tittel fra "Noark 5 arkivuttrekk" til "Noark 5-arkivuttrekk"
+	5. Endret egenskapen version i første dataobjekt fra "3.0" til "3.1"
+
+  -->
+
+	<dataset>
+		<description>Noark 5-arkivuttrekk</description>
+		<reference>
+			<context>
+				<additionalElements>
+					<additionalElement name="recordCreators">
+						<additionalElements>
+							<additionalElement name="recordCreator"><value>Lewis Caroll</value></additionalElement>
+						</additionalElements>
+					</additionalElement>
+					<additionalElement name="systemType">
+						<value>Sakarkiv (Noark-5)</value>
+					</additionalElement>
+					<additionalElement name="systemName">
+						<value>Utrolig dårlig arkiv</value>
+					</additionalElement>
+					<additionalElement name="archive">
+						<value>Alice in wonderland</value>
+					</additionalElement>
+				</additionalElements>
+			</context>
+			<content>
+				<additionalElements>
+					<additionalElement name="archivalPeriod">
+						<properties>
+							<property name="startDate">
+								<value>1863-03-27</value>
+							</property>
+							<property name="endDate">
+								<value>1865-12-11</value>
+							</property>
+						</properties>
+					</additionalElement>
+				</additionalElements>
+			</content>
+		</reference>
+		<dataObjects>
+			<dataObject name="Noark 5-arkivuttrekk">
+				<properties>
+					<property name="info">
+						<properties>
+							<property name="type">
+								<value>Noark 5</value>
+								<properties>
+									<property name="version">
+										<value>3.1</value>
+									</property>
+								</properties>
+							</property>
+							<property name="additionalInfo">
+								<properties>
+									<property name="periode">
+										<properties>
+											<property name="inngaaendeSkille">
+												<value>skarp</value>
+											</property>
+											<property name="utgaaendeSkille">
+												<value>skarp</value>
+											</property>
+										</properties>
+									</property>
+									<property dataType="boolean" name="inneholderSkjermetInformasjon">
+										<value>true</value>
+									</property>
+									<property dataType="boolean" name="omfatterDokumenterSomErKassert">
+										<value>true</value>
+									</property>
+									<property dataType="boolean" name="inneholderDokumenterSomSkalKasseres">
+										<value>true</value>
+									</property>
+									<property dataType="boolean" name="inneholderVirksomhetsspesifikkeMetadata">
+										<value>true</value>
+									</property>
+									<property dataType="integer" name="antallDokumentfiler">
+										<value>100000</value>
+									</property>
+								</properties>
+							</property>
+						</properties>
+					</property>
+				</properties>
+				<dataObjects>
+					<dataObject name="arkivstruktur">
+						<properties>
+							<property name="file">
+								<properties>
+									<property name="name">
+										<value>arkivstruktur.xml</value>
+									</property>
+									<property name="format">
+										<value>XML</value>
+										<properties>
+											<property name="version">
+												<value>1.0</value>
+											</property>
+										</properties>
+									</property>
+									<property name="checksum">
+										<properties>
+											<property name="algorithm">
+												<value>SHA-256</value>
+											</property>
+											<property name="value">
+												<value>E64AEAA26015A0EFC267EE27A160E54DBA84BDC31048837CD3FCDB67BFDDF877</value>
+											</property>
+										</properties>
+									</property>
+								</properties>
+							</property>
+							<property name="schema">
+								<value>main</value>
+								<properties>
+									<property name="file">
+										<properties>
+											<property name="name">
+												<value>arkivstruktur.xsd</value>
+											</property>
+											<property name="format">
+												<value>XML</value>
+												<properties>
+													<property name="version">
+														<value>1.0</value>
+													</property>
+												</properties>
+											</property>
+											<property name="checksum">
+												<properties>
+													<property name="algorithm">
+														<value>SHA-256</value>
+													</property>
+													<property name="value">
+														<value>B89DA6C744A8559A2311CEF78C966B4BE9497ECB62C08FC7E9D3B9AE1569E3CE</value>
+													</property>
+												</properties>
+											</property>
+										</properties>
+									</property>
+									<property name="type">
+										<value>XML Schema</value>
+										<properties>
+											<property name="version">
+												<value>1.0</value>
+											</property>
+										</properties>
+									</property>
+								</properties>
+							</property>
+							<property name="schema">
+								<properties>
+									<property name="file">
+										<properties>
+											<property name="name">
+												<value>metadatakatalog.xsd</value>
+											</property>
+											<property name="format">
+												<value>XML</value>
+												<properties>
+													<property name="version">
+														<value>1.0</value>
+													</property>
+												</properties>
+											</property>
+											<property name="checksum">
+												<properties>
+													<property name="algorithm">
+														<value>SHA-256</value>
+													</property>
+													<property name="value">
+														<value>29CAB7473ED02BB0DC2B1B7EC7573CD60C1C1C2141439AF3B4AF883F454C86B4</value>
+													</property>
+												</properties>
+											</property>
+										</properties>
+									</property>
+									<property name="type">
+										<value>XML Schema</value>
+										<properties>
+											<property name="version">
+												<value>1.0</value>
+											</property>
+										</properties>
+									</property>
+								</properties>
+							</property>
+							<property name="info">
+								<properties>
+									<property name="numberOfOccurrences">
+										<value>mappe</value>
+										<properties>
+											<property name="elementPath">
+												<value>//mappe</value>
+											</property>
+											<property dataType="integer" name="value">
+												<value>20000</value>
+											</property>
+										</properties>
+									</property>
+									<property name="numberOfOccurrences">
+										<value>registrering</value>
+										<properties>
+											<property name="elementPath">
+												<value>//registrering</value>
+											</property>
+											<property dataType="integer" name="value">
+												<value>100000</value>
+											</property>
+										</properties>
+									</property>
+								</properties>
+							</property>
+						</properties>
+					</dataObject>
           <dataObject name="endringslogg">
             <properties>
               <property name="file">
@@ -233,10 +249,10 @@
                   <property name="checksum">
                     <properties>
                       <property name="algorithm">
-                        <value>SHA256</value>
+                        <value>SHA-256</value>
                       </property>
                       <property name="value">
-                        <value>10b58c2eb0781c509e409f8f9032055535f88425999be6eed63d255d3f6194f3</value>
+                        <value>9107A0874E980A229DF62A1946EC41BD74D09D7E195246F35E4F20FB4C1F0607</value>
                       </property>
                     </properties>
                   </property>
@@ -293,194 +309,8 @@
               </property>
             </properties>
           </dataObject>
-          <dataObject name="loependeJournal">
-            <properties>
-              <property name="file">
-                <properties>
-                  <property name="name">
-                    <value>loependeJournal.xml</value>
-                  </property>
-                  <property name="format">
-                    <value>XML</value>
-                    <properties>
-                      <property name="version">
-                        <value>1.0</value>
-                      </property>
-                    </properties>
-                  </property>
-                  <property name="checksum">
-                    <properties>
-                      <property name="algorithm">
-                        <value>SHA256</value>
-                      </property>
-                      <property name="value">
-                        <value>624bf888ee7d8bad7abd5032d282af89825e6b32723cb7aa2e50fd1f91a0794e</value>
-                      </property>
-                    </properties>
-                  </property>
-                </properties>
-              </property>
-              <property name="schema">
-                <value>main</value>
-                <properties>
-                  <property name="file">
-                    <properties>
-                      <property name="name">
-                        <value>loependeJournal.xsd</value>
-                      </property>
-                      <property name="format">
-                        <value>XML</value>
-                        <properties>
-                          <property name="version">
-                            <value>1.0</value>
-                          </property>
-                        </properties>
-                      </property>
-                      <property name="checksum">
-                        <properties>
-                          <property name="algorithm">
-                            <value>SHA256</value>
-                          </property>
-                          <property name="value">
-                            <value>feef5b789397b0ffacd3d70244a7817b4f6ada4bcc2ed5009f0a1801be0a2c30</value>
-                          </property>
-                        </properties>
-                      </property>
-                    </properties>
-                  </property>
-                  <property name="type">
-                    <value>XML Schema</value>
-                    <properties>
-                      <property name="version">
-                        <value>1.0</value>
-                      </property>
-                    </properties>
-                  </property>
-                </properties>
-              </property>
-              <property name="schema">
-                <properties>
-                  <property name="file">
-                    <properties>
-                      <property name="name">
-                        <value>metadatakatalog.xsd</value>
-                      </property>
-                    </properties>
-                  </property>
-                </properties>
-              </property>
-              <property name="info">
-                <properties>
-                  <property name="numberOfOccurrences">
-                    <value>registrering</value>
-                    <properties>
-                      <property name="elementPath">
-                        <value>//registrering</value>
-                      </property>
-                      <property dataType="integer" name="value">
-                        <value>4</value>
-                      </property>
-                    </properties>
-                  </property>
-                </properties>
-              </property>
-            </properties>
-          </dataObject>
-          <dataObject name="offentligJournal">
-            <properties>
-              <property name="file">
-                <properties>
-                  <property name="name">
-                    <value>offentligJournal.xml</value>
-                  </property>
-                  <property name="format">
-                    <value>XML</value>
-                    <properties>
-                      <property name="version">
-                        <value>1.0</value>
-                      </property>
-                    </properties>
-                  </property>
-                  <property name="checksum">
-                    <properties>
-                      <property name="algorithm">
-                        <value>SHA-256</value>
-                      </property>
-                      <property name="value">
-                        <value>075ad5d3dbfe0ba77f3bc31eb383fc7ff6d18dca4d9ad2f4ca83b36ce88bbf87</value>
-                      </property>
-                    </properties>
-                  </property>
-                </properties>
-              </property>
-              <property name="schema">
-                <value>main</value>
-                <properties>
-                  <property name="file">
-                    <properties>
-                      <property name="name">
-                        <value>offentligJournal.xsd</value>
-                      </property>
-                      <property name="format">
-                        <value>XML</value>
-                        <properties>
-                          <property name="version">
-                            <value>1.0</value>
-                          </property>
-                        </properties>
-                      </property>
-                      <property name="checksum">
-                        <properties>
-                          <property name="algorithm">
-                            <value>SHA256</value>
-                          </property>
-                          <property name="value">
-                            <value>a3eec68f2d5471eae518008eb374766ebc598f521e29c522d3d7fb9606e9c0a5</value>
-                          </property>
-                        </properties>
-                      </property>
-                    </properties>
-                  </property>
-                  <property name="type">
-                    <value>XML Schema</value>
-                    <properties>
-                      <property name="version">
-                        <value>1.0</value>
-                      </property>
-                    </properties>
-                  </property>
-                </properties>
-              </property>
-              <property name="schema">
-                <properties>
-                  <property name="file">
-                    <properties>
-                      <property name="name">
-                        <value>metadatakatalog.xsd</value>
-                      </property>
-                    </properties>
-                  </property>
-                </properties>
-              </property>
-              <property name="info">
-                <properties>
-                  <property name="numberOfOccurrences">
-                    <value>registrering</value>
-                    <properties>
-                      <property name="elementPath">
-                        <value>//registrering</value>
-                      </property>
-                      <property dataType="integer" name="value">
-                        <value>4</value>
-                      </property>
-                    </properties>
-                  </property>
-                </properties>
-              </property>
-            </properties>
-          </dataObject>
-        </dataObjects>
-      </dataObject>
-    </dataObjects>
-  </dataset>
+				</dataObjects>
+			</dataObject>
+		</dataObjects>
+	</dataset>
 </addml>

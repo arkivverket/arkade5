@@ -5,14 +5,16 @@ namespace Arkivverket.Arkade.Tests
 {
     public abstract class BaseTest
     {
-        protected abstract void Test(ArchiveExtraction archive);
+        protected abstract TestResults Test(ArchiveExtraction archive);
 
-        public void RunTest(ArchiveExtraction archive)
+        public TestResults RunTest(ArchiveExtraction archive)
         {
             DateTime start = DateTime.Now;
-            Test(archive);
+            TestResults results = Test(archive);
             DateTime stop = DateTime.Now;
             Console.WriteLine("Duration: " + stop.Subtract(start).TotalMilliseconds);
+
+            return results;
         }
     }
 }

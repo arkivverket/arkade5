@@ -6,6 +6,12 @@ namespace Arkivverket.Arkade.Util
 {
     public class SerializeUtil
     {
+        public static T DeserializeFromFile<T>(string pathToFile)
+        {
+            string objectData = File.ReadAllText(pathToFile);
+            return (T)DeserializeFromString(objectData, typeof(T));
+        }
+
         public static T DeserializeFromString<T>(string objectData)
         {
             return (T)DeserializeFromString(objectData, typeof(T));
@@ -22,6 +28,10 @@ namespace Arkivverket.Arkade.Util
                 reader = new StringReader(objectData);
 
                 result = serializer.Deserialize(reader);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error while deserializing xml file: " + objectData, e);
             }
             finally
             {

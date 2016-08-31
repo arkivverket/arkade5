@@ -1,298 +1,480 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<arkiv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.arkivverket.no/standarder/noark5/arkivstruktur" xmlns:n5mdk="http://www.arkivverket.no/standarder/noark5/metadatakatalog" xsi:schemaLocation="http://www.arkivverket.no/standarder/noark5/arkivstruktur arkivstruktur.xsd">
-
-  <systemID>e7bc7dc4-7d7e-4c8d-8a50-b4271f685199</systemID>
-  <tittel>Oslo Kommune</tittel>
-  <beskrivelse>arkiv</beskrivelse>
-  <arkivstatus>Avsluttet</arkivstatus>
+<?xml version="1.0" encoding="UTF-8"?>
+<arkiv xmlns="http://www.arkivverket.no/standarder/noark5/arkivstruktur" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <systemID>arkiv56fd39c3074716.49489520</systemID>
+ <tittel>Alice in wonderland</tittel>
+ <beskrivelse>Case archive relating to Alice's behaviour, while in wonderland</beskrivelse>
+ <arkivstatus>Avsluttet</arkivstatus>
+ <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+ <opprettetDato>1863-03-27T00:00:00Z</opprettetDato>
+ <opprettetAv>Steve Jackson</opprettetAv>
+ <avsluttetDato>1865-12-11T00:00:00Z</avsluttetDato>
+ <avsluttetAv>Kristian Hunskaar</avsluttetAv>
+ <arkivskaper>
+  <arkivskaperID>arkivskaper56fd39c3075175.32440939</arkivskaperID>
+  <arkivskaperNavn>Lewis Caroll</arkivskaperNavn>
+  <beskrivelse>A small girls adventures in strange lands</beskrivelse>
+ </arkivskaper>
+ <arkivdel>
+  <systemID>arkivdel56fd39c30752e8.67811493</systemID>
+  <tittel>Alice 1863-1864</tittel>
+  <beskrivelse>Alice beginnings</beskrivelse>
+  <arkivdelstatus>Avsluttet periode</arkivdelstatus>
   <dokumentmedium>Elektronisk arkiv</dokumentmedium>
-  <opprettetDato>2011-09-09T12:01:20</opprettetDato>
-  <opprettetAv>Arkivleder</opprettetAv>
-  <avsluttetDato>2014-09-09T12:01:20</avsluttetDato>
-  <avsluttetAv>Arkivleder</avsluttetAv>
-  <arkivskaper>
-    <arkivskaperID>023984</arkivskaperID>
-    <arkivskaperNavn>Oslo Kommune Tekniske tjenester</arkivskaperNavn>
-    <beskrivelse>tekniske tjenester arkiv</beskrivelse>
-  </arkivskaper>
-  <arkivdel>
-    <systemID>6f25c136-9abc-450a-8394-30a13e6bf1c8</systemID>
-    <tittel>Tekniske tjenester</tittel>
-    <beskrivelse>Søknader/Vedtak</beskrivelse>
-    <arkivdelstatus>Avsluttet periode</arkivdelstatus>
-    <dokumentmedium>Elektronisk arkiv</dokumentmedium>
-    <opprettetDato>2011-09-09T12:02:40</opprettetDato>
-    <opprettetAv>Arkivleder</opprettetAv>
-    <avsluttetDato>2013-09-09T12:00:00</avsluttetDato>
-    <avsluttetAv>Arkivleder</avsluttetAv>
-    <mappe xsi:type="saksmappe">
-      <systemID>734b493f-c64e-4fc5-a988-56be11e2ee10</systemID>
-      <mappeID>2011/230</mappeID>
-      <tittel>Byggesaker</tittel>
-      <beskrivelse>Byggesaker</beskrivelse>
-      <opprettetDato>2011-09-09T14:00:00</opprettetDato>
-      <opprettetAv>Arkivleder</opprettetAv>
-      <avsluttetDato>2012-09-09T14:00:00</avsluttetDato>
-      <avsluttetAv>Arkivleder</avsluttetAv>
-      <registrering xsi:type="journalpost">
-        <systemID>dbf32e5e-f6a2-4366-8ffa-5adb9ea54328</systemID>
-        <opprettetDato>2011-09-09T14:09:00</opprettetDato>
-        <opprettetAv>Postmottak</opprettetAv>
-        <arkivertDato>2011-09-09T16:59:00</arkivertDato>
-        <arkivertAv>arkivleder</arkivertAv>
-        <dokumentbeskrivelse>
-          <systemID>2872a56c-7e3a-416c-8cad-3ffb9e8f49ce</systemID>
-          <dokumenttype>pdf/a</dokumenttype>
-          <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
-          <tittel>Søknad om tilbygg</tittel>
-          <beskrivelse>Søknad om tilbygg i drammensveien</beskrivelse>
-          <forfatter>Petter Strand</forfatter>
-          <opprettetDato>2011-09-09T14:05:05</opprettetDato>
-          <opprettetAv>Postmottak</opprettetAv>
-          <dokumentmedium>Elektronisk arkiv</dokumentmedium>
-          <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
-          <dokumentnummer>1</dokumentnummer>
-          <tilknyttetDato>2011-09-09T14:14:14</tilknyttetDato>
-          <tilknyttetAv>Lars H.Hansen</tilknyttetAv>
-          <dokumentobjekt>
-            <versjonsnummer>1</versjonsnummer>
-            <variantformat>Arkivformat</variantformat>
-            <format>pdf/a</format>
-            <opprettetDato>2011-09-09T14:09:13</opprettetDato>
-            <opprettetAv>Lars H.Hansen</opprettetAv>
-            <referanseDokumentfil>dokumenter/1c555c2e-7f2f-492c-a770-c7bc18c902c6.pdf</referanseDokumentfil>
-            <sjekksum>9169d5aa04f63a0ca7f52aae1435d208528d2b6ef8f96c35d8f33086872eca19</sjekksum>
-            <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
-            <filstoerrelse>87 kB</filstoerrelse>
-          </dokumentobjekt>
-        </dokumentbeskrivelse>
-        <registreringsID>d946d375-3533-4c44-9558-557446bf8ef8</registreringsID>
-        <tittel>Søknad om tilbygg</tittel>
-        <offentligTittel>Søknad om tilbygg i drammensveien</offentligTittel>
-        <forfatter>Petter Strand</forfatter>
-        <dokumentmedium>Elektronisk arkiv</dokumentmedium>
-        <journalaar>2011</journalaar>
-        <journalsekvensnummer>1</journalsekvensnummer>
-        <journalpostnummer>2011</journalpostnummer>
-        <journalposttype>Inngående dokument</journalposttype>
-        <journalstatus>Arkivert</journalstatus>
-        <journaldato>2011-09-09</journaldato>
-        <dokumentetsDato>2011-09-08</dokumentetsDato>
-        <mottattDato>2011-09-09T09:10:00</mottattDato>
-        <antallVedlegg>0</antallVedlegg>
-        <journalenhet>arkivtjenesten</journalenhet>
-        <korrespondansepart>
-          <korrespondanseparttype>Mottaker</korrespondanseparttype>
-          <korrespondansepartNavn>Petter Strand</korrespondansepartNavn>
-          <postadresse> drammensveien 7</postadresse>
-          <postnummer>0271</postnummer>
-          <epostadresse>pstrand@gmail.com</epostadresse>
-          <telefonnummer>43654388</telefonnummer>
-          <administrativEnhet>arkivtjenesten</administrativEnhet>
-          <saksbehandler>Lars H.Hansen</saksbehandler>
-        </korrespondansepart>
-        <avskrivning>
-        	<avskrivningsdato>2011-09-09</avskrivningsdato>
-        	<avskrevetAv>Lars H.Hansen</avskrevetAv>
-        	<avskrivningsmaate>Besvart med e-post</avskrivningsmaate>
-        </avskrivning>
-      </registrering>
-      <registrering xsi:type="journalpost">
-        <systemID>f080dee0-97c8-4d15-8832-622f93de318b</systemID>
-        <opprettetDato>2011-09-10T14:00:00</opprettetDato>
-        <opprettetAv>Lars H. Hansen</opprettetAv>
-        <arkivertDato>2011-10-09T16:00:00</arkivertDato>
-        <arkivertAv>arkivleder</arkivertAv>
-        <dokumentbeskrivelse>
-          <systemID>2872a56c-7e3a-416c-8cad-3ffb9e8f49ce</systemID>
-          <dokumenttype>pdf/a</dokumenttype>
-          <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
-          <tittel>Vedtak om tilbygg</tittel>
-          <beskrivelse>Vedtak om tilbygg i drammensveien</beskrivelse>
-          <forfatter>Lars H.Hansen</forfatter>
-          <opprettetDato>2011-10-09T14:05:00</opprettetDato>
-          <opprettetAv>Lars H.Hansen</opprettetAv>
-          <dokumentmedium>Elektronisk arkiv</dokumentmedium>
-          <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
-          <dokumentnummer>1</dokumentnummer>
-          <tilknyttetDato>2011-10-09T14:14:14</tilknyttetDato>
-          <tilknyttetAv>Lars H. Hansen</tilknyttetAv>
-          <dokumentobjekt>
-            <versjonsnummer>1</versjonsnummer>
-            <variantformat>Arkivformat</variantformat>
-            <format>pdf/a</format>
-            <opprettetDato>2011-10-09T14:49:10</opprettetDato>
-            <opprettetAv>Lars H. Hansen</opprettetAv>
-            <referanseDokumentfil>dokumenter/14305c90-99a2-4444-bb76-63ddae8a2e98.pdf</referanseDokumentfil>
-            <sjekksum>2ce321351a886f089220a9adac0f3d1b07c872b08343fa5a3af708ff0f805911</sjekksum>
-            <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
-            <filstoerrelse>87kB</filstoerrelse>
-          </dokumentobjekt>
-        </dokumentbeskrivelse>
-        <registreringsID>3062c3c1-83f7-4fb1-9a80-11bab7c06165</registreringsID>
-        <tittel>Vedtak på tilbygg</tittel>
-        <offentligTittel>vedtak på tilbygg,drammensveien</offentligTittel>
-        <forfatter>Lars H Hansen</forfatter>
-        <journalaar>2011</journalaar>
-        <journalsekvensnummer>2</journalsekvensnummer>
-        <journalpostnummer>2011</journalpostnummer>
-        <journalposttype>Utgående dokument</journalposttype>
-        <journalstatus>Arkivert</journalstatus>
-        <journaldato>2011-09-10</journaldato>
-        <dokumentetsDato>2011-09-10</dokumentetsDato>
-        <sendtDato>2011-09-10T16:00:00</sendtDato>
-        <antallVedlegg>0</antallVedlegg>
-        <journalenhet>arkivtjenesten</journalenhet>
-        <korrespondansepart>
-          <korrespondanseparttype>Avsender</korrespondanseparttype>
-          <korrespondansepartNavn>Lars H. Hansen</korrespondansepartNavn>
-          <postadresse> rådhuset</postadresse>
-          <postnummer>0037</postnummer>
-          <epostadresse>lars@raadhuset.no</epostadresse>
-          <telefonnummer>NULL</telefonnummer>
-          <kontaktperson>NULL</kontaktperson>
-          <administrativEnhet>arkivtjenesten</administrativEnhet>
-          <saksbehandler>Lars H.Hansen</saksbehandler>
-        </korrespondansepart>
-      </registrering>
-      <saksaar>2011</saksaar>
-      <sakssekvensnummer>1</sakssekvensnummer>
-      <saksdato>2011-09-09</saksdato>
-      <administrativEnhet>arkivtjenesten</administrativEnhet>
-      <saksansvarlig>Lars H.Hansen</saksansvarlig>
-      <saksstatus>Avsluttet</saksstatus>
-    </mappe>
-    <mappe xsi:type="saksmappe">
-      <systemID>214e27a2-5e7f-484b-b2c2-dea4e50524a3</systemID>
-      <mappeID>2012/200</mappeID>
-      <tittel>Vei og trafikk</tittel>
-      <beskrivelse>Vei og trafikk saksarkiv</beskrivelse>
-      <opprettetDato>2012-09-09T14:00:00</opprettetDato>
-      <opprettetAv>Arkivleder</opprettetAv>
-      <avsluttetDato>2013-09-09T14:00:00</avsluttetDato>
-      <avsluttetAv>Arkivleder</avsluttetAv>
-      <registrering xsi:type="journalpost">
-        <systemID>2b962a88-23b2-475e-bce3-a438d9db25db</systemID>
-        <opprettetDato>2012-10-10T12:00:00</opprettetDato>
-        <opprettetAv>Postmottak</opprettetAv>
-        <arkivertDato>2012-10-10T16:00:01</arkivertDato>
-        <arkivertAv>arkivleder</arkivertAv>
-        <dokumentbeskrivelse>
-          <systemID>942486fd-c763-47c2-a75c-48a62a727e81</systemID>
-          <dokumenttype>pdf/a</dokumenttype>
-          <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
-          <tittel>Klage på vei</tittel>
-          <beskrivelse>Klage på dårlig vei drammensveien</beskrivelse>
-          <forfatter>knut nærum</forfatter>
-          <opprettetDato>2012-10-10T14:09:05</opprettetDato>
-          <opprettetAv>Postmottak</opprettetAv>
-          <dokumentmedium>Elektronisk arkiv</dokumentmedium>
-          <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
-          <dokumentnummer>1</dokumentnummer>
-          <tilknyttetDato>2012-10-10T14:14:14</tilknyttetDato>
-          <tilknyttetAv>postmottak</tilknyttetAv>
-          <dokumentobjekt>
-            <versjonsnummer>1</versjonsnummer>
-            <variantformat>Arkivformat</variantformat>
-            <format>pdf/a</format>
-            <opprettetDato>2012-10-10T14:09:13</opprettetDato>
-            <opprettetAv>Postmottak</opprettetAv>
-            <referanseDokumentfil>dokumenter/61677fa2-659b-4200-9438-6c43e4826d3f.pdf</referanseDokumentfil>
-            <sjekksum>c9d8c2722a1a1005bd4e4bd298f53e0a9e7429485b0a78020939dc8c37194e71</sjekksum>
-            <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
-            <filstoerrelse>87 kB</filstoerrelse>
-          </dokumentobjekt>
-        </dokumentbeskrivelse>
-        <registreringsID>9a88df40-faff-4bae-8ab2-806c50aa44ac</registreringsID>
-        <tittel>klage på vei</tittel>
-        <offentligTittel>klage på vei drammensveien</offentligTittel>
-        <forfatter>Knut Nærum</forfatter>
-        <journalaar>2012</journalaar>
-        <journalsekvensnummer>1</journalsekvensnummer>
-        <journalpostnummer>2012</journalpostnummer>
-        <journalposttype>Inngående dokument</journalposttype>
-        <journalstatus>Arkivert</journalstatus>
-        <journaldato>2012-10-10</journaldato>
-        <dokumentetsDato>2012-10-01</dokumentetsDato>
-        <mottattDato>2012-10-10T11:55:01</mottattDato>
-        <antallVedlegg>0</antallVedlegg>
-        <journalenhet>arkivtjenesten</journalenhet>
-        <korrespondansepart>
-          <korrespondanseparttype>Avsender</korrespondanseparttype>
-          <korrespondansepartNavn>Knut Nærum</korrespondansepartNavn>
-          <postadresse> rådhuset</postadresse>
-          <postnummer>0037</postnummer>
-          <epostadresse>lars@raadhuset.no</epostadresse>
-          <telefonnummer>NULL</telefonnummer>
-          <kontaktperson>NULL</kontaktperson>
-          <administrativEnhet>arkivtjenesten</administrativEnhet>
-          <saksbehandler>Lars H.Hansen</saksbehandler>
-        </korrespondansepart>
-      </registrering>
-      <registrering xsi:type="journalpost">
-        <systemID>ae3828bc-73e8-4722-b7c5-1b010f3f77f6</systemID>
-        <opprettetDato>2012-10-10T14:00:00</opprettetDato>
-        <opprettetAv>Linda Hansen</opprettetAv>
-        <arkivertDato>2012-10-10T16:00:00</arkivertDato>
-        <arkivertAv>arkivleder</arkivertAv>
-        <dokumentbeskrivelse>
-          <systemID>6a71028c-5023-4768-95bf-733a706ae06e</systemID>
-          <dokumenttype>pdf-a</dokumenttype>
-          <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
-          <tittel>Vedtak etter klage</tittel>
-          <beskrivelse>Vedtak om utbedring av vei drammensveien</beskrivelse>
-          <forfatter>Linda Hansen</forfatter>
-          <opprettetDato>2012-10-10T14:05:00</opprettetDato>
-          <opprettetAv>Linda Hansen</opprettetAv>
-          <dokumentmedium>Elektronisk arkiv</dokumentmedium>
-          <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
-          <dokumentnummer>1</dokumentnummer>
-          <tilknyttetDato>2012-10-10T14:14:14</tilknyttetDato>
-          <tilknyttetAv>system</tilknyttetAv>
-          <dokumentobjekt>
-            <versjonsnummer>1</versjonsnummer>
-            <variantformat>Arkivformat</variantformat>
-            <format>pdf</format>
-            <opprettetDato>2012-10-10T14:10:13</opprettetDato>
-            <opprettetAv>Linda Hansen</opprettetAv>
-            <referanseDokumentfil>dokumenter/1755a60f-c9c0-4943-924f-59a6601484a9.pdf</referanseDokumentfil>
-            <sjekksum>4cb6d852bae043e1583c34a4d0c5567d45180c5435f37d0c58f3f77b2d21537e</sjekksum>
-            <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
-            <filstoerrelse>87 kB</filstoerrelse>
-          </dokumentobjekt>
-        </dokumentbeskrivelse>
-        <registreringsID>c0d5a561-11a6-4677-9fa0-fc53e5f9930e</registreringsID>
-        <tittel>Svar på klage</tittel>
-        <offentligTittel>Vedtak etter klage dårlig vei drammensveien</offentligTittel>
-        <forfatter>Linda Hansen</forfatter>
-        <journalaar>2012</journalaar>
-        <journalsekvensnummer>1</journalsekvensnummer>
-        <journalpostnummer>2011</journalpostnummer>
-        <journalposttype>Utgående dokument</journalposttype>
-        <journalstatus>Arkivert</journalstatus>
-        <journaldato>2012-10-10</journaldato>
-        <dokumentetsDato>2012-10-10</dokumentetsDato>
-        <sendtDato>2012-10-10T15:00:00</sendtDato>
-        <antallVedlegg>0</antallVedlegg>
-        <journalenhet>vei og trafikk</journalenhet>
-        <korrespondansepart>
-          <korrespondanseparttype>Mottaker</korrespondanseparttype>
-          <korrespondansepartNavn>Linda Hansen</korrespondansepartNavn>
-          <postadresse> rådhuset</postadresse>
-          <postnummer>0037</postnummer>
-          <epostadresse>linda@raadhuset.no</epostadresse>
-          <telefonnummer>NULL</telefonnummer>
-          <kontaktperson>NULL</kontaktperson>
-          <administrativEnhet>arkivtjenesten</administrativEnhet>
-          <saksbehandler>Linda Hansen</saksbehandler>
-        </korrespondansepart>
-      </registrering>
-      <saksaar>2012</saksaar>
-      <sakssekvensnummer>1</sakssekvensnummer>
-      <saksdato>2012-10-10</saksdato>
-      <administrativEnhet>vei og trafikk</administrativEnhet>
-      <saksansvarlig>Linda Hansen</saksansvarlig>
-      <saksstatus>Avsluttet</saksstatus>
-    </mappe>
-  </arkivdel>
+  <opprettetDato>1864-03-13T00:00:00Z</opprettetDato>
+  <opprettetAv>Espen Tønnessen</opprettetAv>
+  <avsluttetDato>1863-06-02T00:00:00Z</avsluttetDato>
+  <avsluttetAv>Kristian Hunskaar</avsluttetAv>
+  <arkivperiodeStartDato>1864-03-06</arkivperiodeStartDato>
+  <arkivperiodeSluttDato>1863-01-02</arkivperiodeSluttDato>
+  <klassifikasjonssystem>
+   <systemID>klassSys56fd39c3075733.84234766</systemID>
+   <klassifikasjonstype>Travel</klassifikasjonstype>
+   <tittel>arkivdelNøkkel for Traveling to nonsense worlds</tittel>
+   <beskrivelse>Traveling to nonsense worlds</beskrivelse>
+   <opprettetDato>1864-02-27T00:00:00Z</opprettetDato>
+   <opprettetAv>Steve Jackson</opprettetAv>
+   <avsluttetDato>1863-03-10T00:00:00Z</avsluttetDato>
+   <avsluttetAv>Joachim Fugleberg</avsluttetAv>
+    <klasse>
+      <systemID>klasse56fd39c3075a53.34630430</systemID>
+      <klasseID>4</klasseID>
+      <tittel>Traveling</tittel>
+      <beskrivelse>Walkabout</beskrivelse>
+      <opprettetDato>1863-01-03T00:00:00Z</opprettetDato>
+      <opprettetAv>Kristian Hunskaar</opprettetAv>
+      <avsluttetDato>1864-09-17T00:00:00Z</avsluttetDato>
+      <avsluttetAv>Joachim Fugleberg</avsluttetAv>
+      <klasse>
+        <systemID>klasse56fd39c3075d61.16268821</systemID>
+        <klasseID>45</klasseID>
+        <tittel>Traveling to new worlds</tittel>
+        <beskrivelse>new worlds</beskrivelse>
+        <opprettetDato>1864-10-22T00:00:00Z</opprettetDato>
+        <opprettetAv>Kristian Hunskaar</opprettetAv>
+        <avsluttetDato>1864-12-25T00:00:00Z</avsluttetDato>
+        <avsluttetAv>Steve Jackson</avsluttetAv>
+        <klasse>
+          <systemID>klasse56fd39c3076079.83332741</systemID>
+          <klasseID>452</klasseID>
+          <tittel>Traveling to new worlds - nonsense</tittel>
+          <beskrivelse>new worlds - nonsense</beskrivelse>
+          <opprettetDato>1864-12-04T00:00:00Z</opprettetDato>
+          <opprettetAv>Joachim Fugleberg</opprettetAv>
+          <avsluttetDato>1863-12-18T00:00:00Z</avsluttetDato>
+          <avsluttetAv>Steve Jackson</avsluttetAv>
+          <mappe xsi:type="saksmappe">
+            <systemID>mappe56fd39c30a4c63.28410671</systemID>
+            <mappeID>mappe1</mappeID>
+            <tittel>Eating the cake - 1</tittel>
+            <offentligTittel>offentligTittel1</offentligTittel>
+            <beskrivelse>Beskrivelse for Mappe1</beskrivelse>
+            <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+            <opprettetDato>1863-09-23T00:00:00Z</opprettetDato>
+            <opprettetAv>Steve Jackson</opprettetAv>
+            <avsluttetDato>1864-11-24T00:00:00Z</avsluttetDato>
+            <avsluttetAv>Steve Jackson</avsluttetAv>
+            <referanseArkivdel>arkivdel56fd39c30752e8.67811493</referanseArkivdel>
+            <registrering xsi:type="journalpost">
+              <systemID>journpost56fd39c30a5373.09722056</systemID>
+              <opprettetDato>1864-06-27T00:00:00Z</opprettetDato>
+              <opprettetAv>Steve Jackson</opprettetAv>
+              <arkivertDato>1864-10-04T00:00:00Z</arkivertDato>
+              <arkivertAv>Steve Jackson</arkivertAv>
+              <referanseArkivdel>arkivdel56fd39c30752e8.67811493</referanseArkivdel>
+              <skjerming>
+                <tilgangsrestriksjon>Klientsaker</tilgangsrestriksjon>
+                <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+                <skjermingMetadata>Skjermet</skjermingMetadata>
+                <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+                <skjermingsvarighet>60</skjermingsvarighet>
+                <skjermingOpphoererDato>1945-02-06</skjermingOpphoererDato>
+              </skjerming>
+              <dokumentbeskrivelse>
+                <systemID>dokumentb56fd39c30a5f02.86849470</systemID>
+                <dokumenttype>Faktura</dokumenttype>
+                <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
+                <tittel>mappe1 - registering1</tittel>
+                <beskrivelse>mappe1 - registering1</beskrivelse>
+                <forfatter>Kristian Hunskaar</forfatter>
+                <opprettetDato>1863-10-27T00:00:00Z</opprettetDato>
+                <opprettetAv>Kristian Hunskaar</opprettetAv>
+                <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+                <referanseArkivdel>arkivdel56fd39c30752e8.67811493</referanseArkivdel>
+                <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
+                <dokumentnummer>1</dokumentnummer>
+                <tilknyttetDato>1864-04-22T00:00:00Z</tilknyttetDato>
+                <tilknyttetAv>Steve Jackson</tilknyttetAv>
+                <skjerming>
+                  <tilgangsrestriksjon>skjeming dokumentbeskrivelse</tilgangsrestriksjon>
+                  <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+                  <skjermingMetadata>Skjermet</skjermingMetadata>
+                  <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+                  <skjermingsvarighet>40</skjermingsvarighet>
+                  <skjermingOpphoererDato>1942-10-21</skjermingOpphoererDato>
+                </skjerming>
+                <dokumentobjekt>
+                  <versjonsnummer>1</versjonsnummer>
+                  <variantformat>Arkivformat</variantformat>
+                  <format>pdf</format>
+                  <formatDetaljer>Portable document format</formatDetaljer>
+                  <opprettetDato>1863-09-19T00:00:00Z</opprettetDato>
+                  <opprettetAv>Steve Jackson</opprettetAv>
+                  <referanseDokumentfil>dokumenter/5000000.pdf</referanseDokumentfil>
+                  <sjekksum>3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f</sjekksum>
+                  <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
+                  <filstoerrelse>20637</filstoerrelse>
+                </dokumentobjekt>
+              </dokumentbeskrivelse>
+              <registreringsID>mappe1/jrnpst-1</registreringsID>
+              <tittel>Eating the cake1 - Application to eat cake1</tittel>
+              <offentligTittel>Eating the cake1 - Application to eat cake1</offentligTittel>
+              <beskrivelse>Eating the cake1 - Application to eat cake1</beskrivelse>
+              <forfatter>Espen Tønnessen</forfatter>
+              <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+              <journalaar>1863</journalaar>
+              <journalsekvensnummer>18633715</journalsekvensnummer>
+              <journalpostnummer>1</journalpostnummer>
+              <journalposttype>Utgående dokument</journalposttype>
+              <journalstatus>Arkivert</journalstatus>
+              <journaldato>1864-08-02</journaldato>
+              <dokumentetsDato>1863-04-24</dokumentetsDato>
+              <sendtDato>1864-02-20T00:00:00Z</sendtDato>
+              <antallVedlegg>0</antallVedlegg>
+              <korrespondansepart>
+                <korrespondanseparttype>Intern mottaker</korrespondanseparttype>
+                <korrespondansepartNavn>Kristen Nygaard</korrespondansepartNavn>
+                <administrativEnhet>DT</administrativEnhet>
+                <saksbehandler>Steve Jackson</saksbehandler>
+              </korrespondansepart>
+              <avskrivning>
+                <avskrivningsdato>1864-07-19</avskrivningsdato>
+                <avskrevetAv>Steve Jackson</avskrevetAv>
+                <avskrivningsmaate>Tatt til orientering</avskrivningsmaate>
+              </avskrivning>
+            </registrering>
+            <registrering xsi:type="journalpost">
+              <systemID>journpost56fd39c3155529.06054377</systemID>
+              <opprettetDato>1863-05-23T00:00:00Z</opprettetDato>
+              <opprettetAv>Espen Tønnessen</opprettetAv>
+              <arkivertDato>1863-06-28T00:00:00Z</arkivertDato>
+              <arkivertAv>Kristian Hunskaar</arkivertAv>
+              <referanseArkivdel>arkivdel56fd39c30752e8.67811493</referanseArkivdel>
+              <skjerming>
+                <tilgangsrestriksjon>Personalsaker</tilgangsrestriksjon>
+                <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+                <skjermingMetadata>Skjermet</skjermingMetadata>
+                <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+                <skjermingsvarighet>60</skjermingsvarighet>
+                <skjermingOpphoererDato>1941-03-26</skjermingOpphoererDato>
+              </skjerming>
+              <dokumentbeskrivelse>
+                <systemID>dokumentb56fd39c3155869.23910536</systemID>
+                <dokumenttype>Ordrebekreftelser</dokumenttype>
+                <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
+                <tittel>mappe1 - registering2</tittel>
+                <beskrivelse>mappe1 - registering2</beskrivelse>
+                <forfatter>Kristian Hunskaar</forfatter>
+                <opprettetDato>1864-07-20T00:00:00Z</opprettetDato>
+                <opprettetAv>Kristian Hunskaar</opprettetAv>
+                <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+                <referanseArkivdel>arkivdel56fd39c30752e8.67811493</referanseArkivdel>
+                <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
+                <dokumentnummer>1</dokumentnummer>
+                <tilknyttetDato>1863-04-12T00:00:00Z</tilknyttetDato>
+                <tilknyttetAv>Steve Jackson</tilknyttetAv>
+                <skjerming>
+                  <tilgangsrestriksjon>skjeming dokumentbeskrivelse</tilgangsrestriksjon>
+                  <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+                  <skjermingMetadata>Skjermet</skjermingMetadata>
+                  <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+                  <skjermingsvarighet>40</skjermingsvarighet>
+                  <skjermingOpphoererDato>1943-12-03</skjermingOpphoererDato>
+                </skjerming>
+                <dokumentobjekt>
+                  <versjonsnummer>1</versjonsnummer>
+                  <variantformat>Arkivformat</variantformat>
+                  <format>pdf</format>
+                  <formatDetaljer>Portable document format</formatDetaljer>
+                  <opprettetDato>1864-12-20T00:00:00Z</opprettetDato>
+                  <opprettetAv>Steve Jackson</opprettetAv>
+                  <referanseDokumentfil>dokumenter/5000001.pdf</referanseDokumentfil>
+                  <sjekksum>2ea3a86de226d791a07abb5279b0e2813b037730730ba630de4f14dea7c32208</sjekksum>
+                  <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
+                  <filstoerrelse>18432</filstoerrelse>
+                </dokumentobjekt>
+              </dokumentbeskrivelse>
+              <registreringsID>mappe1/jrnpst-2</registreringsID>
+              <tittel>Eating the cake1 - Application to eat cake2</tittel>
+              <offentligTittel>Eating the cake1 - Application to eat cake2</offentligTittel>
+              <beskrivelse>Eating the cake1 - Application to eat cake2</beskrivelse>
+              <forfatter>Kristian Hunskaar</forfatter>
+              <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+              <journalaar>1863</journalaar>
+              <journalsekvensnummer>186366280</journalsekvensnummer>
+              <journalpostnummer>2</journalpostnummer>
+              <journalposttype>Utgående dokument</journalposttype>
+              <journalstatus>Arkivert</journalstatus>
+              <journaldato>1863-12-25</journaldato>
+              <dokumentetsDato>1863-01-17</dokumentetsDato>
+              <mottattDato>1863-08-07T00:00:00Z</mottattDato>
+              <antallVedlegg>0</antallVedlegg>
+              <korrespondansepart>
+                <korrespondanseparttype>Intern avsender</korrespondanseparttype>
+                <korrespondansepartNavn>Alan Turing</korrespondansepartNavn>
+                <administrativEnhet>DT</administrativEnhet>
+                <saksbehandler>Kristian Hunskaar</saksbehandler>
+              </korrespondansepart>
+              <avskrivning>
+                <avskrivningsdato>1863-12-01</avskrivningsdato>
+                <avskrevetAv>Joachim Fugleberg</avskrevetAv>
+                <avskrivningsmaate>Tatt til orientering</avskrivningsmaate>
+              </avskrivning>
+            </registrering>
+            <registrering xsi:type="journalpost">
+              <systemID>journpost56fd39c31cbcb2.57629483</systemID>
+              <opprettetDato>1864-05-01T00:00:00Z</opprettetDato>
+              <opprettetAv>Espen Tønnessen</opprettetAv>
+              <arkivertDato>1864-07-27T00:00:00Z</arkivertDato>
+              <arkivertAv>Espen Tønnessen</arkivertAv>
+              <referanseArkivdel>arkivdel56fd39c30752e8.67811493</referanseArkivdel>
+              <skjerming>
+                <tilgangsrestriksjon>Klientsaker</tilgangsrestriksjon>
+                <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+                <skjermingMetadata>Skjermet</skjermingMetadata>
+                <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+                <skjermingsvarighet>60</skjermingsvarighet>
+                <skjermingOpphoererDato>1943-01-18</skjermingOpphoererDato>
+              </skjerming>
+              <dokumentbeskrivelse>
+                <systemID>dokumentb56fd39c31cbea3.74831738</systemID>
+                <dokumenttype>Faktura</dokumenttype>
+                <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
+                <tittel>mappe1 - registering3</tittel>
+                <beskrivelse>mappe1 - registering3</beskrivelse>
+                <forfatter>Kristian Hunskaar</forfatter>
+                <opprettetDato>1864-05-01T00:00:00Z</opprettetDato>
+                <opprettetAv>Espen Tønnessen</opprettetAv>
+                <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+                <referanseArkivdel>arkivdel56fd39c30752e8.67811493</referanseArkivdel>
+                <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
+                <dokumentnummer>1</dokumentnummer>
+                <tilknyttetDato>1864-05-04T00:00:00Z</tilknyttetDato>
+                <tilknyttetAv>Espen Tønnessen</tilknyttetAv>
+                <skjerming>
+                  <tilgangsrestriksjon>skjeming dokumentbeskrivelse</tilgangsrestriksjon>
+                  <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+                  <skjermingMetadata>Skjermet</skjermingMetadata>
+                  <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+                  <skjermingsvarighet>40</skjermingsvarighet>
+                  <skjermingOpphoererDato>1942-05-23</skjermingOpphoererDato>
+                </skjerming>
+                <dokumentobjekt>
+                  <versjonsnummer>1</versjonsnummer>
+                  <variantformat>Arkivformat</variantformat>
+                  <format>pdf</format>
+                  <formatDetaljer>Portable document format</formatDetaljer>
+                  <opprettetDato>1864-10-21T00:00:00Z</opprettetDato>
+                  <opprettetAv>Joachim Fugleberg</opprettetAv>
+                  <referanseDokumentfil>dokumenter/5000002.pdf</referanseDokumentfil>
+                  <sjekksum>9da0779cbfcf5392e78b35f8ce3c8ec8d288fbbc560da678f304fd34ee8640ad</sjekksum>
+                  <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
+                  <filstoerrelse>20629</filstoerrelse>
+                </dokumentobjekt>
+              </dokumentbeskrivelse>
+              <registreringsID>mappe1/jrnpst-3</registreringsID>
+              <tittel>Eating the cake1 - Application to eat cake3</tittel>
+              <offentligTittel>Eating the cake1 - Application to eat cake3</offentligTittel>
+              <beskrivelse>Eating the cake1 - Application to eat cake3</beskrivelse>
+              <forfatter>Kristian Hunskaar</forfatter>
+              <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+              <journalaar>1863</journalaar>
+              <journalsekvensnummer>186318315</journalsekvensnummer>
+              <journalpostnummer>3</journalpostnummer>
+              <journalposttype>Saksframlegg</journalposttype>
+              <journalstatus>Journalført</journalstatus>
+              <journaldato>1863-10-27</journaldato>
+              <dokumentetsDato>1863-06-06</dokumentetsDato>
+              <sendtDato>1863-05-07T00:00:00Z</sendtDato>
+              <antallVedlegg>0</antallVedlegg>
+              <korrespondansepart>
+                <korrespondanseparttype>Intern mottaker</korrespondanseparttype>
+                <korrespondansepartNavn>Kristen Nygaard</korrespondansepartNavn>
+                <administrativEnhet>DD</administrativEnhet>
+                <saksbehandler>Steve Jackson</saksbehandler>
+              </korrespondansepart>
+              <avskrivning>
+                <avskrivningsdato>1864-10-07</avskrivningsdato>
+                <avskrevetAv>Kristian Hunskaar</avskrevetAv>
+                <avskrivningsmaate>Besvart på telefon</avskrivningsmaate>
+              </avskrivning>
+            </registrering>
+            <registrering xsi:type="journalpost">
+              <systemID>journpost56fd39c32234e3.17259372</systemID>
+              <opprettetDato>1864-04-05T00:00:00Z</opprettetDato>
+              <opprettetAv>Joachim Fugleberg</opprettetAv>
+              <arkivertDato>1863-05-23T00:00:00Z</arkivertDato>
+              <arkivertAv>Steve Jackson</arkivertAv>
+              <referanseArkivdel>arkivdel56fd39c30752e8.67811493</referanseArkivdel>
+              <skjerming>
+                <tilgangsrestriksjon>Unntatt offentlighet</tilgangsrestriksjon>
+                <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+                <skjermingMetadata>Skjermet</skjermingMetadata>
+                <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+                <skjermingsvarighet>60</skjermingsvarighet>
+                <skjermingOpphoererDato>1942-10-24</skjermingOpphoererDato>
+              </skjerming>
+              <dokumentbeskrivelse>
+                <systemID>dokumentb56fd39c32236c0.01484859</systemID>
+                <dokumenttype>Faktura</dokumenttype>
+                <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
+                <tittel>mappe1 - registering4</tittel>
+                <beskrivelse>mappe1 - registering4</beskrivelse>
+                <forfatter>Espen Tønnessen</forfatter>
+                <opprettetDato>1864-03-27T00:00:00Z</opprettetDato>
+                <opprettetAv>Espen Tønnessen</opprettetAv>
+                <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+                <referanseArkivdel>arkivdel56fd39c30752e8.67811493</referanseArkivdel>
+                <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
+                <dokumentnummer>1</dokumentnummer>
+                <tilknyttetDato>1863-07-21T00:00:00Z</tilknyttetDato>
+                <tilknyttetAv>Joachim Fugleberg</tilknyttetAv>
+                <skjerming>
+                  <tilgangsrestriksjon>skjeming dokumentbeskrivelse</tilgangsrestriksjon>
+                  <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+                  <skjermingMetadata>Skjermet</skjermingMetadata>
+                  <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+                  <skjermingsvarighet>40</skjermingsvarighet>
+                  <skjermingOpphoererDato>1945-05-14</skjermingOpphoererDato>
+                </skjerming>
+                <dokumentobjekt>
+                  <versjonsnummer>1</versjonsnummer>
+                  <variantformat>Arkivformat</variantformat>
+                  <format>pdf</format>
+                  <formatDetaljer>Portable document format</formatDetaljer>
+                  <opprettetDato>1863-06-09T00:00:00Z</opprettetDato>
+                  <opprettetAv>Espen Tønnessen</opprettetAv>
+                  <referanseDokumentfil>dokumenter/5000003.pdf</referanseDokumentfil>
+                  <sjekksum>ae07549340886e3b27943aec6723ec592fb9a8d0d12130694e7d2c75f278b768</sjekksum>
+                  <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
+                  <filstoerrelse>21340</filstoerrelse>
+                </dokumentobjekt>
+              </dokumentbeskrivelse>
+              <registreringsID>mappe1/jrnpst-4</registreringsID>
+              <tittel>Eating the cake1 - Application to eat cake4</tittel>
+              <offentligTittel>Eating the cake1 - Application to eat cake4</offentligTittel>
+              <beskrivelse>Eating the cake1 - Application to eat cake4</beskrivelse>
+              <forfatter>Kristian Hunskaar</forfatter>
+              <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+              <journalaar>1863</journalaar>
+              <journalsekvensnummer>186378442</journalsekvensnummer>
+              <journalpostnummer>4</journalpostnummer>
+              <journalposttype>Utgående dokument</journalposttype>
+              <journalstatus>Journalført</journalstatus>
+              <journaldato>1864-09-13</journaldato>
+              <dokumentetsDato>1863-02-20</dokumentetsDato>
+              <mottattDato>1863-11-26T00:00:00Z</mottattDato>
+              <antallVedlegg>0</antallVedlegg>
+              <korrespondansepart>
+                <korrespondanseparttype>Gruppemottaker</korrespondanseparttype>
+                <korrespondansepartNavn>steven hawking</korrespondansepartNavn>
+                <administrativEnhet>DD</administrativEnhet>
+                <saksbehandler>Steve Jackson</saksbehandler>
+              </korrespondansepart>
+              <avskrivning>
+                <avskrivningsdato>1864-03-03</avskrivningsdato>
+                <avskrevetAv>Espen Tønnessen</avskrevetAv>
+                <avskrivningsmaate>Besvart med e-post</avskrivningsmaate>
+              </avskrivning>
+            </registrering>
+            <registrering xsi:type="journalpost">
+              <systemID>journpost56fd39c327e607.07291918</systemID>
+              <opprettetDato>1863-08-25T00:00:00Z</opprettetDato>
+              <opprettetAv>Kristian Hunskaar</opprettetAv>
+              <arkivertDato>1864-05-20T00:00:00Z</arkivertDato>
+              <arkivertAv>Kristian Hunskaar</arkivertAv>
+              <referanseArkivdel>arkivdel56fd39c30752e8.67811493</referanseArkivdel>
+              <skjerming>
+                <tilgangsrestriksjon>Klientsaker</tilgangsrestriksjon>
+                <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+                <skjermingMetadata>Skjermet</skjermingMetadata>
+                <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+                <skjermingsvarighet>60</skjermingsvarighet>
+                <skjermingOpphoererDato>1943-08-19</skjermingOpphoererDato>
+              </skjerming>
+              <dokumentbeskrivelse>
+                <systemID>dokumentb56fd39c327e917.55738329</systemID>
+                <dokumenttype>Rundskriv</dokumenttype>
+                <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
+                <tittel>mappe1 - registering5</tittel>
+                <beskrivelse>mappe1 - registering5</beskrivelse>
+                <forfatter>Steve Jackson</forfatter>
+                <opprettetDato>1863-03-11T00:00:00Z</opprettetDato>
+                <opprettetAv>Espen Tønnessen</opprettetAv>
+                <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+                <referanseArkivdel>arkivdel56fd39c30752e8.67811493</referanseArkivdel>
+                <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
+                <dokumentnummer>1</dokumentnummer>
+                <tilknyttetDato>1864-07-25T00:00:00Z</tilknyttetDato>
+                <tilknyttetAv>Joachim Fugleberg</tilknyttetAv>
+                <skjerming>
+                  <tilgangsrestriksjon>skjeming dokumentbeskrivelse</tilgangsrestriksjon>
+                  <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+                  <skjermingMetadata>Skjermet</skjermingMetadata>
+                  <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+                  <skjermingsvarighet>40</skjermingsvarighet>
+                  <skjermingOpphoererDato>1941-12-05</skjermingOpphoererDato>
+                </skjerming>
+                <dokumentobjekt>
+                  <versjonsnummer>1</versjonsnummer>
+                  <variantformat>Arkivformat</variantformat>
+                  <format>pdf</format>
+                  <formatDetaljer>Portable document format</formatDetaljer>
+                  <opprettetDato>1863-08-25T00:00:00Z</opprettetDato>
+                  <opprettetAv>Kristian Hunskaar</opprettetAv>
+                  <referanseDokumentfil>dokumenter/5000004.pdf</referanseDokumentfil>
+                  <sjekksum>93ee1eecc77c2eebdf27a7d336e132f162f676e35392cf64d3379c7d350de8f3</sjekksum>
+                  <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
+                  <filstoerrelse>20553</filstoerrelse>
+                </dokumentobjekt>
+              </dokumentbeskrivelse>
+              <registreringsID>mappe1/jrnpst-5</registreringsID>
+              <tittel>Eating the cake1 - Application to eat cake5</tittel>
+              <offentligTittel>Eating the cake1 - Application to eat cake5</offentligTittel>
+              <beskrivelse>Eating the cake1 - Application to eat cake5</beskrivelse>
+              <forfatter>Kristian Hunskaar</forfatter>
+              <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+              <journalaar>1864</journalaar>
+              <journalsekvensnummer>186468599</journalsekvensnummer>
+              <journalpostnummer>5</journalpostnummer>
+              <journalposttype>Inngående dokument</journalposttype>
+              <journalstatus>Journalført</journalstatus>
+              <journaldato>1864-12-17</journaldato>
+              <dokumentetsDato>1864-10-15</dokumentetsDato>
+              <mottattDato>1864-12-18T00:00:00Z</mottattDato>
+              <antallVedlegg>0</antallVedlegg>
+              <korrespondansepart>
+                <korrespondanseparttype>Mottaker</korrespondanseparttype>
+                <korrespondansepartNavn>tim berners lee</korrespondansepartNavn>
+                <administrativEnhet>DD</administrativEnhet>
+                <saksbehandler>Espen Tønnessen</saksbehandler>
+              </korrespondansepart>
+              <avskrivning>
+                <avskrivningsdato>1863-07-15</avskrivningsdato>
+                <avskrevetAv>Espen Tønnessen</avskrevetAv>
+                <avskrivningsmaate>Tatt til etterretning</avskrivningsmaate>
+              </avskrivning>
+            </registrering>
+            <saksaar>1864</saksaar>
+            <sakssekvensnummer>016</sakssekvensnummer>
+            <saksdato>1864-03-10</saksdato>
+            <administrativEnhet>DT</administrativEnhet>
+            <saksansvarlig>Kristian Hunskaar</saksansvarlig>
+            <saksstatus>Utgår</saksstatus>
+          </mappe>
+        </klasse>
+      </klasse>
+    </klasse>
+  </klassifikasjonssystem>
+ </arkivdel>
 </arkiv>
+
