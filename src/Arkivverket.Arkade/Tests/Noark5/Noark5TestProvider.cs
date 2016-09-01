@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Arkivverket.Arkade.Tests.Noark5.Structure;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
@@ -9,7 +10,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             return new List<BaseTest>
             {
-               
+               new ValidateAddmlDataobjectsChecksums()
             };
         }
 
@@ -22,5 +23,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfArchiveParts()
             };
         }
+
+
     }
 }

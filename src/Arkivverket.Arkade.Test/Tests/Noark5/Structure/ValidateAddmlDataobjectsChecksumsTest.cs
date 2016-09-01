@@ -7,12 +7,12 @@ using Xunit.Abstractions;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
 {
-    public class ValidateChecksumsTest
+    public class ValidateAddmlDataobjectsChecksumsTest
     {
 
         private readonly ITestOutputHelper _output;
 
-        public ValidateChecksumsTest(ITestOutputHelper output)
+        public ValidateAddmlDataobjectsChecksumsTest(ITestOutputHelper output)
         {
             _output = output;
         }
@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
             var archiveExtraction = new ArchiveExtraction("uuid", workingDirectory);
             archiveExtraction.ArchiveType = ArchiveType.Noark5;
             
-            var testResults = new ValidateChecksums().RunTest(archiveExtraction);
+            var testResults = new ValidateAddmlDataobjectsChecksums().RunTest(archiveExtraction);
 
             foreach (var testResult in testResults.Results)
             {

@@ -8,7 +8,7 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
-    public class ValidateChecksums : BaseTest
+    public class ValidateAddmlDataobjectsChecksums : BaseTest
     {
         protected override TestResults Test(ArchiveExtraction archive)
         {

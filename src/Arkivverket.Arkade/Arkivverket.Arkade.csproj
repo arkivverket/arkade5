@@ -81,7 +81,7 @@
     <Compile Include="Tests\Noark5\NumberOfArchiveParts.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchives.cs" />
     <Compile Include="Tests\Noark5\Structure\CheckWellFormedXml.cs" />
-    <Compile Include="Tests\Noark5\Structure\ValidateChecksums.cs" />
+    <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksums.cs" />
     <Compile Include="Tests\TestProvider.cs" />
     <Compile Include="Tests\TestResult.cs" />
     <Compile Include="Tests\TestResults.cs" />
