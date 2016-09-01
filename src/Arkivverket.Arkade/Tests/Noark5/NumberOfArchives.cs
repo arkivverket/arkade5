@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
         }
 
-        protected override TestResults Test(ArchiveExtraction archive)
+        protected override void Test(ArchiveExtraction archive)
         {
             using (var reader = XmlReader.Create(archive.GetContentDescriptionFileName()))
             {
@@ -21,8 +21,6 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 }
                 Console.WriteLine("Number of archives: " + counter);
             }
-
-            return new TestResults();
         }
 
     }

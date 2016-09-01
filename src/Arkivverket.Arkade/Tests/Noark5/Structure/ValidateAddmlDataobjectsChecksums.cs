@@ -13,10 +13,8 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
         {
         }
 
-        protected override TestResults Test(ArchiveExtraction archive)
+        protected override void Test(ArchiveExtraction archive)
         {
-            var results = new TestResults();
-
             var structure = SerializeUtil.DeserializeFromFile<addml>(archive.GetStructureDescriptionFileName());
 
             foreach (var entry in structure.dataset[0].dataObjects.dataObject)
@@ -36,11 +34,10 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
                         var checksumsAreEqual = string.Equals(generatedChecksum, checksumValue, StringComparison.InvariantCultureIgnoreCase);
 
                         var testResult = CreateTestResult(checksumsAreEqual, generatedChecksum, checksumValue, filename, checksumAlgorithm);
-                        results.Add(testResult);
+                        TestResults.Add(testResult);
                     }
                 }
             }
-            return results;
         }
 
         private TestResult CreateTestResult(bool checksumsAreEqual, string generatedChecksum, string expectedChecksum, string filename,

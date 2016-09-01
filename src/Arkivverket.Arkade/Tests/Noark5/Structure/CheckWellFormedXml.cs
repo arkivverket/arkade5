@@ -8,10 +8,9 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
         {
         }
 
-        protected override TestResults Test(ArchiveExtraction archive)
+        protected override void Test(ArchiveExtraction archive)
         {
             new Common.CheckWellFormedXml().Test(archive.GetStructureDescriptionFileName());
-            return new TestResults();
         }
     }
 }

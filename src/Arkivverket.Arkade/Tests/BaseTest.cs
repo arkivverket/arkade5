@@ -12,16 +12,24 @@ namespace Arkivverket.Arkade.Tests
 
         public TestType TestType { get; private set; }
 
-        protected abstract TestResults Test(ArchiveExtraction archive);
+        protected TestResults TestResults;
+
+        protected abstract void Test(ArchiveExtraction archive);
 
         public TestResults RunTest(ArchiveExtraction archive)
         {
-            var start = DateTime.Now;
-            var results = Test(archive);
-            var stop = DateTime.Now;
-            Console.WriteLine("Duration: " + stop.Subtract(start).TotalMilliseconds);
+            TestResults = new TestResults(this.GetType().FullName, TestType);
 
-            return results;
+            var start = DateTime.Now;
+            Test(archive);
+            var stop = DateTime.Now;
+            var duration = stop.Subtract(start).TotalMilliseconds;
+
+            Console.WriteLine("Duration: " + duration); // TODO: use logging mechanism instead
+
+            TestResults.TestDuration = duration;
+
+            return TestResults;
         }
     }
 

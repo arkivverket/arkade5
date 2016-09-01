@@ -5,10 +5,15 @@ namespace Arkivverket.Arkade.Tests
     public class TestResults
     {
         public List<TestResult> Results { get; set; }
+        public double TestDuration { get; set; }
+        public string TestName { get; set; }
+        public TestType TestType { get; set; }
 
-        public TestResults()
+        public TestResults(string testName, TestType testType)
         {
             Results = new List<TestResult>();
+            TestName = testName;
+            TestType = testType;
         }
 
         public void Add(TestResult result)
@@ -29,5 +34,6 @@ namespace Arkivverket.Arkade.Tests
             }
             return success;
         }
+
     }
 }
