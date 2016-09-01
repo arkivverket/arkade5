@@ -10,7 +10,29 @@
         Title="TitleLoadedInCodeBehind" Height="532" Width="724"
         Icon="../Arkade5.ico"
         >
-    <Grid>
+    <StackPanel Orientation="Vertical">
 
-    </Grid>
+        <!-- Menu Header -->
+        <Menu x:Name="mainMenu" Height="30" FontSize="14" VerticalAlignment="Top">
+            <MenuItem Header="Fil" x:Name="menyItemFile" FontSize="14">
+                <MenuItem Header="_Lukk" x:Name="menuItemClose"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Main Navigation Panel -->
+        <ContentControl prism:RegionManager.RegionName="MainContentRegion"/>
+
+        <!-- Bottom Status Panel -->
+        <RichTextBox x:Name="richTextBox" 
+                        Margin="0" 
+                        VerticalAlignment="Bottom" MaxHeight="400" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Bottom">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="RichTextBox"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+
+    </StackPanel>
+
 </Window>

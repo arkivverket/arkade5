@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Arkivverket.Arkade.UI.Views.View000Debug"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Arkivverket.Arkade.UI.Views"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="37*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="buttonTest" Content="TestSomething" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Width="75" Grid.Row="1"/>
+
+    </Grid>
+</UserControl>

@@ -26,7 +26,18 @@ namespace Arkivverket.Arkade.UI
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
+            Container.RegisterTypeForNavigation<View000Debug>("View000Debug");
         }
 
     }
+
+    public static class UnityExtensons
+    {
+        public static void RegisterTypeForNavigation<T>(this IUnityContainer container, string name)
+        {
+            container.RegisterType(typeof(object), typeof(T), name);
+        }
+    }
+
+
 }

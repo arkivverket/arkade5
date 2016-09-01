@@ -121,12 +121,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Events\UpdatedEvent.cs" />
     <Compile Include="Util\UiProcessingExceptions.cs" />
     <Compile Include="Util\FileFolderDialogs.cs" />
     <Compile Include="Util\LogConfiguration.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\View000DebugViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\View000Debug.xaml.cs">
+      <DependentUpon>View000Debug.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControlFooter.xaml.cs">
       <DependentUpon>UserControlFooter.xaml</DependentUpon>
@@ -135,6 +140,10 @@
       <DependentUpon>UserControlLoadArchive.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\View000Debug.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
