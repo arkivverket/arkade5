@@ -5,12 +5,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class Noark5TestProvider
     {
-
         public List<BaseTest> GetStructureTests()
         {
             return new List<BaseTest>
             {
-               new ValidateAddmlDataobjectsChecksums()
+                new Structure.CheckWellFormedXml(),
+                new ValidateAddmlDataobjectsChecksums()
             };
         }
 
@@ -24,6 +24,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
             };
         }
 
-
+        public List<BaseTest> GetTests()
+        {
+            var tests = GetStructureTests();
+            tests.AddRange(GetContentTests());
+            return tests;
+        }
     }
 }

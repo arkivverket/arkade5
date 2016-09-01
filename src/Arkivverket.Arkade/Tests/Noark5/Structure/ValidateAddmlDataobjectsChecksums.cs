@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Xml.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.ExternalModels.Addml;
 using Arkivverket.Arkade.Util;
@@ -10,29 +9,33 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
     public class ValidateAddmlDataobjectsChecksums : BaseTest
     {
+        public ValidateAddmlDataobjectsChecksums() : base(TestType.Structure)
+        {
+        }
+
         protected override TestResults Test(ArchiveExtraction archive)
         {
-            TestResults results = new TestResults();
+            var results = new TestResults();
 
-            addml structure = SerializeUtil.DeserializeFromFile<addml>(archive.GetStructureDescriptionFileName());
+            var structure = SerializeUtil.DeserializeFromFile<addml>(archive.GetStructureDescriptionFileName());
 
-            foreach (dataObject entry in structure.dataset[0].dataObjects.dataObject)
+            foreach (var entry in structure.dataset[0].dataObjects.dataObject)
             {
-                foreach (dataObject currentObject in entry.dataObjects.dataObject)
+                foreach (var currentObject in entry.dataObjects.dataObject)
                 {
-                    foreach (property fileProperty in currentObject.properties.Where(s => s.name == "file"))
+                    foreach (var fileProperty in currentObject.properties.Where(s => s.name == "file"))
                     {
-                        string filename = archive.WorkingDirectory + Path.DirectorySeparatorChar + GetFilenameFromProperty(fileProperty);
+                        var filename = archive.WorkingDirectory + Path.DirectorySeparatorChar + GetFilenameFromProperty(fileProperty);
 
-                        string checksumAlgorithm = GetChecksumAlgorithmFromProperty(fileProperty);
+                        var checksumAlgorithm = GetChecksumAlgorithmFromProperty(fileProperty);
 
-                        string checksumValue = GetChecksumValueFromProperty(fileProperty);
+                        var checksumValue = GetChecksumValueFromProperty(fileProperty);
 
-                        string generatedChecksum = GenerateChecksumForFile(filename, checksumAlgorithm, checksumValue);
+                        var generatedChecksum = GenerateChecksumForFile(filename, checksumAlgorithm);
 
-                        bool checksumsAreEqual = string.Equals(generatedChecksum,checksumValue, StringComparison.InvariantCultureIgnoreCase);
+                        var checksumsAreEqual = string.Equals(generatedChecksum, checksumValue, StringComparison.InvariantCultureIgnoreCase);
 
-                        TestResult testResult = CreateTestResult(checksumsAreEqual, generatedChecksum, checksumValue, filename, checksumAlgorithm);
+                        var testResult = CreateTestResult(checksumsAreEqual, generatedChecksum, checksumValue, filename, checksumAlgorithm);
                         results.Add(testResult);
                     }
                 }
@@ -40,41 +43,42 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             return results;
         }
 
-        private TestResult CreateTestResult(bool checksumsAreEqual, string generatedChecksum, string expectedChecksum, string filename, string checksumAlgorithm)
+        private TestResult CreateTestResult(bool checksumsAreEqual, string generatedChecksum, string expectedChecksum, string filename,
+            string checksumAlgorithm)
         {
-            ResultType result = checksumsAreEqual ? ResultType.Success : ResultType.Error;
+            var result = checksumsAreEqual ? ResultType.Success : ResultType.Error;
 
             string message = $"Checksum validated for file: {filename} with algorithm: {checksumAlgorithm}.";
             if (result == ResultType.Error)
             {
                 message = message + $" Expected checksum: [{expectedChecksum}] Generated checksum: [{generatedChecksum}]. ";
             }
-            return new TestResult(result, this.GetType().FullName, message);
+            return new TestResult(result, GetType().FullName, message);
         }
 
-        private string GenerateChecksumForFile(string filename, string checksumAlgorithm, string checksumToValidateWith)
+        private string GenerateChecksumForFile(string filename, string checksumAlgorithm)
         {
-            IChecksumGenerator generator = new ChecksumGeneratorFactory().GetGenerator(checksumAlgorithm);
+            var generator = new ChecksumGeneratorFactory().GetGenerator(checksumAlgorithm);
             return generator.GenerateChecksum(filename);
         }
 
         private static string GetChecksumValueFromProperty(property fileProperty)
         {
-            property checksumProperty = fileProperty.properties.FirstOrDefault(p => p.name == "checksum");
-            property checksumValueProperty = checksumProperty?.properties.FirstOrDefault(p => p.name == "value");
+            var checksumProperty = fileProperty.properties.FirstOrDefault(p => p.name == "checksum");
+            var checksumValueProperty = checksumProperty?.properties.FirstOrDefault(p => p.name == "value");
             return checksumValueProperty?.value;
         }
 
         private static string GetChecksumAlgorithmFromProperty(property fileProperty)
         {
-            property checksumProperty = fileProperty.properties.FirstOrDefault(p => p.name == "checksum");
-            property checksumAlgorithmProperty = checksumProperty?.properties.FirstOrDefault(p => p.name == "algorithm");
+            var checksumProperty = fileProperty.properties.FirstOrDefault(p => p.name == "checksum");
+            var checksumAlgorithmProperty = checksumProperty?.properties.FirstOrDefault(p => p.name == "algorithm");
             return checksumAlgorithmProperty?.value;
         }
 
         private static string GetFilenameFromProperty(property fileProperty)
         {
-            property fileNameProperty = fileProperty.properties.FirstOrDefault(p => p.name == "name");
+            var fileNameProperty = fileProperty.properties.FirstOrDefault(p => p.name == "name");
             return fileNameProperty?.value;
         }
     }

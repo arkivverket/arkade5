@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Tests
         {
             if (archiveExtraction.ArchiveType.Equals(ArchiveType.Noark5))
             {
-                return new Noark5TestProvider().GetContentTests();
+                return new Noark5TestProvider().GetTests();
             }
 
             return new List<BaseTest>();

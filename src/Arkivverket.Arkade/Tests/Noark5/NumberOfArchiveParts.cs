@@ -6,6 +6,9 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfArchiveParts : BaseTest
     {
+        public NumberOfArchiveParts() : base(TestType.Content)
+        {
+        }
 
         protected override TestResults Test(ArchiveExtraction archive)
         {
