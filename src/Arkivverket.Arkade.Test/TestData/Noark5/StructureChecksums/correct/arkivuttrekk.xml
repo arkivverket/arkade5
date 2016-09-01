@@ -122,7 +122,7 @@
 												<value>SHA-256</value>
 											</property>
 											<property name="value">
-												<value>E64AEAA26015A0EFC267EE27A160E54DBA84BDC31048837CD3FCDB67BFDDF877</value>
+												<value>3FCD83F8B395767562C5822C87CE9EECE14262EDC194A865775F27F2E1AEE13D</value>
 											</property>
 										</properties>
 									</property>
@@ -252,7 +252,7 @@
                         <value>SHA-256</value>
                       </property>
                       <property name="value">
-                        <value>9107A0874E980A229DF62A1946EC41BD74D09D7E195246F35E4F20FB4C1F0607</value>
+                        <value>10B58C2EB0781C509E409F8F9032055535F88425999BE6EED63D255D3F6194F3</value>
                       </property>
                     </properties>
                   </property>
