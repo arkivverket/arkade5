@@ -1,18 +1,12 @@
-﻿using Arkivverket.Arkade.UI.Util;
-using Arkivverket.Arkade.Core;
-using System;
-using System.Windows;
-using System.Windows.Media.Imaging;
-using Serilog;
-using System.IO;
-using System.Threading;
+﻿using System.Windows;
+using Arkivverket.Arkade.UI.Util;
 
-namespace Arkivverket.Arkade.UI
+namespace Arkivverket.Arkade.UI.View
 {
-    public partial class MainWindow : Window
+    public partial class MainWindowOld : Window
     {
 
-        public MainWindow()
+        public MainWindowOld()
         {
             InitializeComponent();
             Title = Properties.Resources.General_WindowTitle;
