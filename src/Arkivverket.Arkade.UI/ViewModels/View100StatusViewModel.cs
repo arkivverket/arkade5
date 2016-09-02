@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -12,18 +13,26 @@ namespace Arkivverket.Arkade.UI.ViewModels
     class View100StatusViewModel : BindableBase
     {
 
-        //private readonly ILogService _logService;
+        private readonly ILogService _logService;
 
-
-        public View100StatusViewModel()
+        private string _logString;
+        public string LogString
         {
-            //_logService = logService;
-            //_logService.LogMessageArrived += LogMessageArrived;
+            get { return _logString; }
+            set { SetProperty(ref _logString, value); }
+        }
+
+        public View100StatusViewModel(ILogService logService)
+        {
+            _logService = logService;
+            _logService.LogMessageArrived += LogMessageArrived;
         }
 
         private void LogMessageArrived(LogEntry obj)
         {
-            Debug.Print("We got something: " + obj.Message);
+            string msg = $"{obj.Timestamp.ToShortDateString()}: {obj.Level.ToString()} {obj.Subsystem.ToString()}: {obj.Message}";
+            LogString = $"{LogString}\n{msg}";
+            Debug.Print(msg);
         }
     }
 }

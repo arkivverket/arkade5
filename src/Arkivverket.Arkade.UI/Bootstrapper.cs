@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using Arkivverket.Arkade.LogInterface;
 using Arkivverket.Arkade.UI.Views;
 using Microsoft.Practices.Unity;
 using Prism.Unity;
@@ -29,6 +30,10 @@ namespace Arkivverket.Arkade.UI
             base.ConfigureContainer();
             Container.RegisterTypeForNavigation<View000Debug>("View000Debug");
             Container.RegisterTypeForNavigation<View100Status>("View100Status");
+
+            ILogService logService = new RandomLogService();
+            Container.RegisterInstance(logService);
+
         }
 
         protected override void ConfigureModuleCatalog()
