@@ -7,10 +7,10 @@
         xmlns:local="clr-namespace:Arkivverket.Arkade.UI.Views"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
-        Title="TitleLoadedInCodeBehind" Height="532" Width="724"
+        Title="TitleLoadedInCodeBehind" Height="532" Width="725"
         Icon="../Arkade5.ico"
         >
-    <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Vertical" Margin="0,0,-8,0">
 
         <!-- Menu Header -->
         <Menu x:Name="mainMenu" Height="30" FontSize="14" VerticalAlignment="Top">
@@ -19,19 +19,12 @@
             </MenuItem>
         </Menu>
 
-        <!-- Main Navigation Panel -->
-        <ContentControl prism:RegionManager.RegionName="MainContentRegion"/>
 
-        <!-- Bottom Status Panel -->
-        <RichTextBox x:Name="richTextBox" 
-                        Margin="0" 
-                        VerticalAlignment="Bottom" MaxHeight="400" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Bottom">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text="RichTextBox"/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
+        <!-- Navigation Panel: Main Program Interface -->
+        <ContentControl prism:RegionManager.RegionName="MainContentRegion" Height="130"/>
+        <ContentControl prism:RegionManager.RegionName="StatusContentRegion" Height="195" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"/>
+
+        <!-- Navigation Panel: Program Status Window -->
 
     </StackPanel>
 

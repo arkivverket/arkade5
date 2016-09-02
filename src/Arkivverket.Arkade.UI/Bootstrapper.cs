@@ -7,6 +7,7 @@ using System.Windows;
 using Arkivverket.Arkade.UI.Views;
 using Microsoft.Practices.Unity;
 using Prism.Unity;
+using Prism.Modularity;
 
 namespace Arkivverket.Arkade.UI
 {
@@ -27,7 +28,15 @@ namespace Arkivverket.Arkade.UI
         {
             base.ConfigureContainer();
             Container.RegisterTypeForNavigation<View000Debug>("View000Debug");
+            Container.RegisterTypeForNavigation<View100Status>("View100Status");
         }
+
+        protected override void ConfigureModuleCatalog()
+        {
+            ModuleCatalog catalog = (ModuleCatalog)ModuleCatalog;
+            catalog.AddModule(typeof(ModuleAModule));
+        }
+
 
     }
 

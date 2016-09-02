@@ -22,8 +22,6 @@ namespace Arkivverket.Arkade.UI.Util
                                 .CreateLogger();
         }
 
-
-
     }
 
 

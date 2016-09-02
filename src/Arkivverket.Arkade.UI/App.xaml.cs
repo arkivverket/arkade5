@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Arkivverket.Arkade.UI.Util;
 
 namespace Arkivverket.Arkade.UI
 {
@@ -15,6 +16,8 @@ namespace Arkivverket.Arkade.UI
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            LogConfiguration.ConfigureSeriLog();
+
             base.OnStartup(e);
             Bootstrapper bs = new Bootstrapper();
             bs.Run();
