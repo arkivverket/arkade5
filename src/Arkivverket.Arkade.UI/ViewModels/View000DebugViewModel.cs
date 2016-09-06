@@ -15,16 +15,19 @@ namespace Arkivverket.Arkade.UI.ViewModels
     {
 
         public DelegateCommand DoSomethingCommand { get; set; }
+        private readonly ILogService _logService;
 
-        public View000DebugViewModel()
+        public View000DebugViewModel(ILogService logService)
         {
             DoSomethingCommand = new DelegateCommand(DoSomething);
+            _logService = logService;
         }
 
 
         private void DoSomething()
         {
             Debug.Print("Issued the SoSomething command");
+            _logService.Subscribe();
         }
 
 

@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.LogInterface
 
         public void Subscribe()
         {
-
+            _timer.Start();
         }
 
         public event Action<LogEntry> LogMessageArrived;
@@ -60,7 +60,7 @@ namespace Arkivverket.Arkade.LogInterface
                     LogMessageArrived(logEntry);
                 }
             };
-            _timer.Start();
+            
         }
 
     }
