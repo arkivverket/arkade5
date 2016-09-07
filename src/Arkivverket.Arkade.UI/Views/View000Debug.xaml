@@ -12,7 +12,6 @@
             <RowDefinition Height="23*"/>
             <RowDefinition Height="37*"/>
         </Grid.RowDefinitions>
-        <Button Content="TestSomething" Command="{Binding DoSomethingCommand}" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="95" Height="25"/>
-
+        <Button Content="Run TestEngine" Command="{Binding RunTestEngineCommand}" HorizontalAlignment="Left" Margin="130,20,0,0" VerticalAlignment="Top" Width="95" Height="25"/>
     </Grid>
 </UserControl>

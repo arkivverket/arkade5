@@ -1,3 +1,4 @@
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Identify;
 using Autofac;
 
@@ -11,6 +12,7 @@ namespace Arkivverket.Arkade.Util
             builder.RegisterType<TarCompressionUtility>().As<ICompressionUtility>();
             builder.RegisterType<ArchiveExtractionReader>().AsSelf();
             builder.RegisterType<ArchiveIdentifier>().As<IArchiveIdentifier>();
+            builder.RegisterType<TestEngine>().AsSelf().SingleInstance();
         }
     }
 }

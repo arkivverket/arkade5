@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Arkivverket.Arkade.LogInterface;
+﻿using System.Diagnostics;
+using Arkivverket.Arkade.Core;
 using Prism.Mvvm;
 
 namespace Arkivverket.Arkade.UI.ViewModels
 {
-    class View100StatusViewModel : BindableBase
+    public class View100StatusViewModel : BindableBase
     {
+        private readonly TestEngine _testEngine;
 
-        private readonly ILogService _logService;
-
+        // for the two way binding to work, this *must* be a regular field, not an auto property (get;set;)
         private string _logString;
         public string LogString
         {
@@ -22,15 +16,15 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _logString, value); }
         }
 
-        public View100StatusViewModel(ILogService logService)
+        public View100StatusViewModel(TestEngine testEngine)
         {
-            _logService = logService;
-            _logService.LogMessageArrived += LogMessageArrived;
+            _testEngine = testEngine;
+            _testEngine.TestResultsArrived += TestEngineOnTestResultsArrived;
         }
 
-        private void LogMessageArrived(LogEntry obj)
+        private void TestEngineOnTestResultsArrived(object sender, TestResultsArrivedEventArgs eventArgs)
         {
-            string msg = $"{obj.Timestamp.ToShortDateString()}: {obj.Level.ToString()} {obj.Subsystem.ToString()}: {obj.Message}";
+            string msg = $"{eventArgs.TestName} isSuccess={eventArgs.IsSuccess}";
             LogString = $"{LogString}\n{msg}";
             Debug.Print(msg);
         }

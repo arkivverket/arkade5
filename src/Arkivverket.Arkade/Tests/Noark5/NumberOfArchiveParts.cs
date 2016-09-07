@@ -24,6 +24,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                     }
                 }
                 Console.WriteLine("Number of archiveparts: " + counter);
+                TestSuccess($"Found {counter} archives.");
             }
         }
     }

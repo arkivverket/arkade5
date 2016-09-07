@@ -20,6 +20,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                     counter++;
                 }
                 Console.WriteLine("Number of archives: " + counter);
+                TestSuccess($"Found {counter} archives.");
             }
         }
 
