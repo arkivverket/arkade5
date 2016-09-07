@@ -31,6 +31,22 @@ namespace Arkivverket.Arkade.Tests
 
             return TestResults;
         }
+
+        protected void TestSuccess(string message)
+        {
+            AddTestResult(ResultType.Success, message);
+        }
+
+        protected void TestError(string message)
+        {
+            AddTestResult(ResultType.Error, message);
+        }
+
+        private void AddTestResult(ResultType resultType, string message)
+        {
+            TestResults.Add(new TestResult(resultType, message));
+        }
+
     }
 
     public enum TestType

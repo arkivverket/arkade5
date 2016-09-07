@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 
 namespace Arkivverket.Arkade.Tests
 {
@@ -33,6 +34,22 @@ namespace Arkivverket.Arkade.Tests
                 }
             }
             return success;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append("Test: ").AppendLine(TestName);
+            builder.Append("Test type: ").AppendLine(TestType.ToString());
+            builder.Append("IsSuccess: ").AppendLine(IsSuccess().ToString());
+            builder.AppendLine("Results: ");
+
+            foreach (TestResult result in Results)
+            {
+                builder.AppendLine(result.ToString());
+            }
+
+            return builder.ToString();
         }
 
     }

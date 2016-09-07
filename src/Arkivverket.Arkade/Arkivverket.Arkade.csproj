@@ -82,6 +82,7 @@
     <Compile Include="Tests\Noark5\NumberOfArchives.cs" />
     <Compile Include="Tests\Noark5\Structure\CheckWellFormedXml.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksums.cs" />
+    <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchema.cs" />
     <Compile Include="Tests\TestProvider.cs" />
     <Compile Include="Tests\TestResult.cs" />
     <Compile Include="Tests\TestResults.cs" />
@@ -97,10 +98,12 @@
     <None Include="app.config" />
     <None Include="ExternalModels\xsd\addml.xsd">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="ExternalModels\xsd\GenerateClasses.bat" />
     <None Include="ExternalModels\xsd\info.xsd">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>

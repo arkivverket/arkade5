@@ -10,7 +10,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
             return new List<BaseTest>
             {
                 new Structure.CheckWellFormedXml(),
-                new ValidateAddmlDataobjectsChecksums()
+                new ValidateAddmlDataobjectsChecksums(),
+                new ValidateXmlWithSchema()
             };
         }
 
