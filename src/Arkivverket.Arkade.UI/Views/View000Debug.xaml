@@ -12,7 +12,7 @@
             <RowDefinition Height="23*"/>
             <RowDefinition Height="37*"/>
         </Grid.RowDefinitions>
-        <Button Content="TestSomething" Command="{Binding DoSomethingCommand}" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="TestSomething" Command="{Binding DoSomethingCommand}" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="95" Height="25"/>
 
     </Grid>
 </UserControl>

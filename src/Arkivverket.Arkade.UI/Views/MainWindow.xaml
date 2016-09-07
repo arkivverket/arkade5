@@ -7,25 +7,133 @@
         xmlns:local="clr-namespace:Arkivverket.Arkade.UI.Views"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
-        Title="TitleLoadedInCodeBehind" Height="532" Width="725"
+        Title="TitleLoadedInCodeBehind" 
         Icon="../Arkade5.ico"
-        >
-    <StackPanel Orientation="Vertical" Margin="0,0,-8,0">
+        Height="768" Width="1024" 
+        WindowStartupLocation="CenterScreen" WindowState="Normal"
+        ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+
+    <!-- Background image-->
+    <!--
+    <Window.Background>
+        <ImageBrush ImageSource="../Images/background.png"  Stretch="UniformToFill"/>
+    </Window.Background>
+    -->
+
+    <!-- MAIN Window GRID layout-->
+    <Grid>
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#FF80B3D4" />
+                <GradientStop Color="#FF456AB4"
+                              Offset="1" />
+            </RadialGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="100
+                           "/>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1*" MinWidth="300"/>
+        </Grid.ColumnDefinitions>
 
         <!-- Menu Header -->
-        <Menu x:Name="mainMenu" Height="30" FontSize="14" VerticalAlignment="Top">
+        <Menu x:Name="MainMenu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontSize="14" VerticalAlignment="Top">
             <MenuItem Header="Fil" x:Name="menyItemFile" FontSize="14">
                 <MenuItem Header="_Lukk" x:Name="menuItemClose"/>
             </MenuItem>
         </Menu>
 
+        <!-- App Banner -->
+        <Canvas x:Name="Banner"
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                RenderTransformOrigin="0.5,0.5">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Canvas.RenderTransform>
+            <TextBlock Canvas.Top="10"
+                       Canvas.Left="15"
+                       Text="Arkade "
+                       TextWrapping="NoWrap"
+                       Foreground="#FFBBD3EF"
+                       FontSize="48"
+                       Opacity="0.7"
+                       TextAlignment="Left"
+                       FontWeight="Bold" />
+            <TextBlock Canvas.Top="15"
+                       Canvas.Left="210"
+                       Text="5"
+                       TextWrapping="NoWrap"
+                       Foreground="#FFC8D5DE"
+                       FontSize="40"
+                       Opacity="0.85"
+                       TextAlignment="Left"
+                       FontWeight="Normal"
+                       RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1.25"
+                                        ScaleY="1.25" />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+        </Canvas>
 
-        <!-- Navigation Panel: Main Program Interface -->
-        <ContentControl prism:RegionManager.RegionName="MainContentRegion" Height="130"/>
-        <ContentControl prism:RegionManager.RegionName="StatusContentRegion" Height="195" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"/>
+        <!-- Main Region -->
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                BorderBrush="#FF4355C1"
+                BorderThickness="2,2,2,2"
+                CornerRadius="4,4,4,4"
+                Margin="8,2,2,8">
+            <ContentControl x:Name="MainRegion"
+                            prism:RegionManager.RegionName="MainContentRegion"
+                            VerticalContentAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch" />
+        </Border>
 
-        <!-- Navigation Panel: Program Status Window -->
+        <!-- Log Region -->
+        <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                BorderBrush="#FF4355C1"
+                BorderThickness="2,2,2,2"
+                CornerRadius="4,4,4,4"
+                Margin="8,2,2,8">
+            <ContentControl x:Name="LogRegion"
+                            prism:RegionManager.RegionName="StatusContentRegion"
+                            VerticalContentAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch" />
+        </Border>
 
-    </StackPanel>
 
+        <!-- Log Region -->
+        <Border Grid.Row="2" Grid.Column="3" Grid.RowSpan="3"
+                BorderBrush="#FF4345C1"
+                BorderThickness="2,2,2,2"
+                CornerRadius="4,4,4,4"
+                Margin="8,2,2,8">
+            <ContentControl x:Name="StatusRegion"
+                            VerticalContentAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch" />
+        </Border>
+
+
+
+
+    </Grid>
 </Window>

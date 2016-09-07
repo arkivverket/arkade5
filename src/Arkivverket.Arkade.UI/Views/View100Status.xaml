@@ -13,14 +13,13 @@
 
         <!-- Bottom Status Panel -->
         <!-- Bottom Status Panel -->
-        <Label x:Name="labelStatus" Content="Status log" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Width="725" Background="#FF996B6B" Height="31"/>
+        <Label x:Name="labelStatus" Content="Status log" Margin="0,4,0,0" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" Height="31"/>
         <TextBox x:Name="richTextBox" 
                         Margin="0" 
                         VerticalAlignment="Bottom" 
                         MaxHeight="400" 
-                        Height="149" 
-                        Background="#FFEADCDC"
-                        Text="{Binding LogString}"
+                        Height="149"
+                        Text="{Binding LogString}" Background="#FFAAA4A4"
                         />
     </StackPanel>
 </UserControl>
