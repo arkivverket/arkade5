@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Arkivverket.Arkade.Core;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -11,7 +12,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         public View000DebugViewModel(TestEngine testEngine)
         {
-            RunTestEngineCommand = new DelegateCommand(RunTests);
+            RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
             _testEngine = testEngine;
         }
 
