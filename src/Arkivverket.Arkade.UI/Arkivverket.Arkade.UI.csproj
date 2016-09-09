@@ -125,7 +125,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Events\UpdatedEvent.cs" />
     <Compile Include="ModuleAModule.cs" />
     <Compile Include="Util\Colors.cs" />
     <Compile Include="Util\UiProcessingExceptions.cs" />
@@ -147,12 +146,6 @@
     <Compile Include="Views\View100Status.xaml.cs">
       <DependentUpon>View100Status.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControlFooter.xaml.cs">
-      <DependentUpon>UserControlFooter.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UserControlLoadArchive.xaml.cs">
-      <DependentUpon>UserControlLoadArchive.xaml</DependentUpon>
-    </Compile>
     <Page Include="Views\LoadArchiveExtraction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -169,26 +162,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainWindowOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\MainWindowOld.xaml.cs">
-      <DependentUpon>MainWindowOld.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="View\UserControlFooter.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UserControlLoadArchive.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

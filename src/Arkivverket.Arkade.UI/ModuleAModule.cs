@@ -1,6 +1,4 @@
-﻿using System;
-using Arkivverket.Arkade.UI.Util;
-using Arkivverket.Arkade.UI.Views;
+﻿using Arkivverket.Arkade.UI.Views;
 using Prism.Modularity;
 using Prism.Regions;
 
@@ -8,7 +6,7 @@ namespace Arkivverket.Arkade.UI
 {
     public class ModuleAModule : IModule
     {
-        readonly IRegionManager _regionManager;
+        private readonly IRegionManager _regionManager;
 
         public ModuleAModule(IRegionManager regionManager)
         {

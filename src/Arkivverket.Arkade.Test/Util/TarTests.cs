@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Test.Util
         {
             var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
 
-            var pathSourceFolder = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\AliceInWonderland\\";
+            var pathSourceFolder = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\Noark5\\AliceInWonderland\\";
             var pathToTargetTarFile = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\testSuiteArchive{timestamp}.tar";
             var pathToExtractedDirectory = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\ExtractedData{timestamp}\\";
 

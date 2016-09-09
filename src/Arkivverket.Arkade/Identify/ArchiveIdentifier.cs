@@ -7,15 +7,14 @@ namespace Arkivverket.Arkade.Identify
 {
     public class ArchiveIdentifier : IArchiveIdentifier
     {
-
         public ArchiveType Identify(string metadataFileName)
         {
-            string metadataXmlAsString = File.ReadAllText(metadataFileName);
-            ExternalModels.Info.info metadata = SerializeUtil.DeserializeFromString<ExternalModels.Info.info>(metadataXmlAsString);
+            var metadataXmlAsString = File.ReadAllText(metadataFileName);
+            var metadata = SerializeUtil.DeserializeFromString<info>(metadataXmlAsString);
             return Identify(metadata);
         }
 
-        private ArchiveType Identify(ExternalModels.Info.info metadata)
+        private ArchiveType Identify(info metadata)
         {
             var utrekkType = metadata.uttrekk.type;
             if (utrekkType == type.Noark5)
