@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.UI
 
         public void Initialize()
         {
-            _regionManager.RegisterViewWithRegion("MainContentRegion", typeof(View000Debug));
+            _regionManager.RegisterViewWithRegion("MainContentRegion", typeof(LoadArchiveExtraction));
             _regionManager.RegisterViewWithRegion("StatusContentRegion", typeof(View100Status));
         }
     }
