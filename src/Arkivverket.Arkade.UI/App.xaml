@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:Arkivverket.Arkade.UI"
              >
     <Application.Resources>
-         
+  
     </Application.Resources>
+    
 </Application>

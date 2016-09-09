@@ -3,23 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Arkivverket.Arkade.UI.Views"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:util="clr-namespace:Arkivverket.Arkade.UI.Util"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="185" Width="725">
-    <StackPanel Orientation="Vertical">
+             d:DesignHeight="180"
+             d:DesignWidth="500">
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+    
+        <Label Grid.Row="0" Background="{x:Static util:Colors.Teal500}" Foreground="White" FontSize="20" Content="Status på testkjøring" />
+        
+        <TextBox Grid.Row="1" Background="{x:Static util:Colors.Gray50}" Text="{Binding LogString}"/>
 
-        <!-- Bottom Status Panel -->
-        <!-- Bottom Status Panel -->
-        <Label x:Name="labelStatus" Content="Status log" Margin="0,4,0,0" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" Height="31"/>
-        <TextBox x:Name="richTextBox" 
-                        Margin="0" 
-                        VerticalAlignment="Bottom" 
-                        MaxHeight="400" 
-                        Height="149"
-                        Text="{Binding LogString}" Background="#FFAAA4A4"
-                        />
-    </StackPanel>
+    </Grid>
 </UserControl>

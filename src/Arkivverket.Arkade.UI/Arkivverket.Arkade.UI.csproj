@@ -127,6 +127,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Events\UpdatedEvent.cs" />
     <Compile Include="ModuleAModule.cs" />
+    <Compile Include="Util\Colors.cs" />
     <Compile Include="Util\UiProcessingExceptions.cs" />
     <Compile Include="Util\FileFolderDialogs.cs" />
     <Compile Include="Util\LogConfiguration.cs" />
@@ -225,11 +226,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Arkade5.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Arkade5.ico" />

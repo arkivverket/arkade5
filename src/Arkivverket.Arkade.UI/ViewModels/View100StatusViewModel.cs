@@ -8,7 +8,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
     {
         private readonly TestEngine _testEngine;
 
-        // for the two way binding to work, this *must* be a regular field, not an auto property (get;set;)
         private string _logString;
         public string LogString
         {

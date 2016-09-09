@@ -6,7 +6,7 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="725">
+             d:DesignHeight="300" d:DesignWidth="700">
     <Grid Height="257" Width="529">
         <Grid.RowDefinitions>
             <RowDefinition Height="91*"/>
