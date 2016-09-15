@@ -5,16 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:util="clr-namespace:Arkivverket.Arkade.UI.Util"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         Title="TitleLoadedInCodeBehind" 
         Icon="../Arkade5.ico"
         Height="768" Width="1024" 
         WindowStartupLocation="CenterScreen" WindowState="Normal"
-        ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        >
 
     <!-- MAIN Window GRID layout-->
-    <Grid Background="{x:Static util:Colors.Gray50}">
+    <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -22,16 +29,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- App Banner -->
-        <Canvas Grid.Row="0" Background="{x:Static util:Colors.Blue500}">
-            <TextBlock Canvas.Top="10"
-                       Canvas.Left="15"
-                       TextWrapping="NoWrap"
-                       Foreground="White"
-                       FontSize="60"
-                       TextAlignment="Left"
-                       Text="Arkade 5"/>
-        </Canvas>
+        <DockPanel>
+            <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                          Mode="PrimaryMid" DockPanel.Dock="Top">
+                <DockPanel>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40">Arkade 5</TextBlock>
+                </DockPanel>
+            </materialDesign:ColorZone>
+            <ContentControl Margin="16" Content="{Binding ElementName=DemoItemsListBox, Path=SelectedItem.Content}" />
+        </DockPanel>
 
         <!-- Main Region -->
         <ContentControl Grid.Row="1"  x:Name="MainRegion"

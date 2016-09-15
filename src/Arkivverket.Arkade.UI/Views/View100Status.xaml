@@ -5,20 +5,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/"
              xmlns:util="clr-namespace:Arkivverket.Arkade.UI.Util"
+             xmlns:domain="clr-namespace:Arkivverket.Arkade.Core;assembly=Arkivverket.Arkade"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="180"
              d:DesignWidth="500">
 
-    <Grid>
+    <Grid Margin="15">
         <Grid.RowDefinitions>
+            <RowDefinition Height="5" />
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-    
-        <Label Grid.Row="0" Background="{x:Static util:Colors.Teal500}" Foreground="White" FontSize="20" Content="Status på testkjøring" />
+
+
+        <Border Grid.Row="0" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}"  />
         
-        <TextBox Grid.Row="1" Background="{x:Static util:Colors.Gray50}" Text="{Binding LogString}"/>
+        <TextBlock Grid.Row="1" Style="{StaticResource MaterialDesignTitleTextBlock}">Status på testing av uttrekk</TextBlock>
+        
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding TestResults}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type domain:TestResultsArrivedEventArgs}">
+                        <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                            
+                                <StackPanel Margin="8 0 0 0">
+                                    <TextBlock FontWeight="Bold" Text="{Binding IsSuccess}" />
+                                    <TextBlock Text="{Binding TestName}" />
+                                </StackPanel>
+                            
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
 
     </Grid>
 </UserControl>
