@@ -88,6 +88,7 @@
     <Compile Include="Identify\ArchiveExtractorTest.cs" />
     <Compile Include="Identify\ArchiveIdentifierTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Noark5\NumberOfClassificationSystemsTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksumsTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchemaTest.cs" />
     <Compile Include="Util\ChecksumTest.cs" />
@@ -129,6 +130,42 @@
     <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011119.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\Noark5\ContentClassificationSystem\addml.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\ContentClassificationSystem\arkivstruktur.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\ContentClassificationSystem\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\ContentClassificationSystem\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\ContentClassificationSystem\metadatakatalog.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\Small\addml.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\Small\arkivstruktur.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\Small\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\Small\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\Small\metadatakatalog.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\Noark5\StructureChecksums\correct\addml.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -165,6 +202,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Noark5\AliceInWonderland\arkivstrukturAbbreviated.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\ContentClassificationSystem\arkivstruktur.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\ContentClassificationSystem\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\Small\arkivstruktur.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\Small\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Noark5\StructureChecksums\correct\arkivstruktur.xml">
