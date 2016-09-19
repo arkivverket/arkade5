@@ -1,6 +1,7 @@
 site_name: Arkade 5 - Arkivverket
 
 pages:
-- 'Hjem': 'index.md'
-- 'Brukerveiledning': 'Installasjon.md'
-  
+- Hjem: 'index.md'
+- Brukerveiledning: 'Installasjon.md'
+- System documentation: 'system.md'
+    - 'Component descriptions': 'system-components.md'
