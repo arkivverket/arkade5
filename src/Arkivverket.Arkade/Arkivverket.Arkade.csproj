@@ -78,6 +78,7 @@
     <Compile Include="Tests\Noark5\NumberOfArchiveParts.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchives.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassificationSystems.cs" />
+    <Compile Include="Tests\Noark5\StatusOfArchiveParts.cs" />
     <Compile Include="Tests\Noark5\Structure\CheckWellFormedXml.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksums.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchema.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Util\SerializeUtil.cs" />
     <Compile Include="Util\Sha256ChecksumGenerator.cs" />
     <Compile Include="Util\TarCompressionUtility.cs" />
+    <Compile Include="Util\XmlReaderHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
