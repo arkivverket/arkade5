@@ -22,7 +22,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new CheckWellFormedXml(),
                 new NumberOfArchives(),
                 new NumberOfArchiveParts(),
-                new StatusOfArchiveParts()
+                new StatusOfArchiveParts(),
+                new NumberOfClasses()
             };
         }
 
