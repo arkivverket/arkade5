@@ -2,9 +2,9 @@ namespace Arkivverket.Arkade.Tests
 {
     public class TestResult
     {
-        public ResultType Result { get; private set; }
+        public ResultType Result { get; }
 
-        public string Message { get; private set; }
+        public string Message { get; }
 
         public TestResult(ResultType result, string message)
         {
@@ -25,6 +25,7 @@ namespace Arkivverket.Arkade.Tests
 
     public enum ResultType
     {
-        Success, Error
+        Success,
+        Error
     }
 }
