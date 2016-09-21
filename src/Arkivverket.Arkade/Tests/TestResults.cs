@@ -5,10 +5,13 @@ namespace Arkivverket.Arkade.Tests
 {
     public class TestResults
     {
+        public Dictionary<string, string> AnalysisResults = new Dictionary<string, string>();
+
         public List<TestResult> Results { get; set; }
         public double TestDuration { get; set; }
         public string TestName { get; set; }
         public TestType TestType { get; set; }
+
 
         public TestResults(string testName, TestType testType)
         {
@@ -24,8 +27,8 @@ namespace Arkivverket.Arkade.Tests
 
         public bool IsSuccess()
         {
-            bool success = true;
-            foreach (TestResult result in Results)
+            var success = true;
+            foreach (var result in Results)
             {
                 if (result.IsError())
                 {
@@ -36,15 +39,16 @@ namespace Arkivverket.Arkade.Tests
             return success;
         }
 
+
         public override string ToString()
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
             builder.Append("Test: ").AppendLine(TestName);
             builder.Append("Test type: ").AppendLine(TestType.ToString());
             builder.Append("IsSuccess: ").AppendLine(IsSuccess().ToString());
             builder.AppendLine("Results: ");
 
-            foreach (TestResult result in Results)
+            foreach (var result in Results)
             {
                 builder.AppendLine(result.ToString());
             }
@@ -52,5 +56,9 @@ namespace Arkivverket.Arkade.Tests
             return builder.ToString();
         }
 
+        public void AddAnalysisResult(string key, string value)
+        {
+            AnalysisResults.Add(key, value);
+        }
     }
 }

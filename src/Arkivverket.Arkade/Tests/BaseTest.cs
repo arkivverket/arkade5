@@ -47,6 +47,12 @@ namespace Arkivverket.Arkade.Tests
             TestResults.Add(new TestResult(resultType, message));
         }
 
+        protected void AddAnalysisResult(string key, string value)
+        {
+            TestResults.AddAnalysisResult(key, value);
+        }
+
+
     }
 
     public enum TestType
