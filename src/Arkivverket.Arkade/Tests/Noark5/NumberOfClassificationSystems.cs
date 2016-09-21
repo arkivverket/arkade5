@@ -1,11 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.Xml;
 using Arkivverket.Arkade.Core;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
+    /// <summary>
+    /// Noark5 - test #4
+    /// </summary>
     public class NumberOfClassificationSystems : BaseTest
     {
+        public const string AnalysisKeyClassificationSystems = "ClassificationSystems";
+
+
         public NumberOfClassificationSystems() : base(TestType.Content)
         {
         }
@@ -23,10 +30,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
                         counter++;
                     }
                 }
-                Console.WriteLine("Number of classifications systems: " + counter);
+
+                AddAnalysisResult(AnalysisKeyClassificationSystems, counter.ToString());
+
                 TestSuccess($"Found {counter} classification systems.");
             }
-
         }
+
     }
 }

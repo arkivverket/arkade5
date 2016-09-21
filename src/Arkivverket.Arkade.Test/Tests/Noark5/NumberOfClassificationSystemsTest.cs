@@ -1,48 +1,39 @@
 using System;
 using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using FluentAssertions;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
     public class NumberOfClassificationSystemsTest
     {
-        private readonly ITestOutputHelper _output;
-
-        public NumberOfClassificationSystemsTest(ITestOutputHelper output)
+        private static ArchiveExtraction CreateArchiveExtraction(string testdataDirectory)
         {
-            _output = output;
+            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\{testdataDirectory}";
+            var archiveExtraction = new ArchiveExtraction("uuid", workingDirectory);
+            archiveExtraction.ArchiveType = ArchiveType.Noark5;
+            return archiveExtraction;
         }
 
         [Fact]
         public void NumberOfClassificationSystemsIsOne()
         {
-            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\Small";
-            var archiveExtraction = new ArchiveExtraction("uuid", workingDirectory);
-            archiveExtraction.ArchiveType = ArchiveType.Noark5;
+            var archiveExtraction = CreateArchiveExtraction("TestData\\Noark5\\Small");
 
-            TestResults testResults = new NumberOfClassificationSystems().RunTest(archiveExtraction);
+            var testResults = new NumberOfClassificationSystems().RunTest(archiveExtraction);
 
-            // todo - add somwhere to put this data in TestResult
-            testResults.Results[0].Message.Should().Contain("1");
-            _output.WriteLine(testResults.Results[0].Message);
+            testResults.AnalysisResults[NumberOfClassificationSystems.AnalysisKeyClassificationSystems].Should().Be("1");
         }
 
         [Fact]
         public void NumberOfClassificationSystemsIsTwo()
         {
-            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\ContentClassificationSystem";
-            var archiveExtraction = new ArchiveExtraction("uuid", workingDirectory);
-            archiveExtraction.ArchiveType = ArchiveType.Noark5;
+            var archiveExtraction = CreateArchiveExtraction("TestData\\Noark5\\ContentClassificationSystem");
 
-            TestResults testResults = new NumberOfClassificationSystems().RunTest(archiveExtraction);
+            var testResults = new NumberOfClassificationSystems().RunTest(archiveExtraction);
 
-            // todo - add somwhere to put this data in TestResult
-            testResults.Results[0].Message.Should().Contain("2");
-            _output.WriteLine(testResults.Results[0].Message);
+            testResults.AnalysisResults[NumberOfClassificationSystems.AnalysisKeyClassificationSystems].Should().Be("2");
         }
     }
 }
