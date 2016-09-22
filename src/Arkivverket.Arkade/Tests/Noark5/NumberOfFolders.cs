@@ -1,3 +1,4 @@
+using System.IO;
 using System.Xml;
 using Arkivverket.Arkade.Core;
 
@@ -13,25 +14,27 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void Test(ArchiveExtraction archive)
         {
-            using (var reader = CreateXmlReaderForContentDescriptionFile(archive))
+            using (Stream content = ArchiveReader.GetContentAsStream(archive))
             {
-                int counter = 0;
-                var elementName = "mappe";
-                if (reader.ReadToDescendant(elementName))
+                using (var reader = XmlReader.Create(content))
                 {
-                    counter++;
-                    while (reader.ReadToNextSibling(elementName))
+                    int counter = 0;
+                    var elementName = "mappe";
+                    if (reader.ReadToDescendant(elementName))
                     {
                         counter++;
+                        while (reader.ReadToFollowing(elementName))
+                        {
+                            counter++;
+                        }
                     }
+
+                    AddAnalysisResult(AnalysisKeyFolders, counter.ToString());
+
+                    TestSuccess($"Found {counter} classification systems.");
                 }
-
-                AddAnalysisResult(AnalysisKeyFolders, counter.ToString());
-
-                TestSuccess($"Found {counter} classification systems.");
             }
-
         }
-        
+
     }
 }

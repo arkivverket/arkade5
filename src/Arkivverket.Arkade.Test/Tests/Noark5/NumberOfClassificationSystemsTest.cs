@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         [Fact]
         public void NumberOfClassificationSystemsIsOne()
         {
-            _archiveContent = new ArchiveBuilder().WithArchivePart().WithClassificationSystem().Build();
+            _archiveContent = ArchiveBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Build();
 
             TestResults testResults = RunTest();
             testResults.AnalysisResults[NumberOfClassificationSystems.AnalysisKeyClassificationSystems].Should().Be("1");
@@ -29,9 +29,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         [Fact]
         public void NumberOfClassificationSystemsIsTwo()
         {
-            _archiveContent = new ArchiveBuilder()
-                .WithArchivePart("part 1").WithClassificationSystem("classification system 1")
-                .WithArchivePart("part 2").WithClassificationSystem("classification system 2")
+            _archiveContent = ArchiveBuilder.Arkiv()
+                .Arkivdel().Klassifikasjonssystem()
+                .Arkivdel().Klassifikasjonssystem()
                 .Build();
 
             TestResults testResults = RunTest();

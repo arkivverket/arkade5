@@ -6,68 +6,108 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
-    public class ArchiveBuilder
+    public class ArchiveBuilder : IKanLeggeTilKlassifikasjonssystem, IKanLeggeTilKlasse, IKanLeggeTilMappe
     {
-        private readonly arkiv _archive = new arkiv();
-        private readonly List<object> _archiveItems = new List<object>();
 
-        public ArchivePartBuilder WithArchivePart(string title = "This is the default archive part title.")
+        private arkiv _arkiv;
+        private arkivdel _arkivdel;
+        private klassifikasjonssystem _klassifikasjonssystem;
+        private klasse _klasse;
+        private mappe _mappe;
+
+        private ArchiveBuilder()
         {
-            var archivePartBuilder = new ArchivePartBuilder(this);
-
-            _archiveItems.Add(archivePartBuilder.ArchivePart(title));
-           
-            return archivePartBuilder;
+            _arkiv = new arkiv();
         }
 
-        private void AppendItems()
+        public static IKanLeggeTilArkivdel Arkiv()
         {
-            _archive.Items = _archiveItems.ToArray();
+            return new ArchiveBuilder();
+        }
+
+        public IKanLeggeTilKlassifikasjonssystem Arkivdel()
+        {
+            _arkivdel = new arkivdel();
+            _arkiv.Items = AppendOrCreateNewArray(_arkiv.Items, _arkivdel);
+            return this;
+        }
+
+        object[] AppendOrCreateNewArray(object[] existingObjects, object newObject)
+        {
+            List<object> items = new List<object>();
+            if (existingObjects != null)
+                items.AddRange(existingObjects);
+
+            items.Add(newObject);
+
+            return items.ToArray();
+        }
+
+        T[] AppendOrCreateNewArray<T>(T[] existingObjects, T newObject)
+        {
+            List<T> items = new List<T>();
+            if (existingObjects != null)
+                items.AddRange(existingObjects);
+
+            items.Add(newObject);
+
+            return items.ToArray();
+        }
+
+        public IKanLeggeTilKlasse Klassifikasjonssystem()
+        {
+            _klassifikasjonssystem = new klassifikasjonssystem();
+            _arkivdel.Items = AppendOrCreateNewArray(_arkivdel.Items, _klassifikasjonssystem);
+            return this;
+        }
+
+        public IKanLeggeTilMappe Klasse()
+        {
+            _klasse = new klasse();
+            _klassifikasjonssystem.klasse = AppendOrCreateNewArray(_klassifikasjonssystem.klasse, _klasse);
+            return this;
+        }
+
+        public IKanLeggeTilMappe Mappe()
+        {
+            _mappe = new mappe();
+            _klasse.Items = AppendOrCreateNewArray(_klasse.Items, _mappe);
+            return this;
         }
 
         public Stream Build()
         {
-            AppendItems();
-
             var namespaces = new XmlSerializerNamespaces();
             namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
             namespaces.Add(string.Empty, "http://www.arkivverket.no/standarder/noark5/arkivstruktur");
 
-            return SerializeUtil.SerializeToStream(_archive, namespaces);
+            return SerializeUtil.SerializeToStream(_arkiv, namespaces);
         }
 
-
-        public class ArchivePartBuilder
-        {
-            private readonly ArchiveBuilder _archiveBuilder;
-            private arkivdel _arkivdel = new arkivdel();
-
-            public ArchivePartBuilder(ArchiveBuilder archiveBuilder)
-            {
-                _archiveBuilder = archiveBuilder;
-            }
-
-            public ArchiveBuilder WithClassificationSystem(string title = "default classification system title")
-            {
-                _arkivdel.Items = new object[]
-                {
-                    new klassifikasjonssystem {tittel = title}
-                };
-                return _archiveBuilder;
-            }
-
-            public arkivdel ArchivePart(string title = "default archive part title")
-            {
-                _arkivdel = new arkivdel {tittel = title};
-                return _arkivdel;
-            }
-
-            public Stream Build()
-            {
-                return _archiveBuilder.Build();
-            }
-        }
-
-        
     }
+
+    public interface IKanLeggeTilArkivdel
+    {
+        IKanLeggeTilKlassifikasjonssystem Arkivdel();
+        Stream Build();
+    }
+
+    public interface IKanLeggeTilKlassifikasjonssystem : IKanLeggeTilArkivdel
+    {
+        IKanLeggeTilKlasse Klassifikasjonssystem();
+        new Stream Build();
+    }
+
+    public interface IKanLeggeTilKlasse : IKanLeggeTilArkivdel
+    {
+        IKanLeggeTilMappe Klasse();
+        new Stream Build();
+    }
+
+    public interface IKanLeggeTilMappe : IKanLeggeTilArkivdel
+    {
+        IKanLeggeTilMappe Mappe();
+        new Stream Build();
+    }
+
 }

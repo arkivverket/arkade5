@@ -55,11 +55,6 @@ namespace Arkivverket.Arkade.Tests
         {
             TestResults.AddAnalysisResult(key, value);
         }
-
-        protected static XmlReader CreateXmlReaderForContentDescriptionFile(ArchiveExtraction archive)
-        {
-            return XmlReader.Create(archive.GetContentDescriptionFileName());
-        }
     }
 
     public enum TestType
