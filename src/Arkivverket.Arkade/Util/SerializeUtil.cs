@@ -40,5 +40,21 @@ namespace Arkivverket.Arkade.Util
 
             return result;
         }
+
+        /// <summary>
+        /// Serialize an object to a MemoryStream.
+        /// </summary>
+        /// <param name="inputObject">The object to serialize</param>
+        /// <param name="ns">Optional namespaces to use when serializing</param>
+        /// <returns></returns>
+        public static Stream SerializeToStream(object inputObject, XmlSerializerNamespaces ns)
+        {
+            var serializer = new XmlSerializer(inputObject.GetType());
+            var stream = new MemoryStream();
+            serializer.Serialize(stream, inputObject, ns);
+            stream.Flush();
+            stream.Position = 0;
+            return stream;
+        }
     }
 }

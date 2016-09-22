@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfArchiveParts : BaseTest
     {
-        public NumberOfArchiveParts() : base(TestType.Content)
+        public NumberOfArchiveParts(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
         {
         }
 

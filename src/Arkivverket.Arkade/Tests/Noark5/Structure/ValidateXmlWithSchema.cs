@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
     /// </summary>
     public class ValidateXmlWithSchema : BaseTest
     {
-        public ValidateXmlWithSchema() : base(TestType.Structure)
+        public ValidateXmlWithSchema(IArchiveContentReader archiveReader) : base(TestType.Structure, archiveReader)
         {
         }
 

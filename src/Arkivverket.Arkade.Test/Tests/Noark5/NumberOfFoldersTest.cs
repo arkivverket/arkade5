@@ -6,12 +6,12 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
     public class NumberOfFoldersTest
     {
-        [Fact]
+        [Fact(Skip = null)]
         public void NumberOfFoldersIsOne()
         {
             var archiveExtraction = TestUtil.CreateArchiveExtraction("TestData\\Noark5\\Small");
 
-            var testResults = new NumberOfFolders().RunTest(archiveExtraction);
+            var testResults = new NumberOfFolders(null).RunTest(archiveExtraction);
 
             testResults.AnalysisResults[NumberOfFolders.AnalysisKeyFolders].Should().Be("1");
         }
@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         {
             var archiveExtraction = TestUtil.CreateArchiveExtraction("TestData\\Noark5\\TwoArchiveParts");
 
-            var testResults = new NumberOfFolders().RunTest(archiveExtraction);
+            var testResults = new NumberOfFolders(null).RunTest(archiveExtraction);
 
             testResults.AnalysisResults[NumberOfFolders.AnalysisKeyFolders].Should().Be("2");
         }

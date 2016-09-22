@@ -4,7 +4,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
     public class CheckWellFormedXml : BaseTest
     {
-        public CheckWellFormedXml() : base(TestType.Structure)
+        public CheckWellFormedXml(IArchiveContentReader archiveReader) : base(TestType.Structure, archiveReader)
         {
         }
 

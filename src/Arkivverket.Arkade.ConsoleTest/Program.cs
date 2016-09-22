@@ -41,7 +41,8 @@ namespace Arkivverket.Arkade.ConsoleTest
                 Console.WriteLine($"ArchiveType: {archiveExtraction.ArchiveType}");
 
 
-                List<TestResults> testResults = new TestEngine().RunTestsOnArchive(archiveExtraction);
+                TestEngine testEngine = container.Resolve<TestEngine>();
+                List<TestResults> testResults = testEngine.RunTestsOnArchive(archiveExtraction);
                 foreach (TestResults results in testResults)
                 {
                     Console.WriteLine($"Test: {results.TestName}, duration={results.TestDuration}, success={results.IsSuccess()}");

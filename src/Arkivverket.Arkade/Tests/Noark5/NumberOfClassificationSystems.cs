@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 using Arkivverket.Arkade.Core;
 
@@ -13,29 +14,31 @@ namespace Arkivverket.Arkade.Tests.Noark5
         public const string AnalysisKeyClassificationSystems = "ClassificationSystems";
 
 
-        public NumberOfClassificationSystems() : base(TestType.Content)
+        public NumberOfClassificationSystems(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
         {
         }
 
         protected override void Test(ArchiveExtraction archive)
         {
-            using (var reader = XmlReader.Create(archive.GetContentDescriptionFileName()))
+            using (Stream content = ArchiveReader.GetContentAsStream(archive))
             {
-                int counter = 0;
-                if (reader.ReadToDescendant("klassifikasjonssystem"))
+                using (var reader = XmlReader.Create(content))
                 {
-                    counter++;
-                    while (reader.ReadToNextSibling("klassifikasjonssystem"))
+                    int counter = 0;
+                    if (reader.ReadToDescendant("klassifikasjonssystem"))
                     {
                         counter++;
+                        while (reader.ReadToFollowing("klassifikasjonssystem"))
+                        {
+                            counter++;
+                        }
                     }
+
+                    AddAnalysisResult(AnalysisKeyClassificationSystems, counter.ToString());
+
+                    TestSuccess($"Found {counter} classification systems.");
                 }
-
-                AddAnalysisResult(AnalysisKeyClassificationSystems, counter.ToString());
-
-                TestSuccess($"Found {counter} classification systems.");
             }
         }
-
     }
 }

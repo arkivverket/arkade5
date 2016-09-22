@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
     public class ValidateAddmlDataobjectsChecksums : BaseTest
     {
-        public ValidateAddmlDataobjectsChecksums() : base(TestType.Structure)
+        public ValidateAddmlDataobjectsChecksums(IArchiveContentReader archiveReader) : base(TestType.Structure, archiveReader)
         {
         }
 

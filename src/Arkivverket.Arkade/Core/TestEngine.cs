@@ -6,9 +6,16 @@ namespace Arkivverket.Arkade.Core
 {
     public class TestEngine
     {
+        private readonly TestProvider _testProvider;
+
+        public TestEngine(TestProvider testProvider)
+        {
+            _testProvider = testProvider;
+        }
+
         public List<TestResults> RunTestsOnArchive(ArchiveExtraction archiveExtraction)
         {
-            var testsToRun = new TestProvider().GetTestsForArchiveExtraction(archiveExtraction);
+            var testsToRun = _testProvider.GetTestsForArchiveExtraction(archiveExtraction);
 
             var testResultsFromAllTests = new List<TestResults>();
             foreach (var test in testsToRun)
@@ -33,13 +40,13 @@ namespace Arkivverket.Arkade.Core
 
     public class TestResultsArrivedEventArgs : EventArgs
     {
+        public string TestName { get; set; }
+        public bool IsSuccess { get; set; }
+
         public TestResultsArrivedEventArgs(TestResults results)
         {
             TestName = results.TestName;
             IsSuccess = results.IsSuccess();
         }
-
-        public string TestName { get; set; }
-        public bool IsSuccess { get; set; }
     }
 }

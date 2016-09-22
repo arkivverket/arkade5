@@ -6,20 +6,23 @@ namespace Arkivverket.Arkade.Tests
 {
     public abstract class BaseTest
     {
-        public BaseTest(TestType testType)
-        {
-            TestType = testType;
-        }
-
-        public TestType TestType { get; private set; }
+        protected readonly IArchiveContentReader ArchiveReader;
 
         protected TestResults TestResults;
+
+        private TestType TestType { get; }
+
+        protected BaseTest(TestType testType, IArchiveContentReader archiveReader)
+        {
+            ArchiveReader = archiveReader;
+            TestType = testType;
+        }
 
         protected abstract void Test(ArchiveExtraction archive);
 
         public TestResults RunTest(ArchiveExtraction archive)
         {
-            TestResults = new TestResults(this.GetType().FullName, TestType);
+            TestResults = new TestResults(GetType().FullName, TestType);
 
             var start = DateTime.Now;
             Test(archive);

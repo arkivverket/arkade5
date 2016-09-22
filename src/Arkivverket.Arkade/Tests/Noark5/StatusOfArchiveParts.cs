@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Ports;
 using System.Xml;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    class StatusOfArchiveParts : BaseTest
+    internal class StatusOfArchiveParts : BaseTest
     {
-        public StatusOfArchiveParts() : base(TestType.Content)
+        public StatusOfArchiveParts(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
         {
         }
 
 
         protected override void Test(ArchiveExtraction archive)
         {
-            TrackResults trackResults = new TrackResults();
+            var trackResults = new TrackResults();
 
             using (var reader = XmlReader.Create(archive.GetContentDescriptionFileName()))
             {
-                bool isSearchingForArchiveStatus = false;
+                var isSearchingForArchiveStatus = false;
 
                 while (reader.Read())
                 {
@@ -50,7 +49,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
     internal class TrackResults
     {
-        private Dictionary<string, int> Results { get; set; }
+        private Dictionary<string, int> Results { get; }
 
         internal TrackResults()
         {
@@ -80,16 +79,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         internal string ResultsToString()
         {
-            string result = String.Empty;
+            var result = string.Empty;
             foreach (var pair in Results)
             {
                 result = result + $"{pair.Key} ({pair.Value}) ";
             }
             return result;
         }
-
-
-
     }
-
 }

@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
     {
         public const string AnalysisKeyFolders = "Folders";
 
-        public NumberOfFolders() : base(TestType.Content)
+        public NumberOfFolders(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
         {
         }
 
