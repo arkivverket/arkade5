@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             testResults.AnalysisResults[NumberOfFolders.AnalysisKeyFolders].Should().Be("1");
         }
 
-        [Fact]
+        [Fact(Skip = "testdata not completed")]
         public void ForTwoArchivePartsWithOneSingleFolderThenNumberOfFoldersIsTwo()
         {
             var archiveExtraction = TestUtil.CreateArchiveExtraction("TestData\\Noark5\\TwoArchiveParts");
