@@ -64,6 +64,7 @@
     <Compile Include="Core\ArchiveExtraction.cs" />
     <Compile Include="Core\TestEngine.cs" />
     <Compile Include="ExternalModels\Addml.cs" />
+    <Compile Include="ExternalModels\Arkivstruktur.cs" />
     <Compile Include="ExternalModels\Info.cs" />
     <Compile Include="Identify\ArchiveExtractionReader.cs" />
     <Compile Include="Identify\ArchiveExtractor.cs" />
@@ -102,10 +103,16 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ExternalModels\xsd\arkivstruktur.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ExternalModels\xsd\GenerateClasses.bat" />
     <None Include="ExternalModels\xsd\info.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ExternalModels\xsd\metadatakatalog.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>

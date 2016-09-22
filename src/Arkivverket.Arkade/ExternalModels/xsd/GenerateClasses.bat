@@ -11,5 +11,9 @@ echo "Generate classes for addml.xsd"
 copy /y Addml.cs ..\Addml.cs
 del addml.cs
 
+echo "Generate classes for arkivstruktur.xsd"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\xsd.exe" /nologo arkivstruktur.xsd metadatakatalog.xsd /c /n:Arkivverket.Arkade.ExternalModels.Noark5
+copy /y arkivstruktur_metadatakatalog.cs ..\Arkivstruktur.cs
+del arkivstruktur_metadatakatalog.cs
 
 pause
