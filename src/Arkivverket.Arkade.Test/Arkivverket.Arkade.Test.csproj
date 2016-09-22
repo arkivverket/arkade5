@@ -89,8 +89,10 @@
     <Compile Include="Identify\ArchiveIdentifierTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassificationSystemsTest.cs" />
+    <Compile Include="Tests\Noark5\NumberOfFoldersTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksumsTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchemaTest.cs" />
+    <Compile Include="Tests\Noark5\TestUtil.cs" />
     <Compile Include="Util\ChecksumTest.cs" />
     <Compile Include="Util\TarTests.cs" />
   </ItemGroup>
@@ -206,6 +208,7 @@
     </Content>
     <Content Include="TestData\Noark5\ContentClassificationSystem\arkivstruktur.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="TestData\Noark5\ContentClassificationSystem\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
