@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.ExternalModels.Noark5;
@@ -104,7 +105,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         new Stream Build();
     }
 
-    public interface IKanLeggeTilMappe : IKanLeggeTilArkivdel
+    public interface IKanLeggeTilMappe : IKanLeggeTilKlasse
     {
         IKanLeggeTilMappe Mappe();
         new Stream Build();
