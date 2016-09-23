@@ -89,7 +89,7 @@
     <Compile Include="Identify\ArchiveIdentifierTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Noark5\ArchiveBuilder.cs" />
-    <Compile Include="Tests\Noark5\ArchiveContentMemoryStreamReader.cs" />
+    <Compile Include="Tests\Noark5\ArchiveContentMockReader.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchivesTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassesTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassificationSystemsTest.cs" />

@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         private TestRun RunTest()
         {
-            return new NumberOfClassificationSystems(new ArchiveContentMemoryStreamReader(_archiveContent)).RunTest(new Archive("123", ""));
+            return new NumberOfClassificationSystems(new ArchiveContentMockReader(_archiveContent)).RunTest(new Archive("123", ""));
         }
 
         [Fact]

@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         private TestRun RunTest()
         {
-            return new NumberOfClasses(new ArchiveContentMemoryStreamReader(_archiveContent)).RunTest(new Archive("123", ""));
+            return new NumberOfClasses(new ArchiveContentMockReader(_archiveContent)).RunTest(new Archive("123", ""));
         }
 
         public void Dispose()
