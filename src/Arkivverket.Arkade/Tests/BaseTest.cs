@@ -20,6 +20,8 @@ namespace Arkivverket.Arkade.Tests
 
         protected abstract void Test(Archive archive);
 
+        public abstract string GetName();
+
         public TestRun RunTest(Archive archive)
         {
             TestResults = new TestRun(GetType().FullName, TestType);

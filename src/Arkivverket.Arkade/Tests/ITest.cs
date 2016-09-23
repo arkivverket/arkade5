@@ -5,5 +5,7 @@ namespace Arkivverket.Arkade.Tests
     public interface ITest
     {
         TestRun RunTest(Archive archive);
+
+        string GetName();
     }
 }

@@ -15,6 +15,10 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
         public ValidateXmlWithSchema(IArchiveContentReader archiveReader) : base(TestType.Structure, archiveReader)
         {
         }
+        public override string GetName()
+        {
+            return this.GetType().Name;
+        }
 
         protected override void Test(Archive archive)
         {
