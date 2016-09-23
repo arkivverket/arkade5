@@ -1,6 +1,7 @@
 using System;
+using System.IO;
+using System.Text;
 using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5.Structure;
 using FluentAssertions;
 using Xunit;
@@ -8,44 +9,56 @@ using Xunit.Abstractions;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
 {
-    public class ValidateXmlWithSchemaTest
+    public class ValidateXmlWithSchemaTest : IDisposable
     {
-        public ValidateXmlWithSchemaTest(ITestOutputHelper output)
+        public ValidateXmlWithSchemaTest(ITestOutputHelper outputHelper)
         {
-            _output = output;
+            _outputHelper = outputHelper;
         }
 
-        private readonly ITestOutputHelper _output;
-
-        private static TestRun ValidateArchive(string workingDirectory)
+        public void Dispose()
         {
-            var archiveExtraction = new Archive("uuid", workingDirectory);
-            archiveExtraction.ArchiveType = ArchiveType.Noark5;
-
-   //         var testResults = new ValidateXmlWithSchema().RunTest(archiveExtraction);
-            return null;
+            _archiveStructureContent?.Dispose();
         }
 
-        [Fact(Skip = "must refactor test")]
-        public void ShouldReturnErrorsWhenXmlIsInvalid()
+        private readonly ITestOutputHelper _outputHelper;
+
+        private Stream _archiveStructureContent;
+
+        private TestRun RunTest()
         {
-            // line 42 has invalid element
+            return new ValidateXmlWithSchema(new ArchiveContentMockReader(_archiveStructureContent)).RunTest(new Archive("", ""));
+        }
 
-            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\StructureValidation\\error";
-            var testResults = ValidateArchive(workingDirectory);
+        private MemoryStream GenerateStreamFromString(string value)
+        {
+            return new MemoryStream(Encoding.UTF8.GetBytes(value ?? ""));
+        }
 
-            _output.WriteLine(testResults.ToString());
+        [Fact]
+        public void ShouldReturnErrorsWhenXmlIsInvalidAccordingToSchema()
+        {
+            var xml =
+                @"<?xml version=""1.0"" encoding=""utf-8""?><addml xmlns=""http://www.arkivverket.no/standarder/addml""><hello></hello></addml>";
+            _archiveStructureContent = GenerateStreamFromString(xml);
+            var testResults = RunTest();
+
+            _outputHelper.WriteLine(testResults.Results[0].Message);
 
             testResults.IsSuccess().Should().BeFalse();
         }
 
-        [Fact(Skip = "must refactor test")]
-        public void ShouldReturnWithNoErrorsWhenXmlIsValid()
+        [Fact]
+        public void ShouldReturnSuccessWhenValidXml()
         {
-            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\StructureValidation\\correct";
-            var testResults = ValidateArchive(workingDirectory);
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>" +
+                      @"<addml xmlns=""http://www.arkivverket.no/standarder/addml"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">" +
+                      @"<dataset><description>test description</description><reference></reference></dataset></addml>";
 
-            _output.WriteLine(testResults.ToString());
+            _archiveStructureContent = GenerateStreamFromString(xml);
+            var testResults = RunTest();
+
+            _outputHelper.WriteLine(testResults.Results[0].Message);
 
             testResults.IsSuccess().Should().BeTrue();
         }

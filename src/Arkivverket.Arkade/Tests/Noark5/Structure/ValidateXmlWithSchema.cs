@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
@@ -15,72 +14,50 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
         public ValidateXmlWithSchema(IArchiveContentReader archiveReader) : base(TestType.Structure, archiveReader)
         {
         }
+
         public override string GetName()
         {
-            return this.GetType().Name;
+            return GetType().Name;
         }
 
         protected override void Test(Archive archive)
         {
             try
             {
-                ValidateXmlDocument(archive.GetStructureDescriptionFileName(), GetPathToAddmlSchema());
+                using (var validationReader = XmlReader.Create(ArchiveReader.GetStructureContentAsStream(archive), SetupXmlValidation()))
+                {
+                    while (validationReader.Read())
+                    {
+                    }
+                }
                 TestSuccess($"Validated XML file {archive.GetStructureDescriptionFileName()} with ADDML schema.");
             }
             catch (Exception e)
             {
                 TestError($"Error while validating xml [{archive.GetStructureDescriptionFileName()}] with ADDML schema: {e.Message}");
             }
+        }
 
+        private static XmlReaderSettings SetupXmlValidation()
+        {
+            var settings = new XmlReaderSettings();
+            settings.ValidationType = ValidationType.Schema;
+            settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
+            settings.ValidationEventHandler += delegate(object sender, ValidationEventArgs vargs) { throw vargs.Exception; };
+            settings.Schemas.Add("http://www.arkivverket.no/standarder/addml", GetPathToAddmlSchema());
+            return settings;
         }
 
         private static string GetPathToAddmlSchema()
         {
             return AppDomain.CurrentDomain.BaseDirectory
-                + Path.DirectorySeparatorChar
-                + "ExternalModels"
-                + Path.DirectorySeparatorChar
-                + "xsd" 
-                + Path.DirectorySeparatorChar
-                + "addml.xsd";
+                   + Path.DirectorySeparatorChar
+                   + "ExternalModels"
+                   + Path.DirectorySeparatorChar
+                   + "xsd"
+                   + Path.DirectorySeparatorChar
+                   + "addml.xsd";
         }
 
-
-        private void ValidateXmlDocument(string documentToValidateFileName, string schemaFileName)
-        {
-            XmlSchema schema;
-            using (var schemaReader = XmlReader.Create(schemaFileName))
-            {
-                schema = XmlSchema.Read(schemaReader, ValidationEventHandler);
-            }
-
-            var schemas = new XmlSchemaSet();
-            schemas.Add(schema);
-
-            var settings = new XmlReaderSettings();
-            settings.ValidationType = ValidationType.Schema;
-            settings.Schemas = schemas;
-            settings.ValidationFlags =
-                XmlSchemaValidationFlags.ProcessIdentityConstraints |
-                XmlSchemaValidationFlags.ReportValidationWarnings;
-            settings.ValidationEventHandler += ValidationEventHandler;
-
-            using (var validationReader = XmlReader.Create(documentToValidateFileName, settings))
-            {
-                while (validationReader.Read())
-                {
-                }
-            }
-        }
-
-        private static void ValidationEventHandler(object sender, ValidationEventArgs args)
-        {
-            if (args.Severity == XmlSeverityType.Error)
-            {
-                throw args.Exception;
-            }
-
-            Debug.WriteLine(args.Message);
-        }
     }
 }
