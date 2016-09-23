@@ -1,21 +1,22 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    class NumberOfClasses : BaseTest
+    public class NumberOfClasses : BaseTest
     {
+        public const string AnalysisKeyClasses = "Classes";
+
         public NumberOfClasses(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
         {
         }
 
         protected override void Test(ArchiveExtraction archive)
         {
-            using (var reader = XmlReader.Create(archive.GetContentDescriptionFileName()))
+            using (var reader = XmlReader.Create(ArchiveReader.GetContentAsStream(archive)))
             {
-                int counter = 0;
+                var counter = 0;
 
                 while (reader.Read())
                 {
@@ -24,7 +25,9 @@ namespace Arkivverket.Arkade.Tests.Noark5
                         counter++;
                     }
                 }
-                Console.WriteLine("Number of classes: " + counter);
+
+                AddAnalysisResult(AnalysisKeyClasses, counter.ToString());
+
                 TestSuccess($"Found {counter} classes.");
             }
         }
