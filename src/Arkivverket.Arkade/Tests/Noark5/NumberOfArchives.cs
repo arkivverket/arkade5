@@ -6,6 +6,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfArchives : BaseTest
     {
+        public const string AnalysisKeyArchives = "Archives";
+
         public NumberOfArchives(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
         {
         }
@@ -16,14 +18,16 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void Test(Archive archive)
         {
-            using (var reader = XmlReader.Create(archive.GetContentDescriptionFileName()))
+            using (var reader = XmlReader.Create(ArchiveReader.GetContentAsStream(archive)))
             {
                 int counter = 0;
-                while (reader.ReadToNextSibling("arkiv"))
+                while (reader.ReadToFollowing("arkiv"))
                 {
                     counter++;
                 }
-                Console.WriteLine("Number of archives: " + counter);
+
+                AddAnalysisResult(AnalysisKeyArchives, counter.ToString());
+
                 TestSuccess($"Found {counter} archives.");
             }
         }

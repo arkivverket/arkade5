@@ -15,13 +15,17 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         private klassifikasjonssystem _klassifikasjonssystem;
         private klasse _klasse;
         private mappe _mappe;
+        private arkiv _underarkiv;
+
+        private arkiv _valgtArkiv;
 
         private ArchiveBuilder()
         {
             _arkiv = new arkiv();
+            _valgtArkiv = _arkiv;
         }
 
-        public static IKanLeggeTilArkivdel Arkiv()
+        public static IKanLeggeTilArkivdelEllerUnderarkiv Arkiv()
         {
             return new ArchiveBuilder();
         }
@@ -29,7 +33,16 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         public IKanLeggeTilKlassifikasjonssystem Arkivdel()
         {
             _arkivdel = new arkivdel();
-            _arkiv.Items = AppendOrCreateNewArray(_arkiv.Items, _arkivdel);
+
+            _valgtArkiv.Items = AppendOrCreateNewArray(_valgtArkiv.Items, _arkivdel);
+            return this;
+        }
+
+        public IKanLeggeTilArkivdelEllerUnderarkiv Underarkiv()
+        {
+            _underarkiv = new arkiv();
+            _valgtArkiv.Items = AppendOrCreateNewArray(_valgtArkiv.Items, _underarkiv);
+            _valgtArkiv = _underarkiv;
             return this;
         }
 
@@ -87,19 +100,20 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
     }
 
-    public interface IKanLeggeTilArkivdel
+    public interface IKanLeggeTilArkivdelEllerUnderarkiv
     {
         IKanLeggeTilKlassifikasjonssystem Arkivdel();
+        IKanLeggeTilArkivdelEllerUnderarkiv Underarkiv();
         Stream Build();
     }
 
-    public interface IKanLeggeTilKlassifikasjonssystem : IKanLeggeTilArkivdel
+    public interface IKanLeggeTilKlassifikasjonssystem : IKanLeggeTilArkivdelEllerUnderarkiv
     {
         IKanLeggeTilKlasse Klassifikasjonssystem();
         new Stream Build();
     }
 
-    public interface IKanLeggeTilKlasse : IKanLeggeTilArkivdel
+    public interface IKanLeggeTilKlasse : IKanLeggeTilArkivdelEllerUnderarkiv
     {
         IKanLeggeTilMappe Klasse();
         new Stream Build();
