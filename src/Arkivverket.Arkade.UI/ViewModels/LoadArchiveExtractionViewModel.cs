@@ -62,7 +62,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             RunTestEngineCommand.RaiseCanExecuteChanged();
 
 
-            ArchiveExtraction archive = _archiveExtractionReader.ReadFromFile(ArchiveFileName, MetadataFileName);
+            Archive archive = _archiveExtractionReader.ReadFromFile(ArchiveFileName, MetadataFileName);
 
             Debug.Print(archive.Uuid);
             Debug.Print(archive.ArchiveType.ToString());

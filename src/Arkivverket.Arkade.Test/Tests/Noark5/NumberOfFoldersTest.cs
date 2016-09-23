@@ -12,9 +12,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
     {
         private Stream _archiveContent;
 
-        private TestResults RunTest()
+        private TestRun RunTest()
         {
-            return new NumberOfFolders(new ArchiveContentMemoryStreamReader(_archiveContent)).RunTest(new ArchiveExtraction("123", null));
+            return new NumberOfFolders(new ArchiveContentMemoryStreamReader(_archiveContent)).RunTest(new Archive("123", null));
         }
 
         [Fact]

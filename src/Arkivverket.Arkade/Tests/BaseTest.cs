@@ -4,11 +4,11 @@ using Arkivverket.Arkade.Core;
 
 namespace Arkivverket.Arkade.Tests
 {
-    public abstract class BaseTest
+    public abstract class BaseTest : ITest
     {
         protected readonly IArchiveContentReader ArchiveReader;
 
-        protected TestResults TestResults;
+        protected TestRun TestResults;
 
         private TestType TestType { get; }
 
@@ -18,11 +18,11 @@ namespace Arkivverket.Arkade.Tests
             TestType = testType;
         }
 
-        protected abstract void Test(ArchiveExtraction archive);
+        protected abstract void Test(Archive archive);
 
-        public TestResults RunTest(ArchiveExtraction archive)
+        public TestRun RunTest(Archive archive)
         {
-            TestResults = new TestResults(GetType().FullName, TestType);
+            TestResults = new TestRun(GetType().FullName, TestType);
 
             var start = DateTime.Now;
             Test(archive);

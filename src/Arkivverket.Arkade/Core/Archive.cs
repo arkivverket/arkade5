@@ -2,10 +2,10 @@ using System.IO;
 
 namespace Arkivverket.Arkade.Core
 {
-    public class ArchiveExtraction
+    public class Archive
     {
 
-        public ArchiveExtraction(string uuid, string workingDirectory)
+        public Archive(string uuid, string workingDirectory)
         {
             Uuid = uuid;
             WorkingDirectory = workingDirectory;

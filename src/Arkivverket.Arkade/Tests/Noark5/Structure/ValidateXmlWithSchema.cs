@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
         {
         }
 
-        protected override void Test(ArchiveExtraction archive)
+        protected override void Test(Archive archive)
         {
             try
             {

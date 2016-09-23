@@ -17,9 +17,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
 
         private readonly ITestOutputHelper _output;
 
-        private static TestResults ValidateArchive(string workingDirectory)
+        private static TestRun ValidateArchive(string workingDirectory)
         {
-            var archiveExtraction = new ArchiveExtraction("uuid", workingDirectory);
+            var archiveExtraction = new Archive("uuid", workingDirectory);
             archiveExtraction.ArchiveType = ArchiveType.Noark5;
 
    //         var testResults = new ValidateXmlWithSchema().RunTest(archiveExtraction);

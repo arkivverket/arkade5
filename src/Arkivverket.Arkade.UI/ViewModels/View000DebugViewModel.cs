@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             Debug.Print("Issued the RunTests command");
             var workingDirectory = @"C:\temp\n5-alice-liten";
             //var workingDirectory = @"C:\dev\src\arkade\src\Arkivverket.Arkade.Test\TestData\Noark5\StructureChecksums\correct";
-            var archiveExtraction = new ArchiveExtraction("uuid", workingDirectory);
+            var archiveExtraction = new Archive("uuid", workingDirectory);
             archiveExtraction.ArchiveType = ArchiveType.Noark5;
 
             Debug.Print("Test run #1");

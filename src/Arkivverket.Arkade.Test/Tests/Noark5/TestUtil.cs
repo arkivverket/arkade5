@@ -5,10 +5,10 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
     public class TestUtil
     {
-        public static ArchiveExtraction CreateArchiveExtraction(string testdataDirectory)
+        public static Archive CreateArchiveExtraction(string testdataDirectory)
         {
             string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\{testdataDirectory}";
-            var archiveExtraction = new ArchiveExtraction("uuid", workingDirectory);
+            var archiveExtraction = new Archive("uuid", workingDirectory);
             archiveExtraction.ArchiveType = ArchiveType.Noark5;
             return archiveExtraction;
         }

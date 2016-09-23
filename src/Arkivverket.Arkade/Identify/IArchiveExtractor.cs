@@ -4,6 +4,6 @@ namespace Arkivverket.Arkade.Identify
 {
     public interface IArchiveExtractor
     {
-        ArchiveExtraction Extract(string fileName);
+        Archive Extract(string fileName);
     }
 }

@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Tests
             _noark5TestProvider = noark5TestProvider;
         }
 
-        public List<BaseTest> GetTestsForArchiveExtraction(ArchiveExtraction archiveExtraction)
+        public List<BaseTest> GetTestsForArchiveExtraction(Archive archiveExtraction)
         {
             if (archiveExtraction.ArchiveType.Equals(ArchiveType.Noark5))
             {

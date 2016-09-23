@@ -12,9 +12,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
     {
         private Stream _archiveContent;
 
-        private TestResults RunTest()
+        private TestRun RunTest()
         {
-            return new NumberOfClassificationSystems(new ArchiveContentMemoryStreamReader(_archiveContent)).RunTest(new ArchiveExtraction("123", ""));
+            return new NumberOfClassificationSystems(new ArchiveContentMemoryStreamReader(_archiveContent)).RunTest(new Archive("123", ""));
         }
 
         [Fact]
@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         {
             _archiveContent = ArchiveBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Build();
 
-            TestResults testResults = RunTest();
+            TestRun testResults = RunTest();
             testResults.AnalysisResults[NumberOfClassificationSystems.AnalysisKeyClassificationSystems].Should().Be("1");
         }
 
@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                 .Arkivdel().Klassifikasjonssystem()
                 .Build();
 
-            TestResults testResults = RunTest();
+            TestRun testResults = RunTest();
             testResults.AnalysisResults[NumberOfClassificationSystems.AnalysisKeyClassificationSystems].Should().Be("2");
         }
 

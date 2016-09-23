@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
         }
 
-        protected override void Test(ArchiveExtraction archive)
+        protected override void Test(Archive archive)
         {
             using (Stream content = ArchiveReader.GetContentAsStream(archive))
             {

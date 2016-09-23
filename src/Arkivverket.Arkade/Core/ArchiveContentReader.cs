@@ -4,7 +4,7 @@ namespace Arkivverket.Arkade.Core
 {
     public class ArchiveContentReader : IArchiveContentReader
     {
-        public Stream GetContentAsStream(ArchiveExtraction archiveExtraction)
+        public Stream GetContentAsStream(Archive archiveExtraction)
         {
 
             // TODO: investigate if we can cache the stream instead of creating it from scratch multiple times. When should we call Dispose() on the stream?

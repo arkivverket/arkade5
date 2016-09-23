@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             _stream = stream;
         }
 
-        public Stream GetContentAsStream(ArchiveExtraction archiveExtraction)
+        public Stream GetContentAsStream(Archive archiveExtraction)
         {
             return _stream;
         }

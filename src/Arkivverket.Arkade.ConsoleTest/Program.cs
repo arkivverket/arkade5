@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.ConsoleTest
             {
                 ArchiveExtractionReader archiveExtractionReader = container.Resolve<ArchiveExtractionReader>();
 
-                ArchiveExtraction archiveExtraction = archiveExtractionReader.ReadFromFile(archiveFileName, metadataFileName);
+                Archive archiveExtraction = archiveExtractionReader.ReadFromFile(archiveFileName, metadataFileName);
                 Console.WriteLine($"Reading from archive: {archiveFileName}");
                 Console.WriteLine($"Uuid: {archiveExtraction.Uuid}");
                 Console.WriteLine($"WorkingDirectory: {archiveExtraction.WorkingDirectory}");
@@ -42,8 +42,8 @@ namespace Arkivverket.Arkade.ConsoleTest
 
 
                 TestEngine testEngine = container.Resolve<TestEngine>();
-                List<TestResults> testResults = testEngine.RunTestsOnArchive(archiveExtraction);
-                foreach (TestResults results in testResults)
+                List<TestRun> testResults = testEngine.RunTestsOnArchive(archiveExtraction);
+                foreach (TestRun results in testResults)
                 {
                     Console.WriteLine($"Test: {results.TestName}, duration={results.TestDuration}, success={results.IsSuccess()}");
                 }

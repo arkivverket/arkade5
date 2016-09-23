@@ -1,9 +1,10 @@
+using Arkivverket.Arkade.Tests;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Arkivverket.Arkade.Tests
+namespace Arkivverket.Arkade.Core
 {
-    public class TestResults
+    public class TestRun
     {
         public Dictionary<string, string> AnalysisResults = new Dictionary<string, string>();
 
@@ -13,7 +14,7 @@ namespace Arkivverket.Arkade.Tests
         public TestType TestType { get; set; }
 
 
-        public TestResults(string testName, TestType testType)
+        public TestRun(string testName, TestType testType)
         {
             Results = new List<TestResult>();
             TestName = testName;

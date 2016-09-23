@@ -14,12 +14,12 @@ namespace Arkivverket.Arkade.Identify
             _archiveIdentifier = archiveIdentifier;
         }
 
-        public ArchiveExtraction ReadFromFile(string archiveFileName, string metadataFileName)
+        public Archive ReadFromFile(string archiveFileName, string metadataFileName)
         {
             Log.Information("Reading archive from file: " + archiveFileName);
             Log.Information("Reading archive metadata from file: " + metadataFileName);
 
-            ArchiveExtraction archiveExtraction = _archiveExtractor.Extract(archiveFileName);
+            Archive archiveExtraction = _archiveExtractor.Extract(archiveFileName);
             archiveExtraction.ArchiveType = _archiveIdentifier.Identify(metadataFileName);
             return archiveExtraction;
         }
