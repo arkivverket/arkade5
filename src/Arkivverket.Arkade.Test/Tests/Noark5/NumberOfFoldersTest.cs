@@ -56,7 +56,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         public void Dispose()
         {
-            _archiveContent.Dispose();
+            _archiveContent?.Dispose();
         }
     }
 }
