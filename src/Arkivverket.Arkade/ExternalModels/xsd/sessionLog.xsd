@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+    targetNamespace="http://www.arkivverket.no/dataextracttools/arkade5/sessionlog"
+    elementFormDefault="qualified"
+    xmlns="http://www.arkivverket.no/dataextracttools/arkade5/sessionlog"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="sessionLog" type="sessionLog"/>
+  <xs:complexType name="sessionLog">
+    <xs:sequence>
+      <xs:element name="archive" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="uuid" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="testResults" type="testResults" />
+      <xs:element name="logEntries" type="logEntries" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="testResults">
+    <xs:sequence minOccurs="1">
+      <xs:element maxOccurs="unbounded" name="testResult">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="testName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="durationMillis" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="message" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="errorMessage" type="xs:string" minOccurs="0" maxOccurs="1"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="logEntries">
+    <xs:sequence minOccurs="1">
+      <xs:element maxOccurs="unbounded" name="logEntry">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="timestamp" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="logLevel" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="message" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

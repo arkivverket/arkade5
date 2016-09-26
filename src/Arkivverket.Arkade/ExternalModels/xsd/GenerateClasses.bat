@@ -16,4 +16,9 @@ echo "Generate classes for arkivstruktur.xsd"
 copy /y arkivstruktur_metadatakatalog.cs ..\Arkivstruktur.cs
 del arkivstruktur_metadatakatalog.cs
 
+echo "Generate classes for sessionLog.xsd"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\xsd.exe" /nologo sessionLog.xsd /c /n:Arkivverket.Arkade.ExternalModels.SessionLog
+copy /y sessionLog.cs ..\SessionLog.cs
+del sessionLog.cs
+
 pause

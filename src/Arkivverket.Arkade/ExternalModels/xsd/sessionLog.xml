@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sessionLog
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="sessionLog.xsd">
+  
+  <startTime>2016-09-23T12:55:10.342+02:00</startTime>
+  <endTime>2016-09-23T12:55:15.463+02:00</endTime>
+  
+  <archive>
+    <uuid>2a4c611b-fc02-4ad0-8b11-1b9956eaa400</uuid>
+  </archive>
+  
+  <testResults>
+    <testResult>
+      <testName>NumberOfFolders</testName>
+      <durationMillis>50</durationMillis>
+      <status>SUCCESS</status>
+	  <message>Found 2 classification systems</message>
+	</testResult>
+    <testResult>
+      <testName>ValidateAddmlDataobjectsChecksums</testName>
+      <durationMillis>534</durationMillis>
+      <status>ERROR</status>
+      <message>Checksum validated OK for file: 1.pdf with algorithm: SHA256. Checksum [39a3ee5e6b4b0d3255bfef95601890afd80709]</message>
+      <errorMessage>Checksum mismatch for file 2.pdf with algorithm SHA256. Expected checksum [39a3ee5e6b4b0d3255bfef95601890afd80709]. Actual checksum [39a3ee5e6b4b0d3255bfef95601890afd80700]</errorMessage>
+    </testResult>
+	<!-- more test results here -->
+  </testResults>
+
+  <!-- If actions in GUI is to be logged -->
+  <logEntries>
+    <logEntry>
+      <timestamp>2016-09-23T12:55:10.153+02:00</timestamp>
+      <logLevel>INFO</logLevel>
+      <message>Test session started</message>
+    </logEntry>
+    <logEntry>
+      <timestamp>2016-09-23T12:55:10.453+02:00</timestamp>
+      <logLevel>INFO</logLevel>
+      <message>Archive 1.tar loaded</message>
+    </logEntry>
+    <logEntry>
+      <timestamp>2016-09-23T12:55:15.352+02:00</timestamp>
+      <logLevel>INFO</logLevel>
+      <message>Test session finished</message>
+    </logEntry>
+  </logEntries>
+</sessionLog>
