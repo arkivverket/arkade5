@@ -15,12 +15,14 @@ namespace Arkivverket.Arkade.UI.ViewModels
     {
 
         private ObservableCollection<TestResultsArrivedEventArgs> _testResults = new ObservableCollection<TestResultsArrivedEventArgs>();
+
         private readonly ArchiveExtractionReader _archiveExtractionReader;
         private readonly TestEngine _testEngine;
         private bool _isRunningTests;
+
         private DelegateCommand RunTestEngineCommand { get; set; }
-            string metadataFileName;
-            string archiveFileName;
+        private string _metadataFileName;
+        private string _archiveFileName;
 
         public ObservableCollection<TestResultsArrivedEventArgs> TestResults
         {
@@ -33,17 +35,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _testEngine = testEngine;
             _testEngine.TestResultsArrived += TestEngineOnTestResultsArrived;
 
-            Debug.Print("TEST SUMMARY!!!!");
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
 
         }
         public void OnNavigatedTo(NavigationContext context)
         {
-            Debug.Print("NavigatedTo");
-            metadataFileName = (string)context.Parameters["metadataFileName"];
-            archiveFileName = (string)context.Parameters["archiveFileName"];
-
-            Debug.Print("metadatafilename: " + metadataFileName);
+            _metadataFileName = (string)context.Parameters["metadataFileName"];
+            _archiveFileName = (string)context.Parameters["archiveFileName"];
 
             RunTestEngineCommand.Execute();
         }
@@ -59,10 +57,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void TestEngineOnTestResultsArrived(object sender, TestResultsArrivedEventArgs eventArgs)
         {
-            string msg = $"{eventArgs.TestName} isSuccess={eventArgs.IsSuccess}";
-
-            Debug.Print(msg);
-
             // http://stackoverflow.com/questions/18331723/this-type-of-collectionview-does-not-support-changes-to-its-sourcecollection-fro
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
@@ -75,7 +69,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             Debug.Print("Issued the RunTests command");
 
-            Archive archive = _archiveExtractionReader.ReadFromFile(archiveFileName, metadataFileName);
+            Archive archive = _archiveExtractionReader.ReadFromFile(_archiveFileName, _metadataFileName);
 
             Debug.Print(archive.Uuid);
             Debug.Print(archive.ArchiveType.ToString());
