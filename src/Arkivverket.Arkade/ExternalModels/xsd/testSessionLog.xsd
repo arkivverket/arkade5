@@ -1,22 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema
-    targetNamespace="http://www.arkivverket.no/dataextracttools/arkade5/sessionlog"
+    targetNamespace="http://www.arkivverket.no/dataextracttools/arkade5/testsessionlog"
     elementFormDefault="qualified"
-    xmlns="http://www.arkivverket.no/dataextracttools/arkade5/sessionlog"
+    xmlns="http://www.arkivverket.no/dataextracttools/arkade5/testsessionlog"
     xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:element name="sessionLog" type="sessionLog"/>
-  <xs:complexType name="sessionLog">
+  <xs:element name="testSessionLog" type="testSessionLog"/>
+  <xs:complexType name="testSessionLog">
     <xs:sequence>
-      <xs:element name="archive" minOccurs="1" maxOccurs="1">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="uuid" type="xs:string" minOccurs="1" maxOccurs="1"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="testResults" type="testResults" />
-      <xs:element name="logEntries" type="logEntries" />
+      <xs:element name="timestamp" minOccurs="1" maxOccurs="1" />
+      <xs:element name="archiveUuid" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="archiveType" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="arkadeVersion" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="testResults" type="testResults" minOccurs="0" maxOccurs="1" />
+      <xs:element name="logEntries" type="logEntries" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
   </xs:complexType>
 
@@ -26,6 +23,8 @@
         <xs:complexType>
           <xs:sequence>
             <xs:element name="testName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="testCategory" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="testDescription" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="durationMillis" type="xs:integer" minOccurs="1" maxOccurs="1"/>
             <xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="message" type="xs:string" minOccurs="0" maxOccurs="1"/>
@@ -42,7 +41,6 @@
         <xs:complexType>
           <xs:sequence>
             <xs:element name="timestamp" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="logLevel" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="message" type="xs:string" minOccurs="1" maxOccurs="1"/>
           </xs:sequence>
         </xs:complexType>

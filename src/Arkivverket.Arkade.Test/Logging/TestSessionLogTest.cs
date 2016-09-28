@@ -5,17 +5,17 @@ using FluentAssertions;
 
 namespace Arkivverket.Arkade.Test.Logging
 {
-    public class SessionLogTest
+    public class TestSessionLogTest
     {
         [Fact]
         public void ShouldGenerateXml()
         {
-            SessionLog SesionLog = new SessionLog();
-            SesionLog.LogInfo("Logging on INFO");
+            TestSessionLog SesionLog = new TestSessionLog();
+            SesionLog.Log("Logging!");
 
             string xml = SesionLog.CreateXml();
-            xml.Should().Contain("<logLevel>INFO</logLevel>")
-                .And.Contain("<message>Logging on INFO</message>");
+            xml.Should().Contain("<timestamp>")
+                .And.Contain("<message>Logging!</message>");
         }
     }
 }
