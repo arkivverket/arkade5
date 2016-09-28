@@ -66,6 +66,7 @@
     <Compile Include="Core\ArchiveContentReader.cs" />
     <Compile Include="Core\ArchiveInfo.cs" />
     <Compile Include="Core\IArchiveContentReader.cs" />
+    <Compile Include="Core\LogEntry.cs" />
     <Compile Include="Core\TestEngine.cs" />
     <Compile Include="Core\TestReport.cs" />
     <Compile Include="Core\TestStartedEventArgs.cs" />

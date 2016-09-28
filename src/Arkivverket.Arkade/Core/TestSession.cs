@@ -1,4 +1,7 @@
-﻿namespace Arkivverket.Arkade.Core
+﻿using System;
+using System.Collections.Generic;
+
+namespace Arkivverket.Arkade.Core
 {
 
     public class TestSession
@@ -14,6 +17,12 @@
 
         public TestReport TestReport { get; }
 
+        private List<LogEntry> logEntries = new List<LogEntry>();
+
+        public void AddLogEntry(string message)
+        {
+            logEntries.Add(new LogEntry(new DateTime(), message));
+        }
 
     }
 }
