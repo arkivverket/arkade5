@@ -13,6 +13,7 @@ namespace Arkivverket.Arkade.Util
             builder.RegisterType<ArchiveExtractionReader>().AsSelf();
             builder.RegisterType<ArchiveIdentifier>().As<IArchiveIdentifier>();
             builder.RegisterType<TestEngine>().AsSelf().SingleInstance();
+            builder.RegisterType<ArchiveContentReader>().As<IArchiveContentReader>();
         }
     }
 }
