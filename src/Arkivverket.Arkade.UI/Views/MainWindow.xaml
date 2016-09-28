@@ -25,7 +25,6 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="300"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -44,12 +43,5 @@
                             prism:RegionManager.RegionName="MainContentRegion"
                             VerticalContentAlignment="Stretch"
                             HorizontalContentAlignment="Stretch" />
-
-        <!-- Log Region -->
-        <ContentControl Grid.Row="2" x:Name="LogRegion"
-                        prism:RegionManager.RegionName="StatusContentRegion"
-                        VerticalContentAlignment="Stretch"
-                        HorizontalContentAlignment="Stretch" />
-
     </Grid>
 </Window>

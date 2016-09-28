@@ -140,6 +140,7 @@
     <Compile Include="Util\LogConfiguration.cs" />
     <Compile Include="ViewModels\LoadArchiveExtractionViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\TestSummaryViewModel.cs" />
     <Compile Include="ViewModels\View000DebugViewModel.cs" />
     <Compile Include="ViewModels\View100StatusViewModel.cs" />
     <Compile Include="Views\LoadArchiveExtraction.xaml.cs">
@@ -147,6 +148,9 @@
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestSummary.xaml.cs">
+      <DependentUpon>TestSummary.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\View000Debug.xaml.cs">
       <DependentUpon>View000Debug.xaml</DependentUpon>
@@ -159,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestSummary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

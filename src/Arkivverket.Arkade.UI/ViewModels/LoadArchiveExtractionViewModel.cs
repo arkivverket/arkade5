@@ -5,6 +5,7 @@ using Arkivverket.Arkade.Identify;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 
 namespace Arkivverket.Arkade.UI.ViewModels
 {
@@ -12,18 +13,22 @@ namespace Arkivverket.Arkade.UI.ViewModels
     {
         private readonly ArchiveExtractionReader _archiveExtractionReader;
         private readonly TestEngine _testEngine;
+        private readonly IRegionManager _regionManager;
         private string _archiveFileName;
 
         private string _metadataFileName;
         private bool _isRunningTests;
 
-        public LoadArchiveExtractionViewModel(ArchiveExtractionReader archiveExtractionReader, TestEngine testEngine)
+        public LoadArchiveExtractionViewModel(ArchiveExtractionReader archiveExtractionReader, TestEngine testEngine, IRegionManager regionManager)
         {
             _archiveExtractionReader = archiveExtractionReader;
             _testEngine = testEngine;
+            _regionManager = regionManager;
             OpenMetadataFileCommand = new DelegateCommand(OpenMetadataFileDialog);
             OpenArchiveFileCommand = new DelegateCommand(OpenArchiveFileDialog);
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()), CanRunTests);
+
+            NavigateCommand = new DelegateCommand(Navigate);
         }
 
         public string MetadataFileName
@@ -45,6 +50,16 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 RunTestEngineCommand.RaiseCanExecuteChanged();
             }
         }
+
+        private void Navigate()
+        {
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add("archiveFileName", ArchiveFileName);
+            navigationParameters.Add("metadataFileName", MetadataFileName);
+            _regionManager.RequestNavigate("MainContentRegion", "TestSummary", navigationParameters);
+        }
+
+        public DelegateCommand NavigateCommand { get; set; }
 
         public DelegateCommand RunTestEngineCommand { get; set; }
         public DelegateCommand OpenMetadataFileCommand { get; set; }
