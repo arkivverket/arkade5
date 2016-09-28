@@ -41,10 +41,10 @@ namespace Arkivverket.Arkade.ConsoleTest
 
 
                 TestEngine testEngine = container.Resolve<TestEngine>();
-                List<TestRun> testResults = testEngine.RunTestsOnArchive(testSession.Archive);
-                foreach (TestRun results in testResults)
+                TestSuite testSuite = testEngine.RunTestsOnArchive(testSession);
+                foreach (TestRun testRun in testSuite.TestRuns)
                 {
-                    Console.WriteLine($"Test: {results.TestName}, duration={results.TestDuration}, success={results.IsSuccess()}");
+                    Console.WriteLine($"Test: {testRun.TestName}, duration={testRun.TestDuration}, success={testRun.IsSuccess()}");
                 }
 
             }

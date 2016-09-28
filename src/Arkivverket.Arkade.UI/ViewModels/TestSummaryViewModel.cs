@@ -76,7 +76,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             Log.Debug(testSession.Archive.ArchiveType.ToString());
             Log.Debug(testSession.Archive.WorkingDirectory);
 
-            _testEngine.RunTestsOnArchive(testSession.Archive);
+            _testEngine.RunTestsOnArchive(testSession);
         }
 
         

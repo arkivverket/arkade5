@@ -13,22 +13,23 @@ namespace Arkivverket.Arkade.Core
             _testProvider = testProvider;
         }
 
-        public List<TestRun> RunTestsOnArchive(Archive archive)
+        public TestSuite RunTestsOnArchive(TestSession testSession)
         {
-            List<ITest> testsToRun = _testProvider.GetTestsForArchive(archive);
+            List<ITest> testsToRun = _testProvider.GetTestsForArchive(testSession.Archive);
 
-            var testResultsFromAllTests = new List<TestRun>();
+            var testSuite = new TestSuite();
+            
             foreach (ITest test in testsToRun)
             {
                 OnTestStarted(new TestStartedEventArgs(test));
 
-                var testResults = test.RunTest(archive);
+                var testRun = test.RunTest(testSession.Archive);
 
-                OnTestFinished(new TestFinishedEventArgs(testResults));
+                OnTestFinished(new TestFinishedEventArgs(testRun));
 
-                testResultsFromAllTests.Add(testResults);
+                testSuite.AddTestRun(testRun);
             }
-            return testResultsFromAllTests;
+            return testSuite;
         }
 
         public event EventHandler<TestFinishedEventArgs> TestFinished;

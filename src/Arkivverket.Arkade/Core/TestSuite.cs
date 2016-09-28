@@ -5,9 +5,12 @@ namespace Arkivverket.Arkade.Core
 {
     public class TestSuite
     {
-        public List<TestRun> TestRun;
+        public readonly List<TestRun> TestRuns = new List<TestRun>();
 
-
+        public void AddTestRun(TestRun testRun)
+        {
+            TestRuns.Add(testRun);
+        }
 
     }
 }

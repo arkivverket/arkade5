@@ -83,7 +83,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             Debug.Print(testSession.Archive.ArchiveType.ToString());
             Debug.Print(testSession.Archive.WorkingDirectory);
 
-            _testEngine.RunTestsOnArchive(testSession.Archive);
+            _testEngine.RunTestsOnArchive(testSession);
 
             _isRunningTests = false;
             RunTestEngineCommand.RaiseCanExecuteChanged();
