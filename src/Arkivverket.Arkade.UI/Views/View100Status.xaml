@@ -26,7 +26,7 @@
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding TestResults}">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type domain:TestResultsArrivedEventArgs}">
+                    <DataTemplate DataType="{x:Type domain:TestFinishedEventArgs}">
                         <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}">
                             
                                 <StackPanel Margin="8 0 0 0">

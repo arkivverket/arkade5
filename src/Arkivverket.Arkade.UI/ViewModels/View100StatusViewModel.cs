@@ -19,9 +19,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _logString, value); }
         }
 
-        private ObservableCollection<TestResultsArrivedEventArgs> _testResults = new ObservableCollection<TestResultsArrivedEventArgs>();
+        private ObservableCollection<TestFinishedEventArgs> _testResults = new ObservableCollection<TestFinishedEventArgs>();
 
-        public ObservableCollection<TestResultsArrivedEventArgs> TestResults
+        public ObservableCollection<TestFinishedEventArgs> TestResults
         {
             get { return _testResults; }
             set { SetProperty(ref _testResults, value); }
@@ -30,10 +30,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
         public View100StatusViewModel(TestEngine testEngine)
         {
             _testEngine = testEngine;
-            _testEngine.TestResultsArrived += TestEngineOnTestResultsArrived;
+            _testEngine.TestFinished += TestEngineOnTestFinished;
         }
 
-        private void TestEngineOnTestResultsArrived(object sender, TestResultsArrivedEventArgs eventArgs)
+        private void TestEngineOnTestFinished(object sender, TestFinishedEventArgs eventArgs)
         {
             string msg = $"{eventArgs.TestName} isSuccess={eventArgs.IsSuccess}";
             LogString = $"{LogString}\n{msg}";

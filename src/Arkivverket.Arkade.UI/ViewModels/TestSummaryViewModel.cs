@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
     public class TestSummaryViewModel : BindableBase, INavigationAware
     {
 
-        private ObservableCollection<TestResultsArrivedEventArgs> _testResults = new ObservableCollection<TestResultsArrivedEventArgs>();
+        private ObservableCollection<TestFinishedEventArgs> _testResults = new ObservableCollection<TestFinishedEventArgs>();
 
         private readonly ArchiveExtractionReader _archiveExtractionReader;
         private readonly TestEngine _testEngine;
@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private string _metadataFileName;
         private string _archiveFileName;
 
-        public ObservableCollection<TestResultsArrivedEventArgs> TestResults
+        public ObservableCollection<TestFinishedEventArgs> TestResults
         {
             get { return _testResults; }
             set { SetProperty(ref _testResults, value); }
@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             _archiveExtractionReader = archiveExtractionReader;
             _testEngine = testEngine;
-            _testEngine.TestResultsArrived += TestEngineOnTestResultsArrived;
+            _testEngine.TestFinished += TestEngineOnTestFinished;
 
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
 
@@ -55,7 +55,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
         }
 
-        private void TestEngineOnTestResultsArrived(object sender, TestResultsArrivedEventArgs eventArgs)
+        private void TestEngineOnTestFinished(object sender, TestFinishedEventArgs eventArgs)
         {
             // http://stackoverflow.com/questions/18331723/this-type-of-collectionview-does-not-support-changes-to-its-sourcecollection-fro
             Application.Current.Dispatcher.Invoke((Action)delegate

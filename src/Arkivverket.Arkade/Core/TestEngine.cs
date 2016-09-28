@@ -24,19 +24,19 @@ namespace Arkivverket.Arkade.Core
 
                 var testResults = test.RunTest(archive);
 
-                OnTestResultsArrived(new TestResultsArrivedEventArgs(testResults));
+                OnTestFinished(new TestFinishedEventArgs(testResults));
 
                 testResultsFromAllTests.Add(testResults);
             }
             return testResultsFromAllTests;
         }
 
-        public event EventHandler<TestResultsArrivedEventArgs> TestResultsArrived;
+        public event EventHandler<TestFinishedEventArgs> TestFinished;
         public event EventHandler<TestStartedEventArgs> TestStarted;
 
-        protected virtual void OnTestResultsArrived(TestResultsArrivedEventArgs e)
+        protected virtual void OnTestFinished(TestFinishedEventArgs e)
         {
-            var handler = TestResultsArrived;
+            var handler = TestFinished;
             handler?.Invoke(this, e);
         }
 
@@ -48,12 +48,12 @@ namespace Arkivverket.Arkade.Core
 
     }
 
-    public class TestResultsArrivedEventArgs : EventArgs
+    public class TestFinishedEventArgs : EventArgs
     {
         public string TestName { get; set; }
         public bool IsSuccess { get; set; }
 
-        public TestResultsArrivedEventArgs(TestRun results)
+        public TestFinishedEventArgs(TestRun results)
         {
             TestName = results.TestName;
             IsSuccess = results.IsSuccess();
