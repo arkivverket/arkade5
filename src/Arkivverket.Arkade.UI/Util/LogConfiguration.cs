@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.UI.Util
             // Init logging
             Log.Logger = new LoggerConfiguration()
                 .Enrich.With(new ThreadIdEnricher())
-                .WriteTo.ColoredConsole(outputTemplate: $"{Resources.SerilogFormatConfig}")
+                .WriteTo.ColoredConsole(outputTemplate: $"{Resources.UI.SerilogFormatConfig}")
                 .CreateLogger();
         }
     }

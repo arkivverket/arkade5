@@ -25,17 +25,26 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private string _metadataFileName;
         private string _archiveFileName;
 
+        private Operation _operation;
+
+        public Operation Operation
+        {
+            get { return _operation; }
+            set { SetProperty(ref _operation, value); }
+        }
+
         public ObservableCollection<TestFinishedEventArgs> TestResults
         {
             get { return _testResults; }
             set { SetProperty(ref _testResults, value); }
         }
+
         public TestSummaryViewModel(TestSessionBuilder testSessionBuilder, TestEngine testEngine)
         {
             _testSessionBuilder = testSessionBuilder;
             _testEngine = testEngine;
+            _testEngine.TestStarted += TestEngineOnTestStarted;
             _testEngine.TestFinished += TestEngineOnTestFinished;
-
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
 
         }
@@ -54,6 +63,22 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+        }
+
+        private void TestEngineOnTestStarted(object sender, TestStartedEventArgs eventArgs)
+        {
+            string userFriendlyName = GetUserFriendlyTestName(eventArgs);
+
+            Operation = new Operation()
+            {
+                OperationName = userFriendlyName,
+                StartTime = eventArgs.StartTime
+            };
+        }
+
+        private static string GetUserFriendlyTestName(TestStartedEventArgs eventArgs)
+        {
+            return Resources.UI.ResourceManager.GetString("TestName_" + eventArgs.TestName);
         }
 
         private void TestEngineOnTestFinished(object sender, TestFinishedEventArgs eventArgs)
@@ -80,5 +105,11 @@ namespace Arkivverket.Arkade.UI.ViewModels
         }
 
         
+    }
+
+    public class Operation
+    {
+        public string OperationName { get; set; }
+        public DateTime StartTime { get; set; }
     }
 }

@@ -13,11 +13,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="0 6 0 8">Testsammendrag</TextBlock>
-
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="0 6 0 8">Testsammendrag</TextBlock>
+        <TextBlock Grid.Row="1" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="0 6 0 8" Text="Kjørende oppgave: " />
+        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="0 6 0 8" Text="{Binding Operation.OperationName}" />
+        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding TestResults}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type domain:TestFinishedEventArgs}">

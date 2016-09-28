@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.UI.Views
         public MainWindow()
         {
             InitializeComponent();
-            Title = Properties.Resources.General_WindowTitle;
+            Title = Arkivverket.Arkade.UI.Resources.UI.General_WindowTitle;
         }
     }
 }

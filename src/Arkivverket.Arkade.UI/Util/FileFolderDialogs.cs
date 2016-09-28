@@ -20,12 +20,12 @@ namespace Arkivverket.Arkade.UI.Util
             if (status == null)
             {
                 // No file was chosen
-                throw new UiPprocessingExceptions(Resources.FileException_NoFileChosen);
+                throw new UiPprocessingExceptions(Resources.UI.FileException_NoFileChosen);
             }
             if (status == false)
             {
                 // File chooser returned false ... some issue?    
-                throw new UiPprocessingExceptions(Resources.FileException_ErrorWithChosenFile);
+                throw new UiPprocessingExceptions(Resources.UI.FileException_ErrorWithChosenFile);
             }
             if (status == true)
             {
@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.UI.Util
             else
             {
                 // File chooser returned false ... some issue?    
-                throw new UiPprocessingExceptions(Resources.FileException_GeneralError);
+                throw new UiPprocessingExceptions(Resources.UI.FileException_GeneralError);
             }
             return filename;
         }
