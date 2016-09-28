@@ -87,6 +87,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Core\ArchiveExtractionTest.cs" />
+    <Compile Include="Core\TestEngineTest.cs" />
     <Compile Include="Logging\TestSessionLogTest.cs" />
     <Compile Include="Identify\ArchiveExctractionReaderTest.cs" />
     <Compile Include="Identify\ArchiveExtractorTest.cs" />

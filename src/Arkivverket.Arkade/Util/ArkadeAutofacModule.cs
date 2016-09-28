@@ -1,5 +1,6 @@
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Identify;
+using Arkivverket.Arkade.Tests;
 using Autofac;
 
 namespace Arkivverket.Arkade.Util
@@ -14,6 +15,7 @@ namespace Arkivverket.Arkade.Util
             builder.RegisterType<ArchiveIdentifier>().As<IArchiveIdentifier>();
             builder.RegisterType<TestEngine>().AsSelf().SingleInstance();
             builder.RegisterType<ArchiveContentReader>().As<IArchiveContentReader>();
+            builder.RegisterType<TestProvider>().As<ITestProvider>();
         }
     }
 }

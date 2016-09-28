@@ -4,7 +4,7 @@ using Arkivverket.Arkade.Tests.Noark5;
 
 namespace Arkivverket.Arkade.Tests
 {
-    public class TestProvider
+    public class TestProvider : ITestProvider
     {
         private readonly Noark5TestProvider _noark5TestProvider;
 
@@ -13,14 +13,14 @@ namespace Arkivverket.Arkade.Tests
             _noark5TestProvider = noark5TestProvider;
         }
 
-        public List<BaseTest> GetTestsForArchiveExtraction(Archive archiveExtraction)
+        public List<ITest> GetTestsForArchive(Archive archive)
         {
-            if (archiveExtraction.ArchiveType.Equals(ArchiveType.Noark5))
+            if (archive.ArchiveType.Equals(ArchiveType.Noark5))
             {
                 return _noark5TestProvider.GetTests();
             }
 
-            return new List<BaseTest>();
+            return new List<ITest>();
         }
     }
 }

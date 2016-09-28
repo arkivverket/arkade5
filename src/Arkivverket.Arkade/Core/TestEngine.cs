@@ -6,21 +6,23 @@ namespace Arkivverket.Arkade.Core
 {
     public class TestEngine
     {
-        private readonly TestProvider _testProvider;
+        private readonly ITestProvider _testProvider;
 
-        public TestEngine(TestProvider testProvider)
+        public TestEngine(ITestProvider testProvider)
         {
             _testProvider = testProvider;
         }
 
-        public List<TestRun> RunTestsOnArchive(Archive archiveExtraction)
+        public List<TestRun> RunTestsOnArchive(Archive archive)
         {
-            var testsToRun = _testProvider.GetTestsForArchiveExtraction(archiveExtraction);
+            List<ITest> testsToRun = _testProvider.GetTestsForArchive(archive);
 
             var testResultsFromAllTests = new List<TestRun>();
-            foreach (var test in testsToRun)
+            foreach (ITest test in testsToRun)
             {
-                var testResults = test.RunTest(archiveExtraction);
+                OnTestStarted(new TestStartedEventArgs(test));
+
+                var testResults = test.RunTest(archive);
 
                 OnTestResultsArrived(new TestResultsArrivedEventArgs(testResults));
 
@@ -30,12 +32,20 @@ namespace Arkivverket.Arkade.Core
         }
 
         public event EventHandler<TestResultsArrivedEventArgs> TestResultsArrived;
+        public event EventHandler<TestStartedEventArgs> TestStarted;
 
         protected virtual void OnTestResultsArrived(TestResultsArrivedEventArgs e)
         {
             var handler = TestResultsArrived;
             handler?.Invoke(this, e);
         }
+
+        protected virtual void OnTestStarted(TestStartedEventArgs e)
+        {
+            var handler = TestStarted;
+            handler?.Invoke(this, e);
+        }
+
     }
 
     public class TestResultsArrivedEventArgs : EventArgs
