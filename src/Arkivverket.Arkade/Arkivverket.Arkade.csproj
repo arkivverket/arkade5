@@ -75,9 +75,10 @@
     <Compile Include="ExternalModels\Addml.cs" />
     <Compile Include="ExternalModels\Arkivstruktur.cs" />
     <Compile Include="ExternalModels\TestSessionLog.cs" />
+    <Compile Include="Identify\ITestSessionBuilder.cs" />
     <Compile Include="Logging\TestSessionLog.cs" />
     <Compile Include="ExternalModels\Info.cs" />
-    <Compile Include="Identify\ArchiveExtractionReader.cs" />
+    <Compile Include="Identify\TestSessionBuilder.cs" />
     <Compile Include="Identify\ArchiveExtractor.cs" />
     <Compile Include="Identify\ArchiveIdentifier.cs" />
     <Compile Include="Identify\IArchiveExtractor.cs" />

@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Util
         {
             builder.RegisterType<ArchiveExtractor>().As<IArchiveExtractor>();
             builder.RegisterType<TarCompressionUtility>().As<ICompressionUtility>();
-            builder.RegisterType<ArchiveExtractionReader>().AsSelf();
+            builder.RegisterType<TestSessionBuilder>().AsSelf();
             builder.RegisterType<ArchiveIdentifier>().As<IArchiveIdentifier>();
             builder.RegisterType<TestEngine>().AsSelf().SingleInstance();
             builder.RegisterType<ArchiveContentReader>().As<IArchiveContentReader>();

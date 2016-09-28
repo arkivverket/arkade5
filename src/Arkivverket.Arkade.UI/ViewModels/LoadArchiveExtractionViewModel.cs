@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 {
     public class LoadArchiveExtractionViewModel : BindableBase
     {
-        private readonly ArchiveExtractionReader _archiveExtractionReader;
+        private readonly TestSessionBuilder _testSessionBuilder;
         private readonly TestEngine _testEngine;
         private readonly IRegionManager _regionManager;
         private string _archiveFileName;
@@ -19,9 +19,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private string _metadataFileName;
         private bool _isRunningTests;
 
-        public LoadArchiveExtractionViewModel(ArchiveExtractionReader archiveExtractionReader, TestEngine testEngine, IRegionManager regionManager)
+        public LoadArchiveExtractionViewModel(TestSessionBuilder testSessionBuilder, TestEngine testEngine, IRegionManager regionManager)
         {
-            _archiveExtractionReader = archiveExtractionReader;
+            _testSessionBuilder = testSessionBuilder;
             _testEngine = testEngine;
             _regionManager = regionManager;
             OpenMetadataFileCommand = new DelegateCommand(OpenMetadataFileDialog);
@@ -77,13 +77,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
             RunTestEngineCommand.RaiseCanExecuteChanged();
 
 
-            Archive archive = _archiveExtractionReader.ReadFromFile(ArchiveFileName, MetadataFileName);
+            TestSession testSession = _testSessionBuilder.NewSessionFromTarFile(ArchiveFileName, MetadataFileName);
 
-            Debug.Print(archive.Uuid);
-            Debug.Print(archive.ArchiveType.ToString());
-            Debug.Print(archive.WorkingDirectory);
+            Debug.Print(testSession.Archive.Uuid);
+            Debug.Print(testSession.Archive.ArchiveType.ToString());
+            Debug.Print(testSession.Archive.WorkingDirectory);
 
-            _testEngine.RunTestsOnArchive(archive);
+            _testEngine.RunTestsOnArchive(testSession.Archive);
 
             _isRunningTests = false;
             RunTestEngineCommand.RaiseCanExecuteChanged();

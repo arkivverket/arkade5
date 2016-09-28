@@ -8,6 +8,7 @@ using Arkivverket.Arkade.Identify;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using Serilog;
 
 namespace Arkivverket.Arkade.UI.ViewModels
 {
@@ -16,7 +17,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private ObservableCollection<TestFinishedEventArgs> _testResults = new ObservableCollection<TestFinishedEventArgs>();
 
-        private readonly ArchiveExtractionReader _archiveExtractionReader;
+        private readonly TestSessionBuilder _testSessionBuilder;
         private readonly TestEngine _testEngine;
         private bool _isRunningTests;
 
@@ -29,9 +30,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             get { return _testResults; }
             set { SetProperty(ref _testResults, value); }
         }
-        public TestSummaryViewModel(ArchiveExtractionReader archiveExtractionReader, TestEngine testEngine)
+        public TestSummaryViewModel(TestSessionBuilder testSessionBuilder, TestEngine testEngine)
         {
-            _archiveExtractionReader = archiveExtractionReader;
+            _testSessionBuilder = testSessionBuilder;
             _testEngine = testEngine;
             _testEngine.TestFinished += TestEngineOnTestFinished;
 
@@ -67,15 +68,15 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void RunTests()
         {
-            Debug.Print("Issued the RunTests command");
+            Log.Debug("Issued the RunTests command");
 
-            Archive archive = _archiveExtractionReader.ReadFromFile(_archiveFileName, _metadataFileName);
+            TestSession testSession = _testSessionBuilder.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
 
-            Debug.Print(archive.Uuid);
-            Debug.Print(archive.ArchiveType.ToString());
-            Debug.Print(archive.WorkingDirectory);
+            Log.Debug(testSession.Archive.Uuid);
+            Log.Debug(testSession.Archive.ArchiveType.ToString());
+            Log.Debug(testSession.Archive.WorkingDirectory);
 
-            _testEngine.RunTestsOnArchive(archive);
+            _testEngine.RunTestsOnArchive(testSession.Archive);
         }
 
         

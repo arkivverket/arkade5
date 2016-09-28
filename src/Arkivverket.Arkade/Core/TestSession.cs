@@ -7,7 +7,10 @@ namespace Arkivverket.Arkade.Core
     public class TestSession
     {
 
-        public TestSession() { }
+        public TestSession(Archive archive)
+        {
+            Archive = archive;
+        }
 
         public Archive Archive { get; }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Identify;
-using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Util;
 using Autofac;
 using Serilog;
@@ -32,17 +31,17 @@ namespace Arkivverket.Arkade.ConsoleTest
 
             using (container.BeginLifetimeScope())
             {
-                ArchiveExtractionReader archiveExtractionReader = container.Resolve<ArchiveExtractionReader>();
+                TestSessionBuilder testSessionBuilder = container.Resolve<TestSessionBuilder>();
 
-                Archive archiveExtraction = archiveExtractionReader.ReadFromFile(archiveFileName, metadataFileName);
+                TestSession testSession = testSessionBuilder.NewSessionFromTarFile(archiveFileName, metadataFileName);
                 Console.WriteLine($"Reading from archive: {archiveFileName}");
-                Console.WriteLine($"Uuid: {archiveExtraction.Uuid}");
-                Console.WriteLine($"WorkingDirectory: {archiveExtraction.WorkingDirectory}");
-                Console.WriteLine($"ArchiveType: {archiveExtraction.ArchiveType}");
+                Console.WriteLine($"Uuid: {testSession.Archive.Uuid}");
+                Console.WriteLine($"WorkingDirectory: {testSession.Archive.WorkingDirectory}");
+                Console.WriteLine($"ArchiveType: {testSession.Archive.ArchiveType}");
 
 
                 TestEngine testEngine = container.Resolve<TestEngine>();
-                List<TestRun> testResults = testEngine.RunTestsOnArchive(archiveExtraction);
+                List<TestRun> testResults = testEngine.RunTestsOnArchive(testSession.Archive);
                 foreach (TestRun results in testResults)
                 {
                     Console.WriteLine($"Test: {results.TestName}, duration={results.TestDuration}, success={results.IsSuccess()}");

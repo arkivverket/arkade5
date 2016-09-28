@@ -20,11 +20,13 @@ namespace Arkivverket.Arkade.Test.Identify
             var identifierMock = new Mock<IArchiveIdentifier>();
             identifierMock.Setup(i => i.Identify(It.IsAny<string>())).Returns(archiveType);
 
-            var archiveExtraction = new ArchiveExtractionReader(extractorMock.Object, identifierMock.Object).ReadFromFile("archive.tar", "info.xml");
+            TestSession testSession = new TestSessionBuilder(extractorMock.Object, identifierMock.Object).NewSessionFromTarFile("archive.tar", "info.xml");
 
-            archiveExtraction.Uuid.Should().Be(uuid);
-            archiveExtraction.WorkingDirectory.Should().Be(pathToExtractedFiles);
-            archiveExtraction.ArchiveType.Should().Be(archiveType);
+            var archive = testSession.Archive;
+            archive.Should().NotBeNull();
+            archive.Uuid.Should().Be(uuid);
+            archive.WorkingDirectory.Should().Be(pathToExtractedFiles);
+            archive.ArchiveType.Should().Be(archiveType);
         }
     }
 }
