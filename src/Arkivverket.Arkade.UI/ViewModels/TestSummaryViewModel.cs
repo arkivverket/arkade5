@@ -101,7 +101,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             Log.Debug(testSession.Archive.ArchiveType.ToString());
             Log.Debug(testSession.Archive.WorkingDirectory);
 
-            _testEngine.RunTestsOnArchive(testSession);
+            testSession.TestSuite = _testEngine.RunTestsOnArchive(testSession);
         }
 
         
