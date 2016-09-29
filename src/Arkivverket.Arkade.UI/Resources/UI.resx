@@ -153,6 +153,9 @@
   <data name="TestName_NumberOfClasses" xml:space="preserve">
     <value>Finn antall klasser</value>
   </data>
+  <data name="TestName_NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders" xml:space="preserve">
+    <value>Finn antall klasser i pri klassifikasjonssytem uten under klasser/mapper</value>
+  </data>
   <data name="TestName_NumberOfClassificationSystems" xml:space="preserve">
     <value>Finn antall klassifikasjonssystem</value>
   </data>

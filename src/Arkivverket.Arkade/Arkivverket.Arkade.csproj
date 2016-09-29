@@ -100,6 +100,7 @@
     <Compile Include="Tests\Noark5\Structure\CheckWellFormedXml.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksums.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchema.cs" />
+    <Compile Include="Tests\NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders.cs" />
     <Compile Include="Tests\TestProvider.cs" />
     <Compile Include="Tests\TestResult.cs" />
     <Compile Include="Core\TestRun.cs" />

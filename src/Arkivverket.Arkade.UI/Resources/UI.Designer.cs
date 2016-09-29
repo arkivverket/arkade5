@@ -169,6 +169,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finn antall klasser i pri klassifikasjonssytem uten under klasser/mapper.
+        /// </summary>
+        public static string TestName_NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders {
+            get {
+                return ResourceManager.GetString("TestName_NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall klassifikasjonssystem.
         /// </summary>
         public static string TestName_NumberOfClassificationSystems {
