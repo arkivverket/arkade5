@@ -88,8 +88,8 @@
   <ItemGroup>
     <Compile Include="Core\ArchiveExtractionTest.cs" />
     <Compile Include="Core\TestEngineTest.cs" />
-    <Compile Include="Core\TestSessionBuilderTest.cs" />
-    <Compile Include="Logging\TestSessionLogTest.cs" />
+    <Compile Include="Core\TestSessionBuilderForTesting.cs" />
+    <Compile Include="Logging\TestSessionXmlGeneratorTest.cs" />
     <Compile Include="Identify\ArchiveExctractionReaderTest.cs" />
     <Compile Include="Identify\ArchiveExtractorTest.cs" />
     <Compile Include="Identify\ArchiveIdentifierTest.cs" />

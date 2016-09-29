@@ -20,11 +20,16 @@ namespace Arkivverket.Arkade.Core
 
         public TestReport TestReport { get; }
 
-        private List<LogEntry> logEntries = new List<LogEntry>();
+        private List<LogEntry> LogEntries = new List<LogEntry>();
 
         public void AddLogEntry(string message)
         {
-            logEntries.Add(new LogEntry(new DateTime(), message));
+            LogEntries.Add(new LogEntry(new DateTime(), message));
+        }
+
+        public List<LogEntry> GetLogEntries()
+        {
+            return LogEntries;
         }
 
     }

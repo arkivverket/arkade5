@@ -72,11 +72,12 @@
     <Compile Include="Core\TestStartedEventArgs.cs" />
     <Compile Include="Core\TestSuite.cs" />
     <Compile Include="Core\TestSession.cs" />
+    <Compile Include="Core\Uuid.cs" />
     <Compile Include="ExternalModels\Addml.cs" />
     <Compile Include="ExternalModels\Arkivstruktur.cs" />
     <Compile Include="ExternalModels\TestSessionLog.cs" />
     <Compile Include="Identify\ITestSessionBuilder.cs" />
-    <Compile Include="Logging\TestSessionLog.cs" />
+    <Compile Include="Logging\TestSessionXmlGenerator.cs" />
     <Compile Include="ExternalModels\Info.cs" />
     <Compile Include="Identify\TestSessionBuilder.cs" />
     <Compile Include="Identify\ArchiveExtractor.cs" />

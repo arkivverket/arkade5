@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Arkivverket.Arkade.Core
 {
-    class LogEntry
+    public class LogEntry
     {
-        private DateTime Timestamp { get; }
+        public DateTime Timestamp { get; }
 
-        private string Message { get; }
+        public string Message { get; }
 
         public LogEntry(DateTime timestamp, string message)
         {
