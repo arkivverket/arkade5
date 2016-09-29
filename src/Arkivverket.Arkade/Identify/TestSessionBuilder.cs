@@ -1,5 +1,6 @@
 using Arkivverket.Arkade.Core;
 using Serilog;
+using System.IO;
 
 namespace Arkivverket.Arkade.Identify
 {
@@ -17,10 +18,13 @@ namespace Arkivverket.Arkade.Identify
         public TestSession NewSessionFromTarFile(string archiveFileName, string metadataFileName)
         {
             Log.Information($"Building new TestSession with [archiveFileName: {archiveFileName}] [metadataFileName: {metadataFileName}");
+            FileInfo archiveFileInfo = new FileInfo(archiveFileName);
 
-            Archive archive = _archiveExtractor.Extract(archiveFileName);
-            archive.ArchiveType = _archiveIdentifier.Identify(metadataFileName);
+            var uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFileName));
+            var archiveType = _archiveIdentifier.Identify(metadataFileName);
 
+            DirectoryInfo targetFolderName = _archiveExtractor.Extract(archiveFileInfo);
+            Archive archive = new Archive(archiveType, uuid, targetFolderName);
             return new TestSession(archive);
         }
     }

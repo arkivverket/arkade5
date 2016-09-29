@@ -5,15 +5,16 @@ namespace Arkivverket.Arkade.Core
     public class Archive
     {
 
-        public Archive(Uuid uuid, string workingDirectory)
+        public Uuid Uuid { get; private set; }
+        public DirectoryInfo WorkingDirectory { get; private set; }
+        public ArchiveType ArchiveType { get; private set; }
+
+        public Archive(ArchiveType archiveType, Uuid uuid, DirectoryInfo workingDirectory)
         {
+            ArchiveType = archiveType;
             Uuid = uuid;
             WorkingDirectory = workingDirectory;
         }
-
-        public Uuid Uuid { get; private set; }
-        public string WorkingDirectory { get; private set; }
-        public ArchiveType ArchiveType { get; set; }
 
         public string GetContentDescriptionFileName()
         {
@@ -22,7 +23,7 @@ namespace Arkivverket.Arkade.Core
 
         public string GetStructureDescriptionFileName()
         {
-            string structureFilename = WorkingDirectory + Path.DirectorySeparatorChar;
+            string structureFilename = WorkingDirectory.FullName + Path.DirectorySeparatorChar;
             if (ArchiveType.Equals(ArchiveType.Noark5))
                 structureFilename = structureFilename + "arkivuttrekk.xml";
             else

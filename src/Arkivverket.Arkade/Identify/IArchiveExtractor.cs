@@ -1,9 +1,10 @@
 using Arkivverket.Arkade.Core;
+using System.IO;
 
 namespace Arkivverket.Arkade.Identify
 {
     public interface IArchiveExtractor
     {
-        Archive Extract(string fileName);
+        DirectoryInfo Extract(FileInfo fileName);
     }
 }

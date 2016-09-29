@@ -16,11 +16,10 @@ namespace Arkivverket.Arkade.Test.Identify
             var compressionUtilityMock = new Mock<ICompressionUtility>();
 
             var uuid = Uuid.Random();
-            var inputFilename = "c:\\users\\johnsmith\\my documents\\" + uuid + ".tar";
+            var inputFilename = new FileInfo("c:\\users\\johnsmith\\my documents\\" + uuid + ".tar");
             var archiveExtraction = new ArchiveExtractor(compressionUtilityMock.Object).Extract(inputFilename);
 
-            archiveExtraction.WorkingDirectory.Should().Be(ArchiveExtractor.TemporaryFolder + Path.DirectorySeparatorChar + uuid);
-            archiveExtraction.Uuid.Should().Be(uuid);
+            archiveExtraction.FullName.Should().Be(ArchiveExtractor.TemporaryFolder + Path.DirectorySeparatorChar + uuid);
         }
     }
 }

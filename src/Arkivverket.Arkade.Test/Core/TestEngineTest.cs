@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Test.Core
                 events.Add(args);
             };
 
-            testEngine.RunTestsOnArchive(new TestSession(new Archive(Uuid.Of(""), "")));
+            testEngine.RunTestsOnArchive(new TestSessionBuilder().Build());
 
             events.Count.Should().Be(1);
             events[0].TestName.Should().Be(typeof(DummyTest).FullName);

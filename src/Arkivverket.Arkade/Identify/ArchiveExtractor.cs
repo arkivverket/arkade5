@@ -14,14 +14,14 @@ namespace Arkivverket.Arkade.Identify
             _compressionUtility = compressionUtility;
         }
 
-        public Archive Extract(string fileName)
+        public DirectoryInfo Extract(FileInfo fileName)
         {
-            var uuid = Uuid.Of(Path.GetFileNameWithoutExtension(fileName));
+            var uuid = Uuid.Of(Path.GetFileNameWithoutExtension(fileName.Name));
             var targetFolderName = TemporaryFolder + Path.DirectorySeparatorChar + uuid.GetValue();
 
-            _compressionUtility.ExtractFolderFromArchive(fileName, targetFolderName);
+            _compressionUtility.ExtractFolderFromArchive(fileName.FullName, targetFolderName);
 
-            return new Archive(uuid, targetFolderName);
+            return new DirectoryInfo(targetFolderName);
         }
     }
 }

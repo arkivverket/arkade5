@@ -99,7 +99,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
             Log.Debug(testSession.Archive.Uuid.GetValue());
             Log.Debug(testSession.Archive.ArchiveType.ToString());
-            Log.Debug(testSession.Archive.WorkingDirectory);
+            Log.Debug(testSession.Archive.WorkingDirectory.Name);
 
             testSession.TestSuite = _testEngine.RunTestsOnArchive(testSession);
         }

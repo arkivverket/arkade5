@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         private TestRun RunTest()
         {
-            return new NumberOfArchives(new ArchiveContentMockReader(_archiveContent)).RunTest(new Archive(Uuid.Of("123"), ""));
+            return new NumberOfArchives(new ArchiveContentMockReader(_archiveContent)).RunTest(new Core.ArchiveBuilder().Build());
         }
 
         [Fact]
