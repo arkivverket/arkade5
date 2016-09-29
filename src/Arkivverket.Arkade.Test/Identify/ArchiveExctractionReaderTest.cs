@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Test.Identify
             var identifierMock = new Mock<IArchiveIdentifier>();
             identifierMock.Setup(i => i.Identify(It.IsAny<string>())).Returns(archiveType);
 
-            TestSession testSession = new Arkade.Identify.TestSessionBuilder(extractorMock.Object, identifierMock.Object).NewSessionFromTarFile(uuid+".tar", "info.xml");
+            TestSession testSession = new Arkade.Identify.TestSessionFactory(extractorMock.Object, identifierMock.Object).NewSessionFromTarFile(uuid+".tar", "info.xml");
 
             var archive = testSession.Archive;
             archive.Should().NotBeNull();

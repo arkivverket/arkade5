@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Tests.Noark5;
 using FluentAssertions;
 using Xunit;
+using Arkivverket.Arkade.Test.Core;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
@@ -18,13 +19,13 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         private TestRun RunTest()
         {
-            return new NumberOfArchives(new ArchiveContentMockReader(_archiveContent)).RunTest(new Core.ArchiveBuilder().Build());
+            return new NumberOfArchives(new ArchiveContentMockReader(_archiveContent)).RunTest(new ArchiveBuilder().Build());
         }
 
         [Fact]
         public void NumberOfArchivesIsOne()
         {
-            _archiveContent = ArchiveBuilder.Arkiv().Build();
+            _archiveContent = Noark5XmlBuilder.Arkiv().Build();
 
             var testResults = RunTest();
             testResults.AnalysisResults[NumberOfArchives.AnalysisKeyArchives].Should().Be("1");
@@ -33,7 +34,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         [Fact]
         public void NumberOfArchivesIsThree()
         {
-            _archiveContent = ArchiveBuilder.Arkiv()
+            _archiveContent = Noark5XmlBuilder.Arkiv()
                 .Arkivdel()
                 .Underarkiv().Arkivdel()
                 .Underarkiv().Arkivdel().Build();

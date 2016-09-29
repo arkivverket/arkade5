@@ -5,6 +5,7 @@ using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using FluentAssertions;
 using Xunit;
+using Arkivverket.Arkade.Test.Core;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
@@ -14,13 +15,13 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         private TestRun RunTest()
         {
-            return new NumberOfFolders(new ArchiveContentMockReader(_archiveContent)).RunTest(new Core.ArchiveBuilder().Build());
+            return new NumberOfFolders(new ArchiveContentMockReader(_archiveContent)).RunTest(new ArchiveBuilder().Build());
         }
 
         [Fact]
         public void NumberOfFoldersIsOne()
         {
-            _archiveContent = ArchiveBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Klasse().Mappe().Build();
+            _archiveContent = Noark5XmlBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Klasse().Mappe().Build();
 
             var testResults = RunTest();
 
@@ -30,7 +31,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         [Fact]
         public void ForTwoArchivePartsWithOneSingleFolderThenNumberOfFoldersIsTwo()
         {
-            _archiveContent = ArchiveBuilder.Arkiv()
+            _archiveContent = Noark5XmlBuilder.Arkiv()
                 .Arkivdel().Klassifikasjonssystem().Klasse().Mappe()
                 .Arkivdel().Klassifikasjonssystem().Klasse().Mappe().Build();
 
@@ -42,7 +43,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         [Fact]
         public void ShouldFindMultipleFoldersWithinSameArchiveParts()
         {
-            _archiveContent = ArchiveBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Klasse()
+            _archiveContent = Noark5XmlBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Klasse()
                     .Mappe()
                     .Mappe()
                     .Mappe()

@@ -5,6 +5,7 @@ using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using FluentAssertions;
 using Xunit;
+using Arkivverket.Arkade.Test.Core;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
@@ -14,13 +15,13 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         private TestRun RunTest()
         {
-            return new NumberOfClassificationSystems(new ArchiveContentMockReader(_archiveContent)).RunTest(new Core.ArchiveBuilder().Build());
+            return new NumberOfClassificationSystems(new ArchiveContentMockReader(_archiveContent)).RunTest(new ArchiveBuilder().Build());
         }
 
         [Fact]
         public void NumberOfClassificationSystemsIsOne()
         {
-            _archiveContent = ArchiveBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Build();
+            _archiveContent = Noark5XmlBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Build();
 
             TestRun testResults = RunTest();
             testResults.AnalysisResults[NumberOfClassificationSystems.AnalysisKeyClassificationSystems].Should().Be("1");
@@ -29,7 +30,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         [Fact]
         public void NumberOfClassificationSystemsIsTwo()
         {
-            _archiveContent = ArchiveBuilder.Arkiv()
+            _archiveContent = Noark5XmlBuilder.Arkiv()
                 .Arkivdel().Klassifikasjonssystem()
                 .Arkivdel().Klassifikasjonssystem()
                 .Build();

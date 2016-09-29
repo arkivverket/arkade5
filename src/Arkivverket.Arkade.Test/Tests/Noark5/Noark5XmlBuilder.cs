@@ -7,7 +7,7 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
-    public class ArchiveBuilder : IKanLeggeTilKlassifikasjonssystem, IKanLeggeTilKlasse, IKanLeggeTilMappe
+    public class Noark5XmlBuilder : IKanLeggeTilKlassifikasjonssystem, IKanLeggeTilKlasse, IKanLeggeTilMappe
     {
 
         private arkiv _arkiv;
@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         private arkiv _valgtArkiv;
 
-        private ArchiveBuilder()
+        private Noark5XmlBuilder()
         {
             _arkiv = new arkiv();
             _valgtArkiv = _arkiv;
@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         public static IKanLeggeTilArkivdelEllerUnderarkiv Arkiv()
         {
-            return new ArchiveBuilder();
+            return new Noark5XmlBuilder();
         }
 
         public IKanLeggeTilKlassifikasjonssystem Arkivdel()

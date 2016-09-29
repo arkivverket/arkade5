@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private ObservableCollection<TestFinishedEventArgs> _testResults = new ObservableCollection<TestFinishedEventArgs>();
 
-        private readonly TestSessionBuilder _testSessionBuilder;
+        private readonly TestSessionFactory _testSessionBuilder;
         private readonly TestEngine _testEngine;
         private bool _isRunningTests;
 
@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _testResults, value); }
         }
 
-        public TestSummaryViewModel(TestSessionBuilder testSessionBuilder, TestEngine testEngine)
+        public TestSummaryViewModel(TestSessionFactory testSessionBuilder, TestEngine testEngine)
         {
             _testSessionBuilder = testSessionBuilder;
             _testEngine = testEngine;

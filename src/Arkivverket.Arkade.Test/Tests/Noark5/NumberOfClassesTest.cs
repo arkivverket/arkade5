@@ -5,6 +5,7 @@ using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using FluentAssertions;
 using Xunit;
+using Arkivverket.Arkade.Test.Core;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
@@ -15,7 +16,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         [Fact]
         public void NumberOfClassesIsOne()
         {
-            _archiveContent = ArchiveBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Klasse().Build();
+            _archiveContent = Noark5XmlBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Klasse().Build();
 
             TestRun testResults = RunTest();
             testResults.AnalysisResults[NumberOfClasses.AnalysisKeyClasses].Should().Be("1");
@@ -24,7 +25,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         [Fact]
         public void NumberOfClassesIsFour()
         {
-            _archiveContent = ArchiveBuilder.Arkiv()
+            _archiveContent = Noark5XmlBuilder.Arkiv()
                 .Arkivdel().Klassifikasjonssystem()
                     .Klasse()
                     .Klasse()
@@ -37,7 +38,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         private TestRun RunTest()
         {
-            return new NumberOfClasses(new ArchiveContentMockReader(_archiveContent)).RunTest(new Core.ArchiveBuilder().Build());
+            return new NumberOfClasses(new ArchiveContentMockReader(_archiveContent)).RunTest(new ArchiveBuilder().Build());
         }
 
         public void Dispose()

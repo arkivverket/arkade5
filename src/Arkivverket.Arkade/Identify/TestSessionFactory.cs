@@ -4,12 +4,12 @@ using System.IO;
 
 namespace Arkivverket.Arkade.Identify
 {
-    public class TestSessionBuilder : ITestSessionBuilder
+    public class TestSessionFactory : ITestSessionFactory
     {
         private readonly IArchiveExtractor _archiveExtractor;
         private readonly IArchiveIdentifier _archiveIdentifier;
 
-        public TestSessionBuilder(IArchiveExtractor archiveExtractor, IArchiveIdentifier archiveIdentifier)
+        public TestSessionFactory(IArchiveExtractor archiveExtractor, IArchiveIdentifier archiveIdentifier)
         {
             _archiveExtractor = archiveExtractor;
             _archiveIdentifier = archiveIdentifier;
