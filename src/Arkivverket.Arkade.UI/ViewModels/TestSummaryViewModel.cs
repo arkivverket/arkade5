@@ -97,7 +97,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
             TestSession testSession = _testSessionBuilder.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
 
-            Log.Debug(testSession.Archive.Uuid);
+            Log.Debug(testSession.Archive.Uuid.GetValue());
             Log.Debug(testSession.Archive.ArchiveType.ToString());
             Log.Debug(testSession.Archive.WorkingDirectory);
 

@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Logging
             log.arkadeVersion = Assembly.GetEntryAssembly()?.GetName()?.Version?.ToString();
 
             log.archiveType = testSession?.Archive?.ArchiveType.ToString();
-            log.archiveUuid = testSession?.Archive?.Uuid;
+            log.archiveUuid = testSession?.Archive?.Uuid?.GetValue();
 
             log.logEntries = GetLogEntries(testSession);
             log.testResults = GetTestResults(testSession);

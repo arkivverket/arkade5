@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
 
         private TestRun RunTest()
         {
-            return new ValidateXmlWithSchema(new ArchiveContentMockReader(_archiveStructureContent)).RunTest(new Archive("", ""));
+            return new ValidateXmlWithSchema(new ArchiveContentMockReader(_archiveStructureContent)).RunTest(new Archive(Uuid.Of(""), ""));
         }
 
         private MemoryStream GenerateStreamFromString(string value)

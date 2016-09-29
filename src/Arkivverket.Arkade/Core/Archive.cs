@@ -5,13 +5,13 @@ namespace Arkivverket.Arkade.Core
     public class Archive
     {
 
-        public Archive(string uuid, string workingDirectory)
+        public Archive(Uuid uuid, string workingDirectory)
         {
             Uuid = uuid;
             WorkingDirectory = workingDirectory;
         }
 
-        public string Uuid { get; private set; }
+        public Uuid Uuid { get; private set; }
         public string WorkingDirectory { get; private set; }
         public ArchiveType ArchiveType { get; set; }
 

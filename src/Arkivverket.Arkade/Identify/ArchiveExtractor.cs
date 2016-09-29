@@ -16,8 +16,8 @@ namespace Arkivverket.Arkade.Identify
 
         public Archive Extract(string fileName)
         {
-            var uuid = Path.GetFileNameWithoutExtension(fileName);
-            var targetFolderName = TemporaryFolder + Path.DirectorySeparatorChar + uuid;
+            var uuid = Uuid.Of(Path.GetFileNameWithoutExtension(fileName));
+            var targetFolderName = TemporaryFolder + Path.DirectorySeparatorChar + uuid.GetValue();
 
             _compressionUtility.ExtractFolderFromArchive(fileName, targetFolderName);
 

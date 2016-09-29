@@ -6,14 +6,8 @@ namespace Arkivverket.Arkade.Test.Core
     public class TestSessionBuilderForTesting
     {
 
-        private Archive _archive = new Archive("uuid", "workingDir");
+        private ArchiveBuilder _archiveBuilder = new ArchiveBuilder();
         private List<string> _logEntries = new List<string>();
-
-        public TestSessionBuilderForTesting WithArchive(Archive archive)
-        {
-            _archive = archive;
-            return this;
-        }
 
         internal TestSessionBuilderForTesting WithLogEntry(string message)
         {
@@ -23,7 +17,8 @@ namespace Arkivverket.Arkade.Test.Core
 
         public TestSession Build()
         {
-            var testSession = new TestSession(_archive);
+            Archive archive = _archiveBuilder.Build();
+            var testSession = new TestSession(archive);
             foreach (var logEntry in _logEntries)
             {
                 testSession.AddLogEntry(logEntry);

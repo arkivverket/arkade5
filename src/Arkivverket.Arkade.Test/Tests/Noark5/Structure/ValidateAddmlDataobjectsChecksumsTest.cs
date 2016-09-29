@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
         public void ShouldValidateThatAllChecksumsAreCorrect()
         {
             string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\StructureChecksums\\correct";
-            var archiveExtraction = new Archive("uuid", workingDirectory);
+            var archiveExtraction = new Archive(Uuid.Of("uuid"), workingDirectory);
             archiveExtraction.ArchiveType = ArchiveType.Noark5;
  /*           
             var testResults = new ValidateAddmlDataobjectsChecksums().RunTest(archiveExtraction);

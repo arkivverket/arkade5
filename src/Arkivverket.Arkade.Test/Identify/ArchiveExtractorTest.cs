@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Util;
 using FluentAssertions;
 using Moq;
 using Xunit;
+using Arkivverket.Arkade.Core;
 
 namespace Arkivverket.Arkade.Test.Identify
 {
@@ -14,7 +15,7 @@ namespace Arkivverket.Arkade.Test.Identify
         {
             var compressionUtilityMock = new Mock<ICompressionUtility>();
 
-            var uuid = "d1c9102e-7106-4355-a4a4-0c9b7f9b3541";
+            var uuid = Uuid.Random();
             var inputFilename = "c:\\users\\johnsmith\\my documents\\" + uuid + ".tar";
             var archiveExtraction = new ArchiveExtractor(compressionUtilityMock.Object).Extract(inputFilename);
 

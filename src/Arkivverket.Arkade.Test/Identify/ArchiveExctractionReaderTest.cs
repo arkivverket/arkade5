@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Test.Identify
         [Fact]
         public void ExtractAndIdentifyTarFiles()
         {
-            var uuid = "d1c9102e-7106-4355-a4a4-0c9b7f9b3541";
+            var uuid = Uuid.Of("d1c9102e-7106-4355-a4a4-0c9b7f9b3541");
             string pathToExtractedFiles = $"c:\\temp\\{uuid}";
             var extractorMock = new Mock<IArchiveExtractor>();
             extractorMock.Setup(e => e.Extract(It.IsAny<string>())).Returns(new Archive(uuid, pathToExtractedFiles));
