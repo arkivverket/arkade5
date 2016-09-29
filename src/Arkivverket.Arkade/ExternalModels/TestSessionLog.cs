@@ -119,8 +119,6 @@ namespace Arkivverket.Arkade.ExternalModels.TestSessionLog {
         
         private string messageField;
         
-        private string errorMessageField;
-        
         /// <remarks/>
         public string testName {
             get {
@@ -179,16 +177,6 @@ namespace Arkivverket.Arkade.ExternalModels.TestSessionLog {
             }
             set {
                 this.messageField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string errorMessage {
-            get {
-                return this.errorMessageField;
-            }
-            set {
-                this.errorMessageField = value;
             }
         }
     }
