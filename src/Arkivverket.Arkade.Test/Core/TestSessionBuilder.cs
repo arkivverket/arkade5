@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Test.Core
 {
-    public class TestSessionBuilderForTesting
+    public class TestSessionBuilder
     {
 
         private ArchiveBuilder _archiveBuilder = new ArchiveBuilder();
         private List<string> _logEntries = new List<string>();
 
-        internal TestSessionBuilderForTesting WithLogEntry(string message)
+        internal TestSessionBuilder WithLogEntry(string message)
         {
             _logEntries.Add(message);
             return this;

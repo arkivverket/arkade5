@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Test.Logging
         [Fact]
         public void ShouldGenerateXml()
         {
-            TestSession testSession = new TestSessionBuilderForTesting()
+            TestSession testSession = new TestSessionBuilder()
                 .WithLogEntry("Logging!")
                 .Build();
 
