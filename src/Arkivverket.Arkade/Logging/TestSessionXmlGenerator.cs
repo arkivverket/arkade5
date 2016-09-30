@@ -1,5 +1,6 @@
 ﻿using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.ExternalModels.TestSessionLog;
+using Arkivverket.Arkade.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,8 +15,8 @@ namespace Arkivverket.Arkade.Logging
         public static string GenerateXml(TestSession testSession)
         {
             testSessionLog log = new testSessionLog();
-            log.timestamp = new DateTime();
-            log.arkadeVersion = Assembly.GetEntryAssembly()?.GetName()?.Version?.ToString();
+            log.timestamp = DateTime.Now;
+            log.arkadeVersion = ArkadeVersion.GetVersion();
 
             log.archiveType = testSession?.Archive?.ArchiveType.ToString();
             log.archiveUuid = testSession?.Archive?.Uuid?.GetValue();
@@ -38,7 +39,8 @@ namespace Arkivverket.Arkade.Logging
                 xmlTestResulta.Add(xmlLogEntry);
             }
             */
-            return xmlTestResulta.ToArray();
+
+            return xmlTestResulta.Count == 0 ? null : xmlTestResulta.ToArray();
         }
 
         private static logEntriesLogEntry[] GetLogEntries(TestSession testSession)
@@ -51,7 +53,7 @@ namespace Arkivverket.Arkade.Logging
                 xmlLogEntry.message = logEntry.Message;
                 xmlLogEntries.Add(xmlLogEntry);
             }
-            return xmlLogEntries.ToArray();
+            return xmlLogEntries.Count == 0 ? null : xmlLogEntries.ToArray();
         }
 
         private static string CreateXml(testSessionLog log)

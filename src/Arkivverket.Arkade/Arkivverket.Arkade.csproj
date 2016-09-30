@@ -105,6 +105,7 @@
     <Compile Include="Tests\TestResult.cs" />
     <Compile Include="Core\TestRun.cs" />
     <Compile Include="Util\ArkadeAutofacModule.cs" />
+    <Compile Include="Util\ArkadeVersion.cs" />
     <Compile Include="Util\ChecksumGenerator.cs" />
     <Compile Include="Util\IChecksumGenerator.cs" />
     <Compile Include="Util\ICompressionUtility.cs" />

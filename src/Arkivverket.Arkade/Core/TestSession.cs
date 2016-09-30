@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Core
 
         public void AddLogEntry(string message)
         {
-            LogEntries.Add(new LogEntry(new DateTime(), message));
+            LogEntries.Add(new LogEntry(DateTime.Now, message));
         }
 
         public List<LogEntry> GetLogEntries()
