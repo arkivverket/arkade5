@@ -20,10 +20,10 @@ namespace Arkivverket.Arkade.Test.Logging
             string xml = TestSessionXmlGenerator.GenerateXml(testSession);
 
             new TestSessionLogXmlAssert(xml)
-                .assertTimestampNow()
-                .assertArchiveUuid(testSession.Archive.Uuid)
-                .assertArchiveType(testSession.Archive.ArchiveType)
-                .assertArkadeVersion("unknown");
+                .AssertTimestampNow()
+                .AssertArchiveUuid(testSession.Archive.Uuid)
+                .AssertArchiveType(testSession.Archive.ArchiveType)
+                .AssertArkadeVersion("unknown");
         }
 
         [Fact]
@@ -39,10 +39,10 @@ namespace Arkivverket.Arkade.Test.Logging
             string xml = TestSessionXmlGenerator.GenerateXml(testSession);
 
             new TestSessionLogXmlAssert(xml)
-                .assertLogEntryMessage("Log line 1")
-                .assertLogEntryMessage("Log line 2")
-                .assertLogEntryMessage("Log line 3")
-                .assertLogEntryMessage("Log line 4");
+                .AssertLogEntryMessage("Log line 1")
+                .AssertLogEntryMessage("Log line 2")
+                .AssertLogEntryMessage("Log line 3")
+                .AssertLogEntryMessage("Log line 4");
         }
 
         [Fact(Skip ="Work in progress!")]

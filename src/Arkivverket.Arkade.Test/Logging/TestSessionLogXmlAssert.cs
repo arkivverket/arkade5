@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Test.Logging
             return (testSessionLog) xml.Deserialize(sr);
         }
 
-        public TestSessionLogXmlAssert assertTimestampNow()
+        public TestSessionLogXmlAssert AssertTimestampNow()
         {
             DateTime now = DateTime.Now;
             DateTime tenSecondsAgo = now.Add(new TimeSpan(0, 0, -10));
@@ -44,25 +44,25 @@ namespace Arkivverket.Arkade.Test.Logging
             return this;
         }
 
-        public TestSessionLogXmlAssert assertArchiveUuid(Uuid archiveUuid)
+        public TestSessionLogXmlAssert AssertArchiveUuid(Uuid archiveUuid)
         {
             _testSessionLog.archiveUuid.Should().Be(archiveUuid.GetValue());
             return this;
         }
 
-        public TestSessionLogXmlAssert assertArchiveType(ArchiveType archiveType)
+        public TestSessionLogXmlAssert AssertArchiveType(ArchiveType archiveType)
         {
             _testSessionLog.archiveType.Should().Be(archiveType.ToString());
             return this;
         }
 
-        public TestSessionLogXmlAssert assertArkadeVersion(string arkadeVersion)
+        public TestSessionLogXmlAssert AssertArkadeVersion(string arkadeVersion)
         {
             _testSessionLog.arkadeVersion.Should().Be(arkadeVersion);
             return this;
         }
 
-        public TestSessionLogXmlAssert assertLogEntryMessage(string message)
+        public TestSessionLogXmlAssert AssertLogEntryMessage(string message)
         {
             bool found = false;
 
