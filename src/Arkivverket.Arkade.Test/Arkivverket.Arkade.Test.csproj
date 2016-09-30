@@ -90,6 +90,7 @@
     <Compile Include="Core\ArchiveExtractionTest.cs" />
     <Compile Include="Core\TestEngineTest.cs" />
     <Compile Include="Core\TestSessionBuilder.cs" />
+    <Compile Include="Logging\TestSessionLogXmlAssert.cs" />
     <Compile Include="Logging\TestSessionXmlGeneratorTest.cs" />
     <Compile Include="Identify\ArchiveExctractionReaderTest.cs" />
     <Compile Include="Identify\ArchiveExtractorTest.cs" />

@@ -19,17 +19,11 @@ namespace Arkivverket.Arkade.Test.Logging
 
             string xml = TestSessionXmlGenerator.GenerateXml(testSession);
 
-            TestSessionLogXmlValidator.Validate(xml);
-            xml.Should()
-                // TODO jostein: Should we have xsi:type in XML?
-                .Contain("<timestamp xsi:type=\"xsd:dateTime\">")
-                .And
-                .Contain("<archiveUuid>" + testSession.Archive.Uuid.GetValue() + "</archiveUuid>")
-                .And
-                .Contain("<archiveType>" + testSession.Archive.ArchiveType + "</archiveType>")
-                .And
-                .Contain("<arkadeVersion>unknown</arkadeVersion>")
-                ;
+            new TestSessionLogXmlAssert(xml)
+                .assertTimestampNow()
+                .assertArchiveUuid(testSession.Archive.Uuid.GetValue())
+                .assertArchiveType(testSession.Archive.ArchiveType)
+                .assertArkadeVersion("unknown");
         }
 
         [Fact]
@@ -44,16 +38,11 @@ namespace Arkivverket.Arkade.Test.Logging
 
             string xml = TestSessionXmlGenerator.GenerateXml(testSession);
 
-            TestSessionLogXmlValidator.Validate(xml);
-
-            xml.Should()
-                .Contain("<message>Log line 1</message>")
-                .And
-                .Contain("<message>Log line 2</message>")
-                .And
-                .Contain("<message>Log line 3</message>")
-                .And
-                .Contain("<message>Log line 4</message>");
+            new TestSessionLogXmlAssert(xml)
+                .assertLogEntryMessage("Log line 1")
+                .assertLogEntryMessage("Log line 2")
+                .assertLogEntryMessage("Log line 3")
+                .assertLogEntryMessage("Log line 4");
         }
 
         [Fact(Skip = "Work in progress!")]
