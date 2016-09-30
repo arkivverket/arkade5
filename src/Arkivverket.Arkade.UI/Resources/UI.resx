@@ -136,7 +136,7 @@
     <value>Velg en arkiv fil</value>
   </data>
   <data name="General_WindowTitle" xml:space="preserve">
-    <value>Arkade 5</value>
+    <value>Arkade 5 - versjon {0}</value>
   </data>
   <data name="SerilogFormatConfig" xml:space="preserve">
     <value>{Timestamp:yyyy-MM-ddTHH:mm:ss.fff} {SourceContext} [{Level}] ({ThreadId}) {Message}{NewLine}{Exception}</value>

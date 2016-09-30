@@ -115,7 +115,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkade 5.
+        ///   Looks up a localized string similar to Arkade 5 - versjon {0}.
         /// </summary>
         public static string General_WindowTitle {
             get {
