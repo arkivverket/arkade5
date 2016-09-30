@@ -49,7 +49,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add("archiveFileName", ArchiveFileName);
             navigationParameters.Add("metadataFileName", MetadataFileName);
-            _regionManager.RequestNavigate("MainContentRegion", "TestSummary", navigationParameters);
+            _regionManager.RequestNavigate("MainContentRegion", "TestRunner", navigationParameters);
         }
 
         private bool CanRunTests()

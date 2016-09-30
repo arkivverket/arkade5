@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Arkivverket.Arkade.UI.Views
 {
     /// <summary>
-    /// Interaction logic for TestSummary.xaml
+    /// Interaction logic for TestRunner.xaml
     /// </summary>
-    public partial class TestSummary : UserControl
+    public partial class TestRunner : UserControl
     {
-        public TestSummary()
+        public TestRunner()
         {
             InitializeComponent();
         }

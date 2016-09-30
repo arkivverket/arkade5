@@ -12,7 +12,7 @@ using Serilog;
 
 namespace Arkivverket.Arkade.UI.ViewModels
 {
-    public class TestSummaryViewModel : BindableBase, INavigationAware
+    public class TestRunnerViewModel : BindableBase, INavigationAware
     {
 
         private ObservableCollection<TestFinishedEventArgs> _testResults = new ObservableCollection<TestFinishedEventArgs>();
@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _testResults, value); }
         }
 
-        public TestSummaryViewModel(TestSessionFactory testSessionBuilder, TestEngine testEngine)
+        public TestRunnerViewModel(TestSessionFactory testSessionBuilder, TestEngine testEngine)
         {
             _testSessionBuilder = testSessionBuilder;
             _testEngine = testEngine;

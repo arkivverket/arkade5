@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.UI
             base.ConfigureContainerBuilder(builder);
             builder.RegisterModule(new ArkadeAutofacModule());
 
-            builder.RegisterTypeForNavigation<TestSummary>();
+            builder.RegisterTypeForNavigation<TestRunner>();
         }
     }
 }
