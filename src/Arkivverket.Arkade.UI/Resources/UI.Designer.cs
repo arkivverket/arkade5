@@ -207,9 +207,9 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Valider gyldig sjekksummer.
         /// </summary>
-        public static string TestName_ValidateAddmlDataobjectsChecksum {
+        public static string TestName_ValidateAddmlDataobjectsChecksums {
             get {
-                return ResourceManager.GetString("TestName_ValidateAddmlDataobjectsChecksum", resourceCulture);
+                return ResourceManager.GetString("TestName_ValidateAddmlDataobjectsChecksums", resourceCulture);
             }
         }
         
