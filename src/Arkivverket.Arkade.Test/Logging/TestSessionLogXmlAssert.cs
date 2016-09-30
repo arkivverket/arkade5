@@ -44,9 +44,9 @@ namespace Arkivverket.Arkade.Test.Logging
             return this;
         }
 
-        public TestSessionLogXmlAssert assertArchiveUuid(string archiveUuid)
+        public TestSessionLogXmlAssert assertArchiveUuid(Uuid archiveUuid)
         {
-            _testSessionLog.archiveUuid.Should().Be(archiveUuid);
+            _testSessionLog.archiveUuid.Should().Be(archiveUuid.GetValue());
             return this;
         }
 
