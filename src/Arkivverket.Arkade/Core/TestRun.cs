@@ -9,10 +9,11 @@ namespace Arkivverket.Arkade.Core
         public Dictionary<string, string> AnalysisResults = new Dictionary<string, string>();
 
         public List<TestResult> Results { get; set; }
-        public double TestDuration { get; set; }
+        public long TestDuration { get; set; }
         public string TestName { get; set; }
         public TestType TestType { get; set; }
-
+        public string TestCategory { get;  set; }
+        public string TestDescription { get; set; }
 
         public TestRun(string testName, TestType testType)
         {

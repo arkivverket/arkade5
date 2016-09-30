@@ -1,5 +1,4 @@
 using System;
-using System.Xml;
 using Arkivverket.Arkade.Core;
 
 namespace Arkivverket.Arkade.Tests
@@ -29,7 +28,7 @@ namespace Arkivverket.Arkade.Tests
             var start = DateTime.Now;
             Test(archive);
             var stop = DateTime.Now;
-            var duration = stop.Subtract(start).TotalMilliseconds;
+            long duration = (long) stop.Subtract(start).TotalMilliseconds;
 
             Console.WriteLine("Duration: " + duration); // TODO: use logging mechanism instead
 

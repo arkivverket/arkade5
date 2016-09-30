@@ -4,8 +4,9 @@ using Arkivverket.Arkade.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Xml.Serialization;
+using Arkivverket.Arkade.Tests;
+using System.Text;
 
 namespace Arkivverket.Arkade.Logging
 {
@@ -29,18 +30,30 @@ namespace Arkivverket.Arkade.Logging
 
         private static testResultsTestResult[] GetTestResults(TestSession testSession)
         {
-            var xmlTestResulta = new List<testResultsTestResult>();
-            /* TODO jostein
-            foreach (LogEntry logEntry in testSession.Get)
+            var xmlTestResults = new List<testResultsTestResult>();
+            foreach (TestRun testRun in testSession.TestSuite.TestRuns)
             {
-                var xmlLogEntry = new logEntriesLogEntry();
-                xmlLogEntry.timestamp = logEntry.Timestamp;
-                xmlLogEntry.message = logEntry.Message;
-                xmlTestResulta.Add(xmlLogEntry);
+                var testResult = new testResultsTestResult();
+                testResult.testName = testRun.TestName;
+                testResult.testCategory = testRun.TestCategory;
+                testResult.durationMillis = testRun.TestDuration.ToString();
+                testResult.testDescription = testRun.TestDescription;
+                testResult.status = testRun.IsSuccess() ? "SUCCESS" : "ERROR";
+                testResult.message = ConcatMessages(testRun.Results);
+                xmlTestResults.Add(testResult);
             }
-            */
+            return xmlTestResults.Count == 0 ? null : xmlTestResults.ToArray();
+        }
 
-            return xmlTestResulta.Count == 0 ? null : xmlTestResulta.ToArray();
+        private static string ConcatMessages(List<TestResult> results)
+        {
+            StringBuilder sb = new StringBuilder("");
+            foreach (var result in results)
+            {
+                sb.AppendLine(result.Message);
+            }
+
+            return sb.ToString().TrimEnd();
         }
 
         private static logEntriesLogEntry[] GetLogEntries(TestSession testSession)

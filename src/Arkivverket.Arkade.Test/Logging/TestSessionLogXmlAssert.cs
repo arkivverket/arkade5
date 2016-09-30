@@ -111,5 +111,29 @@ namespace Arkivverket.Arkade.Test.Logging
             _testResultsTestResult.testName.Should().Be(testName);
             return this;
         }
+
+        public TestSessionLogTestResultXmlAssert AssertTestCategory(string testCategory)
+        {
+            _testResultsTestResult.testCategory.Should().Be(testCategory);
+            return this;
+        }
+
+        public TestSessionLogTestResultXmlAssert AssertStatus(string status)
+        {
+            _testResultsTestResult.status.Should().Be(status);
+            return this;
+        }
+
+        public TestSessionLogTestResultXmlAssert AssertMessage(string message)
+        {
+            _testResultsTestResult.message.Should().Be(message);
+            return this;
+        }
+
+        public TestSessionLogTestResultXmlAssert AssertDurationMillis(long durationMillis)
+        {
+            _testResultsTestResult.durationMillis.Should().Be(durationMillis.ToString());
+            return this;
+        }
     }
 }

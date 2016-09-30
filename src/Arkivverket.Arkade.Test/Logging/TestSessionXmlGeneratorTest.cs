@@ -1,15 +1,13 @@
 ﻿using Arkivverket.Arkade.Logging;
-using System;
 using Xunit;
-using FluentAssertions;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Test.Core;
+using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Test.Logging
 {
     public class TestSessionXmlGeneratorTest
     {
-
 
         [Fact]
         public void XmlShouldContainBasicData()
@@ -45,10 +43,17 @@ namespace Arkivverket.Arkade.Test.Logging
                 .AssertLogEntryMessage("Log line 4");
         }
 
-        [Fact(Skip ="Work in progress!")]
+        [Fact]
         public void XmlShouldContainTestResults()
         {
             TestSession testSession = new TestSessionBuilder()
+                .WithTestRun(new TestRunBuilder()
+                    .WithTestName("test1")
+                    .WithTestCategory("category1")
+                    .WithDurationMillis(123)
+                    .WithStatus(ResultType.Success)
+                    .WithMessage("message1")
+                    .Build())
                 .Build();
 
             string xml = TestSessionXmlGenerator.GenerateXml(testSession);
@@ -56,11 +61,11 @@ namespace Arkivverket.Arkade.Test.Logging
             new TestSessionLogXmlAssert(xml)
                 .AssertNumberOfTestResult(1)
                 .FirstTestResult()
-                .AssertTestName("testName")
-                //.AssertTestCategory(testCategory)
-                //.AssertDurationMillisPresent()
-                //.AssertStatus("SUCCESS")
-                //.AssertMessage(message)
+                .AssertTestName("test1")
+                .AssertTestCategory("category1")
+                .AssertDurationMillis(123)
+                .AssertStatus("SUCCESS")
+                .AssertMessage("message1")
                 ;
         }
 
