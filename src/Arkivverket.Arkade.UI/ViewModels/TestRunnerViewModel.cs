@@ -1,10 +1,13 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.UI.Models;
+using Arkivverket.Arkade.UI.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -20,19 +23,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private readonly TestSessionFactory _testSessionBuilder;
         private readonly TestEngine _testEngine;
         private readonly IRegionManager _regionManager;
-        private bool _isRunningTests;
         public DelegateCommand NavigateToSummaryCommand { get; set; }
         private DelegateCommand RunTestEngineCommand { get; set; }
         private string _metadataFileName;
         private string _archiveFileName;
         private TestSession _testSession;
-        private Operation _operation;
+        private bool _isRunningTests;
 
-        public Operation Operation
-        {
-            get { return _operation; }
-            set { SetProperty(ref _operation, value); }
-        }
 
         public ObservableCollection<TestRunnerStatus> TestResults
         {
@@ -83,13 +80,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void TestEngineOnTestStarted(object sender, TestStartedEventArgs eventArgs)
         {
-            string userFriendlyName = GetUserFriendlyTestName(eventArgs);
-
-            Operation = new Operation()
-            {
-                OperationName = userFriendlyName,
-                StartTime = eventArgs.StartTime
-            };
+            UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus.Executing, eventArgs.TestName);
         }
 
         private static string GetUserFriendlyTestName(TestStartedEventArgs eventArgs)
@@ -99,13 +90,14 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void TestEngineOnTestFinished(object sender, TestFinishedEventArgs eventArgs)
         {
-            // http://stackoverflow.com/questions/18331723/this-type-of-collectionview-does-not-support-changes-to-its-sourcecollection-fro
-            Application.Current.Dispatcher.Invoke((Action)delegate
+            if (eventArgs.IsSuccess)
             {
-                TimeSpan timeSpan = DateTime.Now - Operation.StartTime;
-                TestResults.Add(new TestRunnerStatus(eventArgs.IsSuccess, eventArgs.TestName,timeSpan.Seconds.ToString()));
-            });
-
+                UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus.Passed, eventArgs.TestName);
+            }
+            else
+            {
+                UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus.Failed, eventArgs.TestName);
+            }
         }
 
         private void RunTests()
@@ -121,15 +113,50 @@ namespace Arkivverket.Arkade.UI.ViewModels
             Log.Debug(_testSession.Archive.WorkingDirectory.Name);
 
             _testSession.TestSuite = _testEngine.RunTestsOnArchive(_testSession);
-
+            UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus.Ended, "");
             _isRunningTests = false;
             NavigateToSummaryCommand.RaiseCanExecuteChanged();
         }
-    }
 
-    public class Operation
-    {
-        public string OperationName { get; set; }
-        public DateTime StartTime { get; set; }
+
+        private void UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus status, string testName)
+        {
+            // http://stackoverflow.com/questions/18331723/this-type-of-collectionview-does-not-support-changes-to-its-sourcecollection-fro
+            Application.Current.Dispatcher.Invoke((Action)delegate
+            {
+                string icon;
+                string descript;
+                var item = TestResults.FirstOrDefault(i => i.TestName == testName);
+
+                if (status == TestRunnerStatus.TestExcecutionStatus.Executing)
+                {
+                    TestResults.Add(new TestRunnerStatus(TestRunnerStatus.TestExcecutionStatus.Executing, testName));
+                } else if (status == TestRunnerStatus.TestExcecutionStatus.Ended)
+                {
+                    TestResults.Add(new TestRunnerStatus(TestRunnerStatus.TestExcecutionStatus.Ended, testName));
+                }
+                else if (item != null && status == TestRunnerStatus.TestExcecutionStatus.Passed)
+                {
+                    TestRunnerStatus.SelectIconForTestStatus(TestRunnerStatus.TestExcecutionStatus.Passed, out icon, out descript);
+                    item.TestStatusIcon = icon;
+                    item.TestStatusDescription = descript;
+                }
+                else if (item != null && status == TestRunnerStatus.TestExcecutionStatus.Failed)
+                {
+                    TestRunnerStatus.SelectIconForTestStatus(TestRunnerStatus.TestExcecutionStatus.Failed, out icon, out descript);
+                    item.TestStatusIcon = icon;
+                    item.TestStatusDescription = descript;
+                }
+                else
+                {
+                    TestResults.Add(new TestRunnerStatus(TestRunnerStatus.TestExcecutionStatus.Error, testName));
+                }
+
+            });
+
+        }
+
+
+
     }
 }

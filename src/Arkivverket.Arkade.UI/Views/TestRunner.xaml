@@ -21,12 +21,9 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="0 6 0 8">Testsammendrag</TextBlock>
-        <TextBlock Grid.Row="1" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="0 6 0 8" Text="Kjørende oppgave: " />
-        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="0 6 0 8" Text="{Binding Operation.OperationName}" />
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="0 6 0 8">Test kjøring</TextBlock>
         <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <TextBlock>Test Kjøring</TextBlock>
                 <DataGrid Margin="0 8 0 0" ItemsSource="{Binding TestResults}" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False"
                       materialDesign:DataGridAssist.CellPadding="13 8 8 8" materialDesign:DataGridAssist.ColumnHeaderPadding="8">
                     <DataGrid.Columns>
@@ -38,13 +35,13 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Binding="{Binding TestNameReadable}"
+                        <DataGridTextColumn Binding="{Binding TestName}"
                                             Header="Test"
                                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                                             />
 
-                        <DataGridTextColumn Binding="{Binding TestDurationSec}"
-                                            Header="Kjøretid (sek)"
+                        <DataGridTextColumn Binding="{Binding TestStatusDescription}"
+                                            Header="Status"
                                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                                             />
                     </DataGrid.Columns>
