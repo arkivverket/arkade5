@@ -42,6 +42,6 @@
         <ContentControl Grid.Row="1"  x:Name="MainRegion"
                             prism:RegionManager.RegionName="MainContentRegion"
                             VerticalContentAlignment="Stretch"
-                            HorizontalContentAlignment="Stretch" />
+                            HorizontalContentAlignment="Stretch" VerticalAlignment="Top"/>
     </Grid>
 </Window>
