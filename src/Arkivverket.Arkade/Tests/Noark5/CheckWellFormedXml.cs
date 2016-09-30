@@ -11,7 +11,17 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void Test(Archive archive)
         {
-            new Common.CheckWellFormedXml().Test(archive.GetContentDescriptionFileName());
+            var contentDescriptionFileName = archive.GetContentDescriptionFileName();
+            try
+            {
+                new Common.CheckWellFormedXml().Test(contentDescriptionFileName);
+                TestSuccess($"Filen {contentDescriptionFileName} inneholder gyldig xml.");
+            }
+            catch (Exception e)
+            {
+                TestError($"Validering av gyldig xml feilet for filen: {contentDescriptionFileName}\n{e.Message}");
+            }
+
         }
     }
 }

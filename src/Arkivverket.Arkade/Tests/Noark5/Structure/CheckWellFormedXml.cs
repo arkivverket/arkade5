@@ -1,3 +1,4 @@
+using System;
 using Arkivverket.Arkade.Core;
 
 namespace Arkivverket.Arkade.Tests.Noark5.Structure
@@ -10,7 +11,16 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         protected override void Test(Archive archive)
         {
-            new Common.CheckWellFormedXml().Test(archive.GetStructureDescriptionFileName());
+            var structureDescriptionFileName = archive.GetStructureDescriptionFileName();
+            try
+            {
+                new Common.CheckWellFormedXml().Test(structureDescriptionFileName);
+                TestSuccess($"Filen {structureDescriptionFileName} inneholder gyldig xml.");
+            }
+            catch (Exception e)
+            {
+                TestError($"Validering av gyldig xml feilet for filen: {structureDescriptionFileName}\n{e.Message}");
+            }
         }
     }
 }

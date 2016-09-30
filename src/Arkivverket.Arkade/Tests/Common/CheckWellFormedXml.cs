@@ -9,16 +9,8 @@ namespace Arkivverket.Arkade.Tests.Common
         {
             using (var reader = XmlReader.Create(filename))
             {
-                try
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                    }
-                    Console.WriteLine("Wellformed XML: Pass");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Wellformed XML: Fail: " + ex.Message);
                 }
             }
         }
