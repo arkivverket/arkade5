@@ -45,10 +45,10 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
         {
             var result = checksumsAreEqual ? ResultType.Success : ResultType.Error;
 
-            string message = $"Checksum validated for file: {filename} with algorithm: {checksumAlgorithm}.";
+            string message = $"Sjekksum er kontrollert for {filename} med algoritmen {checksumAlgorithm}.";
             if (result == ResultType.Error)
             {
-                message = message + $" Expected checksum: [{expectedChecksum}] Generated checksum: [{generatedChecksum}]. ";
+                message = message + $"\nForventet sjekksum: [{expectedChecksum}] Generert sjekksum: [{generatedChecksum}]. ";
             }
             return new TestResult(result, message);
         }
