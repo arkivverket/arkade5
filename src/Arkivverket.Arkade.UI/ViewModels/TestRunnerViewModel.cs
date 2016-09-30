@@ -20,12 +20,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private readonly TestSessionFactory _testSessionBuilder;
         private readonly TestEngine _testEngine;
+        private readonly IRegionManager _regionManager;
         private bool _isRunningTests;
-
+        public DelegateCommand NavigateToSummaryCommand { get; set; }
         private DelegateCommand RunTestEngineCommand { get; set; }
         private string _metadataFileName;
         private string _archiveFileName;
-
+        private TestSession _testSession;
         private Operation _operation;
 
         public Operation Operation
@@ -40,15 +41,26 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _testResults, value); }
         }
 
-        public TestRunnerViewModel(TestSessionFactory testSessionBuilder, TestEngine testEngine)
+        public TestRunnerViewModel(TestSessionFactory testSessionBuilder, TestEngine testEngine, IRegionManager regionManager)
         {
             _testSessionBuilder = testSessionBuilder;
             _testEngine = testEngine;
+            _regionManager = regionManager;
+
             _testEngine.TestStarted += TestEngineOnTestStarted;
             _testEngine.TestFinished += TestEngineOnTestFinished;
-            RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
 
+            RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
+            NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary);
         }
+
+        private void NavigateToSummary()
+        {
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add("TestSession", _testSession);
+            _regionManager.RequestNavigate("MainContentRegion", "TestSummary", navigationParameters);
+        }
+
         public void OnNavigatedTo(NavigationContext context)
         {
             _metadataFileName = (string)context.Parameters["metadataFileName"];
@@ -97,16 +109,14 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             Log.Debug("Issued the RunTests command");
 
-            TestSession testSession = _testSessionBuilder.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
+            _testSession = _testSessionBuilder.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
 
-            Log.Debug(testSession.Archive.Uuid.GetValue());
-            Log.Debug(testSession.Archive.ArchiveType.ToString());
-            Log.Debug(testSession.Archive.WorkingDirectory.Name);
+            Log.Debug(_testSession.Archive.Uuid.GetValue());
+            Log.Debug(_testSession.Archive.ArchiveType.ToString());
+            Log.Debug(_testSession.Archive.WorkingDirectory.Name);
 
-            testSession.TestSuite = _testEngine.RunTestsOnArchive(testSession);
+            _testSession.TestSuite = _testEngine.RunTestsOnArchive(_testSession);
         }
-
-        
     }
 
     public class Operation

@@ -31,6 +31,7 @@ namespace Arkivverket.Arkade.UI
             builder.RegisterModule(new ArkadeAutofacModule());
 
             builder.RegisterTypeForNavigation<TestRunner>();
+            builder.RegisterTypeForNavigation<TestSummary>();
         }
     }
 }
