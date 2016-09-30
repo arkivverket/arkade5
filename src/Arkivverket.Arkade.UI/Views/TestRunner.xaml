@@ -51,7 +51,7 @@
                 </DataGrid>
             </StackPanel>
         </ScrollViewer>
-        <Button Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" Margin="5 20" Content="Vis sammendrag" HorizontalAlignment="Right" Width="118" Command="{Binding NavigateToSummaryCommand}" Height="31" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" Margin="5 20" Content="Vis sammendrag" HorizontalAlignment="Right" Command="{Binding NavigateToSummaryCommand}" Height="31" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
 
     </Grid>
 </UserControl>

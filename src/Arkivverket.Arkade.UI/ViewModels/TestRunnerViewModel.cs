@@ -1,6 +1,5 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using Arkivverket.Arkade.Core;
@@ -51,7 +50,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _testEngine.TestFinished += TestEngineOnTestFinished;
 
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
-            NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary);
+            NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
         }
 
         private void NavigateToSummary()
@@ -61,6 +60,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _regionManager.RequestNavigate("MainContentRegion", "TestSummary", navigationParameters);
         }
 
+        private bool CanNavigateToSummary()
+        {
+            return !_isRunningTests;
+        }
         public void OnNavigatedTo(NavigationContext context)
         {
             _metadataFileName = (string)context.Parameters["metadataFileName"];
@@ -108,6 +111,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private void RunTests()
         {
             Log.Debug("Issued the RunTests command");
+            _isRunningTests = true;
+            NavigateToSummaryCommand.RaiseCanExecuteChanged();
 
             _testSession = _testSessionBuilder.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
 
@@ -116,6 +121,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             Log.Debug(_testSession.Archive.WorkingDirectory.Name);
 
             _testSession.TestSuite = _testEngine.RunTestsOnArchive(_testSession);
+
+            _isRunningTests = false;
+            NavigateToSummaryCommand.RaiseCanExecuteChanged();
         }
     }
 
