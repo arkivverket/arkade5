@@ -17,10 +17,6 @@ namespace Arkivverket.Arkade.Tests.Noark5
         public NumberOfClassificationSystems(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
         {
         }
-        public override string GetName()
-        {
-            return this.GetType().Name;
-        }
 
         protected override void Test(Archive archive)
         {

@@ -66,9 +66,5 @@ namespace Arkivverket.Arkade.Tests.Noark5
             }
         }
 
-        public override string GetName()
-        {
-            return this.GetType().Name;
-        }
     }
 }

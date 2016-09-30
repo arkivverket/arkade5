@@ -15,11 +15,6 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
         {
         }
 
-        public override string GetName()
-        {
-            return GetType().Name;
-        }
-
         protected override void Test(Archive archive)
         {
             try

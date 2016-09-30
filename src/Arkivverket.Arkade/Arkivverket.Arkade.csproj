@@ -85,6 +85,11 @@
     <Compile Include="Identify\IArchiveExtractor.cs" />
     <Compile Include="Identify\IArchiveIdentifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\TestNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="Tests\Common\CheckWellFormedXml.cs" />
     <Compile Include="Tests\ITest.cs" />
@@ -94,13 +99,13 @@
     <Compile Include="Tests\Noark5\NumberOfArchiveParts.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchives.cs" />
     <Compile Include="Tests\Noark5\NumberOfClasses.cs" />
+    <Compile Include="Tests\Noark5\NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassificationSystems.cs" />
     <Compile Include="Tests\Noark5\NumberOfFolders.cs" />
     <Compile Include="Tests\Noark5\StatusOfArchiveParts.cs" />
     <Compile Include="Tests\Noark5\Structure\CheckWellFormedXml.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksums.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchema.cs" />
-    <Compile Include="Tests\NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders.cs" />
     <Compile Include="Tests\TestProvider.cs" />
     <Compile Include="Tests\TestResult.cs" />
     <Compile Include="Core\TestRun.cs" />
@@ -140,6 +145,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ExternalModels\xsd\testSessionLog.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TestNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TestNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\OctoPack.3.0.71\tools\OctoPack.targets" Condition="Exists('..\packages\OctoPack.3.0.71\tools\OctoPack.targets')" />

@@ -19,23 +19,25 @@ namespace Arkivverket.Arkade.Tests
 
         protected abstract void Test(Archive archive);
 
-        public abstract string GetName();
+        public string GetName()
+        {
+            return Resources.TestNames.ResourceManager.GetString(GetType().Name);
+        }
 
         public TestRun RunTest(Archive archive)
         {
-            TestResults = new TestRun(GetType().FullName, TestType);
+            TestResults = new TestRun(GetName(), TestType);
 
             var start = DateTime.Now;
             Test(archive);
             var stop = DateTime.Now;
-            long duration = (long) stop.Subtract(start).TotalMilliseconds;
 
-            Console.WriteLine("Duration: " + duration); // TODO: use logging mechanism instead
-
-            TestResults.TestDuration = duration;
+            TestResults.TestDuration = (long) stop.Subtract(start).TotalMilliseconds;
 
             return TestResults;
         }
+
+       
 
         protected void TestSuccess(string message)
         {

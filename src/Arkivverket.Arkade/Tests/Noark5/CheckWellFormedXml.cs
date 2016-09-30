@@ -9,11 +9,6 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
         }
 
-        public override string GetName()
-        {
-            return this.GetType().Name;
-        }
-
         protected override void Test(Archive archive)
         {
             new Common.CheckWellFormedXml().Test(archive.GetContentDescriptionFileName());
