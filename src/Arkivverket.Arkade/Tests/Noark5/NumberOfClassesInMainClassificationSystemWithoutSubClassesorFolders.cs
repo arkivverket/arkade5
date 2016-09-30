@@ -62,7 +62,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 }
 
                 AddAnalysisResult(AnalysisClasses, cntClasses.ToString());
-                TestSuccess($"Found {cntClasses} classification classes without sub classes or folders.");
+                TestSuccess($"Antall klasser uten underklasser eller mapper: {cntClasses}.");
             }
         }
 

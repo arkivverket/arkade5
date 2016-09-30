@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
                 AddAnalysisResult(AnalysisKeyClasses, counter.ToString());
 
-                TestSuccess($"Found {counter} classes.");
+                TestSuccess($"Antall klasser: {counter}.");
             }
         }
     }

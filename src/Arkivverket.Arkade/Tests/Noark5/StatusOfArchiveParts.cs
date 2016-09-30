@@ -28,20 +28,19 @@ namespace Arkivverket.Arkade.Tests.Noark5
                     }
                     else if (reader.IsNodeTypeAndName(XmlNodeType.Element, "arkivdelstatus") && isSearchingForArchiveStatus)
                     {
-                        reader.Read(); // Adance the xml reader to the content of the node
+                        reader.Read(); // Advance the xml reader to the content of the node
                         trackResults.Add(reader.Value);
                         isSearchingForArchiveStatus = false;
                     }
                     else if (reader.IsNodeTypeAndName(XmlNodeType.EndElement, "arkivdelstatus") && isSearchingForArchiveStatus)
                     {
-                        trackResults.Add("arkivdelstatus ikke definert i arkivdel");
+                        trackResults.Add("ikke angitt");
                         isSearchingForArchiveStatus = false;
                     }
                 }
             }
 
-            trackResults.ConsoleLogResults();
-            TestSuccess($"Found {trackResults.ResultsToString()} in archive.");
+            TestSuccess($"Arkivdelenes status og antall: \n{trackResults.ResultsToString()}");
         }
     }
 
@@ -67,21 +66,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
             }
         }
 
-        internal void ConsoleLogResults()
-        {
-            foreach (var pair in Results)
-            {
-                Console.WriteLine($"arkivdelstatus: {pair.Key}: {pair.Value} obersvasjoner");
-            }
-        }
-
-
         internal string ResultsToString()
         {
             var result = string.Empty;
             foreach (var pair in Results)
             {
-                result = result + $"{pair.Key} ({pair.Value}) ";
+                result = result + $"{pair.Key} ({pair.Value})\n";
             }
             return result;
         }

@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
                 AddAnalysisResult(AnalysisKeyArchives, counter.ToString());
 
-                TestSuccess($"Found {counter} archives.");
+                TestSuccess($"Antall arkiver: {counter}.");
             }
         }
 

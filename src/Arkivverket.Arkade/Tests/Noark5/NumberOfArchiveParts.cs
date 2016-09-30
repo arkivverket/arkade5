@@ -23,8 +23,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                         counter++;
                     }
                 }
-                Console.WriteLine("Number of archiveparts: " + counter);
-                TestSuccess($"Found {counter} archives.");
+                TestSuccess($"Antall arkivdeler: {counter}.");
             }
         }
     }

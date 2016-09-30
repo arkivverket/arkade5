@@ -21,12 +21,12 @@ namespace Arkivverket.Arkade.UI.ViewModels
         public SolidColorBrush ResultAsColor => _testRun.IsSuccess() ? _colorSuccess : _colorFailure;
         public string ResultIcon => _testRun.IsSuccess() ? "Check" : "Alert";
 
-        public string Message
+    public string Message
         {
             get
             {
                 if (_testRun.Results != null && _testRun.Results.Count > 0)
-                    return _testRun.Results[0].Message + " (Kjøretid: " + Duration + " ms)";
+                    return _testRun.Results[0].Message;
                 else
                     return null;
             }
