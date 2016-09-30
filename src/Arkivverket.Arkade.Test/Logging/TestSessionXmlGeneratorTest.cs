@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Test.Logging
                 .assertLogEntryMessage("Log line 4");
         }
 
-        [Fact(Skip = "Work in progress!")]
+        [Fact(Skip ="Work in progress!")]
         public void XmlShouldContainTestResults()
         {
             TestSession testSession = new TestSessionBuilder()
@@ -53,17 +53,15 @@ namespace Arkivverket.Arkade.Test.Logging
 
             string xml = TestSessionXmlGenerator.GenerateXml(testSession);
 
-            TestSessionLogXmlValidator.Validate(xml);
-            xml.Should()
-                .Contain("<testName>testName</testName>")
-                .And
-                .Contain("<testCategory>testCategory</testCategory>")
-                .And
-                .Contain("<durationMillis>1234</durationMillis>")
-                .And
-                .Contain("<status>SUCCESS</status>")
-                .And
-                .Contain("<message>No message</message>");
+            new TestSessionLogXmlAssert(xml)
+                .AssertNumberOfTestResult(1)
+                .FirstTestResult()
+                .AssertTestName("testName")
+                //.AssertTestCategory(testCategory)
+                //.AssertDurationMillisPresent()
+                //.AssertStatus("SUCCESS")
+                //.AssertMessage(message)
+                ;
         }
 
     }
