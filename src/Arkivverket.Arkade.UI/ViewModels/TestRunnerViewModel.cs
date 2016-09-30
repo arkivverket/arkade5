@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Identify;
+using Arkivverket.Arkade.UI.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -15,7 +16,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
     public class TestRunnerViewModel : BindableBase, INavigationAware
     {
 
-        private ObservableCollection<TestFinishedEventArgs> _testResults = new ObservableCollection<TestFinishedEventArgs>();
+        private ObservableCollection<TestRunnerStatus> _testResults = new ObservableCollection<TestRunnerStatus>();
 
         private readonly TestSessionFactory _testSessionBuilder;
         private readonly TestEngine _testEngine;
@@ -33,7 +34,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _operation, value); }
         }
 
-        public ObservableCollection<TestFinishedEventArgs> TestResults
+        public ObservableCollection<TestRunnerStatus> TestResults
         {
             get { return _testResults; }
             set { SetProperty(ref _testResults, value); }
@@ -86,7 +87,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
             // http://stackoverflow.com/questions/18331723/this-type-of-collectionview-does-not-support-changes-to-its-sourcecollection-fro
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
-                TestResults.Add(eventArgs);
+                TimeSpan timeSpan = DateTime.Now - Operation.StartTime;
+                TestResults.Add(new TestRunnerStatus(eventArgs.IsSuccess, eventArgs.TestName,timeSpan.Seconds.ToString()));
             });
 
         }

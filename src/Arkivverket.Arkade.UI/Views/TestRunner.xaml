@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Arkivverket.Arkade.UI.Views"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:domain="clr-namespace:Arkivverket.Arkade.Core;assembly=Arkivverket.Arkade"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -23,15 +24,31 @@
         <TextBlock Grid.Row="1" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="0 6 0 8" Text="Kjørende oppgave: " />
         <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="0 6 0 8" Text="{Binding Operation.OperationName}" />
         <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
-            <ListView ItemsSource="{Binding TestResults}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Test Navn" DisplayMemberBinding="{Binding Path=TestName}" />
-                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=IsSuccess}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <StackPanel>
+                <TextBlock>Test Kjøring</TextBlock>
+                <DataGrid Margin="0 8 0 0" ItemsSource="{Binding TestResults}" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False"
+                      materialDesign:DataGridAssist.CellPadding="13 8 8 8" materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <materialDesign:PackIcon Kind="{Binding TestStatusIcon}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Binding="{Binding TestNameReadable}"
+                                            Header="Test"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                            />
+
+                        <DataGridTextColumn Binding="{Binding TestDurationSec}"
+                                            Header="Kjøretid (sek)"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                            />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
         </ScrollViewer>
-        
     </Grid>
 </UserControl>
