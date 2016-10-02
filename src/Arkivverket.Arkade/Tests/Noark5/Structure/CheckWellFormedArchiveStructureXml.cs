@@ -3,9 +3,9 @@ using Arkivverket.Arkade.Core;
 
 namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
-    public class CheckWellFormedXml : BaseTest
+    public class CheckWellFormedArchiveStructureXml : BaseTest
     {
-        public CheckWellFormedXml(IArchiveContentReader archiveReader) : base(TestType.Structure, archiveReader)
+        public CheckWellFormedArchiveStructureXml(IArchiveContentReader archiveReader) : base(TestType.Structure, archiveReader)
         {
         }
 

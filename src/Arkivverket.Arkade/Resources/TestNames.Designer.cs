@@ -61,11 +61,20 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valider gyldig xml.
+        ///   Looks up a localized string similar to Valider gyldig xml (ADDML).
         /// </summary>
-        internal static string CheckWellFormedXml {
+        internal static string CheckWellFormedArchiveStructureXml {
             get {
-                return ResourceManager.GetString("CheckWellFormedXml", resourceCulture);
+                return ResourceManager.GetString("CheckWellFormedArchiveStructureXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valider gyldig xml (arkivvutrekk.xml).
+        /// </summary>
+        internal static string CheckWellFormedContentDescriptionXml {
+            get {
+                return ResourceManager.GetString("CheckWellFormedContentDescriptionXml", resourceCulture);
             }
         }
         
@@ -142,7 +151,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valider xml i henhold til skjema.
+        ///   Looks up a localized string similar to Valider xml i henhold til skjema (ADDML).
         /// </summary>
         internal static string ValidateXmlWithSchema {
             get {

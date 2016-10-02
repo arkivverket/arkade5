@@ -94,7 +94,7 @@
     <Compile Include="Tests\Common\CheckWellFormedXml.cs" />
     <Compile Include="Tests\ITest.cs" />
     <Compile Include="Tests\ITestProvider.cs" />
-    <Compile Include="Tests\Noark5\CheckWellFormedXml.cs" />
+    <Compile Include="Tests\Noark5\CheckWellFormedContentDescriptionXml.cs" />
     <Compile Include="Tests\Noark5\Noark5TestProvider.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchiveParts.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchives.cs" />
@@ -103,7 +103,7 @@
     <Compile Include="Tests\Noark5\NumberOfClassificationSystems.cs" />
     <Compile Include="Tests\Noark5\NumberOfFolders.cs" />
     <Compile Include="Tests\Noark5\StatusOfArchiveParts.cs" />
-    <Compile Include="Tests\Noark5\Structure\CheckWellFormedXml.cs" />
+    <Compile Include="Tests\Noark5\Structure\CheckWellFormedArchiveStructureXml.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksums.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchema.cs" />
     <Compile Include="Tests\TestProvider.cs" />

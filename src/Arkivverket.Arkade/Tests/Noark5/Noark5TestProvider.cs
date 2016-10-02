@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             return new List<ITest>
             {
-                new Structure.CheckWellFormedXml(_archiveReader),
+                new Structure.CheckWellFormedArchiveStructureXml(_archiveReader),
                 new ValidateAddmlDataobjectsChecksums(_archiveReader),
                 new ValidateXmlWithSchema(_archiveReader)
             };
@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             return new List<ITest>
             {
-                new CheckWellFormedXml(_archiveReader),
+                new CheckWellFormedContentDescriptionXml(_archiveReader),
                 new NumberOfArchives(_archiveReader),
                 new NumberOfArchiveParts(_archiveReader),
                 new StatusOfArchiveParts(_archiveReader),

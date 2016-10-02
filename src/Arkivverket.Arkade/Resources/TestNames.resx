@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CheckWellFormedXml" xml:space="preserve">
-    <value>Valider gyldig xml</value>
+  <data name="CheckWellFormedArchiveStructureXml" xml:space="preserve">
+    <value>Valider gyldig xml (ADDML)</value>
+  </data>
+  <data name="CheckWellFormedContentDescriptionXml" xml:space="preserve">
+    <value>Valider gyldig xml (arkivvutrekk.xml)</value>
   </data>
   <data name="NumberOfArchiveParts" xml:space="preserve">
     <value>Finn antall arkivdeler</value>
@@ -145,6 +148,6 @@
     <value>Valider gyldig sjekksummer</value>
   </data>
   <data name="ValidateXmlWithSchema" xml:space="preserve">
-    <value>Valider xml i henhold til skjema</value>
+    <value>Valider xml i henhold til skjema (ADDML)</value>
   </data>
 </root>
