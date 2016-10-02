@@ -130,8 +130,6 @@
     <Compile Include="ViewModels\LoadArchiveExtractionViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\TestRunnerViewModel.cs" />
-    <Compile Include="ViewModels\TestRunViewModel.cs" />
-    <Compile Include="ViewModels\TestSummaryViewModel.cs" />
     <Compile Include="Views\LoadArchiveExtraction.xaml.cs">
       <DependentUpon>LoadArchiveExtraction.xaml</DependentUpon>
     </Compile>
@@ -140,9 +138,6 @@
     </Compile>
     <Compile Include="Views\TestRunner.xaml.cs">
       <DependentUpon>TestRunner.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TestSummary.xaml.cs">
-      <DependentUpon>TestSummary.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\LoadArchiveExtraction.xaml">
       <SubType>Designer</SubType>
@@ -160,10 +155,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\TestSummary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
