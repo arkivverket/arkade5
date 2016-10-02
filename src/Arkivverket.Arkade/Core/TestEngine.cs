@@ -53,11 +53,16 @@ namespace Arkivverket.Arkade.Core
     {
         public string TestName { get; set; }
         public bool IsSuccess { get; set; }
+        public string ResultMessage { get; set; }
 
-        public TestFinishedEventArgs(TestRun results)
+        public TestFinishedEventArgs(TestRun testRun)
         {
-            TestName = results.TestName;
-            IsSuccess = results.IsSuccess();
+            TestName = testRun.TestName;
+            IsSuccess = testRun.IsSuccess();
+
+            if (testRun.Results != null && testRun.Results.Count > 0)
+                ResultMessage = testRun.Results[0].Message;
+
         }
     }
 }

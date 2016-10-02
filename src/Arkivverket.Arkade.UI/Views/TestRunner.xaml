@@ -3,52 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Arkivverket.Arkade.UI.Views"
              xmlns:prism="http://prismlibrary.com/"
-             xmlns:domain="clr-namespace:Arkivverket.Arkade.Core;assembly=Arkivverket.Arkade"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:models="clr-namespace:Arkivverket.Arkade.UI.Models"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="0 6 0 8">Test kjøring</TextBlock>
-        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-                <DataGrid Margin="0 8 0 0" ItemsSource="{Binding TestResults}" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False"
-                      materialDesign:DataGridAssist.CellPadding="13 8 8 8" materialDesign:DataGridAssist.ColumnHeaderPadding="8">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <materialDesign:PackIcon Kind="{Binding TestStatusIcon}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+        <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10">Testsammendrag</TextBlock>
 
-                        <DataGridTextColumn Binding="{Binding TestName}"
-                                            Header="Test"
-                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                            />
+        <materialDesign:Chip Visibility="{Binding FinishedTestingMessageVisibility}" 
+                                 Grid.Row="0" Grid.Column="1" Content="Testkjøringen er fullført"                                  
+                                 Background="#4CAF50" Margin="0 0 4 4">
+        </materialDesign:Chip>
 
-                        <DataGridTextColumn Binding="{Binding TestStatusDescription}"
-                                            Header="Status"
-                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                            />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </StackPanel>
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding TestResults}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:TestRunnerStatus}">
+                        <Border x:Name="Border" Padding="8" BorderThickness="1" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ProgressBar Visibility="{Binding ProgressBarVisibility}" Style="{StaticResource MaterialDesignCircularProgressBar}"                     
+                             Value="0"
+                             IsIndeterminate="True"
+                             Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12 12 12 12"/>
+
+                                <materialDesign:Chip Visibility="{Binding TestResultsVisibility}" 
+                                Grid.Column="0" Content="{Binding ResultAsLabel}"                                  
+                                 IconBackground="{Binding ResultAsColor}"
+                                 IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                 Margin="0 0 4 4">
+                                    <materialDesign:Chip.Icon>
+                                        <materialDesign:PackIcon Kind="{Binding ResultAsIcon}"></materialDesign:PackIcon>
+                                    </materialDesign:Chip.Icon>
+                                </materialDesign:Chip>
+
+                                <StackPanel Grid.Column="1" Margin="8 0 0 0">
+                                    <TextBlock FontWeight="Bold" Text="{Binding TestName}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding ResultMessage}" Visibility="{Binding TestResultsVisibility}" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
-        <Button Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" Margin="5 20" Content="Vis sammendrag" HorizontalAlignment="Right" Command="{Binding NavigateToSummaryCommand}" Height="31" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
-
+        
+      
+        <!--
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Margin="5 20" Content="Vis sammendrag" HorizontalAlignment="Right" Command="{Binding NavigateToSummaryCommand}" Height="31" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
+-->
     </Grid>
 </UserControl>

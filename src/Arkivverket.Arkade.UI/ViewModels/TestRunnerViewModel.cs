@@ -1,13 +1,10 @@
-using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.UI.Models;
-using Arkivverket.Arkade.UI.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -29,7 +26,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private string _archiveFileName;
         private TestSession _testSession;
         private bool _isRunningTests;
+        private Visibility _finishedTestingMessageVisibility = Visibility.Collapsed;
 
+        public Visibility FinishedTestingMessageVisibility
+        {
+            get { return _finishedTestingMessageVisibility; }
+            set { SetProperty(ref _finishedTestingMessageVisibility, value); }
+        }
 
         public ObservableCollection<TestRunnerStatus> TestResults
         {
@@ -83,21 +86,14 @@ namespace Arkivverket.Arkade.UI.ViewModels
             UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus.Executing, eventArgs.TestName);
         }
 
-        private static string GetUserFriendlyTestName(TestStartedEventArgs eventArgs)
-        {
-            return Resources.UI.ResourceManager.GetString("TestName_" + eventArgs.TestName);
-        }
-
         private void TestEngineOnTestFinished(object sender, TestFinishedEventArgs eventArgs)
         {
+            TestRunnerStatus.TestExcecutionStatus exeStatus = TestRunnerStatus.TestExcecutionStatus.Failed;
             if (eventArgs.IsSuccess)
             {
-                UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus.Passed, eventArgs.TestName);
+                exeStatus = TestRunnerStatus.TestExcecutionStatus.Passed;
             }
-            else
-            {
-                UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus.Failed, eventArgs.TestName);
-            }
+            UpdateGuiCollection(exeStatus, eventArgs.TestName, eventArgs.ResultMessage);
         }
 
         private void RunTests()
@@ -113,50 +109,36 @@ namespace Arkivverket.Arkade.UI.ViewModels
             Log.Debug(_testSession.Archive.WorkingDirectory.Name);
 
             _testSession.TestSuite = _testEngine.RunTestsOnArchive(_testSession);
-            UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus.Ended, "");
             _isRunningTests = false;
+            FinishedTestingMessageVisibility = Visibility.Visible;
             NavigateToSummaryCommand.RaiseCanExecuteChanged();
         }
 
 
-        private void UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus status, string testName)
+        private void UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus status, string testName, string resultMessage = null)
         {
             // http://stackoverflow.com/questions/18331723/this-type-of-collectionview-does-not-support-changes-to-its-sourcecollection-fro
-            Application.Current.Dispatcher.Invoke((Action)delegate
+            Application.Current.Dispatcher.Invoke(delegate
             {
-                string icon;
-                string descript;
-                var item = TestResults.FirstOrDefault(i => i.TestName == testName);
-
+                
                 if (status == TestRunnerStatus.TestExcecutionStatus.Executing)
                 {
-                    TestResults.Add(new TestRunnerStatus(TestRunnerStatus.TestExcecutionStatus.Executing, testName));
-                } else if (status == TestRunnerStatus.TestExcecutionStatus.Ended)
-                {
-                    TestResults.Add(new TestRunnerStatus(TestRunnerStatus.TestExcecutionStatus.Ended, testName));
-                }
-                else if (item != null && status == TestRunnerStatus.TestExcecutionStatus.Passed)
-                {
-                    TestRunnerStatus.SelectIconForTestStatus(TestRunnerStatus.TestExcecutionStatus.Passed, out icon, out descript);
-                    item.TestStatusIcon = icon;
-                    item.TestStatusDescription = descript;
-                }
-                else if (item != null && status == TestRunnerStatus.TestExcecutionStatus.Failed)
-                {
-                    TestRunnerStatus.SelectIconForTestStatus(TestRunnerStatus.TestExcecutionStatus.Failed, out icon, out descript);
-                    item.TestStatusIcon = icon;
-                    item.TestStatusDescription = descript;
+                    var testRunnerStatus = new TestRunnerStatus(TestRunnerStatus.TestExcecutionStatus.Executing, testName);
+                    TestResults.Add(testRunnerStatus);
                 }
                 else
                 {
-                    TestResults.Add(new TestRunnerStatus(TestRunnerStatus.TestExcecutionStatus.Error, testName));
+                    var item = TestResults.FirstOrDefault(i => i.TestName == testName);
+                    if (item != null)
+                    {
+                        item.Update(status);
+
+                        if (resultMessage != null)
+                            item.ResultMessage = resultMessage;
+                    }
                 }
-
             });
-
         }
-
-
 
     }
 }
