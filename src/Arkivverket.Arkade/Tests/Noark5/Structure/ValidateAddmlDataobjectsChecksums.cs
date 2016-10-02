@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             string message = $"Sjekksum er kontrollert for {filename} med algoritmen {checksumAlgorithm}.";
             if (result == ResultType.Error)
             {
-                message = message + $"\nForventet sjekksum: [{expectedChecksum}] Generert sjekksum: [{generatedChecksum}]. ";
+                message = message + $"\nForventet sjekksum: [{expectedChecksum}]\nGenerert sjekksum: [{generatedChecksum}]. ";
             }
             return new TestResult(result, message);
         }
