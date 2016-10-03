@@ -1,7 +1,7 @@
 # Arkivverket.Arkade
 This is the core library with functions for reading and testing archive extractions, generating reports and creating SIP/AIP-packages.
 
-## Packages:
+List of packages:
 **Core** - Common classes
 
 **ExternalModels** - Classes generated from xml schemas

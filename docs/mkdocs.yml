@@ -4,6 +4,6 @@ pages:
 - Hjem: 'index.md'
 - Installasjonsveiledning: 'installasjonsveiledning.md'
 - Brukerveiledning: 'brukerveiledning.md'
-- Systemdokumentasjon:
-    - Overview: 'system-overview.md' 
+- 'Systemdokumentasjon':
+    - 'Overview': 'system-overview.md' 
 - Versjonshistorikk: 'versjonshistorikk.md'
