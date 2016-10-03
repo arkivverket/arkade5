@@ -9,6 +9,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
+using Arkivverket.Arkade.Logging;
 
 namespace Arkivverket.Arkade.UI.ViewModels
 {
@@ -109,6 +110,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             Log.Debug(_testSession.Archive.WorkingDirectory.Name);
 
             _testSession.TestSuite = _testEngine.RunTestsOnArchive(_testSession);
+
+            TestSessionXmlGenerator.GenerateXmlAndSaveToFile(_testSession);
+
             _isRunningTests = false;
             FinishedTestingMessageVisibility = Visibility.Visible;
             NavigateToSummaryCommand.RaiseCanExecuteChanged();
@@ -120,7 +124,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             // http://stackoverflow.com/questions/18331723/this-type-of-collectionview-does-not-support-changes-to-its-sourcecollection-fro
             Application.Current.Dispatcher.Invoke(delegate
             {
-                
+
                 if (status == TestRunnerStatus.TestExcecutionStatus.Executing)
                 {
                     var testRunnerStatus = new TestRunnerStatus(TestRunnerStatus.TestExcecutionStatus.Executing, testName);
