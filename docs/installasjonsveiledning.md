@@ -1,5 +1,3 @@
-# Installasjonsveiledning
-
 ## Start installasjonen fra .msi fil
 Klikk på arkade5-0.X.YY.msi for å starte installasjon av programmet.
 ![](img/NedlastningerFilViser.png "Fil viser")

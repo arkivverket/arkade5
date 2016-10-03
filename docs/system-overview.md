@@ -1,9 +1,7 @@
-# Components
-
-## Arkivverket.Arkade
+# Arkivverket.Arkade
 This is the core library with functions for reading and testing archive extractions, generating reports and creating SIP/AIP-packages.
 
-### Packages:
+## Packages:
 **Core** - Common classes
 
 **ExternalModels** - Classes generated from xml schemas
@@ -15,7 +13,7 @@ This is the core library with functions for reading and testing archive extracti
 **Util** - General utilities
 
 
-## Arkivverket.Arkade.UI
+# Arkivverket.Arkade.UI
 
 This project provides the graphical user interface of the Arkade 5 software. It is based on WPF, Windows Presentation Foundation. Together with WPF, the application uses the [Prism library](https://github.com/PrismLibrary/Prism) for creating a loosly coupled, maintainable and testable XAML application.  
 
