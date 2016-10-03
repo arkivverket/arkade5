@@ -1,4 +1,4 @@
-# Installering og avinstallering av Arkade 5 program
+# Installasjonsveiledning
 
 ## Start installasjonen fra .msi fil
 Klikk på arkade5-0.X.YY.msi for å starte installasjon av programmet.

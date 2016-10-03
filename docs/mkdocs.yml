@@ -2,8 +2,7 @@ site_name: Arkade 5 - Arkivverket
 
 pages:
 - Hjem: 'index.md'
-- Installasjon: 'Installasjon.md'
-- System documentation: 
-    - 'Component descriptions': 'system-components.md'
-- Versjonshistorikk: 'versjonshistorikk.md'    
-- Brukerveiledning: 'brukerveiledning.md'    
+- Installasjonsveiledning: 'installasjonsveiledning.md'
+- Brukerveiledning: 'brukerveiledning.md'
+- Systemdokumentasjon: 'systemdokumentasjon.md' 
+- Versjonshistorikk: 'versjonshistorikk.md'

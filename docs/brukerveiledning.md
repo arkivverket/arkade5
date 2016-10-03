@@ -1,9 +1,8 @@
 # Brukerveiledning
 
-## Versjon 1.0.0.0
+## Versjon 0.3.0
 Skjermen nedenfor vises ved oppstart av Arkade5.  
 Versjonen støtter innlesing av Noark5 arkivdata, og kjører tester på arkivet.  
-Testdekkingen er ennå ikke 100% for Noark5.
 
 ### Oppstart skjerm 
 
