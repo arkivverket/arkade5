@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.UI.Views
         public MainWindow()
         {
             InitializeComponent();
-            Title = string.Format(UI.Resources.UI.General_WindowTitle, typeof(App).Assembly.GetName().Version);
+            Title = string.Format(UI.Resources.UI.General_WindowTitle, "0.3.0"); // Todo - get correct application version from assembly
         }
     }
 }
