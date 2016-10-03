@@ -15,11 +15,11 @@ Testene kjøres ved å trykke "Start testing".
 ### Test status
 ![](img/Arkade1000_testscreen.png "Arkade5 testsammendrag")
 
-Testsammendrag skjermen holder brukere oppdater på framdriften av tester og   
-testresultatet av de some er ferdig kjørt.   
-Beskjeden "Testkjøringen er fullført" vil bli vist når testen er ferdig.  
+Testsammendrag visningen holder brukere oppdater på framdriften av tester og   
+testresultatet blir vist for testene som er ferdig kjørt.   
+Beskjeden "Testkjøringen er fullført" vil bli vist når testen er ferdig. 
 
 ### Annen infomasjon
-Verktøyet bruker C:/temp som arbeidfolder.   
-En testlogg fil er lagret i <TODO>
+Verktøyet bruker C:\temp som arbeidfolder, en mappe blir opprettet per arkiv.   
+Etter kjøring blir testloggen lagret i arkade-log.xml.
 

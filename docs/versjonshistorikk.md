@@ -4,9 +4,11 @@
 Dato: 03.10.2016
 
 Arkivformater:
+
 *   Noark5
 
 Testkjøringer:
+
 *   Valider gyldig xml (ADDML)
 *   Valider gyldig xml (arkivvutrekk.xml)
 *   Finn antall arkivdeler
