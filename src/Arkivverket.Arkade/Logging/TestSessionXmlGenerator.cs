@@ -13,6 +13,13 @@ namespace Arkivverket.Arkade.Logging
     public class TestSessionXmlGenerator
     {
 
+        public static void GenerateXmlAndSaveToFile(TestSession testSession)
+        {
+            string xml = GenerateXml(testSession);
+            DirectoryInfo workingDirectory = testSession.Archive.WorkingDirectory;
+            File.WriteAllText(workingDirectory.FullName + "\\arkade-log.xml", xml);
+        }
+
         public static string GenerateXml(TestSession testSession)
         {
             testSessionLog log = new testSessionLog();
