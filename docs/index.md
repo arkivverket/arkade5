@@ -8,4 +8,4 @@ Disse sidene vil fungere som dokumentasjonssider og den nyeste versjonen vil kun
 
 ## Nedlasting
 
-Last ned siste versjon (beta): [arkade5-0.3.0.msi](https://download.arkitektum.no/arkade/release/arkade5-0.3.0.msi) (2016-08-16)
+Last ned siste versjon: [arkade5-0.3.0.msi](https://download.arkitektum.no/arkade/release/arkade5-0.3.0.msi) (2016-08-16)
