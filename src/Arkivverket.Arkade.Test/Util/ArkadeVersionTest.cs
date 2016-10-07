@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Test.Util
         {
             string version = ArkadeVersion.Version;
 
-            version.Should().Be("0.0.0.0");
+            version.Should().MatchRegex("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");
         }
     }
 }

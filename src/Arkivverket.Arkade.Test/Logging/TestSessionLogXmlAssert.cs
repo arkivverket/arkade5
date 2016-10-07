@@ -56,9 +56,9 @@ namespace Arkivverket.Arkade.Test.Logging
             return this;
         }
 
-        public TestSessionLogXmlAssert AssertArkadeVersion(string arkadeVersion)
+        public TestSessionLogXmlAssert AssertArkadeVersionIsSet()
         {
-            _testSessionLog.arkadeVersion.Should().Be(arkadeVersion);
+            _testSessionLog.arkadeVersion.Should().MatchRegex("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");
             return this;
         }
 
