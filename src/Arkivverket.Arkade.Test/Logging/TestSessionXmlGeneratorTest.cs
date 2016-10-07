@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Test.Logging
                 .AssertTimestampNow()
                 .AssertArchiveUuid(testSession.Archive.Uuid)
                 .AssertArchiveType(testSession.Archive.ArchiveType)
-                .AssertArkadeVersion("unknown");
+                .AssertArkadeVersion("0.0.0.0");
         }
 
         [Fact]

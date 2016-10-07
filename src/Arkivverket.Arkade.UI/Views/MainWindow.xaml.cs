@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Arkivverket.Arkade.Util;
+using System.Reflection;
 using System.Windows;
 
 namespace Arkivverket.Arkade.UI.Views
@@ -8,7 +9,7 @@ namespace Arkivverket.Arkade.UI.Views
         public MainWindow()
         {
             InitializeComponent();
-            Title = string.Format(UI.Resources.UI.General_WindowTitle, "0.3.0"); // Todo - get correct application version from assembly
+            Title = string.Format(UI.Resources.UI.General_WindowTitle, ArkadeVersion.Version);
         }
     }
 }
