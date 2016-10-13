@@ -2,7 +2,11 @@ namespace Arkivverket.Arkade.Core.Addml
 {
     public class FlatFile
     {
-        // todo: Add FlatFileDefinition
+        public AddmlFlatFileDefinition Definition { private set; get; }
 
+        public FlatFile(AddmlFlatFileDefinition definition)
+        {
+            Definition = definition;
+        }
     }
 }
