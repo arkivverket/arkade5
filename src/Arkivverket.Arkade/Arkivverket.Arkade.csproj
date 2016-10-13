@@ -62,9 +62,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Addml\Field.cs" />
+    <Compile Include="Core\Addml\Record.cs" />
     <Compile Include="Core\Archive.cs" />
     <Compile Include="Core\ArchiveContentReader.cs" />
     <Compile Include="Core\ArchiveInfo.cs" />
+    <Compile Include="Core\Addml\FlatFile.cs" />
     <Compile Include="Core\IArchiveContentReader.cs" />
     <Compile Include="Core\LogEntry.cs" />
     <Compile Include="Core\TestEngine.cs" />
