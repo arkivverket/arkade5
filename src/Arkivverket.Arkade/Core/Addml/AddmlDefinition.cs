@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
-    class AddmlDefinition
+    public class AddmlDefinition
     {
     }
 }
