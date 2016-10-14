@@ -86,7 +86,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Core\AddmlDatasetTestEngineTest.cs" />
+    <Compile Include="Core\Addml\AddmlDatasetTestEngineTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
     <Compile Include="Core\ArchiveBuilder.cs" />
     <Compile Include="Core\ArchiveExtractionTest.cs" />

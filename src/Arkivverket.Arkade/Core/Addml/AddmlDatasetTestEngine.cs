@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Arkivverket.Arkade.Core.Addml;
 
-namespace Arkivverket.Arkade.Core
+namespace Arkivverket.Arkade.Core.Addml
 {
     public class AddmlDatasetTestEngine
     {

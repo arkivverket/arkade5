@@ -4,7 +4,7 @@ using Arkivverket.Arkade.Core.Addml;
 using FluentAssertions;
 using Xunit;
 
-namespace Arkivverket.Arkade.Test.Core
+namespace Arkivverket.Arkade.Test.Core.Addml
 {
     public class AddmlDatasetTestEngineTest
     {
