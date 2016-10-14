@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Arkivverket.Arkade.Core.Addml
 {
     public class FlatFile
@@ -7,6 +9,11 @@ namespace Arkivverket.Arkade.Core.Addml
         public FlatFile(AddmlFlatFileDefinition definition)
         {
             Definition = definition;
+        }
+
+        public List<string> GetRecordProcesses()
+        {
+            return new List<string>();
         }
     }
 }

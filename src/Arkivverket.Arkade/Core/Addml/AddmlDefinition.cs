@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -7,6 +8,11 @@ namespace Arkivverket.Arkade.Core.Addml
         public List<FlatFile> GetFlatFiles()
         {
             return new List<FlatFile>();
+        }
+
+        public List<string> GetFileProcesses()
+        {
+            return new List<string>();
         }
     }
 }

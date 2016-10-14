@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Arkivverket.Arkade.Core.Addml
 {
     public class Field
@@ -9,6 +11,11 @@ namespace Arkivverket.Arkade.Core.Addml
         {
             Definition = definition;
             Value = value;
+        }
+
+        public List<string> GetFieldProcesses()
+        {
+            return new List<string>();
         }
     }
 }
