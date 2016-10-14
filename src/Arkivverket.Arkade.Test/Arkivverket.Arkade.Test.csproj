@@ -109,6 +109,7 @@
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksumsTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchemaTest.cs" />
     <Compile Include="Tests\Noark5\TestUtil.cs" />
+    <Compile Include="Util\AssertTest.cs" />
     <Compile Include="Util\ChecksumTest.cs" />
     <Compile Include="Util\TarTests.cs" />
     <Compile Include="Util\ArkadeVersionTest.cs" />

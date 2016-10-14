@@ -64,7 +64,9 @@
   <ItemGroup>
     <Compile Include="Core\Addml\AddmlDatasetTestEngine.cs" />
     <Compile Include="Core\Addml\AddmlDefinition.cs" />
+    <Compile Include="Core\Addml\AddmlDefinitionException.cs" />
     <Compile Include="Core\Addml\AddmlFieldDefinition.cs" />
+    <Compile Include="Core\Addml\AddmlDefinitionParser.cs" />
     <Compile Include="Core\Addml\AddmlProcessRunner.cs" />
     <Compile Include="Core\Addml\Field.cs" />
     <Compile Include="Core\Addml\AddmlFlatFileDefinition.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Core\TestRun.cs" />
     <Compile Include="Util\ArkadeAutofacModule.cs" />
     <Compile Include="Util\ArkadeVersion.cs" />
+    <Compile Include="Util\Assert.cs" />
     <Compile Include="Util\ChecksumGenerator.cs" />
     <Compile Include="Util\IChecksumGenerator.cs" />
     <Compile Include="Util\ICompressionUtility.cs" />

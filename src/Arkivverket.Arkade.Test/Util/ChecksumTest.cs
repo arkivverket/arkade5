@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Test.Util
         [Fact]
         public void CheckForFileExistence()
         {
-            Assert.Throws(typeof(FileNotFoundException), delegate
+            Xunit.Assert.Throws(typeof(FileNotFoundException), delegate
             {
                 var pathToFile = AppDomain.CurrentDomain.BaseDirectory + "\\Util\\demo2.txt";
                 new Sha256ChecksumGenerator().GenerateChecksum(pathToFile);
