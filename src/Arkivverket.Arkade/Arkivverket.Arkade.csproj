@@ -75,6 +75,10 @@
     <Compile Include="Core\Addml\IAddmlProcess.cs" />
     <Compile Include="Core\Addml\IFlatFileReader.cs" />
     <Compile Include="Core\Addml\Noark4FileReader.cs" />
+    <Compile Include="Core\Addml\Processes\ControlForeignKey.cs" />
+    <Compile Include="Core\Addml\Processes\IAddmlFieldProcess.cs" />
+    <Compile Include="Core\Addml\Processes\IAddmlFileProcess.cs" />
+    <Compile Include="Core\Addml\Processes\IAddmlRecordProcess.cs" />
     <Compile Include="Core\Addml\Record.cs" />
     <Compile Include="Core\Archive.cs" />
     <Compile Include="Core\ArchiveContentReader.cs" />
