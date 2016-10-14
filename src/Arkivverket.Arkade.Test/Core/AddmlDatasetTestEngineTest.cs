@@ -1,3 +1,4 @@
+using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using FluentAssertions;
@@ -11,7 +12,9 @@ namespace Arkivverket.Arkade.Test.Core
         public void ShouldReturnTestSuiteFromTests()
         {
             var addmlDefinition = new AddmlDefinition();
-            var testSuite = new AddmlDatasetTestEngine(addmlDefinition).RunTests();
+            var testSession = new TestSession(new Archive(ArchiveType.Noark3, Uuid.Random(), new DirectoryInfo(@"c:\temp")));
+            var addmlDatasetTestEngine = new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner());
+            TestSuite testSuite = addmlDatasetTestEngine.RunTests(addmlDefinition, testSession);
             testSuite.Should().NotBeNull();
         }
     }
