@@ -67,6 +67,10 @@
     <Compile Include="Core\Addml\AddmlFieldDefinition.cs" />
     <Compile Include="Core\Addml\Field.cs" />
     <Compile Include="Core\Addml\AddmlFlatFileDefinition.cs" />
+    <Compile Include="Core\Addml\FlatFileReader.cs" />
+    <Compile Include="Core\Addml\FlatFileReaderFactory.cs" />
+    <Compile Include="Core\Addml\IFlatFileReader.cs" />
+    <Compile Include="Core\Addml\Noark4FileReader.cs" />
     <Compile Include="Core\Addml\Record.cs" />
     <Compile Include="Core\Archive.cs" />
     <Compile Include="Core\ArchiveContentReader.cs" />
