@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="Core\Addml\AddmlDatasetTestEngineTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
+    <Compile Include="Core\Addml\AddmlDefinitionParserTest.cs" />
     <Compile Include="Core\ArchiveBuilder.cs" />
     <Compile Include="Core\ArchiveExtractionTest.cs" />
     <Compile Include="Core\TestEngineTest.cs" />
@@ -211,6 +212,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestData\jegerreg-98-dos\arkivuttrekk.xml" />
     <Content Include="TestData\noark3-info.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

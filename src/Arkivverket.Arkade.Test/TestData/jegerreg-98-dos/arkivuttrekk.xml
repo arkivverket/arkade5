@@ -1,0 +1,1520 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<addml xmlns="http://www.arkivverket.no/standarder/addml" name="Jegerregisteret">
+    <dataset name="Jegerregisteret 1998">
+        <reference/>
+        <flatFiles>
+            <flatFile definitionReference="ffd_3" name="jeger">
+                <properties>
+                    <property name="fileName">
+                        <value>jeger.dat</value>
+                    </property>
+                </properties>
+            </flatFile>
+            <flatFile definitionReference="ffd_4" name="ut_jeger">
+                <properties>
+                    <property name="fileName">
+                        <value>ut_jeger.dat</value>
+                    </property>
+                </properties>
+            </flatFile>
+            <flatFile definitionReference="ffd_5" name="ikkejeg">
+                <properties>
+                    <property name="fileName">
+                        <value>ikkejeg.dat</value>
+                    </property>
+                </properties>
+            </flatFile>
+            <flatFile definitionReference="ffd_6" name="jegerkort">
+                <properties>
+                    <property name="fileName">
+                        <value>jegerK.dat</value>
+                    </property>
+                </properties>
+            </flatFile>
+            <flatFile definitionReference="ffd_7" name="betalingsinformasjon">
+                <properties>
+                    <property name="fileName">
+                        <value>betalinf.dat</value>
+                    </property>
+                </properties>
+            </flatFile>
+            <flatFile definitionReference="ffd_8" name="betalt">
+                <properties>
+                    <property name="fileName">
+                        <value>betalt.dat</value>
+                    </property>
+                </properties>
+            </flatFile>
+            <flatFile definitionReference="ffd_9" name="feilreg">
+                <properties>
+                    <property name="fileName">
+                        <value>feilreg.dat</value>
+                    </property>
+                </properties>
+            </flatFile>
+            <flatFile definitionReference="ffd_10" name="jegerstatistikk_1">
+                <properties>
+                    <property name="fileName">
+                        <value>jegstat1.dat</value>
+                    </property>
+                </properties>
+            </flatFile>
+            <flatFile definitionReference="ffd_11" name="jegerstatistikk_2">
+                <properties>
+                    <property name="fileName">
+                        <value>jegstat2.dat</value>
+                    </property>
+                </properties>
+            </flatFile>
+            <flatFile definitionReference="ffd_12" name="ut_jegerstatistikk">
+                <properties>
+                    <property name="fileName">
+                        <value>ut_jegst.dat</value>
+                    </property>
+                </properties>
+            </flatFile>
+            <flatFileDefinitions>
+                <flatFileDefinition name="ffd_3" typeReference="fastformat_crlf">
+                    <recordDefinitions>
+                        <recordDefinition name="jeger">
+                            <fixedLength>186</fixedLength>
+                            <keys>
+                                <key name="prim_fnr">
+                                    <primaryKey/>
+                                    <fieldDefinitionReferences>
+                                        <fieldDefinitionReference name="fodselsnummer"/>
+                                    </fieldDefinitionReferences>
+                                </key>
+                            </keys>
+                            <fieldDefinitions>
+                                <fieldDefinition name="fodselsnummer" typeReference="streng">
+                                    <startPos>1</startPos>
+                                    <fixedLength>11</fixedLength>
+                                    <unique/>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="etternavn" typeReference="streng">
+                                    <startPos>12</startPos>
+                                    <fixedLength>25</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="fornavn" typeReference="streng">
+                                    <startPos>37</startPos>
+                                    <fixedLength>25</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="adresse" typeReference="streng">
+                                    <startPos>62</startPos>
+                                    <fixedLength>30</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="postnummer" typeReference="streng">
+                                    <startPos>92</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="poststed" typeReference="streng">
+                                    <startPos>96</startPos>
+                                    <fixedLength>18</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="bo_Kommunenr" typeReference="streng">
+                                    <startPos>114</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="jakt_Kommunenr" typeReference="streng">
+                                    <startPos>118</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="forstegangsjeger" typeReference="streng">
+                                    <startPos>122</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="kort" typeReference="streng">
+                                    <startPos>124</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dag" typeReference="streng">
+                                    <startPos>125</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="maaned" typeReference="streng">
+                                    <startPos>127</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="aar" typeReference="streng">
+                                    <startPos>129</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="registrert_aar" typeReference="streng">
+                                    <startPos>133</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="gammelt_betalt_aar" typeReference="streng">
+                                    <startPos>137</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt87" typeReference="streng">
+                                    <startPos>141</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt88" typeReference="streng">
+                                    <startPos>142</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt89" typeReference="streng">
+                                    <startPos>143</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt90" typeReference="streng">
+                                    <startPos>144</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt91" typeReference="streng">
+                                    <startPos>145</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt92" typeReference="streng">
+                                    <startPos>146</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt93" typeReference="streng">
+                                    <startPos>147</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt94" typeReference="streng">
+                                    <startPos>148</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt95" typeReference="streng">
+                                    <startPos>149</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt96" typeReference="streng">
+                                    <startPos>150</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt97" typeReference="streng">
+                                    <startPos>151</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt98" typeReference="streng">
+                                    <startPos>152</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt99" typeReference="streng">
+                                    <startPos>153</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ledig1" typeReference="streng">
+                                    <startPos>154</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="status" typeReference="streng">
+                                    <startPos>155</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ny_jegerprøve" typeReference="streng">
+                                    <startPos>159</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="onsker_nytt_kort" typeReference="streng">
+                                    <startPos>163</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="lopenummer" typeReference="streng">
+                                    <startPos>164</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="persregstatus" typeReference="streng">
+                                    <startPos>170</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ledig2" typeReference="streng">
+                                    <startPos>171</startPos>
+                                    <fixedLength>14</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dummy" typeReference="streng">
+                                    <startPos>185</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                            </fieldDefinitions>
+                        </recordDefinition>
+                    </recordDefinitions>
+                </flatFileDefinition>
+                <flatFileDefinition name="ffd_4" typeReference="fastformat_crlf">
+                    <recordDefinitions>
+                        <recordDefinition name="ut_jeger">
+                            <fixedLength>457</fixedLength>
+                            <keys>
+                                <key name="prim_utjeger">
+                                    <primaryKey/>
+                                    <fieldDefinitionReferences>
+                                        <fieldDefinitionReference name="plassnummer"/>
+                                        <fieldDefinitionReference name="landkort"/>
+                                        <fieldDefinitionReference name="personnummer"/>
+                                    </fieldDefinitionReferences>
+                                </key>
+                            </keys>
+                            <fieldDefinitions>
+                                <fieldDefinition name="plassnummer" typeReference="heltall">
+                                    <startPos>1</startPos>
+                                    <fixedLength>11</fixedLength>
+                                    <unique/>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="landkort" typeReference="streng">
+                                    <startPos>12</startPos>
+                                    <fixedLength>5</fixedLength>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="navn" typeReference="streng">
+                                    <startPos>17</startPos>
+                                    <fixedLength>50</fixedLength>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="adresse1" typeReference="streng">
+                                    <startPos>67</startPos>
+                                    <fixedLength>32</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="adresse2" typeReference="streng">
+                                    <startPos>99</startPos>
+                                    <fixedLength>32</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="adresse3" typeReference="streng">
+                                    <startPos>131</startPos>
+                                    <fixedLength>32</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="adresse4" typeReference="streng">
+                                    <startPos>163</startPos>
+                                    <fixedLength>32</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="landlang" typeReference="streng">
+                                    <startPos>195</startPos>
+                                    <fixedLength>22</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="personnummer" typeReference="heltall">
+                                    <startPos>217</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="merknad" typeReference="streng">
+                                    <startPos>223</startPos>
+                                    <fixedLength>63</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt85" typeReference="streng">
+                                    <startPos>286</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt86" typeReference="streng">
+                                    <startPos>287</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt87" typeReference="streng">
+                                    <startPos>288</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt88" typeReference="streng">
+                                    <startPos>289</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt89" typeReference="streng">
+                                    <startPos>290</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt90" typeReference="streng">
+                                    <startPos>291</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt91" typeReference="streng">
+                                    <startPos>292</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt92" typeReference="streng">
+                                    <startPos>293</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt93" typeReference="streng">
+                                    <startPos>294</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt94" typeReference="streng">
+                                    <startPos>295</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt95" typeReference="streng">
+                                    <startPos>296</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt96" typeReference="streng">
+                                    <startPos>297</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="kort" typeReference="streng">
+                                    <startPos>298</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dag" typeReference="heltall">
+                                    <startPos>299</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="maaned" typeReference="heltall">
+                                    <startPos>301</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="aar" typeReference="heltall">
+                                    <startPos>303</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="jegerprove" typeReference="heltall">
+                                    <startPos>307</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ledig1" typeReference="streng">
+                                    <startPos>311</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="onsker_nytt_kort" typeReference="streng">
+                                    <startPos>313</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="lopenummer" typeReference="heltall">
+                                    <startPos>314</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt97" typeReference="streng">
+                                    <startPos>320</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt98" typeReference="streng">
+                                    <startPos>321</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt99" typeReference="streng">
+                                    <startPos>322</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="registrert_aar" typeReference="heltall">
+                                    <startPos>323</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ledig2" typeReference="streng">
+                                    <startPos>327</startPos>
+                                    <fixedLength>66</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ledig3" typeReference="streng">
+                                    <startPos>393</startPos>
+                                    <fixedLength>63</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dummy" typeReference="streng">
+                                    <startPos>456</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                            </fieldDefinitions>
+                        </recordDefinition>
+                    </recordDefinitions>
+                </flatFileDefinition>
+                <flatFileDefinition name="ffd_5" typeReference="fastformat_crlf">
+                    <recordDefinitions>
+                        <recordDefinition name="ikkejeg">
+                            <fixedLength>306</fixedLength>
+                            <keys>
+                                <key name="for_fnr">
+                                    <foreignKey>
+                                        <flatFileDefinitionReference name="ffd_3">
+                                            <recordDefinitionReferences>
+                                                <recordDefinitionReference name="jeger">
+                                                  <fieldDefinitionReferences>
+                                                  <fieldDefinitionReference name="fodselsnummer"/>
+                                                  </fieldDefinitionReferences>
+                                                </recordDefinitionReference>
+                                            </recordDefinitionReferences>
+                                        </flatFileDefinitionReference>
+                                        <relationType>n:1</relationType>
+                                    </foreignKey>
+                                    <fieldDefinitionReferences>
+                                        <fieldDefinitionReference name="fodselsnummer"/>
+                                    </fieldDefinitionReferences>
+                                </key>
+                                <key name="prim_ikkejeg">
+                                    <primaryKey/>
+                                    <fieldDefinitionReferences>
+                                        <fieldDefinitionReference name="fodselsnummer"/>
+                                    </fieldDefinitionReferences>
+                                </key>
+                            </keys>
+                            <fieldDefinitions>
+                                <fieldDefinition name="fodselsnummer" typeReference="streng">
+                                    <startPos>1</startPos>
+                                    <fixedLength>11</fixedLength>
+                                    <unique/>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="etternavn" typeReference="streng">
+                                    <startPos>12</startPos>
+                                    <fixedLength>25</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="fornavn" typeReference="streng">
+                                    <startPos>37</startPos>
+                                    <fixedLength>25</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="adresse" typeReference="streng">
+                                    <startPos>62</startPos>
+                                    <fixedLength>30</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="postnummer" typeReference="heltall">
+                                    <startPos>92</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="poststed" typeReference="streng">
+                                    <startPos>96</startPos>
+                                    <fixedLength>18</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="bo_kommunenr" typeReference="heltall">
+                                    <startPos>114</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="jakt_kommunenr" typeReference="heltall">
+                                    <startPos>118</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="forstegangsjeger" typeReference="heltall">
+                                    <startPos>122</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="kort" typeReference="streng">
+                                    <startPos>124</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dag" typeReference="heltall">
+                                    <startPos>125</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="maaned" typeReference="heltall">
+                                    <startPos>127</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="aar" typeReference="heltall">
+                                    <startPos>129</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="registrertaar" typeReference="heltall">
+                                    <startPos>133</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="gammeltbetaltaar" typeReference="heltall">
+                                    <startPos>137</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt87" typeReference="streng">
+                                    <startPos>141</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt88" typeReference="streng">
+                                    <startPos>142</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt89" typeReference="streng">
+                                    <startPos>143</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt90" typeReference="streng">
+                                    <startPos>144</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt91" typeReference="streng">
+                                    <startPos>145</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt92" typeReference="streng">
+                                    <startPos>146</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt93" typeReference="streng">
+                                    <startPos>147</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt94" typeReference="streng">
+                                    <startPos>148</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt95" typeReference="streng">
+                                    <startPos>149</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt96" typeReference="streng">
+                                    <startPos>150</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt97" typeReference="streng">
+                                    <startPos>151</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt98" typeReference="streng">
+                                    <startPos>152</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betalt99" typeReference="streng">
+                                    <startPos>153</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="status" typeReference="streng">
+                                    <startPos>154</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ny_jegerprove" typeReference="streng">
+                                    <startPos>158</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="onsker_nytt_kort" typeReference="streng">
+                                    <startPos>162</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="lopenummer" typeReference="streng">
+                                    <startPos>163</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ledig2" typeReference="streng">
+                                    <startPos>169</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="persregstatus" typeReference="streng">
+                                    <startPos>170</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="fradomtstatus" typeReference="streng">
+                                    <startPos>171</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="fradato" typeReference="dato8">
+                                    <startPos>172</startPos>
+                                    <fixedLength>8</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="tildato" typeReference="dato8">
+                                    <startPos>180</startPos>
+                                    <fixedLength>8</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="rettsinstans1" typeReference="streng">
+                                    <startPos>188</startPos>
+                                    <fixedLength>40</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="rettsinstans2" typeReference="streng">
+                                    <startPos>228</startPos>
+                                    <fixedLength>40</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="rettsdato" typeReference="dato8">
+                                    <startPos>268</startPos>
+                                    <fixedLength>8</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ankedato" typeReference="dato8">
+                                    <startPos>276</startPos>
+                                    <fixedLength>8</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="endeligrettsdato" typeReference="dato8">
+                                    <startPos>284</startPos>
+                                    <fixedLength>8</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ekstra" typeReference="streng">
+                                    <startPos>292</startPos>
+                                    <fixedLength>10</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dummy" typeReference="streng">
+                                    <startPos>302</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                            </fieldDefinitions>
+                        </recordDefinition>
+                    </recordDefinitions>
+                </flatFileDefinition>
+                <flatFileDefinition name="ffd_6" typeReference="fastformat_crlf">
+                    <recordDefinitions>
+                        <recordDefinition name="jegerkort">
+                            <fixedLength>258</fixedLength>
+                            <keys>
+                                <key name="for_fnr2">
+                                    <foreignKey>
+                                        <flatFileDefinitionReference name="ffd_3">
+                                            <recordDefinitionReferences>
+                                                <recordDefinitionReference name="jeger">
+                                                  <fieldDefinitionReferences>
+                                                  <fieldDefinitionReference name="fodselsnummer"/>
+                                                  </fieldDefinitionReferences>
+                                                </recordDefinitionReference>
+                                            </recordDefinitionReferences>
+                                        </flatFileDefinitionReference>
+                                        <relationType>n:1</relationType>
+                                    </foreignKey>
+                                    <fieldDefinitionReferences>
+                                        <fieldDefinitionReference name="fødselsnummer"/>
+                                    </fieldDefinitionReferences>
+                                </key>
+                                <key name="prim_kort">
+                                    <primaryKey/>
+                                    <fieldDefinitionReferences>
+                                        <fieldDefinitionReference name="fødselsnummer"/>
+                                    </fieldDefinitionReferences>
+                                </key>
+                            </keys>
+                            <fieldDefinitions>
+                                <fieldDefinition name="fødselsnummer" typeReference="streng">
+                                    <startPos>1</startPos>
+                                    <fixedLength>11</fixedLength>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="IDnummer" typeReference="heltall">
+                                    <startPos>12</startPos>
+                                    <fixedLength>15</fixedLength>
+                                    <unique/>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="navn" typeReference="streng">
+                                    <startPos>27</startPos>
+                                    <fixedLength>50</fixedLength>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="adresse1" typeReference="streng">
+                                    <startPos>77</startPos>
+                                    <fixedLength>32</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="adresse2" typeReference="streng">
+                                    <startPos>109</startPos>
+                                    <fixedLength>32</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="adresse3" typeReference="streng">
+                                    <startPos>141</startPos>
+                                    <fixedLength>32</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="adresse4" typeReference="streng">
+                                    <startPos>173</startPos>
+                                    <fixedLength>32</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="postnummer" typeReference="heltall">
+                                    <startPos>205</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ledig1" typeReference="streng">
+                                    <startPos>209</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="poststed" typeReference="streng">
+                                    <startPos>210</startPos>
+                                    <fixedLength>22</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="avgift" typeReference="bolsk">
+                                    <startPos>232</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="gebyr" typeReference="bolsk">
+                                    <startPos>233</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dato" typeReference="dato8">
+                                    <startPos>234</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="time" typeReference="heltall">
+                                    <startPos>240</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="minutt" typeReference="heltall">
+                                    <startPos>242</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="regtype" typeReference="streng">
+                                    <startPos>244</startPos>
+                                    <fixedLength>1</fixedLength>
+                                    <codes>
+                                        <code codeValue="N"/>
+                                        <code codeValue="U"/>
+                                    </codes>
+                                </fieldDefinition>
+                                <fieldDefinition name="skrivestatus" typeReference="streng">
+                                    <startPos>245</startPos>
+                                    <fixedLength>1</fixedLength>
+                                    <codes>
+                                        <code codeValue="X"/>
+                                    </codes>
+                                </fieldDefinition>
+                                <fieldDefinition name="fødeår_ut" typeReference="heltall">
+                                    <startPos>246</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dummy" typeReference="streng">
+                                    <startPos>248</startPos>
+                                    <fixedLength>11</fixedLength>
+                                </fieldDefinition>
+                            </fieldDefinitions>
+                        </recordDefinition>
+                    </recordDefinitions>
+                </flatFileDefinition>
+                <flatFileDefinition name="ffd_7" typeReference="fastformat_crlf">
+                    <recordDefinitions>
+                        <recordDefinition name="betalingsinfo">
+                            <fixedLength>58</fixedLength>
+                            <keys>
+                                <key name="prim_betinfo">
+                                    <primaryKey/>
+                                    <fieldDefinitionReferences>
+                                        <fieldDefinitionReference name="arkivnøkkel"/>
+                                    </fieldDefinitionReferences>
+                                </key>
+                            </keys>
+                            <fieldDefinitions>
+                                <fieldDefinition name="arkivnøkkel" typeReference="streng">
+                                    <startPos>1</startPos>
+                                    <fixedLength>11</fixedLength>
+                                    <unique/>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="signatur" typeReference="streng">
+                                    <startPos>12</startPos>
+                                    <fixedLength>8</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="kjøredato" typeReference="dato8">
+                                    <startPos>20</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="antall_leste" typeReference="heltall">
+                                    <startPos>26</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="antall_godkjente" typeReference="heltall">
+                                    <startPos>32</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="antall_godkjente_innl"
+                                    typeReference="heltall">
+                                    <startPos>38</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="antall_godkjente_utl" typeReference="heltall">
+                                    <startPos>44</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="antall_feil" typeReference="heltall">
+                                    <startPos>50</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dummy" typeReference="streng">
+                                    <startPos>56</startPos>
+                                    <fixedLength>3</fixedLength>
+                                </fieldDefinition>
+                            </fieldDefinitions>
+                        </recordDefinition>
+                    </recordDefinitions>
+                </flatFileDefinition>
+                <flatFileDefinition name="ffd_8" typeReference="fastformat_crlf">
+                    <recordDefinitions>
+                        <recordDefinition name="betalt">
+                            <fixedLength>100</fixedLength>
+                            <keys>
+                                <key name="fnr_bet">
+                                    <foreignKey>
+                                        <flatFileDefinitionReference name="ffd_3">
+                                            <recordDefinitionReferences>
+                                                <recordDefinitionReference name="jeger">
+                                                  <fieldDefinitionReferences>
+                                                  <fieldDefinitionReference name="fodselsnummer"/>
+                                                  </fieldDefinitionReferences>
+                                                </recordDefinitionReference>
+                                            </recordDefinitionReferences>
+                                        </flatFileDefinitionReference>
+                                        <relationType>n:1</relationType>
+                                    </foreignKey>
+                                    <fieldDefinitionReferences>
+                                        <fieldDefinitionReference name="fødselsnummer"/>
+                                    </fieldDefinitionReferences>
+                                </key>
+                                <key name="prim_betalt">
+                                    <alternateKey/>
+                                    <fieldDefinitionReferences>
+                                        <fieldDefinitionReference name="arkivnøkkel"/>
+                                        <fieldDefinitionReference name="fødselsnummer"/>
+                                    </fieldDefinitionReferences>
+                                </key>
+                            </keys>
+                            <fieldDefinitions>
+                                <fieldDefinition name="fødselsnummer" typeReference="streng">
+                                    <startPos>1</startPos>
+                                    <fixedLength>11</fixedLength>
+                                    <unique/>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="arkivnøkkel" typeReference="streng">
+                                    <startPos>12</startPos>
+                                    <fixedLength>11</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="rectype" typeReference="streng">
+                                    <startPos>23</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="betdato" typeReference="dato8">
+                                    <startPos>25</startPos>
+                                    <fixedLength>8</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="kontonr" typeReference="streng">
+                                    <startPos>33</startPos>
+                                    <fixedLength>7</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="år" typeReference="heltall">
+                                    <startPos>40</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="kid" typeReference="streng">
+                                    <startPos>42</startPos>
+                                    <fixedLength>12</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="kontrollsiffer" typeReference="heltall">
+                                    <startPos>54</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="beløp" typeReference="desimaltall">
+                                    <startPos>55</startPos>
+                                    <fixedLength>12</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="referanse" typeReference="streng">
+                                    <startPos>67</startPos>
+                                    <fixedLength>10</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ledig" typeReference="streng">
+                                    <startPos>77</startPos>
+                                    <fixedLength>20</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dummy" typeReference="streng">
+                                    <startPos>97</startPos>
+                                    <fixedLength>3</fixedLength>
+                                </fieldDefinition>
+                            </fieldDefinitions>
+                        </recordDefinition>
+                    </recordDefinitions>
+                </flatFileDefinition>
+                <flatFileDefinition name="ffd_9" typeReference="fastformat_crlf">
+                    <recordDefinitions>
+                        <recordDefinition name="feilreg">
+                            <fixedLength>70</fixedLength>
+                            <keys>
+                                <key name="for_fnr3">
+                                    <foreignKey>
+                                        <flatFileDefinitionReference name="ffd_3">
+                                            <recordDefinitionReferences>
+                                                <recordDefinitionReference name="jeger">
+                                                  <fieldDefinitionReferences>
+                                                  <fieldDefinitionReference name="fodselsnummer"/>
+                                                  </fieldDefinitionReferences>
+                                                </recordDefinitionReference>
+                                            </recordDefinitionReferences>
+                                        </flatFileDefinitionReference>
+                                        <relationType>n:1</relationType>
+                                    </foreignKey>
+                                    <fieldDefinitionReferences>
+                                        <fieldDefinitionReference name="fødselsnummer"/>
+                                    </fieldDefinitionReferences>
+                                </key>
+                                <key name="prim_feilreg">
+                                    <alternateKey/>
+                                    <fieldDefinitionReferences>
+                                        <fieldDefinitionReference name="arkivnøkkel"/>
+                                        <fieldDefinitionReference name="fødselsnummer"/>
+                                    </fieldDefinitionReferences>
+                                </key>
+                            </keys>
+                            <fieldDefinitions>
+                                <fieldDefinition name="arkivnøkkel" typeReference="streng">
+                                    <startPos>1</startPos>
+                                    <fixedLength>11</fixedLength>
+                                    <unique/>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="betdato" typeReference="dato8">
+                                    <startPos>12</startPos>
+                                    <fixedLength>8</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="år" typeReference="heltall">
+                                    <startPos>20</startPos>
+                                    <fixedLength>2</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="kid" typeReference="streng">
+                                    <startPos>22</startPos>
+                                    <fixedLength>12</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="fødselsnummer" typeReference="streng">
+                                    <startPos>34</startPos>
+                                    <fixedLength>11</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="referanse" typeReference="streng">
+                                    <startPos>45</startPos>
+                                    <fixedLength>10</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="beløp" typeReference="desimaltall">
+                                    <startPos>55</startPos>
+                                    <fixedLength>12</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="kontrollsiffer" typeReference="heltall">
+                                    <startPos>67</startPos>
+                                    <fixedLength>1</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dummy" typeReference="streng">
+                                    <startPos>68</startPos>
+                                    <fixedLength>3</fixedLength>
+                                </fieldDefinition>
+                            </fieldDefinitions>
+                        </recordDefinition>
+                    </recordDefinitions>
+                </flatFileDefinition>
+                <flatFileDefinition name="ffd_10" typeReference="fastformat_crlf">
+                    <recordDefinitions>
+                        <recordDefinition name="jegstat1">
+                            <fixedLength>384</fixedLength>
+                            <fieldDefinitions>
+                                <fieldDefinition name="bo_kommune_nr" typeReference="heltall">
+                                    <startPos>1</startPos>
+                                    <fixedLength>4</fixedLength>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="kommunenavn" typeReference="streng">
+                                    <startPos>5</startPos>
+                                    <fixedLength>20</fixedLength>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_registrert" typeReference="heltall">
+                                    <startPos>25</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kvinner" typeReference="heltall">
+                                    <startPos>31</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_20" typeReference="heltall">
+                                    <startPos>37</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_30" typeReference="heltall">
+                                    <startPos>43</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_40" typeReference="heltall">
+                                    <startPos>49</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_50" typeReference="heltall">
+                                    <startPos>55</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_60" typeReference="heltall">
+                                    <startPos>61</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_70" typeReference="heltall">
+                                    <startPos>67</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_rest" typeReference="heltall">
+                                    <startPos>73</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_menn" typeReference="heltall">
+                                    <startPos>79</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_20" typeReference="heltall">
+                                    <startPos>85</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_30" typeReference="heltall">
+                                    <startPos>91</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_40" typeReference="heltall">
+                                    <startPos>97</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_50" typeReference="heltall">
+                                    <startPos>103</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_60" typeReference="heltall">
+                                    <startPos>109</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_70" typeReference="heltall">
+                                    <startPos>115</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_rest" typeReference="heltall">
+                                    <startPos>121</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_iår" typeReference="heltall">
+                                    <startPos>127</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_kv_iår" typeReference="heltall">
+                                    <startPos>133</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_20_bet" typeReference="heltall">
+                                    <startPos>139</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_30_bet" typeReference="heltall">
+                                    <startPos>145</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_40_bet" typeReference="heltall">
+                                    <startPos>151</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_50_bet" typeReference="heltall">
+                                    <startPos>157</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_60_bet" typeReference="heltall">
+                                    <startPos>163</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_70_bet" typeReference="heltall">
+                                    <startPos>169</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_rest_bet" typeReference="heltall">
+                                    <startPos>175</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_bet_iår" typeReference="heltall">
+                                    <startPos>181</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_20_bet" typeReference="heltall">
+                                    <startPos>187</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_30_bet" typeReference="heltall">
+                                    <startPos>193</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_40_bet" typeReference="heltall">
+                                    <startPos>199</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_50_bet" typeReference="heltall">
+                                    <startPos>205</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_60_bet" typeReference="heltall">
+                                    <startPos>211</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_70_bet" typeReference="heltall">
+                                    <startPos>217</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_rest_bet" typeReference="heltall">
+                                    <startPos>223</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_ifjor" typeReference="heltall">
+                                    <startPos>229</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_bet_ifjor" typeReference="heltall">
+                                    <startPos>235</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_20_betf" typeReference="heltall">
+                                    <startPos>241</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_30_betf" typeReference="heltall">
+                                    <startPos>247</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_40_betf" typeReference="heltall">
+                                    <startPos>253</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_50_betf" typeReference="heltall">
+                                    <startPos>259</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_60_betf" typeReference="heltall">
+                                    <startPos>265</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_70_betf" typeReference="heltall">
+                                    <startPos>271</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_rest_betf" typeReference="heltall">
+                                    <startPos>277</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_bet_ifjor" typeReference="heltall">
+                                    <startPos>283</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_20_betf" typeReference="heltall">
+                                    <startPos>289</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_30_betf" typeReference="heltall">
+                                    <startPos>295</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_40_betf" typeReference="heltall">
+                                    <startPos>301</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_50_betf" typeReference="heltall">
+                                    <startPos>307</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_60_betf" typeReference="heltall">
+                                    <startPos>313</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_70_betf" typeReference="heltall">
+                                    <startPos>319</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_rest_betf" typeReference="heltall">
+                                    <startPos>325</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ledig" typeReference="streng">
+                                    <startPos>331</startPos>
+                                    <fixedLength>50</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dummy" typeReference="streng">
+                                    <startPos>381</startPos>
+                                    <fixedLength>3</fixedLength>
+                                </fieldDefinition>
+                            </fieldDefinitions>
+                        </recordDefinition>
+                    </recordDefinitions>
+                </flatFileDefinition>
+                <flatFileDefinition name="ffd_11" typeReference="fastformat_crlf">
+                    <recordDefinitions>
+                        <recordDefinition name="jegstat2">
+                            <fixedLength>381</fixedLength>
+                            <fieldDefinitions>
+                                <fieldDefinition name="fylke" typeReference="heltall">
+                                    <startPos>1</startPos>
+                                    <fixedLength>2</fixedLength>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="fylkenavn" typeReference="streng">
+                                    <startPos>3</startPos>
+                                    <fixedLength>20</fixedLength>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_registrert" typeReference="heltall">
+                                    <startPos>23</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kvinner" typeReference="heltall">
+                                    <startPos>29</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_20" typeReference="heltall">
+                                    <startPos>35</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_30" typeReference="heltall">
+                                    <startPos>41</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_40" typeReference="heltall">
+                                    <startPos>47</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_50" typeReference="heltall">
+                                    <startPos>53</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_60" typeReference="heltall">
+                                    <startPos>59</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_70" typeReference="heltall">
+                                    <startPos>65</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_rest" typeReference="heltall">
+                                    <startPos>71</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_menn" typeReference="heltall">
+                                    <startPos>77</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_20" typeReference="heltall">
+                                    <startPos>83</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_30" typeReference="heltall">
+                                    <startPos>89</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_40" typeReference="heltall">
+                                    <startPos>95</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_50" typeReference="heltall">
+                                    <startPos>101</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_60" typeReference="heltall">
+                                    <startPos>107</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_70" typeReference="heltall">
+                                    <startPos>113</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_rest" typeReference="heltall">
+                                    <startPos>119</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_iår" typeReference="heltall">
+                                    <startPos>125</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_kv_iår" typeReference="heltall">
+                                    <startPos>131</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_20_bet" typeReference="heltall">
+                                    <startPos>137</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_30_bet" typeReference="heltall">
+                                    <startPos>143</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_40_bet" typeReference="heltall">
+                                    <startPos>149</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_50_bet" typeReference="heltall">
+                                    <startPos>155</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_60_bet" typeReference="heltall">
+                                    <startPos>161</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_70_bet" typeReference="heltall">
+                                    <startPos>167</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_rest_bet" typeReference="heltall">
+                                    <startPos>173</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_bet_iår" typeReference="heltall">
+                                    <startPos>179</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_20_bet" typeReference="heltall">
+                                    <startPos>185</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_30_bet" typeReference="heltall">
+                                    <startPos>191</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_40_bet" typeReference="heltall">
+                                    <startPos>197</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_50_bet" typeReference="heltall">
+                                    <startPos>203</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_60_bet" typeReference="heltall">
+                                    <startPos>209</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_70_bet" typeReference="heltall">
+                                    <startPos>215</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_rest_bet" typeReference="heltall">
+                                    <startPos>221</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_ifjor" typeReference="heltall">
+                                    <startPos>227</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_bet_ifjor" typeReference="heltall">
+                                    <startPos>233</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_20_betf" typeReference="heltall">
+                                    <startPos>239</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_30_betf" typeReference="heltall">
+                                    <startPos>245</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_40_betf" typeReference="heltall">
+                                    <startPos>251</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_50_betf" typeReference="heltall">
+                                    <startPos>257</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_60_betf" typeReference="heltall">
+                                    <startPos>263</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_u_70_betf" typeReference="heltall">
+                                    <startPos>269</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_kv_rest_betf" typeReference="heltall">
+                                    <startPos>275</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_bet_ifjor" typeReference="heltall">
+                                    <startPos>281</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_20_betf" typeReference="heltall">
+                                    <startPos>287</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_30_betf" typeReference="heltall">
+                                    <startPos>293</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_40_betf" typeReference="heltall">
+                                    <startPos>299</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_50_betf" typeReference="heltall">
+                                    <startPos>305</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_60_betf" typeReference="heltall">
+                                    <startPos>311</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_u_70_betf" typeReference="heltall">
+                                    <startPos>317</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_m_rest_betf" typeReference="heltall">
+                                    <startPos>323</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ledig" typeReference="streng">
+                                    <startPos>329</startPos>
+                                    <fixedLength>50</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dummy" typeReference="streng">
+                                    <startPos>379</startPos>
+                                    <fixedLength>3</fixedLength>
+                                </fieldDefinition>
+                            </fieldDefinitions>
+                        </recordDefinition>
+                    </recordDefinitions>
+                </flatFileDefinition>
+                <flatFileDefinition name="ffd_12" typeReference="fastformat_crlf">
+                    <recordDefinitions>
+                        <recordDefinition name="ut_jegst">
+                            <fixedLength>112</fixedLength>
+                            <fieldDefinitions>
+                                <fieldDefinition name="land_kort" typeReference="streng">
+                                    <startPos>1</startPos>
+                                    <fixedLength>4</fixedLength>
+                                    <unique/>
+                                    <notNull/>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_registrert" typeReference="heltall">
+                                    <startPos>5</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_89" typeReference="heltall">
+                                    <startPos>11</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_90" typeReference="heltall">
+                                    <startPos>17</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_91" typeReference="heltall">
+                                    <startPos>23</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_92" typeReference="heltall">
+                                    <startPos>29</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_93" typeReference="heltall">
+                                    <startPos>35</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_94" typeReference="heltall">
+                                    <startPos>41</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_95" typeReference="heltall">
+                                    <startPos>47</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ant_bet_96" typeReference="heltall">
+                                    <startPos>53</startPos>
+                                    <fixedLength>6</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="ledig" typeReference="streng">
+                                    <startPos>59</startPos>
+                                    <fixedLength>50</fixedLength>
+                                </fieldDefinition>
+                                <fieldDefinition name="dummy" typeReference="streng">
+                                    <startPos>109</startPos>
+                                    <fixedLength>4</fixedLength>
+                                </fieldDefinition>
+                            </fieldDefinitions>
+                        </recordDefinition>
+                    </recordDefinitions>
+                </flatFileDefinition>
+            </flatFileDefinitions>
+            <structureTypes>
+                <flatFileTypes>
+                    <flatFileType name="fastformat_crlf">
+                        <charset>ISO_8859_1</charset>
+                        <fixedFileFormat>
+                            <recordSeparator>CRLF</recordSeparator>
+                        </fixedFileFormat>
+                    </flatFileType>
+                    <flatFileType name="fastformat">
+                        <charset>ISO_8859_1</charset>
+                        <fixedFileFormat/>
+                    </flatFileType>
+                </flatFileTypes>
+                <fieldTypes>
+                    <fieldType name="streng">
+                        <dataType>string</dataType>
+                        <alignment>left</alignment>
+                    </fieldType>
+                    <fieldType name="heltall">
+                        <dataType>integer</dataType>
+                    </fieldType>
+                    <fieldType name="dato8">
+                        <dataType>date</dataType>
+                        <fieldFormat>ddmmyyyy</fieldFormat>
+                    </fieldType>
+                    <fieldType name="bolsk">
+                        <dataType>boolean</dataType>
+                        <fieldFormat>J/N</fieldFormat>
+                    </fieldType>
+                    <fieldType name="dato6">
+                        <dataType>date</dataType>
+                        <fieldFormat>ddmmyy</fieldFormat>
+                    </fieldType>
+                    <fieldType name="desimaltall">
+                        <dataType>float</dataType>
+                    </fieldType>
+                </fieldTypes>
+            </structureTypes>
+        </flatFiles>
+    </dataset>
+</addml>
