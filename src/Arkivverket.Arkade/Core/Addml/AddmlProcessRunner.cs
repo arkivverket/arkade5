@@ -18,5 +18,10 @@ namespace Arkivverket.Arkade.Core.Addml
         {
             return new TestSuite();
         }
+
+        public void EndOfFile()
+        {
+
+        }
     }
 }

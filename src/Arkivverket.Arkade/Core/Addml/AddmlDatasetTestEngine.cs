@@ -34,6 +34,7 @@ namespace Arkivverket.Arkade.Core.Addml
                         _addmlProcessRunner.RunProcesses(field);
                     }
                 }
+                _addmlProcessRunner.EndOfFile();
             }
 
             return _addmlProcessRunner.GetTestSuite();
