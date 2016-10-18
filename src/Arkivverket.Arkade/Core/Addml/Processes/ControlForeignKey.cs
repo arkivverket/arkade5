@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public void Run(Field field)
         {
-            // TODO: IsPartOfPrimaryKey doest not mean 
+            // TODO: IsPartOfPrimaryKey is probably not correct here!
             if (field.Definition.IsPartOfPrimaryKey())
             {
                 string file = field.Definition.GetAddmlFlatFileDefinition().Name;
