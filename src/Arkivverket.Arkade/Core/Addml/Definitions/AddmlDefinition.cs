@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
@@ -20,12 +21,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public List<FlatFile> GetFlatFiles()
         {
-            List<FlatFile> flatFiles = new List<FlatFile>();
-            foreach (AddmlFlatFileDefinition addmlFlatFileDefinition in AddmlFlatFileDefinitions)
-            {
-                flatFiles.Add(new FlatFile(addmlFlatFileDefinition));
-            }
-            return flatFiles;
+            return AddmlFlatFileDefinitions.Select(
+                addmlFlatFileDefinition => new FlatFile(addmlFlatFileDefinition)).ToList();
         }
 
         public List<string> GetFileProcesses()
