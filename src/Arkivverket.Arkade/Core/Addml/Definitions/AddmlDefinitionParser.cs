@@ -12,6 +12,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         private readonly Dictionary<string, flatFileType> _flatFileTypes = new Dictionary<string, flatFileType>();
         private readonly Dictionary<string, fieldType> _fieldTypes = new Dictionary<string, fieldType>();
+        private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _foreignKeys = new Dictionary<FieldIndex, AddmlFieldDefinition>();
 
         public AddmlDefinitionParser(addml addml)
         {
@@ -197,13 +198,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     bool isNullable = IsNullable(fieldDefinition);
                     int? minLength = GetMinLength(fieldDefinition);
                     int? maxLength = GetMaxLength(fieldDefinition);
-                    AddmlFieldDefinition foreignKey = GetForeignKey(fieldDefinition);
+                    AddmlFieldDefinition foreignKeyReference = GetForeignKeyReference(recordDefinition, fieldDefinition);
                     List<string> processes = GetFieldProcessNames(flatFileDefinition.name, recordDefinition.name,
                         fieldDefinition.name);
 
                     addmlRecordDefinition.AddAddmlFieldDefinition(
                         name, startPosition, fixedLength, fieldTypeString, isUnique, isNullable, minLength,
-                        maxLength, foreignKey, processes, isPartOfPrimaryKey);
+                        maxLength, foreignKeyReference, processes, isPartOfPrimaryKey);
                 }
             }
         }
@@ -229,11 +230,6 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return fieldDefinition.minLength == null ? (int?) null : int.Parse(fieldDefinition.minLength);
         }
 
-        private AddmlFieldDefinition GetForeignKey(fieldDefinition fieldDefinition)
-        {
-            // TODO!!!
-            return null;
-        }
 
         private bool IsNullable(fieldDefinition fieldDefinition)
         {
@@ -291,6 +287,63 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         {
             return int.Parse(recordDefinition.fixedLength);
         }
+
+        private AddmlFieldDefinition GetForeignKeyReference(recordDefinition recordDefinition, fieldDefinition fieldDefinition)
+        {
+            key[] keys = recordDefinition.keys;
+            if (keys != null)
+            {
+                foreach (key key in keys)
+                {
+                    fieldDefinitionReference[] keyFieldDefinitionReferences = key.fieldDefinitionReferences;
+                    foreach (fieldDefinitionReference fieldDefinitionReference in keyFieldDefinitionReferences)
+                    {
+                        if (fieldDefinitionReference.name.Equals(fieldDefinition.name))
+                        {
+                            object o = key.Item;
+                            if (o is foreignKey)
+                            {
+                                foreignKey f = (foreignKey) o;
+                                List<FieldIndex> indexes = GetForeignKeyIndexes(f);
+
+                                // TODO: Is it possible to have reference to more than one AddmlFieldDefinition?
+                                if (indexes.Count != 1)
+                                {
+                                    throw new AddmlDefinitionException("foreignKey must reference exactly one fieldDefinitionReference. " + f);
+                                }
+
+                                FieldIndex index = indexes[0];
+                                if (!_foreignKeys.ContainsKey(index))
+                                {
+                                    return null;
+                                }
+
+                                return _foreignKeys[index];
+                            }
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private List<FieldIndex> GetForeignKeyIndexes(foreignKey foreignKey)
+        {
+            List<FieldIndex> indexes = new List<FieldIndex>();
+
+            flatFileDefinitionReference flatFileDefinitionReference = foreignKey.flatFileDefinitionReference;
+            foreach (recordDefinitionReference recordDefinitionReference in flatFileDefinitionReference.recordDefinitionReferences)
+            {
+                foreach (fieldDefinitionReference fieldDefinitionReference in recordDefinitionReference.fieldDefinitionReferences)
+                {
+                    indexes.Add(new FieldIndex(flatFileDefinitionReference.name, recordDefinitionReference.name, fieldDefinitionReference.name));
+                }
+            }
+
+            return indexes;
+        }
+
 
         private bool IsPartOfPrimaryKey(recordDefinition recordDefinition, fieldDefinition fieldDefinition)
         {

@@ -56,7 +56,31 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                         addmlFieldDefinitions[8]
                     });
             }
+            {
+                addmlFlatFileDefinitions[2].Name.Should().Be("ffd_5");
+                addmlFlatFileDefinitions[2].FileName.Should().Be("ikkejeg.dat");
+                addmlFlatFileDefinitions[2].Charset.Should().Be("ISO_8859_1");
+                addmlFlatFileDefinitions[2].RecordSeparator.Should().Be("CRLF");
+                addmlFlatFileDefinitions[2].AddmlRecordDefinitions.Count.Should().Be(1);
+                AddmlRecordDefinition addmlRecordDefinition = addmlFlatFileDefinitions[2].AddmlRecordDefinitions[0];
+                List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
+                addmlFieldDefinitions.Count.Should().Be(44);
+                addmlFieldDefinitions[0].Name.Should().Be("fodselsnummer");
+                // TODO: ForeignKey does not work!
+                /*
+                  
+                addmlFieldDefinitions[0].ForeignKey.Should().Be(
+                    addmlFlatFileDefinitions[0].AddmlRecordDefinitions[0].AddmlFieldDefinitions[0]
+                );
+                */
 
+                addmlFieldDefinitions[1].Name.Should().Be("etternavn");
+                addmlRecordDefinition.PrimaryKey.Should()
+                    .Equal(new List<AddmlFieldDefinition>()
+                    {
+                        addmlFieldDefinitions[0]
+                    });
+            }
         }
 
         [Fact]
@@ -86,7 +110,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
             addmlFieldDefinitions[3].Name.Should().Be("Dato");
 
             addmlRecordDefinition.PrimaryKey.Should().Equal(
-                new List<AddmlFieldDefinition>() { addmlFieldDefinitions[2] });
+                new List<AddmlFieldDefinition>() {addmlFieldDefinitions[2]});
 
 
             // TODO: Assert more asserts!

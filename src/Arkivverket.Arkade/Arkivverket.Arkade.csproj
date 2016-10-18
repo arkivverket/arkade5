@@ -69,6 +69,7 @@
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParser.cs" />
     <Compile Include="Core\Addml\AddmlProcessRunner.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlRecordDefinition.cs" />
+    <Compile Include="Core\Addml\Definitions\FieldIndex.cs" />
     <Compile Include="Core\Addml\Field.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlFlatFileDefinition.cs" />
     <Compile Include="Core\Addml\FlatFileReader.cs" />
