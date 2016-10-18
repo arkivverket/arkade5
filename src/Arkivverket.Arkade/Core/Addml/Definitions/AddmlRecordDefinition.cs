@@ -30,15 +30,29 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             Processes = processes;
         }
 
-        internal void AddAddmlFieldDefinition(string name, int? startPosition, int? fixedLength, string fieldTypeString,
-            bool isPrimaryKey, bool isUnique, bool isNullable, int? minLength, int? maxLength,
+        internal void AddAddmlFieldDefinition(string name,
+            int? startPosition,
+            int? fixedLength,
+            string fieldTypeString,
+            bool isUnique,
+            bool isNullable,
+            int? minLength,
+            int? maxLength,
             AddmlFieldDefinition foreignKey,
             List<string> processes)
         {
             AddmlFieldDefinition addmlFieldDefinition = new AddmlFieldDefinition(
-                name, startPosition, fixedLength, fieldTypeString, isPrimaryKey, isUnique, isNullable, minLength,
+                name,
+                startPosition,
+                fixedLength,
+                fieldTypeString,
+                isUnique,
+                isNullable,
+                minLength,
                 maxLength,
-                foreignKey, this, processes);
+                foreignKey,
+                this,
+                processes);
             AddmlFieldDefinitions.Add(addmlFieldDefinition);
         }
     }

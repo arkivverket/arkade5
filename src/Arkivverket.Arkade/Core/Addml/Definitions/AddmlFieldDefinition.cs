@@ -9,7 +9,6 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public string Name { get; }
         public int? StartPosition { get; }
         public int? FixedLength { get; }
-        public bool IsPrimaryKey { get; }
         public string Type { get; }
         public bool IsUnique { get; }
         public bool IsNullable { get; }
@@ -23,7 +22,6 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             int? startPosition,
             int? fixedLength,
             string type,
-            bool isPrimaryKey,
             bool isUnique,
             bool isNullable,
             int? minLength,
@@ -36,7 +34,6 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             StartPosition = startPosition;
             FixedLength = fixedLength;
             Type = type;
-            IsPrimaryKey = isPrimaryKey;
             IsUnique = isUnique;
             IsNullable = isNullable;
             MinLength = minLength;
@@ -50,5 +47,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         {
             return AddmlRecordDefinition.AddmlFlatFileDefinition;
         }
+
+        public bool IsPartOfPrimaryKey()
+        {
+            return AddmlRecordDefinition.PrimaryKey.Contains(this);
+        }
+
     }
 }

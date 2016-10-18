@@ -8,7 +8,8 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public void Run(Field field)
         {
-            if (field.Definition.IsPrimaryKey)
+            // TODO: IsPartOfPrimaryKey doest not mean 
+            if (field.Definition.IsPartOfPrimaryKey())
             {
                 string file = field.Definition.GetAddmlFlatFileDefinition().Name;
                 string key = file + "_" + field.Definition.Name;

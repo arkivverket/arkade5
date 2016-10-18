@@ -193,7 +193,6 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     int? fixedLength = GetFixedLength(fieldDefinition);
                     fieldType fieldType = GetFieldType(fieldDefinition.typeReference);
                     string fieldTypeString = fieldType.dataType;
-                    bool isPrimaryKey = IsPrimaryKey(recordDefinition.keys, name);
                     bool isUnique = IsUnique(fieldDefinition);
                     bool isNullable = IsNullable(fieldDefinition);
                     int? minLength = GetMinLength(fieldDefinition);
@@ -203,7 +202,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                         fieldDefinition.name);
 
                     addmlRecordDefinition.AddAddmlFieldDefinition(
-                        name, startPosition, fixedLength, fieldTypeString, isPrimaryKey, isUnique, isNullable, minLength,
+                        name, startPosition, fixedLength, fieldTypeString, isUnique, isNullable, minLength,
                         maxLength,
                         foreignKey, processes);
                 }
