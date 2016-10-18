@@ -266,7 +266,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
             if (flatFileType == null)
             {
-                throw new AddmlDefinitionException("No flatFileType with name " + flatFileTypeName);
+                throw new AddmlDefinitionParseException("No flatFileType with name " + flatFileTypeName);
             }
 
             return flatFileType;
@@ -274,12 +274,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         private fieldType GetFieldType(string typeReference)
         {
-            // TODO: Create FieldType object
             fieldType fieldType = _fieldTypes[typeReference];
 
             if (fieldType == null)
             {
-                throw new AddmlDefinitionException("No FieldType with name " + typeReference);
+                throw new AddmlDefinitionParseException("No FieldType with name " + typeReference);
             }
 
             return fieldType;
@@ -312,7 +311,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                                 // TODO: Is it possible to have reference to more than one AddmlFieldDefinition?
                                 if (indexes.Count != 1)
                                 {
-                                    throw new AddmlDefinitionException("foreignKey must reference exactly one fieldDefinitionReference. " + f);
+                                    throw new AddmlDefinitionParseException("foreignKey must reference exactly one fieldDefinitionReference. " + f);
                                 }
 
                                 FieldIndex index = indexes[0];
@@ -428,7 +427,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
             if (datasets.Length != 1)
             {
-                throw new AddmlDefinitionException("dataset must contain exactly one element. Found " + datasets.Length +
+                throw new AddmlDefinitionParseException("dataset must contain exactly one element. Found " + datasets.Length +
                                                    " elements");
             }
 

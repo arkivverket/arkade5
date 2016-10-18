@@ -64,7 +64,7 @@
   <ItemGroup>
     <Compile Include="Core\Addml\AddmlDatasetTestEngine.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlDefinition.cs" />
-    <Compile Include="Core\Addml\Definitions\AddmlDefinitionException.cs" />
+    <Compile Include="Core\Addml\Definitions\AddmlDefinitionParseException.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlFieldDefinition.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParser.cs" />
     <Compile Include="Core\Addml\AddmlProcessRunner.cs" />
