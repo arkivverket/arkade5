@@ -1,10 +1,9 @@
-﻿using Arkivverket.Arkade.ExternalModels.Addml;
-using Arkivverket.Arkade.Util;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Arkivverket.Arkade.ExternalModels.Addml;
+using Arkivverket.Arkade.Util;
 
-namespace Arkivverket.Arkade.Core.Addml
+namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
     // TODO: This class should be split in AddmlFieldDefinitionParser AddmlRecordDefinitionParser, etc
     public class AddmlDefinitionParser

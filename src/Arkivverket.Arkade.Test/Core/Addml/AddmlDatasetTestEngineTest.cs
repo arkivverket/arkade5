@@ -1,6 +1,7 @@
 using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
+using Arkivverket.Arkade.Core.Addml.Definitions;
 using FluentAssertions;
 using Xunit;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Arkivverket.Arkade.Core.Addml
+namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
     public class AddmlDefinition
     {

@@ -1,13 +1,13 @@
 ﻿using System;
-using Xunit;
-using Arkivverket.Arkade.Core.Addml;
-using System.IO;
-using Arkivverket.Arkade.Util;
-using Arkivverket.Arkade.ExternalModels.Addml;
 using System.Collections.Generic;
+using System.IO;
+using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.ExternalModels.Addml;
+using Arkivverket.Arkade.Util;
 using FluentAssertions;
+using Xunit;
 
-namespace Arkivverket.Arkade.Test.Core.Addml
+namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
 {
     public class AddmlDefinitionParserTest
     {
