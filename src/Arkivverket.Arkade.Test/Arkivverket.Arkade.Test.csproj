@@ -87,8 +87,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Core\Addml\AddmlDatasetTestEngineTest.cs" />
-    <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParserTest.cs" />
+    <Compile Include="Core\Addml\Definitions\KvoteFisk89Test.cs" />
+    <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
+    <Compile Include="Core\Addml\Definitions\Jegerreg98Test.cs" />
     <Compile Include="Core\ArchiveBuilder.cs" />
     <Compile Include="Core\ArchiveExtractionTest.cs" />
     <Compile Include="Core\TestEngineTest.cs" />
@@ -214,6 +216,7 @@
   <ItemGroup>
     <Content Include="TestData\addml\noark_3_arkivuttrekk_med_prosesser.xml" />
     <Content Include="TestData\jegerreg-98-dos\arkivuttrekk.xml" />
+    <Content Include="TestData\KvoteFisk89\kvotekontroll89-Version8.2.XML" />
     <Content Include="TestData\noark3-info.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

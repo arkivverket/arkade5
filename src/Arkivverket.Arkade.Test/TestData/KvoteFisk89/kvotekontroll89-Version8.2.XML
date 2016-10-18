@@ -1,0 +1,1133 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+
+<addml xmlns="http://www.arkivverket.no/standarder/addml" name="Kvotekontrollsystem for 1989">
+  <reference>
+    <context>
+      <additionalElements>
+        <additionalElement name="agents">
+          <additionalElements>
+            <additionalElement name="agent" role="recordCreator" type="institution">
+              <additionalElements>
+                <additionalElement name="name">Fiskeridirektoratet</additionalElement>
+              </additionalElements>
+            </additionalElement>
+          </additionalElements>
+        </additionalElement>
+        <additionalElement name="system">
+          <additionalElement name="systemType">Fagsystem</additionalElement>
+          <additionalElement name="name">Kvotekontrollsystem 1989</additionalElement>
+        </additionalElement>
+      </additionalElements>
+    </context>
+    <content>
+      <additionalElements>
+        <additionalElement name="archivalPeriod">
+          <additionalElements>
+            <additionalElement name="startDate">010189</additionalElement>
+            <additionalElement name="endDate">311289</additionalElement>
+          </additionalElements>
+        </additionalElement>
+        <additionalElement name="archivalDataset">
+          <additionalElements>
+            <additionalElement name="type">Fagsystem</additionalElement>
+          </additionalElements>
+        </additionalElement>
+      </additionalElements>
+    </content>
+  </reference>
+  <flatFiles>
+    <flatFile definitionReference="ffd_1" name="AktivPassiv89">
+      <properties>
+        <property name="fileName">
+          <value>AktivPassiv89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>22615</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_2" name="Fangst89">
+      <properties>
+        <property name="fileName">
+          <value>Fangst89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>54400</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_3" name="Farkost_reds89">
+      <properties>
+        <property name="fileName">
+          <value>Farkost_reds89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>9221</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_4" name="Farkost89">
+      <properties>
+        <property name="fileName">
+          <value>Farkost89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>3488</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_5" name="Fiske89">
+      <properties>
+        <property name="fileName">
+          <value>Fiske89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>34106</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_6" name="Fiskesort_kode">
+      <properties>
+        <property name="fileName">
+          <value>Fiskesort_kode.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>100</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_7" name="Innlast89">
+      <properties>
+        <property name="fileName">
+          <value>Innlast89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>2501</value>
+        </property>
+      </properties>
+    </flatFile>
+<!--    <flatFile definitionReference="ffd_8" name="Kontrollpunkt_kode">
+      <properties>
+        <property name="fileName">
+          <value>Kontrollpunkt_kode.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_9" name="Kontrollpunkt89">
+      <properties>
+        <property name="fileName">
+          <value>Kontrollpunkt89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+        </property>
+      </properties>
+    </flatFile>
+-->
+    <flatFile definitionReference="ffd_10" name="Kvote89">
+      <properties>
+        <property name="fileName">
+          <value>Kvote89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>3310</value>
+        </property>
+      </properties>
+    </flatFile>
+<!--    <flatFile definitionReference="ffd_11" name="Kvotekontroll89">
+      <properties>
+        <property name="fileName">
+          <value>Kvotekontroll89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+        </property>
+      </properties>
+    </flatFile>
+-->
+    <flatFile definitionReference="ffd_12" name="Land89">
+      <properties>
+        <property name="fileName">
+          <value>Land89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>312</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_13" name="Nasjon_kode">
+      <properties>
+        <property name="fileName">
+          <value>Nasjon_kode.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>245</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_14" name="Noravtaler_kode">
+      <properties>
+        <property name="fileName">
+          <value>Noravtaler_kode.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>20</value>
+        </property>
+      </properties>
+    </flatFile>
+<!--    <flatFile definitionReference="ffd_15" name="Overforing89">
+      <properties>
+        <property name="fileName">
+          <value>Overforing89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+        </property>
+      </properties>
+    </flatFile>
+-->
+    <flatFile definitionReference="ffd_16" name="posisjon_kode">
+      <properties>
+        <property name="fileName">
+          <value>Posisjon_kode.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>6611</value>
+        </property>
+      </properties>
+    </flatFile>
+<!--    <flatFile definitionReference="ffd_17" name="Produksjon89">
+      <properties>
+        <property name="fileName">
+          <value>Produksjon89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+        </property>
+      </properties>
+    </flatFile>
+-->
+    <flatFile definitionReference="ffd_18" name="Radio_kvantum89">
+      <properties>
+        <property name="fileName">
+          <value>Radio_kvantum89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>27980</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_19" name="Redskap_kode">
+      <properties>
+        <property name="fileName">
+          <value>Redskap_kode.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>13</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_20" name="Rute_kode">
+      <properties>
+        <property name="fileName">
+          <value>Rute_kode.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>23</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_21" name="Rute89">
+      <properties>
+        <property name="fileName">
+          <value>Rute89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>10044</value>
+        </property>
+      </properties>
+    </flatFile>
+<!--    <flatFile definitionReference="ffd_22" name="Sort_kvantum89">
+      <properties>
+        <property name="fileName">
+          <value>Sort_kvantum89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+        </property>
+      </properties>
+    </flatFile>
+-->
+    <flatFile definitionReference="ffd_23" name="Subavt_reds89">
+      <properties>
+        <property name="fileName">
+          <value>Subavt_reds89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>415</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_24" name="Subavt_rute89">
+      <properties>
+        <property name="fileName">
+          <value>Subavt_rute89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>231</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_25" name="Subavt_sort89">
+      <properties>
+        <property name="fileName">
+          <value>Subavt_sort89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>671</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_26" name="Subavtale_kode">
+      <properties>
+        <property name="fileName">
+          <value>Subavtale_kode.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>137</value>
+        </property>
+      </properties>
+    </flatFile>
+    <flatFile definitionReference="ffd_27" name="Subavtale89">
+      <properties>
+        <property name="fileName">
+          <value>Subavtale89.dat</value>
+        </property>
+        <property name="numberOfOccurences">
+          <value>67</value>
+        </property>
+      </properties>
+    </flatFile>
+  </flatFiles>
+  <flatFileDefinitions>
+    <description>Kvotekontrollsystem for 1989. KVOSYS er et databasesystem utviklet for kontroll i første rekke med utenlandsk fiske innenfor Norges 200 mils økonomiske sone samt med fiskevernsonen ved Svalbard og Jan Mayen</description>
+    <flatFileDefinition name="ffd_1" typeReference="delim_crlf">
+      <description>Tabell over meldingar fra fiskefartøy over start og stopp i aktivitet. Aktiv: Dato for inngang i NØS sør for 62 grader N. Fiskestart før 62 grader N.</description>
+      <recordDefinitions>
+        <recordDefinition name="AKTIVPASSIV">
+          <description>Inneheld AKTIV/PASSIV meldingar</description>
+          <fieldDefinitions>
+            <fieldDefinition name="SUBAVTALE" typeReference="string">
+              <description>Subavtalekode, Normalt er 3 karakterer nasjonskode, i 4 posisjon er 0 fiske sør for 62 grader, 1 fiske nord for 62, 2 industrifiske sør for 62,  3 forskningsfiske, S i Svalbardsonen, J i Jan Mayen-sonen.</description>
+              <maxLength>4</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="RADIOKALLESIGNAL" typeReference="string">
+              <description>RADIOKALLESIGNAL/Kjenneteikn for farkost</description>
+              <maxLength>8</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="AKTIV_SIGNAL" typeReference="string">
+              <description>Kode som viser start og slutt på aktivitet</description>
+              <maxLength>1</maxLength>
+              <codes>
+                <code codeValue="A" explan="Aktiv"/>
+                <code codeValue="P" explan="Passiv"/>
+              </codes>
+            </fieldDefinition>
+            <fieldDefinition name="RAPPORTERINGS_DATO" typeReference="date">
+              <description>Rapporteringsdato</description>
+              <maxLength>6</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="RUTE" typeReference="string">
+              <description>Kode for fangstområde</description>
+              <maxLength>4</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="SISTE_OPPDAT_DATO" typeReference="date">
+              <description>Siste oppdateringsdato</description>
+              <maxLength>6</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="SISTE_OPPDAT_KL" typeReference="time">
+              <description>Siste oppdateringsklokkeslett. 2 siffer for timar og 2 siffer for minuttar</description>
+              <maxLength>4</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="SISTE_OPPDAT_SIGN" typeReference="string">
+              <description>Kode for operatør ved siste oppdatering</description>
+              <maxLength>30</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="RAPPORTERINGS_POSISJON" typeReference="string">
+              <description>Rapporteringsposisjon</description>
+              <maxLength>12</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="KORREKSJON" typeReference="string">
+              <description>KORREKSJON</description>
+              <maxLength>1</maxLength>
+            </fieldDefinition>
+          </fieldDefinitions>
+        </recordDefinition>
+      </recordDefinitions>
+    </flatFileDefinition>
+    <flatFileDefinition name="ffd_2" typeReference="delim_crlf">
+      <description>Innmeldt fangst frå fartyet. Fangst kjem alltid ved PASSIV melding og fangst kommer kvar 7. dag dersom fartøyet ikke er passiv. Totalkvantum siden forrige melding.</description>
+      <recordDefinitions>
+        <recordDefinition name="FANGST">
+          <description>Rapportering av fangst, posisjon etc.</description>
+          <fieldDefinitions>
+            <fieldDefinition name="SUBAVTALE" typeReference="string">
+              <description>Subavtalekode</description>
+              <maxLength>4</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="RADIOKALLESIGNAL" typeReference="string">
+              <description>RADIOKALLESIGNAL/Kjenneteikn for farty</description>
+              <maxLength>8</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="RAPPORTERINGS_DATO" typeReference="date">
+              <description>Rapporteringsdato</description>
+              <maxLength>6</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="RAPPORTERINGS_POSISJON" typeReference="string">
+              <description>Posisjon blir rapportert i Nord/Sør, grader, minutter, Øst`/Vest, grader minutter N7640Ø02800 betyr 76 grader 40 min nord og 28 grader øst</description>
+              <maxLength>12</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="RUTE" typeReference="string">
+              <description>Fangstområde</description>
+              <maxLength>4</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="FISKE_SORT" typeReference="string">
+              <description>Fiskesortskode</description>
+              <maxLength>4</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="FISKE_KVANTUM" typeReference="string">
+              <description>Kvantum i kg rundvekt</description>
+              <maxLength>10</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="FISKE_TILSTAND" typeReference="string">
+              <description>Tilstand,Kode 1 er rund fisk</description>
+              <maxLength>1</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="ANTALL_FISKEDAGER" typeReference="integer">
+              <description>ANTALL FISKEDAGER</description>
+              <maxLength>3</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="SVD_ANTALL_FISKEDAGER" typeReference="integer">
+              <description>SVD_ANTALL_FISKEDAGER</description>
+              <maxLength>3</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="SISTE_OPPDAT_DATO" typeReference="date">
+              <description>Siste oppdateringsdato</description>
+            </fieldDefinition>
+            <fieldDefinition name="SISTE_OPPDAT_KL" typeReference="time">
+              <description>Siste oppdateringsklokkeslett</description>
+              <maxLength>4</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="SISTE_OPPDAT_SIGN" typeReference="string">
+              <description>Kode for operatør ved siste oppdatering</description>
+              <maxLength>30</maxLength>
+            </fieldDefinition>
+          </fieldDefinitions>
+        </recordDefinition>
+      </recordDefinitions>
+    </flatFileDefinition>
+    <flatFileDefinition name="ffd_4" typeReference="delim_crlf">
+      <description>I farkost-registeret finnes fartøyopplysninger om aktuelle farkoster.  Noen av disse vil være lisensiert for fiske (se kvote), andre ligger &apos;løse&apos; i registeret, uten lisenstilknytning</description>
+      <recordDefinitions>
+        <recordDefinition name="FARKOST">
+          <description>Informasjon om farty.</description>
+          <fieldDefinitions>
+            <fieldDefinition name="RADIOKALLESIGNAL" typeReference="string">
+              <description>RADIOKALLESIGNAL/Kjenneteikn for fiskefarty</description>
+              <maxLength>8</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="NASJON" typeReference="string">
+              <description>Nasjonskode</description>
+              <maxLength>3</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="REGISTRERINGSMERKE" typeReference="string">
+              <description>Registreringsmerke i Merkeregisteret for norske fiskefarty og tilsvarande merke for utanlandske farty</description>
+              <maxLength>8</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="SISTE_OPPDAT_DAT" typeReference="date">
+              <description>Siste oppdateringsdato</description>
+            </fieldDefinition>
+            <fieldDefinition name="SISTE_OPPDAT_KL" typeReference="time">
+              <description>Siste oppdateringsklokkeslett</description>
+            </fieldDefinition>
+            <fieldDefinition name="SISTE_OPPDAT_SIGN" typeReference="string">
+              <description>Kode for operatør ved siste oppdatering</description>
+              <maxLength>30</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="LISENS" typeReference="string">
+              <description>Kode for lisens (0 - ikkje registrert)</description>
+              <maxLength>1</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="BRUTTOTONASJE" typeReference="string">
+              <description>Bruttotonnasje</description>
+              <maxLength>5</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="LENGDE_I_METER" typeReference="float">
+              <description>Lengde i meter. Kontroll av nokre norske farty i merkeregisteret for 1978 viser at det må vere lengde i fot som ligg inne. Feltets namn og verdiinnhald er uendra.</description>
+              <maxLength>7</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="MASKIN_HK" typeReference="integer">
+              <description>Motorytelse i hestekrefter</description>
+              <maxLength>5</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="ANTALL_MANN" typeReference="string">
+              <description>Mannskapets størrelse</description>
+              <maxLength>3</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="BAATENS_NAVN" typeReference="string">
+              <description>Namn på farkost</description>
+              <maxLength>20</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="KAPTEINENS_NAVN" typeReference="string">
+              <description>KAPTEINENS NAVN</description>
+              <maxLength>20</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="EIERS_NAVN" typeReference="string">
+              <description>Namn på eigar</description>
+              <maxLength>20</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="OPPD" typeReference="integer">
+              <description>Oppdatert</description>
+              <maxLength>1</maxLength>
+            </fieldDefinition>
+          </fieldDefinitions>
+        </recordDefinition>
+      </recordDefinitions>
+    </flatFileDefinition>
+    <flatFileDefinition name="ffd_3" typeReference="delim_crlf">
+      <description>Forbindelse mellom RADIOKALLESIGNAL/kjenneteikn  og Reiskap. Kodene med verdi minst 10 er egentlige redskapskoder, under 10 er andre koder brukt i samme felt.</description>
+      <recordDefinitions>
+        <recordDefinition name="FARKOST_REDS">
+          <description>Forbindelse mellom RADIOKALLESIGNAL/Kjenneteikn og Reiskap. Kodene med verdi minst 10 er egentlige redskapskoder, under 10 er andre koder brukt i samme felt.</description>
+          <fieldDefinitions>
+            <fieldDefinition name="RADIOKALLESIGNAL" typeReference="integer">
+              <description>RADIOKALLESIGNAL/kjenneteikn</description>
+              <maxLength>8</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="REDSKAP" typeReference="integer">
+              <description>Kode for reiskap (10 og over) og kode for type farty.</description>
+              <maxLength>2</maxLength>
+            </fieldDefinition>
+          </fieldDefinitions>
+        </recordDefinition>
+      </recordDefinitions>
+    </flatFileDefinition>
+    <flatFileDefinition name="ffd_5" typeReference="delim_crlf">
+      <description>Tabell med kvote, fangst og innlast fordelt på subavtale, fartøy og fiskesort</description>
+      <recordDefinitions>
+        <recordDefinition name="FISKE">
+          <description>Tabell med kvote, fangst og innlast fordelt på subavtale, fartøy og fiskesort</description>
+          <fieldDefinitions>
+            <fieldDefinition name="SUBAVTALE" typeReference="string">
+              <description>SUBAVTALE</description>
+              <maxLength>4</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="RADIOKALLESIGNAL" typeReference="string">
+              <description>RADIOKALLESIGNAL/kjenneteikn</description>
+              <maxLength>8</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="SORT" typeReference="string">
+              <description>Kode for fiskesort</description>
+              <maxLength>3</maxLength>
+            </fieldDefinition>
+            <fieldDefinition name="KVOTE" typeReference="integer">
+              <description>Kvote i kg</description>
+            </fieldDefinition>
+            <fieldDefinition name="FANGST" typeReference="integer">
+              <description>Fangst i kg rund vekt.</description>
+            </fieldDefinition>
+            <fieldDefinition name="INNLAST" typeReference="integer">
+              <description>Innlast (last ombord ved inngang i sone,kun registrert i systemet for norske ombordprodusenter)</description>
+            </fieldDefinition>
+          </fieldDefinitions>
+        </recordDefinition>
+      </recordDefinitions>
+    </flatFileDefinition>
+    <flatFileDefinition name="ffd_10" typeReference="delim_crlf">
+      <description>Fungerer som et bindeledd mellom en farkost og en subavtale. Hvis et slikt forhold er opprettet, så er farkosten lisensiert for fiske under subavtalen /har fiskeritillatelse i sonen i en angitt periode</description>
+        <recordDefinitions>
+          <recordDefinition name="KVOTE">
+            <description>Fungerer som et bindeledd mellom en farkost og en subavtale. Hvis et slikt forhold er opprettet, så er farkosten lisensiert for fiske under subavtalen /har fiskeritillatelse i sonen i en angitt periode</description>
+            <fieldDefinitions>
+              <fieldDefinition name="SUBAVTALE" typeReference="string">
+                <description>SUBAVTALE</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="RADIOKALLESIGNAL" typeReference="string">
+                <description>RADIOKALLESIGNAL/kjenneteikn</description>
+                <maxLength>8</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="PERIODE_FRA" typeReference="date">
+                <description>Første dato i perioden</description>
+              </fieldDefinition>
+              <fieldDefinition name="PERIODE_TIL" typeReference="string">
+                <description>Siste dato i perioden</description>
+              </fieldDefinition>
+              <fieldDefinition name="ANTALL_FISKEDAGER" typeReference="integer">
+                <description>ANTALL_FISKEDAGER</description>
+                <maxLength>3</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="SVD_ANTALL_FISKEDAGER_MAX" typeReference="integer">
+                <description>SVD_ANTALL_FISKEDAGER_MAX</description>
+                <maxLength>3</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="SVD_ANTALL_FISKEDAGER" typeReference="integer">
+                <description>SVD_ANTALL_FISKEDAGER</description>
+                <maxLength>3</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_OPPDAT_DATO" typeReference="date">
+                <description>SISTE_OPPDAT_DATO</description>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_OPPDAT_KL" typeReference="time">
+                <description>Siste oppdaterings-klokkeslett</description>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_OPPDAT_SIGN" typeReference="string">
+                <description>Kode til operatør som sist endra data</description>
+                <maxLength>30</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="AKTIV_SIGNAL" typeReference="string">
+                <description>Kode for aktiv/passiv melding</description>
+                <maxLength>1</maxLength>
+                <codes>
+                  <code codeValue="A" explan="Aktiv"/>
+                  <code codeValue="P" explan="Passiv"/>
+                </codes>
+              </fieldDefinition>
+              <fieldDefinition name="AKTIV_RUTE" typeReference="string">
+                <description>Kode for fangstområde</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="LISENS" typeReference="string">
+                <description>Kode for lisens</description>
+                <maxLength>1</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_RAPPORTERINGS_FORM" typeReference="string">
+                <description>Sste rapporterinsform er ikkje i bruk</description>
+                <maxLength>1</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_RAPPORTERINGS_DATO" typeReference="date">
+                <description>SISTE RAPPORTERINGSDATO</description>
+                <maxLength>6</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_RAPPORTERINGS_POSISJON" typeReference="string">
+                <description>SISTE RAPPORTERINGSPOSISJON</description>
+                <maxLength>12</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="TUR_NR" typeReference="integer">
+                <description>Farkostens turnummer dette året</description>
+                <maxLength>3</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="START_DATO_FOR_TUR" typeReference="date">
+                <description>STARTDATO FOR TUREN</description>
+              </fieldDefinition>
+              <fieldDefinition name="STOPP_DATO_FOR_TUR" typeReference="date">
+                <description>STOPPDATO FOR TUREN</description>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinitions>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_21" typeReference="delim_crlf">
+        <description>Kombinasjonar av subatale, fartøy og fangstområder</description>
+        <recordDefinitions>
+          <recordDefinition name="RUTE">
+            <description>Kombinasjonar av subatale, fartøy og fangstområder</description>
+            <fieldDefinitions>
+              <fieldDefinition name="SUBAVTALE" typeReference="string">
+                <description>SUBAVTALE</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="RADIOKALLESIGNAL" typeReference="string">
+                <description>RADIOKALLESIGNAL/kjenneteikn</description>
+                <maxLength>8</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="RUTE" typeReference="string">
+                <description>Fangstområde</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinitions>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_27" typeReference="delim_crlf">
+        <description>Inneholder beskrivelse av de enkelte avtaler som er inngått mellom Norge og en annen nasjon eller konstellasjon av flere nasjoner (EU), samt norske avtaler vedrørende fisket i en nærmere angitt sone/område.</description>
+        <recordDefinitions>
+          <recordDefinition name="SUBAVTALE">
+            <description>Inneholder beskrivelse av de enkelte avtaler som er inngått mellom Norge og en annen nasjon eller konstellasjon av flere nasjoner (EU), samt norske avtaler vedrørende fisket i en nærmere angitt sone/område.</description>
+            <fieldDefinitions>
+              <fieldDefinition name="SUBAVTALE" typeReference="string">
+                <description>SUBAVTALE</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="PERIODE_FRA" typeReference="date">
+                <description>Første dato i perioden</description>
+                <maxLength>6</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="PERIODE_TIL" typeReference="date">
+                <description>Siste dato i perioden</description>
+                <maxLength>6</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FARK_MAX" typeReference="integerMax4">
+                <description>Maksimalt antall farty</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FARK_TILLATT_AKTIVE" typeReference="integerMax4">
+                <description>Maksimalt antall aktive farty tillatt</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FARK_INNMELDT" typeReference="integer">
+                <description>Antall farty som er innmeldt</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FARK_AKTIVE" typeReference="integer">
+                <description>Antall aktive farty</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="ANTALL_FISKEDAGER" typeReference="integerMax5">
+                <description>ANTALL FISKEDAGER</description>
+                <maxLength>5</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FISKEDAGER_HITTIL" typeReference="integer">
+                <description>Antall FISKEDAGER HITTIL</description>
+                <maxLength>5</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="SVD_ANTALL_FISKEDAGER_MAX" typeReference="integerMax5">
+                <description>SVD_ANTALL_FISKEDAGER_MAX</description>
+                <maxLength>5</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="SVD_ANTALL_FISKEDAGER" typeReference="integer">
+                <description>SVD_ANTALL_FISKEDAGER</description>
+                <maxLength>5</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="SVD_FAKTOR_KW" typeReference="integer">
+                <description>SVD_FAKTOR_KW</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FARK_STORRELSE" typeReference="integerMax5">
+                <description>Feltet er ikkje i bruk</description>
+                <maxLength>5</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_OPPDAT_DATO" typeReference="date">
+                <description>SIST OPPDATERINGSDATO</description>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_OPPDAT_KL" typeReference="time">
+                <description>SIST OPPDATERINGS-KLOKKESLETT</description>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_OPPDAT_SIGN" typeReference="string">
+                <description>Siste operatør som endra data.</description>
+                <maxLength>30</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FLOTILJESJEF" typeReference="string">
+                <description>Feltet er ikkje i bruk</description>
+                <maxLength>20</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinitions>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_23" typeReference="delim_crlf">
+        <description>Forbindelse mellom subavtaler og reiskapskoder</description>
+        <recordDefinitions>
+          <recordDefinition name="SUBAVT_REDS">
+            <description>Forbindelse mellom subavtaler og reiskapskoder</description>
+            <fieldDefinitions>
+              <fieldDefinition name="SUBAVTALE" typeReference="string">
+                <description>SUBAVTALE</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="REDSKAP" typeReference="string">
+                <description>Reiskapskode</description>
+                <maxLength>2</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinitions>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_24" typeReference="delim_crlf">
+        <description>Forbindelse mellom subataler og fangstområder</description>
+        <recordDefinition>
+          <recordDefintion name="SUBAVT_RUTE">
+            <description>Forbindelse mellom subataler og fangstområder</description>
+            <fieldDefinitions>
+              <fieldDefinition name="SUBAVTALE" typeReference="string">
+                <description>SUBAVTALE</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="RUTE" typeReference="string">
+                <description>Fangstområde</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefintion>
+        </recordDefinition>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_25" typeReference="delim_crlf">
+        <description>Totaltabell for subavtale og fiskesort med kvote og fangst.</description>
+        <recordDefinitions>
+          <recordDefinition name="SUBAVT_SORT">
+            <description>Totaltabell for subavtale og fiskesort med kvote og fangst</description>
+            <fieldDefinitions>
+              <fieldDefinition name="SUBAVTALE" typeReference="string">
+                <description>SUBAVTALE</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FISKESORT" typeReference="string">
+                <description>Kode for fiskesort</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FISKEKVOTE" typeReference="integer">
+                <description>Kvote i kg rundvekt. Få subavtalar har kvote.</description>
+                <maxLength>9</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FISKEFANGST" typeReference="integer">
+                <description>Kvantum i kg rundvekt</description>
+                <maxLength>9</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinitions>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_26" typeReference="delim_crlf">
+        <description>Kodetabell for subavtalar</description>
+        <recordDefinitions>
+          <recordDefinition name="Subavtale_tekst">
+            <description>Kodetabell for subavtalar</description>
+            <keys>
+              <key name="subavtale">
+                <primkey/>
+                <fieldDefinitionReferences>
+                  <fielDefinitionReference name="Subavtale"/>
+                </fieldDefinitionReferences>
+              </key>
+            </keys>
+            <fieldDefinitions>
+              <fieldDefinition name="Subavtale" typeReference="string">
+                <description>Subavtalekode, Normalt er 3 karakterer nasjonskode, i 4 posisjon er 0 fiske sør for 62 grader, 1 fiske nord for 62, 2 industrifiske sør for 62,  3 forskningsfiske, S i Svalbardsonen, J i Jan Mayen-sonen.</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="Subavtale_tekst" typeReference="string">
+                <description>Beskrivelse av subavtalen</description>
+                <maxLength>60</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinitions>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_6" typeReference="delim_crlf">
+        <description>Kodetabell for fiskesort</description>
+        <recordDefinitions>
+          <recordDefinition name="Fiskesort_tekst">
+            <description>Kodetabell for fiskesort</description>
+            <keys>
+              <key name="fiskesort">
+                <primkey/>
+                <fieldDefinitionReferences>
+                  <fielDefinitionReference name="Fiskesort"/>
+                </fieldDefinitionReferences>
+              </key>
+            </keys>
+            <fieldDefinitions>
+              <fieldDefinition name="Fiskesort" typeReference="string">
+                <description>Fiskesortkode</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="Fiskesort_tekst" typeReference="string">
+                <description>Fiskesort_tekst</description>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinitions>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_19" typeReference="delim_crlf">
+        <description>Kodetabell for reiskap</description>
+        <recordDefinitions>
+          <recordDefinition name="Redskap_tekst">
+            <description>Kodetabell for reiskap og spesielle kodar for fartytype.</description>
+            <fieldDefinitions>
+              <fieldDefinition name="Redskap" typeReference="string">
+                <description>Reiskapskode</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="Redskap_tekst" typeReference="string">
+                <description>Beskrivelse av reiskapskodar og spesielle kodar i systemet.</description>
+                <maxLength>45</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinitions>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_20" typeReference="delim_crlf">
+        <description>Kodetabell for fangstområder</description>
+        <recordDefinitions>
+          <rectype name="Rute_tekst">
+            <description>Kodetabell for fangstområder</description>
+            <fieldDefinitions>
+              <fieldDefinition name="Rute" typeReference="string">
+                <description>Rute er kode for fangstområde.</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="Rute_tekst" typeReference="string">
+                <description>Fangstområde i klartekst</description>
+                <maxLength>37</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </rectype>
+        </recordDefinitions>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_7" typeReference="delim_crlf">
+        <description>Fangst ombord ved aktivmelding</description>
+        <recordDefinition>
+          <recordDefinition name="INNLAST">
+            <description>Fangst ombord ved aktivmelding,</description>
+            <fieldDefinitions>
+              <fieldDefinition name="SUBAVTALE" typeReference="string">
+                <description>SUBAVTALE</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="RADIOKALLESIGNAL" typeReference="string">
+                <description>RADIOKALLESIGNAL</description>
+                <maxLength>8</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="RAPPORTERINGS_DATO" typeReference="date">
+                <description>RAPPORTERINGS_DATO</description>
+              </fieldDefinition>
+              <fieldDefinition name="RAPPORTERINGS_POSISJON" typeReference="string">
+                <description>RAPPORTERINGS_POSISJON</description>
+                <maxLength>12</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="RUTE" typeReference="string">
+                <description>RUTE</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FISKE_SORT" typeReference="string">
+                <description>FISKE_SORT</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FISKE_KVANTUM" typeReference="integer">
+                <description>FISKE_KVANTUM</description>
+                <maxLength>9</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FISKE_TILSTAND" typeReference="string">
+                <description>FISKE_TILSTAND</description>
+                <maxLength>1</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_OPPDAT_DATO" typeReference="date">
+                <description>SISTE_OPPDAT_DATO</description>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_OPPDAT_KL" typeReference="time">
+                <description>SISTE_OPPDAT_KL</description>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_OPPDAT_SIGN" typeReference="string">
+                <description>Operatørens ID</description>
+                <maxLength>30</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinition>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_12" typeReference="delim_crlf">
+        <description>Landing av fangst</description>
+        <recordDefinitions>
+          <recordDefinition name="LAND">
+            <description>Landing av fangst</description>
+            <fieldDefinitions>
+              <fieldDefinition name="SUBAVTALE" typeReference="string">
+                <description>SUBAVTALE</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="RADIOKALLESIGNAL" typeReference="string">
+                <description>RADIOKALLESIGNAL</description>
+                <maxLength>8</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="RAPP_DATO" typeReference="date">
+                <description>RAPPORTERINGSDATO</description>
+              </fieldDefinition>
+              <fieldDefinition name="RAPP_KL" typeReference="time">
+                <description>Rapporterings klokkeslett</description>
+                <maxLength>5</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="STED" typeReference="string">
+                <description>Namn på hamn eller land der fangsten er landa</description>
+                <maxLength>15</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="MOTTAK" typeReference="string">
+                <description>Namn på mottak, eller kommentar</description>
+                <maxLength>22</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_OPPDAT_DATO" typeReference="date">
+                <description>SISTE OPPDATERINGSDATO</description>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_OPPDAT_KL" typeReference="time">
+                <description>SISTE OPPDATINGS-KLOKKESLETT</description>
+              </fieldDefinition>
+              <fieldDefinition name="SISTE_OPPDAT_SIGN" typeReference="string">
+                <description>Operatørens ID</description>
+              </fieldDefinition>
+              <fieldDefinition name="FISKE_SORT" typeReference="string">
+                <description>FISKESORT</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FISKE_KVANTUM" typeReference="integer">
+                <description>Kvantum i kg rundvekt</description>
+                <maxLength>9</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FISKE_TILSTAND" typeReference="string">
+                <description>FISKETILSTAND</description>
+                <maxLength>1</maxLength>
+                <codes>
+                  <code codeValue="1" explan="Rund"/>
+                </codes>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinitions>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_18" typeReference="delim_crlf">
+        <description>Innmeldt kvantum kvar månad eller ved passivmelding.</description>
+        <recordDefinitions>
+          <recordDfinition name="RADIO_KVANTUM">
+            <description>Innmeldt kvantum kvar månad eller ved passivmelding.</description>
+            <fieldDefinitions>
+              <fieldDefinition name="RADIOKALLESIGNAL" typeReference="string">
+                <description>RADIOKALLESIGNAL/Kjenneteikn</description>
+                <maxLength>8</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FISKE_SORT" typeReference="string">
+                <description>FISKESORT</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="RUTE" typeReference="string">
+                <description>Fangstområde</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="MND_NR" typeReference="integer">
+                <description>Månadsnummer</description>
+                <maxLength>2</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="FISKE_KVANTUM" typeReference="integer">
+                <description>Kvantum i kg rundvekt</description>
+                <maxLength>9</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDfinition>
+        </recordDefinitions>
+      </flatFileDefinition>
+      <flatFileDefintion name="ffd_13" typeReference="delim_crlf">
+        <description>Nasjonskoder,alfabetisk og tallkode med engelsk og norsk namn.</description>
+        <recordDefinitions>
+          <recordDefinition name="NASJON_KODE">
+            <description>Nasjonskoder,alfabetisk og tallkode med engelsk og norsk namn.</description>
+            <fieldDefinitions>
+              <fieldDefinition name="ISO_ALFA3" typeReference="string">
+                <description>Alfabetisk nasjonskode 3 tegn</description>
+                <maxLength>3</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="ISO_ALFA2" typeReference="string">
+                <description>Alfabetisk nasjonskode 2 tegn</description>
+                <maxLength>2</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="ISO_NUM3" typeReference="integer">
+                <description>Numerisk nasjonskode med 3 siffer</description>
+                <maxLength>3</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="ENG_TEKST" typeReference="string">
+                <description>Nasjonens navn på engelsk</description>
+                <maxLength>80</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="NOR_TEKST" typeReference="string">
+                <description>Nasjonens navn på norsk</description>
+                <maxLength>30</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinitions>
+      </flatFileDefintion>
+      <flatFileDefinition name="ffd_14" typeReference="delim_crlf">
+        <description>Kode og tekst for norske subavtaler</description>
+        <recordDefinitions>
+          <recordDefinition name="NORAVTALER_KODE">
+            <description>Kode og tekst for norske subavtaler</description>
+            <fieldDefinitions>
+              <fieldDefinition name="SUBAVTALE" typeReference="string">
+                <description>Kode for SUBAVTALE</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="TEKST" typeReference="string">
+                <description>Kodens betydning</description>
+                <maxLength>40</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinitions>
+      </flatFileDefinition>
+      <flatFileDefinition name="ffd_16" typeReference="delim_crlf">
+        <description>Tabell med lengde og bredde, norske områdekodar og internasjonale kodar</description>
+        <recordDefinitions>
+          <recordDefinition name="POSISJON_KODE">
+            <description>Tabell med lengde og bredde, norske områdekodar og internasjonale kodar</description>
+            <fieldDefinitions>
+              <fieldDefinition name="POSISJON" typeReference="string">
+                <description>POSISJON</description>
+                <maxLength>12</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="OMR_LOK" typeReference="string">
+                <description>Norske fangstområder, hovudområde og lokasjon</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="RUTE" typeReference="string">
+                <description>Fangstområder, ICES- kodar i Austatlanterhavet, NAFO-kodar i Vestatlanterhavet</description>
+                <maxLength>7</maxLength>
+              </fieldDefinition>
+              <fieldDefinition name="KOMMISJON" typeReference="string">
+                <description>Kommsjon</description>
+                <maxLength>4</maxLength>
+              </fieldDefinition>
+            </fieldDefinitions>
+          </recordDefinition>
+        </recordDefinitions>
+      </flatFileDefinition>
+  </flatFileDefinitions>
+  <structureTypes>
+    <flatFileTypes>
+      <flatFileType name="delim_crlf">
+        <charset>ISO-8859-1</charset>
+        <delimFileFormat>
+          <recordSeparator>CRLF</recordSeparator>
+          <fieldSeparatingChar>;</fieldSeparatingChar>
+        </delimFileFormat>
+        <delimspec>
+          <fieldsep>;</fieldsep>
+        </delimspec>
+        <nu_rectypes>1</nu_rectypes>
+        <nu_records>245</nu_records>
+        <nu_bytes>9082</nu_bytes>
+      </flatFileType>
+    </flatFileTypes>
+    <fieldTypes>
+      <fieldType name="string">
+        <dataType>string</dataType>
+      </fieldType>
+      <fieldType name="integer">
+        <dataType>integer</dataType>
+      </fieldType>
+      <fieldType name="integerMax4">
+        <dataType>integer</dataType>
+        <nullValues>9999</nullValues>
+      </fieldType>
+      <fieldType name="integerMax5">
+        <dataType>integer</dataType>
+        <nullValues>99999</nullValues>
+      </fieldType>
+      <fieldType name="float">
+        <dataType>float</dataType>
+        <fieldFormat>nn,nn</fieldFormat>
+      </fieldType>
+      <fieldType name="date">
+        <dataType>date</dataType>
+        <fieldFormat>ddmmyy</fieldFormat>
+        <nullValues>000000</nullValues>
+      </fieldType>
+      <fieldType name="time">
+        <dataType>date</dataType>
+        <fieldFormat>hhmm</fieldFormat>
+      </fieldType>
+    </fieldTypes>
+  </structureTypes>
+</addml>

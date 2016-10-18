@@ -4,6 +4,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class ControlNumberOfRecords : IAddmlProcess, IAddmlFileProcess, IAddmlRecordProcess
     {
+        private const string Name = "Control_NumberOfRecords";
         private readonly TestRun _testRun;
         private FlatFile _currentFlatFile;
         private int _numberOfOcurrencesForCurrentFile;
@@ -11,6 +12,11 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         public ControlNumberOfRecords()
         {
             _testRun = new TestRun(GetType().FullName, TestType.Content);
+        }
+
+        public string GetName()
+        {
+            return Name;
         }
 
         public void Run(FlatFile flatFile)

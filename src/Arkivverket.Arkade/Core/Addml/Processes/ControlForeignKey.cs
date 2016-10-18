@@ -4,7 +4,14 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class ControlForeignKey : IAddmlProcess, IAddmlFileProcess, IAddmlRecordProcess, IAddmlFieldProcess
     {
+        private const string Name = "Control_ForeignKey";
+
         private readonly Dictionary<string, HashSet<string>> _primaryKeys = new Dictionary<string, HashSet<string>>();
+
+        public string GetName()
+        {
+            return Name;
+        }
 
         public void Run(Field field)
         {

@@ -16,13 +16,14 @@ namespace Arkivverket.Arkade.Core.Addml
 
         public TestSuite RunTests(AddmlDefinition addmlDefinition, TestSession testSession)
         {
-            IFlatFileReader flatFileReader = _flatFileReaderFactory.GetReader(testSession.Archive);
 
             List<FlatFile> flatFiles = addmlDefinition.GetFlatFiles();
 
             foreach (FlatFile file in flatFiles)
             {
                 _addmlProcessRunner.RunProcesses(file);
+
+                IFlatFileReader flatFileReader = _flatFileReaderFactory.GetReader(testSession.Archive, file);
 
                 while (flatFileReader.HasMoreRecords())
                 {

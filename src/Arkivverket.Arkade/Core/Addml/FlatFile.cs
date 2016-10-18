@@ -22,5 +22,6 @@ namespace Arkivverket.Arkade.Core.Addml
         {
             return Definition.AddmlRecordDefinitions.SelectMany(d => d.Processes).ToList();
         }
+
     }
 }

@@ -8,12 +8,6 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public List<AddmlFlatFileDefinition> AddmlFlatFileDefinitions { get; }
 
-        // TODO: Remove this!
-        public AddmlDefinition()
-        {
-            
-        }
-
         public AddmlDefinition(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
         {
             AddmlFlatFileDefinitions = addmlFlatFileDefinitions;

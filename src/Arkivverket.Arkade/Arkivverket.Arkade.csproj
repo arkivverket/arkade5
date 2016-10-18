@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Addml\AddmlDatasetTestEngine.cs" />
+    <Compile Include="Core\Addml\AddmlUtil.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlDefinition.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParseException.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlFieldDefinition.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Core\Addml\IAddmlProcess.cs" />
     <Compile Include="Core\Addml\IFlatFileReader.cs" />
     <Compile Include="Core\Addml\Noark4FileReader.cs" />
+    <Compile Include="Core\Addml\Processes\ProcessTypeMapping.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKey.cs" />
     <Compile Include="Core\Addml\Processes\ControlNumberOfRecords.cs" />
     <Compile Include="Core\Addml\Processes\IAddmlFieldProcess.cs" />

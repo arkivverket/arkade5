@@ -4,6 +4,8 @@ namespace Arkivverket.Arkade.Core.Addml
 {
     public interface IAddmlProcess
     {
+        string GetName();
+
         /// <summary>
         /// Return results from the process. 
         /// </summary>
