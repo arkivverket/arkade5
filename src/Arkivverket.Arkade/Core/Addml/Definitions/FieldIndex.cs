@@ -26,6 +26,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         {            
         }
 
+        public FieldIndex(flatFileDefinitionReference flatFileDefinitionReference, recordDefinitionReference recordDefinitionReference, fieldDefinitionReference fieldDefinitionReference)
+            : this(flatFileDefinitionReference.name, recordDefinitionReference.name, fieldDefinitionReference.name)
+        {
+        }
+
         protected bool Equals(FieldIndex other)
         {
             return string.Equals(_flatFileDefinitionReference, other._flatFileDefinitionReference) &&

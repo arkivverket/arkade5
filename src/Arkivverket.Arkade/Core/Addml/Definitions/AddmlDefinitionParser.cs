@@ -340,7 +340,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             {
                 foreach (fieldDefinitionReference fieldDefinitionReference in recordDefinitionReference.fieldDefinitionReferences)
                 {
-                    indexes.Add(new FieldIndex(flatFileDefinitionReference.name, recordDefinitionReference.name, fieldDefinitionReference.name));
+                    indexes.Add(new FieldIndex(flatFileDefinitionReference, recordDefinitionReference, fieldDefinitionReference));
                 }
             }
 
