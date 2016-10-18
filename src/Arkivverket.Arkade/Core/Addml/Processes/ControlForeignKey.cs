@@ -37,13 +37,18 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         {
         }
 
-        public List<TestRun> GetTestRuns()
-        {
-            return new List<TestRun>();
-        }
-
         public void Run(Record record)
         {
+        }
+
+        public TestRun GetTestRun()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void EndOfFile()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

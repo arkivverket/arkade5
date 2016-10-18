@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
 {
     public class AddmlDatasetTestEngineTest
     {
-        [Fact]
+        [Fact(Skip = "not yet implemented")]
         public void ShouldReturnTestSuiteFromTests()
         {
             var addmlDefinition = new AddmlDefinition();

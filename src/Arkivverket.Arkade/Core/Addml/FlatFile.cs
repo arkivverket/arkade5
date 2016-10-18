@@ -11,6 +11,11 @@ namespace Arkivverket.Arkade.Core.Addml
             Definition = definition;
         }
 
+        public List<string> GetFileProcesses()
+        {
+            return new List<string>();
+        }
+
         public List<string> GetRecordProcesses()
         {
             return new List<string>();
