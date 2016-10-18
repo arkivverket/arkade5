@@ -21,6 +21,7 @@ namespace Arkivverket.Arkade.Core.Addml
         public int? MaxLength { get; }
         //public string Codes { get; }
         public AddmlFieldDefinition ForeignKey { get; }
+        public List<string> Processes { get; }
 
         public AddmlFieldDefinition(string name,
             int? startPosition,
@@ -32,7 +33,8 @@ namespace Arkivverket.Arkade.Core.Addml
             int? minLength,
             int? maxLength,
             AddmlFieldDefinition foreignKey,
-            AddmlFlatFileDefinition addmlFlatFileDefinition)
+            AddmlFlatFileDefinition addmlFlatFileDefinition,
+            List<string> processes)
         {
             Name = name;
             StartPosition = startPosition;
@@ -45,6 +47,7 @@ namespace Arkivverket.Arkade.Core.Addml
             MaxLength = maxLength;
             ForeignKey = foreignKey;
             AddmlFlatFileDefinition = addmlFlatFileDefinition;
+            Processes = processes;
         }
 
     }

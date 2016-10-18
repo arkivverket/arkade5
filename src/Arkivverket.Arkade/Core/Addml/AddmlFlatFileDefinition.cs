@@ -20,15 +20,14 @@ namespace Arkivverket.Arkade.Core.Addml
         public string ChecksumValue { get; }
 
         public List<AddmlFieldDefinition> AddmlFieldDefinitions { get; }
-
-        // FileProcesses
-        // RecordProcesses
+        public List<string> Processes { get; }
 
         public AddmlFlatFileDefinition(string name,
             string fileName,
             int recordLength,
             string recordSeparator,
-            string charset)
+            string charset,
+            List<string> processes)
         {
             Name = name;
             FileName = fileName;
@@ -36,14 +35,16 @@ namespace Arkivverket.Arkade.Core.Addml
             RecordSeparator = recordSeparator;
             Charset = charset;
             AddmlFieldDefinitions = new List<AddmlFieldDefinition>();
+            Processes = processes;
         }
 
         internal void AddAddmlFieldDefinition(string name, int? startPosition, int? fixedLength, string fieldTypeString,
-            bool isPrimaryKey, bool isUnique, bool isNullable, int? minLength, int? maxLength, AddmlFieldDefinition foreignKey)
+            bool isPrimaryKey, bool isUnique, bool isNullable, int? minLength, int? maxLength, AddmlFieldDefinition foreignKey,
+            List<string> processes)
         {
             AddmlFieldDefinition addmlFieldDefinition = new AddmlFieldDefinition(
                     name, startPosition, fixedLength, fieldTypeString, isPrimaryKey, isUnique, isNullable, minLength, maxLength,
-                    foreignKey, this);
+                    foreignKey, this, processes);
             AddmlFieldDefinitions.Add(addmlFieldDefinition);
         }
     }

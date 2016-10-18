@@ -1,18 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
     public class AddmlDefinition
     {
 
-        public List<Field> Fields { private set; get; }
+        public List<AddmlFlatFileDefinition> AddmlFlatFileDefinitions { get; }
 
-        private List<AddmlFlatFileDefinition> AddmlFlatFileDefinitions;
+        // TODO: Remove this!
+        public AddmlDefinition()
+        {
+            
+        }
+
+        public AddmlDefinition(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
+        {
+            AddmlFlatFileDefinitions = addmlFlatFileDefinitions;
+        }
 
         public List<FlatFile> GetFlatFiles()
         {
-            return new List<FlatFile>();
+            List<FlatFile> flatFiles = new List<FlatFile>();
+            foreach (AddmlFlatFileDefinition addmlFlatFileDefinition in AddmlFlatFileDefinitions)
+            {
+                flatFiles.Add(new FlatFile(addmlFlatFileDefinition));
+            }
+            return flatFiles;
         }
 
         public List<string> GetFileProcesses()

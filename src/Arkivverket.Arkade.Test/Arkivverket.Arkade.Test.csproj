@@ -212,6 +212,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestData\addml\noark_3_arkivuttrekk_med_prosesser.xml" />
     <Content Include="TestData\jegerreg-98-dos\arkivuttrekk.xml" />
     <Content Include="TestData\noark3-info.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

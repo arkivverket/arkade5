@@ -14,15 +14,43 @@ namespace Arkivverket.Arkade.Test.Core.Addml
         [Fact]
         public void ShouldParseJegerreg98ArkivuttrekkXml()
         {
-            string fileName = $"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\TestData\\jegerreg-98-dos\\arkivuttrekk.xml";
-            string fileContent = File.ReadAllText(fileName);
-            addml addml = SerializeUtil.DeserializeFromString<addml>(fileContent);
+            addml addml = ReadAddmlFile($"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\TestData\\jegerreg-98-dos\\arkivuttrekk.xml");
 
             AddmlDefinitionParser parser = new AddmlDefinitionParser(addml);
 
-            List<AddmlFlatFileDefinition> addmlFlatFileDefinition = parser.GetAddmlFlatFileDefinitions();
-            addmlFlatFileDefinition.Count.Should().Be(10);
+            AddmlDefinition addmlDefinition = parser.GetAddmlDefinition();
+            List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
+            addmlFlatFileDefinitions.Count.Should().Be(10);
+            addmlFlatFileDefinitions[0].AddmlFieldDefinitions.Count.Should().Be(36);
+            addmlFlatFileDefinitions[0].Name.Should().Be("ffd_3");
+            addmlFlatFileDefinitions[0].FileName.Should().Be("jeger.dat");
+            addmlFlatFileDefinitions[0].RecordLength.Should().Be(186);
+            addmlFlatFileDefinitions[0].RecordSeparator.Should().Be("CRLF");
+            addmlFlatFileDefinitions[0].FieldSeparator.Should().BeNull();
+            addmlFlatFileDefinitions[0].Charset.Should().Be("ISO_8859_1");
 
+            // TODO: Assert more addmlFlatFileDefinitions!
+        }
+
+        [Fact]
+        public void ShouldParseArkivuttrekkMedProsesser()
+        {
+            addml addml = ReadAddmlFile($"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\TestData\\addml\\noark_3_arkivuttrekk_med_prosesser.xml");
+
+            AddmlDefinitionParser parser = new AddmlDefinitionParser(addml);
+
+            AddmlDefinition addmlDefinition = parser.GetAddmlDefinition();
+            List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
+            addmlFlatFileDefinitions.Count.Should().Be(3);
+
+            // TODO: Add asserts!
+        }
+
+        private static addml ReadAddmlFile(string fileName)
+        {
+            string fileContent = File.ReadAllText(fileName);
+            addml addml = SerializeUtil.DeserializeFromString<addml>(fileContent);
+            return addml;
         }
     }
 }
