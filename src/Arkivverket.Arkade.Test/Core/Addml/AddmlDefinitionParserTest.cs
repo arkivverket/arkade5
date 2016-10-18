@@ -14,7 +14,9 @@ namespace Arkivverket.Arkade.Test.Core.Addml
         [Fact]
         public void ShouldParseJegerreg98ArkivuttrekkXml()
         {
-            addml addml = ReadAddmlFile($"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\TestData\\jegerreg-98-dos\\arkivuttrekk.xml");
+            addml addml =
+                ReadAddmlFile(
+                    $"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\TestData\\jegerreg-98-dos\\arkivuttrekk.xml");
 
             AddmlDefinitionParser parser = new AddmlDefinitionParser(addml);
 
@@ -29,21 +31,30 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             addmlFlatFileDefinitions[0].FieldSeparator.Should().BeNull();
             addmlFlatFileDefinitions[0].Charset.Should().Be("ISO_8859_1");
 
-            // TODO: Assert more addmlFlatFileDefinitions!
+            // TODO: Assert more asserts!
         }
 
         [Fact]
         public void ShouldParseArkivuttrekkMedProsesser()
         {
-            addml addml = ReadAddmlFile($"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\TestData\\addml\\noark_3_arkivuttrekk_med_prosesser.xml");
+            addml addml =
+                ReadAddmlFile(
+                    $"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\TestData\\addml\\noark_3_arkivuttrekk_med_prosesser.xml");
 
             AddmlDefinitionParser parser = new AddmlDefinitionParser(addml);
 
             AddmlDefinition addmlDefinition = parser.GetAddmlDefinition();
             List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
             addmlFlatFileDefinitions.Count.Should().Be(3);
+            addmlFlatFileDefinitions[0].AddmlFieldDefinitions.Count.Should().Be(18);
+            addmlFlatFileDefinitions[0].Name.Should().Be("Saksregister");
+            addmlFlatFileDefinitions[0].FileName.Should().Be("SAK.DAT");
+            addmlFlatFileDefinitions[0].RecordLength.Should().Be(280);
+            addmlFlatFileDefinitions[0].RecordSeparator.Should().BeNull();
+            addmlFlatFileDefinitions[0].FieldSeparator.Should().BeNull();
+            addmlFlatFileDefinitions[0].Charset.Should().Be("ISO-8859-1");
 
-            // TODO: Add asserts!
+            // TODO: Assert more asserts!
         }
 
         private static addml ReadAddmlFile(string fileName)
