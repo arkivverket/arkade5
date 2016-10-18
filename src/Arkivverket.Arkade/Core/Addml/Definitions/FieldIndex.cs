@@ -1,4 +1,7 @@
-﻿namespace Arkivverket.Arkade.Core.Addml.Definitions
+﻿using Arkivverket.Arkade.ExternalModels.Addml;
+using Arkivverket.Arkade.Util;
+
+namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
     internal class FieldIndex
     {
@@ -9,9 +12,18 @@
         public FieldIndex(string flatFileDefinitionReference, string recordDefinitionReference,
             string fieldDefinitionReference)
         {
+            Assert.AssertNotNullOrEmpty("flatFileDefinitionReference", flatFileDefinitionReference);
+            Assert.AssertNotNullOrEmpty("recordDefinitionReference", recordDefinitionReference);
+            Assert.AssertNotNullOrEmpty("fieldDefinitionReference", fieldDefinitionReference);
+
             _flatFileDefinitionReference = flatFileDefinitionReference;
             _recordDefinitionReference = recordDefinitionReference;
             _fieldDefinitionReference = fieldDefinitionReference;
+        }
+
+        public FieldIndex(flatFileDefinition flatFileDefinition, recordDefinition recordDefinition, fieldDefinition fieldDefinition)
+            : this(flatFileDefinition.name, recordDefinition.name, fieldDefinition.name)
+        {            
         }
 
         protected bool Equals(FieldIndex other)

@@ -66,13 +66,9 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                 List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
                 addmlFieldDefinitions.Count.Should().Be(44);
                 addmlFieldDefinitions[0].Name.Should().Be("fodselsnummer");
-                // TODO: ForeignKey does not work!
-                /*
-                  
                 addmlFieldDefinitions[0].ForeignKey.Should().Be(
                     addmlFlatFileDefinitions[0].AddmlRecordDefinitions[0].AddmlFieldDefinitions[0]
                 );
-                */
 
                 addmlFieldDefinitions[1].Name.Should().Be("etternavn");
                 addmlRecordDefinition.PrimaryKey.Should()

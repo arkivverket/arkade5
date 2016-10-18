@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         private readonly Dictionary<string, flatFileType> _flatFileTypes = new Dictionary<string, flatFileType>();
         private readonly Dictionary<string, fieldType> _fieldTypes = new Dictionary<string, fieldType>();
-        private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _foreignKeys = new Dictionary<FieldIndex, AddmlFieldDefinition>();
+        private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _allFieldDefinitions = new Dictionary<FieldIndex, AddmlFieldDefinition>();
 
         public AddmlDefinitionParser(addml addml)
         {
@@ -202,9 +202,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     List<string> processes = GetFieldProcessNames(flatFileDefinition.name, recordDefinition.name,
                         fieldDefinition.name);
 
-                    addmlRecordDefinition.AddAddmlFieldDefinition(
+                    AddmlFieldDefinition addAddmlFieldDefinition = addmlRecordDefinition.AddAddmlFieldDefinition(
                         name, startPosition, fixedLength, fieldTypeString, isUnique, isNullable, minLength,
                         maxLength, foreignKeyReference, processes, isPartOfPrimaryKey);
+
+                    _allFieldDefinitions.Add(new FieldIndex(flatFileDefinition, recordDefinition, fieldDefinition),
+                        addAddmlFieldDefinition);
                 }
             }
         }
@@ -313,12 +316,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                                 }
 
                                 FieldIndex index = indexes[0];
-                                if (!_foreignKeys.ContainsKey(index))
+                                if (!_allFieldDefinitions.ContainsKey(index))
                                 {
                                     return null;
                                 }
 
-                                return _foreignKeys[index];
+                                return _allFieldDefinitions[index];
                             }
                         }
                     }

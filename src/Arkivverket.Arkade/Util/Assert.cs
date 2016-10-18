@@ -12,6 +12,13 @@ namespace Arkivverket.Arkade.Util
                 throw new Exception(variableName + " cannot be null");
             }
         }
+        public static void AssertNotNullOrEmpty(string variableName, string o)
+        {
+            if (string.IsNullOrEmpty(o))
+            {
+                throw new Exception(variableName + " cannot be null or empty");
+            }
+        }
 
     }
 }
