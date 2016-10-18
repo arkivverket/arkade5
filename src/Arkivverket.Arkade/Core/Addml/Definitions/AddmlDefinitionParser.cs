@@ -177,12 +177,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             foreach (recordDefinition recordDefinition in recordDefinitions)
             {
                 int recordLength = GetRecordLength(recordDefinition);
-                List<AddmlFieldDefinition> primaryKey = GetPrimaryKey();
                 List<string> recordProcesses = GetRecordProcessNames(addmlFlatFileDefinition.Name, recordDefinition.name);
 
                 AddmlRecordDefinition addmlRecordDefinition = 
                     addmlFlatFileDefinition.AddAddmlRecordDefinition(recordLength,
-                    primaryKey, recordProcesses);
+                    recordProcesses);
 
 
                 List<fieldDefinition> fieldDefinitions = GetFieldDefinitions(recordDefinition);
@@ -193,6 +192,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     int? fixedLength = GetFixedLength(fieldDefinition);
                     fieldType fieldType = GetFieldType(fieldDefinition.typeReference);
                     string fieldTypeString = fieldType.dataType;
+                    bool isPartOfPrimaryKey = IsPartOfPrimaryKey(recordDefinition, fieldDefinition);
                     bool isUnique = IsUnique(fieldDefinition);
                     bool isNullable = IsNullable(fieldDefinition);
                     int? minLength = GetMinLength(fieldDefinition);
@@ -203,17 +203,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
                     addmlRecordDefinition.AddAddmlFieldDefinition(
                         name, startPosition, fixedLength, fieldTypeString, isUnique, isNullable, minLength,
-                        maxLength,
-                        foreignKey, processes);
+                        maxLength, foreignKey, processes, isPartOfPrimaryKey);
                 }
             }
         }
 
-        private List<AddmlFieldDefinition> GetPrimaryKey()
-        {
-            // TODO: Implement!
-            return new List<AddmlFieldDefinition>();
-        }
 
         private int? GetMaxLength(fieldDefinition fieldDefinition)
         {
@@ -298,20 +292,23 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return int.Parse(recordDefinition.fixedLength);
         }
 
-        // TODO: Not so simple! PrimaryKey can be two or more fields...
-        private bool IsPrimaryKey(key[] keys, string fieldDefinitionName)
+        private bool IsPartOfPrimaryKey(recordDefinition recordDefinition, fieldDefinition fieldDefinition)
         {
+            key[] keys = recordDefinition.keys;
             if (keys != null)
             {
-                foreach (var key in keys)
+                foreach (key key in keys)
                 {
-                    // TODO: Fix this!
-                    if (key.fieldDefinitionReferences[0].name.Equals(fieldDefinitionName))
+                    fieldDefinitionReference[] keyFieldDefinitionReferences = key.fieldDefinitionReferences;
+                    foreach (fieldDefinitionReference fieldDefinitionReference in keyFieldDefinitionReferences)
                     {
-                        object o = key.Item;
-                        if (o is primaryKey)
+                        if (fieldDefinitionReference.name.Equals(fieldDefinition.name))
                         {
-                            return true;
+                            object o = key.Item;
+                            if (o is primaryKey)
+                            {
+                                return true;
+                            }
                         }
                     }
                 }

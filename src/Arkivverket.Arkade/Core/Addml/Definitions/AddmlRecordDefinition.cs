@@ -20,12 +20,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public AddmlRecordDefinition(AddmlFlatFileDefinition addmlFlatFileDefinition,
             int recordLength,
-            List<AddmlFieldDefinition> primaryKey,
             List<string> processes)
         {
             AddmlFlatFileDefinition = addmlFlatFileDefinition;
             RecordLength = recordLength;
-            PrimaryKey = primaryKey;
+            PrimaryKey = new List<AddmlFieldDefinition>();
             AddmlFieldDefinitions = new List<AddmlFieldDefinition>();
             Processes = processes;
         }
@@ -39,7 +38,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             int? minLength,
             int? maxLength,
             AddmlFieldDefinition foreignKey,
-            List<string> processes)
+            List<string> processes,
+            bool isPartOfPrimaryKey)
         {
             AddmlFieldDefinition addmlFieldDefinition = new AddmlFieldDefinition(
                 name,
@@ -53,6 +53,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 foreignKey,
                 this,
                 processes);
+
+            if (isPartOfPrimaryKey)
+            {
+                PrimaryKey.Add(addmlFieldDefinition);
+            }
+
             AddmlFieldDefinitions.Add(addmlFieldDefinition);
         }
     }
