@@ -4,7 +4,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
     public class AddmlFieldDefinition
     {
-        public AddmlFlatFileDefinition AddmlFlatFileDefinition { get; }
+        public AddmlRecordDefinition AddmlRecordDefinition { get; }
 
         public string Name { get; }
         public int? StartPosition { get; }
@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             int? minLength,
             int? maxLength,
             AddmlFieldDefinition foreignKey,
-            AddmlFlatFileDefinition addmlFlatFileDefinition,
+            AddmlRecordDefinition addmlRecordDefinition,
             List<string> processes)
         {
             Name = name;
@@ -42,9 +42,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             MinLength = minLength;
             MaxLength = maxLength;
             ForeignKey = foreignKey;
-            AddmlFlatFileDefinition = addmlFlatFileDefinition;
+            AddmlRecordDefinition = addmlRecordDefinition;
             Processes = processes;
         }
 
+        public AddmlFlatFileDefinition GetAddmlFlatFileDefinition()
+        {
+            return AddmlRecordDefinition.AddmlFlatFileDefinition;
+        }
     }
 }

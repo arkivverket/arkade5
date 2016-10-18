@@ -70,14 +70,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             foreach (flatFileDefinition flatFileDefinition in flatFileDefinitions)
             {
                 string name = flatFileDefinition.name;
-                string fileName = GetFileName(flatFileDefinition.name);
-                int recordLength = GetRecordLength(flatFileDefinition);
                 string recordSeparator = GetRecordSeparator(flatFileDefinition.typeReference);
+                string fileName = GetFileName(flatFileDefinition.name);
                 string charset = GetCharset(flatFileDefinition.typeReference);
                 List<string> flatFileProcesses = GetFlatFileProcessNames(flatFileDefinition.name);
 
                 AddmlFlatFileDefinition addmlFlatFileDefinition =
-                    new AddmlFlatFileDefinition(name, fileName, recordLength, recordSeparator, charset,
+                    new AddmlFlatFileDefinition(name, fileName, recordSeparator, charset,
                         flatFileProcesses);
 
                 AddAddmlFieldDefinitions(addmlFlatFileDefinition, flatFileDefinition);
@@ -132,6 +131,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return fieldProcesses?.processes?.Select(p => p.name).ToList() ?? new List<string>();
         }
 
+        private List<string> GetRecordProcessNames(string flatFileDefinitionName, string recordDefinitionName)
+        {
+            flatFileProcesses flatFileProcesses = GetFlatFileProcesses(flatFileDefinitionName);
+            recordProcesses recordProcesses = GetRecordProcesses(flatFileProcesses, recordDefinitionName);
+
+            return recordProcesses?.processes?.Select(p => p.name).ToList() ?? new List<string>();
+        }
 
         private fieldProcesses GetFieldProcesses(recordProcesses recordProcesses, string fieldDefinitionName)
         {
@@ -167,30 +173,47 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         private void AddAddmlFieldDefinitions(AddmlFlatFileDefinition addmlFlatFileDefinition,
             flatFileDefinition flatFileDefinition)
         {
-            List<fieldDefinition> fieldDefinitions = GetFieldDefinitions(flatFileDefinition);
-            recordDefinition recordDefinition = GetRecordDefinition(flatFileDefinition);
-
-            foreach (fieldDefinition fieldDefinition in fieldDefinitions)
+            List <recordDefinition> recordDefinitions = GetRecordDefinitions(flatFileDefinition);
+            foreach (recordDefinition recordDefinition in recordDefinitions)
             {
-                string name = fieldDefinition.name;
-                int? startPosition = GetStartPosition(fieldDefinition);
-                int? fixedLength = GetFixedLength(fieldDefinition);
-                fieldType fieldType = GetFieldType(fieldDefinition.typeReference);
-                string fieldTypeString = fieldType.dataType;
-                bool isPrimaryKey = IsPrimaryKey(recordDefinition.keys, name);
-                bool isUnique = IsUnique(fieldDefinition);
-                bool isNullable = IsNullable(fieldDefinition);
-                int? minLength = GetMinLength(fieldDefinition);
-                int? maxLength = GetMaxLength(fieldDefinition);
-                AddmlFieldDefinition foreignKey = GetForeignKey(fieldDefinition);
-                List<string> processes = GetFieldProcessNames(flatFileDefinition.name, recordDefinition.name,
-                    fieldDefinition.name);
+                int recordLength = GetRecordLength(recordDefinition);
+                List<AddmlFieldDefinition> primaryKey = GetPrimaryKey();
+                List<string> recordProcesses = GetRecordProcessNames(addmlFlatFileDefinition.Name, recordDefinition.name);
 
-                addmlFlatFileDefinition.AddAddmlFieldDefinition(
-                    name, startPosition, fixedLength, fieldTypeString, isPrimaryKey, isUnique, isNullable, minLength,
-                    maxLength,
-                    foreignKey, processes);
+                AddmlRecordDefinition addmlRecordDefinition = 
+                    addmlFlatFileDefinition.AddAddmlRecordDefinition(recordLength,
+                    primaryKey, recordProcesses);
+
+
+                List<fieldDefinition> fieldDefinitions = GetFieldDefinitions(recordDefinition);
+                foreach (fieldDefinition fieldDefinition in fieldDefinitions)
+                {
+                    string name = fieldDefinition.name;
+                    int? startPosition = GetStartPosition(fieldDefinition);
+                    int? fixedLength = GetFixedLength(fieldDefinition);
+                    fieldType fieldType = GetFieldType(fieldDefinition.typeReference);
+                    string fieldTypeString = fieldType.dataType;
+                    bool isPrimaryKey = IsPrimaryKey(recordDefinition.keys, name);
+                    bool isUnique = IsUnique(fieldDefinition);
+                    bool isNullable = IsNullable(fieldDefinition);
+                    int? minLength = GetMinLength(fieldDefinition);
+                    int? maxLength = GetMaxLength(fieldDefinition);
+                    AddmlFieldDefinition foreignKey = GetForeignKey(fieldDefinition);
+                    List<string> processes = GetFieldProcessNames(flatFileDefinition.name, recordDefinition.name,
+                        fieldDefinition.name);
+
+                    addmlRecordDefinition.AddAddmlFieldDefinition(
+                        name, startPosition, fixedLength, fieldTypeString, isPrimaryKey, isUnique, isNullable, minLength,
+                        maxLength,
+                        foreignKey, processes);
+                }
             }
+        }
+
+        private List<AddmlFieldDefinition> GetPrimaryKey()
+        {
+            // TODO: Implement!
+            return new List<AddmlFieldDefinition>();
         }
 
         private int? GetMaxLength(fieldDefinition fieldDefinition)
@@ -229,9 +252,9 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return fieldDefinition.unique != null;
         }
 
-        private List<fieldDefinition> GetFieldDefinitions(flatFileDefinition flatFileDefinition)
+        private List<fieldDefinition> GetFieldDefinitions(recordDefinition recordDefinition)
         {
-            return new List<fieldDefinition>(GetRecordDefinition(flatFileDefinition).fieldDefinitions);
+            return new List<fieldDefinition>(recordDefinition.fieldDefinitions);
         }
 
         private string GetCharset(string flatFileTypeName)
@@ -271,9 +294,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         }
 
 
-        private int GetRecordLength(flatFileDefinition flatFileDefinition)
+        private int GetRecordLength(recordDefinition recordDefinition)
         {
-            recordDefinition recordDefinition = GetRecordDefinition(flatFileDefinition);
             return int.Parse(recordDefinition.fixedLength);
         }
 
@@ -298,21 +320,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return false;
         }
 
-        private recordDefinition GetRecordDefinition(flatFileDefinition flatFileDefinition)
+        private List<recordDefinition> GetRecordDefinitions(flatFileDefinition flatFileDefinition)
         {
             recordDefinition[] recordDefinitions = flatFileDefinition.recordDefinitions;
             Assert.AssertNotNull("recordDefinitions", recordDefinitions);
 
-            // TODO: Always one recordDefinition?
-            // TODO: Parse each recordDefinition?
-            // if (recordDefinitions.Length != 1)
-            if (recordDefinitions.Length < 1)
-            {
-                throw new AddmlDefinitionException("recordDefinitions must contain exactly one element. Found " +
-                                                   recordDefinitions.Length + " elements");
-            }
-
-            return recordDefinitions[0];
+            return new List<recordDefinition>(recordDefinitions);
         }
 
 

@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         {
             if (field.Definition.IsPrimaryKey)
             {
-                string file = field.Definition.AddmlFlatFileDefinition.Name;
+                string file = field.Definition.GetAddmlFlatFileDefinition().Name;
                 string key = file + "_" + field.Definition.Name;
 
                 HashSet<string> primaryKeysForField = null;
@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             if (field.Definition.ForeignKey != null)
             {
                 string foreignKeyReferenceFieldName = field.Definition.ForeignKey.Name;
-                string foreignKeyReferenceFileName = field.Definition.ForeignKey.AddmlFlatFileDefinition.Name;
+                string foreignKeyReferenceFileName = field.Definition.ForeignKey.GetAddmlFlatFileDefinition().Name;
                 // save foreign key reference. cannot be sure that the file it references has been parsed yet.
             }
         }
