@@ -9,6 +9,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public string Name { get; }
         public int? StartPosition { get; }
         public int? FixedLength { get; }
+
+        // TODO: Implemenr DataType with fieldFormat, alignment, etc
         public string Type { get; }
         public bool IsUnique { get; }
         public bool IsNullable { get; }

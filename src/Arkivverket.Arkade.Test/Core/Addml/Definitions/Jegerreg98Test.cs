@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using FluentAssertions;
+using FluentAssertions.Types;
 using Xunit;
 
 namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
@@ -63,16 +64,35 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                 List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
                 addmlFieldDefinitions.Count.Should().Be(44);
                 addmlFieldDefinitions[0].Name.Should().Be("fodselsnummer");
+                addmlFieldDefinitions[0].StartPosition.Should().Be(1);
+                addmlFieldDefinitions[0].FixedLength.Should().Be(11);
+                addmlFieldDefinitions[0].IsUnique.Should().BeTrue();
+                addmlFieldDefinitions[0].IsNullable.Should().BeFalse();
+                addmlFieldDefinitions[0].MaxLength.Should().NotHaveValue();
+                addmlFieldDefinitions[0].MinLength.Should().NotHaveValue();
+                //addmlFieldDefinitions[0].Type.Should().Be(Types.String);
                 addmlFieldDefinitions[0].ForeignKey.Should().Be(
                     addmlFlatFileDefinitions[0].AddmlRecordDefinitions[0].AddmlFieldDefinitions[0]
                 );
 
                 addmlFieldDefinitions[1].Name.Should().Be("etternavn");
+                addmlFieldDefinitions[1].StartPosition.Should().Be(12);
+                addmlFieldDefinitions[1].FixedLength.Should().Be(25);
+                addmlFieldDefinitions[1].IsUnique.Should().BeFalse();
+                addmlFieldDefinitions[1].IsNullable.Should().BeTrue();
+                addmlFieldDefinitions[1].MaxLength.Should().NotHaveValue();
+                addmlFieldDefinitions[1].MinLength.Should().NotHaveValue();
+                //addmlFieldDefinitions[1].Type.Should().Be(Types.String);
+                addmlFieldDefinitions[1].ForeignKey.Should().BeNull();
+
+
                 addmlRecordDefinition.PrimaryKey.Should()
                     .Equal(new List<AddmlFieldDefinition>()
                     {
                         addmlFieldDefinitions[0]
                     });
+
+
             }
         }
     }
