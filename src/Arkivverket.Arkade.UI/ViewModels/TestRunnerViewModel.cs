@@ -22,6 +22,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private readonly TestSessionFactory _testSessionBuilder;
         private readonly TestEngineFactory _testEngineFactory;
         private readonly IRegionManager _regionManager;
+        private readonly StatusEventHandler _statusEventHandler;
         public DelegateCommand NavigateToSummaryCommand { get; set; }
         private DelegateCommand RunTestEngineCommand { get; set; }
         private string _metadataFileName;
@@ -42,13 +43,14 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _testResults, value); }
         }
 
-        public TestRunnerViewModel(TestSessionFactory testSessionBuilder, TestEngineFactory testEngineFactory, IRegionManager regionManager)
+        public TestRunnerViewModel(TestSessionFactory testSessionBuilder, TestEngineFactory testEngineFactory, IRegionManager regionManager,  StatusEventHandler statusEventHandler)
         {
             _testSessionBuilder = testSessionBuilder;
             _testEngineFactory = testEngineFactory;
             _regionManager = regionManager;
+            _statusEventHandler = statusEventHandler;
 
-
+            _statusEventHandler.StatusEvent += OnStatusEvent;
 
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
             NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
@@ -82,20 +84,12 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
         }
 
-        private void TestEngineOnTestStarted(object sender, TestStartedEventArgs eventArgs)
+
+        private void OnStatusEvent(object sender, StatusEventArgument statusEventArgument)
         {
-            UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus.Executing, eventArgs.TestName);
+            UpdateGuiCollection(statusEventArgument);
         }
 
-        private void TestEngineOnTestFinished(object sender, TestFinishedEventArgs eventArgs)
-        {
-            TestRunnerStatus.TestExcecutionStatus exeStatus = TestRunnerStatus.TestExcecutionStatus.Failed;
-            if (eventArgs.IsSuccess)
-            {
-                exeStatus = TestRunnerStatus.TestExcecutionStatus.Passed;
-            }
-            UpdateGuiCollection(exeStatus, eventArgs.TestName, eventArgs.ResultMessage);
-        }
 
         private void RunTests()
         {
@@ -110,13 +104,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _log.Debug(_testSession.Archive.ArchiveType.ToString());
             _log.Debug(_testSession.Archive.WorkingDirectory.Name);
 
-
             ITestEngine testEngine = _testEngineFactory.GetTestEngine(_testSession);
-            testEngine.TestStarted += TestEngineOnTestStarted;
-            testEngine.TestFinished += TestEngineOnTestFinished;
-
             _testSession.TestSuite = testEngine.RunTestsOnArchive(_testSession);
-
             TestSessionXmlGenerator.GenerateXmlAndSaveToFile(_testSession);
 
             _isRunningTests = false;
@@ -125,30 +114,30 @@ namespace Arkivverket.Arkade.UI.ViewModels
         }
 
 
-        private void UpdateGuiCollection(TestRunnerStatus.TestExcecutionStatus status, string testName, string resultMessage = null)
+
+        private void UpdateGuiCollection(StatusEventArgument statusEventArgument)
         {
             // http://stackoverflow.com/questions/18331723/this-type-of-collectionview-does-not-support-changes-to-its-sourcecollection-fro
             Application.Current.Dispatcher.Invoke(delegate
             {
 
-                if (status == TestRunnerStatus.TestExcecutionStatus.Executing)
+                if (statusEventArgument.TestStatus == StatusTestExecution.TestStarted)
                 {
-                    var testRunnerStatus = new TestRunnerStatus(TestRunnerStatus.TestExcecutionStatus.Executing, testName);
+                    var testRunnerStatus = new TestRunnerStatus(statusEventArgument);
                     TestResults.Add(testRunnerStatus);
                 }
                 else
                 {
-                    var item = TestResults.FirstOrDefault(i => i.TestName == testName);
+                    var item = TestResults.FirstOrDefault(i => i.TestName == statusEventArgument.TestName);
                     if (item != null)
                     {
-                        item.Update(status);
+                        item.Update(statusEventArgument.TestStatus, statusEventArgument.IsSuccess);
 
-                        if (resultMessage != null)
-                            item.ResultMessage = resultMessage;
+                        if (statusEventArgument.ResultMessage != null)
+                            item.ResultMessage = statusEventArgument.ResultMessage;
                     }
                 }
             });
         }
-
     }
 }

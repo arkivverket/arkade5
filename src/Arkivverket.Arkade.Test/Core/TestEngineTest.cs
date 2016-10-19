@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Tests;
 using FluentAssertions;
 using Moq;
@@ -12,17 +13,20 @@ namespace Arkivverket.Arkade.Test.Core
         [Fact]
         public void ShouldEmitTestStartedEvent()
         {
-            var testEngine = new TestEngine(CreateTestProviderMock(new DummyTest()));
 
-            List<TestStartedEventArgs> events = new List<TestStartedEventArgs>();
-            testEngine.TestStarted += delegate(object sender, TestStartedEventArgs args)
+            var statusEventHandler = new StatusEventHandler();
+
+            var testEngine = new TestEngine(CreateTestProviderMock(new DummyTest()), statusEventHandler);
+
+            List<StatusEventArgument> events = new List<StatusEventArgument>();
+            statusEventHandler.StatusEvent += delegate(object sender,  StatusEventArgument args)
             {
                 events.Add(args);
             };
 
             testEngine.RunTestsOnArchive(new TestSessionBuilder().Build());
 
-            events.Count.Should().Be(1);
+            events.Count.Should().Be(2);
             events[0].TestName.Should().Be(typeof(DummyTest).FullName);
         }
 

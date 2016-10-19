@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core
@@ -7,10 +8,12 @@ namespace Arkivverket.Arkade.Core
     public class TestEngine : ITestEngine
     {
         private readonly ITestProvider _testProvider;
+        private readonly IStatusEventHandler _statusEventHandler;
 
-        public TestEngine(ITestProvider testProvider)
+        public TestEngine(ITestProvider testProvider, StatusEventHandler statusEventHandler)
         {
             _testProvider = testProvider;
+            _statusEventHandler = statusEventHandler;
         }
 
         public TestSuite RunTestsOnArchive(TestSession testSession)
@@ -21,31 +24,15 @@ namespace Arkivverket.Arkade.Core
             
             foreach (ITest test in testsToRun)
             {
-                OnTestStarted(new TestStartedEventArgs(test));
+                _statusEventHandler.IssueOnTestStarted(test);
 
                 var testRun = test.RunTest(testSession.Archive);
 
-                OnTestFinished(new TestFinishedEventArgs(testRun));
+                _statusEventHandler.IssueOnTestFinsihed(testRun);
 
                 testSuite.AddTestRun(testRun);
             }
             return testSuite;
         }
-
-        public event EventHandler<TestFinishedEventArgs> TestFinished;
-        public event EventHandler<TestStartedEventArgs> TestStarted;
-
-        protected virtual void OnTestFinished(TestFinishedEventArgs e)
-        {
-            var handler = TestFinished;
-            handler?.Invoke(this, e);
-        }
-
-        protected virtual void OnTestStarted(TestStartedEventArgs e)
-        {
-            var handler = TestStarted;
-            handler?.Invoke(this, e);
-        }
-
     }
 }

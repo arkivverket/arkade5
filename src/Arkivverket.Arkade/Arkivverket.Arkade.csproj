@@ -119,6 +119,9 @@
     <Compile Include="ExternalModels\Arkivstruktur.cs" />
     <Compile Include="ExternalModels\TestSessionLog.cs" />
     <Compile Include="Identify\ITestSessionFactory.cs" />
+    <Compile Include="Logging\IStatusEventHandler.cs" />
+    <Compile Include="Logging\StatusEventArgument.cs" />
+    <Compile Include="Logging\StatusEventHandler.cs" />
     <Compile Include="Logging\TestSessionXmlGenerator.cs" />
     <Compile Include="ExternalModels\Info.cs" />
     <Compile Include="Identify\TestSessionFactory.cs" />
@@ -127,6 +130,11 @@
     <Compile Include="Identify\IArchiveExtractor.cs" />
     <Compile Include="Identify\IArchiveIdentifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\TestNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -191,6 +199,10 @@
     <Content Include="ExternalModels\xsd\testSessionLog.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\TestNames.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TestNames.Designer.cs</LastGenOutput>

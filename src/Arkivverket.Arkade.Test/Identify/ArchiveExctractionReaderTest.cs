@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Test.Core;
 using FluentAssertions;
 using Moq;
 using System.IO;
+using Arkivverket.Arkade.Logging;
 using Xunit;
 
 namespace Arkivverket.Arkade.Test.Identify
@@ -23,7 +24,9 @@ namespace Arkivverket.Arkade.Test.Identify
             var identifierMock = new Mock<IArchiveIdentifier>();
             identifierMock.Setup(i => i.Identify(It.IsAny<string>())).Returns(archiveType);
 
-            TestSession testSession = new Arkade.Identify.TestSessionFactory(extractorMock.Object, identifierMock.Object).NewSessionFromTarFile(uuid+".tar", "info.xml");
+            var statusEventHandler = new StatusEventHandler();
+
+            TestSession testSession = new Arkade.Identify.TestSessionFactory(extractorMock.Object, identifierMock.Object, statusEventHandler).NewSessionFromTarFile(uuid+".tar", "info.xml");
 
             var archive = testSession.Archive;
             archive.Should().NotBeNull();

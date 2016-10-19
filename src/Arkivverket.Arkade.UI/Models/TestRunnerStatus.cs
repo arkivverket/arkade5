@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Media;
+using Arkivverket.Arkade.Logging;
 using Prism.Mvvm;
 
 namespace Arkivverket.Arkade.UI.Models
@@ -69,36 +70,37 @@ namespace Arkivverket.Arkade.UI.Models
             set { SetProperty(ref _resultAsColor, value); }
         }
 
-        public TestRunnerStatus(TestExcecutionStatus testStatus, string testName)
+        public TestRunnerStatus(StatusEventArgument testStatus)
         {
-            TestName = testName;
-            Update(testStatus);
+            TestName = testStatus.TestName;
+            Update(testStatus.TestStatus, testStatus.IsSuccess);
         }
 
 
-        public void Update(TestExcecutionStatus executionStatus)
+        public void Update(StatusTestExecution executionStatus, bool isSuccess)
         {
-            if (executionStatus == TestExcecutionStatus.Passed || executionStatus == TestExcecutionStatus.Failed)
+            if (executionStatus == StatusTestExecution.TestCompleted)
             {
                 ShowTestResults();
+
+                if (isSuccess)
+                {
+                    ResultAsColor = _colorSuccess;
+                    ResultAsLabel = "OK";
+                    ResultAsIcon = "Check";
+                }
+                else
+                {
+                    ResultAsColor = _colorFailed;
+                    ResultAsLabel = "Feil";
+                    ResultAsIcon = "Alert";
+                }
             }
             else
             {
                 ShowProgressBar();
             }
 
-            if (executionStatus == TestExcecutionStatus.Passed)
-            {
-                ResultAsColor = _colorSuccess;
-                ResultAsLabel = "OK";
-                ResultAsIcon = "Check";
-            }
-            else if (executionStatus == TestExcecutionStatus.Failed)
-            {
-                ResultAsColor = _colorFailed;
-                ResultAsLabel = "Feil";
-                ResultAsIcon = "Alert";
-            }
         }
 
         private void ShowProgressBar()
