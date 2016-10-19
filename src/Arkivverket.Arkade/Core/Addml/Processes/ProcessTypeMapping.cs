@@ -22,6 +22,11 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public Type GetType(string processName)
         {
+            if (!_nameToClass.ContainsKey(processName))
+            {
+                return null;
+            }
+
             return _nameToClass[processName];
         }
     }

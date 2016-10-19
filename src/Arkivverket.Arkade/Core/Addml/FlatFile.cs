@@ -4,7 +4,7 @@ using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
-    public class FlatFile
+    public class FlatFile : HasProcesses
     {
         public AddmlFlatFileDefinition Definition { get; }
 
@@ -13,7 +13,12 @@ namespace Arkivverket.Arkade.Core.Addml
             Definition = definition;
         }
 
-        public List<string> GetFileProcesses()
+        public string GetName()
+        {
+            return Definition.Name;
+        }
+
+        public List<string> GetProcesses()
         {
             return Definition.Processes;
         }

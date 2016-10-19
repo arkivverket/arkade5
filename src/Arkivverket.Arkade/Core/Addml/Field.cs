@@ -3,7 +3,7 @@ using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
-    public class Field
+    public class Field : HasProcesses
     {
         public AddmlFieldDefinition Definition { private set; get; }
         public string Value { private set; get; }
@@ -14,7 +14,12 @@ namespace Arkivverket.Arkade.Core.Addml
             Value = value;
         }
 
-        public List<string> GetFieldProcesses()
+        public string GetName()
+        {
+            return Definition.Name;
+        }
+
+        public List<string> GetProcesses()
         {
             return Definition.Processes;
         }
