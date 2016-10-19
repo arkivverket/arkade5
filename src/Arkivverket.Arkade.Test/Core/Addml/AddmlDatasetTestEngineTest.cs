@@ -11,11 +11,11 @@ namespace Arkivverket.Arkade.Test.Core.Addml
 {
     public class AddmlDatasetTestEngineTest
     {
-        [Fact(Skip = "Could not find file 'SAK.DAT'")]
+        //[Fact(Skip = "Could not find file 'SAK.DAT'")]
+        [Fact]
         public void ShouldReturnTestSuiteFromTests()
         {
-            addml addml = AddmlUtil.ReadFromFile(
-                    $"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\TestData\\addml\\noark_3_arkivuttrekk_med_prosesser.xml");
+            AddmlInfo addml = AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\noark3\\noark_3_arkivuttrekk_med_prosesser.xml");
             AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml).GetAddmlDefinition();
 
             var testSession = new TestSession(new Archive(ArchiveType.Noark3, Uuid.Random(), new DirectoryInfo(@"c:\temp")));

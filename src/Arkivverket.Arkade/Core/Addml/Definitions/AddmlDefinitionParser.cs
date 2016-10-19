@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.ExternalModels.Addml;
 using Arkivverket.Arkade.Util;
@@ -8,16 +9,16 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
     // TODO: This class should be split in AddmlFieldDefinitionParser AddmlRecordDefinitionParser, etc
     public class AddmlDefinitionParser
     {
-        private readonly addml _addml;
+        private readonly AddmlInfo _addmlInfo;
 
         private readonly Dictionary<string, flatFileType> _flatFileTypes = new Dictionary<string, flatFileType>();
         private readonly Dictionary<string, fieldType> _fieldTypes = new Dictionary<string, fieldType>();
         private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _allFieldDefinitions = new Dictionary<FieldIndex, AddmlFieldDefinition>();
 
-        public AddmlDefinitionParser(addml addml)
+        public AddmlDefinitionParser(AddmlInfo addmlInfo)
         {
-            Assert.AssertNotNull("addml", addml);
-            _addml = addml;
+            Assert.AssertNotNull("addmlInfo", addmlInfo);
+            _addmlInfo = addmlInfo;
 
             PopulateFlatFileTypes();
             PopulateFieldTypes();
@@ -73,11 +74,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 string name = flatFileDefinition.name;
                 string recordSeparator = GetRecordSeparator(flatFileDefinition.typeReference);
                 string fileName = GetFileName(flatFileDefinition.name);
+                FileInfo fileInfo = new FileInfo(_addmlInfo.AddmlFile.DirectoryName + Path.DirectorySeparatorChar + fileName);
                 string charset = GetCharset(flatFileDefinition.typeReference);
                 List<string> flatFileProcesses = GetFlatFileProcessNames(flatFileDefinition.name);
 
                 AddmlFlatFileDefinition addmlFlatFileDefinition =
-                    new AddmlFlatFileDefinition(name, fileName, recordSeparator, charset,
+                    new AddmlFlatFileDefinition(name, fileName, fileInfo, recordSeparator, charset,
                         flatFileProcesses);
 
                 AddAddmlFieldDefinitions(addmlFlatFileDefinition, flatFileDefinition);
@@ -422,7 +424,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         private dataset GetDataset()
         {
-            dataset[] datasets = _addml.dataset;
+            dataset[] datasets = _addmlInfo.Addml.dataset;
             Assert.AssertNotNull("dataset", datasets);
 
             if (datasets.Length != 1)

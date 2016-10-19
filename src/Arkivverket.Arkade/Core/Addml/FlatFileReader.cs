@@ -20,7 +20,8 @@ namespace Arkivverket.Arkade.Core.Addml
             {
                 _addmlRecordDefinition = file.Definition.AddmlRecordDefinitions[0];
             }
-            FileStream fileStream = File.OpenRead(file.Definition.FileName);
+
+            FileStream fileStream = file.Definition.FileInfo.OpenRead();
 
             // TODO: Convert charset to Encoding
             Encoding encoding = Encoding.UTF8; //file.Definition.Charset;
@@ -37,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Addml
             // Read bytes according to recordLength
             int len = _addmlRecordDefinition.RecordLength;
             char[] buffer = new char[len];
-            int read = _streamReader.ReadBlock(buffer, _streamReaderOffset, len);
+            int read = _streamReader.ReadBlock(buffer, 0, len);
             _streamReaderOffset += read;
 
             string recordString = new string(buffer);

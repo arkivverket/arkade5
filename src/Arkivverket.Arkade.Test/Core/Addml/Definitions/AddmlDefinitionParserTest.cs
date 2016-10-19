@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
-using Arkivverket.Arkade.ExternalModels.Addml;
 using FluentAssertions;
 using Xunit;
 
@@ -17,8 +12,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
         [Fact]
         public void ShouldParseArkivuttrekkMedProsesser()
         {
-            addml addml = AddmlUtil.ReadFromFile(
-                    $"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\TestData\\addml\\noark_3_arkivuttrekk_med_prosesser.xml");
+            AddmlInfo addml = AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\noark3\\noark_3_arkivuttrekk_med_prosesser.xml");
 
             AddmlDefinitionParser parser = new AddmlDefinitionParser(addml);
 

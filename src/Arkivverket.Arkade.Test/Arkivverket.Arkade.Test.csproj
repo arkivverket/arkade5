@@ -120,6 +120,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="TestData\noark3\ARKIV.DAT" />
+    <None Include="TestData\noark3\DOK.DAT" />
+    <None Include="TestData\noark3\SAK.DAT" />
     <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5001111.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -214,7 +217,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\addml\noark_3_arkivuttrekk_med_prosesser.xml" />
+    <Content Include="TestData\noark3\noark_3_arkivuttrekk_med_prosesser.xml" />
     <Content Include="TestData\jegerreg-98-dos\arkivuttrekk.xml" />
     <Content Include="TestData\KvoteFisk89\kvotekontroll89-Version8.2.XML" />
     <Content Include="TestData\noark3-info.xml">

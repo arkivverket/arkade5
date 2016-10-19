@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
@@ -6,6 +7,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
     {
         public string Name { get; }
         public string FileName { get; }
+        public FileInfo FileInfo { get; }
         public string RecordSeparator { get; }
         public string Charset { get; }
 
@@ -19,12 +21,14 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public AddmlFlatFileDefinition(string name,
             string fileName,
+            FileInfo fileInfo,
             string recordSeparator,
             string charset,
             List<string> processes)
         {
             Name = name;
             FileName = fileName;
+            FileInfo = fileInfo;
             RecordSeparator = recordSeparator;
             Charset = charset;
             AddmlRecordDefinitions = new List<AddmlRecordDefinition>();
