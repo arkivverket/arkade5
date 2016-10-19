@@ -1,89 +1,44 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Arkivverket.Arkade.Core.Addml.Processes;
-using Serilog;
+using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
-    // TODO: Split into FlatFileProcessRunner, RecordProcessRunner and FieldProcessRunner
     public class AddmlProcessRunner
     {
-        private readonly ProcessTypeMapping _processTypeMapping = new ProcessTypeMapping();
+        private readonly FieldProcessRunner _fieldProcessRunner;
+        private readonly FileProcessRunner _fileProcessRunner;
+        private readonly ProcessFactory _processFactory;
+        private readonly RecordProcessRunner _recordProcessRunner;
 
-        private Dictionary<string, List<IAddmlProcess>> _processes = new Dictionary<string, List<IAddmlProcess>>();
+        public AddmlProcessRunner(AddmlDefinition addmlDefinition)
+        {
+            _processFactory = new ProcessFactory(addmlDefinition);
+            _fileProcessRunner = new FileProcessRunner(_processFactory);
+            _recordProcessRunner = new RecordProcessRunner(_processFactory);
+            _fieldProcessRunner = new FieldProcessRunner(_processFactory);
+        }
 
         public void RunProcesses(FlatFile file)
         {
-            List<IAddmlProcess> processes = GetProcesses(file);
-
-            IEnumerable<IAddmlFileProcess> addmlFileProcesses =
-                processes.Where(p => p.GetType().GetInterfaces().Contains(typeof(IAddmlFileProcess)))
-                    .Select(p => p as IAddmlFileProcess);
-
-            foreach (IAddmlFileProcess addmlFileProcess in addmlFileProcesses)
-            {
-                addmlFileProcess.Run(file);
-            }
+            _fileProcessRunner.RunProcesses(file);
         }
 
         public void RunProcesses(Record record)
         {
+            _recordProcessRunner.RunProcesses(record);
         }
 
         public void RunProcesses(Field field)
         {
-            List<IAddmlProcess> processes = GetProcesses(field);
-
-            IEnumerable<IAddmlFieldProcess> addmlFieldProcesses = processes
-                .Where(p => p.GetType().GetInterfaces()
-                    .Contains(typeof(IAddmlFieldProcess)))
-                .Select(p => p as IAddmlFieldProcess);
-
-            foreach (IAddmlFieldProcess p in addmlFieldProcesses)
-            {
-                p.Run(field);
-            }
+            _fieldProcessRunner.RunProcesses(field);
         }
-
-        private List<IAddmlProcess> GetProcesses(HasProcesses hasProcesses)
-        {
-            string name = hasProcesses.GetName();
-            if (!_processes.ContainsKey(name))
-            {
-                List<IAddmlProcess> processes = new List<IAddmlProcess>();
-
-                foreach (string processName in hasProcesses.GetProcesses())
-                {
-                    Type type = _processTypeMapping.GetType(processName);
-                    if (type != null)
-                    {
-                        IAddmlProcess process = (IAddmlProcess)Activator.CreateInstance(type);
-                        processes.Add(process);
-                    }
-                    else
-                    {
-                        Log.Logger.Warning("No process with name " + processName);
-                    }
-                }
-
-                _processes.Add(name, processes);
-            }
-
-            return _processes[name];
-        }
-
 
         public TestSuite GetTestSuite()
         {
-            TestSuite testSuite = new TestSuite();
+            var testSuite = new TestSuite();
 
-            foreach (KeyValuePair<string, List<IAddmlProcess>> entry in _processes)
+            foreach (IAddmlProcess addmlProcess in _processFactory.GetAllProcesses())
             {
-                foreach (IAddmlProcess addmlProcess in entry.Value)
-                {
-                    testSuite.AddTestRun(addmlProcess.GetTestRun());
-                }
+                testSuite.AddTestRun(addmlProcess.GetTestRun());
             }
 
             return testSuite;
@@ -91,14 +46,10 @@ namespace Arkivverket.Arkade.Core.Addml
 
         public void EndOfFile()
         {
-            foreach (KeyValuePair<string, List<IAddmlProcess>> entry in _processes)
+            foreach (IAddmlProcess addmlProcess in _processFactory.GetAllProcesses())
             {
-                foreach (IAddmlProcess addmlProcess in entry.Value)
-                {
-                    addmlProcess.EndOfFile();
-                }
+                addmlProcess.EndOfFile();
             }
-
         }
     }
 }

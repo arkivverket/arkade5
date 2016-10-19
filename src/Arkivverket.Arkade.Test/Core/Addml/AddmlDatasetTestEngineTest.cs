@@ -6,14 +6,27 @@ using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Core.Addml.Processes;
-using Arkivverket.Arkade.ExternalModels.Addml;
+using Arkivverket.Arkade.Test.Util;
 using FluentAssertions;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Arkivverket.Arkade.Test.Core.Addml
 {
-    public class AddmlDatasetTestEngineTest
+    public class AddmlDatasetTestEngineTest : IDisposable
     {
+        private readonly IDisposable _logCapture;
+
+        public AddmlDatasetTestEngineTest(ITestOutputHelper outputHelper)
+        {
+            _logCapture = LoggingHelper.Capture(outputHelper);
+        }
+
+        public void Dispose()
+        {
+            _logCapture.Dispose();
+        }
+
         [Fact]
         public void ShouldReturnTestSuiteFromTests()
         {
@@ -21,7 +34,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml).GetAddmlDefinition();
 
             var testSession = new TestSession(new Archive(ArchiveType.Noark3, Uuid.Random(), new DirectoryInfo(@"c:\temp")));
-            var addmlDatasetTestEngine = new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner());
+            var addmlDatasetTestEngine = new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner(addmlDefinition));
             TestSuite testSuite = addmlDatasetTestEngine.RunTests(addmlDefinition, testSession);
 
 
@@ -31,7 +44,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             List<TestRun> analyseFindMinMaxValues = testSuite.TestRuns
                 .Where(run => run.TestName == AnalyseFindMinMaxValues.Name)
                 .ToList();
-            analyseFindMinMaxValues.Count.Should().Be(18);
+            analyseFindMinMaxValues.Count.Should().Be(1);
         }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class ControlForeignKey : IAddmlProcess, IAddmlFileProcess, IAddmlRecordProcess, IAddmlFieldProcess
+    public class ControlForeignKey : IAddmlProcess
     {
         private const string Name = "Control_ForeignKey";
 

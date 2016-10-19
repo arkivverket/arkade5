@@ -77,6 +77,8 @@
     <Compile Include="Core\Addml\Definitions\RecordSeparator.cs" />
     <Compile Include="Core\Addml\Field.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlFlatFileDefinition.cs" />
+    <Compile Include="Core\Addml\FieldProcessRunner.cs" />
+    <Compile Include="Core\Addml\FileProcessRunner.cs" />
     <Compile Include="Core\Addml\FlatFileReader.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactory.cs" />
     <Compile Include="Core\Addml\IAddmlProcess.cs" />
@@ -87,10 +89,9 @@
     <Compile Include="Core\Addml\Processes\ProcessTypeMapping.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKey.cs" />
     <Compile Include="Core\Addml\Processes\ControlNumberOfRecords.cs" />
-    <Compile Include="Core\Addml\Processes\IAddmlFieldProcess.cs" />
-    <Compile Include="Core\Addml\Processes\IAddmlFileProcess.cs" />
-    <Compile Include="Core\Addml\Processes\IAddmlRecordProcess.cs" />
+    <Compile Include="Core\Addml\ProcessFactory.cs" />
     <Compile Include="Core\Addml\Record.cs" />
+    <Compile Include="Core\Addml\RecordProcessRunner.cs" />
     <Compile Include="Core\Archive.cs" />
     <Compile Include="Core\ArchiveContentReader.cs" />
     <Compile Include="Core\ArchiveInfo.cs" />

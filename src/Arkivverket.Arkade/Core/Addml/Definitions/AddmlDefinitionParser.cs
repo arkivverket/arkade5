@@ -179,12 +179,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             List <recordDefinition> recordDefinitions = GetRecordDefinitions(flatFileDefinition);
             foreach (recordDefinition recordDefinition in recordDefinitions)
             {
+                string recordDefinitionName = recordDefinition.name;
                 int recordLength = GetRecordLength(recordDefinition);
                 List<string> recordProcesses = GetRecordProcessNames(addmlFlatFileDefinition.Name, recordDefinition.name);
 
                 AddmlRecordDefinition addmlRecordDefinition = 
-                    addmlFlatFileDefinition.AddAddmlRecordDefinition(recordLength,
-                    recordProcesses);
+                    addmlFlatFileDefinition.AddAddmlRecordDefinition(recordDefinitionName, recordLength, recordProcesses);
 
 
                 List<fieldDefinition> fieldDefinitions = GetFieldDefinitions(recordDefinition);

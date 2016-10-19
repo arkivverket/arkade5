@@ -2,7 +2,7 @@ using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class ControlNumberOfRecords : IAddmlProcess, IAddmlFileProcess, IAddmlRecordProcess
+    public class ControlNumberOfRecords : IAddmlProcess
     {
         private const string Name = "Control_NumberOfRecords";
         private readonly TestRun _testRun;
@@ -28,6 +28,10 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         public TestRun GetTestRun()
         {
             return _testRun;
+        }
+
+        public void Run(Field field)
+        {
         }
 
         public void EndOfFile()

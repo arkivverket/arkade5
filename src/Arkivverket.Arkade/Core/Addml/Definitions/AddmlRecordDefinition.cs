@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
     public class AddmlRecordDefinition
     {
         public AddmlFlatFileDefinition AddmlFlatFileDefinition { get; }
+
+        public string Name { get; }
 
         public int RecordLength { get; }
 
@@ -19,10 +17,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public List<string> Processes { get; }
 
         public AddmlRecordDefinition(AddmlFlatFileDefinition addmlFlatFileDefinition,
+            string name,
             int recordLength,
             List<string> processes)
         {
             AddmlFlatFileDefinition = addmlFlatFileDefinition;
+            Name = name;
             RecordLength = recordLength;
             PrimaryKey = new List<AddmlFieldDefinition>();
             AddmlFieldDefinitions = new List<AddmlFieldDefinition>();
@@ -62,6 +62,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             AddmlFieldDefinitions.Add(addmlFieldDefinition);
 
             return addmlFieldDefinition;
+        }
+
+        public string Key()
+        {
+            return AddmlFlatFileDefinition.Name + "_" + Name;
         }
     }
 }

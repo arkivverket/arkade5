@@ -55,5 +55,9 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return AddmlRecordDefinition.PrimaryKey.Contains(this);
         }
 
+        public string Key()
+        {
+            return AddmlRecordDefinition.Key() + "_" + Name;
+        }
     }
 }

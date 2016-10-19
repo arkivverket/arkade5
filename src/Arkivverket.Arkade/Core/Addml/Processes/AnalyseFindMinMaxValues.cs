@@ -3,7 +3,7 @@ using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class AnalyseFindMinMaxValues : IAddmlProcess, IAddmlFieldProcess
+    public class AnalyseFindMinMaxValues : IAddmlProcess
     {
         public const string Name = "Analyse_FindMinMaxValues";
         private readonly TestRun _testRun;
@@ -18,6 +18,14 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         public string GetName()
         {
             return Name;
+        }
+
+        public void Run(FlatFile flatFile)
+        {
+        }
+
+        public void Run(Record record)
+        {
         }
 
         public TestRun GetTestRun()
