@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public string Name { get; }
         public string FileName { get; }
         public FileInfo FileInfo { get; }
-        public string RecordSeparator { get; }
+        public RecordSeparator RecordSeparator { get; }
         public Encoding Encoding { get; }
         public int NumberOfOccurences { get; }
         public string ChecksumAlgorithm { get; }
@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             Name = name;
             FileName = fileName;
             FileInfo = fileInfo;
-            RecordSeparator = recordSeparator;
+            RecordSeparator = string.IsNullOrEmpty(recordSeparator) ? null : new RecordSeparator(recordSeparator);
             Encoding = Encodings.GetEncoding(charset);
             AddmlRecordDefinitions = new List<AddmlRecordDefinition>();
             Processes = processes;

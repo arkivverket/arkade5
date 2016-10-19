@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                 addmlFlatFileDefinitions[0].Name.Should().Be("ffd_3");
                 addmlFlatFileDefinitions[0].FileName.Should().Be("jeger.dat");
                 addmlFlatFileDefinitions[0].Encoding.Should().Be(Encodings.ISO_8859_1);
-                addmlFlatFileDefinitions[0].RecordSeparator.Should().Be("CRLF");
+                addmlFlatFileDefinitions[0].RecordSeparator.Should().Be(RecordSeparator.CRLF);
                 addmlFlatFileDefinitions[0].AddmlRecordDefinitions.Count.Should().Be(1);
                 AddmlRecordDefinition addmlRecordDefinition = addmlFlatFileDefinitions[0].AddmlRecordDefinitions[0];
                 List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                 addmlFlatFileDefinitions[1].Name.Should().Be("ffd_4");
                 addmlFlatFileDefinitions[1].FileName.Should().Be("ut_jeger.dat");
                 addmlFlatFileDefinitions[1].Encoding.Should().Be(Encodings.ISO_8859_1);
-                addmlFlatFileDefinitions[1].RecordSeparator.Should().Be("CRLF");
+                addmlFlatFileDefinitions[1].RecordSeparator.Should().Be(RecordSeparator.CRLF);
                 addmlFlatFileDefinitions[1].AddmlRecordDefinitions.Count.Should().Be(1);
                 AddmlRecordDefinition addmlRecordDefinition = addmlFlatFileDefinitions[1].AddmlRecordDefinitions[0];
                 List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
@@ -57,7 +57,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                 addmlFlatFileDefinitions[2].Name.Should().Be("ffd_5");
                 addmlFlatFileDefinitions[2].FileName.Should().Be("ikkejeg.dat");
                 addmlFlatFileDefinitions[2].Encoding.Should().Be(Encodings.ISO_8859_1);
-                addmlFlatFileDefinitions[2].RecordSeparator.Should().Be("CRLF");
+                addmlFlatFileDefinitions[2].RecordSeparator.Should().Be(RecordSeparator.CRLF);
                 addmlFlatFileDefinitions[2].AddmlRecordDefinitions.Count.Should().Be(1);
                 AddmlRecordDefinition addmlRecordDefinition = addmlFlatFileDefinitions[2].AddmlRecordDefinitions[0];
                 List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;

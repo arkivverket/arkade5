@@ -91,6 +91,7 @@
     <Compile Include="Core\Addml\Definitions\KvoteFisk89Test.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
     <Compile Include="Core\Addml\Definitions\Jegerreg98Test.cs" />
+    <Compile Include="Core\Addml\RecordSeparatorTest.cs" />
     <Compile Include="Core\ArchiveBuilder.cs" />
     <Compile Include="Core\ArchiveExtractionTest.cs" />
     <Compile Include="Core\EncodingsTest.cs" />
