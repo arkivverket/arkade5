@@ -5,20 +5,20 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
     internal class FieldIndex
     {
-        private readonly string _flatFileDefinitionReference;
-        private readonly string _recordDefinitionReference;
-        private readonly string _fieldDefinitionReference;
+        private readonly string _flatFileDefinitionName;
+        private readonly string _recordDefinitionName;
+        private readonly string _fieldDefinitionName;
 
-        public FieldIndex(string flatFileDefinitionReference, string recordDefinitionReference,
-            string fieldDefinitionReference)
+        public FieldIndex(string flatFileDefinitionName, string recordDefinitionName,
+            string fieldDefinitionName)
         {
-            Assert.AssertNotNullOrEmpty("flatFileDefinitionReference", flatFileDefinitionReference);
-            Assert.AssertNotNullOrEmpty("recordDefinitionReference", recordDefinitionReference);
-            Assert.AssertNotNullOrEmpty("fieldDefinitionReference", fieldDefinitionReference);
+            Assert.AssertNotNullOrEmpty("flatFileDefinitionName", flatFileDefinitionName);
+            Assert.AssertNotNullOrEmpty("recordDefinitionName", recordDefinitionName);
+            Assert.AssertNotNullOrEmpty("fieldDefinitionName", fieldDefinitionName);
 
-            _flatFileDefinitionReference = flatFileDefinitionReference;
-            _recordDefinitionReference = recordDefinitionReference;
-            _fieldDefinitionReference = fieldDefinitionReference;
+            _flatFileDefinitionName = flatFileDefinitionName;
+            _recordDefinitionName = recordDefinitionName;
+            _fieldDefinitionName = fieldDefinitionName;
         }
 
         public FieldIndex(flatFileDefinition flatFileDefinition, recordDefinition recordDefinition, fieldDefinition fieldDefinition)
@@ -33,9 +33,9 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         protected bool Equals(FieldIndex other)
         {
-            return string.Equals(_flatFileDefinitionReference, other._flatFileDefinitionReference) &&
-                   string.Equals(_recordDefinitionReference, other._recordDefinitionReference) &&
-                   string.Equals(_fieldDefinitionReference, other._fieldDefinitionReference);
+            return string.Equals(_flatFileDefinitionName, other._flatFileDefinitionName) &&
+                   string.Equals(_recordDefinitionName, other._recordDefinitionName) &&
+                   string.Equals(_fieldDefinitionName, other._fieldDefinitionName);
         }
 
         public override bool Equals(object obj)
@@ -50,9 +50,9 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         {
             unchecked
             {
-                int hashCode = _flatFileDefinitionReference.GetHashCode();
-                hashCode = (hashCode*397) ^ _recordDefinitionReference.GetHashCode();
-                hashCode = (hashCode*397) ^ _fieldDefinitionReference.GetHashCode();
+                int hashCode = _flatFileDefinitionName.GetHashCode();
+                hashCode = (hashCode*397) ^ _recordDefinitionName.GetHashCode();
+                hashCode = (hashCode*397) ^ _fieldDefinitionName.GetHashCode();
                 return hashCode;
             }
         }
