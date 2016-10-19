@@ -14,6 +14,7 @@ namespace Arkivverket.Arkade.Test.Core
         [Fact]
         public void ShouldGetEncodings()
         {
+            Encodings.UTF8.Should().NotBeNull();
             Encodings.ISO_8859_1.Should().NotBeNull();
             Encodings.ISO_8859_4.Should().NotBeNull();
         }
