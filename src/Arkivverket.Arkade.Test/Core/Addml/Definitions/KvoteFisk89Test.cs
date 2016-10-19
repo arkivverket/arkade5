@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
 {
     public class KvoteFisk89Test
     {
-        [Fact(Skip = "Currently unable to parse this")]
+        [Fact(Skip = "kvotekontroll89-Version8.2.XML does not validate against addml.xsd")]
         public void ShouldParseKvoteFisk89Xml()
         {
             AddmlInfo addml = AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\KvoteFisk89\\kvotekontroll89-Version8.2.XML");
