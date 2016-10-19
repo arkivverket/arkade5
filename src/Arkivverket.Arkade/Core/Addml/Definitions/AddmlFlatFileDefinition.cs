@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
@@ -9,8 +11,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public string FileName { get; }
         public FileInfo FileInfo { get; }
         public string RecordSeparator { get; }
-        public string Charset { get; }
-
+        public Encoding Encoding { get; }
         public int NumberOfOccurences { get; }
         public string ChecksumAlgorithm { get; }
         public string ChecksumValue { get; }
@@ -30,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             FileName = fileName;
             FileInfo = fileInfo;
             RecordSeparator = recordSeparator;
-            Charset = charset;
+            Encoding = Encodings.GetEncoding(charset);
             AddmlRecordDefinitions = new List<AddmlRecordDefinition>();
             Processes = processes;
         }

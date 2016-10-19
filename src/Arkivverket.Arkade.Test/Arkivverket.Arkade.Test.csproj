@@ -93,6 +93,7 @@
     <Compile Include="Core\Addml\Definitions\Jegerreg98Test.cs" />
     <Compile Include="Core\ArchiveBuilder.cs" />
     <Compile Include="Core\ArchiveExtractionTest.cs" />
+    <Compile Include="Core\EncodingsTest.cs" />
     <Compile Include="Core\TestEngineTest.cs" />
     <Compile Include="Core\TestRunBuilder.cs" />
     <Compile Include="Core\TestSessionBuilder.cs" />

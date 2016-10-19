@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Text;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using FluentAssertions;
@@ -21,7 +23,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
             addmlFlatFileDefinitions.Count.Should().Be(3);
             addmlFlatFileDefinitions[0].Name.Should().Be("Saksregister");
             addmlFlatFileDefinitions[0].FileName.Should().Be("SAK.DAT");
-            addmlFlatFileDefinitions[0].Charset.Should().Be("ISO-8859-1");
+            addmlFlatFileDefinitions[0].Encoding.Should().Be(Encodings.ISO_8859_1);
             addmlFlatFileDefinitions[0].RecordSeparator.Should().BeNull();
             addmlFlatFileDefinitions[0].AddmlRecordDefinitions.Count.Should().Be(1);
             addmlFlatFileDefinitions[0].Processes.Should().BeEmpty();
