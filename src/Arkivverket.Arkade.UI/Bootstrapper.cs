@@ -2,7 +2,6 @@
 using Arkivverket.Arkade.UI.Views;
 using Arkivverket.Arkade.Util;
 using Autofac;
-using AutofacSerilogIntegration;
 using Prism.Autofac;
 using Prism.Modularity;
 
@@ -29,7 +28,6 @@ namespace Arkivverket.Arkade.UI
         protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
             base.ConfigureContainerBuilder(builder);
-            builder.RegisterLogger(autowireProperties: true);
             builder.RegisterModule(new ArkadeAutofacModule());
 
             builder.RegisterTypeForNavigation<TestRunner>();

@@ -13,12 +13,14 @@ namespace Arkivverket.Arkade.Logging
 {
     public class TestSessionXmlGenerator
     {
+        private static ILogger _log = Log.ForContext<TestSessionXmlGenerator>();
+
         public static void GenerateXmlAndSaveToFile(TestSession testSession)
         {
             string xml = GenerateXml(testSession);
             DirectoryInfo workingDirectory = testSession.Archive.WorkingDirectory;
             string pathToLogFile = workingDirectory.FullName + "\\arkade-log.xml";
-            Log.Information("Writing xml log file to {LogFile}", pathToLogFile);
+            _log.Information("Writing xml log file to {LogFile}", pathToLogFile);
             File.WriteAllText(pathToLogFile, xml);
         }
 

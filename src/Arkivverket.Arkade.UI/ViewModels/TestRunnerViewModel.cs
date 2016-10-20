@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 {
     public class TestRunnerViewModel : BindableBase, INavigationAware
     {
-        public ILogger Log { get; set; }
+        private ILogger _log = Log.ForContext<TestRunnerViewModel>();
 
         private ObservableCollection<TestRunnerStatus> _testResults = new ObservableCollection<TestRunnerStatus>();
 
@@ -99,16 +99,16 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void RunTests()
         {
-            Log.Debug("Issued the RunTests command");
+            _log.Debug("Issued the RunTests command");
 
             _isRunningTests = true;
             NavigateToSummaryCommand.RaiseCanExecuteChanged();
 
             _testSession = _testSessionBuilder.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
 
-            Log.Debug(_testSession.Archive.Uuid.GetValue());
-            Log.Debug(_testSession.Archive.ArchiveType.ToString());
-            Log.Debug(_testSession.Archive.WorkingDirectory.Name);
+            _log.Debug(_testSession.Archive.Uuid.GetValue());
+            _log.Debug(_testSession.Archive.ArchiveType.ToString());
+            _log.Debug(_testSession.Archive.WorkingDirectory.Name);
 
 
             ITestEngine testEngine = _testEngineFactory.GetTestEngine(_testSession);

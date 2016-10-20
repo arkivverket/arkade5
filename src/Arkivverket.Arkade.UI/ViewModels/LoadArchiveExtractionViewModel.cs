@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 {
     public class LoadArchiveExtractionViewModel : BindableBase
     {
-        public ILogger Log { get; set; }
+        private ILogger _log = Log.ForContext<LoadArchiveExtractionViewModel>();
 
         private readonly IRegionManager _regionManager;
         private string _archiveFileName;
@@ -52,7 +52,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             navigationParameters.Add("archiveFileName", ArchiveFileName);
             navigationParameters.Add("metadataFileName", MetadataFileName);
 
-            Log.Debug("Navigating to TestRunner window with archive file {ArchiveFile} and metadata file {MetadataFile}", ArchiveFileName, MetadataFileName);
+            _log.Debug("Navigating to TestRunner window with archive file {ArchiveFile} and metadata file {MetadataFile}", ArchiveFileName, MetadataFileName);
 
             _regionManager.RequestNavigate("MainContentRegion", "TestRunner", navigationParameters);
         }

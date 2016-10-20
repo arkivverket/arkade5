@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Identify
 
         public TestSession NewSessionFromTarFile(string archiveFileName, string metadataFileName)
         {
-            Log.Information($"Building new TestSession with [archiveFileName: {archiveFileName}] [metadataFileName: {metadataFileName}");
+            _log.Information($"Building new TestSession with [archiveFileName: {archiveFileName}] [metadataFileName: {metadataFileName}");
             FileInfo archiveFileInfo = new FileInfo(archiveFileName);
 
             var uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFileName));

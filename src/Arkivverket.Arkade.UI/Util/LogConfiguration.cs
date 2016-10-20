@@ -12,7 +12,6 @@ namespace Arkivverket.Arkade.UI.Util
         {
             Log.Logger = new LoggerConfiguration()
                 .Enrich.With(new ThreadIdEnricher())
-                .Enrich.FromLogContext()
                 .WriteTo.RollingFile(ApplicationSettings.ApplicationDataDirectory() + "\\arkade-log-{Date}.txt", outputTemplate: $"{Resources.UI.SerilogFormatConfig}")
                 .WriteTo.ColoredConsole(outputTemplate: $"{Resources.UI.SerilogFormatConfig}")
                 .CreateLogger();
