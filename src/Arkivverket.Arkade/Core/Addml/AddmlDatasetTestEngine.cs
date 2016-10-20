@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
-    public class AddmlDatasetTestEngine
+    public class AddmlDatasetTestEngine : ITestEngine
     {
         private readonly AddmlProcessRunner _addmlProcessRunner;
         private readonly FlatFileReaderFactory _flatFileReaderFactory;
@@ -14,13 +16,33 @@ namespace Arkivverket.Arkade.Core.Addml
             _addmlProcessRunner = addmlProcessRunner;
         }
 
-        public TestSuite RunTests(AddmlDefinition addmlDefinition, TestSession testSession)
+        public event EventHandler<TestFinishedEventArgs> TestFinished;
+        public event EventHandler<TestStartedEventArgs> TestStarted;
+
+        protected virtual void OnTestFinished(TestFinishedEventArgs e)
         {
+            var handler = TestFinished;
+            handler?.Invoke(this, e);
+        }
+
+        protected virtual void OnTestStarted(TestStartedEventArgs e)
+        {
+            var handler = TestStarted;
+            handler?.Invoke(this, e);
+        }
+
+        public TestSuite RunTestsOnArchive(TestSession testSession)
+        {
+            AddmlDefinition addmlDefinition = testSession.AddmlDefinition;
+
+            _addmlProcessRunner.Init(addmlDefinition);
 
             List<FlatFile> flatFiles = addmlDefinition.GetFlatFiles();
 
             foreach (FlatFile file in flatFiles)
             {
+                string testName = "ADDML-prosesser på filen: " + file.GetName();
+                OnTestStarted(new TestStartedEventArgs(testName));
                 _addmlProcessRunner.RunProcesses(file);
 
                 IFlatFileReader flatFileReader = _flatFileReaderFactory.GetReader(testSession.Archive, file);
@@ -37,6 +59,8 @@ namespace Arkivverket.Arkade.Core.Addml
                     }
                 }
                 _addmlProcessRunner.EndOfFile();
+                
+                OnTestFinished(new TestFinishedEventArgs(new TestRun(testName, TestType.Content)));
             }
 
             return _addmlProcessRunner.GetTestSuite();

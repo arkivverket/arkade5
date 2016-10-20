@@ -105,8 +105,11 @@
     <Compile Include="Core\Addml\FlatFile.cs" />
     <Compile Include="Core\Encodings.cs" />
     <Compile Include="Core\IArchiveContentReader.cs" />
+    <Compile Include="Core\ITestEngine.cs" />
     <Compile Include="Core\LogEntry.cs" />
     <Compile Include="Core\TestEngine.cs" />
+    <Compile Include="Core\TestEngineFactory.cs" />
+    <Compile Include="Core\TestFinishedEventArgs.cs" />
     <Compile Include="Core\TestReport.cs" />
     <Compile Include="Core\TestStartedEventArgs.cs" />
     <Compile Include="Core\TestSuite.cs" />

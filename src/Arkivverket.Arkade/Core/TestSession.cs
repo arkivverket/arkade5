@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Core
 {
@@ -19,6 +20,8 @@ namespace Arkivverket.Arkade.Core
         public TestSuite TestSuite { get; set; }
 
         public TestReport TestReport { get; }
+
+        public AddmlDefinition AddmlDefinition { get; set; }
 
         private List<LogEntry> LogEntries = new List<LogEntry>();
 

@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private ObservableCollection<TestRunnerStatus> _testResults = new ObservableCollection<TestRunnerStatus>();
 
         private readonly TestSessionFactory _testSessionBuilder;
-        private readonly TestEngine _testEngine;
+        private readonly TestEngineFactory _testEngineFactory;
         private readonly IRegionManager _regionManager;
         public DelegateCommand NavigateToSummaryCommand { get; set; }
         private DelegateCommand RunTestEngineCommand { get; set; }
@@ -42,14 +42,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _testResults, value); }
         }
 
-        public TestRunnerViewModel(TestSessionFactory testSessionBuilder, TestEngine testEngine, IRegionManager regionManager)
+        public TestRunnerViewModel(TestSessionFactory testSessionBuilder, TestEngineFactory testEngineFactory, IRegionManager regionManager)
         {
             _testSessionBuilder = testSessionBuilder;
-            _testEngine = testEngine;
+            _testEngineFactory = testEngineFactory;
             _regionManager = regionManager;
 
-            _testEngine.TestStarted += TestEngineOnTestStarted;
-            _testEngine.TestFinished += TestEngineOnTestFinished;
+
 
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
             NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
@@ -111,7 +110,12 @@ namespace Arkivverket.Arkade.UI.ViewModels
             Log.Debug(_testSession.Archive.ArchiveType.ToString());
             Log.Debug(_testSession.Archive.WorkingDirectory.Name);
 
-            _testSession.TestSuite = _testEngine.RunTestsOnArchive(_testSession);
+
+            ITestEngine testEngine = _testEngineFactory.GetTestEngine(_testSession);
+            testEngine.TestStarted += TestEngineOnTestStarted;
+            testEngine.TestFinished += TestEngineOnTestFinished;
+
+            _testSession.TestSuite = testEngine.RunTestsOnArchive(_testSession);
 
             TestSessionXmlGenerator.GenerateXmlAndSaveToFile(_testSession);
 

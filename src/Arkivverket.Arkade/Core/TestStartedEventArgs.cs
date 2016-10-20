@@ -13,5 +13,11 @@ namespace Arkivverket.Arkade.Core
             TestName = test.GetName();
             StartTime = DateTime.Now;
         }
+
+        public TestStartedEventArgs(string testName)
+        {
+            TestName = testName;
+            StartTime = DateTime.Now;
+        }
     }
 }

@@ -4,12 +4,12 @@ namespace Arkivverket.Arkade.Core.Addml
 {
     public class AddmlProcessRunner
     {
-        private readonly FieldProcessRunner _fieldProcessRunner;
-        private readonly FileProcessRunner _fileProcessRunner;
-        private readonly ProcessFactory _processFactory;
-        private readonly RecordProcessRunner _recordProcessRunner;
+        private FieldProcessRunner _fieldProcessRunner;
+        private FileProcessRunner _fileProcessRunner;
+        private ProcessFactory _processFactory;
+        private RecordProcessRunner _recordProcessRunner;
 
-        public AddmlProcessRunner(AddmlDefinition addmlDefinition)
+        public void Init(AddmlDefinition addmlDefinition)
         {
             _processFactory = new ProcessFactory(addmlDefinition);
             _fileProcessRunner = new FileProcessRunner(_processFactory);
@@ -51,5 +51,6 @@ namespace Arkivverket.Arkade.Core.Addml
                 addmlProcess.EndOfFile();
             }
         }
+        
     }
 }

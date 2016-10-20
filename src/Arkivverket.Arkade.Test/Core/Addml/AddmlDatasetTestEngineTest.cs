@@ -34,8 +34,10 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml).GetAddmlDefinition();
 
             var testSession = new TestSession(new Archive(ArchiveType.Noark3, Uuid.Random(), new DirectoryInfo(@"c:\temp")));
+            testSession.AddmlDefinition = addmlDefinition;
+
             var addmlDatasetTestEngine = new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner(addmlDefinition));
-            TestSuite testSuite = addmlDatasetTestEngine.RunTests(addmlDefinition, testSession);
+            TestSuite testSuite = addmlDatasetTestEngine.RunTestsOnArchive(testSession);
 
 
             testSuite.Should().NotBeNull();

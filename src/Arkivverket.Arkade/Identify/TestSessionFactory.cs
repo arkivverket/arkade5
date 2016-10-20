@@ -1,6 +1,8 @@
 using Arkivverket.Arkade.Core;
 using Serilog;
 using System.IO;
+using Arkivverket.Arkade.Core.Addml;
+using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Identify
 {
@@ -27,7 +29,14 @@ namespace Arkivverket.Arkade.Identify
 
             DirectoryInfo targetFolderName = _archiveExtractor.Extract(archiveFileInfo);
             Archive archive = new Archive(archiveType, uuid, targetFolderName);
-            return new TestSession(archive);
+
+            var testSession = new TestSession(archive);
+            if (archiveType != ArchiveType.Noark5)
+            {
+                AddmlInfo addml = AddmlUtil.ReadFromFile(archive.GetStructureDescriptionFileName());
+                testSession.AddmlDefinition = new AddmlDefinitionParser(addml).GetAddmlDefinition();
+            }
+            return testSession;
         }
     }
 }
