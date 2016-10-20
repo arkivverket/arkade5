@@ -117,6 +117,7 @@
   <ItemGroup>
     <Compile Include="Core\Addml\AddmlDatasetTestEngineTest.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParserTest.cs" />
+    <Compile Include="Core\Addml\Definitions\BooleanDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\KvoteFisk89Test.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
     <Compile Include="Core\Addml\Definitions\Jegerreg98Test.cs" />

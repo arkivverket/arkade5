@@ -11,9 +11,6 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
 {
     public class Jegerreg98Test
     {
-
-
-
         [Fact]
         public void ShouldParseJegerreg98ArkivuttrekkXml()
         {
@@ -88,8 +85,6 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                 addmlFieldDefinitions[1].MinLength.Should().NotHaveValue();
                 addmlFieldDefinitions[1].Type.Should().Be(StringDataType.Default);
                 addmlFieldDefinitions[1].ForeignKey.Should().BeNull();
-
-
 
                 addmlRecordDefinition.PrimaryKey.Should()
                     .Equal(new List<AddmlFieldDefinition>()
