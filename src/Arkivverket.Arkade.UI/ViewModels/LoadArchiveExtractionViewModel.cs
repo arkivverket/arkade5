@@ -1,13 +1,15 @@
-using Arkivverket.Arkade.Identify;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using Serilog;
 
 namespace Arkivverket.Arkade.UI.ViewModels
 {
     public class LoadArchiveExtractionViewModel : BindableBase
     {
+        public ILogger Log { get; set; }
+
         private readonly IRegionManager _regionManager;
         private string _archiveFileName;
         private string _metadataFileName;
@@ -49,6 +51,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add("archiveFileName", ArchiveFileName);
             navigationParameters.Add("metadataFileName", MetadataFileName);
+
+            Log.Debug("Navigating to TestRunner window with archive file {ArchiveFile} and metadata file {MetadataFile}", ArchiveFileName, MetadataFileName);
+
             _regionManager.RequestNavigate("MainContentRegion", "TestRunner", navigationParameters);
         }
 

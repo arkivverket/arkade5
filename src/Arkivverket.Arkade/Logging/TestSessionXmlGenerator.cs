@@ -7,17 +7,19 @@ using System.IO;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Tests;
 using System.Text;
+using Serilog;
 
 namespace Arkivverket.Arkade.Logging
 {
     public class TestSessionXmlGenerator
     {
-
         public static void GenerateXmlAndSaveToFile(TestSession testSession)
         {
             string xml = GenerateXml(testSession);
             DirectoryInfo workingDirectory = testSession.Archive.WorkingDirectory;
-            File.WriteAllText(workingDirectory.FullName + "\\arkade-log.xml", xml);
+            string pathToLogFile = workingDirectory.FullName + "\\arkade-log.xml";
+            Log.Information("Writing xml log file to {LogFile}", pathToLogFile);
+            File.WriteAllText(pathToLogFile, xml);
         }
 
         public static string GenerateXml(TestSession testSession)

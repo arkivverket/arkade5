@@ -15,6 +15,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 {
     public class TestRunnerViewModel : BindableBase, INavigationAware
     {
+        public ILogger Log { get; set; }
 
         private ObservableCollection<TestRunnerStatus> _testResults = new ObservableCollection<TestRunnerStatus>();
 
@@ -100,6 +101,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private void RunTests()
         {
             Log.Debug("Issued the RunTests command");
+
             _isRunningTests = true;
             NavigateToSummaryCommand.RaiseCanExecuteChanged();
 

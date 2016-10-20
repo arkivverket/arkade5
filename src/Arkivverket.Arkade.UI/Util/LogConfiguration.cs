@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using Arkivverket.Arkade.UI.Properties;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
@@ -10,9 +9,10 @@ namespace Arkivverket.Arkade.UI.Util
     {
         public static void ConfigureSeriLog()
         {
-            // Init logging
             Log.Logger = new LoggerConfiguration()
                 .Enrich.With(new ThreadIdEnricher())
+                .Enrich.FromLogContext()
+                .WriteTo.RollingFile(ApplicationSettings.ApplicationDataDirectory() + "\\arkade-log-{Date}.txt", outputTemplate: $"{Resources.UI.SerilogFormatConfig}")
                 .WriteTo.ColoredConsole(outputTemplate: $"{Resources.UI.SerilogFormatConfig}")
                 .CreateLogger();
         }
