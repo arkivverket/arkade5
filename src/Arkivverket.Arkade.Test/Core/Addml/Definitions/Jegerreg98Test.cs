@@ -11,6 +11,9 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
 {
     public class Jegerreg98Test
     {
+
+
+
         [Fact]
         public void ShouldParseJegerreg98ArkivuttrekkXml()
         {
@@ -44,6 +47,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                 List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
                 addmlFieldDefinitions.Count.Should().Be(37);
                 addmlFieldDefinitions[0].Name.Should().Be("plassnummer");
+                addmlFieldDefinitions[0].Type.Should().Be(IntegerDataType.Default);
                 addmlFieldDefinitions[1].Name.Should().Be("landkort");
                 addmlFieldDefinitions[8].Name.Should().Be("personnummer");
                 addmlRecordDefinition.PrimaryKey.Should()
@@ -70,7 +74,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                 addmlFieldDefinitions[0].IsNullable.Should().BeFalse();
                 addmlFieldDefinitions[0].MaxLength.Should().NotHaveValue();
                 addmlFieldDefinitions[0].MinLength.Should().NotHaveValue();
-                //addmlFieldDefinitions[0].Type.Should().Be(Types.String);
+                addmlFieldDefinitions[0].Type.Should().Be(StringDataType.Default);
                 addmlFieldDefinitions[0].ForeignKey.Should().Be(
                     addmlFlatFileDefinitions[0].AddmlRecordDefinitions[0].AddmlFieldDefinitions[0]
                 );
@@ -82,8 +86,9 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                 addmlFieldDefinitions[1].IsNullable.Should().BeTrue();
                 addmlFieldDefinitions[1].MaxLength.Should().NotHaveValue();
                 addmlFieldDefinitions[1].MinLength.Should().NotHaveValue();
-                //addmlFieldDefinitions[1].Type.Should().Be(Types.String);
+                addmlFieldDefinitions[1].Type.Should().Be(StringDataType.Default);
                 addmlFieldDefinitions[1].ForeignKey.Should().BeNull();
+
 
 
                 addmlRecordDefinition.PrimaryKey.Should()
@@ -93,7 +98,41 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                     });
 
 
+                TestDateDataType(addmlDefinition);
+                TestBooleanDataType(addmlDefinition);
+                TestFloatDataType(addmlDefinition);
             }
         }
+
+        private void TestDateDataType(AddmlDefinition addmlDefinition)
+        {
+            AddmlFlatFileDefinition addmlFlatFileDefinition = addmlDefinition.AddmlFlatFileDefinitions[2];
+            addmlFlatFileDefinition.Name.Should().Be("ffd_5");
+            addmlFlatFileDefinition.FileName.Should().Be("ikkejeg.dat");
+            AddmlFieldDefinition addmlFieldDefinition = addmlFlatFileDefinition.AddmlRecordDefinitions[0].AddmlFieldDefinitions[35];
+            addmlFieldDefinition.Name.Should().Be("fradato");
+            addmlFieldDefinition.Type.Should().Be(new DateDataType("ddmmyyyy"));
+        }
+
+        private void TestFloatDataType(AddmlDefinition addmlDefinition)
+        {
+            AddmlFlatFileDefinition addmlFlatFileDefinition = addmlDefinition.AddmlFlatFileDefinitions[5];
+            addmlFlatFileDefinition.Name.Should().Be("ffd_8");
+            addmlFlatFileDefinition.FileName.Should().Be("betalt.dat");
+            AddmlFieldDefinition addmlFieldDefinition = addmlFlatFileDefinition.AddmlRecordDefinitions[0].AddmlFieldDefinitions[8];
+            addmlFieldDefinition.Name.Should().Be("beløp");
+            addmlFieldDefinition.Type.Should().Be(new FloatDataType());
+        }
+
+        private void TestBooleanDataType(AddmlDefinition addmlDefinition)
+        {
+            AddmlFlatFileDefinition addmlFlatFileDefinition = addmlDefinition.AddmlFlatFileDefinitions[3];
+            addmlFlatFileDefinition.Name.Should().Be("ffd_6");
+            addmlFlatFileDefinition.FileName.Should().Be("jegerK.dat");
+            AddmlFieldDefinition addmlFieldDefinition = addmlFlatFileDefinition.AddmlRecordDefinitions[0].AddmlFieldDefinitions[10];
+            addmlFieldDefinition.Name.Should().Be("avgift");
+            addmlFieldDefinition.Type.Should().Be(new BooleanDataType("J/N"));
+        }
+
     }
 }
