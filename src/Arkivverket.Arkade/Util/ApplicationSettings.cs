@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace Arkivverket.Arkade.UI.Util
+namespace Arkivverket.Arkade.Util
 {
     public static class ApplicationSettings
     {

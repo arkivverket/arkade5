@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using Arkivverket.Arkade.Util;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;

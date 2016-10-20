@@ -148,6 +148,7 @@
     <Compile Include="Tests\TestProvider.cs" />
     <Compile Include="Tests\TestResult.cs" />
     <Compile Include="Core\TestRun.cs" />
+    <Compile Include="Util\ApplicationSettings.cs" />
     <Compile Include="Util\ArkadeAutofacModule.cs" />
     <Compile Include="Util\ArkadeVersion.cs" />
     <Compile Include="Util\Assert.cs" />
