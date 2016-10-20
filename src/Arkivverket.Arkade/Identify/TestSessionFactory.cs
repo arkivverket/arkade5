@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Identify
 {
     public class TestSessionFactory : ITestSessionFactory
     {
-        public ILogger Log { get; set; }
+        private ILogger _log = Log.ForContext<TestSessionFactory>();
 
         private readonly IArchiveExtractor _archiveExtractor;
         private readonly IArchiveIdentifier _archiveIdentifier;
