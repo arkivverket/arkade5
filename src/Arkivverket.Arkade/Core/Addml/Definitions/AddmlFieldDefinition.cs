@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public int? FixedLength { get; }
 
         // TODO: Implemenr DataType with fieldFormat, alignment, etc
-        public string Type { get; }
+        public FieldType Type { get; }
         public bool IsUnique { get; }
         public bool IsNullable { get; }
         public int? MinLength { get; }
@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public AddmlFieldDefinition(string name,
             int? startPosition,
             int? fixedLength,
-            string type,
+            FieldType type,
             bool isUnique,
             bool isNullable,
             int? minLength,

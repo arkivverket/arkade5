@@ -12,8 +12,10 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         private readonly AddmlInfo _addmlInfo;
 
         private readonly Dictionary<string, flatFileType> _flatFileTypes = new Dictionary<string, flatFileType>();
-        private readonly Dictionary<string, fieldType> _fieldTypes = new Dictionary<string, fieldType>();
-        private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _allFieldDefinitions = new Dictionary<FieldIndex, AddmlFieldDefinition>();
+        private readonly Dictionary<string, FieldType> _fieldTypes = new Dictionary<string, FieldType>();
+
+        private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _allFieldDefinitions =
+            new Dictionary<FieldIndex, AddmlFieldDefinition>();
 
         public AddmlDefinitionParser(AddmlInfo addmlInfo)
         {
@@ -31,8 +33,30 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             {
                 foreach (fieldType fieldType in fieldTypes)
                 {
-                    _fieldTypes.Add(fieldType.name, fieldType);
+                    FieldType newFieldType = CreateFieldType(fieldType);
+                    _fieldTypes.Add(fieldType.name, newFieldType);
                 }
+            }
+        }
+
+        private FieldType CreateFieldType(fieldType fieldType)
+        {
+            switch (fieldType.dataType)
+            {
+                case "string":
+                    return new StringDataType(fieldType.fieldFormat);
+                case "integer":
+                    return new IntegerDataType(fieldType.fieldFormat);
+                case "float":
+                    return new FloatDataType(fieldType.fieldFormat);
+                case "date":
+                    return new DateDataType(fieldType.fieldFormat);
+                case "boolean":
+                    return new BooleanDataType(fieldType.fieldFormat);
+                case "link":
+                    return new LinkDataType(fieldType.fieldFormat);
+                default:
+                    throw new AddmlDefinitionParseException("Unknown datatype " + fieldType.dataType);
             }
         }
 
@@ -74,7 +98,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 string name = flatFileDefinition.name;
                 string recordSeparator = GetRecordSeparator(flatFileDefinition.typeReference);
                 string fileName = GetFileName(flatFileDefinition.name);
-                FileInfo fileInfo = new FileInfo(_addmlInfo.AddmlFile.DirectoryName + Path.DirectorySeparatorChar + fileName);
+                FileInfo fileInfo =
+                    new FileInfo(_addmlInfo.AddmlFile.DirectoryName + Path.DirectorySeparatorChar + fileName);
                 string charset = GetCharset(flatFileDefinition.typeReference);
                 List<string> flatFileProcesses = GetFlatFileProcessNames(flatFileDefinition.name);
 
@@ -176,7 +201,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         private void AddAddmlFieldDefinitions(AddmlFlatFileDefinition addmlFlatFileDefinition,
             flatFileDefinition flatFileDefinition)
         {
-            List <recordDefinition> recordDefinitions = GetRecordDefinitions(flatFileDefinition);
+            List<recordDefinition> recordDefinitions = GetRecordDefinitions(flatFileDefinition);
             foreach (recordDefinition recordDefinition in recordDefinitions)
             {
                 string recordDefinitionName = recordDefinition.name;
@@ -186,15 +211,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 AddmlRecordDefinition addmlRecordDefinition = 
                     addmlFlatFileDefinition.AddAddmlRecordDefinition(recordDefinitionName, recordLength, recordProcesses);
 
-
                 List<fieldDefinition> fieldDefinitions = GetFieldDefinitions(recordDefinition);
                 foreach (fieldDefinition fieldDefinition in fieldDefinitions)
                 {
                     string name = fieldDefinition.name;
                     int? startPosition = GetStartPosition(fieldDefinition);
                     int? fixedLength = GetFixedLength(fieldDefinition);
-                    fieldType fieldType = GetFieldType(fieldDefinition.typeReference);
-                    string fieldTypeString = fieldType.dataType;
+                    FieldType fieldType = GetFieldType(fieldDefinition.typeReference);
                     bool isPartOfPrimaryKey = IsPartOfPrimaryKey(recordDefinition, fieldDefinition);
                     bool isUnique = IsUnique(fieldDefinition);
                     bool isNullable = IsNullable(fieldDefinition);
@@ -205,7 +228,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                         fieldDefinition.name);
 
                     AddmlFieldDefinition addAddmlFieldDefinition = addmlRecordDefinition.AddAddmlFieldDefinition(
-                        name, startPosition, fixedLength, fieldTypeString, isUnique, isNullable, minLength,
+                        name, startPosition, fixedLength, fieldType, isUnique, isNullable, minLength,
                         maxLength, foreignKeyReference, processes, isPartOfPrimaryKey);
 
                     _allFieldDefinitions.Add(new FieldIndex(flatFileDefinition, recordDefinition, fieldDefinition),
@@ -213,7 +236,6 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 }
             }
         }
-
 
         private int? GetMaxLength(fieldDefinition fieldDefinition)
         {
@@ -274,9 +296,9 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return flatFileType;
         }
 
-        private fieldType GetFieldType(string typeReference)
+        private FieldType GetFieldType(string typeReference)
         {
-            fieldType fieldType = _fieldTypes[typeReference];
+            FieldType fieldType = _fieldTypes[typeReference];
 
             if (fieldType == null)
             {
@@ -292,7 +314,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return int.Parse(recordDefinition.fixedLength);
         }
 
-        private AddmlFieldDefinition GetForeignKeyReference(recordDefinition recordDefinition, fieldDefinition fieldDefinition)
+        private AddmlFieldDefinition GetForeignKeyReference(recordDefinition recordDefinition,
+            fieldDefinition fieldDefinition)
         {
             key[] keys = recordDefinition.keys;
             if (keys != null)
@@ -313,7 +336,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                                 // TODO: Is it possible to have reference to more than one AddmlFieldDefinition?
                                 if (indexes.Count != 1)
                                 {
-                                    throw new AddmlDefinitionParseException("foreignKey must reference exactly one fieldDefinitionReference. " + f);
+                                    throw new AddmlDefinitionParseException(
+                                        "foreignKey must reference exactly one fieldDefinitionReference. " + f);
                                 }
 
                                 FieldIndex index = indexes[0];
@@ -337,11 +361,16 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             List<FieldIndex> indexes = new List<FieldIndex>();
 
             flatFileDefinitionReference flatFileDefinitionReference = foreignKey.flatFileDefinitionReference;
-            foreach (recordDefinitionReference recordDefinitionReference in flatFileDefinitionReference.recordDefinitionReferences)
+            foreach (
+                recordDefinitionReference recordDefinitionReference in
+                flatFileDefinitionReference.recordDefinitionReferences)
             {
-                foreach (fieldDefinitionReference fieldDefinitionReference in recordDefinitionReference.fieldDefinitionReferences)
+                foreach (
+                    fieldDefinitionReference fieldDefinitionReference in
+                    recordDefinitionReference.fieldDefinitionReferences)
                 {
-                    indexes.Add(new FieldIndex(flatFileDefinitionReference, recordDefinitionReference, fieldDefinitionReference));
+                    indexes.Add(new FieldIndex(flatFileDefinitionReference, recordDefinitionReference,
+                        fieldDefinitionReference));
                 }
             }
 
@@ -429,8 +458,9 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
             if (datasets.Length != 1)
             {
-                throw new AddmlDefinitionParseException("dataset must contain exactly one element. Found " + datasets.Length +
-                                                   " elements");
+                throw new AddmlDefinitionParseException("dataset must contain exactly one element. Found " +
+                                                        datasets.Length +
+                                                        " elements");
             }
 
             return datasets[0];
