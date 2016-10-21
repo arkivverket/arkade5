@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 case "boolean":
                     return new BooleanDataType(fieldType.fieldFormat);
                 case "link":
-                    return new LinkDataType(fieldType.fieldFormat);
+                    return new LinkDataType();
                 default:
                     throw new AddmlDefinitionParseException("Unknown datatype " + fieldType.dataType);
             }

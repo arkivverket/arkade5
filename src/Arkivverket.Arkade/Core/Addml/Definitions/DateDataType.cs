@@ -1,13 +1,29 @@
 ﻿
+using System;
+using System.Globalization;
+
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
     public class DateDataType : FieldType
     {
         private readonly string _fieldFormat;
+        private readonly string _dateTimeFormat;
 
         public DateDataType(string fieldFormat)
         {
             _fieldFormat = fieldFormat;
+            _dateTimeFormat = ConvertToDateTimeFormat(_fieldFormat);
+        }
+
+        private string ConvertToDateTimeFormat(string fieldFormat)
+        {
+            // TODO: Do we have to convert ADDML data fieldFormat til .NET format?
+            return fieldFormat;
+        }
+
+        public DateTime Parse(string dateTimeString)
+        {
+            return DateTime.ParseExact(dateTimeString, _dateTimeFormat, CultureInfo.InvariantCulture);
         }
 
         protected bool Equals(DateDataType other)

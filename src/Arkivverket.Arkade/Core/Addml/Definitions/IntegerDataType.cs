@@ -5,7 +5,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
     {
         public static readonly IntegerDataType Default = new IntegerDataType();
 
-        private string _fieldFormat;
+        public string FieldFormat { get; }
 
         public IntegerDataType()
         {
@@ -13,12 +13,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public IntegerDataType(string fieldFormat)
         {
-            this._fieldFormat = fieldFormat;
+            FieldFormat = fieldFormat;
         }
 
         protected bool Equals(IntegerDataType other)
         {
-            return string.Equals(_fieldFormat, other._fieldFormat);
+            return string.Equals(FieldFormat, other.FieldFormat);
         }
 
         public override bool Equals(object obj)
@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public override int GetHashCode()
         {
-            return (_fieldFormat != null ? _fieldFormat.GetHashCode() : 0);
+            return (FieldFormat != null ? FieldFormat.GetHashCode() : 0);
         }
     }
 }

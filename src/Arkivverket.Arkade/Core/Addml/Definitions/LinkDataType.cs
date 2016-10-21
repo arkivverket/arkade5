@@ -3,16 +3,14 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
     public class LinkDataType : FieldType
     {
-        private readonly string _fieldFormat;
 
-        public LinkDataType(string fieldFormat)
+        public LinkDataType()
         {
-            _fieldFormat = fieldFormat;
         }
 
         protected bool Equals(LinkDataType other)
         {
-            return string.Equals(_fieldFormat, other._fieldFormat);
+            return true;
         }
 
         public override bool Equals(object obj)
@@ -25,7 +23,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public override int GetHashCode()
         {
-            return (_fieldFormat != null ? _fieldFormat.GetHashCode() : 0);
+            return 1;
         }
     }
 }
