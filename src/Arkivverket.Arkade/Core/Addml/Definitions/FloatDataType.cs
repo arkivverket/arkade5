@@ -1,4 +1,6 @@
 ﻿
+using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
+
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
     public class FloatDataType : DataType

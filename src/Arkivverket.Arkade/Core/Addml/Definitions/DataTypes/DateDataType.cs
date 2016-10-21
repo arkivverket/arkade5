@@ -1,8 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Globalization;
 
-namespace Arkivverket.Arkade.Core.Addml.Definitions
+namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
 {
     public class DateDataType : DataType
     {

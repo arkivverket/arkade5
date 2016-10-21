@@ -1,5 +1,5 @@
 ﻿
-namespace Arkivverket.Arkade.Core.Addml.Definitions
+namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
 {
     public class IntegerDataType : DataType
     {

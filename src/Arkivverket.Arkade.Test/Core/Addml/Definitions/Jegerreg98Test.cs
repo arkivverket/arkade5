@@ -3,6 +3,7 @@ using System.Text;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
 using FluentAssertions;
 using FluentAssertions.Types;
 using Xunit;
