@@ -1,7 +1,7 @@
 ﻿
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
-    public class LinkDataType : FieldType
+    public class LinkDataType : DataType
     {
 
         public LinkDataType()

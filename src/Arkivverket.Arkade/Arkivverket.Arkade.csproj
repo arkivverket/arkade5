@@ -82,7 +82,7 @@
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlLinkParser.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlStringParser.cs" />
     <Compile Include="Core\Addml\Definitions\DateDataType.cs" />
-    <Compile Include="Core\Addml\Definitions\FieldType.cs" />
+    <Compile Include="Core\Addml\Definitions\DataType.cs" />
     <Compile Include="Core\Addml\Definitions\FieldIndex.cs" />
     <Compile Include="Core\Addml\Definitions\FloatDataType.cs" />
     <Compile Include="Core\Addml\Definitions\IntegerDataType.cs" />

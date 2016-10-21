@@ -1,7 +1,7 @@
 ﻿
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
-    public class IntegerDataType : FieldType
+    public class IntegerDataType : DataType
     {
         public static readonly IntegerDataType Default = new IntegerDataType();
 

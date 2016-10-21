@@ -1,7 +1,7 @@
 ﻿
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
-    public class FloatDataType : FieldType
+    public class FloatDataType : DataType
     {
         private readonly string _fieldFormat;
 

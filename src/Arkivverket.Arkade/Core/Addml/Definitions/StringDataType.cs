@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
-    public class StringDataType : FieldType
+    public class StringDataType : DataType
     {
         public static readonly StringDataType Default = new StringDataType();
 

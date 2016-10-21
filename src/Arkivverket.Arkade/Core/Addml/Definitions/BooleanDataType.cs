@@ -3,7 +3,7 @@ using System;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
-    public class BooleanDataType : FieldType
+    public class BooleanDataType : DataType
     {
         private readonly string _fieldFormat;
         private readonly string _trueString;

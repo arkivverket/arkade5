@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         private readonly AddmlInfo _addmlInfo;
 
         private readonly Dictionary<string, flatFileType> _flatFileTypes = new Dictionary<string, flatFileType>();
-        private readonly Dictionary<string, FieldType> _fieldTypes = new Dictionary<string, FieldType>();
+        private readonly Dictionary<string, DataType> _fieldTypes = new Dictionary<string, DataType>();
 
         private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _allFieldDefinitions =
             new Dictionary<FieldIndex, AddmlFieldDefinition>();
@@ -33,13 +33,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             {
                 foreach (fieldType fieldType in fieldTypes)
                 {
-                    FieldType newFieldType = CreateFieldType(fieldType);
-                    _fieldTypes.Add(fieldType.name, newFieldType);
+                    DataType newDataType = CreateFieldType(fieldType);
+                    _fieldTypes.Add(fieldType.name, newDataType);
                 }
             }
         }
 
-        private FieldType CreateFieldType(fieldType fieldType)
+        private DataType CreateFieldType(fieldType fieldType)
         {
             switch (fieldType.dataType)
             {
@@ -217,7 +217,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     string name = fieldDefinition.name;
                     int? startPosition = GetStartPosition(fieldDefinition);
                     int? fixedLength = GetFixedLength(fieldDefinition);
-                    FieldType fieldType = GetFieldType(fieldDefinition.typeReference);
+                    DataType dataType = GetFieldType(fieldDefinition.typeReference);
                     bool isPartOfPrimaryKey = IsPartOfPrimaryKey(recordDefinition, fieldDefinition);
                     bool isUnique = IsUnique(fieldDefinition);
                     bool isNullable = IsNullable(fieldDefinition);
@@ -228,7 +228,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                         fieldDefinition.name);
 
                     AddmlFieldDefinition addAddmlFieldDefinition = addmlRecordDefinition.AddAddmlFieldDefinition(
-                        name, startPosition, fixedLength, fieldType, isUnique, isNullable, minLength,
+                        name, startPosition, fixedLength, dataType, isUnique, isNullable, minLength,
                         maxLength, foreignKeyReference, processes, isPartOfPrimaryKey);
 
                     _allFieldDefinitions.Add(new FieldIndex(flatFileDefinition, recordDefinition, fieldDefinition),
@@ -296,16 +296,16 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return flatFileType;
         }
 
-        private FieldType GetFieldType(string typeReference)
+        private DataType GetFieldType(string typeReference)
         {
-            FieldType fieldType = _fieldTypes[typeReference];
+            DataType dataType = _fieldTypes[typeReference];
 
-            if (fieldType == null)
+            if (dataType == null)
             {
                 throw new AddmlDefinitionParseException("No FieldType with name " + typeReference);
             }
 
-            return fieldType;
+            return dataType;
         }
 
 

@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
-    public class DateDataType : FieldType
+    public class DateDataType : DataType
     {
         private readonly string _fieldFormat;
         private readonly string _dateTimeFormat;
