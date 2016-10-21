@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -11,6 +14,15 @@ namespace Arkivverket.Arkade.Core.Addml
 
         public FixedFormatReader(StreamReader streamReader, int recordLength, List<int> fieldLengths)
         {
+            Assert.AssertNotNull("streamReader", streamReader);
+
+            int sumOfFieldLengths = fieldLengths.Sum();
+            if (sumOfFieldLengths != recordLength)
+            {
+                throw new ArgumentException("Sum of field lengths (" + sumOfFieldLengths +
+                                            ") does not match record length (" + recordLength + ")");
+            }
+
             _streamReader = streamReader;
             _recordLength = recordLength;
             _fieldLengths = fieldLengths;
@@ -26,7 +38,12 @@ namespace Arkivverket.Arkade.Core.Addml
             // Read bytes according to recordLength
             int len = _recordLength;
             char[] buffer = new char[len];
-            _streamReader.ReadBlock(buffer, 0, len);
+            int read = _streamReader.ReadBlock(buffer, 0, len);
+
+            if (read != len)
+            {
+                throw new IOException("Unable to read a full record of " + _recordLength + " characters. Could only read " + read + " characters");
+            }
 
             string recordString = new string(buffer);
 

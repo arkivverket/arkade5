@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Addml;
 using FluentAssertions;
@@ -52,6 +53,28 @@ namespace Arkivverket.Arkade.Test.Core.Addml
                 reader.GetNextValue().Should().Equal(new List<string> { "1", "22", "333", "4444", "55555" });
             }
             reader.HasMoreRecords().Should().BeFalse();
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfSumOfFieldLengthsDoesNotMatchRecordLength()
+        {
+            StreamReader streamReader = CreateStreamReader("");
+            int recordLength = 10;
+            List<int> fieldLengths = new List<int> {1, 2, 4, 5};
+
+            Assert.Throws<ArgumentException>(() => new FixedFormatReader(streamReader, recordLength, fieldLengths));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfDataDoesNotCorrespondToRecordLength()
+        {
+            StreamReader streamReader = CreateStreamReader("123451234");
+            int recordLength = 5;
+            List<int> fieldLengths = new List<int> { 1, 1, 1, 1, 1};
+
+            FixedFormatReader reader = new FixedFormatReader(streamReader, recordLength, fieldLengths);
+            reader.GetNextValue();
+            Assert.Throws<IOException>(() => reader.GetNextValue());
         }
 
 
