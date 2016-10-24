@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Core.Addml
             if (archive.ArchiveType == ArchiveType.Noark3 || archive.ArchiveType == ArchiveType.Fagsystem)
                 return new FlatFileReader(flatFile);
             else if (archive.ArchiveType == ArchiveType.Noark4)
-                return new Noark4FileReader();
+                return new Noark4FileReader(flatFile);
             else
                 throw new ArgumentException($"Cannot instantiate file reader for archive. Unsupported archive type: {archive.ArchiveType}");
         }

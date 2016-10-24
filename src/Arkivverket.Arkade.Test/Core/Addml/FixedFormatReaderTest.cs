@@ -77,8 +77,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             Assert.Throws<IOException>(() => reader.GetNextValue());
         }
 
-
-        public StreamReader CreateStreamReader(string s)
+        private StreamReader CreateStreamReader(string s)
         {
             MemoryStream stream = new MemoryStream();
             StreamWriter writer = new StreamWriter(stream);

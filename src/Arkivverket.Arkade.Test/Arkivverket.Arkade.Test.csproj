@@ -125,6 +125,7 @@
     <Compile Include="Core\Addml\FixedFormatReaderTest.cs" />
     <Compile Include="Core\Addml\NoarkihToAddmlTransformerTest.cs" />
     <Compile Include="Core\Addml\RecordSeparatorTest.cs" />
+    <Compile Include="Core\Addml\XmlFormatReaderTest.cs" />
     <Compile Include="Core\ArchiveBuilder.cs" />
     <Compile Include="Core\ArchiveExtractionTest.cs" />
     <Compile Include="Core\EncodingsTest.cs" />

@@ -108,6 +108,8 @@
     <Compile Include="Core\Addml\Record.cs" />
     <Compile Include="Core\Addml\RecordProcessRunner.cs" />
     <Compile Include="Core\Addml\FixedFormatReader.cs" />
+    <Compile Include="Core\Addml\XmlFormatReader.cs" />
+    <Compile Include="Core\Addml\XmlUtil.cs" />
     <Compile Include="Core\Archive.cs" />
     <Compile Include="Core\ArchiveContentReader.cs" />
     <Compile Include="Core\ArchiveInfo.cs" />

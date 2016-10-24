@@ -24,14 +24,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
         private static XPathDocument GetNoarkih(string noark4Xml)
         {
-            // Ignore DTD in XML
-            XmlReaderSettings settings = new XmlReaderSettings
-            {
-                XmlResolver = null,
-                DtdProcessing = DtdProcessing.Parse
-            };
-            StringReader stringReader = new StringReader(noark4Xml);
-            XmlReader xmlReader = XmlReader.Create(stringReader, settings);
+            XmlReader xmlReader = XmlUtil.Read(noark4Xml);
             return new XPathDocument(xmlReader);
         }
 
