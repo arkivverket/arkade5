@@ -123,6 +123,7 @@
     <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
     <Compile Include="Core\Addml\Definitions\Jegerreg98Test.cs" />
     <Compile Include="Core\Addml\FixedFormatReaderTest.cs" />
+    <Compile Include="Core\Addml\NoarkihToAddmlTransformerTest.cs" />
     <Compile Include="Core\Addml\RecordSeparatorTest.cs" />
     <Compile Include="Core\ArchiveBuilder.cs" />
     <Compile Include="Core\ArchiveExtractionTest.cs" />
@@ -261,6 +262,7 @@
     <Content Include="TestData\noark4-info.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\noark4\NOARKIH.XML" />
     <Content Include="TestData\noark5-info.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

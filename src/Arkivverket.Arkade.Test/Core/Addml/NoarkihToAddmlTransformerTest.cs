@@ -1,0 +1,22 @@
+﻿using Arkivverket.Arkade.Core.Addml;
+using Arkivverket.Arkade.ExternalModels.Addml;
+using Arkivverket.Arkade.Test.Tests.Noark5;
+using FluentAssertions;
+using Xunit;
+
+namespace Arkivverket.Arkade.Test.Core.Addml
+{
+    public class NoarkihToAddmlTransformerTest
+    {
+        [Fact]
+        public void ShouldTransformFromNoarkihToAddml()
+        {
+            string noark4Xml = TestUtil.ReadFromFileInTestDataDir("noark4\\NOARKIH.XML");
+
+            string noark3Xml = NoarkihToAddmlTransformer.Transform(noark4Xml);
+
+            addml addml = AddmlUtil.ReadFromString(noark3Xml);
+            addml.Should().NotBeNull();
+        }
+    }
+}

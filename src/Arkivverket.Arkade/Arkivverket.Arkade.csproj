@@ -99,6 +99,7 @@
     <Compile Include="Core\Addml\IFlatFileReader.cs" />
     <Compile Include="Core\Addml\Noark4FileReader.cs" />
     <Compile Include="Core\Addml\HasProcesses.cs" />
+    <Compile Include="Core\Addml\NoarkihToAddmlTransformer.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindMinMaxValues.cs" />
     <Compile Include="Core\Addml\Processes\ProcessTypeMapping.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKey.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Core\IArchiveContentReader.cs" />
     <Compile Include="Core\ITestEngine.cs" />
     <Compile Include="Core\LogEntry.cs" />
+    <Compile Include="Core\ResourceUtil.cs" />
     <Compile Include="Core\TestEngine.cs" />
     <Compile Include="Core\TestEngineFactory.cs" />
     <Compile Include="Core\TestFinishedEventArgs.cs" />
@@ -204,6 +206,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ExternalModels\xsl\noarkih-to-addml.xsl" />
     <Content Include="ExternalModels\xsd\testSessionLog.xml" />
   </ItemGroup>
   <ItemGroup>
