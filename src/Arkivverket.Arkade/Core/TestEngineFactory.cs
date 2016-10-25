@@ -1,3 +1,4 @@
+using System;
 using Arkivverket.Arkade.Core.Addml;
 using Serilog;
 
@@ -19,6 +20,8 @@ namespace Arkivverket.Arkade.Core
         public ITestEngine GetTestEngine(TestSession testSession)
         {
             _log.Debug("Find test engine for archive {archiveType}", testSession.Archive.ArchiveType);
+
+            throw new Exception("hepp hopp");
 
             if (testSession.Archive.ArchiveType == ArchiveType.Noark5)
             {

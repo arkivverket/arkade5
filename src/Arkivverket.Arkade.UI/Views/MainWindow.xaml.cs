@@ -1,5 +1,4 @@
 ﻿using Arkivverket.Arkade.Util;
-using System.Reflection;
 using System.Windows;
 
 namespace Arkivverket.Arkade.UI.Views
