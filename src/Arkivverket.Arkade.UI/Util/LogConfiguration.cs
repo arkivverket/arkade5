@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Util;
 using Serilog;
 using Serilog.Core;
@@ -11,8 +12,10 @@ namespace Arkivverket.Arkade.UI.Util
         public static void ConfigureSeriLog()
         {
             Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
                 .Enrich.With(new ThreadIdEnricher())
-                .WriteTo.RollingFile(ApplicationSettings.ApplicationDataDirectory() + "\\arkade-log-{Date}.txt", outputTemplate: $"{Resources.UI.SerilogFormatConfig}")
+                .WriteTo.RollingFile(ArkadeConstants.GetArkadeLogDirectory() + "\\arkade-{Date}.log",
+                    outputTemplate: $"{Resources.UI.SerilogFormatConfig}")
                 .WriteTo.ColoredConsole(outputTemplate: $"{Resources.UI.SerilogFormatConfig}")
                 .CreateLogger();
         }

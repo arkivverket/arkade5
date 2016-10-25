@@ -6,7 +6,6 @@ namespace Arkivverket.Arkade.Identify
 {
     public class ArchiveExtractor : IArchiveExtractor
     {
-        public const string TemporaryFolder = "c:\\temp";
         private readonly ICompressionUtility _compressionUtility;
 
         public ArchiveExtractor(ICompressionUtility compressionUtility)
@@ -17,7 +16,7 @@ namespace Arkivverket.Arkade.Identify
         public DirectoryInfo Extract(FileInfo fileName)
         {
             var uuid = Uuid.Of(Path.GetFileNameWithoutExtension(fileName.Name));
-            var targetFolderName = TemporaryFolder + Path.DirectorySeparatorChar + uuid.GetValue();
+            var targetFolderName = ArkadeConstants.GetArkadeTempDirectory().FullName + Path.DirectorySeparatorChar + uuid.GetValue();
 
             _compressionUtility.ExtractFolderFromArchive(fileName.FullName, targetFolderName);
 

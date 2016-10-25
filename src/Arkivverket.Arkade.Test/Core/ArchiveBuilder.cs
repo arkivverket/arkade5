@@ -32,6 +32,13 @@ namespace Arkivverket.Arkade.Test.Core
             _workingDirectory = new DirectoryInfo(workingDirectory);
             return this;
         }
+
+        public ArchiveBuilder WithWorkingDirectory(DirectoryInfo workingDirectory)
+        {
+            _workingDirectory = workingDirectory;
+            return this;
+        }
+
         public ArchiveBuilder WithArchiveType(ArchiveType archiveType)
         {
             _archiveType = archiveType;

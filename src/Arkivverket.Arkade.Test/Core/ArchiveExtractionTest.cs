@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Test.Core
         [Fact]
         public void ShouldReturnContentDescriptionFileNameForNoark5()
         {
-            var workingDirectory = "c:\\temp";
+            var workingDirectory = "c:\\dummy";
             var archiveExtraction = new ArchiveBuilder()
                 .WithWorkingDirectory(workingDirectory)
                 .Build();
@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Test.Core
         [Fact] 
         public void ShouldReturnStructureDescriptionFileNameForNoark5()
         {
-            var workingDirectory = "c:\\temp";
+            var workingDirectory = "C:\\dummy";
             var archiveExtraction = new ArchiveBuilder()
                 .WithWorkingDirectory(workingDirectory)
                 .WithArchiveType(ArchiveType.Noark5)
@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Test.Core
         [Fact]
         public void ShouldReturnStructureDescriptionFileNameForNoark4()
         {
-            var workingDirectory = "c:\\temp";
+            var workingDirectory = "c:\\dummy";
             var archiveExtraction = new ArchiveBuilder()
                 .WithWorkingDirectory(workingDirectory)
                 .WithArchiveType(ArchiveType.Noark4)

@@ -114,6 +114,7 @@
     <Compile Include="Core\ArchiveContentReader.cs" />
     <Compile Include="Core\ArchiveInfo.cs" />
     <Compile Include="Core\Addml\FlatFile.cs" />
+    <Compile Include="Util\ArkadeConstants.cs" />
     <Compile Include="Core\Encodings.cs" />
     <Compile Include="Core\IArchiveContentReader.cs" />
     <Compile Include="Core\ITestEngine.cs" />
@@ -171,7 +172,6 @@
     <Compile Include="Tests\TestProvider.cs" />
     <Compile Include="Tests\TestResult.cs" />
     <Compile Include="Core\TestRun.cs" />
-    <Compile Include="Util\ApplicationSettings.cs" />
     <Compile Include="Util\ArkadeAutofacModule.cs" />
     <Compile Include="Util\ArkadeVersion.cs" />
     <Compile Include="Util\Assert.cs" />

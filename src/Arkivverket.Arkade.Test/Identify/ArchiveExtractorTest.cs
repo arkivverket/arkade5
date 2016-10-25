@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Test.Identify
             var inputFilename = new FileInfo("c:\\users\\johnsmith\\my documents\\" + uuid + ".tar");
             var archiveExtraction = new ArchiveExtractor(compressionUtilityMock.Object).Extract(inputFilename);
 
-            archiveExtraction.FullName.Should().Be(ArchiveExtractor.TemporaryFolder + Path.DirectorySeparatorChar + uuid);
+            archiveExtraction.FullName.Should().Be(ArkadeConstants.GetArkadeTempDirectory().FullName + Path.DirectorySeparatorChar + uuid);
         }
     }
 }
