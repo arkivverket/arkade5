@@ -1,7 +1,8 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:in="NOARKIH"
     xmlns:out="addml"
-    version="1.0">
+    version="1.0"
+    xmlns="http://www.arkivverket.no/standarder/addml">
 
 <!--
         Denne transformering skjer fra en NoarkIH.xml og gjør denne om til en addml.xml.
@@ -19,7 +20,7 @@
     </xsl:template>
     
     <xsl:template match="NOARK.IH">
-        <addml xmlns="http://www.arkivverket.no/standarder/addml"
+        <addml 
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://www.arkivverket.no/standarder/addml addml.xsd">
             <dataset>
