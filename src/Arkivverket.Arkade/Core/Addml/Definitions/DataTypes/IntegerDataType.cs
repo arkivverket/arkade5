@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
 {
     public class IntegerDataType : DataType
@@ -11,7 +13,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
         {
         }
 
-        public IntegerDataType(string fieldFormat)
+        public IntegerDataType(string fieldFormat) : this(fieldFormat, null)
+        {
+        }
+
+        public IntegerDataType(string fieldFormat, List<string> nullValues) : base(nullValues)
         {
             FieldFormat = fieldFormat;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
 {
@@ -8,7 +9,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
         private readonly string _trueString;
         private readonly string _falseString;
 
-        public BooleanDataType(string fieldFormat)
+        public BooleanDataType(string fieldFormat) : this(fieldFormat, null)
+        {            
+        }
+
+        public BooleanDataType(string fieldFormat, List<string> nullValues) : base(nullValues)
         {
 
             string[] strings = fieldFormat.Split('/');

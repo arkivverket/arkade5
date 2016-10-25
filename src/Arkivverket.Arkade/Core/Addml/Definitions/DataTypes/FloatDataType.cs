@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
@@ -11,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         {
         }
 
-        public FloatDataType(string fieldFormat)
+        public FloatDataType(string fieldFormat, List<string> nullValues) : base(nullValues)
         {
             this._fieldFormat = fieldFormat;
         }

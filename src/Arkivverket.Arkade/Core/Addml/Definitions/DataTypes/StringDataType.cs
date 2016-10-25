@@ -1,4 +1,6 @@
-﻿namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
+﻿using System.Collections.Generic;
+
+namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
 {
     public class StringDataType : DataType
     {
@@ -10,7 +12,7 @@
         {
             
         }
-        public StringDataType(string fieldFormat)
+        public StringDataType(string fieldFormat, List<string> nullValues) : base(nullValues)
         {
             _fieldFormat = fieldFormat;
         }

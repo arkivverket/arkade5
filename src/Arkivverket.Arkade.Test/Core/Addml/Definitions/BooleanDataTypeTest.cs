@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
 using FluentAssertions;
 using Xunit;
@@ -73,6 +74,34 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
         {
             Assert.Throws<ArgumentException>(() => new BooleanDataType("T/T"));
             Assert.Throws<ArgumentException>(() => new BooleanDataType("hepp/hepp"));
+        }
+
+        [Fact]
+        public void IsNullShouldReturnTrueIfStringIsEqualToNullValue()
+        {
+            BooleanDataType type = new BooleanDataType("T/F", new List<string> {"null", ""});
+            type.IsNull("null").Should().BeTrue();
+            type.IsNull("").Should().BeTrue();
+        }
+
+        [Fact]
+        public void IsNullShouldReturnFalseIfStringIsNotEqualToNullValue()
+        {
+            BooleanDataType type = new BooleanDataType("T/F", new List<string> { "null", "" });
+            type.IsNull("T").Should().BeFalse();
+            type.IsNull("F").Should().BeFalse();
+            type.IsNull("other").Should().BeFalse();
+        }
+
+        [Fact]
+        public void IsNullShouldReturnFalseIfNullValueIsNotSet()
+        {
+            BooleanDataType type = new BooleanDataType("T/F", null);
+            type.IsNull("null").Should().BeFalse();
+            type.IsNull("").Should().BeFalse();
+            type.IsNull("T").Should().BeFalse();
+            type.IsNull("F").Should().BeFalse();
+            type.IsNull("other").Should().BeFalse();
         }
 
     }

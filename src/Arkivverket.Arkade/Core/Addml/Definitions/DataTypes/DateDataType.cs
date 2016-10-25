@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
@@ -8,7 +9,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
         private readonly string _fieldFormat;
         private readonly string _dateTimeFormat;
 
-        public DateDataType(string fieldFormat)
+        public DateDataType(string fieldFormat) : this(fieldFormat, null)
+        {
+        }
+
+        public DateDataType(string fieldFormat, List<string> nullValues) : base(nullValues)
         {
             _fieldFormat = fieldFormat;
             _dateTimeFormat = ConvertToDateTimeFormat(_fieldFormat);

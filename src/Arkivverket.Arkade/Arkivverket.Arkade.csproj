@@ -84,7 +84,7 @@
     <Compile Include="Core\Addml\Definitions\DataTypes\DateDataType.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\DataType.cs" />
     <Compile Include="Core\Addml\Definitions\FieldIndex.cs" />
-    <Compile Include="Core\Addml\Definitions\FloatDataType.cs" />
+    <Compile Include="Core\Addml\Definitions\DataTypes\FloatDataType.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\IntegerDataType.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\LinkDataType.cs" />
     <Compile Include="Core\Addml\Definitions\RecordSeparator.cs" />

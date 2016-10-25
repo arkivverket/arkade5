@@ -42,18 +42,22 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         private DataType CreateFieldType(fieldType fieldType)
         {
+            string format = fieldType.fieldFormat;
+            List<string> nullValues = fieldType.nullValues == null ? null : new List<string>(fieldType.nullValues);
+
             switch (fieldType.dataType)
             {
+
                 case "string":
-                    return new StringDataType(fieldType.fieldFormat);
+                    return new StringDataType(format, nullValues);
                 case "integer":
-                    return new IntegerDataType(fieldType.fieldFormat);
+                    return new IntegerDataType(format, nullValues);
                 case "float":
-                    return new FloatDataType(fieldType.fieldFormat);
+                    return new FloatDataType(format, nullValues);
                 case "date":
-                    return new DateDataType(fieldType.fieldFormat);
+                    return new DateDataType(format, nullValues);
                 case "boolean":
-                    return new BooleanDataType(fieldType.fieldFormat);
+                    return new BooleanDataType(format, nullValues);
                 case "link":
                     return new LinkDataType();
                 default:
