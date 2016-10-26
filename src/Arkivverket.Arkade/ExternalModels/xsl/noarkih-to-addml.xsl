@@ -32,7 +32,10 @@
                     </flatFileDefinitions>
                     <structureTypes>
                         <flatFileTypes>
-                            <flatFileType name="filref"/>
+                            <flatFileType name="filref">
+                                <charset>ISO-8859-1</charset>
+                                <fixedFileFormat/>
+                            </flatFileType>
                         </flatFileTypes>
                         <recordTypes>
                             <recordType name="recref"/>
