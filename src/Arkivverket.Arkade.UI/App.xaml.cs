@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Threading;
 using Arkivverket.Arkade.UI.Util;
 using Arkivverket.Arkade.Util;
 using Serilog;
-using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
 
 namespace Arkivverket.Arkade.UI
 {
     public partial class App : Application
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext<App>();
+
         public App()
         {
             // Add the event handler for handling UI thread exceptions to the event.
@@ -27,30 +26,21 @@ namespace Arkivverket.Arkade.UI
         static void MyHandler(object sender, UnhandledExceptionEventArgs args)
         {
             Exception e = (Exception)args.ExceptionObject;
-            string errorMessage = $"An unhandled exception occurred: {e.Message}";
-            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            Log.Error(errorMessage, e);
+            ExceptionMessageBox.Show(e);
         }
 
         /*
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs args)
         {
             Exception e = args.Exception;
-            //Console.WriteLine("MyHandler caught : " + e.Message);
-            //Console.WriteLine("Runtime terminating: {0}", args.IsTerminating);
-
-            string errorMessage = $"An unhandled exception occurred: {e.Message}";
-            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            Log.Error(errorMessage, e);
-        }
+            ExceptionMessageBox.Show(e);
+         }
         */
 
         void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            string errorMessage = $"An unhandled exception occurred: {e.Exception.Message}";
-            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            ExceptionMessageBox.Show(e.Exception);
             e.Handled = true;
-            Log.Error(errorMessage, e);
         }
 
         protected override void OnStartup(StartupEventArgs e)

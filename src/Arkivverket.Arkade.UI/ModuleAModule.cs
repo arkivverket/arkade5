@@ -13,7 +13,6 @@ namespace Arkivverket.Arkade.UI
             _regionManager = regionManager;
         }
 
-
         public void Initialize()
         {
             _regionManager.RegisterViewWithRegion("MainContentRegion", typeof(LoadArchiveExtraction));

@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Core
         }
 
 
-        public DirectoryInfo GetArkadeDirectory()
+        public static DirectoryInfo GetArkadeDirectory()
         {
             return ArkadeDirectory;
         }

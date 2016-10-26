@@ -138,6 +138,7 @@
     <Compile Include="Models\TestRunnerStatus.cs" />
     <Compile Include="ModuleAModule.cs" />
     <Compile Include="Util\Colors.cs" />
+    <Compile Include="Util\ExceptionMessageBox.cs" />
     <Compile Include="Util\UiProcessingExceptions.cs" />
     <Compile Include="Util\FileFolderDialogs.cs" />
     <Compile Include="Util\LogConfiguration.cs" />

@@ -42,6 +42,7 @@
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.2.0.0\lib\net45\Serilog.dll</HintPath>
       <Private>True</Private>
@@ -53,6 +54,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -180,6 +182,7 @@
     <Compile Include="Util\ICompressionUtility.cs" />
     <Compile Include="Util\SerializeUtil.cs" />
     <Compile Include="Util\Sha256ChecksumGenerator.cs" />
+    <Compile Include="Util\SystemInfo.cs" />
     <Compile Include="Util\TarCompressionUtility.cs" />
     <Compile Include="Util\XmlReaderHelpers.cs" />
   </ItemGroup>

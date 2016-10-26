@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,12 +11,14 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Logging;
+using Arkivverket.Arkade.UI.Util;
+using Application = System.Windows.Application;
 
 namespace Arkivverket.Arkade.UI.ViewModels
 {
     public class TestRunnerViewModel : BindableBase, INavigationAware
     {
-        private ILogger _log = Log.ForContext<TestRunnerViewModel>();
+        private readonly ILogger _log = Log.ForContext<TestRunnerViewModel>();
 
         private ObservableCollection<TestRunnerStatus> _testResults = new ObservableCollection<TestRunnerStatus>();
 
@@ -53,7 +56,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _statusEventHandler.StatusEvent += OnStatusEvent;
 
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
-            NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
+           NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
         }
 
         private void NavigateToSummary()
@@ -90,27 +93,34 @@ namespace Arkivverket.Arkade.UI.ViewModels
             UpdateGuiCollection(statusEventArgument);
         }
 
-
         private void RunTests()
         {
-            _log.Debug("Issued the RunTests command");
+            try
+            {
+                _log.Debug("Issued the RunTests command");
 
-            _isRunningTests = true;
-            NavigateToSummaryCommand.RaiseCanExecuteChanged();
+                _isRunningTests = true;
+                NavigateToSummaryCommand.RaiseCanExecuteChanged();
 
-            _testSession = _testSessionBuilder.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
+                _testSession = _testSessionBuilder.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
 
-            _log.Debug(_testSession.Archive.Uuid.GetValue());
-            _log.Debug(_testSession.Archive.ArchiveType.ToString());
-            _log.Debug(_testSession.Archive.WorkingDirectory.Name);
+                _log.Debug(_testSession.Archive.Uuid.GetValue());
+                _log.Debug(_testSession.Archive.ArchiveType.ToString());
+                _log.Debug(_testSession.Archive.WorkingDirectory.Name);
 
-            ITestEngine testEngine = _testEngineFactory.GetTestEngine(_testSession);
-            _testSession.TestSuite = testEngine.RunTestsOnArchive(_testSession);
-            TestSessionXmlGenerator.GenerateXmlAndSaveToFile(_testSession);
+                ITestEngine testEngine = _testEngineFactory.GetTestEngine(_testSession);
+                _testSession.TestSuite = testEngine.RunTestsOnArchive(_testSession);
+                TestSessionXmlGenerator.GenerateXmlAndSaveToFile(_testSession);
 
-            _isRunningTests = false;
-            FinishedTestingMessageVisibility = Visibility.Visible;
-            NavigateToSummaryCommand.RaiseCanExecuteChanged();
+                _isRunningTests = false;
+                FinishedTestingMessageVisibility = Visibility.Visible;
+                NavigateToSummaryCommand.RaiseCanExecuteChanged();
+            }
+            catch (Exception e)
+            {
+                ExceptionMessageBox.Show(e);
+                throw;
+            }
         }
 
 

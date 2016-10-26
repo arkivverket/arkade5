@@ -9,16 +9,6 @@ namespace Arkivverket.Arkade.UI
 {
     public class Bootstrapper : AutofacBootstrapper
     {
-        protected override DependencyObject CreateShell()
-        {
-            return Container.Resolve<MainWindow>();
-        }
-
-        protected override void InitializeShell()
-        {
-            Application.Current.MainWindow.Show();
-        }
-
         protected override void ConfigureModuleCatalog()
         {
             var catalog = (ModuleCatalog) ModuleCatalog;
@@ -31,6 +21,16 @@ namespace Arkivverket.Arkade.UI
             builder.RegisterModule(new ArkadeAutofacModule());
 
             builder.RegisterTypeForNavigation<TestRunner>();
+        }
+
+        protected override DependencyObject CreateShell()
+        {
+            return Container.Resolve<MainWindow>();
+        }
+
+        protected override void InitializeShell()
+        {
+            Application.Current.MainWindow.Show();
         }
     }
 }

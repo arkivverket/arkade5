@@ -57,6 +57,10 @@
       <HintPath>..\packages\Moq.4.5.13\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.2.3.0\lib\net45\Serilog.dll</HintPath>
       <Private>True</Private>
@@ -157,7 +161,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="TestData\noark3\ARKIV.DAT" />
     <None Include="TestData\noark3\DOK.DAT" />
     <None Include="TestData\noark3\SAK.DAT" />
