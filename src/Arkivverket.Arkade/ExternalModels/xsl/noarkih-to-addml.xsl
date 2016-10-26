@@ -1,16 +1,12 @@
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:in="NOARKIH"
-    xmlns:out="addml"
-    version="1.0"
-    xmlns="http://www.arkivverket.no/standarder/addml">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.arkivverket.no/standarder/addml"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="1.0">
 
 <!--
         Denne transformering skjer fra en NoarkIH.xml og gjør denne om til en addml.xml.
         
-        Foreløpig er det følgende kjente feil:
-            dataType i structureTypes er hardkodet i dag og alle elementene er angitt som string. Test relatert til Noark-4 del 2 mangler.
-            Muligens mangler det også noe i definisjonen
-        
+        Foreløpig er det en feil ved at flere av elementene får med attributtet xlmns="".
 -->
     <xsl:output method="xml" version="1.0"
         encoding="UTF-8" indent="yes"/>
@@ -20,7 +16,7 @@
     </xsl:template>
     
     <xsl:template match="NOARK.IH">
-        <addml 
+        <addml xmlns="http://www.arkivverket.no/standarder/addml"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://www.arkivverket.no/standarder/addml addml.xsd">
             <dataset>
@@ -29,35 +25,25 @@
                 </reference>
                 <flatFiles>
                     <xsl:apply-templates select="TABELLINFO"/>
-                    <xsl:for-each select="TABELLINFO">
-                        <xsl:apply-templates select="ATTRIBUTTER"/>
-                    </xsl:for-each>
+                    <flatFileDefinitions>
+                        <xsl:for-each select="TABELLINFO">
+                            <xsl:apply-templates select="ATTRIBUTTER"/>
+                        </xsl:for-each>
+                    </flatFileDefinitions>
+                    <structureTypes>
+                        <flatFileTypes>
+                            <flatFileType name="filref"/>
+                        </flatFileTypes>
+                        <recordTypes>
+                            <recordType name="recref"/>
+                        </recordTypes>
+                        <fieldTypes>
+                            <fieldType name="string">
+                                <dataType>String</dataType>
+                            </fieldType>
+                        </fieldTypes>
+                    </structureTypes>
                 </flatFiles>
-                <structureTypes>
-                    <flatFileTypes>
-                        <flatFileType name="filref"/>
-                    </flatFileTypes>
-                    <recordTypes>
-                        <recordType name="recref"/>
-                    </recordTypes>
-                    <fieldTypes>
-                        <fieldType name="string">
-                            <dataType>string</dataType>
-                        </fieldType>
-                        <fieldType name="integer">
-                            <dataType>intger</dataType>
-                        </fieldType>
-                        <fieldType name="float">
-                            <dataType>float</dataType>
-                        </fieldType>
-                        <fieldType name="date">
-                            <dataType>date</dataType>
-                        </fieldType>
-                        <fieldType name="boolean">
-                            <dataType>boolean</dataType>
-                        </fieldType>
-                    </fieldTypes>
-                </structureTypes>
 <!--            <processes>
                     Her skal det legges inn for de prosessene som skal utføres.
                 </processes>
@@ -149,12 +135,12 @@
     <xsl:template match="TABELLINFO">
         <xsl:variable name="filnavn" select="TI.TABELL"/>
         <flatFile definitionReference="{$filnavn}" name="{$filnavn}">
-            <value><xsl:value-of select="TI.TABELL"/></value>
+            <!--<value><xsl:value-of select="TI.TABELL"/></value>-->
             <properties>
                 <property name="fileName">
                     <value><xsl:value-of select="FIL/TI.FILNAVN"/></value>
                 </property>
-                <property name="numberOfOccurrences">
+                <property name="numberOfRecords">
                     <value><xsl:value-of select="FIL/TI.ANTPOSTER"/></value>
                 </property>
             </properties>
@@ -163,8 +149,8 @@
     
     <xsl:template match="ATTRIBUTTER">
         <xsl:variable name="filnavn" select="../TI.TABELL"/>
-        <flatFileDefinitions>
-            <flatFileDefinition definitionReference="{$filnavn}" name="{$filnavn}">
+        <!--<flatFileDefinitions>-->
+            <flatFileDefinition name="{$filnavn}" typeReference="filref">
                 <recordDefinitions>
                     <recordDefinition name="{$filnavn}">
                         <fieldDefinitions>
@@ -176,7 +162,20 @@
                     </recordDefinition>
                 </recordDefinitions>
             </flatFileDefinition>
-        </flatFileDefinitions>
+<!--        </flatFileDefinitions>
+        <structureTypes>
+            <flatFileTypes>
+                <flatFileType name="filref"/>
+            </flatFileTypes>
+            <recordTypes>
+                <recordType name="recref"/>
+            </recordTypes>
+            <fieldTypes>
+                <fieldType name="string">
+                    <dataType>String</dataType>
+                </fieldType>
+            </fieldTypes>
+        </structureTypes>-->
     </xsl:template>
 
     <xsl:template match="TI.ATTR">
@@ -185,10 +184,6 @@
                 <value><xsl:value-of select="TI.ATTR"/></value>
             </xsl:variable>
             <fieldDefinition name="{$feltnavn}" typeReference="string"/>
-            <!--<xsl:variable name="datatype">
-                <value><xsl:value-of select="TI.ATTR"/></value>
-            </xsl:variable>
-            <fieldDefinition name="{$feltnavn}" typeReference="{$datatype}"/>-->
         </fieldDefinitions>
     </xsl:template>
 </xsl:stylesheet>

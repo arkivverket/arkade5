@@ -19,9 +19,9 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             addml.Should().NotBeNull();
 
             addml.dataset[0].flatFiles.flatFile.Length.Should().Be(67);
+            addml.dataset[0].flatFiles.flatFileDefinitions.Length.Should().Be(67);
 
-            // Error in XSLT
-            //addml.dataset[0].flatFiles.flatFileDefinitions.Length.Should().Be(67);
+            // TODO: Add more tests here!
         }
     }
 }
