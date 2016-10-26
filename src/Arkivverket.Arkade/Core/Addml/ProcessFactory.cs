@@ -7,8 +7,13 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
+
+    // TODO: Remove "Factory" from class name
+
     public class ProcessFactory
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext<ProcessFactory>();
+
         private readonly AddmlDefinition _addmlDefinition;
         private readonly Dictionary<string, IAddmlProcess> _processesByName;
         private readonly ProcessTypeMapping _processTypeMapping = new ProcessTypeMapping();
@@ -22,8 +27,7 @@ namespace Arkivverket.Arkade.Core.Addml
         private Dictionary<string, IAddmlProcess> InstantiateProcesses()
         {
             var processes = new Dictionary<string, IAddmlProcess>();
-            HashSet<string> processNames = GetUniqueProcesses();
-            foreach (string processName in processNames)
+            foreach (string processName in GetUniqueProcesses())
             {
                 Type type = _processTypeMapping.GetType(processName);
                 if (type != null)
@@ -33,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Addml
                 }
                 else
                 {
-                    Log.Logger.Warning("No process with name " + processName);
+                    Log.Warning("No process with name " + processName);
                 }
             }
             return processes;
@@ -44,27 +48,19 @@ namespace Arkivverket.Arkade.Core.Addml
             var uniqueProcessSet = new HashSet<string>();
             foreach (AddmlFlatFileDefinition flatFileDefinition in _addmlDefinition.AddmlFlatFileDefinitions)
             {
-                AddListOfProcessesToSet(uniqueProcessSet, flatFileDefinition.Processes);
+                uniqueProcessSet.UnionWith(flatFileDefinition.Processes);
 
                 foreach (AddmlRecordDefinition recordDefinition in flatFileDefinition.AddmlRecordDefinitions)
                 {
-                    AddListOfProcessesToSet(uniqueProcessSet, recordDefinition.Processes);
+                    uniqueProcessSet.UnionWith(recordDefinition.Processes);
 
                     foreach (AddmlFieldDefinition fieldDefinition in recordDefinition.AddmlFieldDefinitions)
                     {
-                        AddListOfProcessesToSet(uniqueProcessSet, fieldDefinition.Processes);
+                        uniqueProcessSet.UnionWith(fieldDefinition.Processes);
                     }
                 }
             }
             return uniqueProcessSet;
-        }
-
-        private void AddListOfProcessesToSet(HashSet<string> processSet, List<string> processList)
-        {
-            foreach (string processName in processList)
-            {
-                processSet.Add(processName);
-            }
         }
 
         public Dictionary<string, List<IAddmlProcess>> GetFileProcesses()
@@ -98,7 +94,7 @@ namespace Arkivverket.Arkade.Core.Addml
                     }
                     else
                     {
-                        Log.Logger.Warning($"No class found for process [{processName}]");
+                        Log.Warning($"No class found for process [{processName}]");
                     }
                 }
                 processInstancesByGroup.Add(file, processesInstances);

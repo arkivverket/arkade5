@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
@@ -22,12 +20,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public Type GetType(string processName)
         {
-            if (!_nameToClass.ContainsKey(processName))
-            {
-                return null;
-            }
-
-            return _nameToClass[processName];
+            return !_nameToClass.ContainsKey(processName) ? null : _nameToClass[processName];
         }
     }
 }
