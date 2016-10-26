@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             string format = fieldType.fieldFormat;
             List<string> nullValues = fieldType.nullValues == null ? null : new List<string>(fieldType.nullValues);
 
-            switch (fieldType.dataType)
+            switch (fieldType.dataType.ToLower())
             {
 
                 case "string":
@@ -210,7 +210,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             foreach (recordDefinition recordDefinition in recordDefinitions)
             {
                 string recordDefinitionName = recordDefinition.name;
-                int recordLength = GetRecordLength(recordDefinition);
+                int? recordLength = GetRecordLength(recordDefinition);
                 List<string> recordProcesses = GetRecordProcessNames(addmlFlatFileDefinition.Name, recordDefinition.name);
 
                 AddmlRecordDefinition addmlRecordDefinition = 
@@ -236,8 +236,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                         name, startPosition, fixedLength, dataType, isUnique, isNullable, minLength,
                         maxLength, foreignKeyReference, processes, isPartOfPrimaryKey);
 
-                    _allFieldDefinitions.Add(new FieldIndex(flatFileDefinition, recordDefinition, fieldDefinition),
-                        addAddmlFieldDefinition);
+                    FieldIndex fieldIndex = new FieldIndex(flatFileDefinition, recordDefinition, fieldDefinition);
+                    if (_allFieldDefinitions.ContainsKey(fieldIndex))
+                    {
+                        throw new AddmlDefinitionParseException("ADDML file already contains a field definition with same index: " + fieldIndex);
+                    }
+
+                    _allFieldDefinitions.Add(fieldIndex, addAddmlFieldDefinition);
                 }
             }
         }
@@ -314,9 +319,9 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         }
 
 
-        private int GetRecordLength(recordDefinition recordDefinition)
+        private int? GetRecordLength(recordDefinition recordDefinition)
         {
-            return int.Parse(recordDefinition.fixedLength);
+            return recordDefinition.fixedLength == null ? (int?)null : int.Parse(recordDefinition.fixedLength);
         }
 
         private AddmlFieldDefinition GetForeignKeyReference(recordDefinition recordDefinition,

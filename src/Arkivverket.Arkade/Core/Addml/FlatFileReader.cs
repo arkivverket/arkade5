@@ -27,7 +27,11 @@ namespace Arkivverket.Arkade.Core.Addml
             _addmlRecordDefinition = file.Definition.AddmlRecordDefinitions[0];
 
             FileStream fileStream = file.Definition.FileInfo.OpenRead();
-            int recordLength = _addmlRecordDefinition.RecordLength;
+            int? recordLength = _addmlRecordDefinition.RecordLength;
+            if (!recordLength.HasValue)
+            {
+                throw new Exception("FlatFileReader requires recordLength");
+            }
 
             Encoding encoding = file.Definition.Encoding;
             StreamReader streamReader = new StreamReader(fileStream, encoding);
@@ -38,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Addml
                 fieldLengths.Add(addmlFieldDefinition.FixedLength.Value);
             }
 
-            _fixedFormatReader = new FixedFormatReader(streamReader, recordLength, fieldLengths);
+            _fixedFormatReader = new FixedFormatReader(streamReader, recordLength.Value, fieldLengths);
         }
 
         public bool HasMoreRecords()

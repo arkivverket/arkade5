@@ -21,12 +21,14 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             _fieldDefinitionName = fieldDefinitionName;
         }
 
-        public FieldIndex(flatFileDefinition flatFileDefinition, recordDefinition recordDefinition, fieldDefinition fieldDefinition)
+        public FieldIndex(flatFileDefinition flatFileDefinition, recordDefinition recordDefinition,
+            fieldDefinition fieldDefinition)
             : this(flatFileDefinition.name, recordDefinition.name, fieldDefinition.name)
-        {            
+        {
         }
 
-        public FieldIndex(flatFileDefinitionReference flatFileDefinitionReference, recordDefinitionReference recordDefinitionReference, fieldDefinitionReference fieldDefinitionReference)
+        public FieldIndex(flatFileDefinitionReference flatFileDefinitionReference,
+            recordDefinitionReference recordDefinitionReference, fieldDefinitionReference fieldDefinitionReference)
             : this(flatFileDefinitionReference.name, recordDefinitionReference.name, fieldDefinitionReference.name)
         {
         }
@@ -55,6 +57,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 hashCode = (hashCode*397) ^ _fieldDefinitionName.GetHashCode();
                 return hashCode;
             }
+        }
+
+        public override string ToString()
+        {
+            return
+                $"{nameof(_flatFileDefinitionName)}: {_flatFileDefinitionName}, {nameof(_recordDefinitionName)}: {_recordDefinitionName}, {nameof(_fieldDefinitionName)}: {_fieldDefinitionName}";
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             Processes = processes;
         }
 
-        internal AddmlRecordDefinition AddAddmlRecordDefinition(string name, int recordLength,
+        internal AddmlRecordDefinition AddAddmlRecordDefinition(string name, int? recordLength,
             List<string> processes)
         {
             AddmlRecordDefinition addmlFieldDefinition = new AddmlRecordDefinition(this,

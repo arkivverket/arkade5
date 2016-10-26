@@ -6,20 +6,22 @@ namespace Arkivverket.Arkade.Test.Integration
 {
     public class Noark4Test
     {
-        [Fact(Skip = "Error in XSLT transformation. arkivuttrekk.xml is not valid")]
+        [Fact]
         public void ShouldParseNoark4ConvertedArkivuttrekkXml()
         {
             //string noarkihString = TestUtil.ReadFromFileInTestDataDir("noark4\\NOARKIH.XML");
             //string addmlString = NoarkihToAddmlTransformer.Transform(noarkihString);
 
             // File is converted from NOARKIH.XML format
-            AddmlInfo addml = AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\noark4\\arkivuttrekk.xml");
+            AddmlInfo addml = AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\noark4\\addml.xml");
 
             AddmlDefinitionParser parser = new AddmlDefinitionParser(addml);
 
             AddmlDefinition addmlDefinition = parser.GetAddmlDefinition();
 
-/*
+            // TODO: Add tests here!
+
+            /*
             List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
             addmlFlatFileDefinitions.Count.Should().Be(10);
             {
