@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Management;
-using System.Text;
-using System.Threading.Tasks;
 using Arkivverket.Arkade.Core;
 using Microsoft.Win32;
 

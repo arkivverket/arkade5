@@ -13,7 +13,10 @@ namespace Arkivverket.Arkade.UI.Util
         public static void Show(Exception e)
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Use Ctrl+C to copy this error message and send it to arkade5@arkivverket.no");
+            sb.AppendLine("");
             sb.AppendLine("System information:");
+            sb.AppendLine("Arkade version: " + ArkadeVersion.Version);
             sb.AppendLine("OS: " + SystemInfo.GetOsName());
             sb.AppendLine("OS Version: " + SystemInfo.GetOsVersion());
             sb.AppendLine(".NET Framework: " + SystemInfo.GetDotNetFrameworkVersion());
@@ -41,7 +44,7 @@ namespace Arkivverket.Arkade.UI.Util
 
             Log.Error(errorMessage);
 
-            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(errorMessage, "Unexpected error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
