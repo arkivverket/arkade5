@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Core
             return Encoding.GetEncoding(Sanitize(charset));
         }
 
-        private static String Sanitize(string charset)
+        private static string Sanitize(string charset)
         {
             return charset.Replace("_", "-").Trim().ToLower();
         }
