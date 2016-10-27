@@ -1,21 +1,22 @@
-using Arkivverket.Arkade.Core;
-using Serilog;
+using System;
 using System.IO;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Logging;
+using Serilog;
 
 namespace Arkivverket.Arkade.Identify
 {
     public class TestSessionFactory : ITestSessionFactory
     {
-        private ILogger _log = Log.ForContext<TestSessionFactory>();
-
         private readonly IArchiveExtractor _archiveExtractor;
         private readonly IArchiveIdentifier _archiveIdentifier;
+        private readonly ILogger _log = Log.ForContext<TestSessionFactory>();
         private readonly IStatusEventHandler _statusEventHandler;
 
-        public TestSessionFactory(IArchiveExtractor archiveExtractor, IArchiveIdentifier archiveIdentifier, StatusEventHandler statusEventHandler)
+        public TestSessionFactory(IArchiveExtractor archiveExtractor, IArchiveIdentifier archiveIdentifier,
+            StatusEventHandler statusEventHandler)
         {
             _archiveExtractor = archiveExtractor;
             _archiveIdentifier = archiveIdentifier;
@@ -24,18 +25,23 @@ namespace Arkivverket.Arkade.Identify
 
         public TestSession NewSessionFromTarFile(string archiveFileName, string metadataFileName)
         {
-            _log.Information($"Building new TestSession with [archiveFileName: {archiveFileName}] [metadataFileName: {metadataFileName}");
+            _log.Information(
+                $"Building new TestSession with [archiveFileName: {archiveFileName}] [metadataFileName: {metadataFileName}");
             FileInfo archiveFileInfo = new FileInfo(archiveFileName);
 
             var uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFileName));
             var archiveType = _archiveIdentifier.Identify(metadataFileName);
 
-            _statusEventHandler.IssueOnTestInformation(Resources.Messages.TarExtractionMessage, $"Starter utpakking av {archiveFileName}",StatusTestExecution.TestStarted, false);
+            _statusEventHandler.IssueOnTestInformation(Resources.Messages.TarExtractionMessage,
+                $"Starter utpakking av {archiveFileName}", StatusTestExecution.TestStarted, false);
 
             DirectoryInfo targetFolderName = _archiveExtractor.Extract(archiveFileInfo);
             Archive archive = new Archive(archiveType, uuid, targetFolderName);
 
-            _statusEventHandler.IssueOnTestInformation(Resources.Messages.TarExtractionMessage, $"{archiveFileName} er ferdig utpakket", StatusTestExecution.TestCompleted, true);
+            ConvertNoarkihToAddmlIfNoark4(archive);
+
+            _statusEventHandler.IssueOnTestInformation(Resources.Messages.TarExtractionMessage,
+                $"{archiveFileName} er ferdig utpakket", StatusTestExecution.TestCompleted, true);
 
             var testSession = new TestSession(archive);
             if (archiveType != ArchiveType.Noark5)
@@ -43,7 +49,41 @@ namespace Arkivverket.Arkade.Identify
                 AddmlInfo addml = AddmlUtil.ReadFromFile(archive.GetStructureDescriptionFileName());
                 testSession.AddmlDefinition = new AddmlDefinitionParser(addml).GetAddmlDefinition();
             }
+
             return testSession;
+        }
+
+
+        private void ConvertNoarkihToAddmlIfNoark4(Archive archive)
+        {
+            if (archive.ArchiveType != ArchiveType.Noark4)
+            {
+                return;
+            }
+
+            string addmlFile =
+                archive.WorkingDirectory.FullName + Path.DirectorySeparatorChar + ArkadeConstants.AddmlXmlFileName;
+
+            if (File.Exists(addmlFile))
+            {
+                _log.Information("{0} already exists. XSLT transformation of {1} skipped.",
+                    ArkadeConstants.AddmlXmlFileName, ArkadeConstants.NoarkihXmlFileName);
+                return;
+            }
+
+            string noarkihFile =
+                archive.WorkingDirectory.FullName + Path.DirectorySeparatorChar + ArkadeConstants.NoarkihXmlFileName;
+            if (!File.Exists(noarkihFile))
+            {
+                throw new Exception("No such file: " + noarkihFile);
+            }
+
+            string noarkihString = File.ReadAllText(noarkihFile);
+            string addmlString = NoarkihToAddmlTransformer.Transform(noarkihString);
+
+            File.WriteAllText(addmlFile, addmlString);
+            _log.Information("Successfully transformed {0} to {1}.", ArkadeConstants.NoarkihXmlFileName,
+                ArkadeConstants.AddmlXmlFileName);
         }
     }
 }
