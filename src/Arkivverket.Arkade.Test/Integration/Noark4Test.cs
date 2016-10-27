@@ -1,5 +1,9 @@
-﻿using Arkivverket.Arkade.Core.Addml;
+﻿using System.Collections.Generic;
+using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
+using FluentAssertions;
 using Xunit;
 
 namespace Arkivverket.Arkade.Test.Integration
@@ -9,6 +13,7 @@ namespace Arkivverket.Arkade.Test.Integration
         [Fact]
         public void ShouldParseNoark4ConvertedArkivuttrekkXml()
         {
+            // Code to convert NOARKIH.XML to addml.xml
             //string noarkihString = TestUtil.ReadFromFileInTestDataDir("noark4\\NOARKIH.XML");
             //string addmlString = NoarkihToAddmlTransformer.Transform(noarkihString);
 
@@ -19,25 +24,22 @@ namespace Arkivverket.Arkade.Test.Integration
 
             AddmlDefinition addmlDefinition = parser.GetAddmlDefinition();
 
-            // TODO: Add tests here!
-
-            /*
             List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
-            addmlFlatFileDefinitions.Count.Should().Be(10);
-            {
-                addmlFlatFileDefinitions[0].Name.Should().Be("ffd_3");
-                addmlFlatFileDefinitions[0].FileName.Should().Be("jeger.dat");
-                addmlFlatFileDefinitions[0].Encoding.Should().Be(Encodings.ISO_8859_1);
-                addmlFlatFileDefinitions[0].RecordSeparator.Should().Be(RecordSeparator.CRLF);
-                addmlFlatFileDefinitions[0].AddmlRecordDefinitions.Count.Should().Be(1);
-                AddmlRecordDefinition addmlRecordDefinition = addmlFlatFileDefinitions[0].AddmlRecordDefinitions[0];
-                List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
-                addmlFieldDefinitions.Count.Should().Be(36);
-                addmlFieldDefinitions[0].Name.Should().Be("fodselsnummer");
-                addmlRecordDefinition.PrimaryKey.Should()
-                    .Equal(new List<AddmlFieldDefinition>() {addmlFieldDefinitions[0]});
-            }
-            */
+            addmlFlatFileDefinitions.Count.Should().Be(63);
+            addmlFlatFileDefinitions[0].Name.Should().Be("ORDNPRINSTYPE");
+            addmlFlatFileDefinitions[0].FileName.Should().Be("OPRITYP.XML");
+            addmlFlatFileDefinitions[0].Encoding.Should().Be(Encodings.ISO_8859_1);
+            addmlFlatFileDefinitions[0].RecordSeparator.Should().BeNull();
+            addmlFlatFileDefinitions[0].AddmlRecordDefinitions.Count.Should().Be(1);
+            AddmlRecordDefinition addmlRecordDefinition = addmlFlatFileDefinitions[0].AddmlRecordDefinitions[0];
+            addmlRecordDefinition.Name.Should().Be("ORDNPRINSTYPE");
+            List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
+            addmlFieldDefinitions.Count.Should().Be(2);
+            addmlFieldDefinitions[0].Name.Should().Be("OT.KODE");
+            addmlFieldDefinitions[0].Type.Should().Be(StringDataType.Default);
+            addmlFieldDefinitions[1].Name.Should().Be("OT.BETEGN");
+            addmlFieldDefinitions[1].Type.Should().Be(StringDataType.Default);
+            addmlRecordDefinition.PrimaryKey.Should().BeNull();
         }
     }
 }

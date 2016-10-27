@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
@@ -10,13 +9,25 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
 {
     public class AddmlDefinitionParserTest
     {
-        private readonly AddmlDefinitionParser _parser;
-
         public AddmlDefinitionParserTest()
         {
             AddmlInfo addml =
                 AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\noark3\\noark_3_arkivuttrekk_med_prosesser.xml");
             _parser = new AddmlDefinitionParser(addml);
+        }
+
+        private readonly AddmlDefinitionParser _parser;
+
+        [Fact]
+        public void ShouldParseAddmlWithMultipleRecordDefinitions()
+        {
+            AddmlDefinition addmlDefinition = _parser.GetAddmlDefinition();
+            List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
+
+            addmlFlatFileDefinitions[1].Name.Should().Be("Dokumentregister");
+            addmlFlatFileDefinitions[1].AddmlRecordDefinitions.Count.Should().Be(2);
+            addmlFlatFileDefinitions[1].AddmlRecordDefinitions[0].Name.Should().Be("Eksterne_dokumenter");
+            addmlFlatFileDefinitions[1].AddmlRecordDefinitions[1].Name.Should().Be("Interne_dokumenter");
         }
 
         [Fact]
@@ -53,18 +64,6 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
             addmlRecordDefinition.PrimaryKey.Should().Equal(
                 new List<AddmlFieldDefinition>() {addmlFieldDefinitions[2]}
             );
-        }
-
-        [Fact]
-        public void ShouldParseAddmlWithMultipleRecordDefinitions()
-        {
-            AddmlDefinition addmlDefinition = _parser.GetAddmlDefinition();
-            List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
-
-            addmlFlatFileDefinitions[1].Name.Should().Be("Dokumentregister");
-            addmlFlatFileDefinitions[1].AddmlRecordDefinitions.Count.Should().Be(2);
-            addmlFlatFileDefinitions[1].AddmlRecordDefinitions[0].Name.Should().Be("Eksterne_dokumenter");
-            addmlFlatFileDefinitions[1].AddmlRecordDefinitions[1].Name.Should().Be("Interne_dokumenter");
         }
     }
 }
