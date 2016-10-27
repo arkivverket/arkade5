@@ -123,6 +123,7 @@
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParserTest.cs" />
     <Compile Include="Core\Addml\Definitions\BooleanDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParserTest.cs" />
+    <Compile Include="Core\Addml\Processes\ControlForeignKeyTest.cs" />
     <Compile Include="Integration\KvoteFisk89Test.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
     <Compile Include="Integration\Jegerreg98Test.cs" />
