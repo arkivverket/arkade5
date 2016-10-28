@@ -124,9 +124,9 @@
     <Compile Include="Core\Addml\Definitions\BooleanDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParserTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKeyTest.cs" />
-    <Compile Include="Integration\KvoteFisk89Test.cs" />
+    <Compile Include="Core\Addml\KvoteFisk89Test.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
-    <Compile Include="Integration\Jegerreg98Test.cs" />
+    <Compile Include="Core\Addml\Jegerreg98Test.cs" />
     <Compile Include="Core\Addml\FixedFormatReaderTest.cs" />
     <Compile Include="Core\Addml\NoarkihToAddmlTransformerTest.cs" />
     <Compile Include="Core\Addml\RecordSeparatorTest.cs" />
@@ -137,7 +137,7 @@
     <Compile Include="Core\TestEngineTest.cs" />
     <Compile Include="Core\TestRunBuilder.cs" />
     <Compile Include="Core\TestSessionBuilder.cs" />
-    <Compile Include="Integration\Noark4Test.cs" />
+    <Compile Include="Core\Addml\Noark4Test.cs" />
     <Compile Include="Logging\TestSessionLogXmlAssert.cs" />
     <Compile Include="Logging\TestSessionXmlGeneratorTest.cs" />
     <Compile Include="Identify\ArchiveExctractionReaderTest.cs" />
@@ -318,7 +318,9 @@
       <Name>Arkivverket.Arkade</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Integration\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

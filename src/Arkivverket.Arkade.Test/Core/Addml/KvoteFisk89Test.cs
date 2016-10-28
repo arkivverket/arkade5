@@ -2,7 +2,7 @@
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Xunit;
 
-namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
+namespace Arkivverket.Arkade.Test.Core.Addml
 {
     public class KvoteFisk89Test
     {
