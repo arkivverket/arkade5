@@ -1,3 +1,5 @@
+using System.IO;
+using Arkivverket.Arkade.Core;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -70,6 +72,16 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private void OpenArchiveFileDialog()
         {
             ArchiveFileName = OpenFileDialog();
+
+            string infoXmlFileName = Path.Combine(new FileInfo(ArchiveFileName).Directory.FullName, ArkadeConstants.InfoXmlFileName);
+            if (File.Exists(infoXmlFileName))
+            {
+                MetadataFileName = infoXmlFileName;
+            }
+            else
+            {
+                MetadataFileName = null;
+            }
         }
 
         private string OpenFileDialog()
