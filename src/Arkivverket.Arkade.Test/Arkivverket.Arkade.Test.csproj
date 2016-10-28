@@ -133,6 +133,7 @@
     <Compile Include="Core\Addml\XmlFormatReaderTest.cs" />
     <Compile Include="Core\ArchiveBuilder.cs" />
     <Compile Include="Core\ArchiveExtractionTest.cs" />
+    <Compile Include="Core\ArkadeException.cs" />
     <Compile Include="Core\EncodingsTest.cs" />
     <Compile Include="Core\TestEngineTest.cs" />
     <Compile Include="Core\TestRunBuilder.cs" />
