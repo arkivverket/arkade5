@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Test.Core;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -12,12 +14,11 @@ namespace Arkivverket.Arkade.Core.Addml
 
         public Noark4FileReader(FlatFile file)
         {
-            string filename = file.GetName();
+            FileStream fileStream = file.Definition.FileInfo.OpenRead();
+            XmlReader xmlReader = XmlUtil.Read(fileStream);
 
             // TODO: Support for multiple RecordDefinitions per file
             _addmlRecordDefinition = file.Definition.AddmlRecordDefinitions[0];
-
-            XmlReader xmlReader = XmlReader.Create(filename);
             string recordName = _addmlRecordDefinition.Name;
 
             _reader = new XmlFormatReader(xmlReader, recordName);
@@ -36,9 +37,16 @@ namespace Arkivverket.Arkade.Core.Addml
             foreach (AddmlFieldDefinition addmlFieldDefinition in _addmlRecordDefinition.AddmlFieldDefinitions)
             {
                 string fieldName = addmlFieldDefinition.Name;
-                string fieldValue = fieldValues[fieldName];
 
-                fields.Add(new Field(addmlFieldDefinition, fieldValue));
+                if (fieldValues.ContainsKey(fieldName))
+                {
+                    string fieldValue = fieldValues[fieldName];
+                    fields.Add(new Field(addmlFieldDefinition, fieldValue));
+                }
+                else
+                {
+                    // TODO: What should we do if field is missing from data?
+                }
             }
 
             return new Record(_addmlRecordDefinition, fields);

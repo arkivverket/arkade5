@@ -20,7 +20,11 @@ namespace Arkivverket.Arkade.Core
 
         private static readonly string ArkadeLogDirectoryString = Path.Combine(ArkadeDirectoryString, "logs");
         private static readonly DirectoryInfo ArkadeLogDirectory = new DirectoryInfo(ArkadeLogDirectoryString);
-        
+     
+        public const string NoarkihXmlFileName = "NOARKIH.XML";
+        public const string AddmlXmlFileName = "addml.xml";
+        public const string InfoXmlFileName = "info.xml";
+
         static ArkadeConstants()
         {
             if (!ArkadeDirectory.Exists)

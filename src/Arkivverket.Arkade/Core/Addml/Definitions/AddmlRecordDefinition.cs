@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             Processes = processes;
         }
 
-        internal AddmlFieldDefinition AddAddmlFieldDefinition(string name,
+        public AddmlFieldDefinition AddAddmlFieldDefinition(string name,
             int? startPosition,
             int? fixedLength,
             DataType dataType,

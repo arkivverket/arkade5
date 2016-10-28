@@ -1,7 +1,12 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading;
+using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Threading;
 using Arkivverket.Arkade.UI.Util;
 using Arkivverket.Arkade.Util;
 using Serilog;
+using Application = System.Windows.Application;
 
 namespace Arkivverket.Arkade.UI
 {
@@ -11,6 +16,14 @@ namespace Arkivverket.Arkade.UI
 
         public App()
         {
+            // For some reason this will not work for exceptions thrown from inside the Views.
+            AppDomain.CurrentDomain.UnhandledException += MyHandler;
+        }
+
+        public static void MyHandler(object sender, UnhandledExceptionEventArgs args)
+        {
+            Exception e = (Exception) args.ExceptionObject;
+            ExceptionMessageBox.Show(e);
         }
 
         protected override void OnStartup(StartupEventArgs e)

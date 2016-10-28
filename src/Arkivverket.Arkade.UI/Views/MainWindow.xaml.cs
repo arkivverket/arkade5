@@ -1,5 +1,7 @@
-﻿using Arkivverket.Arkade.Util;
+﻿using System;
 using System.Windows;
+using Arkivverket.Arkade.UI.Util;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.UI.Views
 {
@@ -7,8 +9,16 @@ namespace Arkivverket.Arkade.UI.Views
     {
         public MainWindow()
         {
-            InitializeComponent();
-            Title = string.Format(UI.Resources.UI.General_WindowTitle, ArkadeVersion.Version);
+            try
+            {
+                InitializeComponent();
+                Title = string.Format(UI.Resources.UI.General_WindowTitle, ArkadeVersion.Version);
+            }
+            catch (Exception e)
+            {
+                ExceptionMessageBox.Show(e);
+                throw;
+            }
         }
     }
 }

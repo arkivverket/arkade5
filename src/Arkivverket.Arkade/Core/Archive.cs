@@ -1,10 +1,11 @@
 using System.IO;
+using Arkivverket.Arkade.Core.Addml;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core
 {
     public class Archive
     {
-
         public Uuid Uuid { get; private set; }
         public DirectoryInfo WorkingDirectory { get; private set; }
         public ArchiveType ArchiveType { get; private set; }
@@ -25,9 +26,13 @@ namespace Arkivverket.Arkade.Core
         {
             string structureFilename = WorkingDirectory.FullName + Path.DirectorySeparatorChar;
             if (ArchiveType.Equals(ArchiveType.Noark5))
+            {
                 structureFilename = structureFilename + "arkivuttrekk.xml";
+            }
             else
-                structureFilename = structureFilename + "addml.xml";
+            {
+                structureFilename = structureFilename + ArkadeConstants.AddmlXmlFileName;
+            }
 
             return structureFilename;
         }
@@ -40,5 +45,4 @@ namespace Arkivverket.Arkade.Core
         Noark5,
         Fagsystem,
     }
-
 }

@@ -1,12 +1,18 @@
 using System.Collections.Generic;
+using Arkivverket.Arkade.Tests;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class ControlForeignKey : IAddmlProcess
     {
+        private ILogger _log = Log.ForContext<ControlForeignKey>();
+
         private const string Name = "Control_ForeignKey";
 
-        private readonly Dictionary<string, HashSet<string>> _primaryKeys = new Dictionary<string, HashSet<string>>();
+        private readonly List<ForeignKeyValue> _foreignKeys = new List<ForeignKeyValue>();
+
+        private readonly Dictionary<string, PrimaryKeyValue> _primaryKeys = new Dictionary<string, PrimaryKeyValue>();
 
         public string GetName()
         {
@@ -18,26 +24,13 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             // TODO: IsPartOfPrimaryKey is probably not correct here!
             if (field.Definition.IsPartOfPrimaryKey())
             {
-                string file = field.Definition.GetAddmlFlatFileDefinition().Name;
-                string key = file + "_" + field.Definition.Name;
-
-                HashSet<string> primaryKeysForField = null;
-                if (_primaryKeys.ContainsKey(key))
-                {
-                    primaryKeysForField = _primaryKeys[key];
-                }
-                else
-                {
-                    primaryKeysForField = new HashSet<string>();
-                    _primaryKeys.Add(key, primaryKeysForField);
-                }
-                primaryKeysForField.Add(field.Value);
+                _log.Debug("Adding primary key {fieldKey} with value {fieldValue}", field.Definition.Key(), field.Value);
+                AddPrimaryKey(field);
             }
             if (field.Definition.ForeignKey != null)
             {
-                string foreignKeyReferenceFieldName = field.Definition.ForeignKey.Name;
-                string foreignKeyReferenceFileName = field.Definition.ForeignKey.GetAddmlFlatFileDefinition().Name;
-                // save foreign key reference. cannot be sure that the file it references has been parsed yet.
+                _log.Debug("Adding foreign key {fieldKey} with value {fieldValue}", field.Definition.Key(), field.Value);
+                _foreignKeys.Add(new ForeignKeyValue(field));
             }
         }
 
@@ -51,12 +44,85 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public TestRun GetTestRun()
         {
-            throw new System.NotImplementedException();
+            var testRun = new TestRun(GetName(),TestType.Content);
+            testRun.Results = CreateTestResults();
+            return testRun;
         }
 
         public void EndOfFile()
         {
-            throw new System.NotImplementedException();
+        }
+
+        private void AddPrimaryKey(Field field)
+        {
+            PrimaryKeyValue primaryKeyValue;
+            string key = field.Definition.Key();
+            if (_primaryKeys.ContainsKey(key))
+            {
+                primaryKeyValue = _primaryKeys[key];
+            }
+            else
+            {
+                primaryKeyValue = new PrimaryKeyValue(field);
+                _primaryKeys.Add(key, primaryKeyValue);
+            }
+            primaryKeyValue.AddValue(field.Value);
+        }
+
+        private List<TestResult> CreateTestResults()
+        {
+            var results = new List<TestResult>();
+            foreach (ForeignKeyValue foreignKeyValue in _foreignKeys)
+            {
+                if (_primaryKeys.ContainsKey(foreignKeyValue.ReferencingField))
+                {
+                    PrimaryKeyValue primaryKeyValue = _primaryKeys[foreignKeyValue.ReferencingField];
+                    if (!primaryKeyValue.HasValue(foreignKeyValue.Value))
+                    {
+                        results.Add(new TestResult(ResultType.Error, "Invalid foreign key: " + foreignKeyValue.Value));
+                    }
+                }
+                else
+                {
+                    results.Add(new TestResult(ResultType.Error, "Cannot find referenced field [" + foreignKeyValue.ReferencingField + "] from foreign key [" + foreignKeyValue.Field + "]."));
+                }
+            }
+            return results;
+        }
+
+        private class PrimaryKeyValue
+        {
+            private readonly HashSet<string> _values = new HashSet<string>();
+            private string _field;
+
+            public PrimaryKeyValue(Field field)
+            {
+                _field = field.Definition.Key();
+            }
+
+            public void AddValue(string value)
+            {
+                _values.Add(value);
+            }
+
+            public bool HasValue(string value)
+            {
+                return _values.Contains(value);
+            }
+        }
+
+        private class ForeignKeyValue
+        {
+            public string Field { get; set; }
+            public string Value { get; set; }
+            public string ReferencingField { get; set; }
+
+            public ForeignKeyValue(Field field)
+            {
+                Field = field.Definition.Key();
+                Value = field.Value;
+                ReferencingField = field.Definition.ForeignKey.Key();
+            }
         }
     }
 }

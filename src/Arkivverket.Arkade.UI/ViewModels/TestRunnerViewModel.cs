@@ -52,7 +52,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _testEngineFactory = testEngineFactory;
             _regionManager = regionManager;
             _statusEventHandler = statusEventHandler;
-
             _statusEventHandler.StatusEvent += OnStatusEvent;
             _statusEventHandler.FileProcessStartEvent += OnFileProcessStartEvent;
             _statusEventHandler.FileProcessStopEvent += OnFileProcessStopEvent;
@@ -60,7 +59,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _statusEventHandler.NewTestRecordEvent += OnNewTestRecordEvent;
 
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
-           NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
+            NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
         }
 
         private void NavigateToSummary()
