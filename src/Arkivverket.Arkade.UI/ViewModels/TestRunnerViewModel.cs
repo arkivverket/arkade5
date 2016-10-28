@@ -53,6 +53,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _regionManager = regionManager;
             _statusEventHandler = statusEventHandler;
 
+            _statusEventHandler.StatusEvent += OnStatusEvent;
             _statusEventHandler.FileProcessStartEvent += OnFileProcessStartEvent;
             _statusEventHandler.FileProcessStopEvent += OnFileProcessStopEvent;
             _statusEventHandler.RecordProcessStartEvent += OnRecordProcessStartEvent;

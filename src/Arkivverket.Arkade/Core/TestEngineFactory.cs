@@ -21,8 +21,6 @@ namespace Arkivverket.Arkade.Core
         {
             _log.Debug("Find test engine for archive {archiveType}", testSession.Archive.ArchiveType);
 
-            throw new Exception("hepp hopp");
-
             if (testSession.Archive.ArchiveType == ArchiveType.Noark5)
             {
                 return _noark5TestEngine;
