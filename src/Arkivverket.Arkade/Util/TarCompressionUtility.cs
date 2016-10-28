@@ -6,16 +6,18 @@ namespace Arkivverket.Arkade.Util
 {
     public class TarCompressionUtility : ICompressionUtility
     {
+        private readonly ILogger _log = Log.ForContext<TarCompressionUtility>();
+
         // Tar file utilities built on nuget package SharpZipLib.0.86.0
         public void ExtractFolderFromArchive(string fileName, string targetFolderName)
         {
-            Log.Debug($"Extract tar file: {fileName} to folder: {targetFolderName}");
-
             Stream inStream = File.OpenRead(fileName);
             var tarArchive = TarArchive.CreateInputTarArchive(inStream);
             tarArchive.ExtractContents(targetFolderName);
             tarArchive.Close();
             inStream.Close();
+
+            _log.Debug($"Extracted tar file: {fileName} to folder {targetFolderName}", fileName, targetFolderName);
         }
 
 
