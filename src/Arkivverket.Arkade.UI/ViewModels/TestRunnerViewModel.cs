@@ -52,11 +52,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _testEngineFactory = testEngineFactory;
             _regionManager = regionManager;
             _statusEventHandler = statusEventHandler;
-
             _statusEventHandler.StatusEvent += OnStatusEvent;
 
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
-           NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
+            NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
         }
 
         private void NavigateToSummary()

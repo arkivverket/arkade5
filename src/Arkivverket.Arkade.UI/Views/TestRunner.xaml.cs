@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
+using Arkivverket.Arkade.UI.Util;
 
 namespace Arkivverket.Arkade.UI.Views
 {
@@ -6,7 +8,15 @@ namespace Arkivverket.Arkade.UI.Views
     {
         public TestRunner()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception e)
+            {
+                ExceptionMessageBox.Show(e);
+                throw;
+            }
         }
     }
 }
