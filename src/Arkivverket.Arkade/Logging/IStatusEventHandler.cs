@@ -13,6 +13,14 @@ namespace Arkivverket.Arkade.Logging
         void IssueOnTestStarted(ITest test);
         void IssueOnTestFinsihed(TestRun testRun);
         void IssueOnTestInformation(string testName, string testMessage, StatusTestExecution status, bool isSuccess);
+        void IssueOnFileProcessingStart(StatusEventArgFileProcessing statusEventArgFileProcessing);
+        void IssueOnFileProcessingStop(StatusEventArgFileProcessing statusEventArgFileProcessing);
+        void IssueOnRecordProcessingStart(StatusEventArgRecord statusEventArgRecord);
+        void IssueOnNewTestRecord(StatusEventArgRecord statusEventArgRecord);
         event EventHandler<StatusEventArgument> StatusEvent;
+        event EventHandler<StatusEventArgFileProcessing> FileProcessStartEvent;
+        event EventHandler<StatusEventArgFileProcessing> FileProcessStopEvent;
+        event EventHandler<StatusEventArgRecord> RecordProcessStartEvent;
+        event EventHandler<StatusEventArgRecord> NewTestRecordEvent;
     }
 }

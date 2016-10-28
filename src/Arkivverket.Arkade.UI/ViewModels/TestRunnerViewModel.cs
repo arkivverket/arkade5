@@ -53,7 +53,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _regionManager = regionManager;
             _statusEventHandler = statusEventHandler;
 
-            _statusEventHandler.StatusEvent += OnStatusEvent;
+            _statusEventHandler.FileProcessStartEvent += OnFileProcessStartEvent;
+            _statusEventHandler.FileProcessStopEvent += OnFileProcessStopEvent;
+            _statusEventHandler.RecordProcessStartEvent += OnRecordProcessStartEvent;
+            _statusEventHandler.NewTestRecordEvent += OnNewTestRecordEvent;
 
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
            NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
@@ -92,6 +95,28 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             UpdateGuiCollection(statusEventArgument);
         }
+
+        private void OnFileProcessStartEvent(object sender, StatusEventArgFileProcessing statusEventArgFileProcessing)
+        {
+            _log.Debug("Got a onFileProcessStartEvent");
+        }
+
+        private void OnFileProcessStopEvent(object sender, StatusEventArgFileProcessing statusEventArgFileProcessing)
+        {
+            _log.Debug("Got a onFileProcessStopEvent");
+        }
+
+        private void OnRecordProcessStartEvent(object sender, StatusEventArgRecord statusEventArgRecord)
+        {
+            _log.Debug("Got a onRecordProcessStartEvent");
+        }
+
+        private void OnNewTestRecordEvent(object sender, StatusEventArgRecord statusEventArgRecord)
+        {
+            _log.Debug("Got a onNewTestRecordEvent");
+        }
+
+
 
         private void RunTests()
         {

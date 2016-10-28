@@ -40,11 +40,61 @@ namespace Arkivverket.Arkade.Logging
             OnStatusEvent(new StatusEventArgument(testName, DateTime.Now, status, isSuccess, testMessage));
         }
 
+        public void IssueOnFileProcessingStart(StatusEventArgFileProcessing statusEventArgFileProcessing)
+        {
+            OnFileProcessingStartEvent(statusEventArgFileProcessing);
+        }
+
+        public void IssueOnFileProcessingStop(StatusEventArgFileProcessing statusEventArgFileProcessing)
+        {
+            OnFileProcessingStopEvent(statusEventArgFileProcessing);
+        }
+
+        public void IssueOnRecordProcessingStart(StatusEventArgRecord statusEventArgRecord)
+        {
+            OnRecordProcessingStartEvent(statusEventArgRecord);
+        }
+
+        public void IssueOnNewTestRecord(StatusEventArgRecord statusEventArgRecord)
+        {
+            OnNewTestRecordEvent(statusEventArgRecord);
+        }
+
+
+
         public event EventHandler<StatusEventArgument> StatusEvent;
+        public event EventHandler<StatusEventArgFileProcessing> FileProcessStartEvent;
+        public event EventHandler<StatusEventArgFileProcessing> FileProcessStopEvent;
+        public event EventHandler<StatusEventArgRecord> RecordProcessStartEvent;
+        public event EventHandler<StatusEventArgRecord> NewTestRecordEvent;
 
         protected virtual void OnStatusEvent(StatusEventArgument e)
         {
             var handler = StatusEvent;
+            handler?.Invoke(this, e);
+        }
+
+        protected virtual void OnFileProcessingStartEvent(StatusEventArgFileProcessing e)
+        {
+            var handler = FileProcessStartEvent;
+            handler?.Invoke(this, e);
+        }
+
+        protected virtual void OnFileProcessingStopEvent(StatusEventArgFileProcessing e)
+        {
+            var handler = FileProcessStopEvent;
+            handler?.Invoke(this, e);
+        }
+
+        protected virtual void OnRecordProcessingStartEvent(StatusEventArgRecord e)
+        {
+            var handler = RecordProcessStartEvent;
+            handler?.Invoke(this, e);
+        }
+
+        protected virtual void OnNewTestRecordEvent(StatusEventArgRecord e)
+        {
+            var handler = NewTestRecordEvent;
             handler?.Invoke(this, e);
         }
 
