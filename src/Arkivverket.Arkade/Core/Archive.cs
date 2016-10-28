@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Core
             }
             else
             {
-                structureFilename = structureFilename + "addml.xml";
+                structureFilename = structureFilename + ArkadeConstants.AddmlXmlFileName;
             }
 
             return structureFilename;
