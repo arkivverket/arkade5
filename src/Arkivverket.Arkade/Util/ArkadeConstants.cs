@@ -1,29 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Serilog;
 
-namespace Arkivverket.Arkade.Core
+namespace Arkivverket.Arkade.Util
 {
     public class ArkadeConstants
     {
-        private static readonly string UserHomeDirectoryString = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        public const string NoarkihXmlFileName = "NOARKIH.XML";
+        public const string AddmlXmlFileName = "addml.xml";
+        public const string InfoXmlFileName = "info.xml";
+
+        private static readonly string UserHomeDirectoryString =
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
         private static readonly string ArkadeDirectoryString = Path.Combine(UserHomeDirectoryString, "Arkade");
         private static readonly DirectoryInfo ArkadeDirectory = new DirectoryInfo(ArkadeDirectoryString);
 
-        private static readonly string ArkadeTempDirectoryString = Path.Combine(ArkadeDirectoryString, "temp");
-        private static readonly DirectoryInfo ArkadeTempDirectory = new DirectoryInfo(ArkadeTempDirectoryString);
+        private static readonly string ArkadeWorkDirectoryString = Path.Combine(ArkadeDirectoryString, "work");
+        private static readonly DirectoryInfo ArkadeWorkDirectory = new DirectoryInfo(ArkadeWorkDirectoryString);
 
         private static readonly string ArkadeLogDirectoryString = Path.Combine(ArkadeDirectoryString, "logs");
         private static readonly DirectoryInfo ArkadeLogDirectory = new DirectoryInfo(ArkadeLogDirectoryString);
-     
-        public const string NoarkihXmlFileName = "NOARKIH.XML";
-        public const string AddmlXmlFileName = "addml.xml";
-        public const string InfoXmlFileName = "info.xml";
 
         static ArkadeConstants()
         {
@@ -33,13 +30,11 @@ namespace Arkivverket.Arkade.Core
                 Log.Information("Arkade application directory created: " + ArkadeDirectory.FullName);
             }
 
-            if (!ArkadeTempDirectory.Exists)
+            if (!ArkadeWorkDirectory.Exists)
             {
-                ArkadeTempDirectory.Create();
-                Log.Information("Arkade temp directory created: " + ArkadeTempDirectory.FullName);
+                ArkadeWorkDirectory.Create();
+                Log.Information("Arkade temp directory created: " + ArkadeWorkDirectory.FullName);
             }
-
-
         }
 
 
@@ -48,9 +43,9 @@ namespace Arkivverket.Arkade.Core
             return ArkadeDirectory;
         }
 
-        public static DirectoryInfo GetArkadeTempDirectory()
+        public static DirectoryInfo GetArkadeWorkDirectory()
         {
-            return ArkadeTempDirectory;
+            return ArkadeWorkDirectory;
         }
 
         public static DirectoryInfo GetArkadeLogDirectory()
@@ -65,16 +60,13 @@ namespace Arkivverket.Arkade.Core
             // Be sure the directory does not already exist
             do
             {
-                string dateString = DateTime.Now.ToString("yyyyMMddhhmmssffff");
-                uniqueTempDir = new DirectoryInfo(Path.Combine(ArkadeTempDirectoryString, dateString));
+                string dateString = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+                uniqueTempDir = new DirectoryInfo(Path.Combine(ArkadeWorkDirectoryString, dateString));
             } while (!uniqueTempDir.Exists);
 
             uniqueTempDir.Create();
 
             return uniqueTempDir;
         }
-
-
-
     }
 }

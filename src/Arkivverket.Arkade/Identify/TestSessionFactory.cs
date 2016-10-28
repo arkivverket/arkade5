@@ -3,24 +3,24 @@ using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
-using Arkivverket.Arkade.ExternalModels.Addml;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Test.Core;
+using Arkivverket.Arkade.Util;
 using Serilog;
 
 namespace Arkivverket.Arkade.Identify
 {
     public class TestSessionFactory : ITestSessionFactory
     {
-        private readonly IArchiveExtractor _archiveExtractor;
         private readonly IArchiveIdentifier _archiveIdentifier;
+        private readonly ICompressionUtility _compressionUtility;
         private readonly ILogger _log = Log.ForContext<TestSessionFactory>();
         private readonly IStatusEventHandler _statusEventHandler;
 
-        public TestSessionFactory(IArchiveExtractor archiveExtractor, IArchiveIdentifier archiveIdentifier,
+        public TestSessionFactory(ICompressionUtility compressionUtility, IArchiveIdentifier archiveIdentifier,
             StatusEventHandler statusEventHandler)
         {
-            _archiveExtractor = archiveExtractor;
+            _compressionUtility = compressionUtility;
             _archiveIdentifier = archiveIdentifier;
             _statusEventHandler = statusEventHandler;
         }
@@ -31,14 +31,30 @@ namespace Arkivverket.Arkade.Identify
                 $"Building new TestSession with [archiveFileName: {archiveFileName}] [metadataFileName: {metadataFileName}");
             FileInfo archiveFileInfo = new FileInfo(archiveFileName);
 
-            var uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFileName));
-            var archiveType = _archiveIdentifier.Identify(metadataFileName);
+            Uuid uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFileName));
+            ArchiveType archiveType = _archiveIdentifier.Identify(metadataFileName);
+
+            string workingDirectory = GetWorkingDirectory(uuid);
+            if (Directory.Exists(workingDirectory))
+            {
+                Directory.Delete(workingDirectory, true);
+                _log.Information("Removed folder {}", workingDirectory);
+            }
+            else
+            {
+                Directory.CreateDirectory(workingDirectory);
+            }
+            CopyToDir(metadataFileName, workingDirectory);
+
+            DirectoryInfo archiveExtractionDirectory = new DirectoryInfo(Path.Combine(workingDirectory, uuid.GetValue()));
 
             _statusEventHandler.IssueOnTestInformation(Resources.Messages.TarExtractionMessage,
                 $"Starter utpakking av {archiveFileName}", StatusTestExecution.TestStarted, false);
 
-            DirectoryInfo targetFolderName = _archiveExtractor.Extract(archiveFileInfo);
-            Archive archive = new Archive(archiveType, uuid, targetFolderName);
+            _compressionUtility.ExtractFolderFromArchive(archiveFileInfo.FullName, archiveExtractionDirectory.FullName);
+
+            Archive archive = new Archive(archiveType, uuid, archiveExtractionDirectory);
+
 
             ConvertNoarkihToAddmlIfNoark4(archive);
 
@@ -55,6 +71,20 @@ namespace Arkivverket.Arkade.Identify
             return testSession;
         }
 
+        private void CopyToDir(string metadataFileName, string workingDirectory)
+        {
+            if (metadataFileName != null)
+            {
+                File.Copy(metadataFileName, Path.Combine(workingDirectory, ArkadeConstants.InfoXmlFileName));
+            }
+        }
+
+        private string GetWorkingDirectory(Uuid uuid)
+        {
+            string dateString = DateTime.Now.ToString("yyyyMMddHHmmss");
+            return ArkadeConstants.GetArkadeWorkDirectory().FullName + Path.DirectorySeparatorChar + dateString + "-" +
+                   uuid.GetValue();
+        }
 
         private void ConvertNoarkihToAddmlIfNoark4(Archive archive)
         {
@@ -94,7 +124,9 @@ namespace Arkivverket.Arkade.Identify
             }
             catch (Exception e)
             {
-                throw new ArkadeException("Unable to convert " + ArkadeConstants.NoarkihXmlFileName + " to " + ArkadeConstants.InfoXmlFileName, e);
+                throw new ArkadeException(
+                    "Unable to convert " + ArkadeConstants.NoarkihXmlFileName + " to " + ArkadeConstants.InfoXmlFileName,
+                    e);
             }
         }
     }

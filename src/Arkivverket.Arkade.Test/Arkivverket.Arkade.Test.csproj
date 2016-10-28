@@ -142,7 +142,6 @@
     <Compile Include="Logging\TestSessionLogXmlAssert.cs" />
     <Compile Include="Logging\TestSessionXmlGeneratorTest.cs" />
     <Compile Include="Identify\ArchiveExctractionReaderTest.cs" />
-    <Compile Include="Identify\ArchiveExtractorTest.cs" />
     <Compile Include="Identify\ArchiveIdentifierTest.cs" />
     <Compile Include="Logging\TestSessionLogXmlValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

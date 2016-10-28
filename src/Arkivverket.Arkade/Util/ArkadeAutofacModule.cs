@@ -10,7 +10,6 @@ namespace Arkivverket.Arkade.Util
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ArchiveExtractor>().As<IArchiveExtractor>();
             builder.RegisterType<TarCompressionUtility>().As<ICompressionUtility>();
             builder.RegisterType<TestSessionFactory>().AsSelf();
             builder.RegisterType<ArchiveIdentifier>().As<IArchiveIdentifier>();

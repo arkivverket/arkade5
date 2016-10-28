@@ -116,6 +116,7 @@
     <Compile Include="Core\ArchiveContentReader.cs" />
     <Compile Include="Core\ArchiveInfo.cs" />
     <Compile Include="Core\Addml\FlatFile.cs" />
+    <Compile Include="Core\ArchiveWithMetadata.cs" />
     <Compile Include="Logging\StatusEventArgFileProcessing.cs" />
     <Compile Include="Logging\StatusEventArgRecord.cs" />
     <Compile Include="Core\ArkadeException.cs" />
@@ -143,9 +144,7 @@
     <Compile Include="Logging\TestSessionXmlGenerator.cs" />
     <Compile Include="ExternalModels\Info.cs" />
     <Compile Include="Identify\TestSessionFactory.cs" />
-    <Compile Include="Identify\ArchiveExtractor.cs" />
     <Compile Include="Identify\ArchiveIdentifier.cs" />
-    <Compile Include="Identify\IArchiveExtractor.cs" />
     <Compile Include="Identify\IArchiveIdentifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Messages.Designer.cs">
