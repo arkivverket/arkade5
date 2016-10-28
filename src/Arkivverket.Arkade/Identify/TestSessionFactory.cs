@@ -3,7 +3,9 @@ using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.ExternalModels.Addml;
 using Arkivverket.Arkade.Logging;
+using Arkivverket.Arkade.Test.Core;
 using Serilog;
 
 namespace Arkivverket.Arkade.Identify
@@ -75,15 +77,25 @@ namespace Arkivverket.Arkade.Identify
                 archive.WorkingDirectory.FullName + Path.DirectorySeparatorChar + ArkadeConstants.NoarkihXmlFileName;
             if (!File.Exists(noarkihFile))
             {
-                throw new Exception("No such file: " + noarkihFile);
+                throw new ArkadeException("No such file: " + noarkihFile);
             }
 
             string noarkihString = File.ReadAllText(noarkihFile);
-            string addmlString = NoarkihToAddmlTransformer.Transform(noarkihString);
+            try
+            {
+                string addmlString = NoarkihToAddmlTransformer.Transform(noarkihString);
 
-            File.WriteAllText(addmlFile, addmlString);
-            _log.Information("Successfully transformed {0} to {1}.", ArkadeConstants.NoarkihXmlFileName,
-                ArkadeConstants.AddmlXmlFileName);
+                // Verify correct ADDML file
+                AddmlUtil.ReadFromString(addmlString);
+
+                File.WriteAllText(addmlFile, addmlString);
+                _log.Information("Successfully transformed {0} to {1}.", ArkadeConstants.NoarkihXmlFileName,
+                    ArkadeConstants.AddmlXmlFileName);
+            }
+            catch (Exception e)
+            {
+                throw new ArkadeException("Unable to convert " + ArkadeConstants.NoarkihXmlFileName + " to " + ArkadeConstants.InfoXmlFileName, e);
+            }
         }
     }
 }

@@ -116,6 +116,7 @@
     <Compile Include="Core\ArchiveContentReader.cs" />
     <Compile Include="Core\ArchiveInfo.cs" />
     <Compile Include="Core\Addml\FlatFile.cs" />
+    <Compile Include="Core\ArkadeException.cs" />
     <Compile Include="Util\ArkadeConstants.cs" />
     <Compile Include="Core\Encodings.cs" />
     <Compile Include="Core\IArchiveContentReader.cs" />
