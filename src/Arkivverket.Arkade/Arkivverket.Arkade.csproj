@@ -114,9 +114,11 @@
     <Compile Include="Core\Addml\XmlUtil.cs" />
     <Compile Include="Core\Archive.cs" />
     <Compile Include="Core\ArchiveContentReader.cs" />
+    <Compile Include="Core\ArchiveFile.cs" />
     <Compile Include="Core\ArchiveInfo.cs" />
     <Compile Include="Core\Addml\FlatFile.cs" />
     <Compile Include="Core\ArchiveWithMetadata.cs" />
+    <Compile Include="Core\Arkade.cs" />
     <Compile Include="Logging\StatusEventArgFileProcessing.cs" />
     <Compile Include="Logging\StatusEventArgRecord.cs" />
     <Compile Include="Core\ArkadeException.cs" />

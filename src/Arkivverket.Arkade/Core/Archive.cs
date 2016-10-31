@@ -1,7 +1,5 @@
 using System.IO;
-using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Util;
-using Serilog;
 
 namespace Arkivverket.Arkade.Core
 {

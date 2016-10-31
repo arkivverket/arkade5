@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private ObservableCollection<TestRunnerStatus> _testResults = new ObservableCollection<TestRunnerStatus>();
 
-        private readonly TestSessionFactory _testSessionBuilder;
+        private readonly TestSessionFactory _testSessionFactory;
         private readonly TestEngineFactory _testEngineFactory;
         private readonly IRegionManager _regionManager;
         private readonly StatusEventHandler _statusEventHandler;
@@ -46,9 +46,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _testResults, value); }
         }
 
-        public TestRunnerViewModel(TestSessionFactory testSessionBuilder, TestEngineFactory testEngineFactory, IRegionManager regionManager,  StatusEventHandler statusEventHandler)
+        public TestRunnerViewModel(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory, IRegionManager regionManager,  StatusEventHandler statusEventHandler)
         {
-            _testSessionBuilder = testSessionBuilder;
+            _testSessionFactory = testSessionFactory;
             _testEngineFactory = testEngineFactory;
             _regionManager = regionManager;
             _statusEventHandler = statusEventHandler;
@@ -127,7 +127,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 _isRunningTests = true;
                 NavigateToSummaryCommand.RaiseCanExecuteChanged();
 
-                _testSession = _testSessionBuilder.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
+                _testSession = _testSessionFactory.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
 
                 _log.Debug(_testSession.Archive.Uuid.GetValue());
                 _log.Debug(_testSession.Archive.ArchiveType.ToString());
