@@ -1,19 +1,14 @@
-﻿using Arkivverket.Arkade.Core;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+using Arkivverket.Arkade.Core;
 
 namespace Arkivverket.Arkade.Test.Core
 {
     public class ArchiveBuilder
     {
+        private ArchiveType _archiveType = ArchiveType.Noark5;
 
         private Uuid _uuid = Uuid.Random();
         private DirectoryInfo _workingDirectory = new DirectoryInfo("c:\\temp");
-        private ArchiveType _archiveType = ArchiveType.Noark5;
 
         public ArchiveBuilder WithUuid(string uuid)
         {
@@ -50,6 +45,5 @@ namespace Arkivverket.Arkade.Test.Core
             var archive = new Archive(_archiveType, _uuid, _workingDirectory);
             return archive;
         }
-
     }
 }
