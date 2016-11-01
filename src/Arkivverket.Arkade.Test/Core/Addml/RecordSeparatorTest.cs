@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Arkivverket.Arkade.Core.Addml.Definitions;
+﻿using Arkivverket.Arkade.Core.Addml.Definitions;
 using FluentAssertions;
 using Xunit;
 
@@ -11,7 +6,6 @@ namespace Arkivverket.Arkade.Test.Core.Addml
 {
     public class RecordSeparatorTest
     {
-
         [Fact]
         public void ShouldConvertCrlfRecordSeparator()
         {
@@ -27,6 +21,5 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             recordSeparator.ToString().Should().Be("X");
             recordSeparator.Get().Should().Be("X");
         }
-
     }
 }

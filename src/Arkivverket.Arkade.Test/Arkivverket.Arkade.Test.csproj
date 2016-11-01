@@ -57,6 +57,8 @@
       <HintPath>..\packages\Moq.4.5.13\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -123,6 +125,7 @@
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParserTest.cs" />
     <Compile Include="Core\Addml\Definitions\BooleanDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParserTest.cs" />
+    <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKeyTest.cs" />
     <Compile Include="Core\Addml\KvoteFisk89Test.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
@@ -139,6 +142,7 @@
     <Compile Include="Core\TestRunBuilder.cs" />
     <Compile Include="Core\TestSessionBuilder.cs" />
     <Compile Include="Core\Addml\Noark4Test.cs" />
+    <Compile Include="Integration\Noark3IntegrationTest.cs" />
     <Compile Include="Logging\TestSessionLogXmlAssert.cs" />
     <Compile Include="Logging\TestSessionXmlGeneratorTest.cs" />
     <Compile Include="Identify\ArchiveExctractionReaderTest.cs" />
@@ -319,7 +323,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Integration\" />
+    <Folder Include="TestData\tar\Noark3-eksempel-1\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

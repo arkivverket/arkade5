@@ -25,6 +25,11 @@ namespace Arkivverket.Arkade.Identify
             _statusEventHandler = statusEventHandler;
         }
 
+        public TestSession NewSessionFromArchive(ArchiveFile archive)
+        {
+            return NewSessionFromTarFile(archive.Archive.FullName, archive.InfoXml.FullName);
+        }
+
         public TestSession NewSessionFromTarFile(string archiveFileName, string metadataFileName)
         {
             _log.Information(
@@ -132,5 +137,6 @@ namespace Arkivverket.Arkade.Identify
                     e);
             }
         }
+
     }
 }
