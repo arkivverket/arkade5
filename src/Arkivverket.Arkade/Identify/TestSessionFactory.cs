@@ -48,6 +48,9 @@ namespace Arkivverket.Arkade.Identify
 
             DirectoryInfo archiveExtractionDirectory = new DirectoryInfo(Path.Combine(workingDirectory, uuid.GetValue()));
 
+            _statusEventHandler.IssueOnNewArchiveInformation(new StatusEventNewArchiveInformation(
+                archiveType.ToString(), uuid.ToString(), DateTime.Now, archiveFileName));
+
             _statusEventHandler.IssueOnTestInformation(Resources.Messages.TarExtractionMessage,
                 $"Starter utpakking av {archiveFileName}", StatusTestExecution.TestStarted, false);
 

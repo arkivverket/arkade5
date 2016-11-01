@@ -17,10 +17,13 @@ namespace Arkivverket.Arkade.Logging
         void IssueOnFileProcessingStop(StatusEventArgFileProcessing statusEventArgFileProcessing);
         void IssueOnRecordProcessingStart(StatusEventArgRecord statusEventArgRecord);
         void IssueOnNewTestRecord(StatusEventArgRecord statusEventArgRecord);
+        void IssueOnNewArchiveInformation(StatusEventNewArchiveInformation statusEventArgNewArchiveInformation);
         event EventHandler<StatusEventArgument> StatusEvent;
         event EventHandler<StatusEventArgFileProcessing> FileProcessStartEvent;
         event EventHandler<StatusEventArgFileProcessing> FileProcessStopEvent;
         event EventHandler<StatusEventArgRecord> RecordProcessStartEvent;
         event EventHandler<StatusEventArgRecord> NewTestRecordEvent;
+        event EventHandler<StatusEventNewArchiveInformation> NewArchiveProcessEvent;
+
     }
 }

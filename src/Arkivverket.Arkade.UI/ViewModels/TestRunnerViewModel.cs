@@ -57,6 +57,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _statusEventHandler.FileProcessStopEvent += OnFileProcessStopEvent;
             _statusEventHandler.RecordProcessStartEvent += OnRecordProcessStartEvent;
             _statusEventHandler.NewTestRecordEvent += OnNewTestRecordEvent;
+            _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveProcessEvent;
 
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
             NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
@@ -114,6 +115,14 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private void OnNewTestRecordEvent(object sender, StatusEventArgRecord statusEventArgRecord)
         {
             _log.Debug("Got a onNewTestRecordEvent");
+        }
+
+        private void OnNewArchiveProcessEvent(object sender, StatusEventNewArchiveInformation statusEventNewArchiveInformation)
+        {
+            _log.Debug("Got a OnNewArchiveProcessEvent");
+            _log.Debug(statusEventNewArchiveInformation.ArchiveType);
+            _log.Debug(statusEventNewArchiveInformation.ArchiveFileName);
+            _log.Debug(statusEventNewArchiveInformation.Uuid);
         }
 
 

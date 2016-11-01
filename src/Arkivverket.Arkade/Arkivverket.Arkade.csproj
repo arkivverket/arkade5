@@ -120,6 +120,7 @@
     <Compile Include="Logging\StatusEventArgFileProcessing.cs" />
     <Compile Include="Logging\StatusEventArgRecord.cs" />
     <Compile Include="Core\ArkadeException.cs" />
+    <Compile Include="Logging\StatusEventNewArchiveInformation.cs" />
     <Compile Include="Util\ArkadeConstants.cs" />
     <Compile Include="Core\Encodings.cs" />
     <Compile Include="Core\IArchiveContentReader.cs" />

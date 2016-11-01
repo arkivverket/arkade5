@@ -60,6 +60,10 @@ namespace Arkivverket.Arkade.Logging
             OnNewTestRecordEvent(statusEventArgRecord);
         }
 
+        public void IssueOnNewArchiveInformation(StatusEventNewArchiveInformation statusEventArgNewArchiveInformation)
+        {
+            OnIssueOnNewArchiveInformation(statusEventArgNewArchiveInformation);
+        }
 
 
         public event EventHandler<StatusEventArgument> StatusEvent;
@@ -67,6 +71,7 @@ namespace Arkivverket.Arkade.Logging
         public event EventHandler<StatusEventArgFileProcessing> FileProcessStopEvent;
         public event EventHandler<StatusEventArgRecord> RecordProcessStartEvent;
         public event EventHandler<StatusEventArgRecord> NewTestRecordEvent;
+        public event EventHandler<StatusEventNewArchiveInformation> NewArchiveProcessEvent;
 
         protected virtual void OnStatusEvent(StatusEventArgument e)
         {
@@ -95,6 +100,12 @@ namespace Arkivverket.Arkade.Logging
         protected virtual void OnNewTestRecordEvent(StatusEventArgRecord e)
         {
             var handler = NewTestRecordEvent;
+            handler?.Invoke(this, e);
+        }
+
+        protected virtual void OnIssueOnNewArchiveInformation(StatusEventNewArchiveInformation e)
+        {
+            var handler = NewArchiveProcessEvent;
             handler?.Invoke(this, e);
         }
 
