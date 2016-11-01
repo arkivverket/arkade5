@@ -33,6 +33,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private TestSession _testSession;
         private bool _isRunningTests;
         private Visibility _finishedTestingMessageVisibility = Visibility.Collapsed;
+        private StatusEventNewArchiveInformation _newArchiveInformation;
+        private Visibility _archiveCurrentProcessing = Visibility.Hidden;
 
         public Visibility FinishedTestingMessageVisibility
         {
@@ -45,6 +47,18 @@ namespace Arkivverket.Arkade.UI.ViewModels
             get { return _testResults; }
             set { SetProperty(ref _testResults, value); }
         }
+
+        public StatusEventNewArchiveInformation NewArchiveInformation
+        {
+            get { return _newArchiveInformation; }
+            set { SetProperty(ref _newArchiveInformation, value); }
+        }
+        public Visibility ArchiveCurrentProcessing
+        {
+            get { return _archiveCurrentProcessing; }
+            set { SetProperty(ref _archiveCurrentProcessing, value); }
+        }
+
 
         public TestRunnerViewModel(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory, IRegionManager regionManager,  StatusEventHandler statusEventHandler)
         {
@@ -119,12 +133,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void OnNewArchiveProcessEvent(object sender, StatusEventNewArchiveInformation statusEventNewArchiveInformation)
         {
-            _log.Debug("Got a OnNewArchiveProcessEvent");
-            _log.Debug(statusEventNewArchiveInformation.ArchiveType);
-            _log.Debug(statusEventNewArchiveInformation.ArchiveFileName);
-            _log.Debug(statusEventNewArchiveInformation.Uuid);
+            NewArchiveInformation = statusEventNewArchiveInformation;
+            ArchiveCurrentProcessing = Visibility.Visible;
         }
-
 
 
         private void RunTests()

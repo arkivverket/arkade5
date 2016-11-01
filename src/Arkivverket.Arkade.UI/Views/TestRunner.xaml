@@ -12,6 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -25,7 +26,36 @@
                                  Background="#4CAF50" Margin="0 0 4 4">
         </materialDesign:Chip>
 
-        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+        <ItemsControl Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding NewArchiveInformation}">
+
+            <Grid Margin="8" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}">Type</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}">UUID</TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}">Fil sti</TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}">Start tid</TextBlock>
+
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ArchiveType}" Style="{StaticResource MaterialDesignHeadlineTextBlock}"></TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Uuid}" Style="{StaticResource MaterialDesignHeadlineTextBlock}"></TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ArchiveFileName}" Style="{StaticResource MaterialDesignHeadlineTextBlock}"></TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ArchiveType}" Style="{StaticResource MaterialDesignHeadlineTextBlock}"></TextBlock>
+
+            </Grid>
+        </ItemsControl>
+
+
+
+            <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding TestResults}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:TestRunnerStatus}">
