@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Arkivverket.Arkade.Logging
 {
-    public class StatusEventArgument
+    public class TestInformationEventArgs : EventArgs
     {
         public string TestName { get; set; }
         public DateTime StartTime { get; set; }
@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Logging
         public string ResultMessage { get; set; }
 
 
-        public StatusEventArgument(string testName, DateTime startTime, StatusTestExecution testStatus, bool isSuccess, string resultMessage)
+        public TestInformationEventArgs(string testName, DateTime startTime, StatusTestExecution testStatus, bool isSuccess, string resultMessage)
         {
             TestName = testName;
             StartTime = startTime;

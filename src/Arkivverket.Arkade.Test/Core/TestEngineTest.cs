@@ -18,8 +18,8 @@ namespace Arkivverket.Arkade.Test.Core
 
             var testEngine = new TestEngine(CreateTestProviderMock(new DummyTest()), statusEventHandler);
 
-            List<StatusEventArgument> events = new List<StatusEventArgument>();
-            statusEventHandler.StatusEvent += delegate(object sender,  StatusEventArgument args)
+            List<TestInformationEventArgs> events = new List<TestInformationEventArgs>();
+            statusEventHandler.StatusEvent += delegate(object sender,  TestInformationEventArgs args)
             {
                 events.Add(args);
             };

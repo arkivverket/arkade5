@@ -70,6 +70,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ADDML-prosesser på filen: {0}.
+        /// </summary>
+        internal static string RunningAddmlProcessesOnFile {
+            get {
+                return ResourceManager.GetString("RunningAddmlProcessesOnFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkivet er pakket ut til {0}.
         /// </summary>
         internal static string TarExtractionMessageFinished {

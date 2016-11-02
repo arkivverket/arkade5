@@ -38,17 +38,21 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0">UUID:</TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="0">Arkivtype:</TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="0">Filsti</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0">Filsti:</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0">Antall poster prosessert:</TextBlock>
 
             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ArchiveInformationStatus.Uuid}"></TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ArchiveInformationStatus.ArchiveType}"></TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ArchiveInformationStatus.ArchiveFileName}"></TextBlock>
-            <Button Grid.Row="3" Grid.Column="1" Content="Lagre IP" HorizontalAlignment="Right"  Width="100" Height="30" Command="{Binding SaveIpFileCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
-            <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding SaveIpStatus}"></TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding NumberOfProcessedRecords}"></TextBlock>
+
+            <Button Grid.Row="4" Grid.Column="1" Content="Lagre IP" HorizontalAlignment="Right"  Width="100" Height="30" Command="{Binding SaveIpFileCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding SaveIpStatus}"></TextBlock>
 
         </Grid>
 

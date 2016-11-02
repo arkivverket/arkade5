@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Tests;
 
@@ -11,99 +6,92 @@ namespace Arkivverket.Arkade.Logging
 {
     public class StatusEventHandler : IStatusEventHandler
     {
-
-        public StatusEventHandler()
+        public void RaiseEventTestStarted(ITest test)
         {
-            
+           OnStatusEvent(new TestInformationEventArgs(test.GetName(),DateTime.Now, StatusTestExecution.TestStarted, false, string.Empty));
         }
 
-
-        public void IssueOnTestStarted(ITest test)
-        {
-           OnStatusEvent(new StatusEventArgument(test.GetName(),DateTime.Now, StatusTestExecution.TestStarted, false, string.Empty));
-        }
-
-
-        public void IssueOnTestFinsihed(TestRun testRun)
+        public void RaiseEventTestFinsihed(TestRun testRun)
         {
             string resultMessage = string.Empty;
 
             if (testRun.Results != null && testRun.Results.Count > 0)
                 resultMessage = testRun.Results[0].Message;
 
-            OnStatusEvent(new StatusEventArgument(testRun.TestName, DateTime.Now, StatusTestExecution.TestCompleted, testRun.IsSuccess(), resultMessage));
+            OnStatusEvent(new TestInformationEventArgs(testRun.TestName, DateTime.Now, StatusTestExecution.TestCompleted, testRun.IsSuccess(), resultMessage));
         }
 
-
-        public void IssueOnTestInformation(string testName, string testMessage, StatusTestExecution status, bool isSuccess)
+        public void RaiseEventTestInformation(string testName, string testMessage, StatusTestExecution status, bool isSuccess)
         {
-            OnStatusEvent(new StatusEventArgument(testName, DateTime.Now, status, isSuccess, testMessage));
+            OnStatusEvent(new TestInformationEventArgs(testName, DateTime.Now, status, isSuccess, testMessage));
         }
 
-        public void IssueOnFileProcessingStart(StatusEventArgFileProcessing statusEventArgFileProcessing)
+        public void RaiseEventFileProcessingStarted(FileProcessingStatusEventArgs fileProcessingStatusEventArgs)
         {
-            OnFileProcessingStartEvent(statusEventArgFileProcessing);
+            OnFileProcessingStartEvent(fileProcessingStatusEventArgs);
         }
 
-        public void IssueOnFileProcessingStop(StatusEventArgFileProcessing statusEventArgFileProcessing)
+        public void RaiseEventFileProcessingFinished(FileProcessingStatusEventArgs fileProcessingStatusEventArgs)
         {
-            OnFileProcessingStopEvent(statusEventArgFileProcessing);
+            OnFileProcessingStopEvent(fileProcessingStatusEventArgs);
         }
 
-        public void IssueOnRecordProcessingStart(StatusEventArgRecord statusEventArgRecord)
+        public void RaiseEventRecordProcessingStart()
         {
-            OnRecordProcessingStartEvent(statusEventArgRecord);
+            OnRecordProcessingStartEvent(EventArgs.Empty);
         }
 
-        public void IssueOnNewTestRecord(StatusEventArgRecord statusEventArgRecord)
+        public void RaiseEventRecordProcessingStopped()
         {
-            OnNewTestRecordEvent(statusEventArgRecord);
+            OnRecordProcessingFinishedEvent(EventArgs.Empty);
         }
-
-        public void IssueOnNewArchiveInformation(StatusEventNewArchiveInformation statusEventArgNewArchiveInformation)
+     
+        public void RaiseEventNewArchiveInformation(ArchiveInformationEventArgs archiveInformationEventArgArgs)
         {
-            OnIssueOnNewArchiveInformation(statusEventArgNewArchiveInformation);
+            OnIssueOnNewArchiveInformation(archiveInformationEventArgArgs);
         }
 
+        public event EventHandler<TestInformationEventArgs> StatusEvent;
 
-        public event EventHandler<StatusEventArgument> StatusEvent;
-        public event EventHandler<StatusEventArgFileProcessing> FileProcessStartEvent;
-        public event EventHandler<StatusEventArgFileProcessing> FileProcessStopEvent;
-        public event EventHandler<StatusEventArgRecord> RecordProcessStartEvent;
-        public event EventHandler<StatusEventArgRecord> NewTestRecordEvent;
-        public event EventHandler<StatusEventNewArchiveInformation> NewArchiveProcessEvent;
+        public event EventHandler<FileProcessingStatusEventArgs> FileProcessStartedEvent;
+        public event EventHandler<FileProcessingStatusEventArgs> FileProcessFinishedEvent;
 
-        protected virtual void OnStatusEvent(StatusEventArgument e)
+        public event EventHandler<EventArgs> RecordProcessingStartedEvent;
+        public event EventHandler<EventArgs> RecordProcessingFinishedEvent;
+
+        public event EventHandler<ArchiveInformationEventArgs> NewArchiveProcessEvent;
+
+        protected virtual void OnStatusEvent(TestInformationEventArgs e)
         {
             var handler = StatusEvent;
             handler?.Invoke(this, e);
         }
 
-        protected virtual void OnFileProcessingStartEvent(StatusEventArgFileProcessing e)
+        protected virtual void OnFileProcessingStartEvent(FileProcessingStatusEventArgs e)
         {
-            var handler = FileProcessStartEvent;
+            var handler = FileProcessStartedEvent;
             handler?.Invoke(this, e);
         }
 
-        protected virtual void OnFileProcessingStopEvent(StatusEventArgFileProcessing e)
+        protected virtual void OnFileProcessingStopEvent(FileProcessingStatusEventArgs e)
         {
-            var handler = FileProcessStopEvent;
+            var handler = FileProcessFinishedEvent;
             handler?.Invoke(this, e);
         }
 
-        protected virtual void OnRecordProcessingStartEvent(StatusEventArgRecord e)
+        protected virtual void OnRecordProcessingStartEvent(EventArgs e)
         {
-            var handler = RecordProcessStartEvent;
+            var handler = RecordProcessingStartedEvent;
             handler?.Invoke(this, e);
         }
 
-        protected virtual void OnNewTestRecordEvent(StatusEventArgRecord e)
+        protected virtual void OnRecordProcessingFinishedEvent(EventArgs e)
         {
-            var handler = NewTestRecordEvent;
+            var handler = RecordProcessingFinishedEvent;
             handler?.Invoke(this, e);
         }
 
-        protected virtual void OnIssueOnNewArchiveInformation(StatusEventNewArchiveInformation e)
+        protected virtual void OnIssueOnNewArchiveInformation(ArchiveInformationEventArgs e)
         {
             var handler = NewArchiveProcessEvent;
             handler?.Invoke(this, e);

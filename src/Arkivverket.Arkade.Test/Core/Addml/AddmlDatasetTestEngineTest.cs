@@ -6,6 +6,7 @@ using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Core.Addml.Processes;
+using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Test.Util;
 using FluentAssertions;
 using Xunit;
@@ -36,7 +37,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             var testSession = new TestSession(new Archive(ArchiveType.Noark3, Uuid.Random(), new DirectoryInfo(@"c:\temp")));
             testSession.AddmlDefinition = addmlDefinition;
 
-            var addmlDatasetTestEngine = new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner());
+            var addmlDatasetTestEngine = new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner(), new StatusEventHandler());
             TestSuite testSuite = addmlDatasetTestEngine.RunTestsOnArchive(testSession);
 
 

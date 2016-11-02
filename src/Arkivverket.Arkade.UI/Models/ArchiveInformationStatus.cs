@@ -10,11 +10,11 @@ namespace Arkivverket.Arkade.UI.Models
         private string _archiveType;
         private string _uuid;
 
-        public void Update(StatusEventNewArchiveInformation statusEvent)
+        public void Update(ArchiveInformationEventArgs archiveInformationEvent)
         {
-            ArchiveFileName = statusEvent.ArchiveFileName;
-            ArchiveType = statusEvent.ArchiveType;
-            Uuid = statusEvent.Uuid;
+            ArchiveFileName = archiveInformationEvent.ArchiveFileName;
+            ArchiveType = archiveInformationEvent.ArchiveType;
+            Uuid = archiveInformationEvent.Uuid;
         }
 
         public string ArchiveType

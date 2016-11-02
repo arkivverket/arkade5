@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Util
             builder.RegisterType<TestEngine>().AsSelf().SingleInstance();
             builder.RegisterType<ArchiveContentReader>().As<IArchiveContentReader>();
             builder.RegisterType<TestProvider>().As<ITestProvider>();
-            builder.RegisterType<StatusEventHandler>().AsSelf().SingleInstance();
+            builder.RegisterType<StatusEventHandler>().As<IStatusEventHandler>().SingleInstance();
         }
     }
 }

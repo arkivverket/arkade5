@@ -32,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
             }
             catch (FormatException e)
             {
-                throw new ArgumentException("Could not parse integer " + s);
+                throw new ArgumentException("Could not parse integer " + s, e);
             }
         }
 

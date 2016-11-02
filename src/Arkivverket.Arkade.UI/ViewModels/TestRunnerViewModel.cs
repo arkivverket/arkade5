@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -28,7 +29,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private readonly TestSessionFactory _testSessionFactory;
         private readonly TestEngineFactory _testEngineFactory;
         private readonly IRegionManager _regionManager;
-        private readonly StatusEventHandler _statusEventHandler;
+
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
+        private readonly IStatusEventHandler _statusEventHandler;
+
         public DelegateCommand NavigateToSummaryCommand { get; set; }
         private DelegateCommand RunTestEngineCommand { get; set; }
         public DelegateCommand SaveIpFileCommand { get; set; }
@@ -41,6 +45,14 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
         private string _saveIpStatus;
+
+        private BigInteger _numberOfProcessedRecords = BigInteger.Zero;
+
+        public string NumberOfProcessedRecords
+        {
+            get { return _numberOfProcessedRecords.ToString(); }
+            set { SetProperty(ref _numberOfProcessedRecords, BigInteger.Parse(value)); }
+        }
 
         public Visibility FinishedTestingMessageVisibility
         {
@@ -72,18 +84,18 @@ namespace Arkivverket.Arkade.UI.ViewModels
         }
 
 
-        public TestRunnerViewModel(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory, IRegionManager regionManager,  StatusEventHandler statusEventHandler)
+        public TestRunnerViewModel(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory, IRegionManager regionManager,  IStatusEventHandler statusEventHandler)
         {
             _testSessionFactory = testSessionFactory;
             _testEngineFactory = testEngineFactory;
             _regionManager = regionManager;
             _statusEventHandler = statusEventHandler;
             _statusEventHandler.StatusEvent += OnStatusEvent;
-            _statusEventHandler.FileProcessStartEvent += OnFileProcessStartEvent;
-            _statusEventHandler.FileProcessStopEvent += OnFileProcessStopEvent;
-            _statusEventHandler.RecordProcessStartEvent += OnRecordProcessStartEvent;
-            _statusEventHandler.NewTestRecordEvent += OnNewTestRecordEvent;
-            _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveProcessEvent;
+            _statusEventHandler.FileProcessStartedEvent += OnFileProcessStartedEvent;
+            _statusEventHandler.FileProcessFinishedEvent += OnFileProcessFinishedEvent;
+            _statusEventHandler.RecordProcessingStartedEvent += OnRecordProcessingStartedEvent;
+            _statusEventHandler.RecordProcessingFinishedEvent += OnRecordProcessingFinishedEvent;
+            _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveInformationEvent;
             
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
             NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
@@ -119,39 +131,41 @@ namespace Arkivverket.Arkade.UI.ViewModels
         }
 
 
-        private void OnStatusEvent(object sender, StatusEventArgument statusEventArgument)
+        private void OnStatusEvent(object sender, TestInformationEventArgs eventArgs)
         {
-            UpdateGuiCollection(statusEventArgument);
+            UpdateGuiCollection(eventArgs);
         }
 
-        private void OnFileProcessStartEvent(object sender, StatusEventArgFileProcessing statusEventArgFileProcessing)
+        private void OnFileProcessStartedEvent(object sender, FileProcessingStatusEventArgs eventArgs)
         {
             _log.Debug("Got a onFileProcessStartEvent");
         }
 
-        private void OnFileProcessStopEvent(object sender, StatusEventArgFileProcessing statusEventArgFileProcessing)
+        private void OnFileProcessFinishedEvent(object sender, FileProcessingStatusEventArgs eventArgs)
         {
             _log.Debug("Got a onFileProcessStopEvent");
         }
 
-        private void OnRecordProcessStartEvent(object sender, StatusEventArgRecord statusEventArgRecord)
+        private void OnRecordProcessingStartedEvent(object sender, EventArgs eventArgs)
         {
-            _log.Debug("Got a onRecordProcessStartEvent");
+            _log.Verbose("Got a onRecordProcessStartEvent");
+        }
+        private void OnRecordProcessingFinishedEvent(object sender, EventArgs eventArgs)
+        {
+            _log.Verbose("Got a onRecordProcessFinishedEvent");
+
+            BigInteger counter = BigInteger.Parse(NumberOfProcessedRecords);
+            counter++;
+            NumberOfProcessedRecords = counter.ToString();
         }
 
-        private void OnNewTestRecordEvent(object sender, StatusEventArgRecord statusEventArgRecord)
-        {
-            _log.Debug("Got a onNewTestRecordEvent");
-        }
-
-        private void OnNewArchiveProcessEvent(object sender, StatusEventNewArchiveInformation statusEventNewArchiveInformation)
+        private void OnNewArchiveInformationEvent(object sender, ArchiveInformationEventArgs eventArgs)
         {
             _log.Debug("Got a OnNewArchiveProcessEvent");
 
-            ArchiveInformationStatus.Update(statusEventNewArchiveInformation);
+            ArchiveInformationStatus.Update(eventArgs);
             ArchiveCurrentProcessing = Visibility.Visible;
         }
-
 
         private void RunTests()
         {
@@ -183,28 +197,26 @@ namespace Arkivverket.Arkade.UI.ViewModels
             }
         }
 
-
-
-        private void UpdateGuiCollection(StatusEventArgument statusEventArgument)
+        private void UpdateGuiCollection(TestInformationEventArgs testInformationEventArgs)
         {
             // http://stackoverflow.com/questions/18331723/this-type-of-collectionview-does-not-support-changes-to-its-sourcecollection-fro
             Application.Current.Dispatcher.Invoke(delegate
             {
 
-                if (statusEventArgument.TestStatus == StatusTestExecution.TestStarted)
+                if (testInformationEventArgs.TestStatus == StatusTestExecution.TestStarted)
                 {
-                    var testRunnerStatus = new TestRunnerStatus(statusEventArgument);
+                    var testRunnerStatus = new TestRunnerStatus(testInformationEventArgs);
                     TestResults.Add(testRunnerStatus);
                 }
                 else
                 {
-                    var item = TestResults.FirstOrDefault(i => i.TestName == statusEventArgument.TestName);
+                    var item = TestResults.FirstOrDefault(i => i.TestName == testInformationEventArgs.TestName);
                     if (item != null)
                     {
-                        item.Update(statusEventArgument.TestStatus, statusEventArgument.IsSuccess);
+                        item.Update(testInformationEventArgs.TestStatus, testInformationEventArgs.IsSuccess);
 
-                        if (statusEventArgument.ResultMessage != null)
-                            item.ResultMessage = statusEventArgument.ResultMessage;
+                        if (testInformationEventArgs.ResultMessage != null)
+                            item.ResultMessage = testInformationEventArgs.ResultMessage;
                     }
                 }
             });

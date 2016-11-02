@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Identify
         private readonly IStatusEventHandler _statusEventHandler;
 
         public TestSessionFactory(ICompressionUtility compressionUtility, IArchiveIdentifier archiveIdentifier,
-            StatusEventHandler statusEventHandler)
+            IStatusEventHandler statusEventHandler)
         {
             _compressionUtility = compressionUtility;
             _archiveIdentifier = archiveIdentifier;
@@ -84,20 +84,20 @@ namespace Arkivverket.Arkade.Identify
 
         private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType, Uuid uuid)
         {
-            _statusEventHandler.IssueOnNewArchiveInformation(new StatusEventNewArchiveInformation(
+            _statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
                 archiveType.ToString(), uuid.ToString(), archiveFileName));
         }
 
         private void TarExtractionStartedEvent()
         {
-            _statusEventHandler.IssueOnTestInformation(
+            _statusEventHandler.RaiseEventTestInformation(
                 Resources.Messages.ReadingArchiveEvent,
                 Resources.Messages.TarExtractionMessageStarted, StatusTestExecution.TestStarted, false);
         }
 
         private void TarExctractionFinishedEvent(string workingDirectory)
         {
-            _statusEventHandler.IssueOnTestInformation(Resources.Messages.ReadingArchiveEvent,
+            _statusEventHandler.RaiseEventTestInformation(Resources.Messages.ReadingArchiveEvent,
                 string.Format(Resources.Messages.TarExtractionMessageFinished, workingDirectory),
                 StatusTestExecution.TestCompleted, true);
         }

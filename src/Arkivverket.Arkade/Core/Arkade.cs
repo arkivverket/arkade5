@@ -8,13 +8,15 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core
 {
+
+    // TODO: Should this be moved to test project?
     public class Arkade
     {
         private readonly TestSessionFactory _testSessionFactory;
 
         public Arkade()
         {
-            // TODO: Use autofac?
+            // consider using Autofac for instantiating classes, see example in ConsoleTest-project
             _testSessionFactory = new TestSessionFactory(new TarCompressionUtility(), new ArchiveIdentifier(),
                 new StatusEventHandler());
         }
@@ -28,7 +30,7 @@ namespace Arkivverket.Arkade.Core
                 new TestEngineFactory(
                     new TestEngine(new TestProvider(new Noark5TestProvider(new ArchiveContentReader())),
                         new StatusEventHandler()),
-                    new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner()));
+                    new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner(), new StatusEventHandler()));
 
             ITestEngine testEngine = f.GetTestEngine(testSession);
             testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);

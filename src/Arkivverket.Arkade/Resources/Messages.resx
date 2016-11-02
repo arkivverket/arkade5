@@ -120,9 +120,13 @@
   <data name="ReadingArchiveEvent" xml:space="preserve">
     <value>Innlesing av arkiv</value>
   </data>
+  <data name="RunningAddmlProcessesOnFile" xml:space="preserve">
+    <value>ADDML-prosesser på filen: {0}</value>
+    <comment>{0} angir filnavn på filen som blir testet.</comment>
+  </data>
   <data name="TarExtractionMessageFinished" xml:space="preserve">
     <value>Arkivet er pakket ut til {0}</value>
-    <comment>{0} angir filsti til utpakket arkiv</comment>
+    <comment>{0} angir filsti til utpakket arkiv.</comment>
   </data>
   <data name="TarExtractionMessageStarted" xml:space="preserve">
     <value>Starter utpakking av arkiv</value>

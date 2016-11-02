@@ -70,10 +70,10 @@ namespace Arkivverket.Arkade.UI.Models
             set { SetProperty(ref _resultAsColor, value); }
         }
 
-        public TestRunnerStatus(StatusEventArgument testStatus)
+        public TestRunnerStatus(TestInformationEventArgs testTestInformation)
         {
-            TestName = testStatus.TestName;
-            Update(testStatus.TestStatus, testStatus.IsSuccess);
+            TestName = testTestInformation.TestName;
+            Update(testTestInformation.TestStatus, testTestInformation.IsSuccess);
         }
 
 
