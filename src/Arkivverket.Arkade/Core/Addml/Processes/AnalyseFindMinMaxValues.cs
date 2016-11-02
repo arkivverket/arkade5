@@ -47,23 +47,19 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             // TODO: Use type to decide wether field is int?
             // field.Definition.GetType()
 
-            try
+            int value;
+
+            if (!int.TryParse(field.Value, out value))
+                return;
+
+            if (!_maxValue.HasValue || value > _maxValue)
             {
-                int value = int.Parse(field.Value);
-
-                if (!_maxValue.HasValue || value > _maxValue)
-                {
-                    _maxValue = value;
-                }
-
-                if (!_minValue.HasValue || value < _minValue)
-                {
-                    _minValue = value;
-                }
+                _maxValue = value;
             }
-            catch (FormatException e)
+
+            if (!_minValue.HasValue || value < _minValue)
             {
-                // ignore
+                _minValue = value;
             }
         }
     }
