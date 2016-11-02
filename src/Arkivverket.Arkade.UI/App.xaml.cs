@@ -1,34 +1,32 @@
 ﻿using System;
-using System.Threading;
 using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Threading;
 using Arkivverket.Arkade.UI.Util;
 using Arkivverket.Arkade.Util;
 using Serilog;
-using Application = System.Windows.Application;
 
 namespace Arkivverket.Arkade.UI
 {
     public partial class App : Application
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext<App>();
+        private static ILogger Log;
 
         public App()
         {
+            LogConfiguration.ConfigureSeriLog();
+            Log = Serilog.Log.ForContext<App>();
             // For some reason this will not work for exceptions thrown from inside the Views.
             AppDomain.CurrentDomain.UnhandledException += MyHandler;
         }
 
         public static void MyHandler(object sender, UnhandledExceptionEventArgs args)
         {
-            Exception e = (Exception) args.ExceptionObject;
+            var e = (Exception) args.ExceptionObject;
             ExceptionMessageBox.Show(e);
+            Log.Error("Unexpected exception", e);
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            LogConfiguration.ConfigureSeriLog();
             Log.Information("Arkade " + ArkadeVersion.Version + " started");
 
             base.OnStartup(e);
