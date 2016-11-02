@@ -139,7 +139,7 @@
     <value>Arkade 5 - versjon {0}</value>
   </data>
   <data name="SerilogFormatConfig" xml:space="preserve">
-    <value>{Timestamp:yyyy-MM-ddTHH:mm:ss.fff} {SourceContext} [{Level}] ({ThreadId}) {Message}{NewLine}{Exception}</value>
+    <value>{Timestamp:yyyy-MM-ddTHH:mm:ss.fff} [{Level}] {SourceContext} {Message}{NewLine}{Exception}</value>
   </data>
   <data name="TestName_CheckWellFormedXml" xml:space="preserve">
     <value>Valider gyldig xml</value>

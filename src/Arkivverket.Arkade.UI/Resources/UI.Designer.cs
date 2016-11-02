@@ -124,7 +124,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Timestamp:yyyy-MM-ddTHH:mm:ss.fff} {SourceContext} [{Level}] ({ThreadId}) {Message}{NewLine}{Exception}.
+        ///   Looks up a localized string similar to {Timestamp:yyyy-MM-ddTHH:mm:ss.fff} [{Level}] {SourceContext} {Message}{NewLine}{Exception}.
         /// </summary>
         public static string SerilogFormatConfig {
             get {
