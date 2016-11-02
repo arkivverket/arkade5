@@ -63,9 +63,27 @@ namespace Arkivverket.Arkade.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Innlesing av arkiv.
         /// </summary>
-        internal static string TarExtractionMessage {
+        internal static string ReadingArchiveEvent {
             get {
-                return ResourceManager.GetString("TarExtractionMessage", resourceCulture);
+                return ResourceManager.GetString("ReadingArchiveEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivet er pakket ut til {0}.
+        /// </summary>
+        internal static string TarExtractionMessageFinished {
+            get {
+                return ResourceManager.GetString("TarExtractionMessageFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starter utpakking av arkiv.
+        /// </summary>
+        internal static string TarExtractionMessageStarted {
+            get {
+                return ResourceManager.GetString("TarExtractionMessageStarted", resourceCulture);
             }
         }
     }

@@ -34,11 +34,40 @@ namespace Arkivverket.Arkade.Identify
         {
             _log.Information(
                 $"Building new TestSession with [archiveFileName: {archiveFileName}] [metadataFileName: {metadataFileName}");
+
+            TarExtractionStartedEvent();
+
             FileInfo archiveFileInfo = new FileInfo(archiveFileName);
 
             Uuid uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFileName));
             ArchiveType archiveType = _archiveIdentifier.Identify(metadataFileName);
 
+            ArchiveInformationEvent(archiveFileName, archiveType, uuid);
+
+            string workingDirectory = PrepareWorkingDirectory(metadataFileName, uuid);
+
+            DirectoryInfo archiveExtractionDirectory = new DirectoryInfo(Path.Combine(workingDirectory, uuid.GetValue()));
+            
+            _compressionUtility.ExtractFolderFromArchive(archiveFileInfo.FullName, archiveExtractionDirectory.FullName);
+
+            Archive archive = new Archive(archiveType, uuid, archiveExtractionDirectory);
+
+            ConvertNoarkihToAddmlIfNoark4(archive);
+
+            TarExctractionFinishedEvent(workingDirectory);
+
+            var testSession = new TestSession(archive);
+            if (archiveType != ArchiveType.Noark5)
+            {
+                AddmlInfo addml = AddmlUtil.ReadFromFile(archive.GetStructureDescriptionFileName());
+                testSession.AddmlDefinition = new AddmlDefinitionParser(addml).GetAddmlDefinition();
+            }
+
+            return testSession;
+        }
+
+        private string PrepareWorkingDirectory(string metadataFileName, Uuid uuid)
+        {
             string workingDirectory = GetWorkingDirectory(uuid);
             if (Directory.Exists(workingDirectory))
             {
@@ -50,33 +79,27 @@ namespace Arkivverket.Arkade.Identify
                 Directory.CreateDirectory(workingDirectory);
             }
             CopyToDir(metadataFileName, workingDirectory);
+            return workingDirectory;
+        }
 
-            DirectoryInfo archiveExtractionDirectory = new DirectoryInfo(Path.Combine(workingDirectory, uuid.GetValue()));
-
+        private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType, Uuid uuid)
+        {
             _statusEventHandler.IssueOnNewArchiveInformation(new StatusEventNewArchiveInformation(
-                archiveType.ToString(), uuid.ToString(), DateTime.Now, archiveFileName));
+                archiveType.ToString(), uuid.ToString(), archiveFileName));
+        }
 
-            _statusEventHandler.IssueOnTestInformation(Resources.Messages.TarExtractionMessage,
-                $"Starter utpakking av {archiveFileName}", StatusTestExecution.TestStarted, false);
+        private void TarExtractionStartedEvent()
+        {
+            _statusEventHandler.IssueOnTestInformation(
+                Resources.Messages.ReadingArchiveEvent,
+                Resources.Messages.TarExtractionMessageStarted, StatusTestExecution.TestStarted, false);
+        }
 
-            _compressionUtility.ExtractFolderFromArchive(archiveFileInfo.FullName, archiveExtractionDirectory.FullName);
-
-            Archive archive = new Archive(archiveType, uuid, archiveExtractionDirectory);
-
-
-            ConvertNoarkihToAddmlIfNoark4(archive);
-
-            _statusEventHandler.IssueOnTestInformation(Resources.Messages.TarExtractionMessage,
-                $"{archiveFileName} er ferdig utpakket", StatusTestExecution.TestCompleted, true);
-
-            var testSession = new TestSession(archive);
-            if (archiveType != ArchiveType.Noark5)
-            {
-                AddmlInfo addml = AddmlUtil.ReadFromFile(archive.GetStructureDescriptionFileName());
-                testSession.AddmlDefinition = new AddmlDefinitionParser(addml).GetAddmlDefinition();
-            }
-
-            return testSession;
+        private void TarExctractionFinishedEvent(string workingDirectory)
+        {
+            _statusEventHandler.IssueOnTestInformation(Resources.Messages.ReadingArchiveEvent,
+                string.Format(Resources.Messages.TarExtractionMessageFinished, workingDirectory),
+                StatusTestExecution.TestCompleted, true);
         }
 
         private void CopyToDir(string metadataFileName, string workingDirectory)

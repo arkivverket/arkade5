@@ -135,6 +135,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Models\ArchiveInformationStatus.cs" />
     <Compile Include="Models\TestRunnerStatus.cs" />
     <Compile Include="ModuleAModule.cs" />
     <Compile Include="Util\Colors.cs" />

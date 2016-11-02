@@ -26,32 +26,27 @@
                                  Background="#4CAF50" Margin="0 0 4 4">
         </materialDesign:Chip>
 
-        <ItemsControl Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding NewArchiveInformation}">
 
-            <Grid Margin="8" VerticalAlignment="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="0" Margin="8" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}">Type</TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}">UUID</TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}">Fil sti</TextBlock>
-                <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}">Start tid</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0">UUID:</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0">Arkivtype:</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0">Filsti</TextBlock>
 
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ArchiveType}" Style="{StaticResource MaterialDesignHeadlineTextBlock}"></TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Uuid}" Style="{StaticResource MaterialDesignHeadlineTextBlock}"></TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ArchiveFileName}" Style="{StaticResource MaterialDesignHeadlineTextBlock}"></TextBlock>
-                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ArchiveType}" Style="{StaticResource MaterialDesignHeadlineTextBlock}"></TextBlock>
-
-            </Grid>
-        </ItemsControl>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ArchiveInformationStatus.Uuid}"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ArchiveInformationStatus.ArchiveType}"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ArchiveInformationStatus.ArchiveFileName}"></TextBlock>
+        </Grid>
 
 
 

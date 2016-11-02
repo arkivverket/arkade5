@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private TestSession _testSession;
         private bool _isRunningTests;
         private Visibility _finishedTestingMessageVisibility = Visibility.Collapsed;
-        private StatusEventNewArchiveInformation _newArchiveInformation;
+        private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
 
         public Visibility FinishedTestingMessageVisibility
@@ -48,10 +48,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _testResults, value); }
         }
 
-        public StatusEventNewArchiveInformation NewArchiveInformation
+        public ArchiveInformationStatus ArchiveInformationStatus
         {
-            get { return _newArchiveInformation; }
-            set { SetProperty(ref _newArchiveInformation, value); }
+            get { return _archiveInformationStatus; }
+            set { SetProperty(ref _archiveInformationStatus, value); }
         }
         public Visibility ArchiveCurrentProcessing
         {
@@ -72,7 +72,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _statusEventHandler.RecordProcessStartEvent += OnRecordProcessStartEvent;
             _statusEventHandler.NewTestRecordEvent += OnNewTestRecordEvent;
             _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveProcessEvent;
-
+            
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
             NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
         }
@@ -133,7 +133,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void OnNewArchiveProcessEvent(object sender, StatusEventNewArchiveInformation statusEventNewArchiveInformation)
         {
-            NewArchiveInformation = statusEventNewArchiveInformation;
+            _log.Debug("Got a OnNewArchiveProcessEvent");
+
+            ArchiveInformationStatus.Update(statusEventNewArchiveInformation);
             ArchiveCurrentProcessing = Visibility.Visible;
         }
 
