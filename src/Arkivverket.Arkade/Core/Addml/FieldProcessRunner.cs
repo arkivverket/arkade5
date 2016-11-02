@@ -4,18 +4,18 @@ namespace Arkivverket.Arkade.Core.Addml
 {
     public class FieldProcessRunner
     {
-        private readonly ProcessFactory _processFactory;
+        private readonly ProcessManager _processManager;
         private readonly Dictionary<string, List<IAddmlProcess>> _processCache;
 
-        public FieldProcessRunner(ProcessFactory processFactory)
+        public FieldProcessRunner(ProcessManager processManager)
         {
-            _processFactory = processFactory;
-            _processCache = _processFactory.GetFieldProcesses();
+            _processManager = processManager;
+            _processCache = _processManager.GetFieldProcesses();
         }
 
         public void RunProcesses(Field field)
         {
-            List<IAddmlProcess> processes = _processFactory.GetProcesses(field.Definition.Key(), _processCache);
+            List<IAddmlProcess> processes = _processManager.GetProcesses(field.Definition.Key(), _processCache);
 
             foreach (IAddmlProcess process in processes)
             {

@@ -7,18 +7,15 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
-
-    // TODO: Remove "Factory" from class name
-
-    public class ProcessFactory
+    public class ProcessManager
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext<ProcessFactory>();
+        private static readonly ILogger Log = Serilog.Log.ForContext<ProcessManager>();
 
         private readonly AddmlDefinition _addmlDefinition;
         private readonly Dictionary<string, IAddmlProcess> _processesByName;
         private readonly ProcessTypeMapping _processTypeMapping = new ProcessTypeMapping();
 
-        public ProcessFactory(AddmlDefinition addmlDefinition)
+        public ProcessManager(AddmlDefinition addmlDefinition)
         {
             _addmlDefinition = addmlDefinition;
             _processesByName = InstantiateProcesses();
@@ -32,12 +29,13 @@ namespace Arkivverket.Arkade.Core.Addml
                 Type type = _processTypeMapping.GetType(processName);
                 if (type != null)
                 {
+                    Log.Debug($"Instantiating process: {processName}");
                     var process = (IAddmlProcess) Activator.CreateInstance(type);
                     processes.Add(processName, process);
                 }
                 else
                 {
-                    Log.Warning("No process with name " + processName);
+                    Log.Warning($"No process with name {processName} in ProcessTypeMapping.");
                 }
             }
             return processes;

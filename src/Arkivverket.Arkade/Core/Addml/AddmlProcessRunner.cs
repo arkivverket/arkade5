@@ -6,15 +6,15 @@ namespace Arkivverket.Arkade.Core.Addml
     {
         private FieldProcessRunner _fieldProcessRunner;
         private FileProcessRunner _fileProcessRunner;
-        private ProcessFactory _processFactory;
+        private ProcessManager _processManager;
         private RecordProcessRunner _recordProcessRunner;
 
         public void Init(AddmlDefinition addmlDefinition)
         {
-            _processFactory = new ProcessFactory(addmlDefinition);
-            _fileProcessRunner = new FileProcessRunner(_processFactory);
-            _recordProcessRunner = new RecordProcessRunner(_processFactory);
-            _fieldProcessRunner = new FieldProcessRunner(_processFactory);
+            _processManager = new ProcessManager(addmlDefinition);
+            _fileProcessRunner = new FileProcessRunner(_processManager);
+            _recordProcessRunner = new RecordProcessRunner(_processManager);
+            _fieldProcessRunner = new FieldProcessRunner(_processManager);
         }
 
         public void RunProcesses(FlatFile file)
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Addml
         {
             var testSuite = new TestSuite();
 
-            foreach (IAddmlProcess addmlProcess in _processFactory.GetAllProcesses())
+            foreach (IAddmlProcess addmlProcess in _processManager.GetAllProcesses())
             {
                 testSuite.AddTestRun(addmlProcess.GetTestRun());
             }
@@ -46,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
         public void EndOfFile()
         {
-            foreach (IAddmlProcess addmlProcess in _processFactory.GetAllProcesses())
+            foreach (IAddmlProcess addmlProcess in _processManager.GetAllProcesses())
             {
                 addmlProcess.EndOfFile();
             }
