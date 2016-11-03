@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
     public class FlatFileReaderTest
     {
 
-        [Fact(Skip = "Multiple recordDefinition per FlatFile not yet supported")]
+        [Fact]
         public void MultipleRecordDefinitionsPerflatFileShouldBeSupported()
         {
             FlatFile flatFile = GetDokDat();
@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
                 }
             }
 
-            reader.HasMoreRecords().Should().BeTrue();
+            reader.HasMoreRecords().Should().BeFalse();
         }
 
         private void VerifyBrev(Record record)
@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             record.Fields[4].GetName().Should().Be("Journaldato");
             record.Fields[4].Value.Should().MatchRegex("199.....");
             record.Fields[5].GetName().Should().Be("Doktype");
-            record.Fields[5].Value.Should().BeOneOf("I", "U");
+            record.Fields[5].Value.Should().Be("N");
             record.Fields[6].GetName().Should().Be("Uoff");
             record.Fields[6].Value.Should().Be("                ");
             record.Fields[7].GetName().Should().Be("Bdato");
@@ -123,7 +123,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             record.Fields[12].Value.Should().MatchRegex("       ");
             record.Fields[13].GetName().Should().Be("Internt_dok_fra");
             record.Fields[13].Value.Should()
-                .BeOneOf("Bjørn Kragevik                        ", "Stine Olsen                           ");
+                .BeOneOf("Bjørn Kragevik                ", "Stine Olsen                   ");
             record.Fields[14].GetName().Should().Be("Blankt_felt_4");
             record.Fields[14].Value.Should().Be("        ");
             record.Fields[15].GetName().Should().Be("Internt_dok_til");

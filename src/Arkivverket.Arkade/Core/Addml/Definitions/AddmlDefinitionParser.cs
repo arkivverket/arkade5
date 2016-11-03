@@ -106,11 +106,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 FileInfo fileInfo =
                     new FileInfo(_addmlInfo.AddmlFile.DirectoryName + Path.DirectorySeparatorChar + fileName);
                 string charset = GetCharset(flatFileDefinition.typeReference);
+                string recordDefinitionFieldIdentifier = flatFileDefinition.recordDefinitionFieldIdentifier;
                 List<string> flatFileProcesses = GetFlatFileProcessNames(flatFileDefinition.name);
 
                 AddmlFlatFileDefinition addmlFlatFileDefinition =
                     new AddmlFlatFileDefinition(name, fileName, fileInfo, recordSeparator, charset,
-                        flatFileProcesses);
+                        recordDefinitionFieldIdentifier, flatFileProcesses);
 
                 AddAddmlFieldDefinitions(addmlFlatFileDefinition, flatFileDefinition);
 
@@ -211,10 +212,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             {
                 string recordDefinitionName = recordDefinition.name;
                 int? recordLength = GetRecordLength(recordDefinition);
+                string recordDefinitionFieldValue = recordDefinition.recordDefinitionFieldValue;
                 List<string> recordProcesses = GetRecordProcessNames(addmlFlatFileDefinition.Name, recordDefinition.name);
 
                 AddmlRecordDefinition addmlRecordDefinition = 
-                    addmlFlatFileDefinition.AddAddmlRecordDefinition(recordDefinitionName, recordLength, recordProcesses);
+                    addmlFlatFileDefinition.AddAddmlRecordDefinition(recordDefinitionName, recordLength, recordDefinitionFieldValue, recordProcesses);
 
                 List<fieldDefinition> fieldDefinitions = GetFieldDefinitions(recordDefinition);
                 foreach (fieldDefinition fieldDefinition in fieldDefinitions)

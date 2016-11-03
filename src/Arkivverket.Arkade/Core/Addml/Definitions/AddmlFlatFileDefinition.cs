@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -12,6 +11,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public FileInfo FileInfo { get; }
         public RecordSeparator RecordSeparator { get; }
         public Encoding Encoding { get; }
+        public string RecordDefinitionFieldIdentifier { get; }
         public int NumberOfOccurences { get; }
         public string ChecksumAlgorithm { get; }
         public string ChecksumValue { get; }
@@ -25,6 +25,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             FileInfo fileInfo,
             string recordSeparator,
             string charset,
+            string recordDefinitionFieldIdentifier,
             List<string> processes)
         {
             Name = name;
@@ -32,16 +33,18 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             FileInfo = fileInfo;
             RecordSeparator = string.IsNullOrEmpty(recordSeparator) ? null : new RecordSeparator(recordSeparator);
             Encoding = Encodings.GetEncoding(charset);
+            RecordDefinitionFieldIdentifier = recordDefinitionFieldIdentifier;
             AddmlRecordDefinitions = new List<AddmlRecordDefinition>();
             Processes = processes;
         }
 
         internal AddmlRecordDefinition AddAddmlRecordDefinition(string name, int? recordLength,
-            List<string> processes)
+            string recordDefinitionFieldValue, List<string> processes)
         {
             AddmlRecordDefinition addmlFieldDefinition = new AddmlRecordDefinition(this,
                 name,
                 recordLength,
+                recordDefinitionFieldValue,
                 processes);
             AddmlRecordDefinitions.Add(addmlFieldDefinition);
             return addmlFieldDefinition;

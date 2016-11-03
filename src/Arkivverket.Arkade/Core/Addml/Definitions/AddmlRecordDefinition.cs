@@ -11,6 +11,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public int? RecordLength { get; }
 
+        public string RecordDefinitionFieldValue { get; }
+
         public List<AddmlFieldDefinition> PrimaryKey { get; private set; }
 
         public List<AddmlFieldDefinition> AddmlFieldDefinitions { get; }
@@ -20,11 +22,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public AddmlRecordDefinition(AddmlFlatFileDefinition addmlFlatFileDefinition,
             string name,
             int? recordLength,
+            string recordDefinitionFieldValue,
             List<string> processes)
         {
             AddmlFlatFileDefinition = addmlFlatFileDefinition;
             Name = name;
             RecordLength = recordLength;
+            RecordDefinitionFieldValue = recordDefinitionFieldValue;
             AddmlFieldDefinitions = new List<AddmlFieldDefinition>();
             Processes = processes;
         }
