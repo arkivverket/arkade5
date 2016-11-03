@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core.Addml;
+﻿using System.IO;
+using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Tests;
@@ -13,6 +14,7 @@ namespace Arkivverket.Arkade.Core
 
         public Arkade()
         {
+            // TODO: Use autofac?
             _testSessionFactory = new TestSessionFactory(new TarCompressionUtility(), new ArchiveIdentifier(),
                 new StatusEventHandler());
         }
@@ -21,6 +23,7 @@ namespace Arkivverket.Arkade.Core
         {
             TestSession testSession = _testSessionFactory.NewSessionFromArchive(archive);
 
+            // TODO: Use autofac?
             TestEngineFactory f =
                 new TestEngineFactory(
                     new TestEngine(new TestProvider(new Noark5TestProvider(new ArchiveContentReader())),
@@ -31,6 +34,23 @@ namespace Arkivverket.Arkade.Core
             testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
 
             return testSession;
+        }
+
+        public bool SaveIp(TestSession testSession, DirectoryInfo directoryName)
+        {
+            if (!directoryName.Exists)
+            {
+                directoryName.Create();
+            }
+            string tarFile = Path.Combine(directoryName.FullName, testSession.Archive.Uuid.GetValue() + ".tar");
+            TarCompressionUtility tar = new TarCompressionUtility();
+            tar.CompressFolderContentToArchiveFile(tarFile, testSession.Archive.WorkingDirectory.FullName);
+
+            string sourceInfoXml = Path.Combine(testSession.Archive.WorkingDirectory.Parent.FullName, ArkadeConstants.InfoXmlFileName);
+            string destinfoXml = Path.Combine(directoryName.FullName, ArkadeConstants.InfoXmlFileName);
+            File.Copy(sourceInfoXml, destinfoXml);
+
+            return true;
         }
     }
 }

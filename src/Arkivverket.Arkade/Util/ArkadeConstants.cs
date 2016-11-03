@@ -22,6 +22,9 @@ namespace Arkivverket.Arkade.Util
         private static readonly string ArkadeLogDirectoryString = Path.Combine(ArkadeDirectoryString, "logs");
         private static readonly DirectoryInfo ArkadeLogDirectory = new DirectoryInfo(ArkadeLogDirectoryString);
 
+        private static readonly string ArkadeIpDirectoryString = Path.Combine(ArkadeDirectoryString, "ip");
+        private static readonly DirectoryInfo ArkadeIpDirectory = new DirectoryInfo(ArkadeIpDirectoryString);
+
         static ArkadeConstants()
         {
             if (!ArkadeDirectory.Exists)
@@ -35,6 +38,13 @@ namespace Arkivverket.Arkade.Util
                 ArkadeWorkDirectory.Create();
                 Log.Information("Arkade temp directory created: " + ArkadeWorkDirectory.FullName);
             }
+
+            if (!ArkadeIpDirectory.Exists)
+            {
+                ArkadeIpDirectory.Create();
+                Log.Information("Arkade ip directory created: " + ArkadeIpDirectory.FullName);
+            }
+
         }
 
 
@@ -51,6 +61,11 @@ namespace Arkivverket.Arkade.Util
         public static DirectoryInfo GetArkadeLogDirectory()
         {
             return ArkadeLogDirectory;
+        }
+
+        public static DirectoryInfo GetArkadeIpDirectory()
+        {
+            return ArkadeIpDirectory;
         }
 
         public static DirectoryInfo GetUniqueTempDirectory()

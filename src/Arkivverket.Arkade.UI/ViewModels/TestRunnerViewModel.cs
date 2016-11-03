@@ -1,8 +1,10 @@
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.UI.Models;
@@ -12,6 +14,7 @@ using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.UI.Util;
+using Arkivverket.Arkade.Util;
 using Application = System.Windows.Application;
 
 namespace Arkivverket.Arkade.UI.ViewModels
@@ -28,6 +31,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private readonly StatusEventHandler _statusEventHandler;
         public DelegateCommand NavigateToSummaryCommand { get; set; }
         private DelegateCommand RunTestEngineCommand { get; set; }
+        public DelegateCommand SaveIpFileCommand { get; set; }
+
         private string _metadataFileName;
         private string _archiveFileName;
         private TestSession _testSession;
@@ -35,6 +40,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private Visibility _finishedTestingMessageVisibility = Visibility.Collapsed;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
+        private string _saveIpStatus;
 
         public Visibility FinishedTestingMessageVisibility
         {
@@ -53,10 +59,16 @@ namespace Arkivverket.Arkade.UI.ViewModels
             get { return _archiveInformationStatus; }
             set { SetProperty(ref _archiveInformationStatus, value); }
         }
+
         public Visibility ArchiveCurrentProcessing
         {
             get { return _archiveCurrentProcessing; }
             set { SetProperty(ref _archiveCurrentProcessing, value); }
+        }
+        public string SaveIpStatus
+        {
+            get { return _saveIpStatus; }
+            set { SetProperty(ref _saveIpStatus, value); }
         }
 
 
@@ -75,6 +87,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
             NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
+            SaveIpFileCommand = new DelegateCommand(SaveIpFile);
         }
 
         private void NavigateToSummary()
@@ -195,6 +208,47 @@ namespace Arkivverket.Arkade.UI.ViewModels
                     }
                 }
             });
+        }
+
+
+        private void SaveIpFile()
+        {
+            DirectoryInfo directoryName = GetDirectoryName();
+
+            Core.Arkade arkade = new Core.Arkade();
+            bool saved = arkade.SaveIp(_testSession, directoryName);
+            if (saved)
+            {
+                SaveIpStatus = "IP og metadata lagret i " + directoryName;
+            }
+        }
+
+        private DirectoryInfo GetDirectoryName()
+        {
+            string directoryName = Path.Combine(ArkadeConstants.GetArkadeIpDirectory().FullName, _testSession.Archive.Uuid.GetValue());
+            DirectoryInfo directoryInfo = new DirectoryInfo(directoryName);
+            if (!directoryInfo.Exists)
+            {
+                directoryInfo.Create();
+            }
+
+            return directoryInfo;
+
+            /* If we want to use a FolderBrowserDialog
+            var dialog = new FolderBrowserDialog();
+            dialog.SelectedPath = directoryName;
+            dialog.ShowNewFolderButton = true;
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                directoryName = dialog.SelectedPath;
+                return new DirectoryInfo(directoryName);
+            }
+            else
+            {
+                return null;
+            }
+            */
         }
     }
 }
