@@ -4,12 +4,12 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Test.Core.Addml
 {
-    public class KvoteFisk89Test
+    public class Kvotekontroll89Test
     {
-        [Fact(Skip = "kvotekontroll89-Version8.2.XML does not validate against addml.xsd")]
-        public void ShouldParseKvoteFisk89Xml()
+        [Fact(Skip = "kvotekontroll89.XML does not validate against addml.xsd")]
+        public void ShouldParseKvotekontroll89Xml()
         {
-            AddmlInfo addml = AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\KvoteFisk89\\kvotekontroll89-Version8.2.XML");
+            AddmlInfo addml = AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\kvotekontroll89\\kvotekontroll89.XML");
             AddmlDefinitionParser parser = new AddmlDefinitionParser(addml);
 
             AddmlDefinition addmlDefinition = parser.GetAddmlDefinition();
