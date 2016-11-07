@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core
 
                 var testRun = test.RunTest(testSession.Archive);
 
-                _statusEventHandler.RaiseEventTestFinsihed(testRun);
+                _statusEventHandler.RaiseEventTestFinished(testRun);
 
                 testSuite.AddTestRun(testRun);
             }

@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Logging
            OnStatusEvent(new TestInformationEventArgs(test.GetName(),DateTime.Now, StatusTestExecution.TestStarted, false, string.Empty));
         }
 
-        public void RaiseEventTestFinsihed(TestRun testRun)
+        public void RaiseEventTestFinished(TestRun testRun)
         {
             string resultMessage = string.Empty;
 
