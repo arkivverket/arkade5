@@ -38,11 +38,27 @@
       <HintPath>..\packages\AutofacSerilogIntegration.1.0.12\lib\portable45-net45+win8+wp8+wpa81\AutofacSerilogIntegration.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HtmlRenderer, Version=1.5.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.5\lib\net45\HtmlRenderer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlRenderer.PdfSharp, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.PdfSharp.1.5.0.6\lib\net45\HtmlRenderer.PdfSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.2.0.0\lib\net45\Serilog.dll</HintPath>
       <Private>True</Private>
@@ -123,6 +139,13 @@
     <Compile Include="Logging\StatusEventArgRecord.cs" />
     <Compile Include="Core\ArkadeException.cs" />
     <Compile Include="Logging\StatusEventNewArchiveInformation.cs" />
+    <Compile Include="Report\HtmlReport.cs" />
+    <Compile Include="Report\HtmlReportGenerator.cs" />
+    <Compile Include="Report\HtmlToPdfConverter.cs" />
+    <Compile Include="Report\IReport.cs" />
+    <Compile Include="Report\PdfReport.cs" />
+    <Compile Include="Report\PdfReportGenerator.cs" />
+    <Compile Include="Report\IReportGenerator.cs" />
     <Compile Include="Util\ArkadeConstants.cs" />
     <Compile Include="Core\Encodings.cs" />
     <Compile Include="Core\IArchiveContentReader.cs" />
