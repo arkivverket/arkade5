@@ -8,9 +8,10 @@
              xmlns:models="clr-namespace:Arkivverket.Arkade.UI.Models"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="340.8">
+             d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -22,15 +23,15 @@
         <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10">Testsammendrag</TextBlock>
 
         <materialDesign:Chip Visibility="{Binding FinishedTestingMessageVisibility}" 
-                                 Grid.Row="0" Grid.Column="1" Content="Testkjøringen er fullført"                                  
+                                 Grid.Row="1" Grid.Column="0" Content="Testkjøringen er fullført"                                  
                                  Background="#4CAF50" Margin="0 0 4 4">
         </materialDesign:Chip>
 
 
-        <Grid Grid.Row="1" Grid.Column="0" Margin="8" VerticalAlignment="Top">
+        <Grid Grid.Row="2" Grid.Column="0" Margin="8" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="400" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -39,26 +40,30 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0">UUID:</TextBlock>
-            <TextBlock Grid.Row="1" Grid.Column="0">Arkivtype:</TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="0">Filsti:</TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="0">Antall poster prosessert:</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,5">UUID:</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,5">Arkivtype:</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,5">Filsti:</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,5">Fil som blir prosessert nå:</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,5">Antall filer prosessert:</TextBlock>
+            <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5">Antall poster prosessert:</TextBlock>
 
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ArchiveInformationStatus.Uuid}"></TextBlock>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ArchiveInformationStatus.ArchiveType}"></TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ArchiveInformationStatus.ArchiveFileName}"></TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding NumberOfProcessedRecords}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Margin="5" Text="{Binding ArchiveInformationStatus.Uuid}"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding ArchiveInformationStatus.ArchiveType}"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="5" TextWrapping="Wrap" Text="{Binding ArchiveInformationStatus.ArchiveFileName}"></TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding CurrentlyProcessingFile}"></TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedFiles}"></TextBlock>
+            <TextBlock Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedRecords}"></TextBlock>
 
-            <Button Grid.Row="4" Grid.Column="1" Content="Lagre IP" HorizontalAlignment="Right"  Width="100" Height="30" Command="{Binding SaveIpFileCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
-            <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding SaveIpStatus}"></TextBlock>
+            <Button Grid.Row="6" Grid.Column="1" Content="Lagre IP" HorizontalAlignment="Right"  Width="100" Height="30" Command="{Binding SaveIpFileCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
+            <TextBlock Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding SaveIpStatus}"></TextBlock>
 
         </Grid>
 
-
-
-            <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding TestResults}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:TestRunnerStatus}">
@@ -94,10 +99,5 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        
-      
-        <!--
-        <Button Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Margin="5 20" Content="Vis sammendrag" HorizontalAlignment="Right" Command="{Binding NavigateToSummaryCommand}" Height="31" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
--->
     </Grid>
 </UserControl>

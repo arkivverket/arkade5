@@ -47,6 +47,20 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private string _saveIpStatus;
 
         private BigInteger _numberOfProcessedRecords = BigInteger.Zero;
+        private int _numberOfProcessedFiles = 0;
+        private string _currentlyProcessingFile;
+
+        public string CurrentlyProcessingFile
+        {
+            get { return _currentlyProcessingFile; }
+            set { SetProperty(ref _currentlyProcessingFile, value); }
+        }
+
+        public int NumberOfProcessedFiles
+        {
+            get { return _numberOfProcessedFiles; }
+            set { SetProperty(ref _numberOfProcessedFiles, value); }
+        }
 
         public string NumberOfProcessedRecords
         {
@@ -139,11 +153,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private void OnFileProcessStartedEvent(object sender, FileProcessingStatusEventArgs eventArgs)
         {
             _log.Debug("Got a onFileProcessStartEvent");
+            CurrentlyProcessingFile = eventArgs.FileName;
         }
 
         private void OnFileProcessFinishedEvent(object sender, FileProcessingStatusEventArgs eventArgs)
         {
             _log.Debug("Got a onFileProcessStopEvent");
+            NumberOfProcessedFiles = NumberOfProcessedFiles + 1;
         }
 
         private void OnRecordProcessingStartedEvent(object sender, EventArgs eventArgs)
