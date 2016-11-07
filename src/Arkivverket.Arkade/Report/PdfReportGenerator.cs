@@ -1,4 +1,6 @@
-﻿namespace Arkivverket.Arkade.Report
+﻿using Arkivverket.Arkade.Core;
+
+namespace Arkivverket.Arkade.Report
 {
     public class PdfReportGenerator : IReportGenerator<PdfReport>
     {
@@ -8,9 +10,9 @@
         {
         }
 
-        public PdfReport Generate()
+        public PdfReport Generate(TestSession testSession)
         {
-            HtmlReport htmlReport = _htmlReportGenerator.Generate();
+            HtmlReport htmlReport = _htmlReportGenerator.Generate(testSession);
             byte[] pdf = HtmlToPdfConverter.Convert(htmlReport.GetHtml());
             return new PdfReport(pdf);
         }
