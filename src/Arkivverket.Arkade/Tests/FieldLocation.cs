@@ -4,9 +4,9 @@ namespace Arkivverket.Arkade.Tests
 {
     public class FieldLocation : ILocation
     {
-        private readonly string _field;
         private readonly string _file;
         private readonly string _record;
+        private readonly string _field;
 
         public FieldLocation(string file, string record, string field)
         {
@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Tests
 
         public override string ToString()
         {
-            return $"{_field}/{_file}/{_record}";
+            return $"{_file}/{_record}/{_field}";
         }
     }
 }
