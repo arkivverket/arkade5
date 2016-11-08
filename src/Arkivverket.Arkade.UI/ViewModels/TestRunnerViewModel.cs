@@ -5,7 +5,6 @@ using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.UI.Models;
@@ -36,6 +35,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         public DelegateCommand NavigateToSummaryCommand { get; set; }
         private DelegateCommand RunTestEngineCommand { get; set; }
         public DelegateCommand SaveIpFileCommand { get; set; }
+        public DelegateCommand ShowReportCommand { get; set; }
 
         private string _metadataFileName;
         private string _archiveFileName;
@@ -114,6 +114,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
             NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
             SaveIpFileCommand = new DelegateCommand(SaveIpFile);
+            ShowReportCommand = new DelegateCommand(SaveAndShowReport);
         }
 
         private void NavigateToSummary()
@@ -238,10 +239,31 @@ namespace Arkivverket.Arkade.UI.ViewModels
             });
         }
 
+        private void SaveAndShowReport()
+        {
+            DirectoryInfo directoryName = _testSession.GetReportDirectory();
+            FileInfo pdfFile = new FileInfo(Path.Combine(directoryName.FullName, "report.pdf"));
+            SaveReport(pdfFile);
+            OpenReport(pdfFile);
+        }
+
+        private void OpenReport(FileInfo pdfFile)
+        {
+            System.Diagnostics.Process.Start(pdfFile.FullName);
+        }
+
+        private void SaveReport(FileInfo pdfFile)
+        {
+            Core.Arkade arkade = new Core.Arkade();
+            arkade.SaveReport(_testSession, pdfFile);
+
+            SaveIpStatus = "Rapport lagret " + pdfFile.FullName;
+        }
+
 
         private void SaveIpFile()
         {
-            DirectoryInfo directoryName = GetDirectoryName();
+            DirectoryInfo directoryName = GetIpDirectory();
 
             Core.Arkade arkade = new Core.Arkade();
             bool saved = arkade.SaveIp(_testSession, directoryName);
@@ -251,7 +273,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
             }
         }
 
-        private DirectoryInfo GetDirectoryName()
+
+        private DirectoryInfo GetIpDirectory()
         {
             string directoryName = Path.Combine(ArkadeConstants.GetArkadeIpDirectory().FullName, _testSession.Archive.Uuid.GetValue());
             DirectoryInfo directoryInfo = new DirectoryInfo(directoryName);

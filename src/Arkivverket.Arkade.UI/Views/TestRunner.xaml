@@ -42,6 +42,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,5">UUID:</TextBlock>
@@ -59,7 +60,8 @@
             <TextBlock Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedRecords}"></TextBlock>
 
             <Button Grid.Row="6" Grid.Column="1" Content="Lagre IP" HorizontalAlignment="Right"  Width="100" Height="30" Command="{Binding SaveIpFileCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
-            <TextBlock Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding SaveIpStatus}"></TextBlock>
+            <Button Grid.Row="7" Grid.Column="1" Content="Vis rapport" HorizontalAlignment="Right"  Width="100" Height="30" Command="{Binding ShowReportCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
+            <TextBlock Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding SaveIpStatus}"></TextBlock>
 
         </Grid>
 

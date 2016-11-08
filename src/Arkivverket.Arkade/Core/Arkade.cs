@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.Core
 
             string sourceInfoXml = Path.Combine(testSession.Archive.WorkingDirectory.Parent.FullName, ArkadeConstants.InfoXmlFileName);
             string destinfoXml = Path.Combine(directoryName.FullName, ArkadeConstants.InfoXmlFileName);
-            File.Copy(sourceInfoXml, destinfoXml);
+            File.Copy(sourceInfoXml, destinfoXml, true);
 
             return true;
         }

@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Core
 {
-
     public class TestSession
     {
-
-        public TestSession(Archive archive)
-        {
-            Archive = archive;
-        }
+        private readonly List<LogEntry> LogEntries = new List<LogEntry>();
 
         public Archive Archive { get; }
 
@@ -23,7 +19,10 @@ namespace Arkivverket.Arkade.Core
 
         public AddmlDefinition AddmlDefinition { get; set; }
 
-        private List<LogEntry> LogEntries = new List<LogEntry>();
+        public TestSession(Archive archive)
+        {
+            Archive = archive;
+        }
 
         public void AddLogEntry(string message)
         {
@@ -35,5 +34,17 @@ namespace Arkivverket.Arkade.Core
             return LogEntries;
         }
 
+        public DirectoryInfo GetReportDirectory()
+        {
+            DirectoryInfo workDir = Archive.WorkingDirectory;
+            DirectoryInfo reportDir = new DirectoryInfo(Path.Combine(workDir.FullName, "reports"));
+
+            if (!reportDir.Exists)
+            {
+                reportDir.Create();
+            }
+
+            return reportDir;
+        }
     }
 }
