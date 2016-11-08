@@ -2,16 +2,16 @@
 {
     public class Location : ILocation
     {
-        public string Message { get; }
+        public string LocationString { get; }
 
-        public Location(string message)
+        public Location(string locationString)
         {
-            Message = message;
+            LocationString = locationString;
         }
 
         public override string ToString()
         {
-            return Message;
+            return LocationString;
         }
     }
 }
