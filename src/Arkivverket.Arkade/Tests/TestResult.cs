@@ -3,12 +3,14 @@ namespace Arkivverket.Arkade.Tests
     public class TestResult
     {
         public ResultType Result { get; }
+        public ILocation Location { get; }
 
         public string Message { get; }
 
-        public TestResult(ResultType result, string message)
+        public TestResult(ResultType result, ILocation location, string message)
         {
             Result = result;
+            Location = location;
             Message = message;
         }
 

@@ -19,8 +19,8 @@ namespace Arkivverket.Arkade.Test.Report
                 .WithTestName("Test 1")
                 .WithTestDescription("Test description 1")
                 .WithTestCategory("Testkategori 1")
-                .WithTestResult(new TestResult(ResultType.Error, "Test result 1"))
-                .WithTestResult(new TestResult(ResultType.Error, "Test result 2"))
+                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
+                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
                 .Build();
 
             TestRun testRun2 = new TestRunBuilder()
@@ -28,9 +28,9 @@ namespace Arkivverket.Arkade.Test.Report
                 .WithTestName("Test 2")
                 .WithTestDescription("Test description 2")
                 .WithTestCategory("Testkategori 2")
-                .WithTestResult(new TestResult(ResultType.Error, "Test result 1"))
-                .WithTestResult(new TestResult(ResultType.Error, "Test result 2"))
-                .WithTestResult(new TestResult(ResultType.Error, "Test result 3"))
+                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
+                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
+                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 3"))
                 .Build();
 
             List<TestRun> testRuns = new List<TestRun> {testRun1, testRun2};

@@ -50,7 +50,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             {
                 message = message + $"\nForventet sjekksum: [{expectedChecksum}]\nGenerert sjekksum: [{generatedChecksum}]. ";
             }
-            return new TestResult(result, message);
+            return new TestResult(result, new Location(filename), message);
         }
 
         private string GenerateChecksumForFile(string filename, string checksumAlgorithm)

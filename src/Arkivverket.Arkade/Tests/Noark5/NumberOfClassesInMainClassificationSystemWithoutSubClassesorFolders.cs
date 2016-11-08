@@ -62,7 +62,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 }
 
                 AddAnalysisResult(AnalysisClasses, cntClasses.ToString());
-                TestSuccess($"Antall klasser uten underklasser eller mapper: {cntClasses}.");
+                TestSuccess(new Location(archive.Uuid.GetValue()), $"Antall klasser uten underklasser eller mapper: {cntClasses}.");
             }
         }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Tests;
 using Serilog;
 
@@ -79,12 +80,12 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                     PrimaryKeyValue primaryKeyValue = _primaryKeys[foreignKeyValue.ReferencingField];
                     if (!primaryKeyValue.HasValue(foreignKeyValue.Value))
                     {
-                        results.Add(new TestResult(ResultType.Error, "Invalid foreign key: " + foreignKeyValue.Value));
+                        results.Add(new TestResult(ResultType.Error, new Location(""), "Invalid foreign key: " + foreignKeyValue.Value));
                     }
                 }
                 else
                 {
-                    results.Add(new TestResult(ResultType.Error, "Cannot find referenced field [" + foreignKeyValue.ReferencingField + "] from foreign key [" + foreignKeyValue.Field + "]."));
+                    results.Add(new TestResult(ResultType.Error, new Location(""), "Cannot find referenced field [" + foreignKeyValue.ReferencingField + "] from foreign key [" + foreignKeyValue.Field + "]."));
                 }
             }
             return results;

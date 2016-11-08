@@ -3,7 +3,7 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
-    internal class FieldIndex
+    public class FieldIndex
     {
         private readonly string _flatFileDefinitionName;
         private readonly string _recordDefinitionName;
@@ -31,6 +31,21 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             recordDefinitionReference recordDefinitionReference, fieldDefinitionReference fieldDefinitionReference)
             : this(flatFileDefinitionReference.name, recordDefinitionReference.name, fieldDefinitionReference.name)
         {
+        }
+
+        public string GetFlatFileDefinitionName()
+        {
+            return _flatFileDefinitionName;
+        }
+
+        public string GetRecordDefinitionName()
+        {
+            return _recordDefinitionName;
+        }
+
+        public string GetFieldDefinitionName()
+        {
+            return _fieldDefinitionName;
         }
 
         protected bool Equals(FieldIndex other)
@@ -61,8 +76,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public override string ToString()
         {
-            return
-                $"{nameof(_flatFileDefinitionName)}: {_flatFileDefinitionName}, {nameof(_recordDefinitionName)}: {_recordDefinitionName}, {nameof(_fieldDefinitionName)}: {_fieldDefinitionName}";
+            return $"{_flatFileDefinitionName}/{_recordDefinitionName}/{_fieldDefinitionName}";
         }
     }
 }

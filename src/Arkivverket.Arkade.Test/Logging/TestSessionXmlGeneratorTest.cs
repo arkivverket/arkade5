@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.Test.Logging
                     .WithTestName("test1")
                     .WithTestCategory("category1")
                     .WithDurationMillis(123)
-                    .WithTestResult(new TestResult(ResultType.Success, "message1"))
+                    .WithTestResult(new TestResult(ResultType.Success, new Location("location"), "message1"))
                     .Build())
                 .Build();
 

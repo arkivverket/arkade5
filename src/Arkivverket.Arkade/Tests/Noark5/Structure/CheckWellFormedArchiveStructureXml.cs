@@ -15,11 +15,11 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             try
             {
                 new Common.CheckWellFormedXml().Test(structureDescriptionFileName);
-                TestSuccess($"Filen {structureDescriptionFileName} inneholder gyldig xml.");
+                TestSuccess(new Location(structureDescriptionFileName), $"Filen {structureDescriptionFileName} inneholder gyldig xml.");
             }
             catch (Exception e)
             {
-                TestError($"Validering av gyldig xml feilet for filen: {structureDescriptionFileName}\n{e.Message}");
+                TestError(new Location(structureDescriptionFileName), $"Validering av gyldig xml feilet for filen: {structureDescriptionFileName}\n{e.Message}");
             }
         }
     }

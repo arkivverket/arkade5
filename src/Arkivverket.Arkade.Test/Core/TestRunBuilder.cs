@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Test.Core
 
             if (_testResults.Count == 0)
             {
-                _testResults.Add(new TestResult(ResultType.Success, "message"));
+                _testResults.Add(new TestResult(ResultType.Success, new Location("location"), "message"));
             }
             testRun.Results = _testResults;
 

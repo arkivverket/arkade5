@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
                     AddAnalysisResult(AnalysisKeyClassificationSystems, counter.ToString());
 
-                    TestSuccess($"Antall klassifikasjonssystemer: {counter}.");
+                    TestSuccess(new Location(archive.Uuid.GetValue()), $"Antall klassifikasjonssystemer: {counter}.");
                 }
             }
         }

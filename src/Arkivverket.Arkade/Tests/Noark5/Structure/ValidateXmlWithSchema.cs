@@ -25,11 +25,11 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
                     {
                     }
                 }
-                TestSuccess($"Filen {archive.GetStructureDescriptionFileName()} er validert i henhold ADDML XML-skjema.");
+                TestSuccess(new Location(archive.GetStructureDescriptionFileName()), $"Filen {archive.GetStructureDescriptionFileName()} er validert i henhold ADDML XML-skjema.");
             }
             catch (Exception e)
             {
-                TestError($"Filen {archive.GetStructureDescriptionFileName()} er ikke gyldig i henhold til ADDML XML-skjema:\n{e.Message}");
+                TestError(new Location(archive.GetStructureDescriptionFileName()), $"Filen {archive.GetStructureDescriptionFileName()} er ikke gyldig i henhold til ADDML XML-skjema:\n{e.Message}");
             }
         }
 

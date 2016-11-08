@@ -60,5 +60,10 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         {
             return AddmlRecordDefinition.Key() + "_" + Name;
         }
+
+        public FieldIndex GetFieldIndeks()
+        {
+            return new FieldIndex(AddmlRecordDefinition.AddmlFlatFileDefinition.Name, AddmlRecordDefinition.Name, this.Name);
+        }
     }
 }

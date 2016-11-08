@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                         counter++;
                     }
                 }
-                TestSuccess($"Antall arkivdeler: {counter}.");
+                TestSuccess(new Location(archive.Uuid.GetValue()), $"Antall arkivdeler: {counter}.");
             }
         }
     }

@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
                     AddAnalysisResult(AnalysisKeyFolders, counter.ToString());
 
-                    TestSuccess($"Antall mapper: {counter}.");
+                    TestSuccess(new Location(archive.Uuid.GetValue()), $"Antall mapper: {counter}.");
                 }
             }
         }

@@ -41,12 +41,12 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             {
                 if (expectedNumberOfOccurences == _numberOfOcurrencesForCurrentFile)
                 {
-                    _testRun.Add(new TestResult(ResultType.Success,
+                    _testRun.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName), 
                         $"Number of records ({expectedNumberOfOccurences}) matched for file {_currentFlatFile.Definition.FileName}."));
                 }
                 else
                 {
-                    _testRun.Add(new TestResult(ResultType.Error,
+                    _testRun.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName),
                         $"Number of records did not match for file {_currentFlatFile.Definition.FileName}. Expected {expectedNumberOfOccurences}, found {_numberOfOcurrencesForCurrentFile}. "));
                 }
             }

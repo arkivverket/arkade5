@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
                 AddAnalysisResult(AnalysisKeyArchives, counter.ToString());
 
-                TestSuccess($"Antall arkiv: {counter}.");
+                TestSuccess(new Location(archive.Uuid.GetValue()), $"Antall arkiv: {counter}.");
             }
         }
 

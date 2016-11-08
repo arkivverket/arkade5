@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 }
             }
 
-            TestSuccess($"Arkivdelenes status og antall: \n{trackResults.ResultsToString()}");
+            TestSuccess(new Location(archive.Uuid.GetValue()), $"Arkivdelenes status og antall: \n{trackResults.ResultsToString()}");
         }
     }
 

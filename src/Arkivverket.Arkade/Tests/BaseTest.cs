@@ -39,19 +39,19 @@ namespace Arkivverket.Arkade.Tests
 
        
 
-        protected void TestSuccess(string message)
+        protected void TestSuccess(ILocation location, string message)
         {
-            AddTestResult(ResultType.Success, message);
+            AddTestResult(ResultType.Success, location, message);
         }
 
-        protected void TestError(string message)
+        protected void TestError(ILocation location, string message)
         {
-            AddTestResult(ResultType.Error, message);
+            AddTestResult(ResultType.Error, location, message);
         }
 
-        private void AddTestResult(ResultType resultType, string message)
+        private void AddTestResult(ResultType resultType, ILocation location, string message)
         {
-            TestResults.Add(new TestResult(resultType, message));
+            TestResults.Add(new TestResult(resultType, location, message));
         }
 
         protected void AddAnalysisResult(string key, string value)

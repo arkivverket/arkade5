@@ -145,6 +145,9 @@
     <Compile Include="Report\PdfReport.cs" />
     <Compile Include="Report\PdfReportGenerator.cs" />
     <Compile Include="Report\IReportGenerator.cs" />
+    <Compile Include="Tests\FieldLocation.cs" />
+    <Compile Include="Tests\ILocation.cs" />
+    <Compile Include="Tests\Location.cs" />
     <Compile Include="Util\ArkadeConstants.cs" />
     <Compile Include="Core\Encodings.cs" />
     <Compile Include="Core\IArchiveContentReader.cs" />

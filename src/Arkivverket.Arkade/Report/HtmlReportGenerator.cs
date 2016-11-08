@@ -60,12 +60,12 @@ namespace Arkivverket.Arkade.Report
             sb.AppendLine(@"            Tidsbruk: " + testRun.TestDuration + " millisekunder");
             sb.AppendLine(@"        </p>");
             sb.AppendLine(@"");
-            sb.AppendLine(@"        <h4>Feil</h4>");
+            sb.AppendLine(@"        <h4>Testresultater</h4>");
             sb.AppendLine(@"        <table class=""table"">");
             sb.AppendLine(@"            <thead>");
             sb.AppendLine(@"            <tr>");
-            sb.AppendLine(@"                <th>Location</th>");
-            sb.AppendLine(@"                <th>Message</th>");
+            sb.AppendLine(@"                <th>Lokasjon</th>");
+            sb.AppendLine(@"                <th>Melding</th>");
             sb.AppendLine(@"            </tr>");
             sb.AppendLine(@"            </thead>");
             sb.AppendLine(@"            <tbody>");
@@ -74,7 +74,7 @@ namespace Arkivverket.Arkade.Report
             {
                 sb.AppendLine(@"            <tr>");
                 sb.AppendLine(@"                <td>");
-                sb.AppendLine(@"                " + testResult.Result);
+                sb.AppendLine(@"                " + testResult.Location);
                 sb.AppendLine(@"                </td>");
                 sb.AppendLine(@"                <td>");
                 sb.AppendLine(@"                " + testResult.Message);
