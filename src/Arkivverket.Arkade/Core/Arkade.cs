@@ -2,6 +2,7 @@
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.Logging;
+using Arkivverket.Arkade.Report;
 using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using Arkivverket.Arkade.Util;
@@ -53,6 +54,13 @@ namespace Arkivverket.Arkade.Core
             File.Copy(sourceInfoXml, destinfoXml);
 
             return true;
+        }
+
+        public void SaveReport(TestSession testSession, FileInfo file)
+        {
+            PdfReportGenerator pdfReportGenerator = new PdfReportGenerator();
+            PdfReport pdfReport = pdfReportGenerator.Generate(testSession);
+            pdfReport.Save(file);
         }
     }
 }

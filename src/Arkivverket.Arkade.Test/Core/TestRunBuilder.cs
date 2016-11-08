@@ -1,19 +1,18 @@
-﻿using Arkivverket.Arkade.Core;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Test.Core
 {
     public class TestRunBuilder
     {
-        private string _testName = "test1";
+        private long _durationMillis = 1234;
         private string _testCategory = "testCategory";
         private string _testDescription = "testDescription";
-        private long _durationMillis = 1234;
-        private ResultType _status = ResultType.Success;
-        private string _message = "message";
+        private string _testName = "test1";
+        private List<TestResult> _testResults = new List<TestResult>();
+        private readonly TestType _testType = TestType.Content;
 
-        private TestType _testType = TestType.Content;
 
         public TestRun Build()
         {
@@ -22,10 +21,11 @@ namespace Arkivverket.Arkade.Test.Core
             testRun.TestDescription = _testDescription;
             testRun.TestDuration = _durationMillis;
 
-            testRun.Results = new List<TestResult>()
+            if (_testResults.Count == 0)
             {
-                new TestResult(_status, _message)
-            };
+                _testResults.Add(new TestResult(ResultType.Success, "message"));
+            }
+            testRun.Results = _testResults;
 
             return testRun;
         }
@@ -42,21 +42,28 @@ namespace Arkivverket.Arkade.Test.Core
             return this;
         }
 
-        public TestRunBuilder WithStatus(ResultType status)
-        {
-            _status = status;
-            return this;
-        }
-
-        public TestRunBuilder WithMessage(string message)
-        {
-            _message = message;
-            return this;
-        }
-
         public TestRunBuilder WithDurationMillis(long millis)
         {
             _durationMillis = millis;
+            return this;
+        }
+
+        public TestRunBuilder WithTestResult(TestResult testResult)
+        {
+            _testResults.Add(testResult);
+            return this;
+        }
+
+
+        public TestRunBuilder WithTestResults(List<TestResult> testResults)
+        {
+            _testResults = testResults;
+            return this;
+        }
+
+        public TestRunBuilder WithTestDescription(string testDescription)
+        {
+            _testDescription = testDescription;
             return this;
         }
     }

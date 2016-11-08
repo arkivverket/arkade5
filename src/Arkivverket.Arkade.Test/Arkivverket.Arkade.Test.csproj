@@ -167,6 +167,8 @@
     <Compile Include="Identify\ArchiveIdentifierTest.cs" />
     <Compile Include="Logging\TestSessionLogXmlValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\PdfReportGeneratorTest.cs" />
+    <Compile Include="Report\HtmlReportGeneratorTest.cs" />
     <Compile Include="Report\HtmlToPdfConverterTest.cs" />
     <Compile Include="Tests\Noark5\Noark5XmlBuilder.cs" />
     <Compile Include="Tests\Noark5\ArchiveContentMockReader.cs" />
@@ -343,7 +345,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TestData\Report\bootstrap\" />
     <Folder Include="TestData\tar\Noark3-eksempel-1\" />
   </ItemGroup>
   <Choose>

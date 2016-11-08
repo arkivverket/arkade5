@@ -1,18 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace Arkivverket.Arkade.Report
 {
     public class PdfReport : IReport
     {
-        private byte[] _pdf;
+        private readonly byte[] _pdf;
 
         public PdfReport(byte[] pdf)
         {
             _pdf = pdf;
+        }
+
+        public void Save(FileInfo file)
+        {
+            File.WriteAllBytes(file.FullName, _pdf);
+        }
+
+        public byte[] ToBytes()
+        {
+            return _pdf;
         }
     }
 }

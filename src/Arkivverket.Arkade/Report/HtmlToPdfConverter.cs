@@ -18,20 +18,5 @@ namespace Arkivverket.Arkade.Report
             }
             return res;
         }
-
-        /*
-        public static byte[] ConvertFile(string html)
-        {
-            byte[] res;
-            using (MemoryStream ms = new MemoryStream())
-            {
-                PdfDocument pdf = PdfGenerator.GeneratePdf(html, PageSize.A4);
-                pdf.Save(ms);
-                res = ms.ToArray();
-            }
-            return res;
-
-        }
-        */
     }
 }
