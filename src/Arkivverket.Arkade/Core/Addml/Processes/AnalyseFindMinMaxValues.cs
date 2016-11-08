@@ -46,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                 string minValueString = minAndMaxValue.GetMinValue()?.ToString() ?? "<no value>";
                 string maxValueString = minAndMaxValue.GetMaxValue()?.ToString() ?? "<no value>";
 
-                _testRun.Add(new TestResult(ResultType.Success, FieldLocation.FromFieldIndex(fieldIndex), $"MinValue {minValueString}. MaxValue {maxValueString}."));
+                _testRun.Add(new TestResult(ResultType.Success, AddmlLocation.FromFieldIndex(fieldIndex), $"MinValue {minValueString}. MaxValue {maxValueString}."));
             }
 
             minAndMaxValuesPerField.Clear();

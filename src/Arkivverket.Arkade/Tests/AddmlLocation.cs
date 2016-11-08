@@ -2,22 +2,22 @@
 
 namespace Arkivverket.Arkade.Tests
 {
-    public class FieldLocation : ILocation
+    public class AddmlLocation : ILocation
     {
         private readonly string _file;
         private readonly string _record;
         private readonly string _field;
 
-        public FieldLocation(string file, string record, string field)
+        public AddmlLocation(string file, string record, string field)
         {
             _file = file;
             _record = record;
             _field = field;
         }
 
-        public static FieldLocation FromFieldIndex(FieldIndex fieldIndex)
+        public static AddmlLocation FromFieldIndex(FieldIndex fieldIndex)
         {
-            return new FieldLocation(fieldIndex.GetFlatFileDefinitionName(), fieldIndex.GetRecordDefinitionName(),
+            return new AddmlLocation(fieldIndex.GetFlatFileDefinitionName(), fieldIndex.GetRecordDefinitionName(),
                 fieldIndex.GetFieldDefinitionName());
         }
 
