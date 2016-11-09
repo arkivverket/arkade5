@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Report;
 using Arkivverket.Arkade.Test.Core;
@@ -42,7 +43,7 @@ namespace Arkivverket.Arkade.Test.Report
             HtmlReportGenerator htmlReportGenerator = new HtmlReportGenerator();
             HtmlReport htmlReport = htmlReportGenerator.Generate(testSession);
 
-            //htmlReport.Save(new DirectoryInfo("c://tmp/report/"));
+            //htmlReport.Save(new FileInfo("c://tmp/report.html"));
 
             string html = htmlReport.GetHtml();
             html.Should().Contain("<html");

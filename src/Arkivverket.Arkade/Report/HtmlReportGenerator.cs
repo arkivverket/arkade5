@@ -1,6 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Report
 {
@@ -30,7 +32,7 @@ namespace Arkivverket.Arkade.Report
             body.AppendLine(@"");
             body.AppendLine(@"<div class=""container"">");
             body.AppendLine(@"");
-            body.AppendLine(@"    <img src=""" + HtmlReport.ARKIVVERKET_IMG + @""" class=""img-responsive"" alt=""Arkivverket"" width=""481"" height=""82""> ");
+            body.AppendLine(ArkivverketImage());
             body.AppendLine(@"    <h1>Testrapport</h1>");
             body.AppendLine(Summary());
             body.AppendLine(@"    <h2>Tests</h2>");
@@ -42,6 +44,18 @@ namespace Arkivverket.Arkade.Report
             body.AppendLine(@"</body>");
 
             return body.ToString();
+        }
+
+        private string ArkivverketImage()
+        {
+            byte[] imageBytes = ResourceUtil.ReadResourceBytes("Arkivverket.Arkade.Resources.arkivverket.gif");
+            string imageBase64 = Convert.ToBase64String(imageBytes, Base64FormattingOptions.None);
+
+            var image = new StringBuilder();
+            image.Append(@"<img src=""data:image/gif;base64,");
+            image.Append(imageBase64);
+            image.Append(@""" class=""img-responsive"" alt=""Arkivverket"" width=""481"" height=""82"" />");
+            return image.ToString();
         }
 
         private string Test(TestRun testRun)
@@ -124,15 +138,37 @@ namespace Arkivverket.Arkade.Report
         {
             var head = new StringBuilder();
             head.AppendLine(@"<head>");
-            head.AppendLine(@"    <meta charset=""utf-8"">");
-            head.AppendLine(@"    <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"">");
-            head.AppendLine(@"    <meta name=""viewport"" content=""width=device-width, initial-scale=1"">");
+            head.AppendLine(@"    <meta charset=""utf-8"" />");
+            head.AppendLine(@"    <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"" />");
+            head.AppendLine(@"    <meta name=""viewport"" content=""width=device-width, initial-scale=1"" />");
             head.AppendLine(@"    <title>Testrapport</title>");
             head.AppendLine(@"");
-            head.AppendLine(@"    <link href=""" + HtmlReport.BOOTSTRAP_CSS + @""" rel=""stylesheet"">");
-            head.AppendLine(@"    <link href=""" + HtmlReport.ARKADE_CSS + @""" rel=""stylesheet"">");
+            head.AppendLine(BootstrapCss());
+            head.AppendLine(ArkadeCss());
             head.AppendLine(@"</head>");
             return head.ToString();
+        }
+
+        private string ArkadeCss()
+        {
+            string css = ResourceUtil.ReadResource("Arkivverket.Arkade.Resources.arkade.css");
+
+            var sb = new StringBuilder();
+            sb.AppendLine(@"<style>");
+            sb.AppendLine(css);
+            sb.AppendLine(@"</style>");
+            return sb.ToString();
+        }
+
+        private string BootstrapCss()
+        {
+            string css = ResourceUtil.ReadResource("Arkivverket.Arkade.Resources.bootstrap.min.css");
+
+            var sb = new StringBuilder();
+            sb.AppendLine(@"<style>");
+            sb.AppendLine(css);
+            sb.AppendLine(@"</style>");
+            return sb.ToString();
         }
     }
 }

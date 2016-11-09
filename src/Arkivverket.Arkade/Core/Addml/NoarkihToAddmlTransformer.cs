@@ -2,6 +2,7 @@
 using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
