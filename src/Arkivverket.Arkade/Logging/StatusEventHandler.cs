@@ -21,9 +21,9 @@ namespace Arkivverket.Arkade.Logging
             OnStatusEvent(new TestInformationEventArgs(testRun.TestName, DateTime.Now, StatusTestExecution.TestCompleted, testRun.IsSuccess(), resultMessage));
         }
 
-        public void RaiseEventTestInformation(string testName, string testMessage, StatusTestExecution status, bool isSuccess)
+        public void RaiseEventTestInformation(string identifier, string message, StatusTestExecution status, bool isSuccess)
         {
-            OnStatusEvent(new TestInformationEventArgs(testName, DateTime.Now, status, isSuccess, testMessage));
+            OnStatusEvent(new TestInformationEventArgs(identifier, DateTime.Now, status, isSuccess, message));
         }
 
         public void RaiseEventFileProcessingStarted(FileProcessingStatusEventArgs fileProcessingStatusEventArgs)

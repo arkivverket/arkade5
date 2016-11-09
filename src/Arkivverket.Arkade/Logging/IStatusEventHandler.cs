@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Logging
         void RaiseEventTestStarted(ITest test);
         void RaiseEventTestFinished(TestRun testRun);
 
-        void RaiseEventTestInformation(string testName, string testMessage, StatusTestExecution status, bool isSuccess);
+        void RaiseEventTestInformation(string identifier, string message, StatusTestExecution status, bool isSuccess);
 
         void RaiseEventFileProcessingStarted(FileProcessingStatusEventArgs fileProcessingStatusEventArgs);
         void RaiseEventFileProcessingFinished(FileProcessingStatusEventArgs fileProcessingStatusEventArgs);

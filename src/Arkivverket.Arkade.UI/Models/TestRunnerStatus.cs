@@ -72,7 +72,7 @@ namespace Arkivverket.Arkade.UI.Models
 
         public TestRunnerStatus(TestInformationEventArgs testTestInformation)
         {
-            TestName = testTestInformation.TestName;
+            TestName = testTestInformation.Identifier;
             Update(testTestInformation.TestStatus, testTestInformation.IsSuccess);
         }
 

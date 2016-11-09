@@ -49,6 +49,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private BigInteger _numberOfProcessedRecords = BigInteger.Zero;
         private int _numberOfProcessedFiles = 0;
         private string _currentlyProcessingFile;
+        private string _currentActivityMessage;
+
+        public string CurrentActivityMessage
+        {
+            get { return _currentActivityMessage; }
+            set { SetProperty(ref _currentActivityMessage, value); }
+        }
 
         public string CurrentlyProcessingFile
         {
@@ -148,7 +155,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void OnStatusEvent(object sender, TestInformationEventArgs eventArgs)
         {
-            UpdateGuiCollection(eventArgs);
+            CurrentActivityMessage = eventArgs.ResultMessage;
+            //UpdateGuiCollection(eventArgs);
         }
 
         private void OnFileProcessStartedEvent(object sender, FileProcessingStatusEventArgs eventArgs)
@@ -227,7 +235,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 }
                 else
                 {
-                    var item = TestResults.FirstOrDefault(i => i.TestName == testInformationEventArgs.TestName);
+                    var item = TestResults.FirstOrDefault(i => i.TestName == testInformationEventArgs.Identifier);
                     if (item != null)
                     {
                         item.Update(testInformationEventArgs.TestStatus, testInformationEventArgs.IsSuccess);
@@ -254,22 +262,30 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void SaveReport(FileInfo pdfFile)
         {
+            _statusEventHandler.RaiseEventTestInformation("SaveIp", "Lager testrapport", StatusTestExecution.TestStarted, false);
+
             Core.Arkade arkade = new Core.Arkade();
             arkade.SaveReport(_testSession, pdfFile);
 
-            SaveIpStatus = "Rapport lagret " + pdfFile.FullName;
+            var message = "Rapport lagret " + pdfFile.FullName;
+            _statusEventHandler.RaiseEventTestInformation("SaveIp", message, StatusTestExecution.TestCompleted, true);
         }
 
 
         private void SaveIpFile()
         {
-            DirectoryInfo directoryName = GetIpDirectory();
+            _statusEventHandler.RaiseEventTestInformation("SaveIp", "Lager IP", StatusTestExecution.TestStarted, false);
 
+
+            
+            DirectoryInfo directoryName = GetIpDirectory();
+            // todo must be async
             Core.Arkade arkade = new Core.Arkade();
             bool saved = arkade.SaveIp(_testSession, directoryName);
             if (saved)
             {
-                SaveIpStatus = "IP og metadata lagret i " + directoryName;
+                var message = "IP og metadata lagret i " + directoryName;
+                _statusEventHandler.RaiseEventTestInformation("SaveIp", message, StatusTestExecution.TestCompleted, true);
             }
         }
 

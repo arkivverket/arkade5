@@ -8,16 +8,15 @@ namespace Arkivverket.Arkade.Logging
 {
     public class TestInformationEventArgs : EventArgs
     {
-        public string TestName { get; set; }
+        public string Identifier { get; set; }
         public DateTime StartTime { get; set; }
         public StatusTestExecution TestStatus { get; set; }
         public bool IsSuccess { get; set; }
         public string ResultMessage { get; set; }
 
-
-        public TestInformationEventArgs(string testName, DateTime startTime, StatusTestExecution testStatus, bool isSuccess, string resultMessage)
+        public TestInformationEventArgs(string identifier, DateTime startTime, StatusTestExecution testStatus, bool isSuccess, string resultMessage)
         {
-            TestName = testName;
+            Identifier = identifier;
             StartTime = startTime;
             TestStatus = testStatus;
             IsSuccess = isSuccess;

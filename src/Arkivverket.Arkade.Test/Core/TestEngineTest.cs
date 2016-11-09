@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Test.Core
             testEngine.RunTestsOnArchive(new TestSessionBuilder().Build());
 
             events.Count.Should().Be(2);
-            events[0].TestName.Should().Be(typeof(DummyTest).FullName);
+            events[0].Identifier.Should().Be(typeof(DummyTest).FullName);
         }
 
         private static ITestProvider CreateTestProviderMock(DummyTest exampleTest)
