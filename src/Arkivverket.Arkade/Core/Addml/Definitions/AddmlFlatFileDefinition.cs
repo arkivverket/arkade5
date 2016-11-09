@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public RecordSeparator RecordSeparator { get; }
         public Encoding Encoding { get; }
         public string RecordDefinitionFieldIdentifier { get; }
-        public int NumberOfOccurences { get; }
+        public int? NumberOfRecords { get; }
         public string ChecksumAlgorithm { get; }
         public string ChecksumValue { get; }
 
@@ -26,6 +26,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             string recordSeparator,
             string charset,
             string recordDefinitionFieldIdentifier,
+            int? numberOfRecords,
             List<string> processes)
         {
             Name = name;
@@ -34,6 +35,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             RecordSeparator = string.IsNullOrEmpty(recordSeparator) ? null : new RecordSeparator(recordSeparator);
             Encoding = Encodings.GetEncoding(charset);
             RecordDefinitionFieldIdentifier = recordDefinitionFieldIdentifier;
+            NumberOfRecords = numberOfRecords;
             AddmlRecordDefinitions = new List<AddmlRecordDefinition>();
             Processes = processes;
         }

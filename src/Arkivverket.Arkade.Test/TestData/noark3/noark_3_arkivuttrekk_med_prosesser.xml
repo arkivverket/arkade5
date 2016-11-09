@@ -23,6 +23,9 @@
           <property name="fileName">
             <value>DOK.DAT</value>
           </property>
+          <property name="numberOfRecords">
+            <value>195</value>
+          </property>
         </properties>
       </flatFile>
       <flatFile definitionReference="Arkivnoekkelregister" name="Arkivnoekkelregister">

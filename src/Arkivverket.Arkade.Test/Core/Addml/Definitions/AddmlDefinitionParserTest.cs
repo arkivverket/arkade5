@@ -65,5 +65,16 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                 new List<AddmlFieldDefinition>() {addmlFieldDefinitions[2]}
             );
         }
+
+        [Fact]
+        public void ShouldParseAddmlWithNumberOfRecordsProperty()
+        {
+            AddmlDefinition addmlDefinition = _parser.GetAddmlDefinition();
+            List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
+
+            addmlFlatFileDefinitions[1].Name.Should().Be("Dokumentregister");
+            addmlFlatFileDefinitions[1].NumberOfRecords.Should().Be(195);
+        }
+
     }
 }

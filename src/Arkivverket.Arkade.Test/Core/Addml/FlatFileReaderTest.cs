@@ -16,6 +16,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             FlatFile flatFile = GetDokDat();
 
             FlatFileReader reader = new FlatFileReader(flatFile);
+            int numberOfRecords = 0;
             while (reader.HasMoreRecords())
             {
                 Record record = reader.GetNextRecord();
@@ -32,7 +33,11 @@ namespace Arkivverket.Arkade.Test.Core.Addml
                 {
                     VerifyNotat(record);
                 }
+
+                numberOfRecords++;
             }
+
+            numberOfRecords.Should().Be(195);
 
             reader.HasMoreRecords().Should().BeFalse();
         }

@@ -36,18 +36,18 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public void EndOfFile()
         {
-            int expectedNumberOfOccurences = _currentFlatFile.Definition.NumberOfOccurences;
-            if (expectedNumberOfOccurences > 0)
+            int expectedNumberOfRecords = _currentFlatFile.Definition.NumberOfRecords.Value;
+            if (expectedNumberOfRecords > 0)
             {
-                if (expectedNumberOfOccurences == _numberOfOcurrencesForCurrentFile)
+                if (expectedNumberOfRecords == _numberOfOcurrencesForCurrentFile)
                 {
                     _testRun.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName), 
-                        $"Number of records ({expectedNumberOfOccurences}) matched for file {_currentFlatFile.Definition.FileName}."));
+                        $"Number of records ({expectedNumberOfRecords}) matched for file {_currentFlatFile.Definition.FileName}."));
                 }
                 else
                 {
                     _testRun.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName),
-                        $"Number of records did not match for file {_currentFlatFile.Definition.FileName}. Expected {expectedNumberOfOccurences}, found {_numberOfOcurrencesForCurrentFile}. "));
+                        $"Number of records did not match for file {_currentFlatFile.Definition.FileName}. Expected {expectedNumberOfRecords}, found {_numberOfOcurrencesForCurrentFile}. "));
                 }
             }
         }

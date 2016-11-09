@@ -213,6 +213,7 @@
     <Compile Include="Util\ICompressionUtility.cs" />
     <Compile Include="Util\SerializeUtil.cs" />
     <Compile Include="Util\Sha256ChecksumGenerator.cs" />
+    <Compile Include="Util\StringUtil.cs" />
     <Compile Include="Util\SystemInfo.cs" />
     <Compile Include="Util\TarCompressionUtility.cs" />
     <Compile Include="Util\XmlReaderHelpers.cs" />

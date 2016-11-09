@@ -144,12 +144,14 @@
     <Compile Include="Core\Addml\Definitions\BooleanDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParserTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
+    <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKeyTest.cs" />
     <Compile Include="Core\Addml\Kvotekontroll89Test.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
     <Compile Include="Core\Addml\Jegerreg98Test.cs" />
     <Compile Include="Core\Addml\FixedFormatReaderTest.cs" />
     <Compile Include="Core\Addml\NoarkihToAddmlTransformerTest.cs" />
+    <Compile Include="Core\Addml\Processes\ControlNumberOfRecordsTest.cs" />
     <Compile Include="Core\Addml\RecordSeparatorTest.cs" />
     <Compile Include="Core\Addml\XmlFormatReaderTest.cs" />
     <Compile Include="Core\ArchiveBuilder.cs" />

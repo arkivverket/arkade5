@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
 using Arkivverket.Arkade.Core.Addml.Processes;
+using Arkivverket.Arkade.Test.Core.Addml.Builders;
 using Arkivverket.Arkade.Test.Util;
 using FluentAssertions;
 using Xunit;
@@ -32,7 +33,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
         [Fact]
         public void ShouldReturnNoErrorsWhenAllForeignKeysExists()
         {
-            var addmlFlatFileDefinition = new AddmlFlatFileDefinition("flatFile", null, null, null, "UTF-8", null, null);
+            var addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder().Build();
 
             var recordDef = new AddmlRecordDefinition(addmlFlatFileDefinition, null, null, null, null);
             AddmlFieldDefinition primaryKeyFieldDef = recordDef.AddAddmlFieldDefinition("id", null, null, new IntegerDataType(), true, false,
@@ -55,7 +56,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
         [Fact]
         public void ShouldReturnErrorWhenForeignKeyReferencesNonExistingPrimaryKeyValue()
         {
-            var addmlFlatFileDefinition = new AddmlFlatFileDefinition("flatFile", null, null, null, "UTF-8", null, null);
+            var addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder().Build();
 
             var recordDef = new AddmlRecordDefinition(addmlFlatFileDefinition, null, null, null, null);
             AddmlFieldDefinition primaryKeyFieldDef = recordDef.AddAddmlFieldDefinition("id", null, null, new IntegerDataType(), true, false,

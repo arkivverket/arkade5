@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
@@ -107,11 +108,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     new FileInfo(_addmlInfo.AddmlFile.DirectoryName + Path.DirectorySeparatorChar + fileName);
                 string charset = GetCharset(flatFileDefinition.typeReference);
                 string recordDefinitionFieldIdentifier = flatFileDefinition.recordDefinitionFieldIdentifier;
+                int? numberOfRecords = GetNumberOfRecords(flatFileDefinition.name);
                 List<string> flatFileProcesses = GetFlatFileProcessNames(flatFileDefinition.name);
 
                 AddmlFlatFileDefinition addmlFlatFileDefinition =
                     new AddmlFlatFileDefinition(name, fileName, fileInfo, recordSeparator, charset,
-                        recordDefinitionFieldIdentifier, flatFileProcesses);
+                        recordDefinitionFieldIdentifier, numberOfRecords, flatFileProcesses);
 
                 AddAddmlFieldDefinitions(addmlFlatFileDefinition, flatFileDefinition);
 
@@ -121,6 +123,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
             return addmlFlatFileDefinitions;
         }
+
 
         private List<string> GetFlatFileProcessNames(string flatFileDefinitionName)
         {
@@ -425,6 +428,17 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         private string GetFileName(string definitionReference)
         {
+            return GetProperty(definitionReference, "fileName");
+        }
+
+        private int? GetNumberOfRecords(string definitionReference)
+        {
+            string numberOfRecords = GetProperty(definitionReference, "numberOfRecords");
+            return StringUtil.ToInt(numberOfRecords);
+        }
+
+        private string GetProperty(string definitionReference, string propertyName)
+        {
             flatFile[] flatFiles = GetFlatFiles();
             foreach (flatFile flatFile in flatFiles)
             {
@@ -434,7 +448,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     {
                         foreach (property property in flatFile.properties)
                         {
-                            if ("fileName".Equals(property.name))
+                            if (propertyName.Equals(property.name))
                             {
                                 return property.value;
                             }
