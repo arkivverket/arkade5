@@ -157,12 +157,17 @@
     <Compile Include="ModuleAModule.cs" />
     <Compile Include="Util\Colors.cs" />
     <Compile Include="Util\ExceptionMessageBox.cs" />
+    <Compile Include="Util\RadioConverter.cs" />
     <Compile Include="Util\UiProcessingExceptions.cs" />
     <Compile Include="Util\FileFolderDialogs.cs" />
     <Compile Include="Util\LogConfiguration.cs" />
+    <Compile Include="ViewModels\CreatePackageViewModel.cs" />
     <Compile Include="ViewModels\LoadArchiveExtractionViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\TestRunnerViewModel.cs" />
+    <Compile Include="Views\CreatePackage.xaml.cs">
+      <DependentUpon>CreatePackage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoadArchiveExtraction.xaml.cs">
       <DependentUpon>LoadArchiveExtraction.xaml</DependentUpon>
     </Compile>
@@ -172,6 +177,10 @@
     <Compile Include="Views\TestRunner.xaml.cs">
       <DependentUpon>TestRunner.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\CreatePackage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoadArchiveExtraction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

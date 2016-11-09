@@ -61,6 +61,51 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opprett pakke.
+        /// </summary>
+        public static string CreatePackageButtonText {
+            get {
+                return ResourceManager.GetString("CreatePackageButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg pakketype.
+        /// </summary>
+        public static string CreatePackageSelectTypeLabel {
+            get {
+                return ResourceManager.GetString("CreatePackageSelectTypeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AIP.
+        /// </summary>
+        public static string CreatePackageTypeAIP {
+            get {
+                return ResourceManager.GetString("CreatePackageTypeAIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIP.
+        /// </summary>
+        public static string CreatePackageTypeSIP {
+            get {
+                return ResourceManager.GetString("CreatePackageTypeSIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opprett pakke.
+        /// </summary>
+        public static string CreatePackageWindowTitle {
+            get {
+                return ResourceManager.GetString("CreatePackageWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Det oppstod en feil med den valgte filen.
         /// </summary>
         public static string FileException_ErrorWithChosenFile {

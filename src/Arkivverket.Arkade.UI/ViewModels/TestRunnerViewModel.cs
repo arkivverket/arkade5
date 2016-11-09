@@ -14,7 +14,6 @@ using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.UI.Util;
-using Arkivverket.Arkade.Util;
 using Application = System.Windows.Application;
 
 namespace Arkivverket.Arkade.UI.ViewModels
@@ -32,7 +31,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly IStatusEventHandler _statusEventHandler;
 
-        public DelegateCommand NavigateToSummaryCommand { get; set; }
+        public DelegateCommand NavigateToCreatePackageCommand { get; set; }
         private DelegateCommand RunTestEngineCommand { get; set; }
         public DelegateCommand SaveIpFileCommand { get; set; }
         public DelegateCommand ShowReportCommand { get; set; }
@@ -44,7 +43,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private Visibility _finishedTestingMessageVisibility = Visibility.Collapsed;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
-        private string _saveIpStatus;
 
         private BigInteger _numberOfProcessedRecords = BigInteger.Zero;
         private int _numberOfProcessedFiles = 0;
@@ -98,12 +96,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
             get { return _archiveCurrentProcessing; }
             set { SetProperty(ref _archiveCurrentProcessing, value); }
         }
-        public string SaveIpStatus
-        {
-            get { return _saveIpStatus; }
-            set { SetProperty(ref _saveIpStatus, value); }
-        }
-
 
         public TestRunnerViewModel(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory, IRegionManager regionManager,  IStatusEventHandler statusEventHandler)
         {
@@ -119,19 +111,18 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveInformationEvent;
             
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
-            NavigateToSummaryCommand = new DelegateCommand(NavigateToSummary, CanNavigateToSummary);
-            SaveIpFileCommand = new DelegateCommand(SaveIpFile);
+            NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, CanNavigateToCreatePackage);
             ShowReportCommand = new DelegateCommand(SaveAndShowReport);
         }
 
-        private void NavigateToSummary()
+        private void NavigateToCreatePackage()
         {
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add("TestSession", _testSession);
-            _regionManager.RequestNavigate("MainContentRegion", "TestSummary", navigationParameters);
+            _regionManager.RequestNavigate("MainContentRegion", "CreatePackage", navigationParameters);
         }
 
-        private bool CanNavigateToSummary()
+        private bool CanNavigateToCreatePackage()
         {
             return !_isRunningTests;
         }
@@ -199,7 +190,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 _log.Debug("Issued the RunTests command");
 
                 _isRunningTests = true;
-                NavigateToSummaryCommand.RaiseCanExecuteChanged();
+                NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
 
                 _testSession = _testSessionFactory.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
 
@@ -213,7 +204,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
                 _isRunningTests = false;
                 FinishedTestingMessageVisibility = Visibility.Visible;
-                NavigateToSummaryCommand.RaiseCanExecuteChanged();
+                NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
             }
             catch (Exception e)
             {
@@ -271,51 +262,5 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _statusEventHandler.RaiseEventTestInformation("SaveIp", message, StatusTestExecution.TestCompleted, true);
         }
 
-
-        private void SaveIpFile()
-        {
-            _statusEventHandler.RaiseEventTestInformation("SaveIp", "Lager IP", StatusTestExecution.TestStarted, false);
-
-
-            
-            DirectoryInfo directoryName = GetIpDirectory();
-            // todo must be async
-            Core.Arkade arkade = new Core.Arkade();
-            bool saved = arkade.SaveIp(_testSession, directoryName);
-            if (saved)
-            {
-                var message = "IP og metadata lagret i " + directoryName;
-                _statusEventHandler.RaiseEventTestInformation("SaveIp", message, StatusTestExecution.TestCompleted, true);
-            }
-        }
-
-
-        private DirectoryInfo GetIpDirectory()
-        {
-            string directoryName = Path.Combine(ArkadeConstants.GetArkadeIpDirectory().FullName, _testSession.Archive.Uuid.GetValue());
-            DirectoryInfo directoryInfo = new DirectoryInfo(directoryName);
-            if (!directoryInfo.Exists)
-            {
-                directoryInfo.Create();
-            }
-
-            return directoryInfo;
-
-            /* If we want to use a FolderBrowserDialog
-            var dialog = new FolderBrowserDialog();
-            dialog.SelectedPath = directoryName;
-            dialog.ShowNewFolderButton = true;
-            DialogResult result = dialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                directoryName = dialog.SelectedPath;
-                return new DirectoryInfo(directoryName);
-            }
-            else
-            {
-                return null;
-            }
-            */
-        }
     }
 }

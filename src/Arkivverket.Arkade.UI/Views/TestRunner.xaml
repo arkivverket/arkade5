@@ -6,6 +6,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:models="clr-namespace:Arkivverket.Arkade.UI.Models"
+             xmlns:resources="clr-namespace:Arkivverket.Arkade.UI.Resources"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="700">
@@ -29,8 +30,8 @@
 
         <Grid Grid.Row="2" Grid.Column="0" Margin="8" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="170" />
+                <ColumnDefinition Width="350" />
                 <ColumnDefinition Width="150" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -61,8 +62,8 @@
 
             <Button Grid.Row="0" Grid.Column="2" Content="Ny testkjøring" HorizontalAlignment="Center" Width="130" Height="30" Visibility="Hidden" />
 
-            <Button Grid.Row="4" Grid.Column="2" Content="Vis rapport"  Width="130" Height="30" Command="{Binding ShowReportCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
-            <Button Grid.Row="5" Grid.Column="2" Content="Lagre IP"  Width="130" Height="30" Command="{Binding SaveIpFileCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
+            <Button Grid.Row="3" Grid.Column="2" Content="Vis rapport"  Width="130" Height="30" Command="{Binding ShowReportCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
+            <Button Grid.Row="5" Grid.Column="2" Content="{x:Static resources:UI.CreatePackageButtonText}"  Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
             <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Text="{Binding CurrentActivityMessage}" TextWrapping="Wrap"></TextBlock>
 
         </Grid>
