@@ -43,11 +43,38 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private Visibility _finishedTestingMessageVisibility = Visibility.Collapsed;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
-
+        private Visibility _addmlDataObjectStatusVisibilty = Visibility.Collapsed;
+        private Visibility _addmlFlatFileStatusVisibilty = Visibility.Collapsed;
         private BigInteger _numberOfProcessedRecords = BigInteger.Zero;
         private int _numberOfProcessedFiles = 0;
         private string _currentlyProcessingFile;
         private string _currentActivityMessage;
+        private int _numberOfTestsFinished = 0;
+        private string _currentlyRunningTest;
+
+        public Visibility AddmlDataObjectStatusVisibility
+        {
+            get { return _addmlDataObjectStatusVisibilty; }
+            set { SetProperty(ref _addmlDataObjectStatusVisibilty, value); }
+        }
+
+        public Visibility AddmlFlatFileStatusVisibility
+        {
+            get { return _addmlFlatFileStatusVisibilty; }
+            set { SetProperty(ref _addmlFlatFileStatusVisibilty, value); }
+        }
+
+        public string CurrentlyRunningTest
+        {
+            get { return _currentlyRunningTest; }
+            set { SetProperty(ref _currentlyRunningTest, value); }
+        }
+
+        public int NumberOfTestsFinished
+        {
+            get { return _numberOfTestsFinished; }
+            set { SetProperty(ref _numberOfTestsFinished, value); }
+        }
 
         public string CurrentActivityMessage
         {
@@ -104,6 +131,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _regionManager = regionManager;
             _statusEventHandler = statusEventHandler;
             _statusEventHandler.StatusEvent += OnStatusEvent;
+            _statusEventHandler.TestStartedEvent += OnTestStartedEvent;
+            _statusEventHandler.TestFinishedEvent += OnTestFinishedEvent;
             _statusEventHandler.FileProcessStartedEvent += OnFileProcessStartedEvent;
             _statusEventHandler.FileProcessFinishedEvent += OnFileProcessFinishedEvent;
             _statusEventHandler.RecordProcessingStartedEvent += OnRecordProcessingStartedEvent;
@@ -114,7 +143,17 @@ namespace Arkivverket.Arkade.UI.ViewModels
             NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, CanNavigateToCreatePackage);
             ShowReportCommand = new DelegateCommand(SaveAndShowReport);
         }
+        private void OnTestStartedEvent(object sender, TestInformationEventArgs eventArgs)
+        {
+            CurrentlyRunningTest = eventArgs.Identifier;
+        }
 
+        private void OnTestFinishedEvent(object sender, TestInformationEventArgs eventArgs)
+        {
+            NumberOfTestsFinished = NumberOfTestsFinished + 1;
+        }
+
+       
         private void NavigateToCreatePackage()
         {
             var navigationParameters = new NavigationParameters();
@@ -181,6 +220,15 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
             ArchiveInformationStatus.Update(eventArgs);
             ArchiveCurrentProcessing = Visibility.Visible;
+
+            if (eventArgs.ArchiveType == ArchiveType.Noark5.ToString())
+            {
+                AddmlDataObjectStatusVisibility = Visibility.Visible;
+            }
+            else
+            {
+                AddmlFlatFileStatusVisibility = Visibility.Visible;
+            }
         }
 
         private void RunTests()

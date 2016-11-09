@@ -21,6 +21,10 @@ namespace Arkivverket.Arkade.Logging
 
         event EventHandler<TestInformationEventArgs> StatusEvent;
 
+        event EventHandler<TestInformationEventArgs> TestStartedEvent;
+
+        event EventHandler<TestInformationEventArgs> TestFinishedEvent;
+        
         event EventHandler<FileProcessingStatusEventArgs> FileProcessStartedEvent;
         event EventHandler<FileProcessingStatusEventArgs> FileProcessFinishedEvent;
 

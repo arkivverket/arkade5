@@ -9,7 +9,7 @@
              xmlns:resources="clr-namespace:Arkivverket.Arkade.UI.Resources"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="700">
+             d:DesignHeight="400" d:DesignWidth="700">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -23,10 +23,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10">Testing av uttrekk</TextBlock>
 
-        <materialDesign:Chip Visibility="{Binding FinishedTestingMessageVisibility}" 
-                                 Grid.Row="1" Grid.Column="0" Content="Testingen er fullført!"                                  
-                                 Background="#4CAF50" Margin="10" HorizontalAlignment="Center" FontSize="22">
-        </materialDesign:Chip>
+        
 
         <Grid Grid.Row="2" Grid.Column="0" Margin="8" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
@@ -44,27 +41,34 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,5" FontWeight="Bold">Filsti:</TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,5" FontWeight="Bold">UUID:</TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,5" FontWeight="Bold">Arkivtype:</TextBlock>
             <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,5" FontWeight="Bold">Fil som blir prosessert nå:</TextBlock>
-            <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,5" FontWeight="Bold">Antall filer prosessert:</TextBlock>
-            <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5" FontWeight="Bold">Antall poster prosessert:</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,5" FontWeight="Bold" Visibility="{Binding AddmlFlatFileStatusVisibility}">Antall filer prosessert:</TextBlock>
+            <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5" FontWeight="Bold" Visibility="{Binding AddmlFlatFileStatusVisibility}">Antall poster prosessert:</TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,5" FontWeight="Bold" Visibility="{Binding AddmlDataObjectStatusVisibility}">Antall tester kjørt:</TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,5" FontWeight="Bold" Visibility="{Binding AddmlDataObjectStatusVisibility}">Test som kjører nå:</TextBlock>
 
             <TextBlock Grid.Row="0" Grid.Column="1" Margin="5" TextWrapping="Wrap" Text="{Binding ArchiveInformationStatus.ArchiveFileName}"></TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding ArchiveInformationStatus.Uuid}"></TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding ArchiveInformationStatus.ArchiveType}"></TextBlock>
             <TextBlock Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding CurrentlyProcessingFile}"></TextBlock>
-            <TextBlock Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedFiles}"></TextBlock>
-            <TextBlock Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedRecords}"></TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedFiles}" Visibility="{Binding AddmlFlatFileStatusVisibility}"></TextBlock>
+            <TextBlock Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedRecords}" Visibility="{Binding AddmlFlatFileStatusVisibility}"></TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="1" Margin="5" Text="{Binding NumberOfTestsFinished}" Visibility="{Binding AddmlDataObjectStatusVisibility}"></TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="1" Margin="5" Text="{Binding CurrentlyRunningTest}" Visibility="{Binding AddmlDataObjectStatusVisibility}" TextWrapping="Wrap"></TextBlock>
+            
+            <TextBlock Visibility="{Binding FinishedTestingMessageVisibility}" 
+                                 Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Text="Testingen er fullført!"                                  
+                                 HorizontalAlignment="left" FontSize="22">
+            </TextBlock>
 
-            <Button Grid.Row="0" Grid.Column="2" Content="Ny testkjøring" HorizontalAlignment="Center" Width="130" Height="30" Visibility="Hidden" />
-
-            <Button Grid.Row="3" Grid.Column="2" Content="Vis rapport"  Width="130" Height="30" Command="{Binding ShowReportCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
-            <Button Grid.Row="5" Grid.Column="2" Content="{x:Static resources:UI.CreatePackageButtonText}"  Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
-            <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Text="{Binding CurrentActivityMessage}" TextWrapping="Wrap"></TextBlock>
+            <Button Grid.Row="9" Grid.Column="0" Margin="20" HorizontalAlignment="Left" Content="Vis rapport"  Width="130" Height="30" Command="{Binding ShowReportCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
+            <Button Grid.Row="9" Grid.Column="1" Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.CreatePackageButtonText}"  Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
 
         </Grid>
 

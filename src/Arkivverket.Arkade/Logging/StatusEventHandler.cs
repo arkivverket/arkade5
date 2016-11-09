@@ -8,17 +8,12 @@ namespace Arkivverket.Arkade.Logging
     {
         public void RaiseEventTestStarted(ITest test)
         {
-           OnStatusEvent(new TestInformationEventArgs(test.GetName(),DateTime.Now, StatusTestExecution.TestStarted, false, string.Empty));
+            OnTestStartedEvent(new TestInformationEventArgs(test.GetName(),DateTime.Now, StatusTestExecution.TestStarted, false, string.Empty));
         }
-
+       
         public void RaiseEventTestFinished(TestRun testRun)
         {
-            string resultMessage = string.Empty;
-
-            if (testRun.Results != null && testRun.Results.Count > 0)
-                resultMessage = testRun.Results[0].Message;
-
-            OnStatusEvent(new TestInformationEventArgs(testRun.TestName, DateTime.Now, StatusTestExecution.TestCompleted, testRun.IsSuccess(), resultMessage));
+            OnTestFinishedEvent(new TestInformationEventArgs(testRun.TestName, DateTime.Now, StatusTestExecution.TestCompleted, testRun.IsSuccess(), testRun.ToString()));
         }
 
         public void RaiseEventTestInformation(string identifier, string message, StatusTestExecution status, bool isSuccess)
@@ -53,6 +48,10 @@ namespace Arkivverket.Arkade.Logging
 
         public event EventHandler<TestInformationEventArgs> StatusEvent;
 
+        public event EventHandler<TestInformationEventArgs> TestStartedEvent;
+
+        public event EventHandler<TestInformationEventArgs> TestFinishedEvent;
+
         public event EventHandler<FileProcessingStatusEventArgs> FileProcessStartedEvent;
         public event EventHandler<FileProcessingStatusEventArgs> FileProcessFinishedEvent;
 
@@ -61,40 +60,52 @@ namespace Arkivverket.Arkade.Logging
 
         public event EventHandler<ArchiveInformationEventArgs> NewArchiveProcessEvent;
 
-        protected virtual void OnStatusEvent(TestInformationEventArgs e)
+        private void OnTestStartedEvent(TestInformationEventArgs eventArgs)
+        {
+            var handler = TestStartedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
+
+        private void OnTestFinishedEvent(TestInformationEventArgs eventArgs)
+        {
+            var handler = TestFinishedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
+
+        protected virtual void OnStatusEvent(TestInformationEventArgs eventArgs)
         {
             var handler = StatusEvent;
-            handler?.Invoke(this, e);
+            handler?.Invoke(this, eventArgs);
         }
 
-        protected virtual void OnFileProcessingStartEvent(FileProcessingStatusEventArgs e)
+        protected virtual void OnFileProcessingStartEvent(FileProcessingStatusEventArgs eventArgs)
         {
             var handler = FileProcessStartedEvent;
-            handler?.Invoke(this, e);
+            handler?.Invoke(this, eventArgs);
         }
 
-        protected virtual void OnFileProcessingStopEvent(FileProcessingStatusEventArgs e)
+        protected virtual void OnFileProcessingStopEvent(FileProcessingStatusEventArgs eventArgs)
         {
             var handler = FileProcessFinishedEvent;
-            handler?.Invoke(this, e);
+            handler?.Invoke(this, eventArgs);
         }
 
-        protected virtual void OnRecordProcessingStartEvent(EventArgs e)
+        protected virtual void OnRecordProcessingStartEvent(EventArgs eventArgs)
         {
             var handler = RecordProcessingStartedEvent;
-            handler?.Invoke(this, e);
+            handler?.Invoke(this, eventArgs);
         }
 
-        protected virtual void OnRecordProcessingFinishedEvent(EventArgs e)
+        protected virtual void OnRecordProcessingFinishedEvent(EventArgs eventArgs)
         {
             var handler = RecordProcessingFinishedEvent;
-            handler?.Invoke(this, e);
+            handler?.Invoke(this, eventArgs);
         }
 
-        protected virtual void OnIssueOnNewArchiveInformation(ArchiveInformationEventArgs e)
+        protected virtual void OnIssueOnNewArchiveInformation(ArchiveInformationEventArgs eventArgs)
         {
             var handler = NewArchiveProcessEvent;
-            handler?.Invoke(this, e);
+            handler?.Invoke(this, eventArgs);
         }
 
 
