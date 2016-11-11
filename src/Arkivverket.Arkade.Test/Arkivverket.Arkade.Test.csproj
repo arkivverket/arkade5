@@ -145,6 +145,7 @@
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParserTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
+    <Compile Include="Core\Addml\Processes\AnalyseCountRecordsTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKeyTest.cs" />
     <Compile Include="Core\Addml\Kvotekontroll89Test.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
