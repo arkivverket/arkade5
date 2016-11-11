@@ -42,15 +42,34 @@
                         </recordTypes>
                         <fieldTypes>
                             <fieldType name="string">
-                                <dataType>String</dataType>
+                                <dataType>string</dataType>
+                            </fieldType>
+                            <fieldType name="integer">
+                                <dataType>integer</dataType>
+                            </fieldType>
+                            <fieldType name="date8">
+                                <dataType>date</dataType>
+                                <fieldFormat>ddmmyyyy</fieldFormat>
                             </fieldType>
                         </fieldTypes>
                     </structureTypes>
+                    <flatFileProcesses flatFileReference="NOARKSAK">
+                        <processes>
+                            <process name="Analyse_CountRecords"/>
+                            <process name="Control_NumberOfRecords"/>
+                        </processes>
+                        <recordProcesses definitionReference="NOARKSAK">
+                            <processes>
+                                <process name="Analyse_CountRecordDefinitionOccurrences"/>
+                            </processes>
+                            <fieldProcesses definitionReference="SA.DATO">
+                                <processes>
+                                    <process name="Control_DataFormat"/>
+                                </processes>
+                            </fieldProcesses>
+                        </recordProcesses>
+                    </flatFileProcesses>
                 </flatFiles>
-<!--            <processes>
-                    Her skal det legges inn for de prosessene som skal utføres.
-                </processes>
--->
             </dataset>
         </addml>
     </xsl:template>
@@ -70,7 +89,7 @@
                                     <additionalElement name="type">
                                         <value>institution</value>
                                     </additionalElement>
-                                    <additionalElement name="value">
+                                    <additionalElement name="name">
                                         <value><xsl:value-of select="EI.ARKSKAPER"/></value>
                                     </additionalElement>
                                 </additionalElements>
@@ -159,7 +178,17 @@
                         <fieldDefinitions>
                             <xsl:for-each select="TI.ATTR">
                                 <xsl:variable name="feltnavn" select="."/>
-                                <fieldDefinition name="{$feltnavn}" typeReference="string"/>
+                                <xsl:choose>
+                                    <xsl:when test="$feltnavn='SA.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SA.DATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="string"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:for-each>
                         </fieldDefinitions>
                     </recordDefinition>
@@ -181,12 +210,22 @@
         </structureTypes>-->
     </xsl:template>
 
-    <xsl:template match="TI.ATTR">
+    <xsl:template match="TI.ATTR">0
         <fieldDefinitions>
             <xsl:variable name="feltnavn">
                 <value><xsl:value-of select="TI.ATTR"/></value>
             </xsl:variable>
-            <fieldDefinition name="{$feltnavn}" typeReference="string"/>
+            <xsl:choose>
+                <xsl:when test="$feltnavn='SA.ID'">
+                    <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                </xsl:when>
+                <xsl:when test="$feltnavn='SA.DATO'">
+                    <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <fieldDefinition name="{$feltnavn}" typeReference="string"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </fieldDefinitions>
     </xsl:template>
 </xsl:stylesheet>
