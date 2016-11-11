@@ -9,12 +9,12 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Test.Integration
 {
-    public class FiskerimantalletAnonIntegrationTest
+    public class FiskermantalletAnonIntegrationTest
     {
         [Fact]
         public void ShouldRunTestsOnFiskermantallet()
         {
-            ArchiveFile archive = ArchiveFile.Read("..\\..\\TestData\\tar\\fiskerimantallet-anonymized\\dab6c748-8d1a-4b6d-b091-3a7b8b3cb255.tar");
+            ArchiveFile archive = ArchiveFile.Read("..\\..\\TestData\\tar\\fiskermantallet-anonymized\\dab6c748-8d1a-4b6d-b091-3a7b8b3cb255.tar");
             Arkade.Core.Arkade arkade = new Arkade.Core.Arkade();
             TestSession testSesson = arkade.RunTests(archive);
 
@@ -31,13 +31,13 @@ namespace Arkivverket.Arkade.Test.Integration
 
 
         //[Fact]
-        public void AnonymizeFiskerimantallet()
+        public void AnonymizeFiskermantallet()
         {
             StreamWriter file = new StreamWriter(@"C:\tmp\file.txt", false, Encodings.ISO_8859_1);      
 
             Dictionary<string, string> randomFodselsnummerOgNavn = new Dictionary<string, string>();
 
-            string[] allLines = File.ReadAllLines("C:\\tmp\\_testdata\\fiskerimantallet-anon\\manntal2000_2009.dat", Encodings.ISO_8859_1);
+            string[] allLines = File.ReadAllLines("C:\\tmp\\_testdata\\fiskermantallet-anon\\manntal2000_2009.dat", Encodings.ISO_8859_1);
             foreach (string line in allLines)
             {
                 string[] fields = line.Split(';');
