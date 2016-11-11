@@ -162,6 +162,7 @@
     <Compile Include="Core\TestRunBuilder.cs" />
     <Compile Include="Core\TestSessionBuilder.cs" />
     <Compile Include="Core\Addml\Noark4Test.cs" />
+    <Compile Include="Integration\FiskerimantalletAnonIntegrationTest.cs" />
     <Compile Include="Integration\Noark3IntegrationTest.cs" />
     <Compile Include="Logging\TestSessionLogXmlAssert.cs" />
     <Compile Include="Logging\TestSessionXmlGeneratorTest.cs" />
@@ -184,6 +185,8 @@
     <Compile Include="Util\AssertTest.cs" />
     <Compile Include="Util\ChecksumTest.cs" />
     <Compile Include="Util\LoggingHelper.cs" />
+    <Compile Include="Util\NorwegianBirthNumberTest.cs" />
+    <Compile Include="Util\NorwegianNameGeneratorTest.cs" />
     <Compile Include="Util\TarTests.cs" />
     <Compile Include="Util\ArkadeVersionTest.cs" />
   </ItemGroup>
@@ -347,6 +350,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="TestData\tar\fiskerimantallet-anonymized\" />
     <Folder Include="TestData\tar\Noark3-eksempel-1\" />
   </ItemGroup>
   <Choose>

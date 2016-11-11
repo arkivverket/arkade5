@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Test.Core;
-using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml
 {

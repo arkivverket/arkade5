@@ -154,6 +154,8 @@
     <Compile Include="Core\IArchiveContentReader.cs" />
     <Compile Include="Core\ITestEngine.cs" />
     <Compile Include="Core\LogEntry.cs" />
+    <Compile Include="Util\NorwegianBirthNumber.cs" />
+    <Compile Include="Util\NorwegianNameGenerator.cs" />
     <Compile Include="Util\ResourceUtil.cs" />
     <Compile Include="Core\TestEngine.cs" />
     <Compile Include="Core\TestEngineFactory.cs" />

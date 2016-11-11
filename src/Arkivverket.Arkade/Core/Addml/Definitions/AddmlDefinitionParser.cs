@@ -36,7 +36,10 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 foreach (fieldType fieldType in fieldTypes)
                 {
                     DataType newDataType = CreateFieldType(fieldType);
-                    _fieldTypes.Add(fieldType.name, newDataType);
+                    if (newDataType != null)
+                    {
+                        _fieldTypes.Add(fieldType.name, newDataType);
+                    }
                 }
             }
         }
@@ -46,7 +49,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             string format = fieldType.fieldFormat;
             List<string> nullValues = fieldType.nullValues == null ? null : new List<string>(fieldType.nullValues);
 
-            switch (fieldType.dataType.ToLower())
+            string dataType = fieldType.dataType;
+            if (dataType == null)
+            {
+                return null;
+            }
+
+            switch (dataType.ToLower())
             {
 
                 case "string":
@@ -295,8 +304,19 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         private string GetRecordSeparator(string flatFileTypeName)
         {
-            // TODO: Add support for delimFileFormat?
-            return ((fixedFileFormat) GetFlatFileType(flatFileTypeName).Item).recordSeparator;
+            flatFileType flatFileType = GetFlatFileType(flatFileTypeName);
+            Type type = flatFileType.Item.GetType();
+            if (type == typeof(fixedFileFormat))
+            {
+                return ((fixedFileFormat)flatFileType.Item).recordSeparator;
+            } else if (type == typeof(delimFileFormat))
+            {
+                return ((delimFileFormat) flatFileType.Item).recordSeparator;
+            }
+            else
+            {
+                throw new AddmlDefinitionParseException("Unkown flatFileType: " + type);
+            }
         }
 
         private flatFileType GetFlatFileType(string flatFileTypeName)
