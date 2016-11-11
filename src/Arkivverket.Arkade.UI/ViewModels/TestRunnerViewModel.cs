@@ -2,7 +2,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows;
 using Arkivverket.Arkade.Core;
@@ -22,7 +21,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
     {
         private readonly ILogger _log = Log.ForContext<TestRunnerViewModel>();
 
-        private ObservableCollection<TestRunnerStatus> _testResults = new ObservableCollection<TestRunnerStatus>();
+        private ObservableCollection<OperationMessage> _operationMessages = new ObservableCollection<OperationMessage>();
 
         private readonly TestSessionFactory _testSessionFactory;
         private readonly TestEngineFactory _testEngineFactory;
@@ -33,19 +32,17 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         public DelegateCommand NavigateToCreatePackageCommand { get; set; }
         private DelegateCommand RunTestEngineCommand { get; set; }
-        public DelegateCommand SaveIpFileCommand { get; set; }
         public DelegateCommand ShowReportCommand { get; set; }
 
         private string _metadataFileName;
         private string _archiveFileName;
         private TestSession _testSession;
         private bool _isRunningTests;
-        private Visibility _finishedTestingMessageVisibility = Visibility.Collapsed;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
         private Visibility _addmlDataObjectStatusVisibilty = Visibility.Collapsed;
         private Visibility _addmlFlatFileStatusVisibilty = Visibility.Collapsed;
-        private BigInteger _numberOfProcessedRecords = BigInteger.Zero;
+        private int _numberOfProcessedRecords = 0;
         private int _numberOfProcessedFiles = 0;
         private string _currentlyProcessingFile;
         private string _currentActivityMessage;
@@ -94,22 +91,16 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _numberOfProcessedFiles, value); }
         }
 
-        public string NumberOfProcessedRecords
+        public int NumberOfProcessedRecords
         {
-            get { return _numberOfProcessedRecords.ToString(); }
-            set { SetProperty(ref _numberOfProcessedRecords, BigInteger.Parse(value)); }
+            get { return _numberOfProcessedRecords; }
+            set { SetProperty(ref _numberOfProcessedRecords, value); }
         }
 
-        public Visibility FinishedTestingMessageVisibility
+        public ObservableCollection<OperationMessage> OperationMessages
         {
-            get { return _finishedTestingMessageVisibility; }
-            set { SetProperty(ref _finishedTestingMessageVisibility, value); }
-        }
-
-        public ObservableCollection<TestRunnerStatus> TestResults
-        {
-            get { return _testResults; }
-            set { SetProperty(ref _testResults, value); }
+            get { return _operationMessages; }
+            set { SetProperty(ref _operationMessages, value); }
         }
 
         public ArchiveInformationStatus ArchiveInformationStatus
@@ -130,7 +121,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _testEngineFactory = testEngineFactory;
             _regionManager = regionManager;
             _statusEventHandler = statusEventHandler;
-            _statusEventHandler.StatusEvent += OnStatusEvent;
+            _statusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
             _statusEventHandler.TestStartedEvent += OnTestStartedEvent;
             _statusEventHandler.TestFinishedEvent += OnTestFinishedEvent;
             _statusEventHandler.FileProcessStartedEvent += OnFileProcessStartedEvent;
@@ -140,15 +131,15 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveInformationEvent;
             
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
-            NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, CanNavigateToCreatePackage);
-            ShowReportCommand = new DelegateCommand(SaveAndShowReport);
+            NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, IsFinishedRunningTests);
+            ShowReportCommand = new DelegateCommand(SaveAndShowReport, IsFinishedRunningTests);
         }
-        private void OnTestStartedEvent(object sender, TestInformationEventArgs eventArgs)
+        private void OnTestStartedEvent(object sender, OperationMessageEventArgs eventArgs)
         {
-            CurrentlyRunningTest = eventArgs.Identifier;
+            CurrentlyRunningTest = eventArgs.Id;
         }
 
-        private void OnTestFinishedEvent(object sender, TestInformationEventArgs eventArgs)
+        private void OnTestFinishedEvent(object sender, OperationMessageEventArgs eventArgs)
         {
             NumberOfTestsFinished = NumberOfTestsFinished + 1;
         }
@@ -161,7 +152,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _regionManager.RequestNavigate("MainContentRegion", "CreatePackage", navigationParameters);
         }
 
-        private bool CanNavigateToCreatePackage()
+        private bool IsFinishedRunningTests()
         {
             return !_isRunningTests;
         }
@@ -183,10 +174,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
         }
 
 
-        private void OnStatusEvent(object sender, TestInformationEventArgs eventArgs)
+        private void OnOperationMessageEvent(object sender, OperationMessageEventArgs eventArgs)
         {
-            CurrentActivityMessage = eventArgs.ResultMessage;
-            //UpdateGuiCollection(eventArgs);
+            UpdateOperationMessageList(eventArgs);
         }
 
         private void OnFileProcessStartedEvent(object sender, FileProcessingStatusEventArgs eventArgs)
@@ -208,10 +198,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private void OnRecordProcessingFinishedEvent(object sender, EventArgs eventArgs)
         {
             _log.Verbose("Got a onRecordProcessFinishedEvent");
-
-            BigInteger counter = BigInteger.Parse(NumberOfProcessedRecords);
-            counter++;
-            NumberOfProcessedRecords = counter.ToString();
+            NumberOfProcessedRecords = NumberOfProcessedRecords + 1;
         }
 
         private void OnNewArchiveInformationEvent(object sender, ArchiveInformationEventArgs eventArgs)
@@ -237,8 +224,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             {
                 _log.Debug("Issued the RunTests command");
 
-                _isRunningTests = true;
-                NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
+                NotifyStartRunningTests();
 
                 _testSession = _testSessionFactory.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
 
@@ -248,11 +234,11 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
                 ITestEngine testEngine = _testEngineFactory.GetTestEngine(_testSession);
                 _testSession.TestSuite = testEngine.RunTestsOnArchive(_testSession);
+                _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords, _numberOfTestsFinished);
+
                 TestSessionXmlGenerator.GenerateXmlAndSaveToFile(_testSession);
 
-                _isRunningTests = false;
-                FinishedTestingMessageVisibility = Visibility.Visible;
-                NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
+                NotifyFinishedRunningTests();
             }
             catch (Exception e)
             {
@@ -261,28 +247,36 @@ namespace Arkivverket.Arkade.UI.ViewModels
             }
         }
 
-        private void UpdateGuiCollection(TestInformationEventArgs testInformationEventArgs)
+        private void NotifyFinishedRunningTests()
+        {
+            _isRunningTests = false;
+            ShowReportCommand.RaiseCanExecuteChanged();
+            NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
+            _statusEventHandler.RaiseEventOperationMessage(Resources.UI.TestrunnerFinishedOperationMessage, null, OperationMessageStatus.Ok);
+        }
+
+        private void NotifyStartRunningTests()
+        {
+            _isRunningTests = true;
+            ShowReportCommand.RaiseCanExecuteChanged();
+            NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
+        }
+
+        private void UpdateOperationMessageList(OperationMessageEventArgs operationMessageEventArgs)
         {
             // http://stackoverflow.com/questions/18331723/this-type-of-collectionview-does-not-support-changes-to-its-sourcecollection-fro
             Application.Current.Dispatcher.Invoke(delegate
             {
-
-                if (testInformationEventArgs.TestStatus == StatusTestExecution.TestStarted)
+                var item = OperationMessages.FirstOrDefault(i => i.Id == operationMessageEventArgs.Id);
+                if (item != null)
                 {
-                    var testRunnerStatus = new TestRunnerStatus(testInformationEventArgs);
-                    TestResults.Add(testRunnerStatus);
+                    item.Update(operationMessageEventArgs);
                 }
                 else
                 {
-                    var item = TestResults.FirstOrDefault(i => i.TestName == testInformationEventArgs.Identifier);
-                    if (item != null)
-                    {
-                        item.Update(testInformationEventArgs.TestStatus, testInformationEventArgs.IsSuccess);
-
-                        if (testInformationEventArgs.ResultMessage != null)
-                            item.ResultMessage = testInformationEventArgs.ResultMessage;
-                    }
+                    OperationMessages.Add(new OperationMessage(operationMessageEventArgs));
                 }
+                OperationMessages.Sort();
             });
         }
 
@@ -299,15 +293,16 @@ namespace Arkivverket.Arkade.UI.ViewModels
             System.Diagnostics.Process.Start(pdfFile.FullName);
         }
 
-        private void SaveReport(FileInfo pdfFile)
+        private  void SaveReport(FileInfo pdfFile)
         {
-            _statusEventHandler.RaiseEventTestInformation("SaveIp", "Lager testrapport", StatusTestExecution.TestStarted, false);
+            string eventId = "Lager testrapport";
+            _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
 
             Core.Arkade arkade = new Core.Arkade();
-            arkade.SaveReport(_testSession, pdfFile);
+             arkade.SaveReport(_testSession, pdfFile);
 
             var message = "Rapport lagret " + pdfFile.FullName;
-            _statusEventHandler.RaiseEventTestInformation("SaveIp", message, StatusTestExecution.TestCompleted, true);
+            _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);
         }
 
     }

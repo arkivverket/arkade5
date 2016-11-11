@@ -13,26 +13,26 @@ namespace Arkivverket.Arkade.Core.Addml
         private readonly int _recordLength;
         private readonly StreamReader _streamReader;
 
-        public FixedFormatReader(StreamReader streamReader, FixedFormatDefinition fixedFormatDefinition)
+        public FixedFormatReader(StreamReader streamReader, FixedFormatConfig fixedFormatConfig)
         {
             _streamReader = streamReader;
-            _recordLength = fixedFormatDefinition.RecordLength;
+            _recordLength = fixedFormatConfig.RecordLength;
 
-            if (fixedFormatDefinition.RecordDefinitions.Count < 1)
+            if (fixedFormatConfig.RecordDefinitions.Count < 1)
             {
                 throw new ArgumentException(
                     "fixedFormatDefinition.RecordDefinitions must contain at least 1 FixedFormatRecordDefinition");
             }
 
             // If only one recordDefinition and recordIdentifier is not set, set it to empty string
-            if (fixedFormatDefinition.RecordDefinitions.Count == 1 && fixedFormatDefinition.RecordDefinitions[0].RecordIdentifier == null)
+            if (fixedFormatConfig.RecordDefinitions.Count == 1 && fixedFormatConfig.RecordDefinitions[0].RecordIdentifier == null)
             {
-                fixedFormatDefinition.RecordDefinitions[0].RecordIdentifier = "";
+                fixedFormatConfig.RecordDefinitions[0].RecordIdentifier = "";
             }
 
 
             _fieldLengthsPerRecordDefinition = new Dictionary<string, List<int>>();
-            foreach (FixedFormatRecordDefinition f in fixedFormatDefinition.RecordDefinitions)
+            foreach (FixedFormatRecordConfig f in fixedFormatConfig.RecordDefinitions)
             {
                 List<int> fieldLengths = f.FieldLengths;
 
@@ -46,8 +46,8 @@ namespace Arkivverket.Arkade.Core.Addml
                 }
             }
 
-            _identifierStartPosition = fixedFormatDefinition.IdentifierStartPosition;
-            _identifierLength = fixedFormatDefinition.IdentifierLength;
+            _identifierStartPosition = fixedFormatConfig.IdentifierStartPosition;
+            _identifierLength = fixedFormatConfig.IdentifierLength;
 
             if ((_identifierStartPosition.HasValue && !_identifierLength.HasValue) ||
                 (!_identifierStartPosition.HasValue && _identifierLength.HasValue))
@@ -55,7 +55,7 @@ namespace Arkivverket.Arkade.Core.Addml
                 throw new ArgumentException("Both IdentifierStartPosition and IdentifierLength must be set");
             }
 
-            if ((fixedFormatDefinition.RecordDefinitions.Count <= 1) && _identifierStartPosition.HasValue &&
+            if ((fixedFormatConfig.RecordDefinitions.Count <= 1) && _identifierStartPosition.HasValue &&
                 _identifierLength.HasValue)
             {
                 throw new ArgumentException(
@@ -118,15 +118,15 @@ namespace Arkivverket.Arkade.Core.Addml
             return fields;
         }
 
-        public class FixedFormatDefinition
+        public class FixedFormatConfig
         {
             public int? IdentifierStartPosition;
             public int? IdentifierLength;
             public int RecordLength; // Support for different records lengths per record definition?
-            public List<FixedFormatRecordDefinition> RecordDefinitions;
+            public List<FixedFormatRecordConfig> RecordDefinitions;
         }
 
-        public class FixedFormatRecordDefinition
+        public class FixedFormatRecordConfig
         {
             public string RecordIdentifier;
             public List<int> FieldLengths;

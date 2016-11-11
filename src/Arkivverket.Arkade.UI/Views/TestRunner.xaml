@@ -15,24 +15,23 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+        
         <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10">Testing av uttrekk</TextBlock>
 
-        
-
-        <Grid Grid.Row="2" Grid.Column="0" Margin="8" VerticalAlignment="Top">
+        <Grid Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="170" />
                 <ColumnDefinition Width="350" />
                 <ColumnDefinition Width="150" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -62,20 +61,16 @@
             <TextBlock Grid.Row="6" Grid.Column="1" Margin="5" Text="{Binding NumberOfTestsFinished}" Visibility="{Binding AddmlDataObjectStatusVisibility}"></TextBlock>
             <TextBlock Grid.Row="7" Grid.Column="1" Margin="5" Text="{Binding CurrentlyRunningTest}" Visibility="{Binding AddmlDataObjectStatusVisibility}" TextWrapping="Wrap"></TextBlock>
             
-            <TextBlock Visibility="{Binding FinishedTestingMessageVisibility}" 
-                                 Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Text="Testingen er fullført!"                                  
-                                 HorizontalAlignment="left" FontSize="22">
-            </TextBlock>
-
-            <Button Grid.Row="9" Grid.Column="0" Margin="20" HorizontalAlignment="Left" Content="Vis rapport"  Width="130" Height="30" Command="{Binding ShowReportCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
-            <Button Grid.Row="9" Grid.Column="1" Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.CreatePackageButtonText}"  Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
-
+            <Button Grid.Row="8" Grid.Column="0" Margin="20" HorizontalAlignment="Left" Content="Vis rapport"  Width="130" Height="30" Command="{Binding ShowReportCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
+            <Button Grid.Row="8" Grid.Column="1" Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.CreatePackageButtonText}"  Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
         </Grid>
 
-        <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding TestResults}">
+        <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="Bold" Margin="10">Meldinger:</TextBlock>
+        <ScrollViewer Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="10">
+            
+            <ItemsControl ItemsSource="{Binding OperationMessages}">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type models:TestRunnerStatus}">
+                    <DataTemplate DataType="{x:Type models:OperationMessage}">
                         <Border x:Name="Border" Padding="8" BorderThickness="1" BorderBrush="{DynamicResource MaterialDesignDivider}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -88,19 +83,19 @@
                              IsIndeterminate="True"
                              Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12 12 12 12"/>
 
-                                <materialDesign:Chip Visibility="{Binding TestResultsVisibility}" 
-                                Grid.Column="0" Content="{Binding ResultAsLabel}"                                  
-                                 IconBackground="{Binding ResultAsColor}"
+                                <materialDesign:Chip Visibility="{Binding StatusVisibility}" 
+                                Grid.Column="0" Content="{Binding Label}"                                  
+                                 IconBackground="{Binding Color}"
                                  IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                                  Margin="0 0 4 4">
                                     <materialDesign:Chip.Icon>
-                                        <materialDesign:PackIcon Kind="{Binding ResultAsIcon}"></materialDesign:PackIcon>
+                                        <materialDesign:PackIcon Kind="{Binding Icon}"></materialDesign:PackIcon>
                                     </materialDesign:Chip.Icon>
                                 </materialDesign:Chip>
 
                                 <StackPanel Grid.Column="1" Margin="8 0 0 0">
-                                    <TextBlock FontWeight="Bold" Text="{Binding TestName}" TextWrapping="Wrap"/>
-                                    <TextBlock Text="{Binding ResultMessage}" Visibility="{Binding TestResultsVisibility}" />
+                                    <TextBlock FontWeight="Bold" Text="{Binding Id}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Visibility="{Binding StatusVisibility}" />
                                 </StackPanel>
                             </Grid>
                         </Border>

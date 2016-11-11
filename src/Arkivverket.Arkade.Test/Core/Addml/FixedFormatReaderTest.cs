@@ -96,20 +96,20 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             return new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(s)));
         }
 
-        private FixedFormatReader.FixedFormatDefinition CreateFixedFormatDefinition(int recordLength,
+        private FixedFormatReader.FixedFormatConfig CreateFixedFormatDefinition(int recordLength,
             List<int> fieldLengths)
         {
-            FixedFormatReader.FixedFormatDefinition fixedFormatDefinition =
-                new FixedFormatReader.FixedFormatDefinition();
-            fixedFormatDefinition.RecordLength = recordLength;
-            List<FixedFormatReader.FixedFormatRecordDefinition> recordDefinitions =
-                new List<FixedFormatReader.FixedFormatRecordDefinition>();
-            FixedFormatReader.FixedFormatRecordDefinition fixedFormatRecordDefinition =
-                new FixedFormatReader.FixedFormatRecordDefinition();
-            fixedFormatRecordDefinition.FieldLengths = fieldLengths;
-            recordDefinitions.Add(fixedFormatRecordDefinition);
-            fixedFormatDefinition.RecordDefinitions = recordDefinitions;
-            return fixedFormatDefinition;
+            FixedFormatReader.FixedFormatConfig fixedFormatConfig =
+                new FixedFormatReader.FixedFormatConfig();
+            fixedFormatConfig.RecordLength = recordLength;
+            List<FixedFormatReader.FixedFormatRecordConfig> recordDefinitions =
+                new List<FixedFormatReader.FixedFormatRecordConfig>();
+            FixedFormatReader.FixedFormatRecordConfig fixedFormatRecordConfig =
+                new FixedFormatReader.FixedFormatRecordConfig();
+            fixedFormatRecordConfig.FieldLengths = fieldLengths;
+            recordDefinitions.Add(fixedFormatRecordConfig);
+            fixedFormatConfig.RecordDefinitions = recordDefinitions;
+            return fixedFormatConfig;
         }
 
     }

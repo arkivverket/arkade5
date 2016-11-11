@@ -15,13 +15,16 @@ namespace Arkivverket.Arkade.Core
 
         public TestSuite TestSuite { get; set; }
 
-        public TestReport TestReport { get; }
+        public TestSummary TestSummary { get; set; }
 
         public AddmlDefinition AddmlDefinition { get; set; }
+
+        public DateTime DateOfTesting { get; }
 
         public TestSession(Archive archive)
         {
             Archive = archive;
+            DateOfTesting = DateTime.Now;
         }
 
         public void AddLogEntry(string message)

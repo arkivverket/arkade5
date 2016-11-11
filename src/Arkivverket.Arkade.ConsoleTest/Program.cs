@@ -12,8 +12,9 @@ namespace Arkivverket.Arkade.ConsoleTest
     {
         static void Main(string[] args)
         {
-            string archiveFileName = @"C:\Dropbox (Arkitektum AS)\Arkade5 - Testdata\Testdata\n5-aclie-in-wonderland-komplett.tar";
-            string metadataFileName = @"C:\dev\src\arkade\src\Arkivverket.Arkade.Test\TestData\noark5-info.xml";
+            string directory = @"C:\Dropbox (Arkitektum AS)\Arkade5 - Testdata\Komplette uttrekk\Noark5-alice-liten\";
+            string archiveFileName = directory + @"ee07a0f9-4564-43ab-b80d-ac975ba12aed.tar";
+            string metadataFileName = directory + @"info.xml";
             if (args.Length != 0)
             {
                 archiveFileName = args[0];

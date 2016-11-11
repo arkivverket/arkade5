@@ -36,7 +36,10 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 foreach (fieldType fieldType in fieldTypes)
                 {
                     DataType newDataType = CreateFieldType(fieldType);
-                    _fieldTypes.Add(fieldType.name, newDataType);
+                    if (newDataType != null)
+                    {
+                        _fieldTypes.Add(fieldType.name, newDataType);
+                    }
                 }
             }
         }
@@ -46,7 +49,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             string format = fieldType.fieldFormat;
             List<string> nullValues = fieldType.nullValues == null ? null : new List<string>(fieldType.nullValues);
 
-            switch (fieldType.dataType.ToLower())
+            string dataType = fieldType.dataType;
+            if (dataType == null)
+            {
+                return null;
+            }
+
+            switch (dataType.ToLower())
             {
 
                 case "string":
@@ -103,17 +112,19 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             {
                 string name = flatFileDefinition.name;
                 string recordSeparator = GetRecordSeparator(flatFileDefinition.typeReference);
+                string fieldSeparator = GetFieldSeparator(flatFileDefinition.typeReference);
                 string fileName = GetFileName(flatFileDefinition.name);
                 FileInfo fileInfo =
                     new FileInfo(_addmlInfo.AddmlFile.DirectoryName + Path.DirectorySeparatorChar + fileName);
                 string charset = GetCharset(flatFileDefinition.typeReference);
                 string recordDefinitionFieldIdentifier = flatFileDefinition.recordDefinitionFieldIdentifier;
                 int? numberOfRecords = GetNumberOfRecords(flatFileDefinition.name);
+                AddmlFlatFileFormat format = GetFlatFileFormat(flatFileDefinition.typeReference);
                 List<string> flatFileProcesses = GetFlatFileProcessNames(flatFileDefinition.name);
 
                 AddmlFlatFileDefinition addmlFlatFileDefinition =
-                    new AddmlFlatFileDefinition(name, fileName, fileInfo, recordSeparator, charset,
-                        recordDefinitionFieldIdentifier, numberOfRecords, flatFileProcesses);
+                    new AddmlFlatFileDefinition(name, fileName, fileInfo, recordSeparator, fieldSeparator, charset,
+                        recordDefinitionFieldIdentifier, numberOfRecords, format, flatFileProcesses);
 
                 AddAddmlFieldDefinitions(addmlFlatFileDefinition, flatFileDefinition);
 
@@ -124,6 +135,23 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return addmlFlatFileDefinitions;
         }
 
+        private AddmlFlatFileFormat GetFlatFileFormat(string flatFileTypeName)
+        {
+            flatFileType flatFileType = GetFlatFileType(flatFileTypeName);
+            Type type = flatFileType.Item.GetType();
+            if (type == typeof(fixedFileFormat))
+            {
+                return AddmlFlatFileFormat.Fixed;
+            }
+            else if (type == typeof(delimFileFormat))
+            {
+                return AddmlFlatFileFormat.Delimiter;
+            }
+            else
+            {
+                throw new AddmlDefinitionParseException("Unkown flatFileType: " + type);
+            }
+        }
 
         private List<string> GetFlatFileProcessNames(string flatFileDefinitionName)
         {
@@ -295,9 +323,35 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         private string GetRecordSeparator(string flatFileTypeName)
         {
-            // TODO: Add support for delimFileFormat?
-            return ((fixedFileFormat) GetFlatFileType(flatFileTypeName).Item).recordSeparator;
+            flatFileType flatFileType = GetFlatFileType(flatFileTypeName);
+            Type type = flatFileType.Item.GetType();
+            if (type == typeof(fixedFileFormat))
+            {
+                return ((fixedFileFormat)flatFileType.Item).recordSeparator;
+            } else if (type == typeof(delimFileFormat))
+            {
+                return ((delimFileFormat) flatFileType.Item).recordSeparator;
+            }
+            else
+            {
+                throw new AddmlDefinitionParseException("Unkown flatFileType: " + type);
+            }
         }
+
+        private string GetFieldSeparator(string flatFileTypeName)
+        {
+            flatFileType flatFileType = GetFlatFileType(flatFileTypeName);
+            Type type = flatFileType.Item.GetType();
+            if (type == typeof(delimFileFormat))
+            {
+                return ((delimFileFormat) flatFileType.Item).fieldSeparatingChar;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
 
         private flatFileType GetFlatFileType(string flatFileTypeName)
         {

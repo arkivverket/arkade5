@@ -153,10 +153,11 @@
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\ArchiveInformationStatus.cs" />
-    <Compile Include="Models\TestRunnerStatus.cs" />
+    <Compile Include="Models\OperationMessage.cs" />
     <Compile Include="ModuleAModule.cs" />
     <Compile Include="Util\Colors.cs" />
     <Compile Include="Util\ExceptionMessageBox.cs" />
+    <Compile Include="Util\Extensions.cs" />
     <Compile Include="Util\RadioConverter.cs" />
     <Compile Include="Util\UiProcessingExceptions.cs" />
     <Compile Include="Util\FileFolderDialogs.cs" />

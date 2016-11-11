@@ -18,16 +18,16 @@ namespace Arkivverket.Arkade.Test.Core
 
             var testEngine = new TestEngine(CreateTestProviderMock(new DummyTest()), statusEventHandler);
 
-            List<TestInformationEventArgs> events = new List<TestInformationEventArgs>();
-            statusEventHandler.StatusEvent += delegate(object sender,  TestInformationEventArgs args)
+            List<OperationMessageEventArgs> events = new List<OperationMessageEventArgs>();
+            statusEventHandler.TestStartedEvent += delegate(object sender,  OperationMessageEventArgs args)
             {
                 events.Add(args);
             };
 
             testEngine.RunTestsOnArchive(new TestSessionBuilder().Build());
 
-            events.Count.Should().Be(2);
-            events[0].Identifier.Should().Be(typeof(DummyTest).FullName);
+            events.Count.Should().Be(1);
+            events[0].Id.Should().Be(typeof(DummyTest).FullName);
         }
 
         private static ITestProvider CreateTestProviderMock(DummyTest exampleTest)

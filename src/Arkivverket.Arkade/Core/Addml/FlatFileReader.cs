@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Test.Core;
-using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
     public class FlatFileReader : IFlatFileReader
     {
+        // TODO: FlatFileReader and FixedFormatReader should be merged together into one single class.
+        // It was nice to have them separated until we had to support multiple recordDefinitions
+        // per file. Now, both classes use recordLength, which is specific to fixedFileFormat.
         private readonly FixedFormatReader _fixedFormatReader;
 
         private readonly Dictionary<string, AddmlRecordDefinition> _addmlRecordDefinitions;
@@ -53,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Addml
             Encoding encoding = file.Definition.Encoding;
             StreamReader streamReader = new StreamReader(fileStream, encoding);
 
-            var fixedFormatDefinition = new FixedFormatReader.FixedFormatDefinition();
+            var fixedFormatDefinition = new FixedFormatReader.FixedFormatConfig();
             Tuple<int?, int?> identifierStartPositionAndLength = GetIdentifierStartPositionAndLength(flatFileDefinition);
             fixedFormatDefinition.IdentifierStartPosition = identifierStartPositionAndLength.Item1;
             fixedFormatDefinition.IdentifierLength = identifierStartPositionAndLength.Item2;
@@ -63,13 +64,13 @@ namespace Arkivverket.Arkade.Core.Addml
             _fixedFormatReader = new FixedFormatReader(streamReader, fixedFormatDefinition);
         }
 
-        private List<FixedFormatReader.FixedFormatRecordDefinition> GetRecordFefinitions(AddmlFlatFileDefinition flatFileDefinition)
+        private List<FixedFormatReader.FixedFormatRecordConfig> GetRecordFefinitions(AddmlFlatFileDefinition flatFileDefinition)
         {
-            List<FixedFormatReader.FixedFormatRecordDefinition> recordDefinitions = new List<FixedFormatReader.FixedFormatRecordDefinition>();
+            List<FixedFormatReader.FixedFormatRecordConfig> recordDefinitions = new List<FixedFormatReader.FixedFormatRecordConfig>();
             foreach (AddmlRecordDefinition addmlRecordDefinition in flatFileDefinition.AddmlRecordDefinitions)
             {
-                FixedFormatReader.FixedFormatRecordDefinition rd
-                    = new FixedFormatReader.FixedFormatRecordDefinition();
+                FixedFormatReader.FixedFormatRecordConfig rd
+                    = new FixedFormatReader.FixedFormatRecordConfig();
                 rd.RecordIdentifier = addmlRecordDefinition.RecordDefinitionFieldValue;
                 rd.FieldLengths = GetFieldLengths(addmlRecordDefinition);
                 recordDefinitions.Add(rd);

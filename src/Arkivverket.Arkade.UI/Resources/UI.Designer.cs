@@ -266,5 +266,14 @@ namespace Arkivverket.Arkade.UI.Resources {
                 return ResourceManager.GetString("TestName_ValidateXmlWithSchema", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Testingen er fullført.
+        /// </summary>
+        public static string TestrunnerFinishedOperationMessage {
+            get {
+                return ResourceManager.GetString("TestrunnerFinishedOperationMessage", resourceCulture);
+            }
+        }
     }
 }
