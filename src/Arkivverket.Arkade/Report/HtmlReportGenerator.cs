@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Report
             body.AppendLine(@"");
             body.AppendLine(ArkivverketImage());
             body.AppendLine(@"    <h1>Testrapport</h1>");
-            body.AppendLine(Summary());
+            body.AppendLine(Summary(testSession));
             body.AppendLine(@"    <h2>Tests</h2>");
             foreach (TestRun testRun in testSession.TestSuite.TestRuns)
             {
@@ -103,7 +103,7 @@ namespace Arkivverket.Arkade.Report
             return sb.ToString();
         }
 
-        private string Summary()
+        private string Summary(TestSession testSession)
         {
             var summary = new StringBuilder();
             summary.AppendLine(@"    <div class=""summary"">");
@@ -111,21 +111,46 @@ namespace Arkivverket.Arkade.Report
             summary.AppendLine(@"        <h2>Testsammendrag</h2>");
             summary.AppendLine(@"");
             summary.AppendLine(@"        <table class=""table"">");
-            summary.AppendLine(@"            <thead>");
-            summary.AppendLine(@"            <tr>");
-            summary.AppendLine(@"                <th>A</th>");
-            summary.AppendLine(@"                <th>B</th>");
-            summary.AppendLine(@"            </tr>");
-            summary.AppendLine(@"            </thead>");
             summary.AppendLine(@"            <tbody>");
+
             summary.AppendLine(@"            <tr>");
-            summary.AppendLine(@"                <td>a</td>");
-            summary.AppendLine(@"                <td>b</td>");
+            summary.Append(@"                <td>").Append(Resources.Report.LabelUuid).AppendLine("</td>");
+            summary.Append(@"                <td>").Append(testSession.Archive.Uuid).AppendLine("</td>");
             summary.AppendLine(@"            </tr>");
+
             summary.AppendLine(@"            <tr>");
-            summary.AppendLine(@"                <td>a</td>");
-            summary.AppendLine(@"                <td>b</td>");
+            summary.Append(@"                <td>").Append(Resources.Report.LabelArchiveType).AppendLine("</td>");
+            summary.Append(@"                <td>").Append(testSession.Archive.ArchiveType).AppendLine("</td>");
             summary.AppendLine(@"            </tr>");
+
+            summary.AppendLine(@"            <tr>");
+            summary.Append(@"                <td>").Append(Resources.Report.LabelDateOfTesting).AppendLine("</td>");
+            summary.Append(@"                <td>").Append(testSession.DateOfTesting.ToString(Resources.Report.DateFormat)).AppendLine("</td>");
+            summary.AppendLine(@"            </tr>");
+
+            if (testSession.Archive.ArchiveType == ArchiveType.Noark5)
+            {
+                summary.AppendLine(@"            <tr>");
+                summary.Append(@"                <td>").Append(Resources.Report.LabelNumberOfTestsRun).AppendLine("</td>");
+                summary.Append(@"                <td>").Append(testSession.TestSummary.NumberOfTestsRun).AppendLine("</td>");
+                summary.AppendLine(@"            </tr>");
+            }
+            else
+            {
+                summary.AppendLine(@"            <tr>");
+                summary.Append(@"                <td>").Append(Resources.Report.LabelNumberOfFilesProcessed).AppendLine("</td>");
+                summary.Append(@"                <td>").Append(testSession.TestSummary.NumberOfProcessedFiles).AppendLine("</td>");
+                summary.AppendLine(@"            </tr>");
+                summary.AppendLine(@"            <tr>");
+                summary.Append(@"                <td>").Append(Resources.Report.LabelNumberOfRecordsProcessed).AppendLine("</td>");
+                summary.Append(@"                <td>").Append(testSession.TestSummary.NumberOfProcessedRecords).AppendLine("</td>");
+                summary.AppendLine(@"            </tr>");
+            }
+            summary.AppendLine(@"            <tr>");
+            summary.Append(@"                <td>").Append(Resources.Report.LabelNumberOfErrors).AppendLine("</td>");
+            summary.Append(@"                <td>").Append(testSession.TestSuite.FindNumberOfErrors()).AppendLine("</td>");
+            summary.AppendLine(@"            </tr>");
+     
             summary.AppendLine(@"            </tbody>");
             summary.AppendLine(@"        </table>");
             summary.AppendLine(@"    </div>");

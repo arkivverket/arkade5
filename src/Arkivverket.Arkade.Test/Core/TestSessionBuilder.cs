@@ -9,6 +9,7 @@ namespace Arkivverket.Arkade.Test.Core
         private Archive _archive;
         private List<string> _logEntries = new List<string>();
         private List<TestRun> _testRuns = new List<TestRun>();
+        private TestSummary _testSummary;
 
         public TestSessionBuilder WithLogEntry(string message)
         {
@@ -27,11 +28,23 @@ namespace Arkivverket.Arkade.Test.Core
             return this;
         }
 
+        public TestSessionBuilder WithArchive(Archive archive)
+        {
+            _archive = archive;
+            return this;
+        }
+
+        public TestSessionBuilder WithTestSummary(TestSummary testSummary)
+        {
+            _testSummary = testSummary;
+            return this;
+        }
+
         public TestSession Build()
         {
             if (_archive == null)
             {
-                _archive = new ArchiveBuilder().Build();
+                _archive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark3).Build();
             }
 
             var testSession = new TestSession(_archive);
@@ -54,6 +67,11 @@ namespace Arkivverket.Arkade.Test.Core
                 testSuite.AddTestRun(new TestRunBuilder().Build());
             }
             testSession.TestSuite = testSuite;
+
+            if (_testSummary == null)
+                _testSummary = new TestSummary(0,0,0);
+
+            testSession.TestSummary = _testSummary;
 
             return testSession;
         }

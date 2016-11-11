@@ -17,5 +17,15 @@ namespace Arkivverket.Arkade.Core
             TestRuns.Add(testRun);
         }
 
+        public int FindNumberOfErrors()
+        {
+            int sum = 0;
+            foreach (var testRun in TestRuns)
+            {
+                sum += testRun.FindNumberOfErrors();
+            }
+            return sum;
+        }
+
     }
 }

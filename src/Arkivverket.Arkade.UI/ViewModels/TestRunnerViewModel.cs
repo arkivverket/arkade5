@@ -2,7 +2,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows;
 using Arkivverket.Arkade.Core;
@@ -33,7 +32,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         public DelegateCommand NavigateToCreatePackageCommand { get; set; }
         private DelegateCommand RunTestEngineCommand { get; set; }
-        public DelegateCommand SaveIpFileCommand { get; set; }
         public DelegateCommand ShowReportCommand { get; set; }
 
         private string _metadataFileName;
@@ -44,7 +42,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
         private Visibility _addmlDataObjectStatusVisibilty = Visibility.Collapsed;
         private Visibility _addmlFlatFileStatusVisibilty = Visibility.Collapsed;
-        private BigInteger _numberOfProcessedRecords = BigInteger.Zero;
+        private int _numberOfProcessedRecords = 0;
         private int _numberOfProcessedFiles = 0;
         private string _currentlyProcessingFile;
         private string _currentActivityMessage;
@@ -93,10 +91,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _numberOfProcessedFiles, value); }
         }
 
-        public string NumberOfProcessedRecords
+        public int NumberOfProcessedRecords
         {
-            get { return _numberOfProcessedRecords.ToString(); }
-            set { SetProperty(ref _numberOfProcessedRecords, BigInteger.Parse(value)); }
+            get { return _numberOfProcessedRecords; }
+            set { SetProperty(ref _numberOfProcessedRecords, value); }
         }
 
         public ObservableCollection<OperationMessage> OperationMessages
@@ -200,10 +198,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private void OnRecordProcessingFinishedEvent(object sender, EventArgs eventArgs)
         {
             _log.Verbose("Got a onRecordProcessFinishedEvent");
-
-            BigInteger counter = BigInteger.Parse(NumberOfProcessedRecords);
-            counter++;
-            NumberOfProcessedRecords = counter.ToString();
+            NumberOfProcessedRecords = NumberOfProcessedRecords + 1;
         }
 
         private void OnNewArchiveInformationEvent(object sender, ArchiveInformationEventArgs eventArgs)
@@ -239,6 +234,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
                 ITestEngine testEngine = _testEngineFactory.GetTestEngine(_testSession);
                 _testSession.TestSuite = testEngine.RunTestsOnArchive(_testSession);
+                _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords, _numberOfTestsFinished);
+
                 TestSessionXmlGenerator.GenerateXmlAndSaveToFile(_testSession);
 
                 NotifyFinishedRunningTests();

@@ -162,6 +162,7 @@
     <Compile Include="Core\TestRunBuilder.cs" />
     <Compile Include="Core\TestSessionBuilder.cs" />
     <Compile Include="Core\Addml\Noark4Test.cs" />
+    <Compile Include="Core\TestSuiteTest.cs" />
     <Compile Include="Integration\FiskerimantalletAnonIntegrationTest.cs" />
     <Compile Include="Integration\Noark3IntegrationTest.cs" />
     <Compile Include="Logging\TestSessionLogXmlAssert.cs" />

@@ -1,5 +1,6 @@
 using Arkivverket.Arkade.Tests;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Arkivverket.Arkade.Core
@@ -61,6 +62,11 @@ namespace Arkivverket.Arkade.Core
         public void AddAnalysisResult(string key, string value)
         {
             AnalysisResults.Add(key, value);
+        }
+
+        public int FindNumberOfErrors()
+        {
+            return Results.Count(r => r.IsError());
         }
     }
 }
