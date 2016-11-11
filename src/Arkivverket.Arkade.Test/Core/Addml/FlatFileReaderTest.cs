@@ -15,11 +15,11 @@ namespace Arkivverket.Arkade.Test.Core.Addml
         {
             FlatFile flatFile = GetDokDat();
 
-            FlatFileReader reader = new FlatFileReader(flatFile);
+            FixedFileFormatReader reader = new FixedFileFormatReader(flatFile);
             int numberOfRecords = 0;
-            while (reader.HasMoreRecords())
+            while (reader.MoveNext())
             {
-                Record record = reader.GetNextRecord();
+                Record record = reader.Current;
                 record.Should().NotBeNull();
                 record.Fields[0].GetName().Should().Be("Posttype");
                 record.Fields[0].Value.Should().BeOneOf("B", "N");
@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
 
             numberOfRecords.Should().Be(195);
 
-            reader.HasMoreRecords().Should().BeFalse();
+            reader.MoveNext().Should().BeFalse();
         }
 
         private void VerifyBrev(Record record)

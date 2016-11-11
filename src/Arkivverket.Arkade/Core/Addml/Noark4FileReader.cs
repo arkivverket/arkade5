@@ -1,16 +1,16 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
-using Arkivverket.Arkade.Test.Core;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
-    public class Noark4FileReader : IFlatFileReader
+    public class Noark4FileReader : IRecordEnumerator
     {
-        private readonly XmlFormatReader _reader;
-
         private readonly AddmlRecordDefinition _addmlRecordDefinition;
+        private readonly XmlFormatReader _reader;
+        private Record _currentRecord;
 
         public Noark4FileReader(FlatFile file)
         {
@@ -24,12 +24,34 @@ namespace Arkivverket.Arkade.Core.Addml
             _reader = new XmlFormatReader(xmlReader, recordName);
         }
 
-        public bool HasMoreRecords()
+        public void Dispose()
+        {
+        }
+
+        public bool MoveNext()
+        {
+            bool hasMoreRecords = HasMoreRecords();
+            if (hasMoreRecords)
+            {
+                _currentRecord = GetNextRecord();
+            }
+            return hasMoreRecords;
+        }
+
+        public void Reset()
+        {
+        }
+
+        public Record Current => _currentRecord;
+
+        object IEnumerator.Current => Current;
+
+        private bool HasMoreRecords()
         {
             return _reader.HasNext();
         }
 
-        public Record GetNextRecord()
+        private Record GetNextRecord()
         {
             Dictionary<string, string> fieldValues = _reader.Next();
 

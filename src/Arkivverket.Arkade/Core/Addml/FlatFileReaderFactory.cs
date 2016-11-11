@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Core.Addml
 {
     public class FlatFileReaderFactory
     {
-        public IFlatFileReader GetReader(Archive archive, FlatFile flatFile)
+        public IRecordEnumerator GetRecordEnumerator(Archive archive, FlatFile flatFile)
         {
             if (archive.ArchiveType == ArchiveType.Noark3 || archive.ArchiveType == ArchiveType.Fagsystem)
             {
@@ -14,9 +14,9 @@ namespace Arkivverket.Arkade.Core.Addml
                 switch (format)
                 {
                     case AddmlFlatFileFormat.Delimiter:
-                        return new DelimiterBasedFileReader(flatFile);
+                        return new DelimiterFileFormatReader(flatFile);
                     case AddmlFlatFileFormat.Fixed:
-                        return new FlatFileReader(flatFile);
+                        return new FixedFileFormatReader(flatFile);
                     default:
                         throw new ArkadeException("Unkown AddmlFlatFileFormat: " + format);
                 }

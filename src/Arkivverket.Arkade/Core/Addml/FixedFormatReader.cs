@@ -5,6 +5,8 @@ using System.Linq;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
+
+    // TODO jostein: FixedFileFormatReader and FixedFormatReader should be merged together
     public class FixedFormatReader
     {
         private readonly Dictionary<string, List<int>> _fieldLengthsPerRecordDefinition;

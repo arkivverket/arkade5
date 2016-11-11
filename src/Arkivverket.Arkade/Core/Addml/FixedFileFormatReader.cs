@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -7,16 +8,16 @@ using Arkivverket.Arkade.Test.Core;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
-    public class FlatFileReader : IFlatFileReader
+    public class FixedFileFormatReader : IRecordEnumerator
     {
-        // TODO: FlatFileReader and FixedFormatReader should be merged together into one single class.
-        // It was nice to have them separated until we had to support multiple recordDefinitions
-        // per file. Now, both classes use recordLength, which is specific to fixedFileFormat.
+        // TODO jostein: FixedFileFormatReader and FixedFormatReader should be merged together
+        // TODO jostein: Functionality in FileFormatReader shoud be used
         private readonly FixedFormatReader _fixedFormatReader;
 
         private readonly Dictionary<string, AddmlRecordDefinition> _addmlRecordDefinitions;
+        private Record _currentRecord;
 
-        public FlatFileReader(FlatFile file)
+        public FixedFileFormatReader(FlatFile file)
         {
             _addmlRecordDefinitions = new Dictionary<string, AddmlRecordDefinition>();
 
@@ -121,12 +122,12 @@ namespace Arkivverket.Arkade.Core.Addml
             return new Tuple<int?, int?>(null, null);
         }
 
-        public bool HasMoreRecords()
+        private bool HasMoreRecords()
         {
             return _fixedFormatReader.HasMoreRecords();
         }
 
-        public Record GetNextRecord()
+        private Record GetNextRecord()
         {
             Tuple<string, List<string>> fieldIdentifierAndValues = _fixedFormatReader.GetNextValue();
 
@@ -147,6 +148,34 @@ namespace Arkivverket.Arkade.Core.Addml
                 fields.Add(new Field(addmlRecordDefinition.AddmlFieldDefinitions[i], fieldValues[i]));
             }
             return fields;
+        }
+
+        public void Dispose()
+        {
+        }
+
+        public bool MoveNext()
+        {
+            bool hasMoreRecords = HasMoreRecords();
+            if (hasMoreRecords)
+            {
+                _currentRecord = GetNextRecord();
+            }
+            return hasMoreRecords;
+        }
+
+        public void Reset()
+        {
+        }
+
+        public Record Current
+        {
+            get { return _currentRecord; } 
+        }
+
+        object IEnumerator.Current
+        {
+            get { return Current; }
         }
     }
 }

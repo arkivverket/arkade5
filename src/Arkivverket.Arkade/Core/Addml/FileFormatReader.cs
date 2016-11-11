@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
-    public abstract class FileReader : IFlatFileReader
+    public abstract class FileFormatReader : IRecordEnumerator
     {
         private readonly AddmlRecordDefinition _addmlRecordDefinition;
 
         private readonly Dictionary<string, AddmlRecordDefinition> _addmlRecordDefinitions =
             new Dictionary<string, AddmlRecordDefinition>();
 
-        protected FileReader(AddmlFlatFileDefinition addmlFlatFileDefinition)
+        protected FileFormatReader(AddmlFlatFileDefinition addmlFlatFileDefinition)
         {
             List<AddmlRecordDefinition> addmlRecordDefinitions = addmlFlatFileDefinition.AddmlRecordDefinitions;
 
@@ -40,9 +41,6 @@ namespace Arkivverket.Arkade.Core.Addml
             }
         }
 
-        public abstract bool HasMoreRecords();
-        public abstract Record GetNextRecord();
-
         protected AddmlRecordDefinition GetAddmlRecordDefinition(string recordDefinitionFieldValue)
         {
             if (recordDefinitionFieldValue == null)
@@ -59,5 +57,12 @@ namespace Arkivverket.Arkade.Core.Addml
                 return _addmlRecordDefinitions[recordDefinitionFieldValue];
             }
         }
+
+        public abstract void Dispose();
+        public abstract bool MoveNext();
+        public abstract void Reset();
+        public abstract Record Current { get; }
+
+        object IEnumerator.Current => Current;
     }
 }

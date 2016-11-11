@@ -32,11 +32,11 @@ namespace Arkivverket.Arkade.Core.Addml
 
                 _addmlProcessRunner.RunProcesses(file);
 
-                IFlatFileReader flatFileReader = _flatFileReaderFactory.GetReader(testSession.Archive, file);
+                IRecordEnumerator recordEnumerator = _flatFileReaderFactory.GetRecordEnumerator(testSession.Archive, file);
 
-                while (flatFileReader.HasMoreRecords())
+                while (recordEnumerator.MoveNext())
                 {
-                    Record record = flatFileReader.GetNextRecord();
+                    Record record = recordEnumerator.Current;
                     _statusEventHandler.RaiseEventRecordProcessingStart();
                     _addmlProcessRunner.RunProcesses(record);
 

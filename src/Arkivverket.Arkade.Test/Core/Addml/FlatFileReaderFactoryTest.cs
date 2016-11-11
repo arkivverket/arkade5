@@ -17,21 +17,21 @@ namespace Arkivverket.Arkade.Test.Core.Addml
         [Fact(Skip = "flatFile == null wont work!")]
         public void ShouldReturnFlatFileReaderForNoark3()
         {
-            var reader = new FlatFileReaderFactory().GetReader(CreateArchive(ArchiveType.Noark3), null);
-            reader.GetType().Should().Be(typeof(FlatFileReader));
+            var reader = new FlatFileReaderFactory().GetRecordEnumerator(CreateArchive(ArchiveType.Noark3), null);
+            reader.GetType().Should().Be(typeof(FixedFileFormatReader));
         }
 
         [Fact(Skip = "flatFile == null wont work!")]
         public void ShouldReturnFlatFileReaderForFagsystem()
         {
-            var reader = new FlatFileReaderFactory().GetReader(CreateArchive(ArchiveType.Fagsystem), null);
-            reader.GetType().Should().Be(typeof(FlatFileReader));
+            var reader = new FlatFileReaderFactory().GetRecordEnumerator(CreateArchive(ArchiveType.Fagsystem), null);
+            reader.GetType().Should().Be(typeof(FixedFileFormatReader));
         }
 
         [Fact(Skip = "flatFile == null wont work!")]
         public void ShouldReturnNoark4FileReaderForNoark4()
         {
-            var reader = new FlatFileReaderFactory().GetReader(CreateArchive(ArchiveType.Noark4), null);
+            var reader = new FlatFileReaderFactory().GetRecordEnumerator(CreateArchive(ArchiveType.Noark4), null);
             reader.GetType().Should().Be(typeof(Noark4FileReader));
         }
 
@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
         public void ShouldThrowExceptionForNoark5()
         {
             Assert.Throws<ArgumentException>(
-                () => new FlatFileReaderFactory().GetReader(CreateArchive(ArchiveType.Noark5), null)
+                () => new FlatFileReaderFactory().GetRecordEnumerator(CreateArchive(ArchiveType.Noark5), null)
                 );
         }
     }
