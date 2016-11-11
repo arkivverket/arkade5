@@ -9,17 +9,17 @@ namespace Arkivverket.Arkade.Test.Core.Addml
         [Fact]
         public void ShouldConvertCrlfRecordSeparator()
         {
-            RecordSeparator recordSeparator = new RecordSeparator("CRLF");
-            recordSeparator.ToString().Should().Be("CRLF");
-            recordSeparator.Get().Should().Be("\r\n");
+            Separator separator = new Separator("CRLF");
+            separator.ToString().Should().Be("CRLF");
+            separator.Get().Should().Be("\r\n");
         }
 
         [Fact]
         public void ShouldNotConvertOtherRecordSeparator()
         {
-            RecordSeparator recordSeparator = new RecordSeparator("X");
-            recordSeparator.ToString().Should().Be("X");
-            recordSeparator.Get().Should().Be("X");
+            Separator separator = new Separator("X");
+            separator.ToString().Should().Be("X");
+            separator.Get().Should().Be("X");
         }
     }
 }

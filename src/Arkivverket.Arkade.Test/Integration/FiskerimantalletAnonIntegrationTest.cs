@@ -11,8 +11,8 @@ namespace Arkivverket.Arkade.Test.Integration
 {
     public class FiskerimantalletAnonIntegrationTest
     {
-        [Fact(Skip = "Not yet support for delimiter based archives")]
-        public void Test1()
+        [Fact]
+        public void ShouldRunTestsOnFiskermantallet()
         {
             ArchiveFile archive = ArchiveFile.Read("..\\..\\TestData\\tar\\fiskerimantallet-anonymized\\dab6c748-8d1a-4b6d-b091-3a7b8b3cb255.tar");
             Arkade.Core.Arkade arkade = new Arkade.Core.Arkade();

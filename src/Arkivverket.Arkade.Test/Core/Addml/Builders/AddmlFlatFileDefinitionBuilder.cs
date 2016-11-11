@@ -15,11 +15,13 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         private readonly List<string> _processes = null;
         private readonly string _recordDefinitionFieldIdentifier = null;
         private readonly string _recordSeparator = null;
+        private readonly string _fieldSeparator = null;
+        private readonly AddmlFlatFileFormat _format = AddmlFlatFileFormat.Fixed;
 
         public AddmlFlatFileDefinition Build()
         {
-            return new AddmlFlatFileDefinition(_name, _fileName, _fileInfo, _recordSeparator, _charset,
-                _recordDefinitionFieldIdentifier, _numberOfRecords, _processes);
+            return new AddmlFlatFileDefinition(_name, _fileName, _fileInfo, _recordSeparator, _fieldSeparator, _charset,
+                _recordDefinitionFieldIdentifier, _numberOfRecords, _format, _processes);
         }
 
         public AddmlFlatFileDefinitionBuilder WithNumberOfRecords(int numberOfRecords)
