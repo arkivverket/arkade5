@@ -288,7 +288,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             DirectoryInfo directoryName = _testSession.GetReportDirectory();
             FileInfo pdfFile = new FileInfo(Path.Combine(directoryName.FullName, "report.pdf"));
             SaveReport(pdfFile);
-            //OpenReport(pdfFile);
+            OpenReport(pdfFile);
         }
 
         private void OpenReport(FileInfo pdfFile)
@@ -296,17 +296,16 @@ namespace Arkivverket.Arkade.UI.ViewModels
             System.Diagnostics.Process.Start(pdfFile.FullName);
         }
 
-        private void SaveReport(FileInfo pdfFile)
+        private  void SaveReport(FileInfo pdfFile)
         {
-            _statusEventHandler.RaiseEventOperationMessage("SaveIp", "Lager testrapport", OperationMessageStatus.Started);
-            Task.Run(delegate
-            {
-                Core.Arkade arkade = new Core.Arkade();
-                arkade.SaveReport(_testSession, pdfFile);
-            });
+            string eventId = "Lager testrapport";
+            _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
+
+            Core.Arkade arkade = new Core.Arkade();
+             arkade.SaveReport(_testSession, pdfFile);
 
             var message = "Rapport lagret " + pdfFile.FullName;
-            _statusEventHandler.RaiseEventOperationMessage("SaveIp", message, OperationMessageStatus.Ok);
+            _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);
         }
 
     }
