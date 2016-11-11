@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Logging
         void RaiseEventTestStarted(ITest test);
         void RaiseEventTestFinished(TestRun testRun);
 
-        void RaiseEventTestInformation(string identifier, string message, StatusTestExecution status, bool isSuccess);
+        void RaiseEventOperationMessage(string identifier, string message, OperationMessageStatus status);
 
         void RaiseEventFileProcessingStarted(FileProcessingStatusEventArgs fileProcessingStatusEventArgs);
         void RaiseEventFileProcessingFinished(FileProcessingStatusEventArgs fileProcessingStatusEventArgs);
@@ -19,11 +19,11 @@ namespace Arkivverket.Arkade.Logging
 
         void RaiseEventNewArchiveInformation(ArchiveInformationEventArgs archiveInformationEventArgArgs);
 
-        event EventHandler<TestInformationEventArgs> StatusEvent;
+        event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
 
-        event EventHandler<TestInformationEventArgs> TestStartedEvent;
+        event EventHandler<OperationMessageEventArgs> TestStartedEvent;
 
-        event EventHandler<TestInformationEventArgs> TestFinishedEvent;
+        event EventHandler<OperationMessageEventArgs> TestFinishedEvent;
         
         event EventHandler<FileProcessingStatusEventArgs> FileProcessStartedEvent;
         event EventHandler<FileProcessingStatusEventArgs> FileProcessFinishedEvent;

@@ -186,4 +186,7 @@
   <data name="TestName_ValidateXmlWithSchema" xml:space="preserve">
     <value>Valider xml i henhold til skjema</value>
   </data>
+  <data name="TestrunnerFinishedOperationMessage" xml:space="preserve">
+    <value>Testingen er fullført</value>
+  </data>
 </root>

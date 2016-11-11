@@ -8,17 +8,17 @@ namespace Arkivverket.Arkade.Logging
     {
         public void RaiseEventTestStarted(ITest test)
         {
-            OnTestStartedEvent(new TestInformationEventArgs(test.GetName(),DateTime.Now, StatusTestExecution.TestStarted, false, string.Empty));
+            OnTestStartedEvent(new OperationMessageEventArgs(test.GetName(),DateTime.Now, OperationMessageStatus.Started, string.Empty));
         }
        
         public void RaiseEventTestFinished(TestRun testRun)
         {
-            OnTestFinishedEvent(new TestInformationEventArgs(testRun.TestName, DateTime.Now, StatusTestExecution.TestCompleted, testRun.IsSuccess(), testRun.ToString()));
+            OnTestFinishedEvent(new OperationMessageEventArgs(testRun.TestName, DateTime.Now, OperationMessageStatus.Ok, testRun.ToString()));
         }
 
-        public void RaiseEventTestInformation(string identifier, string message, StatusTestExecution status, bool isSuccess)
+        public void RaiseEventOperationMessage(string identifier, string message, OperationMessageStatus status)
         {
-            OnStatusEvent(new TestInformationEventArgs(identifier, DateTime.Now, status, isSuccess, message));
+            OnOperationMessageEvent(new OperationMessageEventArgs(identifier, DateTime.Now, status, message));
         }
 
         public void RaiseEventFileProcessingStarted(FileProcessingStatusEventArgs fileProcessingStatusEventArgs)
@@ -46,11 +46,11 @@ namespace Arkivverket.Arkade.Logging
             OnIssueOnNewArchiveInformation(archiveInformationEventArgArgs);
         }
 
-        public event EventHandler<TestInformationEventArgs> StatusEvent;
+        public event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
 
-        public event EventHandler<TestInformationEventArgs> TestStartedEvent;
+        public event EventHandler<OperationMessageEventArgs> TestStartedEvent;
 
-        public event EventHandler<TestInformationEventArgs> TestFinishedEvent;
+        public event EventHandler<OperationMessageEventArgs> TestFinishedEvent;
 
         public event EventHandler<FileProcessingStatusEventArgs> FileProcessStartedEvent;
         public event EventHandler<FileProcessingStatusEventArgs> FileProcessFinishedEvent;
@@ -60,21 +60,21 @@ namespace Arkivverket.Arkade.Logging
 
         public event EventHandler<ArchiveInformationEventArgs> NewArchiveProcessEvent;
 
-        private void OnTestStartedEvent(TestInformationEventArgs eventArgs)
+        private void OnTestStartedEvent(OperationMessageEventArgs eventArgs)
         {
             var handler = TestStartedEvent;
             handler?.Invoke(this, eventArgs);
         }
 
-        private void OnTestFinishedEvent(TestInformationEventArgs eventArgs)
+        private void OnTestFinishedEvent(OperationMessageEventArgs eventArgs)
         {
             var handler = TestFinishedEvent;
             handler?.Invoke(this, eventArgs);
         }
 
-        protected virtual void OnStatusEvent(TestInformationEventArgs eventArgs)
+        protected virtual void OnOperationMessageEvent(OperationMessageEventArgs eventArgs)
         {
-            var handler = StatusEvent;
+            var handler = OperationMessageEvent;
             handler?.Invoke(this, eventArgs);
         }
 

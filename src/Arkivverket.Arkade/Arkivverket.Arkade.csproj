@@ -170,7 +170,7 @@
     <Compile Include="ExternalModels\TestSessionLog.cs" />
     <Compile Include="Identify\ITestSessionFactory.cs" />
     <Compile Include="Logging\IStatusEventHandler.cs" />
-    <Compile Include="Logging\TestInformationEventArgs.cs" />
+    <Compile Include="Logging\OperationMessageEventArgs.cs" />
     <Compile Include="Logging\StatusEventHandler.cs" />
     <Compile Include="Logging\TestSessionXmlGenerator.cs" />
     <Compile Include="ExternalModels\Info.cs" />

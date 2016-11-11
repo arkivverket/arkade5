@@ -90,16 +90,16 @@ namespace Arkivverket.Arkade.Identify
 
         private void TarExtractionStartedEvent()
         {
-            _statusEventHandler.RaiseEventTestInformation(
+            _statusEventHandler.RaiseEventOperationMessage(
                 Resources.Messages.ReadingArchiveEvent,
-                Resources.Messages.TarExtractionMessageStarted, StatusTestExecution.TestStarted, false);
+                Resources.Messages.TarExtractionMessageStarted, OperationMessageStatus.Started);
         }
 
         private void TarExctractionFinishedEvent(string workingDirectory)
         {
-            _statusEventHandler.RaiseEventTestInformation(Resources.Messages.ReadingArchiveEvent,
+            _statusEventHandler.RaiseEventOperationMessage(Resources.Messages.ReadingArchiveEvent,
                 string.Format(Resources.Messages.TarExtractionMessageFinished, workingDirectory),
-                StatusTestExecution.TestCompleted, true);
+                OperationMessageStatus.Ok);
         }
 
         private void CopyToDir(string metadataFileName, string workingDirectory)
