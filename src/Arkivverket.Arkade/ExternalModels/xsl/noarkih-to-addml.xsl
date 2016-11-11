@@ -60,7 +60,7 @@
                         </processes>
                         <recordProcesses definitionReference="NOARKSAK">
                             <processes>
-                                <process name="Analyse_CountRecordDefinitionOccurrences"/>
+                                <process name="Analyse_CountRecordDefinitionOccurences"/>
                             </processes>
                             <fieldProcesses definitionReference="SA.DATO">
                                 <processes>

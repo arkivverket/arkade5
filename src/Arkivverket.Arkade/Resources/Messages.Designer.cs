@@ -70,6 +70,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to poster.
+        /// </summary>
+        internal static string Records {
+            get {
+                return ResourceManager.GetString("Records", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADDML-prosesser på filen: {0}.
         /// </summary>
         internal static string RunningAddmlProcessesOnFile {

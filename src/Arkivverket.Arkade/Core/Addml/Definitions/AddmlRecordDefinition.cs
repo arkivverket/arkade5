@@ -76,5 +76,10 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         {
             return AddmlFlatFileDefinition.Name + "_" + Name;
         }
+
+        public RecordIndex GetIndex()
+        {
+            return new RecordIndex(AddmlFlatFileDefinition.Name, Name);
+        }
     }
 }

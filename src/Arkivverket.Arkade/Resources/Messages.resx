@@ -120,6 +120,9 @@
   <data name="ReadingArchiveEvent" xml:space="preserve">
     <value>Innlesing av arkiv</value>
   </data>
+  <data name="Records" xml:space="preserve">
+    <value>poster</value>
+  </data>
   <data name="RunningAddmlProcessesOnFile" xml:space="preserve">
     <value>ADDML-prosesser på filen: {0}</value>
     <comment>{0} angir filnavn på filen som blir testet.</comment>

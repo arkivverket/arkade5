@@ -105,14 +105,15 @@
     <Compile Include="Core\Addml\Definitions\DataTypes\FloatDataType.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\IntegerDataType.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\LinkDataType.cs" />
+    <Compile Include="Core\Addml\Definitions\RecordIndex.cs" />
     <Compile Include="Core\Addml\Definitions\Separator.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\StringDataType.cs" />
     <Compile Include="Core\Addml\DelimiterFileFormatReader.cs" />
     <Compile Include="Core\Addml\Field.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlFlatFileDefinition.cs" />
     <Compile Include="Core\Addml\FieldProcessRunner.cs" />
-    <Compile Include="Core\Addml\FileProcessRunner.cs" />
     <Compile Include="Core\Addml\FileFormatReader.cs" />
+    <Compile Include="Core\Addml\FileProcessRunner.cs" />
     <Compile Include="Core\Addml\FixedFileFormatReader.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactory.cs" />
     <Compile Include="Core\Addml\IAddmlProcess.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Core\Addml\HasProcesses.cs" />
     <Compile Include="Core\Addml\NoarkihToAddmlTransformer.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountRecords.cs" />
+    <Compile Include="Core\Addml\Processes\AnalyseCountRecordDefinitionOccurences.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindMinMaxValues.cs" />
     <Compile Include="Core\Addml\Processes\ProcessTypeMapping.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKey.cs" />

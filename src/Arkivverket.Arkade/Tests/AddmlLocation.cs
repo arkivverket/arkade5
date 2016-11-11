@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core.Addml.Definitions;
+﻿using System.Text;
+using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Tests
 {
@@ -20,10 +21,26 @@ namespace Arkivverket.Arkade.Tests
             return new AddmlLocation(fieldIndex.GetFlatFileDefinitionName(), fieldIndex.GetRecordDefinitionName(),
                 fieldIndex.GetFieldDefinitionName());
         }
+        public static AddmlLocation FromRecordIndex(RecordIndex index)
+        {
+            return new AddmlLocation(index.GetFlatFileDefinitionName(), index.GetRecordDefinitionName(), null);
+        }
 
         public override string ToString()
         {
-            return $"{_file}/{_record}/{_field}";
+            StringBuilder builder = new StringBuilder(_file);
+
+            if (_record != null)
+            {
+                builder.Append("/").Append(_record);
+            }
+
+            if (_field != null)
+            {
+                builder.Append("/").Append(_field);
+            }
+
+            return builder.ToString();
         }
     }
 }
