@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
                     foreach (Field field in record.Fields)
                     {
-                        _addmlProcessRunner.RunProcesses(field);
+                        _addmlProcessRunner.RunProcesses(file, field);
                     }
                     _statusEventHandler.RaiseEventRecordProcessingStopped();
 

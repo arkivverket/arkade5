@@ -121,6 +121,7 @@
     <Compile Include="Core\Addml\Noark4FileReader.cs" />
     <Compile Include="Core\Addml\HasProcesses.cs" />
     <Compile Include="Core\Addml\NoarkihToAddmlTransformer.cs" />
+    <Compile Include="Core\Addml\Processes\AnalyseCountChars.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountRecords.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountRecordDefinitionOccurences.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindMinMaxValues.cs" />
@@ -266,6 +267,7 @@
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Report.resx">
       <Generator>ResXFileCodeGenerator</Generator>

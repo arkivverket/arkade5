@@ -28,8 +28,9 @@ namespace Arkivverket.Arkade.Core.Addml
             _recordProcessRunner.RunProcesses(record);
         }
 
-        public void RunProcesses(Field field)
+        public void RunProcesses(FlatFile file, Field field)
         {
+            _fileProcessRunner.RunProcesses(file, field);
             _fieldProcessRunner.RunProcesses(field);
         }
 

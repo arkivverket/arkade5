@@ -61,6 +61,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Teller opp antall tegn i en fil.
+        /// </summary>
+        internal static string AnalyseCountCharsDescription {
+            get {
+                return ResourceManager.GetString("AnalyseCountCharsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} tegn.
+        /// </summary>
+        internal static string AnalyseCountCharsMessage {
+            get {
+                return ResourceManager.GetString("AnalyseCountCharsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Innlesing av arkiv.
         /// </summary>
         internal static string ReadingArchiveEvent {
