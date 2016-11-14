@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public ControlNumberOfRecords()
         {
-            _testRun = new TestRun(GetType().FullName, TestType.Content);
+            _testRun = new TestRun(Name, TestType.Content);
         }
 
         public string GetName()
