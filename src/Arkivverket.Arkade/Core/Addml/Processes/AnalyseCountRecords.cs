@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
@@ -10,11 +6,10 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class AnalyseCountRecords : IAddmlProcess
     {
         public const string Name = "Analyse_CountRecords";
-        public const string Description = "Teller opp antall poster i en fil";
 
         private readonly TestRun _testRun;
-        private int _numberRecords;
         private FlatFile _currentFlatFile;
+        private int _numberRecords;
 
         public AnalyseCountRecords()
         {
@@ -28,7 +23,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public string GetDescription()
         {
-            return Description;
+            return Messages.AnalyseCountRecordsDescription;
         }
 
         public void Run(FlatFile flatFile)
@@ -48,7 +43,8 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public void EndOfFile()
         {
-            _testRun.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName), _numberRecords + " " + Resources.Messages.Records));
+            _testRun.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName),
+                string.Format(Messages.AnalyseCountRecordsMessage, _numberRecords)));
         }
 
         public TestRun GetTestRun()

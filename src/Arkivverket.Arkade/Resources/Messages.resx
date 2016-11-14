@@ -123,11 +123,47 @@
   <data name="AnalyseCountCharsMessage" xml:space="preserve">
     <value>{0} tegn</value>
   </data>
+  <data name="AnalyseCountRecordDefinitionOccurencesDescription" xml:space="preserve">
+    <value>Teller opp antall poster for hver posttype</value>
+  </data>
+  <data name="AnalyseCountRecordDefinitionOccurencesMessage" xml:space="preserve">
+    <value>{0} poster</value>
+  </data>
+  <data name="AnalyseCountRecordsDescription" xml:space="preserve">
+    <value>Teller opp antall poster i en fil</value>
+  </data>
+  <data name="AnalyseCountRecordsMessage" xml:space="preserve">
+    <value>{0} poster</value>
+  </data>
+  <data name="AnalyseFindMinMaxValuesDescription" xml:space="preserve">
+    <value>Finner laveste og høyeste verdi i feltet</value>
+  </data>
+  <data name="AnalyseFindMinMaxValuesMessage" xml:space="preserve">
+    <value>Laveste/høyeste verdi: {0}/{1}</value>
+  </data>
+  <data name="ControlForeignKeyDescription" xml:space="preserve">
+    <value>Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst</value>
+  </data>
+  <data name="ControlForeignKeyMessage1" xml:space="preserve">
+    <value>Ugyldig fremmednøkkel: {0}</value>
+  </data>
+  <data name="ControlForeignKeyMessage2" xml:space="preserve">
+    <value>Cannot find referenced field {0} from foreign key {1}</value>
+  </data>
+  <data name="ControlNumberOfRecordsDescription" xml:space="preserve">
+    <value>Teller opp og kontrollerer at antall poster i filen er lik antallet som er oppgitt i egenskapen numberOfRecords i flatFile</value>
+  </data>
+  <data name="ControlNumberOfRecordsMessage1" xml:space="preserve">
+    <value>Expected number of records not specified. Unable to control number of records</value>
+  </data>
+  <data name="ControlNumberOfRecordsMessage2" xml:space="preserve">
+    <value>Number of records ({0}) matched</value>
+  </data>
+  <data name="ControlNumberOfRecordsMessage3" xml:space="preserve">
+    <value>Number of records did not match. Expected {0}, found {1}</value>
+  </data>
   <data name="ReadingArchiveEvent" xml:space="preserve">
     <value>Innlesing av arkiv</value>
-  </data>
-  <data name="Records" xml:space="preserve">
-    <value>poster</value>
   </data>
   <data name="RunningAddmlProcessesOnFile" xml:space="preserve">
     <value>ADDML-prosesser på filen: {0}</value>

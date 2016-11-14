@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
@@ -23,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public string GetDescription()
         {
-            return Resources.Messages.AnalyseCountCharsDescription;
+            return Messages.AnalyseCountCharsDescription;
         }
 
         public void Run(FlatFile flatFile)
@@ -44,7 +45,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         public void EndOfFile()
         {
             _testRun.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName),
-                string.Format(Resources.Messages.AnalyseCountCharsMessage, _numberOfChars)));
+                string.Format(Messages.AnalyseCountCharsMessage, _numberOfChars)));
         }
 
         public TestRun GetTestRun()

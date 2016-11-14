@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 using Serilog;
 
@@ -8,13 +8,12 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class ControlForeignKey : IAddmlProcess
     {
         public const string Name = "Control_ForeignKey";
-        public const string Description = "Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst";
-
-        private ILogger _log = Log.ForContext<ControlForeignKey>();
 
         private readonly List<ForeignKeyValue> _foreignKeys = new List<ForeignKeyValue>();
 
         private readonly Dictionary<string, PrimaryKeyValue> _primaryKeys = new Dictionary<string, PrimaryKeyValue>();
+
+        private readonly ILogger _log = Log.ForContext<ControlForeignKey>();
 
         public string GetName()
         {
@@ -23,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public string GetDescription()
         {
-            return Description;
+            return Messages.ControlForeignKeyDescription;
         }
 
         public void Run(Field field)
@@ -51,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public TestRun GetTestRun()
         {
-            var testRun = new TestRun(GetName(),TestType.Content);
+            var testRun = new TestRun(GetName(), TestType.Content);
             testRun.Results = CreateTestResults();
             return testRun;
         }
@@ -86,12 +85,15 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                     PrimaryKeyValue primaryKeyValue = _primaryKeys[foreignKeyValue.ReferencingField];
                     if (!primaryKeyValue.HasValue(foreignKeyValue.Value))
                     {
-                        results.Add(new TestResult(ResultType.Error, new Location(""), "Invalid foreign key: " + foreignKeyValue.Value));
+                        results.Add(new TestResult(ResultType.Error, new Location(""),
+                            string.Format(Messages.ControlForeignKeyMessage1, foreignKeyValue.Value)));
                     }
                 }
                 else
                 {
-                    results.Add(new TestResult(ResultType.Error, new Location(""), "Cannot find referenced field [" + foreignKeyValue.ReferencingField + "] from foreign key [" + foreignKeyValue.Field + "]."));
+                    results.Add(new TestResult(ResultType.Error, new Location(""),
+                        string.Format(Messages.ControlForeignKeyMessage1, foreignKeyValue.ReferencingField,
+                            foreignKeyValue.Field)));
                 }
             }
             return results;

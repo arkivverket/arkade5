@@ -8,7 +8,6 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class AnalyseCountRecordDefinitionOccurences : IAddmlProcess
     {
         public const string Name = "Analyse_CountRecordDefinitionOccurences";
-        public const string Description = "Teller opp antall poster for hver posttype";
 
         private readonly Dictionary<RecordIndex, int> _numberOfRecords = new Dictionary<RecordIndex, int>();
         private readonly TestRun _testRun;
@@ -25,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public string GetDescription()
         {
-            return Description;
+            return Messages.AnalyseCountRecordDefinitionOccurencesDescription;
         }
 
         public void Run(FlatFile flatFile)
@@ -50,7 +49,8 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         {
             foreach (KeyValuePair<RecordIndex, int> item in _numberOfRecords)
             {
-                _testRun.Add(new TestResult(ResultType.Success, AddmlLocation.FromRecordIndex(item.Key), item.Value + " " + Messages.Records));
+                _testRun.Add(new TestResult(ResultType.Success, AddmlLocation.FromRecordIndex(item.Key),
+                    string.Format(Messages.AnalyseCountRecordDefinitionOccurencesMessage, item.Value)));
             }
             _numberOfRecords.Clear();
         }

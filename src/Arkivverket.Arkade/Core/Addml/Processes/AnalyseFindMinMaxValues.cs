@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
@@ -8,11 +8,11 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class AnalyseFindMinMaxValues : IAddmlProcess
     {
         public const string Name = "Analyse_FindMinMaxValues";
-        public const string Description = "Finner laveste og høyeste verdi i feltet";
+
+        private readonly Dictionary<FieldIndex, MinAndMaxValue> _minAndMaxValuesPerField
+            = new Dictionary<FieldIndex, MinAndMaxValue>();
 
         private readonly TestRun _testRun;
-        private readonly Dictionary<FieldIndex, MinAndMaxValue> _minAndMaxValuesPerField 
-            = new Dictionary<FieldIndex, MinAndMaxValue>();
 
 
         public AnalyseFindMinMaxValues()
@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public string GetDescription()
         {
-            return Description;
+            return Messages.AnalyseFindMinMaxValuesDescription;
         }
 
         public void Run(FlatFile flatFile)
@@ -52,7 +52,8 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                 string minValueString = minAndMaxValue.GetMinValue()?.ToString() ?? "<no value>";
                 string maxValueString = minAndMaxValue.GetMaxValue()?.ToString() ?? "<no value>";
 
-                _testRun.Add(new TestResult(ResultType.Success, AddmlLocation.FromFieldIndex(fieldIndex), $"MinValue {minValueString}. MaxValue {maxValueString}."));
+                _testRun.Add(new TestResult(ResultType.Success, AddmlLocation.FromFieldIndex(fieldIndex),
+                    string.Format(Messages.AnalyseFindMinMaxValuesMessage, minValueString, maxValueString)));
             }
 
             _minAndMaxValuesPerField.Clear();
@@ -78,8 +79,8 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         private class MinAndMaxValue
         {
-            private int? _minValue;
             private int? _maxValue;
+            private int? _minValue;
 
             public MinAndMaxValue()
             {

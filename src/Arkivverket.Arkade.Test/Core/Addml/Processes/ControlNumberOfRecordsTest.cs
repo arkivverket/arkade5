@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
 
             TestRun testRun = test.GetTestRun();
             testRun.Results.Count.Should().Be(1);
-            testRun.Results[0].Message.Should().Be("Number of records (4) matched for file filnavn.dat.");
+            testRun.Results[0].Message.Should().Be("Number of records (4) matched");
         }
     }
 }

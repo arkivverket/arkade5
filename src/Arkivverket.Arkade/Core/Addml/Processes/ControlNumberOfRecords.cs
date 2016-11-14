@@ -1,3 +1,4 @@
+using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
@@ -5,7 +6,6 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class ControlNumberOfRecords : IAddmlProcess
     {
         public const string Name = "Control_NumberOfRecords";
-        public const string Description = "Teller opp og kontrollerer at antall poster i filen er lik antallet som er oppgitt i egenskapen numberOfRecords i flatFile";
 
         private readonly TestRun _testRun;
         private FlatFile _currentFlatFile;
@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public string GetDescription()
         {
-            return Description;
+            return Messages.ControlNumberOfRecordsDescription;
         }
 
         public void Run(FlatFile flatFile)
@@ -45,7 +45,8 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         {
             if (!_currentFlatFile.Definition.NumberOfRecords.HasValue)
             {
-                _testRun.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName), "Expected number of records not specified. Unable to control number of records."));
+                _testRun.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName),
+                    Messages.ControlNumberOfRecordsMessage1));
                 return;
             }
 
@@ -56,12 +57,13 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                 if (expectedNumberOfRecords == _numberOfOcurrencesForCurrentFile)
                 {
                     _testRun.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName),
-                        $"Number of records ({expectedNumberOfRecords}) matched for file {_currentFlatFile.Definition.FileName}."));
+                        string.Format(Messages.ControlNumberOfRecordsMessage2, expectedNumberOfRecords)));
                 }
                 else
                 {
                     _testRun.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName),
-                        $"Number of records did not match for file {_currentFlatFile.Definition.FileName}. Expected {expectedNumberOfRecords}, found {_numberOfOcurrencesForCurrentFile}. "));
+                        string.Format(Messages.ControlNumberOfRecordsMessage3, expectedNumberOfRecords,
+                            _numberOfOcurrencesForCurrentFile)));
                 }
             }
         }

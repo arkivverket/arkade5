@@ -79,20 +79,128 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Teller opp antall poster for hver posttype.
+        /// </summary>
+        internal static string AnalyseCountRecordDefinitionOccurencesDescription {
+            get {
+                return ResourceManager.GetString("AnalyseCountRecordDefinitionOccurencesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} poster.
+        /// </summary>
+        internal static string AnalyseCountRecordDefinitionOccurencesMessage {
+            get {
+                return ResourceManager.GetString("AnalyseCountRecordDefinitionOccurencesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teller opp antall poster i en fil.
+        /// </summary>
+        internal static string AnalyseCountRecordsDescription {
+            get {
+                return ResourceManager.GetString("AnalyseCountRecordsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} poster.
+        /// </summary>
+        internal static string AnalyseCountRecordsMessage {
+            get {
+                return ResourceManager.GetString("AnalyseCountRecordsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finner laveste og høyeste verdi i feltet.
+        /// </summary>
+        internal static string AnalyseFindMinMaxValuesDescription {
+            get {
+                return ResourceManager.GetString("AnalyseFindMinMaxValuesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Laveste/høyeste verdi: {0}/{1}.
+        /// </summary>
+        internal static string AnalyseFindMinMaxValuesMessage {
+            get {
+                return ResourceManager.GetString("AnalyseFindMinMaxValuesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst.
+        /// </summary>
+        internal static string ControlForeignKeyDescription {
+            get {
+                return ResourceManager.GetString("ControlForeignKeyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ugyldig fremmednøkkel: {0}.
+        /// </summary>
+        internal static string ControlForeignKeyMessage1 {
+            get {
+                return ResourceManager.GetString("ControlForeignKeyMessage1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot find referenced field {0} from foreign key {1}.
+        /// </summary>
+        internal static string ControlForeignKeyMessage2 {
+            get {
+                return ResourceManager.GetString("ControlForeignKeyMessage2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teller opp og kontrollerer at antall poster i filen er lik antallet som er oppgitt i egenskapen numberOfRecords i flatFile.
+        /// </summary>
+        internal static string ControlNumberOfRecordsDescription {
+            get {
+                return ResourceManager.GetString("ControlNumberOfRecordsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected number of records not specified. Unable to control number of records.
+        /// </summary>
+        internal static string ControlNumberOfRecordsMessage1 {
+            get {
+                return ResourceManager.GetString("ControlNumberOfRecordsMessage1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of records ({0}) matched.
+        /// </summary>
+        internal static string ControlNumberOfRecordsMessage2 {
+            get {
+                return ResourceManager.GetString("ControlNumberOfRecordsMessage2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of records did not match. Expected {0}, found {1}.
+        /// </summary>
+        internal static string ControlNumberOfRecordsMessage3 {
+            get {
+                return ResourceManager.GetString("ControlNumberOfRecordsMessage3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Innlesing av arkiv.
         /// </summary>
         internal static string ReadingArchiveEvent {
             get {
                 return ResourceManager.GetString("ReadingArchiveEvent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to poster.
-        /// </summary>
-        internal static string Records {
-            get {
-                return ResourceManager.GetString("Records", resourceCulture);
             }
         }
         
