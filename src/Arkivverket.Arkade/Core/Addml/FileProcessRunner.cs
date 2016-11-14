@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Addml
@@ -13,14 +14,34 @@ namespace Arkivverket.Arkade.Core.Addml
             _processCache = _processManager.GetFileProcesses();
         }
 
+        /// <summary>
+        /// Run the processes defined at File level for the specified File.
+        /// </summary>
+        /// <param name="file">the file to run the processes on</param>
         public void RunProcesses(FlatFile file)
         {
-            List<IAddmlProcess> processes = _processManager.GetProcesses(file.Definition.Key(), _processCache);
-
-            foreach (IAddmlProcess process in processes)
+            foreach (IAddmlProcess process in GetProcessesForFile(file))
             {
                 process.Run(file);
             }
         }
+        /// <summary>
+        /// Run the processes defined at File level for the specified Record.
+        /// </summary>
+        /// <param name="file">the file containing process definitions</param>
+        /// <param name="record">the Record to run the processes on</param>
+        public void RunProcesses(FlatFile file, Record record)
+        {
+            foreach (IAddmlProcess process in GetProcessesForFile(file))
+            {
+                process.Run(record);
+            }
+        }
+
+        private List<IAddmlProcess> GetProcessesForFile(FlatFile file)
+        {
+            return _processManager.GetProcesses(file.Definition.Key(), _processCache);
+        }
+
     }
 }

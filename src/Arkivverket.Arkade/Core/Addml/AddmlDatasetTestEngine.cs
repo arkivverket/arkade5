@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Addml
                 {
                     Record record = recordEnumerator.Current;
                     _statusEventHandler.RaiseEventRecordProcessingStart();
-                    _addmlProcessRunner.RunProcesses(record);
+                    _addmlProcessRunner.RunProcesses(file, record);
 
                     foreach (Field field in record.Fields)
                     {

@@ -22,8 +22,9 @@ namespace Arkivverket.Arkade.Core.Addml
             _fileProcessRunner.RunProcesses(file);
         }
 
-        public void RunProcesses(Record record)
+        public void RunProcesses(FlatFile file, Record record)
         {
+            _fileProcessRunner.RunProcesses(file, record);
             _recordProcessRunner.RunProcesses(record);
         }
 
