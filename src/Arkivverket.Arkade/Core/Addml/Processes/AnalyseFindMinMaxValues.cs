@@ -8,10 +8,10 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class AnalyseFindMinMaxValues : IAddmlProcess
     {
         public const string Name = "Analyse_FindMinMaxValues";
-        public const string Description = "Description of " + Name;
+        public const string Description = "Finner laveste og høyeste verdi i feltet";
 
         private readonly TestRun _testRun;
-        private Dictionary<FieldIndex, MinAndMaxValue> minAndMaxValuesPerField 
+        private readonly Dictionary<FieldIndex, MinAndMaxValue> _minAndMaxValuesPerField 
             = new Dictionary<FieldIndex, MinAndMaxValue>();
 
 
@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public void EndOfFile()
         {
-            foreach (KeyValuePair<FieldIndex, MinAndMaxValue> entry in minAndMaxValuesPerField)
+            foreach (KeyValuePair<FieldIndex, MinAndMaxValue> entry in _minAndMaxValuesPerField)
             {
                 FieldIndex fieldIndex = entry.Key;
                 MinAndMaxValue minAndMaxValue = entry.Value;
@@ -55,7 +55,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                 _testRun.Add(new TestResult(ResultType.Success, AddmlLocation.FromFieldIndex(fieldIndex), $"MinValue {minValueString}. MaxValue {maxValueString}."));
             }
 
-            minAndMaxValuesPerField.Clear();
+            _minAndMaxValuesPerField.Clear();
         }
 
         public void Run(Field field)
@@ -67,12 +67,12 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             }
 
             FieldIndex fieldIndeks = field.Definition.GetFieldIndeks();
-            if (!minAndMaxValuesPerField.ContainsKey(fieldIndeks))
+            if (!_minAndMaxValuesPerField.ContainsKey(fieldIndeks))
             {
-                minAndMaxValuesPerField.Add(fieldIndeks, new MinAndMaxValue());
+                _minAndMaxValuesPerField.Add(fieldIndeks, new MinAndMaxValue());
             }
 
-            MinAndMaxValue minAndMaxValue = minAndMaxValuesPerField[fieldIndeks];
+            MinAndMaxValue minAndMaxValue = _minAndMaxValuesPerField[fieldIndeks];
             minAndMaxValue.NewValue(value);
         }
 

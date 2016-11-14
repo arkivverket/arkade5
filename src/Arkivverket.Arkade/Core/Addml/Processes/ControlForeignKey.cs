@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class ControlForeignKey : IAddmlProcess
     {
         public const string Name = "Control_ForeignKey";
-        public const string Description = "Description of " + Name;
+        public const string Description = "Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst";
 
         private ILogger _log = Log.ForContext<ControlForeignKey>();
 

@@ -5,7 +5,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class ControlNumberOfRecords : IAddmlProcess
     {
         public const string Name = "Control_NumberOfRecords";
-        public const string Description = "Description of " + Name;
+        public const string Description = "Teller opp og kontrollerer at antall poster i filen er lik antallet som er oppgitt i egenskapen numberOfRecords i flatFile";
 
         private readonly TestRun _testRun;
         private FlatFile _currentFlatFile;

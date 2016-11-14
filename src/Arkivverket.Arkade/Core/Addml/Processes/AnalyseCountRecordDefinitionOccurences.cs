@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class AnalyseCountRecordDefinitionOccurences : IAddmlProcess
     {
         public const string Name = "Analyse_CountRecordDefinitionOccurences";
-        public const string Description = "Description of " + Name;
+        public const string Description = "Teller opp antall poster for hver posttype";
 
         private readonly Dictionary<RecordIndex, int> _numberOfRecords = new Dictionary<RecordIndex, int>();
         private readonly TestRun _testRun;

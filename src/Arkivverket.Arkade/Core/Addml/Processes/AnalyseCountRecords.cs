@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class AnalyseCountRecords : IAddmlProcess
     {
         public const string Name = "Analyse_CountRecords";
-        public const string Description = "Description of " + Name;
+        public const string Description = "Teller opp antall poster i en fil";
 
         private readonly TestRun _testRun;
         private int _numberRecords;
