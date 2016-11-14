@@ -6,7 +6,13 @@
            Version="!(bind.FileVersion.fil645ACC73EBD39164CBEC59427DA927BE)"
            Manufacturer="Arkivverket"
            UpgradeCode="029ba52f-9fd9-483c-9f7b-b83febc9d9d6">
-    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <Package InstallerVersion="200"
+             Compressed="yes"
+             InstallScope="perMachine" />
+
+    <MajorUpgrade AllowSameVersionUpgrades="yes"
+                  DowngradeErrorMessage="A newer version of [ProductName] is already installed. If you are sure you want to downgrade, remove the existing installation via Programs and Features." />
+
 
     <MediaTemplate EmbedCab="yes" />
     <Icon Id="Arkade5.ico" SourceFile=".\Arkade5.ico" />
