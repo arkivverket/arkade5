@@ -13,6 +13,12 @@
         string GetName();
 
         /// <summary>
+        ///     Returns the description of the process.
+        /// </summary>
+        /// <returns></returns>
+        string GetDescription();
+
+        /// <summary>
         ///     Invoked on the process when starting to read data from a new file
         /// </summary>
         /// <param name="flatFile">the file to process</param>

@@ -7,9 +7,10 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class ControlForeignKey : IAddmlProcess
     {
-        private ILogger _log = Log.ForContext<ControlForeignKey>();
+        public const string Name = "Control_ForeignKey";
+        public const string Description = "Description of " + Name;
 
-        private const string Name = "Control_ForeignKey";
+        private ILogger _log = Log.ForContext<ControlForeignKey>();
 
         private readonly List<ForeignKeyValue> _foreignKeys = new List<ForeignKeyValue>();
 
@@ -18,6 +19,11 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         public string GetName()
         {
             return Name;
+        }
+
+        public string GetDescription()
+        {
+            return Description;
         }
 
         public void Run(Field field)

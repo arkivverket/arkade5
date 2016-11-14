@@ -8,6 +8,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class AnalyseCountRecordDefinitionOccurences : IAddmlProcess
     {
         public const string Name = "Analyse_CountRecordDefinitionOccurences";
+        public const string Description = "Description of " + Name;
 
         private readonly Dictionary<RecordIndex, int> _numberOfRecords = new Dictionary<RecordIndex, int>();
         private readonly TestRun _testRun;
@@ -20,6 +21,11 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         public string GetName()
         {
             return Name;
+        }
+
+        public string GetDescription()
+        {
+            return Description;
         }
 
         public void Run(FlatFile flatFile)

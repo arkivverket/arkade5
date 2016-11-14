@@ -8,8 +8,9 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class AnalyseFindMinMaxValues : IAddmlProcess
     {
         public const string Name = "Analyse_FindMinMaxValues";
-        private readonly TestRun _testRun;
+        public const string Description = "Description of " + Name;
 
+        private readonly TestRun _testRun;
         private Dictionary<FieldIndex, MinAndMaxValue> minAndMaxValuesPerField 
             = new Dictionary<FieldIndex, MinAndMaxValue>();
 
@@ -22,6 +23,11 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         public string GetName()
         {
             return Name;
+        }
+
+        public string GetDescription()
+        {
+            return Description;
         }
 
         public void Run(FlatFile flatFile)
