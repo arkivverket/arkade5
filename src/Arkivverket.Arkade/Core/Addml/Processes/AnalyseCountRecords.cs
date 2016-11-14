@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public void EndOfFile()
         {
-            _testRun.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName), $"RecordCount {_numberRecords}."));
+            _testRun.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName), _numberRecords + " " + Resources.Messages.Records));
         }
 
         public TestRun GetTestRun()
