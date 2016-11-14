@@ -166,7 +166,7 @@
     <Compile Include="Core\TestSessionBuilder.cs" />
     <Compile Include="Core\Addml\Noark4Test.cs" />
     <Compile Include="Core\TestSuiteTest.cs" />
-    <Compile Include="Integration\FiskermantalletAnonIntegrationTest.cs" />
+    <Compile Include="Integration\FiskermanntalletAnonIntegrationTest.cs" />
     <Compile Include="Integration\Noark3IntegrationTest.cs" />
     <Compile Include="Logging\TestSessionLogXmlAssert.cs" />
     <Compile Include="Logging\TestSessionXmlGeneratorTest.cs" />
@@ -294,6 +294,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\tar\fiskermanntallet-anonymized\dab6c748-8d1a-4b6d-b091-3a7b8b3cb255.tar" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestData\kvotekontroll89\kvotekontroll89.XML" />
@@ -354,7 +355,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TestData\tar\fiskermantallet-anonymized\" />
     <Folder Include="TestData\tar\Noark3-eksempel-1\" />
   </ItemGroup>
   <Choose>
