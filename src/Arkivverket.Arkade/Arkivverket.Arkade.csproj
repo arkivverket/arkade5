@@ -124,7 +124,9 @@
     <Compile Include="Core\Addml\Processes\AnalyseCountChars.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountRecords.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountRecordDefinitionOccurences.cs" />
+    <Compile Include="Core\Addml\Processes\AnalyseFindExtremeValues.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindMinMaxValues.cs" />
+    <Compile Include="Core\Addml\Processes\MinAndMax.cs" />
     <Compile Include="Core\Addml\Processes\ProcessTypeMapping.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKey.cs" />
     <Compile Include="Core\Addml\Processes\ControlNumberOfRecords.cs" />

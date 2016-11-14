@@ -115,6 +115,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finner lengste og korteste verdi i feltet.
+        /// </summary>
+        internal static string AnalyseFindExtremeValuesDescription {
+            get {
+                return ResourceManager.GetString("AnalyseFindExtremeValuesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lengste/korteste verdi: {0}/{1}.
+        /// </summary>
+        internal static string AnalyseFindExtremeValuesMessage {
+            get {
+                return ResourceManager.GetString("AnalyseFindExtremeValuesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finner laveste og høyeste verdi i feltet.
         /// </summary>
         internal static string AnalyseFindMinMaxValuesDescription {
