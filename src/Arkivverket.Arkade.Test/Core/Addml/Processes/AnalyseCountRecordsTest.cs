@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeTrue();
             testRun.Results.Count.Should().Be(1);
-            testRun.Results[0].Message.Should().Be("RecordCount 4.");
+            testRun.Results[0].Message.Should().StartWith("4 ");
 
         }
 
