@@ -20,3 +20,4 @@ This project provides the graphical user interface of the Arkade 5 software. It 
 [Autofac](https://autofac.org) is used as a dependency framework. Bootstrapping of the applications happens in **Bootstrapper.cs**. It is based on the bootstrapper provided by Prism and it loads the Autofac-module provided by the Arkade core library. 
 
 The design and layout is based on Google's [Material Design](https://material.google.com/). This has been implemented with the help of the [MaterialDesignThemes-library](http://materialdesigninxaml.net/). Note that the user interface is only inspired by the material design, not neccessary strictly following it in every situation. 
+

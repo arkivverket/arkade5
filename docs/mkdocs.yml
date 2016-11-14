@@ -5,4 +5,5 @@ pages:
 - Installasjonsveiledning: 'installasjonsveiledning.md'
 - Brukerveiledning: 'brukerveiledning.md'
 - Systemdokumentasjon: 'systemdokumentasjon.md'
+-- 'systemdokumentasjon-list-of-processes.md'
 - Versjonshistorikk: 'versjonshistorikk.md'
