@@ -36,12 +36,19 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public void EndOfFile()
         {
+            if (!_currentFlatFile.Definition.NumberOfRecords.HasValue)
+            {
+                _testRun.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName), "Expected number of records not specified. Unable to control number of records."));
+                return;
+            }
+
+
             int expectedNumberOfRecords = _currentFlatFile.Definition.NumberOfRecords.Value;
             if (expectedNumberOfRecords > 0)
             {
                 if (expectedNumberOfRecords == _numberOfOcurrencesForCurrentFile)
                 {
-                    _testRun.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName), 
+                    _testRun.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName),
                         $"Number of records ({expectedNumberOfRecords}) matched for file {_currentFlatFile.Definition.FileName}."));
                 }
                 else
