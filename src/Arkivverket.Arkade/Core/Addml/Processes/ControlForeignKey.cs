@@ -5,27 +5,36 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class ControlForeignKey : IAddmlProcess
+    public class ControlForeignKey : AddmlProcess
     {
         public const string Name = "Control_ForeignKey";
 
         private readonly List<ForeignKeyValue> _foreignKeys = new List<ForeignKeyValue>();
 
-        private readonly Dictionary<string, PrimaryKeyValue> _primaryKeys = new Dictionary<string, PrimaryKeyValue>();
-
         private readonly ILogger _log = Log.ForContext<ControlForeignKey>();
 
-        public string GetName()
+        private readonly Dictionary<string, PrimaryKeyValue> _primaryKeys = new Dictionary<string, PrimaryKeyValue>();
+
+        public override string GetName()
         {
             return Name;
         }
 
-        public string GetDescription()
+        public override string GetDescription()
         {
             return Messages.ControlForeignKeyDescription;
         }
 
-        public void Run(Field field)
+        public override TestType GetTestType()
+        {
+            return TestType.Content;
+        }
+
+        protected override void DoRun(Record record)
+        {
+        }
+
+        protected override void DoRun(Field field)
         {
             // TODO: IsPartOfPrimaryKey is probably not correct here!
             if (field.Definition.IsPartOfPrimaryKey())
@@ -40,42 +49,11 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             }
         }
 
-        public void Run(FlatFile flatFile)
+        protected override void DoEndOfFile()
         {
         }
 
-        public void Run(Record record)
-        {
-        }
-
-        public TestRun GetTestRun()
-        {
-            var testRun = new TestRun(GetName(), TestType.Content);
-            testRun.Results = CreateTestResults();
-            return testRun;
-        }
-
-        public void EndOfFile()
-        {
-        }
-
-        private void AddPrimaryKey(Field field)
-        {
-            PrimaryKeyValue primaryKeyValue;
-            string key = field.Definition.Key();
-            if (_primaryKeys.ContainsKey(key))
-            {
-                primaryKeyValue = _primaryKeys[key];
-            }
-            else
-            {
-                primaryKeyValue = new PrimaryKeyValue(field);
-                _primaryKeys.Add(key, primaryKeyValue);
-            }
-            primaryKeyValue.AddValue(field.Value);
-        }
-
-        private List<TestResult> CreateTestResults()
+        protected override List<TestResult> GetTestResults()
         {
             var results = new List<TestResult>();
             foreach (ForeignKeyValue foreignKeyValue in _foreignKeys)
@@ -97,6 +75,26 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                 }
             }
             return results;
+        }
+
+        protected override void DoRun(FlatFile flatFile)
+        {
+        }
+
+        private void AddPrimaryKey(Field field)
+        {
+            PrimaryKeyValue primaryKeyValue;
+            string key = field.Definition.Key();
+            if (_primaryKeys.ContainsKey(key))
+            {
+                primaryKeyValue = _primaryKeys[key];
+            }
+            else
+            {
+                primaryKeyValue = new PrimaryKeyValue(field);
+                _primaryKeys.Add(key, primaryKeyValue);
+            }
+            primaryKeyValue.AddValue(field.Value);
         }
 
         private class PrimaryKeyValue

@@ -1,57 +1,58 @@
-﻿using System.Numerics;
-using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Numerics;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class AnalyseCountChars : IAddmlProcess
+    public class AnalyseCountChars : AddmlProcess
     {
         public const string Name = "Analyse_CountChars";
 
-        private readonly TestRun _testRun;
+        private readonly List<TestResult> _testResults = new List<TestResult>();
+
         private FlatFile _currentFlatFile;
         private BigInteger _numberOfChars;
 
-        public AnalyseCountChars()
-        {
-            _testRun = new TestRun(Name, TestType.Content);
-        }
-
-        public string GetName()
+        public override string GetName()
         {
             return Name;
         }
 
-        public string GetDescription()
+        public override string GetDescription()
         {
             return Messages.AnalyseCountCharsDescription;
         }
 
-        public void Run(FlatFile flatFile)
+        public override TestType GetTestType()
+        {
+            return TestType.Content;
+        }
+
+        protected override void DoRun(FlatFile flatFile)
         {
             _numberOfChars = 0;
             _currentFlatFile = flatFile;
         }
 
-        public void Run(Record record)
+        protected override void DoRun(Record record)
         {
         }
 
-        public void Run(Field field)
+        protected override void DoRun(Field field)
         {
             _numberOfChars += field.Value.Length;
         }
 
-        public void EndOfFile()
+        protected override void DoEndOfFile()
         {
-            _testRun.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName),
+            _testResults.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName),
                 string.Format(Messages.AnalyseCountCharsMessage, _numberOfChars)));
         }
 
-        public TestRun GetTestRun()
+        protected override List<TestResult> GetTestResults()
         {
-            return _testRun;
+            return _testResults;
         }
     }
 }

@@ -1,51 +1,47 @@
+using System.Collections.Generic;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class ControlNumberOfRecords : IAddmlProcess
+    public class ControlNumberOfRecords : AddmlProcess
     {
         public const string Name = "Control_NumberOfRecords";
-
-        private readonly TestRun _testRun;
+        private readonly List<TestResult> _testResults = new List<TestResult>();
         private FlatFile _currentFlatFile;
         private int _numberOfOcurrencesForCurrentFile;
 
-        public ControlNumberOfRecords()
-        {
-            _testRun = new TestRun(Name, TestType.Content);
-        }
-
-        public string GetName()
+        public override string GetName()
         {
             return Name;
         }
 
-        public string GetDescription()
+        public override string GetDescription()
         {
             return Messages.ControlNumberOfRecordsDescription;
         }
 
-        public void Run(FlatFile flatFile)
+        public override TestType GetTestType()
+        {
+            return TestType.Content;
+        }
+
+        protected override void DoRun(FlatFile flatFile)
         {
             _numberOfOcurrencesForCurrentFile = 0;
             _currentFlatFile = flatFile;
         }
 
-        public TestRun GetTestRun()
+        protected override List<TestResult> GetTestResults()
         {
-            return _testRun;
+            return _testResults;
         }
 
-        public void Run(Field field)
-        {
-        }
-
-        public void EndOfFile()
+        protected override void DoEndOfFile()
         {
             if (!_currentFlatFile.Definition.NumberOfRecords.HasValue)
             {
-                _testRun.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName),
+                _testResults.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName),
                     Messages.ControlNumberOfRecordsMessage1));
                 return;
             }
@@ -56,21 +52,26 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             {
                 if (expectedNumberOfRecords == _numberOfOcurrencesForCurrentFile)
                 {
-                    _testRun.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName),
+                    _testResults.Add(new TestResult(ResultType.Success,
+                        new Location(_currentFlatFile.Definition.FileName),
                         string.Format(Messages.ControlNumberOfRecordsMessage2, expectedNumberOfRecords)));
                 }
                 else
                 {
-                    _testRun.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName),
+                    _testResults.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName),
                         string.Format(Messages.ControlNumberOfRecordsMessage3, expectedNumberOfRecords,
                             _numberOfOcurrencesForCurrentFile)));
                 }
             }
         }
 
-        public void Run(Record record)
+        protected override void DoRun(Record record)
         {
             _numberOfOcurrencesForCurrentFile++;
+        }
+
+        protected override void DoRun(Field field)
+        {
         }
     }
 }

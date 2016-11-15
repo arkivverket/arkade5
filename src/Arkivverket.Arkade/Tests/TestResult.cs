@@ -1,3 +1,5 @@
+using Arkivverket.Arkade.Util;
+
 namespace Arkivverket.Arkade.Tests
 {
     public class TestResult
@@ -9,6 +11,10 @@ namespace Arkivverket.Arkade.Tests
 
         public TestResult(ResultType result, ILocation location, string message)
         {
+            Assert.AssertNotNull("result", result);
+            Assert.AssertNotNull("location", location);
+            Assert.AssertNotNullOrEmpty("message", message);
+
             Result = result;
             Location = location;
             Message = message;

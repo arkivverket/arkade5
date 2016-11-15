@@ -40,9 +40,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
             foreach (IAddmlProcess addmlProcess in _processManager.GetAllProcesses())
             {
-                TestRun testRun = addmlProcess.GetTestRun();
-                testRun.TestDescription = addmlProcess.GetDescription();
-                testSuite.AddTestRun(testRun);
+                testSuite.AddTestRun(addmlProcess.GetTestRun());
             }
 
             return testSuite;

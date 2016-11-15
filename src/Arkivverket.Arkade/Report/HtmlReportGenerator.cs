@@ -70,12 +70,10 @@ namespace Arkivverket.Arkade.Report
             sb.AppendLine(@"            " + testRun.TestDescription);
             sb.AppendLine(@"        </p>");
             sb.AppendLine(@"");
-            /* - not implemented yet in addml processes - remove for now
             sb.AppendLine(@"        <p class=""test-duration"">");
             sb.AppendLine(@"            Tidsbruk: " + testRun.TestDuration + " millisekunder");
             sb.AppendLine(@"        </p>");
             sb.AppendLine(@"");
-            */
             sb.AppendLine(@"        <h4>Testresultater</h4>");
             sb.AppendLine(@"        <table class=""table"">");
             sb.AppendLine(@"            <thead>");

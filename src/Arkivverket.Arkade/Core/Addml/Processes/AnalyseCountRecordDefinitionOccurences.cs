@@ -5,37 +5,33 @@ using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class AnalyseCountRecordDefinitionOccurences : IAddmlProcess
+    public class AnalyseCountRecordDefinitionOccurences : AddmlProcess
     {
         public const string Name = "Analyse_CountRecordDefinitionOccurences";
 
         private readonly Dictionary<RecordIndex, int> _numberOfRecords = new Dictionary<RecordIndex, int>();
-        private readonly TestRun _testRun;
+        private readonly List<TestResult> _testResults = new List<TestResult>();
 
-        public AnalyseCountRecordDefinitionOccurences()
-        {
-            _testRun = new TestRun(Name, TestType.Content);
-        }
-
-        public string GetName()
+        public override string GetName()
         {
             return Name;
         }
 
-        public string GetDescription()
+        public override string GetDescription()
         {
             return Messages.AnalyseCountRecordDefinitionOccurencesDescription;
         }
 
-        public void Run(FlatFile flatFile)
+        public override TestType GetTestType()
+        {
+            return TestType.Content;
+        }
+
+        protected override void DoRun(FlatFile flatFile)
         {
         }
 
-        public void Run(Field field)
-        {
-        }
-
-        public void Run(Record record)
+        protected override void DoRun(Record record)
         {
             RecordIndex key = record.Definition.GetIndex();
             if (!_numberOfRecords.ContainsKey(key))
@@ -45,19 +41,23 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             _numberOfRecords[key] = _numberOfRecords[key] + 1;
         }
 
-        public void EndOfFile()
+        protected override void DoRun(Field field)
+        {
+        }
+
+        protected override void DoEndOfFile()
         {
             foreach (KeyValuePair<RecordIndex, int> item in _numberOfRecords)
             {
-                _testRun.Add(new TestResult(ResultType.Success, AddmlLocation.FromRecordIndex(item.Key),
+                _testResults.Add(new TestResult(ResultType.Success, AddmlLocation.FromRecordIndex(item.Key),
                     string.Format(Messages.AnalyseCountRecordDefinitionOccurencesMessage, item.Value)));
             }
             _numberOfRecords.Clear();
         }
 
-        public TestRun GetTestRun()
+        protected override List<TestResult> GetTestResults()
         {
-            return _testRun;
+            return _testResults;
         }
     }
 }

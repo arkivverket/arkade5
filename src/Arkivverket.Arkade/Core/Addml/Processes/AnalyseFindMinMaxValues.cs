@@ -5,61 +5,61 @@ using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class AnalyseFindMinMaxValues : IAddmlProcess
+    public class AnalyseFindMinMaxValues : AddmlProcess
     {
         public const string Name = "Analyse_FindMinMaxValues";
 
-        private readonly Dictionary<FieldIndex, MinAndMaxValue> _minAndMaxValuesPerField
-            = new Dictionary<FieldIndex, MinAndMaxValue>();
+        private readonly Dictionary<FieldIndex, MinAndMax> _minAndMaxValuesPerField
+            = new Dictionary<FieldIndex, MinAndMax>();
 
-        private readonly TestRun _testRun;
+        private readonly List<TestResult> _testResults = new List<TestResult>();
 
 
-        public AnalyseFindMinMaxValues()
-        {
-            _testRun = new TestRun(Name, TestType.Content);
-        }
-
-        public string GetName()
+        public override string GetName()
         {
             return Name;
         }
 
-        public string GetDescription()
+        public override string GetDescription()
         {
             return Messages.AnalyseFindMinMaxValuesDescription;
         }
 
-        public void Run(FlatFile flatFile)
+        public override TestType GetTestType()
+        {
+            return TestType.Content;
+        }
+
+        protected override List<TestResult> GetTestResults()
+        {
+            return _testResults;
+        }
+
+        protected override void DoRun(FlatFile flatFile)
         {
         }
 
-        public void Run(Record record)
+        protected override void DoRun(Record record)
         {
         }
 
-        public TestRun GetTestRun()
+        protected override void DoEndOfFile()
         {
-            return _testRun;
-        }
-
-        public void EndOfFile()
-        {
-            foreach (KeyValuePair<FieldIndex, MinAndMaxValue> entry in _minAndMaxValuesPerField)
+            foreach (KeyValuePair<FieldIndex, MinAndMax> entry in _minAndMaxValuesPerField)
             {
                 FieldIndex fieldIndex = entry.Key;
-                MinAndMaxValue minAndMaxValue = entry.Value;
-                string minValueString = minAndMaxValue.GetMinValue()?.ToString() ?? "<no value>";
-                string maxValueString = minAndMaxValue.GetMaxValue()?.ToString() ?? "<no value>";
+                MinAndMax minAndMaxValue = entry.Value;
+                string minValueString = minAndMaxValue.GetMin()?.ToString() ?? "<no value>";
+                string maxValueString = minAndMaxValue.GetMax()?.ToString() ?? "<no value>";
 
-                _testRun.Add(new TestResult(ResultType.Success, AddmlLocation.FromFieldIndex(fieldIndex),
+                _testResults.Add(new TestResult(ResultType.Success, AddmlLocation.FromFieldIndex(fieldIndex),
                     string.Format(Messages.AnalyseFindMinMaxValuesMessage, minValueString, maxValueString)));
             }
 
             _minAndMaxValuesPerField.Clear();
         }
 
-        public void Run(Field field)
+        protected override void DoRun(Field field)
         {
             int value;
             if (!int.TryParse(field.Value, out value))
@@ -70,44 +70,11 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             FieldIndex fieldIndeks = field.Definition.GetFieldIndeks();
             if (!_minAndMaxValuesPerField.ContainsKey(fieldIndeks))
             {
-                _minAndMaxValuesPerField.Add(fieldIndeks, new MinAndMaxValue());
+                _minAndMaxValuesPerField.Add(fieldIndeks, new MinAndMax());
             }
 
-            MinAndMaxValue minAndMaxValue = _minAndMaxValuesPerField[fieldIndeks];
+            MinAndMax minAndMaxValue = _minAndMaxValuesPerField[fieldIndeks];
             minAndMaxValue.NewValue(value);
-        }
-
-        private class MinAndMaxValue
-        {
-            private int? _maxValue;
-            private int? _minValue;
-
-            public MinAndMaxValue()
-            {
-            }
-
-            public int? GetMinValue()
-            {
-                return _minValue;
-            }
-
-            public int? GetMaxValue()
-            {
-                return _maxValue;
-            }
-
-            public void NewValue(int value)
-            {
-                if (!_maxValue.HasValue || value > _maxValue)
-                {
-                    _maxValue = value;
-                }
-
-                if (!_minValue.HasValue || value < _minValue)
-                {
-                    _minValue = value;
-                }
-            }
         }
     }
 }

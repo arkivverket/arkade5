@@ -7,10 +7,6 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         private BigInteger? _max;
         private BigInteger? _min;
 
-        public MinAndMax()
-        {
-        }
-
         public BigInteger? GetMin()
         {
             return _min;

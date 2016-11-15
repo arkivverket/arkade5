@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Test.Core
         {
             var testSuite = new TestSuite();
             var testRun = new TestRun("test with error", TestType.Content);
-            testRun.Add(new TestResult(ResultType.Error, null, "feil"));
+            testRun.Add(new TestResult(ResultType.Error, new Location(""), "feil"));
             testSuite.AddTestRun(testRun);
 
             testSuite.FindNumberOfErrors().Should().Be(1);

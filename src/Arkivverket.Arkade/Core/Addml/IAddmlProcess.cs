@@ -1,4 +1,7 @@
-﻿namespace Arkivverket.Arkade.Core.Addml
+﻿using System.Collections.Generic;
+using Arkivverket.Arkade.Tests;
+
+namespace Arkivverket.Arkade.Core.Addml
 {
     /// <summary>
     ///     All ADDML processes must implement this interface.
@@ -17,6 +20,9 @@
         /// </summary>
         /// <returns></returns>
         string GetDescription();
+
+
+        TestType GetTestType();
 
         /// <summary>
         ///     Invoked on the process when starting to read data from a new file
