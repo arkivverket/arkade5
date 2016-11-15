@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using System.Windows.Forms;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 
