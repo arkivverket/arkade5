@@ -21,8 +21,14 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             AddmlFlatFileDefinition addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder().Build();
             FlatFile flatFile = new FlatFile(addmlFlatFileDefinition);
 
-            var addmlRecordDefinition1 = new AddmlRecordDefinitionBuilder().Build(addmlFlatFileDefinition, "recordDef1");
-            var addmlRecordDefinition2 = new AddmlRecordDefinitionBuilder().Build(addmlFlatFileDefinition, "recordDef2");
+            var addmlRecordDefinition1 = new AddmlRecordDefinitionBuilder()
+                .WithAddmlFlatFileDefinition(addmlFlatFileDefinition)
+                .WithName("recordDef1")
+                .Build();
+            var addmlRecordDefinition2 = new AddmlRecordDefinitionBuilder()
+                .WithAddmlFlatFileDefinition(addmlFlatFileDefinition)
+                .WithName("recordDef2")
+                .Build();
 
             Record record1 = new Record(addmlRecordDefinition1, new List<Field>());
             Record record2 = new Record(addmlRecordDefinition1, new List<Field>());
@@ -45,6 +51,5 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             resultDef1?.Message.Should().Contain("2");
             resultDef2?.Message.Should().Contain("1");
         }
-
     }
 }

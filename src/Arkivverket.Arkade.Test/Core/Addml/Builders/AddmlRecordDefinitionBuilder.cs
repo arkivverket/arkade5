@@ -5,11 +5,33 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
 {
     public class AddmlRecordDefinitionBuilder
     {
+        private AddmlFlatFileDefinition _addmlFlatFileDefinition;
+        private string _name = "recordDefinition name";
+        private List<string> _processes = new List<string>();
+        private string _recordDefinitionFieldValue = null;
+        private int _recordLength = 100;
 
-        public AddmlRecordDefinition Build(AddmlFlatFileDefinition addmlFlatFileDefinition, string name)
+        public AddmlRecordDefinitionBuilder WithName(string name)
         {
-            return new AddmlRecordDefinition(addmlFlatFileDefinition, name, 100, null, new List<string>());
+            _name = name;
+            return this;
         }
 
+        public AddmlRecordDefinitionBuilder WithAddmlFlatFileDefinition(AddmlFlatFileDefinition addmlFlatFileDefinition)
+        {
+            _addmlFlatFileDefinition = addmlFlatFileDefinition;
+            return this;
+        }
+
+        public AddmlRecordDefinition Build()
+        {
+            if (_addmlFlatFileDefinition == null)
+            {
+                _addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder().Build();
+            }
+
+            return new AddmlRecordDefinition(_addmlFlatFileDefinition, _name, _recordLength, _recordDefinitionFieldValue,
+                _processes);
+        }
     }
 }
