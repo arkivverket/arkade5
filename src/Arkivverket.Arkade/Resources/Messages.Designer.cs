@@ -79,6 +79,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Teller opp antall forekomster av verdien null i feltet.
+        /// </summary>
+        internal static string AnalyseCountNullDescription {
+            get {
+                return ResourceManager.GetString("AnalyseCountNullDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} forekomster av null.
+        /// </summary>
+        internal static string AnalyseCountNullMessage {
+            get {
+                return ResourceManager.GetString("AnalyseCountNullMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teller opp antall poster for hver posttype.
         /// </summary>
         internal static string AnalyseCountRecordDefinitionOccurencesDescription {

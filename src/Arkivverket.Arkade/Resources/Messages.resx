@@ -123,6 +123,12 @@
   <data name="AnalyseCountCharsMessage" xml:space="preserve">
     <value>{0} tegn</value>
   </data>
+  <data name="AnalyseCountNullDescription" xml:space="preserve">
+    <value>Teller opp antall forekomster av verdien null i feltet</value>
+  </data>
+  <data name="AnalyseCountNullMessage" xml:space="preserve">
+    <value>{0} forekomster av null</value>
+  </data>
   <data name="AnalyseCountRecordDefinitionOccurencesDescription" xml:space="preserve">
     <value>Teller opp antall poster for hver posttype</value>
   </data>

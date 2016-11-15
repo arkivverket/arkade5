@@ -48,5 +48,11 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
             _addmlRecordDefinition = recordDefinition;
             return this;
         }
+
+        public AddmlFieldDefinitionBuilder WithDataType(DataType dataType)
+        {
+            _dataType = dataType;
+            return this;
+        }
     }
 }
