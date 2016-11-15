@@ -140,12 +140,15 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Core\Addml\AddmlDatasetTestEngineTest.cs" />
+    <Compile Include="Core\Addml\Builders\AddmlFieldDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Builders\AddmlRecordDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParserTest.cs" />
     <Compile Include="Core\Addml\Definitions\BooleanDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParserTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
+    <Compile Include="Core\Addml\Processes\AnalyseFindExtremeValuesTest.cs" />
+    <Compile Include="Core\Addml\Processes\AnalyseCountCharsTest.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountRecordsTest.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountRecordDefinitionOccurencesTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKeyTest.cs" />

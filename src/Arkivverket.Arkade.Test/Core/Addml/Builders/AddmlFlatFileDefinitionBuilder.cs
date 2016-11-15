@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 
@@ -9,7 +10,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         private readonly string _charset = "UTF-8";
         private readonly FileInfo _fileInfo = null;
         private string _fileName = "";
-        private readonly string _name = "FlatFileDefinition dummy name";
+        private readonly string _name = "FlatFile" + new Random().Next();
 
         private int? _numberOfRecords = null;
         private readonly List<string> _processes = null;

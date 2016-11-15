@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 
@@ -6,7 +7,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
     public class AddmlRecordDefinitionBuilder
     {
         private AddmlFlatFileDefinition _addmlFlatFileDefinition;
-        private string _name = "recordDefinition name";
+        private string _name = "Record" + new Random().Next();
         private List<string> _processes = new List<string>();
         private string _recordDefinitionFieldValue = null;
         private int _recordLength = 100;
