@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace Arkivverket.Arkade.Util
@@ -15,16 +14,16 @@ namespace Arkivverket.Arkade.Util
             {
                 char c = (char) reader.Read();
                 delimBuffer.Enqueue(c);
+                buffer.Add(c);
                 if (delimBuffer.ToString() == delimiter)
                 {
                     if (buffer.Count > 0)
                     {
-                        yield return new String(buffer.ToArray());
+                        // TODO jostein: This may be optimized
+                        yield return new string(buffer.GetRange(0, buffer.Count - delimiter.Length).ToArray());
                         buffer.Clear();
                     }
-                    continue;
                 }
-                buffer.Add(c);
             }
         }
 

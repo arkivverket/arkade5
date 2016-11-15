@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeTrue();
             testRun.Results.Count.Should().Be(1);
-            testRun.Results[0].Location.ToString().Should().Be(fieldDefinition.GetFieldIndeks().ToString());
+            testRun.Results[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
             testRun.Results[0].Message.Should().Be("Lengste/korteste verdi: 10/1");
         }
     }

@@ -115,6 +115,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finner lengste og korteste post for hver posttype.
+        /// </summary>
+        internal static string AnalyseFindExtremeRecordsDescription {
+            get {
+                return ResourceManager.GetString("AnalyseFindExtremeRecordsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lengste/korteste post: {0}/{1}.
+        /// </summary>
+        internal static string AnalyseFindExtremeRecordsMessage {
+            get {
+                return ResourceManager.GetString("AnalyseFindExtremeRecordsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finner lengste og korteste verdi i feltet.
         /// </summary>
         internal static string AnalyseFindExtremeValuesDescription {

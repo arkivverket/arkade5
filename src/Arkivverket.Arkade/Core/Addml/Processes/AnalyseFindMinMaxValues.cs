@@ -67,7 +67,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                 return;
             }
 
-            FieldIndex fieldIndeks = field.Definition.GetFieldIndeks();
+            FieldIndex fieldIndeks = field.Definition.GetIndex();
             if (!_minAndMaxValuesPerField.ContainsKey(fieldIndeks))
             {
                 _minAndMaxValuesPerField.Add(fieldIndeks, new MinAndMax());

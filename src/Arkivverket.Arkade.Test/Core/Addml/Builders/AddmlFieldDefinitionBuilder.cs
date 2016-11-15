@@ -43,5 +43,10 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
             return addmlFieldDefinition;
         }
 
+        public AddmlFieldDefinitionBuilder WithRecordDefinition(AddmlRecordDefinition recordDefinition)
+        {
+            _addmlRecordDefinition = recordDefinition;
+            return this;
+        }
     }
 }

@@ -147,6 +147,7 @@
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParserTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
+    <Compile Include="Core\Addml\Processes\AnalyseFindExtremeRecordsTest.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindExtremeValuesTest.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountCharsTest.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountRecordsTest.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Core\Addml\NoarkihToAddmlTransformerTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlNumberOfRecordsTest.cs" />
     <Compile Include="Core\Addml\RecordSeparatorTest.cs" />
+    <Compile Include="Core\Addml\RecordTest.cs" />
     <Compile Include="Core\Addml\XmlFormatReaderTest.cs" />
     <Compile Include="Core\ArchiveBuilder.cs" />
     <Compile Include="Core\ArchiveExtractionTest.cs" />

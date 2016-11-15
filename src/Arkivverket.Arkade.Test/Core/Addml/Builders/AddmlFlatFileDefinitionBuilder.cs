@@ -15,8 +15,8 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         private int? _numberOfRecords = null;
         private readonly List<string> _processes = null;
         private readonly string _recordDefinitionFieldIdentifier = null;
-        private readonly string _recordSeparator = null;
-        private readonly string _fieldSeparator = null;
+        private string _recordSeparator = null;
+        private string _fieldSeparator = null;
         private readonly AddmlFlatFileFormat _format = AddmlFlatFileFormat.Fixed;
 
         public AddmlFlatFileDefinition Build()
@@ -35,6 +35,19 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         {
             _fileName = fileName;
             return this;
+        }
+
+        public AddmlFlatFileDefinitionBuilder WithRecordSeparator(string recordSeparator)
+        {
+            _recordSeparator = recordSeparator;
+            return this;
+        }
+
+        public AddmlFlatFileDefinitionBuilder WithFieldSeparator(string fieldSeparator)
+        {
+            _fieldSeparator = fieldSeparator;
+            return this;
+
         }
     }
 }

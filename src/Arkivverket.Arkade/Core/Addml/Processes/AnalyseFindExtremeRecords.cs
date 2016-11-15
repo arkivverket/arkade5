@@ -5,12 +5,12 @@ using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class AnalyseFindExtremeValues : AddmlProcess
+    public class AnalyseFindExtremeRecords : AddmlProcess
     {
-        public const string Name = "Analyse_FindExtremeValues";
+        public const string Name = "Analyse_FindExtremeRecords";
 
-        private readonly Dictionary<FieldIndex, MinAndMax> _minAndMaxLengthPerField
-            = new Dictionary<FieldIndex, MinAndMax>();
+        private readonly Dictionary<RecordIndex, MinAndMax> _minAndMaxRecordLength
+            = new Dictionary<RecordIndex, MinAndMax>();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public override string GetDescription()
         {
-            return Messages.AnalyseFindExtremeValuesDescription;
+            return Messages.AnalyseFindExtremeRecordsDescription;
         }
 
         public override TestType GetTestType()
@@ -40,36 +40,37 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         protected override void DoRun(Record record)
         {
+            string recordValue = record.Value;
+            int recordLength = recordValue.Length;
+
+            RecordIndex index = record.Definition.GetIndex();
+            if (!_minAndMaxRecordLength.ContainsKey(index))
+            {
+                _minAndMaxRecordLength.Add(index, new MinAndMax());
+            }
+
+            MinAndMax minAndMaxValue = _minAndMaxRecordLength[index];
+            minAndMaxValue.NewValue(recordLength);
         }
 
         protected override void DoEndOfFile()
         {
-            foreach (KeyValuePair<FieldIndex, MinAndMax> entry in _minAndMaxLengthPerField)
+            foreach (KeyValuePair<RecordIndex, MinAndMax> entry in _minAndMaxRecordLength)
             {
-                FieldIndex fieldIndex = entry.Key;
+                RecordIndex index = entry.Key;
                 MinAndMax minAndMaxValue = entry.Value;
                 string minLengthString = minAndMaxValue.GetMin()?.ToString() ?? "<no value>";
                 string maxLengthString = minAndMaxValue.GetMax()?.ToString() ?? "<no value>";
 
-                _testResults.Add(new TestResult(ResultType.Success, AddmlLocation.FromFieldIndex(fieldIndex),
-                    string.Format(Messages.AnalyseFindExtremeValuesMessage, maxLengthString, minLengthString)));
+                _testResults.Add(new TestResult(ResultType.Success, AddmlLocation.FromRecordIndex(index),
+                    string.Format(Messages.AnalyseFindExtremeRecordsMessage, maxLengthString, minLengthString)));
             }
 
-            _minAndMaxLengthPerField.Clear();
+            _minAndMaxRecordLength.Clear();
         }
 
         protected override void DoRun(Field field)
         {
-            int valueLength = field.Value.Length;
-
-            FieldIndex fieldIndeks = field.Definition.GetIndex();
-            if (!_minAndMaxLengthPerField.ContainsKey(fieldIndeks))
-            {
-                _minAndMaxLengthPerField.Add(fieldIndeks, new MinAndMax());
-            }
-
-            MinAndMax minAndMaxValue = _minAndMaxLengthPerField[fieldIndeks];
-            minAndMaxValue.NewValue(valueLength);
         }
     }
 }

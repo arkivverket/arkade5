@@ -135,6 +135,12 @@
   <data name="AnalyseCountRecordsMessage" xml:space="preserve">
     <value>{0} poster</value>
   </data>
+  <data name="AnalyseFindExtremeRecordsDescription" xml:space="preserve">
+    <value>Finner lengste og korteste post for hver posttype</value>
+  </data>
+  <data name="AnalyseFindExtremeRecordsMessage" xml:space="preserve">
+    <value>Lengste/korteste post: {0}/{1}</value>
+  </data>
   <data name="AnalyseFindExtremeValuesDescription" xml:space="preserve">
     <value>Finner lengste og korteste verdi i feltet</value>
   </data>
