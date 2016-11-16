@@ -47,7 +47,7 @@ namespace Arkivverket.Arkade.Core.Addml
                     _statusEventHandler.RaiseEventRecordProcessingStopped();
 
                 }
-                _addmlProcessRunner.EndOfFile();
+                _addmlProcessRunner.EndOfFile(file);
 
                 _statusEventHandler.RaiseEventFileProcessingFinished(new FileProcessingStatusEventArgs(testName, file.GetName(), true));
             }

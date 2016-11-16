@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -16,10 +17,24 @@ namespace Arkivverket.Arkade.Core.Addml
         public void RunProcesses(Field field)
         {
             List<IAddmlProcess> processes = _processManager.GetProcesses(field.Definition.Key(), _processCache);
-
             foreach (IAddmlProcess process in processes)
             {
                 process.Run(field);
+            }
+        }
+
+        public void EndOfFile(FlatFile file)
+        {
+            foreach (AddmlRecordDefinition recordDefinition in file.Definition.AddmlRecordDefinitions)
+            {
+                foreach (AddmlFieldDefinition fieldDefinition in recordDefinition.AddmlFieldDefinitions)
+                {
+                    List<IAddmlProcess> processes = _processManager.GetProcesses(fieldDefinition.Key(), _processCache);
+                    foreach (IAddmlProcess process in processes)
+                    {
+                        process.EndOfFile();
+                    }
+                }
             }
         }
     }

@@ -51,5 +51,12 @@ namespace Arkivverket.Arkade.Core.Addml
             return _processManager.GetProcesses(file.Definition.Key(), _processCache);
         }
 
+        public void EndOfFile(FlatFile file)
+        {
+            foreach (IAddmlProcess process in GetProcessesForFile(file))
+            {
+                process.EndOfFile();
+            }
+        }
     }
 }

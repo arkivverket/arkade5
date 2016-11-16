@@ -46,12 +46,11 @@ namespace Arkivverket.Arkade.Core.Addml
             return testSuite;
         }
 
-        public void EndOfFile()
+        public void EndOfFile(FlatFile file)
         {
-            foreach (IAddmlProcess addmlProcess in _processManager.GetAllProcesses())
-            {
-                addmlProcess.EndOfFile();
-            }
+            _fileProcessRunner.EndOfFile(file);
+            _recordProcessRunner.EndOfFile(file);
+            _fieldProcessRunner.EndOfFile(file);
         }
         
     }
