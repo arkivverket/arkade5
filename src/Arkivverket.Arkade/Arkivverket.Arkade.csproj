@@ -173,6 +173,7 @@
     <Compile Include="Core\IArchiveContentReader.cs" />
     <Compile Include="Core\ITestEngine.cs" />
     <Compile Include="Core\LogEntry.cs" />
+    <Compile Include="Util\NorwegianOrganizationNumber.cs" />
     <Compile Include="Util\NorwegianAccountNumber.cs" />
     <Compile Include="Util\NorwegianBirthNumber.cs" />
     <Compile Include="Util\NorwegianNameGenerator.cs" />

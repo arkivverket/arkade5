@@ -47,9 +47,9 @@ namespace Arkivverket.Arkade.Util
 
         // https://no.wikipedia.org/wiki/Kontonummer
         // https://no.wikipedia.org/wiki/MOD11
-        private static string CalculateChecksumPart(string dateAndPersonNumberPart)
+        private static string CalculateChecksumPart(string accountNumberWithoutChecksum)
         {
-            int[] b = StringUtil.ToIntArray(dateAndPersonNumberPart);
+            int[] b = StringUtil.ToIntArray(accountNumberWithoutChecksum);
 
             int checksumDigit = 11 -
                                 (((5*b[0]) + (4*b[1]) + (3*b[2]) + (2*b[3]) + (7*b[4]) + (6*b[5]) + (5*b[6]) + (4*b[7]) +
@@ -62,8 +62,8 @@ namespace Arkivverket.Arkade.Util
 
         public bool Verify()
         {
-            string actualChecksum = _accountNumber.Substring(10, 1);
-            string calculatedChecksum = CalculateChecksumPart(_accountNumber.Substring(0, 10));
+            string actualChecksum = _accountNumber.Substring(8, 1);
+            string calculatedChecksum = CalculateChecksumPart(_accountNumber.Substring(0, 8));
 
             return actualChecksum == calculatedChecksum;
         }
