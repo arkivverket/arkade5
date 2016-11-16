@@ -2,8 +2,8 @@
 
 namespace Arkivverket.Arkade.Report
 {
-    public interface IReportGenerator<out T> where T : IReport
+    public interface IReportGenerator
     {
-        T Generate(TestSession testSession);
+        IReport Generate(TestSession testSession);
     }
 }

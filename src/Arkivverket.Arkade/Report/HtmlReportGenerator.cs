@@ -6,11 +6,11 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Report
 {
-    public class HtmlReportGenerator : IReportGenerator<HtmlReport>
+    public class HtmlReportGenerator : IReportGenerator
     {
-
-        public HtmlReportGenerator()
+        IReport IReportGenerator.Generate(TestSession testSession)
         {
+            return Generate(testSession);
         }
 
         public HtmlReport Generate(TestSession testSession)
@@ -195,5 +195,6 @@ namespace Arkivverket.Arkade.Report
             sb.AppendLine(@"</style>");
             return sb.ToString();
         }
+
     }
 }

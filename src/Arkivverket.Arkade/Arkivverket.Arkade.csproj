@@ -127,8 +127,10 @@
     <Compile Include="Core\Addml\Processes\AnalyseCountRecordDefinitionOccurences.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountNull.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindExtremeRecords.cs" />
+    <Compile Include="Core\Addml\Processes\AnalyseFrequenceList.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindExtremeValues.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindMinMaxValues.cs" />
+    <Compile Include="Core\Addml\Processes\FrequencyList.cs" />
     <Compile Include="Core\Addml\Processes\MinAndMax.cs" />
     <Compile Include="Core\Addml\Processes\ProcessTypeMapping.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKey.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="Report\PdfReport.cs" />
     <Compile Include="Report\PdfReportGenerator.cs" />
     <Compile Include="Report\IReportGenerator.cs" />
+    <Compile Include="Report\ReportFormat.cs" />
     <Compile Include="Resources\Report.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

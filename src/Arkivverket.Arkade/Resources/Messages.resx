@@ -159,6 +159,12 @@
   <data name="AnalyseFindMinMaxValuesMessage" xml:space="preserve">
     <value>Laveste/høyeste verdi: {0}/{1}</value>
   </data>
+  <data name="AnalyseFrequenceListDescription" xml:space="preserve">
+    <value>Teller opp antall forekomster for hver verdi i feltet</value>
+  </data>
+  <data name="AnalyseFrequenceListMessage" xml:space="preserve">
+    <value>{0} forekomster av {1}</value>
+  </data>
   <data name="ControlForeignKeyDescription" xml:space="preserve">
     <value>Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst</value>
   </data>

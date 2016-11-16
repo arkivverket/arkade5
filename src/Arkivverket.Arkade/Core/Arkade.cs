@@ -3,13 +3,13 @@ using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Report;
+using Arkivverket.Arkade.Test.Core;
 using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core
 {
-
     // TODO: Should this be moved to test project?
     public class Arkade
     {
@@ -31,7 +31,8 @@ namespace Arkivverket.Arkade.Core
                 new TestEngineFactory(
                     new TestEngine(new TestProvider(new Noark5TestProvider(new ArchiveContentReader())),
                         new StatusEventHandler()),
-                    new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner(), new StatusEventHandler()));
+                    new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner(),
+                        new StatusEventHandler()));
 
             ITestEngine testEngine = f.GetTestEngine(testSession);
             testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
@@ -49,18 +50,32 @@ namespace Arkivverket.Arkade.Core
             TarCompressionUtility tar = new TarCompressionUtility();
             tar.CompressFolderContentToArchiveFile(tarFile, testSession.Archive.WorkingDirectory.FullName);
 
-            string sourceInfoXml = Path.Combine(testSession.Archive.WorkingDirectory.Parent.FullName, ArkadeConstants.InfoXmlFileName);
+            string sourceInfoXml = Path.Combine(testSession.Archive.WorkingDirectory.Parent.FullName,
+                ArkadeConstants.InfoXmlFileName);
             string destinfoXml = Path.Combine(directoryName.FullName, ArkadeConstants.InfoXmlFileName);
             File.Copy(sourceInfoXml, destinfoXml, true);
 
             return true;
         }
 
-        public void SaveReport(TestSession testSession, FileInfo file)
+        public void SaveReport(TestSession testSession, FileInfo file, ReportFormat format)
         {
-            PdfReportGenerator pdfReportGenerator = new PdfReportGenerator();
-            PdfReport pdfReport = pdfReportGenerator.Generate(testSession);
-            pdfReport.Save(file);
+            IReportGenerator reportGenerator = GetReportGenerator(format);
+            IReport report = reportGenerator.Generate(testSession);
+            report.Save(file);
+        }
+
+        private IReportGenerator GetReportGenerator(ReportFormat format)
+        {
+            switch (format)
+            {
+                case ReportFormat.Html:
+                    return new HtmlReportGenerator();
+                case ReportFormat.Pdf:
+                    return new PdfReportGenerator();
+                default:
+                    throw new ArkadeException("Unkown report format: " + format);
+            }
         }
     }
 }

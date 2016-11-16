@@ -187,6 +187,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Teller opp antall forekomster for hver verdi i feltet.
+        /// </summary>
+        internal static string AnalyseFrequenceListDescription {
+            get {
+                return ResourceManager.GetString("AnalyseFrequenceListDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} forekomster av {1}.
+        /// </summary>
+        internal static string AnalyseFrequenceListMessage {
+            get {
+                return ResourceManager.GetString("AnalyseFrequenceListMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst.
         /// </summary>
         internal static string ControlForeignKeyDescription {

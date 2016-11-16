@@ -2,12 +2,13 @@
 
 namespace Arkivverket.Arkade.Report
 {
-    public class PdfReportGenerator : IReportGenerator<PdfReport>
+    public class PdfReportGenerator : IReportGenerator
     {
         private readonly HtmlReportGenerator _htmlReportGenerator = new HtmlReportGenerator();
 
-        public PdfReportGenerator()
+        IReport IReportGenerator.Generate(TestSession testSession)
         {
+            return Generate(testSession);
         }
 
         public PdfReport Generate(TestSession testSession)

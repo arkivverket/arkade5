@@ -12,6 +12,7 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Logging;
+using Arkivverket.Arkade.Report;
 using Arkivverket.Arkade.UI.Util;
 using Application = System.Windows.Application;
 
@@ -132,7 +133,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
             NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, IsFinishedRunningTests);
-            ShowReportCommand = new DelegateCommand(SaveAndShowReport, IsFinishedRunningTests);
+            ShowReportCommand = new DelegateCommand(SaveAndShowPdfReport, IsFinishedRunningTests);
         }
         private void OnTestStartedEvent(object sender, OperationMessageEventArgs eventArgs)
         {
@@ -237,6 +238,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords, _numberOfTestsFinished);
 
                 TestSessionXmlGenerator.GenerateXmlAndSaveToFile(_testSession);
+                SaveHtmlReport();
 
                 NotifyFinishedRunningTests();
             }
@@ -280,28 +282,47 @@ namespace Arkivverket.Arkade.UI.ViewModels
             });
         }
 
-        private void SaveAndShowReport()
+        private void SaveAndShowPdfReport()
         {
             DirectoryInfo directoryName = _testSession.GetReportDirectory();
             FileInfo pdfFile = new FileInfo(Path.Combine(directoryName.FullName, "report.pdf"));
-            SaveReport(pdfFile);
-            OpenReport(pdfFile);
+            SavePdfReport(pdfFile);
+            OpenFile(pdfFile);
         }
 
-        private void OpenReport(FileInfo pdfFile)
+        private void OpenFile(FileInfo file)
         {
-            System.Diagnostics.Process.Start(pdfFile.FullName);
+            System.Diagnostics.Process.Start(file.FullName);
         }
 
-        private  void SaveReport(FileInfo pdfFile)
+        private void SavePdfReport(FileInfo pdfFile)
         {
-            string eventId = "Lager testrapport";
+            string eventId = "Lager PDF-rapport";
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
 
             Core.Arkade arkade = new Core.Arkade();
-             arkade.SaveReport(_testSession, pdfFile);
+            arkade.SaveReport(_testSession, pdfFile, ReportFormat.Pdf);
 
-            var message = "Rapport lagret " + pdfFile.FullName;
+            var message = "PDF-rapport lagret " + pdfFile.FullName;
+            _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);
+        }
+
+        private void SaveHtmlReport()
+        {
+            DirectoryInfo directoryName = _testSession.GetReportDirectory();
+            FileInfo file = new FileInfo(Path.Combine(directoryName.FullName, "report.html"));
+            SaveHtmlReport(file);
+        }
+
+        private void SaveHtmlReport(FileInfo htmlFile)
+        {
+            string eventId = "Lager HTML-rapport";
+            _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
+
+            Core.Arkade arkade = new Core.Arkade();
+            arkade.SaveReport(_testSession, htmlFile, ReportFormat.Html);
+
+            var message = "HTML-rapport lagret " + htmlFile.FullName;
             _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);
         }
 
