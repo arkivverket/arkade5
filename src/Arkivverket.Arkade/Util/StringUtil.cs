@@ -1,4 +1,6 @@
-﻿namespace Arkivverket.Arkade.Util
+﻿using System;
+
+namespace Arkivverket.Arkade.Util
 {
     public class StringUtil
     {
@@ -7,5 +9,19 @@
             int ret;
             return int.TryParse(s, out ret) ? ret : (int?) null;
         }
+
+        public static int[] ToIntArray(string stringWithInts)
+        {
+            int[] intArray = new int[stringWithInts.Length];
+
+            char[] charArray = stringWithInts.ToCharArray();
+            for (int i = 0; i < charArray.Length; i++)
+            {
+                intArray[i] = Convert.ToInt32(charArray[i].ToString());
+            }
+
+            return intArray;
+        }
+
     }
 }

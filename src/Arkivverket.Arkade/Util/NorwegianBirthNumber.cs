@@ -8,14 +8,14 @@ namespace Arkivverket.Arkade.Util
 
         private readonly string _birthNumber;
 
-        public static NorwegianBirthNumber Create(string birthNumber)
-        {
-            return new NorwegianBirthNumber(birthNumber);
-        }
-
         private NorwegianBirthNumber(string birthNumber)
         {
             _birthNumber = birthNumber;
+        }
+
+        public static NorwegianBirthNumber Create(string birthNumber)
+        {
+            return new NorwegianBirthNumber(birthNumber);
         }
 
         public static NorwegianBirthNumber CreateRandom()
@@ -36,11 +36,10 @@ namespace Arkivverket.Arkade.Util
                 string personNumberPart = _random.Next(0, 999).ToString("D3");
                 dateAndPersonNumberPart = datePart + personNumberPart;
                 checksumPart = CalculateChecksumPart(dateAndPersonNumberPart);
-            } while (checksumPart.Length != 2); // Checksum values can sometimes be 10. Try again!
+            } while (checksumPart.Length != 2);
+            // If checkum were calculated to something other than two digits, the birth number is invalid, try again!
 
-            string birthNumber = dateAndPersonNumberPart + checksumPart;
-
-            return new NorwegianBirthNumber(birthNumber);
+            return new NorwegianBirthNumber(dateAndPersonNumberPart + checksumPart);
         }
 
         public static NorwegianBirthNumber CreateRandom(string seed)
@@ -51,7 +50,7 @@ namespace Arkivverket.Arkade.Util
 
         private static string CalculateChecksumPart(string dateAndPersonNumberPart)
         {
-            int[] b = ToIntArray(dateAndPersonNumberPart);
+            int[] b = StringUtil.ToIntArray(dateAndPersonNumberPart);
 
             int first = 11 -
                         (((3*b[0]) + (7*b[1]) + (6*b[2]) + (1*b[3]) + (8*b[4]) + (9*b[5]) + (4*b[6]) + (5*b[7]) +
@@ -67,19 +66,6 @@ namespace Arkivverket.Arkade.Util
             second = (second == 11 ? 0 : second);
 
             return first.ToString() + second.ToString();
-        }
-
-        private static int[] ToIntArray(string dateAndPersonNumberPart)
-        {
-            int[] intArray = new int[dateAndPersonNumberPart.Length];
-
-            char[] charArray = dateAndPersonNumberPart.ToCharArray();
-            for (int i = 0; i < charArray.Length; i++)
-            {
-                intArray[i] = Convert.ToInt32(charArray[i].ToString());
-            }
-
-            return intArray;
         }
 
         private static bool DateExists(string date)
@@ -110,9 +96,18 @@ namespace Arkivverket.Arkade.Util
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
             return Equals((NorwegianBirthNumber) obj);
         }
 
@@ -125,6 +120,5 @@ namespace Arkivverket.Arkade.Util
         {
             return _birthNumber;
         }
-
     }
 }

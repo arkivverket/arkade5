@@ -196,6 +196,7 @@
     <Compile Include="Util\AssertTest.cs" />
     <Compile Include="Util\ChecksumTest.cs" />
     <Compile Include="Util\LoggingHelper.cs" />
+    <Compile Include="Util\NorwegianAccountNumberTest.cs" />
     <Compile Include="Util\NorwegianBirthNumberTest.cs" />
     <Compile Include="Util\NorwegianNameGeneratorTest.cs" />
     <Compile Include="Util\TarTests.cs" />
