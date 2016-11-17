@@ -63,7 +63,6 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         {
             string value = field.Value;
 
-
             FieldIndex fieldIndex = field.Definition.GetIndex();
             if (!_valuesPerField.ContainsKey(fieldIndex))
             {

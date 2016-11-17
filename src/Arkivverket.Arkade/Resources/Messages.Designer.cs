@@ -259,6 +259,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer om definerte koder benyttes og om det benyttes koder som ikke er definert i kodelisten.
+        /// </summary>
+        internal static string ControlCodesDescription {
+            get {
+                return ResourceManager.GetString("ControlCodesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ikke i kodelisten: {0}.
+        /// </summary>
+        internal static string ControlCodesMessage {
+            get {
+                return ResourceManager.GetString("ControlCodesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst.
         /// </summary>
         internal static string ControlForeignKeyDescription {

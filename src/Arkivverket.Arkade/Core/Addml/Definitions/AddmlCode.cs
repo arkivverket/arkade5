@@ -2,7 +2,6 @@
 {
     public class AddmlCode
     {
-
         private readonly string _codeValue;
         private readonly string _explanation;
 
@@ -12,6 +11,9 @@
             _explanation = explanation;
         }
 
-
+        public string GetCodeValue()
+        {
+            return _codeValue;
+        }
     }
 }

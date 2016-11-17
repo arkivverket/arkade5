@@ -183,6 +183,12 @@
   <data name="ControlBirthNumberMessage" xml:space="preserve">
     <value>Ugyldig fødselsnummer: {0}</value>
   </data>
+  <data name="ControlCodesDescription" xml:space="preserve">
+    <value>Kontrollerer om definerte koder benyttes og om det benyttes koder som ikke er definert i kodelisten</value>
+  </data>
+  <data name="ControlCodesMessage" xml:space="preserve">
+    <value>Ikke i kodelisten: {0}</value>
+  </data>
   <data name="ControlForeignKeyDescription" xml:space="preserve">
     <value>Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst</value>
   </data>
