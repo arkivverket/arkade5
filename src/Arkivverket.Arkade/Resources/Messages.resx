@@ -183,6 +183,12 @@
   <data name="ControlBirthNumberMessage" xml:space="preserve">
     <value>Ugyldig fødselsnummer: {0}</value>
   </data>
+  <data name="ControlBooleanValueDescription" xml:space="preserve">
+    <value>Kontroll av verdiene i et boolsk felt</value>
+  </data>
+  <data name="ControlBooleanValueMessage" xml:space="preserve">
+    <value>Følgende ikke-boolske verdier finnes: {0}</value>
+  </data>
   <data name="ControlCodesDescription" xml:space="preserve">
     <value>Kontrollerer om definerte koder benyttes og om det benyttes koder som ikke er definert i kodelisten</value>
   </data>

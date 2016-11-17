@@ -259,6 +259,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontroll av verdiene i et boolsk felt.
+        /// </summary>
+        internal static string ControlBooleanValueDescription {
+            get {
+                return ResourceManager.GetString("ControlBooleanValueDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Følgende ikke-boolske verdier finnes: {0}.
+        /// </summary>
+        internal static string ControlBooleanValueMessage {
+            get {
+                return ResourceManager.GetString("ControlBooleanValueMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollerer om definerte koder benyttes og om det benyttes koder som ikke er definert i kodelisten.
         /// </summary>
         internal static string ControlCodesDescription {

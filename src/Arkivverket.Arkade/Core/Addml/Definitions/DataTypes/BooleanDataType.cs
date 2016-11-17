@@ -50,6 +50,10 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
             return _falseString;
         }
 
+        public bool IsValid(string s)
+        {
+            return s == GetTrue() || s == GetFalse() || IsNull(s);
+        }
 
         protected bool Equals(BooleanDataType other)
         {
