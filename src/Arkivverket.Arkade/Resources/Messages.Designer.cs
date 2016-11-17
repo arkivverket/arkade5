@@ -340,6 +340,33 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer om verdiene i feltet er unike.
+        /// </summary>
+        internal static string ControlUniquenessDescription {
+            get {
+                return ResourceManager.GetString("ControlUniquenessDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle verdier er unike.
+        /// </summary>
+        internal static string ControlUniquenessMessage1 {
+            get {
+                return ResourceManager.GetString("ControlUniquenessMessage1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verdiene er ikke unike.
+        /// </summary>
+        internal static string ControlUniquenessMessage2 {
+            get {
+                return ResourceManager.GetString("ControlUniquenessMessage2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Innlesing av arkiv.
         /// </summary>
         internal static string ReadingArchiveEvent {

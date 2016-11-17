@@ -210,6 +210,15 @@
   <data name="ControlOrganizationNumberMessage" xml:space="preserve">
     <value>Ugyldig organisasjonsnummer: {0}</value>
   </data>
+  <data name="ControlUniquenessDescription" xml:space="preserve">
+    <value>Kontrollerer om verdiene i feltet er unike</value>
+  </data>
+  <data name="ControlUniquenessMessage1" xml:space="preserve">
+    <value>Alle verdier er unike</value>
+  </data>
+  <data name="ControlUniquenessMessage2" xml:space="preserve">
+    <value>Verdiene er ikke unike</value>
+  </data>
   <data name="ReadingArchiveEvent" xml:space="preserve">
     <value>Innlesing av arkiv</value>
   </data>
