@@ -18,6 +18,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         private AddmlFieldDefinition _foreignKey = null;
         private AddmlRecordDefinition _addmlRecordDefinition;
         private List<string> _processes = new List<string>();
+        private List<AddmlCode> _codes = null;
 
         public AddmlFieldDefinition Build()
         {
@@ -38,7 +39,8 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
                 _maxLength,
                 _foreignKey,
                 _addmlRecordDefinition,
-                _processes);
+                _processes,
+                _codes);
 
             return addmlFieldDefinition;
         }
@@ -52,6 +54,12 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         public AddmlFieldDefinitionBuilder WithDataType(DataType dataType)
         {
             _dataType = dataType;
+            return this;
+        }
+
+        public AddmlFieldDefinitionBuilder WithCodeList(List<AddmlCode> codes)
+        {
+            _codes = codes;
             return this;
         }
     }

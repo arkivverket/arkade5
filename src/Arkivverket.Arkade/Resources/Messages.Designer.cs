@@ -61,6 +61,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Utfører en frekvensanalyse for samtlige felt hvor det er definert et kodesett.
+        /// </summary>
+        internal static string AnalyseAllFrequenceListDescription {
+            get {
+                return ResourceManager.GetString("AnalyseAllFrequenceListDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} forekomster av {1}.
+        /// </summary>
+        internal static string AnalyseAllFrequenceListMessage {
+            get {
+                return ResourceManager.GetString("AnalyseAllFrequenceListMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teller opp antall tegn i en fil.
         /// </summary>
         internal static string AnalyseCountCharsDescription {

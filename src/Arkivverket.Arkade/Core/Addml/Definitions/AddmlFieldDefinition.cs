@@ -8,18 +8,17 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public AddmlRecordDefinition AddmlRecordDefinition { get; }
 
         public string Name { get; }
+        //public string Description { get;  }
         public int? StartPosition { get; }
         public int? FixedLength { get; }
-
-        // TODO: Implemenr DataType with fieldFormat, alignment, etc
         public DataType Type { get; }
         public bool IsUnique { get; }
         public bool IsNullable { get; }
         public int? MinLength { get; }
         public int? MaxLength { get; }
-        //public string Codes { get; }
         public AddmlFieldDefinition ForeignKey { get; }
         public List<string> Processes { get; }
+        public List<AddmlCode> Codes { get; }
 
         public AddmlFieldDefinition(string name,
             int? startPosition,
@@ -31,7 +30,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             int? maxLength,
             AddmlFieldDefinition foreignKey,
             AddmlRecordDefinition addmlRecordDefinition,
-            List<string> processes)
+            List<string> processes,
+            List<AddmlCode> codes)
         {
             Name = name;
             StartPosition = startPosition;
@@ -44,6 +44,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             ForeignKey = foreignKey;
             AddmlRecordDefinition = addmlRecordDefinition;
             Processes = processes;
+            Codes = codes;
         }
 
         public AddmlFlatFileDefinition GetAddmlFlatFileDefinition()

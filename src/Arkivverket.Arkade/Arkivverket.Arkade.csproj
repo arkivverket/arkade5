@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="Core\Addml\AddmlDatasetTestEngine.cs" />
     <Compile Include="Core\Addml\AddmlUtil.cs" />
+    <Compile Include="Core\Addml\Definitions\AddmlCode.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlDefinition.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParseException.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlFieldDefinition.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Core\Addml\Processes\AnalyseCountRecordDefinitionOccurences.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountNull.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindExtremeRecords.cs" />
+    <Compile Include="Core\Addml\Processes\AnalyseAllFrequenceList.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFrequenceList.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindExtremeValues.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindMinMaxValues.cs" />

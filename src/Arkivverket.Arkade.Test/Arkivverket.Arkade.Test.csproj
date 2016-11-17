@@ -149,6 +149,7 @@
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountNullTest.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindExtremeRecordsTest.cs" />
+    <Compile Include="Core\Addml\Processes\AnalyseAllFrequenceListTest.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFrequenceListTest.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseFindExtremeValuesTest.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountCharsTest.cs" />

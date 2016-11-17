@@ -264,10 +264,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     AddmlFieldDefinition foreignKeyReference = GetForeignKeyReference(recordDefinition, fieldDefinition);
                     List<string> processes = GetFieldProcessNames(flatFileDefinition.name, recordDefinition.name,
                         fieldDefinition.name);
+                    List<AddmlCode> addmlCodes = GetCodes(fieldDefinition);
 
                     AddmlFieldDefinition addAddmlFieldDefinition = addmlRecordDefinition.AddAddmlFieldDefinition(
                         name, startPosition, fixedLength, dataType, isUnique, isNullable, minLength,
-                        maxLength, foreignKeyReference, processes, isPartOfPrimaryKey);
+                        maxLength, foreignKeyReference, processes, addmlCodes, isPartOfPrimaryKey);
 
                     FieldIndex fieldIndex = new FieldIndex(flatFileDefinition, recordDefinition, fieldDefinition);
                     if (_allFieldDefinitions.ContainsKey(fieldIndex))
@@ -278,6 +279,22 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     _allFieldDefinitions.Add(fieldIndex, addAddmlFieldDefinition);
                 }
             }
+        }
+
+        private List<AddmlCode> GetCodes(fieldDefinition fieldDefinition)
+        {
+            code[] codes = fieldDefinition.codes;
+            if (codes == null)
+            {
+                return null;
+            }
+
+            List<AddmlCode> addmlCodes = new List<AddmlCode>();
+            foreach (code c in codes)
+            {
+                addmlCodes.Add(new AddmlCode(c.codeValue, c.explan));
+            }
+            return addmlCodes;
         }
 
         private int? GetMaxLength(fieldDefinition fieldDefinition)

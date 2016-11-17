@@ -37,11 +37,11 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
 
             var recordDef = new AddmlRecordDefinition(addmlFlatFileDefinition, null, null, null, null);
             AddmlFieldDefinition primaryKeyFieldDef = recordDef.AddAddmlFieldDefinition("id", null, null, new IntegerDataType(), true, false,
-                null, null, null, null, true);
+                null, null, null, null, null, true);
             var primaryKeyField = new Field(primaryKeyFieldDef, "1001");
 
             AddmlFieldDefinition foreignKeyFieldDef = recordDef.AddAddmlFieldDefinition("foreignKeyId", null, null, new IntegerDataType(), true, false,
-                null, null, null, null, false);
+                null, null, null, null, null, false);
             var foreignKeyField = new Field(foreignKeyFieldDef, "1001");
 
             var controlForeignKey = new ControlForeignKey();
@@ -60,11 +60,11 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
 
             var recordDef = new AddmlRecordDefinition(addmlFlatFileDefinition, null, null, null, null);
             AddmlFieldDefinition primaryKeyFieldDef = recordDef.AddAddmlFieldDefinition("id", null, null, new IntegerDataType(), true, false,
-                null, null, null, null, true);
+                null, null, null, null, null, true);
             var primaryKeyField = new Field(primaryKeyFieldDef, "1001");
 
             AddmlFieldDefinition foreignKeyFieldDef = recordDef.AddAddmlFieldDefinition("foreignKeyId", null, null, new IntegerDataType(), true, false,
-                null, null, primaryKeyFieldDef, null, false);
+                null, null, primaryKeyFieldDef, null, null, false);
             var foreignKeyField = new Field(foreignKeyFieldDef, "25");
 
             var controlForeignKey = new ControlForeignKey();

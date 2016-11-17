@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
+using Arkivverket.Arkade.ExternalModels.Addml;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
@@ -43,6 +44,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             int? maxLength,
             AddmlFieldDefinition foreignKey,
             List<string> processes,
+            List<AddmlCode> codes,
             bool isPartOfPrimaryKey)
         {
             AddmlFieldDefinition addmlFieldDefinition = new AddmlFieldDefinition(
@@ -56,7 +58,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 maxLength,
                 foreignKey,
                 this,
-                processes);
+                processes,
+                codes);
 
             if (isPartOfPrimaryKey)
             {
