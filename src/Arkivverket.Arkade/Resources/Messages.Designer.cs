@@ -322,6 +322,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontroll av kontrollsifferne i et organisasjonsnummer.
+        /// </summary>
+        internal static string ControlOrganizationNumberDescription {
+            get {
+                return ResourceManager.GetString("ControlOrganizationNumberDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ugyldig organisasjonsnummer: {0}.
+        /// </summary>
+        internal static string ControlOrganizationNumberMessage {
+            get {
+                return ResourceManager.GetString("ControlOrganizationNumberMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Innlesing av arkiv.
         /// </summary>
         internal static string ReadingArchiveEvent {

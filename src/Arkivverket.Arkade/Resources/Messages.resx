@@ -204,6 +204,12 @@
   <data name="ControlNumberOfRecordsMessage3" xml:space="preserve">
     <value>Number of records did not match. Expected {0}, found {1}</value>
   </data>
+  <data name="ControlOrganizationNumberDescription" xml:space="preserve">
+    <value>Kontroll av kontrollsifferne i et organisasjonsnummer</value>
+  </data>
+  <data name="ControlOrganizationNumberMessage" xml:space="preserve">
+    <value>Ugyldig organisasjonsnummer: {0}</value>
+  </data>
   <data name="ReadingArchiveEvent" xml:space="preserve">
     <value>Innlesing av arkiv</value>
   </data>
