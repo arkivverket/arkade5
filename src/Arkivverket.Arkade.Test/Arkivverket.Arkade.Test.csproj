@@ -147,6 +147,7 @@
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParserTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
+    <Compile Include="Core\Addml\Processes\ControlNotNullTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlCodesTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlUniquenessTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlOrganizationNumberTest.cs" />

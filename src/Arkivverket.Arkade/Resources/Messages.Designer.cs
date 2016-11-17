@@ -304,6 +304,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer om det fines null-verdier i feltet.
+        /// </summary>
+        internal static string ControlNotNullDescription {
+            get {
+                return ResourceManager.GetString("ControlNotNullDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NULL-verdier finnes.
+        /// </summary>
+        internal static string ControlNotNullMessage {
+            get {
+                return ResourceManager.GetString("ControlNotNullMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teller opp og kontrollerer at antall poster i filen er lik antallet som er oppgitt i egenskapen numberOfRecords i flatFile.
         /// </summary>
         internal static string ControlNumberOfRecordsDescription {

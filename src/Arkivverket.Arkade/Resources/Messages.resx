@@ -198,6 +198,12 @@
   <data name="ControlForeignKeyMessage2" xml:space="preserve">
     <value>Cannot find referenced field {0} from foreign key {1}</value>
   </data>
+  <data name="ControlNotNullDescription" xml:space="preserve">
+    <value>Kontrollerer om det fines null-verdier i feltet</value>
+  </data>
+  <data name="ControlNotNullMessage" xml:space="preserve">
+    <value>NULL-verdier finnes</value>
+  </data>
   <data name="ControlNumberOfRecordsDescription" xml:space="preserve">
     <value>Teller opp og kontrollerer at antall poster i filen er lik antallet som er oppgitt i egenskapen numberOfRecords i flatFile</value>
   </data>
