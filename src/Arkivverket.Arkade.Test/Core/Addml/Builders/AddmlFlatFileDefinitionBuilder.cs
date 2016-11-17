@@ -7,10 +7,12 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
 {
     internal class AddmlFlatFileDefinitionBuilder
     {
+        private static readonly Random Random = new Random();
+
         private readonly string _charset = "UTF-8";
         private readonly FileInfo _fileInfo = null;
         private string _fileName = "";
-        private readonly string _name = "FlatFile" + new Random().Next();
+        private readonly string _name = "FlatFile" + Random.Next();
 
         private int? _numberOfRecords = null;
         private readonly List<string> _processes = null;

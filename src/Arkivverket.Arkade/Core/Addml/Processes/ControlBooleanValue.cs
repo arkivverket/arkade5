@@ -68,7 +68,6 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             }
 
             BooleanDataType dataType = (BooleanDataType) dt;
-
             if (dataType.IsValid(value))
             {
                 return;

@@ -19,6 +19,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
                 .WithDataType(new BooleanDataType("Y/N", null))
                 .Build();
             AddmlFieldDefinition fieldDefinition2 = new AddmlFieldDefinitionBuilder()
+                .WithRecordDefinition(fieldDefinition1.AddmlRecordDefinition)
                 .WithDataType(new BooleanDataType("Ja/Nei", new List<string>
                     {
                         "null"

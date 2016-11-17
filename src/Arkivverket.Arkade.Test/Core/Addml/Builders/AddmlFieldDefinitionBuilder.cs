@@ -7,7 +7,9 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
 {
     public class AddmlFieldDefinitionBuilder
     {
-        private string _name = "Field" + new Random().Next();
+        private static readonly Random Random = new Random();
+
+        private string _name = "Field" + Random.Next();
         private int? _startPosition = null;
         private int? _fixedLength = null;
         private DataType _dataType = StringDataType.Default;

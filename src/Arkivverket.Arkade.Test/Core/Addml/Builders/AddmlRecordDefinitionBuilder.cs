@@ -6,8 +6,10 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
 {
     public class AddmlRecordDefinitionBuilder
     {
+        private static readonly Random Random = new Random();
+
         private AddmlFlatFileDefinition _addmlFlatFileDefinition;
-        private string _name = "Record" + new Random().Next();
+        private string _name = "Record" + Random.Next();
         private List<string> _processes = new List<string>();
         private string _recordDefinitionFieldValue = null;
         private int _recordLength = 100;
