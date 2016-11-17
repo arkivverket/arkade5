@@ -133,7 +133,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
             
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
             NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, IsFinishedRunningTests);
-            ShowReportCommand = new DelegateCommand(SaveAndShowPdfReport, IsFinishedRunningTests);
+            //ShowReportCommand = new DelegateCommand(SaveAndShowPdfReport, IsFinishedRunningTests);
+            ShowReportCommand = new DelegateCommand(ShowHtmlReport, IsFinishedRunningTests);
         }
         private void OnTestStartedEvent(object sender, OperationMessageEventArgs eventArgs)
         {
@@ -309,9 +310,19 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void SaveHtmlReport()
         {
-            DirectoryInfo directoryName = _testSession.GetReportDirectory();
-            FileInfo file = new FileInfo(Path.Combine(directoryName.FullName, "report.html"));
+            FileInfo file = GetHtmlFile();
             SaveHtmlReport(file);
+        }
+
+        private FileInfo GetHtmlFile()
+        {
+            DirectoryInfo directoryName = _testSession.GetReportDirectory();
+            return new FileInfo(Path.Combine(directoryName.FullName, "report.html"));
+        }
+
+        private void ShowHtmlReport()
+        {
+            OpenFile(GetHtmlFile());
         }
 
         private void SaveHtmlReport(FileInfo htmlFile)
