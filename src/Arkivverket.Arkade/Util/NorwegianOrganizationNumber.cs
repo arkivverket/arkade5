@@ -8,9 +8,9 @@ namespace Arkivverket.Arkade.Util
         private static Random _random = new Random();
         private readonly string _organizationNumber;
 
-        private NorwegianOrganizationNumber(string örganizationNumber)
+        private NorwegianOrganizationNumber(string organizationNumber)
         {
-            _organizationNumber = örganizationNumber
+            _organizationNumber = organizationNumber
                 .Replace(".", "")
                 .Replace(" ", "");
         }
