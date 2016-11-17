@@ -62,8 +62,8 @@ namespace Arkivverket.Arkade.Util
 
         public bool Verify()
         {
-            string actualChecksum = _accountNumber.Substring(8, 1);
-            string calculatedChecksum = CalculateChecksumPart(_accountNumber.Substring(0, 8));
+            string actualChecksum = _accountNumber.Substring(10, 1);
+            string calculatedChecksum = CalculateChecksumPart(_accountNumber.Substring(0, 10));
 
             return actualChecksum == calculatedChecksum;
         }
