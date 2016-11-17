@@ -10,7 +10,16 @@ namespace Arkivverket.Arkade.Util
 
         private NorwegianBirthNumber(string birthNumber)
         {
-            _birthNumber = birthNumber;
+            _birthNumber = StripSpace(birthNumber);
+            if (!Verify(_birthNumber))
+            {
+                throw new ArgumentException("Illegal birth number: " + _birthNumber);
+            }
+        }
+
+        private static string StripSpace(string s)
+        {
+            return s.Replace(" ", "");
         }
 
         public static NorwegianBirthNumber Create(string birthNumber)
@@ -81,13 +90,26 @@ namespace Arkivverket.Arkade.Util
             }
         }
 
-        public bool Verify()
+        public static bool Verify(string birthNumber)
         {
-            string actualChecksum = _birthNumber.Substring(9, 2);
-            string calculatedChecksum = CalculateChecksumPart(_birthNumber.Substring(0, 9));
+            birthNumber = StripSpace(birthNumber);
+
+            if (birthNumber.Length != 11)
+            {
+                return false;
+            }
+
+            if (!StringUtil.IsOnlyDigits(birthNumber))
+            {
+                return false;
+            }
+
+            string actualChecksum = birthNumber.Substring(9, 2);
+            string calculatedChecksum = CalculateChecksumPart(birthNumber.Substring(0, 9));
 
             return actualChecksum == calculatedChecksum;
         }
+
 
         protected bool Equals(NorwegianBirthNumber other)
         {

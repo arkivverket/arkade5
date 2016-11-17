@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         {
             string value = field.Value;
 
-            bool ok = NorwegianBirthNumber.Create(value).Verify();
+            bool ok = NorwegianBirthNumber.Verify(value);
             if (!ok)
             {
                 _testResults.Add(new TestResult(ResultType.Error,

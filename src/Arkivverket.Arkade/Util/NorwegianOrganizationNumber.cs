@@ -10,7 +10,17 @@ namespace Arkivverket.Arkade.Util
 
         private NorwegianOrganizationNumber(string organizationNumber)
         {
-            _organizationNumber = organizationNumber
+            _organizationNumber = StripSpacesAndDots(organizationNumber);
+
+            if (!Verify(_organizationNumber))
+            {
+                throw new ArgumentException("Illegal organization number: " + _organizationNumber);
+            }
+        }
+
+        private static string StripSpacesAndDots(string s)
+        {
+            return s
                 .Replace(".", "")
                 .Replace(" ", "");
         }
@@ -58,10 +68,22 @@ namespace Arkivverket.Arkade.Util
             return checksumDigit.ToString();
         }
 
-        public bool Verify()
+        public static bool Verify(string organizationNumber)
         {
-            string actualChecksum = _organizationNumber.Substring(8, 1);
-            string calculatedChecksum = CalculateChecksumPart(_organizationNumber.Substring(0, 8));
+            organizationNumber = StripSpacesAndDots(organizationNumber);
+
+            if (organizationNumber.Length != 9)
+            {
+                return false;
+            }
+
+            if (!StringUtil.IsOnlyDigits(organizationNumber))
+            {
+                return false;
+            }
+
+            string actualChecksum = organizationNumber.Substring(8, 1);
+            string calculatedChecksum = CalculateChecksumPart(organizationNumber.Substring(0, 8));
 
             return actualChecksum == calculatedChecksum;
         }
@@ -101,7 +123,7 @@ namespace Arkivverket.Arkade.Util
 
         public override int GetHashCode()
         {
-            return (_organizationNumber != null ? _organizationNumber.GetHashCode() : 0);
+            return _organizationNumber?.GetHashCode() ?? 0;
         }
     }
 }

@@ -10,7 +10,17 @@ namespace Arkivverket.Arkade.Util
 
         private NorwegianAccountNumber(string accountNumber)
         {
-            _accountNumber = accountNumber
+            _accountNumber = StripSpacesAndDots(accountNumber);
+
+            if (!Verify(_accountNumber))
+            {
+                throw new ArgumentException("Illegal account number: " + _accountNumber);
+            }
+        }
+
+        private static string StripSpacesAndDots(string s)
+        {
+            return s
                 .Replace(".", "")
                 .Replace(" ", "");
         }
@@ -60,10 +70,22 @@ namespace Arkivverket.Arkade.Util
             return checksumDigit.ToString();
         }
 
-        public bool Verify()
+        public static bool Verify(string accountNumber)
         {
-            string actualChecksum = _accountNumber.Substring(10, 1);
-            string calculatedChecksum = CalculateChecksumPart(_accountNumber.Substring(0, 10));
+            accountNumber = StripSpacesAndDots(accountNumber);
+
+            if (accountNumber.Length != 9)
+            {
+                return false;
+            }
+
+            if (!StringUtil.IsOnlyDigits(accountNumber))
+            {
+                return false;
+            }
+
+            string actualChecksum = accountNumber.Substring(10, 1);
+            string calculatedChecksum = CalculateChecksumPart(accountNumber.Substring(0, 10));
 
             return actualChecksum == calculatedChecksum;
         }
@@ -103,7 +125,7 @@ namespace Arkivverket.Arkade.Util
 
         public override int GetHashCode()
         {
-            return (_accountNumber != null ? _accountNumber.GetHashCode() : 0);
+            return _accountNumber?.GetHashCode() ?? 0;
         }
     }
 }

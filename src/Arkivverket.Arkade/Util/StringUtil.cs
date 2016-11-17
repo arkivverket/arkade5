@@ -23,5 +23,17 @@ namespace Arkivverket.Arkade.Util
             return intArray;
         }
 
+        public static bool IsOnlyDigits(string s)
+        {
+            foreach (char c in s)
+            {
+                if (c < '0' || c > '9')
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

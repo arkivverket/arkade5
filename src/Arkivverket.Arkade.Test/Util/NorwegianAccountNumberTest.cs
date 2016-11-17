@@ -1,17 +1,31 @@
-﻿using Arkivverket.Arkade.Util;
+﻿using System;
+using Arkivverket.Arkade.Util;
 using FluentAssertions;
 using Xunit;
+using Assert = Xunit.Assert;
 
 namespace Arkivverket.Arkade.Test.Util
 {
     public class NorwegianAccountNumberTest
     {
         [Fact]
+        public void CreateShouldNotThrowExceptionIfValidAccountNumberIsUsed()
+        {
+            NorwegianAccountNumber.Create("12345678903");
+        }
+
+        [Fact]
+        public void CreateShouldThrowExceptionIfInvalidAccountNumberIsUsed()
+        {
+            Assert.Throws<ArgumentException>(() => NorwegianAccountNumber.Create("12345678900"));
+        }
+
+        [Fact]
         public void ShouldGenerateRandomValidAccountNumbers()
         {
             for (int i = 0; i < 100; i++)
             {
-                NorwegianAccountNumber.CreateRandom().Verify().Should().BeTrue();
+                NorwegianAccountNumber.CreateRandom();
             }
         }
 
@@ -34,9 +48,15 @@ namespace Arkivverket.Arkade.Test.Util
         }
 
         [Fact]
-        public void ShouldVerifyValidAccountNumbers()
+        public void ShouldNotVerifyInvalidAccountNumbers()
         {
-            NorwegianAccountNumber.Create("1234.56.78903").Verify().Should().BeTrue();
+            NorwegianAccountNumber.Verify("19089328311").Should().BeFalse();
+        }
+
+        [Fact]
+        public void ShouldRemoveDotInAccountNumber()
+        {
+            NorwegianAccountNumber.Create("1234.56.78903").ToString().Should().Be("12345678903");
         }
 
         [Fact]
@@ -46,9 +66,9 @@ namespace Arkivverket.Arkade.Test.Util
         }
 
         [Fact]
-        public void ShouldRemoveDotInAccountNumber()
+        public void ShouldVerifyValidAccountNumbers()
         {
-            NorwegianAccountNumber.Create("1234.56.78903").ToString().Should().Be("12345678903");
+            NorwegianAccountNumber.Verify("1234.56.78903").Should().BeTrue();
         }
 
         [Fact]
@@ -64,11 +84,20 @@ namespace Arkivverket.Arkade.Test.Util
         }
 
         [Fact]
-        public void ShouldNotVerifyInvalidAccountNumbers()
+        public void VerifyShouldReturnFalseIfAccountNumberIsNotDigits()
         {
-            NorwegianAccountNumber.Create("19089328311").Verify().Should().BeFalse();
+            NorwegianAccountNumber.Verify("12345678A").Should().BeFalse();
+            NorwegianAccountNumber.Verify("ABCDEFGHI").Should().BeFalse();
         }
 
 
+        [Fact]
+        public void VerifyShouldReturnFalseIfAccountNumberIsNotOfLength9()
+        {
+            NorwegianAccountNumber.Verify("").Should().BeFalse();
+            NorwegianAccountNumber.Verify("1").Should().BeFalse();
+            NorwegianAccountNumber.Verify("12345678").Should().BeFalse();
+            NorwegianAccountNumber.Verify("1234567890").Should().BeFalse();
+        }
     }
 }

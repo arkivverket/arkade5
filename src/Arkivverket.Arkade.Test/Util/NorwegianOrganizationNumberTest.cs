@@ -1,6 +1,8 @@
-﻿using Arkivverket.Arkade.Util;
+﻿using System;
+using Arkivverket.Arkade.Util;
 using FluentAssertions;
 using Xunit;
+using Assert = Xunit.Assert;
 
 namespace Arkivverket.Arkade.Test.Util
 {
@@ -11,7 +13,7 @@ namespace Arkivverket.Arkade.Test.Util
         {
             for (int i = 0; i < 100; i++)
             {
-                NorwegianOrganizationNumber.CreateRandom().Verify().Should().BeTrue();
+                NorwegianOrganizationNumber.CreateRandom();
             }
         }
 
@@ -36,7 +38,7 @@ namespace Arkivverket.Arkade.Test.Util
         [Fact]
         public void ShouldVerifyValidOrganizationNumbers()
         {
-            NorwegianOrganizationNumber.Create("914 994 780").Verify().Should().BeTrue();
+            NorwegianOrganizationNumber.Verify("914 994 780").Should().BeTrue();
         }
 
         [Fact]
@@ -48,7 +50,7 @@ namespace Arkivverket.Arkade.Test.Util
         [Fact]
         public void ShouldRemoveDotInOrganizationNumber()
         {
-            NorwegianOrganizationNumber.Create("1234.56.78903").ToString().Should().Be("12345678903");
+            NorwegianOrganizationNumber.Create("914.994.780").ToString().Should().Be("914994780");
         }
 
         [Fact]
@@ -66,9 +68,40 @@ namespace Arkivverket.Arkade.Test.Util
         [Fact]
         public void ShouldNotVerifyInvalidOrganizationNumbers()
         {
-            NorwegianOrganizationNumber.Create("914994781").Verify().Should().BeFalse();
+            NorwegianOrganizationNumber.Verify("914994781").Should().BeFalse();
         }
 
+
+
+
+        [Fact]
+        public void VerifyShouldReturnFalseIfOrganizationNumberIsNotOfLength9()
+        {
+            NorwegianOrganizationNumber.Verify("").Should().BeFalse();
+            NorwegianOrganizationNumber.Verify("1").Should().BeFalse();
+            NorwegianOrganizationNumber.Verify("12345678").Should().BeFalse();
+            NorwegianOrganizationNumber.Verify("1234567890").Should().BeFalse();
+        }
+
+        [Fact]
+        public void VerifyShouldReturnFalseIfOrganizationNumberIsNotDigits()
+        {
+            NorwegianOrganizationNumber.Verify("12345678A").Should().BeFalse();
+            NorwegianOrganizationNumber.Verify("ABCDEFGHI").Should().BeFalse();
+        }
+
+
+        [Fact]
+        public void CreateShouldNotThrowExceptionIfValidOrganizationNumberIsUsed()
+        {
+            NorwegianOrganizationNumber.Create("914994780");
+        }
+
+        [Fact]
+        public void CreateShouldThrowExceptionIfInvalidBirthNumberIsUsed()
+        {
+            Assert.Throws<ArgumentException>(() => NorwegianOrganizationNumber.Create("914994781"));
+        }
 
     }
 }

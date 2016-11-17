@@ -1,6 +1,8 @@
-﻿using Arkivverket.Arkade.Util;
+﻿using System;
+using Arkivverket.Arkade.Util;
 using FluentAssertions;
 using Xunit;
+using Assert = Xunit.Assert;
 
 namespace Arkivverket.Arkade.Test.Util
 {
@@ -11,7 +13,7 @@ namespace Arkivverket.Arkade.Test.Util
         {
             for (int i = 0; i < 100; i++)
             {
-                NorwegianBirthNumber.CreateRandom().Verify().Should().BeTrue();
+                NorwegianBirthNumber.CreateRandom();
             }
         }
 
@@ -37,31 +39,69 @@ namespace Arkivverket.Arkade.Test.Util
         public void ShouldVerifyValidBirthNumbers()
         {
             // Birth numnbers randomly generated with http://www.fnrinfo.no/Verktoy/FinnLovlige_Tilfeldig.aspx
-            NorwegianBirthNumber.Create("19089328341").Verify().Should().BeTrue();
-            NorwegianBirthNumber.Create("08011129480").Verify().Should().BeTrue();
-            NorwegianBirthNumber.Create("08063048608").Verify().Should().BeTrue();
-            NorwegianBirthNumber.Create("01027244536").Verify().Should().BeTrue();
-            NorwegianBirthNumber.Create("20041622092").Verify().Should().BeTrue();
-            NorwegianBirthNumber.Create("24015706240").Verify().Should().BeTrue();
-            NorwegianBirthNumber.Create("08055207438").Verify().Should().BeTrue();
-            NorwegianBirthNumber.Create("22067937264").Verify().Should().BeTrue();
-            NorwegianBirthNumber.Create("28090607806").Verify().Should().BeTrue();
+            NorwegianBirthNumber.Verify("19089328341").Should().BeTrue();
+            NorwegianBirthNumber.Verify("08011129480").Should().BeTrue();
+            NorwegianBirthNumber.Verify("08063048608").Should().BeTrue();
+            NorwegianBirthNumber.Verify("01027244536").Should().BeTrue();
+            NorwegianBirthNumber.Verify("20041622092").Should().BeTrue();
+            NorwegianBirthNumber.Verify("24015706240").Should().BeTrue();
+            NorwegianBirthNumber.Verify("08055207438").Should().BeTrue();
+            NorwegianBirthNumber.Verify("22067937264").Should().BeTrue();
+            NorwegianBirthNumber.Verify("28090607806").Should().BeTrue();
         }
 
         [Fact]
         public void ShouldNotVerifyInvalidBirthNumbers()
         {
-            NorwegianBirthNumber.Create("19089328311").Verify().Should().BeFalse();
-            NorwegianBirthNumber.Create("08011129410").Verify().Should().BeFalse();
-            NorwegianBirthNumber.Create("08063048618").Verify().Should().BeFalse();
-            NorwegianBirthNumber.Create("01027244516").Verify().Should().BeFalse();
-            NorwegianBirthNumber.Create("20041622012").Verify().Should().BeFalse();
-            NorwegianBirthNumber.Create("24015706210").Verify().Should().BeFalse();
-            NorwegianBirthNumber.Create("08055207418").Verify().Should().BeFalse();
-            NorwegianBirthNumber.Create("22067937214").Verify().Should().BeFalse();
-            NorwegianBirthNumber.Create("28090607816").Verify().Should().BeFalse();
+            NorwegianBirthNumber.Verify("19089328311").Should().BeFalse();
+            NorwegianBirthNumber.Verify("08011129410").Should().BeFalse();
+            NorwegianBirthNumber.Verify("08063048618").Should().BeFalse();
+            NorwegianBirthNumber.Verify("01027244516").Should().BeFalse();
+            NorwegianBirthNumber.Verify("20041622012").Should().BeFalse();
+            NorwegianBirthNumber.Verify("24015706210").Should().BeFalse();
+            NorwegianBirthNumber.Verify("08055207418").Should().BeFalse();
+            NorwegianBirthNumber.Verify("22067937214").Should().BeFalse();
+            NorwegianBirthNumber.Verify("28090607816").Should().BeFalse();
         }
 
+        [Fact]
+        public void VerifyShouldIgnoreSpace()
+        {
+            NorwegianBirthNumber.Verify("   19089328341").Should().BeTrue();
+            NorwegianBirthNumber.Verify("19089328341   ").Should().BeTrue();
+            NorwegianBirthNumber.Verify("190893 28341").Should().BeTrue();
+            NorwegianBirthNumber.Verify("190893 28341 ").Should().BeTrue();
+        }
+
+
+        [Fact]
+        public void VerifyShouldReturnFalseIfBirthNumberIsNotOfLength11()
+        {
+            NorwegianBirthNumber.Verify("").Should().BeFalse();
+            NorwegianBirthNumber.Verify("1").Should().BeFalse();
+            NorwegianBirthNumber.Verify("1234567890").Should().BeFalse();
+            NorwegianBirthNumber.Verify("123456789012").Should().BeFalse();
+        }
+
+        [Fact]
+        public void VerifyShouldReturnFalseIfBirthNumberIsNotDigits()
+        {
+            NorwegianBirthNumber.Verify("1234567890A").Should().BeFalse();
+            NorwegianBirthNumber.Verify("ABCDEFGHIJK").Should().BeFalse();
+        }
+
+
+        [Fact]
+        public void CreateShouldNotThrowExceptionIfValidBirthNumberIsUsed()
+        {
+            NorwegianBirthNumber.Create("19089328341");
+        }
+
+        [Fact]
+        public void CreateShouldThrowExceptionIfInvalidBirthNumberIsUsed()
+        {
+            Assert.Throws<ArgumentException>(() => NorwegianBirthNumber.Create("19089328342"));
+        }
 
     }
 }
