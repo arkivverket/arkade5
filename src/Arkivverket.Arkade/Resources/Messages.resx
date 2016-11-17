@@ -171,6 +171,12 @@
   <data name="AnalyseFrequenceListMessage" xml:space="preserve">
     <value>{0} forekomster av {1}</value>
   </data>
+  <data name="ControlBirthNumberDescription" xml:space="preserve">
+    <value>Kontroll av kontrollsifferne i et fødselsnummer</value>
+  </data>
+  <data name="ControlBirthNumberMessage" xml:space="preserve">
+    <value>Ugyldig fødselsnummer: {0}</value>
+  </data>
   <data name="ControlForeignKeyDescription" xml:space="preserve">
     <value>Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst</value>
   </data>
