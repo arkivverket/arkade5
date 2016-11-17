@@ -74,7 +74,7 @@ namespace Arkivverket.Arkade.Util
         {
             accountNumber = StripSpacesAndDots(accountNumber);
 
-            if (accountNumber.Length != 9)
+            if (accountNumber.Length != 11)
             {
                 return false;
             }
