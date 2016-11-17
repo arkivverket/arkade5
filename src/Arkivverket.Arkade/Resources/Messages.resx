@@ -171,6 +171,12 @@
   <data name="AnalyseFrequenceListMessage" xml:space="preserve">
     <value>{0} forekomster av {1}</value>
   </data>
+  <data name="ControlAccountNumberDescription" xml:space="preserve">
+    <value>Kontroll av kontrollsifferne i et kontonummer</value>
+  </data>
+  <data name="ControlAccountNumberMessage" xml:space="preserve">
+    <value>Ugyldig kontonummer: {0}</value>
+  </data>
   <data name="ControlBirthNumberDescription" xml:space="preserve">
     <value>Kontroll av kontrollsifferne i et fødselsnummer</value>
   </data>

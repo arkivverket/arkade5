@@ -5,9 +5,9 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class ControlBirthNumber : AddmlProcess
+    public class ControlAccountNumber : AddmlProcess
     {
-        public const string Name = "Control_Birthno";
+        public const string Name = "Control_Accountno";
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public override string GetDescription()
         {
-            return Messages.ControlBirthNumberDescription;
+            return Messages.ControlAccountNumberDescription;
         }
 
         public override TestType GetTestType()
@@ -47,12 +47,12 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         {
             string value = field.Value;
 
-            bool ok = NorwegianBirthNumber.Verify(value);
+            bool ok = NorwegianAccountNumber.Verify(value);
             if (!ok)
             {
                 _testResults.Add(new TestResult(ResultType.Error,
                     AddmlLocation.FromFieldIndex(field.Definition.GetIndex()),
-                    string.Format(Messages.ControlBirthNumberMessage, value)));
+                    string.Format(Messages.ControlAccountNumberMessage, value)));
             }
         }
     }

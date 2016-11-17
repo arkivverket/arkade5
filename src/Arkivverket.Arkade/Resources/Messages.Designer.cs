@@ -223,6 +223,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontroll av kontrollsifferne i et kontonummer.
+        /// </summary>
+        internal static string ControlAccountNumberDescription {
+            get {
+                return ResourceManager.GetString("ControlAccountNumberDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ugyldig kontonummer: {0}.
+        /// </summary>
+        internal static string ControlAccountNumberMessage {
+            get {
+                return ResourceManager.GetString("ControlAccountNumberMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontroll av kontrollsifferne i et fødselsnummer.
         /// </summary>
         internal static string ControlBirthNumberDescription {

@@ -123,6 +123,7 @@
     <Compile Include="Core\Addml\HasProcesses.cs" />
     <Compile Include="Core\Addml\NoarkihToAddmlTransformer.cs" />
     <Compile Include="Core\Addml\Processes\AddmlProcess.cs" />
+    <Compile Include="Core\Addml\Processes\ControlAccountNumber.cs" />
     <Compile Include="Core\Addml\Processes\ControlBirthNumber.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountChars.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountRecords.cs" />
