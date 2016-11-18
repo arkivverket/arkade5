@@ -64,5 +64,15 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
             _codes = codes;
             return this;
         }
+        public AddmlFieldDefinitionBuilder WithMinLength(int minLength)
+        {
+            _minLength = minLength;
+            return this;
+        }
+        public AddmlFieldDefinitionBuilder WithMaxLength(int maxLength)
+        {
+            _maxLength = maxLength;
+            return this;
+        }
     }
 }

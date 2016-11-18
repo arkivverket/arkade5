@@ -115,6 +115,7 @@
     <Compile Include="Core\Addml\HasProcesses.cs" />
     <Compile Include="Core\Addml\NoarkihToAddmlTransformer.cs" />
     <Compile Include="Core\Addml\Processes\AddmlProcess.cs" />
+    <Compile Include="Core\Addml\Processes\ControlMinLength.cs" />
     <Compile Include="Core\Addml\Processes\ControlDateValue.cs" />
     <Compile Include="Core\Addml\Processes\ControlBooleanValue.cs" />
     <Compile Include="Core\Addml\Processes\ControlNotNull.cs" />

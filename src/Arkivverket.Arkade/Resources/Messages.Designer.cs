@@ -340,6 +340,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer om oppgitt minste lengde faktisk er minste lengde i feltet.
+        /// </summary>
+        internal static string ControlMinLengthDescription {
+            get {
+                return ResourceManager.GetString("ControlMinLengthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verdier kortere enn minstelengde: {0}.
+        /// </summary>
+        internal static string ControlMinLengthMessage {
+            get {
+                return ResourceManager.GetString("ControlMinLengthMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollerer om det fines null-verdier i feltet.
         /// </summary>
         internal static string ControlNotNullDescription {
