@@ -376,6 +376,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer at nøkkelen (primary eller alternate) er unik.
+        /// </summary>
+        internal static string ControlKeyDescription {
+            get {
+                return ResourceManager.GetString("ControlKeyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Følgende primærnøkkelverdier er ikke unike: {0}.
+        /// </summary>
+        internal static string ControlKeyMessage {
+            get {
+                return ResourceManager.GetString("ControlKeyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollerer om oppgitt største lengde faktisk er største lengde i feltet.
         /// </summary>
         internal static string ControlMaxLengthDescription {

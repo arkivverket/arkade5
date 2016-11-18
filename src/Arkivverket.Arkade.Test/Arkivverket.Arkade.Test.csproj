@@ -148,6 +148,7 @@
     <Compile Include="Core\Addml\Processes\ControlBooleanValueTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlNotNullTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlCodesTest.cs" />
+    <Compile Include="Core\Addml\Processes\ControlKeyTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlUniquenessTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlOrganizationNumberTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlAccountNumberTest.cs" />

@@ -71,7 +71,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
             HashSet<string> fieldValues = _valuesPerField[fieldIndex];
 
-            // If null, field is not unique
+            // If null, the testresult for this value has already been created
             if (fieldValues == null)
             {
                 return;

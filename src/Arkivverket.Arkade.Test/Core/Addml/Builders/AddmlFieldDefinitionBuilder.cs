@@ -21,6 +21,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         private AddmlRecordDefinition _addmlRecordDefinition;
         private List<string> _processes = new List<string>();
         private List<AddmlCode> _codes = null;
+        private bool _isPartOfPrimaryKey = false;
 
         public AddmlFieldDefinition Build()
         {
@@ -30,8 +31,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
                 _addmlRecordDefinition = new AddmlRecordDefinitionBuilder().Build();
             }
 
-            AddmlFieldDefinition addmlFieldDefinition = new AddmlFieldDefinition(
-                _name,
+            return _addmlRecordDefinition.AddAddmlFieldDefinition(_name,
                 _startPosition,
                 _fixedLength,
                 _dataType,
@@ -40,11 +40,9 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
                 _minLength,
                 _maxLength,
                 _foreignKey,
-                _addmlRecordDefinition,
                 _processes,
-                _codes);
-
-            return addmlFieldDefinition;
+                _codes,
+                _isPartOfPrimaryKey);
         }
 
         public AddmlFieldDefinitionBuilder WithRecordDefinition(AddmlRecordDefinition recordDefinition)
@@ -74,5 +72,11 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
             _maxLength = maxLength;
             return this;
         }
+        public AddmlFieldDefinitionBuilder IsPartOfPrimaryKey(bool isPartOfPrimaryKey)
+        {
+            _isPartOfPrimaryKey = isPartOfPrimaryKey;
+            return this;
+        }
+
     }
 }

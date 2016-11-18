@@ -222,6 +222,12 @@
   <data name="ControlForeignKeyMessage2" xml:space="preserve">
     <value>Cannot find referenced field {0} from foreign key {1}</value>
   </data>
+  <data name="ControlKeyDescription" xml:space="preserve">
+    <value>Kontrollerer at nøkkelen (primary eller alternate) er unik</value>
+  </data>
+  <data name="ControlKeyMessage" xml:space="preserve">
+    <value>Følgende primærnøkkelverdier er ikke unike: {0}</value>
+  </data>
   <data name="ControlMaxLengthDescription" xml:space="preserve">
     <value>Kontrollerer om oppgitt største lengde faktisk er største lengde i feltet</value>
   </data>

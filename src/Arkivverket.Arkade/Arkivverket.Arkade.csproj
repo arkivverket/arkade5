@@ -123,6 +123,7 @@
     <Compile Include="Core\Addml\Processes\ControlBooleanValue.cs" />
     <Compile Include="Core\Addml\Processes\ControlNotNull.cs" />
     <Compile Include="Core\Addml\Processes\ControlCodes.cs" />
+    <Compile Include="Core\Addml\Processes\ControlKey.cs" />
     <Compile Include="Core\Addml\Processes\ControlUniqueness.cs" />
     <Compile Include="Core\Addml\Processes\ControlOrganizationNumber.cs" />
     <Compile Include="Core\Addml\Processes\ControlAccountNumber.cs" />
