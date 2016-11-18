@@ -201,6 +201,12 @@
   <data name="ControlDateValueMessage" xml:space="preserve">
     <value>Verdier som ikke er dato: {0}</value>
   </data>
+  <data name="ControlFixedLengthDescription" xml:space="preserve">
+    <value>Kontrollerer om oppgitt postlengde er korrekt (kun for fast format)</value>
+  </data>
+  <data name="ControlFixedLengthMessage" xml:space="preserve">
+    <value>Oppgitt postlengde ({0}) er ulik faktisk ({1})</value>
+  </data>
   <data name="ControlForeignKeyDescription" xml:space="preserve">
     <value>Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst</value>
   </data>

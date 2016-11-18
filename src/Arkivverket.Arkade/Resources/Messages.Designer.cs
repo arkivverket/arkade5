@@ -313,6 +313,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer om oppgitt postlengde er korrekt (kun for fast format).
+        /// </summary>
+        internal static string ControlFixedLengthDescription {
+            get {
+                return ResourceManager.GetString("ControlFixedLengthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oppgitt postlengde ({0}) er ulik faktisk ({1}).
+        /// </summary>
+        internal static string ControlFixedLengthMessage {
+            get {
+                return ResourceManager.GetString("ControlFixedLengthMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst.
         /// </summary>
         internal static string ControlForeignKeyDescription {
