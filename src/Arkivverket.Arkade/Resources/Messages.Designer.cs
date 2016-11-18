@@ -340,6 +340,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer om oppgitt største lengde faktisk er største lengde i feltet.
+        /// </summary>
+        internal static string ControlMaxLengthDescription {
+            get {
+                return ResourceManager.GetString("ControlMaxLengthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verdier lengre enn maksimumlengde: {0}.
+        /// </summary>
+        internal static string ControlMaxLengthMessage {
+            get {
+                return ResourceManager.GetString("ControlMaxLengthMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollerer om oppgitt minste lengde faktisk er minste lengde i feltet.
         /// </summary>
         internal static string ControlMinLengthDescription {

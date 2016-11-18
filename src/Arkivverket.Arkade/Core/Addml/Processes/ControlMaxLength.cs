@@ -5,11 +5,11 @@ using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class ControlMinLength : AddmlProcess
+    public class ControlMaxLength : AddmlProcess
     {
-        public const string Name = "Control_MinLength";
+        public const string Name = "Control_MaxLength";
 
-        private readonly Dictionary<FieldIndex, HashSet<string>> _valuesShorterThanMinLength
+        private readonly Dictionary<FieldIndex, HashSet<string>> _valuesLongerThanMaxLength
             = new Dictionary<FieldIndex, HashSet<string>>();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public override string GetDescription()
         {
-            return Messages.ControlMinLengthDescription;
+            return Messages.ControlMaxLengthDescription;
         }
 
         public override TestType GetTestType()
@@ -44,41 +44,41 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         protected override void DoEndOfFile()
         {
-            foreach (KeyValuePair<FieldIndex, HashSet<string>> entry in _valuesShorterThanMinLength)
+            foreach (KeyValuePair<FieldIndex, HashSet<string>> entry in _valuesLongerThanMaxLength)
             {
                 FieldIndex fieldIndex = entry.Key;
-                HashSet<string> valuesShorterThanMinLength = entry.Value;
+                HashSet<string> valuesLongerThanMaxLength = entry.Value;
 
                 _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(fieldIndex),
-                    string.Format(Messages.ControlMinLengthMessage, string.Join(" ", valuesShorterThanMinLength))));
+                    string.Format(Messages.ControlMaxLengthMessage, string.Join(" ", valuesLongerThanMaxLength))));
             }
 
-            _valuesShorterThanMinLength.Clear();
+            _valuesLongerThanMaxLength.Clear();
         }
 
         protected override void DoRun(Field field)
         {
             string value = field.Value;
-            int? minLength = field.Definition.MinLength;
+            int? maxLength = field.Definition.MaxLength;
 
-            if (!minLength.HasValue)
+            if (!maxLength.HasValue)
             {
                 return;
             }
 
-            if (value.Length >= minLength)
+            if (value.Length <= maxLength)
             {
                 return;
             }
 
-            // value is shorter than min length
+            // value is longer than max length
             FieldIndex fieldIndeks = field.Definition.GetIndex();
-            if (!_valuesShorterThanMinLength.ContainsKey(fieldIndeks))
+            if (!_valuesLongerThanMaxLength.ContainsKey(fieldIndeks))
             {
-                _valuesShorterThanMinLength.Add(fieldIndeks, new HashSet<string>());
+                _valuesLongerThanMaxLength.Add(fieldIndeks, new HashSet<string>());
             }
 
-            _valuesShorterThanMinLength[fieldIndeks].Add(value);
+            _valuesLongerThanMaxLength[fieldIndeks].Add(value);
         }
     }
 }

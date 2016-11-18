@@ -210,6 +210,12 @@
   <data name="ControlForeignKeyMessage2" xml:space="preserve">
     <value>Cannot find referenced field {0} from foreign key {1}</value>
   </data>
+  <data name="ControlMaxLengthDescription" xml:space="preserve">
+    <value>Kontrollerer om oppgitt største lengde faktisk er største lengde i feltet</value>
+  </data>
+  <data name="ControlMaxLengthMessage" xml:space="preserve">
+    <value>Verdier lengre enn maksimumlengde: {0}</value>
+  </data>
   <data name="ControlMinLengthDescription" xml:space="preserve">
     <value>Kontrollerer om oppgitt minste lengde faktisk er minste lengde i feltet</value>
   </data>
