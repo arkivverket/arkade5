@@ -17,14 +17,24 @@ namespace Arkivverket.Arkade.Logging
 
         public static void GenerateXmlAndSaveToFile(TestSession testSession)
         {
-            string xml = GenerateXml(testSession);
             DirectoryInfo workingDirectory = testSession.Archive.WorkingDirectory;
             string pathToLogFile = workingDirectory.FullName + "\\arkade-log.xml";
             _log.Information("Writing xml log file to {LogFile}", pathToLogFile);
-            File.WriteAllText(pathToLogFile, xml);
+
+            testSessionLog log = GetTestSessionLog(testSession);
+            FileStream fs = new FileStream(pathToLogFile, FileMode.Create);
+
+            XmlSerializer xmls = new XmlSerializer(typeof(testSessionLog));
+            xmls.Serialize(fs, log);
+            fs.Close();
         }
 
         public static string GenerateXml(TestSession testSession)
+        {
+            return CreateXml(GetTestSessionLog(testSession));
+        }
+
+        private static testSessionLog GetTestSessionLog(TestSession testSession)
         {
             testSessionLog log = new testSessionLog();
             log.timestamp = DateTime.Now;
@@ -36,7 +46,7 @@ namespace Arkivverket.Arkade.Logging
             log.logEntries = GetLogEntries(testSession);
             log.testResults = GetTestResults(testSession);
 
-            return CreateXml(log);
+            return log;
         }
 
         private static testResultsTestResult[] GetTestResults(TestSession testSession)
