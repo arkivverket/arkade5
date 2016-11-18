@@ -115,6 +115,7 @@
     <Compile Include="Core\Addml\HasProcesses.cs" />
     <Compile Include="Core\Addml\NoarkihToAddmlTransformer.cs" />
     <Compile Include="Core\Addml\Processes\AddmlProcess.cs" />
+    <Compile Include="Core\Addml\Processes\ControlAllFixedLength.cs" />
     <Compile Include="Core\Addml\Processes\ControlMaxLength.cs" />
     <Compile Include="Core\Addml\Processes\ControlFixedLength.cs" />
     <Compile Include="Core\Addml\Processes\ControlMinLength.cs" />

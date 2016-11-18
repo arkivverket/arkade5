@@ -241,6 +241,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer at oppgitt postlengde på samtlige posttyper er korrekt (kun fast format).
+        /// </summary>
+        internal static string ControlAllFixedLengthDescription {
+            get {
+                return ResourceManager.GetString("ControlAllFixedLengthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oppgitt postlengde ({0}) er ulik faktisk ({1}).
+        /// </summary>
+        internal static string ControlAllFixedLengthMessage {
+            get {
+                return ResourceManager.GetString("ControlAllFixedLengthMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontroll av kontrollsifferne i et fødselsnummer.
         /// </summary>
         internal static string ControlBirthNumberDescription {

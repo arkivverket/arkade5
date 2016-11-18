@@ -177,6 +177,12 @@
   <data name="ControlAccountNumberMessage" xml:space="preserve">
     <value>Ugyldig kontonummer: {0}</value>
   </data>
+  <data name="ControlAllFixedLengthDescription" xml:space="preserve">
+    <value>Kontrollerer at oppgitt postlengde på samtlige posttyper er korrekt (kun fast format)</value>
+  </data>
+  <data name="ControlAllFixedLengthMessage" xml:space="preserve">
+    <value>Oppgitt postlengde ({0}) er ulik faktisk ({1})</value>
+  </data>
   <data name="ControlBirthNumberDescription" xml:space="preserve">
     <value>Kontroll av kontrollsifferne i et fødselsnummer</value>
   </data>
