@@ -295,6 +295,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontroll av verdiene i et dato-felt.
+        /// </summary>
+        internal static string ControlDateValueDescription {
+            get {
+                return ResourceManager.GetString("ControlDateValueDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verdier som ikke er dato: {0}.
+        /// </summary>
+        internal static string ControlDateValueMessage {
+            get {
+                return ResourceManager.GetString("ControlDateValueMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst.
         /// </summary>
         internal static string ControlForeignKeyDescription {

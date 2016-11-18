@@ -195,6 +195,12 @@
   <data name="ControlCodesMessage" xml:space="preserve">
     <value>Ikke i kodelisten: {0}</value>
   </data>
+  <data name="ControlDateValueDescription" xml:space="preserve">
+    <value>Kontroll av verdiene i et dato-felt</value>
+  </data>
+  <data name="ControlDateValueMessage" xml:space="preserve">
+    <value>Verdier som ikke er dato: {0}</value>
+  </data>
   <data name="ControlForeignKeyDescription" xml:space="preserve">
     <value>Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst</value>
   </data>

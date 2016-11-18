@@ -137,8 +137,10 @@
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParserTest.cs" />
     <Compile Include="Core\Addml\Definitions\BooleanDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParserTest.cs" />
+    <Compile Include="Core\Addml\Definitions\DataTypes\DateDataTypeTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
+    <Compile Include="Core\Addml\Processes\ControlDateValueTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlBooleanValueTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlNotNullTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlCodesTest.cs" />

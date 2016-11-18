@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
 
         public override int GetHashCode()
         {
-            return (_fieldFormat != null ? _fieldFormat.GetHashCode() : 0);
+            return _fieldFormat?.GetHashCode() ?? 0;
         }
 
     }
