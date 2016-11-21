@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CheckWellFormedArchiveStructureXml" xml:space="preserve">
-    <value>Valider gyldig xml (ADDML)</value>
+    <value>Valider xml (ADDML)</value>
   </data>
   <data name="CheckWellFormedContentDescriptionXml" xml:space="preserve">
-    <value>Valider gyldig xml (arkivvutrekk.xml)</value>
+    <value>Valider xml (arkivvutrekk.xml)</value>
   </data>
   <data name="ControlDocumentFilesExists" xml:space="preserve">
     <value>Kontrollér at refererte dokumenter eksisterer</value>
@@ -148,7 +148,7 @@
     <value>Finn status på arkivdeler</value>
   </data>
   <data name="ValidateAddmlDataobjectsChecksums" xml:space="preserve">
-    <value>Valider gyldig sjekksummer</value>
+    <value>Valider sjekksummer</value>
   </data>
   <data name="ValidateXmlWithSchema" xml:space="preserve">
     <value>Valider xml i henhold til skjema (ADDML)</value>
