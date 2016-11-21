@@ -123,6 +123,9 @@
   <data name="CheckWellFormedContentDescriptionXml" xml:space="preserve">
     <value>Valider gyldig xml (arkivvutrekk.xml)</value>
   </data>
+  <data name="ControlDocumentFilesExists" xml:space="preserve">
+    <value>Kontrollér at refererte dokumenter eksisterer</value>
+  </data>
   <data name="NumberOfArchiveParts" xml:space="preserve">
     <value>Finn antall arkivdeler</value>
   </data>

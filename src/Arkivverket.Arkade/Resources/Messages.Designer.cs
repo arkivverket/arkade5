@@ -331,6 +331,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finner ikke filen..
+        /// </summary>
+        internal static string ControlDocumentsFilesExistsMessage1 {
+            get {
+                return ResourceManager.GetString("ControlDocumentsFilesExistsMessage1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollerer om oppgitt postlengde er korrekt (kun for fast format).
         /// </summary>
         internal static string ControlFixedLengthDescription {

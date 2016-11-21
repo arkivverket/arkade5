@@ -79,6 +79,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollér at refererte dokumenter eksisterer.
+        /// </summary>
+        internal static string ControlDocumentFilesExists {
+            get {
+                return ResourceManager.GetString("ControlDocumentFilesExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall arkivdeler.
         /// </summary>
         internal static string NumberOfArchiveParts {

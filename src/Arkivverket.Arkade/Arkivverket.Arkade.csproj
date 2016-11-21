@@ -176,6 +176,7 @@
     <Compile Include="Tests\AddmlLocation.cs" />
     <Compile Include="Tests\ILocation.cs" />
     <Compile Include="Tests\Location.cs" />
+    <Compile Include="Tests\Noark5\ControlDocumentFilesExists.cs" />
     <Compile Include="Util\ArkadeConstants.cs" />
     <Compile Include="Core\Encodings.cs" />
     <Compile Include="Core\IArchiveContentReader.cs" />
