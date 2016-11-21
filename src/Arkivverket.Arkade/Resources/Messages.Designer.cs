@@ -448,6 +448,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer om denne posttypen benyttes i datasettet.
+        /// </summary>
+        internal static string ControlNotUsedRecordDefDescription {
+            get {
+                return ResourceManager.GetString("ControlNotUsedRecordDefDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Posttypen er ikke i bruk.
+        /// </summary>
+        internal static string ControlNotUsedRecordDefMessage {
+            get {
+                return ResourceManager.GetString("ControlNotUsedRecordDefMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teller opp og kontrollerer at antall poster i filen er lik antallet som er oppgitt i egenskapen numberOfRecords i flatFile.
         /// </summary>
         internal static string ControlNumberOfRecordsDescription {

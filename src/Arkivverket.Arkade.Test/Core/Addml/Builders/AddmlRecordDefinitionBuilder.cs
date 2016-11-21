@@ -39,8 +39,12 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
                 _addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder().Build();
             }
 
-            return new AddmlRecordDefinition(_addmlFlatFileDefinition, _name, _recordLength, _recordDefinitionFieldValue,
+            AddmlRecordDefinition addmlRecordDefinition = new AddmlRecordDefinition(_addmlFlatFileDefinition, _name, _recordLength, _recordDefinitionFieldValue,
                 _processes);
+
+            _addmlFlatFileDefinition.AddmlRecordDefinitions.Add(addmlRecordDefinition);
+
+            return addmlRecordDefinition;
         }
     }
 }
