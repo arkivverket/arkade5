@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                     string documentFileName = reader.Value;
                     if (!FileExists(documentFileName, archive.WorkingDirectory))
                     {
-                        TestError(new Location(documentFileName), Resources.Messages.ControlDocumentsFilesExistsMessage1);
+                        TestError(new Location(documentFileName), Resources.Noark5Messages.ControlDocumentsFilesExistsMessage1);
                     }
                 }
             }

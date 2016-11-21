@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Tests
 
         public string GetName()
         {
-            return Resources.TestNames.ResourceManager.GetString(GetType().Name);
+            return Resources.Noark5Messages.ResourceManager.GetString(GetType().Name);
         }
 
         public TestRun RunTest(Archive archive)

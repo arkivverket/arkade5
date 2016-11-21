@@ -22,14 +22,14 @@ namespace Arkivverket.Arkade.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class TestNames {
+    internal class Noark5Messages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal TestNames() {
+        internal Noark5Messages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.Resources.TestNames", typeof(TestNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.Resources.Noark5Messages", typeof(Noark5Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -84,6 +84,15 @@ namespace Arkivverket.Arkade.Resources {
         internal static string ControlDocumentFilesExists {
             get {
                 return ResourceManager.GetString("ControlDocumentFilesExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finner ikke filen..
+        /// </summary>
+        internal static string ControlDocumentsFilesExistsMessage1 {
+            get {
+                return ResourceManager.GetString("ControlDocumentsFilesExistsMessage1", resourceCulture);
             }
         }
         

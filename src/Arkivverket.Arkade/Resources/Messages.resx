@@ -207,9 +207,6 @@
   <data name="ControlDateValueMessage" xml:space="preserve">
     <value>Verdier som ikke er dato: {0}</value>
   </data>
-  <data name="ControlDocumentsFilesExistsMessage1" xml:space="preserve">
-    <value>Finner ikke filen.</value>
-  </data>
   <data name="ControlFixedLengthDescription" xml:space="preserve">
     <value>Kontrollerer om oppgitt postlengde er korrekt (kun for fast format)</value>
   </data>

@@ -213,10 +213,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\TestNames.Designer.cs">
+    <Compile Include="Resources\Noark5Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TestNames.resx</DependentUpon>
+      <DependentUpon>Noark5Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="Tests\Common\CheckWellFormedXml.cs" />
@@ -292,9 +292,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Report.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\TestNames.resx">
+    <EmbeddedResource Include="Resources\Noark5Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TestNames.Designer.cs</LastGenOutput>
+      <LastGenOutput>Noark5Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

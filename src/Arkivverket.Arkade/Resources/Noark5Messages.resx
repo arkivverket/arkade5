@@ -126,6 +126,9 @@
   <data name="ControlDocumentFilesExists" xml:space="preserve">
     <value>Kontrollér at refererte dokumenter eksisterer</value>
   </data>
+  <data name="ControlDocumentsFilesExistsMessage1" xml:space="preserve">
+    <value>Finner ikke filen.</value>
+  </data>
   <data name="NumberOfArchiveParts" xml:space="preserve">
     <value>Finn antall arkivdeler</value>
   </data>
