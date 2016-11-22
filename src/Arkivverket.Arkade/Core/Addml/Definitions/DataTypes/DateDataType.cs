@@ -64,7 +64,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
             return _fieldFormat?.GetHashCode() ?? 0;
         }
 
-        public bool IsValid(string s)
+        public override bool IsValid(string s)
         {
             try
             {

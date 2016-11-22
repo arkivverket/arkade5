@@ -201,6 +201,12 @@
   <data name="ControlCodesMessage" xml:space="preserve">
     <value>Ikke i kodelisten: {0}</value>
   </data>
+  <data name="ControlDataFormatDescription" xml:space="preserve">
+    <value>Kontrollerer om oppgitt dataformat er korrekt</value>
+  </data>
+  <data name="ControlDataFormatMessage" xml:space="preserve">
+    <value>Verdier med ugyldig dataformat: {0}</value>
+  </data>
   <data name="ControlDateValueDescription" xml:space="preserve">
     <value>Kontroll av verdiene i et dato-felt</value>
   </data>

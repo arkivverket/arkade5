@@ -81,6 +81,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Reactive.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reactive.Core.3.0.0\lib\net45\System.Reactive.Core.dll</HintPath>
       <Private>True</Private>
@@ -138,9 +139,12 @@
     <Compile Include="Core\Addml\Definitions\BooleanDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParserTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\DateDataTypeTest.cs" />
+    <Compile Include="Core\Addml\Definitions\DataTypes\IntegerDataTypeTest.cs" />
+    <Compile Include="Core\Addml\Definitions\DataTypes\JosteinTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Processes\ControlAllFixedLengthTest.cs" />
+    <Compile Include="Core\Addml\Processes\ControlDataFormatTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlNotUsedRecordDefTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlMaxLengthTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlFixedLengthTest.cs" />

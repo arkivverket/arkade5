@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
 {
     public class LinkDataType : DataType
@@ -24,6 +26,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
         public override int GetHashCode()
         {
             return 1;
+        }
+
+        public override bool IsValid(string s)
+        {
+            return true;
         }
     }
 }

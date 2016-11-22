@@ -20,10 +20,10 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
                 "null"
             };
             AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
-                .WithDataType(new StringDataType("", nullValues))
+                .WithDataType(new StringDataType(null, nullValues))
                 .Build();
             AddmlFieldDefinition fieldDefinition2 = new AddmlFieldDefinitionBuilder()
-                .WithDataType(new StringDataType("", nullValues))
+                .WithDataType(new StringDataType(null, nullValues))
                 .Build();
 
             FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());

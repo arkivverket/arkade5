@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public FloatDataType(string fieldFormat, List<string> nullValues) : base(nullValues)
         {
-            this._fieldFormat = fieldFormat;
+            _fieldFormat = fieldFormat;
         }
 
         protected bool Equals(FloatDataType other)
@@ -33,6 +33,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public override int GetHashCode()
         {
             return (_fieldFormat != null ? _fieldFormat.GetHashCode() : 0);
+        }
+
+        public override bool IsValid(string s)
+        {
+            // TODO: Verify digits, decimal separator and thousands separator
+            // n.nnn,nn
+            return true;
         }
     }
 }

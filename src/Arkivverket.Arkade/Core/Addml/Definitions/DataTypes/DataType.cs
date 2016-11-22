@@ -10,9 +10,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
         {
         }
 
+        public abstract bool IsValid(string s);
+
         protected DataType(List<string> nullValues)
         {
             _nullValues = nullValues;
+
         }
 
         public bool IsNull(string s)

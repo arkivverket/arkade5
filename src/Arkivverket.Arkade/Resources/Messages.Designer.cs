@@ -313,6 +313,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer om oppgitt dataformat er korrekt.
+        /// </summary>
+        internal static string ControlDataFormatDescription {
+            get {
+                return ResourceManager.GetString("ControlDataFormatDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verdier med ugyldig dataformat: {0}.
+        /// </summary>
+        internal static string ControlDataFormatMessage {
+            get {
+                return ResourceManager.GetString("ControlDataFormatMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontroll av verdiene i et dato-felt.
         /// </summary>
         internal static string ControlDateValueDescription {
