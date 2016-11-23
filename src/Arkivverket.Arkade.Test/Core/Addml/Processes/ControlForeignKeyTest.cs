@@ -34,8 +34,10 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
         public void ShouldReturnNoErrorsWhenAllForeignKeysExists()
         {
             var addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder().Build();
+            var recordDef = new AddmlRecordDefinitionBuilder()
+                .WithAddmlFlatFileDefinition(addmlFlatFileDefinition)
+                .Build();
 
-            var recordDef = new AddmlRecordDefinition(addmlFlatFileDefinition, null, null, null, null);
             AddmlFieldDefinition primaryKeyFieldDef = recordDef.AddAddmlFieldDefinition("id", null, null, new IntegerDataType(), true, false,
                 null, null, null, null, null, true);
             var primaryKeyField = new Field(primaryKeyFieldDef, "1001");
@@ -57,8 +59,10 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
         public void ShouldReturnErrorWhenForeignKeyReferencesNonExistingPrimaryKeyValue()
         {
             var addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder().Build();
+            var recordDef = new AddmlRecordDefinitionBuilder()
+                .WithAddmlFlatFileDefinition(addmlFlatFileDefinition)
+                .Build();
 
-            var recordDef = new AddmlRecordDefinition(addmlFlatFileDefinition, null, null, null, null);
             AddmlFieldDefinition primaryKeyFieldDef = recordDef.AddAddmlFieldDefinition("id", null, null, new IntegerDataType(), true, false,
                 null, null, null, null, null, true);
             var primaryKeyField = new Field(primaryKeyFieldDef, "1001");
