@@ -205,7 +205,7 @@
     <value>Kontrollerer om oppgitt dataformat er korrekt</value>
   </data>
   <data name="ControlDataFormatMessage" xml:space="preserve">
-    <value>Verdier med ugyldig dataformat: {0}</value>
+    <value>Ugyldig dataformat: {0}</value>
   </data>
   <data name="ControlDateValueDescription" xml:space="preserve">
     <value>Kontroll av verdiene i et dato-felt</value>
