@@ -85,6 +85,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
 
         public override bool IsValid(string s)
         {
+            s = s.Replace(" ", "");
+
             if (_fieldFormat == FieldFormatThousandSeparator)
             {
                 return IsValidThousandSeparatorFormat(s);

@@ -49,6 +49,13 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions.DataTypes
             Assert.Throws<ArgumentException>(() => new IntegerDataType("d.ddd", null));
         }
 
+        [Fact]
+        public void IsValidShouldIgnoreSpace()
+        {
+            new IntegerDataType(null, null).IsValid("1 000").Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("1.0 00").Should().BeTrue();
+            new IntegerDataType("nnE+exp", null).IsValid("4 E+5").Should().BeTrue();
+        }
 
         [Fact]
         public void IsValidShouldReturnTrueWithThousandSeparatorPlacedCorrect()
