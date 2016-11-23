@@ -1,6 +1,4 @@
 ﻿
-using System;
-
 namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
 {
     public class LinkDataType : DataType
