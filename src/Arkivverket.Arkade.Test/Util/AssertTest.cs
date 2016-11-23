@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Test.Util
         [Fact]
         public void AssertNotNullShouldThrowExeptionWhenParamenterIsNull()
         {
-            var exception = Assert.Throws<Exception>(() => Arkade.Util.Assert.AssertNotNull("variable", null));
+            var exception = Assert.Throws<ArgumentException>(() => Arkade.Util.Assert.AssertNotNull("variable", null));
             Assert.Equal("variable cannot be null", exception.Message);
         }
 

@@ -139,8 +139,8 @@
     <Compile Include="Core\Addml\Definitions\BooleanDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParserTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\DateDataTypeTest.cs" />
+    <Compile Include="Core\Addml\Definitions\DataTypes\FloatDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\IntegerDataTypeTest.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\JosteinTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Processes\ControlAllFixedLengthTest.cs" />

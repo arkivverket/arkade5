@@ -105,11 +105,15 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             testRun.Results[2].Message.Should().Be("Verdier med ugyldig dataformat: '', '63450608211'");
         }
 
-        [Fact(Skip = "TODO jostein")]
+        [Fact]
         public void ShouldReportIncorrectFloatDataFormat()
         {
             AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
-                .WithDataType(new FloatDataType(null, null))
+                .WithDataType(new FloatDataType("nn,nn", null))
+                .Build();
+
+            AddmlFieldDefinition fieldDefinition2 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new FloatDataType("n.nnn,nn", null))
                 .Build();
 
             FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());
@@ -117,15 +121,25 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             ControlDataFormat test = new ControlDataFormat();
             test.Run(flatFile);
             test.Run(new Field(fieldDefinition1, ""));
-            test.Run(new Field(fieldDefinition1, ""));
-            test.Run(new Field(fieldDefinition1, ""));
+            test.Run(new Field(fieldDefinition1, "1"));
+            test.Run(new Field(fieldDefinition1, "1,2"));
+            test.Run(new Field(fieldDefinition1, "1.200"));
+            test.Run(new Field(fieldDefinition1, "1.200,3"));
+            test.Run(new Field(fieldDefinition1, "not"));
+            test.Run(new Field(fieldDefinition2, ""));
+            test.Run(new Field(fieldDefinition2, "1"));
+            test.Run(new Field(fieldDefinition2, "1,2"));
+            test.Run(new Field(fieldDefinition2, "1.200,3"));
+            test.Run(new Field(fieldDefinition2, "not"));
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.Results.Count.Should().Be(1);
+            testRun.Results.Count.Should().Be(2);
             testRun.Results[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("");
+            testRun.Results[0].Message.Should().Be("Verdier med ugyldig dataformat: '', '1.200', '1.200,3', 'not'");
+            testRun.Results[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
+            testRun.Results[1].Message.Should().Be("Verdier med ugyldig dataformat: '', 'not'");
         }
 
         [Fact(Skip = "TODO jostein")]
