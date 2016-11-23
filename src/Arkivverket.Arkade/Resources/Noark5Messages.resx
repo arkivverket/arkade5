@@ -132,8 +132,14 @@
   <data name="NumberOfArchiveParts" xml:space="preserve">
     <value>Finn antall arkivdeler</value>
   </data>
+  <data name="NumberOfArchivePartsMessage" xml:space="preserve">
+    <value>Antall arkivdeler: {0}</value>
+  </data>
   <data name="NumberOfArchives" xml:space="preserve">
     <value>Finn antall arkiv</value>
+  </data>
+  <data name="NumberOfArchivesMessage" xml:space="preserve">
+    <value>Antall arkiv: {0}</value>
   </data>
   <data name="NumberOfClasses" xml:space="preserve">
     <value>Finn antall klasser</value>
@@ -141,11 +147,20 @@
   <data name="NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders" xml:space="preserve">
     <value>Finn antall klasser i pri klassifikasjonssytem uten under klasser/mapper</value>
   </data>
+  <data name="NumberOfClassesMessage" xml:space="preserve">
+    <value>Antall klasser: {0}</value>
+  </data>
   <data name="NumberOfClassificationSystems" xml:space="preserve">
     <value>Finn antall klassifikasjonssystem</value>
   </data>
+  <data name="NumberOfClassificationSystemsMessage" xml:space="preserve">
+    <value>Antall klassifikasjonssystem: {0}</value>
+  </data>
   <data name="NumberOfFolders" xml:space="preserve">
     <value>Finn antall mapper</value>
+  </data>
+  <data name="NumberOfFoldersMessage" xml:space="preserve">
+    <value>Antall mapper: {0}</value>
   </data>
   <data name="StatusOfArchiveParts" xml:space="preserve">
     <value>Finn status på arkivdeler</value>

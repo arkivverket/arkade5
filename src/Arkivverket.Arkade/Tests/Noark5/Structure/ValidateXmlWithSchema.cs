@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Schema;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Noark5;
 
 namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
@@ -31,6 +32,10 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             {
                 TestError(new Location(archive.GetStructureDescriptionFileName()), $"Filen {archive.GetStructureDescriptionFileName()} er ikke gyldig i henhold til ADDML XML-skjema:\n{e.Message}");
             }
+        }
+
+        public override void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
+        {
         }
 
         private static XmlReaderSettings SetupXmlValidation()

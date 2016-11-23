@@ -1,4 +1,5 @@
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Tests;
@@ -14,7 +15,7 @@ namespace Arkivverket.Arkade.Util
             builder.RegisterType<TarCompressionUtility>().As<ICompressionUtility>();
             builder.RegisterType<TestSessionFactory>().AsSelf();
             builder.RegisterType<ArchiveIdentifier>().As<IArchiveIdentifier>();
-            builder.RegisterType<TestEngine>().AsSelf().SingleInstance();
+            builder.RegisterType<Noark5TestEngine>().AsSelf().SingleInstance();
             builder.RegisterType<ArchiveContentReader>().As<IArchiveContentReader>();
             builder.RegisterType<TestProvider>().As<ITestProvider>();
             builder.RegisterType<StatusEventHandler>().As<IStatusEventHandler>().SingleInstance();

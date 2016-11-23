@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.Util;
 using Autofac;
@@ -40,8 +41,8 @@ namespace Arkivverket.Arkade.ConsoleTest
                 Console.WriteLine($"WorkingDirectory: {testSession.Archive.WorkingDirectory}");
                 Console.WriteLine($"ArchiveType: {testSession.Archive.ArchiveType}");
 
-
-                TestEngine testEngine = container.Resolve<TestEngine>();
+                TestEngineFactory testEngineFactory = container.Resolve<TestEngineFactory>();
+                ITestEngine testEngine = testEngineFactory.GetTestEngine(testSession);
                 TestSuite testSuite = testEngine.RunTestsOnArchive(testSession);
                 foreach (TestRun testRun in testSuite.TestRuns)
                 {

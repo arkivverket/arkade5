@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Arkivverket.Arkade.Core.Addml;
+using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Report;
@@ -29,8 +30,7 @@ namespace Arkivverket.Arkade.Core
             // TODO: Use autofac?
             TestEngineFactory f =
                 new TestEngineFactory(
-                    new TestEngine(new TestProvider(new Noark5TestProvider(new ArchiveContentReader())),
-                        new StatusEventHandler()),
+                    new Noark5TestEngine(new ArchiveContentReader(), new TestProvider(new Noark5TestProvider(new ArchiveContentReader()))),
                     new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner(),
                         new StatusEventHandler()));
 

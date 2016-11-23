@@ -180,7 +180,6 @@
     <Compile Include="Core\ArchiveExtractionTest.cs" />
     <Compile Include="Core\ArkadeException.cs" />
     <Compile Include="Core\EncodingsTest.cs" />
-    <Compile Include="Core\TestEngineTest.cs" />
     <Compile Include="Core\TestRunBuilder.cs" />
     <Compile Include="Core\TestSessionBuilder.cs" />
     <Compile Include="Core\Addml\Noark4Test.cs" />
@@ -198,13 +197,16 @@
     <Compile Include="Report\HtmlToPdfConverterTest.cs" />
     <Compile Include="Tests\Noark5\Noark5XmlBuilder.cs" />
     <Compile Include="Tests\Noark5\ArchiveContentMockReader.cs" />
+    <Compile Include="Tests\Noark5\NumberOfArchivePartsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchivesTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassesTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassificationSystemsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersTest.cs" />
+    <Compile Include="Tests\Noark5\StatusOfArchivePartsTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksumsTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchemaTest.cs" />
     <Compile Include="Tests\Noark5\TestUtil.cs" />
+    <Compile Include="Tests\Noark5\XmlElementHelper.cs" />
     <Compile Include="Util\AssertTest.cs" />
     <Compile Include="Util\ChecksumTest.cs" />
     <Compile Include="Util\LoggingHelper.cs" />

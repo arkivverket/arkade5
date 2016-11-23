@@ -1,39 +1,59 @@
 using System.IO;
 using System.Reflection;
-using System.Xml;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Noark5;
+using Arkivverket.Arkade.Resources;
 using Serilog;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    public class ControlDocumentFilesExists : BaseTest
+    public class ControlDocumentFilesExists : ITest
     {
         private readonly ILogger _log = Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ControlDocumentFilesExists(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
+        private readonly TestRun _testRun;
+        private readonly DirectoryInfo _workingDirectory;
+
+        public ControlDocumentFilesExists(Archive archive)
+        {
+            _testRun = new TestRun(GetName(), TestType.ContentControl);
+            _workingDirectory = archive.WorkingDirectory;
+        }
+
+        public string GetName()
+        {
+            return Noark5Messages.ControlDocumentFilesExists;
+        }
+
+        public TestRun GetTestRun()
+        {
+            return _testRun;
+        }
+
+        public void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
         {
         }
 
-        protected override void Test(Archive archive)
+        public void OnReadEndElementEvent(object sender, ReadElementEventArgs e)
         {
-            using (var reader = XmlReader.Create(ArchiveReader.GetContentAsStream(archive)))
-            {
-                while (reader.ReadToFollowing("referanseDokumentfil"))
-                {
-                    reader.Read(); // remember to actually read the node before trying to fetch the value...
+        }
 
-                    string documentFileName = reader.Value;
-                    if (!FileExists(documentFileName, archive.WorkingDirectory))
-                    {
-                        TestError(new Location(documentFileName), Resources.Noark5Messages.ControlDocumentsFilesExistsMessage1);
-                    }
+        public void OnReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+            if (eventArgs.Path.Matches("referanseDokumentfil"))
+            {
+                string documentFileName = eventArgs.Value;
+                if (!FileExists(documentFileName))
+                {
+                    _testRun.Add(new TestResult(ResultType.Error, new Location(documentFileName),
+                        Noark5Messages.ControlDocumentsFilesExistsMessage1));
                 }
             }
         }
 
-        private bool FileExists(string documentFileName, DirectoryInfo archiveWorkingDirectory)
+        private bool FileExists(string documentFileName)
         {
-            var file = new FileInfo(Path.Combine(archiveWorkingDirectory.FullName, documentFileName));
+            var file = new FileInfo(Path.Combine(_workingDirectory.FullName, documentFileName));
             bool fileExists = file.Exists;
             _log.Debug($"File exists? {fileExists}, path: {file.FullName}");
             return fileExists;

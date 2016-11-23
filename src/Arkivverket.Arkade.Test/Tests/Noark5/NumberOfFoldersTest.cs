@@ -1,63 +1,68 @@
-using System;
-using System.IO;
+using System.Linq;
 using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using FluentAssertions;
 using Xunit;
-using Arkivverket.Arkade.Test.Core;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
-    public class NumberOfFoldersTest : IDisposable
+    public class NumberOfFoldersTest
     {
-        private Stream _archiveContent;
-
-        private TestRun RunTest()
+        [Fact]
+        public void ForTwoArchivePartsWithOneSingleFolderThenNumberOfFoldersIsTwo()
         {
-            return new NumberOfFolders(new ArchiveContentMockReader(_archiveContent)).RunTest(new ArchiveBuilder().Build());
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel",
+                        new XmlElementHelper().Add("klassifikasjonssystem",
+                            new XmlElementHelper().Add("mappe", string.Empty)
+                        )
+                    )
+                    .Add("arkivdel",
+                        new XmlElementHelper().Add("klassifikasjonssystem",
+                            new XmlElementHelper().Add("mappe", string.Empty)
+                        )
+                    )
+            );
+
+            TestRun testRun = helper.RunEventsOnTest(new NumberOfFolders());
+
+            testRun.Results.First().Message.Should().Contain("2");
         }
 
         [Fact]
         public void NumberOfFoldersIsOne()
         {
-            _archiveContent = Noark5XmlBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Klasse().Mappe().Build();
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper().Add("arkivdel",
+                    new XmlElementHelper().Add("klassifikasjonssystem",
+                        new XmlElementHelper().Add("mappe", string.Empty)
+                    )
+                )
+            );
 
-            var testResults = RunTest();
+            TestRun testRun = helper.RunEventsOnTest(new NumberOfFolders());
 
-            testResults.AnalysisResults[NumberOfFolders.AnalysisKeyFolders].Should().Be("1");
-        }
-
-        [Fact]
-        public void ForTwoArchivePartsWithOneSingleFolderThenNumberOfFoldersIsTwo()
-        {
-            _archiveContent = Noark5XmlBuilder.Arkiv()
-                .Arkivdel().Klassifikasjonssystem().Klasse().Mappe()
-                .Arkivdel().Klassifikasjonssystem().Klasse().Mappe().Build();
-
-            var testResults = RunTest();
-
-            testResults.AnalysisResults[NumberOfFolders.AnalysisKeyFolders].Should().Be("2");
+            testRun.Results.First().Message.Should().Contain("1");
         }
 
         [Fact]
         public void ShouldFindMultipleFoldersWithinSameArchiveParts()
         {
-            _archiveContent = Noark5XmlBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Klasse()
-                    .Mappe()
-                    .Mappe()
-                    .Mappe()
-                .Build();
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper().Add("arkivdel",
+                    new XmlElementHelper().Add("klassifikasjonssystem",
+                        new XmlElementHelper()
+                            .Add("mappe", string.Empty)
+                            .Add("mappe", string.Empty)
+                            .Add("mappe", string.Empty)
+                    )
+                )
+            );
 
-            var testResults = RunTest();
+            TestRun testRun = helper.RunEventsOnTest(new NumberOfFolders());
 
-            testResults.AnalysisResults[NumberOfFolders.AnalysisKeyFolders].Should().Be("3");
-        }
-
-
-        public void Dispose()
-        {
-            _archiveContent?.Dispose();
+            testRun.Results.First().Message.Should().Contain("3");
         }
     }
 }

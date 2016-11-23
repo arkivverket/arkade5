@@ -1,5 +1,6 @@
 using System;
 using Arkivverket.Arkade.Core.Addml;
+using Arkivverket.Arkade.Core.Noark5;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core
@@ -8,10 +9,10 @@ namespace Arkivverket.Arkade.Core
     {
         private readonly ILogger _log = Log.ForContext<TestEngineFactory>();
 
-        private readonly TestEngine _noark5TestEngine;
+        private readonly Noark5TestEngine _noark5TestEngine;
         private readonly AddmlDatasetTestEngine _addmlDatasetTestEngine;
 
-        public TestEngineFactory(TestEngine noark5TestEngine, AddmlDatasetTestEngine addmlDatasetTestEngine)
+        public TestEngineFactory(Noark5TestEngine noark5TestEngine, AddmlDatasetTestEngine addmlDatasetTestEngine)
         {
             _noark5TestEngine = noark5TestEngine;
             _addmlDatasetTestEngine = addmlDatasetTestEngine;

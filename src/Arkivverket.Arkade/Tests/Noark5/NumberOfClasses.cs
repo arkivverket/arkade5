@@ -1,35 +1,22 @@
-﻿using System.Xml;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Util;
+﻿using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    public class NumberOfClasses : BaseTest
+    public class NumberOfClasses : CountElementsWithUniqueName
     {
-        public const string AnalysisKeyClasses = "Classes";
-
-        public NumberOfClasses(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
+        public NumberOfClasses() : base("klasse")
         {
         }
 
-        protected override void Test(Archive archive)
+        public override string GetName()
         {
-            using (var reader = XmlReader.Create(ArchiveReader.GetContentAsStream(archive)))
-            {
-                var counter = 0;
+            return Noark5Messages.NumberOfClasses;
+        }
 
-                while (reader.Read())
-                {
-                    if (reader.IsNodeTypeAndName(XmlNodeType.Element, "klasse"))
-                    {
-                        counter++;
-                    }
-                }
-
-                AddAnalysisResult(AnalysisKeyClasses, counter.ToString());
-
-                TestSuccess(new Location(archive.Uuid.GetValue()), $"Antall klasser: {counter}.");
-            }
+        public override TestRun GetTestRun()
+        {
+            return GetTestRun(Noark5Messages.NumberOfClassesMessage);
         }
     }
 }

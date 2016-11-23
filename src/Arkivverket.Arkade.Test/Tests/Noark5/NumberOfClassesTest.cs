@@ -1,49 +1,53 @@
-using System;
-using System.IO;
+using System.Linq;
 using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using FluentAssertions;
 using Xunit;
-using Arkivverket.Arkade.Test.Core;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
-    public class NumberOfClassesTest : IDisposable
+    public class NumberOfClassesTest
     {
-        private Stream _archiveContent;
+        [Fact]
+        public void NumberOfClassesIsFour()
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel",
+                        new XmlElementHelper().Add("klassifikasjonssystem",
+                            new XmlElementHelper()
+                                .Add("klasse", string.Empty)
+                                .Add("klasse", string.Empty)
+                                .Add("klasse", string.Empty)
+                        )
+                    )
+                    .Add("arkivdel",
+                        new XmlElementHelper().Add("klassifikasjonssystem",
+                            new XmlElementHelper().Add("klasse", string.Empty)
+                        )
+                    )
+            );
+
+            TestRun testRun = helper.RunEventsOnTest(new NumberOfClasses());
+
+            testRun.Results.First().Message.Should().Contain("4");
+        }
 
         [Fact]
         public void NumberOfClassesIsOne()
         {
-            _archiveContent = Noark5XmlBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Klasse().Build();
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel",
+                        new XmlElementHelper().Add("klassifikasjonssystem",
+                            new XmlElementHelper().Add("klasse", string.Empty)
+                        )
+                    )
+            );
 
-            TestRun testResults = RunTest();
-            testResults.AnalysisResults[NumberOfClasses.AnalysisKeyClasses].Should().Be("1");
-        }
+            TestRun testRun = helper.RunEventsOnTest(new NumberOfClasses());
 
-        [Fact]
-        public void NumberOfClassesIsFour()
-        {
-            _archiveContent = Noark5XmlBuilder.Arkiv()
-                .Arkivdel().Klassifikasjonssystem()
-                    .Klasse()
-                    .Klasse()
-                    .Klasse()
-                .Arkivdel().Klassifikasjonssystem().Klasse().Build();
-
-            TestRun testResults = RunTest();
-            testResults.AnalysisResults[NumberOfClasses.AnalysisKeyClasses].Should().Be("4");
-        }
-
-        private TestRun RunTest()
-        {
-            return new NumberOfClasses(new ArchiveContentMockReader(_archiveContent)).RunTest(new ArchiveBuilder().Build());
-        }
-
-        public void Dispose()
-        {
-            _archiveContent?.Dispose();
+            testRun.Results.First().Message.Should().Contain("1");
         }
     }
 }

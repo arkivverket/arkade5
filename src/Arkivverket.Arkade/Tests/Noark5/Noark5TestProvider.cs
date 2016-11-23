@@ -23,26 +23,26 @@ namespace Arkivverket.Arkade.Tests.Noark5
             };
         }
 
-        public List<ITest> GetContentTests()
+        public List<ITest> GetContentTests(Archive archive)
         {
             return new List<ITest>
             {
                 new CheckWellFormedContentDescriptionXml(_archiveReader),
-                new NumberOfArchives(_archiveReader),
-                new NumberOfArchiveParts(_archiveReader),
-                new StatusOfArchiveParts(_archiveReader),
-                new NumberOfClasses(_archiveReader),
-                new NumberOfFolders(_archiveReader),
-                new NumberOfClassificationSystems(_archiveReader),
+                new NumberOfArchives(),
+                new NumberOfArchiveParts(),
+                new StatusOfArchiveParts(),
+                new NumberOfClasses(),
+                new NumberOfFolders(),
+                new NumberOfClassificationSystems(),
                 new NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders(_archiveReader),
-                new ControlDocumentFilesExists(_archiveReader)
+                new ControlDocumentFilesExists(archive)
             };
         }
 
-        public List<ITest> GetTests()
+        public List<ITest> GetTests(Archive archive)
         {
             var tests = GetStructureTests();
-            tests.AddRange(GetContentTests());
+            tests.AddRange(GetContentTests(archive));
             return tests;
         }
     }
