@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public bool IsPartOfPrimaryKey()
         {
-            return AddmlRecordDefinition.PrimaryKey.Contains(this);
+            return AddmlRecordDefinition.PrimaryKey == null ? false : AddmlRecordDefinition.PrimaryKey.Contains(this);
         }
 
         public string Key()
