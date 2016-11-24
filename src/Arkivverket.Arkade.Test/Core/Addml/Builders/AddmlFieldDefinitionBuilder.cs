@@ -45,6 +45,12 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
                 _isPartOfPrimaryKey);
         }
 
+        internal AddmlFieldDefinitionBuilder WithFixedLength(int fixedLength)
+        {
+            _fixedLength = fixedLength;
+            return this;
+        }
+
         public AddmlFieldDefinitionBuilder WithRecordDefinition(AddmlRecordDefinition recordDefinition)
         {
             _addmlRecordDefinition = recordDefinition;

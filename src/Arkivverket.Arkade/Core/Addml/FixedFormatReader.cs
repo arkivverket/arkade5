@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -13,12 +14,14 @@ namespace Arkivverket.Arkade.Core.Addml
         private readonly int? _identifierLength;
         private readonly int? _identifierStartPosition;
         private readonly int _recordLength;
+        private readonly int _recordSeparatorLength;
         private readonly StreamReader _streamReader;
 
         public FixedFormatReader(StreamReader streamReader, FixedFormatConfig fixedFormatConfig)
         {
             _streamReader = streamReader;
             _recordLength = fixedFormatConfig.RecordLength;
+            _recordSeparatorLength = fixedFormatConfig.RecordSparator != null ? fixedFormatConfig.RecordSparator.GetLength() : 0;
 
             if (fixedFormatConfig.RecordDefinitions.Count < 1)
             {
@@ -72,14 +75,14 @@ namespace Arkivverket.Arkade.Core.Addml
 
         public Tuple<string, List<string>> GetNextValue()
         {
-            // Read bytes according to recordLength
-            int len = _recordLength;
-            char[] buffer = new char[len];
-            int read = _streamReader.ReadBlock(buffer, 0, len);
+            int fullLength = _recordLength + _recordSeparatorLength;
 
-            if (read != len)
+            char[] buffer = new char[fullLength];
+            int read = _streamReader.ReadBlock(buffer, 0, fullLength);
+
+            if (read != fullLength)
             {
-                throw new IOException("Unable to read a full record of " + _recordLength + " characters. Could only read " + read + " characters");
+                throw new IOException("Unable to read a full record (including recordSeparator) of " + fullLength + " characters. Could only read " + read + " characters");
             }
 
             string recordString = new string(buffer);
@@ -126,6 +129,7 @@ namespace Arkivverket.Arkade.Core.Addml
             public int? IdentifierLength;
             public int RecordLength; // Support for different records lengths per record definition?
             public List<FixedFormatRecordConfig> RecordDefinitions;
+            public Separator RecordSparator;
         }
 
         public class FixedFormatRecordConfig

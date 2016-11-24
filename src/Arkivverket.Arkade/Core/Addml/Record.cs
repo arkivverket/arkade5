@@ -14,8 +14,8 @@ namespace Arkivverket.Arkade.Core.Addml
         {
             get
             {
-                string recordSeparator = Definition.AddmlFlatFileDefinition.FieldSeparator?.Get() ?? "";
-                return string.Join(recordSeparator, Fields.Select(f => f.Value));
+                string fieldSeparator = Definition.AddmlFlatFileDefinition.FieldSeparator?.Get() ?? "";
+                return string.Join(fieldSeparator, Fields.Select(f => f.Value));
             }
         }
 

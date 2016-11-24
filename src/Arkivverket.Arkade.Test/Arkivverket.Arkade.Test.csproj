@@ -141,6 +141,7 @@
     <Compile Include="Core\Addml\Definitions\DataTypes\DateDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\FloatDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\IntegerDataTypeTest.cs" />
+    <Compile Include="Core\Addml\FixedFileFormatReaderTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Processes\ControlAllFixedLengthTest.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Core\TestSessionBuilder.cs" />
     <Compile Include="Core\Addml\Noark4Test.cs" />
     <Compile Include="Core\TestSuiteTest.cs" />
+    <Compile Include="Integration\Jegerregisteret98IntegrationTest.cs" />
     <Compile Include="Integration\FiskermanntalletAnonIntegrationTest.cs" />
     <Compile Include="Integration\Noark3IntegrationTest.cs" />
     <Compile Include="Logging\TestSessionLogXmlAssert.cs" />
@@ -318,6 +320,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\tar\fiskermanntallet-anonymized\dab6c748-8d1a-4b6d-b091-3a7b8b3cb255.tar" />
+    <None Include="TestData\tar\jegerregisteret98-small\20b5f34c-4411-47c3-a0f9-0a8bca631603.tar" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestData\kvotekontroll89\kvotekontroll89.XML" />
@@ -367,6 +370,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Report\report.html" />
+    <Content Include="TestData\tar\jegerregisteret98-small\info.xml" />
     <Content Include="Util\demo.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
