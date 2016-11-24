@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Noark5
@@ -10,11 +11,13 @@ namespace Arkivverket.Arkade.Core.Noark5
     {
         private readonly IArchiveContentReader _archiveContentReader;
         private readonly ITestProvider _testProvider;
+        private readonly IStatusEventHandler _statusEventHandler;
 
-        public Noark5TestEngine(IArchiveContentReader archiveContentReader, ITestProvider testProvider)
+        public Noark5TestEngine(IArchiveContentReader archiveContentReader, ITestProvider testProvider, IStatusEventHandler statusEventHandler)
         {
             _archiveContentReader = archiveContentReader;
             _testProvider = testProvider;
+            _statusEventHandler = statusEventHandler;
         }
 
         public event EventHandler<ReadElementEventArgs> ReadStartElementEvent;
@@ -30,6 +33,8 @@ namespace Arkivverket.Arkade.Core.Noark5
 
             using (var reader = XmlReader.Create(_archiveContentReader.GetContentAsStream(testSession.Archive)))
             {
+                RaiseEventStartParsingFile();
+
                 var path = new Stack<string>();
 
                 while (reader.Read())
@@ -46,6 +51,7 @@ namespace Arkivverket.Arkade.Core.Noark5
                         case XmlNodeType.EndElement:
                             path.Pop();
                             RaiseReadEndElementEvent(CreateReadElementEventArgs(reader, path));
+                            _statusEventHandler.RaiseEventRecordProcessingStopped();
                             break;
                         case XmlNodeType.XmlDeclaration:
                         case XmlNodeType.ProcessingInstruction:
@@ -54,9 +60,23 @@ namespace Arkivverket.Arkade.Core.Noark5
                             break;
                     }
                 }
+                RaiseEventFinishedParsingFile();
+
             }
 
             return CreateTestSuiteFromResults(testsForArchive);
+        }
+
+        private void RaiseEventStartParsingFile()
+        {
+            _statusEventHandler.RaiseEventFileProcessingStarted(
+                new FileProcessingStatusEventArgs(Archive.ContentDescriptionFileNameNoark5, Archive.ContentDescriptionFileNameNoark5));
+        }
+
+        private void RaiseEventFinishedParsingFile()
+        {
+            _statusEventHandler.RaiseEventFileProcessingFinished(
+                new FileProcessingStatusEventArgs(Archive.ContentDescriptionFileNameNoark5, Archive.ContentDescriptionFileNameNoark5, true));
         }
 
         private static ReadElementEventArgs CreateReadElementEventArgs(XmlReader reader, Stack<string> path)

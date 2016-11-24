@@ -5,6 +5,8 @@ namespace Arkivverket.Arkade.Core
 {
     public class Archive
     {
+        public const string ContentDescriptionFileNameNoark5 = "arkivstruktur.xml";
+
         public Uuid Uuid { get; private set; }
         public DirectoryInfo WorkingDirectory { get; private set; }
         public ArchiveType ArchiveType { get; private set; }
@@ -18,7 +20,7 @@ namespace Arkivverket.Arkade.Core
 
         public string GetContentDescriptionFileName()
         {
-            return $"{WorkingDirectory}{Path.DirectorySeparatorChar}arkivstruktur.xml"; // noark5 filename
+            return $"{WorkingDirectory}{Path.DirectorySeparatorChar}{ContentDescriptionFileNameNoark5}"; // noark5 filename
         }
 
         public string GetStructureDescriptionFileName()

@@ -31,9 +31,8 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new StatusOfArchiveParts());
 
-            string message = testRun.Results.First().Message;
-            message.Should().Contain(title1 + ": " + status1);
-            message.Should().Contain(title2 + ": " + status2);
+            testRun.Results[0].Message.Should().Contain(title1 + ": " + status1);
+            testRun.Results[1].Message.Should().Contain(title2 + ": " + status2);
         }
     }
 }

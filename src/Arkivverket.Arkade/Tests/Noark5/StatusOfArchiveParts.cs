@@ -16,12 +16,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public StatusOfArchiveParts()
         {
-            _testRun = new TestRun(GetName(), TestType.Content);
+            _testRun = new TestRun(GetName(), TestType.ContentAnalysis);
         }
 
         public string GetName()
         {
-            return Noark5Messages.NumberOfArchives;
+            return Noark5Messages.StatusOfArchiveParts;
         }
 
         public void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
@@ -53,11 +53,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public TestRun GetTestRun()
         {
-            var testRun = new TestRun(GetName(), TestType.Content);
+            foreach (ArkivdelStatus arkivdelStatus in _arkivdelStatuses)
+            {
+                _testRun.Add(new TestResult(ResultType.Success, new Location(""), arkivdelStatus.Arkivdel + ": " + arkivdelStatus.Status));
+            }
 
-            testRun.Add(new TestResult(ResultType.Success, new Location(""), CreateResultString()));
-
-            return testRun;
+            return _testRun;
         }
 
         private string CreateResultString()

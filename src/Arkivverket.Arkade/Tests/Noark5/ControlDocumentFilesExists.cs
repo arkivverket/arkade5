@@ -51,11 +51,16 @@ namespace Arkivverket.Arkade.Tests.Noark5
             }
         }
 
+        /// <summary>
+        /// Checks if file exists on disk. 
+        /// IMPORTANT - DO NOT PERFORM LOGGING ON EACH FILE EXISTS CHECK - IT KILLS PERFORMANCE!
+        /// </summary>
+        /// <param name="documentFileName"></param>
+        /// <returns></returns>
         private bool FileExists(string documentFileName)
         {
             var file = new FileInfo(Path.Combine(_workingDirectory.FullName, documentFileName));
             bool fileExists = file.Exists;
-            _log.Debug($"File exists? {fileExists}, path: {file.FullName}");
             return fileExists;
         }
     }

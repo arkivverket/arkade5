@@ -70,36 +70,53 @@ namespace Arkivverket.Arkade.Report
             sb.AppendLine(@"            " + testRun.TestDescription);
             sb.AppendLine(@"        </p>");
             sb.AppendLine(@"");
+            /*
             sb.AppendLine(@"        <p class=""test-duration"">");
             sb.AppendLine(@"            Tidsbruk: " + testRun.TestDuration + " millisekunder");
             sb.AppendLine(@"        </p>");
             sb.AppendLine(@"");
+            */
             sb.AppendLine(@"        <h4>Testresultater</h4>");
-            sb.AppendLine(@"        <table class=""table"">");
-            sb.AppendLine(@"            <thead>");
-            sb.AppendLine(@"            <tr>");
-            sb.AppendLine(@"                <th>Lokasjon</th>");
-            sb.AppendLine(@"                <th>Melding</th>");
-            sb.AppendLine(@"            </tr>");
-            sb.AppendLine(@"            </thead>");
-            sb.AppendLine(@"            <tbody>");
-
-            foreach (TestResult testResult in testRun.Results)
+            if (testRun.IsSuccess() && testRun.TestType == TestType.ContentControl || testRun.TestType == TestType.Structure)
             {
-                sb.AppendLine(@"            <tr>");
-                sb.AppendLine(@"                <td>");
-                sb.AppendLine(@"                " + testResult.Location);
-                sb.AppendLine(@"                </td>");
-                sb.AppendLine(@"                <td>");
-                sb.AppendLine(@"                " + testResult.Message);
-                sb.AppendLine(@"                </td>");
-                sb.AppendLine(@"            </tr>");
+                sb.AppendLine("<p>Ingen avvik funnet.</p>");
+            } 
+            else if (testRun.TestType == TestType.ContentAnalysis)
+            {
+                sb.AppendLine("<ul>");
+                foreach (TestResult testResult in testRun.Results)
+                {
+                    sb.Append("<li>").Append(testResult.Message).AppendLine("</li>");
+                }
+                sb.AppendLine("</ul>");
             }
+            else
+            {
+                sb.AppendLine(@"        <table class=""table"">");
+                sb.AppendLine(@"            <thead>");
+                sb.AppendLine(@"            <tr>");
+                sb.AppendLine(@"                <th>Lokasjon</th>");
+                sb.AppendLine(@"                <th>Melding</th>");
+                sb.AppendLine(@"            </tr>");
+                sb.AppendLine(@"            </thead>");
+                sb.AppendLine(@"            <tbody>");
 
-            sb.AppendLine(@"            </tbody>");
-            sb.AppendLine(@"        </table>");
-            sb.AppendLine(@"    </div>");
+                foreach (TestResult testResult in testRun.Results)
+                {
+                    sb.AppendLine(@"            <tr>");
+                    sb.AppendLine(@"                <td>");
+                    sb.AppendLine(@"                " + testResult.Location);
+                    sb.AppendLine(@"                </td>");
+                    sb.AppendLine(@"                <td>");
+                    sb.AppendLine(@"                " + testResult.Message);
+                    sb.AppendLine(@"                </td>");
+                    sb.AppendLine(@"            </tr>");
+                }
 
+                sb.AppendLine(@"            </tbody>");
+                sb.AppendLine(@"        </table>");
+                sb.AppendLine(@"    </div>");
+            }
             return sb.ToString();
         }
 
@@ -128,24 +145,20 @@ namespace Arkivverket.Arkade.Report
             summary.Append(@"                <td>").Append(testSession.DateOfTesting.ToString(Resources.Report.DateFormat)).AppendLine("</td>");
             summary.AppendLine(@"            </tr>");
 
-            if (testSession.Archive.ArchiveType == ArchiveType.Noark5)
-            {
-                summary.AppendLine(@"            <tr>");
-                summary.Append(@"                <td>").Append(Resources.Report.LabelNumberOfTestsRun).AppendLine("</td>");
-                summary.Append(@"                <td>").Append(testSession.TestSummary.NumberOfTestsRun).AppendLine("</td>");
-                summary.AppendLine(@"            </tr>");
-            }
-            else
-            {
-                summary.AppendLine(@"            <tr>");
-                summary.Append(@"                <td>").Append(Resources.Report.LabelNumberOfFilesProcessed).AppendLine("</td>");
-                summary.Append(@"                <td>").Append(testSession.TestSummary.NumberOfProcessedFiles).AppendLine("</td>");
-                summary.AppendLine(@"            </tr>");
+            
+            summary.AppendLine(@"            <tr>");
+            summary.Append(@"                <td>").Append(Resources.Report.LabelNumberOfFilesProcessed).AppendLine("</td>");
+            summary.Append(@"                <td>").Append(testSession.TestSummary.NumberOfProcessedFiles).AppendLine("</td>");
+            summary.AppendLine(@"            </tr>");
+
+            if (testSession.Archive.ArchiveType != ArchiveType.Noark5)
+            { 
                 summary.AppendLine(@"            <tr>");
                 summary.Append(@"                <td>").Append(Resources.Report.LabelNumberOfRecordsProcessed).AppendLine("</td>");
                 summary.Append(@"                <td>").Append(testSession.TestSummary.NumberOfProcessedRecords).AppendLine("</td>");
                 summary.AppendLine(@"            </tr>");
             }
+
             summary.AppendLine(@"            <tr>");
             summary.Append(@"                <td>").Append(Resources.Report.LabelNumberOfErrors).AppendLine("</td>");
             summary.Append(@"                <td>").Append(testSession.TestSuite.FindNumberOfErrors()).AppendLine("</td>");

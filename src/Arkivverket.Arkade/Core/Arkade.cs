@@ -30,7 +30,9 @@ namespace Arkivverket.Arkade.Core
             // TODO: Use autofac?
             TestEngineFactory f =
                 new TestEngineFactory(
-                    new Noark5TestEngine(new ArchiveContentReader(), new TestProvider(new Noark5TestProvider(new ArchiveContentReader()))),
+                    new Noark5TestEngine(new ArchiveContentReader(), 
+                    new TestProvider(new Noark5TestProvider(new ArchiveContentReader())),
+                    new StatusEventHandler()),
                     new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner(),
                         new StatusEventHandler()));
 

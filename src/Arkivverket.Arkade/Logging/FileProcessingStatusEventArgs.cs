@@ -7,6 +7,7 @@ namespace Arkivverket.Arkade.Logging
         public string EventId { get; set; }
         public string FileName { get; set; }
         public bool FinishedProcessing { get; set; }
+        public string NumberOfItemsProcessed { get; set; }
 
         public FileProcessingStatusEventArgs(string eventId, string fileName)
         {
