@@ -327,13 +327,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void SaveHtmlReport(FileInfo htmlFile)
         {
-            string eventId = "Lager HTML-rapport";
+            string eventId = "Lager rapport";
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
 
             Core.Arkade arkade = new Core.Arkade();
             arkade.SaveReport(_testSession, htmlFile, ReportFormat.Html);
 
-            var message = "HTML-rapport lagret " + htmlFile.FullName;
+            var message = "Rapport lagret " + htmlFile.FullName;
             _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);
         }
 
