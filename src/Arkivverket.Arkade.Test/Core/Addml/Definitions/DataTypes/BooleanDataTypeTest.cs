@@ -4,7 +4,7 @@ using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
 using FluentAssertions;
 using Xunit;
 
-namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
+namespace Arkivverket.Arkade.Test.Core.Addml.Definitions.DataTypes
 {
     public class BooleanDataTypeTest
     {

@@ -136,7 +136,7 @@
     <Compile Include="Core\Addml\Builders\AddmlFieldDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Builders\AddmlRecordDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParserTest.cs" />
-    <Compile Include="Core\Addml\Definitions\BooleanDataTypeTest.cs" />
+    <Compile Include="Core\Addml\Definitions\DataTypes\BooleanDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParserTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\DateDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\FloatDataTypeTest.cs" />
