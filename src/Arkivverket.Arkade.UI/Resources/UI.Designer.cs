@@ -169,6 +169,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ny kjøring.
+        /// </summary>
+        public static string NewProgramSessionButton {
+            get {
+                return ResourceManager.GetString("NewProgramSessionButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {Timestamp:yyyy-MM-ddTHH:mm:ss.fff} [{Level}] {SourceContext} {Message}{NewLine}{Exception}.
         /// </summary>
         public static string SerilogFormatConfig {

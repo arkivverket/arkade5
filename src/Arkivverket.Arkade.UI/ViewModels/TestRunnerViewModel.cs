@@ -34,6 +34,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         public DelegateCommand NavigateToCreatePackageCommand { get; set; }
         private DelegateCommand RunTestEngineCommand { get; set; }
         public DelegateCommand ShowReportCommand { get; set; }
+        public DelegateCommand NewProgramSessionCommand { get; set; }
 
         private string _metadataFileName;
         private string _archiveFileName;
@@ -133,6 +134,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
             NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, IsFinishedRunningTests);
+            NewProgramSessionCommand = new DelegateCommand(ReturnToProgramStart, IsFinishedRunningTests);
             //ShowReportCommand = new DelegateCommand(SaveAndShowPdfReport, IsFinishedRunningTests);
             ShowReportCommand = new DelegateCommand(ShowHtmlReport, IsFinishedRunningTests);
         }
@@ -146,7 +148,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
             NumberOfTestsFinished = NumberOfTestsFinished + 1;
         }
 
-       
+
+        private void ReturnToProgramStart()
+        {
+            _regionManager.RequestNavigate("MainContentRegion", "LoadArchiveExtraction");
+        }
+
+
         private void NavigateToCreatePackage()
         {
             var navigationParameters = new NavigationParameters();
@@ -168,7 +176,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
-            return true;
+            return false;
         }
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
@@ -250,11 +258,18 @@ namespace Arkivverket.Arkade.UI.ViewModels
             }
         }
 
+
+        private void ClearCurrentRunTimeData()
+        {
+        }
+
+
         private void NotifyFinishedRunningTests()
         {
             _isRunningTests = false;
             ShowReportCommand.RaiseCanExecuteChanged();
             NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
+            NewProgramSessionCommand.RaiseCanExecuteChanged();
             _statusEventHandler.RaiseEventOperationMessage(Resources.UI.TestrunnerFinishedOperationMessage, null, OperationMessageStatus.Ok);
         }
 
@@ -263,6 +278,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _isRunningTests = true;
             ShowReportCommand.RaiseCanExecuteChanged();
             NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
+            NewProgramSessionCommand.RaiseCanExecuteChanged();
         }
 
         private void UpdateOperationMessageList(OperationMessageEventArgs operationMessageEventArgs)

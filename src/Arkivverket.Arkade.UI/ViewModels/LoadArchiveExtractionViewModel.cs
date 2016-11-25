@@ -9,7 +9,7 @@ using Serilog;
 
 namespace Arkivverket.Arkade.UI.ViewModels
 {
-    public class LoadArchiveExtractionViewModel : BindableBase
+    public class LoadArchiveExtractionViewModel : BindableBase, INavigationAware
     {
         private ILogger _log = Log.ForContext<LoadArchiveExtractionViewModel>();
 
@@ -95,6 +95,19 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 selectedFileName = dialog.FileName;
             }
             return selectedFileName;
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return false;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
         }
     }
 }

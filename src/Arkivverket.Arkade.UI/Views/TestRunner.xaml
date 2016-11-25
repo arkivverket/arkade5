@@ -61,8 +61,9 @@
             <TextBlock Grid.Row="6" Grid.Column="1" Margin="5" Text="{Binding NumberOfTestsFinished}" Visibility="{Binding AddmlDataObjectStatusVisibility}"></TextBlock>
             <TextBlock Grid.Row="7" Grid.Column="1" Margin="5" Text="{Binding CurrentlyRunningTest}" Visibility="{Binding AddmlDataObjectStatusVisibility}" TextWrapping="Wrap"></TextBlock>
             
-            <Button Grid.Row="8" Grid.Column="0" Margin="20" HorizontalAlignment="Left" Content="Vis rapport"  Width="130" Height="30" Command="{Binding ShowReportCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
-            <Button Grid.Row="8" Grid.Column="1" Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.CreatePackageButtonText}"  Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}" Visibility="{Binding FinishedTestingMessageVisibility}"/>
+            <Button Grid.Row="8" Grid.Column="0" Margin="20" HorizontalAlignment="Left" Content="Vis rapport"  Width="130" Height="30" Command="{Binding ShowReportCommand}"/>
+            <Button Grid.Row="8" Grid.Column="1" Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.CreatePackageButtonText}"  Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}"/>
+            <Button Grid.Row="8" Grid.Column="2" Margin="20" HorizontalAlignment="Center" Content="{x:Static resources:UI.NewProgramSessionButton}"  Width="130" Height="30" Command="{Binding NewProgramSessionCommand}"/>
         </Grid>
 
         <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="Bold" Margin="10">Meldinger:</TextBlock>

@@ -22,6 +22,7 @@ namespace Arkivverket.Arkade.UI
 
             builder.RegisterTypeForNavigation<TestRunner>();
             builder.RegisterTypeForNavigation<CreatePackage>();
+            builder.RegisterTypeForNavigation<LoadArchiveExtraction>();
         }
 
         protected override DependencyObject CreateShell()
