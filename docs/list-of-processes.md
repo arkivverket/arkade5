@@ -5,12 +5,14 @@ Last updated: **2016-11-25**
 **ADDML FlatFile (Fagsystem, Noark 3, Noark 4)**
 
 *File processes*
+
 * Analyse_CountRecords
 * Analyse_CountChars
 * Control_AllFixedLength
 * Control_NumberOfRecords
 
 *Record processes*
+
 * Analyse_FindExtremeRecords
 * Analyse_CountRecordDefinitionOccurences
 * Analyse_AllFrequenceList
@@ -21,6 +23,7 @@ Last updated: **2016-11-25**
 * Control_ForeignKey
 
 *Field processes*
+
 * Analyse_CountNULL
 * Analyse_FindExtremeValues
 * Analyse_FindMinMaxValues
@@ -38,6 +41,7 @@ Last updated: **2016-11-25**
 * Control_Boolean_Value
 
 **ADDML DataObject (Noark 5)**
+
 * NumberOfArchives
 * NumberOfArchiveParts
 * NumberOfClasses
