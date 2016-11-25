@@ -61,10 +61,14 @@ namespace Arkivverket.Arkade.Core
 
         public void SaveReport(TestSession testSession, FileInfo file)
         {
-            FileStream fs = file.OpenWrite();
-            StreamWriter sw = new StreamWriter(fs);
-            IReportGenerator reportGenerator = new HtmlReportGenerator(sw);
-            reportGenerator.Generate(testSession);
+            using (FileStream fs = file.OpenWrite())
+            {
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    IReportGenerator reportGenerator = new HtmlReportGenerator(sw);
+                    reportGenerator.Generate(testSession);
+                }
+            }
         }
 
     }
