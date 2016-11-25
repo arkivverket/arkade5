@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Test.Core
         private string _testDescription = "testDescription";
         private string _testName = "test1";
         private List<TestResult> _testResults = new List<TestResult>();
-        private readonly TestType _testType = TestType.Content;
+        private readonly TestType _testType = TestType.ContentAnalysis;
 
 
         public TestRun Build()

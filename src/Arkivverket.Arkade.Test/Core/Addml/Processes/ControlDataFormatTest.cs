@@ -50,11 +50,11 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             testRun.IsSuccess().Should().BeFalse();
             testRun.Results.Count.Should().Be(3);
             testRun.Results[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("Verdier med ugyldig dataformat: '1.1', '1E+2', 'notanint1'");
+            testRun.Results[0].Message.Should().Be("Ugyldig dataformat: '1.1', '1E+2', 'notanint1'");
             testRun.Results[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
-            testRun.Results[1].Message.Should().Be("Verdier med ugyldig dataformat: '1', '1.100', '1.1', 'notanint1'");
+            testRun.Results[1].Message.Should().Be("Ugyldig dataformat: '1', '1.100', '1.1', 'notanint1'");
             testRun.Results[2].Location.ToString().Should().Be(fieldDefinition3.GetIndex().ToString());
-            testRun.Results[2].Message.Should().Be("Verdier med ugyldig dataformat: '1.100', '1.1', '1E+2', 'notanint1'");
+            testRun.Results[2].Message.Should().Be("Ugyldig dataformat: '1.100', '1.1', '1E+2', 'notanint1'");
         }
 
         [Fact]
@@ -98,18 +98,22 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             testRun.IsSuccess().Should().BeFalse();
             testRun.Results.Count.Should().Be(3);
             testRun.Results[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("Verdier med ugyldig dataformat: '', '17080232930'");
+            testRun.Results[0].Message.Should().Be("Ugyldig dataformat: '', '17080232930'");
             testRun.Results[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
-            testRun.Results[1].Message.Should().Be("Verdier med ugyldig dataformat: '', '914994781'");
+            testRun.Results[1].Message.Should().Be("Ugyldig dataformat: '', '914994781'");
             testRun.Results[2].Location.ToString().Should().Be(fieldDefinition3.GetIndex().ToString());
-            testRun.Results[2].Message.Should().Be("Verdier med ugyldig dataformat: '', '63450608211'");
+            testRun.Results[2].Message.Should().Be("Ugyldig dataformat: '', '63450608211'");
         }
 
-        [Fact(Skip = "TODO jostein")]
+        [Fact]
         public void ShouldReportIncorrectFloatDataFormat()
         {
             AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
-                .WithDataType(new FloatDataType(null, null))
+                .WithDataType(new FloatDataType("nn,nn", null))
+                .Build();
+
+            AddmlFieldDefinition fieldDefinition2 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new FloatDataType("n.nnn,nn", null))
                 .Build();
 
             FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());
@@ -117,22 +121,32 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             ControlDataFormat test = new ControlDataFormat();
             test.Run(flatFile);
             test.Run(new Field(fieldDefinition1, ""));
-            test.Run(new Field(fieldDefinition1, ""));
-            test.Run(new Field(fieldDefinition1, ""));
+            test.Run(new Field(fieldDefinition1, "1"));
+            test.Run(new Field(fieldDefinition1, "1,2"));
+            test.Run(new Field(fieldDefinition1, "1.200"));
+            test.Run(new Field(fieldDefinition1, "1.200,3"));
+            test.Run(new Field(fieldDefinition1, "not"));
+            test.Run(new Field(fieldDefinition2, ""));
+            test.Run(new Field(fieldDefinition2, "1"));
+            test.Run(new Field(fieldDefinition2, "1,2"));
+            test.Run(new Field(fieldDefinition2, "1.200,3"));
+            test.Run(new Field(fieldDefinition2, "not"));
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.Results.Count.Should().Be(1);
+            testRun.Results.Count.Should().Be(2);
             testRun.Results[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("");
+            testRun.Results[0].Message.Should().Be("Ugyldig dataformat: '', '1.200', '1.200,3', 'not'");
+            testRun.Results[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
+            testRun.Results[1].Message.Should().Be("Ugyldig dataformat: '', 'not'");
         }
 
-        [Fact(Skip = "TODO jostein")]
+        [Fact]
         public void ShouldReportIncorrectDateDataFormat()
         {
             AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
-                .WithDataType(new DateDataType(null, null))
+                .WithDataType(new DateDataType("dd.MM.yyyyTHH:mm:sszzz", null))
                 .Build();
 
             FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());
@@ -140,22 +154,27 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             ControlDataFormat test = new ControlDataFormat();
             test.Run(flatFile);
             test.Run(new Field(fieldDefinition1, ""));
-            test.Run(new Field(fieldDefinition1, ""));
-            test.Run(new Field(fieldDefinition1, ""));
+            test.Run(new Field(fieldDefinition1, "18.11.2016T08:43:00+00:00")); // ok
+            test.Run(new Field(fieldDefinition1, "notadate"));
+            test.Run(new Field(fieldDefinition1, "40.11.2016T08:43:00+00:00"));
+            test.Run(new Field(fieldDefinition1, "18.11.2016"));
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.Results.Count.Should().Be(1);
             testRun.Results[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("");
+            testRun.Results[0].Message.Should().Be("Ugyldig dataformat: '', 'notadate', '40.11.2016T08:43:00+00:00', '18.11.2016'");
         }
 
-        [Fact(Skip = "TODO jostein")]
+        [Fact]
         public void ShouldReportIncorrectBooleanDataFormat()
         {
             AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
-                .WithDataType(new BooleanDataType(null, null))
+                .WithDataType(new BooleanDataType("Y/N", null))
+                .Build();
+            AddmlFieldDefinition fieldDefinition2 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new BooleanDataType("Ja/Nei", null))
                 .Build();
 
             FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());
@@ -163,38 +182,25 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             ControlDataFormat test = new ControlDataFormat();
             test.Run(flatFile);
             test.Run(new Field(fieldDefinition1, ""));
-            test.Run(new Field(fieldDefinition1, ""));
-            test.Run(new Field(fieldDefinition1, ""));
+            test.Run(new Field(fieldDefinition1, "Y"));
+            test.Run(new Field(fieldDefinition1, "N"));
+            test.Run(new Field(fieldDefinition1, "Ja"));
+            test.Run(new Field(fieldDefinition1, "Nei"));
+            test.Run(new Field(fieldDefinition2, ""));
+            test.Run(new Field(fieldDefinition2, "Y"));
+            test.Run(new Field(fieldDefinition2, "N"));
+            test.Run(new Field(fieldDefinition2, "Ja"));
+            test.Run(new Field(fieldDefinition2, "Nei"));
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.Results.Count.Should().Be(1);
+            testRun.Results.Count.Should().Be(2);
             testRun.Results[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("");
+            testRun.Results[0].Message.Should().Be("Ugyldig dataformat: '', 'Ja', 'Nei'");
+            testRun.Results[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
+            testRun.Results[1].Message.Should().Be("Ugyldig dataformat: '', 'Y', 'N'");
         }
 
-        [Fact(Skip = "TODO jostein")]
-        public void ShouldReportIncorrectLinkDataFormat()
-        {
-            AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
-                .WithDataType(new LinkDataType())
-                .Build();
-
-            FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());
-
-            ControlDataFormat test = new ControlDataFormat();
-            test.Run(flatFile);
-            test.Run(new Field(fieldDefinition1, ""));
-            test.Run(new Field(fieldDefinition1, ""));
-            test.Run(new Field(fieldDefinition1, ""));
-            test.EndOfFile();
-
-            TestRun testRun = test.GetTestRun();
-            testRun.IsSuccess().Should().BeFalse();
-            testRun.Results.Count.Should().Be(1);
-            testRun.Results[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("");
-        }
     }
 }

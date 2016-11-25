@@ -67,8 +67,6 @@ Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smar
 *   Finn "Arkade 5" i app listen
 *   Klikk på "Arkade 5" for å kjøre programmet
 
-  
-![](img/toolRunning.png "Programmet kjorer")
 
 ## Avinstallasjon av programmet
 

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Tests.Noark5;
 
 namespace Arkivverket.Arkade.Tests
@@ -17,10 +19,11 @@ namespace Arkivverket.Arkade.Tests
         {
             if (archive.ArchiveType.Equals(ArchiveType.Noark5))
             {
-                return _noark5TestProvider.GetTests();
+                return _noark5TestProvider.GetTests(archive);
             }
 
             return new List<ITest>();
         }
+        
     }
 }

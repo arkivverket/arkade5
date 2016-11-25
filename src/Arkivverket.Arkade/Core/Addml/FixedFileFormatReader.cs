@@ -11,13 +11,17 @@ namespace Arkivverket.Arkade.Core.Addml
     public class FixedFileFormatReader : IRecordEnumerator
     {
         // TODO jostein: FixedFileFormatReader and FixedFormatReader should be merged together
-        // TODO jostein: Functionality in FileFormatReader shoud be used
+        // TODO jostein: Functionality in FileFormatReader should be used
         private readonly FixedFormatReader _fixedFormatReader;
 
         private readonly Dictionary<string, AddmlRecordDefinition> _addmlRecordDefinitions;
         private Record _currentRecord;
 
-        public FixedFileFormatReader(FlatFile file)
+        public FixedFileFormatReader(FlatFile file) : this(file, file.Definition.FileInfo.OpenRead())
+        {
+        }
+
+        public FixedFileFormatReader(FlatFile file, Stream stream)
         {
             _addmlRecordDefinitions = new Dictionary<string, AddmlRecordDefinition>();
 
@@ -51,15 +55,15 @@ namespace Arkivverket.Arkade.Core.Addml
                 throw new ArkadeException("FlatFileReader requires recordLength");
             }
 
-            FileStream fileStream = file.Definition.FileInfo.OpenRead();
             Encoding encoding = file.Definition.Encoding;
-            StreamReader streamReader = new StreamReader(fileStream, encoding);
+            StreamReader streamReader = new StreamReader(stream, encoding);
 
             var fixedFormatDefinition = new FixedFormatReader.FixedFormatConfig();
             Tuple<int?, int?> identifierStartPositionAndLength = GetIdentifierStartPositionAndLength(flatFileDefinition);
             fixedFormatDefinition.IdentifierStartPosition = identifierStartPositionAndLength.Item1;
             fixedFormatDefinition.IdentifierLength = identifierStartPositionAndLength.Item2;
             fixedFormatDefinition.RecordLength = recordLength.Value;
+            fixedFormatDefinition.RecordSparator = flatFileDefinition.RecordSeparator;
             fixedFormatDefinition.RecordDefinitions = GetRecordFefinitions(flatFileDefinition);
 
             _fixedFormatReader = new FixedFormatReader(streamReader, fixedFormatDefinition);

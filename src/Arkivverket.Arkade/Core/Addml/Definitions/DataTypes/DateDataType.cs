@@ -19,14 +19,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
             _dateTimeFormat = ConvertToDateTimeFormat(_fieldFormat);
         }
 
-        public DateDataType()
-        {
-            throw new NotImplementedException();
-        }
-
         private string ConvertToDateTimeFormat(string fieldFormat)
         {
-            // TODO: Do we have to convert ADDML data fieldFormat til .NET format?
             return fieldFormat;
         }
 
@@ -66,15 +60,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
 
         public override bool IsValid(string s)
         {
-            try
-            {
-                Parse(s);
-                return true;
-            }
-            catch (FormatException e)
-            {
-                return false;
-            }
+            DateTimeOffset res;
+            return DateTimeOffset.TryParseExact(s, _dateTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out res);
         }
     }
 }

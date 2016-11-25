@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public override TestType GetTestType()
         {
-            return TestType.Content;
+            return TestType.ContentAnalysis;
         }
 
         protected override void DoRun(FlatFile flatFile)

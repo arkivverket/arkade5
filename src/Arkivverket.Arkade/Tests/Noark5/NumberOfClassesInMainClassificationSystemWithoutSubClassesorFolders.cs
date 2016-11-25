@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
@@ -14,7 +15,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public const string AnalysisClasses = "Simple class structures";
 
-        public NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
+        public NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders(IArchiveContentReader archiveReader) : base(TestType.ContentAnalysis, archiveReader)
         {
         }
 
@@ -66,5 +67,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
             }
         }
 
+        public override void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
+        {
+        }
     }
 }

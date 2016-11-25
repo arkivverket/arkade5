@@ -1,40 +1,22 @@
-using System.IO;
-using System.Xml;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    public class NumberOfFolders : BaseTest
+    public class NumberOfFolders : CountElementsWithUniqueName
     {
-        public const string AnalysisKeyFolders = "Folders";
-
-        public NumberOfFolders(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
+        public NumberOfFolders() : base("mappe")
         {
         }
 
-        protected override void Test(Archive archive)
+        public override string GetName()
         {
-            using (Stream content = ArchiveReader.GetContentAsStream(archive))
-            {
-                using (var reader = XmlReader.Create(content))
-                {
-                    int counter = 0;
-                    var elementName = "mappe";
-                    if (reader.ReadToDescendant(elementName))
-                    {
-                        counter++;
-                        while (reader.ReadToFollowing(elementName))
-                        {
-                            counter++;
-                        }
-                    }
-
-                    AddAnalysisResult(AnalysisKeyFolders, counter.ToString());
-
-                    TestSuccess(new Location(archive.Uuid.GetValue()), $"Antall mapper: {counter}.");
-                }
-            }
+            return Noark5Messages.NumberOfFolders;
         }
 
+        public override TestRun GetTestRun()
+        {
+            return GetTestRun(Noark5Messages.NumberOfFoldersMessage);
+        }
     }
 }

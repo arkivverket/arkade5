@@ -1,5 +1,6 @@
 using System;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Noark5;
 
 namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
@@ -21,6 +22,10 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             {
                 TestError(new Location(structureDescriptionFileName), $"Validering av gyldig xml feilet for filen: {structureDescriptionFileName}\n{e.Message}");
             }
+        }
+
+        public override void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
+        {
         }
     }
 }

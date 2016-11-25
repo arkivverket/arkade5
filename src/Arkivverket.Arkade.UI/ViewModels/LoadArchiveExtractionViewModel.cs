@@ -74,7 +74,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             ArchiveFileName = OpenFileDialog();
 
-            string infoXmlFileName = Path.Combine(new FileInfo(ArchiveFileName).Directory.FullName, ArkadeConstants.InfoXmlFileName);
+            if (ArchiveFileName == null)
+            {
+                MetadataFileName = null;
+                return;
+            }
+
+            string infoXmlFileName = Path.Combine(new FileInfo(ArchiveFileName).Directory?.FullName, ArkadeConstants.InfoXmlFileName);
             if (File.Exists(infoXmlFileName))
             {
                 MetadataFileName = infoXmlFileName;

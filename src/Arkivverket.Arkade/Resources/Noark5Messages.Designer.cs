@@ -106,11 +106,29 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall arkivdeler: {0}.
+        /// </summary>
+        internal static string NumberOfArchivePartsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfArchivePartsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall arkiv.
         /// </summary>
         internal static string NumberOfArchives {
             get {
                 return ResourceManager.GetString("NumberOfArchives", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall arkiv: {0}.
+        /// </summary>
+        internal static string NumberOfArchivesMessage {
+            get {
+                return ResourceManager.GetString("NumberOfArchivesMessage", resourceCulture);
             }
         }
         
@@ -133,6 +151,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall klasser: {0}.
+        /// </summary>
+        internal static string NumberOfClassesMessage {
+            get {
+                return ResourceManager.GetString("NumberOfClassesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall klassifikasjonssystem.
         /// </summary>
         internal static string NumberOfClassificationSystems {
@@ -142,11 +169,29 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall klassifikasjonssystem: {0}.
+        /// </summary>
+        internal static string NumberOfClassificationSystemsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfClassificationSystemsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall mapper.
         /// </summary>
         internal static string NumberOfFolders {
             get {
                 return ResourceManager.GetString("NumberOfFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall mapper: {0}.
+        /// </summary>
+        internal static string NumberOfFoldersMessage {
+            get {
+                return ResourceManager.GetString("NumberOfFoldersMessage", resourceCulture);
             }
         }
         

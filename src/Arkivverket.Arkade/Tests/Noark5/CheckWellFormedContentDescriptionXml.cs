@@ -1,11 +1,12 @@
 using System;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Noark5;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class CheckWellFormedContentDescriptionXml : BaseTest
     {
-        public CheckWellFormedContentDescriptionXml(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
+        public CheckWellFormedContentDescriptionXml(IArchiveContentReader archiveReader) : base(TestType.ContentAnalysis, archiveReader)
         {
         }
 
@@ -22,6 +23,10 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 TestError(new Location(contentDescriptionFileName), $"Validering av gyldig xml feilet for filen: {contentDescriptionFileName}\n{e.Message}");
             }
 
+        }
+
+        public override void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
+        {
         }
     }
 }

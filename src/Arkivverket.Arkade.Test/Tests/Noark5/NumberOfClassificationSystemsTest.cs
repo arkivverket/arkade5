@@ -1,47 +1,42 @@
-using System;
-using System.IO;
+using System.Linq;
 using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using FluentAssertions;
 using Xunit;
-using Arkivverket.Arkade.Test.Core;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
-    public class NumberOfClassificationSystemsTest : IDisposable
+    public class NumberOfClassificationSystemsTest
     {
-        private Stream _archiveContent;
-
-        private TestRun RunTest()
-        {
-            return new NumberOfClassificationSystems(new ArchiveContentMockReader(_archiveContent)).RunTest(new ArchiveBuilder().Build());
-        }
-
         [Fact]
         public void NumberOfClassificationSystemsIsOne()
         {
-            _archiveContent = Noark5XmlBuilder.Arkiv().Arkivdel().Klassifikasjonssystem().Build();
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel",
+                        new XmlElementHelper().Add("klassifikasjonssystem", string.Empty)
+                    )
+            );
 
-            TestRun testResults = RunTest();
-            testResults.AnalysisResults[NumberOfClassificationSystems.AnalysisKeyClassificationSystems].Should().Be("1");
+            TestRun testRun = helper.RunEventsOnTest(new NumberOfClassificationSystems());
+
+            testRun.Results.First().Message.Should().Contain("1");
         }
 
         [Fact]
         public void NumberOfClassificationSystemsIsTwo()
         {
-            _archiveContent = Noark5XmlBuilder.Arkiv()
-                .Arkivdel().Klassifikasjonssystem()
-                .Arkivdel().Klassifikasjonssystem()
-                .Build();
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel",
+                        new XmlElementHelper().Add("klassifikasjonssystem", string.Empty))
+                    .Add("arkivdel",
+                        new XmlElementHelper().Add("klassifikasjonssystem", string.Empty))
+            );
 
-            TestRun testResults = RunTest();
-            testResults.AnalysisResults[NumberOfClassificationSystems.AnalysisKeyClassificationSystems].Should().Be("2");
-        }
+            TestRun testRun = helper.RunEventsOnTest(new NumberOfClassificationSystems());
 
-        public void Dispose()
-        {
-            _archiveContent?.Dispose();
+            testRun.Results.First().Message.Should().Contain("2");
         }
     }
 }

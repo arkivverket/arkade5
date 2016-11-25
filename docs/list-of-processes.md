@@ -1,19 +1,51 @@
 This is the current list of processes and tests that have been implemented.
 
-Last updated: **2016-11-14**
+Last updated: **2016-11-25**
 
-** ADDML FlatFile (Fagsystem, Noark 3, Noark 4)**
-- Analyse_CountRecordDefinitionOccurences
-- Analyse_CountRecords
-- Analyse_FindMinMaxValues
-- Control_ForeignKey
-- Control_NumberOfRecords
+**ADDML FlatFile (Fagsystem, Noark 3, Noark 4)**
 
-** ADDML DataObject (Noark 5)**
-- NumberOfArchives
-- NumberOfArchiveParts
-- NumberOfClasses
-- NumberOfClasssesInMainClassificationSystem
-- NumberOfClassificationSystems
-- NumberOfFolders
-- StatusOfArchiveParts
+*File processes*
+
+* Analyse_CountRecords
+* Analyse_CountChars
+* Control_AllFixedLength
+* Control_NumberOfRecords
+
+*Record processes*
+
+* Analyse_FindExtremeRecords
+* Analyse_CountRecordDefinitionOccurences
+* Analyse_AllFrequenceList
+* Analyse_CrossTable
+* Control_FixedLength
+* Control_NotUsedRecordDef
+* Control_Key
+* Control_ForeignKey
+
+*Field processes*
+
+* Analyse_CountNULL
+* Analyse_FindExtremeValues
+* Analyse_FindMinMaxValues
+* Analyse_FrequenceList
+* Control_MinLength
+* Control_MaxLength
+* Control_DataFormat
+* Control_NotNull
+* Control_Uniqueness
+* Control_Codes
+* Control_Birthno
+* Control_Organisationno
+* Control_Accountno
+* Control_Date_Value
+* Control_Boolean_Value
+
+**ADDML DataObject (Noark 5)**
+
+* NumberOfArchives
+* NumberOfArchiveParts
+* NumberOfClasses
+* NumberOfClasssesInMainClassificationSystem
+* NumberOfClassificationSystems
+* NumberOfFolders
+* StatusOfArchiveParts

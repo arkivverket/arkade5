@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Test.Core;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -13,12 +16,14 @@ namespace Arkivverket.Arkade.Core.Addml
         private readonly int? _identifierLength;
         private readonly int? _identifierStartPosition;
         private readonly int _recordLength;
+        private readonly Separator _recordSeparator;
         private readonly StreamReader _streamReader;
 
         public FixedFormatReader(StreamReader streamReader, FixedFormatConfig fixedFormatConfig)
         {
             _streamReader = streamReader;
             _recordLength = fixedFormatConfig.RecordLength;
+            _recordSeparator = fixedFormatConfig.RecordSparator;
 
             if (fixedFormatConfig.RecordDefinitions.Count < 1)
             {
@@ -70,19 +75,29 @@ namespace Arkivverket.Arkade.Core.Addml
             return !_streamReader.EndOfStream;
         }
 
+        private char[] oldBuf;
+
         public Tuple<string, List<string>> GetNextValue()
         {
-            // Read bytes according to recordLength
-            int len = _recordLength;
-            char[] buffer = new char[len];
-            int read = _streamReader.ReadBlock(buffer, 0, len);
+            int recordSeparatorLength = _recordSeparator != null ? _recordSeparator.GetLength() : 0;
+            int fullLength = _recordLength + recordSeparatorLength;
 
-            if (read != len)
+            char[] buffer = new char[fullLength];
+            int read = _streamReader.ReadBlock(buffer, 0, fullLength);
+
+            if (read != fullLength)
             {
-                throw new IOException("Unable to read a full record of " + _recordLength + " characters. Could only read " + read + " characters");
+                throw new IOException("Unable to read a full record (including recordSeparator) of " + fullLength + " characters. Could only read " + read + " characters");
             }
 
+            oldBuf = buffer;
+
             string recordString = new string(buffer);
+
+            if (_recordSeparator != null && recordString.Substring(_recordLength, recordSeparatorLength) != _recordSeparator.Get())
+            {
+                throw new ArkadeException("RecordSeparator (" + _recordSeparator.ToString() + ") not found after record. Record with separator: '"+ StringUtil.WhiteSpaceToEscaped(recordString) +"'");
+            }
 
             List<int> fieldLengths;
             string recordIdentifier;
@@ -126,6 +141,7 @@ namespace Arkivverket.Arkade.Core.Addml
             public int? IdentifierLength;
             public int RecordLength; // Support for different records lengths per record definition?
             public List<FixedFormatRecordConfig> RecordDefinitions;
+            public Separator RecordSparator;
         }
 
         public class FixedFormatRecordConfig

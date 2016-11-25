@@ -1,5 +1,6 @@
 using System;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Noark5;
 
 namespace Arkivverket.Arkade.Tests
 {
@@ -17,7 +18,21 @@ namespace Arkivverket.Arkade.Tests
             TestType = testType;
         }
 
-        protected abstract void Test(Archive archive);
+        protected virtual void Test(Archive archive) { }
+
+        public abstract void OnReadStartElementEvent(object sender, ReadElementEventArgs e);
+        public virtual void OnReadEndElementEvent(object sender, ReadElementEventArgs e)
+        {
+        }
+
+        public virtual void OnReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+        }
+
+        public virtual TestRun GetTestRun()
+        {
+            return new TestRun(GetName(), TestType);
+        }
 
         public string GetName()
         {
@@ -63,6 +78,7 @@ namespace Arkivverket.Arkade.Tests
     public enum TestType
     {
         Structure,
-        Content
+        ContentAnalysis,
+        ContentControl
     }
 }

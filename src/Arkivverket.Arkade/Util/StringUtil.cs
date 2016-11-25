@@ -35,5 +35,13 @@ namespace Arkivverket.Arkade.Util
 
             return true;
         }
+
+        public static string WhiteSpaceToEscaped(string s)
+        {
+            return s
+                .Replace("\r", "\\r")
+                .Replace("\n", "\\n")
+                ;
+        }
     }
 }

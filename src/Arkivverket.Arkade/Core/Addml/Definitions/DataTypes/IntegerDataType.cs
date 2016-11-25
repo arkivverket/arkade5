@@ -52,8 +52,6 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
             }
         }
 
-
-
         private string ParseThousandSeparator(string fieldFormat)
         {
             // Currently only dot (".") is accepted as thousand separator
@@ -83,8 +81,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
             return (_fieldFormat != null ? _fieldFormat.GetHashCode() : 0);
         }
 
+
+
         public override bool IsValid(string s)
         {
+            s = s.Replace(" ", "");
+
             if (_fieldFormat == FieldFormatThousandSeparator)
             {
                 return IsValidThousandSeparatorFormat(s);
@@ -138,5 +140,6 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
             BigInteger res;
             return BigInteger.TryParse(s, NumberStyles.Integer, null, out res);
         }
+
     }
 }

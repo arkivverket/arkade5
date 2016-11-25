@@ -1,30 +1,22 @@
-using System;
-using System.Xml;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    public class NumberOfArchiveParts : BaseTest
+    public class NumberOfArchiveParts : CountElementsWithUniqueName
     {
-        public NumberOfArchiveParts(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
+        public NumberOfArchiveParts() : base("arkivdel")
         {
         }
 
-        protected override void Test(Archive archive)
+        public override string GetName()
         {
-            using (var reader = XmlReader.Create(archive.GetContentDescriptionFileName()))
-            {
-                int counter = 0;
-                if (reader.ReadToDescendant("arkivdel"))
-                {
-                    counter++;
-                    while (reader.ReadToNextSibling("arkivdel"))
-                    {
-                        counter++;
-                    }
-                }
-                TestSuccess(new Location(archive.Uuid.GetValue()), $"Antall arkivdeler: {counter}.");
-            }
+            return Noark5Messages.NumberOfArchiveParts;
+        }
+
+        public override TestRun GetTestRun()
+        {
+            return GetTestRun(Noark5Messages.NumberOfArchivePartsMessage);
         }
     }
 }

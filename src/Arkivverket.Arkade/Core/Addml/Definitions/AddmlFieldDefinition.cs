@@ -20,6 +20,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public List<string> Processes { get; }
         public List<AddmlCode> Codes { get; }
 
+        private FieldIndex _index;
+
         public AddmlFieldDefinition(string name,
             int? startPosition,
             int? fixedLength,
@@ -45,6 +47,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             AddmlRecordDefinition = addmlRecordDefinition;
             Processes = processes;
             Codes = codes;
+
+            _index = new FieldIndex(AddmlRecordDefinition.AddmlFlatFileDefinition.Name, AddmlRecordDefinition.Name, Name);
         }
 
         public AddmlFlatFileDefinition GetAddmlFlatFileDefinition()
@@ -54,7 +58,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public bool IsPartOfPrimaryKey()
         {
-            return AddmlRecordDefinition.PrimaryKey.Contains(this);
+            return AddmlRecordDefinition.PrimaryKey == null ? false : AddmlRecordDefinition.PrimaryKey.Contains(this);
         }
 
         public string Key()
@@ -64,7 +68,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public FieldIndex GetIndex()
         {
-            return new FieldIndex(AddmlRecordDefinition.AddmlFlatFileDefinition.Name, AddmlRecordDefinition.Name, this.Name);
+            return _index;
         }
     }
 }

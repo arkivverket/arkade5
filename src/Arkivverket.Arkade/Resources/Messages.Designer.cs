@@ -322,7 +322,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verdier med ugyldig dataformat: {0}.
+        ///   Looks up a localized string similar to Ugyldig dataformat: {0}.
         /// </summary>
         internal static string ControlDataFormatMessage {
             get {

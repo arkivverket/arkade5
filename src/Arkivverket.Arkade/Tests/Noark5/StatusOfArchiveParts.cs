@@ -1,79 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Xml;
+﻿using System.Collections.Generic;
+using System.Text;
 using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Noark5;
+using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    internal class StatusOfArchiveParts : BaseTest
+    public class StatusOfArchiveParts : ITest
     {
-        public StatusOfArchiveParts(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
+        private readonly List<ArkivdelStatus> _arkivdelStatuses = new List<ArkivdelStatus>();
+
+        private string _currentArkivdelName;
+        private string _currentArkivdelStatus;
+        private TestRun _testRun;
+
+        public StatusOfArchiveParts()
+        {
+            _testRun = new TestRun(GetName(), TestType.ContentAnalysis);
+        }
+
+        public string GetName()
+        {
+            return Noark5Messages.StatusOfArchiveParts;
+        }
+
+        public void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
         {
         }
 
-        protected override void Test(Archive archive)
+        public void OnReadEndElementEvent(object sender, ReadElementEventArgs e)
         {
-            var trackResults = new TrackResults();
-
-            using (var reader = XmlReader.Create(archive.GetContentDescriptionFileName()))
+            if (e.NameEquals("arkivdel"))
             {
-                var isSearchingForArchiveStatus = false;
+                _arkivdelStatuses.Add(new ArkivdelStatus {Arkivdel = _currentArkivdelName, Status = _currentArkivdelStatus});
 
-                while (reader.Read())
-                {
-                    if (reader.IsStartElement("arkivdel"))
-                    {
-                        isSearchingForArchiveStatus = true;
-                    }
-                    else if (reader.IsNodeTypeAndName(XmlNodeType.Element, "arkivdelstatus") && isSearchingForArchiveStatus)
-                    {
-                        reader.Read(); // Advance the xml reader to the content of the node
-                        trackResults.Add(reader.Value);
-                        isSearchingForArchiveStatus = false;
-                    }
-                    else if (reader.IsNodeTypeAndName(XmlNodeType.EndElement, "arkivdelstatus") && isSearchingForArchiveStatus)
-                    {
-                        trackResults.Add("ikke angitt");
-                        isSearchingForArchiveStatus = false;
-                    }
-                }
-            }
-
-            TestSuccess(new Location(archive.Uuid.GetValue()), $"Arkivdelenes status og antall: \n{trackResults.ResultsToString()}");
-        }
-    }
-
-
-    internal class TrackResults
-    {
-        private Dictionary<string, int> Results { get; }
-
-        internal TrackResults()
-        {
-            Results = new Dictionary<string, int>();
-        }
-
-        internal void Add(string resultEntry)
-        {
-            if (Results.ContainsKey(resultEntry))
-            {
-                Results[resultEntry] += 1;
-            }
-            else
-            {
-                Results.Add(resultEntry, 1);
+                _currentArkivdelName = null;
+                _currentArkivdelStatus = null;
             }
         }
 
-        internal string ResultsToString()
+        public void OnReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            var result = string.Empty;
-            foreach (var pair in Results)
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
             {
-                result = result + $"{pair.Key} ({pair.Value})\n";
+                _currentArkivdelName = eventArgs.Value;
             }
-            return result;
+            if (eventArgs.Path.Matches("arkivdelstatus", "arkivdel"))
+            {
+                _currentArkivdelStatus = eventArgs.Value;
+            }
+        }
+
+        public TestRun GetTestRun()
+        {
+            foreach (ArkivdelStatus arkivdelStatus in _arkivdelStatuses)
+            {
+                _testRun.Add(new TestResult(ResultType.Success, new Location(""), arkivdelStatus.Arkivdel + ": " + arkivdelStatus.Status));
+            }
+
+            return _testRun;
+        }
+
+        private string CreateResultString()
+        {
+            var builder = new StringBuilder();
+
+            foreach (ArkivdelStatus arkivdelStatus in _arkivdelStatuses)
+            {
+                builder.AppendLine(arkivdelStatus.Arkivdel + ": " + arkivdelStatus.Status);
+            }
+
+            return builder.ToString();
+        }
+
+        private class ArkivdelStatus
+        {
+            public string Arkivdel;
+            public string Status;
         }
     }
 }

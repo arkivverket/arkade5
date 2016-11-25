@@ -1,44 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Xml;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     /// <summary>
-    /// Noark5 - test #4
+    ///     Noark5 - test #4
     /// </summary>
-    public class NumberOfClassificationSystems : BaseTest
+    public class NumberOfClassificationSystems : CountElementsWithUniqueName
     {
-        public const string AnalysisKeyClassificationSystems = "ClassificationSystems";
-
-
-        public NumberOfClassificationSystems(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
+        public NumberOfClassificationSystems() : base("klassifikasjonssystem")
         {
         }
 
-        protected override void Test(Archive archive)
+        public override string GetName()
         {
-            using (Stream content = ArchiveReader.GetContentAsStream(archive))
-            {
-                using (var reader = XmlReader.Create(content))
-                {
-                    int counter = 0;
-                    if (reader.ReadToDescendant("klassifikasjonssystem"))
-                    {
-                        counter++;
-                        while (reader.ReadToFollowing("klassifikasjonssystem"))
-                        {
-                            counter++;
-                        }
-                    }
+            return Noark5Messages.NumberOfClassificationSystems;
+        }
 
-                    AddAnalysisResult(AnalysisKeyClassificationSystems, counter.ToString());
-
-                    TestSuccess(new Location(archive.Uuid.GetValue()), $"Antall klassifikasjonssystemer: {counter}.");
-                }
-            }
+        public override TestRun GetTestRun()
+        {
+            return GetTestRun(Noark5Messages.NumberOfClassificationSystemsMessage);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
@@ -54,6 +55,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         private string Convert(string s)
         {
             return SpecialSeparators.ContainsKey(s) ? SpecialSeparators[s] : s;
+        }
+
+        internal int GetLength()
+        {
+            return _separator.Length;
         }
     }
 }
