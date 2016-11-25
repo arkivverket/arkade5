@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class CheckWellFormedContentDescriptionXml : BaseTest
     {
-        public CheckWellFormedContentDescriptionXml(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
+        public CheckWellFormedContentDescriptionXml(IArchiveContentReader archiveReader) : base(TestType.ContentAnalysis, archiveReader)
         {
         }
 

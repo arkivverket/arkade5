@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public const string AnalysisClasses = "Simple class structures";
 
-        public NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders(IArchiveContentReader archiveReader) : base(TestType.Content, archiveReader)
+        public NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders(IArchiveContentReader archiveReader) : base(TestType.ContentAnalysis, archiveReader)
         {
         }
 

@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public override TestType GetTestType()
         {
-            return TestType.Content;
+            return TestType.ContentControl;
         }
 
         protected override List<TestResult> GetTestResults()
