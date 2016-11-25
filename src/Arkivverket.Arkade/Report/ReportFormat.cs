@@ -2,7 +2,6 @@
 {
     public enum ReportFormat
     {
-        Html,
-        Pdf
+        Html
     }
 }

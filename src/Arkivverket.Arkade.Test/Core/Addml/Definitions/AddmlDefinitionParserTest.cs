@@ -44,6 +44,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
             addmlFlatFileDefinitions[0].Processes.Should().BeEmpty();
 
             AddmlRecordDefinition addmlRecordDefinition = addmlFlatFileDefinitions[0].AddmlRecordDefinitions[0];
+            addmlRecordDefinition.Name.Should().Be("Saksregisterpost");
             addmlRecordDefinition.Processes.Should().BeEmpty();
 
             List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
@@ -64,7 +65,32 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
             addmlRecordDefinition.PrimaryKey.Should().Equal(
                 new List<AddmlFieldDefinition>() {addmlFieldDefinitions[2]}
             );
+
+
         }
+
+        [Fact]
+        public void ShouldParseAddmlWithForeignKey()
+        {
+            AddmlDefinition addmlDefinition = _parser.GetAddmlDefinition();
+            List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
+            addmlFlatFileDefinitions.Count.Should().Be(3);
+            addmlFlatFileDefinitions[0].Name.Should().Be("Saksregister");
+
+            AddmlRecordDefinition addmlRecordDefinition = addmlFlatFileDefinitions[0].AddmlRecordDefinitions[0];
+            addmlRecordDefinition.Name.Should().Be("Saksregisterpost");
+            addmlRecordDefinition.Processes.Should().BeEmpty();
+
+            List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
+            addmlFieldDefinitions.Count.Should().Be(18);
+            addmlFieldDefinitions[5].Name.Should().Be("Arkiv_2_delfelt");
+
+            addmlFieldDefinitions[5].ForeignKey.Should().NotBeNull();
+            addmlFieldDefinitions[5].ForeignKey.Name.Should().Be("Arkivkode");
+            addmlFieldDefinitions[5].ForeignKey.AddmlRecordDefinition.Name.Should().Be("Arkivnoekkelregisterpost");
+            addmlFieldDefinitions[5].ForeignKey.AddmlRecordDefinition.AddmlFlatFileDefinition.Name.Should().Be("Arkivnoekkelregister");
+        }
+
 
         [Fact]
         public void ShouldParseAddmlWithNumberOfRecordsProperty()

@@ -42,14 +42,6 @@
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="itextsharp, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\iTextSharp.5.5.10\lib\itextsharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="itextsharp.xmlworker, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\itextsharp.xmlworker.5.5.10\lib\itextsharp.xmlworker.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.2.0.0\lib\net45\Serilog.dll</HintPath>
@@ -162,13 +154,10 @@
     <Compile Include="Logging\FileProcessingStatusEventArgs.cs" />
     <Compile Include="Core\ArkadeException.cs" />
     <Compile Include="Logging\ArchiveInformationEventArgs.cs" />
-    <Compile Include="Report\CustomImageTagProcessor.cs" />
     <Compile Include="Report\HtmlReport.cs" />
     <Compile Include="Report\HtmlReportGenerator.cs" />
-    <Compile Include="Report\HtmlToPdfConverter.cs" />
     <Compile Include="Report\IReport.cs" />
     <Compile Include="Report\PdfReport.cs" />
-    <Compile Include="Report\PdfReportGenerator.cs" />
     <Compile Include="Report\IReportGenerator.cs" />
     <Compile Include="Report\ReportFormat.cs" />
     <Compile Include="Resources\Report.Designer.cs">
