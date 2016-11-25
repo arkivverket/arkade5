@@ -16,7 +16,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public bool IsNullable { get; }
         public int? MinLength { get; }
         public int? MaxLength { get; }
-        public AddmlFieldDefinition ForeignKey { get; }
+        public AddmlFieldDefinition ForeignKey { set;  get; }
+        public FieldIndex ForeignKeyIndex { get; }
         public List<string> Processes { get; }
         public List<AddmlCode> Codes { get; }
 
@@ -30,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             bool isNullable,
             int? minLength,
             int? maxLength,
-            AddmlFieldDefinition foreignKey,
+            FieldIndex foreignKeyIndex,
             AddmlRecordDefinition addmlRecordDefinition,
             List<string> processes,
             List<AddmlCode> codes)
@@ -43,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             IsNullable = isNullable;
             MinLength = minLength;
             MaxLength = maxLength;
-            ForeignKey = foreignKey;
+            ForeignKeyIndex = foreignKeyIndex;
             AddmlRecordDefinition = addmlRecordDefinition;
             Processes = processes;
             Codes = codes;

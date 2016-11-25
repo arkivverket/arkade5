@@ -67,8 +67,10 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
                 null, null, null, null, null, true);
             var primaryKeyField = new Field(primaryKeyFieldDef, "1001");
 
-            AddmlFieldDefinition foreignKeyFieldDef = recordDef.AddAddmlFieldDefinition("foreignKeyId", null, null, new IntegerDataType(), true, false,
-                null, null, primaryKeyFieldDef, null, null, false);
+            AddmlFieldDefinition foreignKeyFieldDef = new AddmlFieldDefinitionBuilder()
+                .WithForeignKey(primaryKeyFieldDef)
+                .Build();
+
             var foreignKeyField = new Field(foreignKeyFieldDef, "25");
 
             var controlForeignKey = new ControlForeignKey();

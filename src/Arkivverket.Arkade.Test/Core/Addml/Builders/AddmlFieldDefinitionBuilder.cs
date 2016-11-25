@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
                 _addmlRecordDefinition = new AddmlRecordDefinitionBuilder().Build();
             }
 
-            return _addmlRecordDefinition.AddAddmlFieldDefinition(_name,
+            var addmlFieldDefinition = _addmlRecordDefinition.AddAddmlFieldDefinition(_name,
                 _startPosition,
                 _fixedLength,
                 _dataType,
@@ -39,10 +39,12 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
                 _isNullable,
                 _minLength,
                 _maxLength,
-                _foreignKey,
+                _foreignKey?.GetIndex(),
                 _processes,
                 _codes,
                 _isPartOfPrimaryKey);
+            addmlFieldDefinition.ForeignKey = _foreignKey;
+            return addmlFieldDefinition;
         }
 
         internal AddmlFieldDefinitionBuilder WithFixedLength(int fixedLength)
@@ -84,5 +86,10 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
             return this;
         }
 
+        internal AddmlFieldDefinitionBuilder WithForeignKey(AddmlFieldDefinition foreignKey)
+        {
+            _foreignKey = foreignKey;
+            return this;
+        }
     }
 }

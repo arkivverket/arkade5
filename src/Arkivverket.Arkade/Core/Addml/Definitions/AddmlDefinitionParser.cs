@@ -128,11 +128,38 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
                 AddAddmlFieldDefinitions(addmlFlatFileDefinition, flatFileDefinition);
 
-
                 addmlFlatFileDefinitions.Add(addmlFlatFileDefinition);
             }
 
+            SetForeginKeyReferences(addmlFlatFileDefinitions);
+
             return addmlFlatFileDefinitions;
+        }
+
+        private void SetForeginKeyReferences(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
+        {
+            foreach (AddmlFlatFileDefinition fileDefinitions in addmlFlatFileDefinitions)
+            {
+                foreach (AddmlRecordDefinition recordDefinition in fileDefinitions.AddmlRecordDefinitions)
+                {
+                    foreach (AddmlFieldDefinition fieldDefinition in recordDefinition.AddmlFieldDefinitions)
+                    {
+                        FieldIndex index = fieldDefinition.ForeignKeyIndex;
+
+                        if (index != null) {
+                            if (!_allFieldDefinitions.ContainsKey(index))
+                            {
+                                throw new AddmlDefinitionParseException("Could not find foreign reference " + index);
+                            }
+
+                            fieldDefinition.ForeignKey = _allFieldDefinitions[index];
+                        }
+                    }
+                }
+            }
+
+
+
         }
 
         private AddmlFlatFileFormat GetFlatFileFormat(string flatFileTypeName)
@@ -261,21 +288,20 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     bool isNullable = IsNullable(fieldDefinition);
                     int? minLength = GetMinLength(fieldDefinition);
                     int? maxLength = GetMaxLength(fieldDefinition);
-                    AddmlFieldDefinition foreignKeyReference = GetForeignKeyReference(recordDefinition, fieldDefinition);
+                    FieldIndex foreignKeyIndex = GetForeignKeyIndex(recordDefinition, fieldDefinition);
                     List<string> processes = GetFieldProcessNames(flatFileDefinition.name, recordDefinition.name,
                         fieldDefinition.name);
                     List<AddmlCode> addmlCodes = GetCodes(fieldDefinition);
 
                     AddmlFieldDefinition addAddmlFieldDefinition = addmlRecordDefinition.AddAddmlFieldDefinition(
                         name, startPosition, fixedLength, dataType, isUnique, isNullable, minLength,
-                        maxLength, foreignKeyReference, processes, addmlCodes, isPartOfPrimaryKey);
+                        maxLength, foreignKeyIndex, processes, addmlCodes, isPartOfPrimaryKey);
 
                     FieldIndex fieldIndex = new FieldIndex(flatFileDefinition, recordDefinition, fieldDefinition);
                     if (_allFieldDefinitions.ContainsKey(fieldIndex))
                     {
                         throw new AddmlDefinitionParseException("ADDML file already contains a field definition with same index: " + fieldIndex);
                     }
-
                     _allFieldDefinitions.Add(fieldIndex, addAddmlFieldDefinition);
                 }
             }
@@ -400,7 +426,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return recordDefinition.fixedLength == null ? (int?)null : int.Parse(recordDefinition.fixedLength);
         }
 
-        private AddmlFieldDefinition GetForeignKeyReference(recordDefinition recordDefinition,
+        private FieldIndex GetForeignKeyIndex(recordDefinition recordDefinition,
             fieldDefinition fieldDefinition)
         {
             key[] keys = recordDefinition.keys;
@@ -427,12 +453,18 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                                 }
 
                                 FieldIndex index = indexes[0];
+
+                                // Må puttes på til slutt!
+                                return index;
+
+                                /*
                                 if (!_allFieldDefinitions.ContainsKey(index))
                                 {
                                     return null;
                                 }
 
                                 return _allFieldDefinitions[index];
+                                */
                             }
                         }
                     }
