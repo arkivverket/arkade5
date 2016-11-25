@@ -259,11 +259,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
         }
 
 
-        private void ClearCurrentRunTimeData()
-        {
-        }
-
-
         private void NotifyFinishedRunningTests()
         {
             _isRunningTests = false;
