@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Test.Core;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -14,14 +16,14 @@ namespace Arkivverket.Arkade.Core.Addml
         private readonly int? _identifierLength;
         private readonly int? _identifierStartPosition;
         private readonly int _recordLength;
-        private readonly int _recordSeparatorLength;
+        private readonly Separator _recordSeparator;
         private readonly StreamReader _streamReader;
 
         public FixedFormatReader(StreamReader streamReader, FixedFormatConfig fixedFormatConfig)
         {
             _streamReader = streamReader;
             _recordLength = fixedFormatConfig.RecordLength;
-            _recordSeparatorLength = fixedFormatConfig.RecordSparator != null ? fixedFormatConfig.RecordSparator.GetLength() : 0;
+            _recordSeparator = fixedFormatConfig.RecordSparator;
 
             if (fixedFormatConfig.RecordDefinitions.Count < 1)
             {
@@ -73,9 +75,12 @@ namespace Arkivverket.Arkade.Core.Addml
             return !_streamReader.EndOfStream;
         }
 
+        private char[] oldBuf;
+
         public Tuple<string, List<string>> GetNextValue()
         {
-            int fullLength = _recordLength + _recordSeparatorLength;
+            int recordSeparatorLength = _recordSeparator != null ? _recordSeparator.GetLength() : 0;
+            int fullLength = _recordLength + recordSeparatorLength;
 
             char[] buffer = new char[fullLength];
             int read = _streamReader.ReadBlock(buffer, 0, fullLength);
@@ -85,7 +90,14 @@ namespace Arkivverket.Arkade.Core.Addml
                 throw new IOException("Unable to read a full record (including recordSeparator) of " + fullLength + " characters. Could only read " + read + " characters");
             }
 
+            oldBuf = buffer;
+
             string recordString = new string(buffer);
+
+            if (_recordSeparator != null && recordString.Substring(_recordLength, recordSeparatorLength) != _recordSeparator.Get())
+            {
+                throw new ArkadeException("RecordSeparator (" + _recordSeparator.ToString() + ") not found after record. Record with separator: '"+ StringUtil.WhiteSpaceToEscaped(recordString) +"'");
+            }
 
             List<int> fieldLengths;
             string recordIdentifier;
