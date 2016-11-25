@@ -16,8 +16,11 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private bool _selectedPackageTypeSip = true;
         private string _statusMessage;
         private TestSession _testSession;
+        private readonly IRegionManager _regionManager;
+
 
         public DelegateCommand CreatePackageCommand { get; set; }
+        public DelegateCommand NewProgramSessionCommand { get; set; }
 
         public bool SelectedPackageTypeSip
         {
@@ -45,9 +48,11 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _statusMessage, value); }
         }
 
-        public CreatePackageViewModel()
+        public CreatePackageViewModel(IRegionManager regionManager)
         {
+            _regionManager = regionManager;
             CreatePackageCommand = new DelegateCommand(RunCreatePackage, CanExecuteCreatePackage);
+            NewProgramSessionCommand = new DelegateCommand(RunNavigateToLoadArchivePage, CanExecuteCreatePackage);
         }
 
 
@@ -64,6 +69,14 @@ namespace Arkivverket.Arkade.UI.ViewModels
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
         }
+
+
+        private void RunNavigateToLoadArchivePage()
+        {
+            _regionManager.RequestNavigate("MainContentRegion", "LoadArchiveExtraction");
+        }
+
+
 
         private bool CanExecuteCreatePackage()
         {

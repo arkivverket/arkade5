@@ -17,6 +17,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
         
@@ -39,5 +40,10 @@
         <Button Grid.Row="3" Grid.Column="1" 
                 Command="{Binding CreatePackageCommand}"
                 Content="{x:Static resources:UI.CreatePackageButtonText}" HorizontalAlignment="Left" Width="130" Height="30" />
+
+        <Button Grid.Row="3" Grid.Column="2" 
+                Command="{Binding NewProgramSessionCommand}"
+                Content="{x:Static resources:UI.NewProgramSessionButton}" HorizontalAlignment="Left" Width="130" Height="30" Margin="5,0,0,0" />
+
     </Grid>
 </UserControl>

@@ -29,7 +29,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220" />
                 <ColumnDefinition Width="350" />
-                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -60,7 +60,7 @@
             
             <Button Grid.Row="8" Grid.Column="0" Margin="20" HorizontalAlignment="Left" Content="Vis rapport"  Width="130" Height="30" Command="{Binding ShowReportCommand}"/>
             <Button Grid.Row="8" Grid.Column="1" Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.CreatePackageButtonText}"  Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}"/>
-            <Button Grid.Row="8" Grid.Column="2" Margin="20" HorizontalAlignment="Center" Content="{x:Static resources:UI.NewProgramSessionButton}"  Width="130" Height="30" Command="{Binding NewProgramSessionCommand}"/>
+            <Button Grid.Row="8" Grid.Column="2" Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.NewProgramSessionButton}"  Width="130" Height="30" Command="{Binding NewProgramSessionCommand}"/>
         </Grid>
 
         <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="Bold" Margin="10">Meldinger:</TextBlock>
