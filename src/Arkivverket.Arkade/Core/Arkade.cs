@@ -73,8 +73,6 @@ namespace Arkivverket.Arkade.Core
             {
                 case ReportFormat.Html:
                     return new HtmlReportGenerator();
-                case ReportFormat.Pdf:
-                    return new PdfReportGenerator();
                 default:
                     throw new ArkadeException("Unkown report format: " + format);
             }

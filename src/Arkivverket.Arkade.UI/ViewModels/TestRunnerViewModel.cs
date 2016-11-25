@@ -294,29 +294,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             });
         }
 
-        private void SaveAndShowPdfReport()
-        {
-            DirectoryInfo directoryName = _testSession.GetReportDirectory();
-            FileInfo pdfFile = new FileInfo(Path.Combine(directoryName.FullName, "report.pdf"));
-            SavePdfReport(pdfFile);
-            OpenFile(pdfFile);
-        }
-
         private void OpenFile(FileInfo file)
         {
             System.Diagnostics.Process.Start(file.FullName);
-        }
-
-        private void SavePdfReport(FileInfo pdfFile)
-        {
-            string eventId = "Lager PDF-rapport";
-            _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
-
-            Core.Arkade arkade = new Core.Arkade();
-            arkade.SaveReport(_testSession, pdfFile, ReportFormat.Pdf);
-
-            var message = "PDF-rapport lagret " + pdfFile.FullName;
-            _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);
         }
 
         private void SaveHtmlReport()

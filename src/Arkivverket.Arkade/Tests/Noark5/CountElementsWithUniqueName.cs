@@ -1,6 +1,5 @@
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
-using Org.BouncyCastle.Bcpg;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
