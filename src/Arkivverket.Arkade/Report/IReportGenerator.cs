@@ -4,6 +4,6 @@ namespace Arkivverket.Arkade.Report
 {
     public interface IReportGenerator
     {
-        IReport Generate(TestSession testSession);
+        void Generate(TestSession testSession);
     }
 }

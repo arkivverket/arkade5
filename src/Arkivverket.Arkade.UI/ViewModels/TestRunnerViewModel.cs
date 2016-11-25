@@ -322,7 +322,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
 
             Core.Arkade arkade = new Core.Arkade();
-            arkade.SaveReport(_testSession, htmlFile, ReportFormat.Html);
+            arkade.SaveReport(_testSession, htmlFile);
 
             var message = "Rapport lagret " + htmlFile.FullName;
             _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);

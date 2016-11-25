@@ -3,201 +3,211 @@ using System.Text;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Util;
+using System.IO;
 
 namespace Arkivverket.Arkade.Report
 {
     public class HtmlReportGenerator : IReportGenerator
     {
-        IReport IReportGenerator.Generate(TestSession testSession)
+        private readonly StreamWriter _stream;
+
+        public HtmlReportGenerator(StreamWriter stream)
         {
-            return Generate(testSession);
+            _stream = stream;
         }
 
-        public HtmlReport Generate(TestSession testSession)
+        public void Generate(TestSession testSession)
         {
             StringBuilder html = new StringBuilder();
-            html.AppendLine(@"<!DOCTYPE html>");
-            html.AppendLine(@"<html lang=""no"">");
-            html.AppendLine(Head());
-            html.AppendLine(Body(testSession));
-            html.AppendLine(@"</html>");
-
-            return new HtmlReport(html.ToString());
+            _stream.WriteLine(@"<!DOCTYPE html>");
+            _stream.WriteLine(@"<html lang=""no"">");
+            Head();
+            Body(testSession);
+            _stream.WriteLine(@"</html>");
+            _stream.Flush();
         }
 
-        private string Body(TestSession testSession)
+        private void Body(TestSession testSession)
         {
-            var body = new StringBuilder();
-            body.AppendLine(@"<body>");
-            body.AppendLine(@"");
-            body.AppendLine(@"<div class=""container"">");
-            body.AppendLine(@"");
-            body.AppendLine(ArkivverketImage());
-            body.AppendLine(@"    <h1>Testrapport</h1>");
-            body.AppendLine(Summary(testSession));
-            body.AppendLine(@"    <h2>Tests</h2>");
+            _stream.WriteLine(@"<body>");
+            _stream.WriteLine(@"");
+            _stream.WriteLine(@"<div class=""container"">");
+            _stream.WriteLine(@"");
+            ArkivverketImage();
+            _stream.WriteLine(@"    <h1>Testrapport</h1>");
+            Summary(testSession);
+            _stream.WriteLine(@"    <h2>Tests</h2>");
             foreach (TestRun testRun in testSession.TestSuite.TestRuns)
             {
-                body.AppendLine(Test(testRun));
+                Test(testRun);
             }
-            body.AppendLine(@"</div>");
-            body.AppendLine(@"</body>");
-
-            return body.ToString();
+            _stream.WriteLine(@"</div>");
+            _stream.WriteLine(@"</body>");
         }
 
-        private string ArkivverketImage()
+        private void ArkivverketImage()
         {
             byte[] imageBytes = ResourceUtil.ReadResourceBytes("Arkivverket.Arkade.Resources.arkivverket.gif");
             string imageBase64 = Convert.ToBase64String(imageBytes, Base64FormattingOptions.None);
 
-            var image = new StringBuilder();
-            image.Append(@"<img src=""data:image/gif;base64,");
-            image.Append(imageBase64);
-            image.Append(@""" class=""img-responsive"" alt=""Arkivverket"" width=""481"" height=""82"" />");
-            return image.ToString();
+            _stream.WriteLine(@"<img src=""data:image/gif;base64,");
+            _stream.WriteLine(imageBase64);
+            _stream.WriteLine(@""" class=""img-responsive"" alt=""Arkivverket"" width=""481"" height=""82"" />");
         }
 
-        private string Test(TestRun testRun)
+        private void Test(TestRun testRun)
         {
-            var sb = new StringBuilder(532);
-            sb.AppendLine(@"    <div class=""test"">");
-            sb.AppendLine(@"        <h3>");
-            sb.AppendLine(@"        " + testRun.TestName);
-            sb.AppendLine(@"        </h3>");
-            sb.AppendLine(@"");
-            sb.AppendLine(@"        <p class=""test-description"">");
-            sb.AppendLine(@"            " + testRun.TestDescription);
-            sb.AppendLine(@"        </p>");
-            sb.AppendLine(@"");
+            _stream.WriteLine(@"    <div class=""test"">");
+            _stream.WriteLine(@"        <h3>");
+            _stream.WriteLine(@"        " + testRun.TestName);
+            _stream.WriteLine(@"        </h3>");
+            _stream.WriteLine(@"");
+            _stream.WriteLine(@"        <p class=""test-description"">");
+            _stream.WriteLine(@"            " + testRun.TestDescription);
+            _stream.WriteLine(@"        </p>");
+            _stream.WriteLine(@"");
             /*
             sb.AppendLine(@"        <p class=""test-duration"">");
             sb.AppendLine(@"            Tidsbruk: " + testRun.TestDuration + " millisekunder");
             sb.AppendLine(@"        </p>");
             sb.AppendLine(@"");
             */
-            sb.AppendLine(@"        <h4>Testresultater</h4>");
+            _stream.WriteLine(@"        <h4>Testresultater</h4>");
             if (testRun.IsSuccess() && testRun.TestType == TestType.ContentControl || testRun.TestType == TestType.Structure)
             {
-                sb.AppendLine("<p>Ingen avvik funnet.</p>");
+                _stream.WriteLine("<p>Ingen avvik funnet.</p>");
             } 
             else
             {
-                sb.AppendLine(@"        <table class=""table"">");
-                sb.AppendLine(@"            <thead>");
-                sb.AppendLine(@"            <tr>");
-                sb.AppendLine(@"                <th>Lokasjon</th>");
-                sb.AppendLine(@"                <th>Melding</th>");
-                sb.AppendLine(@"            </tr>");
-                sb.AppendLine(@"            </thead>");
-                sb.AppendLine(@"            <tbody>");
+                _stream.WriteLine(@"        <table class=""table"">");
+                _stream.WriteLine(@"            <thead>");
+                _stream.WriteLine(@"            <tr>");
+                _stream.WriteLine(@"                <th>Lokasjon</th>");
+                _stream.WriteLine(@"                <th>Melding</th>");
+                _stream.WriteLine(@"            </tr>");
+                _stream.WriteLine(@"            </thead>");
+                _stream.WriteLine(@"            <tbody>");
 
                 foreach (TestResult testResult in testRun.Results)
                 {
-                    sb.AppendLine(@"            <tr>");
-                    sb.AppendLine(@"                <td>");
-                    sb.AppendLine(@"                " + testResult.Location);
-                    sb.AppendLine(@"                </td>");
-                    sb.AppendLine(@"                <td>");
-                    sb.AppendLine(@"                " + testResult.Message);
-                    sb.AppendLine(@"                </td>");
-                    sb.AppendLine(@"            </tr>");
+                    _stream.WriteLine(@"            <tr>");
+                    _stream.WriteLine(@"                <td>");
+                    _stream.WriteLine(@"                " + testResult.Location);
+                    _stream.WriteLine(@"                </td>");
+                    _stream.WriteLine(@"                <td>");
+                    _stream.WriteLine(@"                " + testResult.Message);
+                    _stream.WriteLine(@"                </td>");
+                    _stream.WriteLine(@"            </tr>");
                 }
 
-                sb.AppendLine(@"            </tbody>");
-                sb.AppendLine(@"        </table>");
-                sb.AppendLine(@"    </div>");
+                _stream.WriteLine(@"            </tbody>");
+                _stream.WriteLine(@"        </table>");
+                _stream.WriteLine(@"    </div>");
             }
-            return sb.ToString();
         }
 
-        private string Summary(TestSession testSession)
+        private void Summary(TestSession testSession)
         {
-            var summary = new StringBuilder();
-            summary.AppendLine(@"    <div class=""summary"">");
-            summary.AppendLine(@"    <div class=""jumbotron"">");
-            summary.AppendLine(@"        <h2>Testsammendrag</h2>");
-            summary.AppendLine(@"");
-            summary.AppendLine(@"        <table class=""table"">");
-            summary.AppendLine(@"            <tbody>");
+            _stream.WriteLine(@"    <div class=""summary"">");
+            _stream.WriteLine(@"    <div class=""jumbotron"">");
+            _stream.WriteLine(@"        <h2>Testsammendrag</h2>");
+            _stream.WriteLine(@"");
+            _stream.WriteLine(@"        <table class=""table"">");
+            _stream.WriteLine(@"            <tbody>");
 
-            summary.AppendLine(@"            <tr>");
-            summary.Append(@"                <td>").Append(Resources.Report.LabelUuid).AppendLine("</td>");
-            summary.Append(@"                <td>").Append(testSession.Archive.Uuid).AppendLine("</td>");
-            summary.AppendLine(@"            </tr>");
+            _stream.WriteLine(@"            <tr>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(Resources.Report.LabelUuid);
+            _stream.WriteLine("                </td>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(testSession.Archive.Uuid);
+            _stream.WriteLine("                </td>");
+            _stream.WriteLine(@"            </tr>");
 
-            summary.AppendLine(@"            <tr>");
-            summary.Append(@"                <td>").Append(Resources.Report.LabelArchiveType).AppendLine("</td>");
-            summary.Append(@"                <td>").Append(testSession.Archive.ArchiveType).AppendLine("</td>");
-            summary.AppendLine(@"            </tr>");
+            _stream.WriteLine(@"            <tr>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(Resources.Report.LabelArchiveType);
+            _stream.WriteLine("                 </td>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(testSession.Archive.ArchiveType);
+            _stream.WriteLine("                 </td>");
+            _stream.WriteLine(@"            </tr>");
 
-            summary.AppendLine(@"            <tr>");
-            summary.Append(@"                <td>").Append(Resources.Report.LabelDateOfTesting).AppendLine("</td>");
-            summary.Append(@"                <td>").Append(testSession.DateOfTesting.ToString(Resources.Report.DateFormat)).AppendLine("</td>");
-            summary.AppendLine(@"            </tr>");
+            _stream.WriteLine(@"            <tr>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(Resources.Report.LabelDateOfTesting);
+            _stream.WriteLine("                 </td>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(testSession.DateOfTesting.ToString(Resources.Report.DateFormat));
+            _stream.WriteLine("                 </td>");
+            _stream.WriteLine(@"            </tr>");
 
             
-            summary.AppendLine(@"            <tr>");
-            summary.Append(@"                <td>").Append(Resources.Report.LabelNumberOfFilesProcessed).AppendLine("</td>");
-            summary.Append(@"                <td>").Append(testSession.TestSummary.NumberOfProcessedFiles).AppendLine("</td>");
-            summary.AppendLine(@"            </tr>");
+            _stream.WriteLine(@"            <tr>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(Resources.Report.LabelNumberOfFilesProcessed);
+            _stream.WriteLine("                 </td>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(testSession.TestSummary.NumberOfProcessedFiles);
+            _stream.WriteLine("                 </td>");
+            _stream.WriteLine(@"            </tr>");
 
             if (testSession.Archive.ArchiveType != ArchiveType.Noark5)
             { 
-                summary.AppendLine(@"            <tr>");
-                summary.Append(@"                <td>").Append(Resources.Report.LabelNumberOfRecordsProcessed).AppendLine("</td>");
-                summary.Append(@"                <td>").Append(testSession.TestSummary.NumberOfProcessedRecords).AppendLine("</td>");
-                summary.AppendLine(@"            </tr>");
+                _stream.WriteLine(@"            <tr>");
+                _stream.WriteLine(@"                <td>");
+                _stream.WriteLine(Resources.Report.LabelNumberOfRecordsProcessed);
+                _stream.WriteLine("                 </td>");
+                _stream.WriteLine(@"                <td>");
+                _stream.WriteLine(testSession.TestSummary.NumberOfProcessedRecords);
+                _stream.WriteLine("                 </td>");
+                _stream.WriteLine(@"            </tr>");
             }
 
-            summary.AppendLine(@"            <tr>");
-            summary.Append(@"                <td>").Append(Resources.Report.LabelNumberOfErrors).AppendLine("</td>");
-            summary.Append(@"                <td>").Append(testSession.TestSuite.FindNumberOfErrors()).AppendLine("</td>");
-            summary.AppendLine(@"            </tr>");
+            _stream.WriteLine(@"            <tr>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(Resources.Report.LabelNumberOfErrors);
+            _stream.WriteLine("                 </td>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(testSession.TestSuite.FindNumberOfErrors());
+            _stream.WriteLine("                 </td>");
+            _stream.WriteLine(@"            </tr>");
      
-            summary.AppendLine(@"            </tbody>");
-            summary.AppendLine(@"        </table>");
-            summary.AppendLine(@"    </div>");
-            summary.AppendLine(@"    </div>");
-
-            return summary.ToString();
+            _stream.WriteLine(@"            </tbody>");
+            _stream.WriteLine(@"        </table>");
+            _stream.WriteLine(@"    </div>");
+            _stream.WriteLine(@"    </div>");
         }
 
-        private string Head()
+        private void Head()
         {
-            var head = new StringBuilder();
-            head.AppendLine(@"<head>");
-            head.AppendLine(@"    <meta charset=""utf-8"" />");
-            head.AppendLine(@"    <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"" />");
-            head.AppendLine(@"    <meta name=""viewport"" content=""width=device-width, initial-scale=1"" />");
-            head.AppendLine(@"    <title>Testrapport</title>");
-            head.AppendLine(@"");
-            head.AppendLine(BootstrapCss());
-            head.AppendLine(ArkadeCss());
-            head.AppendLine(@"</head>");
-            return head.ToString();
+            _stream.WriteLine(@"<head>");
+            _stream.WriteLine(@"    <meta charset=""utf-8"" />");
+            _stream.WriteLine(@"    <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"" />");
+            _stream.WriteLine(@"    <meta name=""viewport"" content=""width=device-width, initial-scale=1"" />");
+            _stream.WriteLine(@"    <title>Testrapport</title>");
+            _stream.WriteLine(@"");
+            BootstrapCss();
+            ArkadeCss();
+            _stream.WriteLine(@"</head>");
         }
 
-        private string ArkadeCss()
+        private void ArkadeCss()
         {
             string css = ResourceUtil.ReadResource("Arkivverket.Arkade.Resources.arkade.css");
 
-            var sb = new StringBuilder();
-            sb.AppendLine(@"<style>");
-            sb.AppendLine(css);
-            sb.AppendLine(@"</style>");
-            return sb.ToString();
+            _stream.WriteLine(@"<style>");
+            _stream.WriteLine(css);
+            _stream.WriteLine(@"</style>");
         }
 
-        private string BootstrapCss()
+        private void BootstrapCss()
         {
             string css = ResourceUtil.ReadResource("Arkivverket.Arkade.Resources.bootstrap.min.css");
 
-            var sb = new StringBuilder();
-            sb.AppendLine(@"<style>");
-            sb.AppendLine(css);
-            sb.AppendLine(@"</style>");
-            return sb.ToString();
+            _stream.WriteLine(@"<style>");
+            _stream.WriteLine(css);
+            _stream.WriteLine(@"</style>");
         }
 
     }

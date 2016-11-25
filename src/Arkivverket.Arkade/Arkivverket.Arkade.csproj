@@ -159,7 +159,6 @@
     <Compile Include="Report\IReport.cs" />
     <Compile Include="Report\PdfReport.cs" />
     <Compile Include="Report\IReportGenerator.cs" />
-    <Compile Include="Report\ReportFormat.cs" />
     <Compile Include="Resources\Report.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -4,7 +4,6 @@ using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Report;
-using Arkivverket.Arkade.Test.Core;
 using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using Arkivverket.Arkade.Util;
@@ -60,22 +59,13 @@ namespace Arkivverket.Arkade.Core
             return true;
         }
 
-        public void SaveReport(TestSession testSession, FileInfo file, ReportFormat format)
+        public void SaveReport(TestSession testSession, FileInfo file)
         {
-            IReportGenerator reportGenerator = GetReportGenerator(format);
-            IReport report = reportGenerator.Generate(testSession);
-            report.Save(file);
+            FileStream fs = file.OpenWrite();
+            StreamWriter sw = new StreamWriter(fs);
+            IReportGenerator reportGenerator = new HtmlReportGenerator(sw);
+            reportGenerator.Generate(testSession);
         }
 
-        private IReportGenerator GetReportGenerator(ReportFormat format)
-        {
-            switch (format)
-            {
-                case ReportFormat.Html:
-                    return new HtmlReportGenerator();
-                default:
-                    throw new ArkadeException("Unkown report format: " + format);
-            }
-        }
     }
 }

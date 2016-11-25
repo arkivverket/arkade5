@@ -5,6 +5,8 @@ using Arkivverket.Arkade.Test.Core;
 using Arkivverket.Arkade.Tests;
 using FluentAssertions;
 using Xunit;
+using System.IO;
+using System.Text;
 
 namespace Arkivverket.Arkade.Test.Report
 {
@@ -32,23 +34,28 @@ namespace Arkivverket.Arkade.Test.Report
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 3"))
                 .Build();
 
-            List<TestRun> testRuns = new List<TestRun> {testRun1, testRun2};
+            List<TestRun> testRuns = new List<TestRun> { testRun1, testRun2 };
 
             TestSession testSession = new TestSessionBuilder()
                 .WithTestRuns(testRuns)
-                .WithTestSummary(new TestSummary(0,0,0))
+                .WithTestSummary(new TestSummary(0, 0, 0))
                 .Build();
 
-            HtmlReportGenerator htmlReportGenerator = new HtmlReportGenerator();
-            HtmlReport htmlReport = htmlReportGenerator.Generate(testSession);
+            string html = GenerateReport(testSession);
 
-            //htmlReport.Save(new FileInfo("c://tmp/report.html"));
-
-            string html = htmlReport.GetHtml();
             html.Should().Contain("<html");
             html.Should().Contain("Test 1");
             html.Should().Contain("Test 2");
             html.Should().Contain("</html>");
+        }
+
+        private static string GenerateReport(TestSession testSession)
+        {
+            MemoryStream ms = new MemoryStream();
+            StreamWriter sw = new StreamWriter(ms);
+            HtmlReportGenerator htmlReportGenerator = new HtmlReportGenerator(sw);
+            htmlReportGenerator.Generate(testSession);
+            return Encoding.UTF8.GetString(ms.ToArray());
         }
 
         [Fact]
@@ -71,12 +78,8 @@ namespace Arkivverket.Arkade.Test.Report
                 .WithTestRuns(testRuns)
                 .Build();
 
-            HtmlReportGenerator htmlReportGenerator = new HtmlReportGenerator();
-            HtmlReport htmlReport = htmlReportGenerator.Generate(testSession);
+            string html = GenerateReport(testSession);
 
-            htmlReport.Save(new System.IO.FileInfo("c://tmp/report.html"));
-
-            string html = htmlReport.GetHtml();
             // xunit was not very happy to report errors on a very huge string
             html.Contains("Antall tester").Should().BeTrue();
             html.Contains("Antall filer").Should().BeFalse();
@@ -105,12 +108,8 @@ namespace Arkivverket.Arkade.Test.Report
 
             testSession.TestSummary = new TestSummary(42, 43, 44);
 
-            HtmlReportGenerator htmlReportGenerator = new HtmlReportGenerator();
-            HtmlReport htmlReport = htmlReportGenerator.Generate(testSession);
+            string html = GenerateReport(testSession);
 
-            htmlReport.Save(new System.IO.FileInfo("c://tmp/report.html"));
-
-            string html = htmlReport.GetHtml();
             // xunit was not very happy to report errors on a very huge string
             html.Contains("Antall filer").Should().BeTrue();
             html.Contains("Antall poster").Should().BeTrue();
