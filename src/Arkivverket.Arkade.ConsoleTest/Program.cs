@@ -34,8 +34,8 @@ namespace Arkivverket.Arkade.ConsoleTest
             using (container.BeginLifetimeScope())
             {
                 TestSessionFactory testSessionBuilder = container.Resolve<TestSessionFactory>();
-
-                TestSession testSession = testSessionBuilder.NewSessionFromTarFile(archiveFileName, metadataFileName);
+                
+                TestSession testSession = testSessionBuilder.NewSessionFromArchiveFile(ArchiveFile.Read(archiveFileName, metadataFileName));
                 Console.WriteLine($"Reading from archive: {archiveFileName}");
                 Console.WriteLine($"Uuid: {testSession.Archive.Uuid}");
                 Console.WriteLine($"WorkingDirectory: {testSession.Archive.WorkingDirectory}");

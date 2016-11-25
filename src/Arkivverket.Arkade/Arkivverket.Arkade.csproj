@@ -144,6 +144,7 @@
     <Compile Include="Core\Addml\XmlUtil.cs" />
     <Compile Include="Core\Archive.cs" />
     <Compile Include="Core\ArchiveContentReader.cs" />
+    <Compile Include="Core\ArchiveDirectory.cs" />
     <Compile Include="Core\ArchiveFile.cs" />
     <Compile Include="Core\ArchiveInfo.cs" />
     <Compile Include="Core\Addml\FlatFile.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Core\IArchiveContentReader.cs" />
     <Compile Include="Core\ITestEngine.cs" />
     <Compile Include="Core\LogEntry.cs" />
+    <Compile Include="Util\FileUtil.cs" />
     <Compile Include="Util\NorwegianOrganizationNumber.cs" />
     <Compile Include="Util\NorwegianAccountNumber.cs" />
     <Compile Include="Util\NorwegianBirthNumber.cs" />

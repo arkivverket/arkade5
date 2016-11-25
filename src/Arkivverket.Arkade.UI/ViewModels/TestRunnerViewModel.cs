@@ -236,7 +236,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
                 NotifyStartRunningTests();
 
-                _testSession = _testSessionFactory.NewSessionFromTarFile(_archiveFileName, _metadataFileName);
+                _testSession = _testSessionFactory.NewSessionFromArchiveFile(ArchiveFile.Read(_archiveFileName, _metadataFileName));
 
                 _log.Debug(_testSession.Archive.Uuid.GetValue());
                 _log.Debug(_testSession.Archive.ArchiveType.ToString());

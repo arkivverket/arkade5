@@ -6,6 +6,7 @@ using Arkivverket.Arkade.Util;
 using FluentAssertions;
 using Moq;
 using Xunit;
+using Arkivverket.Arkade.Test.Tests.Noark5;
 
 namespace Arkivverket.Arkade.Test.Identify
 {
@@ -14,7 +15,7 @@ namespace Arkivverket.Arkade.Test.Identify
         [Fact]
         public void ExtractAndIdentifyTarFiles()
         {
-            var uuid = Uuid.Of("d1c9102e-7106-4355-a4a4-0c9b7f9b3541");
+            var uuid = Uuid.Of("c3db9d4e-720c-4f75-bfb6-de90231dc44c");
             string pathToExtractedFilesRegex = ArkadeConstants.GetArkadeWorkDirectory().FullName +
                                                Path.DirectorySeparatorChar + "..............-" + uuid +
                                                Path.DirectorySeparatorChar + uuid;
@@ -29,9 +30,10 @@ namespace Arkivverket.Arkade.Test.Identify
 
             var statusEventHandler = new StatusEventHandler();
 
+            string file = TestUtil.TestDataDirectory + Path.DirectorySeparatorChar + "tar" + Path.DirectorySeparatorChar + "Noark3-eksempel-1" + Path.DirectorySeparatorChar + uuid + ".tar";
             TestSession testSession =
                 new TestSessionFactory(extractorMock.Object, identifierMock.Object, statusEventHandler)
-                    .NewSessionFromTarFile(uuid + ".tar", null);
+                    .NewSessionFromArchiveFile(ArchiveFile.Read(file));
 
             var archive = testSession.Archive;
             archive.Should().NotBeNull();

@@ -25,19 +25,22 @@ namespace Arkivverket.Arkade.Identify
             _statusEventHandler = statusEventHandler;
         }
 
-        public TestSession NewSessionFromArchive(ArchiveFile archive)
+        public TestSession NewSessionFromArchiveDirectory(ArchiveDirectory archive)
         {
-            return NewSessionFromTarFile(archive.Archive.FullName, archive.InfoXml.FullName);
+            throw new NotImplementedException();
         }
 
-        public TestSession NewSessionFromTarFile(string archiveFileName, string metadataFileName)
+        public TestSession NewSessionFromArchiveFile(ArchiveFile archive)
+        {
+            return NewSession(archive.Archive.FullName, archive.InfoXml.FullName, true);
+        }
+
+        private TestSession NewSession(string archiveFileName, string metadataFileName, bool IsTar)
         {
             _log.Information(
                 $"Building new TestSession with [archiveFileName: {archiveFileName}] [metadataFileName: {metadataFileName}");
 
             TarExtractionStartedEvent();
-
-            FileInfo archiveFileInfo = new FileInfo(archiveFileName);
 
             Uuid uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFileName));
             ArchiveType archiveType = _archiveIdentifier.Identify(metadataFileName);
@@ -47,8 +50,18 @@ namespace Arkivverket.Arkade.Identify
             string workingDirectory = PrepareWorkingDirectory(metadataFileName, uuid);
 
             DirectoryInfo archiveExtractionDirectory = new DirectoryInfo(Path.Combine(workingDirectory, uuid.GetValue()));
-            
-            _compressionUtility.ExtractFolderFromArchive(archiveFileInfo.FullName, archiveExtractionDirectory.FullName);
+
+            // TODO: The logic in this conditional should be moved to ArchiveDirectory.ExtractToWorkDir() and ArchiveFile.ExtractToWorkDir() 
+            if (IsTar)
+            {
+                // Extract if tar
+                FileInfo archiveFileInfo = new FileInfo(archiveFileName);
+                _compressionUtility.ExtractFolderFromArchive(archiveFileInfo.FullName, archiveExtractionDirectory.FullName);
+            } else
+            {
+                // Copy recursivly if directory
+                FileUtil.DirectoryCopy(archiveFileName, archiveExtractionDirectory.FullName, true);
+            }
 
             Archive archive = new Archive(archiveType, uuid, archiveExtractionDirectory);
 

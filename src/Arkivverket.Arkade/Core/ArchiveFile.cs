@@ -57,5 +57,6 @@ namespace Arkivverket.Arkade.Core
             FileInfo fileInfo = new FileInfo(infoXml);
             return fileInfo.Exists ? fileInfo : null;
         }
+        
     }
 }
