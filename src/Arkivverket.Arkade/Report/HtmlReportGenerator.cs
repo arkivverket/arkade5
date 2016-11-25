@@ -81,15 +81,6 @@ namespace Arkivverket.Arkade.Report
             {
                 sb.AppendLine("<p>Ingen avvik funnet.</p>");
             } 
-            else if (testRun.TestType == TestType.ContentAnalysis)
-            {
-                sb.AppendLine("<ul>");
-                foreach (TestResult testResult in testRun.Results)
-                {
-                    sb.Append("<li>").Append(testResult.Message).AppendLine("</li>");
-                }
-                sb.AppendLine("</ul>");
-            }
             else
             {
                 sb.AppendLine(@"        <table class=""table"">");
