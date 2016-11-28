@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Identify
 
         public TestSession NewSessionFromArchiveDirectory(ArchiveDirectory archive)
         {
-            throw new NotImplementedException();
+            return NewSession(archive.Archive.FullName, archive.InfoXml.FullName, false);
         }
 
         public TestSession NewSessionFromArchiveFile(ArchiveFile archive)

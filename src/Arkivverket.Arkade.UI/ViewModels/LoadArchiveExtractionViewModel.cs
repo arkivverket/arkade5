@@ -1,11 +1,11 @@
 using System.IO;
-using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Util;
-using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.Win32;
 
 namespace Arkivverket.Arkade.UI.ViewModels
 {
@@ -40,12 +40,14 @@ namespace Arkivverket.Arkade.UI.ViewModels
         public DelegateCommand NavigateCommand { get; set; }
         public DelegateCommand OpenMetadataFileCommand { get; set; }
         public DelegateCommand OpenArchiveFileCommand { get; set; }
+        public DelegateCommand OpenArchiveFolderCommand { get; set; }
 
         public LoadArchiveExtractionViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
             OpenMetadataFileCommand = new DelegateCommand(OpenMetadataFileDialog);
             OpenArchiveFileCommand = new DelegateCommand(OpenArchiveFileDialog);
+            OpenArchiveFolderCommand = new DelegateCommand(OpenArchiveFolderDialog);
             NavigateCommand = new DelegateCommand(Navigate, CanRunTests);
         }
 
@@ -89,6 +91,45 @@ namespace Arkivverket.Arkade.UI.ViewModels
             {
                 MetadataFileName = null;
             }
+        }
+
+        private void OpenArchiveFolderDialog()
+        {
+            ArchiveFileName = OpenFolderDialog();
+
+            if (ArchiveFileName == null)
+            {
+                MetadataFileName = null;
+                return;
+            }
+
+            string infoXmlFileName = Path.Combine(new DirectoryInfo(ArchiveFileName).Parent?.FullName, ArkadeConstants.InfoXmlFileName);
+            if (File.Exists(infoXmlFileName))
+            {
+                MetadataFileName = infoXmlFileName;
+            }
+            else
+            {
+                MetadataFileName = null;
+            }
+        }
+
+
+        private string OpenFolderDialog()
+        {
+            string selected = null;
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true,
+                Multiselect = false
+                //Title = ""
+            };
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                selected = dialog.FileName;
+            }
+
+            return selected;
         }
 
         private string OpenFileDialog()
