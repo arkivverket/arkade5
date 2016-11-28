@@ -10,21 +10,24 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         private static readonly Random Random = new Random();
 
         private readonly string _charset = "UTF-8";
-        private readonly FileInfo _fileInfo = null;
+        private FileInfo _fileInfo = null;
         private string _fileName = "";
         private readonly string _name = "FlatFile" + Random.Next();
 
         private int? _numberOfRecords = null;
         private readonly List<string> _processes = null;
         private readonly string _recordDefinitionFieldIdentifier = null;
+
         private string _recordSeparator = null;
         private string _fieldSeparator = null;
         private readonly AddmlFlatFileFormat _format = AddmlFlatFileFormat.Fixed;
 
+        private Checksum _checksum = null;
+
         public AddmlFlatFileDefinition Build()
         {
             return new AddmlFlatFileDefinition(_name, _fileName, _fileInfo, _recordSeparator, _fieldSeparator, _charset,
-                _recordDefinitionFieldIdentifier, _numberOfRecords, _format, _processes);
+                _recordDefinitionFieldIdentifier, _numberOfRecords, _checksum, _format, _processes);
         }
 
         public AddmlFlatFileDefinitionBuilder WithNumberOfRecords(int numberOfRecords)
@@ -51,5 +54,19 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
             return this;
 
         }
+
+        public AddmlFlatFileDefinitionBuilder WithChecksum(Checksum checksum)
+        {
+            _checksum = checksum;
+            return this;
+        }
+
+        public AddmlFlatFileDefinitionBuilder WithFileInfo(FileInfo fileInfo)
+        {
+            _fileInfo = fileInfo;
+            return this;
+        }
+
+
     }
 }

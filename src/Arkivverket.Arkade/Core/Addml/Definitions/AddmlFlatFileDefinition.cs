@@ -15,11 +15,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public Encoding Encoding { get; }
         public string RecordDefinitionFieldIdentifier { get; }
         public int? NumberOfRecords { get; }
-        public string ChecksumAlgorithm { get; }
-        public string ChecksumValue { get; }
+        public Checksum Checksum { get; }
         public List<AddmlRecordDefinition> AddmlRecordDefinitions { get; }
         public AddmlFlatFileFormat Format { get; }
         public List<string> Processes { get; }
+
+        private readonly FlatFileIndex _index;
 
         public AddmlFlatFileDefinition(string name,
             string fileName,
@@ -29,6 +30,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             string charset,
             string recordDefinitionFieldIdentifier,
             int? numberOfRecords,
+            Checksum checksum,
             AddmlFlatFileFormat format,
             List<string> processes)
         {
@@ -41,8 +43,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             RecordDefinitionFieldIdentifier = recordDefinitionFieldIdentifier;
             NumberOfRecords = numberOfRecords;
             AddmlRecordDefinitions = new List<AddmlRecordDefinition>();
+            Checksum = checksum;
             Format = format;
             Processes = processes;
+
+            _index = new FlatFileIndex(name);
         }
 
         internal AddmlRecordDefinition AddAddmlRecordDefinition(string name, int? recordLength,
@@ -60,6 +65,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public string Key()
         {
             return Name;
+        }
+
+        public FlatFileIndex GetIndex()
+        {
+            return _index;
         }
     }
 

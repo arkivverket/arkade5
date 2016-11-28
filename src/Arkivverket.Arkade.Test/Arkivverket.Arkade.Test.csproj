@@ -138,6 +138,7 @@
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Processes\ControlAllFixedLengthTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlDataFormatTest.cs" />
+    <Compile Include="Core\Addml\Processes\ControlChecksumTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlNotUsedRecordDefTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlMaxLengthTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlFixedLengthTest.cs" />
@@ -360,6 +361,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Report\report.html" />
+    <Content Include="TestData\checksum.txt" />
     <Content Include="TestData\tar\jegerregisteret98-small\info.xml" />
     <Content Include="Util\demo.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

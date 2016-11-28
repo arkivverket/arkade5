@@ -195,6 +195,18 @@
   <data name="ControlBooleanValueMessage" xml:space="preserve">
     <value>Følgende ikke-boolske verdier finnes: {0}</value>
   </data>
+  <data name="ControlChecksumDescription" xml:space="preserve">
+    <value>Kontrollerer checksum</value>
+  </data>
+  <data name="ControlChecksumMessage1" xml:space="preserve">
+    <value>Ukjent algoritme '{0}'</value>
+  </data>
+  <data name="ControlChecksumMessage2" xml:space="preserve">
+    <value>Forventet checksum '{0}'. Var '{1}'.</value>
+  </data>
+  <data name="ControlChecksumMessage3" xml:space="preserve">
+    <value>Ingen sjekksum i ADDML-filen</value>
+  </data>
   <data name="ControlCodesDescription" xml:space="preserve">
     <value>Kontrollerer om definerte koder benyttes og om det benyttes koder som ikke er definert i kodelisten</value>
   </data>

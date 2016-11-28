@@ -295,6 +295,42 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer checksum.
+        /// </summary>
+        internal static string ControlChecksumDescription {
+            get {
+                return ResourceManager.GetString("ControlChecksumDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ukjent algoritme &apos;{0}&apos;.
+        /// </summary>
+        internal static string ControlChecksumMessage1 {
+            get {
+                return ResourceManager.GetString("ControlChecksumMessage1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forventet checksum &apos;{0}&apos;. Var &apos;{1}&apos;..
+        /// </summary>
+        internal static string ControlChecksumMessage2 {
+            get {
+                return ResourceManager.GetString("ControlChecksumMessage2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingen sjekksum i ADDML-filen.
+        /// </summary>
+        internal static string ControlChecksumMessage3 {
+            get {
+                return ResourceManager.GetString("ControlChecksumMessage3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollerer om definerte koder benyttes og om det benyttes koder som ikke er definert i kodelisten.
         /// </summary>
         internal static string ControlCodesDescription {

@@ -5,6 +5,7 @@ using System.Linq;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
 using Arkivverket.Arkade.ExternalModels.Addml;
 using Arkivverket.Arkade.Util;
+using System.Text;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
@@ -16,6 +17,10 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         private readonly Dictionary<string, flatFileType> _flatFileTypes = new Dictionary<string, flatFileType>();
         private readonly Dictionary<string, DataType> _fieldTypes = new Dictionary<string, DataType>();
 
+        private readonly Dictionary<PropertyIndex, string> _flatFileProperties = new Dictionary<PropertyIndex, string>();
+
+
+
         private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _allFieldDefinitions =
             new Dictionary<FieldIndex, AddmlFieldDefinition>();
 
@@ -26,6 +31,36 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
             PopulateFlatFileTypes();
             PopulateFieldTypes();
+            PopulateFlatFileProperties();
+        }
+
+        private void PopulateFlatFileProperties()
+        {
+            foreach (flatFile flatFile in GetFlatFiles())
+            {
+                PopulateFlatFileProperties(flatFile.definitionReference, new List<string>(), flatFile.properties);
+            }
+        }
+
+        private void PopulateFlatFileProperties(string definitionReference, List<string> propertyName, property[] properties)
+        {
+            if (properties == null)
+            {
+                return;
+            }
+
+            foreach (property property in properties)
+            {
+                var l = new List<string>(propertyName);
+                l.Add(property.name);
+
+                if (property.value != null)
+                {
+                    _flatFileProperties.Add(new PropertyIndex(definitionReference, l), property.value);
+                }
+
+                PopulateFlatFileProperties(definitionReference, l, property.properties);
+            }
         }
 
         private void PopulateFieldTypes()
@@ -119,12 +154,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 string charset = GetCharset(flatFileDefinition.typeReference);
                 string recordDefinitionFieldIdentifier = flatFileDefinition.recordDefinitionFieldIdentifier;
                 int? numberOfRecords = GetNumberOfRecords(flatFileDefinition.name);
+                Checksum checksum = GetChecksum(flatFileDefinition.name);
                 AddmlFlatFileFormat format = GetFlatFileFormat(flatFileDefinition.typeReference);
                 List<string> flatFileProcesses = GetFlatFileProcessNames(flatFileDefinition.name);
 
                 AddmlFlatFileDefinition addmlFlatFileDefinition =
                     new AddmlFlatFileDefinition(name, fileName, fileInfo, recordSeparator, fieldSeparator, charset,
-                        recordDefinitionFieldIdentifier, numberOfRecords, format, flatFileProcesses);
+                        recordDefinitionFieldIdentifier, numberOfRecords, checksum, format, flatFileProcesses);
 
                 AddAddmlFieldDefinitions(addmlFlatFileDefinition, flatFileDefinition);
 
@@ -134,6 +170,19 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             SetForeginKeyReferences(addmlFlatFileDefinitions);
 
             return addmlFlatFileDefinitions;
+        }
+
+        private Checksum GetChecksum(string definitionReference)
+        {
+            string algorithm = GetProperty(definitionReference, "checksum", "algorithm");
+            string value = GetProperty(definitionReference, "checksum", "value");
+
+            if (algorithm == null || value == null)
+            {
+                return null;
+            }
+
+            return new Checksum(algorithm, value);
         }
 
         private void SetForeginKeyReferences(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
@@ -540,26 +589,17 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return StringUtil.ToInt(numberOfRecords);
         }
 
-        private string GetProperty(string definitionReference, string propertyName)
+        private string GetProperty(string definitionReference, params string[] propertyName)
         {
-            flatFile[] flatFiles = GetFlatFiles();
-            foreach (flatFile flatFile in flatFiles)
+            PropertyIndex propertyIndex = new PropertyIndex(definitionReference, propertyName);
+
+            if (_flatFileProperties.ContainsKey(propertyIndex))
             {
-                if (definitionReference.Equals(flatFile.definitionReference))
-                {
-                    if (flatFile.properties != null)
-                    {
-                        foreach (property property in flatFile.properties)
-                        {
-                            if (propertyName.Equals(property.name))
-                            {
-                                return property.value;
-                            }
-                        }
-                    }
-                }
+                return _flatFileProperties[propertyIndex];
+            } else
+            {
+                return null;
             }
-            return null;
         }
 
         private flatFile[] GetFlatFiles()
@@ -594,5 +634,56 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
             return datasets[0];
         }
+    }
+
+    internal class PropertyIndex
+    {
+        private readonly string _definitionReference;
+        private readonly List<string> _propertyNames;
+
+        internal PropertyIndex(string definitionReference, List<string> propertyNames)
+        {
+            _definitionReference = definitionReference;
+            _propertyNames = propertyNames;
+        }
+
+        internal PropertyIndex(string definitionReference, params string[] propertyNames)
+        {
+            _definitionReference = definitionReference;
+            _propertyNames = new List<string>(propertyNames);
+        }
+
+        protected bool Equals(PropertyIndex other)
+        {
+            return _definitionReference == other._definitionReference
+                && _propertyNames.SequenceEqual(other._propertyNames);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((PropertyIndex)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hc = _definitionReference.GetHashCode();
+                foreach (string pn in _propertyNames)
+                {
+                    hc = hc * 17 + pn.GetHashCode();
+                }
+                return hc;
+            }
+        }
+
+        public override string ToString()
+        {
+            return _definitionReference + "/" + string.Join("/", _propertyNames);
+        }
+
     }
 }

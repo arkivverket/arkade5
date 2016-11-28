@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Tests
@@ -16,14 +17,18 @@ namespace Arkivverket.Arkade.Tests
             _field = field;
         }
 
-        public static AddmlLocation FromFieldIndex(FieldIndex fieldIndex)
+        public static AddmlLocation FromFieldIndex(FieldIndex index)
         {
-            return new AddmlLocation(fieldIndex.GetFlatFileDefinitionName(), fieldIndex.GetRecordDefinitionName(),
-                fieldIndex.GetFieldDefinitionName());
+            return new AddmlLocation(index.GetFlatFileDefinitionName(), index.GetRecordDefinitionName(),
+                index.GetFieldDefinitionName());
         }
         public static AddmlLocation FromRecordIndex(RecordIndex index)
         {
             return new AddmlLocation(index.GetFlatFileDefinitionName(), index.GetRecordDefinitionName(), null);
+        }
+        public static AddmlLocation FromFlatFileIndex(FlatFileIndex index)
+        {
+            return new AddmlLocation(index.GetFlatFileDefinitionName(), null, null);
         }
 
         public override string ToString()
@@ -42,5 +47,6 @@ namespace Arkivverket.Arkade.Tests
 
             return builder.ToString();
         }
+
     }
 }
