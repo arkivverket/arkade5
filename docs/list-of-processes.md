@@ -10,6 +10,7 @@ Last updated: **2016-11-25**
 * Analyse_CountChars
 * Control_AllFixedLength
 * Control_NumberOfRecords
+* Control_Checksum (Not specified in ADDML specification)
 
 *Record processes*
 
