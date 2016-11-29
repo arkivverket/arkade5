@@ -169,6 +169,96 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkivuttrekk.
+        /// </summary>
+        public static string LoadArchiveChooseArchiveHeadingText {
+            get {
+                return ResourceManager.GetString("LoadArchiveChooseArchiveHeadingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg arkivtype.
+        /// </summary>
+        public static string LoadArchiveChooseArchiveTypeHeadingText {
+            get {
+                return ResourceManager.GetString("LoadArchiveChooseArchiveTypeHeadingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg katalog.
+        /// </summary>
+        public static string LoadArchiveChooseFolderButtonText {
+            get {
+                return ResourceManager.GetString("LoadArchiveChooseFolderButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg tar-fil.
+        /// </summary>
+        public static string LoadArchiveChooseTarFileButtonText {
+            get {
+                return ResourceManager.GetString("LoadArchiveChooseTarFileButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start testing.
+        /// </summary>
+        public static string LoadArchiveStartTestingButtonText {
+            get {
+                return ResourceManager.GetString("LoadArchiveStartTestingButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fagsystem.
+        /// </summary>
+        public static string LoadArchiveTypeFagsystem {
+            get {
+                return ResourceManager.GetString("LoadArchiveTypeFagsystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noark3.
+        /// </summary>
+        public static string LoadArchiveTypeNoark3 {
+            get {
+                return ResourceManager.GetString("LoadArchiveTypeNoark3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noark4.
+        /// </summary>
+        public static string LoadArchiveTypeNoark4 {
+            get {
+                return ResourceManager.GetString("LoadArchiveTypeNoark4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noark5.
+        /// </summary>
+        public static string LoadArchiveTypeNoark5 {
+            get {
+                return ResourceManager.GetString("LoadArchiveTypeNoark5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last inn arkivuttrekk.
+        /// </summary>
+        public static string LoadArchiveViewHeadingText {
+            get {
+                return ResourceManager.GetString("LoadArchiveViewHeadingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ny kjøring.
         /// </summary>
         public static string NewProgramSessionButton {

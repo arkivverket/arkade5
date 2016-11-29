@@ -153,6 +153,36 @@
   <data name="General_WindowTitle" xml:space="preserve">
     <value>Arkade 5 - versjon {0}</value>
   </data>
+  <data name="LoadArchiveChooseArchiveHeadingText" xml:space="preserve">
+    <value>Arkivuttrekk</value>
+  </data>
+  <data name="LoadArchiveChooseArchiveTypeHeadingText" xml:space="preserve">
+    <value>Velg arkivtype</value>
+  </data>
+  <data name="LoadArchiveChooseFolderButtonText" xml:space="preserve">
+    <value>Velg katalog</value>
+  </data>
+  <data name="LoadArchiveChooseTarFileButtonText" xml:space="preserve">
+    <value>Velg tar-fil</value>
+  </data>
+  <data name="LoadArchiveStartTestingButtonText" xml:space="preserve">
+    <value>Start testing</value>
+  </data>
+  <data name="LoadArchiveTypeFagsystem" xml:space="preserve">
+    <value>Fagsystem</value>
+  </data>
+  <data name="LoadArchiveTypeNoark3" xml:space="preserve">
+    <value>Noark3</value>
+  </data>
+  <data name="LoadArchiveTypeNoark4" xml:space="preserve">
+    <value>Noark4</value>
+  </data>
+  <data name="LoadArchiveTypeNoark5" xml:space="preserve">
+    <value>Noark5</value>
+  </data>
+  <data name="LoadArchiveViewHeadingText" xml:space="preserve">
+    <value>Last inn arkivuttrekk</value>
+  </data>
   <data name="NewProgramSessionButton" xml:space="preserve">
     <value>Ny kjøring</value>
   </data>
