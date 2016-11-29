@@ -284,5 +284,14 @@ namespace Arkivverket.Arkade.UI.Resources {
                 return ResourceManager.GetString("TestrunnerFinishedOperationMessage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feil under testkjøring.
+        /// </summary>
+        public static string TestrunnerFinishedWithError {
+            get {
+                return ResourceManager.GetString("TestrunnerFinishedWithError", resourceCulture);
+            }
+        }
     }
 }

@@ -40,6 +40,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private string _archiveFileName;
         private TestSession _testSession;
         private bool _isRunningTests;
+        private bool _testRunCompletedSuccessfully;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
         private Visibility _addmlDataObjectStatusVisibilty = Visibility.Collapsed;
@@ -133,10 +134,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveInformationEvent;
             
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
-            NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, IsFinishedRunningTests);
+            NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, CanContinueOperationOnTestRun);
             NewProgramSessionCommand = new DelegateCommand(ReturnToProgramStart, IsFinishedRunningTests);
-            //ShowReportCommand = new DelegateCommand(SaveAndShowPdfReport, IsFinishedRunningTests);
-            ShowReportCommand = new DelegateCommand(ShowHtmlReport, IsFinishedRunningTests);
+            ShowReportCommand = new DelegateCommand(ShowHtmlReport, CanContinueOperationOnTestRun);
         }
         private void OnTestStartedEvent(object sender, OperationMessageEventArgs eventArgs)
         {
@@ -166,6 +166,12 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             return !_isRunningTests;
         }
+
+        private bool CanContinueOperationOnTestRun()
+        {
+            return IsFinishedRunningTests() && _testRunCompletedSuccessfully;
+        }
+
         public void OnNavigatedTo(NavigationContext context)
         {
             _metadataFileName = (string)context.Parameters["metadataFileName"];
@@ -254,14 +260,18 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
                 TestSessionXmlGenerator.GenerateXmlAndSaveToFile(_testSession);
                 SaveHtmlReport();
-
+                _testRunCompletedSuccessfully = true;
+                _statusEventHandler.RaiseEventOperationMessage(Resources.UI.TestrunnerFinishedOperationMessage, null, OperationMessageStatus.Ok);
                 NotifyFinishedRunningTests();
             }
             catch (Exception e)
             {
+                _statusEventHandler.RaiseEventOperationMessage(Resources.UI.TestrunnerFinishedWithError, e.Message, OperationMessageStatus.Error);
+                NotifyFinishedRunningTests();
                 ExceptionMessageBox.Show(e);
                 throw;
             }
+            
         }
 
 
@@ -271,7 +281,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             ShowReportCommand.RaiseCanExecuteChanged();
             NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
             NewProgramSessionCommand.RaiseCanExecuteChanged();
-            _statusEventHandler.RaiseEventOperationMessage(Resources.UI.TestrunnerFinishedOperationMessage, null, OperationMessageStatus.Ok);
+            
         }
 
         private void NotifyStartRunningTests()
