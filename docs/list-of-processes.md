@@ -4,6 +4,12 @@ Last updated: **2016-11-25**
 
 **ADDML FlatFile (Fagsystem, Noark 3, Noark 4)**
 
+*Hardcoded processes*
+
+These processes will always run
+
+* Control_ExtraOrMissingFiles¹
+
 *File processes*
 
 * Analyse_CountRecords
@@ -11,7 +17,6 @@ Last updated: **2016-11-25**
 * Control_AllFixedLength
 * Control_NumberOfRecords
 * Control_Checksum¹
-* Control_FileExists¹
 
 *Record processes*
 

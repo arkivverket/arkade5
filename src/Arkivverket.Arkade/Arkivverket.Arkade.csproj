@@ -103,6 +103,8 @@
     <Compile Include="Core\Addml\FileProcessRunner.cs" />
     <Compile Include="Core\Addml\FixedFileFormatReader.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactory.cs" />
+    <Compile Include="Core\Addml\HardcodedProcessRunner.cs" />
+    <Compile Include="Core\Addml\IAddmlHardcodedProcess.cs" />
     <Compile Include="Core\Addml\IAddmlProcess.cs" />
     <Compile Include="Core\Addml\IRecordEnumerator.cs" />
     <Compile Include="Core\Addml\Noark4FileReader.cs" />
@@ -110,7 +112,7 @@
     <Compile Include="Core\Addml\NoarkihToAddmlTransformer.cs" />
     <Compile Include="Core\Addml\Processes\AddmlProcess.cs" />
     <Compile Include="Core\Addml\Processes\ControlAllFixedLength.cs" />
-    <Compile Include="Core\Addml\Processes\ControlFileExists.cs" />
+    <Compile Include="Core\Addml\Processes\ControlExtraOrMissingFiles.cs" />
     <Compile Include="Core\Addml\Processes\ControlChecksum.cs" />
     <Compile Include="Core\Addml\Processes\ControlDataFormat.cs" />
     <Compile Include="Core\Addml\Processes\ControlNotUsedRecordDef.cs" />

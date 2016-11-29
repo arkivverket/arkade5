@@ -225,11 +225,14 @@
   <data name="ControlDateValueMessage" xml:space="preserve">
     <value>Verdier som ikke er dato: {0}</value>
   </data>
-  <data name="ControlFileExistsDescription" xml:space="preserve">
-    <value>Kontrollerer at alle filer eksisterer</value>
+  <data name="ControlExtraOrMissingFilesDescription" xml:space="preserve">
+    <value>Kontrollerer om det finnes filer som ikke er definert i ADDML og omvendt</value>
   </data>
-  <data name="ControlFileExistsMessage" xml:space="preserve">
-    <value>Fil finnes ikke: {0}</value>
+  <data name="ControlExtraOrMissingFilesMessage1" xml:space="preserve">
+    <value>Finnes i ADDML, men ikke i arkiv</value>
+  </data>
+  <data name="ControlExtraOrMissingFilesMessage2" xml:space="preserve">
+    <value>Finnes i arkiv, men ikke i ADDML</value>
   </data>
   <data name="ControlFixedLengthDescription" xml:space="preserve">
     <value>Kontrollerer om oppgitt postlengde er korrekt (kun for fast format)</value>
