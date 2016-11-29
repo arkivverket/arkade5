@@ -71,6 +71,9 @@ namespace Arkivverket.Arkade.Logging
             StringBuilder sb = new StringBuilder("");
             foreach (var result in results)
             {
+                if (!string.IsNullOrWhiteSpace(result.Location.ToString()))
+                    sb.Append("[").Append(result.Location).Append("] ");
+
                 sb.AppendLine(result.Message);
             }
 
