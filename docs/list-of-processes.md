@@ -10,7 +10,8 @@ Last updated: **2016-11-25**
 * Analyse_CountChars
 * Control_AllFixedLength
 * Control_NumberOfRecords
-* Control_Checksum (Not specified in ADDML specification)
+* Control_Checksum¹
+* Control_FileExists¹
 
 *Record processes*
 
@@ -50,3 +51,5 @@ Last updated: **2016-11-25**
 * NumberOfClassificationSystems
 * NumberOfFolders
 * StatusOfArchiveParts
+
+¹ Not part of "ADDML - Archival Data Description Markup Language - Utvidete betingelser for bruk i Arkivverket, Norge - Versjon PA 0.09"

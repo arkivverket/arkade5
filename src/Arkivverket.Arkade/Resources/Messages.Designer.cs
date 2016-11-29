@@ -385,6 +385,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer at alle filer eksisterer.
+        /// </summary>
+        internal static string ControlFileExistsDescription {
+            get {
+                return ResourceManager.GetString("ControlFileExistsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fil finnes ikke: {0}.
+        /// </summary>
+        internal static string ControlFileExistsMessage {
+            get {
+                return ResourceManager.GetString("ControlFileExistsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollerer om oppgitt postlengde er korrekt (kun for fast format).
         /// </summary>
         internal static string ControlFixedLengthDescription {

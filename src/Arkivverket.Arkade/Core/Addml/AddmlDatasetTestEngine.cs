@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
                 IRecordEnumerator recordEnumerator = _flatFileReaderFactory.GetRecordEnumerator(testSession.Archive, file);
 
-                while (recordEnumerator.MoveNext())
+                while (recordEnumerator != null && recordEnumerator.MoveNext())
                 {
                     Record record = recordEnumerator.Current;
                     _statusEventHandler.RaiseEventRecordProcessingStart();

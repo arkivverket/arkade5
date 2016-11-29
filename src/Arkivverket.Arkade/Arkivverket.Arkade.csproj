@@ -110,6 +110,7 @@
     <Compile Include="Core\Addml\NoarkihToAddmlTransformer.cs" />
     <Compile Include="Core\Addml\Processes\AddmlProcess.cs" />
     <Compile Include="Core\Addml\Processes\ControlAllFixedLength.cs" />
+    <Compile Include="Core\Addml\Processes\ControlFileExists.cs" />
     <Compile Include="Core\Addml\Processes\ControlChecksum.cs" />
     <Compile Include="Core\Addml\Processes\ControlDataFormat.cs" />
     <Compile Include="Core\Addml\Processes\ControlNotUsedRecordDef.cs" />

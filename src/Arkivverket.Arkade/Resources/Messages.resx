@@ -225,6 +225,12 @@
   <data name="ControlDateValueMessage" xml:space="preserve">
     <value>Verdier som ikke er dato: {0}</value>
   </data>
+  <data name="ControlFileExistsDescription" xml:space="preserve">
+    <value>Kontrollerer at alle filer eksisterer</value>
+  </data>
+  <data name="ControlFileExistsMessage" xml:space="preserve">
+    <value>Fil finnes ikke: {0}</value>
+  </data>
   <data name="ControlFixedLengthDescription" xml:space="preserve">
     <value>Kontrollerer om oppgitt postlengde er korrekt (kun for fast format)</value>
   </data>
