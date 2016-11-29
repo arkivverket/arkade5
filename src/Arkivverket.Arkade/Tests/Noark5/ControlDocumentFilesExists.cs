@@ -7,7 +7,7 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    public class ControlDocumentFilesExists : ITest
+    public class ControlDocumentFilesExists : INoark5Test
     {
         private readonly ILogger _log = Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 

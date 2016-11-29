@@ -4,7 +4,7 @@ using Arkivverket.Arkade.Core.Noark5;
 
 namespace Arkivverket.Arkade.Tests
 {
-    public abstract class BaseTest : ITest
+    public abstract class BaseNoark5Test : INoark5Test
     {
         protected readonly IArchiveContentReader ArchiveReader;
 
@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Tests
 
         private TestType TestType { get; }
 
-        protected BaseTest(TestType testType, IArchiveContentReader archiveReader)
+        protected BaseNoark5Test(TestType testType, IArchiveContentReader archiveReader)
         {
             ArchiveReader = archiveReader;
             TestType = testType;

@@ -10,7 +10,7 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    class NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders : BaseTest
+    class NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders : BaseNoark5Test
     {
 
         public const string AnalysisClasses = "Simple class structures";

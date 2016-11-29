@@ -3,7 +3,7 @@ using Arkivverket.Arkade.Core.Noark5;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    public abstract class CountElementsWithUniqueName : ITest
+    public abstract class CountElementsWithUniqueName : INoark5Test
     {
         private readonly string _elementName;
         private int _counter;

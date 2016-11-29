@@ -13,9 +13,9 @@ namespace Arkivverket.Arkade.Tests.Noark5
             _archiveReader = archiveReader;
         }
 
-        public List<ITest> GetStructureTests()
+        public List<INoark5Test> GetStructureTests()
         {
-            return new List<ITest>
+            return new List<INoark5Test>
             {
          //       new Structure.CheckWellFormedArchiveStructureXml(_archiveReader),
          //       new ValidateAddmlDataobjectsChecksums(_archiveReader),
@@ -23,9 +23,9 @@ namespace Arkivverket.Arkade.Tests.Noark5
             };
         }
 
-        public List<ITest> GetContentTests(Archive archive)
+        public List<INoark5Test> GetContentTests(Archive archive)
         {
-            return new List<ITest>
+            return new List<INoark5Test>
             {
             //    new CheckWellFormedContentDescriptionXml(_archiveReader),
                 new NumberOfArchives(),
@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
             };
         }
 
-        public List<ITest> GetTests(Archive archive)
+        public List<INoark5Test> GetTests(Archive archive)
         {
             var tests = GetStructureTests();
             tests.AddRange(GetContentTests(archive));

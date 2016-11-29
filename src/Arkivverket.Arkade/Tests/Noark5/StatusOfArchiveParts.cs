@@ -6,7 +6,7 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    public class StatusOfArchiveParts : ITest
+    public class StatusOfArchiveParts : INoark5Test
     {
         private readonly List<ArkivdelStatus> _arkivdelStatuses = new List<ArkivdelStatus>();
 

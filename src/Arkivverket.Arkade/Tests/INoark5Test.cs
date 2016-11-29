@@ -3,7 +3,7 @@ using Arkivverket.Arkade.Core.Noark5;
 
 namespace Arkivverket.Arkade.Tests
 {
-    public interface ITest
+    public interface INoark5Test
     {
         string GetName();
 

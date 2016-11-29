@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
     /// <summary>
     ///     Validates that the XML is valid with regards to the XML schema. In this case the ADDML schema.
     /// </summary>
-    public class ValidateXmlWithSchema : BaseTest
+    public class ValidateXmlWithSchema : BaseNoark5Test
     {
         public ValidateXmlWithSchema(IArchiveContentReader archiveReader) : base(TestType.Structure, archiveReader)
         {
