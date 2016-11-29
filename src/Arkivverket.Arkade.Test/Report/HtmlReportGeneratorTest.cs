@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.Test.Report
             return Encoding.UTF8.GetString(ms.ToArray());
         }
 
-        [Fact(Skip = "Feiler!")]
+        [Fact]
         public void ShouldGenerateReportWithSummaryForNoark5()
         {
             TestRun testRun1 = new TestRunBuilder()
@@ -81,8 +81,7 @@ namespace Arkivverket.Arkade.Test.Report
             string html = GenerateReport(testSession);
 
             // xunit was not very happy to report errors on a very huge string
-            html.Contains("Antall tester").Should().BeTrue();
-            html.Contains("Antall filer").Should().BeFalse();
+            html.Contains("Antall filer").Should().BeTrue();
             html.Contains("Antall poster").Should().BeFalse();
         }
 
@@ -113,7 +112,6 @@ namespace Arkivverket.Arkade.Test.Report
             // xunit was not very happy to report errors on a very huge string
             html.Contains("Antall filer").Should().BeTrue();
             html.Contains("Antall poster").Should().BeTrue();
-            html.Contains("Antall tester kjørt").Should().BeFalse();
         }
     }
 }
