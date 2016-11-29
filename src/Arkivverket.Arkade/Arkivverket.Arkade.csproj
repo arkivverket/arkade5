@@ -156,6 +156,8 @@
     <Compile Include="Core\Addml\FlatFile.cs" />
     <Compile Include="Core\ArchiveWithMetadata.cs" />
     <Compile Include="Core\Arkade.cs" />
+    <Compile Include="Core\IArkadeTest.cs" />
+    <Compile Include="Core\Noark5\Noark5BaseTest.cs" />
     <Compile Include="Core\Noark5\Noark5TestEngine.cs" />
     <Compile Include="Core\Noark5\ReadElementEventArgs.cs" />
     <Compile Include="Logging\FileProcessingStatusEventArgs.cs" />
@@ -166,6 +168,11 @@
     <Compile Include="Report\IReport.cs" />
     <Compile Include="Report\PdfReport.cs" />
     <Compile Include="Report\IReportGenerator.cs" />
+    <Compile Include="Resources\Noark5TestDescriptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Noark5TestDescriptions.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Report.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -176,6 +183,7 @@
     <Compile Include="Tests\Location.cs" />
     <Compile Include="Tests\Noark5\ControlDocumentFilesExists.cs" />
     <Compile Include="Tests\Noark5\CountElementsWithUniqueName.cs" />
+    <Compile Include="Tests\TestType.cs" />
     <Compile Include="Util\ArkadeConstants.cs" />
     <Compile Include="Core\Encodings.cs" />
     <Compile Include="Core\IArchiveContentReader.cs" />
@@ -287,6 +295,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Noark5TestDescriptions.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Noark5TestDescriptions.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Report.resx">
       <Generator>ResXFileCodeGenerator</Generator>

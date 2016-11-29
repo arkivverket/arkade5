@@ -1,59 +1,65 @@
+using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
-using Serilog;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    public class ControlDocumentFilesExists : INoark5Test
+    /// <summary>
+    ///     Noark5 - test #46
+    /// </summary>
+    public class ControlDocumentFilesExists : Noark5BaseTest
     {
-        private readonly ILogger _log = Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly List<TestResult> _testResults = new List<TestResult>();
 
-        private readonly TestRun _testRun;
         private readonly DirectoryInfo _workingDirectory;
 
         public ControlDocumentFilesExists(Archive archive)
         {
-            _testRun = new TestRun(GetName(), TestType.ContentControl);
             _workingDirectory = archive.WorkingDirectory;
         }
 
-        public string GetName()
+        public override string GetName()
         {
             return Noark5Messages.ControlDocumentFilesExists;
         }
 
-        public TestRun GetTestRun()
+        public override TestType GetTestType()
         {
-            return _testRun;
+            return TestType.ContentControl;
         }
 
-        public void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
+        protected override List<TestResult> GetTestResults()
+        {
+            return _testResults;
+        }
+
+
+        protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
         }
 
-        public void OnReadEndElementEvent(object sender, ReadElementEventArgs e)
+        protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
         }
 
-        public void OnReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
+        protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("referanseDokumentfil"))
             {
                 string documentFileName = eventArgs.Value;
                 if (!FileExists(documentFileName))
                 {
-                    _testRun.Add(new TestResult(ResultType.Error, new Location(documentFileName),
+                    _testResults.Add(new TestResult(ResultType.Error, new Location(documentFileName),
                         Noark5Messages.ControlDocumentsFilesExistsMessage1));
                 }
             }
         }
 
         /// <summary>
-        /// Checks if file exists on disk. 
-        /// IMPORTANT - DO NOT PERFORM LOGGING ON EACH FILE EXISTS CHECK - IT KILLS PERFORMANCE!
+        ///     Checks if file exists on disk.
+        ///     IMPORTANT - DO NOT PERFORM LOGGING ON EACH FILE EXISTS CHECK - IT KILLS PERFORMANCE!
         /// </summary>
         /// <param name="documentFileName"></param>
         /// <returns></returns>

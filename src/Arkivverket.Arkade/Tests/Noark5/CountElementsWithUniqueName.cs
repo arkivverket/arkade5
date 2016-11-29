@@ -1,9 +1,9 @@
-using Arkivverket.Arkade.Core;
+using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Noark5;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    public abstract class CountElementsWithUniqueName : INoark5Test
+    public abstract class CountElementsWithUniqueName : Noark5BaseTest
     {
         private readonly string _elementName;
         private int _counter;
@@ -13,11 +13,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
             _elementName = elementName;
         }
 
-        public abstract string GetName();
+        public override TestType GetTestType()
+        {
+            return TestType.ContentAnalysis;
+        }
 
-        public abstract TestRun GetTestRun();
-
-        public void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
+        protected override void ReadStartElementEvent(object sender, ReadElementEventArgs e)
         {
             if (e.NameEquals(_elementName))
             {
@@ -25,22 +26,23 @@ namespace Arkivverket.Arkade.Tests.Noark5
             }
         }
 
-        public void OnReadEndElementEvent(object sender, ReadElementEventArgs e)
+        protected override void ReadEndElementEvent(object sender, ReadElementEventArgs e)
         {
         }
 
-        public void OnReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
+        protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
         }
 
-        public TestRun GetTestRun(string resultMessage)
+        protected override List<TestResult> GetTestResults()
         {
-            var testRun = new TestRun(GetName(), TestType.ContentAnalysis);
-
-            testRun.Add(new TestResult(ResultType.Success, new Location(""),
-                string.Format(resultMessage, _counter)));
-
-            return testRun;
+            var testResults = new List<TestResult>
+            {
+                new TestResult(ResultType.Success, new Location(""), string.Format(GetResultMessage(), _counter))
+            };
+            return testResults;
         }
+
+        protected abstract string GetResultMessage();
     }
 }

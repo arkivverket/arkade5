@@ -1,8 +1,10 @@
-using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
+    /// <summary>
+    ///     Noark5 - test #1
+    /// </summary>
     public class NumberOfArchives : CountElementsWithUniqueName
     {
         public NumberOfArchives() : base("arkiv")
@@ -14,9 +16,9 @@ namespace Arkivverket.Arkade.Tests.Noark5
             return Noark5Messages.NumberOfArchives;
         }
 
-        public override TestRun GetTestRun()
+        protected override string GetResultMessage()
         {
-            return GetTestRun(Noark5Messages.NumberOfArchivesMessage);
+            return Noark5Messages.NumberOfArchivesMessage;
         }
     }
 }

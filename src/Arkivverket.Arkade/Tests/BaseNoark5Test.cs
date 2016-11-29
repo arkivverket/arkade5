@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Core.Noark5;
 
 namespace Arkivverket.Arkade.Tests
 {
+    [Obsolete("Use Noark5BaseTest instead.")]
     public abstract class BaseNoark5Test : INoark5Test
     {
         protected readonly IArchiveContentReader ArchiveReader;
@@ -29,6 +30,11 @@ namespace Arkivverket.Arkade.Tests
         {
         }
 
+        public TestType GetTestType()
+        {
+            return TestType.ContentAnalysis;
+        }
+
         public virtual TestRun GetTestRun()
         {
             return new TestRun(GetName(), TestType);
@@ -37,6 +43,11 @@ namespace Arkivverket.Arkade.Tests
         public string GetName()
         {
             return Resources.Noark5Messages.ResourceManager.GetString(GetType().Name);
+        }
+
+        public string GetDescription()
+        {
+            return "use Noark5BaseTest instead.";
         }
 
         public TestRun RunTest(Archive archive)
@@ -73,12 +84,5 @@ namespace Arkivverket.Arkade.Tests
         {
             TestResults.AddAnalysisResult(key, value);
         }
-    }
-
-    public enum TestType
-    {
-        Structure,
-        ContentAnalysis,
-        ContentControl
     }
 }
