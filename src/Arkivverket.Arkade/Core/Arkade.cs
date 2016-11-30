@@ -60,10 +60,14 @@ namespace Arkivverket.Arkade.Core
             TarCompressionUtility tar = new TarCompressionUtility();
             tar.CompressFolderContentToArchiveFile(tarFile, testSession.Archive.WorkingDirectory.FullName);
 
-            string sourceInfoXml = Path.Combine(testSession.Archive.WorkingDirectory.Parent.FullName,
-                ArkadeConstants.InfoXmlFileName);
-            string destinfoXml = Path.Combine(directoryName.FullName, ArkadeConstants.InfoXmlFileName);
-            File.Copy(sourceInfoXml, destinfoXml, true);
+
+            var sourceInfoXml = new FileInfo(Path.Combine(testSession.Archive.WorkingDirectory.Parent.FullName,
+                ArkadeConstants.InfoXmlFileName));
+            if (sourceInfoXml.Exists)
+            {
+                string destinfoXml = Path.Combine(directoryName.FullName, ArkadeConstants.InfoXmlFileName);
+                File.Copy(sourceInfoXml.FullName, destinfoXml, true);
+            }
 
             return true;
         }
