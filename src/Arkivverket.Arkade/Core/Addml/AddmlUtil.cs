@@ -3,7 +3,6 @@ using System.IO;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.ExternalModels.Addml;
 using Arkivverket.Arkade.Util;
-using Arkivverket.Arkade.Test.Core;
 using System.Xml.Schema;
 
 namespace Arkivverket.Arkade.Core.Addml

@@ -1,6 +1,5 @@
 using System;
 using Arkivverket.Arkade.Core.Addml.Definitions;
-using Arkivverket.Arkade.Test.Core;
 
 namespace Arkivverket.Arkade.Core.Addml
 {

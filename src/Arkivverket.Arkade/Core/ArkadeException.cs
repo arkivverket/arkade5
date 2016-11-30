@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Arkivverket.Arkade.Test.Core
+namespace Arkivverket.Arkade.Core
 {
     public class ArkadeException : Exception
     {

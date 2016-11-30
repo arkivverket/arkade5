@@ -4,7 +4,6 @@ using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Logging;
-using Arkivverket.Arkade.Test.Core;
 using Arkivverket.Arkade.Util;
 using Serilog;
 

@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using Arkivverket.Arkade.Test.Core;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core

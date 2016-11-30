@@ -1,8 +1,8 @@
-using Arkivverket.Arkade.Test.Core;
 using Serilog;
 using System;
 using System.IO;
 using System.Xml.Serialization;
+using Arkivverket.Arkade.Core;
 
 namespace Arkivverket.Arkade.Util
 {

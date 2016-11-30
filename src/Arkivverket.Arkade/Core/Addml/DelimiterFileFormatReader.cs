@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Arkivverket.Arkade.Core.Addml.Definitions;
-using Arkivverket.Arkade.Test.Core;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml
