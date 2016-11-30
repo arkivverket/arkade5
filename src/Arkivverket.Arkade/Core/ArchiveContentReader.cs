@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Core
 {
@@ -6,13 +8,28 @@ namespace Arkivverket.Arkade.Core
     {
         public Stream GetContentAsStream(Archive archive)
         {
-            // TODO: investigate if we can cache the stream instead of creating it from scratch multiple times. When should we call Dispose() on the stream?
-            return File.OpenRead(archive.GetContentDescriptionFileName());
+            try
+            {
+                return File.OpenRead(archive.GetContentDescriptionFileName());
+            }
+            catch (Exception e)
+            {
+                string message = string.Format(Messages.FileNotFoundMessage, archive.GetContentDescriptionFileName());
+                throw new ArkadeException(message, e);
+            }
         }
 
         public Stream GetStructureContentAsStream(Archive archive)
         {
-            return File.OpenRead(archive.GetStructureDescriptionFileName());
+            try
+            {
+                return File.OpenRead(archive.GetStructureDescriptionFileName());
+            }
+            catch (Exception e)
+            {
+                string message = string.Format(Messages.FileNotFoundMessage, archive.GetStructureDescriptionFileName());
+                throw new ArkadeException(message, e);
+            }
         }
     }
 }

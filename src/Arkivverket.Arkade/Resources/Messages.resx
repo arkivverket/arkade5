@@ -306,6 +306,9 @@
   <data name="ControlUniquenessMessage2" xml:space="preserve">
     <value>Verdiene er ikke unike</value>
   </data>
+  <data name="FileNotFoundMessage" xml:space="preserve">
+    <value>Finner ikke filen: {0}</value>
+  </data>
   <data name="ReadingArchiveEvent" xml:space="preserve">
     <value>Innlesing av arkiv</value>
   </data>

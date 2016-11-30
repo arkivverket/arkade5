@@ -628,6 +628,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finner ikke filen: {0}.
+        /// </summary>
+        internal static string FileNotFoundMessage {
+            get {
+                return ResourceManager.GetString("FileNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Innlesing av arkiv.
         /// </summary>
         internal static string ReadingArchiveEvent {
