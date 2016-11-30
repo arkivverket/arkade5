@@ -1,3 +1,5 @@
+using Arkivverket.Arkade.Test.Core;
+using Serilog;
 using System;
 using System.IO;
 using System.Xml.Serialization;
@@ -6,6 +8,8 @@ namespace Arkivverket.Arkade.Util
 {
     public class SerializeUtil
     {
+        private static readonly ILogger _log = Log.ForContext<SerializeUtil>();
+
         public static T DeserializeFromFile<T>(string pathToFile)
         {
             string objectData = File.ReadAllText(pathToFile);
@@ -26,17 +30,18 @@ namespace Arkivverket.Arkade.Util
             try
             {
                 reader = new StringReader(objectData);
-
                 result = serializer.Deserialize(reader);
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error while deserializing xml file: " + objectData, e);
-            }
-            finally
-            {
+           }
+           catch (InvalidOperationException e)
+           {
+                string error = e.Message + ": " + e.InnerException?.Message;
+                _log.Error(error, e);
+                throw new ArkadeException(error);
+           }
+           finally
+           {
                 reader?.Close();
-            }
+           }
 
             return result;
         }
