@@ -15,14 +15,14 @@ namespace Arkivverket.Arkade.Tests
             _noark5TestProvider = noark5TestProvider;
         }
 
-        public List<ITest> GetTestsForArchive(Archive archive)
+        public List<INoark5Test> GetTestsForArchive(Archive archive)
         {
             if (archive.ArchiveType.Equals(ArchiveType.Noark5))
             {
                 return _noark5TestProvider.GetTests(archive);
             }
 
-            return new List<ITest>();
+            return new List<INoark5Test>();
         }
         
     }

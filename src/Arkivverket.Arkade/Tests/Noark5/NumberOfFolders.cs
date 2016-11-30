@@ -1,8 +1,10 @@
-using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
+    /// <summary>
+    ///     Noark5 - test #7
+    /// </summary>
     public class NumberOfFolders : CountElementsWithUniqueName
     {
         public NumberOfFolders() : base("mappe")
@@ -14,9 +16,9 @@ namespace Arkivverket.Arkade.Tests.Noark5
             return Noark5Messages.NumberOfFolders;
         }
 
-        public override TestRun GetTestRun()
+        protected override string GetResultMessage()
         {
-            return GetTestRun(Noark5Messages.NumberOfFoldersMessage);
+            return Noark5Messages.NumberOfFoldersMessage;
         }
     }
 }

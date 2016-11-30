@@ -1,4 +1,3 @@
-using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
@@ -17,9 +16,9 @@ namespace Arkivverket.Arkade.Tests.Noark5
             return Noark5Messages.NumberOfClassificationSystems;
         }
 
-        public override TestRun GetTestRun()
+        protected override string GetResultMessage()
         {
-            return GetTestRun(Noark5Messages.NumberOfClassificationSystemsMessage);
+            return Noark5Messages.NumberOfClassificationSystemsMessage;
         }
     }
 }

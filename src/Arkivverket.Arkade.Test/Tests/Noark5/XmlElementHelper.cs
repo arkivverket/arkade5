@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             return this;
         }
 
-        public TestRun RunEventsOnTest(ITest testClass)
+        public TestRun RunEventsOnTest(INoark5Test noark5TestClass)
         {
             var path = new Stack<string>();
             foreach (var element in _elements)
@@ -51,18 +51,18 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                 {
                     case ElementType.Start:
                         path.Push(element.Name);
-                        testClass.OnReadStartElementEvent(this, element.AsEventArgs(path));
+                        noark5TestClass.OnReadStartElementEvent(this, element.AsEventArgs(path));
                         break;
                     case ElementType.Value:
-                        testClass.OnReadElementValueEvent(this, element.AsEventArgs(path));
+                        noark5TestClass.OnReadElementValueEvent(this, element.AsEventArgs(path));
                         break;
                     case ElementType.End:
                         path.Pop();
-                        testClass.OnReadEndElementEvent(this, element.AsEventArgs(path));
+                        noark5TestClass.OnReadEndElementEvent(this, element.AsEventArgs(path));
                         break;
                 }
             }
-            return testClass.GetTestRun();
+            return noark5TestClass.GetTestRun();
         }
     }
 

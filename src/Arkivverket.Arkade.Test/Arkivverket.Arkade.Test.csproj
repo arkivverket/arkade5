@@ -125,6 +125,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Core\Addml\AddmlDatasetTestEngineTest.cs" />
+    <Compile Include="Core\Addml\Builders\AddmlDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Builders\AddmlFieldDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Builders\AddmlRecordDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParserTest.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Processes\ControlAllFixedLengthTest.cs" />
+    <Compile Include="Core\Addml\Processes\ControlExtraOrMissingFilesTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlDataFormatTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlChecksumTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlNotUsedRecordDefTest.cs" />
@@ -315,6 +317,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestData\kvotekontroll89\kvotekontroll89.XML" />
+    <Content Include="TestData\noark3\addml.xml" />
     <Content Include="TestData\noark3\noark_3_arkivuttrekk_med_prosesser.xml" />
     <Content Include="TestData\jegerreg-98-dos\arkivuttrekk.xml" />
     <Content Include="TestData\noark3-info.xml">

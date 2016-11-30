@@ -64,9 +64,33 @@ namespace Arkivverket.Arkade.Test.Logging
                 .AssertTestCategory("category1")
                 .AssertDurationMillis(123)
                 .AssertStatus("SUCCESS")
-                .AssertMessage("message1")
+                .AssertMessage("[location] message1")
                 ;
         }
 
+        [Fact]
+        public void XmlShouldContainTestResultsWithoutLocationWhenEmpty()
+        {
+            TestSession testSession = new TestSessionBuilder()
+                .WithTestRun(new TestRunBuilder()
+                    .WithTestName("test1")
+                    .WithTestCategory("category1")
+                    .WithDurationMillis(123)
+                    .WithTestResult(new TestResult(ResultType.Success, new Location(""), "message1"))
+                    .Build())
+                .Build();
+
+            string xml = TestSessionXmlGenerator.GenerateXml(testSession);
+
+            new TestSessionLogXmlAssert(xml)
+                .AssertNumberOfTestResult(1)
+                .FirstTestResult()
+                .AssertTestName("test1")
+                .AssertTestCategory("category1")
+                .AssertDurationMillis(123)
+                .AssertStatus("SUCCESS")
+                .AssertMessage("message1")
+                ;
+        }
     }
 }

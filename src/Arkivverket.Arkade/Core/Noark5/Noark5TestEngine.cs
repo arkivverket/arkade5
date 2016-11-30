@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Noark5
 
         public TestSuite RunTestsOnArchive(TestSession testSession)
         {
-            List<ITest> testsForArchive = _testProvider.GetTestsForArchive(testSession.Archive);
+            List<INoark5Test> testsForArchive = _testProvider.GetTestsForArchive(testSession.Archive);
 
             SubscribeTestsToReadElementEvent(testsForArchive);
 
@@ -84,7 +84,7 @@ namespace Arkivverket.Arkade.Core.Noark5
             return new ReadElementEventArgs(reader.Name, reader.Value, new ElementPath(path.ToList()));
         }
 
-        private static TestSuite CreateTestSuiteFromResults(List<ITest> testsForArchive)
+        private static TestSuite CreateTestSuiteFromResults(List<INoark5Test> testsForArchive)
         {
             var testSuite = new TestSuite();
             foreach (var test in testsForArchive)
@@ -93,7 +93,7 @@ namespace Arkivverket.Arkade.Core.Noark5
             return testSuite;
         }
 
-        private void SubscribeTestsToReadElementEvent(List<ITest> testsForArchive)
+        private void SubscribeTestsToReadElementEvent(List<INoark5Test> testsForArchive)
         {
             foreach (var test in testsForArchive)
             {

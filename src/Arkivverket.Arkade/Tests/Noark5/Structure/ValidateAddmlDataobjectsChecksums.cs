@@ -8,7 +8,7 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
-    public class ValidateAddmlDataobjectsChecksums : BaseTest
+    public class ValidateAddmlDataobjectsChecksums : BaseNoark5Test
     {
         public ValidateAddmlDataobjectsChecksums(IArchiveContentReader archiveReader) : base(TestType.Structure, archiveReader)
         {

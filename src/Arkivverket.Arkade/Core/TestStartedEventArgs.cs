@@ -8,9 +8,9 @@ namespace Arkivverket.Arkade.Core
         public string TestName { get; set; }
         public DateTime StartTime { get; set; }
 
-        public TestStartedEventArgs(ITest test)
+        public TestStartedEventArgs(INoark5Test noark5Test)
         {
-            TestName = test.GetName();
+            TestName = noark5Test.GetName();
             StartTime = DateTime.Now;
         }
 

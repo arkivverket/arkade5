@@ -222,4 +222,7 @@
   <data name="TestrunnerFinishedOperationMessage" xml:space="preserve">
     <value>Testingen er fullført</value>
   </data>
+  <data name="TestrunnerFinishedWithError" xml:space="preserve">
+    <value>Feil under testkjøring</value>
+  </data>
 </root>

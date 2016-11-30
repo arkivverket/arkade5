@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Logging
 {
     public interface IStatusEventHandler
     {
-        void RaiseEventTestStarted(ITest test);
+        void RaiseEventTestStarted(INoark5Test noark5Test);
         void RaiseEventTestFinished(TestRun testRun);
 
         void RaiseEventOperationMessage(string identifier, string message, OperationMessageStatus status);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Logging;
+using System.Linq;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -34,7 +35,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
                 IRecordEnumerator recordEnumerator = _flatFileReaderFactory.GetRecordEnumerator(testSession.Archive, file);
 
-                while (recordEnumerator.MoveNext())
+                while (recordEnumerator != null && recordEnumerator.MoveNext())
                 {
                     Record record = recordEnumerator.Current;
                     _statusEventHandler.RaiseEventRecordProcessingStart();
@@ -52,7 +53,12 @@ namespace Arkivverket.Arkade.Core.Addml
                 _statusEventHandler.RaiseEventFileProcessingFinished(new FileProcessingStatusEventArgs(testName, file.GetName(), true));
             }
 
-            return _addmlProcessRunner.GetTestSuite();
+            TestSuite testSuite = _addmlProcessRunner.GetTestSuite();
+
+            HardcodedProcessRunner p = new HardcodedProcessRunner(addmlDefinition, testSession.Archive);
+            p.Run().ForEach(t => testSuite.AddTestRun(t));
+
+            return testSuite;
         }
     }
 }

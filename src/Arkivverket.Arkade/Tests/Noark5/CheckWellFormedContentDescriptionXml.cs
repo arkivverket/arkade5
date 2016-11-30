@@ -4,7 +4,7 @@ using Arkivverket.Arkade.Core.Noark5;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    public class CheckWellFormedContentDescriptionXml : BaseTest
+    public class CheckWellFormedContentDescriptionXml : BaseNoark5Test
     {
         public CheckWellFormedContentDescriptionXml(IArchiveContentReader archiveReader) : base(TestType.ContentAnalysis, archiveReader)
         {

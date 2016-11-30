@@ -1,36 +1,36 @@
 ﻿using System.Collections.Generic;
-using System.Text;
-using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    public class StatusOfArchiveParts : ITest
+    /// <summary>
+    ///     Noark5 - test #3
+    /// </summary>
+    public class StatusOfArchiveParts : Noark5BaseTest
     {
         private readonly List<ArkivdelStatus> _arkivdelStatuses = new List<ArkivdelStatus>();
 
         private string _currentArkivdelName;
         private string _currentArkivdelStatus;
-        private TestRun _testRun;
 
-        public StatusOfArchiveParts()
-        {
-            _testRun = new TestRun(GetName(), TestType.ContentAnalysis);
-        }
-
-        public string GetName()
+        public override string GetName()
         {
             return Noark5Messages.StatusOfArchiveParts;
         }
 
-        public void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
+        public override TestType GetTestType()
+        {
+            return TestType.ContentAnalysis;
+        }
+
+        protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
         }
 
-        public void OnReadEndElementEvent(object sender, ReadElementEventArgs e)
+        protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (e.NameEquals("arkivdel"))
+            if (eventArgs.NameEquals("arkivdel"))
             {
                 _arkivdelStatuses.Add(new ArkivdelStatus {Arkivdel = _currentArkivdelName, Status = _currentArkivdelStatus});
 
@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
             }
         }
 
-        public void OnReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
+        protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("tittel", "arkivdel"))
             {
@@ -51,26 +51,14 @@ namespace Arkivverket.Arkade.Tests.Noark5
             }
         }
 
-        public TestRun GetTestRun()
+        protected override List<TestResult> GetTestResults()
         {
+            var testResults = new List<TestResult>();
             foreach (ArkivdelStatus arkivdelStatus in _arkivdelStatuses)
             {
-                _testRun.Add(new TestResult(ResultType.Success, new Location(""), arkivdelStatus.Arkivdel + ": " + arkivdelStatus.Status));
+                testResults.Add(new TestResult(ResultType.Success, new Location(""), arkivdelStatus.Arkivdel + ": " + arkivdelStatus.Status));
             }
-
-            return _testRun;
-        }
-
-        private string CreateResultString()
-        {
-            var builder = new StringBuilder();
-
-            foreach (ArkivdelStatus arkivdelStatus in _arkivdelStatuses)
-            {
-                builder.AppendLine(arkivdelStatus.Arkivdel + ": " + arkivdelStatus.Status);
-            }
-
-            return builder.ToString();
+            return testResults;
         }
 
         private class ArkivdelStatus

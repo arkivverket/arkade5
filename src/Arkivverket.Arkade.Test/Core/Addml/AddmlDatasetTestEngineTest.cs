@@ -11,6 +11,7 @@ using Arkivverket.Arkade.Test.Util;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Test.Core.Addml
 {
@@ -34,7 +35,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             AddmlInfo addml = AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\noark3\\noark_3_arkivuttrekk_med_prosesser.xml");
             AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml).GetAddmlDefinition();
 
-            var testSession = new TestSession(new Archive(ArchiveType.Noark3, Uuid.Random(), new DirectoryInfo(@"c:\temp")));
+            var testSession = new TestSession(new Archive(ArchiveType.Noark3, Uuid.Random(), ArkadeConstants.GetArkadeWorkDirectory()));
             testSession.AddmlDefinition = addmlDefinition;
 
             var addmlDatasetTestEngine = new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner(), new StatusEventHandler());

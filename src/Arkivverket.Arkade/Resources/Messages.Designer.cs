@@ -385,6 +385,33 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrollerer om det finnes filer som ikke er definert i ADDML og omvendt.
+        /// </summary>
+        internal static string ControlExtraOrMissingFilesDescription {
+            get {
+                return ResourceManager.GetString("ControlExtraOrMissingFilesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finnes i ADDML, men ikke i arkiv.
+        /// </summary>
+        internal static string ControlExtraOrMissingFilesMessage1 {
+            get {
+                return ResourceManager.GetString("ControlExtraOrMissingFilesMessage1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finnes i arkiv, men ikke i ADDML.
+        /// </summary>
+        internal static string ControlExtraOrMissingFilesMessage2 {
+            get {
+                return ResourceManager.GetString("ControlExtraOrMissingFilesMessage2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollerer om oppgitt postlengde er korrekt (kun for fast format).
         /// </summary>
         internal static string ControlFixedLengthDescription {
