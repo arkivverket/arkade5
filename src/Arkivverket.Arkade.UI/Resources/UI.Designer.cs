@@ -205,6 +205,24 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valgt fil.
+        /// </summary>
+        public static string LoadArchiveSelectedFileText {
+            get {
+                return ResourceManager.GetString("LoadArchiveSelectedFileText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valgt katalog.
+        /// </summary>
+        public static string LoadArchiveSelectedFolderText {
+            get {
+                return ResourceManager.GetString("LoadArchiveSelectedFolderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start testing.
         /// </summary>
         public static string LoadArchiveStartTestingButtonText {

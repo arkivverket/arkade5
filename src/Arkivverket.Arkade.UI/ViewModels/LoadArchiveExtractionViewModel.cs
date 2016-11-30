@@ -8,6 +8,7 @@ using Serilog;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.Win32;
 using System;
+using System.Windows;
 
 namespace Arkivverket.Arkade.UI.ViewModels
 {
@@ -17,6 +18,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private readonly IRegionManager _regionManager;
         private string _archiveFileName;
+        private string _archiveFileNameGuiRepresentation;
         private string _metadataFileName;
         private ArchiveType _archiveType;
         private bool _isArchiveTypeSelected;
@@ -41,6 +43,17 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 NavigateCommand.RaiseCanExecuteChanged();
             }
         }
+
+        public string ArchiveFileNameGuiRepresentation
+        {
+            get { return _archiveFileNameGuiRepresentation; }
+            set
+            {
+                SetProperty(ref _archiveFileNameGuiRepresentation, value);
+                NavigateCommand.RaiseCanExecuteChanged();
+            }
+        }
+
 
         public ArchiveType ArchiveType
         {
@@ -74,7 +87,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private void SetArchiveTypeUserInput(string archiveTypeSelected)
         {
             _log.Debug($"User set archive type to {archiveTypeSelected}");
-
             ArchiveType tempArchiveType;
             if (ArchiveType.TryParse(archiveTypeSelected, true, out tempArchiveType))
             {
@@ -124,6 +136,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             {
                 MetadataFileName = null;
             }
+            PresentChosenArchiveInGui(ArchiveFileName, false);
         }
 
         private void OpenArchiveFolderDialog()
@@ -145,6 +158,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
             {
                 MetadataFileName = null;
             }
+
+            PresentChosenArchiveInGui(ArchiveFileName, true);
         }
 
 
@@ -176,6 +191,23 @@ namespace Arkivverket.Arkade.UI.ViewModels
             }
             return selectedFileName;
         }
+
+        private void PresentChosenArchiveInGui(string archiveFileName, bool isDirectory)
+        {
+            if (isDirectory)
+            {
+                ArchiveFileNameGuiRepresentation =
+                    $"{Resources.UI.LoadArchiveSelectedFolderText}: {new DirectoryInfo(archiveFileName).Name}";
+            }
+            else
+            {
+                ArchiveFileNameGuiRepresentation =
+                    $"{Resources.UI.LoadArchiveSelectedFileText}: {Path.GetFileName(archiveFileName)}";
+            }
+        }
+
+
+
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
