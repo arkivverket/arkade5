@@ -238,8 +238,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             try
             {
-                _log.Debug("Issued the RunTests command");
-
                 NotifyStartRunningTests();
 
                 if (Directory.Exists(_archiveFileName))
@@ -258,18 +256,28 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 _testSession.TestSuite = testEngine.RunTestsOnArchive(_testSession);
                 _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords, _numberOfTestsFinished);
 
+                _testSession.AddLogEntry("Test run completed.");
                 TestSessionXmlGenerator.GenerateXmlAndSaveToFile(_testSession);
                 SaveHtmlReport();
+
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(Resources.UI.TestrunnerFinishedOperationMessage, null, OperationMessageStatus.Ok);
                 NotifyFinishedRunningTests();
             }
+            catch (ArkadeException e)
+            {
+                _testSession.AddLogEntry("Test run failed: " + e.Message);
+                _log.Error(e.Message, e);
+                _statusEventHandler.RaiseEventOperationMessage(Resources.UI.TestrunnerFinishedWithError, e.Message, OperationMessageStatus.Error);
+                NotifyFinishedRunningTests();
+            }
             catch (Exception e)
             {
+                _testSession.AddLogEntry("Test run failed: " + e.Message);
+                _log.Error(e.Message, e);
                 _statusEventHandler.RaiseEventOperationMessage(Resources.UI.TestrunnerFinishedWithError, e.Message, OperationMessageStatus.Error);
                 NotifyFinishedRunningTests();
                 ExceptionMessageBox.Show(e);
-                throw;
             }
             
         }
