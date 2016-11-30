@@ -29,7 +29,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220" />
                 <ColumnDefinition Width="350" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -51,7 +51,7 @@
             <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5" FontWeight="Bold" Visibility="{Binding AddmlFlatFileStatusVisibility}">Antall poster prosessert:</TextBlock>
             <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5" FontWeight="Bold" Visibility="{Binding AddmlDataObjectStatusVisibility}">Antall XML-elementer prosessert:</TextBlock>
 
-            <TextBlock Grid.Row="0" Grid.Column="1" Margin="5" TextWrapping="Wrap" Text="{Binding ArchiveInformationStatus.ArchiveFileName}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan ="2" Margin="5" TextWrapping="Wrap" Text="{Binding ArchiveInformationStatus.ArchiveFileName}"></TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding ArchiveInformationStatus.Uuid}"></TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding ArchiveInformationStatus.ArchiveType}"></TextBlock>
             <TextBlock Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding CurrentlyProcessingFile}"></TextBlock>
@@ -72,8 +72,8 @@
                         <Border x:Name="Border" Padding="8" BorderThickness="1" BorderBrush="{DynamicResource MaterialDesignDivider}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="620"/>
                                 </Grid.ColumnDefinitions>
 
                                 <ProgressBar Visibility="{Binding ProgressBarVisibility}" Style="{StaticResource MaterialDesignCircularProgressBar}"                     
