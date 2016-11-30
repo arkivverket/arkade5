@@ -1,9 +1,8 @@
 using System;
 using System.IO;
-using System.Xml;
-using System.Xml.Schema;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
@@ -18,14 +17,12 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         protected override void Test(Archive archive)
         {
+            Stream addmlXsd = ResourceUtil.GetResourceAsStream(ArkadeConstants.AddmlXsdResource);
+
             try
             {
-                using (var validationReader = XmlReader.Create(ArchiveReader.GetStructureContentAsStream(archive), SetupXmlValidation()))
-                {
-                    while (validationReader.Read())
-                    {
-                    }
-                }
+                XmlUtil.Validate(ArchiveReader.GetStructureContentAsStream(archive), addmlXsd);
+
                 TestSuccess(new Location(archive.GetStructureDescriptionFileName()), $"Filen {archive.GetStructureDescriptionFileName()} er validert i henhold ADDML XML-skjema.");
             }
             catch (Exception e)
@@ -36,27 +33,6 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         public override void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
         {
-        }
-
-        private static XmlReaderSettings SetupXmlValidation()
-        {
-            var settings = new XmlReaderSettings();
-            settings.ValidationType = ValidationType.Schema;
-            settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
-            settings.ValidationEventHandler += delegate(object sender, ValidationEventArgs vargs) { throw vargs.Exception; };
-            settings.Schemas.Add("http://www.arkivverket.no/standarder/addml", GetPathToAddmlSchema());
-            return settings;
-        }
-
-        private static string GetPathToAddmlSchema()
-        {
-            return AppDomain.CurrentDomain.BaseDirectory
-                   + Path.DirectorySeparatorChar
-                   + "ExternalModels"
-                   + Path.DirectorySeparatorChar
-                   + "xsd"
-                   + Path.DirectorySeparatorChar
-                   + "addml.xsd";
         }
 
     }

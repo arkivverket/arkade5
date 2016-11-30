@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -15,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Addml
         public Noark4FileReader(FlatFile file)
         {
             FileStream fileStream = file.Definition.FileInfo.OpenRead();
-            XmlReader xmlReader = XmlUtil.Read(fileStream);
+            XmlReader xmlReader = XmlReaderUtil.Read(fileStream);
 
             // TODO: Support for multiple RecordDefinitions per file
             _addmlRecordDefinition = file.Definition.AddmlRecordDefinitions[0];

@@ -4,6 +4,7 @@ using System.Xml;
 using Arkivverket.Arkade.Core.Addml;
 using FluentAssertions;
 using Xunit;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Test.Core.Addml
 {
@@ -12,7 +13,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
         [Fact]
         public void ShouldReadSimpleXml()
         {
-            XmlReader reader = XmlUtil.Read(
+            XmlReader reader = XmlReaderUtil.Read(
                 "<r>" +
                 "  <o>" +
                 "    <i1>1</i1>" +
@@ -63,7 +64,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             sb.AppendLine(@"   </AVGRADKODE>");
             sb.AppendLine(@"</AVGRADKODE.TAB>");
 
-            XmlReader reader = XmlUtil.Read(sb.ToString());
+            XmlReader reader = XmlReaderUtil.Read(sb.ToString());
             string recordName = "AVGRADKODE";
 
             XmlFormatReader xmlFormatReader = new XmlFormatReader(reader, recordName);

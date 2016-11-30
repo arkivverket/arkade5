@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
         private static XPathDocument GetNoarkih(string noark4Xml)
         {
-            XmlReader xmlReader = XmlUtil.Read(noark4Xml);
+            XmlReader xmlReader = XmlReaderUtil.Read(noark4Xml);
             return new XPathDocument(xmlReader);
         }
 

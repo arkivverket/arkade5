@@ -211,6 +211,7 @@
     <Compile Include="Util\NorwegianNameGeneratorTest.cs" />
     <Compile Include="Util\TarTests.cs" />
     <Compile Include="Util\ArkadeVersionTest.cs" />
+    <Compile Include="Util\XmlUtilTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

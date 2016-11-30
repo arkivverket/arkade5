@@ -1,10 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Xml;
 
-namespace Arkivverket.Arkade.Core.Addml
+namespace Arkivverket.Arkade.Util
 {
-    public class XmlUtil
+    public class XmlReaderUtil
     {
         // Ignore DTD in XML
         private static readonly XmlReaderSettings Settings = new XmlReaderSettings

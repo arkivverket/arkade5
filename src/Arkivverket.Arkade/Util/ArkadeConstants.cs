@@ -10,6 +10,8 @@ namespace Arkivverket.Arkade.Util
         public const string AddmlXmlFileName = "addml.xml";
         public const string InfoXmlFileName = "info.xml";
 
+        public const string AddmlXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.addml.xsd";
+
         private static readonly string UserHomeDirectoryString =
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 

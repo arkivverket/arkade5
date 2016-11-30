@@ -5,6 +5,13 @@ namespace Arkivverket.Arkade.Util
 {
     public class ResourceUtil
     {
+
+        public static Stream GetResourceAsStream(string resourceName)
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            return assembly.GetManifestResourceStream(resourceName);
+        }
+
         public static string ReadResource(string resourceName)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
