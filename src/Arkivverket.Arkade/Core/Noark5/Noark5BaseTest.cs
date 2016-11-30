@@ -7,6 +7,9 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Core.Noark5
 {
+    /// <summary>
+    /// Base class for Noark5 tests. Provides timing of operations, description text and creates TestRun.
+    /// </summary>
     public abstract class Noark5BaseTest : INoark5Test
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);

@@ -3,11 +3,19 @@ using Arkivverket.Arkade.Core.Noark5;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
+    /// <summary>
+    /// This is a helper class for all the analysis tests where we only are interested in how many elements with a specific name exists in the archive.
+    /// Note that the only thing that is checked is the name of the element. The element name must be unique for the test to be correct.
+    /// </summary>
     public abstract class CountElementsWithUniqueName : Noark5BaseTest
     {
         private readonly string _elementName;
         private int _counter;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="elementName">local name of the xml element (without namespace)</param>
         protected CountElementsWithUniqueName(string elementName)
         {
             _elementName = elementName;
