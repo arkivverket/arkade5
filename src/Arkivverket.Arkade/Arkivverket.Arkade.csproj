@@ -183,6 +183,7 @@
     <Compile Include="Tests\Location.cs" />
     <Compile Include="Tests\Noark5\ControlDocumentFilesExists.cs" />
     <Compile Include="Tests\Noark5\CountElementsWithUniqueName.cs" />
+    <Compile Include="Tests\Noark5\NumberOfRegistrations.cs" />
     <Compile Include="Tests\TestType.cs" />
     <Compile Include="Util\ArkadeConstants.cs" />
     <Compile Include="Core\Encodings.cs" />

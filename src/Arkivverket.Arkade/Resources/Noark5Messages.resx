@@ -162,6 +162,12 @@
   <data name="NumberOfFoldersMessage" xml:space="preserve">
     <value>Antall mapper: {0}</value>
   </data>
+  <data name="NumberOfRegistrations" xml:space="preserve">
+    <value>Finn antall registreringer</value>
+  </data>
+  <data name="NumberOfRegistrationsMessage" xml:space="preserve">
+    <value>Antall registreringer: {0}</value>
+  </data>
   <data name="StatusOfArchiveParts" xml:space="preserve">
     <value>Finn status på arkivdeler</value>
   </data>
