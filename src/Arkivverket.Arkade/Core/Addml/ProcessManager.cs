@@ -92,7 +92,7 @@ namespace Arkivverket.Arkade.Core.Addml
                     }
                     else
                     {
-                        Log.Warning($"No class found for process [{processName}]");
+                        Log.Warning($"Process [{processName}] is not supported. No class found in process mapping.");
                     }
                 }
                 processInstancesByGroup.Add(file, processesInstances);
