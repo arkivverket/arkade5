@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Test.Identify
             string file = TestUtil.TestDataDirectory + Path.DirectorySeparatorChar + "tar" + Path.DirectorySeparatorChar + "Noark3-eksempel-1" + Path.DirectorySeparatorChar + uuid + ".tar";
             TestSession testSession =
                 new TestSessionFactory(extractorMock.Object, identifierMock.Object, statusEventHandler)
-                    .NewSessionFromArchiveFile(ArchiveFile.Read(file));
+                    .NewSessionFromArchiveFile(ArchiveFile.Read(file,archiveType));
 
             var archive = testSession.Archive;
             archive.Should().NotBeNull();

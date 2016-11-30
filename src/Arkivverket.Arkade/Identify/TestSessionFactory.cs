@@ -27,27 +27,26 @@ namespace Arkivverket.Arkade.Identify
 
         public TestSession NewSessionFromArchiveDirectory(ArchiveDirectory archive)
         {
-            return NewSession(archive.Archive.FullName, archive.InfoXml.FullName, false);
+            return NewSession(archive.Archive.FullName, archive.ArchiveType, false);
         }
 
         public TestSession NewSessionFromArchiveFile(ArchiveFile archive)
         {
-            return NewSession(archive.Archive.FullName, archive.InfoXml.FullName, true);
+            return NewSession(archive.Archive.FullName, archive.ArchiveType, true);
         }
 
-        private TestSession NewSession(string archiveFileName, string metadataFileName, bool IsTar)
+        private TestSession NewSession(string archiveFileName, ArchiveType archiveType, bool IsTar)
         {
             _log.Information(
-                $"Building new TestSession with [archiveFileName: {archiveFileName}] [metadataFileName: {metadataFileName}");
+                $"Building new TestSession with [archiveFileName: {archiveFileName}] [archiveType: {archiveType}]");
 
             TarExtractionStartedEvent();
 
             Uuid uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFileName));
-            ArchiveType archiveType = _archiveIdentifier.Identify(metadataFileName);
 
             ArchiveInformationEvent(archiveFileName, archiveType, uuid);
 
-            string workingDirectory = PrepareWorkingDirectory(metadataFileName, uuid);
+            string workingDirectory = PrepareWorkingDirectory(uuid);
 
             DirectoryInfo archiveExtractionDirectory = new DirectoryInfo(Path.Combine(workingDirectory, uuid.GetValue()));
 
@@ -79,7 +78,7 @@ namespace Arkivverket.Arkade.Identify
             return testSession;
         }
 
-        private string PrepareWorkingDirectory(string metadataFileName, Uuid uuid)
+        private string PrepareWorkingDirectory(Uuid uuid)
         {
             string workingDirectory = GetWorkingDirectory(uuid);
             if (Directory.Exists(workingDirectory))
@@ -91,7 +90,6 @@ namespace Arkivverket.Arkade.Identify
             {
                 Directory.CreateDirectory(workingDirectory);
             }
-            CopyToDir(metadataFileName, workingDirectory);
             return workingDirectory;
         }
 

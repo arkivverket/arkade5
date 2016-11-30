@@ -36,8 +36,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
         public DelegateCommand ShowReportCommand { get; set; }
         public DelegateCommand NewProgramSessionCommand { get; set; }
 
-        private string _metadataFileName;
         private string _archiveFileName;
+        private ArchiveType _archiveType;
         private TestSession _testSession;
         private bool _isRunningTests;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
@@ -168,7 +168,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         }
         public void OnNavigatedTo(NavigationContext context)
         {
-            _metadataFileName = (string)context.Parameters["metadataFileName"];
+            _archiveType = (ArchiveType)context.Parameters["archiveType"];
             _archiveFileName = (string)context.Parameters["archiveFileName"];
 
             RunTestEngineCommand.Execute();
@@ -238,10 +238,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
                 if (Directory.Exists(_archiveFileName))
                 {
-                    _testSession = _testSessionFactory.NewSessionFromArchiveDirectory(ArchiveDirectory.Read(_archiveFileName, _metadataFileName));
+                    _testSession = _testSessionFactory.NewSessionFromArchiveDirectory(ArchiveDirectory.Read(_archiveFileName, _archiveType));
                 } else
                 {
-                    _testSession = _testSessionFactory.NewSessionFromArchiveFile(ArchiveFile.Read(_archiveFileName, _metadataFileName));
+                    _testSession = _testSessionFactory.NewSessionFromArchiveFile(ArchiveFile.Read(_archiveFileName, _archiveType));
                 }
 
                 _log.Debug(_testSession.Archive.Uuid.GetValue());

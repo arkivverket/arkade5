@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Test.Integration
         public void Test1()
         {
             ArchiveFile archive1 =
-                ArchiveFile.Read("..\\..\\TestData\\tar\\Noark3-eksempel-1\\c3db9d4e-720c-4f75-bfb6-de90231dc44c.tar");
+                ArchiveFile.Read("..\\..\\TestData\\tar\\Noark3-eksempel-1\\c3db9d4e-720c-4f75-bfb6-de90231dc44c.tar", ArchiveType.Noark3);
             //ArchiveDirectory archive2 = ArchiveDirectory.Read("..\\..\\TestData\\Noark3-eksempel-1\\");
 
             Arkade.Core.Arkade arkade = new Arkade.Core.Arkade();

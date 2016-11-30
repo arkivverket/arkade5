@@ -7,44 +7,30 @@ namespace Arkivverket.Arkade.Core
     public class ArchiveFile
     {
         public FileInfo Archive { get; }
-        public FileInfo InfoXml { get; }
+        public ArchiveType ArchiveType { get; }
 
-        private ArchiveFile(FileInfo archive, FileInfo infoXml)
+        private ArchiveFile(FileInfo archive, ArchiveType archiveType)
         {
             Archive = archive;
-            InfoXml = infoXml;
+            ArchiveType = archiveType;
         }
 
-        public static ArchiveFile Read(string archiveFile)
+        public static ArchiveFile Read(string archiveFile, ArchiveType archiveType)
         {
-            return Read(new FileInfo(archiveFile));
-        }
-
-        public static ArchiveFile Read(string archiveFile, string infoXml)
-        {
-            return Read(new FileInfo(archiveFile), new FileInfo(infoXml));
-        }
-
-        public static ArchiveFile Read(FileInfo archiveFile)
-        {
-            FileInfo infoXml = GetInfoXmlFile(archiveFile);
-            return Read(archiveFile, infoXml);
+            return Read(new FileInfo(archiveFile), archiveType);
         }
 
 
-        private static ArchiveFile Read(FileInfo archiveFile, FileInfo infoXml)
+        private static ArchiveFile Read(FileInfo archiveFile, ArchiveType archiveType)
         {
             if (!archiveFile.Exists)
             {
                 throw new ArkadeException("No such file: " + archiveFile.FullName);
             }
-            if (!infoXml.Exists)
-            {
-                throw new ArkadeException("No such file: " + infoXml.FullName);
-            }
 
-            return new ArchiveFile(archiveFile, infoXml);
+            return new ArchiveFile(archiveFile, archiveType);
         }
+
 
         private static FileInfo GetInfoXmlFile(FileInfo tarFile)
         {

@@ -16,6 +16,7 @@ namespace Arkivverket.Arkade.ConsoleTest
             string directory = @"C:\Dropbox (Arkitektum AS)\Arkade5 - Testdata\Komplette uttrekk\Noark5-alice-liten\";
             string archiveFileName = directory + @"ee07a0f9-4564-43ab-b80d-ac975ba12aed.tar";
             string metadataFileName = directory + @"info.xml";
+            ArchiveType archiveType= ArchiveType.Noark5;
             if (args.Length != 0)
             {
                 archiveFileName = args[0];
@@ -35,7 +36,7 @@ namespace Arkivverket.Arkade.ConsoleTest
             {
                 TestSessionFactory testSessionBuilder = container.Resolve<TestSessionFactory>();
                 
-                TestSession testSession = testSessionBuilder.NewSessionFromArchiveFile(ArchiveFile.Read(archiveFileName, metadataFileName));
+                TestSession testSession = testSessionBuilder.NewSessionFromArchiveFile(ArchiveFile.Read(archiveFileName, archiveType));
                 Console.WriteLine($"Reading from archive: {archiveFileName}");
                 Console.WriteLine($"Uuid: {testSession.Archive.Uuid}");
                 Console.WriteLine($"WorkingDirectory: {testSession.Archive.WorkingDirectory}");

@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Test.Integration
         [Fact]
         public void ShouldReadSmallVersionOfJegerregisteret98()
         {
-            ArchiveFile archive = ArchiveFile.Read("..\\..\\TestData\\tar\\jegerregisteret98-small\\20b5f34c-4411-47c3-a0f9-0a8bca631603.tar");
+            ArchiveFile archive = ArchiveFile.Read("..\\..\\TestData\\tar\\jegerregisteret98-small\\20b5f34c-4411-47c3-a0f9-0a8bca631603.tar", ArchiveType.Fagsystem);
             Arkade.Core.Arkade arkade = new Arkade.Core.Arkade();
             TestSession testSesson = arkade.RunTests(archive);
 

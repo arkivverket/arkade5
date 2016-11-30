@@ -21,6 +21,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private ArchiveType _archiveType;
         private bool _isArchiveTypeSelected;
 
+        // TODO: MetadataFileName is replaced by GUI selection of archiveType ... leaving code in case needed for METS based input meta file
         public string MetadataFileName
         {
             get { return _metadataFileName; }
@@ -86,9 +87,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add("archiveFileName", ArchiveFileName);
-            navigationParameters.Add("metadataFileName", MetadataFileName);
+            navigationParameters.Add("archiveType", ArchiveType);
 
-            _log.Debug("Navigating to TestRunner window with archive file {ArchiveFile} and metadata file {MetadataFile}", ArchiveFileName, MetadataFileName);
+            _log.Debug("Navigating to TestRunner window with archive file {ArchiveFile} and archive type {ArchiveType}", ArchiveFileName, ArchiveType);
 
             _regionManager.RequestNavigate("MainContentRegion", "TestRunner", navigationParameters);
         }
