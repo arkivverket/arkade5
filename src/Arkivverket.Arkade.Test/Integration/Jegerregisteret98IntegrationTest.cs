@@ -19,15 +19,6 @@ namespace Arkivverket.Arkade.Test.Integration
             testSesson.Should().NotBeNull();
             TestSuite testSuite = testSesson.TestSuite;
             testSuite.Should().NotBeNull();
-
-            /* TODO Add some tests
-            testSuite.TestRuns.Should().NotBeNullOrEmpty();
-
-            List<TestRun> analyseFindMinMaxValues = testSuite.TestRuns
-                .Where(run => run.TestName == AnalyseFindMinMaxValues.Name)
-                .ToList();
-            analyseFindMinMaxValues.Count.Should().Be(1);
-            */
         }
 
     }

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
-    // TODO: This class should be split in AddmlFieldDefinitionParser AddmlRecordDefinitionParser, etc
+    // TODO: This class should be split into different parsers for different parts of the ADDML. E.g. AddmlFieldDefinitionParser AddmlRecordDefinitionParser, etc
     public class AddmlDefinitionParser
     {
         private readonly AddmlInfo _addmlInfo;

@@ -79,12 +79,6 @@
     <Compile Include="Core\Addml\Definitions\AddmlRecordDefinition.cs" />
     <Compile Include="Core\Addml\Definitions\Checksum.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\BooleanDataType.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\AddmlBooleanParser.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\AddmlDateParser.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\AddmlFloatParser.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\AddmlIntegerParser.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\AddmlLinkParser.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\AddmlStringParser.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\DateDataType.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\DataType.cs" />
     <Compile Include="Core\Addml\Definitions\FieldIndex.cs" />

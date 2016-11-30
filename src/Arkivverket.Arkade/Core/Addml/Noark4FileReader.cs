@@ -66,10 +66,6 @@ namespace Arkivverket.Arkade.Core.Addml
                     string fieldValue = fieldValues[fieldName];
                     fields.Add(new Field(addmlFieldDefinition, fieldValue));
                 }
-                else
-                {
-                    // TODO: What should we do if field is missing from data?
-                }
             }
 
             return new Record(_addmlRecordDefinition, fields);

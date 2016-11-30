@@ -15,8 +15,6 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
     public class ControlForeignKeyTest : IDisposable
     {
         private readonly IDisposable _logCapture;
-
-        // TODO: test output does not show up in test window
         
         public ControlForeignKeyTest(ITestOutputHelper outputHelper)
         {
@@ -29,7 +27,6 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             _logCapture.Dispose();
         }
 
-        // TODO: use addml builder to generate test cases. this is way to heavy to do in each test...
         [Fact]
         public void ShouldReturnNoErrorsWhenAllForeignKeysExists()
         {

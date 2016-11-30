@@ -19,7 +19,6 @@ namespace Arkivverket.Arkade.Util
                 {
                     if (buffer.Count > 0)
                     {
-                        // TODO jostein: This may be optimized
                         yield return new string(buffer.GetRange(0, buffer.Count - delimiter.Length).ToArray());
                         buffer.Clear();
                     }

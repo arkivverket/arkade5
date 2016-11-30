@@ -6,7 +6,7 @@ using System.Text;
 namespace Arkivverket.Arkade.Core
 {
 
-    // TODO jostein:
+    // TODO:
     // Litt dumt å blande testresultater (Results og TestDuration) med statisk informasjon om testen (resten).
     // Bør splitte dette, slik at det som returneres fra en test-kjøring kun er test-resultater.
     // Selve testen kan legges inn som et interface TestProcess med Name, Type, Category og Description, som også kan brukes for Noark5
