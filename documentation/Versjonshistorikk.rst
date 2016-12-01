@@ -18,14 +18,45 @@ Dette er den andre versjonen av verktøyet som slippes for testing. Denne versjo
 
 Programmet kjører 2 forskjellige løp for arkivtrekk som er definert av en ADDML fil i flatfil struktur og Noark5 uttrekk. Noark4 utrekk blir også kjørt under ADDML løpet ved at NOARKIH.xml filen blir transformert til en ADDML gjennom en XSLT.
 
-Implementerte Noark5 tester:
+*Implementerte Noark5 tester:*
 
+#. Antall arkiver i arkivstrukturen
+#. Antall arkivdeler i arkivstrukturen
+#. Arkiveldene status i arkivstrukturen
+#. Antall klassifikasjonssystemer i arkivstrukturen
+#. Antall klasser i arkivsstrukturen
+#. Antall klasser uten underklasser eller mapper i det primære klassifikasjonssystemet i arkivstrukturen
+#. Antall mapper i arkivstrukturen
 
-Implemeterte ADDML prosesser:
+*Implemeterte ADDML prosesser:*
 
-
-
-
+#. Analyse_CountRecords
+#. Analyse_CountChars
+#. Analyse_FindExtremeRecords
+#. Analyse_CountRecordDefinitionOccurences
+#. Analyse_AllFrequenceList
+#. Analyse_CrossTable
+#. Analyse_CountNULL
+#. Analyse_FindExtremeValues
+#. Analyse_FindMinMaxValue
+#. Analyse_FrequenceList
+#. Control_AllFixedLength
+#. Control_NumberOfRecords
+#. Control_FixedLength
+#. Control_NotUsedRecordDef
+#. Control_Key 
+#. Control_ForeignKey
+#. Control_MinLength
+#. Control_MaxLength
+#. Control_DataFormat
+#. Control_NotNull
+#. Control_Uniqueness
+#. Control_Codes
+#. Control_Birthno
+#. Control_Organisationno
+#. Control_Accountno
+#. Control_Date_Value
+#. Control_Boolean_Value
 
 
 Notater:

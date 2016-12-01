@@ -142,6 +142,58 @@
 <div class="section" id="versjon-0-4-4">
 <h2>Versjon 0.4.4<a class="headerlink" href="#versjon-0-4-4" title="Permalink til denne oversikten">¶</a></h2>
 <p><em>Dato: 01.12.2016</em></p>
+<p>Dette er den andre versjonen av verktøyet som slippes for testing. Denne versjonen støtter dette:
+<em>Arkivsystem</em>
+* Noark5
+* Noark4
+* Noark3
+* Fagsystem</p>
+<p><em>Arkivinnlesing</em>
+* fra .tar fil
+* mappestruktur</p>
+<p>Programmet kjører 2 forskjellige løp for arkivtrekk som er definert av en ADDML fil i flatfil struktur og Noark5 uttrekk. Noark4 utrekk blir også kjørt under ADDML løpet ved at NOARKIH.xml filen blir transformert til en ADDML gjennom en XSLT.</p>
+<p><em>Implementerte Noark5 tester:</em></p>
+<ol class="arabic simple">
+<li>Antall arkiver i arkivstrukturen</li>
+<li>Antall arkivdeler i arkivstrukturen</li>
+<li>Arkiveldene status i arkivstrukturen</li>
+<li>Antall klassifikasjonssystemer i arkivstrukturen</li>
+<li>Antall klasser i arkivsstrukturen</li>
+<li>Antall klasser uten underklasser eller mapper i det primære klassifikasjonssystemet i arkivstrukturen</li>
+<li>Antall mapper i arkivstrukturen</li>
+</ol>
+<p><em>Implemeterte ADDML prosesser:</em></p>
+<ol class="arabic simple">
+<li>Analyse_CountRecords</li>
+<li>Analyse_CountChars</li>
+<li>Analyse_FindExtremeRecords</li>
+<li>Analyse_CountRecordDefinitionOccurences</li>
+<li>Analyse_AllFrequenceList</li>
+<li>Analyse_CrossTable</li>
+<li>Analyse_CountNULL</li>
+<li>Analyse_FindExtremeValues</li>
+<li>Analyse_FindMinMaxValue</li>
+<li>Analyse_FrequenceList</li>
+<li>Control_AllFixedLength</li>
+<li>Control_NumberOfRecords</li>
+<li>Control_FixedLength</li>
+<li>Control_NotUsedRecordDef</li>
+<li>Control_Key</li>
+<li>Control_ForeignKey</li>
+<li>Control_MinLength</li>
+<li>Control_MaxLength</li>
+<li>Control_DataFormat</li>
+<li>Control_NotNull</li>
+<li>Control_Uniqueness</li>
+<li>Control_Codes</li>
+<li>Control_Birthno</li>
+<li>Control_Organisationno</li>
+<li>Control_Accountno</li>
+<li>Control_Date_Value</li>
+<li>Control_Boolean_Value</li>
+</ol>
+<p>Notater:
+* Testloggen viser max 100 feil per test system. Dette for å unngå at maskinen går tom for internminne ved behandling av meget sotore antall feil.</p>
 </div>
 <div class="section" id="versjon-0-3-0">
 <h2>Versjon 0.3.0<a class="headerlink" href="#versjon-0-3-0" title="Permalink til denne oversikten">¶</a></h2>
