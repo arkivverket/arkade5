@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Versjonshistorikk &mdash; Arkade5 0.0.1 documentation</title>
+  <title>Versjonshistorikk &mdash; Arkade 0.4.4 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Søk" href="search.html"/>
-    <link rel="top" title="Arkade5 0.0.1 documentation" href="index.html"/>
+    <link rel="top" title="Arkade 0.4.4 documentation" href="index.html"/>
         <link rel="prev" title="Systemdokumentasjons" href="Systemdokumentasjons.html"/> 
 
   
@@ -52,7 +52,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Arkade5
+            <a href="index.html" class="icon icon-home"> Arkade
           
 
           
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.0.1
+                0.4.4
               </div>
             
           
@@ -84,11 +84,15 @@
             
             
                 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Hjem.html">Hjem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Brukerveiledning.html">Brukerveiledning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installasjonsveiledning.html">Installasjonsveiledning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Prosess liste.html">Prosess liste</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Systemdokumentasjons.html">Systemdokumentasjons</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Versjonshistorikk</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Versjonshistorikk</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#versjon-0-4-4">Versjon 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#versjon-0-3-0">Versjon 0.3.0</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -102,7 +106,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Arkade5</a>
+        <a href="index.html">Arkade</a>
       </nav>
 
 
@@ -135,6 +139,40 @@
             
   <div class="section" id="versjonshistorikk">
 <h1>Versjonshistorikk<a class="headerlink" href="#versjonshistorikk" title="Permalink til denne oversikten">¶</a></h1>
+<div class="section" id="versjon-0-4-4">
+<h2>Versjon 0.4.4<a class="headerlink" href="#versjon-0-4-4" title="Permalink til denne oversikten">¶</a></h2>
+<p><em>Dato: 01.12.2016</em></p>
+</div>
+<div class="section" id="versjon-0-3-0">
+<h2>Versjon 0.3.0<a class="headerlink" href="#versjon-0-3-0" title="Permalink til denne oversikten">¶</a></h2>
+<p><em>Dato: 03.10.2016</em></p>
+<p>Dette er første versjonen som slippes til testing. I denne versjonen har vi fokusert på infrastruktur og legge grunnlaget for det videre arbeidet med utvikling av verktøyet. Det er implementert 7 testpunkter for NOARK 5 arkivuttrekk.</p>
+<p>Brukergrensesnittet er ikke er ferdig utviklet, men danner et utgangspunkt for sluttproduktet.</p>
+<p>Verktøyet produsere ikke noen annen output enn xml-loggen på nåværende tidspunkt. Denne legges i arbeidskatalogen under c:temp sammen med arkivvutrekket som er testet.</p>
+<p>Krav som kan testes:</p>
+<p>K1.2 - Verktøyet er modulbasert - slik at det senere vil være enkelt å koble på funksjoner eller tjenester, tilpasse nye protokoller for kommunikasjon, og dessuten senere kunne skille ut en klient- og en tjenerdel</p>
+<p>K1.5 - Brukergrensesnitt er malbasert, med tanke på fremtidige nye språkversjoner</p>
+<p>K1.6 - Verktøyet lar seg enkelt installere på en Windows maskin (Windows 7, 8 og 10)</p>
+<p>K2.7 - Verktøyet kan pakke ut en TAR fil</p>
+<p>K2.8 - Verktøyet kan evaluere sjekksummer for tilhørende dokumenter i et uttrekk henhold til definerte algoritmer (SHA eller MD5 basert)</p>
+<p>K2.9 - Verktøyet kan lese inn en ADDML definisjon</p>
+<p>K2.10 - Verktøyet viser til enhver tid hva det gjør, og fremdrift for de forskjellige prosesser</p>
+<p>K3.2 - Verktøyet tester sjekksummer for alle filer i uttrekket. Det gis feilmelding og programmet avsluttes dersom disse ikke stemmer.</p>
+<p>K3.7 - Verktøyet kan teste Noark-5 ved hjelp av ADDML definisjonen, med tillegg av krav definert i Vedlegg 5. Se liste over testpunkter som er implementert nedenfor.</p>
+<p>K5.2 - Alle automatiske operasjoner logges - med tidsstempel</p>
+<p>K5.3 - Syntaks for loggen er strengt definert - og dokumentert på engelsk - som et XML format i form av en XSD fil</p>
+<p>K5.4 - Det genereres en detaljert logg i henhold til XSD definisjonen over. Det tekstlige innholdet skal være engelsk- eller norskspråklig</p>
+<p>Testpunkter som er implementert for Noark 5</p>
+<ol class="arabic simple">
+<li>Antall arkiver i arkivstrukturen</li>
+<li>Antall arkivdeler i arkivstrukturen</li>
+<li>Arkiveldene status i arkivstrukturen</li>
+<li>Antall klassifikasjonssystemer i arkivstrukturen</li>
+<li>Antall klasser i arkivsstrukturen</li>
+<li>Antall klasser uten underklasser eller mapper i det primære klassifikasjonssystemet i arkivstrukturen</li>
+<li>Antall mapper i arkivstrukturen</li>
+</ol>
+</div>
 </div>
 
 
@@ -154,7 +192,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Arkitektum AS.
+        &copy; Copyright 2016, Arkivverket.
 
     </p>
   </div>
@@ -176,7 +214,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.1',
+            VERSION:'0.4.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

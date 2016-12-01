@@ -12,9 +12,9 @@ Disse sidene vil fungere som dokumentasjonssider og den nyeste versjonen vil kun
 
 Nedlasting
 ----------
-Last ned siste versjon: arkade5-0.4.0.msi_ (2016-12-01)
+Last ned siste versjon: arkade5-0.4.4.msi_ (2016-12-01)
 
 
 .. _Arkitektum: http://www.Arkitektum.no
 .. _Arkivverket: http://http://arkivverket.no/
-.. _arkade5-0.4.0.msi: https://download.arkitektum.no/arkade/release/arkade5-0.4.0.msi
+.. _arkade5-0.4.4.msi: https://download.arkitektum.no/arkade/release/arkade5-0.4.4.msi

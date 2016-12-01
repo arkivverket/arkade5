@@ -1,7 +1,7 @@
 Brukerveiledning
 ================
 
-Versjon 0.4.2
+Versjon 0.4.4
 -------------
 
 Skjermen nedenfor vises ved oppstart av Arkade5.
@@ -39,9 +39,22 @@ Test kjøring vindu for Norak5.
 
 Rapport
 ~~~~~~~
+En HTML rapport vil automatisk genereres ved fullført testing. Rapporten vil vises i en nettleser ved å klikke på 
+knappen "Vis rapport". Et eksempel er vist nedenfor.
 
+.. image:: img\TestReport.png
 
 
 Fil informasjon
 ~~~~~~~~~~~~~~~
+Ved innlesing av et arkiv, vil programmet opprette en arbeidsmappe for uttrekket.
+Disse blir lagt i bruker filsystemet til brukeren som er innlogget på Windows PCen.
+
+Filstien for arbeidsmappene er *C:\\Users\\{bruker}\\Arkade*.
+
+.. image:: img\WorkingDirectory.png
+
+Programlogger finnes i .\logs mapppen i dette området og selve arbeidskopien finnes i .\work mappen.
+
+
 

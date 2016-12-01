@@ -14,7 +14,6 @@ Contents:
    Hjem
    Brukerveiledning
    Installasjonsveiledning
-   Prosess liste
    Systemdokumentasjons
    Versjonshistorikk
 

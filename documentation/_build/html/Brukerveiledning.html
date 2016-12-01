@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Brukerveiledning &mdash; Arkade5 0.0.1 documentation</title>
+  <title>Brukerveiledning &mdash; Arkade 0.4.4 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Søk" href="search.html"/>
-    <link rel="top" title="Arkade5 0.0.1 documentation" href="index.html"/>
+    <link rel="top" title="Arkade 0.4.4 documentation" href="index.html"/>
         <link rel="next" title="Installasjonsveiledning" href="Installasjonsveiledning.html"/>
         <link rel="prev" title="Hjem" href="Hjem.html"/> 
 
@@ -53,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Arkade5
+            <a href="index.html" class="icon icon-home"> Arkade
           
 
           
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.1
+                0.4.4
               </div>
             
           
@@ -87,7 +87,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Hjem.html">Hjem</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Brukerveiledning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#versjon-0-4-2">Versjon 0.4.2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#versjon-0-4-4">Versjon 0.4.4</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#oppstart-skjerm">Oppstart skjerm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#test-kjoring">Test kjøring</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rapport">Rapport</a></li>
@@ -97,7 +97,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Installasjonsveiledning.html">Installasjonsveiledning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Prosess liste.html">Prosess liste</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Systemdokumentasjons.html">Systemdokumentasjons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Versjonshistorikk.html">Versjonshistorikk</a></li>
 </ul>
@@ -113,7 +112,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Arkade5</a>
+        <a href="index.html">Arkade</a>
       </nav>
 
 
@@ -146,8 +145,8 @@
             
   <div class="section" id="brukerveiledning">
 <h1>Brukerveiledning<a class="headerlink" href="#brukerveiledning" title="Permalink til denne oversikten">¶</a></h1>
-<div class="section" id="versjon-0-4-2">
-<h2>Versjon 0.4.2<a class="headerlink" href="#versjon-0-4-2" title="Permalink til denne oversikten">¶</a></h2>
+<div class="section" id="versjon-0-4-4">
+<h2>Versjon 0.4.4<a class="headerlink" href="#versjon-0-4-4" title="Permalink til denne oversikten">¶</a></h2>
 <p>Skjermen nedenfor vises ved oppstart av Arkade5.
 Versjonen støtter innlesing av arkivdata av format Norak3, Noark4, Noark5 og fagsystem.
 Verktøyet kjører testere på arkivdataene.</p>
@@ -175,9 +174,17 @@ Begge versjoner viser:</p>
 </div>
 <div class="section" id="rapport">
 <h3>Rapport<a class="headerlink" href="#rapport" title="Permalink til denne oversikten">¶</a></h3>
+<p>En HTML rapport vil automatisk genereres ved fullført testing. Rapporten vil vises i en nettleser ved å klikke på
+knappen &#8220;Vis rapport&#8221;. Et eksempel er vist nedenfor.</p>
+<img alt="_images/TestReport.png" src="_images/TestReport.png" />
 </div>
 <div class="section" id="fil-informasjon">
 <h3>Fil informasjon<a class="headerlink" href="#fil-informasjon" title="Permalink til denne oversikten">¶</a></h3>
+<p>Ved innlesing av et arkiv, vil programmet opprette en arbeidsmappe for uttrekket.
+Disse blir lagt i bruker filsystemet til brukeren som er innlogget på Windows PCen.</p>
+<p>Filstien for arbeidsmappene er <em>C:\Users\{bruker}\Arkade</em>.</p>
+<img alt="_images/WorkingDirectory.png" src="_images/WorkingDirectory.png" />
+<p>Programlogger finnes i .logs mapppen i dette området og selve arbeidskopien finnes i .work mappen.</p>
 </div>
 </div>
 </div>
@@ -201,7 +208,7 @@ Begge versjoner viser:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Arkitektum AS.
+        &copy; Copyright 2016, Arkivverket.
 
     </p>
   </div>
@@ -223,7 +230,7 @@ Begge versjoner viser:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.1',
+            VERSION:'0.4.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
