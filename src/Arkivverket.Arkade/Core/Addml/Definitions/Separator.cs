@@ -8,7 +8,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
     {
         private static readonly Dictionary<string, string> SpecialSeparators = new Dictionary<string, string>
             {
-                {"CRLF", "\r\n"}
+                {"CRLF", "\r\n"},
+                {"LF", "\n"}
             };
 
         public static readonly Separator CRLF = new Separator("CRLF");
