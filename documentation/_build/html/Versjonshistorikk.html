@@ -34,7 +34,7 @@
               href="genindex.html"/>
         <link rel="search" title="Søk" href="search.html"/>
     <link rel="top" title="Arkade 0.4.4 documentation" href="index.html"/>
-        <link rel="prev" title="Systemdokumentasjons" href="Systemdokumentasjons.html"/> 
+        <link rel="prev" title="Systemdokumentasjons" href="Systemdokumentasjon.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Hjem.html">Hjem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Brukerveiledning.html">Brukerveiledning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installasjonsveiledning.html">Installasjonsveiledning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Systemdokumentasjons.html">Systemdokumentasjons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Systemdokumentasjon.html">Systemdokumentasjons</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Versjonshistorikk</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#versjon-0-4-4">Versjon 0.4.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#versjon-0-3-0">Versjon 0.3.0</a></li>
@@ -142,15 +142,15 @@
 <div class="section" id="versjon-0-4-4">
 <h2>Versjon 0.4.4<a class="headerlink" href="#versjon-0-4-4" title="Permalink til denne oversikten">¶</a></h2>
 <p><em>Dato: 01.12.2016</em></p>
-<p>Dette er den andre versjonen av verktøyet som slippes for testing. Denne versjonen støtter dette:
-<em>Arkivsystem</em>
-* Noark5
-* Noark4
-* Noark3
-* Fagsystem</p>
-<p><em>Arkivinnlesing</em>
-* fra .tar fil
-* mappestruktur</p>
+<p>Dette er den andre versjonen av verktøyet som slippes for testing.</p>
+<p>Denne versjonen støtter følgende arkivtyper:</p>
+<ul class="simple">
+<li>Noark5</li>
+<li>Noark4</li>
+<li>Noark3</li>
+<li>Fagsystem</li>
+</ul>
+<p>Arkivinnlesing kan gjøres fra mappestruktur og fra .tar-fil.</p>
 <p>Programmet kjører 2 forskjellige løp for arkivtrekk som er definert av en ADDML fil i flatfil struktur og Noark5 uttrekk. Noark4 utrekk blir også kjørt under ADDML løpet ved at NOARKIH.xml filen blir transformert til en ADDML gjennom en XSLT.</p>
 <p><em>Implementerte Noark5 tester:</em></p>
 <ol class="arabic simple">
@@ -161,8 +161,9 @@
 <li>Antall klasser i arkivsstrukturen</li>
 <li>Antall klasser uten underklasser eller mapper i det primære klassifikasjonssystemet i arkivstrukturen</li>
 <li>Antall mapper i arkivstrukturen</li>
+<li>Kontroller at refererte dokumenter eksisterer i uttrekket</li>
 </ol>
-<p><em>Implemeterte ADDML prosesser:</em></p>
+<p><em>Implementerte ADDML prosesser (Noark3, Noark4, og fagsystem):</em></p>
 <ol class="arabic simple">
 <li>Analyse_CountRecords</li>
 <li>Analyse_CountChars</li>
@@ -192,8 +193,10 @@
 <li>Control_Date_Value</li>
 <li>Control_Boolean_Value</li>
 </ol>
-<p>Notater:
-* Testloggen viser max 100 feil per test system. Dette for å unngå at maskinen går tom for internminne ved behandling av meget sotore antall feil.</p>
+<p>Notater:</p>
+<ul class="simple">
+<li>Testrapporten og testloggen viser maks 100 like avvik. Dette er gjort for å redusere faren for minneproblemer ved uttrekk med store antall like avvik.</li>
+</ul>
 </div>
 <div class="section" id="versjon-0-3-0">
 <h2>Versjon 0.3.0<a class="headerlink" href="#versjon-0-3-0" title="Permalink til denne oversikten">¶</a></h2>
@@ -235,7 +238,7 @@
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="Systemdokumentasjons.html" class="btn btn-neutral" title="Systemdokumentasjons" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Systemdokumentasjon.html" class="btn btn-neutral" title="Systemdokumentasjons" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

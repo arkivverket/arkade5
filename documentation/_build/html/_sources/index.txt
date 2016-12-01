@@ -14,6 +14,6 @@ Contents:
    Hjem
    Brukerveiledning
    Installasjonsveiledning
-   Systemdokumentasjons
+   Systemdokumentasjon
    Versjonshistorikk
 

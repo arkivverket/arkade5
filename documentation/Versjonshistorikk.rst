@@ -5,16 +5,16 @@ Versjon 0.4.4
 -------------
 *Dato: 01.12.2016*
 
-Dette er den andre versjonen av verktøyet som slippes for testing. Denne versjonen støtter dette:
-*Arkivsystem*
+Dette er den andre versjonen av verktøyet som slippes for testing. 
+
+Denne versjonen støtter følgende arkivtyper:
+
 * Noark5
 * Noark4
 * Noark3
 * Fagsystem
 
-*Arkivinnlesing*
-* fra .tar fil
-* mappestruktur
+Arkivinnlesing kan gjøres fra mappestruktur og fra .tar-fil.
 
 Programmet kjører 2 forskjellige løp for arkivtrekk som er definert av en ADDML fil i flatfil struktur og Noark5 uttrekk. Noark4 utrekk blir også kjørt under ADDML løpet ved at NOARKIH.xml filen blir transformert til en ADDML gjennom en XSLT.
 
@@ -27,8 +27,9 @@ Programmet kjører 2 forskjellige løp for arkivtrekk som er definert av en ADDM
 #. Antall klasser i arkivsstrukturen
 #. Antall klasser uten underklasser eller mapper i det primære klassifikasjonssystemet i arkivstrukturen
 #. Antall mapper i arkivstrukturen
+#. Kontroller at refererte dokumenter eksisterer i uttrekket 
 
-*Implemeterte ADDML prosesser:*
+*Implementerte ADDML prosesser (Noark3, Noark4, og fagsystem):*
 
 #. Analyse_CountRecords
 #. Analyse_CountChars
@@ -60,8 +61,8 @@ Programmet kjører 2 forskjellige løp for arkivtrekk som er definert av en ADDM
 
 
 Notater:
-* Testloggen viser max 100 feil per test system. Dette for å unngå at maskinen går tom for internminne ved behandling av meget sotore antall feil.
 
+* Testrapporten og testloggen viser maks 100 like avvik. Dette er gjort for å redusere faren for minneproblemer ved uttrekk med store antall like avvik. 
 
 
 Versjon 0.3.0
