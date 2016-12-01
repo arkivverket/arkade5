@@ -59,8 +59,9 @@
             <TextBlock Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedRecords}"></TextBlock>
             
             <Button Grid.Row="8" Grid.Column="0" Margin="20" HorizontalAlignment="Left" Content="Vis rapport"  Width="130" Height="30" Command="{Binding ShowReportCommand}"/>
-            <Button Grid.Row="8" Grid.Column="1" Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.CreatePackageButtonText}"  Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}"/>
-            <Button Grid.Row="8" Grid.Column="2" Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.NewProgramSessionButton}"  Width="130" Height="30" Command="{Binding NewProgramSessionCommand}"/>
+            <Button Grid.Row="8" Grid.Column="1" Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.NewProgramSessionButton}"  Width="130" Height="30" Command="{Binding NewProgramSessionCommand}"/>
+            <!-- Until package creation is more complete this button is hidden -->
+            <Button Grid.Row="8" Grid.Column="2" Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.CreatePackageButtonText}"  Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}" Visibility="Hidden"/>
         </Grid>
 
         <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="Bold" Margin="10">Meldinger:</TextBlock>
