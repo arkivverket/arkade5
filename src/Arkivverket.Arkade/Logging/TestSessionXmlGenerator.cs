@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Tests;
 using System.Text;
@@ -69,7 +70,7 @@ namespace Arkivverket.Arkade.Logging
         private static string ConcatMessages(List<TestResult> results)
         {
             StringBuilder sb = new StringBuilder("");
-            foreach (var result in results)
+            foreach (var result in results.Take(100)) // TODO only first 100 elements included due to out of memory issue
             {
                 if (!string.IsNullOrWhiteSpace(result.Location.ToString()))
                     sb.Append("[").Append(result.Location).Append("] ");
@@ -77,7 +78,7 @@ namespace Arkivverket.Arkade.Logging
                 sb.AppendLine(result.Message);
             }
 
-            return sb.ToString().TrimEnd();
+            return sb.ToString();
         }
 
         private static logEntriesLogEntry[] GetLogEntries(TestSession testSession)

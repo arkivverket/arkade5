@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Util;
 using System.IO;
+using System.Linq;
 
 namespace Arkivverket.Arkade.Report
 {
@@ -88,7 +89,7 @@ namespace Arkivverket.Arkade.Report
                 _stream.WriteLine(@"            </thead>");
                 _stream.WriteLine(@"            <tbody>");
 
-                foreach (TestResult testResult in testRun.Results)
+                foreach (TestResult testResult in testRun.Results.Take(100)) // TODO only first 100 results are included due to problem loading report in browser
                 {
                     _stream.WriteLine(@"            <tr>");
                     _stream.WriteLine(@"                <td>");
