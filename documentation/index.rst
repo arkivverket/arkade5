@@ -10,8 +10,8 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-   
-   Arkade5
+
+   Hjem
    Brukerveiledning
    Installasjonsveiledning
    Prosess liste

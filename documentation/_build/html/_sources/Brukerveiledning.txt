@@ -1,2 +1,47 @@
 Brukerveiledning
 ================
+
+Versjon 0.4.2
+-------------
+
+Skjermen nedenfor vises ved oppstart av Arkade5.
+Versjonen støtter innlesing av arkivdata av format Norak3, Noark4, Noark5 og fagsystem.
+Verktøyet kjører testere på arkivdataene.
+
+Oppstart skjerm
+~~~~~~~~~~~~~~~
+
+.. image:: img\StartupScreen.png
+
+Arkivet kan enten velges som en .tar fil eller rot mappen i en filstruktur (samme nivå som ADDML.XML filen). Valgene gjøres med henholdsvis "Velg tar-fil" eller "Velg katalog" knappen.
+Videre må det velges hva slags type arkiv det er ved å velge radio knappen for Norak3, Noark4, Noark5 eller Fagsystem.
+Når disse to valgene er gjort, kan "Start testing" knappen trykkes for å kjøre testene.
+
+Test kjøring
+~~~~~~~~~~~~~~~
+Vinduet for test kjøringen viser litt foskjellige data etter som om det er et Noark5 uttrekk eller et utrekk basert på en ADDML fil.
+Begge versjoner viser:
+
+* Filsti (stien som ble valgt ved start av kjøringen)
+* UUID for utrekk
+* Løpened informasjon om test kjøringen
+
+Det vises også meldinger om innlesing, rapportgenerering og fullført testing i den nedre delen av vinduet.
+
+.. image:: img\TestRunAddml.png
+
+Test kjøring vindu for Norak3, Noark4 og Fagsystemer.
+
+.. image:: img\TestRunNoark5.png
+
+Test kjøring vindu for Norak5.
+
+
+Rapport
+~~~~~~~
+
+
+
+Fil informasjon
+~~~~~~~~~~~~~~~
+
