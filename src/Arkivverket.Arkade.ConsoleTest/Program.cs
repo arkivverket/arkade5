@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.ConsoleTest
             {
                 TestSessionFactory testSessionBuilder = container.Resolve<TestSessionFactory>();
                 
-                TestSession testSession = testSessionBuilder.NewSessionFromArchiveFile(ArchiveFile.Read(archiveFileName, archiveType));
+                TestSession testSession = testSessionBuilder.NewSession(ArchiveFile.Read(archiveFileName, archiveType));
                 Console.WriteLine($"Reading from archive: {archiveFileName}");
                 Console.WriteLine($"Uuid: {testSession.Archive.Uuid}");
                 Console.WriteLine($"WorkingDirectory: {testSession.Archive.WorkingDirectory}");

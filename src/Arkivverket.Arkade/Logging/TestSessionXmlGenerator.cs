@@ -18,8 +18,9 @@ namespace Arkivverket.Arkade.Logging
 
         public static void GenerateXmlAndSaveToFile(TestSession testSession)
         {
-            DirectoryInfo workingDirectory = testSession.Archive.WorkingDirectory;
-            string pathToLogFile = workingDirectory.FullName + "\\arkade-log.xml";
+            string pathToLogFile = testSession.Archive.WorkingDirectory.RepositoryOperations()
+                .WithFile(ArkadeConstants.ArkadeXmlLogFileName)
+                .FullName;
             _log.Information("Writing xml log file to {LogFile}", pathToLogFile);
 
             testSessionLog log = GetTestSessionLog(testSession);

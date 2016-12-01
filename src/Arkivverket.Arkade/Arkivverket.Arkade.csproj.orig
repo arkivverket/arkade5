@@ -141,15 +141,13 @@
     <Compile Include="Core\Addml\RecordProcessRunner.cs" />
     <Compile Include="Core\Addml\FixedFormatReader.cs" />
     <Compile Include="Core\Addml\XmlFormatReader.cs" />
-    <Compile Include="Util\ArkadeDirectory.cs" />
-    <Compile Include="Core\WorkingDirectory.cs" />
-    <Compile Include="Util\ArkadeFile.cs" />
-    <Compile Include="Util\InformationPackageCreator.cs" />
+<<<<<<< HEAD
     <Compile Include="Core\IArkadeStructureTest.cs" />
     <Compile Include="Core\Noark5\Noark5BaseTest.cs" />
     <Compile Include="Core\Noark5\Noark5StructureBaseTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfRegistrationsPerYear.cs" />
-    <Compile Include="Tests\Noark5\NumberOfRegistrationsWithoutDocumentDescription.cs" />
+=======
+    <Compile Include="Util\InformationPackageCreator.cs" />
+>>>>>>> 51b24b9... Wip - InformationPackageCreator
     <Compile Include="Util\XmlReaderUtil.cs" />
     <Compile Include="Core\Archive.cs" />
     <Compile Include="Core\ArchiveContentReader.cs" />

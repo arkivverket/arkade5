@@ -160,7 +160,7 @@
             <!--<value><xsl:value-of select="TI.TABELL"/></value>-->
             <properties>
                 <property name="fileName">
-                    <value><xsl:value-of select="FIL/TI.FILNAVN"/></value>
+                    <value>DATA\<xsl:value-of select="FIL/TI.FILNAVN"/></value>
                 </property>
                 <property name="numberOfRecords">
                     <value><xsl:value-of select="FIL/TI.ANTPOSTER"/></value>

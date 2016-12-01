@@ -4,9 +4,9 @@ namespace Arkivverket.Arkade.Identify
 {
     public interface ITestSessionFactory
     {
-        TestSession NewSessionFromArchiveDirectory(ArchiveDirectory archive);
+        TestSession NewSession(ArchiveDirectory archiveDirectory);
 
-        TestSession NewSessionFromArchiveFile(ArchiveFile archive);
+        TestSession NewSession(ArchiveFile archiveFile);
 
     }
 }

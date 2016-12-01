@@ -1,4 +1,3 @@
-using System.IO;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core
@@ -8,10 +7,10 @@ namespace Arkivverket.Arkade.Core
         public const string ContentDescriptionFileNameNoark5 = "arkivstruktur.xml";
 
         public Uuid Uuid { get; private set; }
-        public DirectoryInfo WorkingDirectory { get; private set; }
+        public WorkingDirectory WorkingDirectory { get; private set; }
         public ArchiveType ArchiveType { get; private set; }
 
-        public Archive(ArchiveType archiveType, Uuid uuid, DirectoryInfo workingDirectory)
+        public Archive(ArchiveType archiveType, Uuid uuid, WorkingDirectory workingDirectory)
         {
             ArchiveType = archiveType;
             Uuid = uuid;
@@ -20,21 +19,24 @@ namespace Arkivverket.Arkade.Core
 
         public string GetContentDescriptionFileName()
         {
-            return $"{WorkingDirectory}{Path.DirectorySeparatorChar}{ContentDescriptionFileNameNoark5}"; // noark5 filename
+            return WorkingDirectory.Content().WithFile(ContentDescriptionFileNameNoark5).FullName;
         }
 
         public string GetStructureDescriptionFileName()
         {
-            string structureFilename = WorkingDirectory.FullName + Path.DirectorySeparatorChar;
+            string structureFilename;
             if (ArchiveType.Equals(ArchiveType.Noark5))
             {
-                structureFilename = structureFilename + "arkivuttrekk.xml";
+                structureFilename = WorkingDirectory.Content().WithFile("arkivuttrekk.xml").FullName;
+            }
+            else if (ArchiveType.Equals(ArchiveType.Noark4))
+            {
+                structureFilename = WorkingDirectory.ContentWorkDirectory().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
             }
             else
             {
-                structureFilename = structureFilename + ArkadeConstants.AddmlXmlFileName;
+                structureFilename = WorkingDirectory.Content().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
             }
-
             return structureFilename;
         }
     }

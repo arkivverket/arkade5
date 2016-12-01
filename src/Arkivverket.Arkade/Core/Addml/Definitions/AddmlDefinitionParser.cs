@@ -13,6 +13,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
     public class AddmlDefinitionParser
     {
         private readonly AddmlInfo _addmlInfo;
+        private readonly WorkingDirectory _workingDirectory;
 
         private readonly Dictionary<string, flatFileType> _flatFileTypes = new Dictionary<string, flatFileType>();
         private readonly Dictionary<string, DataType> _fieldTypes = new Dictionary<string, DataType>();
@@ -24,10 +25,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _allFieldDefinitions =
             new Dictionary<FieldIndex, AddmlFieldDefinition>();
 
-        public AddmlDefinitionParser(AddmlInfo addmlInfo)
+        public AddmlDefinitionParser(AddmlInfo addmlInfo, WorkingDirectory workingDirectory)
         {
             Assert.AssertNotNull("addmlInfo", addmlInfo);
             _addmlInfo = addmlInfo;
+            _workingDirectory = workingDirectory;
 
             PopulateFlatFileTypes();
             PopulateFieldTypes();
@@ -149,8 +151,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 string recordSeparator = GetRecordSeparator(flatFileDefinition.typeReference);
                 string fieldSeparator = GetFieldSeparator(flatFileDefinition.typeReference);
                 string fileName = GetFileName(flatFileDefinition.name);
-                FileInfo fileInfo =
-                    new FileInfo(_addmlInfo.AddmlFile.DirectoryName + Path.DirectorySeparatorChar + fileName);
+                FileInfo fileInfo = _workingDirectory.Content().WithFile(fileName);
                 string charset = GetCharset(flatFileDefinition.typeReference);
                 string recordDefinitionFieldIdentifier = flatFileDefinition.recordDefinitionFieldIdentifier;
                 int? numberOfRecords = GetNumberOfRecords(flatFileDefinition.name);

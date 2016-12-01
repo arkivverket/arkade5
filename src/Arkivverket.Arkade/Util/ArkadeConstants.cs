@@ -11,6 +11,7 @@ namespace Arkivverket.Arkade.Util
         public const string AddmlXsdFileName = "addml.xsd";
         public const string ArkivstrukturXsdFileName = "arkivstruktur.xsd";
         public const string InfoXmlFileName = "info.xml";
+        public const string ArkadeXmlLogFileName = "arkade-log.xml";
 
         public const string AddmlXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.addml.xsd";
         public const string ArkivstrukturXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.arkivstruktur.xsd";

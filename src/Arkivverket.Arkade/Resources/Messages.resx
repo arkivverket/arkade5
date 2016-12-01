@@ -309,21 +309,34 @@
   <data name="ExceptionFixedLengthSumIsNotCorrect" xml:space="preserve">
     <value>{0}: Antall tegn i FixedLength-feltet [{1}] stemmer ikke med antall tegn summert for postdefinisjonen [{2}].</value>
   </data>
+  <data name="ExceptionReadingAddmlFile" xml:space="preserve">
+    <value>Feil ved innlesing av ADDML.
+{0}</value>
+  </data>
   <data name="FileNotFoundMessage" xml:space="preserve">
     <value>Finner ikke filen: {0}</value>
+  </data>
+  <data name="Noark4ConvertNoarkihFileError" xml:space="preserve">
+    <value>Noark4 - Feil ved konvertering av {0} til {1}</value>
   </data>
   <data name="ReadingArchiveEvent" xml:space="preserve">
     <value>Innlesing av arkiv</value>
   </data>
+  <data name="ReadingArchiveEventFinishedMessage" xml:space="preserve">
+    <value>Arkivet er lest inn.</value>
+  </data>
   <data name="RunningAddmlProcessesOnFile" xml:space="preserve">
     <value>ADDML-prosesser på filen: {0}</value>
     <comment>{0} angir filnavn på filen som blir testet.</comment>
+  </data>
+  <data name="TarExtractionEvent" xml:space="preserve">
+    <value>Utpakking av arkiv</value>
   </data>
   <data name="TarExtractionMessageFinished" xml:space="preserve">
     <value>Arkivet er pakket ut til {0}</value>
     <comment>{0} angir filsti til utpakket arkiv.</comment>
   </data>
   <data name="TarExtractionMessageStarted" xml:space="preserve">
-    <value>Starter utpakking av arkiv</value>
+    <value>Starter utpakking.</value>
   </data>
 </root>

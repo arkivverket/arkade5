@@ -11,91 +11,83 @@ namespace Arkivverket.Arkade.Identify
 {
     public class TestSessionFactory : ITestSessionFactory
     {
-        private readonly IArchiveIdentifier _archiveIdentifier;
         private readonly ICompressionUtility _compressionUtility;
         private readonly ILogger _log = Log.ForContext<TestSessionFactory>();
         private readonly IStatusEventHandler _statusEventHandler;
 
-        public TestSessionFactory(ICompressionUtility compressionUtility, IArchiveIdentifier archiveIdentifier,
-            IStatusEventHandler statusEventHandler)
+        public TestSessionFactory(ICompressionUtility compressionUtility, IStatusEventHandler statusEventHandler)
         {
             _compressionUtility = compressionUtility;
-            _archiveIdentifier = archiveIdentifier;
             _statusEventHandler = statusEventHandler;
         }
 
-        public TestSession NewSessionFromArchiveDirectory(ArchiveDirectory archive)
+        public TestSession NewSession(ArchiveDirectory archiveDirectory)
         {
-            return NewSession(archive.Archive.FullName, archive.ArchiveType, false);
-        }
+            ReadingArchiveStartedEvent();
 
-        public TestSession NewSessionFromArchiveFile(ArchiveFile archive)
-        {
-            return NewSession(archive.Archive.FullName, archive.ArchiveType, true);
-        }
-
-        private TestSession NewSession(string archiveFileName, ArchiveType archiveType, bool IsTar)
-        {
+            ArchiveType archiveType = archiveDirectory.ArchiveType;
             _log.Information(
-                $"Building new TestSession with [archiveFileName: {archiveFileName}] [archiveType: {archiveType}]");
+                $"Building new TestSession from directory [archiveType: {archiveType}] [directory: {archiveDirectory.Directory.FullName}]");
+
+            Uuid uuid = Uuid.Random();
+            ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType, uuid);
+            WorkingDirectory workingDirectory = WorkingDirectory.FromUuid(uuid, archiveDirectory.Directory);
+
+            TestSession testSession = NewSession(workingDirectory, archiveType, uuid);
+
+            ReadingArchiveFinishedEvent();
+            return testSession;
+        }
+
+        public TestSession NewSession(ArchiveFile archiveFile)
+        {
+            ReadingArchiveStartedEvent();
+            _log.Information(
+                $"Building new TestSession from file [archiveType: {archiveFile.ArchiveType}] [directory: {archiveFile.File.FullName}]");
+            Uuid uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFile.File.Name));
+            ArchiveInformationEvent(archiveFile.File.Name, archiveFile.ArchiveType, uuid);
+
+            WorkingDirectory workingDirectory = WorkingDirectory.FromUuid(uuid);
 
             TarExtractionStartedEvent();
+            _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.ContentWorkDirectory().DirectoryInfo());
+            TarExtractionFinishedEvent(workingDirectory);
 
-            Uuid uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFileName));
+            TestSession testSession = NewSession(workingDirectory, archiveFile.ArchiveType, uuid);
 
-            ArchiveInformationEvent(archiveFileName, archiveType, uuid);
-
-            string workingDirectory = PrepareWorkingDirectory(uuid);
-
-            DirectoryInfo archiveExtractionDirectory = new DirectoryInfo(Path.Combine(workingDirectory, uuid.GetValue()));
-
-            // TODO: The logic in this conditional should be moved to ArchiveDirectory.ExtractToWorkDir() and ArchiveFile.ExtractToWorkDir() 
-            if (IsTar)
-            {
-                // Extract if tar
-                FileInfo archiveFileInfo = new FileInfo(archiveFileName);
-                _compressionUtility.ExtractFolderFromArchive(archiveFileInfo.FullName, archiveExtractionDirectory.FullName);
-            } else
-            {
-                // Copy recursivly if directory
-                FileUtil.DirectoryCopy(archiveFileName, archiveExtractionDirectory.FullName, true);
-            }
-
-            Archive archive = new Archive(archiveType, uuid, archiveExtractionDirectory);
+            ReadingArchiveFinishedEvent();
+            return testSession;
+        }
+        private TestSession NewSession(WorkingDirectory workingDirectory, ArchiveType archiveType, Uuid uuid)
+        {
+            Archive archive = new Archive(archiveType, uuid, workingDirectory);
 
             ConvertNoarkihToAddmlIfNoark4(archive);
-
-            TarExctractionFinishedEvent(workingDirectory);
 
             var testSession = new TestSession(archive);
             if (archiveType != ArchiveType.Noark5)
             {
                 AddmlInfo addml = AddmlUtil.ReadFromFile(archive.GetStructureDescriptionFileName());
-                testSession.AddmlDefinition = new AddmlDefinitionParser(addml).GetAddmlDefinition();
+                testSession.AddmlDefinition = new AddmlDefinitionParser(addml, workingDirectory).GetAddmlDefinition();
             }
 
             return testSession;
-        }
-
-        private string PrepareWorkingDirectory(Uuid uuid)
-        {
-            string workingDirectory = GetWorkingDirectory(uuid);
-            if (Directory.Exists(workingDirectory))
-            {
-                Directory.Delete(workingDirectory, true);
-                _log.Information("Removed folder {}", workingDirectory);
-            }
-            else
-            {
-                Directory.CreateDirectory(workingDirectory);
-            }
-            return workingDirectory;
         }
 
         private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType, Uuid uuid)
         {
             _statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
                 archiveType.ToString(), uuid.ToString(), archiveFileName));
+        }
+
+        private void ReadingArchiveStartedEvent()
+        {
+            
+        }
+
+        private void ReadingArchiveFinishedEvent()
+        {
+
         }
 
         private void TarExtractionStartedEvent()
@@ -105,26 +97,11 @@ namespace Arkivverket.Arkade.Identify
                 Resources.Messages.TarExtractionMessageStarted, OperationMessageStatus.Started);
         }
 
-        private void TarExctractionFinishedEvent(string workingDirectory)
+        private void TarExtractionFinishedEvent(WorkingDirectory workingDirectory)
         {
             _statusEventHandler.RaiseEventOperationMessage(Resources.Messages.ReadingArchiveEvent,
-                string.Format(Resources.Messages.TarExtractionMessageFinished, workingDirectory),
+                string.Format(Resources.Messages.TarExtractionMessageFinished, workingDirectory.ContentWorkDirectory().DirectoryInfo().FullName),
                 OperationMessageStatus.Ok);
-        }
-
-        private void CopyToDir(string metadataFileName, string workingDirectory)
-        {
-            if (metadataFileName != null)
-            {
-                File.Copy(metadataFileName, Path.Combine(workingDirectory, ArkadeConstants.InfoXmlFileName));
-            }
-        }
-
-        private string GetWorkingDirectory(Uuid uuid)
-        {
-            string dateString = DateTime.Now.ToString("yyyyMMddHHmmss");
-            return ArkadeConstants.GetArkadeWorkDirectory().FullName + Path.DirectorySeparatorChar + dateString + "-" +
-                   uuid.GetValue();
         }
 
         private void ConvertNoarkihToAddmlIfNoark4(Archive archive)
@@ -134,40 +111,44 @@ namespace Arkivverket.Arkade.Identify
                 return;
             }
 
-            string addmlFile =
-                archive.WorkingDirectory.FullName + Path.DirectorySeparatorChar + ArkadeConstants.AddmlXmlFileName;
+            FileInfo addmlFileInContentFolder = archive.WorkingDirectory.Content().WithFile(ArkadeConstants.AddmlXmlFileName);
 
-            if (File.Exists(addmlFile))
+            if (addmlFileInContentFolder.Exists)
             {
                 _log.Information("{0} already exists. XSLT transformation of {1} skipped.",
                     ArkadeConstants.AddmlXmlFileName, ArkadeConstants.NoarkihXmlFileName);
                 return;
             }
 
-            string noarkihFile =
-                archive.WorkingDirectory.FullName + Path.DirectorySeparatorChar + ArkadeConstants.NoarkihXmlFileName;
-            if (!File.Exists(noarkihFile))
+            FileInfo noarkihFile = archive.WorkingDirectory.Content().WithFile(ArkadeConstants.NoarkihXmlFileName);
+
+            if (!noarkihFile.Exists)
             {
-                throw new ArkadeException("No such file: " + noarkihFile);
+                throw new ArkadeException(string.Format(Resources.Messages.FileNotFoundMessage, noarkihFile.FullName));
             }
 
-            string noarkihString = File.ReadAllText(noarkihFile);
+            string noarkihString = File.ReadAllText(noarkihFile.FullName);
             try
             {
+                // TODO: Use stream instead of strings
                 string addmlString = NoarkihToAddmlTransformer.Transform(noarkihString);
 
                 // Verify correct ADDML file
                 AddmlUtil.ReadFromString(addmlString);
 
-                File.WriteAllText(addmlFile, addmlString);
+                FileInfo addmlFileToWrite = archive.WorkingDirectory.ContentWorkDirectory().WithFile(ArkadeConstants.AddmlXmlFileName);
+
+                File.WriteAllText(addmlFileToWrite.FullName, addmlString);
                 _log.Information("Successfully transformed {0} to {1}.", ArkadeConstants.NoarkihXmlFileName,
                     ArkadeConstants.AddmlXmlFileName);
             }
             catch (Exception e)
             {
-                throw new ArkadeException(
-                    "Unable to convert " + ArkadeConstants.NoarkihXmlFileName + " to " + ArkadeConstants.InfoXmlFileName,
-                    e);
+                string message = string.Format(Resources.Messages.Noark4ConvertNoarkihFileError, 
+                    ArkadeConstants.NoarkihXmlFileName,
+                    ArkadeConstants.AddmlXmlFileName);
+
+                throw new ArkadeException(message,e);
             }
         }
 

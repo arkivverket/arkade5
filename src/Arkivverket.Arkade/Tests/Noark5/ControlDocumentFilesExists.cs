@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public ControlDocumentFilesExists(Archive archive)
         {
-            _workingDirectory = archive.WorkingDirectory;
+            _workingDirectory = archive.WorkingDirectory.Content().DirectoryInfo();
         }
 
         public override string GetName()

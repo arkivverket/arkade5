@@ -28,10 +28,14 @@ namespace Arkivverket.Arkade.Core.Addml
                 Validate(fileContent, addmlXsd);
 
                 return new AddmlInfo(addml, new FileInfo(fileName));
-            } catch (ArkadeException e)
+            }
+            catch (FileNotFoundException e)
             {
-                string error = fileName + ": " + e.Message;
-                throw new ArkadeException(error, e);
+                throw new ArkadeException(string.Format(Resources.Messages.FileNotFoundMessage, fileName), e);
+            }
+            catch (Exception e)
+            {
+                throw new ArkadeException(string.Format(Resources.Messages.ExceptionReadingAddmlFile, e.Message), e);
             }
         }
 

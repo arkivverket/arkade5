@@ -22,9 +22,9 @@ namespace Arkivverket.Arkade.Test.Util
         {
             var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
 
-            var pathSourceFolder = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\Noark5\\AliceInWonderland\\";
-            var pathToTargetTarFile = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\testSuiteArchive{timestamp}.tar";
-            var pathToExtractedDirectory = AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\ExtractedData{timestamp}\\";
+            var pathSourceFolder = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\Noark5\\AliceInWonderland\\");
+            var pathToTargetTarFile = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\testSuiteArchive{timestamp}.tar");
+            var pathToExtractedDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + $"\\TestData\\Noark5\\ExtractedData{timestamp}\\");
 
             _output.WriteLine("Source folder   : " + pathSourceFolder);
             _output.WriteLine("Archived TAR    : " + pathToTargetTarFile);
@@ -37,14 +37,14 @@ namespace Arkivverket.Arkade.Test.Util
             _output.WriteLine("Extracted Archive");
 
             // Check that correct number of files were extracted:
-            var filenames = Directory.GetFiles(pathToExtractedDirectory, "*.*", SearchOption.AllDirectories);
+            var filenames = System.IO.Directory.GetFiles(pathToExtractedDirectory.FullName, "*.*", SearchOption.AllDirectories);
             var numFilesExtracted = filenames.Length;
             numFilesExtracted.Should().Be(12);
             _output.WriteLine("Verified file count in extracted Archive");
 
             // Clean up temp directory
-            Directory.Delete(pathToExtractedDirectory, true);
-            File.Delete(pathToTargetTarFile);
+            System.IO.Directory.Delete(pathToExtractedDirectory.FullName, true);
+            File.Delete(pathToTargetTarFile.FullName);
         }
     }
 }

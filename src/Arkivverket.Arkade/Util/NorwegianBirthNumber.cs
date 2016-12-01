@@ -84,7 +84,7 @@ namespace Arkivverket.Arkade.Util
                 DateTime.ParseExact(date, "ddMMyy", System.Globalization.CultureInfo.InvariantCulture);
                 return true;
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
                 return false;
             }

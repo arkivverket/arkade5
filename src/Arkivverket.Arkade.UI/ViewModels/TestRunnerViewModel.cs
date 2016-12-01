@@ -242,15 +242,15 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
                 if (Directory.Exists(_archiveFileName))
                 {
-                    _testSession = _testSessionFactory.NewSessionFromArchiveDirectory(ArchiveDirectory.Read(_archiveFileName, _archiveType));
+                    _testSession = _testSessionFactory.NewSession(ArchiveDirectory.Read(_archiveFileName, _archiveType));
                 } else
                 {
-                    _testSession = _testSessionFactory.NewSessionFromArchiveFile(ArchiveFile.Read(_archiveFileName, _archiveType));
+                    _testSession = _testSessionFactory.NewSession(ArchiveFile.Read(_archiveFileName, _archiveType));
                 }
 
                 _log.Debug(_testSession.Archive.Uuid.GetValue());
                 _log.Debug(_testSession.Archive.ArchiveType.ToString());
-                _log.Debug(_testSession.Archive.WorkingDirectory.Name);
+                _log.Debug(_testSession.Archive.WorkingDirectory.Root().DirectoryInfo().FullName);
 
                 ITestEngine testEngine = _testEngineFactory.GetTestEngine(_testSession);
                 _testSession.TestSuite = testEngine.RunTestsOnArchive(_testSession);
@@ -266,14 +266,14 @@ namespace Arkivverket.Arkade.UI.ViewModels
             }
             catch (ArkadeException e)
             {
-                _testSession.AddLogEntry("Test run failed: " + e.Message);
+                _testSession?.AddLogEntry("Test run failed: " + e.Message);
                 _log.Error(e.Message, e);
                 _statusEventHandler.RaiseEventOperationMessage(Resources.UI.TestrunnerFinishedWithError, e.Message, OperationMessageStatus.Error);
                 NotifyFinishedRunningTests();
             }
             catch (Exception e)
             {
-                _testSession.AddLogEntry("Test run failed: " + e.Message);
+                _testSession?.AddLogEntry("Test run failed: " + e.Message);
                 _log.Error(e.Message, e);
                 _statusEventHandler.RaiseEventOperationMessage(Resources.UI.TestrunnerFinishedWithError, e.Message, OperationMessageStatus.Error);
                 NotifyFinishedRunningTests();

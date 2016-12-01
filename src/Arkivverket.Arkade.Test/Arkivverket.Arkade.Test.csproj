@@ -162,7 +162,6 @@
     <Compile Include="Core\Addml\Processes\AnalyseCountRecordsTest.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountRecordDefinitionOccurencesTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKeyTest.cs" />
-    <Compile Include="Core\Addml\Kvotekontroll89Test.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
     <Compile Include="Core\Addml\Jegerreg98Test.cs" />
     <Compile Include="Core\Addml\FixedFormatReaderTest.cs" />
@@ -204,6 +203,7 @@
     <Compile Include="Tests\Noark5\NumberOfRegistrationsWithoutDocumentDescriptionTest.cs" />
     <Compile Include="Util\AssertTest.cs" />
     <Compile Include="Util\ChecksumTest.cs" />
+    <Compile Include="Util\InformationPackageCreatorTest.cs" />
     <Compile Include="Util\LoggingHelper.cs" />
     <Compile Include="Util\NorwegianOrganizationNumberTest.cs" />
     <Compile Include="Util\NorwegianAccountNumberTest.cs" />

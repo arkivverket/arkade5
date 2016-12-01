@@ -20,9 +20,9 @@ namespace Arkivverket.Arkade.Util
 
             DirectoryInfo[] dirs = dir.GetDirectories();
             // If the destination directory doesn't exist, create it.
-            if (!Directory.Exists(destDirName))
+            if (!System.IO.Directory.Exists(destDirName))
             {
-                Directory.CreateDirectory(destDirName);
+                System.IO.Directory.CreateDirectory(destDirName);
             }
 
             // Get the files in the directory and copy them to the new location.

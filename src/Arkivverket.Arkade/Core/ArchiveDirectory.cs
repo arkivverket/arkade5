@@ -5,12 +5,12 @@ namespace Arkivverket.Arkade.Core
 {
     public class ArchiveDirectory
     {
-        public DirectoryInfo Archive { get; }
+        public DirectoryInfo Directory { get; }
         public ArchiveType ArchiveType { get; }
 
-        private ArchiveDirectory(DirectoryInfo archive, ArchiveType archiveType)
+        private ArchiveDirectory(DirectoryInfo directory, ArchiveType archiveType)
         {
-            Archive = archive;
+            Directory = directory;
             ArchiveType = archiveType;
         }
 

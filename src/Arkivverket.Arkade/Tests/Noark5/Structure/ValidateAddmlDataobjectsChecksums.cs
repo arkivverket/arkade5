@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
                     foreach (var fileProperty in currentObject.properties.Where(s => s.name == "file"))
                     {
                         string fileName = GetFileNameFromProperty(fileProperty);
-                        var fullPathToFile = archive.WorkingDirectory.FullName + Path.DirectorySeparatorChar + fileName;
+                        var fullPathToFile = archive.WorkingDirectory.Content().DirectoryInfo().FullName + Path.DirectorySeparatorChar + fileName;
 
                         var checksumAlgorithm = GetChecksumAlgorithmFromProperty(fileProperty);
 

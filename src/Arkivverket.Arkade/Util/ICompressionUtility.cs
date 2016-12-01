@@ -1,10 +1,11 @@
-﻿namespace Arkivverket.Arkade.Util
+﻿using System.IO;
+
+namespace Arkivverket.Arkade.Util
 {
     public interface ICompressionUtility
     {
-        //TODO: FileInfo and DirectoryInfo should be used here
-        void ExtractFolderFromArchive(string fileName, string targetFolderName);
+        void ExtractFolderFromArchive(FileInfo file, DirectoryInfo targetDirectory);
 
-        void CompressFolderContentToArchiveFile(string targetFileName, string sourceFileFolder);
+        void CompressFolderContentToArchiveFile(FileInfo targetFileName, DirectoryInfo sourceFileFolder);
     }
 }

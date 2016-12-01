@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             Stopwatch _stopwatch = new Stopwatch();
 
             _stopwatch.Start();
-            List<string> allFilesInWorkingDirectory = GetAllFilesInDirectory(_archive.WorkingDirectory);
+            List<string> allFilesInWorkingDirectory = GetAllFilesInDirectory(_archive.WorkingDirectory.Content().DirectoryInfo());
             allFilesInWorkingDirectory = FilterKnownFiles(allFilesInWorkingDirectory);
             List<string> allFilesInAddml = GetAllFilesInAddmlDefinition(_addmlDefinition);
 
@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         private List<string> GetAllFilesInDirectory(DirectoryInfo directory)
         {
-            string[] files = Directory.GetFiles(directory.FullName, "*", SearchOption.AllDirectories);
+            string[] files = System.IO.Directory.GetFiles(directory.FullName, "*", SearchOption.AllDirectories);
 
             return files
                 .Select(f => f.Substring(directory.FullName.Length + 1))

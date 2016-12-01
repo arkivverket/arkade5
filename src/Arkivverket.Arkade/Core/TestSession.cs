@@ -39,15 +39,7 @@ namespace Arkivverket.Arkade.Core
 
         public DirectoryInfo GetReportDirectory()
         {
-            DirectoryInfo workDir = Archive.WorkingDirectory;
-            DirectoryInfo reportDir = new DirectoryInfo(Path.Combine(workDir.FullName, "reports"));
-
-            if (!reportDir.Exists)
-            {
-                reportDir.Create();
-            }
-
-            return reportDir;
+            return Archive.WorkingDirectory.RepositoryOperations().DirectoryInfo();
         }
     }
 }

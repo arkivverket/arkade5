@@ -16,19 +16,18 @@ namespace Arkivverket.Arkade.Core
         public Arkade()
         {
             // TODO: Use autofac!
-            _testSessionFactory = new TestSessionFactory(new TarCompressionUtility(), new ArchiveIdentifier(),
-                new StatusEventHandler());
+            _testSessionFactory = new TestSessionFactory(new TarCompressionUtility(), new StatusEventHandler());
         }
 
         public TestSession RunTests(ArchiveDirectory archive)
         {
-            TestSession testSession = _testSessionFactory.NewSessionFromArchiveDirectory(archive);
+            TestSession testSession = _testSessionFactory.NewSession(archive);
             return RunTests(testSession);
         }
 
         public TestSession RunTests(ArchiveFile archive)
         {
-            TestSession testSession = _testSessionFactory.NewSessionFromArchiveFile(archive);
+            TestSession testSession = _testSessionFactory.NewSession(archive);
             return RunTests(testSession);
         }
 
@@ -55,12 +54,11 @@ namespace Arkivverket.Arkade.Core
             {
                 directoryName.Create();
             }
-            string tarFile = Path.Combine(directoryName.FullName, testSession.Archive.Uuid.GetValue() + ".tar");
+            FileInfo tarFile = new FileInfo(Path.Combine(directoryName.FullName, testSession.Archive.Uuid.GetValue() + ".tar"));
             TarCompressionUtility tar = new TarCompressionUtility();
-            tar.CompressFolderContentToArchiveFile(tarFile, testSession.Archive.WorkingDirectory.FullName);
+            tar.CompressFolderContentToArchiveFile(tarFile, testSession.Archive.WorkingDirectory.Root().DirectoryInfo());
 
-
-            var sourceInfoXml = new FileInfo(Path.Combine(testSession.Archive.WorkingDirectory.Parent.FullName,
+            var sourceInfoXml = new FileInfo(Path.Combine(testSession.Archive.WorkingDirectory.Root().DirectoryInfo().FullName,
                 ArkadeConstants.InfoXmlFileName));
             if (sourceInfoXml.Exists)
             {

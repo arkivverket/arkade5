@@ -16,15 +16,15 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
         [Fact]
         public void ShouldReportWhenFileInArchiveIsNotReferencedInAddml()
         {
-            DirectoryInfo workingDirectory = new DirectoryInfo(TestUtil.TestDataDirectory + "noark3");
+            WorkingDirectory workingDirectory = new WorkingDirectory(null, new DirectoryInfo(TestUtil.TestDataDirectory + "noark3"));
 
             AddmlFlatFileDefinition flatFileDefinition1 = new AddmlFlatFileDefinitionBuilder()
-                .WithFileInfo(new FileInfo(workingDirectory.FullName + Path.DirectorySeparatorChar + "nosuchfile.txt"))
+                .WithFileInfo(new FileInfo(workingDirectory.Content().DirectoryInfo().FullName + Path.DirectorySeparatorChar + "nosuchfile.txt"))
                 .WithFileName("nosuchfile.txt")
                 .Build();
 
             AddmlFlatFileDefinition flatFileDefinition2 = new AddmlFlatFileDefinitionBuilder()
-                .WithFileInfo(new FileInfo(workingDirectory.FullName + Path.DirectorySeparatorChar + "ARKIV.DAT"))
+                .WithFileInfo(new FileInfo(workingDirectory.Content().DirectoryInfo().FullName + Path.DirectorySeparatorChar + "ARKIV.DAT"))
                 .WithFileName("ARKIV.DAT")
                 .Build();
 

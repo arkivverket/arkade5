@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
+using Arkivverket.Arkade.Util;
 using FluentAssertions;
 using Xunit;
 
@@ -18,9 +21,12 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             //string addmlString = NoarkihToAddmlTransformer.Transform(noarkihString);
 
             // File is converted from NOARKIH.XML format
-            AddmlInfo addml = AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\noark4\\addml.xml");
 
-            AddmlDefinitionParser parser = new AddmlDefinitionParser(addml);
+            var externalContentDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\TestData\\noark4\\");
+            var workingDirectory = new WorkingDirectory(ArkadeConstants.GetArkadeWorkDirectory(), externalContentDirectory);
+            AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content().WithFile("addml.xml").FullName);
+
+            AddmlDefinitionParser parser = new AddmlDefinitionParser(addml, workingDirectory);
 
             AddmlDefinition addmlDefinition = parser.GetAddmlDefinition();
 

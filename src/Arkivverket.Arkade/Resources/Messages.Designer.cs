@@ -637,11 +637,30 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feil ved innlesing av ADDML.
+        ///{0}.
+        /// </summary>
+        internal static string ExceptionReadingAddmlFile {
+            get {
+                return ResourceManager.GetString("ExceptionReadingAddmlFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finner ikke filen: {0}.
         /// </summary>
         internal static string FileNotFoundMessage {
             get {
                 return ResourceManager.GetString("FileNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noark4 - Feil ved konvertering av {0} til {1}.
+        /// </summary>
+        internal static string Noark4ConvertNoarkihFileError {
+            get {
+                return ResourceManager.GetString("Noark4ConvertNoarkihFileError", resourceCulture);
             }
         }
         
@@ -655,11 +674,29 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkivet er lest inn..
+        /// </summary>
+        internal static string ReadingArchiveEventFinishedMessage {
+            get {
+                return ResourceManager.GetString("ReadingArchiveEventFinishedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADDML-prosesser på filen: {0}.
         /// </summary>
         internal static string RunningAddmlProcessesOnFile {
             get {
                 return ResourceManager.GetString("RunningAddmlProcessesOnFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Utpakking av arkiv.
+        /// </summary>
+        internal static string TarExtractionEvent {
+            get {
+                return ResourceManager.GetString("TarExtractionEvent", resourceCulture);
             }
         }
         
@@ -673,7 +710,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Starter utpakking av arkiv.
+        ///   Looks up a localized string similar to Starter utpakking..
         /// </summary>
         internal static string TarExtractionMessageStarted {
             get {

@@ -29,13 +29,14 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             _logCapture.Dispose();
         }
 
-        [Fact]
+        [Fact(Skip = "integration test - should avoid file reading")]
         public void ShouldReturnTestSuiteFromTests()
         {
-            AddmlInfo addml = AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\noark3\\noark_3_arkivuttrekk_med_prosesser.xml");
-            AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml).GetAddmlDefinition();
+            var workingDirectory = new WorkingDirectory(ArkadeConstants.GetArkadeWorkDirectory(), new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\TestData\\noark3\\"));
+            AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Root().WithFile("noark_3_arkivuttrekk_med_prosesser.xml").FullName);
+            AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml, workingDirectory).GetAddmlDefinition();
 
-            var testSession = new TestSession(new Archive(ArchiveType.Noark3, Uuid.Random(), ArkadeConstants.GetArkadeWorkDirectory()));
+            var testSession = new TestSession(new Archive(ArchiveType.Noark3, Uuid.Random(), workingDirectory));
             testSession.AddmlDefinition = addmlDefinition;
 
             var addmlDatasetTestEngine = new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner(), new StatusEventHandler());

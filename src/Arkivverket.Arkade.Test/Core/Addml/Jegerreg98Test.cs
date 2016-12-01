@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
+using Arkivverket.Arkade.Util;
 using FluentAssertions;
 using Xunit;
 
@@ -13,11 +16,12 @@ namespace Arkivverket.Arkade.Test.Core.Addml
         [Fact]
         public void ShouldParseJegerreg98ArkivuttrekkXml()
         {
-            AddmlInfo addml = AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\jegerreg-98-dos\\arkivuttrekk.xml");
+            var externalContentDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\TestData\\jegerreg-98-dos\\");
+            var workingDirectory = new WorkingDirectory(ArkadeConstants.GetArkadeWorkDirectory(), externalContentDirectory);
+            AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content().WithFile("arkivuttrekk.xml").FullName);
 
-            AddmlDefinitionParser parser = new AddmlDefinitionParser(addml);
+            AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml, workingDirectory).GetAddmlDefinition();
 
-            AddmlDefinition addmlDefinition = parser.GetAddmlDefinition();
             List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
             addmlFlatFileDefinitions.Count.Should().Be(10);
             {

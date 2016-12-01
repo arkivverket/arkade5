@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Addml
             XslCompiledTransform xslTransform = new XslCompiledTransform();
             xslTransform.Load(xsltFile);
             xslTransform.Transform(input, null, addmlOutput);
-
+            // TODO: Use Stream instead??
             return addmlWriter.ToString();
         }
 

@@ -4,26 +4,28 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Util
 {
+    /// <summary>
+    ///  Using SharpZipLib for tar operations
+    /// </summary>
     public class TarCompressionUtility : ICompressionUtility
     {
         private readonly ILogger _log = Log.ForContext<TarCompressionUtility>();
 
-        // Tar file utilities built on nuget package SharpZipLib.0.86.0
-        public void ExtractFolderFromArchive(string fileName, string targetFolderName)
+        public void ExtractFolderFromArchive(FileInfo file, DirectoryInfo targetDirectory)
         {
-            Stream inStream = File.OpenRead(fileName);
+            Stream inStream = File.OpenRead(file.FullName);
             var tarArchive = TarArchive.CreateInputTarArchive(inStream);
-            tarArchive.ExtractContents(targetFolderName);
+            tarArchive.ExtractContents(targetDirectory.FullName);
             tarArchive.Close();
             inStream.Close();
 
-            _log.Debug($"Extracted tar file: {fileName} to folder {targetFolderName}", fileName, targetFolderName);
+            _log.Debug($"Extracted tar file: {file} to folder {targetDirectory}", file.FullName, targetDirectory.FullName);
         }
 
 
-        public void CompressFolderContentToArchiveFile(string targetFileName, string sourceFileFolder)
+        public void CompressFolderContentToArchiveFile(FileInfo targetFileName, DirectoryInfo sourceFileFolder)
         {
-            Stream outStream = File.Create(targetFileName);
+            Stream outStream = File.Create(targetFileName.FullName);
             var tarOutputStream = new TarOutputStream(outStream);
             var tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
 
@@ -32,14 +34,14 @@ namespace Arkivverket.Arkade.Util
             //TarEntry tarEntry = TarEntry.CreateEntryFromFile(sourceFileFolder);
             //tarOutputStream.PutNextEntry(tarEntry);
 
-            var filenames = Directory.GetFiles(sourceFileFolder, "*.*", SearchOption.AllDirectories);
+            var filenames = System.IO.Directory.GetFiles(sourceFileFolder.FullName, "*.*", SearchOption.AllDirectories);
 
             // Remove source file path from filename and add each file to the TAR acrchive
             foreach (var filename in filenames)
             {
                 using (Stream inputStream = File.OpenRead(filename))
                 {
-                    var tarName = filename.Replace(sourceFileFolder, "");
+                    var tarName = filename.Replace(sourceFileFolder.FullName, "");
                     var fileSize = inputStream.Length;
                     var entry = TarEntry.CreateTarEntry(tarName);
                     entry.Size = fileSize;

@@ -1,6 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Util;
 using FluentAssertions;
 using Xunit;
 using Record = Arkivverket.Arkade.Core.Addml.Record;
@@ -163,9 +167,11 @@ namespace Arkivverket.Arkade.Test.Core.Addml
 
         private FlatFile GetDokDat()
         {
-            AddmlInfo addml =
-                AddmlUtil.ReadFromBaseDirectory("..\\..\\TestData\\noark3\\noark_3_arkivuttrekk_med_prosesser.xml");
-            AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml).GetAddmlDefinition();
+
+            var workingDirectory = new WorkingDirectory(ArkadeConstants.GetArkadeWorkDirectory(), new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\TestData\\noark3\\"));
+            AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content().WithFile("noark_3_arkivuttrekk_med_prosesser.xml").FullName);
+
+            AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml, workingDirectory).GetAddmlDefinition();
             FlatFile flatFile = addmlDefinition.GetFlatFiles().Single(file => file.Definition.FileName == "DOK.DAT");
             return flatFile;
         }
