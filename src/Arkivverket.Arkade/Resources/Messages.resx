@@ -306,6 +306,9 @@
   <data name="ControlUniquenessMessage2" xml:space="preserve">
     <value>Verdiene er ikke unike</value>
   </data>
+  <data name="ExceptionFixedLengthSumIsNotCorrect" xml:space="preserve">
+    <value>{0}: Antall tegn i FixedLength-feltet [{1}] stemmer ikke med antall tegn summert for postdefinisjonen [{2}].</value>
+  </data>
   <data name="FileNotFoundMessage" xml:space="preserve">
     <value>Finner ikke filen: {0}</value>
   </data>

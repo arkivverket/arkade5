@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
+using Arkivverket.Arkade.Core.Addml.Definitions;
 using FluentAssertions;
 using Xunit;
 
@@ -88,7 +90,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             List<int> fieldLengths = new List<int> {1, 2, 4, 5};
             var fixedFormatDefinition = CreateFixedFormatDefinition(recordLength, fieldLengths);
 
-            Assert.Throws<ArgumentException>(() => new FixedFormatReader(streamReader, fixedFormatDefinition));
+            Assert.Throws<ArkadeException>(() => new FixedFormatReader(streamReader, fixedFormatDefinition));
         }
 
         private StreamReader CreateStreamReader(string s)
@@ -107,6 +109,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             FixedFormatReader.FixedFormatRecordConfig fixedFormatRecordConfig =
                 new FixedFormatReader.FixedFormatRecordConfig();
             fixedFormatRecordConfig.FieldLengths = fieldLengths;
+            fixedFormatRecordConfig.RecordIndex = new RecordIndex("flatfileDefName", "recordDefName");
             recordDefinitions.Add(fixedFormatRecordConfig);
             fixedFormatConfig.RecordDefinitions = recordDefinitions;
             return fixedFormatConfig;

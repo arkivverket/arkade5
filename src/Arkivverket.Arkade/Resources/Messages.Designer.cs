@@ -628,6 +628,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: Antall tegn i FixedLength-feltet [{1}] stemmer ikke med antall tegn summert for postdefinisjonen [{2}]..
+        /// </summary>
+        internal static string ExceptionFixedLengthSumIsNotCorrect {
+            get {
+                return ResourceManager.GetString("ExceptionFixedLengthSumIsNotCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finner ikke filen: {0}.
         /// </summary>
         internal static string FileNotFoundMessage {

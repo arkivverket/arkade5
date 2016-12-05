@@ -77,6 +77,7 @@ namespace Arkivverket.Arkade.Core.Addml
                     = new FixedFormatReader.FixedFormatRecordConfig();
                 rd.RecordIdentifier = addmlRecordDefinition.RecordDefinitionFieldValue;
                 rd.FieldLengths = GetFieldLengths(addmlRecordDefinition);
+                rd.RecordIndex = addmlRecordDefinition.GetIndex();
                 recordDefinitions.Add(rd);
             }
 

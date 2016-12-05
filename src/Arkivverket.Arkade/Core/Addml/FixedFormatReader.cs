@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml
@@ -47,8 +48,9 @@ namespace Arkivverket.Arkade.Core.Addml
                 int sumOfFieldLengths = fieldLengths.Sum();
                 if (sumOfFieldLengths != _recordLength)
                 {
-                    throw new ArgumentException("Sum of field lengths (" + sumOfFieldLengths +
-                                                ") does not match record length (" + _recordLength + ")");
+                    var message = string.Format(Resources.Messages.ExceptionFixedLengthSumIsNotCorrect, 
+                        AddmlLocation.FromRecordIndex(f.RecordIndex), _recordLength, sumOfFieldLengths);
+                    throw new ArkadeException(message);
                 }
             }
 
@@ -147,6 +149,7 @@ namespace Arkivverket.Arkade.Core.Addml
         {
             public string RecordIdentifier;
             public List<int> FieldLengths;
+            public RecordIndex RecordIndex;
         }
     }
 }
