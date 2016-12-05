@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
-            testRun.IsSuccess().Should().BeTrue();
+            testRun.IsSuccess().Should().BeFalse();
             testRun.Results.Count.Should().Be(1);
             testRun.Results[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
             testRun.Results[0].Message.Should().Be("Verdiene er ikke unike");

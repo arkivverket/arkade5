@@ -80,7 +80,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             // If field already contains the value, it is not unique
             if (fieldValues.Contains(value))
             {
-                _testResults.Add(new TestResult(ResultType.Success, AddmlLocation.FromFieldIndex(fieldIndex),
+                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(fieldIndex),
                     string.Format(Messages.ControlUniquenessMessage2)));
 
                 // Set to null so we do not collect more values for this field
