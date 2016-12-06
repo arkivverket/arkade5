@@ -88,7 +88,17 @@ namespace Arkivverket.Arkade.Core.Noark5
             List<IArkadeStructureTest> structureTests = _testProvider.GetStructureTests();
             foreach (var test in structureTests)
             {
-                test.Test(archive);
+                try
+                {
+                    _statusEventHandler.RaiseEventOperationMessage(test.GetName(), "", OperationMessageStatus.Started);
+                    test.Test(archive);
+                    _statusEventHandler.RaiseEventOperationMessage(test.GetName(), "", OperationMessageStatus.Ok);
+                }
+                catch (Exception e)
+                {
+                    _statusEventHandler.RaiseEventOperationMessage(test.GetName(), "", OperationMessageStatus.Error);
+                    throw e;
+                }
             }
             return structureTests;
         }
