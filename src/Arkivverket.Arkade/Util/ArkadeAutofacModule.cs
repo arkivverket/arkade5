@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Util
             builder.RegisterType<StatusEventHandler>().As<IStatusEventHandler>().SingleInstance();
             builder.RegisterType<TarCompressionUtility>().As<ICompressionUtility>();
             builder.RegisterType<TestEngineFactory>().AsSelf();
-            builder.RegisterType<TestProvider>().As<ITestProvider>();
+            builder.RegisterType<Noark5TestProvider>().As<ITestProvider>();
             builder.RegisterType<TestSessionFactory>().AsSelf();
         }
     }

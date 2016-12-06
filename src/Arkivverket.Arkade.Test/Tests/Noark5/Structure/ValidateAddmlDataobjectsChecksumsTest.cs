@@ -20,26 +20,28 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
             _output = output;
         }
 
-        [Fact(Skip = "Skip tests until we figure out why the checksums are different on various machines and setup.")]
+        [Fact]
         public void ShouldValidateThatAllChecksumsAreCorrect()
         {
             string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\StructureChecksums\\correct";
-            var archiveExtractiob = new Core.ArchiveBuilder()
+            var archive = new Core.ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectory(workingDirectory)
                 .Build();
- /*           
-            var testResults = new ValidateAddmlDataobjectsChecksums().RunTest(archiveExtraction);
 
-            foreach (var testResult in testResults.Results)
+            var validateAddmlDataobjectsChecksums = new ValidateAddmlDataobjectsChecksums();
+            validateAddmlDataobjectsChecksums.Test(archive);
+            var testRun = validateAddmlDataobjectsChecksums.GetTestRun();
+
+            foreach (var testResult in testRun.Results)
             {
                 _output.WriteLine(testResult.Message);
             }
 
-            testResults.Results.Count.Should().Be(2);
+            testRun.Results.Count.Should().Be(2);
 
-            testResults.IsSuccess().Should().BeTrue();
-            */
+            testRun.IsSuccess().Should().BeTrue();
+            
         }
     }
 }

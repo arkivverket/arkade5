@@ -28,8 +28,8 @@
         <Grid Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220" />
-                <ColumnDefinition Width="350" />
-                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -74,7 +74,7 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="150"/>
-                                    <ColumnDefinition Width="620"/>
+                                    <ColumnDefinition Width="700"/>
                                 </Grid.ColumnDefinitions>
 
                                 <ProgressBar Visibility="{Binding ProgressBarVisibility}" Style="{StaticResource MaterialDesignCircularProgressBar}"                     

@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// This is a helper class for all the analysis tests where we only are interested in how many elements with a specific name exists in the archive.
     /// Note that the only thing that is checked is the name of the element. The element name must be unique for the test to be correct.
     /// </summary>
-    public abstract class CountElementsWithUniqueName : Noark5BaseTest
+    public abstract class CountElementsWithUniqueName : Noark5XmlReaderBaseTest
     {
         private readonly string _elementName;
         private int _counter;

@@ -97,6 +97,27 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sjekksummen stemmer ikke for filen: {0}
+        ///Forventet: {1}
+        ///Generert:  {2}.
+        /// </summary>
+        internal static string ExceptionInvalidChecksum {
+            get {
+                return ResourceManager.GetString("ExceptionInvalidChecksum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} er ikke gyldig i henhold til XML-skjema {1}
+        ///{2}.
+        /// </summary>
+        internal static string ExceptionXmlDoesNotValidateWithSchema {
+            get {
+                return ResourceManager.GetString("ExceptionXmlDoesNotValidateWithSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall arkivdeler.
         /// </summary>
         internal static string NumberOfArchiveParts {

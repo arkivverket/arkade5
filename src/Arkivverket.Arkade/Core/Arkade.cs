@@ -4,7 +4,6 @@ using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Report;
-using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using Arkivverket.Arkade.Util;
 
@@ -39,7 +38,7 @@ namespace Arkivverket.Arkade.Core
             TestEngineFactory f =
                 new TestEngineFactory(
                     new Noark5TestEngine(new ArchiveContentReader(), 
-                    new TestProvider(new Noark5TestProvider(new ArchiveContentReader())),
+                    new Noark5TestProvider(new ArchiveContentReader()),
                     new StatusEventHandler()),
                     new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner(),
                         new StatusEventHandler()));

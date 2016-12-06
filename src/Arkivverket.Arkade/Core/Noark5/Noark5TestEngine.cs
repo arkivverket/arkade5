@@ -27,11 +27,29 @@ namespace Arkivverket.Arkade.Core.Noark5
 
         public TestSuite RunTestsOnArchive(TestSession testSession)
         {
-            List<INoark5Test> testsForArchive = _testProvider.GetTestsForArchive(testSession.Archive);
+            List<IArkadeStructureTest> structureTests = RunStructureTests(testSession.Archive);
 
-            SubscribeTestsToReadElementEvent(testsForArchive);
+            List<INoark5Test> contentTests = RunContentTests(testSession.Archive);
 
-            using (var reader = XmlReader.Create(_archiveContentReader.GetContentAsStream(testSession.Archive)))
+            var testSuite = new TestSuite();
+            AddTestToTestSuite(contentTests, testSuite);
+            AddTestToTestSuite(structureTests, testSuite);
+            return testSuite;
+        }
+
+        private static void AddTestToTestSuite(IEnumerable<IArkadeTest> tests, TestSuite testSuite)
+        {
+            foreach (var test in tests)
+                testSuite.AddTestRun(test.GetTestRun());
+        }
+
+        private List<INoark5Test> RunContentTests(Archive archive)
+        {
+            List<INoark5Test> contentTests = _testProvider.GetContentTests(archive);
+
+            SubscribeTestsToReadElementEvent(contentTests);
+
+            using (var reader = XmlReader.Create(_archiveContentReader.GetContentAsStream(archive)))
             {
                 RaiseEventStartParsingFile();
 
@@ -61,10 +79,18 @@ namespace Arkivverket.Arkade.Core.Noark5
                     }
                 }
                 RaiseEventFinishedParsingFile();
-
             }
+            return contentTests;
+        }
 
-            return CreateTestSuiteFromResults(testsForArchive);
+        private List<IArkadeStructureTest> RunStructureTests(Archive archive)
+        {
+            List<IArkadeStructureTest> structureTests = _testProvider.GetStructureTests();
+            foreach (var test in structureTests)
+            {
+                test.Test(archive);
+            }
+            return structureTests;
         }
 
         private void RaiseEventStartParsingFile()
@@ -82,15 +108,6 @@ namespace Arkivverket.Arkade.Core.Noark5
         private static ReadElementEventArgs CreateReadElementEventArgs(XmlReader reader, Stack<string> path)
         {
             return new ReadElementEventArgs(reader.Name, reader.Value, new ElementPath(path.ToList()));
-        }
-
-        private static TestSuite CreateTestSuiteFromResults(List<INoark5Test> testsForArchive)
-        {
-            var testSuite = new TestSuite();
-            foreach (var test in testsForArchive)
-                testSuite.AddTestRun(test.GetTestRun());
-
-            return testSuite;
         }
 
         private void SubscribeTestsToReadElementEvent(List<INoark5Test> testsForArchive)

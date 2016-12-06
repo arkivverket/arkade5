@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
+using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5.Structure
@@ -9,31 +11,48 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
     /// <summary>
     ///     Validates that the XML is valid with regards to the XML schema. In this case the ADDML schema.
     /// </summary>
-    public class ValidateXmlWithSchema : BaseNoark5Test
+    public class ValidateXmlWithSchema : Noark5StructureBaseTest
     {
-        public ValidateXmlWithSchema(IArchiveContentReader archiveReader) : base(TestType.Structure, archiveReader)
+        private readonly IArchiveContentReader _archiveReader;
+        private readonly List<TestResult> _testResults = new List<TestResult>();
+
+        public ValidateXmlWithSchema(IArchiveContentReader archiveReader)
         {
+            _archiveReader = archiveReader;
         }
 
-        protected override void Test(Archive archive)
+        public override void Test(Archive archive)
         {
             Stream addmlXsd = ResourceUtil.GetResourceAsStream(ArkadeConstants.AddmlXsdResource);
 
             try
             {
-                XmlUtil.Validate(ArchiveReader.GetStructureContentAsStream(archive), addmlXsd);
+                XmlUtil.Validate(_archiveReader.GetStructureContentAsStream(archive), addmlXsd);
 
-                TestSuccess(new Location(archive.GetStructureDescriptionFileName()), $"Filen {archive.GetStructureDescriptionFileName()} er validert i henhold ADDML XML-skjema.");
+                _testResults.Add(new TestResult(ResultType.Success, new Location(archive.GetStructureDescriptionFileName()),
+                    $"Filen {archive.GetStructureDescriptionFileName()} er validert i henhold ADDML XML-skjema."));
             }
             catch (Exception e)
             {
-                TestError(new Location(archive.GetStructureDescriptionFileName()), $"Filen {archive.GetStructureDescriptionFileName()} er ikke gyldig i henhold til ADDML XML-skjema:\n{e.Message}");
+                var message = string.Format(Noark5Messages.ExceptionXmlDoesNotValidateWithSchema, 
+                    Path.GetFileName(archive.GetStructureDescriptionFileName()), ArkadeConstants.AddmlXsdFileName, e.Message);
+                throw new ArkadeException(message, e);
             }
         }
 
-        public override void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
+        public override string GetName()
         {
+            return Noark5Messages.ValidateXmlWithSchema;
         }
 
+        public override TestType GetTestType()
+        {
+            return TestType.Structure;
+        }
+
+        protected override List<TestResult> GetTestResults()
+        {
+            return _testResults;
+        }
     }
 }

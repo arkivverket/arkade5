@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// <summary>
     ///     Noark5 - test #3
     /// </summary>
-    public class StatusOfArchiveParts : Noark5BaseTest
+    public class StatusOfArchiveParts : Noark5XmlReaderBaseTest
     {
         private readonly List<ArkivdelStatus> _arkivdelStatuses = new List<ArkivdelStatus>();
 

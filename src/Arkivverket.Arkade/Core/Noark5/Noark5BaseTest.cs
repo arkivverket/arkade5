@@ -7,37 +7,13 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Core.Noark5
 {
-    /// <summary>
-    /// Base class for Noark5 tests. Provides timing of operations, description text and creates TestRun.
-    /// </summary>
-    public abstract class Noark5BaseTest : INoark5Test
+    public abstract class Noark5BaseTest : IArkadeTest
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly Stopwatch _stopwatch = new Stopwatch();
+        protected readonly Stopwatch Stopwatch = new Stopwatch();
 
         public abstract string GetName();
         public abstract TestType GetTestType();
-
-        public void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
-        {
-            _stopwatch.Start();
-            ReadStartElementEvent(sender, e);
-            _stopwatch.Stop();
-        }
-
-        public void OnReadEndElementEvent(object sender, ReadElementEventArgs e)
-        {
-            _stopwatch.Start();
-            ReadEndElementEvent(sender, e);
-            _stopwatch.Stop();
-        }
-
-        public void OnReadElementValueEvent(object sender, ReadElementEventArgs e)
-        {
-            _stopwatch.Start();
-            ReadElementValueEvent(sender, e);
-            _stopwatch.Stop();
-        }
 
         public string GetDescription()
         {
@@ -53,21 +29,18 @@ namespace Arkivverket.Arkade.Core.Noark5
 
         public TestRun GetTestRun()
         {
-            _stopwatch.Start();
+            Stopwatch.Start();
             List<TestResult> testResults = GetTestResults();
-            _stopwatch.Stop();
+            Stopwatch.Stop();
 
             return new TestRun(GetName(), GetTestType())
             {
                 TestDescription = GetDescription(),
                 Results = testResults,
-                TestDuration = _stopwatch.ElapsedMilliseconds
+                TestDuration = Stopwatch.ElapsedMilliseconds
             };
         }
 
         protected abstract List<TestResult> GetTestResults();
-        protected abstract void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs);
-        protected abstract void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs);
-        protected abstract void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs);
     }
 }

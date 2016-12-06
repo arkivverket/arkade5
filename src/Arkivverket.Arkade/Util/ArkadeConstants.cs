@@ -8,6 +8,7 @@ namespace Arkivverket.Arkade.Util
     {
         public const string NoarkihXmlFileName = "NOARKIH.XML";
         public const string AddmlXmlFileName = "addml.xml";
+        public const string AddmlXsdFileName = "addml.xsd";
         public const string InfoXmlFileName = "info.xml";
 
         public const string AddmlXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.addml.xsd";

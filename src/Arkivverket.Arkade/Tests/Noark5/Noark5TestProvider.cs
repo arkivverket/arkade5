@@ -4,7 +4,7 @@ using Arkivverket.Arkade.Tests.Noark5.Structure;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    public class Noark5TestProvider
+    public class Noark5TestProvider: ITestProvider
     {
         private readonly IArchiveContentReader _archiveReader;
 
@@ -13,13 +13,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
             _archiveReader = archiveReader;
         }
 
-        public List<INoark5Test> GetStructureTests()
+        public List<IArkadeStructureTest> GetStructureTests()
         {
-            return new List<INoark5Test>
+            return new List<IArkadeStructureTest>
             {
-         //       new Structure.CheckWellFormedArchiveStructureXml(_archiveReader),
-         //       new ValidateAddmlDataobjectsChecksums(_archiveReader),
-         //       new ValidateXmlWithSchema(_archiveReader)
+                new ValidateAddmlDataobjectsChecksums(),
+                new ValidateXmlWithSchema(_archiveReader)
             };
         }
 
@@ -38,13 +37,6 @@ namespace Arkivverket.Arkade.Tests.Noark5
             //    new NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders(_archiveReader),
                 new ControlDocumentFilesExists(archive)
             };
-        }
-
-        public List<INoark5Test> GetTests(Archive archive)
-        {
-            var tests = GetStructureTests();
-            tests.AddRange(GetContentTests(archive));
-            return tests;
         }
     }
 }

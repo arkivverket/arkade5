@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// <summary>
     ///     Noark5 - test #46
     /// </summary>
-    public class ControlDocumentFilesExists : Noark5BaseTest
+    public class ControlDocumentFilesExists : Noark5XmlReaderBaseTest
     {
         private readonly List<TestResult> _testResults = new List<TestResult>();
 

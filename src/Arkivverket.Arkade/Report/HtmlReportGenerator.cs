@@ -74,7 +74,7 @@ namespace Arkivverket.Arkade.Report
             sb.AppendLine(@"");
             */
             _stream.WriteLine(@"        <h4>Testresultater</h4>");
-            if (testRun.IsSuccess() && testRun.TestType == TestType.ContentControl || testRun.TestType == TestType.Structure)
+            if (testRun.IsSuccess() && (testRun.TestType == TestType.ContentControl || testRun.TestType == TestType.Structure))
             {
                 _stream.WriteLine("<p>Ingen avvik funnet.</p>");
             } 

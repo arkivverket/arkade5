@@ -1,20 +1,20 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.ExternalModels.Addml;
+using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
-    public class ValidateAddmlDataobjectsChecksums : BaseNoark5Test
+    public class ValidateAddmlDataobjectsChecksums : Noark5StructureBaseTest
     {
-        public ValidateAddmlDataobjectsChecksums(IArchiveContentReader archiveReader) : base(TestType.Structure, archiveReader)
-        {
-        }
+        private readonly List<TestResult> _testResults = new List<TestResult>();
 
-        protected override void Test(Archive archive)
+        public override void Test(Archive archive)
         {
             var structure = SerializeUtil.DeserializeFromFile<addml>(archive.GetStructureDescriptionFileName());
 
@@ -24,38 +24,33 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
                 {
                     foreach (var fileProperty in currentObject.properties.Where(s => s.name == "file"))
                     {
-                        var filename = archive.WorkingDirectory.FullName + Path.DirectorySeparatorChar + GetFilenameFromProperty(fileProperty);
+                        string fileName = GetFileNameFromProperty(fileProperty);
+                        var fullPathToFile = archive.WorkingDirectory.FullName + Path.DirectorySeparatorChar + fileName;
 
                         var checksumAlgorithm = GetChecksumAlgorithmFromProperty(fileProperty);
 
                         var checksumValue = GetChecksumValueFromProperty(fileProperty);
 
-                        var generatedChecksum = GenerateChecksumForFile(filename, checksumAlgorithm);
+                        var generatedChecksum = GenerateChecksumForFile(fullPathToFile, checksumAlgorithm);
 
                         var checksumsAreEqual = string.Equals(generatedChecksum, checksumValue, StringComparison.InvariantCultureIgnoreCase);
 
-                        var testResult = CreateTestResult(checksumsAreEqual, generatedChecksum, checksumValue, filename, checksumAlgorithm);
-                        TestResults.Add(testResult);
+                        var testResult = CreateTestResult(checksumsAreEqual, generatedChecksum, checksumValue, fileName, checksumAlgorithm);
+                        _testResults.Add(testResult);
                     }
                 }
             }
         }
 
-        public override void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
-        {
-        }
-
-        private TestResult CreateTestResult(bool checksumsAreEqual, string generatedChecksum, string expectedChecksum, string filename,
+        private TestResult CreateTestResult(bool checksumsAreEqual, string generatedChecksum, string expectedChecksum, string fileName,
             string checksumAlgorithm)
         {
-            var result = checksumsAreEqual ? ResultType.Success : ResultType.Error;
-
-            string message = $"Sjekksum er kontrollert for {filename} med algoritmen {checksumAlgorithm}.";
-            if (result == ResultType.Error)
+            if (!checksumsAreEqual)
             {
-                message = message + $"\nForventet sjekksum: [{expectedChecksum}]\nGenerert sjekksum: [{generatedChecksum}]. ";
+                var message = string.Format(Noark5Messages.ExceptionInvalidChecksum, fileName, expectedChecksum, generatedChecksum);
+                throw new ArkadeException(message);
             }
-            return new TestResult(result, new Location(filename), message);
+            return new TestResult(ResultType.Success, new Location(fileName), $"Sjekksum er kontrollert med algoritmen {checksumAlgorithm}.");
         }
 
         private string GenerateChecksumForFile(string filename, string checksumAlgorithm)
@@ -78,10 +73,25 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             return checksumAlgorithmProperty?.value;
         }
 
-        private static string GetFilenameFromProperty(property fileProperty)
+        private static string GetFileNameFromProperty(property fileProperty)
         {
             var fileNameProperty = fileProperty.properties.FirstOrDefault(p => p.name == "name");
             return fileNameProperty?.value;
+        }
+
+        public override string GetName()
+        {
+            return Noark5Messages.ValidateAddmlDataobjectsChecksums;
+        }
+
+        public override TestType GetTestType()
+        {
+            return TestType.Structure;
+        }
+
+        protected override List<TestResult> GetTestResults()
+        {
+            return _testResults;
         }
     }
 }

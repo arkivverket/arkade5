@@ -141,6 +141,9 @@
     <Compile Include="Core\Addml\RecordProcessRunner.cs" />
     <Compile Include="Core\Addml\FixedFormatReader.cs" />
     <Compile Include="Core\Addml\XmlFormatReader.cs" />
+    <Compile Include="Core\IArkadeStructureTest.cs" />
+    <Compile Include="Core\Noark5\Noark5BaseTest.cs" />
+    <Compile Include="Core\Noark5\Noark5StructureBaseTest.cs" />
     <Compile Include="Util\XmlReaderUtil.cs" />
     <Compile Include="Core\Archive.cs" />
     <Compile Include="Core\ArchiveContentReader.cs" />
@@ -151,7 +154,7 @@
     <Compile Include="Core\ArchiveWithMetadata.cs" />
     <Compile Include="Core\Arkade.cs" />
     <Compile Include="Core\IArkadeTest.cs" />
-    <Compile Include="Core\Noark5\Noark5BaseTest.cs" />
+    <Compile Include="Core\Noark5\Noark5XmlReaderBaseTest.cs" />
     <Compile Include="Core\Noark5\Noark5TestEngine.cs" />
     <Compile Include="Core\Noark5\ReadElementEventArgs.cs" />
     <Compile Include="Logging\FileProcessingStatusEventArgs.cs" />
@@ -234,10 +237,8 @@
     <Compile Include="Tests\Noark5\NumberOfClassificationSystems.cs" />
     <Compile Include="Tests\Noark5\NumberOfFolders.cs" />
     <Compile Include="Tests\Noark5\StatusOfArchiveParts.cs" />
-    <Compile Include="Tests\Noark5\Structure\CheckWellFormedArchiveStructureXml.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksums.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchema.cs" />
-    <Compile Include="Tests\TestProvider.cs" />
     <Compile Include="Tests\TestResult.cs" />
     <Compile Include="Core\TestRun.cs" />
     <Compile Include="Util\ArkadeAutofacModule.cs" />

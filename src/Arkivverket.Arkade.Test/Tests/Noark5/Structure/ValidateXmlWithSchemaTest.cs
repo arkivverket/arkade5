@@ -27,7 +27,10 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
 
         private TestRun RunTest()
         {
-            return new ValidateXmlWithSchema(new ArchiveContentMockReader(_archiveStructureContent)).RunTest(new Core.ArchiveBuilder().Build());
+            Archive archive = new Core.ArchiveBuilder().Build();
+            var validateXmlWithSchema = new ValidateXmlWithSchema(new ArchiveContentMockReader(_archiveStructureContent));
+            validateXmlWithSchema.Test(archive);
+            return validateXmlWithSchema.GetTestRun();
         }
 
         private MemoryStream GenerateStreamFromString(string value)
@@ -41,11 +44,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
             var xml =
                 @"<?xml version=""1.0"" encoding=""utf-8""?><addml xmlns=""http://www.arkivverket.no/standarder/addml""><hello></hello></addml>";
             _archiveStructureContent = GenerateStreamFromString(xml);
-            var testResults = RunTest();
-
-            _outputHelper.WriteLine(testResults.Results[0].Message);
-
-            testResults.IsSuccess().Should().BeFalse();
+            Assert.Throws(typeof(ArkadeException), RunTest);
         }
 
         [Fact]

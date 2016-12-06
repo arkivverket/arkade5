@@ -129,6 +129,16 @@
   <data name="ControlDocumentsFilesExistsMessage1" xml:space="preserve">
     <value>Finner ikke filen.</value>
   </data>
+  <data name="ExceptionInvalidChecksum" xml:space="preserve">
+    <value>Sjekksummen stemmer ikke for filen: {0}
+Forventet: {1}
+Generert:  {2}</value>
+  </data>
+  <data name="ExceptionXmlDoesNotValidateWithSchema" xml:space="preserve">
+    <value>{0} er ikke gyldig i henhold til XML-skjema {1}
+{2}</value>
+    <comment>0=filen som ikke er gyldig, 1=xml skjema brukt til validering, 2=valideringsmelding</comment>
+  </data>
   <data name="NumberOfArchiveParts" xml:space="preserve">
     <value>Finn antall arkivdeler</value>
   </data>
