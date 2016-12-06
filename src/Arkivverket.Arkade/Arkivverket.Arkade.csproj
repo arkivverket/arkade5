@@ -261,17 +261,17 @@
     <EmbeddedResource Include="ExternalModels\xsd\addml.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="ExternalModels\xsd\arkivstruktur.xsd">
+    <EmbeddedResource Include="ExternalModels\xsd\arkivstruktur.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
     <None Include="ExternalModels\xsd\GenerateClasses.bat" />
     <None Include="ExternalModels\xsd\info.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ExternalModels\xsd\metadatakatalog.xsd">
+    <EmbeddedResource Include="ExternalModels\xsd\metadatakatalog.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
     <None Include="ExternalModels\xsd\testSessionLog.xsd">
       <SubType>Designer</SubType>
     </None>

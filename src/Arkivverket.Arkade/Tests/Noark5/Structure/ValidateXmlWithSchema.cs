@@ -9,8 +9,8 @@ using Arkivverket.Arkade.Util;
 namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
     /// <summary>
-    ///     Validates that the XML is valid with regards to the XML schema. In this case the ADDML schema.
-    /// </summary>
+    ///     Validates that the XML files (arkivuttrekk.xml and arkivstruktur.xml) are valid with regards to the XML schema.
+    ///  </summary>
     public class ValidateXmlWithSchema : Noark5StructureBaseTest
     {
         private readonly IArchiveContentReader _archiveReader;
@@ -23,19 +23,25 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         public override void Test(Archive archive)
         {
-            Stream addmlXsd = ResourceUtil.GetResourceAsStream(ArkadeConstants.AddmlXsdResource);
+            ValidateXml(archive.GetStructureDescriptionFileName(), _archiveReader.GetStructureContentAsStream(archive),
+                ArkadeConstants.AddmlXsdResource);
 
+            ValidateXml(archive.GetContentDescriptionFileName(), _archiveReader.GetContentAsStream(archive),
+                ArkadeConstants.ArkivstrukturXsdResource, ArkadeConstants.MetadatakatalogXsdResource);
+        }
+
+        private void ValidateXml(string fullPathToFile, Stream fileStream, params string[] xsdResources)
+        {
+            string fileName = Path.GetFileName(fullPathToFile);
             try
             {
-                XmlUtil.Validate(_archiveReader.GetStructureContentAsStream(archive), addmlXsd);
-
-                _testResults.Add(new TestResult(ResultType.Success, new Location(archive.GetStructureDescriptionFileName()),
-                    $"Filen {archive.GetStructureDescriptionFileName()} er validert i henhold ADDML XML-skjema."));
+                XmlUtil.Validate(fileStream, xsdResources);
+                _testResults.Add(new TestResult(ResultType.Success, new Location(fileName), Noark5Messages.ValidateXmlWithSchemaMessageValid));
             }
             catch (Exception e)
             {
-                var message = string.Format(Noark5Messages.ExceptionXmlDoesNotValidateWithSchema, 
-                    Path.GetFileName(archive.GetStructureDescriptionFileName()), ArkadeConstants.AddmlXsdFileName, e.Message);
+                string message = string.Format(Noark5Messages.ExceptionXmlDoesNotValidateWithSchema,
+                    fileName, e.Message);
                 throw new ArkadeException(message, e);
             }
         }

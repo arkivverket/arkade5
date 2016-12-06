@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -8,18 +8,35 @@ namespace Arkivverket.Arkade.Util
 {
     public class XmlUtil
     {
-
-        public static void Validate(String xmlString, String xmlSchemaString)
+        public static void Validate(string xmlString, string xmlSchemaString)
         {
-            MemoryStream xmlStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlString));
-            MemoryStream xmlSchemaStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlSchemaString));
+            var xmlStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlString));
+            var xmlSchemaStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlSchemaString));
             Validate(xmlStream, xmlSchemaStream);
         }
 
         public static void Validate(Stream xmlStream, Stream xmlSchemaStream)
         {
-            XmlSchema xmlSchema = XmlSchema.Read(xmlSchemaStream, new ValidationEventHandler(ValidationCallBack));
-            using (var validationReader = XmlReader.Create(xmlStream, SetupXmlValidation(xmlSchema)))
+            XmlSchema xmlSchema = XmlSchema.Read(xmlSchemaStream, ValidationCallBack);
+            XmlReaderSettings xmlReaderSettings = SetupXmlValidation(new List<XmlSchema> {xmlSchema});
+            Validate(xmlStream, xmlReaderSettings);
+        }
+
+        public static void Validate(Stream xmlStream, string[] xmlSchemaResources)
+        {
+            var xmlSchemas = new List<XmlSchema>();
+            foreach (string xmlSchemaResource in xmlSchemaResources)
+            {
+                xmlSchemas.Add(XmlSchema.Read(ResourceUtil.GetResourceAsStream(xmlSchemaResource), ValidationCallBack));
+            }
+
+            XmlReaderSettings xmlReaderSettings = SetupXmlValidation(xmlSchemas);
+            Validate(xmlStream, xmlReaderSettings);
+        }
+
+        private static void Validate(Stream xmlStream, XmlReaderSettings xmlReaderSettings)
+        {
+            using (XmlReader validationReader = XmlReader.Create(xmlStream, xmlReaderSettings))
             {
                 while (validationReader.Read())
                 {
@@ -27,13 +44,18 @@ namespace Arkivverket.Arkade.Util
             }
         }
 
-        private static XmlReaderSettings SetupXmlValidation(XmlSchema xmlSchema)
+        private static XmlReaderSettings SetupXmlValidation(IEnumerable<XmlSchema> xmlSchemas)
         {
             var settings = new XmlReaderSettings();
             settings.ValidationType = ValidationType.Schema;
             settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
-            settings.ValidationEventHandler += new ValidationEventHandler(ValidationCallBack);
-            settings.Schemas.Add(xmlSchema);
+            settings.ValidationEventHandler += ValidationCallBack;
+
+            foreach (XmlSchema xmlSchema in xmlSchemas)
+            {
+                settings.Schemas.Add(xmlSchema);
+            }
+
             return settings;
         }
 
@@ -42,6 +64,5 @@ namespace Arkivverket.Arkade.Util
             // TODO: Gather all problems
             throw args.Exception;
         }
-
     }
 }

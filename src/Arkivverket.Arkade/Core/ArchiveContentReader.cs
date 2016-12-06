@@ -8,26 +8,25 @@ namespace Arkivverket.Arkade.Core
     {
         public Stream GetContentAsStream(Archive archive)
         {
-            try
-            {
-                return File.OpenRead(archive.GetContentDescriptionFileName());
-            }
-            catch (Exception e)
-            {
-                string message = string.Format(Messages.FileNotFoundMessage, archive.GetContentDescriptionFileName());
-                throw new ArkadeException(message, e);
-            }
+            string fileName = archive.GetContentDescriptionFileName();
+            return GetFileAsStream(fileName);
         }
 
         public Stream GetStructureContentAsStream(Archive archive)
         {
+            string fileName = archive.GetStructureDescriptionFileName();
+            return GetFileAsStream(fileName);
+        }
+
+        private static Stream GetFileAsStream(string fileName)
+        {
             try
             {
-                return File.OpenRead(archive.GetStructureDescriptionFileName());
+                return File.OpenRead(fileName);
             }
             catch (Exception e)
             {
-                string message = string.Format(Messages.FileNotFoundMessage, archive.GetStructureDescriptionFileName());
+                string message = string.Format(Messages.FileNotFoundMessage, fileName);
                 throw new ArkadeException(message, e);
             }
         }

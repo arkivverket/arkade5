@@ -5,21 +5,23 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
     public class ArchiveContentMockReader : IArchiveContentReader
     {
-        private readonly Stream _stream;
+        private readonly Stream _contentStream;
+        private readonly Stream _structureStream;
 
-        public ArchiveContentMockReader(Stream stream)
+        public ArchiveContentMockReader(Stream contentStream, Stream structureStream)
         {
-            _stream = stream;
+            _contentStream = contentStream;
+            _structureStream = structureStream;
         }
 
         public Stream GetContentAsStream(Archive archiveExtraction)
         {
-            return _stream;
+            return _contentStream;
         }
 
         public Stream GetStructureContentAsStream(Archive archive)
         {
-            return _stream;
+            return _structureStream;
         }
     }
 }

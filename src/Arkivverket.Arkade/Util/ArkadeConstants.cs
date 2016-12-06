@@ -9,9 +9,12 @@ namespace Arkivverket.Arkade.Util
         public const string NoarkihXmlFileName = "NOARKIH.XML";
         public const string AddmlXmlFileName = "addml.xml";
         public const string AddmlXsdFileName = "addml.xsd";
+        public const string ArkivstrukturXsdFileName = "arkivstruktur.xsd";
         public const string InfoXmlFileName = "info.xml";
 
         public const string AddmlXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.addml.xsd";
+        public const string ArkivstrukturXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.arkivstruktur.xsd";
+        public const string MetadatakatalogXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.metadatakatalog.xsd";
 
         private static readonly string UserHomeDirectoryString =
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
