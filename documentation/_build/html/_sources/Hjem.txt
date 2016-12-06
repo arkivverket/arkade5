@@ -7,12 +7,23 @@ Arkade 5 utvikles av Arkitektum_ for Arkivverket_. Verktøyet benyttes til å te
 
 Programvaren skal ferdigstilles 1. mars 2017.
 
-Disse sidene vil fungere som dokumentasjonssider og den nyeste versjonen vil kunne lastes ned herfra.
+Disse sidene vil fungere som dokumentasjonssider og for nedlasting av programmet.
+
+Den nyeste versjonen av programmet ligger her arkade5-0.4.4.msi_ (2016-12-01)
+
+Innhold
+-------
+**Installasjonsveiledning**
+Dette dokumentet beskriver hvordan verktøyet skal installeres.
+
+**Brukerveiledning**
+Brukerveiledningen beskriver hvordan Arkade 5 kjøres.
+
+**Systemdokumentasjon**
 
 
-Nedlasting
-----------
-Last ned siste versjon: arkade5-0.4.4.msi_ (2016-12-01)
+**Versjonshistorikk**
+Denne siden har informasjon om hvilke forandringer som er gjort fra versjon til versjon. 
 
 
 .. _Arkitektum: http://www.Arkitektum.no

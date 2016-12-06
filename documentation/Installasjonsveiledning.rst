@@ -19,7 +19,7 @@ Test versjon 0.4.x er satt opp til å automatisk håndtere gamle installasjoner 
 
 Installer ny versjon av Arkade
 ------------------------------
-Last ned den siste versjonen av Arkade5 fra denne siden_.
+Last ned den siste versjonen av Arkade 5 fra denne siden_.
 
 .. _siden: http://arkade.arkitektum.no/
 

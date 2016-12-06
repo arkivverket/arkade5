@@ -3,11 +3,11 @@ Brukerveiledning
 
 Oppdatert 06.12.2016
 
-Skjermen nedenfor vises ved oppstart av Arkade5.
+Skjermen nedenfor vises ved oppstart av Arkade 5.
 Versjonen støtter innlesing av arkivdata av format Norak3, Noark4, Noark5 og fagsystem.
 Verktøyet kjører testere på arkivdataene.
 
-Oppstart skjerm
+Oppstartskjerm
 ~~~~~~~~~~~~~~~
 
 .. image:: img/StartupScreen.png
