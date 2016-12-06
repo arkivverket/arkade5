@@ -94,7 +94,15 @@
 
                                 <StackPanel Grid.Column="1" Margin="8 0 0 0">
                                     <TextBlock FontWeight="Bold" Text="{Binding Id}" TextWrapping="Wrap"/>
-                                    <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Visibility="{Binding StatusVisibility}" />
+                                    <!--<TextBlock Text="{Binding Message}" TextWrapping="Wrap" Visibility="{Binding StatusVisibility}" />-->
+
+                                    <TextBox Background="Transparent"
+                                        BorderThickness="0"
+                                        Text="{Binding Message, Mode=OneWay}"
+                                        IsReadOnly="True"
+                                        TextWrapping="Wrap" 
+                                        TextAlignment="Left"
+                                        Visibility="{Binding StatusVisibility}"/>
                                 </StackPanel>
                             </Grid>
                         </Border>
