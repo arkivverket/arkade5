@@ -10,7 +10,7 @@ Verktøyet kjører testere på arkivdataene.
 Oppstart skjerm
 ~~~~~~~~~~~~~~~
 
-.. image:: img\StartupScreen.png
+.. image:: img/StartupScreen.png
 
 Arkivet kan enten velges som en .tar fil eller rot mappen i en filstruktur (samme nivå som ADDML.XML filen). Valgene gjøres med henholdsvis "Velg tar-fil" eller "Velg katalog" knappen.
 Videre må det velges hva slags type arkiv det er ved å velge radio knappen for Norak3, Noark4, Noark5 eller Fagsystem.
@@ -27,11 +27,11 @@ Begge versjoner viser:
 
 Det vises også meldinger om innlesing, rapportgenerering og fullført testing i den nedre delen av vinduet.
 
-.. image:: img\TestRunAddml.png
+.. image:: img/TestRunAddml.png
 
 Test kjøring vindu for Norak3, Noark4 og Fagsystemer.
 
-.. image:: img\TestRunNoark5.png
+.. image:: img/TestRunNoark5.png
 
 Test kjøring vindu for Norak5.
 
@@ -41,7 +41,7 @@ Rapport
 En HTML rapport vil automatisk genereres ved fullført testing. Rapporten vil vises i en nettleser ved å klikke på 
 knappen "Vis rapport". Et eksempel er vist nedenfor.
 
-.. image:: img\TestReport.png
+.. image:: img/TestReport.png
 
 
 Fil informasjon
@@ -51,7 +51,7 @@ Disse blir lagt i bruker filsystemet til brukeren som er innlogget på Windows P
 
 Filstien for arbeidsmappene er *C:\\Users\\{bruker}\\Arkade*.
 
-.. image:: img\WorkingDirectory.png
+.. image:: img/WorkingDirectory.png
 
 Programlogger finnes i .\logs mapppen i dette området og selve arbeidskopien finnes i .\work mappen.
 
