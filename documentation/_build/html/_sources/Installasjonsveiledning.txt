@@ -25,7 +25,7 @@ Last ned den siste versjonen av Arkade5 fra denne siden_.
 
 Deretter startes installasjonen verd å klikke eller åpne den nedlastede .msi filen 
 
-.. image:: img\NedlastningerFilViser.png
+.. image:: img/NedlastningerFilViser.png
 
 **Merk: Windows Smart Screen advarsel**
 Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smart Screen" satt på.
@@ -41,7 +41,7 @@ Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smar
 
 Kjør programmet
 ---------------
-.. image:: img\RunTool.png
+.. image:: img/RunTool.png
 
 * Start -> Alle apper
 * Finn "Arkade 5" i app listen
@@ -49,7 +49,7 @@ Kjør programmet
 
 Avinstallasjon av programmet
 ----------------------------
-.. image:: img\Uninstall_02.png
+.. image:: img/Uninstall_02.png
 
 * Klikk Start -> Instillinger -> System -> Apper og funksjoner
 * Velg "Sorter etter installasjonsdato"
