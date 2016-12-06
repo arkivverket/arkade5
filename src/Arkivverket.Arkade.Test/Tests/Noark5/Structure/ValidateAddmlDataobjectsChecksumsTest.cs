@@ -32,16 +32,13 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
             var validateAddmlDataobjectsChecksums = new ValidateAddmlDataobjectsChecksums();
             validateAddmlDataobjectsChecksums.Test(archive);
             var testRun = validateAddmlDataobjectsChecksums.GetTestRun();
+            testRun.Results.Count.Should().Be(2);
+            testRun.IsSuccess().Should().BeTrue();
 
             foreach (var testResult in testRun.Results)
             {
-                _output.WriteLine(testResult.Message);
+                _output.WriteLine(testResult.Location + ": " + testResult.Message);
             }
-
-            testRun.Results.Count.Should().Be(2);
-
-            testRun.IsSuccess().Should().BeTrue();
-            
         }
     }
 }
