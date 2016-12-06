@@ -6,7 +6,7 @@
 Arkivverket Arkade5 dokumentasjon
 =================================
 
-Contents:
+Innhold:
 
 .. toctree::
    :maxdepth: 2
