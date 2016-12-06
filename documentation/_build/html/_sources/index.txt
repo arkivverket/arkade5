@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Arkade5's documentation!
-===================================
+Arkivverket Arkade5 dokumentasjon
+=================================
 
 Contents:
 
@@ -12,8 +12,8 @@ Contents:
    :maxdepth: 2
 
    Hjem
-   Brukerveiledning
    Installasjonsveiledning
+   Brukerveiledning
    Systemdokumentasjon
    Versjonshistorikk
 

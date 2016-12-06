@@ -1,8 +1,7 @@
 Brukerveiledning
 ================
 
-Versjon 0.4.4
--------------
+Oppdatert 06.12.2016
 
 Skjermen nedenfor vises ved oppstart av Arkade5.
 Versjonen støtter innlesing av arkivdata av format Norak3, Noark4, Noark5 og fagsystem.
