@@ -30,7 +30,7 @@ Deretter startes installasjonen verd å klikke eller åpne den nedlastede .msi f
 **Merk: Windows Smart Screen advarsel**
 Den følgende advarselen vil vises om Windows (Win10) maskinen har "Windows Smart Screen" satt på.
 
-.. image:: img\WinSmartScreenWarning.png
+.. image:: .\img\WinSmartScreenWarning.png
 
 * Klikk på "Mer info"
 * Klikk "Kjør likevel"
