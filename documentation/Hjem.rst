@@ -1,5 +1,5 @@
-Hjem
-====
+Start her!
+==========
 
 Introduksjon
 ------------
@@ -23,7 +23,7 @@ Brukerveiledningen beskriver hvordan Arkade 5 brukes.
 Her finner du utviklerinformasjon på engelsk.
 
 **Versjonshistorikk:**
-Denne siden har informasjon om hvilke forandringer som er gjort fra versjon til versjon. 
+Denne siden har informasjon forandringer og oppdateringer som er gjort fra versjon til versjon. (Release notes.) 
 
 
 .. _Arkitektum: http://www.Arkitektum.no

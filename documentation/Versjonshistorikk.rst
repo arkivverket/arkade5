@@ -25,9 +25,10 @@ Programmet kjører 2 forskjellige løp for arkivtrekk som er definert av en ADDM
 #. Arkiveldene status i arkivstrukturen
 #. Antall klassifikasjonssystemer i arkivstrukturen
 #. Antall klasser i arkivsstrukturen
-#. Antall klasser uten underklasser eller mapper i det primære klassifikasjonssystemet i arkivstrukturen
 #. Antall mapper i arkivstrukturen
 #. Kontroller at refererte dokumenter eksisterer i uttrekket 
+#. Valider sjekksummer
+#. Valider xml i henhold til skjema
 
 *Implementerte ADDML prosesser (Noark3, Noark4, og fagsystem):*
 

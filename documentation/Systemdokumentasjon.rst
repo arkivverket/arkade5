@@ -32,6 +32,18 @@ List of supported ADDML processes
 * Control_Boolean_Value
 
 
+List of implemeted Noark5 Tests
+
+* Antall arkiver i arkivstrukturen
+* Antall arkivdeler i arkivstrukturen
+* Arkiveldene status i arkivstrukturen
+* Antall klassifikasjonssystemer i arkivstrukturen
+* Antall klasser i arkivsstrukturen
+* Antall mapper i arkivstrukturen
+* Kontroller at refererte dokumenter eksisterer i uttrekket
+* Checksum validations
+* Schema Validation of XML
+
 Arkivverket.Arkade
 ------------------
 This is the core library with functions for reading and testing archive extractions, generating reports and creating SIP/AIP-packages.

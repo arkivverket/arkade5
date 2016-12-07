@@ -11,7 +11,7 @@ Systemkrav for å kjøre Arkade 5
 Avinstallere tidligere versjoner av verktøyet
 ---------------------------------------------
 Versjon 0.3.0 og tidligere versjoner må avinstalleres før Arkade kan oppgraderes.
-Følg vanlige avinstallasjonsrutiner og ta vekk alle tidligere installasjoner av Arkade på PCen.
+Følg vanlige avinstallasjonsrutiner og ta vekk alle tidligere versjoner av Arkade på PCen.
 
 
 Test versjon 0.4.x er satt opp til å automatisk håndtere gamle installasjoner av Arkade.
@@ -47,8 +47,8 @@ Kjør programmet
 * Finn "Arkade 5" i app listen
 * Klikk på "Arkade 5" for å kjøre programmet
 
-Avinstallasjon av programmet
-----------------------------
+Avinstallasjon av programmet (Windows 10)
+-----------------------------------------
 .. image:: img/Uninstall_02.png
 
 * Klikk Start -> Instillinger -> System -> Apper og funksjoner
