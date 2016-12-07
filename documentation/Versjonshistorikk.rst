@@ -63,7 +63,11 @@ Programmet kjører 2 forskjellige løp for arkivtrekk som er definert av en ADDM
 
 Notater:
 
-* Testrapporten og testloggen viser maks 100 like avvik. Dette er gjort for å redusere faren for minneproblemer ved uttrekk med store antall like avvik. 
+* Testrapporten og testloggen viser maks 100 like avvik. Dette er gjort for å redusere faren for minneproblemer ved uttrekk med store antall like avvik.
+* Grensesnittet er oppdatert fra den tidligere versjonen.
+* Arbeidsmappe ligger nå under c:/Brukere/{InnloggetBruker}/Arkade
+* ADDML.xml eller arkivstruktur.xsd fil må ligge på rotnivå i mappestruktur eller tar fil. 
+* ADDML.xml fil må definere hvilke prosesser som skal kjøres og hvordan de forholder seg til fil, post eller felt. Ikke alle tester kjøres på alle felt. 
 
 
 Versjon 0.3.0
