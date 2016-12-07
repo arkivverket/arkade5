@@ -90,9 +90,11 @@
 <li class="toctree-l1"><a class="reference internal" href="Hjem.html">Hjem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installasjonsveiledning.html">Installasjonsveiledning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Brukerveiledning.html">Brukerveiledning</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Systemdokumentasjon</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#arkivverket-arkade">Arkivverket.Arkade</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#arkivverket-arkade-ui">Arkivverket.Arkade.UI</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Systemdokumentasjon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#arkivverket-arkade">Arkivverket.Arkade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#arkivverket-arkade-ui">Arkivverket.Arkade.UI</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Versjonshistorikk.html">Versjonshistorikk</a></li>
 </ul>
 
@@ -170,9 +172,8 @@
 <li>Control_Date_Value</li>
 <li>Control_Boolean_Value</li>
 </ul>
-</div>
 <div class="section" id="arkivverket-arkade">
-<h1>Arkivverket.Arkade<a class="headerlink" href="#arkivverket-arkade" title="Permalink til denne oversikten">¶</a></h1>
+<h2>Arkivverket.Arkade<a class="headerlink" href="#arkivverket-arkade" title="Permalink til denne oversikten">¶</a></h2>
 <p>This is the core library with functions for reading and testing archive extractions, generating reports and creating SIP/AIP-packages.</p>
 <p>List of packages:</p>
 <p><strong>Core</strong> - Common classes</p>
@@ -182,11 +183,12 @@
 <p><strong>Util</strong> - General utilities</p>
 </div>
 <div class="section" id="arkivverket-arkade-ui">
-<h1>Arkivverket.Arkade.UI<a class="headerlink" href="#arkivverket-arkade-ui" title="Permalink til denne oversikten">¶</a></h1>
+<h2>Arkivverket.Arkade.UI<a class="headerlink" href="#arkivverket-arkade-ui" title="Permalink til denne oversikten">¶</a></h2>
 <p>This project provides the graphical user interface of the Arkade 5 software. It is based on WPF, Windows Presentation Foundation.
 Together with WPF, the application uses the <a class="reference external" href="https://github.com/PrismLibrary/Prism">Prism</a> library for creating a loosly coupled, maintainable and testable XAML application.</p>
 <p><a class="reference external" href="https://github.com/PrismLibrary/Prism">Autofac</a> is used as a dependency framework. Bootstrapping of the applications happens in <strong>Bootstrapper.cs</strong>. It is based on the bootstrapper provided by Prism and it loads the Autofac-module provided by the Arkade core library.</p>
 <p>The design and layout is based on Google&#8217;s <a class="reference external" href="https://material.google.com/">Material</a> Design. This has been implemented with the help of the [MaterialDesignThemes-library](<a class="reference external" href="http://materialdesigninxaml.net/">http://materialdesigninxaml.net/</a>). Note that the user interface is only inspired by the material design, not neccessary strictly following it in every situation.</p>
+</div>
 </div>
 
 

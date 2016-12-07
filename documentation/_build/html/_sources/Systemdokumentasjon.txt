@@ -33,7 +33,7 @@ List of supported ADDML processes
 
 
 Arkivverket.Arkade
-==================
+------------------
 This is the core library with functions for reading and testing archive extractions, generating reports and creating SIP/AIP-packages.
 
 List of packages:
@@ -50,7 +50,7 @@ List of packages:
 
 
 Arkivverket.Arkade.UI
-=====================
+---------------------
 
 This project provides the graphical user interface of the Arkade 5 software. It is based on WPF, Windows Presentation Foundation. 
 Together with WPF, the application uses the Prism_ library for creating a loosly coupled, maintainable and testable XAML application.  

@@ -1,9 +1,9 @@
 Versjonshistorikk
 =================
 
-Versjon 0.4.4
--------------
-*Dato: 01.12.2016*
+Versjon 0.4.24
+--------------
+*Dato: 07.12.2016*
 
 Dette er den andre versjonen av verktøyet som slippes for testing. 
 

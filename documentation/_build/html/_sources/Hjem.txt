@@ -9,23 +9,23 @@ Programvaren skal ferdigstilles 1. mars 2017.
 
 Disse sidene vil fungere som dokumentasjonssider og for nedlasting av programmet.
 
-Den nyeste versjonen av programmet ligger her arkade5-0.4.4.msi_ (2016-12-01)
+Den nyeste versjonen av programmet ligger her arkade5-0.4.24.msi_ (2016-12-01)
 
 Innhold
 -------
-**Installasjonsveiledning**
+**Installasjonsveiledning:**
 Dette dokumentet beskriver hvordan verktøyet skal installeres.
 
-**Brukerveiledning**
-Brukerveiledningen beskriver hvordan Arkade 5 kjøres.
+**Brukerveiledning:**
+Brukerveiledningen beskriver hvordan Arkade 5 brukes.
 
-**Systemdokumentasjon**
+**Systemdokumentasjon:**
+Her finner du utviklerinformasjon på engelsk.
 
-
-**Versjonshistorikk**
+**Versjonshistorikk:**
 Denne siden har informasjon om hvilke forandringer som er gjort fra versjon til versjon. 
 
 
 .. _Arkitektum: http://www.Arkitektum.no
 .. _Arkivverket: http://http://arkivverket.no/
-.. _arkade5-0.4.4.msi: https://download.arkitektum.no/arkade/release/arkade5-0.4.4.msi
+.. _arkade5-0.4.24.msi: https://download.arkitektum.no/arkade/release/arkade5-0.4.24.msi
