@@ -12,10 +12,17 @@ namespace Arkivverket.Arkade.Util
         public const string ArkivstrukturXsdFileName = "arkivstruktur.xsd";
         public const string InfoXmlFileName = "info.xml";
         public const string ArkadeXmlLogFileName = "arkade-log.xml";
+        public const string EadXmlFileName = "ead.xml";
+        public const string EacCpfXmlFileName = "eac-cpf.xml";
+        public const string DiasPremisXmlFileName = "dias-premis.xml";
+        public const string DiasMetsXmlFileName = "dias-mets.xml";
+        public const string DiasMetsXsdFileName = "dias-mets.xsd";
 
         public const string AddmlXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.addml.xsd";
         public const string ArkivstrukturXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.arkivstruktur.xsd";
         public const string MetadatakatalogXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.metadatakatalog.xsd";
+
+        public const string DirectoryNameRepositoryOperations = "repository_operations";
 
         private static readonly string UserHomeDirectoryString =
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -31,7 +38,7 @@ namespace Arkivverket.Arkade.Util
 
         private static readonly string ArkadeIpDirectoryString = Path.Combine(ArkadeDirectoryString, "ip");
         private static readonly DirectoryInfo ArkadeIpDirectory = new DirectoryInfo(ArkadeIpDirectoryString);
-
+        
         static ArkadeConstants()
         {
             if (!ArkadeDirectory.Exists)

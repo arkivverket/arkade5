@@ -87,7 +87,7 @@ namespace Arkivverket.Arkade.Core
 
         public ArkadeDirectory RepositoryOperations()
         {
-            return AdministrativeMetadata().WithSubDirectory("repository_operations");
+            return AdministrativeMetadata().WithSubDirectory(ArkadeConstants.DirectoryNameRepositoryOperations);
         }
 
         private void CreateAllFolders()

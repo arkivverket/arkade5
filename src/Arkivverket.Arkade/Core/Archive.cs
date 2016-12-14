@@ -1,3 +1,4 @@
+using System.IO;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core
@@ -38,6 +39,11 @@ namespace Arkivverket.Arkade.Core
                 structureFilename = WorkingDirectory.Content().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
             }
             return structureFilename;
+        }
+
+        public FileInfo GetInformationPackageFileName()
+        {
+            return WorkingDirectory.Root().WithFile(Uuid.ToString() + ".tar");
         }
     }
 

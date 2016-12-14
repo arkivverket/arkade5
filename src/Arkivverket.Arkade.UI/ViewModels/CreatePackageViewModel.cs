@@ -1,4 +1,5 @@
 using System.IO;
+using System.Reflection;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Util;
 using Prism.Commands;
@@ -10,7 +11,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 {
     public class CreatePackageViewModel : BindableBase, INavigationAware
     {
-        private ILogger _log = Log.ForContext<CreatePackageViewModel>();
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private bool _isRunningCreatePackage;
         private bool _selectedPackageTypeAip;
         private bool _selectedPackageTypeSip = true;
@@ -89,47 +90,20 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _isRunningCreatePackage = true;
             CreatePackageCommand.RaiseCanExecuteChanged();
             
-            DirectoryInfo directoryName = GetIpDirectory();
-
             // todo must be async
             var arkade = new Core.Arkade();
-            bool saved = arkade.SaveIp(_testSession, directoryName);
-            if (saved)
-            {
-                StatusMessage = "IP og metadata lagret i " + directoryName;
-                Log.Debug("Package created in " + directoryName);
-            }
+
+            PackageType packageType = SelectedPackageTypeSip ?  PackageType.SubmissionInformationPackage : PackageType.ArchivalInformationPackage;
+
+            arkade.CreatePackage(_testSession, packageType);
+
+            string informationPackageFileName = _testSession.Archive.GetInformationPackageFileName().FullName;
+            StatusMessage = "IP og metadata lagret i " +  informationPackageFileName;
+            Log.Debug("Package created in " + informationPackageFileName);
 
             _isRunningCreatePackage = false;
             CreatePackageCommand.RaiseCanExecuteChanged();
         }
 
-        private DirectoryInfo GetIpDirectory()
-        {
-            string directoryName = Path.Combine(ArkadeConstants.GetArkadeIpDirectory().FullName, _testSession.Archive.Uuid.GetValue());
-            var directoryInfo = new DirectoryInfo(directoryName);
-            if (!directoryInfo.Exists)
-            {
-                directoryInfo.Create();
-            }
-
-            return directoryInfo;
-
-            /* If we want to use a FolderBrowserDialog
-            var dialog = new FolderBrowserDialog();
-            dialog.SelectedPath = directoryName;
-            dialog.ShowNewFolderButton = true;
-            DialogResult result = dialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                directoryName = dialog.SelectedPath;
-                return new DirectoryInfo(directoryName);
-            }
-            else
-            {
-                return null;
-            }
-            */
-        }
     }
 }

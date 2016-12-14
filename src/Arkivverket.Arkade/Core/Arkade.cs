@@ -19,12 +19,6 @@ namespace Arkivverket.Arkade.Core
             _testSessionFactory = new TestSessionFactory(new TarCompressionUtility(), new StatusEventHandler());
         }
 
-        public TestSession RunTests(ArchiveDirectory archive)
-        {
-            TestSession testSession = _testSessionFactory.NewSession(archive);
-            return RunTests(testSession);
-        }
-
         public TestSession RunTests(ArchiveFile archive)
         {
             TestSession testSession = _testSessionFactory.NewSession(archive);
@@ -48,25 +42,17 @@ namespace Arkivverket.Arkade.Core
             return testSession;
         }
 
-        public bool SaveIp(TestSession testSession, DirectoryInfo directoryName)
+        public void CreatePackage(TestSession testSession, PackageType packageType)
         {
-            if (!directoryName.Exists)
+            var informationPackageCreator = new InformationPackageCreator();
+            if (packageType == PackageType.SubmissionInformationPackage)
             {
-                directoryName.Create();
+                informationPackageCreator.CreateSip(testSession.Archive);
             }
-            FileInfo tarFile = new FileInfo(Path.Combine(directoryName.FullName, testSession.Archive.Uuid.GetValue() + ".tar"));
-            TarCompressionUtility tar = new TarCompressionUtility();
-            tar.CompressFolderContentToArchiveFile(tarFile, testSession.Archive.WorkingDirectory.Root().DirectoryInfo());
-
-            var sourceInfoXml = new FileInfo(Path.Combine(testSession.Archive.WorkingDirectory.Root().DirectoryInfo().FullName,
-                ArkadeConstants.InfoXmlFileName));
-            if (sourceInfoXml.Exists)
+            else
             {
-                string destinfoXml = Path.Combine(directoryName.FullName, ArkadeConstants.InfoXmlFileName);
-                File.Copy(sourceInfoXml.FullName, destinfoXml, true);
+                informationPackageCreator.CreateAip(testSession.Archive);
             }
-
-            return true;
         }
 
         public void SaveReport(TestSession testSession, FileInfo file)
