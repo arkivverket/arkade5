@@ -137,8 +137,14 @@
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\ArchiveInformationStatus.cs" />
+    <Compile Include="Models\MetaDataModel.cs" />
     <Compile Include="Models\OperationMessage.cs" />
     <Compile Include="ModuleAModule.cs" />
+    <Compile Include="Resources\MetaDataUI.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetaDataUI.resx</DependentUpon>
+    </Compile>
     <Compile Include="Util\Colors.cs" />
     <Compile Include="Util\ExceptionMessageBox.cs" />
     <Compile Include="Util\Extensions.cs" />
@@ -197,6 +203,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Resources\MetaDataUI.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MetaDataUI.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\UI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UI.Designer.cs</LastGenOutput>
