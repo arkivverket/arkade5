@@ -136,7 +136,7 @@ namespace Arkivverket.Arkade.Identify
                 // Verify correct ADDML file
                 AddmlUtil.ReadFromString(addmlString);
 
-                FileInfo addmlFileToWrite = archive.WorkingDirectory.ContentWorkDirectory().WithFile(ArkadeConstants.AddmlXmlFileName);
+                FileInfo addmlFileToWrite = archive.WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName);
 
                 File.WriteAllText(addmlFileToWrite.FullName, addmlString);
                 _log.Information("Successfully transformed {0} to {1}.", ArkadeConstants.NoarkihXmlFileName,

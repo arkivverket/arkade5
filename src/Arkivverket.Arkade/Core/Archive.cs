@@ -32,7 +32,8 @@ namespace Arkivverket.Arkade.Core
             }
             else if (ArchiveType.Equals(ArchiveType.Noark4))
             {
-                structureFilename = WorkingDirectory.ContentWorkDirectory().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
+                // Noark4 addml has been created by arkade - hence the use of the administrative metadata directory
+                structureFilename = WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
             }
             else
             {
