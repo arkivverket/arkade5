@@ -23,7 +23,8 @@ namespace Arkivverket.Arkade.Util
         };
 
         /// <summary>
-        ///     Create SIP (Submission Information Package)
+        /// Create SIP (Submission Information Package). 
+        /// Output file is written to Arkade's work directory for this test session
         /// </summary>
         public void CreateSip(Archive archive)
         {
@@ -31,7 +32,8 @@ namespace Arkivverket.Arkade.Util
         }
 
         /// <summary>
-        ///     Create AIP (Archival Information Package)
+        /// Create AIP (Archival Information Package)
+        /// Output file is written to Arkade's work directory for this test session
         /// </summary>
         public void CreateAip(Archive archive)
         {
@@ -41,57 +43,72 @@ namespace Arkivverket.Arkade.Util
         private void CreatePackage(PackageType packageType, Archive archive)
         {
             Stream outStream = File.Create(archive.GetInformationPackageFileName().FullName);
-            using (var tarOutputStream = new TarOutputStream(outStream))
+            TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
+
+            AddFilesInDirectory(archive, archive.WorkingDirectory.Root().DirectoryInfo(), packageType, tarArchive);
+
+            if (archive.WorkingDirectory.HasExternalContentDirectory())
             {
-                TarArchive.CreateOutputTarArchive(tarOutputStream);
+                Log.Debug($"Archive has external content directory, including files from {archive.WorkingDirectory.Content()}");
+                string filenamePrefix = ArkadeConstants.DirectoryNameContent + Path.DirectorySeparatorChar;
+                AddFilesInDirectory(archive, archive.WorkingDirectory.Content().DirectoryInfo(), null, tarArchive, filenamePrefix);
+            }
 
-                string rootDirectory = archive.WorkingDirectory.Root().ToString();
+            tarArchive.Close();
+        }
 
-                AddFilesInDirectory(rootDirectory, packageType, tarOutputStream);
-                
-                if (archive.WorkingDirectory.HasExternalContentDirectory())
+        private void AddFilesInDirectory(Archive archive, DirectoryInfo rootDirectory, PackageType? packageType, TarArchive tarArchive,
+            string fileNamePrefix = null)
+        {
+            AddFilesInDirectory(archive, rootDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
+        }
+
+        /// <summary>
+        ///     Recursively add all files and directories to the given tar archive.
+        /// </summary>
+        /// <param name="archive">the archive we are working on</param>
+        /// <param name="directory">the directory we want to add files from</param>
+        /// <param name="rootDirectory">this path is stripped from the filename used in tar file</param>
+        /// <param name="packageType">the package type - used for filtering some files that are not needed for SIP-packages</param>
+        /// <param name="tarArchive">the archive to add files to</param>
+        /// <param name="fileNamePrefix">a prefix to add to all files after removing the root directory.</param>
+        private void AddFilesInDirectory(Archive archive, DirectoryInfo directory, DirectoryInfo rootDirectory, PackageType? packageType,
+            TarArchive tarArchive, string fileNamePrefix = null)
+        {
+            foreach (DirectoryInfo currentDirectory in directory.GetDirectories())
+            {
+                if ((packageType != null) && (packageType == PackageType.SubmissionInformationPackage) &&
+                    DirectoriesToSkipForSipPackages.Contains(currentDirectory.Name))
                 {
-                    Log.Debug($"Archive has external content directory, include files from {archive.WorkingDirectory.Content()}");
-                    string filenamePrefix = ArkadeConstants.DirectoryNameContent + Path.DirectorySeparatorChar;
-                    AddFilesInDirectory(archive.WorkingDirectory.Content().ToString(), null, tarOutputStream, filenamePrefix);
+                    continue;
                 }
+
+                CreateEntry(currentDirectory.FullName, rootDirectory, tarArchive, fileNamePrefix, Path.DirectorySeparatorChar.ToString());
+                AddFilesInDirectory(archive, currentDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
+            }
+
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                if (file.FullName == archive.GetInformationPackageFileName().FullName) // don't try to add the tar file into the tar file...
+                {
+                    continue;
+                }
+
+                if (FileIsInSkipList(packageType, file))
+                {
+                    continue;
+                }
+
+                CreateEntry(file.FullName, rootDirectory, tarArchive, fileNamePrefix);
             }
         }
 
-        private void AddFilesInDirectory(string rootDirectory, PackageType? packageType, TarOutputStream tarOutputStream, string filenamePrefix = null)
+        private void CreateEntry(string fileName, DirectoryInfo rootDirectory, TarArchive tarArchive, string fileNamePrefix,
+            string filenameSuffix = null)
         {
-            foreach (string directory in Directory.GetDirectories(rootDirectory))
-            {
-                CreateEntryForDirectory(directory, rootDirectory, tarOutputStream, filenamePrefix);
-                string[] filenames = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
-
-                foreach (string filename in filenames)
-                {
-                    if (packageType.HasValue && packageType == PackageType.SubmissionInformationPackage && FileIsInSkipList(filename))
-                    {
-                        Log.Debug($"Skipping {Path.GetFileName(filename)} for SIP-archive.");
-                    }
-                    else
-                    {
-                        AddFile(filename, rootDirectory, tarOutputStream, filenamePrefix);
-                    }
-                }
-            }
-        }
-
-        private void CreateEntryForDirectory(string directory, string rootDirectory, TarOutputStream tarOutputStream, string filenamePrefix = null)
-        {
-            TarEntry tarEntry = TarEntry.CreateEntryFromFile(directory);
-            tarEntry.Name = filenamePrefix + RemoveRootDirectoryFromFilename(directory, rootDirectory) + Path.DirectorySeparatorChar;
-            tarOutputStream.PutNextEntry(tarEntry);
-        }
-
-        private static bool FileIsInSkipList(string fullPathToFile)
-        {
-            string fileName = Path.GetFileName(fullPathToFile);
-            string lastDirectoryName = Path.GetFileName(Path.GetDirectoryName(fullPathToFile));
-            return FilesToSkipForSipPackages.Contains(fileName)
-                   || DirectoriesToSkipForSipPackages.Contains(lastDirectoryName);
+            TarEntry tarEntry = TarEntry.CreateEntryFromFile(fileName);
+            tarEntry.Name = fileNamePrefix + RemoveRootDirectoryFromFilename(fileName, rootDirectory.FullName) + filenameSuffix;
+            tarArchive.WriteEntry(tarEntry, false);
         }
 
         private string RemoveRootDirectoryFromFilename(string filename, string rootDirectory)
@@ -99,28 +116,11 @@ namespace Arkivverket.Arkade.Util
             return filename.Replace(rootDirectory + Path.DirectorySeparatorChar, "");
         }
 
-        private void AddFile(string filename, string rootDirectory, TarOutputStream tarOutputStream, string filenamePrefix = null)
+        private static bool FileIsInSkipList(PackageType? packageType, FileInfo file)
         {
-            using (Stream inputStream = File.OpenRead(filename))
-            {
-                string entryName = filenamePrefix + RemoveRootDirectoryFromFilename(filename, rootDirectory);
-                long fileSize = inputStream.Length;
-                TarEntry entry = TarEntry.CreateTarEntry(entryName);
-                entry.Size = fileSize;
-                tarOutputStream.PutNextEntry(entry);
-
-                var localBuffer = new byte[32*1024];
-                while (true)
-                {
-                    int numRead = inputStream.Read(localBuffer, 0, localBuffer.Length);
-                    if (numRead <= 0)
-                    {
-                        break;
-                    }
-                    tarOutputStream.Write(localBuffer, 0, numRead);
-                }
-            }
-            tarOutputStream.CloseEntry();
+            return packageType.HasValue
+                   && (packageType == PackageType.SubmissionInformationPackage)
+                   && FilesToSkipForSipPackages.Contains(file.Name);
         }
     }
 
