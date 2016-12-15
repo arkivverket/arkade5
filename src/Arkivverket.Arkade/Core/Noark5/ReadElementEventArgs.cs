@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Arkivverket.Arkade.Core.Noark5
 {
@@ -38,6 +39,9 @@ namespace Arkivverket.Arkade.Core.Noark5
 
         public bool Matches(params string[] elementNames)
         {
+            if (!_path.Any())
+                return false;
+
             var matches = true;
             for (var i = 0; i < elementNames.Length; i++)
             {
