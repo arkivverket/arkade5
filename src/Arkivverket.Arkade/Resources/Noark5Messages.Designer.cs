@@ -235,6 +235,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall registreringer for hvert år.
+        /// </summary>
+        internal static string NumberOfRegistrationsPerYear {
+            get {
+                return ResourceManager.GetString("NumberOfRegistrationsPerYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn status på arkivdeler.
         /// </summary>
         internal static string StatusOfArchiveParts {
