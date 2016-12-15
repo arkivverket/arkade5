@@ -8,7 +8,8 @@ namespace Arkivverket.Arkade.Test.Core
         private ArchiveType _archiveType = ArchiveType.Noark5;
 
         private Uuid _uuid = Uuid.Random();
-        private DirectoryInfo _workingDirectory = new DirectoryInfo("c:\\temp");
+        private DirectoryInfo _workingDirectoryContent = new DirectoryInfo("c:\\temp");
+        private DirectoryInfo _workingDirectory;
 
         public ArchiveBuilder WithUuid(string uuid)
         {
@@ -22,15 +23,21 @@ namespace Arkivverket.Arkade.Test.Core
             return this;
         }
 
-        public ArchiveBuilder WithWorkingDirectory(string workingDirectory)
+        public ArchiveBuilder WithWorkingDirectoryRoot(string workingDirectory)
         {
             _workingDirectory = new DirectoryInfo(workingDirectory);
             return this;
         }
 
-        public ArchiveBuilder WithWorkingDirectory(DirectoryInfo workingDirectory)
+        public ArchiveBuilder WithWorkingDirectoryExternalContent(string workingDirectory)
         {
-            _workingDirectory = workingDirectory;
+            _workingDirectoryContent = new DirectoryInfo(workingDirectory);
+            return this;
+        }
+
+        public ArchiveBuilder WithWorkingDirectoryExternalContent(DirectoryInfo workingDirectory)
+        {
+            _workingDirectoryContent = workingDirectory;
             return this;
         }
 
@@ -42,7 +49,7 @@ namespace Arkivverket.Arkade.Test.Core
 
         public Archive Build()
         {
-            var archive = new Archive(_archiveType, _uuid, new WorkingDirectory(null, _workingDirectory));
+            var archive = new Archive(_archiveType, _uuid, new WorkingDirectory(_workingDirectory, _workingDirectoryContent));
             return archive;
         }
     }

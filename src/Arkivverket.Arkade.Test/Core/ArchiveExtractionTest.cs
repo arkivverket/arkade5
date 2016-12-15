@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Test.Core
         {
             var workingDirectory = "c:\\dummy";
             var archiveExtraction = new ArchiveBuilder()
-                .WithWorkingDirectory(workingDirectory)
+                .WithWorkingDirectoryExternalContent(workingDirectory)
                 .Build();
 
             archiveExtraction.GetContentDescriptionFileName().Should().Be($"{workingDirectory}{Path.DirectorySeparatorChar}arkivstruktur.xml");
@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Test.Core
         {
             var workingDirectory = "C:\\dummy";
             var archiveExtraction = new ArchiveBuilder()
-                .WithWorkingDirectory(workingDirectory)
+                .WithWorkingDirectoryExternalContent(workingDirectory)
                 .WithArchiveType(ArchiveType.Noark5)
                 .Build();
 
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Test.Core
         {
             var workingDirectory = "c:\\dummy";
             var archiveExtraction = new ArchiveBuilder()
-                .WithWorkingDirectory(workingDirectory)
+                .WithWorkingDirectoryExternalContent(workingDirectory)
                 .WithArchiveType(ArchiveType.Noark4)
                 .Build();
 

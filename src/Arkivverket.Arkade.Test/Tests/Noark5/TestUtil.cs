@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\{testdataDirectory}";
             return new Core.ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectory(workingDirectory)
+                .WithWorkingDirectoryExternalContent(workingDirectory)
                 .Build();
         }
 
