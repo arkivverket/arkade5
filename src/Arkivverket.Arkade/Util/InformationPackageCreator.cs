@@ -46,32 +46,43 @@ namespace Arkivverket.Arkade.Util
                 TarArchive.CreateOutputTarArchive(tarOutputStream);
 
                 string rootDirectory = archive.WorkingDirectory.Root().ToString();
-                foreach (string directory in Directory.GetDirectories(rootDirectory))
+
+                AddFilesInDirectory(rootDirectory, packageType, tarOutputStream);
+                
+                if (archive.WorkingDirectory.HasExternalContentDirectory())
                 {
-                    CreateEntryForDirectory(directory, rootDirectory, tarOutputStream);
+                    Log.Debug($"Archive has external content directory, include files from {archive.WorkingDirectory.Content()}");
+                    string filenamePrefix = ArkadeConstants.DirectoryNameContent + Path.DirectorySeparatorChar;
+                    AddFilesInDirectory(archive.WorkingDirectory.Content().ToString(), null, tarOutputStream, filenamePrefix);
+                }
+            }
+        }
 
-                    string[] filenames = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
+        private void AddFilesInDirectory(string rootDirectory, PackageType? packageType, TarOutputStream tarOutputStream, string filenamePrefix = null)
+        {
+            foreach (string directory in Directory.GetDirectories(rootDirectory))
+            {
+                CreateEntryForDirectory(directory, rootDirectory, tarOutputStream, filenamePrefix);
+                string[] filenames = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
 
-                    foreach (string filename in filenames)
+                foreach (string filename in filenames)
+                {
+                    if (packageType.HasValue && packageType == PackageType.SubmissionInformationPackage && FileIsInSkipList(filename))
                     {
-                        if ((packageType == PackageType.SubmissionInformationPackage)
-                            && FileIsInSkipList(filename))
-                        {
-                            Log.Debug($"Skipping {Path.GetFileName(filename)} for SIP-archive.");
-                        }
-                        else
-                        {
-                            AddFile(filename, rootDirectory, tarOutputStream);
-                        }
+                        Log.Debug($"Skipping {Path.GetFileName(filename)} for SIP-archive.");
+                    }
+                    else
+                    {
+                        AddFile(filename, rootDirectory, tarOutputStream, filenamePrefix);
                     }
                 }
             }
         }
 
-        private void CreateEntryForDirectory(string directory, string rootDirectory, TarOutputStream tarOutputStream)
+        private void CreateEntryForDirectory(string directory, string rootDirectory, TarOutputStream tarOutputStream, string filenamePrefix = null)
         {
             TarEntry tarEntry = TarEntry.CreateEntryFromFile(directory);
-            tarEntry.Name = RemoveRootDirectoryFromFilename(directory, rootDirectory) + Path.DirectorySeparatorChar;
+            tarEntry.Name = filenamePrefix + RemoveRootDirectoryFromFilename(directory, rootDirectory) + Path.DirectorySeparatorChar;
             tarOutputStream.PutNextEntry(tarEntry);
         }
 
@@ -88,11 +99,11 @@ namespace Arkivverket.Arkade.Util
             return filename.Replace(rootDirectory + Path.DirectorySeparatorChar, "");
         }
 
-        private void AddFile(string filename, string rootDirectory, TarOutputStream tarOutputStream)
+        private void AddFile(string filename, string rootDirectory, TarOutputStream tarOutputStream, string filenamePrefix = null)
         {
             using (Stream inputStream = File.OpenRead(filename))
             {
-                string entryName = RemoveRootDirectoryFromFilename(filename, rootDirectory);
+                string entryName = filenamePrefix + RemoveRootDirectoryFromFilename(filename, rootDirectory);
                 long fileSize = inputStream.Length;
                 TarEntry entry = TarEntry.CreateTarEntry(entryName);
                 entry.Size = fileSize;

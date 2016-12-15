@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.Core
         /// <returns></returns>
         public ArkadeDirectory Content()
         {
-            if (_externalContentDirectory != null)
+            if (HasExternalContentDirectory())
                 return _externalContentDirectory;
             return _root.WithSubDirectory("content");
         }
@@ -97,6 +97,11 @@ namespace Arkivverket.Arkade.Core
             AdministrativeMetadata().Create();
             RepositoryOperations().Create();
             ContentWorkDirectory().Create();
+        }
+
+        public bool HasExternalContentDirectory()
+        {
+            return _externalContentDirectory != null;
         }
     }
 }

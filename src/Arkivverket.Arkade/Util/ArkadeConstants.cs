@@ -23,6 +23,7 @@ namespace Arkivverket.Arkade.Util
         public const string MetadatakatalogXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.metadatakatalog.xsd";
 
         public const string DirectoryNameRepositoryOperations = "repository_operations";
+        public const string DirectoryNameContent = "content";
 
         private static readonly string UserHomeDirectoryString =
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
