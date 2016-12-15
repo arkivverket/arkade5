@@ -244,6 +244,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall registreringer uten dokumentbeskrivelse.
+        /// </summary>
+        internal static string NumberOfRegistrationsWithoutDocumentDescription {
+            get {
+                return ResourceManager.GetString("NumberOfRegistrationsWithoutDocumentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn status på arkivdeler.
         /// </summary>
         internal static string StatusOfArchiveParts {

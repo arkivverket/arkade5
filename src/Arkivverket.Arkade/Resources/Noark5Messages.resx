@@ -181,6 +181,9 @@ Generert:  {2}</value>
   <data name="NumberOfRegistrationsPerYear" xml:space="preserve">
     <value>Antall registreringer for hvert år</value>
   </data>
+  <data name="NumberOfRegistrationsWithoutDocumentDescription" xml:space="preserve">
+    <value>Antall registreringer uten dokumentbeskrivelse</value>
+  </data>
   <data name="StatusOfArchiveParts" xml:space="preserve">
     <value>Finn status på arkivdeler</value>
   </data>

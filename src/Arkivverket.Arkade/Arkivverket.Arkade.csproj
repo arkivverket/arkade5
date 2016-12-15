@@ -145,6 +145,7 @@
     <Compile Include="Core\Noark5\Noark5BaseTest.cs" />
     <Compile Include="Core\Noark5\Noark5StructureBaseTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfRegistrationsPerYear.cs" />
+    <Compile Include="Tests\Noark5\NumberOfRegistrationsWithoutDocumentDescription.cs" />
     <Compile Include="Util\XmlReaderUtil.cs" />
     <Compile Include="Core\Archive.cs" />
     <Compile Include="Core\ArchiveContentReader.cs" />
