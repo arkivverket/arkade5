@@ -144,7 +144,7 @@
     <Compile Include="Util\ArkadeDirectory.cs" />
     <Compile Include="Core\WorkingDirectory.cs" />
     <Compile Include="Util\ArkadeFile.cs" />
-    <Compile Include="Util\InformationPackageCreator.cs" />
+    <Compile Include="Core\InformationPackageCreator.cs" />
     <Compile Include="Core\IArkadeStructureTest.cs" />
     <Compile Include="Core\Noark5\Noark5BaseTest.cs" />
     <Compile Include="Core\Noark5\Noark5StructureBaseTest.cs" />

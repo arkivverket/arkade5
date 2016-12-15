@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Util;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
 
-namespace Arkivverket.Arkade.Util
+namespace Arkivverket.Arkade.Core
 {
     public class InformationPackageCreator
     {
