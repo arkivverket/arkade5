@@ -34,6 +34,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfFolders(),
                 new NumberOfClassificationSystems(),
                 new NumberOfRegistrations(),
+                new NumberOfRegistrationsPerYear(),
             //    new NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders(_archiveReader),
                 new ControlDocumentFilesExists(archive)
             };
