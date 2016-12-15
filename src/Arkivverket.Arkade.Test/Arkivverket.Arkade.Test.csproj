@@ -201,6 +201,7 @@
     <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchemaTest.cs" />
     <Compile Include="Tests\Noark5\TestUtil.cs" />
     <Compile Include="Tests\Noark5\XmlElementHelper.cs" />
+    <Compile Include="Tests\Noark5\NumberOfRegistrationsWithoutDocumentDescriptionTest.cs" />
     <Compile Include="Util\AssertTest.cs" />
     <Compile Include="Util\ChecksumTest.cs" />
     <Compile Include="Util\LoggingHelper.cs" />
