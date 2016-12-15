@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -20,11 +19,11 @@ namespace Arkivverket.Arkade.Util
 
         private static readonly List<string> DirectoriesToSkipForSipPackages = new List<string>
         {
-            ArkadeConstants.DirectoryNameRepositoryOperations,
+            ArkadeConstants.DirectoryNameRepositoryOperations
         };
 
         /// <summary>
-        /// Create SIP (Submission Information Package)
+        ///     Create SIP (Submission Information Package)
         /// </summary>
         public void CreateSip(Archive archive)
         {
@@ -32,7 +31,7 @@ namespace Arkivverket.Arkade.Util
         }
 
         /// <summary>
-        /// Create AIP (Archival Information Package)
+        ///     Create AIP (Archival Information Package)
         /// </summary>
         public void CreateAip(Archive archive)
         {
@@ -47,45 +46,62 @@ namespace Arkivverket.Arkade.Util
                 TarArchive.CreateOutputTarArchive(tarOutputStream);
 
                 string rootDirectory = archive.WorkingDirectory.Root().ToString();
-                foreach (var directory in Directory.GetDirectories(rootDirectory))
+                foreach (string directory in Directory.GetDirectories(rootDirectory))
                 {
-                    var filenames = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
+                    CreateEntryForDirectory(directory, rootDirectory, tarOutputStream);
 
-                    foreach (var filename in filenames)
+                    string[] filenames = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
+
+                    foreach (string filename in filenames)
                     {
-                        if (packageType == PackageType.SubmissionInformationPackage
+                        if ((packageType == PackageType.SubmissionInformationPackage)
                             && FileIsInSkipList(filename))
+                        {
                             Log.Debug($"Skipping {Path.GetFileName(filename)} for SIP-archive.");
+                        }
                         else
+                        {
                             AddFile(filename, rootDirectory, tarOutputStream);
+                        }
                     }
                 }
             }
+        }
+
+        private void CreateEntryForDirectory(string directory, string rootDirectory, TarOutputStream tarOutputStream)
+        {
+            TarEntry tarEntry = TarEntry.CreateEntryFromFile(directory);
+            tarEntry.Name = RemoveRootDirectoryFromFilename(directory, rootDirectory) + Path.DirectorySeparatorChar;
+            tarOutputStream.PutNextEntry(tarEntry);
         }
 
         private static bool FileIsInSkipList(string fullPathToFile)
         {
             string fileName = Path.GetFileName(fullPathToFile);
             string lastDirectoryName = Path.GetFileName(Path.GetDirectoryName(fullPathToFile));
-            return FilesToSkipForSipPackages.Contains(fileName) 
-                || DirectoriesToSkipForSipPackages.Contains(lastDirectoryName);
+            return FilesToSkipForSipPackages.Contains(fileName)
+                   || DirectoriesToSkipForSipPackages.Contains(lastDirectoryName);
         }
 
-        private void AddFile(string filename, string sourceFileFolder, TarOutputStream tarOutputStream)
+        private string RemoveRootDirectoryFromFilename(string filename, string rootDirectory)
+        {
+            return filename.Replace(rootDirectory + Path.DirectorySeparatorChar, "");
+        }
+
+        private void AddFile(string filename, string rootDirectory, TarOutputStream tarOutputStream)
         {
             using (Stream inputStream = File.OpenRead(filename))
             {
-                // Remove source file path from filename
-                var tarName = filename.Replace(sourceFileFolder + Path.DirectorySeparatorChar, "");
-                var fileSize = inputStream.Length;
-                var entry = TarEntry.CreateTarEntry(tarName);
+                string entryName = RemoveRootDirectoryFromFilename(filename, rootDirectory);
+                long fileSize = inputStream.Length;
+                TarEntry entry = TarEntry.CreateTarEntry(entryName);
                 entry.Size = fileSize;
                 tarOutputStream.PutNextEntry(entry);
 
-                var localBuffer = new byte[32 * 1024];
+                var localBuffer = new byte[32*1024];
                 while (true)
                 {
-                    var numRead = inputStream.Read(localBuffer, 0, localBuffer.Length);
+                    int numRead = inputStream.Read(localBuffer, 0, localBuffer.Length);
                     if (numRead <= 0)
                     {
                         break;
@@ -95,11 +111,11 @@ namespace Arkivverket.Arkade.Util
             }
             tarOutputStream.CloseEntry();
         }
-
     }
 
     public enum PackageType
     {
-        SubmissionInformationPackage, ArchivalInformationPackage
+        SubmissionInformationPackage,
+        ArchivalInformationPackage
     }
 }
