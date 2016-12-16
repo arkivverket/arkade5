@@ -50,6 +50,10 @@
       <HintPath>..\packages\FluentAssertions.4.11.0\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
@@ -173,6 +177,7 @@
     <Compile Include="Core\ArchiveBuilder.cs" />
     <Compile Include="Core\ArchiveExtractionTest.cs" />
     <Compile Include="Core\EncodingsTest.cs" />
+    <Compile Include="Core\InformationPackageCreatorTest.cs" />
     <Compile Include="Core\TestRunBuilder.cs" />
     <Compile Include="Core\TestSessionBuilder.cs" />
     <Compile Include="Core\Addml\Noark4Test.cs" />
@@ -314,6 +319,12 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\package-creation\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\package-creation\content\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\tar\fiskermanntallet-anonymized\dab6c748-8d1a-4b6d-b091-3a7b8b3cb255.tar" />
     <None Include="TestData\tar\jegerregisteret98-small\20b5f34c-4411-47c3-a0f9-0a8bca631603.tar" />
   </ItemGroup>
@@ -365,6 +376,18 @@
     <Content Include="TestData\Noark5\StructureValidation\error\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\package-creation\administrative_metadata\repository_operations\arkade-log.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\package-creation\administrative_metadata\repository_operations\report.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\package-creation\content\arkivstruktur.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\package-creation\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\Report\report.html" />
     <Content Include="TestData\checksum.txt" />
     <Content Include="TestData\tar\jegerregisteret98-small\info.xml" />
@@ -379,6 +402,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="TestData\package-creation\descriptive_metadata\" />
     <Folder Include="TestData\tar\Noark3-eksempel-1\" />
   </ItemGroup>
   <Choose>

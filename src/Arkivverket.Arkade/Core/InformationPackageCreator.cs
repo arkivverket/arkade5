@@ -26,23 +26,26 @@ namespace Arkivverket.Arkade.Core
         /// Create SIP (Submission Information Package). 
         /// Output file is written to Arkade's work directory for this test session
         /// </summary>
-        public void CreateSip(Archive archive)
+        public void CreateSip(Archive archive, string targetFileName = null)
         {
-            CreatePackage(PackageType.SubmissionInformationPackage, archive);
+            CreatePackage(PackageType.SubmissionInformationPackage, archive, targetFileName);
         }
 
         /// <summary>
         /// Create AIP (Archival Information Package)
         /// Output file is written to Arkade's work directory for this test session
         /// </summary>
-        public void CreateAip(Archive archive)
+        public void CreateAip(Archive archive, string targetFileName = null)
         {
-            CreatePackage(PackageType.ArchivalInformationPackage, archive);
+            CreatePackage(PackageType.ArchivalInformationPackage, archive, targetFileName);
         }
 
-        private void CreatePackage(PackageType packageType, Archive archive)
+        private void CreatePackage(PackageType packageType, Archive archive, string targetFileName)
         {
-            Stream outStream = File.Create(archive.GetInformationPackageFileName().FullName);
+            if (targetFileName == null)
+                targetFileName = archive.GetInformationPackageFileName().FullName;
+
+            Stream outStream = File.Create(targetFileName);
             TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
 
             AddFilesInDirectory(archive, archive.WorkingDirectory.Root().DirectoryInfo(), packageType, tarArchive);
