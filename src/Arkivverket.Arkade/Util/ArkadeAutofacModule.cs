@@ -30,6 +30,7 @@ namespace Arkivverket.Arkade.Util
             builder.RegisterType<DiasMetsCreator>().AsSelf();
             builder.RegisterType<DiasPremisCreator>().AsSelf();
             builder.RegisterType<EadCreator>().AsSelf();
+            builder.RegisterType<EacCpfCreator>().AsSelf();
             builder.RegisterType<InformationPackageCreator>().AsSelf();
             builder.RegisterType<ArkadeApi>().AsSelf();
             builder.RegisterType<TestSessionXmlGenerator>().AsSelf();

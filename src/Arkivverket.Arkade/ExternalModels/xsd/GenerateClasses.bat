@@ -35,4 +35,9 @@ echo "Generate classes for ead3.xsd"
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\xsd.exe" /nologo ead3.xsd /c /n:Arkivverket.Arkade.ExternalModels.Ead
 copy /y ead3.cs ..\Ead.cs
 del ead3.cs 
+
+echo "Generate classes for cpf.xsd"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\xsd.exe" /nologo cpf.xsd xlink.xsd /c /n:Arkivverket.Arkade.ExternalModels.Cpf
+copy /y cpf_xlink.cs ..\Cpf.cs
+del cpf_xlink.cs 
 pause
