@@ -19,7 +19,6 @@ namespace Arkivverket.Arkade.Report
 
         public void Generate(TestSession testSession)
         {
-            StringBuilder html = new StringBuilder();
             _stream.WriteLine(@"<!DOCTYPE html>");
             _stream.WriteLine(@"<html lang=""no"">");
             Head();
