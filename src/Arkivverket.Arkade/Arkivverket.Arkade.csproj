@@ -144,7 +144,9 @@
     <Compile Include="Core\ArchiveMetadata.cs" />
     <Compile Include="Core\ArkadeApi.cs" />
     <Compile Include="ExternalModels\DiasMets.cs" />
+    <Compile Include="ExternalModels\DiasPremis.cs" />
     <Compile Include="Metadata\DiasMetsCreator.cs" />
+    <Compile Include="Metadata\DiasPremisCreator.cs" />
     <Compile Include="Metadata\MetadataFilesCreator.cs" />
     <Compile Include="Util\ArkadeDirectory.cs" />
     <Compile Include="Core\WorkingDirectory.cs" />
@@ -274,6 +276,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="ExternalModels\xsd\DIAS_METS.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ExternalModels\xsd\DIAS_PREMIS.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="ExternalModels\xsd\GenerateClasses.bat" />

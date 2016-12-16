@@ -24,6 +24,10 @@ del testSessionLog.cs
 echo "Generate classes for DIAS_METS.xsd"
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\xsd.exe" /nologo DIAS_METS.xsd xlink.xsd /c /n:Arkivverket.Arkade.ExternalModels.DiasMets
 copy /y DIAS_METS_xlink.cs ..\DiasMets.cs
-del DIAS_METS_xlink.cs
+del DIAS_METS_xlink.cs 
 
+echo "Generate classes for DIAS_PREMIS.xsd"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\xsd.exe" /nologo DIAS_PREMIS.xsd xlink.xsd /c /n:Arkivverket.Arkade.ExternalModels.DiasPremis
+copy /y DIAS_PREMIS_xlink.cs ..\DiasPremis.cs
+del DIAS_PREMIS_xlink.cs 
 pause
