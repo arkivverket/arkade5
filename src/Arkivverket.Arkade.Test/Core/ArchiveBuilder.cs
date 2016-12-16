@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Test.Core
         private ArchiveType _archiveType = ArchiveType.Noark5;
 
         private Uuid _uuid = Uuid.Random();
-        private DirectoryInfo _workingDirectoryContent = new DirectoryInfo("c:\\temp");
+        private DirectoryInfo _workingDirectoryContent;
         private DirectoryInfo _workingDirectory;
 
         public ArchiveBuilder WithUuid(string uuid)
