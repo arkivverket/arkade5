@@ -103,8 +103,8 @@ namespace Arkivverket.Arkade.Report
 
                 _stream.WriteLine(@"            </tbody>");
                 _stream.WriteLine(@"        </table>");
-                _stream.WriteLine(@"    </div>");
             }
+            _stream.WriteLine(@"    </div>");
         }
 
         private void Summary(TestSession testSession)
