@@ -141,6 +141,10 @@
     <Compile Include="Core\Addml\RecordProcessRunner.cs" />
     <Compile Include="Core\Addml\FixedFormatReader.cs" />
     <Compile Include="Core\Addml\XmlFormatReader.cs" />
+    <Compile Include="Core\ArchiveMetadata.cs" />
+    <Compile Include="ExternalModels\DiasMets.cs" />
+    <Compile Include="Metadata\DiasMetsCreator.cs" />
+    <Compile Include="Metadata\MetadataFilesCreator.cs" />
     <Compile Include="Util\ArkadeDirectory.cs" />
     <Compile Include="Core\WorkingDirectory.cs" />
     <Compile Include="Util\ArkadeFile.cs" />
@@ -269,6 +273,9 @@
     <EmbeddedResource Include="ExternalModels\xsd\arkivstruktur.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="ExternalModels\xsd\DIAS_METS.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ExternalModels\xsd\GenerateClasses.bat" />
     <None Include="ExternalModels\xsd\info.xsd">
       <SubType>Designer</SubType>
@@ -278,6 +285,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="ExternalModels\xsd\testSessionLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ExternalModels\xsd\xlink.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config">

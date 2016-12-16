@@ -1,6 +1,7 @@
 using Serilog;
 using System;
 using System.IO;
+using System.Text;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Core;
 
@@ -61,5 +62,16 @@ namespace Arkivverket.Arkade.Util
             stream.Position = 0;
             return stream;
         }
+
+        public static void SerializeToFile(object inputObject, FileInfo targetFileName, XmlSerializerNamespaces ns)
+        {
+            var serializer = new XmlSerializer(inputObject.GetType());
+            using (var stream = new StreamWriter(targetFileName.FullName, false, Encoding.UTF8))
+            {
+                serializer.Serialize(stream, inputObject, ns);
+            }
+        }
+
+
     }
 }

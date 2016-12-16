@@ -1,6 +1,6 @@
 ﻿namespace Arkivverket.Arkade.Core
 {
-    public class ArchiveInfo
+    public class ArchiveMetadata
     {
     }
 }

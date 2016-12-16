@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core
 
         public Archive Archive { get; }
 
-        public ArchiveInfo ArchiveInfo { get; }
+        public ArchiveMetadata ArchiveMetadata { get; set; }
 
         public TestSuite TestSuite { get; set; }
 

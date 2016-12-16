@@ -3,6 +3,7 @@ using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.Logging;
+using Arkivverket.Arkade.Metadata;
 using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using Autofac;
@@ -25,6 +26,9 @@ namespace Arkivverket.Arkade.Util
             builder.RegisterType<TestEngineFactory>().AsSelf();
             builder.RegisterType<Noark5TestProvider>().As<ITestProvider>();
             builder.RegisterType<TestSessionFactory>().AsSelf();
+            builder.RegisterType<MetadataFilesCreator>().AsSelf();
+            builder.RegisterType<DiasMetsCreator>().AsSelf();
+            builder.RegisterType<InformationPackageCreator>().AsSelf();
         }
     }
 }
