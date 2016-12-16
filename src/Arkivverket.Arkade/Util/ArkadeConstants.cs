@@ -21,6 +21,7 @@ namespace Arkivverket.Arkade.Util
         public const string AddmlXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.addml.xsd";
         public const string ArkivstrukturXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.arkivstruktur.xsd";
         public const string MetadatakatalogXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.metadatakatalog.xsd";
+        public const string DiasMetsXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.DIAS_METS.xsd";
 
         public const string DirectoryNameRepositoryOperations = "repository_operations";
         public const string DirectoryNameContent = "content";

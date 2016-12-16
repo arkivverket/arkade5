@@ -282,9 +282,9 @@
     <None Include="ExternalModels\xsd\cpf.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="ExternalModels\xsd\DIAS_METS.xsd">
+    <EmbeddedResource Include="ExternalModels\xsd\DIAS_METS.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
     <None Include="ExternalModels\xsd\DIAS_PREMIS.xsd">
       <SubType>Designer</SubType>
     </None>
