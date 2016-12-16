@@ -142,6 +142,7 @@
     <Compile Include="Core\Addml\FixedFormatReader.cs" />
     <Compile Include="Core\Addml\XmlFormatReader.cs" />
     <Compile Include="Core\ArchiveMetadata.cs" />
+    <Compile Include="Core\ArkadeApi.cs" />
     <Compile Include="ExternalModels\DiasMets.cs" />
     <Compile Include="Metadata\DiasMetsCreator.cs" />
     <Compile Include="Metadata\MetadataFilesCreator.cs" />
@@ -159,7 +160,6 @@
     <Compile Include="Core\ArchiveContentReader.cs" />
     <Compile Include="Core\ArchiveDirectory.cs" />
     <Compile Include="Core\ArchiveFile.cs" />
-    <Compile Include="Core\ArchiveInfo.cs" />
     <Compile Include="Core\Addml\FlatFile.cs" />
     <Compile Include="Core\Arkade.cs" />
     <Compile Include="Core\IArkadeTest.cs" />

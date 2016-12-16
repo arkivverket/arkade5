@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Logging
     {
         private static ILogger _log = Log.ForContext<TestSessionXmlGenerator>();
 
-        public static void GenerateXmlAndSaveToFile(TestSession testSession)
+        public void GenerateXmlAndSaveToFile(TestSession testSession)
         {
             string pathToLogFile = testSession.Archive.WorkingDirectory.RepositoryOperations()
                 .WithFile(ArkadeConstants.ArkadeXmlLogFileName)

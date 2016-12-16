@@ -11,6 +11,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 {
     public class CreatePackageViewModel : BindableBase, INavigationAware
     {
+        private readonly ArkadeApi _arkadeApi;
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private bool _isRunningCreatePackage;
         private bool _selectedPackageTypeAip;
@@ -18,7 +19,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private string _statusMessage;
         private TestSession _testSession;
         private readonly IRegionManager _regionManager;
-
 
         public DelegateCommand CreatePackageCommand { get; set; }
         public DelegateCommand NewProgramSessionCommand { get; set; }
@@ -49,8 +49,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _statusMessage, value); }
         }
 
-        public CreatePackageViewModel(IRegionManager regionManager)
+        public CreatePackageViewModel(ArkadeApi arkadeApi, IRegionManager regionManager)
         {
+            _arkadeApi = arkadeApi;
             _regionManager = regionManager;
             CreatePackageCommand = new DelegateCommand(RunCreatePackage, CanExecuteCreatePackage);
             NewProgramSessionCommand = new DelegateCommand(RunNavigateToLoadArchivePage, CanExecuteCreatePackage);
@@ -77,8 +78,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _regionManager.RequestNavigate("MainContentRegion", "LoadArchiveExtraction");
         }
 
-
-
         private bool CanExecuteCreatePackage()
         {
             return !_isRunningCreatePackage && (SelectedPackageTypeSip || SelectedPackageTypeAip);
@@ -90,12 +89,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _isRunningCreatePackage = true;
             CreatePackageCommand.RaiseCanExecuteChanged();
             
-            // todo must be async
-            var arkade = new Core.Arkade();
-
             PackageType packageType = SelectedPackageTypeSip ?  PackageType.SubmissionInformationPackage : PackageType.ArchivalInformationPackage;
 
-            arkade.CreatePackage(_testSession, packageType);
+            // todo must be async
+            _arkadeApi.CreatePackage(_testSession, packageType);
 
             string informationPackageFileName = _testSession.Archive.GetInformationPackageFileName().FullName;
             StatusMessage = "IP og metadata lagret i " +  informationPackageFileName;

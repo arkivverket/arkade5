@@ -1,71 +1,51 @@
-﻿using System.IO;
-using Arkivverket.Arkade.Core.Addml;
-using Arkivverket.Arkade.Core.Noark5;
-using Arkivverket.Arkade.Identify;
-using Arkivverket.Arkade.Logging;
-using Arkivverket.Arkade.Report;
-using Arkivverket.Arkade.Tests.Noark5;
+﻿using System;
+using System.IO;
 using Arkivverket.Arkade.Util;
+using Autofac;
 
 namespace Arkivverket.Arkade.Core
 {
-    public class Arkade
+    /// <summary>
+    /// Use this class to interact with the Arkade Api without worrying about dependency injection. This class instantiates Autofac and takes care of all the dependencies.
+    /// </summary>
+    public class Arkade : IDisposable
     {
-        private readonly TestSessionFactory _testSessionFactory;
+        private readonly ArkadeApi _arkadeApi;
+        private readonly IContainer _container;
 
         public Arkade()
         {
-            // TODO: Use autofac!
-            _testSessionFactory = new TestSessionFactory(new TarCompressionUtility(), new StatusEventHandler());
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new ArkadeAutofacModule());
+            _container = builder.Build();
+
+            _container.BeginLifetimeScope();
+            _arkadeApi = _container.Resolve<ArkadeApi>();
         }
 
-        public TestSession RunTests(ArchiveFile archive)
+        public void Dispose()
         {
-            TestSession testSession = _testSessionFactory.NewSession(archive);
-            return RunTests(testSession);
+            _container.Dispose();
         }
 
-        private TestSession RunTests(TestSession testSession)
+        public TestSession RunTests(ArchiveFile archiveFile)
         {
-            // TODO: Use autofac!
-            TestEngineFactory f =
-                new TestEngineFactory(
-                    new Noark5TestEngine(new ArchiveContentReader(), 
-                    new Noark5TestProvider(new ArchiveContentReader()),
-                    new StatusEventHandler()),
-                    new AddmlDatasetTestEngine(new FlatFileReaderFactory(), new AddmlProcessRunner(),
-                        new StatusEventHandler()));
+            return _arkadeApi.RunTests(archiveFile);
+        }
 
-            ITestEngine testEngine = f.GetTestEngine(testSession);
-            testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
-
-            return testSession;
+        public TestSession RunTests(ArchiveDirectory archiveDirectory)
+        {
+            return _arkadeApi.RunTests(archiveDirectory);
         }
 
         public void CreatePackage(TestSession testSession, PackageType packageType)
         {
-            var informationPackageCreator = new InformationPackageCreator();
-            if (packageType == PackageType.SubmissionInformationPackage)
-            {
-                informationPackageCreator.CreateSip(testSession.Archive);
-            }
-            else
-            {
-                informationPackageCreator.CreateAip(testSession.Archive);
-            }
+            _arkadeApi.CreatePackage(testSession, packageType);
         }
 
         public void SaveReport(TestSession testSession, FileInfo file)
         {
-            using (FileStream fs = file.OpenWrite())
-            {
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    IReportGenerator reportGenerator = new HtmlReportGenerator(sw);
-                    reportGenerator.Generate(testSession);
-                }
-            }
+            _arkadeApi.SaveReport(testSession, file);
         }
-
     }
 }

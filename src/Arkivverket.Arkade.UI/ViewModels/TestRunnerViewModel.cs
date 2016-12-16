@@ -5,14 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.UI.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Logging;
-using Arkivverket.Arkade.Report;
 using Arkivverket.Arkade.UI.Util;
 using Application = System.Windows.Application;
 
@@ -24,8 +22,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private ObservableCollection<OperationMessage> _operationMessages = new ObservableCollection<OperationMessage>();
 
-        private readonly TestSessionFactory _testSessionFactory;
-        private readonly TestEngineFactory _testEngineFactory;
+        private readonly ArkadeApi _arkadeApi;
         private readonly IRegionManager _regionManager;
 
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
@@ -118,10 +115,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _archiveCurrentProcessing, value); }
         }
 
-        public TestRunnerViewModel(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory, IRegionManager regionManager,  IStatusEventHandler statusEventHandler)
+        public TestRunnerViewModel(ArkadeApi arkadeApi, IRegionManager regionManager,  IStatusEventHandler statusEventHandler)
         {
-            _testSessionFactory = testSessionFactory;
-            _testEngineFactory = testEngineFactory;
+            _arkadeApi = arkadeApi;
             _regionManager = regionManager;
             _statusEventHandler = statusEventHandler;
             _statusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
@@ -242,22 +238,17 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
                 if (Directory.Exists(_archiveFileName))
                 {
-                    _testSession = _testSessionFactory.NewSession(ArchiveDirectory.Read(_archiveFileName, _archiveType));
-                } else
+                    _testSession = _arkadeApi.RunTests(ArchiveDirectory.Read(_archiveFileName, _archiveType));
+                }
+                else
                 {
-                    _testSession = _testSessionFactory.NewSession(ArchiveFile.Read(_archiveFileName, _archiveType));
+                    _testSession = _arkadeApi.RunTests(ArchiveFile.Read(_archiveFileName, _archiveType));
                 }
 
-                _log.Debug(_testSession.Archive.Uuid.GetValue());
-                _log.Debug(_testSession.Archive.ArchiveType.ToString());
-                _log.Debug(_testSession.Archive.WorkingDirectory.Root().DirectoryInfo().FullName);
-
-                ITestEngine testEngine = _testEngineFactory.GetTestEngine(_testSession);
-                _testSession.TestSuite = testEngine.RunTestsOnArchive(_testSession);
                 _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords, _numberOfTestsFinished);
 
                 _testSession.AddLogEntry("Test run completed.");
-                TestSessionXmlGenerator.GenerateXmlAndSaveToFile(_testSession);
+                
                 SaveHtmlReport();
 
                 _testRunCompletedSuccessfully = true;
@@ -345,8 +336,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             string eventId = "Lager rapport";
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
 
-            Core.Arkade arkade = new Core.Arkade();
-            arkade.SaveReport(_testSession, htmlFile);
+            _arkadeApi.SaveReport(_testSession, htmlFile);
 
             var message = "Rapport lagret " + htmlFile.FullName;
             _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);
