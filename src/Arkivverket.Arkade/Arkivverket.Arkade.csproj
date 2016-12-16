@@ -157,7 +157,6 @@
     <Compile Include="Core\ArchiveFile.cs" />
     <Compile Include="Core\ArchiveInfo.cs" />
     <Compile Include="Core\Addml\FlatFile.cs" />
-    <Compile Include="Core\ArchiveWithMetadata.cs" />
     <Compile Include="Core\Arkade.cs" />
     <Compile Include="Core\IArkadeTest.cs" />
     <Compile Include="Core\Noark5\Noark5XmlReaderBaseTest.cs" />
