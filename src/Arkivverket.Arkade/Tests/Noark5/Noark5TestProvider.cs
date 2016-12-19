@@ -26,7 +26,6 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             return new List<INoark5Test>
             {
-            //    new CheckWellFormedContentDescriptionXml(_archiveReader),
                 new NumberOfArchives(),
                 new NumberOfArchiveParts(),
                 new StatusOfArchiveParts(),

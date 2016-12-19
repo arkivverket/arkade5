@@ -255,7 +255,6 @@
     <Compile Include="Tests\Common\CheckWellFormedXml.cs" />
     <Compile Include="Tests\INoark5Test.cs" />
     <Compile Include="Tests\ITestProvider.cs" />
-    <Compile Include="Tests\Noark5\CheckWellFormedContentDescriptionXml.cs" />
     <Compile Include="Tests\Noark5\Noark5TestProvider.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchiveParts.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchives.cs" />
