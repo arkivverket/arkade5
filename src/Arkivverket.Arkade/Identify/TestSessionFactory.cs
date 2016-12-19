@@ -50,7 +50,7 @@ namespace Arkivverket.Arkade.Identify
             WorkingDirectory workingDirectory = WorkingDirectory.FromUuid(uuid);
 
             TarExtractionStartedEvent();
-            _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.ContentWorkDirectory().DirectoryInfo());
+            _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo());
             TarExtractionFinishedEvent(workingDirectory);
 
             TestSession testSession = NewSession(workingDirectory, archiveFile.ArchiveType, uuid);
