@@ -122,14 +122,146 @@
   </data>
   <data name="ArchiveCreator" xml:space="preserve">
     <value>Arkivskaper</value>
+    <comment>Institusjonsnavn</comment>
+  </data>
+  <data name="ArchiveCreator_ContactPerson" xml:space="preserve">
+    <value>Kontaktperson (Arkivskaper)</value>
+    <comment>pr Arkivskaper</comment>
+  </data>
+  <data name="ArchiveCreator_Email" xml:space="preserve">
+    <value>e-post(Kontakt, Arkivskaper)</value>
+    <comment>pr Arkivskaper</comment>
+  </data>
+  <data name="ArchiveCreator_Telephone" xml:space="preserve">
+    <value>Telefon(Kontakt, Arkivskaper)</value>
+    <comment>pr Arkivskaper</comment>
   </data>
   <data name="ArchiveDescription" xml:space="preserve">
     <value>Arkivbeskrivelse</value>
   </data>
-  <data name="ContactPerson" xml:space="preserve">
-    <value>Kontaktperson (Arkivskaper)</value>
+  <data name="ArchiveExtractionSystem" xml:space="preserve">
+    <value>Uttrekkssystem</value>
+    <comment>Navn på applikasjonen som gjør selve uttrekket</comment>
+  </data>
+  <data name="ArchiveExtractionType" xml:space="preserve">
+    <value>Type (Uttrekk)</value>
+    <comment>Type av uttrekk.
+Gyldige verdier er:
+Noark 3, Noark 4, Noark 5, Fagsystem</comment>
+  </data>
+  <data name="ArchiveExtractionTypeVersion" xml:space="preserve">
+    <value>Typeversjon (Uttrekk)</value>
+    <comment>Gjelder kun Noark 5, da obligatorisk</comment>
+  </data>
+  <data name="ArchiveExtractionVersion" xml:space="preserve">
+    <value>Versjon (Uttrekk)</value>
+    <comment>Versjon av applikasjonen</comment>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Kommentar</value>
+  </data>
+  <data name="EndData" xml:space="preserve">
+    <value>Sluttdato</value>
+    <comment>Obligatorisk for Noark (addml)</comment>
+  </data>
+  <data name="ExtractionDate" xml:space="preserve">
+    <value>Uttrekksdato</value>
+  </data>
+  <data name="GuiSubsection_ArchiveCreator" xml:space="preserve">
+    <value>Arkivskaper</value>
+  </data>
+  <data name="GuiSubsection_ArchiveMain" xml:space="preserve">
+    <value>Arkiv</value>
+  </data>
+  <data name="GuiSubsection_Owner" xml:space="preserve">
+    <value>Eier</value>
+  </data>
+  <data name="GuiSubsection_Producer" xml:space="preserve">
+    <value>Produsent</value>
+  </data>
+  <data name="GuiSubsection_System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="GuiSubsection_Transferer" xml:space="preserve">
+    <value>Overfører</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historie</value>
+  </data>
+  <data name="IncommingSeperator" xml:space="preserve">
+    <value>Inngående skille</value>
+    <comment>Obligatorisk for Noark (addml)</comment>
+  </data>
+  <data name="OutgoingSeperator" xml:space="preserve">
+    <value>Utgående skille</value>
+    <comment>Obligatorisk for Noark (addml)</comment>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Eier</value>
+    <comment>Intitusjons-/Firma-/Organisasjons-/Familienavn/Personnavn (ved personlig arkiv)</comment>
+  </data>
+  <data name="Owner_ContactPerson" xml:space="preserve">
+    <value>Kontaktperson (Eier)</value>
+  </data>
+  <data name="Owner_Email" xml:space="preserve">
+    <value>e-post (Kontakt, Eier)</value>
+  </data>
+  <data name="Owner_Telephone" xml:space="preserve">
+    <value>Telefon (Kontakt, Eier)</value>
+  </data>
+  <data name="Producer" xml:space="preserve">
+    <value>Produsent</value>
+    <comment>Institusjonsnavn/Firmanavn</comment>
+  </data>
+  <data name="Producer_ContactPerson" xml:space="preserve">
+    <value>Kontaktperson (Produsent)</value>
+  </data>
+  <data name="Producer_Email" xml:space="preserve">
+    <value>e-post (Kontakt, Produsent)</value>
+  </data>
+  <data name="Producer_Telephone" xml:space="preserve">
+    <value>Telefon (Kontakt, Produsent)</value>
+  </data>
+  <data name="Recepient" xml:space="preserve">
+    <value>Mottaker</value>
+    <comment>Institusjonsnavn</comment>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Startdato</value>
+    <comment>Obligatorisk for Noark (addml)</comment>
+  </data>
+  <data name="SystemName" xml:space="preserve">
+    <value>Systemnavn</value>
+  </data>
+  <data name="SystemType" xml:space="preserve">
+    <value>Type (System)</value>
+    <comment>Type av system.
+Gyldige verdier er:
+Noark 3, Noark 4, Noark 5, Fagsystem</comment>
+  </data>
+  <data name="SystemTypeVersion" xml:space="preserve">
+    <value>Typeversjon (System)</value>
+    <comment>Gjelder kun Noark 5, da obligatorisk</comment>
+  </data>
+  <data name="SystemVersion" xml:space="preserve">
+    <value>Versjon (System)</value>
+    <comment>Versjon av system</comment>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Metadata</value>
+  </data>
+  <data name="Transferer" xml:space="preserve">
+    <value>Overfører</value>
+    <comment>Institusjonsnavn
+Tidl. nevnt som avleverende myndighet</comment>
+  </data>
+  <data name="Transferer_ContractPerson" xml:space="preserve">
+    <value>Kontaktperson (Overfører)</value>
+  </data>
+  <data name="Transferer_Email" xml:space="preserve">
+    <value>e-post (Kontakt, Overfører)</value>
+  </data>
+  <data name="Transferer_Telephone" xml:space="preserve">
+    <value>Telefon (Kontakt, Overfører)</value>
   </data>
 </root>

@@ -79,6 +79,33 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontaktperson (Arkivskaper).
+        /// </summary>
+        public static string ArchiveCreator_ContactPerson {
+            get {
+                return ResourceManager.GetString("ArchiveCreator_ContactPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e-post(Kontakt, Arkivskaper).
+        /// </summary>
+        public static string ArchiveCreator_Email {
+            get {
+                return ResourceManager.GetString("ArchiveCreator_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telefon(Kontakt, Arkivskaper).
+        /// </summary>
+        public static string ArchiveCreator_Telephone {
+            get {
+                return ResourceManager.GetString("ArchiveCreator_Telephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkivbeskrivelse.
         /// </summary>
         public static string ArchiveDescription {
@@ -88,11 +115,272 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontaktperson (Arkivskaper).
+        ///   Looks up a localized string similar to Uttrekkssystem.
         /// </summary>
-        public static string ContactPerson {
+        public static string ArchiveExtractionSystem {
             get {
-                return ResourceManager.GetString("ContactPerson", resourceCulture);
+                return ResourceManager.GetString("ArchiveExtractionSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type (Uttrekk).
+        /// </summary>
+        public static string ArchiveExtractionType {
+            get {
+                return ResourceManager.GetString("ArchiveExtractionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Typeversjon (Uttrekk).
+        /// </summary>
+        public static string ArchiveExtractionTypeVersion {
+            get {
+                return ResourceManager.GetString("ArchiveExtractionTypeVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versjon (Uttrekk).
+        /// </summary>
+        public static string ArchiveExtractionVersion {
+            get {
+                return ResourceManager.GetString("ArchiveExtractionVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kommentar.
+        /// </summary>
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sluttdato.
+        /// </summary>
+        public static string EndData {
+            get {
+                return ResourceManager.GetString("EndData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uttrekksdato.
+        /// </summary>
+        public static string ExtractionDate {
+            get {
+                return ResourceManager.GetString("ExtractionDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivskaper.
+        /// </summary>
+        public static string GuiSubsection_ArchiveCreator {
+            get {
+                return ResourceManager.GetString("GuiSubsection_ArchiveCreator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkiv.
+        /// </summary>
+        public static string GuiSubsection_ArchiveMain {
+            get {
+                return ResourceManager.GetString("GuiSubsection_ArchiveMain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eier.
+        /// </summary>
+        public static string GuiSubsection_Owner {
+            get {
+                return ResourceManager.GetString("GuiSubsection_Owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produsent.
+        /// </summary>
+        public static string GuiSubsection_Producer {
+            get {
+                return ResourceManager.GetString("GuiSubsection_Producer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        public static string GuiSubsection_System {
+            get {
+                return ResourceManager.GetString("GuiSubsection_System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overfører.
+        /// </summary>
+        public static string GuiSubsection_Transferer {
+            get {
+                return ResourceManager.GetString("GuiSubsection_Transferer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Historie.
+        /// </summary>
+        public static string History {
+            get {
+                return ResourceManager.GetString("History", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inngående skille.
+        /// </summary>
+        public static string IncommingSeperator {
+            get {
+                return ResourceManager.GetString("IncommingSeperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Utgående skille.
+        /// </summary>
+        public static string OutgoingSeperator {
+            get {
+                return ResourceManager.GetString("OutgoingSeperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eier.
+        /// </summary>
+        public static string Owner {
+            get {
+                return ResourceManager.GetString("Owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontaktperson (Eier).
+        /// </summary>
+        public static string Owner_ContactPerson {
+            get {
+                return ResourceManager.GetString("Owner_ContactPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e-post (Kontakt, Eier).
+        /// </summary>
+        public static string Owner_Email {
+            get {
+                return ResourceManager.GetString("Owner_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telefon (Kontakt, Eier).
+        /// </summary>
+        public static string Owner_Telephone {
+            get {
+                return ResourceManager.GetString("Owner_Telephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produsent.
+        /// </summary>
+        public static string Producer {
+            get {
+                return ResourceManager.GetString("Producer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontaktperson (Produsent).
+        /// </summary>
+        public static string Producer_ContactPerson {
+            get {
+                return ResourceManager.GetString("Producer_ContactPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e-post (Kontakt, Produsent).
+        /// </summary>
+        public static string Producer_Email {
+            get {
+                return ResourceManager.GetString("Producer_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telefon (Kontakt, Produsent).
+        /// </summary>
+        public static string Producer_Telephone {
+            get {
+                return ResourceManager.GetString("Producer_Telephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mottaker.
+        /// </summary>
+        public static string Recepient {
+            get {
+                return ResourceManager.GetString("Recepient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Startdato.
+        /// </summary>
+        public static string StartDate {
+            get {
+                return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Systemnavn.
+        /// </summary>
+        public static string SystemName {
+            get {
+                return ResourceManager.GetString("SystemName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type (System).
+        /// </summary>
+        public static string SystemType {
+            get {
+                return ResourceManager.GetString("SystemType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Typeversjon (System).
+        /// </summary>
+        public static string SystemTypeVersion {
+            get {
+                return ResourceManager.GetString("SystemTypeVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versjon (System).
+        /// </summary>
+        public static string SystemVersion {
+            get {
+                return ResourceManager.GetString("SystemVersion", resourceCulture);
             }
         }
         
@@ -102,6 +390,42 @@ namespace Arkivverket.Arkade.UI.Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overfører.
+        /// </summary>
+        public static string Transferer {
+            get {
+                return ResourceManager.GetString("Transferer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontaktperson (Overfører).
+        /// </summary>
+        public static string Transferer_ContractPerson {
+            get {
+                return ResourceManager.GetString("Transferer_ContractPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e-post (Kontakt, Overfører).
+        /// </summary>
+        public static string Transferer_Email {
+            get {
+                return ResourceManager.GetString("Transferer_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telefon (Kontakt, Overfører).
+        /// </summary>
+        public static string Transferer_Telephone {
+            get {
+                return ResourceManager.GetString("Transferer_Telephone", resourceCulture);
             }
         }
     }
