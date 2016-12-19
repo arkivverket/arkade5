@@ -166,6 +166,9 @@ Generert:  {2}</value>
   <data name="NumberOfClassificationSystemsMessage" xml:space="preserve">
     <value>Antall klassifikasjonssystem: {0}</value>
   </data>
+  <data name="NumberOfDocumentDescriptions" xml:space="preserve">
+    <value>Antall dokumentbeskrivelser.</value>
+  </data>
   <data name="NumberOfFolders" xml:space="preserve">
     <value>Finn antall mapper</value>
   </data>
