@@ -103,5 +103,29 @@ namespace Arkivverket.Arkade.Core
         {
             return _externalContentDirectory != null;
         }
+
+        public void CopyAddmlFileToAdministrativeMetadata()
+        {
+            FileInfo targetAddmlFile = AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName);
+            if (!targetAddmlFile.Exists)
+            {
+                FileInfo contentAddml = Content().WithFile(ArkadeConstants.AddmlXmlFileName);
+                if (contentAddml.Exists)
+                {
+                    Log.Information($"Copying ADDML file {contentAddml.FullName} to administrative_metadata.");
+                    contentAddml.CopyTo(targetAddmlFile.FullName);
+                }
+                else
+                {
+                    FileInfo arkivuttrekkAddml = Content().WithFile(ArkadeConstants.ArkivuttrekkXmlFileName);
+                    if (arkivuttrekkAddml.Exists)
+                    {
+                        Log.Information($"Copying ADDML file {arkivuttrekkAddml.FullName} to administrative_metadata.");
+                        arkivuttrekkAddml.CopyTo(targetAddmlFile.FullName);
+                    }
+                }
+
+            }
+        }
     }
 }

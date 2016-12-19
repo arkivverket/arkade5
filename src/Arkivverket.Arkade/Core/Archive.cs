@@ -25,6 +25,9 @@ namespace Arkivverket.Arkade.Core
 
         public string GetStructureDescriptionFileName()
         {
+            string structureFilename = WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
+
+            /*
             string structureFilename;
             if (ArchiveType.Equals(ArchiveType.Noark5))
             {
@@ -38,7 +41,7 @@ namespace Arkivverket.Arkade.Core
             else
             {
                 structureFilename = WorkingDirectory.Content().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
-            }
+            }*/
             return structureFilename;
         }
 

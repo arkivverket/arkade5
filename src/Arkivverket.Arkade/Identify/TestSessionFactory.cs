@@ -32,7 +32,7 @@ namespace Arkivverket.Arkade.Identify
             Uuid uuid = Uuid.Random();
             ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType, uuid);
             WorkingDirectory workingDirectory = WorkingDirectory.FromUuid(uuid, archiveDirectory.Directory);
-
+            
             TestSession testSession = NewSession(workingDirectory, archiveType, uuid);
 
             ReadingArchiveFinishedEvent();
@@ -61,6 +61,8 @@ namespace Arkivverket.Arkade.Identify
         private TestSession NewSession(WorkingDirectory workingDirectory, ArchiveType archiveType, Uuid uuid)
         {
             Archive archive = new Archive(archiveType, uuid, workingDirectory);
+
+            workingDirectory.CopyAddmlFileToAdministrativeMetadata();
 
             ConvertNoarkihToAddmlIfNoark4(archive);
 
