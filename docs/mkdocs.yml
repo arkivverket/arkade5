@@ -1,9 +1,0 @@
-site_name: Arkade 5 - Arkivverket
-
-pages:
-- Hjem: 'index.md'
-- Installasjonsveiledning: 'installasjonsveiledning.md'
-- Brukerveiledning: 'brukerveiledning.md'
-- Systemdokumentasjon: 'systemdokumentasjon.md'
--- 'list-of-processes.md'
-- Versjonshistorikk: 'versjonshistorikk.md'
