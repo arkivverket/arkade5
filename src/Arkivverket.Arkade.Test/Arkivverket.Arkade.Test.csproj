@@ -175,7 +175,6 @@
     <Compile Include="Core\Addml\RecordTest.cs" />
     <Compile Include="Core\Addml\XmlFormatReaderTest.cs" />
     <Compile Include="Core\ArchiveBuilder.cs" />
-    <Compile Include="Core\ArchiveExtractionTest.cs" />
     <Compile Include="Core\EncodingsTest.cs" />
     <Compile Include="Core\InformationPackageCreatorTest.cs" />
     <Compile Include="Core\TestRunBuilder.cs" />
@@ -296,22 +295,22 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="TestData\Noark5\StructureChecksums\correct\addml.xsd">
+    <None Include="TestData\Noark5\StructureChecksums\correct\content\addml.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\StructureChecksums\correct\arkivstruktur.xsd">
+    </None>
+    <None Include="TestData\Noark5\StructureChecksums\correct\content\arkivstruktur.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\StructureChecksums\correct\endringslogg.xsd">
+    </None>
+    <None Include="TestData\Noark5\StructureChecksums\correct\content\endringslogg.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\StructureChecksums\correct\metadatakatalog.xsd">
+    </None>
+    <None Include="TestData\Noark5\StructureChecksums\correct\content\metadatakatalog.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
     <None Include="TestData\Noark5\StructureValidation\correct\addml.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -362,13 +361,16 @@
     <Content Include="TestData\Noark5\Small\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\StructureChecksums\correct\arkivstruktur.xml">
+    <Content Include="TestData\Noark5\StructureChecksums\correct\administrative_metadata\addml.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\StructureChecksums\correct\arkivuttrekk.xml">
+    <Content Include="TestData\Noark5\StructureChecksums\correct\content\arkivstruktur.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\StructureChecksums\correct\endringslogg.xml">
+    <Content Include="TestData\Noark5\StructureChecksums\correct\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\StructureChecksums\correct\content\endringslogg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Noark5\StructureValidation\correct\arkivuttrekk.xml">

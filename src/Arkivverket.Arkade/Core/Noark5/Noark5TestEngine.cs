@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Noark5
 {
@@ -94,10 +95,10 @@ namespace Arkivverket.Arkade.Core.Noark5
                     test.Test(archive);
                     _statusEventHandler.RaiseEventOperationMessage(test.GetName(), "", OperationMessageStatus.Ok);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     _statusEventHandler.RaiseEventOperationMessage(test.GetName(), "", OperationMessageStatus.Error);
-                    throw e;
+                    throw;
                 }
             }
             return structureTests;
@@ -106,13 +107,13 @@ namespace Arkivverket.Arkade.Core.Noark5
         private void RaiseEventStartParsingFile()
         {
             _statusEventHandler.RaiseEventFileProcessingStarted(
-                new FileProcessingStatusEventArgs(Archive.ContentDescriptionFileNameNoark5, Archive.ContentDescriptionFileNameNoark5));
+                new FileProcessingStatusEventArgs(ArkadeConstants.ArkivstrukturXmlFileName, ArkadeConstants.ArkivstrukturXmlFileName));
         }
 
         private void RaiseEventFinishedParsingFile()
         {
             _statusEventHandler.RaiseEventFileProcessingFinished(
-                new FileProcessingStatusEventArgs(Archive.ContentDescriptionFileNameNoark5, Archive.ContentDescriptionFileNameNoark5, true));
+                new FileProcessingStatusEventArgs(ArkadeConstants.ArkivstrukturXmlFileName, ArkadeConstants.ArkivstrukturXmlFileName, true));
         }
 
         private static ReadElementEventArgs CreateReadElementEventArgs(XmlReader reader, Stack<string> path)

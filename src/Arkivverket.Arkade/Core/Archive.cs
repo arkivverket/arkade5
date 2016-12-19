@@ -5,8 +5,6 @@ namespace Arkivverket.Arkade.Core
 {
     public class Archive
     {
-        public const string ContentDescriptionFileNameNoark5 = "arkivstruktur.xml";
-
         public Uuid Uuid { get; private set; }
         public WorkingDirectory WorkingDirectory { get; private set; }
         public ArchiveType ArchiveType { get; private set; }
@@ -20,29 +18,12 @@ namespace Arkivverket.Arkade.Core
 
         public string GetContentDescriptionFileName()
         {
-            return WorkingDirectory.Content().WithFile(ContentDescriptionFileNameNoark5).FullName;
+            return WorkingDirectory.Content().WithFile(ArkadeConstants.ArkivstrukturXmlFileName).FullName;
         }
 
         public string GetStructureDescriptionFileName()
         {
-            string structureFilename = WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
-
-            /*
-            string structureFilename;
-            if (ArchiveType.Equals(ArchiveType.Noark5))
-            {
-                structureFilename = WorkingDirectory.Content().WithFile("arkivuttrekk.xml").FullName;
-            }
-            else if (ArchiveType.Equals(ArchiveType.Noark4))
-            {
-                // Noark4 addml has been created by arkade - hence the use of the administrative metadata directory
-                structureFilename = WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
-            }
-            else
-            {
-                structureFilename = WorkingDirectory.Content().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
-            }*/
-            return structureFilename;
+            return WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
         }
 
         public FileInfo GetInformationPackageFileName()

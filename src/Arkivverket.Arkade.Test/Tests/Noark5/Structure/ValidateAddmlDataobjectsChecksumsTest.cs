@@ -26,7 +26,8 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
             string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\StructureChecksums\\correct";
             var archive = new Core.ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryExternalContent(workingDirectory)
+                .WithWorkingDirectoryRoot(workingDirectory)
+                .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
                 .Build();
 
             var validateAddmlDataobjectsChecksums = new ValidateAddmlDataobjectsChecksums();
