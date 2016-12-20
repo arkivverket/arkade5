@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfDocumentDescriptions(),
                 new NumberOfDocumentDescriptionsWithoutDocumentObject(),
                 new NumberOfDocumentObjects(),
-            //    new NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders(_archiveReader),
+                new NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders(),
                 new ControlDocumentFilesExists(archive)
             };
         }

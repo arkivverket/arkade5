@@ -1,73 +1,88 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using Arkivverket.Arkade.Core;
+﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Noark5;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    class NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders : BaseNoark5Test
+    public class NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders : Noark5XmlReaderBaseTest
     {
+        private int _classesWithoutSubClassOrFolder;
+        private bool _foundSubClassOrFolder;
+        private bool _isInsideClass;
+        private bool _isInsideMainClassificationSystem;
+        private bool _testingIsFinished;
 
-        public const string AnalysisClasses = "Simple class structures";
-
-        public NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders(IArchiveContentReader archiveReader) : base(TestType.ContentAnalysis, archiveReader)
+        public override string GetName()
         {
+            return Noark5Messages.NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders;
         }
 
-
-        protected override void Test(Archive archive)
+        public override TestType GetTestType()
         {
-            using (var reader = XmlReader.Create(ArchiveReader.GetContentAsStream(archive)))
+            return TestType.ContentAnalysis;
+        }
+
+        protected override List<TestResult> GetTestResults()
+        {
+            return new List<TestResult>
             {
-                int cntClasses = 0;
+                new TestResult(ResultType.Success, Location.Archive, "" + _classesWithoutSubClassOrFolder)
+            };
+        }
 
-                if (reader.ForwardToFirstInstanceOfElement("arkivdel"))
-                {
-                    if (reader.ForwardToFirstInstanceOfElement("klassifikasjonssystem"))
-                    {
-                        while (!reader.IsReaderAtElementEndTag("klassifikasjonssystem") && reader.Read())
-                        {
-                            if (reader.IsNodeTypeAndName(XmlNodeType.Element, "klasse"))
-                            {
-                                var isCandidateForClassWithoutSubClassAndFolder = true;
-                                while (!reader.IsReaderAtElementEndTag("klasse") && reader.Read())
-                                {
-                                    // This is where we are looking for no sub categories of klasse and mappe
-                                    if (reader.IsNodeTypeAndName(XmlNodeType.Element, "klasse"))
-                                    {
-                                        isCandidateForClassWithoutSubClassAndFolder = false;
-                                        while (!reader.IsReaderAtElementEndTag("klasse") && reader.Read())
-                                        {
-                                        }
-                                    }
-                                    if (reader.IsNodeTypeAndName(XmlNodeType.Element, "mappe"))
-                                    {
-                                        isCandidateForClassWithoutSubClassAndFolder = false; while (!reader.IsReaderAtElementEndTag("mappe") && reader.Read())
-                                        {
+        protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+            if (_testingIsFinished)
+            {
+                return;
+            }
 
-                                        }
-                                    }
-                                }
-                                if (isCandidateForClassWithoutSubClassAndFolder)
-                                {
-                                    cntClasses++;
-                                }
-                            }
-                        }
-                    }
-                }
+            if (!_isInsideMainClassificationSystem
+                && eventArgs.NameEquals("klassifikasjonssystem")
+                && eventArgs.Path.Matches("klassifikasjonssystem", "arkivdel", "arkiv"))
+            {
+                _isInsideMainClassificationSystem = true;
+            }
 
-                AddAnalysisResult(AnalysisClasses, cntClasses.ToString());
-                TestSuccess(new Location(archive.Uuid.GetValue()), $"Antall klasser uten underklasser eller mapper: {cntClasses}.");
+            if (eventArgs.NameEquals("klasse")
+                && eventArgs.Path.Matches("klasse", "klassifikasjonssystem"))
+            {
+                _isInsideClass = true;
+            }
+
+            if ((_isInsideClass
+                 && eventArgs.Path.Matches("klasse", "klasse", "klassifikasjonssystem"))
+                || eventArgs.Path.Matches("mappe", "klasse", "klassifikasjonssystem"))
+            {
+                _foundSubClassOrFolder = true;
             }
         }
 
-        public override void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
+        protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+            if (_testingIsFinished)
+            {
+                return;
+            }
+
+            if (_isInsideClass && (eventArgs.NameEquals("klasse") & eventArgs.Path.Matches("klassifikasjonssystem")))
+            {
+                _isInsideClass = false;
+                if (!_foundSubClassOrFolder)
+                {
+                    _classesWithoutSubClassOrFolder++;
+                }
+
+                _foundSubClassOrFolder = false;
+            }
+
+            if (_isInsideMainClassificationSystem && eventArgs.NameEquals("klassifikasjonssystem"))
+            {
+                _testingIsFinished = true;
+            }
+        }
+
+        protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
         }
     }

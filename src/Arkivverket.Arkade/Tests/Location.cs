@@ -1,4 +1,6 @@
-﻿namespace Arkivverket.Arkade.Tests
+﻿using System;
+
+namespace Arkivverket.Arkade.Tests
 {
     public class Location : ILocation
     {
@@ -8,6 +10,8 @@
         {
             LocationString = locationString;
         }
+
+        public static Location Archive => new Location(string.Empty);
 
         public override string ToString()
         {
