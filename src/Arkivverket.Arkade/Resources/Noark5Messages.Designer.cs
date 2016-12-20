@@ -154,6 +154,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finn antall saksparter.
+        /// </summary>
+        internal static string NumberOfCaseParts {
+            get {
+                return ResourceManager.GetString("NumberOfCaseParts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall saksparter:{0}.
+        /// </summary>
+        internal static string NumberOfCasePartsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfCasePartsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall klasser.
         /// </summary>
         internal static string NumberOfClasses {

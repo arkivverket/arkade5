@@ -151,6 +151,12 @@ Generert:  {2}</value>
   <data name="NumberOfArchivesMessage" xml:space="preserve">
     <value>Antall arkiv: {0}</value>
   </data>
+  <data name="NumberOfCaseParts" xml:space="preserve">
+    <value>Finn antall saksparter</value>
+  </data>
+  <data name="NumberOfCasePartsMessage" xml:space="preserve">
+    <value>Antall saksparter:{0}</value>
+  </data>
   <data name="NumberOfClasses" xml:space="preserve">
     <value>Finn antall klasser</value>
   </data>

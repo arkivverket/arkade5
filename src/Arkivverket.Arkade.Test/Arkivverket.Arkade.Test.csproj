@@ -196,6 +196,7 @@
     <Compile Include="Tests\Noark5\NumberOfArchivePartsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchivesTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassesInMainClassificationSystemWithoutSubClassesOrFoldersTest.cs" />
+    <Compile Include="Tests\Noark5\NumberOfCasePartsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassesTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassificationSystemsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentDescriptionsTest.cs" />
