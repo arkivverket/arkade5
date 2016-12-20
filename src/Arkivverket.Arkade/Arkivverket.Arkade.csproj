@@ -161,6 +161,7 @@
     <Compile Include="Metadata\EacCpfCreator.cs" />
     <Compile Include="Metadata\EadCreator.cs" />
     <Compile Include="Metadata\MetadataFilesCreator.cs" />
+    <Compile Include="Tests\Noark5\NumberOfComments.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentDescriptions.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentDescriptionsWithoutDocumentObject.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentObjects.cs" />

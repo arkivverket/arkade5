@@ -172,6 +172,12 @@ Generert:  {2}</value>
   <data name="NumberOfClassificationSystemsMessage" xml:space="preserve">
     <value>Antall klassifikasjonssystem: {0}</value>
   </data>
+  <data name="NumberOfComments" xml:space="preserve">
+    <value>Finn antall merknader</value>
+  </data>
+  <data name="NumberOfCommentsMessage" xml:space="preserve">
+    <value>Antall merknader: {0}</value>
+  </data>
   <data name="NumberOfDocumentDescriptions" xml:space="preserve">
     <value>Antall dokumentbeskrivelser.</value>
   </data>

@@ -217,6 +217,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finn antall merknader.
+        /// </summary>
+        internal static string NumberOfComments {
+            get {
+                return ResourceManager.GetString("NumberOfComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall merknader: {0}.
+        /// </summary>
+        internal static string NumberOfCommentsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfCommentsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall dokumentbeskrivelser..
         /// </summary>
         internal static string NumberOfDocumentDescriptions {
