@@ -163,6 +163,7 @@
     <Compile Include="Metadata\MetadataFilesCreator.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentDescriptions.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentDescriptionsWithoutDocumentObject.cs" />
+    <Compile Include="Tests\Noark5\NumberOfDocumentObjects.cs" />
     <Compile Include="Util\ArkadeDirectory.cs" />
     <Compile Include="Core\WorkingDirectory.cs" />
     <Compile Include="Util\ArkadeFile.cs" />

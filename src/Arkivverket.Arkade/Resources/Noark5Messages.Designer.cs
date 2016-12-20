@@ -217,6 +217,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall dokumentobjekter i arkivstrukturen.
+        /// </summary>
+        internal static string NumberOfDocumentObjects {
+            get {
+                return ResourceManager.GetString("NumberOfDocumentObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall mapper.
         /// </summary>
         internal static string NumberOfFolders {
