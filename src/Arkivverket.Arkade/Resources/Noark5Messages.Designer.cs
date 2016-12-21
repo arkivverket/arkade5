@@ -289,6 +289,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finn antall presedenser.
+        /// </summary>
+        internal static string NumberOfPrecedents {
+            get {
+                return ResourceManager.GetString("NumberOfPrecedents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall presedenser: {0}.
+        /// </summary>
+        internal static string NumberOfPrecedentsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfPrecedentsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall registreringer.
         /// </summary>
         internal static string NumberOfRegistrations {

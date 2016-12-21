@@ -43,6 +43,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new ControlDocumentFilesExists(archive),
                 new NumberOfComments(),
                 new NumberOfCrossReferences(),
+                new NumberOfPrecedents(),
             };
         }
     }

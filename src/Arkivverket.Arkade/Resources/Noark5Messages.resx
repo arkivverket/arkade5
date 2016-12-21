@@ -196,6 +196,12 @@ Generert:  {2}</value>
   <data name="NumberOfFoldersMessage" xml:space="preserve">
     <value>Antall mapper: {0}</value>
   </data>
+  <data name="NumberOfPrecedents" xml:space="preserve">
+    <value>Finn antall presedenser</value>
+  </data>
+  <data name="NumberOfPrecedentsMessage" xml:space="preserve">
+    <value>Antall presedenser: {0}</value>
+  </data>
   <data name="NumberOfRegistrations" xml:space="preserve">
     <value>Finn antall registreringer</value>
   </data>
