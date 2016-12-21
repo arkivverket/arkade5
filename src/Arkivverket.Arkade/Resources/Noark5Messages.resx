@@ -199,6 +199,12 @@ Generert:  {2}</value>
   <data name="NumberOfDocumentDescriptionsWithoutDocumentObject" xml:space="preserve">
     <value>Antall dokumentbeskrivelser uten dokumentobjekt</value>
   </data>
+  <data name="NumberOfDocumentFlows" xml:space="preserve">
+    <value>Finn antall dokumentflyter</value>
+  </data>
+  <data name="NumberOfDocumentFlowsMessage" xml:space="preserve">
+    <value>Antall dokumentflyter: {0}</value>
+  </data>
   <data name="NumberOfDocumentObjects" xml:space="preserve">
     <value>Antall dokumentobjekter i arkivstrukturen</value>
   </data>

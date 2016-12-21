@@ -298,6 +298,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finn antall dokumentflyter.
+        /// </summary>
+        internal static string NumberOfDocumentFlows {
+            get {
+                return ResourceManager.GetString("NumberOfDocumentFlows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall dokumentflyter: {0}.
+        /// </summary>
+        internal static string NumberOfDocumentFlowsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfDocumentFlowsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall dokumentobjekter i arkivstrukturen.
         /// </summary>
         internal static string NumberOfDocumentObjects {
