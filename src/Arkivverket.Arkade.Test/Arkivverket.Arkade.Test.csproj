@@ -200,6 +200,7 @@
     <Compile Include="Tests\Noark5\NumberOfClassesTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassificationSystemsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfCommentsTests.cs" />
+    <Compile Include="Tests\Noark5\NumberOfCrossReferencesTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentDescriptionsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentDescriptionsWithoutDocumentObjectTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentObjectsTests.cs" />

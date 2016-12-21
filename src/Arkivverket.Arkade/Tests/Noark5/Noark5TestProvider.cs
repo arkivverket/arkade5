@@ -41,7 +41,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders(),
                 new NumberOfCaseParts(),
                 new ControlDocumentFilesExists(archive),
-                new NumberOfComments()
+                new NumberOfComments(),
+                new NumberOfCrossReferences(),
             };
         }
     }

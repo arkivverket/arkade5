@@ -235,6 +235,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall kryssreferanser.
+        /// </summary>
+        internal static string NumberOfCrossReferences {
+            get {
+                return ResourceManager.GetString("NumberOfCrossReferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall dokumentbeskrivelser..
         /// </summary>
         internal static string NumberOfDocumentDescriptions {

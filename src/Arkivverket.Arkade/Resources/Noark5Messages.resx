@@ -178,6 +178,9 @@ Generert:  {2}</value>
   <data name="NumberOfCommentsMessage" xml:space="preserve">
     <value>Antall merknader: {0}</value>
   </data>
+  <data name="NumberOfCrossReferences" xml:space="preserve">
+    <value>Antall kryssreferanser</value>
+  </data>
   <data name="NumberOfDocumentDescriptions" xml:space="preserve">
     <value>Antall dokumentbeskrivelser.</value>
   </data>
