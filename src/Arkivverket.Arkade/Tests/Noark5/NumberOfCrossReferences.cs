@@ -4,6 +4,9 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
+    /// <summary>
+    ///     Noark5 - test #28
+    /// </summary>
     public class NumberOfCrossReferences : Noark5XmlReaderBaseTest
     {
         private int _classReferenceCount;

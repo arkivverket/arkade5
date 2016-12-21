@@ -4,6 +4,9 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
+    /// <summary>
+    ///     Noark5 - test #16
+    /// </summary>
     public class NumberOfRegistrationsWithoutDocumentDescription : Noark5XmlReaderBaseTest
     {
         private bool _documentDescriptionIsFound;

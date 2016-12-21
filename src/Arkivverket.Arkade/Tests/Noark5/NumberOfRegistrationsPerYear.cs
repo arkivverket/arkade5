@@ -5,6 +5,9 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
+    /// <summary>
+    ///     Noark5 - test #14
+    /// </summary>
     public class NumberOfRegistrationsPerYear : Noark5XmlReaderBaseTest
     {
         private readonly Dictionary<int, int> _registrationsByYear = new Dictionary<int, int>();
