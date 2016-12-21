@@ -187,6 +187,12 @@ Generert:  {2}</value>
   <data name="NumberOfCrossReferences" xml:space="preserve">
     <value>Antall kryssreferanser</value>
   </data>
+  <data name="NumberOfDepreciations" xml:space="preserve">
+    <value>Finn antall avskrivninger</value>
+  </data>
+  <data name="NumberOfDepreciationsMessage" xml:space="preserve">
+    <value>Antall avskrivninger: {0}</value>
+  </data>
   <data name="NumberOfDocumentDescriptions" xml:space="preserve">
     <value>Antall dokumentbeskrivelser.</value>
   </data>

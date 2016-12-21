@@ -45,6 +45,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfCrossReferences(),
                 new NumberOfPrecedents(),
                 new NumberOfCorrespondenceParts(),
+                new NumberOfDepreciations(),
             };
         }
     }

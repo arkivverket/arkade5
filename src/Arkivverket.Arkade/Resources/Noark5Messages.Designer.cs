@@ -262,6 +262,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finn antall avskrivninger.
+        /// </summary>
+        internal static string NumberOfDepreciations {
+            get {
+                return ResourceManager.GetString("NumberOfDepreciations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall avskrivninger: {0}.
+        /// </summary>
+        internal static string NumberOfDepreciationsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfDepreciationsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall dokumentbeskrivelser..
         /// </summary>
         internal static string NumberOfDocumentDescriptions {
