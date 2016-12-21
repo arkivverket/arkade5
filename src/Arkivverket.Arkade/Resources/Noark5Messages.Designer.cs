@@ -235,6 +235,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finn antall korrespondanseparter.
+        /// </summary>
+        internal static string NumberOfCorrespondenceParts {
+            get {
+                return ResourceManager.GetString("NumberOfCorrespondenceParts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall korrespondanseparter: {0}.
+        /// </summary>
+        internal static string NumberOfCorrespondencePartsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfCorrespondencePartsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall kryssreferanser.
         /// </summary>
         internal static string NumberOfCrossReferences {

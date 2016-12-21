@@ -167,6 +167,7 @@
     <Compile Include="Tests\Noark5\NumberOfDocumentDescriptionsWithoutDocumentObject.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentObjects.cs" />
     <Compile Include="Tests\Noark5\NumberOfCaseParts.cs" />
+    <Compile Include="Tests\Noark5\NumberOfCorrespondenceParts.cs" />
     <Compile Include="Tests\Noark5\NumberOfPrecedents.cs" />
     <Compile Include="Util\ArkadeDirectory.cs" />
     <Compile Include="Core\WorkingDirectory.cs" />
