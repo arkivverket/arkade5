@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         private readonly string _charset = "UTF-8";
         private FileInfo _fileInfo = null;
         private string _fileName = "";
-        private readonly string _name = "FlatFile" + Random.Next();
+        private string _name = "FlatFile" + Random.Next();
 
         private int? _numberOfRecords = null;
         private readonly List<string> _processes = null;
@@ -28,6 +28,12 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         {
             return new AddmlFlatFileDefinition(_name, _fileName, _fileInfo, _recordSeparator, _fieldSeparator, _charset,
                 _recordDefinitionFieldIdentifier, _numberOfRecords, _checksum, _format, _processes);
+        }
+
+        public AddmlFlatFileDefinitionBuilder WithName(string name)
+        {
+            _name = name;
+            return this;
         }
 
         public AddmlFlatFileDefinitionBuilder WithNumberOfRecords(int numberOfRecords)

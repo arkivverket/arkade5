@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         private int? _maxLength = null;
         private AddmlFieldDefinition _foreignKey = null;
         private AddmlRecordDefinition _addmlRecordDefinition;
-        private List<string> _processes = new List<string>();
+        private readonly List<string> _processes = new List<string>();
         private List<AddmlCode> _codes = null;
         private bool _isPartOfPrimaryKey = false;
 
@@ -50,6 +50,12 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         internal AddmlFieldDefinitionBuilder WithFixedLength(int fixedLength)
         {
             _fixedLength = fixedLength;
+            return this;
+        }
+
+        public AddmlFieldDefinitionBuilder WithName(string name)
+        {
+            _name = name;
             return this;
         }
 
@@ -86,9 +92,15 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
             return this;
         }
 
-        internal AddmlFieldDefinitionBuilder WithForeignKey(AddmlFieldDefinition foreignKey)
+        public AddmlFieldDefinitionBuilder WithForeignKey(AddmlFieldDefinition foreignKey)
         {
             _foreignKey = foreignKey;
+            return this;
+        }
+
+        public AddmlFieldDefinitionBuilder WithProcess(string addmlProcessName)
+        {
+            _processes.Add(addmlProcessName);
             return this;
         }
     }

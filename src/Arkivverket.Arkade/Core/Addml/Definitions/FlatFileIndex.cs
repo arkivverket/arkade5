@@ -2,7 +2,7 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
-    public class FlatFileIndex
+    public class FlatFileIndex : IAddmlIndex
     {
         private readonly string _flatFileDefinitionName;
 

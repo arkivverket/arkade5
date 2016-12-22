@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Core.Addml
     public class FieldProcessRunner
     {
         private readonly ProcessManager _processManager;
-        private readonly Dictionary<string, List<IAddmlProcess>> _processCache;
+        private readonly Dictionary<IAddmlIndex, List<IAddmlProcess>> _processCache;
 
         public FieldProcessRunner(ProcessManager processManager)
         {
@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
         public void RunProcesses(Field field)
         {
-            List<IAddmlProcess> processes = _processManager.GetProcesses(field.Definition.Key(), _processCache);
+            List<IAddmlProcess> processes = _processManager.GetProcesses(field.Definition.GetIndex(), _processCache);
             foreach (IAddmlProcess process in processes)
             {
                 process.Run(field);
@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Addml
             {
                 foreach (AddmlFieldDefinition fieldDefinition in recordDefinition.AddmlFieldDefinitions)
                 {
-                    List<IAddmlProcess> processes = _processManager.GetProcesses(fieldDefinition.Key(), _processCache);
+                    List<IAddmlProcess> processes = _processManager.GetProcesses(fieldDefinition.GetIndex(), _processCache);
                     foreach (IAddmlProcess process in processes)
                     {
                         process.EndOfFile();

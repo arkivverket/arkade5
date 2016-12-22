@@ -11,6 +11,17 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public AddmlDefinition(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
         {
             AddmlFlatFileDefinitions = addmlFlatFileDefinitions;
+            InsertForeignKeyProcessInFilesWithReferencedPrimaryKey();
+        }
+
+        /// <summary>
+        /// The ControlForeignKey ADDML process requires a list of all existing primary keys in order to function correct. 
+        /// But the process it self is only defined on the foreign key field. This method makes sure that the ControlForeignKey process
+        /// is inserted into all primary key field definitions that are referenced from a foreign key field definition.
+        /// </summary>
+        private void InsertForeignKeyProcessInFilesWithReferencedPrimaryKey()
+        {
+            AddmlFlatFileDefinition.InsertForeignKeyProcessInFilesWithReferencedPrimaryKey(AddmlFlatFileDefinitions);
         }
 
         public List<FlatFile> GetFlatFiles()
@@ -19,34 +30,34 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 addmlFlatFileDefinition => new FlatFile(addmlFlatFileDefinition)).ToList();
         }
 
-        public Dictionary<string, List<string>> GetFileProcessesGroupedByFile()
+        public Dictionary<IAddmlIndex, List<string>> GetFileProcessesGroupedByFile()
         {
-            return AddmlFlatFileDefinitions.ToDictionary(d => d.Name, d => d.Processes);
+            return AddmlFlatFileDefinitions.ToDictionary(d => (IAddmlIndex)d.GetIndex(), d => d.Processes);
         }
 
-        public Dictionary<string, List<string>> GetRecordProcessesGroupedByRecord()
+        public Dictionary<IAddmlIndex, List<string>> GetRecordProcessesGroupedByRecord()
         {
-            Dictionary<string, List<string>> fieldProcessNamesGroupedByRecord = new Dictionary<string, List<string>>();
+            Dictionary<IAddmlIndex, List<string>> fieldProcessNamesGroupedByRecord = new Dictionary<IAddmlIndex, List<string>>();
             foreach (var flatFileDefinition in AddmlFlatFileDefinitions)
             {
                 foreach (var recordDefinition in flatFileDefinition.AddmlRecordDefinitions)
                 {
-                    fieldProcessNamesGroupedByRecord.Add(recordDefinition.Key(), recordDefinition.Processes);
+                    fieldProcessNamesGroupedByRecord.Add(recordDefinition.GetIndex(), recordDefinition.Processes);
                 }
             }
             return fieldProcessNamesGroupedByRecord;
         }
 
-        public Dictionary<string, List<string>> GetFieldProcessesGroupedByField()
+        public Dictionary<IAddmlIndex, List<string>> GetFieldProcessesGroupedByField()
         {
-            Dictionary<string, List<string>> fieldProcessNamesGroupedByField = new Dictionary<string, List<string>>();
+            Dictionary<IAddmlIndex, List<string>> fieldProcessNamesGroupedByField = new Dictionary<IAddmlIndex, List<string>>();
             foreach (var flatFileDefinition in AddmlFlatFileDefinitions)
             {
                 foreach (var recordDefinition in flatFileDefinition.AddmlRecordDefinitions)
                 {
                     foreach (var fieldDefinition in recordDefinition.AddmlFieldDefinitions)
                     {
-                        fieldProcessNamesGroupedByField.Add(fieldDefinition.Key(), fieldDefinition.Processes);
+                        fieldProcessNamesGroupedByField.Add(fieldDefinition.GetIndex(), fieldDefinition.Processes);
                     }
                 }
             }

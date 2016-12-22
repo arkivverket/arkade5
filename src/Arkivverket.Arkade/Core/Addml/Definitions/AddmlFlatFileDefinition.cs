@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
+using Arkivverket.Arkade.Core.Addml.Processes;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
     public class AddmlFlatFileDefinition
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+
         public string Name { get; }
         public string FileName { get; }
         public FileInfo FileInfo { get; }
@@ -70,6 +75,34 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public FlatFileIndex GetIndex()
         {
             return _index;
+        }
+
+        public static void InsertForeignKeyProcessInFilesWithReferencedPrimaryKey(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
+        {
+            Log.Debug("Inserting foreign key process in definitions with a referenced primary key");
+            var fieldDefsWithControlForeignKey = new List<AddmlFieldDefinition>();
+            foreach (var flatFileDef in addmlFlatFileDefinitions)
+            {
+                fieldDefsWithControlForeignKey.AddRange(flatFileDef.GetFieldDefinitionsWithProcess(ControlForeignKey.Name));
+            }
+
+            Log.Debug($"Number of {ControlForeignKey.Name} processes found: {fieldDefsWithControlForeignKey.Count}");
+
+            foreach (var fieldDef in fieldDefsWithControlForeignKey)
+            {
+                fieldDef.ForeignKey.AddProcess(ControlForeignKey.Name);
+            }
+
+        }
+
+        private IEnumerable<AddmlFieldDefinition> GetFieldDefinitionsWithProcess(string processName)
+        {
+            var definitionsWithProcess = new List<AddmlFieldDefinition>();
+            foreach (var recordDef in AddmlRecordDefinitions)
+            {
+                definitionsWithProcess.AddRange(recordDef.GetFieldDefinitionsWithProcess(processName));
+            }
+            return definitionsWithProcess;
         }
     }
 

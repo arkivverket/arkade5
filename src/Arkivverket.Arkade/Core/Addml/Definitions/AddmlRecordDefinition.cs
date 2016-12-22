@@ -84,5 +84,18 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         {
             return new RecordIndex(AddmlFlatFileDefinition.Name, Name);
         }
+
+        public IEnumerable<AddmlFieldDefinition> GetFieldDefinitionsWithProcess(string processName)
+        {
+            var definitionsWithProcess = new List<AddmlFieldDefinition>();
+            foreach (var fieldDef in AddmlFieldDefinitions)
+            {
+                if (fieldDef.HasProcess(processName))
+                {
+                    definitionsWithProcess.Add(fieldDef);
+                }
+            }
+            return definitionsWithProcess;
+        }
     }
 }

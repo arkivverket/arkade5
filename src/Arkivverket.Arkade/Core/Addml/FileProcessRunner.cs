@@ -1,12 +1,12 @@
-using System;
 using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
     public class FileProcessRunner
     {
         private readonly ProcessManager _processManager;
-        private readonly Dictionary<string, List<IAddmlProcess>> _processCache;
+        private readonly Dictionary<IAddmlIndex, List<IAddmlProcess>> _processCache;
 
         public FileProcessRunner(ProcessManager processManager)
         {
@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
         private List<IAddmlProcess> GetProcessesForFile(FlatFile file)
         {
-            return _processManager.GetProcesses(file.Definition.Key(), _processCache);
+            return _processManager.GetProcesses(file.Definition.GetIndex(), _processCache);
         }
 
         public void EndOfFile(FlatFile file)

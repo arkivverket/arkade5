@@ -95,6 +95,7 @@
     <Compile Include="Core\Addml\Definitions\DataTypes\IntegerDataType.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\LinkDataType.cs" />
     <Compile Include="Core\Addml\Definitions\FlatFileIndex.cs" />
+    <Compile Include="Core\Addml\Definitions\IAddmlIndex.cs" />
     <Compile Include="Core\Addml\Definitions\RecordIndex.cs" />
     <Compile Include="Core\Addml\Definitions\Separator.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\StringDataType.cs" />

@@ -244,7 +244,7 @@
     <value>Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst</value>
   </data>
   <data name="ControlForeignKeyMessage1" xml:space="preserve">
-    <value>Ugyldig fremmednøkkel: {0}</value>
+    <value>Ugyldig fremmednøkkel: {0} med referanse til {1}</value>
   </data>
   <data name="ControlForeignKeyMessage2" xml:space="preserve">
     <value>Cannot find referenced field {0} from foreign key {1}</value>

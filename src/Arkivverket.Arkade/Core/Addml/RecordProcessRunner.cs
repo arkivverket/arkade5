@@ -5,7 +5,7 @@ namespace Arkivverket.Arkade.Core.Addml
 {
     public class RecordProcessRunner
     {
-        private readonly Dictionary<string, List<IAddmlProcess>> _processCache;
+        private readonly Dictionary<IAddmlIndex, List<IAddmlProcess>> _processCache;
         private readonly ProcessManager _processManager;
 
         public RecordProcessRunner(ProcessManager processManager)
@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
         public void RunProcesses(Record record)
         {
-            List<IAddmlProcess> processes = _processManager.GetProcesses(record.Definition.Key(), _processCache);
+            List<IAddmlProcess> processes = _processManager.GetProcesses(record.Definition.GetIndex(), _processCache);
             foreach (IAddmlProcess process in processes)
             {
                 process.Run(record);
@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Addml
         {
             foreach (AddmlRecordDefinition recordDefinition in file.Definition.AddmlRecordDefinitions)
             {
-                List<IAddmlProcess> processes = _processManager.GetProcesses(recordDefinition.Key(), _processCache);
+                List<IAddmlProcess> processes = _processManager.GetProcesses(recordDefinition.GetIndex(), _processCache);
                 foreach (IAddmlProcess process in processes)
                 {
                     process.EndOfFile();

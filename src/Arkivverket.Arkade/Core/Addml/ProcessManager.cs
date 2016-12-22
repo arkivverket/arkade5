@@ -61,29 +61,29 @@ namespace Arkivverket.Arkade.Core.Addml
             return uniqueProcessSet;
         }
 
-        public Dictionary<string, List<IAddmlProcess>> GetFileProcesses()
+        public Dictionary<IAddmlIndex, List<IAddmlProcess>> GetFileProcesses()
         {
             return GetProcessInstances(_addmlDefinition.GetFileProcessesGroupedByFile());
         }
 
-        public Dictionary<string, List<IAddmlProcess>> GetRecordProcesses()
+        public Dictionary<IAddmlIndex, List<IAddmlProcess>> GetRecordProcesses()
         {
             return GetProcessInstances(_addmlDefinition.GetRecordProcessesGroupedByRecord());
         }
 
-        public Dictionary<string, List<IAddmlProcess>> GetFieldProcesses()
+        public Dictionary<IAddmlIndex, List<IAddmlProcess>> GetFieldProcesses()
         {
             return GetProcessInstances(_addmlDefinition.GetFieldProcessesGroupedByField());
         }
 
-        private Dictionary<string, List<IAddmlProcess>> GetProcessInstances(Dictionary<string, List<string>> processNamesGrouped)
+        private Dictionary<IAddmlIndex, List<IAddmlProcess>> GetProcessInstances(Dictionary<IAddmlIndex, List<string>> processNamesGrouped)
         {
-            var processInstancesByGroup = new Dictionary<string, List<IAddmlProcess>>();
+            var processInstancesByGroup = new Dictionary<IAddmlIndex, List<IAddmlProcess>>();
 
-            foreach (string file in processNamesGrouped.Keys)
+            foreach (var keyValuePair in processNamesGrouped)
             {
                 var processesInstances = new List<IAddmlProcess>();
-                List<string> processNames = processNamesGrouped[file];
+                List<string> processNames = keyValuePair.Value;
                 foreach (string processName in processNames)
                 {
                     if (_processesByName.ContainsKey(processName))
@@ -95,7 +95,7 @@ namespace Arkivverket.Arkade.Core.Addml
                         Log.Warning($"Process [{processName}] is not supported. No class found in process mapping.");
                     }
                 }
-                processInstancesByGroup.Add(file, processesInstances);
+                processInstancesByGroup.Add(keyValuePair.Key, processesInstances);
             }
             return processInstancesByGroup;
         }
@@ -105,7 +105,7 @@ namespace Arkivverket.Arkade.Core.Addml
             return _processesByName.Values.ToList();
         }
 
-        internal List<IAddmlProcess> GetProcesses(string key, Dictionary<string, List<IAddmlProcess>> cachedProcesses)
+        internal List<IAddmlProcess> GetProcesses(IAddmlIndex key, Dictionary<IAddmlIndex, List<IAddmlProcess>> cachedProcesses)
         {
             if (cachedProcesses.ContainsKey(key))
             {

@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
     public class AddmlFieldDefinition
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+
         public AddmlRecordDefinition AddmlRecordDefinition { get; }
 
         public string Name { get; }
@@ -62,6 +67,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return AddmlRecordDefinition.PrimaryKey == null ? false : AddmlRecordDefinition.PrimaryKey.Contains(this);
         }
 
+        [Obsolete("Use GetIndex instead")]
         public string Key()
         {
             return AddmlRecordDefinition.Key() + "_" + Name;
@@ -70,6 +76,24 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public FieldIndex GetIndex()
         {
             return _index;
+        }
+
+        public bool HasProcess(string processName)
+        {
+            return Processes.Contains(processName);
+        }
+
+        public void AddProcess(string processName)
+        {
+            if (!HasProcess(processName))
+            {
+                Processes.Add(processName);
+                Log.Debug($"Adding process {processName} to definition {_index}");
+            }
+            else
+            {
+                Log.Debug($"Definition {_index} already contains process {processName}");
+            }
         }
     }
 }
