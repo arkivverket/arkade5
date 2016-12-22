@@ -217,6 +217,9 @@ Generert:  {2}</value>
   <data name="NumberOfFoldersPerYear" xml:space="preserve">
     <value>Antall mapper for hvert år</value>
   </data>
+  <data name="NumberOfFoldersWithoutRegistrationsOrSubfolders" xml:space="preserve">
+    <value>Antall mapper uten registreringer eller undermapper</value>
+  </data>
   <data name="NumberOfPrecedents" xml:space="preserve">
     <value>Finn antall presedenser</value>
   </data>

@@ -48,6 +48,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfDepreciations(),
                 new NumberOfDocumentFlows(),
                 new NumberOfFoldersPerYear(),
+                new NumberOfFoldersWithoutRegistrationsOrSubfolders(),
             };
         }
     }

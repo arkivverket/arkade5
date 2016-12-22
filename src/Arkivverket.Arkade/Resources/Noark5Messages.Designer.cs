@@ -352,6 +352,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall mapper uten registreringer eller undermapper.
+        /// </summary>
+        internal static string NumberOfFoldersWithoutRegistrationsOrSubfolders {
+            get {
+                return ResourceManager.GetString("NumberOfFoldersWithoutRegistrationsOrSubfolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall presedenser.
         /// </summary>
         internal static string NumberOfPrecedents {
