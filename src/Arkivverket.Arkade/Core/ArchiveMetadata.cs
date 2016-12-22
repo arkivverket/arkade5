@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Core
         public MetadataEntityInformationUnit Transferer { get; set; }
         public MetadataEntityInformationUnit Producer { get; set; }
         public List<MetadataEntityInformationUnit> Owner { get; set; }
-        public string  Recipient { get; set; }
+        public string Recipient { get; set; }
         public MetadataSystemInformationUnit System { get; set; }
         public MetadataSystemInformationUnit ArchiveSystem { get; set; }
         public List<string> Comments { get; set; }
