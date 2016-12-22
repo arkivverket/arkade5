@@ -171,6 +171,7 @@
     <Compile Include="Tests\Noark5\NumberOfCorrespondenceParts.cs" />
     <Compile Include="Tests\Noark5\NumberOfDepreciations.cs" />
     <Compile Include="Tests\Noark5\NumberOfPrecedents.cs" />
+    <Compile Include="Tests\Noark5\NumberOfFoldersPerYear.cs" />
     <Compile Include="Util\ArkadeDirectory.cs" />
     <Compile Include="Core\WorkingDirectory.cs" />
     <Compile Include="Util\ArkadeFile.cs" />

@@ -343,6 +343,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall mapper for hvert år.
+        /// </summary>
+        internal static string NumberOfFoldersPerYear {
+            get {
+                return ResourceManager.GetString("NumberOfFoldersPerYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall presedenser.
         /// </summary>
         internal static string NumberOfPrecedents {

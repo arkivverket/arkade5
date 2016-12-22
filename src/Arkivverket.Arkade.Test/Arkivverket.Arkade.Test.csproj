@@ -209,6 +209,7 @@
     <Compile Include="Tests\Noark5\NumberOfDocumentDescriptionsWithoutDocumentObjectTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentObjectsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersTest.cs" />
+    <Compile Include="Tests\Noark5\NumberOfFoldersPerYearTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfRegistrationsPerYearTest.cs" />
     <Compile Include="Tests\Noark5\StatusOfArchivePartsTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksumsTest.cs" />

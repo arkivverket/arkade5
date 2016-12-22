@@ -214,6 +214,9 @@ Generert:  {2}</value>
   <data name="NumberOfFoldersMessage" xml:space="preserve">
     <value>Antall mapper: {0}</value>
   </data>
+  <data name="NumberOfFoldersPerYear" xml:space="preserve">
+    <value>Antall mapper for hvert år</value>
+  </data>
   <data name="NumberOfPrecedents" xml:space="preserve">
     <value>Finn antall presedenser</value>
   </data>
