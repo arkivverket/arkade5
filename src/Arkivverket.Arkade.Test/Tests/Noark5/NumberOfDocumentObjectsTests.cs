@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core;
+﻿using System.Linq;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Tests.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -28,7 +29,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDocumentObjects());
 
-            testRun.Results[0].Message.Should().Be("2");
+            testRun.Results.First().Message.Should().Be("Antall dokumentobjekter: 2");
         }
     }
 }

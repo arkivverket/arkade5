@@ -194,7 +194,10 @@ Generert:  {2}</value>
     <value>Antall avskrivninger: {0}</value>
   </data>
   <data name="NumberOfDocumentDescriptions" xml:space="preserve">
-    <value>Antall dokumentbeskrivelser.</value>
+    <value>Finn antall dokumentbeskrivelser</value>
+  </data>
+  <data name="NumberOfDocumentDescriptionsMessage" xml:space="preserve">
+    <value>Antall dokumentbeskrivelser: {0}</value>
   </data>
   <data name="NumberOfDocumentDescriptionsWithoutDocumentObject" xml:space="preserve">
     <value>Antall dokumentbeskrivelser uten dokumentobjekt</value>
@@ -206,7 +209,10 @@ Generert:  {2}</value>
     <value>Antall dokumentflyter: {0}</value>
   </data>
   <data name="NumberOfDocumentObjects" xml:space="preserve">
-    <value>Antall dokumentobjekter i arkivstrukturen</value>
+    <value>Finn antall dokumentobjekter</value>
+  </data>
+  <data name="NumberOfDocumentObjectsMessage" xml:space="preserve">
+    <value>Antall dokumentobjekter: {0}</value>
   </data>
   <data name="NumberOfFolders" xml:space="preserve">
     <value>Finn antall mapper</value>

@@ -280,11 +280,20 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentbeskrivelser..
+        ///   Looks up a localized string similar to Finn antall dokumentbeskrivelser.
         /// </summary>
         internal static string NumberOfDocumentDescriptions {
             get {
                 return ResourceManager.GetString("NumberOfDocumentDescriptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall dokumentbeskrivelser: {0}.
+        /// </summary>
+        internal static string NumberOfDocumentDescriptionsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfDocumentDescriptionsMessage", resourceCulture);
             }
         }
         
@@ -316,11 +325,20 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentobjekter i arkivstrukturen.
+        ///   Looks up a localized string similar to Finn antall dokumentobjekter.
         /// </summary>
         internal static string NumberOfDocumentObjects {
             get {
                 return ResourceManager.GetString("NumberOfDocumentObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall dokumentobjekter: {0}.
+        /// </summary>
+        internal static string NumberOfDocumentObjectsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfDocumentObjectsMessage", resourceCulture);
             }
         }
         
