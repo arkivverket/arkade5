@@ -32,13 +32,13 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.Path.Matches("dokumentbeskrivelse"))
+            if (eventArgs.NameEquals("dokumentbeskrivelse"))
                 _documentDescriptionIsFound = true;
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (!eventArgs.Path.Matches("registrering"))
+            if (!eventArgs.NameEquals("registrering"))
                 return;
 
             if (!_documentDescriptionIsFound)

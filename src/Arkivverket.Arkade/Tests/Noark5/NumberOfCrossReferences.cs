@@ -33,10 +33,10 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.Path.Matches("referanseTilKlasse"))
+            if (eventArgs.NameEquals("referanseTilKlasse"))
                 _classReferenceCount++;
 
-            if (eventArgs.Path.Matches("referanseTilMappe"))
+            if (eventArgs.NameEquals("referanseTilMappe"))
                 _folderReferenceCount++;
         }
 
