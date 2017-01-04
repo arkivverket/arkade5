@@ -18,7 +18,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
             return new List<IArkadeStructureTest>
             {
                 new ValidateAddmlDataobjectsChecksums(),
-                new ValidateXmlWithSchema(_archiveReader)
+                new ValidateXmlWithSchema(_archiveReader),
+                new ValidateNumberOfDocumentfiles(),
             };
         }
 

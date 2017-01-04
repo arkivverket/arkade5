@@ -215,6 +215,7 @@
     <Compile Include="Tests\Noark5\NumberOfFoldersWithoutRegistrationsOrSubfoldersTest.cs" />
     <Compile Include="Tests\Noark5\StatusOfArchivePartsTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksumsTest.cs" />
+    <Compile Include="Tests\Noark5\Structure\ValidateNumberOfDocumentfilesTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchemaTest.cs" />
     <Compile Include="Tests\Noark5\TestUtil.cs" />
     <Compile Include="Tests\Noark5\XmlElementHelper.cs" />
@@ -289,6 +290,21 @@
     <None Include="TestData\Noark5\ContentClassificationSystem\metadatakatalog.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\DocumentfilesControl\CountMatch\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\DocumentfilesControl\CountMatch\content\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\DocumentfilesControl\CountMismatch\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestData\Noark5\Small\addml.xsd">
       <SubType>Designer</SubType>
@@ -368,6 +384,36 @@
     <Content Include="TestData\Noark5\ContentClassificationSystem\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\Noark5\DocumentfilesControl\CountMatch\content\arkivstruktur.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\DocumentfilesControl\CountMatch\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\DocumentfilesControl\CountMismatch\content\arkivstruktur.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\DocumentfilesControl\CountMismatch\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\arkivstruktur.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\DocumentfilesControl\NoFilesDirectory\content\arkivstruktur.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\DocumentfilesControl\NoFilesDirectory\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\DocumentfilesControl\NoFiles\content\arkivstruktur.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\DocumentfilesControl\NoFiles\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\Noark5\Small\arkivstruktur.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -418,6 +464,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="TestData\Noark5\DocumentfilesControl\NoFiles\content\dokumenter\" />
     <Folder Include="TestData\package-creation\descriptive_metadata\" />
     <Folder Include="TestData\tar\Noark3-eksempel-1\" />
   </ItemGroup>

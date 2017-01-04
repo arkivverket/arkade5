@@ -250,6 +250,27 @@ Generert:  {2}</value>
   <data name="ValidateAddmlDataobjectsChecksums" xml:space="preserve">
     <value>Valider sjekksummer</value>
   </data>
+  <data name="ValidateNumberOfDocumentfiles" xml:space="preserve">
+    <value>Valider antallet dokumentfiler</value>
+  </data>
+  <data name="ValidateNumberOfDocumentfilesMessage_DocumentationNotFound" xml:space="preserve">
+    <value>Antall dokumentfiler ble ikke funnet oppgitt</value>
+  </data>
+  <data name="ValidateNumberOfDocumentfilesMessage_FileAndDocumentationMismatch" xml:space="preserve">
+    <value>Det er ikke samsvar mellom oppgitt antall og faktisk antall dokumentfiler</value>
+  </data>
+  <data name="ValidateNumberOfDocumentfilesMessage_FilesDirectoryNotFound" xml:space="preserve">
+    <value>Ingen dokumentfilkatalog funnet</value>
+  </data>
+  <data name="ValidateNumberOfDocumentfilesMessage_NoFilesFound" xml:space="preserve">
+    <value>Ingen dokumentfiler funnet</value>
+  </data>
+  <data name="ValidateNumberOfDocumentfilesMessage_NumberOfFilesDocumented" xml:space="preserve">
+    <value>Oppgitt antall dokumentfiler: {0}</value>
+  </data>
+  <data name="ValidateNumberOfDocumentfilesMessage_NumberOfFilesFound" xml:space="preserve">
+    <value>Antall dokumentfiler funnet: {0}</value>
+  </data>
   <data name="ValidateXmlWithSchema" xml:space="preserve">
     <value>Valider xml i henhold til skjema (ADDML)</value>
   </data>

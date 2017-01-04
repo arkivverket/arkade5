@@ -451,6 +451,69 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valider antallet dokumentfiler.
+        /// </summary>
+        internal static string ValidateNumberOfDocumentfiles {
+            get {
+                return ResourceManager.GetString("ValidateNumberOfDocumentfiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall dokumentfiler ble ikke funnet oppgitt.
+        /// </summary>
+        internal static string ValidateNumberOfDocumentfilesMessage_DocumentationNotFound {
+            get {
+                return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_DocumentationNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det er ikke samsvar mellom oppgitt antall og faktisk antall dokumentfiler.
+        /// </summary>
+        internal static string ValidateNumberOfDocumentfilesMessage_FileAndDocumentationMismatch {
+            get {
+                return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_FileAndDocumentationMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingen dokumentfilkatalog funnet.
+        /// </summary>
+        internal static string ValidateNumberOfDocumentfilesMessage_FilesDirectoryNotFound {
+            get {
+                return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_FilesDirectoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingen dokumentfiler funnet.
+        /// </summary>
+        internal static string ValidateNumberOfDocumentfilesMessage_NoFilesFound {
+            get {
+                return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_NoFilesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oppgitt antall dokumentfiler: {0}.
+        /// </summary>
+        internal static string ValidateNumberOfDocumentfilesMessage_NumberOfFilesDocumented {
+            get {
+                return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_NumberOfFilesDocumented", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall dokumentfiler funnet: {0}.
+        /// </summary>
+        internal static string ValidateNumberOfDocumentfilesMessage_NumberOfFilesFound {
+            get {
+                return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_NumberOfFilesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valider xml i henhold til skjema (ADDML).
         /// </summary>
         internal static string ValidateXmlWithSchema {
