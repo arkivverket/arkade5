@@ -414,6 +414,9 @@
     <Content Include="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\arkivuttrekk.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\Noark5\DocumentfilesControl\NoFiles\content\dokumenter\directorykeeper.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\Noark5\Small\arkivstruktur.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -464,7 +467,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TestData\Noark5\DocumentfilesControl\NoFiles\content\dokumenter\" />
     <Folder Include="TestData\package-creation\descriptive_metadata\" />
     <Folder Include="TestData\tar\Noark3-eksempel-1\" />
   </ItemGroup>

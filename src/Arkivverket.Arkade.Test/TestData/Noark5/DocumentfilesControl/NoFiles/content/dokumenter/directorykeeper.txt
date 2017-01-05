@@ -1,0 +1,1 @@
+﻿This file ensures that it's directory is copied during build and is included in source control. The file is deleted by the unit test using it's directory to provide the unit test an empty directory.

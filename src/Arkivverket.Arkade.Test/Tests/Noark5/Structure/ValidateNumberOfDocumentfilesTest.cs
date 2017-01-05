@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Test.Core;
 using Arkivverket.Arkade.Tests.Noark5.Structure;
@@ -57,6 +58,8 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
         {
             string workingDirectory =
                 $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\DocumentfilesControl\\NoFiles";
+
+            File.Delete(workingDirectory + @"\content\dokumenter\directorykeeper.txt");
 
             TestRun testRun = CreateTestRun(workingDirectory);
 
