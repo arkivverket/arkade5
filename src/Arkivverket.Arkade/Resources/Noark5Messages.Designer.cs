@@ -97,6 +97,60 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opprettelsesdatoer for første og siste registrering.
+        /// </summary>
+        internal static string DatesFirstAndLastRegistration {
+            get {
+                return ResourceManager.GetString("DatesFirstAndLastRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Første registrering: Opprettet {0}.
+        /// </summary>
+        internal static string DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration {
+            get {
+                return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Siste registrering: Opprettet {0}.
+        /// </summary>
+        internal static string DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration {
+            get {
+                return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingen gyldige datoer for registreringsopprettelse funnet.
+        /// </summary>
+        internal static string DatesFirstAndLastRegistrationMessage_NoValidRegistrationCreationDates {
+            get {
+                return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_NoValidRegistrationCreationDates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall ugyldige datoer for registreringsopprettelse funnet: {0}.
+        /// </summary>
+        internal static string DatesFirstAndLastRegistrationMessage_NumberOfInvalidRegistrationCreationDates {
+            get {
+                return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_NumberOfInvalidRegistrationCreationDates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall registreringer funnet: {0}.
+        /// </summary>
+        internal static string DatesFirstAndLastRegistrationMessage_NumberOfRegistrations {
+            get {
+                return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_NumberOfRegistrations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sjekksummen stemmer ikke for filen: {0}
         ///Forventet: {1}
         ///Generert:  {2}.

@@ -129,6 +129,24 @@
   <data name="ControlDocumentsFilesExistsMessage1" xml:space="preserve">
     <value>Finner ikke filen.</value>
   </data>
+  <data name="DatesFirstAndLastRegistration" xml:space="preserve">
+    <value>Opprettelsesdatoer for første og siste registrering</value>
+  </data>
+  <data name="DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration" xml:space="preserve">
+    <value>Første registrering: Opprettet {0}</value>
+  </data>
+  <data name="DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration" xml:space="preserve">
+    <value>Siste registrering: Opprettet {0}</value>
+  </data>
+  <data name="DatesFirstAndLastRegistrationMessage_NoValidRegistrationCreationDates" xml:space="preserve">
+    <value>Ingen gyldige datoer for registreringsopprettelse funnet</value>
+  </data>
+  <data name="DatesFirstAndLastRegistrationMessage_NumberOfInvalidRegistrationCreationDates" xml:space="preserve">
+    <value>Antall ugyldige datoer for registreringsopprettelse funnet: {0}</value>
+  </data>
+  <data name="DatesFirstAndLastRegistrationMessage_NumberOfRegistrations" xml:space="preserve">
+    <value>Antall registreringer funnet: {0}</value>
+  </data>
   <data name="ExceptionInvalidChecksum" xml:space="preserve">
     <value>Sjekksummen stemmer ikke for filen: {0}
 Forventet: {1}

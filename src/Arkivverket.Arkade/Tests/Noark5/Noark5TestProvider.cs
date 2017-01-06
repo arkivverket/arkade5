@@ -50,6 +50,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfDocumentFlows(),
                 new NumberOfFoldersPerYear(),
                 new NumberOfFoldersWithoutRegistrationsOrSubfolders(),
+                new FirstAndLastRegistrationCreationDates(),
             };
         }
     }
