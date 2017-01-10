@@ -40,4 +40,15 @@ echo "Generate classes for cpf.xsd"
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\xsd.exe" /nologo cpf.xsd xlink.xsd /c /n:Arkivverket.Arkade.ExternalModels.Cpf
 copy /y cpf_xlink.cs ..\Cpf.cs
 del cpf_xlink.cs 
+
+echo "Generate classes for offentligJournal.xsd"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\xsd.exe" /nologo offentligJournal.xsd metadatakatalog.xsd /c /n:Arkivverket.Arkade.ExternalModels.PublicJournal
+copy /y offentligJournal_metadatakatalog.cs ..\OffentligJournal.cs
+del offentligJournal_metadatakatalog.cs
+
+echo "Generate classes for loependeJournal.xsd"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\xsd.exe" /nologo loependeJournal.xsd metadatakatalog.xsd /c /n:Arkivverket.Arkade.ExternalModels.RunningJournal
+copy /y loependeJournal_metadatakatalog.cs ..\LoependeJournal.cs
+del loependeJournal_metadatakatalog.cs
+
 pause
