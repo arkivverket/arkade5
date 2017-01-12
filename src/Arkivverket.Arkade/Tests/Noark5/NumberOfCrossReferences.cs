@@ -40,6 +40,10 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 _folderReferenceCount++;
         }
 
+        protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+        }
+
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
         }

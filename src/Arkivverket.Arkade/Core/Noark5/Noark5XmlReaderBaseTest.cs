@@ -14,6 +14,13 @@ namespace Arkivverket.Arkade.Core.Noark5
             Stopwatch.Stop();
         }
 
+        public void OnReadAttributeEvent(object sender, ReadElementEventArgs e)
+        {
+            Stopwatch.Start();
+            ReadAttributeEvent(sender, e);
+            Stopwatch.Stop();
+        }
+        
         public void OnReadEndElementEvent(object sender, ReadElementEventArgs e)
         {
             Stopwatch.Start();
@@ -29,6 +36,7 @@ namespace Arkivverket.Arkade.Core.Noark5
         }
 
         protected abstract void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs);
+        protected abstract void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs);
         protected abstract void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs);
         protected abstract void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs);
     }

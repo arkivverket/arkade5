@@ -47,6 +47,10 @@ namespace Arkivverket.Arkade.Tests.Noark5
             _documentDescriptionIsFound = false; // Reset
         }
 
+        protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+        }
+
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
         }

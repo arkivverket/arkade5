@@ -22,6 +22,7 @@ namespace Arkivverket.Arkade.Core.Noark5
         }
 
         public event EventHandler<ReadElementEventArgs> ReadStartElementEvent;
+        public event EventHandler<ReadElementEventArgs> ReadAttributeEvent;
         public event EventHandler<ReadElementEventArgs> ReadElementValueEvent;
         public event EventHandler<ReadElementEventArgs> ReadEndElementEvent;
 
@@ -56,13 +57,16 @@ namespace Arkivverket.Arkade.Core.Noark5
 
                 var path = new Stack<string>();
 
-                while (reader.Read())
+                while (ReadNextNode(reader))
                 {
                     switch (reader.NodeType)
                     {
                         case XmlNodeType.Element:
                             path.Push(reader.LocalName);
                             RaiseReadStartElementEvent(CreateReadElementEventArgs(reader, path));
+                            break;
+                        case XmlNodeType.Attribute:
+                            RaiseReadAttributeEvent(CreateReadElementEventArgs(reader, path));
                             break;
                         case XmlNodeType.Text:
                             RaiseReadElementValueEvent(CreateReadElementEventArgs(reader, path));
@@ -82,6 +86,11 @@ namespace Arkivverket.Arkade.Core.Noark5
                 RaiseEventFinishedParsingFile();
             }
             return contentTests;
+        }
+
+        private static bool ReadNextNode(XmlReader reader)
+        {
+            return reader.MoveToNextAttribute() || reader.Read();
         }
 
         private List<IArkadeStructureTest> RunStructureTests(Archive archive)
@@ -126,6 +135,7 @@ namespace Arkivverket.Arkade.Core.Noark5
             foreach (var test in testsForArchive)
             {
                 ReadStartElementEvent += test.OnReadStartElementEvent;
+                ReadAttributeEvent += test.OnReadAttributeEvent;
                 ReadElementValueEvent += test.OnReadElementValueEvent;
                 ReadEndElementEvent += test.OnReadEndElementEvent;
             }
@@ -136,6 +146,13 @@ namespace Arkivverket.Arkade.Core.Noark5
             var handler = ReadStartElementEvent;
             handler?.Invoke(this, readElementEventArgs);
         }
+
+        private void RaiseReadAttributeEvent(ReadElementEventArgs readElementEventArgs)
+        {
+            var handler = ReadAttributeEvent;
+            handler?.Invoke(this, readElementEventArgs);
+        }
+
         private void RaiseReadElementValueEvent(ReadElementEventArgs readElementEventArgs)
         {
             var handler = ReadElementValueEvent;

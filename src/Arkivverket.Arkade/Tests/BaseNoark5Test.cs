@@ -22,6 +22,11 @@ namespace Arkivverket.Arkade.Tests
         protected virtual void Test(Archive archive) { }
 
         public abstract void OnReadStartElementEvent(object sender, ReadElementEventArgs e);
+
+        public void OnReadAttributeEvent(object sender, ReadElementEventArgs e)
+        {
+        }
+
         public virtual void OnReadEndElementEvent(object sender, ReadElementEventArgs e)
         {
         }

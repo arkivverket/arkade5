@@ -51,6 +51,10 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 _subfolderIsJustProcessed = true;
         }
 
+        protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+        }
+
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
         }
