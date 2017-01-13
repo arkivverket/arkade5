@@ -19,6 +19,8 @@ namespace Arkivverket.Arkade.Util
         public const string DiasMetsXmlFileName = "dias-mets.xml";
         public const string DiasMetsXsdFileName = "dias-mets.xsd";
         public const string ArkivuttrekkXmlFileName = "arkivuttrekk.xml";
+        public const string PublicJournalXmlFileName = "offentligJournal.xml";
+        public const string RunningJournalXmlFileName = "loependeJournal.xml";
 
         public const string AddmlXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.addml.xsd";
         public const string ArkivstrukturXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.arkivstruktur.xsd";

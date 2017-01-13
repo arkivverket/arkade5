@@ -51,6 +51,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfFoldersPerYear(),
                 new NumberOfFoldersWithoutRegistrationsOrSubfolders(),
                 new FirstAndLastRegistrationCreationDates(),
+                new NumberOfJournalPosts(archive),
             };
         }
     }

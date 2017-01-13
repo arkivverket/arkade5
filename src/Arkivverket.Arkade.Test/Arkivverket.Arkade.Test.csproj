@@ -203,6 +203,7 @@
     <Compile Include="Tests\Noark5\NumberOfClassificationSystemsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfCommentsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentFlowsTest.cs" />
+    <Compile Include="Tests\Noark5\NumberOfJournalPostsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfPrecedentsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfDepreciationsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfCorrespondencePartsTest.cs" />
@@ -416,6 +417,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Noark5\DocumentfilesControl\NoFiles\content\dokumenter\directorykeeper.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\JournalPosts\running4public4\loependeJournal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\JournalPosts\running4public4\offentligJournal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\JournalPosts\running3public4\loependeJournal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\JournalPosts\running3public4\offentligJournal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\JournalPosts\running4public3\loependeJournal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\JournalPosts\running4public3\offentligJournal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Noark5\Small\arkivstruktur.xml">

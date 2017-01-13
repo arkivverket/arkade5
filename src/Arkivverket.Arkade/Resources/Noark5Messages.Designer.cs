@@ -433,6 +433,60 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall journalposter.
+        /// </summary>
+        internal static string NumberOfJournalPosts {
+            get {
+                return ResourceManager.GetString("NumberOfJournalPosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det er ikke samsvar mellom dokumentert antall og faktisk antall journalposter.
+        /// </summary>
+        internal static string NumberOfJournalPostsMessage_ArchiveAndJournalMismatch {
+            get {
+                return ResourceManager.GetString("NumberOfJournalPostsMessage_ArchiveAndJournalMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to En eller flere journalfiler mangler.
+        /// </summary>
+        internal static string NumberOfJournalPostsMessage_JournalFilesMissing {
+            get {
+                return ResourceManager.GetString("NumberOfJournalPostsMessage_JournalFilesMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall journalposter funnet i arkivstruktur: {0}.
+        /// </summary>
+        internal static string NumberOfJournalPostsMessage_NumberOfJournalPostsFound {
+            get {
+                return ResourceManager.GetString("NumberOfJournalPostsMessage_NumberOfJournalPostsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall journalposter dokumentert i offentlig journal: {0}.
+        /// </summary>
+        internal static string NumberOfJournalPostsMessage_NumberOfJournalPostsInPublicJournal {
+            get {
+                return ResourceManager.GetString("NumberOfJournalPostsMessage_NumberOfJournalPostsInPublicJournal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall journalposter dokumentert i løpende journal: {0}.
+        /// </summary>
+        internal static string NumberOfJournalPostsMessage_NumberOfJournalPostsInRunningJournal {
+            get {
+                return ResourceManager.GetString("NumberOfJournalPostsMessage_NumberOfJournalPostsInRunningJournal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall presedenser.
         /// </summary>
         internal static string NumberOfPrecedents {
