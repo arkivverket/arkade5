@@ -13,13 +13,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         public override string ToString()
         {
-            var builder = new StringBuilder();
-            foreach (var element in _elements)
-            {
-                builder.Append(element);
-            }
-            return builder.ToString();
+            return new XmlWriter().Write(_elements);
         }
+
         public XmlElementHelper Add(XmlElement element)
         {
             _elements.Add(element);
@@ -28,18 +24,42 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         public XmlElementHelper Add(string name, XmlElementHelper childHelper)
         {
-            _elements.Add(new StartElement(name));
-            _elements.AddRange(childHelper._elements);
-            _elements.Add(new EndElement(name));
+            Add(name, new string[0], childHelper);
             return this;
         }
 
         public XmlElementHelper Add(string name, string value)
         {
+            Add(name, new string[0], value);
+            return this;
+        }
+
+        public XmlElementHelper Add(string name, string[] attributes, XmlElementHelper childHelper)
+        {
             _elements.Add(new StartElement(name));
+            _elements.AddRange(CreateAttributeElements(attributes));
+            _elements.AddRange(childHelper._elements);
+            _elements.Add(new EndElement(name));
+            return this;
+        }
+
+        public XmlElementHelper Add(string name, string[] attributes, string value)
+        {
+            _elements.Add(new StartElement(name));
+            _elements.AddRange(CreateAttributeElements(attributes));
             _elements.Add(new ValueElement(value));
             _elements.Add(new EndElement(name));
             return this;
+        }
+        
+        private static IEnumerable<AttributeElement> CreateAttributeElements(string[] attributes)
+        {
+            var attributeElements = new List<AttributeElement>();
+
+            for (var i = 0; i < attributes.Length - 1; i += 2)
+                attributeElements.Add(new AttributeElement(attributes[i], attributes[i + 1]));
+
+            return attributeElements;
         }
 
         public TestRun RunEventsOnTest(INoark5Test noark5TestClass)
@@ -52,6 +72,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                     case ElementType.Start:
                         path.Push(element.Name);
                         noark5TestClass.OnReadStartElementEvent(this, element.AsEventArgs(path));
+                        break;
+                    case ElementType.Attribute:
+                        noark5TestClass.OnReadAttributeEvent(this, element.AsEventArgs(path));
                         break;
                     case ElementType.Value:
                         noark5TestClass.OnReadElementValueEvent(this, element.AsEventArgs(path));
@@ -72,6 +95,15 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         {
             Name = name;
             ElementType = ElementType.Start;
+        }
+    }
+    internal class AttributeElement : XmlElement
+    {
+        public AttributeElement(string name, string value)
+        {
+            Name = name;
+            Value = value;
+            ElementType = ElementType.Attribute;
         }
     }
     internal class ValueElement : XmlElement
@@ -105,6 +137,8 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         {
             if (ElementType == ElementType.Start)
                 return $"<{Name}>\n";
+            else if (ElementType == ElementType.Attribute)
+                return Name + "=\"" + Value + "\"";
             else if (ElementType == ElementType.Value)
                 return Value + "\n";
             else
@@ -112,5 +146,39 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         }
     }
 
-    enum ElementType { Start, Value, End }
+    enum ElementType { Start, Attribute, Value, End }
+
+    internal class XmlWriter
+    {
+        public string Write(List<XmlElement> elements)
+        {
+            var builder = new StringBuilder();
+
+            for (int elementIndex = 0; elementIndex < elements.Count; elementIndex++)
+            {
+                var element = elements[elementIndex];
+
+                if (NextIsAttribute(elements, elementIndex))
+                {
+                    var elementWithAttributes = new StringBuilder($"<{element.Name}");
+
+                    while (NextIsAttribute(elements, elementIndex))
+                        elementWithAttributes.Append($" {elements[++elementIndex]}");
+
+                    elementWithAttributes.Append(">\n");
+
+                    builder.Append(elementWithAttributes);
+                }
+                else
+                    builder.Append(element);
+            }
+
+            return builder.ToString();
+        }
+
+        private static bool NextIsAttribute(IReadOnlyList<XmlElement> elements, int elementIndex)
+        {
+            return elementIndex < elements.Count - 1 && elements[elementIndex + 1].ElementType == ElementType.Attribute;
+        }
+    }
 }
