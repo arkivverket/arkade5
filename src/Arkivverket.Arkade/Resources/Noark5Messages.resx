@@ -175,6 +175,9 @@ Generert:  {2}</value>
   <data name="NumberOfCasePartsMessage" xml:space="preserve">
     <value>Antall saksparter:{0}</value>
   </data>
+  <data name="NumberOfCaseStatusesPerArchivePart" xml:space="preserve">
+    <value>Saksmappenes status i arkivstrukturen</value>
+  </data>
   <data name="NumberOfClasses" xml:space="preserve">
     <value>Finn antall klasser</value>
   </data>

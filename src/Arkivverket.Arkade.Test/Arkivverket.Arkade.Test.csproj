@@ -197,6 +197,7 @@
     <Compile Include="Tests\Noark5\ArchiveContentMockReader.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchivePartsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchivesTest.cs" />
+    <Compile Include="Tests\Noark5\NumberOfCaseStatusesPerArchivePartTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassesInMainClassificationSystemWithoutSubClassesOrFoldersTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfCasePartsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassesTest.cs" />

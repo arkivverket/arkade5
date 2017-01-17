@@ -226,6 +226,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saksmappenes status i arkivstrukturen.
+        /// </summary>
+        internal static string NumberOfCaseStatusesPerArchivePart {
+            get {
+                return ResourceManager.GetString("NumberOfCaseStatusesPerArchivePart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall klasser.
         /// </summary>
         internal static string NumberOfClasses {
