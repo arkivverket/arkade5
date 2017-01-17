@@ -406,6 +406,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall mapper som er klassifisert med hver enkelt klasse i arkivstrukturen.
+        /// </summary>
+        internal static string NumberOfFoldersClassified {
+            get {
+                return ResourceManager.GetString("NumberOfFoldersClassified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall mapper: {0}.
         /// </summary>
         internal static string NumberOfFoldersMessage {

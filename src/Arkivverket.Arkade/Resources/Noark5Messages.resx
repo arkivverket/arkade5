@@ -235,6 +235,9 @@ Generert:  {2}</value>
   <data name="NumberOfFolders" xml:space="preserve">
     <value>Finn antall mapper</value>
   </data>
+  <data name="NumberOfFoldersClassified" xml:space="preserve">
+    <value>Antall mapper som er klassifisert med hver enkelt klasse i arkivstrukturen</value>
+  </data>
   <data name="NumberOfFoldersMessage" xml:space="preserve">
     <value>Antall mapper: {0}</value>
   </data>
