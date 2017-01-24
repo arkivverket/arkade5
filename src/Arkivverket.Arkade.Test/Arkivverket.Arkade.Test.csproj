@@ -388,28 +388,15 @@
     <Content Include="TestData\Noark5\ContentClassificationSystem\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\DocumentfilesControl\CountMatch\content\arkivstruktur.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="TestData\Noark5\DocumentfilesControl\CountMatch\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\DocumentfilesControl\CountMismatch\content\arkivstruktur.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Noark5\DocumentfilesControl\CountMismatch\content\arkivuttrekk.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\arkivstruktur.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\DocumentfilesControl\NoFilesDirectory\content\arkivstruktur.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Noark5\DocumentfilesControl\NoFilesDirectory\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\DocumentfilesControl\NoFiles\content\arkivstruktur.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Noark5\DocumentfilesControl\NoFiles\content\arkivuttrekk.xml">
