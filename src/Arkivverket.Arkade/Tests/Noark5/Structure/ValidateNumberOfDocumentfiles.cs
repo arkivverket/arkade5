@@ -38,12 +38,14 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
                 actualFileCount = GetActualFileCount(archive);
 
                 if (actualFileCount > 0)
-                    _testResults.Add(new TestResult(ResultType.Success, new Location("dokumenter\\"),
+                    _testResults.Add(new TestResult(ResultType.Success,
+                        new Location(ArkadeConstants.DirectoryNameDocuments + "\\"),
                         string.Format(Noark5Messages.ValidateNumberOfDocumentfilesMessage_NumberOfFilesFound,
                             actualFileCount)));
 
                 else
-                    _testResults.Add(new TestResult(ResultType.Error, new Location("dokumenter\\"),
+                    _testResults.Add(new TestResult(ResultType.Error,
+                        new Location(ArkadeConstants.DirectoryNameDocuments + "\\"),
                         Noark5Messages.ValidateNumberOfDocumentfilesMessage_NoFilesFound));
             }
             catch (DirectoryNotFoundException)
@@ -79,9 +81,9 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         private static int GetActualFileCount(Archive archive)
         {
-            return archive.WorkingDirectory.Content().WithSubDirectory("dokumenter").DirectoryInfo().GetFiles().Length;
-
-            // TODO: Add "dokumenter" to ArcadeConstants?
+            return archive.WorkingDirectory.Content()
+                .WithSubDirectory(ArkadeConstants.DirectoryNameDocuments)
+                .DirectoryInfo().GetFiles().Length;
         }
 
         private static int GetDocumentedFileCount(Archive archive)
