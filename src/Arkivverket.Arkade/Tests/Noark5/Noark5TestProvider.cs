@@ -53,7 +53,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new FirstAndLastRegistrationCreationDates(),
                 new NumberOfJournalPosts(archive),
                 new NumberOfFoldersClassified(),
-                new NumberOfCaseStatusesPerArchivePart()
+                new NumberOfCaseStatusesPerArchivePart(),
+                new DocumentfilesReferenceControl(archive),
             };
         }
     }

@@ -192,6 +192,7 @@
     <Compile Include="Logging\TestSessionLogXmlValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\HtmlReportGeneratorTest.cs" />
+    <Compile Include="Tests\Noark5\DocumentfilesReferenceControlTest.cs" />
     <Compile Include="Tests\Noark5\FirstAndLastRegistrationCreationDatesTest.cs" />
     <Compile Include="Tests\Noark5\Noark5XmlBuilder.cs" />
     <Compile Include="Tests\Noark5\ArchiveContentMockReader.cs" />
@@ -304,6 +305,12 @@
     <None Include="TestData\Noark5\DocumentfilesControl\CountMismatch\content\dokumenter\5000000.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\dokumenter\5000000.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -394,6 +401,7 @@
     <Content Include="TestData\Noark5\DocumentfilesControl\CountMismatch\content\arkivuttrekk.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\arkivuttrekk.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Noark5\DocumentfilesControl\NoFilesDirectory\content\arkivuttrekk.xml">

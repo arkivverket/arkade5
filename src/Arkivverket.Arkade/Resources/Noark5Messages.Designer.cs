@@ -151,6 +151,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dokumentfiler som mangler referanse.
+        /// </summary>
+        internal static string DocumentfilesReferenceControl {
+            get {
+                return ResourceManager.GetString("DocumentfilesReferenceControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ikke-referert fil funnet: {0}.
+        /// </summary>
+        internal static string DocumentfilesReferenceControlMessage {
+            get {
+                return ResourceManager.GetString("DocumentfilesReferenceControlMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sjekksummen stemmer ikke for filen: {0}
         ///Forventet: {1}
         ///Generert:  {2}.

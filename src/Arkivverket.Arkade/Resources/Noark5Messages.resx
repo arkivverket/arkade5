@@ -147,6 +147,12 @@
   <data name="DatesFirstAndLastRegistrationMessage_NumberOfRegistrations" xml:space="preserve">
     <value>Antall registreringer funnet: {0}</value>
   </data>
+  <data name="DocumentfilesReferenceControl" xml:space="preserve">
+    <value>Dokumentfiler som mangler referanse</value>
+  </data>
+  <data name="DocumentfilesReferenceControlMessage" xml:space="preserve">
+    <value>Ikke-referert fil funnet: {0}</value>
+  </data>
   <data name="ExceptionInvalidChecksum" xml:space="preserve">
     <value>Sjekksummen stemmer ikke for filen: {0}
 Forventet: {1}
