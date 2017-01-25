@@ -424,6 +424,42 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall av ulike journalposttyper.
+        /// </summary>
+        internal static string NumberOfEachJournalPostType {
+            get {
+                return ResourceManager.GetString("NumberOfEachJournalPostType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
+        /// </summary>
+        internal static string NumberOfEachJournalPostTypeMessage_ArchivePartSystemId {
+            get {
+                return ResourceManager.GetString("NumberOfEachJournalPostTypeMessage_ArchivePartSystemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Journalpost med systemID {0} mangler hoveddokument.
+        /// </summary>
+        internal static string NumberOfEachJournalPostTypeMessage_MissingMainDocument {
+            get {
+                return ResourceManager.GetString("NumberOfEachJournalPostTypeMessage_MissingMainDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Journalposttype: {0} - Antall: {1}.
+        /// </summary>
+        internal static string NumberOfEachJournalPostTypeMessage_TypeAndCount {
+            get {
+                return ResourceManager.GetString("NumberOfEachJournalPostTypeMessage_TypeAndCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall mapper.
         /// </summary>
         internal static string NumberOfFolders {

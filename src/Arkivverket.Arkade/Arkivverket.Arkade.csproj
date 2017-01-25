@@ -178,6 +178,7 @@
     <Compile Include="Tests\Noark5\NumberOfDepreciations.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersClassified.cs" />
     <Compile Include="Tests\Noark5\NumberOfJournalPosts.cs" />
+    <Compile Include="Tests\Noark5\NumberOfEachJournalPostType.cs" />
     <Compile Include="Tests\Noark5\NumberOfPrecedents.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersPerYear.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersWithoutRegistrationsOrSubfolders.cs" />

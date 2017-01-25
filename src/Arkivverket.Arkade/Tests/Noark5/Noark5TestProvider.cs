@@ -55,6 +55,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfFoldersClassified(),
                 new NumberOfCaseStatusesPerArchivePart(),
                 new DocumentfilesReferenceControl(archive),
+                new NumberOfEachJournalPostType(),
             };
         }
     }

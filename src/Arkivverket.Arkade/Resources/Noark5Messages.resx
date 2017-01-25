@@ -274,6 +274,9 @@ Generert:  {2}</value>
   <data name="NumberOfJournalPostsMessage_NumberOfJournalPostsInRunningJournal" xml:space="preserve">
     <value>Antall journalposter dokumentert i løpende journal: {0}</value>
   </data>
+  <data name="NumberOfEachJournalPostType" xml:space="preserve">
+    <value>Antall av ulike journalposttyper</value>
+  </data>
   <data name="NumberOfPrecedents" xml:space="preserve">
     <value>Finn antall presedenser</value>
   </data>
@@ -324,5 +327,14 @@ Generert:  {2}</value>
   </data>
   <data name="ValidateXmlWithSchemaMessageValid" xml:space="preserve">
     <value>Validert i henhold til XML-skjema.</value>
+  </data>
+  <data name="NumberOfEachJournalPostTypeMessage_ArchivePartSystemId" xml:space="preserve">
+    <value>Arkivdel (systemID): {0}</value>
+  </data>
+  <data name="NumberOfEachJournalPostTypeMessage_MissingMainDocument" xml:space="preserve">
+    <value>Journalpost med systemID {0} mangler hoveddokument</value>
+  </data>
+  <data name="NumberOfEachJournalPostTypeMessage_TypeAndCount" xml:space="preserve">
+    <value>Journalposttype: {0} - Antall: {1}</value>
   </data>
 </root>
