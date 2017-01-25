@@ -27,7 +27,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                             new XmlElementHelper().Add("dokumentbeskrivelse",
                                                 new XmlElementHelper().Add("dokumentobjekt",
                                                     new XmlElementHelper().Add("referanseDokumentfil",
-                                                        "dokumenter/5000001.pdf")))))))));
+                                                        // Backslashed file reference supported:
+                                                        "dokumenter\\5000001.pdf")))))))));
+
 
             TestRun testRun = CreateTestRun(xmlElementHelper);
 

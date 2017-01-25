@@ -39,12 +39,18 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
             foreach (FileInfo documentFileInfo in _documentFilesInfo)
             {
-                string expectedFileReference = $"{ArkadeConstants.DirectoryNameDocuments}/{documentFileInfo.Name}";
+                string expectedFileReference =
+                    $"{ArkadeConstants.DirectoryNameDocuments}/{documentFileInfo.Name}";
+                string expectedFileReferenceBackSlashed =
+                    $"{ArkadeConstants.DirectoryNameDocuments}\\{documentFileInfo.Name}";
 
-                if (!_fileReferences.Contains(expectedFileReference))
+                if (!(_fileReferences.Contains(expectedFileReference) ||
+                      _fileReferences.Contains(expectedFileReferenceBackSlashed)))
+                {
                     testResults.Add(new TestResult(ResultType.Error,
                         new Location(ArkadeConstants.ArkivstrukturXmlFileName),
                         string.Format(Noark5Messages.DocumentfilesReferenceControlMessage, expectedFileReference)));
+                }
             }
 
             return testResults;
