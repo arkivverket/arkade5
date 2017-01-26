@@ -39,6 +39,7 @@ Versjon 0.5.X
 * Oppretting av SIP og AIP pakker/pakkestruktur
 * Arkade API -- kjernefunksjonenen i Arkade kjøres gjennom en API funksjon som kan være grunnlaget for andre grensesnitt implementasjoner
 * Leser ikke lengre inn en tar fil som bare inneholder en mappestruktur
+* XSLT fil for konverteriing fra Noark 4 (NOARK.IH) til ADDML.xml
 
 
 Versjon 0.4.24
