@@ -49,11 +49,16 @@ Fil informasjon
 Ved innlesing av et arkiv, vil programmet opprette en arbeidsmappe for uttrekket.
 Disse blir lagt i bruker filsystemet til brukeren som er innlogget på Windows PCen.
 
-Filstien for arbeidsmappene er *C:\\Users\\{bruker}\\Arkade*.
+Filstien for arbeidsmappene er *C:\\Brukere\\{bruker}\\Arkade*.
 
 .. image:: img/WorkingDirectory.png
 
-Programlogger finnes i .\logs mapppen i dette området og selve arbeidskopien finnes i .\work mappen.
+Programlogger finnes i *C:\\Brukere\\{bruker}\\Arkade\\logs* mappen i dette området. Dette er en programm/utvilkler log som kan være nytting for Arkitektum ved feilsøking.
+
+.. image:: img/arkade-log.png
+
+Datalogger som inneholder alle data from test kjøringen ligger som del av pakkestrukturen her:
+*C:\\Brukere\\{bruker}\\Arkade\\work\\{dato og tid}-{uuid}\\administrative_metadata\\repository_operations\\arkade-log.xml*
 
 
 
