@@ -1,7 +1,7 @@
 Versjonshistorikk
 =================
 
-Versjon 0.5.X
+Versjon 0.5.5
 --------------
 *Dato: 27.01.2017*
 
