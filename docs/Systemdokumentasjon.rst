@@ -30,6 +30,7 @@ List of supported ADDML processes
 * Control_Accountno
 * Control_Date_Value
 * Control_Boolean_Value
+* Control_ForeignKey
 
 
 List of implemeted Noark5 Tests
@@ -43,6 +44,27 @@ List of implemeted Noark5 Tests
 * Kontroller at refererte dokumenter eksisterer i uttrekket
 * Checksum validations
 * Schema Validation of XML
+* Antall mapper for hvert år i arkivstrukturen
+* Antall registreringer for hvert år i arkivstrukturen
+* Antall registreringer uten dokumentbeskrivelse i arkivstrukturen
+* Antall dokumentbeskrivelser i arkivstrukturen
+* Antall dokumentbeskrivelser uten dokumentobjekt i arkivstrukturen
+* Antall dokumentobjekter i arkivstrukturen
+* Antall dokumentfiler i arkivuttrekket
+* Antall saksparter i arkivstrukturen
+* Antall merknader i arkivstrukturen
+* Antall kryssreferanser i arkivstrukturen
+* Antall presedenser i arkivstrukturen
+* Antall korrespondanseparter i arkivstrukturen
+* Antall avskrivninger i arkivstrukturen
+* Antall dokumentflyter i arkivstrukturen
+* Antall mapper som er klassifisert med hver enkelt klasse i arkivstrukturen
+* Saksmappenes status i arkivstrukturen
+* Antall forskjellige journalposttyper i arkivstrukturen
+* Start- og sluttdato for dokumentene i arkivstrukturen
+* Antall journalposter i arkivuttrekket
+* Kontroll på at det ikke finnes dokumentfiler i arkivuttrekket som mangler referanse fra arkivstrukturen
+
 
 Arkivverket.Arkade
 ------------------
@@ -59,6 +81,29 @@ List of packages:
 **Tests** - Contains all test classes for testing archive extractions
 
 **Util** - General utilities
+
+ArkadeAPI
+---------
+
+Single interface to the core functionality.
+
+
+.. code-block:: C
+
+   public class ArkadeApi
+   {
+      public ArkadeApi(TestSessionFactory testSessionFactory, 
+            TestEngineFactory testEngineFactory, 
+            MetadataFilesCreator metadataFilesCreator, 
+            InformationPackageCreator informationPackageCreator, 
+            TestSessionXmlGenerator testSessionXmlGenerator) {}
+         
+         public TestSession RunTests(ArchiveDirectory archiveDirectory) {}
+         public TestSession RunTests(ArchiveFile archive) {}
+         public void CreatePackage(TestSession testSession, PackageType packageType)
+         public void SaveReport(TestSession testSession, FileInfo file) {}
+   }
+
 
 
 Arkivverket.Arkade.UI
