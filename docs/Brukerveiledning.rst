@@ -12,7 +12,7 @@ Oppstartskjerm
 
 .. image:: img/StartupScreen.png
 
-Arkivet kan enten velges som en .tar fil eller rot mappen i en filstruktur (samme nivå som ADDML.XML filen). Valgene gjøres med henholdsvis "Velg tar-fil" eller "Velg katalog" knappen.
+Arkivet kan enten velges som en .tar av AIP eller SIP struktur rot mappen i en filstruktur (samme nivå som ADDML.XML filen). Valgene gjøres med henholdsvis "Velg tar-fil" eller "Velg katalog" knappen.
 Videre må det velges hva slags type arkiv det er ved å velge radio knappen for Norak3, Noark4, Noark5 eller Fagsystem.
 Når disse to valgene er gjort, kan "Start testing" knappen trykkes for å kjøre testene.
 
@@ -43,6 +43,13 @@ knappen "Vis rapport". Et eksempel er vist nedenfor.
 
 .. image:: img/TestReport.png
 
+
+Lag arkiv pakke
+~~~~~~~~~~~~~~~
+
+.. image:: img/GeneratePackage.png
+
+.. image:: img/PakkeStruktur.png
 
 Fil informasjon
 ~~~~~~~~~~~~~~~
