@@ -35,17 +35,20 @@ Test kjøring vindu for Norak3, Noark4 og Fagsystemer.
 
 Test kjøring vindu for Norak5.
 
+Etter ADDML og Noark5 testkjøringeer er det anledning til å lage en AIP eller SIP pakke. Klikk på Opprett Pakke for å gå videre.
+
 
 Rapport
 ~~~~~~~
 En HTML rapport vil automatisk genereres ved fullført testing. Rapporten vil vises i en nettleser ved å klikke på 
-knappen "Vis rapport". Et eksempel er vist nedenfor.
+knappen "Vis rapport". Et eksempel er vist nedenfor. Denne er tilgjenglig på flere skjermvisninger.
 
 .. image:: img/TestReport.png
 
 
 Lag arkiv pakke
 ~~~~~~~~~~~~~~~
+Lag pakke visningen kan ses nedenfor. Velg AIP eller SIP og trykk på Opprett Pakke. Fil og mappestrukturen i arbeidsmappen vil så bli fylt ut med pakke data og tar fil for IP pakken.
 
 .. image:: img/GeneratePackage.png
 
