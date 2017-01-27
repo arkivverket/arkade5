@@ -55,6 +55,7 @@
 
 
         <!-- Arkiv -->
+        <!--
         <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"  
                   Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveMain}" 
                   Style="{DynamicResource MaterialDesignGroupBox}" Margin="10 5 5 0" materialDesign:ShadowAssist.ShadowDepth="Depth2" BorderThickness="0">
@@ -71,9 +72,10 @@
                  Margin="20 5 5 5"
                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.AgreementNumber}" 
                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
-
+        -->
 
         <!-- Arkivskaper -->
+        <!--
         <GroupBox Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"  
                   Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveCreator}" 
                   Style="{DynamicResource MaterialDesignGroupBox}" Margin="10 5 5 0" materialDesign:ShadowAssist.ShadowDepth="Depth2" BorderThickness="0">
@@ -103,9 +105,10 @@
                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveCreator_Email}" 
                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 
-
+        -->
 
         <!-- Overforer -->
+        <!--
         <GroupBox Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2"  
                   Header="{x:Static resources:MetaDataUI.GuiSubsection_Transferer}" 
                   Style="{DynamicResource MaterialDesignGroupBox}" Margin="10 5 5 0" materialDesign:ShadowAssist.ShadowDepth="Depth2" BorderThickness="0">
@@ -135,9 +138,11 @@
                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Transferer_Email}" 
                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 
-
+        -->
 
         <!-- Produsent -->
+        
+        <!--
         <GroupBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2"  
                   Header="{x:Static resources:MetaDataUI.GuiSubsection_Producer}" 
                   Style="{DynamicResource MaterialDesignGroupBox}" Margin="10 5 5 0" materialDesign:ShadowAssist.ShadowDepth="Depth2" BorderThickness="0">
@@ -166,9 +171,10 @@
                  Margin="20 5 5 5"
                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Producer_Email}" 
                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
-
+        -->
 
         <!-- Eier -->
+        <!--
         <GroupBox Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2"  
                   Header="{x:Static resources:MetaDataUI.GuiSubsection_Owner}" 
                   Style="{DynamicResource MaterialDesignGroupBox}" Margin="10 5 5 0" materialDesign:ShadowAssist.ShadowDepth="Depth2" BorderThickness="0">
@@ -198,9 +204,10 @@
                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Owner_Email}" 
                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 
-
+        -->
 
         <!-- System -->
+        <!--
         <GroupBox Grid.Column="4" Grid.Row="8" Grid.ColumnSpan="2"  
                   Header="{x:Static resources:MetaDataUI.GuiSubsection_System}" 
                   Style="{DynamicResource MaterialDesignGroupBox}" Margin="10 5 5 0" materialDesign:ShadowAssist.ShadowDepth="Depth2" BorderThickness="0">
@@ -230,12 +237,12 @@
                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemTypeVersion}" 
                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 
+        -->
 
-
-        <TextBlock Grid.Row="16
+        <TextBlock Grid.Row="15
                    " Grid.Column="0" Text="{x:Static resources:UI.CreatePackageSelectTypeLabel}" Margin="10"/>
         
-        <StackPanel Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Orientation="Horizontal">
+        <StackPanel Grid.Row="15" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Orientation="Horizontal">
             <RadioButton Content="{x:Static resources:UI.CreatePackageTypeSIP}" 
                          IsChecked="{Binding SelectedPackageTypeSip, Mode=TwoWay}"  
                          Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 8" VerticalAlignment="Center" />
@@ -244,11 +251,7 @@
                          Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 8" VerticalAlignment="Center" />
         </StackPanel>
         
-        
-        <TextBlock Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2" 
-                   Text="{Binding StatusMessage}" Margin="10" TextWrapping="Wrap" />
-
-        <StackPanel Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 10" Orientation="Horizontal">
+        <StackPanel Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 10" Orientation="Horizontal">
             <Button  
                 Command="{Binding CreatePackageCommand}"
                 Content="{x:Static resources:UI.CreatePackageButtonText}" HorizontalAlignment="Left" Width="130" Height="30" />
@@ -257,6 +260,9 @@
                 Command="{Binding NewProgramSessionCommand}"
                 Content="{x:Static resources:UI.NewProgramSessionButton}" HorizontalAlignment="Left" Width="130" Height="30" Margin="5,0,0,0"/>
         </StackPanel>
+
+        <TextBlock Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="5" 
+                   Text="{Binding StatusMessage}" Margin="10" TextWrapping="Wrap" />
 
     </Grid>
 </UserControl>
