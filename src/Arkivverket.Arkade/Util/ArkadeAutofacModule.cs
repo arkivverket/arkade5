@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Util
             builder.RegisterType<ArchiveContentReader>().As<IArchiveContentReader>();
             builder.RegisterType<ArchiveIdentifier>().As<IArchiveIdentifier>();
             builder.RegisterType<FlatFileReaderFactory>().AsSelf();
-            builder.RegisterType<Noark5TestEngine>().AsSelf().SingleInstance();
+            builder.RegisterType<Noark5TestEngine>().AsSelf();
             builder.RegisterType<Noark5TestProvider>().AsSelf();
             builder.RegisterType<StatusEventHandler>().As<IStatusEventHandler>().SingleInstance();
             builder.RegisterType<TarCompressionUtility>().As<ICompressionUtility>();
