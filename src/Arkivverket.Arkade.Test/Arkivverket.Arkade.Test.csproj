@@ -217,6 +217,7 @@
     <Compile Include="Tests\Noark5\NumberOfDocumentObjectsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersPerYearTest.cs" />
+    <Compile Include="Tests\Noark5\NumberOfRegistrationsPerClassTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfRegistrationsPerYearTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersWithoutRegistrationsOrSubfoldersTest.cs" />
     <Compile Include="Tests\Noark5\StatusOfArchivePartsTest.cs" />

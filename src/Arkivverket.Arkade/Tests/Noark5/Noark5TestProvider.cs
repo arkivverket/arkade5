@@ -56,6 +56,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfCaseStatusesPerArchivePart(),
                 new DocumentfilesReferenceControl(archive),
                 new NumberOfEachJournalPostType(),
+                new NumberOfRegistrationsPerClass(),
             };
         }
     }

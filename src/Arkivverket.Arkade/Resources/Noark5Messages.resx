@@ -337,4 +337,16 @@ Generert:  {2}</value>
   <data name="NumberOfEachJournalPostTypeMessage_TypeAndCount" xml:space="preserve">
     <value>Journalposttype: {0} - Antall: {1}</value>
   </data>
+  <data name="NumberOfRegistrationsPerClass" xml:space="preserve">
+    <value>Antall registreringer for hver klasse (Registreringer under mappe regnes ikke)</value>
+  </data>
+  <data name="NumberOfRegistrationsPerClassMessage_NumberOfRegistrations" xml:space="preserve">
+    <value>Klasse (systemID): {0} - Antall: {1}</value>
+  </data>
+  <data name="NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations" xml:space="preserve">
+    <value>Klasser uten registreringer (og uten underklasser) - Antall: {0}</value>
+  </data>
+  <data name="NumberOfRegistrationsPerClassMessage_ArchivePartSystemId" xml:space="preserve">
+    <value>Arkivdel (systemID): {0}</value>
+  </data>
 </root>

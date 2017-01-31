@@ -595,6 +595,42 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall registreringer for hver klasse (Registreringer under mappe regnes ikke).
+        /// </summary>
+        internal static string NumberOfRegistrationsPerClass {
+            get {
+                return ResourceManager.GetString("NumberOfRegistrationsPerClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
+        /// </summary>
+        internal static string NumberOfRegistrationsPerClassMessage_ArchivePartSystemId {
+            get {
+                return ResourceManager.GetString("NumberOfRegistrationsPerClassMessage_ArchivePartSystemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klasser uten registreringer (og uten underklasser) - Antall: {0}.
+        /// </summary>
+        internal static string NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations {
+            get {
+                return ResourceManager.GetString("NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klasse (systemID): {0} - Antall: {1}.
+        /// </summary>
+        internal static string NumberOfRegistrationsPerClassMessage_NumberOfRegistrations {
+            get {
+                return ResourceManager.GetString("NumberOfRegistrationsPerClassMessage_NumberOfRegistrations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall registreringer for hvert år.
         /// </summary>
         internal static string NumberOfRegistrationsPerYear {
