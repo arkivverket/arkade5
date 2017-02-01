@@ -1,0 +1,118 @@
+﻿using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Tests.Noark5;
+using FluentAssertions;
+using Xunit;
+
+namespace Arkivverket.Arkade.Test.Tests.Noark5
+{
+    public class NumberOfEachJournalStatusTest
+    {
+        [Fact]
+        public void ShouldFindSeveralJournalStatusesInSingleArchivePart()
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel",
+                        new XmlElementHelper()
+                            .Add("systemID", "someArchivePartSystemId_1")
+                            .Add("klassifikasjonssystem",
+                                new XmlElementHelper().Add("klasse",
+                                    new XmlElementHelper()
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus", "Arkivert")))
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus", "Arkivert")))
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus", "Utgår")))
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus", "JournalFørt")))))));
+
+
+            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachJournalStatus());
+
+            testRun.Results.Should().Contain(r => r.Message.Equals("Journalstatus: Arkivert - Antall: 2"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Journalstatus: Utgår - Antall: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Journalstatus: JournalFørt - Antall: 1") &&
+                                                  r.IsError()); // Only "Arkivert" or "Utgår" on regular deposits
+            testRun.Results.Count.Should().Be(3);
+        }
+
+        [Fact]
+        public void ShouldFindSeveralJournalStatusesInSeveralArchiveParts()
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel",
+                        new XmlElementHelper()
+                            .Add("systemID", "someArchivePartSystemId_1")
+                            .Add("klassifikasjonssystem",
+                                new XmlElementHelper().Add("klasse",
+                                    new XmlElementHelper()
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus", "Arkivert")))
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus", "Arkivert")))
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus", "Utgår")))
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus", "JournalFørt"))))))
+                    .Add("arkivdel",
+                        new XmlElementHelper()
+                            .Add("systemID", "someArchivePartSystemId_2")
+                            .Add("klassifikasjonssystem",
+                                new XmlElementHelper().Add("klasse",
+                                    new XmlElementHelper()
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus", "Arkivert")))
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus", "Arkivert")))
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus", "Utgår")))
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus", "JournalFørt")))))));
+
+
+            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachJournalStatus());
+
+            testRun.Results.Should().Contain(r =>
+                    r.Message.Equals(
+                        "Arkivdel (systemID): someArchivePartSystemId_1 - Journalstatus: Arkivert - Antall: 2")
+            );
+            testRun.Results.Should().Contain(r =>
+                    r.Message.Equals(
+                        "Arkivdel (systemID): someArchivePartSystemId_1 - Journalstatus: Utgår - Antall: 1")
+            );
+            testRun.Results.Should().Contain(r =>
+                    r.Message.Equals(
+                        "Arkivdel (systemID): someArchivePartSystemId_1 - Journalstatus: JournalFørt - Antall: 1") &&
+                    r.IsError() // Only "Arkivert" or "Utgår" on regular deposits
+            );
+            testRun.Results.Should().Contain(r =>
+                    r.Message.Equals(
+                        "Arkivdel (systemID): someArchivePartSystemId_2 - Journalstatus: Arkivert - Antall: 2")
+            );
+            testRun.Results.Should().Contain(r =>
+                    r.Message.Equals(
+                        "Arkivdel (systemID): someArchivePartSystemId_2 - Journalstatus: Utgår - Antall: 1")
+            );
+            testRun.Results.Should().Contain(r =>
+                    r.Message.Equals(
+                        "Arkivdel (systemID): someArchivePartSystemId_2 - Journalstatus: JournalFørt - Antall: 1") &&
+                    r.IsError() // Only "Arkivert" or "Utgår" on regular deposits
+            );
+            testRun.Results.Count.Should().Be(6);
+        }
+    }
+}

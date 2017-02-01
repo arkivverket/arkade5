@@ -221,6 +221,7 @@
     <Compile Include="Tests\Noark5\NumberOfRegistrationsPerYearTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersWithoutRegistrationsOrSubfoldersTest.cs" />
     <Compile Include="Tests\Noark5\StatusOfArchivePartsTest.cs" />
+    <Compile Include="Tests\Noark5\NumberOfEachJournalStatusTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksumsTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateNumberOfDocumentfilesTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchemaTest.cs" />

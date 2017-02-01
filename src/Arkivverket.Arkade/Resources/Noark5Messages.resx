@@ -349,4 +349,13 @@ Generert:  {2}</value>
   <data name="NumberOfRegistrationsPerClassMessage_ArchivePartSystemId" xml:space="preserve">
     <value>Arkivdel (systemID): {0}</value>
   </data>
+  <data name="NumberOfEachJournalStatus" xml:space="preserve">
+    <value>Antall ulike journalstatuser</value>
+  </data>
+  <data name="NumberOfEachJournalStatusMessage" xml:space="preserve">
+    <value>Journalstatus: {0} - Antall: {1}</value>
+  </data>
+  <data name="NumberOfEachJournalStatus_ArchivePartSystemId" xml:space="preserve">
+    <value>Arkivdel (systemID): {0}</value>
+  </data>
 </root>

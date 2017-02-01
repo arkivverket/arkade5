@@ -460,6 +460,33 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall ulike journalstatuser.
+        /// </summary>
+        internal static string NumberOfEachJournalStatus {
+            get {
+                return ResourceManager.GetString("NumberOfEachJournalStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
+        /// </summary>
+        internal static string NumberOfEachJournalStatus_ArchivePartSystemId {
+            get {
+                return ResourceManager.GetString("NumberOfEachJournalStatus_ArchivePartSystemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Journalstatus: {0} - Antall: {1}.
+        /// </summary>
+        internal static string NumberOfEachJournalStatusMessage {
+            get {
+                return ResourceManager.GetString("NumberOfEachJournalStatusMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall mapper.
         /// </summary>
         internal static string NumberOfFolders {
