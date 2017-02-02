@@ -205,6 +205,7 @@
     <Compile Include="Tests\Noark5\NumberOfClassificationSystemsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfCommentsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentFlowsTest.cs" />
+    <Compile Include="Tests\Noark5\NumberOfEachDocumentStatusTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersClassifiedTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfJournalPostsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfEachJournalPostTypeTest.cs" />

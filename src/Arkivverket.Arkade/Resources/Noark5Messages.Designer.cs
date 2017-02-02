@@ -424,6 +424,33 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall ulike dokumentstatuser.
+        /// </summary>
+        internal static string NumberOfEachDocumentStatus {
+            get {
+                return ResourceManager.GetString("NumberOfEachDocumentStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
+        /// </summary>
+        internal static string NumberOfEachDocumentStatus_ArchivePartSystemId {
+            get {
+                return ResourceManager.GetString("NumberOfEachDocumentStatus_ArchivePartSystemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dokumentstatus: {0} - Antall: {1}.
+        /// </summary>
+        internal static string NumberOfEachDocumentStatusMessage {
+            get {
+                return ResourceManager.GetString("NumberOfEachDocumentStatusMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall av ulike journalposttyper.
         /// </summary>
         internal static string NumberOfEachJournalPostType {

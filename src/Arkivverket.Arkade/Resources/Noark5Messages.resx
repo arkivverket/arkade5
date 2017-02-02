@@ -358,4 +358,13 @@ Generert:  {2}</value>
   <data name="NumberOfEachJournalStatus_ArchivePartSystemId" xml:space="preserve">
     <value>Arkivdel (systemID): {0}</value>
   </data>
+  <data name="NumberOfEachDocumentStatus" xml:space="preserve">
+    <value>Antall ulike dokumentstatuser</value>
+  </data>
+  <data name="NumberOfEachDocumentStatus_ArchivePartSystemId" xml:space="preserve">
+    <value>Arkivdel (systemID): {0}</value>
+  </data>
+  <data name="NumberOfEachDocumentStatusMessage" xml:space="preserve">
+    <value>Dokumentstatus: {0} - Antall: {1}</value>
+  </data>
 </root>

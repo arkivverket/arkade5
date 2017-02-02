@@ -176,6 +176,7 @@
     <Compile Include="Tests\Noark5\NumberOfCaseParts.cs" />
     <Compile Include="Tests\Noark5\NumberOfCorrespondenceParts.cs" />
     <Compile Include="Tests\Noark5\NumberOfDepreciations.cs" />
+    <Compile Include="Tests\Noark5\NumberOfEachDocumentStatus.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersClassified.cs" />
     <Compile Include="Tests\Noark5\NumberOfJournalPosts.cs" />
     <Compile Include="Tests\Noark5\NumberOfEachJournalPostType.cs" />
