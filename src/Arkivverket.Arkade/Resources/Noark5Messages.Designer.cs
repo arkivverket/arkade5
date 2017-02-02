@@ -424,6 +424,42 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall ulike dokumentformater.
+        /// </summary>
+        internal static string NumberOfEachDocumentFormat {
+            get {
+                return ResourceManager.GetString("NumberOfEachDocumentFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dokumentformat: {0} - Antall: {1}.
+        /// </summary>
+        internal static string NumberOfEachDocumentFormatMessage {
+            get {
+                return ResourceManager.GetString("NumberOfEachDocumentFormatMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
+        /// </summary>
+        internal static string NumberOfEachDocumentFormatMessage_ArchivePartSystemId {
+            get {
+                return ResourceManager.GetString("NumberOfEachDocumentFormatMessage_ArchivePartSystemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format-misforhold: Dokumentformat: {0} - Dokumentfilreferanse: {1}.
+        /// </summary>
+        internal static string NumberOfEachDocumentFormatMessage_FormatMismatch {
+            get {
+                return ResourceManager.GetString("NumberOfEachDocumentFormatMessage_FormatMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall ulike dokumentstatuser.
         /// </summary>
         internal static string NumberOfEachDocumentStatus {

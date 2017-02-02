@@ -367,4 +367,16 @@ Generert:  {2}</value>
   <data name="NumberOfEachDocumentStatusMessage" xml:space="preserve">
     <value>Dokumentstatus: {0} - Antall: {1}</value>
   </data>
+  <data name="NumberOfEachDocumentFormat" xml:space="preserve">
+    <value>Antall ulike dokumentformater</value>
+  </data>
+  <data name="NumberOfEachDocumentFormatMessage" xml:space="preserve">
+    <value>Dokumentformat: {0} - Antall: {1}</value>
+  </data>
+  <data name="NumberOfEachDocumentFormatMessage_ArchivePartSystemId" xml:space="preserve">
+    <value>Arkivdel (systemID): {0}</value>
+  </data>
+  <data name="NumberOfEachDocumentFormatMessage_FormatMismatch" xml:space="preserve">
+    <value>Format-misforhold: Dokumentformat: {0} - Dokumentfilreferanse: {1}</value>
+  </data>
 </root>
