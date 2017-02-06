@@ -51,6 +51,10 @@
                                 <dataType>date</dataType>
                                 <fieldFormat>ddmmyyyy</fieldFormat>
                             </fieldType>
+                            <fieldType name="time">
+                                <dataType>time</dataType>
+                                <fieldFormat>hhmmss</fieldFormat>
+                            </fieldType>
                             <fieldType name="boolean">
                                 <dataType>boolean</dataType>
                                 <fieldFormat>1/0</fieldFormat>
@@ -65,6 +69,8 @@
                         <recordProcesses definitionReference="NOARKSAK">
                             <processes>
                                 <process name="Analyse_CountRecordDefinitionOccurences"/>
+                                <process name="Control_Key"/>
+                                <process name="Control_ForeignKey"/>
                             </processes>
                             <fieldProcesses definitionReference="SA.DATO">
                                 <processes>
@@ -179,6 +185,420 @@
             <flatFileDefinition name="{$filnavn}" typeReference="filref">
                 <recordDefinitions>
                     <recordDefinition name="{$filnavn}">
+                        <xsl:choose>
+                            <xsl:when test="$filnavn='NOARKSAK'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="SA.ID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                    <key name="alt_{$filnavn}">
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="SA.ARKDEL"/>
+                                            <fieldDefinitionReference name="SA.SAAR"/>
+                                            <fieldDefinitionReference name="SA.SEKNR"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                    <key name="for_admindel_{$filnavn}">
+                                        <foreignKey>
+                                            <flatFileDefinitionReference name="ADMINDEL">
+                                                <recordDefinitionReferences>
+                                                    <recordDefinitionReference name="ADMINDEL">
+                                                        <fieldDefinitionReferences>
+                                                            <fieldDefinitionReference name="AI.ID"/>
+                                                        </fieldDefinitionReferences>
+                                                    </recordDefinitionReference>
+                                                </recordDefinitionReferences>
+                                            </flatFileDefinitionReference>
+                                        </foreignKey>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="SA.ADMID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                    <key name="for_pernavn_ansv_{$filnavn}">
+                                        <foreignKey>
+                                            <flatFileDefinitionReference name="PERNAVN">
+                                                <recordDefinitionReferences>
+                                                    <recordDefinitionReference name="PERNAVN">
+                                                        <fieldDefinitionReferences>
+                                                            <fieldDefinitionReference name="PN.ID"/>
+                                                        </fieldDefinitionReferences>
+                                                    </recordDefinitionReference>
+                                                </recordDefinitionReferences>
+                                            </flatFileDefinitionReference>
+                                        </foreignKey>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="SA.ANSVID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                    <key name="for_pernavn_utlev_{$filnavn}">
+                                        <foreignKey>
+                                            <flatFileDefinitionReference name="PERNAVN">
+                                                <recordDefinitionReferences>
+                                                    <recordDefinitionReference name="PERNAVN">
+                                                        <fieldDefinitionReferences>
+                                                            <fieldDefinitionReference name="PN.ID"/>
+                                                        </fieldDefinitionReferences>
+                                                    </recordDefinitionReference>
+                                                </recordDefinitionReferences>
+                                            </flatFileDefinitionReference>
+                                        </foreignKey>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="SA.UTLTIL"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='JFSAK'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="JF.ID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='KLASS'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="KL.SAID"/>
+                                            <fieldDefinitionReference name="KL.ORDNPRI"/>
+                                            <fieldDefinitionReference name="KL.ORDNVER"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='SAKPART'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="SP.SAID"/>
+                                            <fieldDefinitionReference name="SP.NAVN"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='SAKSTAT'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="SS.STATUS"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='SAKTYPE'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="ST.TYPE"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='KASSKODE'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="KK.KODE"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='JOURNPST'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="JP.ID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='AVSMOT'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="AM.ID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='ESAKREF'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="ER.JPID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='DOKTYPE'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="ND.DOKTYPE"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='JOURNSTA'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="JS.STATUS"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='TLKODE'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="TL.KODE"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='AVGRKODE'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="AG.KODE"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='AVSKRM'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="AV.KODE"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='FORSMATE'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="FM.KODE"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='FSTATUS'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="FS.STATUS"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='PRES'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="PS.ID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='PRESHENV'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="PH.FPSID"/>
+                                            <fieldDefinitionReference name="PH.TPSID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='EOPRES'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="EP.PSID"/>
+                                            <fieldDefinitionReference name="EP.ORD"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='LFPRES'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="PL.PSID"/>
+                                            <fieldDefinitionReference name="PL.LOVFORSK"/>
+                                            <fieldDefinitionReference name="PL.PARAGRAF"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='LFKODER'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="LK.KODE"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='ADRESSEK'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="AK.ADRID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='ADRESSEK'">
+                                <keys>
+                                    <key name="alt_{$filnavn}">
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="AK.KORTNAVN"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='MEDADRGR'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="MG.GRID"/>
+                                            <fieldDefinitionReference name="MG.MEDLID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='ADRTYPE'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="AT.KODE"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='POSTNR'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="PO.POSTNR"/>
+                                            <fieldDefinitionReference name="PO.NEDLDATO"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                    <key name="alt_{$filnavn}">
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="PO.POSTNR"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='KPAUT'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="KA.ADRID"/>
+                                            <fieldDefinitionReference name="KA.TGKODE"/>
+                                            <fieldDefinitionReference name="KA.TILDATO"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='DOGISERT'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="SE.ID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='KPFORMAT'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="KF.ADRID"/>
+                                            <fieldDefinitionReference name="KF.FORMAT"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='MERKNAD'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="ME.ID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='TILLEGG'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="TI.ID"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='INFOTYPE'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="IT.KODE"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                            <xsl:when test="$filnavn='DOKLINK'">
+                                <keys>
+                                    <key name="prim_{$filnavn}">
+                                        <primaryKey/>
+                                        <fieldDefinitionReferences>
+                                            <fieldDefinitionReference name="DL.JPID"/>
+                                            <fieldDefinitionReference name="DL.RNR"/>
+                                        </fieldDefinitionReferences>
+                                    </key>
+                                </keys>
+                            </xsl:when>
+                        </xsl:choose>
                         <fieldDefinitions>
                             <xsl:for-each select="TI.ATTR">
                                 <xsl:variable name="feltnavn" select="."/>
@@ -466,6 +886,978 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PL.PSID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AK.ADRID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AK.OVERORD'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AK.ADRGRUPPE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AK.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AK.TGGRUPPE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AK.OPDGRUPPE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AK.BASEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AK.REGEPOST'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MG.GRID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MG.MEDLID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PO.OPRDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PO.NEDLDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='KA.ADRID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='KA.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='KA.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='KA.AUTAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='KA.AUTDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SE.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SE.ADRID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SE.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SE.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SE.VERAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SE.VERDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='KF.ADRID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.SAID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.JPID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.DOKID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.DOKVER'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.RNR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.TGGRUPPE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.OPPBEDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.REGDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.REGKL'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="time"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.REGAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.PVGAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ME.REFDOKID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.SAID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.JPID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.DOKID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.DOKVER'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.RNR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.TGGRUPPE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.OPPBEDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.REGDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.REGKL'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="time"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.REGAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.PVGAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.REFDOKID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='IT.MERKNAD'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='IT.AUTOLOG'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DL.JPID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DL.RNR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DL.DOKID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DL.TKDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DL.TKAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DB.DOKID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DB.PAPIR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DB.UTARBAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DB.AGDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DB.TGGRUPPE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='VE.DOKID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='VE.VERSJON'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='VE.AKTIV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='VE.REGAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='VE.OPPBEDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DI.DOKID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DI.VERSJON'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DI.SIGNNR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DI.DOKSIGN'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DI.ARKSIGN'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DI.FORSIGN'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DI.SIGVERAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DI.SIGVERDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ED.DOKID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='ED.SORDFLAGG'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DT.JOURNAL'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DT.MOTEDOK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='LF.ARKIV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AI.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AI.IDFAR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AI.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AI.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AL.ADMIDFRA'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AL.ADMIDTIL'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AA.ADMID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AA.ADRID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AP.PERIODE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AP.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AP.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AR.NUMSER'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AR.ABASEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AR.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AR.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AD.PERIODE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AD.SPEFSAK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AD.SPEFDOK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AD.LUKKET'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AD.PAPIR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AD.ELDOK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AD.NUMSER'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AD.FRISEK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AD.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AD.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AD.EKSPDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AR.KONTRDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AD.KONTRAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='OP.OVBESK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='OP.KLFLAGG'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='OP.SIFLAGG'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='OP.EVOK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='OP.EVAUTO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='OP.SEKFLAGG'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='OP.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='OP.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='OP.MAKSLEN'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='OV.REGFLAGG'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='OV.SEKFLAGG'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='OV.BEVTID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='EA.SORDFLAGG'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='JE.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='NU.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='NU.AAR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='NU.SEKNR1'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='NU.SEKNR2'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='NU.AARAUTO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AS.SPEFSAK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AS.SPEFDOK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='AS.LUKKET'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PE.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PE.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PE.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PN.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PN.PEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PN.AKTIV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PN.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PN.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PA.PEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PA.ADRID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PR.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PR.PEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PR.ROLLEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PR.STDROLLE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PR.ADMID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PR.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PR.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='FR.PRID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='FR.FUNGPRID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.ROLLEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.SOK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.SYSADM'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.ARKLEDER'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.LEDER'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.SAKSBH'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.UTVSEKR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.REGUTVMED'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.DRIFT'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.REGROLLER'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.REGPERSON'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.REGARK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='RO.REGADR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TJ.PEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TJ.ADMID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TJ.AUTAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TJ.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TJ.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TJ.AUTOPPAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TK.SERIE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TK.RANG'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TK.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TK.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TK.EPOSTNIV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TH.AGAAR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TH.AGDAGER'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='KT.PEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='KT.KLAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='KT.KLOPPHAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PT.PEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PT.ADMID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PT.AUTAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PT.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PT.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PT.AUTOPPAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TG.GRUPPEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TG.GENERELL'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TG.OPPRAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TG.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TG.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PG.PEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PG.GRUPPEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PG.PERROLID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PG.MEDKOD'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PG.INNMAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PG.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PG.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='PG.UTMAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.ADMID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.OPPNAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.OPPNAVUTV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.OPPNDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.ANTMEDL'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.ETABLERT'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.NEDLAGT'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.ADRID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.MONUMSER'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UT.SAMMENR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.FORTS'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.NR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.UTVID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.LUKKET'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.DATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.START'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="time"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.SLUTT'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="time"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.FRIST'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.SAKSKART'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.PROTOKOLL'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UM.UTVID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UM.PNID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UM.RANGERING'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UM.VARAFOR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UM.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UM.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UM.SORT'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UM.REPRES'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.SEKR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MO.MEDLEM'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='FU.MOID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='FU.PNID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='FU.SORT'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='FU.VARAFOR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='FU.SEKR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MD.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MD.UTVID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MD.MOID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MD.DATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MD.PAPIRDOK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MD.U1'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MD.ADMID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MD.SBHID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MD.TGGRUPPE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MD.AGDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MD.BEVTID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MD.KASSDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MI.MDPID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MI.RNR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MI.DOKID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MI.TKDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MI.TKAV'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MK.TALE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MK.MEDLEM'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MK.SEKR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='MK.FMKODE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='US.UTVID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='US.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='US.U1'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='US.LUKKET'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='US.TGGRUPPE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='US.SAMMENR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='US.SAID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='US.POLSGID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='US.JPID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SG.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SG.SAID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SG.KLADGANG'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SG.LUKKET'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SG.STARTDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SG.VEDTDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SG.SISTEVEDT'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UB.ID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UB.UTSAKID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UB.RFOLGE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UB.MOID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UB.USEKNR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UB.AAR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UB.ADMID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UB.SBHID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='UB.PROTOKOLL'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='BA.UBID1'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='BA.UBID2'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='BD.BEHID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='BD.DOKID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='BD.JPID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SK.UTVID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SK.SORT'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SK.NUMSER'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SK.OVSKR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SK.KUNOVSKR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SK.UTVSNR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SK.UTVSTIT'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SK.ARKSNR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SK.ARKSDNR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SK.DOKIH'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SK.DOKDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SK.AVS'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DU.MOTEDOK'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DU.AUTOJOUR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='DU.ALDRIJOUR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='BS.KOLISTE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='BS.KANSKART'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='BS.SAKSKART'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='BS.BEHANDLET'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='BS.SORT1'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SV.ADMID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SV.BFRIST1'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SV.BFRIST2'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SV.BFFRIST1'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SV.BFFRIST2'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SV.ARKFAVSL'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SV.EKSTDOKTG'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='SV.BEVER'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='EI.ORGNR'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='EI.KOMMUNE'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='EI.BASEID'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='EI.FRADATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='EI.TILDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='EI.PRODDATO'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.ANTFILER'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.FILDEL'">
+                                        <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
+                                    </xsl:when>
+                                    <xsl:when test="$feltnavn='TI.ANTPOSTER'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:otherwise>

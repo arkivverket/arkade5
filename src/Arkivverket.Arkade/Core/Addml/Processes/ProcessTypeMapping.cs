@@ -16,6 +16,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                                 && t.GetConstructor(Type.EmptyTypes) != null)
                     .Select(t => Activator.CreateInstance(t) as IAddmlProcess)
                     .ToDictionary(t => t.GetName(), t => t.GetType());
+
         }
 
         public Type GetType(string processName)
