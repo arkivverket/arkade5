@@ -382,4 +382,13 @@ Generert:  {2}</value>
   <data name="NumberOfWithheldElements" xml:space="preserve">
     <value>Eventuelt - antall skjerminger i arkivstrukturen</value>
   </data>
+  <data name="NumberOfMultiReferencedDocumentFiles" xml:space="preserve">
+    <value>Dokumentfiler med referanse fra mer enn ett dokumentobjekt</value>
+  </data>
+  <data name="NumberOfMultiReferencedDocumentFilesMessage" xml:space="preserve">
+    <value>Referert dokumentfil: {0} - Antall referanser: {1}</value>
+  </data>
+  <data name="NumberOfMultiReferencedDocumentFilesMessage_ArchivePartSystemId" xml:space="preserve">
+    <value>Arkivdel (systemID): {0}</value>
+  </data>
 </root>

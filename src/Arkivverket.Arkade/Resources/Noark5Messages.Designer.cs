@@ -649,6 +649,33 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dokumentfiler med referanse fra mer enn ett dokumentobjekt.
+        /// </summary>
+        internal static string NumberOfMultiReferencedDocumentFiles {
+            get {
+                return ResourceManager.GetString("NumberOfMultiReferencedDocumentFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Referert dokumentfil: {0} - Antall referanser: {1}.
+        /// </summary>
+        internal static string NumberOfMultiReferencedDocumentFilesMessage {
+            get {
+                return ResourceManager.GetString("NumberOfMultiReferencedDocumentFilesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
+        /// </summary>
+        internal static string NumberOfMultiReferencedDocumentFilesMessage_ArchivePartSystemId {
+            get {
+                return ResourceManager.GetString("NumberOfMultiReferencedDocumentFilesMessage_ArchivePartSystemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall presedenser.
         /// </summary>
         internal static string NumberOfPrecedents {

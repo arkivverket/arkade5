@@ -210,6 +210,7 @@
     <Compile Include="Tests\Noark5\NumberOfFoldersClassifiedTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfJournalPostsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfEachJournalPostTypeTest.cs" />
+    <Compile Include="Tests\Noark5\NumberOfMultiReferencedDocumentFilesTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfPrecedentsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfDepreciationsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfCorrespondencePartsTest.cs" />

@@ -60,6 +60,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfEachJournalStatus(),
                 new NumberOfEachDocumentStatus(),
                 new NumberOfEachDocumentFormat(),
+                new NumberOfMultiReferencedDocumentFiles(),
             };
         }
     }
