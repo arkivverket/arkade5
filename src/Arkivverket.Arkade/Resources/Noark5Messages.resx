@@ -328,9 +328,6 @@ Generert:  {2}</value>
   <data name="ValidateXmlWithSchemaMessageValid" xml:space="preserve">
     <value>Validert i henhold til XML-skjema.</value>
   </data>
-  <data name="NumberOfEachJournalPostTypeMessage_ArchivePartSystemId" xml:space="preserve">
-    <value>Arkivdel (systemID): {0}</value>
-  </data>
   <data name="NumberOfEachJournalPostTypeMessage_MissingMainDocument" xml:space="preserve">
     <value>Journalpost med systemID {0} mangler hoveddokument</value>
   </data>
@@ -346,23 +343,14 @@ Generert:  {2}</value>
   <data name="NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations" xml:space="preserve">
     <value>Klasser uten registreringer (og uten underklasser) - Antall: {0}</value>
   </data>
-  <data name="NumberOfRegistrationsPerClassMessage_ArchivePartSystemId" xml:space="preserve">
-    <value>Arkivdel (systemID): {0}</value>
-  </data>
   <data name="NumberOfEachJournalStatus" xml:space="preserve">
     <value>Antall ulike journalstatuser</value>
   </data>
   <data name="NumberOfEachJournalStatusMessage" xml:space="preserve">
     <value>Journalstatus: {0} - Antall: {1}</value>
   </data>
-  <data name="NumberOfEachJournalStatus_ArchivePartSystemId" xml:space="preserve">
-    <value>Arkivdel (systemID): {0}</value>
-  </data>
   <data name="NumberOfEachDocumentStatus" xml:space="preserve">
     <value>Antall ulike dokumentstatuser</value>
-  </data>
-  <data name="NumberOfEachDocumentStatus_ArchivePartSystemId" xml:space="preserve">
-    <value>Arkivdel (systemID): {0}</value>
   </data>
   <data name="NumberOfEachDocumentStatusMessage" xml:space="preserve">
     <value>Dokumentstatus: {0} - Antall: {1}</value>
@@ -372,9 +360,6 @@ Generert:  {2}</value>
   </data>
   <data name="NumberOfEachDocumentFormatMessage" xml:space="preserve">
     <value>Dokumentformat: {0} - Antall: {1}</value>
-  </data>
-  <data name="NumberOfEachDocumentFormatMessage_ArchivePartSystemId" xml:space="preserve">
-    <value>Arkivdel (systemID): {0}</value>
   </data>
   <data name="NumberOfEachDocumentFormatMessage_FormatMismatch" xml:space="preserve">
     <value>Format-misforhold: Dokumentformat: {0} - Dokumentfilreferanse: {1}</value>
@@ -388,7 +373,7 @@ Generert:  {2}</value>
   <data name="NumberOfMultiReferencedDocumentFilesMessage" xml:space="preserve">
     <value>Referert dokumentfil: {0} - Antall referanser: {1}</value>
   </data>
-  <data name="NumberOfMultiReferencedDocumentFilesMessage_ArchivePartSystemId" xml:space="preserve">
+  <data name="ArchivePartSystemId" xml:space="preserve">
     <value>Arkivdel (systemID): {0}</value>
   </data>
 </root>

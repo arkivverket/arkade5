@@ -40,8 +40,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
                 if (multipleArchiveParts)
                     message.Insert(0,
-                        string.Format(Noark5Messages.NumberOfRegistrationsPerClassMessage_ArchivePartSystemId,
-                            @class.ArchivePartSystemId) + " - ");
+                        string.Format(Noark5Messages.ArchivePartSystemId, @class.ArchivePartSystemId) + " - ");
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
             }

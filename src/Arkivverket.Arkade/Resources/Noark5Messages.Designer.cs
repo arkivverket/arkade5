@@ -61,6 +61,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
+        /// </summary>
+        internal static string ArchivePartSystemId {
+            get {
+                return ResourceManager.GetString("ArchivePartSystemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valider xml (ADDML).
         /// </summary>
         internal static string CheckWellFormedArchiveStructureXml {
@@ -442,15 +451,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
-        /// </summary>
-        internal static string NumberOfEachDocumentFormatMessage_ArchivePartSystemId {
-            get {
-                return ResourceManager.GetString("NumberOfEachDocumentFormatMessage_ArchivePartSystemId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Format-misforhold: Dokumentformat: {0} - Dokumentfilreferanse: {1}.
         /// </summary>
         internal static string NumberOfEachDocumentFormatMessage_FormatMismatch {
@@ -469,15 +469,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
-        /// </summary>
-        internal static string NumberOfEachDocumentStatus_ArchivePartSystemId {
-            get {
-                return ResourceManager.GetString("NumberOfEachDocumentStatus_ArchivePartSystemId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dokumentstatus: {0} - Antall: {1}.
         /// </summary>
         internal static string NumberOfEachDocumentStatusMessage {
@@ -492,15 +483,6 @@ namespace Arkivverket.Arkade.Resources {
         internal static string NumberOfEachJournalPostType {
             get {
                 return ResourceManager.GetString("NumberOfEachJournalPostType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
-        /// </summary>
-        internal static string NumberOfEachJournalPostTypeMessage_ArchivePartSystemId {
-            get {
-                return ResourceManager.GetString("NumberOfEachJournalPostTypeMessage_ArchivePartSystemId", resourceCulture);
             }
         }
         
@@ -528,15 +510,6 @@ namespace Arkivverket.Arkade.Resources {
         internal static string NumberOfEachJournalStatus {
             get {
                 return ResourceManager.GetString("NumberOfEachJournalStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
-        /// </summary>
-        internal static string NumberOfEachJournalStatus_ArchivePartSystemId {
-            get {
-                return ResourceManager.GetString("NumberOfEachJournalStatus_ArchivePartSystemId", resourceCulture);
             }
         }
         
@@ -667,15 +640,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
-        /// </summary>
-        internal static string NumberOfMultiReferencedDocumentFilesMessage_ArchivePartSystemId {
-            get {
-                return ResourceManager.GetString("NumberOfMultiReferencedDocumentFilesMessage_ArchivePartSystemId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Finn antall presedenser.
         /// </summary>
         internal static string NumberOfPrecedents {
@@ -717,15 +681,6 @@ namespace Arkivverket.Arkade.Resources {
         internal static string NumberOfRegistrationsPerClass {
             get {
                 return ResourceManager.GetString("NumberOfRegistrationsPerClass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
-        /// </summary>
-        internal static string NumberOfRegistrationsPerClassMessage_ArchivePartSystemId {
-            get {
-                return ResourceManager.GetString("NumberOfRegistrationsPerClassMessage_ArchivePartSystemId", resourceCulture);
             }
         }
         

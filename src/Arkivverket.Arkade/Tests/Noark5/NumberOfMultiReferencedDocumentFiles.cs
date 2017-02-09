@@ -61,8 +61,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 if (multipleArchiveParts)
                     message.Insert(0,
                         string.Format(
-                            Noark5Messages.NumberOfMultiReferencedDocumentFilesMessage_ArchivePartSystemId,
-                            item.ArchivePartSystemId) + " - ");
+                            Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId) + " - ");
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
             }

@@ -52,8 +52,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
                 if (multipleArchiveParts)
                     message.Insert(0,
-                        string.Format(Noark5Messages.NumberOfEachDocumentStatus_ArchivePartSystemId,
-                            item.ArchivePartSystemId) + " - ");
+                        string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId) + " - ");
 
                 ResultType resultType =
                     item.Status.Equals("Dokumentet er ferdigstilt")

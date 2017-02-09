@@ -52,8 +52,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
                 if (multipleArchiveParts)
                     message.Insert(0,
-                        string.Format(Noark5Messages.NumberOfEachJournalStatus_ArchivePartSystemId,
-                            item.ArchivePartSystemId) + " - ");
+                        string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId) + " - ");
 
                 ResultType resultType = item.Status.Equals("Arkivert") || item.Status.Equals("Utgår")
                     ? ResultType.Success

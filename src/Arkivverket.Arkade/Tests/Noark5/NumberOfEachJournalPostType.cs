@@ -54,8 +54,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
                 if (multipleArchiveParts)
                     message.Insert(0,
-                        string.Format(Noark5Messages.NumberOfEachJournalPostTypeMessage_ArchivePartSystemId,
-                            item.ArchivePartSystemId) + " - ");
+                        string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId) + " - ");
 
                 _testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
             }
