@@ -376,4 +376,10 @@ Generert:  {2}</value>
   <data name="ArchivePartSystemId" xml:space="preserve">
     <value>Arkivdel (systemID): {0}</value>
   </data>
+  <data name="ControlNoSuperclassesHasFolders" xml:space="preserve">
+    <value>Klasser med både underklasse(r) og mappe(r)</value>
+  </data>
+  <data name="ControlNoSuperclassesHasFoldersMessage" xml:space="preserve">
+    <value>Klasse med systemID {0}</value>
+  </data>
 </root>

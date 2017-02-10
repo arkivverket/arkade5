@@ -106,6 +106,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Klasser med både underklasse(r) og mappe(r).
+        /// </summary>
+        internal static string ControlNoSuperclassesHasFolders {
+            get {
+                return ResourceManager.GetString("ControlNoSuperclassesHasFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klasse med systemID {0}.
+        /// </summary>
+        internal static string ControlNoSuperclassesHasFoldersMessage {
+            get {
+                return ResourceManager.GetString("ControlNoSuperclassesHasFoldersMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opprettelsesdatoer for første og siste registrering.
         /// </summary>
         internal static string DatesFirstAndLastRegistration {
