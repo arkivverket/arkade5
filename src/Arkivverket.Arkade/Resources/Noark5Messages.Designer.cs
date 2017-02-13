@@ -406,6 +406,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall kassasjonsvedtak.
+        /// </summary>
+        internal static string NumberOfDisposalResolutions {
+            get {
+                return ResourceManager.GetString("NumberOfDisposalResolutions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kassasjonsvedtak i {0} - Antall: {1}.
+        /// </summary>
+        internal static string NumberOfDisposalResolutionsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfDisposalResolutionsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall dokumentbeskrivelser.
         /// </summary>
         internal static string NumberOfDocumentDescriptions {

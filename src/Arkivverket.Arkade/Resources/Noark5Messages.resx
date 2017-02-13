@@ -388,4 +388,10 @@ Generert:  {2}</value>
   <data name="NumberOfClassificationsMessage" xml:space="preserve">
     <value>Graderinger i {0} - Antall: {1}</value>
   </data>
+  <data name="NumberOfDisposalResolutions" xml:space="preserve">
+    <value>Antall kassasjonsvedtak</value>
+  </data>
+  <data name="NumberOfDisposalResolutionsMessage" xml:space="preserve">
+    <value>Kassasjonsvedtak i {0} - Antall: {1}</value>
+  </data>
 </root>
