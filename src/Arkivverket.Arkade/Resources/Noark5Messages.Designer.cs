@@ -307,6 +307,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall graderinger.
+        /// </summary>
+        internal static string NumberOfClassifications {
+            get {
+                return ResourceManager.GetString("NumberOfClassifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Graderinger i {0} - Antall: {1}.
+        /// </summary>
+        internal static string NumberOfClassificationsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfClassificationsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall klassifikasjonssystem.
         /// </summary>
         internal static string NumberOfClassificationSystems {

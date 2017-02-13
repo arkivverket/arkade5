@@ -168,6 +168,7 @@
     <Compile Include="Tests\Noark5\DocumentfilesReferenceControl.cs" />
     <Compile Include="Tests\Noark5\FirstAndLastRegistrationCreationDates.cs" />
     <Compile Include="Tests\Noark5\NumberOfCaseStatusesPerArchivePart.cs" />
+    <Compile Include="Tests\Noark5\NumberOfClassifications.cs" />
     <Compile Include="Tests\Noark5\NumberOfComments.cs" />
     <Compile Include="Tests\Noark5\NumberOfCrossReferences.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentFlows.cs" />

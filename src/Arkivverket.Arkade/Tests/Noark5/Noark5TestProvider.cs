@@ -62,6 +62,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfEachDocumentFormat(),
                 new NumberOfMultiReferencedDocumentFiles(),
                 new ControlNoSuperclassesHasFolders(),
+                new NumberOfClassifications(),
             };
         }
     }

@@ -382,4 +382,10 @@ Generert:  {2}</value>
   <data name="ControlNoSuperclassesHasFoldersMessage" xml:space="preserve">
     <value>Klasse med systemID {0}</value>
   </data>
+  <data name="NumberOfClassifications" xml:space="preserve">
+    <value>Antall graderinger</value>
+  </data>
+  <data name="NumberOfClassificationsMessage" xml:space="preserve">
+    <value>Graderinger i {0} - Antall: {1}</value>
+  </data>
 </root>
