@@ -49,5 +49,10 @@ namespace Arkivverket.Arkade.Core.Noark5
             }
             return matches;
         }
+
+        public string GetParent()
+        {
+            return _path.Count > 1 ? _path[1] : null;
+        }
     }
 }
