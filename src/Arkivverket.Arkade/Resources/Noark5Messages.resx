@@ -394,4 +394,10 @@ Generert:  {2}</value>
   <data name="NumberOfDisposalResolutionsMessage" xml:space="preserve">
     <value>Kassasjonsvedtak i {0} - Antall: {1}</value>
   </data>
+  <data name="NumberOfDisposalResolutionsMessage_DocFalseActualTrue" xml:space="preserve">
+    <value>Det er angitt at uttrekket ikke skal inneholde kassasjonsvedtak, men kassasjonsvedtak ble funnet</value>
+  </data>
+  <data name="NumberOfDisposalResolutionsMessage_DocTrueActualFalse" xml:space="preserve">
+    <value>Det er angitt at uttrekket skal inneholde kassasjonsvedtak, men ingen kassasjonsvedtak ble funnet</value>
+  </data>
 </root>

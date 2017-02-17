@@ -404,6 +404,12 @@
     <Content Include="TestData\Noark5\ContentClassificationSystem\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\Noark5\DisposalsTesting\StatesDisposals\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\DisposalsTesting\StatesNoDisposals\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\Noark5\DocumentfilesControl\CountMatch\content\arkivuttrekk.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -424,6 +424,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Det er angitt at uttrekket ikke skal inneholde kassasjonsvedtak, men kassasjonsvedtak ble funnet.
+        /// </summary>
+        internal static string NumberOfDisposalResolutionsMessage_DocFalseActualTrue {
+            get {
+                return ResourceManager.GetString("NumberOfDisposalResolutionsMessage_DocFalseActualTrue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det er angitt at uttrekket skal inneholde kassasjonsvedtak, men ingen kassasjonsvedtak ble funnet.
+        /// </summary>
+        internal static string NumberOfDisposalResolutionsMessage_DocTrueActualFalse {
+            get {
+                return ResourceManager.GetString("NumberOfDisposalResolutionsMessage_DocTrueActualFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall dokumentbeskrivelser.
         /// </summary>
         internal static string NumberOfDocumentDescriptions {

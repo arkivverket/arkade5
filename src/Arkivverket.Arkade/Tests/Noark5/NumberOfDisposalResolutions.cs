@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
+using Arkivverket.Arkade.ExternalModels.Addml;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
@@ -11,8 +14,16 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// </summary>
     public class NumberOfDisposalResolutions : Noark5XmlReaderBaseTest
     {
-        private readonly List<DisposalResolution> _disposalResolutions = new List<DisposalResolution>();
         private string _currentArchivePartSystemId;
+        private bool _multipleArchiveParts;
+        private readonly List<DisposalResolution> _disposalResolutions;
+        private readonly bool _documentationStatesDisposalResolutions;
+
+        public NumberOfDisposalResolutions(Archive testArchive)
+        {
+            _disposalResolutions = new List<DisposalResolution>();
+            _documentationStatesDisposalResolutions = DocumentationStatesDisposalResolutions(testArchive);
+        }
 
         public override string GetName()
         {
@@ -43,19 +54,27 @@ namespace Arkivverket.Arkade.Tests.Noark5
                     Count = grouped.Count()
                 };
 
-            bool multipleArchiveParts = _disposalResolutions.GroupBy(c => c.ArchivePartSystemId).Count() > 1;
-
             foreach (var item in disposalResolutionQuery)
             {
                 var message = new StringBuilder(
                     string.Format(Noark5Messages.NumberOfDisposalResolutionsMessage, item.ParentElementName, item.Count));
 
-                if (multipleArchiveParts)
+                if (_multipleArchiveParts)
                     message.Insert(0,
                         string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId) + " - ");
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
             }
+
+            // Error message if documentation states instances of disposal resolutions but none are found:
+            if (_documentationStatesDisposalResolutions && !_disposalResolutions.Any())
+                testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                    Noark5Messages.NumberOfDisposalResolutionsMessage_DocTrueActualFalse));
+
+            // Error message if documentation states no instances of disposal resolutions but some are found:
+            if (!_documentationStatesDisposalResolutions && _disposalResolutions.Any())
+                testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                    Noark5Messages.NumberOfDisposalResolutionsMessage_DocFalseActualTrue));
 
             return testResults;
         }
@@ -83,7 +102,28 @@ namespace Arkivverket.Arkade.Tests.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
+            {
+                if (_currentArchivePartSystemId != null)
+                    _multipleArchiveParts = true;
+
                 _currentArchivePartSystemId = eventArgs.Value;
+            }
+        }
+
+        private static bool DocumentationStatesDisposalResolutions(Archive archive)
+        {
+            string archiveExtractionXmlFile =
+                archive.WorkingDirectory.Content().WithFile(ArkadeConstants.ArkivuttrekkXmlFileName).FullName;
+
+            var archiveExtractionXml = SerializeUtil.DeserializeFromFile<addml>(archiveExtractionXmlFile);
+
+            dataObject archiveExtractionElement = archiveExtractionXml.dataset[0].dataObjects.dataObject[0];
+            property infoElement = archiveExtractionElement.properties[0];
+            property additionalInfoElement = infoElement.properties[1];
+            property documentCountProperty =
+                additionalInfoElement.properties.FirstOrDefault(p => p.name == "inneholderDokumenterSomSkalKasseres");
+
+            return documentCountProperty != null && bool.Parse(documentCountProperty.value);
         }
 
         private class DisposalResolution
