@@ -64,6 +64,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new ControlNoSuperclassesHasFolders(),
                 new NumberOfClassifications(),
                 new NumberOfDisposalResolutions(archive),
+                new NumberOfDisposalsExecuted(archive),
             };
         }
     }

@@ -442,6 +442,42 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall utførte kassasjoner.
+        /// </summary>
+        internal static string NumberOfDisposalsExecuted {
+            get {
+                return ResourceManager.GetString("NumberOfDisposalsExecuted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall utførte kassasjoner: {0}.
+        /// </summary>
+        internal static string NumberOfDisposalsExecutedMessage {
+            get {
+                return ResourceManager.GetString("NumberOfDisposalsExecutedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det er dokumentert at uttrekket ikke skal omfatte utførte kassasjoner, men utførte kassasjoner ble funnet.
+        /// </summary>
+        internal static string NumberOfDisposalsExecutedMessage_DocFalseActualTrue {
+            get {
+                return ResourceManager.GetString("NumberOfDisposalsExecutedMessage_DocFalseActualTrue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det er dokumentert at uttrekket skal omfatte utførte kassasjoner, men ingen utførte kassasjoner ble funnet.
+        /// </summary>
+        internal static string NumberOfDisposalsExecutedMessage_DocTrueActualFalse {
+            get {
+                return ResourceManager.GetString("NumberOfDisposalsExecutedMessage_DocTrueActualFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall dokumentbeskrivelser.
         /// </summary>
         internal static string NumberOfDocumentDescriptions {

@@ -172,6 +172,7 @@
     <Compile Include="Tests\Noark5\NumberOfClassifications.cs" />
     <Compile Include="Tests\Noark5\NumberOfComments.cs" />
     <Compile Include="Tests\Noark5\NumberOfCrossReferences.cs" />
+    <Compile Include="Tests\Noark5\NumberOfDisposalsExecuted.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentFlows.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentDescriptions.cs" />
     <Compile Include="Tests\Noark5\NumberOfDocumentDescriptionsWithoutDocumentObject.cs" />
