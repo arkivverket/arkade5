@@ -65,6 +65,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfClassifications(),
                 new NumberOfDisposalResolutions(archive),
                 new NumberOfDisposalsExecuted(archive),
+                new NumberOfRestrictions(archive),
             };
         }
     }

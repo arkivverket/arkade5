@@ -829,6 +829,42 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall skjerminger.
+        /// </summary>
+        internal static string NumberOfRestrictions {
+            get {
+                return ResourceManager.GetString("NumberOfRestrictions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skjerminger i {0} - Antall: {1}.
+        /// </summary>
+        internal static string NumberOfRestrictionsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfRestrictionsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det er angitt at uttrekket ikke skal inneholde skjerminger, men skjerminger ble funnet.
+        /// </summary>
+        internal static string NumberOfRestrictionsMessage_DocFalseActualTrue {
+            get {
+                return ResourceManager.GetString("NumberOfRestrictionsMessage_DocFalseActualTrue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det er angitt at uttrekket skal inneholde skjerminger, men ingen skjerminger ble funnet.
+        /// </summary>
+        internal static string NumberOfRestrictionsMessage_DocTrueActualFalse {
+            get {
+                return ResourceManager.GetString("NumberOfRestrictionsMessage_DocTrueActualFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eventuelt - antall skjerminger i arkivstrukturen.
         /// </summary>
         internal static string NumberOfWithheldElements {

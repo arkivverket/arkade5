@@ -412,4 +412,16 @@ Generert:  {2}</value>
   <data name="NumberOfDisposalResolutionsMessage_DocTrueActualFalse" xml:space="preserve">
     <value>Det er angitt at uttrekket skal inneholde kassasjonsvedtak, men ingen kassasjonsvedtak ble funnet</value>
   </data>
+  <data name="NumberOfRestrictions" xml:space="preserve">
+    <value>Antall skjerminger</value>
+  </data>
+  <data name="NumberOfRestrictionsMessage" xml:space="preserve">
+    <value>Skjerminger i {0} - Antall: {1}</value>
+  </data>
+  <data name="NumberOfRestrictionsMessage_DocFalseActualTrue" xml:space="preserve">
+    <value>Det er angitt at uttrekket ikke skal inneholde skjerminger, men skjerminger ble funnet</value>
+  </data>
+  <data name="NumberOfRestrictionsMessage_DocTrueActualFalse" xml:space="preserve">
+    <value>Det er angitt at uttrekket skal inneholde skjerminger, men ingen skjerminger ble funnet</value>
+  </data>
 </root>
