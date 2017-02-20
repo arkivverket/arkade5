@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
             // Creating a test archive stating that it should contain executed disposals
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\DisposalsTesting\\StatesDisposals").Build();
+                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
 
@@ -81,7 +81,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
             // Creating a test archive stating that it should contain executed disposals
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\DisposalsTesting\\StatesDisposals").Build();
+                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
 
@@ -118,7 +118,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
             // Creating a test archive stating that it should not contain any executed disposals
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\DisposalsTesting\\StatesNoDisposals").Build();
+                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansFalse").Build();
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
 
@@ -153,7 +153,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
             // Creating a test archive stating that it should contain executed disposals
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\DisposalsTesting\\StatesDisposals").Build();
+                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
 

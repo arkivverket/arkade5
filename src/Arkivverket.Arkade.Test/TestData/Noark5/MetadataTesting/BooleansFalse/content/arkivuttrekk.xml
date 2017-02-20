@@ -81,7 +81,7 @@
 										</properties>
 									</property>
 									<property dataType="boolean" name="inneholderSkjermetInformasjon">
-										<value>true</value>
+										<value>false</value>
 									</property>
 									<property dataType="boolean" name="omfatterDokumenterSomErKassert">
 										<value>false</value>
@@ -90,7 +90,7 @@
 										<value>false</value>
 									</property>
 									<property dataType="boolean" name="inneholderVirksomhetsspesifikkeMetadata">
-										<value>true</value>
+										<value>false</value>
 									</property>
 									<property dataType="integer" name="antallDokumentfiler">
 										<value>2</value>
