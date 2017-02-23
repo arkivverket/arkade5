@@ -424,4 +424,10 @@ Generert:  {2}</value>
   <data name="NumberOfRestrictionsMessage_DocTrueActualFalse" xml:space="preserve">
     <value>Det er angitt at uttrekket skal inneholde skjerminger, men ingen skjerminger ble funnet</value>
   </data>
+  <data name="NumberOfConversions" xml:space="preserve">
+    <value>Antall konverterte dokumenter</value>
+  </data>
+  <data name="NumberOfConversionsMessage" xml:space="preserve">
+    <value>Antall konverteringer: {0}</value>
+  </data>
 </root>

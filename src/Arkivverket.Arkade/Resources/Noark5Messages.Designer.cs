@@ -361,6 +361,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall konverterte dokumenter.
+        /// </summary>
+        internal static string NumberOfConversions {
+            get {
+                return ResourceManager.GetString("NumberOfConversions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall konverteringer: {0}.
+        /// </summary>
+        internal static string NumberOfConversionsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfConversionsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall korrespondanseparter.
         /// </summary>
         internal static string NumberOfCorrespondenceParts {
