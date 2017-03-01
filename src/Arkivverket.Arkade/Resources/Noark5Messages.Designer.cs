@@ -70,6 +70,60 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start- og sluttdatoer.
+        /// </summary>
+        internal static string ArchiveStartAndEndDateControl {
+            get {
+                return ResourceManager.GetString("ArchiveStartAndEndDateControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start- og sluttdato i arkivstrukturen: {0} - {1}.
+        /// </summary>
+        internal static string ArchiveStartAndEndDateControlMessage_DatesArchive {
+            get {
+                return ResourceManager.GetString("ArchiveStartAndEndDateControlMessage_DatesArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start- og sluttdato i offentlig journal: {0} - {1}.
+        /// </summary>
+        internal static string ArchiveStartAndEndDateControlMessage_DatesPublicJournal {
+            get {
+                return ResourceManager.GetString("ArchiveStartAndEndDateControlMessage_DatesPublicJournal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start- og sluttdato i løpende journal: {0} - {1}.
+        /// </summary>
+        internal static string ArchiveStartAndEndDateControlMessage_DatesRunningJournal {
+            get {
+                return ResourceManager.GetString("ArchiveStartAndEndDateControlMessage_DatesRunningJournal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Periodeskille er skarpt og datoer i arkivstrukturen er ikke like de i offentlig og løpende journal.
+        /// </summary>
+        internal static string ArchiveStartAndEndDateControlMessage_UnEqualJournalAndArchiveDates {
+            get {
+                return ResourceManager.GetString("ArchiveStartAndEndDateControlMessage_UnEqualJournalAndArchiveDates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datoer i offentlig og løpende journal er ikke like.
+        /// </summary>
+        internal static string ArchiveStartAndEndDateControlMessage_UnEqualJournalDates {
+            get {
+                return ResourceManager.GetString("ArchiveStartAndEndDateControlMessage_UnEqualJournalDates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valider xml (ADDML).
         /// </summary>
         internal static string CheckWellFormedArchiveStructureXml {

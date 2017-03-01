@@ -192,6 +192,7 @@
     <Compile Include="Logging\TestSessionLogXmlValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\HtmlReportGeneratorTest.cs" />
+    <Compile Include="Tests\Noark5\ArchiveStartAndEndDateControlTest.cs" />
     <Compile Include="Tests\Noark5\ControlNoSuperclassesHasFoldersTest.cs" />
     <Compile Include="Tests\Noark5\DocumentfilesReferenceControlTest.cs" />
     <Compile Include="Tests\Noark5\FirstAndLastRegistrationCreationDatesTest.cs" />
@@ -457,6 +458,35 @@
     </Content>
     <Content Include="TestData\Noark5\Small\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\StartAndEndDateControl\SharpSeparation\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\StartAndEndDateControl\SharpSeparation\loependeJournal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\StartAndEndDateControl\SharpSeparation\offentligJournal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\StartAndEndDateControl\SoftSeparationAndUnEqualJournals\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="TestData\Noark5\StartAndEndDateControl\SoftSeparationAndUnEqualJournals\loependeJournal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\StartAndEndDateControl\SoftSeparationAndUnEqualJournals\offentligJournal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\StartAndEndDateControl\SoftSeparation\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\StartAndEndDateControl\SoftSeparation\loependeJournal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\StartAndEndDateControl\SoftSeparation\offentligJournal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="TestData\Noark5\StructureChecksums\correct\administrative_metadata\addml.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

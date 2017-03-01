@@ -430,4 +430,22 @@ Generert:  {2}</value>
   <data name="NumberOfConversionsMessage" xml:space="preserve">
     <value>Antall konverteringer: {0}</value>
   </data>
+  <data name="ArchiveStartAndEndDateControl" xml:space="preserve">
+    <value>Start- og sluttdatoer</value>
+  </data>
+  <data name="ArchiveStartAndEndDateControlMessage_DatesArchive" xml:space="preserve">
+    <value>Start- og sluttdato i arkivstrukturen: {0} - {1}</value>
+  </data>
+  <data name="ArchiveStartAndEndDateControlMessage_DatesPublicJournal" xml:space="preserve">
+    <value>Start- og sluttdato i offentlig journal: {0} - {1}</value>
+  </data>
+  <data name="ArchiveStartAndEndDateControlMessage_DatesRunningJournal" xml:space="preserve">
+    <value>Start- og sluttdato i løpende journal: {0} - {1}</value>
+  </data>
+  <data name="ArchiveStartAndEndDateControlMessage_UnEqualJournalAndArchiveDates" xml:space="preserve">
+    <value>Periodeskille er skarpt og datoer i arkivstrukturen er ikke like de i offentlig og løpende journal</value>
+  </data>
+  <data name="ArchiveStartAndEndDateControlMessage_UnEqualJournalDates" xml:space="preserve">
+    <value>Datoer i offentlig og løpende journal er ikke like</value>
+  </data>
 </root>
