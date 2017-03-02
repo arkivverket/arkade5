@@ -454,4 +454,10 @@ Generert:  {2}</value>
   <data name="NumberOfChangesLoggedMessage" xml:space="preserve">
     <value>Antall endringer: {0}</value>
   </data>
+  <data name="ChangeLogArchiveReferenceControl" xml:space="preserve">
+    <value>Endringslogg-referanser til arkivstrukturen</value>
+  </data>
+  <data name="ChangeLogArchiveReferenceControlMessage" xml:space="preserve">
+    <value>Referanse til arkivenhet er ikke gyldig: (systemID) {0}</value>
+  </data>
 </root>

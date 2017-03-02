@@ -124,6 +124,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Endringslogg-referanser til arkivstrukturen.
+        /// </summary>
+        internal static string ChangeLogArchiveReferenceControl {
+            get {
+                return ResourceManager.GetString("ChangeLogArchiveReferenceControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Referanse til arkivenhet er ikke gyldig: (systemID) {0}.
+        /// </summary>
+        internal static string ChangeLogArchiveReferenceControlMessage {
+            get {
+                return ResourceManager.GetString("ChangeLogArchiveReferenceControlMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valider xml (ADDML).
         /// </summary>
         internal static string CheckWellFormedArchiveStructureXml {
