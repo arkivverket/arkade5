@@ -157,6 +157,7 @@
     <Compile Include="ExternalModels\DiasMets.cs" />
     <Compile Include="ExternalModels\DiasPremis.cs" />
     <Compile Include="ExternalModels\Ead.cs" />
+    <Compile Include="ExternalModels\Endringslogg.cs" />
     <Compile Include="ExternalModels\LoependeJournal.cs" />
     <Compile Include="ExternalModels\OffentligJournal.cs" />
     <Compile Include="Metadata\DiasMetsCreator.cs" />
@@ -332,6 +333,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="ExternalModels\xsd\ead3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ExternalModels\xsd\endringslogg.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="ExternalModels\xsd\GenerateClasses.bat" />
