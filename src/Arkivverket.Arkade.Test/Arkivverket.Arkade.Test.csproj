@@ -201,6 +201,7 @@
     <Compile Include="Tests\Noark5\NumberOfArchivePartsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchivesTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfCaseStatusesPerArchivePartTests.cs" />
+    <Compile Include="Tests\Noark5\NumberOfChangesLoggedTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassesInMainClassificationSystemWithoutSubClassesOrFoldersTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfCasePartsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassesTest.cs" />
@@ -407,6 +408,9 @@
     </Content>
     <Content Include="TestData\Noark5\ContentClassificationSystem\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Noark5\LogsControl\endringslogg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Noark5\MetadataTesting\BooleansTrue\content\arkivuttrekk.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -448,4 +448,10 @@ Generert:  {2}</value>
   <data name="ArchiveStartAndEndDateControlMessage_UnEqualJournalDates" xml:space="preserve">
     <value>Datoer i offentlig og løpende journal er ikke like</value>
   </data>
+  <data name="NumberOfChangesLogged" xml:space="preserve">
+    <value>Antall loggførte endringer</value>
+  </data>
+  <data name="NumberOfChangesLoggedMessage" xml:space="preserve">
+    <value>Antall endringer: {0}</value>
+  </data>
 </root>

@@ -334,6 +334,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall loggførte endringer.
+        /// </summary>
+        internal static string NumberOfChangesLogged {
+            get {
+                return ResourceManager.GetString("NumberOfChangesLogged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall endringer: {0}.
+        /// </summary>
+        internal static string NumberOfChangesLoggedMessage {
+            get {
+                return ResourceManager.GetString("NumberOfChangesLoggedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall klasser.
         /// </summary>
         internal static string NumberOfClasses {

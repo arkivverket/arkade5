@@ -68,6 +68,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfRestrictions(archive),
                 new NumberOfConversions(),
                 new ArchiveStartAndEndDateControl(archive),
+                new NumberOfChangesLogged(archive),
             };
         }
     }
