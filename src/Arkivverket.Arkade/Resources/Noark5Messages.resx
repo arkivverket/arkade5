@@ -460,4 +460,7 @@ Generert:  {2}</value>
   <data name="ChangeLogArchiveReferenceControlMessage" xml:space="preserve">
     <value>Referanse til arkivenhet er ikke gyldig: (systemID) {0}</value>
   </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Filen {0} ble ikke funnet</value>
+  </data>
 </root>
