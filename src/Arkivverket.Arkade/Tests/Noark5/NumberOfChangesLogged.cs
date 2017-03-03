@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.ExternalModels.ChangeLog;
@@ -12,13 +13,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// </summary>
     public class NumberOfChangesLogged : Noark5XmlReaderBaseTest
     {
-        private readonly endringslogg _changeLog;
+        private readonly Archive _archive;
 
         public NumberOfChangesLogged(Archive archive)
         {
-            _changeLog = SerializeUtil.DeserializeFromFile<endringslogg>(
-                archive.WorkingDirectory.Content().WithFile(ArkadeConstants.ChangeLogXmlFileName).FullName
-            );
+            _archive = archive;
         }
 
         public override string GetName()
@@ -33,13 +32,26 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override List<TestResult> GetTestResults()
         {
-            int numberOfChangesLogged = _changeLog.endring.Length;
+            var testResults = new List<TestResult>();
 
-            return new List<TestResult>
+            try
             {
-                new TestResult(ResultType.Success, new Location(ArkadeConstants.ChangeLogXmlFileName),
-                    string.Format(Noark5Messages.NumberOfChangesLoggedMessage, numberOfChangesLogged))
-            };
+                var changeLog = SerializeUtil.DeserializeFromFile<endringslogg>(
+                    _archive.WorkingDirectory.Content().WithFile(ArkadeConstants.ChangeLogXmlFileName).FullName
+                );
+
+                int numberOfChangesLogged = changeLog.endring.Length;
+
+                testResults.Add(new TestResult(ResultType.Success, new Location(ArkadeConstants.ChangeLogXmlFileName),
+                    string.Format(Noark5Messages.NumberOfChangesLoggedMessage, numberOfChangesLogged)));
+            }
+            catch (Exception)
+            {
+                testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                    string.Format(Noark5Messages.FileNotFound, ArkadeConstants.ChangeLogXmlFileName)));
+            }
+
+            return testResults;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
