@@ -71,6 +71,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfChangesLogged(archive),
                 new ChangeLogArchiveReferenceControl(archive),
                 new ArchivepartReferenceControl(),
+                new SystemIdUniqueControl(),
             };
         }
     }

@@ -469,4 +469,10 @@ Generert:  {2}</value>
   <data name="ArchivepartReferenceControlMessage" xml:space="preserve">
     <value>Referanse fra {0} (systemID) {1} til arkivdel (systemID) {2} er ikke gyldig</value>
   </data>
+  <data name="SystemIdUniqueControl" xml:space="preserve">
+    <value>Systemidentifikasjoner</value>
+  </data>
+  <data name="SystemIdUniqueControlMessage" xml:space="preserve">
+    <value>Ikke-unik ID: Systemidentifikasjonen (systemID) {0} forekommer {1} ganger</value>
+  </data>
 </root>

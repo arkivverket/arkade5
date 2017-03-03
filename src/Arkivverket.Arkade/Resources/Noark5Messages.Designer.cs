@@ -1018,6 +1018,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Systemidentifikasjoner.
+        /// </summary>
+        internal static string SystemIdUniqueControl {
+            get {
+                return ResourceManager.GetString("SystemIdUniqueControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ikke-unik ID: Systemidentifikasjonen (systemID) {0} forekommer {1} ganger.
+        /// </summary>
+        internal static string SystemIdUniqueControlMessage {
+            get {
+                return ResourceManager.GetString("SystemIdUniqueControlMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valider sjekksummer.
         /// </summary>
         internal static string ValidateAddmlDataobjectsChecksums {
