@@ -21,11 +21,13 @@ namespace Arkivverket.Arkade.Tests.Noark5
         private readonly offentligJournal _publicJournal;
         private readonly loependeJournal _runningJournal;
         private readonly addml _archiveExtraction;
+        private static List<string> _filesNotFound;
 
         public ArchiveStartAndEndDateControl(Archive archive)
         {
             _registrationCreationDates = new SortedSet<DateTime>();
 
+            _filesNotFound = new List<string>();
             _publicJournal = Deserialize<offentligJournal>(ArkadeConstants.PublicJournalXmlFileName, archive);
             _runningJournal = Deserialize<loependeJournal>(ArkadeConstants.RunningJournalXmlFileName, archive);
             _archiveExtraction = Deserialize<addml>(ArkadeConstants.ArkivuttrekkXmlFileName, archive);
@@ -43,22 +45,31 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override List<TestResult> GetTestResults()
         {
+            var testResults = new List<TestResult>();
+
+            if (_filesNotFound.Any())
+            {
+                foreach (var fileNotFound in _filesNotFound)
+                    testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                        string.Format(Noark5Messages.FileNotFound, fileNotFound)));
+
+                return testResults;
+            }
+
             var archiveDates = new StartAndEndDate(
                 _registrationCreationDates.First(),
                 _registrationCreationDates.Last()
             );
-
             var publicJournalDates = new StartAndEndDate(
                 _publicJournal.journalhode.journalStartDato,
                 _publicJournal.journalhode.journalSluttDato
             );
-
             var runningJournalDates = new StartAndEndDate(
                 _runningJournal.journalhode.journalStartDato,
                 _runningJournal.journalhode.journalSluttDato
             );
 
-            var testResults = new List<TestResult>
+            testResults.AddRange(new[]
             {
                 new TestResult(ResultType.Success, new Location(""), string.Format(
                     Noark5Messages.ArchiveStartAndEndDateControlMessage_DatesArchive,
@@ -72,7 +83,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                     Noark5Messages.ArchiveStartAndEndDateControlMessage_DatesRunningJournal,
                     runningJournalDates.StartDate(), runningJournalDates.EndDate()
                 ))
-            };
+            });
 
             if (!StartAndEndDate.Equals(publicJournalDates, runningJournalDates))
                 testResults.Add(new TestResult(ResultType.Error, new Location(""),
@@ -127,7 +138,17 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         private static T Deserialize<T>(string xmlFile, Archive archive)
         {
-            return SerializeUtil.DeserializeFromFile<T>(archive.WorkingDirectory.Content().WithFile(xmlFile).FullName);
+            try
+            {
+                return SerializeUtil.DeserializeFromFile<T>(
+                    archive.WorkingDirectory.Content().WithFile(xmlFile).FullName
+                );
+            }
+            catch (Exception)
+            {
+                _filesNotFound.Add(xmlFile);
+                return default(T);
+            }
         }
 
         private class StartAndEndDate
