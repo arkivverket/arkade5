@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.ExternalModels.ChangeLog;
@@ -12,15 +13,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// </summary>
     public class ChangeLogArchiveReferenceControl : Noark5XmlReaderBaseTest
     {
-        private readonly endringslogg _changeLog;
+        private readonly Archive _archive;
         private readonly List<string> _systemIDs;
 
         public ChangeLogArchiveReferenceControl(Archive archive)
         {
-            _changeLog = SerializeUtil.DeserializeFromFile<endringslogg>(
-                archive.WorkingDirectory.Content().WithFile(ArkadeConstants.ChangeLogXmlFileName).FullName
-            );
-
+            _archive = archive;
             _systemIDs = new List<string>();
         }
 
@@ -38,13 +36,28 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             var testResults = new List<TestResult>();
 
-            var changeLogChanges = _changeLog.endring;
-
-            foreach (var change in changeLogChanges)
+            try
             {
-                if (!_systemIDs.Contains(change.referanseArkivenhet))
-                    testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ChangeLogXmlFileName),
-                        string.Format(Noark5Messages.ChangeLogArchiveReferenceControlMessage, change.referanseArkivenhet)));
+                var changeLog = SerializeUtil.DeserializeFromFile<endringslogg>(
+                    _archive.WorkingDirectory.Content().WithFile(ArkadeConstants.ChangeLogXmlFileName).FullName
+                );
+
+                var changeLogChanges = changeLog.endring;
+
+                foreach (var change in changeLogChanges)
+                {
+                    if (!_systemIDs.Contains(change.referanseArkivenhet))
+                    {
+                        testResults.Add(new TestResult(
+                            ResultType.Error, new Location(ArkadeConstants.ChangeLogXmlFileName), string.Format(
+                                Noark5Messages.ChangeLogArchiveReferenceControlMessage, change.referanseArkivenhet)));
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                    string.Format(Noark5Messages.FileNotFound, ArkadeConstants.ChangeLogXmlFileName)));
             }
 
             return testResults;
