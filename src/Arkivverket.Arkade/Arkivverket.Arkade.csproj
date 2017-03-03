@@ -165,6 +165,7 @@
     <Compile Include="Metadata\EacCpfCreator.cs" />
     <Compile Include="Metadata\EadCreator.cs" />
     <Compile Include="Metadata\MetadataFilesCreator.cs" />
+    <Compile Include="Tests\Noark5\ArchivepartReferenceControl.cs" />
     <Compile Include="Tests\Noark5\ArchiveStartAndEndDateControl.cs" />
     <Compile Include="Tests\Noark5\ChangeLogArchiveReferenceControl.cs" />
     <Compile Include="Tests\Noark5\ControlNoSuperclassesHasFolders.cs" />

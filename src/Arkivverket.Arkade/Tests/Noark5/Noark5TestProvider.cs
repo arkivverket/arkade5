@@ -70,6 +70,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new ArchiveStartAndEndDateControl(archive),
                 new NumberOfChangesLogged(archive),
                 new ChangeLogArchiveReferenceControl(archive),
+                new ArchivepartReferenceControl(),
             };
         }
     }

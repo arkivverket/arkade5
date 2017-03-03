@@ -463,4 +463,10 @@ Generert:  {2}</value>
   <data name="FileNotFound" xml:space="preserve">
     <value>Filen {0} ble ikke funnet</value>
   </data>
+  <data name="ArchivepartReferenceControl" xml:space="preserve">
+    <value>Arkivdelreferanser</value>
+  </data>
+  <data name="ArchivepartReferenceControlMessage" xml:space="preserve">
+    <value>Referanse fra {0} (systemID) {1} til arkivdel (systemID) {2} er ikke gyldig</value>
+  </data>
 </root>

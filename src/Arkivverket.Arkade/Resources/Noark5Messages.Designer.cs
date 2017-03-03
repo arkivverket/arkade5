@@ -61,6 +61,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkivdelreferanser.
+        /// </summary>
+        internal static string ArchivepartReferenceControl {
+            get {
+                return ResourceManager.GetString("ArchivepartReferenceControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Referanse fra {0} (systemID) {1} til arkivdel (systemID) {2} er ikke gyldig.
+        /// </summary>
+        internal static string ArchivepartReferenceControlMessage {
+            get {
+                return ResourceManager.GetString("ArchivepartReferenceControlMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkivdel (systemID): {0}.
         /// </summary>
         internal static string ArchivePartSystemId {
