@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
     public class ArchivepartReferenceControlTest
     {
         [Fact]
-        public void ReferencesIsValid()
+        public void ReferencesAreValid()
         {
             XmlElementHelper xmlElementHelper =
                 new XmlElementHelper().Add("arkiv",
