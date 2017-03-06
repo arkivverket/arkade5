@@ -475,4 +475,10 @@ Generert:  {2}</value>
   <data name="SystemIdUniqueControlMessage" xml:space="preserve">
     <value>Ikke-unik ID: Systemidentifikasjonen (systemID) {0} forekommer {1} ganger</value>
   </data>
+  <data name="ControlNoSuperclassesHasRegistrations" xml:space="preserve">
+    <value>Klasser med både underklasse(r) og registrering(er)</value>
+  </data>
+  <data name="ControlNoSuperclassesHasRegistrationsMessage" xml:space="preserve">
+    <value>Klasse med systemID {0}</value>
+  </data>
 </root>

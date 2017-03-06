@@ -196,6 +196,7 @@
     <Compile Include="Tests\Noark5\ArchiveStartAndEndDateControlTest.cs" />
     <Compile Include="Tests\Noark5\ChangeLogArchiveReferenceControlTest.cs" />
     <Compile Include="Tests\Noark5\ControlNoSuperclassesHasFoldersTest.cs" />
+    <Compile Include="Tests\Noark5\ControlNoSuperclassesHasRegistrationsTest.cs" />
     <Compile Include="Tests\Noark5\DocumentfilesReferenceControlTest.cs" />
     <Compile Include="Tests\Noark5\FirstAndLastRegistrationCreationDatesTest.cs" />
     <Compile Include="Tests\Noark5\Noark5XmlBuilder.cs" />
