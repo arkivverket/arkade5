@@ -178,6 +178,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Klassereferanser.
+        /// </summary>
+        internal static string ClassReferenceControl {
+            get {
+                return ResourceManager.GetString("ClassReferenceControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Referanse fra mappe (systemID) {0} til klasse (systemID) {1} er ikke gyldig.
+        /// </summary>
+        internal static string ClassReferenceControlMessage {
+            get {
+                return ResourceManager.GetString("ClassReferenceControlMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrollér at refererte dokumenter eksisterer.
         /// </summary>
         internal static string ControlDocumentFilesExists {

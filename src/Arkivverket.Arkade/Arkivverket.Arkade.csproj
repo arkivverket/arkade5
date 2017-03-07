@@ -168,6 +168,7 @@
     <Compile Include="Tests\Noark5\ArchivepartReferenceControl.cs" />
     <Compile Include="Tests\Noark5\ArchiveStartAndEndDateControl.cs" />
     <Compile Include="Tests\Noark5\ChangeLogArchiveReferenceControl.cs" />
+    <Compile Include="Tests\Noark5\ClassReferenceControl.cs" />
     <Compile Include="Tests\Noark5\ControlNoSuperclassesHasFolders.cs" />
     <Compile Include="Tests\Noark5\ControlNoSuperclassesHasRegistrations.cs" />
     <Compile Include="Tests\Noark5\DocumentfilesReferenceControl.cs" />

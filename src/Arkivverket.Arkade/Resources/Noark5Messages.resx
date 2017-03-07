@@ -481,4 +481,10 @@ Generert:  {2}</value>
   <data name="ControlNoSuperclassesHasRegistrationsMessage" xml:space="preserve">
     <value>Klasse med systemID {0}</value>
   </data>
+  <data name="ClassReferenceControl" xml:space="preserve">
+    <value>Klassereferanser</value>
+  </data>
+  <data name="ClassReferenceControlMessage" xml:space="preserve">
+    <value>Referanse fra mappe (systemID) {0} til klasse (systemID) {1} er ikke gyldig</value>
+  </data>
 </root>
