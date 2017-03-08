@@ -487,4 +487,10 @@ Generert:  {2}</value>
   <data name="ClassReferenceControlMessage" xml:space="preserve">
     <value>Referanse fra mappe (systemID) {0} til klasse (systemID) {1} er ikke gyldig</value>
   </data>
+  <data name="DocumentFilesChecksumControl" xml:space="preserve">
+    <value>Dokumentfilers sjekksummer</value>
+  </data>
+  <data name="DocumentFilesChecksumControlMessage" xml:space="preserve">
+    <value>Filen {0} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {1}</value>
+  </data>
 </root>

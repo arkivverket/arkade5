@@ -304,6 +304,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dokumentfilers sjekksummer.
+        /// </summary>
+        internal static string DocumentFilesChecksumControl {
+            get {
+                return ResourceManager.GetString("DocumentFilesChecksumControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filen {0} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {1}.
+        /// </summary>
+        internal static string DocumentFilesChecksumControlMessage {
+            get {
+                return ResourceManager.GetString("DocumentFilesChecksumControlMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dokumentfiler som mangler referanse.
         /// </summary>
         internal static string DocumentfilesReferenceControl {
