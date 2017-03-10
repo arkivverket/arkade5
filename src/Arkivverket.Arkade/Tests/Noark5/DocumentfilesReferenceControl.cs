@@ -12,13 +12,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// </summary>
     public class DocumentfilesReferenceControl : Noark5XmlReaderBaseTest
     {
-        private readonly Archive _archive;
         private static FileInfo[] _documentFilesInfo;
         private readonly List<string> _fileReferences;
 
         public DocumentfilesReferenceControl(Archive archive)
         {
-            _archive = archive;
             _documentFilesInfo = GetNamesActualFiles(archive);
             _fileReferences = new List<string>();
         }
