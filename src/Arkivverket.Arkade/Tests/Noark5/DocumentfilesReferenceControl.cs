@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
@@ -13,12 +14,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
     public class DocumentfilesReferenceControl : Noark5XmlReaderBaseTest
     {
         private static FileInfo[] _documentFilesInfo;
-        private readonly List<string> _fileReferences;
+        private readonly Hashtable _fileReferences;
 
         public DocumentfilesReferenceControl(Archive archive)
         {
             _documentFilesInfo = GetNamesActualFiles(archive);
-            _fileReferences = new List<string>();
+            _fileReferences = new Hashtable();
         }
 
         public override string GetName()
@@ -37,17 +38,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
             foreach (FileInfo documentFileInfo in _documentFilesInfo)
             {
-                string expectedFileReference =
-                    $"{ArkadeConstants.DirectoryNameDocuments}/{documentFileInfo.Name}";
-                string expectedFileReferenceBackSlashed =
-                    $"{ArkadeConstants.DirectoryNameDocuments}\\{documentFileInfo.Name}";
-
-                if (!(_fileReferences.Contains(expectedFileReference) ||
-                      _fileReferences.Contains(expectedFileReferenceBackSlashed)))
+                if (!_fileReferences.Contains(documentFileInfo.Name))
                 {
                     testResults.Add(new TestResult(ResultType.Error,
                         new Location(ArkadeConstants.ArkivstrukturXmlFileName),
-                        string.Format(Noark5Messages.DocumentfilesReferenceControlMessage, expectedFileReference)));
+                        string.Format(Noark5Messages.DocumentfilesReferenceControlMessage, documentFileInfo.Name)));
                 }
             }
 
@@ -64,7 +59,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("referanseDokumentfil", "dokumentobjekt"))
-                _fileReferences.Add(eventArgs.Value);
+                _fileReferences.Add(new FileInfo(eventArgs.Value).Name, null);
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
