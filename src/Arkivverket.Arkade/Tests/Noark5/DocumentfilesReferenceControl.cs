@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 if (!_fileReferences.Contains(documentFileInfo.Name))
                 {
                     testResults.Add(new TestResult(ResultType.Error,
-                        new Location(ArkadeConstants.ArkivstrukturXmlFileName),
+                        new Location(ArkadeConstants.DirectoryNameDocuments),
                         string.Format(Noark5Messages.DocumentfilesReferenceControlMessage, documentFileInfo.Name)));
                 }
             }

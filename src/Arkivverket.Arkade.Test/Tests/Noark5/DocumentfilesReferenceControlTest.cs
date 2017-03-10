@@ -55,7 +55,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             TestRun testRun = CreateTestRun(xmlElementHelper);
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                    "Ikke-referert fil funnet: dokumenter/5000001.pdf")
+                    "Ikke-referert fil funnet: 5000001.pdf")
             );
 
             testRun.Results.Count.Should().Be(1);
