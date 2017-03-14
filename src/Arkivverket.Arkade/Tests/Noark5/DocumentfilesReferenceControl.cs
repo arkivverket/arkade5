@@ -13,13 +13,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// </summary>
     public class DocumentfilesReferenceControl : Noark5XmlReaderBaseTest
     {
-        private static FileInfo[] _documentFilesInfo;
-        private readonly Hashtable _fileReferences;
+        private static Hashtable _documentFileNames;
 
         public DocumentfilesReferenceControl(Archive archive)
         {
-            _documentFilesInfo = GetNamesActualFiles(archive);
-            _fileReferences = new Hashtable();
+            _documentFileNames = GetNamesActualFiles(archive);
         }
 
         public override string GetName()
@@ -36,30 +34,32 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             var testResults = new List<TestResult>();
 
-            foreach (FileInfo documentFileInfo in _documentFilesInfo)
-            {
-                if (!_fileReferences.Contains(documentFileInfo.Name))
-                {
-                    testResults.Add(new TestResult(ResultType.Error,
-                        new Location(ArkadeConstants.DirectoryNameDocuments),
-                        string.Format(Noark5Messages.DocumentfilesReferenceControlMessage, documentFileInfo.Name)));
-                }
-            }
+            foreach (DictionaryEntry fileNameEntry in _documentFileNames)
+                testResults.Add(new TestResult(ResultType.Error,
+                    new Location(ArkadeConstants.DirectoryNameDocuments),
+                    string.Format(Noark5Messages.DocumentfilesReferenceControlMessage, fileNameEntry.Key)));
 
             return testResults;
         }
 
-        private static FileInfo[] GetNamesActualFiles(Archive archive)
+        private static Hashtable GetNamesActualFiles(Archive archive)
         {
-            return archive.WorkingDirectory.Content()
+            var files = archive.WorkingDirectory.Content()
                 .WithSubDirectory(ArkadeConstants.DirectoryNameDocuments)
-                .DirectoryInfo().GetFiles();
+                .DirectoryInfo().EnumerateFiles();
+
+            var filenames = new Hashtable();
+
+            foreach (FileInfo file in files)
+                filenames.Add(file.Name, null);
+
+            return filenames;
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("referanseDokumentfil", "dokumentobjekt"))
-                _fileReferences.Add(new FileInfo(eventArgs.Value).Name, null);
+                _documentFileNames.Remove(new FileInfo(eventArgs.Value).Name);
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
