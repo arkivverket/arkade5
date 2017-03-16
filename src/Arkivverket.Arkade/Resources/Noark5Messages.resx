@@ -493,4 +493,7 @@ Generert:  {2}</value>
   <data name="DocumentFilesChecksumControlMessage" xml:space="preserve">
     <value>Filen {0} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {1}</value>
   </data>
+  <data name="InternalSchemaFileIsUsed" xml:space="preserve">
+    <value>Skjemafil {0} ble ikke funnet i uttrekket. Validering gjøres ihht. en versjon av {0} som er innebygget i Arkade</value>
+  </data>
 </root>
