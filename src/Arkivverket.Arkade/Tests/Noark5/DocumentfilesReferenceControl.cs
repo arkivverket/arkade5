@@ -44,14 +44,14 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         private static Hashtable GetNamesActualFiles(Archive archive)
         {
-            var files = archive.WorkingDirectory.Content()
-                .WithSubDirectory(ArkadeConstants.DirectoryNameDocuments)
-                .DirectoryInfo().EnumerateFiles();
+            DirectoryInfo documentsDirectory = archive.WorkingDirectory.Content()
+                .WithSubDirectory(ArkadeConstants.DirectoryNameDocuments).DirectoryInfo();
 
             var filenames = new Hashtable();
 
-            foreach (FileInfo file in files)
-                filenames.Add(file.Name, null);
+            if (documentsDirectory.Exists)
+                foreach (FileInfo file in documentsDirectory.EnumerateFiles())
+                    filenames.Add(file.Name, null);
 
             return filenames;
         }
