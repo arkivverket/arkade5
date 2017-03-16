@@ -26,36 +26,6 @@ namespace Arkivverket.Arkade.Core
             return WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
         }
 
-        public string GetContentDescriptionXmlSchemaFileName()
-        {
-            return WorkingDirectory.Content().WithFile(ArkadeConstants.ArkivstrukturXsdFileName).FullName;
-        }
-
-        public string GetStructureDescriptionXmlSchemaFileName()
-        {
-            return WorkingDirectory.Content().WithFile(ArkadeConstants.AddmlXsdFileName).FullName;
-        }
-
-        public string GetMetadataCatalogXmlSchemaFileName()
-        {
-            return WorkingDirectory.Content().WithFile(ArkadeConstants.MetadatakatalogXsdFileName).FullName;
-        }
-
-        public bool HasStructureDescriptionXmlSchema()
-        {
-            return File.Exists(GetStructureDescriptionXmlSchemaFileName());
-        }
-
-        public bool HasContentDescriptionXmlSchema()
-        {
-            return File.Exists(GetStructureDescriptionXmlSchemaFileName());
-        }
-
-        public bool HasMetadataCatalogXmlSchema()
-        {
-            return File.Exists(GetMetadataCatalogXmlSchemaFileName());
-        }
-
         public FileInfo GetInformationPackageFileName()
         {
             return WorkingDirectory.Root().WithFile(Uuid.ToString() + ".tar");
