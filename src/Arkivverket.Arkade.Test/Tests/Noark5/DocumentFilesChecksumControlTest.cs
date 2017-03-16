@@ -93,7 +93,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         private static TestRun CreateTestRun(XmlElementHelper xmlElementHelper)
         {
-            const string testdataDirectory = "TestData\\Noark5\\DocumentfilesControl\\FilesToBeReferenced";
+            const string testdataDirectory = "TestData\\Noark5\\DocumentfilesControl\\FilesWithDocumentedChecksums";
 
             Archive testArchive = new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
