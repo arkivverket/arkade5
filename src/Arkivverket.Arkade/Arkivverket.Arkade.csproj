@@ -154,6 +154,7 @@
     <Compile Include="Core\ArchiveMetadata.cs" />
     <Compile Include="Core\ArkadeAddmlFieldDelimiterException.cs" />
     <Compile Include="Core\ArkadeApi.cs" />
+    <Compile Include="Core\EventReportingHelper.cs" />
     <Compile Include="ExternalModels\Cpf.cs" />
     <Compile Include="ExternalModels\DiasMets.cs" />
     <Compile Include="ExternalModels\DiasPremis.cs" />
@@ -166,6 +167,11 @@
     <Compile Include="Metadata\EacCpfCreator.cs" />
     <Compile Include="Metadata\EadCreator.cs" />
     <Compile Include="Metadata\MetadataFilesCreator.cs" />
+    <Compile Include="Resources\AddmlMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddmlMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Tests\Noark5\ArchivepartReferenceControl.cs" />
     <Compile Include="Tests\Noark5\ArchiveStartAndEndDateControl.cs" />
     <Compile Include="Tests\Noark5\ChangeLogArchiveReferenceControl.cs" />
@@ -371,6 +377,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\AddmlMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddmlMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\arkade.css" />
     <EmbeddedResource Include="Resources\bootstrap.min.css" />
     <EmbeddedResource Include="Resources\arkivverket.gif" />
