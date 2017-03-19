@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Logging;
 using System.Linq;
+using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -10,6 +12,7 @@ namespace Arkivverket.Arkade.Core.Addml
         private readonly AddmlProcessRunner _addmlProcessRunner;
         private readonly IStatusEventHandler _statusEventHandler;
         private readonly FlatFileReaderFactory _flatFileReaderFactory;
+        private readonly List<TestResult> _testResultsFailedRecordsList = new List<TestResult>();
 
         public AddmlDatasetTestEngine(FlatFileReaderFactory flatFileReaderFactory, AddmlProcessRunner addmlProcessRunner, IStatusEventHandler statusEventHandler)
         {
@@ -37,15 +40,30 @@ namespace Arkivverket.Arkade.Core.Addml
 
                 while (recordEnumerator != null && recordEnumerator.MoveNext())
                 {
-                    Record record = recordEnumerator.Current;
-                    _statusEventHandler.RaiseEventRecordProcessingStart();
-                    _addmlProcessRunner.RunProcesses(file, record);
-
-                    foreach (Field field in record.Fields)
+                    try
                     {
-                        _addmlProcessRunner.RunProcesses(file, field);
+                        _statusEventHandler.RaiseEventRecordProcessingStart();
+                        Record record = recordEnumerator.Current;
+                        _addmlProcessRunner.RunProcesses(file, record);
+
+                        foreach (Field field in record.Fields)
+                        {
+                            _addmlProcessRunner.RunProcesses(file, field);
+                        }
+
                     }
-                    _statusEventHandler.RaiseEventRecordProcessingStopped();
+                    catch (ArkadeAddmlFieldDelimiterException afed)
+                    {
+                        _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new AddmlLocation(file.GetName(), afed.RecordName,""), afed.Message + "Field: " + afed.RecordData));
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        _statusEventHandler.RaiseEventRecordProcessingStopped();
+                    }
 
                 }
                 _addmlProcessRunner.EndOfFile(file);
@@ -57,6 +75,14 @@ namespace Arkivverket.Arkade.Core.Addml
 
             HardcodedProcessRunner p = new HardcodedProcessRunner(addmlDefinition, testSession.Archive);
             p.Run().ForEach(t => testSuite.AddTestRun(t));
+
+
+            var failedRecoredTestRun = new TestRun(Resources.AddmlMessages.RecordLengthErrorTestName, TestType.Structure)
+            {
+                Results = _testResultsFailedRecordsList,
+            };
+
+            testSuite.AddTestRun(failedRecoredTestRun);
 
             return testSuite;
         }

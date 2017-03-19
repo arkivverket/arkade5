@@ -152,6 +152,7 @@
     <Compile Include="Core\Addml\FixedFormatReader.cs" />
     <Compile Include="Core\Addml\XmlFormatReader.cs" />
     <Compile Include="Core\ArchiveMetadata.cs" />
+    <Compile Include="Core\ArkadeAddmlFieldDelimiterException.cs" />
     <Compile Include="Core\ArkadeApi.cs" />
     <Compile Include="ExternalModels\Cpf.cs" />
     <Compile Include="ExternalModels\DiasMets.cs" />
