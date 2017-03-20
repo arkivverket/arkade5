@@ -6,6 +6,7 @@ Versjon 0.6.x
 *Dato: 20.03.2017*
 
 *Implementerte Noark5 tester siden forrige versjon:*
+
 * Alle Noark5 testere er implementert (se flere dealjer nedenfor)
 * To minnebruk problemer ved stort antall Noark 5 dokumenter er utbedret (internt funnet)
 * Fikset bug med «Kjør programmet på nytt» knappen for Noark 5
@@ -14,7 +15,9 @@ Versjon 0.6.x
 
 
 *Noark5 implementasjonsdetaljer*
+
 De følgende Noark5 testene ble implementert etter en ufullstending spesifikasjon, utbedringer med flere rapporteringsdetaljer følger i senere versjoner:
+
 * Noark5 Testpunkt Analyse 01. Antall arkiver i arkivstrukturen
 * Noark5 Testpunkt Analyse 02. Antall arkivdeler i arkivstrukturen
 * Noark5 Testpunkt Analyse 03: Arkivdelen[e]s status i arkivstrukturen
@@ -55,7 +58,9 @@ De følgende Noark5 testene ble implementert etter en ufullstending spesifikasjo
 * Noark5 Testpunkt Analyse 09. Antall mapper som er klassifisert med hver enkelt klasse i arkivstrukturen
 * Noark5 Testpunkt Analyse 11. Saksmappenes status i arkivstrukturen
 
+
 De følgende Noark5 testene ble implementert etter en detaljert kravspesifikasjon:
+
 * Noark5 Testpunkt Kontroll 47. Kontroll på at det ikke finnes dokumentfiler i arkivuttrekket som mangler referanse fra arkivstrukturen
 * Noark5 Testpunkt Analyse 13. Antall forskjellige journalposttyper i arkivstrukturen
 * Noark5 Testpunkt Analyse 15. Antall registreringer som er klassifisert med hver enkelt klasse i arkivstrukturen
