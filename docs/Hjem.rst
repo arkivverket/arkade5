@@ -5,7 +5,7 @@ Introduksjon og nedlasting
 --------------------------
 Arkade 5 utvikles av Arkitektum_ for Arkivverket_. Verktøyet benyttes til å teste arkivuttrekk både før og etter leveranse til Arkivverket.
 
-Programvaren skal ferdigstilles 1. mars 2017.
+Programvaren skal ferdigstilles 30. april 2017.
 
 Disse sidene vil fungere som dokumentasjonssider og for nedlasting av programmet.
 
