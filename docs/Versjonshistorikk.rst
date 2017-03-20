@@ -1,14 +1,24 @@
 Versjonshistorikk
 =================
 
+Gjennstående funsjonalitet før release 1.0
+------------------------------------------
+
+* Metadata registrering
+* Noark 4 (implementere støtte for utvidet XSLT trasnfomrasjon til ADDML)
+* Rapporter (utbedringer med tekster og sammendrag) 
+* Valideringer mot vedlagte XSD filer
+* Laste inn tar pakke (av mappe mappestruktur)
+
+
 Versjon 0.6.x
 -------------
 *Dato: 20.03.2017*
 
 *Oppdateringer siden forrige versjon:*
 
-* Alle Noark5 testere er implementert (se flere dealjer nedenfor)
-* To minnebruk problemer ved stort antall Noark 5 dokumenter er utbedret (internt funnet)
+* Alle Noark5 tester er implementert (se flere dealjer nedenfor)
+* Minnebruksproblemer som oppstod ved ett stort antall Noark 5 dokumenter er utbedret (internt funnet)
 * Fikset bug med «Kjør programmet på nytt» knappen for Noark 5
 * Utbedring: Noark5 XML valideringsfeil blir listet samlet i GUI (og rapport) og programmet kjører videre.
 * Utbedring: Kjører videre fra feil antall felt i ADDML post, hopper over behandling av posten og logger i GUI og rapport
@@ -59,7 +69,7 @@ De følgende Noark5 testene ble implementert etter en ufullstending spesifikasjo
 * Noark5 Testpunkt Analyse 11. Saksmappenes status i arkivstrukturen
 
 
-De følgende Noark5 testene ble implementert etter en detaljert kravspesifikasjon:
+De følgende Noark5 testene ble implementert etter en detaljert kravspesifikasjon (24.01.2017):
 
 * Noark5 Testpunkt Kontroll 47. Kontroll på at det ikke finnes dokumentfiler i arkivuttrekket som mangler referanse fra arkivstrukturen
 * Noark5 Testpunkt Analyse 13. Antall forskjellige journalposttyper i arkivstrukturen
