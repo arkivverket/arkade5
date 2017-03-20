@@ -240,6 +240,7 @@
     <Compile Include="Tests\Noark5\NumberOfEachJournalStatusTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksumsTest.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateNumberOfDocumentfilesTest.cs" />
+    <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchemaTest.cs" />
     <Compile Include="Tests\Noark5\SystemIdUniqueControlTest.cs" />
     <Compile Include="Tests\Noark5\TestUtil.cs" />
     <Compile Include="Tests\Noark5\XmlElementHelper.cs" />
