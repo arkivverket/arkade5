@@ -10,18 +10,20 @@ namespace Arkivverket.Arkade.Util
     {
         private static readonly List<string> _validationErrorMessages = new List<string>();
 
-        public static void Validate(string xmlString, string xmlSchemaString)
+        public static List<string> Validate(string xmlString, string xmlSchemaString)
         {
             var xmlStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlString));
             var xmlSchemaStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlSchemaString));
-            Validate(xmlStream, xmlSchemaStream);
+            return Validate(xmlStream, xmlSchemaStream);
         }
 
-        public static void Validate(Stream xmlStream, Stream xmlSchemaStream)
+        public static List<string> Validate(Stream xmlStream, Stream xmlSchemaStream)
         {
             XmlSchema xmlSchema = XmlSchema.Read(xmlSchemaStream, ValidationCallBack);
             XmlReaderSettings xmlReaderSettings = SetupXmlValidation(new List<XmlSchema> {xmlSchema});
             Validate(xmlStream, xmlReaderSettings);
+
+            return _validationErrorMessages;
         }
 
         public static List<string> Validate(Stream xmlStream, string[] xmlSchemaResources)
