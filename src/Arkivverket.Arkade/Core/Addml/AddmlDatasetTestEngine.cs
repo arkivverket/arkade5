@@ -54,7 +54,9 @@ namespace Arkivverket.Arkade.Core.Addml
                     }
                     catch (ArkadeAddmlFieldDelimiterException afed)
                     {
-                        _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new AddmlLocation(file.GetName(), afed.RecordName,""), afed.Message + "Field: " + afed.RecordData));
+                        _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new AddmlLocation(file.GetName(), afed.RecordName,""), afed.Message + " Felt text: " + afed.RecordData));
+                        new EventReportingHelper(_statusEventHandler).RaiseEventOperationMessage($"{Resources.AddmlMessages.RecordLengthErrorTestName} i fil {file.GetName()}, feil nummer {_testResultsFailedRecordsList.Count}" , 
+                            afed.Message + " Felt text: " + afed.RecordData, OperationMessageStatus.Error);
                     }
                     catch
                     {

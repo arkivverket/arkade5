@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="RecordLengthErrorTestName" xml:space="preserve">
-    <value>"ADDML post med feil antall felt "</value>
+    <value>ADDML post med feil antall felt</value>
+  </data>
+  <data name="UnexpectedNumberOfFields" xml:space="preserve">
+    <value>Fant feil nummer felt (funnet/forenvtet)</value>
   </data>
 </root>

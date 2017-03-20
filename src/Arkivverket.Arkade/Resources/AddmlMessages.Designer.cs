@@ -61,11 +61,20 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;ADDML post med feil antall felt &quot;.
+        ///   Looks up a localized string similar to ADDML post med feil antall felt.
         /// </summary>
         internal static string RecordLengthErrorTestName {
             get {
                 return ResourceManager.GetString("RecordLengthErrorTestName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fant feil nummer felt (funnet/forenvtet).
+        /// </summary>
+        internal static string UnexpectedNumberOfFields {
+            get {
+                return ResourceManager.GetString("UnexpectedNumberOfFields", resourceCulture);
             }
         }
     }
