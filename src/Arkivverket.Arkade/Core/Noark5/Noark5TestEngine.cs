@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Xml;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Tests;
@@ -102,7 +103,20 @@ namespace Arkivverket.Arkade.Core.Noark5
                 {
                     _statusEventHandler.RaiseEventOperationMessage(test.GetName(), "", OperationMessageStatus.Started);
                     test.Test(archive);
-                    _statusEventHandler.RaiseEventOperationMessage(test.GetName(), "", OperationMessageStatus.Ok);
+
+                    var errorTestResults = test.GetTestRun().Results.Where(r => r.IsError());
+                    if (errorTestResults.Any())
+                    {
+                        var message = new StringBuilder();
+
+                        foreach (var result in errorTestResults)
+                            message.AppendLine().AppendLine(result.Message);
+
+                        _statusEventHandler.RaiseEventOperationMessage(test.GetName(), message.ToString(),
+                            OperationMessageStatus.Error);
+                    }
+                    else
+                        _statusEventHandler.RaiseEventOperationMessage(test.GetName(), "", OperationMessageStatus.Ok);
                 }
                 catch (Exception)
                 {

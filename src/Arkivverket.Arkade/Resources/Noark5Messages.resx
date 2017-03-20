@@ -158,10 +158,8 @@
 Forventet: {1}
 Generert:  {2}</value>
   </data>
-  <data name="ExceptionXmlDoesNotValidateWithSchema" xml:space="preserve">
-    <value>{0} er ikke gyldig i henhold til XML-skjema.
-{1}</value>
-    <comment>0=filen som ikke er gyldig, 1=xml skjema brukt til validering, 2=valideringsmelding</comment>
+  <data name="XmlDoesNotValidateWithSchema" xml:space="preserve">
+    <value>{0} er ikke gyldig i henhold til XML-skjema: {1}</value>
   </data>
   <data name="NumberOfArchiveParts" xml:space="preserve">
     <value>Finn antall arkivdeler</value>
@@ -492,5 +490,8 @@ Generert:  {2}</value>
   </data>
   <data name="DocumentFilesChecksumControlMessage" xml:space="preserve">
     <value>Filen {0} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {1}</value>
+  </data>
+  <data name="ExceptionDuringXmlValidation" xml:space="preserve">
+    <value>Det oppsto et problem under validering av {0}: {1}</value>
   </data>
 </root>

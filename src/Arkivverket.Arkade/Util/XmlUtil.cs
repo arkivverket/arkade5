@@ -8,6 +8,8 @@ namespace Arkivverket.Arkade.Util
 {
     public class XmlUtil
     {
+        private static readonly List<string> _validationErrorMessages = new List<string>();
+
         public static void Validate(string xmlString, string xmlSchemaString)
         {
             var xmlStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlString));
@@ -22,7 +24,7 @@ namespace Arkivverket.Arkade.Util
             Validate(xmlStream, xmlReaderSettings);
         }
 
-        public static void Validate(Stream xmlStream, string[] xmlSchemaResources)
+        public static List<string> Validate(Stream xmlStream, string[] xmlSchemaResources)
         {
             var xmlSchemas = new List<XmlSchema>();
             foreach (string xmlSchemaResource in xmlSchemaResources)
@@ -32,6 +34,8 @@ namespace Arkivverket.Arkade.Util
 
             XmlReaderSettings xmlReaderSettings = SetupXmlValidation(xmlSchemas);
             Validate(xmlStream, xmlReaderSettings);
+
+            return _validationErrorMessages;
         }
 
         private static void Validate(Stream xmlStream, XmlReaderSettings xmlReaderSettings)
@@ -61,8 +65,7 @@ namespace Arkivverket.Arkade.Util
 
         private static void ValidationCallBack(object sender, ValidationEventArgs args)
         {
-            // TODO: Gather all problems
-            throw args.Exception;
+            _validationErrorMessages.Add(args.Message);
         }
     }
 }

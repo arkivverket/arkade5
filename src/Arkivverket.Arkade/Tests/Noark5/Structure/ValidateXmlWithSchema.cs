@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
@@ -35,13 +36,21 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             string fileName = Path.GetFileName(fullPathToFile);
             try
             {
-                XmlUtil.Validate(fileStream, xsdResources);
-                _testResults.Add(new TestResult(ResultType.Success, new Location(fileName), Noark5Messages.ValidateXmlWithSchemaMessageValid));
+                List<string> validationErrorMessages = XmlUtil.Validate(fileStream, xsdResources);
+                if (validationErrorMessages.Any())
+                    foreach (string validationErrorMessage in validationErrorMessages)
+                    {
+                        _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                            string.Format(Noark5Messages.XmlDoesNotValidateWithSchema,
+                                fileName, validationErrorMessage)));
+                    }
+                else
+                    _testResults.Add(new TestResult(ResultType.Success, new Location(fileName),
+                        Noark5Messages.ValidateXmlWithSchemaMessageValid));
             }
             catch (Exception e)
             {
-                string message = string.Format(Noark5Messages.ExceptionXmlDoesNotValidateWithSchema,
-                    fileName, e.Message);
+                string message = string.Format(Noark5Messages.ExceptionDuringXmlValidation, fileName, e.Message);
                 throw new ArkadeException(message, e);
             }
         }

@@ -340,6 +340,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Det oppsto et problem under validering av {0}: {1}.
+        /// </summary>
+        internal static string ExceptionDuringXmlValidation {
+            get {
+                return ResourceManager.GetString("ExceptionDuringXmlValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sjekksummen stemmer ikke for filen: {0}
         ///Forventet: {1}
         ///Generert:  {2}.
@@ -347,16 +356,6 @@ namespace Arkivverket.Arkade.Resources {
         internal static string ExceptionInvalidChecksum {
             get {
                 return ResourceManager.GetString("ExceptionInvalidChecksum", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} er ikke gyldig i henhold til XML-skjema.
-        ///{1}.
-        /// </summary>
-        internal static string ExceptionXmlDoesNotValidateWithSchema {
-            get {
-                return ResourceManager.GetString("ExceptionXmlDoesNotValidateWithSchema", resourceCulture);
             }
         }
         
@@ -1176,6 +1175,15 @@ namespace Arkivverket.Arkade.Resources {
         internal static string ValidateXmlWithSchemaMessageValid {
             get {
                 return ResourceManager.GetString("ValidateXmlWithSchemaMessageValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} er ikke gyldig i henhold til XML-skjema: {1}.
+        /// </summary>
+        internal static string XmlDoesNotValidateWithSchema {
+            get {
+                return ResourceManager.GetString("XmlDoesNotValidateWithSchema", resourceCulture);
             }
         }
     }
