@@ -2,7 +2,6 @@
 using Arkivverket.Arkade.Util;
 using Xunit;
 using FluentAssertions;
-using System.Xml.Schema;
 
 namespace Arkivverket.Arkade.Test.Util
 {
@@ -13,9 +12,11 @@ namespace Arkivverket.Arkade.Test.Util
         private string addml = TestUtil.ReadFromFileInTestDataDir("noark3\\addml.xml");
 
         [Fact]
-        public void ShouldNotThrowExceptionIfXmlValidateAgainstSchema()
+        public void ShouldNotCreateErrorsIfIfXmlValidateAgainstSchema()
         {
-            XmlUtil.Validate(addml, addmlXsd);
+            var validationErrorMessages = XmlUtil.Validate(addml, addmlXsd);
+
+            validationErrorMessages.Count.Should().Be(0);
         }
 
         [Fact]
@@ -23,8 +24,13 @@ namespace Arkivverket.Arkade.Test.Util
         {
             var invalidAddml = addml.Replace("dataset", "datasett");
 
-            var exception = Xunit.Assert.Throws<XmlSchemaValidationException>(() => XmlUtil.Validate(invalidAddml, addmlXsd));
-            exception.Message.Should().Contain("datasett");
+            var validationErrorMessages = XmlUtil.Validate(invalidAddml, addmlXsd);
+
+            validationErrorMessages.Should().Contain(m => m.Equals(
+                "Elementet addml i navneområdet http://www.arkivverket.no/standarder/addml" +
+                " har ugyldig underordnet element datasett i navneområdet http://www.arkivverket.no/standarder/addml." +
+                " Forventet liste over mulige elementer: dataset i navneområdet http://www.arkivverket.no/standarder/addml.")
+            );
         }
 
     }
