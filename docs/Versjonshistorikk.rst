@@ -5,7 +5,7 @@ Versjon 0.6.x
 -------------
 *Dato: 20.03.2017*
 
-*Implementerte Noark5 tester siden forrige versjon:*
+*Oppdateringer siden forrige versjon:*
 
 * Alle Noark5 testere er implementert (se flere dealjer nedenfor)
 * To minnebruk problemer ved stort antall Noark 5 dokumenter er utbedret (internt funnet)
