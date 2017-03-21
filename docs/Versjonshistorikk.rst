@@ -11,8 +11,8 @@ Gjennstående funsjonalitet før release 1.0
 * Laste inn tar pakke (av mappe mappestruktur)
 
 
-Versjon 0.6.x
--------------
+Versjon 0.6.18
+--------------
 *Dato: 20.03.2017*
 
 *Oppdateringer siden forrige versjon:*
