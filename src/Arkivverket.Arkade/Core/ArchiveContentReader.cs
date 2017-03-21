@@ -17,6 +17,22 @@ namespace Arkivverket.Arkade.Core
             string fileName = archive.GetStructureDescriptionFileName();
             return GetFileAsStream(fileName);
         }
+        public Stream GetContentDescriptionXmlSchemaAsStream(Archive archive)
+        {
+            string fileName = archive.GetContentDescriptionXmlSchemaFileName();
+            return GetFileAsStream(fileName);
+        }
+
+        public Stream GetStructureDescriptionXmlSchemaAsStream(Archive archive)
+        {
+            string fileName = archive.GetStructureDescriptionXmlSchemaFileName();
+            return GetFileAsStream(fileName);
+        }
+        public Stream GetMetadataCatalogXmlSchemaAsStream(Archive archive)
+        {
+            string fileName = archive.GetMetadataCatalogXmlSchemaFileName();
+            return GetFileAsStream(fileName);
+        }
 
         private static Stream GetFileAsStream(string fileName)
         {

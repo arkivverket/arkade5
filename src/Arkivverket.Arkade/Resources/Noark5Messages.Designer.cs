@@ -369,6 +369,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skjemafil {0} ble ikke funnet i uttrekket. Validering gjøres ihht. en versjon av {0} som er innebygget i Arkade.
+        /// </summary>
+        internal static string InternalSchemaFileIsUsed {
+            get {
+                return ResourceManager.GetString("InternalSchemaFileIsUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall arkivdeler.
         /// </summary>
         internal static string NumberOfArchiveParts {

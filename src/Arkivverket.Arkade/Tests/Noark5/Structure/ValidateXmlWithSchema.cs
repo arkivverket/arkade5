@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
@@ -25,13 +27,13 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
         public override void Test(Archive archive)
         {
             ValidateXml(archive.GetStructureDescriptionFileName(), _archiveReader.GetStructureContentAsStream(archive),
-                ArkadeConstants.AddmlXsdResource);
+                GetStructureDescriptionXmlSchemaStream(archive));
 
             ValidateXml(archive.GetContentDescriptionFileName(), _archiveReader.GetContentAsStream(archive),
-                ArkadeConstants.ArkivstrukturXsdResource, ArkadeConstants.MetadatakatalogXsdResource);
+                GetContentDescriptionXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
         }
 
-        private void ValidateXml(string fullPathToFile, Stream fileStream, params string[] xsdResources)
+        private void ValidateXml(string fullPathToFile, Stream fileStream, params Stream[] xsdResources)
         {
             string fileName = Path.GetFileName(fullPathToFile);
             try
@@ -53,6 +55,48 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
                 string message = string.Format(Noark5Messages.ExceptionDuringXmlValidation, fileName, e.Message);
                 throw new ArkadeException(message, e);
             }
+        }
+
+        private Stream GetStructureDescriptionXmlSchemaStream(Archive archive)
+        {
+            if (archive.HasStructureDescriptionXmlSchema())
+                return _archiveReader.GetStructureDescriptionXmlSchemaAsStream(archive);
+
+            // Fallback on internal addml.xsd:
+
+            _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                // TODO: Consider ResultType.Warning (if it becomes supported)
+                string.Format(Noark5Messages.InternalSchemaFileIsUsed, ArkadeConstants.AddmlXsdFileName)));
+
+            return ResourceUtil.GetResourceAsStream(ArkadeConstants.AddmlXsdResource);
+        }
+
+        private Stream GetContentDescriptionXmlSchemaStream(Archive archive)
+        {
+            if (archive.HasContentDescriptionXmlSchema())
+                return _archiveReader.GetContentDescriptionXmlSchemaAsStream(archive);
+
+            // Fallback on internal arkivstruktur.xsd:
+
+            _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                // TODO: Consider ResultType.Warning (if it becomes supported)
+                string.Format(Noark5Messages.InternalSchemaFileIsUsed, ArkadeConstants.ArkivstrukturXsdFileName)));
+
+            return ResourceUtil.GetResourceAsStream(ArkadeConstants.ArkivstrukturXsdResource);
+        }
+
+        private Stream GetMetadataCatalogXmlSchemaStream(Archive archive)
+        {
+            if (archive.HasMetadataCatalogXmlSchema())
+                return _archiveReader.GetMetadataCatalogXmlSchemaAsStream(archive);
+
+            // Fallback on internal metadatakatalog.xsd:
+
+            _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                // TODO: Consider ResultType.Warning (if it becomes supported)
+                string.Format(Noark5Messages.InternalSchemaFileIsUsed, ArkadeConstants.MetadatakatalogXsdFileName)));
+
+            return ResourceUtil.GetResourceAsStream(ArkadeConstants.MetadatakatalogXsdResource);
         }
 
         public override string GetName()

@@ -26,13 +26,12 @@ namespace Arkivverket.Arkade.Util
             return _validationErrorMessages;
         }
 
-        public static List<string> Validate(Stream xmlStream, string[] xmlSchemaResources)
+        public static List<string> Validate(Stream xmlStream, Stream[] xmlSchemaStreams)
         {
             var xmlSchemas = new List<XmlSchema>();
-            foreach (string xmlSchemaResource in xmlSchemaResources)
-            {
-                xmlSchemas.Add(XmlSchema.Read(ResourceUtil.GetResourceAsStream(xmlSchemaResource), ValidationCallBack));
-            }
+
+            foreach (Stream xmlSchemaStream in xmlSchemaStreams)
+                xmlSchemas.Add(XmlSchema.Read(xmlSchemaStream, ValidationCallBack));
 
             XmlReaderSettings xmlReaderSettings = SetupXmlValidation(xmlSchemas);
             Validate(xmlStream, xmlReaderSettings);

@@ -494,4 +494,7 @@ Generert:  {2}</value>
   <data name="ExceptionDuringXmlValidation" xml:space="preserve">
     <value>Det oppsto et problem under validering av {0}: {1}</value>
   </data>
+  <data name="InternalSchemaFileIsUsed" xml:space="preserve">
+    <value>Skjemafil {0} ble ikke funnet i uttrekket. Validering gjøres ihht. en versjon av {0} som er innebygget i Arkade</value>
+  </data>
 </root>
