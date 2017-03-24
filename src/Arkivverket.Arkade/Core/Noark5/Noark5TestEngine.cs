@@ -60,6 +60,9 @@ namespace Arkivverket.Arkade.Core.Noark5
 
                 while (ReadNextNode(reader))
                 {
+                    if (reader.IsEmptyElement)
+                        continue;
+
                     switch (reader.NodeType)
                     {
                         case XmlNodeType.Element:
