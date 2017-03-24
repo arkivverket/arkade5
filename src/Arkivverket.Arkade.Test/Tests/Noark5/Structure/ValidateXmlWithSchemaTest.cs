@@ -78,37 +78,27 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
             return new MemoryStream(Encoding.UTF8.GetBytes(value ?? ""));
         }
 
-        [Fact (Skip = "Language issue")]
+        [Fact]
         public void ShouldReturnErrorsWhenAddmlXmlIsInvalidAccordingToSchema()
         {
             var xml =
                 @"<?xml version=""1.0"" encoding=""utf-8""?><addml xmlns=""http://www.arkivverket.no/standarder/addml""><hello></hello></addml>";
             _archiveStructureContent = GenerateStreamFromString(xml);
 
-            RunTest().Results.Should().Contain(r => r.IsError() && r.Message.Equals(
-                "addml.xml er ikke gyldig i henhold til XML-skjema:" +
-                " Elementet addml i navneområdet http://www.arkivverket.no/standarder/addml" +
-                " har ugyldig underordnet element hello i navneområdet http://www.arkivverket.no/standarder/addml." +
-                " Forventet liste over mulige elementer: dataset i navneområdet http://www.arkivverket.no/standarder/addml."
-            ));
+            RunTest().Results.Should().Contain(r => r.IsError() && r.Message.Contains("hello"));
         }
 
-        [Fact (Skip="Language issue")]
+        [Fact]
         public void ShouldReturnErrorsWhenArkivstrukturXmlIsInvalidAccordingToSchema()
         {
             var xml =
                 @"<?xml version=""1.0"" encoding=""utf-8""?><arkiv xmlns=""http://www.arkivverket.no/standarder/noark5/arkivstruktur""><hello></hello></arkiv>";
             _archiveContent = GenerateStreamFromString(xml);
 
-            RunTest().Results.Should().Contain(r => r.IsError() && r.Message.Equals(
-                "arkivstruktur.xml er ikke gyldig i henhold til XML-skjema:" +
-                " Elementet arkiv i navneområdet http://www.arkivverket.no/standarder/noark5/arkivstruktur" +
-                " har ugyldig underordnet element hello i navneområdet http://www.arkivverket.no/standarder/noark5/arkivstruktur." +
-                " Forventet liste over mulige elementer: systemID i navneområdet http://www.arkivverket.no/standarder/noark5/arkivstruktur."
-            ));
+            RunTest().Results.Should().Contain(r => r.IsError() && r.Message.Contains("hello"));
         }
 
-        [Fact (Skip = "Cannot run after the tests with schema-errors (possible due to disposal-problems)")]
+        [Fact(Skip = "Interferred by test data from other tests ...")]
         public void ShouldReturnSuccessWhenBothArkivuttrekkAndArkivstrukturIsValidXml()
         {
             var testResults = RunTest();
