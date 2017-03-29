@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fant feil nummer felt (funnet/forenvtet).
+        ///   Looks up a localized string similar to Fant feil nummer felt (funnet/forventet).
         /// </summary>
         internal static string UnexpectedNumberOfFields {
             get {

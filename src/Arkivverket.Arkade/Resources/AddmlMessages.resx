@@ -121,6 +121,6 @@
     <value>ADDML post med feil antall felt</value>
   </data>
   <data name="UnexpectedNumberOfFields" xml:space="preserve">
-    <value>Fant feil nummer felt (funnet/forenvtet)</value>
+    <value>Fant feil nummer felt (funnet/forventet)</value>
   </data>
 </root>
