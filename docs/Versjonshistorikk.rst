@@ -5,10 +5,23 @@ Gjennstående funsjonalitet før release 1.0
 ------------------------------------------
 
 * Metadata registrering
-* Noark 4 (implementere støtte for utvidet XSLT trasnfomrasjon til ADDML)
+* Noark 4 (implementere støtte for utvidet XSLT transformasjon til ADDML)
 * Rapporter (utbedringer med tekster og sammendrag) 
-* Valideringer mot vedlagte XSD filer
 * Laste inn tar pakke (av mappe mappestruktur)
+* Oppdateringer av Noark5 tester (se v. 0.6.18)
+
+
+Versjon 0.6.24
+--------------
+*Dato: 03.04.2017*
+
+*Oppdateringer siden forrige versjon:*
+
+* Feilfiksing: Problem med "null pointer exception" for Noark5 uttrekk er utbedret.
+* Ny funksjonalitet: Valideringer mot vedlagte XSD filer
+* Utbedring: ADDML avvik ved feil antall felt i en post (ofte skilletegn feil) rapporterer også post nummer.
+* Utbedring: Programmet er satt opp til å terminere etter å ha funnet 1000 ADDML avvik ved feil antall felt i en post
+
 
 
 Versjon 0.6.18
@@ -242,3 +255,4 @@ Testpunkter som er implementert for Noark 5
 * Antall klasser i arkivsstrukturen
 * Antall klasser uten underklasser eller mapper i det primære klassifikasjonssystemet i arkivstrukturen
 * Antall mapper i arkivstrukturen
+
