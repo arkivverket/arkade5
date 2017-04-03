@@ -13,6 +13,7 @@ namespace Arkivverket.Arkade.Core.Addml
         private readonly IStatusEventHandler _statusEventHandler;
         private readonly FlatFileReaderFactory _flatFileReaderFactory;
         private readonly List<TestResult> _testResultsFailedRecordsList = new List<TestResult>();
+        private int _totalFoundFieldDelimErrors = 0;
 
         public AddmlDatasetTestEngine(FlatFileReaderFactory flatFileReaderFactory, AddmlProcessRunner addmlProcessRunner, IStatusEventHandler statusEventHandler)
         {
@@ -32,6 +33,7 @@ namespace Arkivverket.Arkade.Core.Addml
             foreach (FlatFile file in flatFiles)
             {
                 string testName = string.Format(Resources.Messages.RunningAddmlProcessesOnFile, file.GetName());
+                int recordIdx = 0;
                 _statusEventHandler.RaiseEventFileProcessingStarted(new FileProcessingStatusEventArgs(testName, file.GetName()));
 
                 _addmlProcessRunner.RunProcesses(file);
@@ -52,11 +54,13 @@ namespace Arkivverket.Arkade.Core.Addml
                         }
 
                     }
-                    catch (ArkadeAddmlFieldDelimiterException afed)
+                    catch (ArkadeAddmlDelimiterException afed)
                     {
-                        _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new AddmlLocation(file.GetName(), afed.RecordName,""), afed.Message + " Felt text: " + afed.RecordData));
-                        new EventReportingHelper(_statusEventHandler).RaiseEventOperationMessage($"{Resources.AddmlMessages.RecordLengthErrorTestName} i fil {file.GetName()}, feil nummer {_testResultsFailedRecordsList.Count}" , 
-                            afed.Message + " Felt text: " + afed.RecordData, OperationMessageStatus.Error);
+                        _totalFoundFieldDelimErrors++;
+                        _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new AddmlLocation(file.GetName(), afed.RecordName,""), afed.Message + " Felt tekst: " + afed.RecordData));
+                        new EventReportingHelper(_statusEventHandler).RaiseEventOperationMessageErrorAddmlFieldDelim($"{Resources.AddmlMessages.RecordLengthErrorTestName} i fil {file.GetName()}, post nummer {recordIdx}, feil nummer {_testResultsFailedRecordsList.Count}" , 
+                            afed.Message + " Felt tekst: " + afed.RecordData, OperationMessageStatus.Error, _totalFoundFieldDelimErrors);
+                       
                     }
                     catch
                     {
@@ -67,6 +71,7 @@ namespace Arkivverket.Arkade.Core.Addml
                         _statusEventHandler.RaiseEventRecordProcessingStopped();
                     }
 
+                    recordIdx++;
                 }
                 _addmlProcessRunner.EndOfFile(file);
 

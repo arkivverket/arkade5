@@ -72,7 +72,7 @@ namespace Arkivverket.Arkade.Core.Addml
             {
                 int maxFields = 40;
                 string fielddata = currentLine.Length <= maxFields ? currentLine : currentLine.Substring(0, maxFields-1);
-                throw new ArkadeAddmlFieldDelimiterException(
+                throw new ArkadeAddmlDelimiterException(
                     $"{Resources.AddmlMessages.UnexpectedNumberOfFields}: {strings.Length}/{fieldDefinitions.Count}", 
                     recordDefinition.Name, 
                     fielddata);
