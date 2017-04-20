@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
-using Arkivverket.Arkade.ExternalModels.PublicJournal;
-using Arkivverket.Arkade.ExternalModels.RunningJournal;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Util;
 
@@ -21,10 +19,10 @@ namespace Arkivverket.Arkade.Tests.Noark5
             try
             {
                 _publicJournalNumberOfJournalPosts =
-                    GetPostCountFromJournal<offentligJournal>(ArkadeConstants.PublicJournalXmlFileName, archive);
+                    GetPostCountFromJournal(ArkadeConstants.PublicJournalXmlFileName, archive);
 
                 _runningJournalNumberOfJournalPosts =
-                    GetPostCountFromJournal<loependeJournal>(ArkadeConstants.RunningJournalXmlFileName, archive);
+                    GetPostCountFromJournal(ArkadeConstants.RunningJournalXmlFileName, archive);
             }
             catch (Exception)
             {
@@ -70,15 +68,15 @@ namespace Arkivverket.Arkade.Tests.Noark5
                    _archiveExtractionJournalPostCount == _runningJournalNumberOfJournalPosts;
         }
 
-        private static int GetPostCountFromJournal<T>(string journalXmlFileName, Archive archive)
+        private static int GetPostCountFromJournal(string journalXmlFileName, Archive archive)
         {
             string journalXmlFile = archive.WorkingDirectory.Content().WithFile(journalXmlFileName).FullName;
 
-            dynamic runningJournalXml = SerializeUtil.DeserializeFromFile<T>(journalXmlFile);
+            // TODO: Check for file existance to distinguish file not found error from deserialize error
 
-            string numberOfJournalPosts = runningJournalXml.journalhode.antallJournalposter;
+            JournalHead journalHead = JournalGuillotine.Behead(journalXmlFile);
 
-            return int.Parse(numberOfJournalPosts);
+            return journalHead.NumberOfJournalposts;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

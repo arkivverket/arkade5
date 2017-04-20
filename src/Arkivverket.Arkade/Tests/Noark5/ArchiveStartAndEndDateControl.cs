@@ -5,8 +5,6 @@ using System.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.ExternalModels.Addml;
-using Arkivverket.Arkade.ExternalModels.PublicJournal;
-using Arkivverket.Arkade.ExternalModels.RunningJournal;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Util;
 
@@ -18,8 +16,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
     public class ArchiveStartAndEndDateControl : Noark5XmlReaderBaseTest
     {
         private readonly SortedSet<DateTime> _registrationCreationDates;
-        private readonly offentligJournal _publicJournal;
-        private readonly loependeJournal _runningJournal;
+        private readonly JournalHead _headPublicJournal;
+        private readonly JournalHead _headRunningJournal;
         private readonly addml _archiveExtraction;
         private static List<string> _filesNotFound;
 
@@ -28,9 +26,9 @@ namespace Arkivverket.Arkade.Tests.Noark5
             _registrationCreationDates = new SortedSet<DateTime>();
 
             _filesNotFound = new List<string>();
-            _publicJournal = Deserialize<offentligJournal>(ArkadeConstants.PublicJournalXmlFileName, archive);
-            _runningJournal = Deserialize<loependeJournal>(ArkadeConstants.RunningJournalXmlFileName, archive);
-            _archiveExtraction = Deserialize<addml>(ArkadeConstants.ArkivuttrekkXmlFileName, archive);
+            _headPublicJournal = GetJournalHead(ArkadeConstants.PublicJournalXmlFileName, archive);
+            _headRunningJournal = GetJournalHead(ArkadeConstants.RunningJournalXmlFileName, archive);
+            _archiveExtraction = GetAddmlObject(ArkadeConstants.ArkivuttrekkXmlFileName, archive);
         }
 
         public override string GetName()
@@ -61,12 +59,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 _registrationCreationDates.Last()
             );
             var publicJournalDates = new StartAndEndDate(
-                _publicJournal.journalhode.journalStartDato,
-                _publicJournal.journalhode.journalSluttDato
+                _headPublicJournal.JournalStartDate,
+                _headPublicJournal.JournalEndDate
             );
             var runningJournalDates = new StartAndEndDate(
-                _runningJournal.journalhode.journalStartDato,
-                _runningJournal.journalhode.journalSluttDato
+                _headRunningJournal.JournalStartDate,
+                _headRunningJournal.JournalEndDate
             );
 
             testResults.AddRange(new[]
@@ -136,19 +134,36 @@ namespace Arkivverket.Arkade.Tests.Noark5
             return inboundSeparation.value.Equals("skarp") && outboundSeparation.value.Equals("skarp");
         }
 
-        private static T Deserialize<T>(string xmlFile, Archive archive)
+        private static JournalHead GetJournalHead(string journalXmlFileName, Archive archive)
         {
+            string journalXmlFile = archive.WorkingDirectory.Content().WithFile(journalXmlFileName).FullName;
+
             try
             {
-                return SerializeUtil.DeserializeFromFile<T>(
-                    archive.WorkingDirectory.Content().WithFile(xmlFile).FullName
-                );
+                return JournalGuillotine.Behead(journalXmlFile);
+            }
+            catch
+            {
+                _filesNotFound.Add(journalXmlFileName);
+                return null;
+            }
+            // TODO: Check for file existance to distinguish file not found error from deserialize error
+        }
+
+        private static addml GetAddmlObject(string addmlXmlFileName, Archive archive)
+        {
+            string addmlXmlFile = archive.WorkingDirectory.Content().WithFile(addmlXmlFileName).FullName;
+
+            try
+            {
+                return SerializeUtil.DeserializeFromFile<addml>(addmlXmlFile);
             }
             catch (Exception)
             {
-                _filesNotFound.Add(xmlFile);
-                return default(T);
+                _filesNotFound.Add(addmlXmlFileName);
+                return null;
             }
+            // TODO: Check for file existance to distinguish file not found error from deserialize error
         }
 
         private class StartAndEndDate
