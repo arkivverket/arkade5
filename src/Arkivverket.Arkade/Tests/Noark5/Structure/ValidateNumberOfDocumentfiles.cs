@@ -83,7 +83,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
         {
             return archive.WorkingDirectory.Content()
                 .WithSubDirectory(ArkadeConstants.DirectoryNameDocuments)
-                .DirectoryInfo().GetFiles().Length;
+                .DirectoryInfo().GetFiles(".", SearchOption.AllDirectories).Length;
         }
 
         private static int GetDocumentedFileCount(Archive archive)

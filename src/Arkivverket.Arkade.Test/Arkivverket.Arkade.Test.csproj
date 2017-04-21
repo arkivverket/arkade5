@@ -343,6 +343,15 @@
     <None Include="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\dokumenter\5000001.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\Noark5\DocumentfilesControl\Sub-directories\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\DocumentfilesControl\Sub-directories\content\dokumenter\sub-directory\5000001.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\DocumentfilesControl\Sub-directories\content\dokumenter\sub-directory\sub-sub-directory\5000002.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\Noark5\Small\addml.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -422,6 +431,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="TestData\Noark5\DocumentfilesControl\FilesWithDocumentedChecksums\content\dokumenter\checksums.txt" />
+    <Content Include="TestData\Noark5\DocumentfilesControl\Sub-directories\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\Noark5\LogsControl\endringslogg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
