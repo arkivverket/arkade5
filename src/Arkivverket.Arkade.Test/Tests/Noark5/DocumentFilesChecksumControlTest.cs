@@ -75,17 +75,13 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             TestRun testRun = CreateTestRun(xmlElementHelper);
 
             testRun.Results.Should().Contain(r =>
-                r.IsError() &&
-                r.Location.ToString().Equals("dokumenter") &&
-                r.Message.Equals(
-                    "Filen 5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_1"
+                r.IsError() && r.Message.Equals(
+                    "Filen dokumenter\\5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_1"
                 ));
 
             testRun.Results.Should().Contain(r =>
-                r.IsError() &&
-                r.Location.ToString().Equals("dokumenter") &&
-                r.Message.Equals(
-                    "Filen 5000001.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_2"
+                r.IsError() && r.Message.Equals(
+                    "Filen dokumenter/5000001.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_2"
                 ));
 
             testRun.Results.Count.Should().Be(2);
