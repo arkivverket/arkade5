@@ -28,7 +28,13 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                                 new XmlElementHelper().Add("dokumentobjekt",
                                                     new XmlElementHelper().Add("referanseDokumentfil",
                                                         // Backslashed file reference supported:
-                                                        "dokumenter\\5000001.pdf")))))))));
+                                                        "dokumenter\\5000001.pdf"))))
+                                        .Add("registrering", new[] { "xsi:type", "journalpost" },
+                                            new XmlElementHelper().Add("dokumentbeskrivelse",
+                                                new XmlElementHelper().Add("dokumentobjekt",
+                                                    new XmlElementHelper().Add("referanseDokumentfil",
+                                                        // Subdirectory file reference:
+                                                        "dokumenter/underkatalog/5000002.pdf")))))))));
 
 
             TestRun testRun = CreateTestRun(xmlElementHelper);
@@ -50,12 +56,18 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                             new XmlElementHelper().Add("dokumentbeskrivelse",
                                                 new XmlElementHelper().Add("dokumentobjekt",
                                                     new XmlElementHelper().Add("referanseDokumentfil",
-                                                        "dokumenter/5000000.pdf")))))))));
+                                                        "dokumenter/5000000.pdf"))))
+                                        .Add("registrering", new[] { "xsi:type", "journalpost" },
+                                            new XmlElementHelper().Add("dokumentbeskrivelse",
+                                                new XmlElementHelper().Add("dokumentobjekt",
+                                                    new XmlElementHelper().Add("referanseDokumentfil",
+                                                        "dokumenter/underkatalog/5000002.pdf")))))))));
+
 
             TestRun testRun = CreateTestRun(xmlElementHelper);
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                    "Ikke-referert fil funnet: 5000001.pdf")
+                    "Ikke-referert fil funnet: dokumenter/5000001.pdf")
             );
 
             testRun.Results.Count.Should().Be(1);

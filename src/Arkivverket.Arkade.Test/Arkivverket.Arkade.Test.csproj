@@ -325,6 +325,9 @@
     <None Include="TestData\Noark5\DocumentfilesControl\CountMismatch\content\dokumenter\5000000.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\dokumenter\underkatalog\5000002.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\Noark5\DocumentfilesControl\FilesWithDocumentedChecksums\content\dokumenter\5000000.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

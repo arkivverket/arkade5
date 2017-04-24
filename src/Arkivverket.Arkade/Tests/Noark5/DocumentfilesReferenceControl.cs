@@ -50,16 +50,24 @@ namespace Arkivverket.Arkade.Tests.Noark5
             var filenames = new Hashtable();
 
             if (documentsDirectory.Exists)
-                foreach (FileInfo file in documentsDirectory.EnumerateFiles())
-                    filenames.Add(file.Name, null);
+                FindFilenames(documentsDirectory, filenames, documentsDirectory.Name);
 
             return filenames;
+        }
+
+        private static void FindFilenames(DirectoryInfo directoryInfo, Hashtable filenames, string relativePath)
+        {
+            foreach (FileInfo fileInfo in directoryInfo.EnumerateFiles())
+                filenames.Add($"{relativePath}/{fileInfo.Name}", null);
+
+            foreach (DirectoryInfo subDirectoryInfo in directoryInfo.EnumerateDirectories())
+                FindFilenames(subDirectoryInfo, filenames, $"{relativePath}/{subDirectoryInfo.Name}");
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("referanseDokumentfil", "dokumentobjekt"))
-                _documentFileNames.Remove(new FileInfo(eventArgs.Value).Name);
+                _documentFileNames.Remove(eventArgs.Value.Replace("\\", "/"));
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
