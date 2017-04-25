@@ -14,12 +14,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
     public class ChangeLogArchiveReferenceControl : Noark5XmlReaderBaseTest
     {
         private readonly Archive _archive;
-        private readonly List<string> _systemIDs;
+        private readonly HashSet<string> _systemIDs;
 
         public ChangeLogArchiveReferenceControl(Archive archive)
         {
             _archive = archive;
-            _systemIDs = new List<string>();
+            _systemIDs = new HashSet<string>();
         }
 
         public override string GetName()
