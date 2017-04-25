@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
-using Arkivverket.Arkade.ExternalModels.ChangeLog;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Util;
 
@@ -36,23 +36,32 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             var testResults = new List<TestResult>();
 
+            string changelogFullFilename = _archive.WorkingDirectory.Content()
+                .WithFile(ArkadeConstants.ChangeLogXmlFileName).FullName;
+
             try
             {
-                var changeLog = SerializeUtil.DeserializeFromFile<endringslogg>(
-                    _archive.WorkingDirectory.Content().WithFile(ArkadeConstants.ChangeLogXmlFileName).FullName
-                );
+                var logReader = new XmlTextReader(changelogFullFilename);
 
-                var changeLogChanges = changeLog.endring;
-
-                foreach (var change in changeLogChanges)
+                while (logReader.Read())
                 {
-                    if (!_systemIDs.Contains(change.referanseArkivenhet))
+                    if (logReader.Name.Equals("referanseArkivenhet") && logReader.IsStartElement())
                     {
-                        testResults.Add(new TestResult(
-                            ResultType.Error, new Location(ArkadeConstants.ChangeLogXmlFileName), string.Format(
-                                Noark5Messages.ChangeLogArchiveReferenceControlMessage, change.referanseArkivenhet)));
+                        logReader.Read(); // Move to textnode containing the actual reference (systemID)
+
+                        string loggedSystemId = logReader.Value;
+
+                        if (!_systemIDs.Contains(loggedSystemId))
+                        {
+                            testResults.Add(new TestResult(ResultType.Error,
+                                new Location(ArkadeConstants.ChangeLogXmlFileName),
+                                string.Format(Noark5Messages.ChangeLogArchiveReferenceControlMessage, loggedSystemId))
+                            );
+                        }
                     }
                 }
+
+                logReader.Close();
             }
             catch (Exception)
             {

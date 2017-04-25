@@ -41,9 +41,4 @@ echo "Generate classes for cpf.xsd"
 copy /y cpf_xlink.cs ..\Cpf.cs
 del cpf_xlink.cs 
 
-echo "Generate classes for endringslogg.xsd"
-"C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\xsd.exe" /nologo endringslogg.xsd metadatakatalog.xsd /c /n:Arkivverket.Arkade.ExternalModels.ChangeLog
-copy /y endringslogg_metadatakatalog.cs ..\Endringslogg.cs
-del endringslogg_metadatakatalog.cs
-
 pause

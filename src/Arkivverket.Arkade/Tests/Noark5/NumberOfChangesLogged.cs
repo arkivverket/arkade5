@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
-using Arkivverket.Arkade.ExternalModels.ChangeLog;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Util;
 
@@ -32,15 +32,22 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override List<TestResult> GetTestResults()
         {
+            int numberOfChangesLogged = 0;
+
             var testResults = new List<TestResult>();
+
+            string changelogFullFilename = _archive.WorkingDirectory.Content()
+                .WithFile(ArkadeConstants.ChangeLogXmlFileName).FullName;
 
             try
             {
-                var changeLog = SerializeUtil.DeserializeFromFile<endringslogg>(
-                    _archive.WorkingDirectory.Content().WithFile(ArkadeConstants.ChangeLogXmlFileName).FullName
-                );
+                var xmlTextReader = new XmlTextReader(changelogFullFilename);
 
-                int numberOfChangesLogged = changeLog.endring.Length;
+                while (xmlTextReader.Read())
+                    if (xmlTextReader.Name.Equals("endring") && xmlTextReader.IsStartElement())
+                        numberOfChangesLogged++;
+
+                xmlTextReader.Close();
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(ArkadeConstants.ChangeLogXmlFileName),
                     string.Format(Noark5Messages.NumberOfChangesLoggedMessage, numberOfChangesLogged)));
