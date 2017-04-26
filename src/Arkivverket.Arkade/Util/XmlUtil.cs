@@ -8,6 +8,7 @@ namespace Arkivverket.Arkade.Util
 {
     public class XmlUtil
     {
+        private const int _validationErrorCountLimit = 100;
         private static readonly List<string> _validationErrorMessages = new List<string>();
 
         public static List<string> Validate(string xmlString, string xmlSchemaString)
@@ -44,8 +45,8 @@ namespace Arkivverket.Arkade.Util
             using (XmlReader validationReader = XmlReader.Create(xmlStream, xmlReaderSettings))
             {
                 while (validationReader.Read())
-                {
-                }
+                    if (_validationErrorMessages.Count >= _validationErrorCountLimit)
+                        break;
             }
         }
 
