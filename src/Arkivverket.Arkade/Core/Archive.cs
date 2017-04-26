@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Core
 
         public bool HasContentDescriptionXmlSchema()
         {
-            return File.Exists(GetStructureDescriptionXmlSchemaFileName());
+            return File.Exists(GetContentDescriptionXmlSchemaFileName());
         }
 
         public bool HasMetadataCatalogXmlSchema()
