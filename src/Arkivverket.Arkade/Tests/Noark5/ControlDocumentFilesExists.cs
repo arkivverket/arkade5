@@ -69,9 +69,16 @@ namespace Arkivverket.Arkade.Tests.Noark5
         /// <returns></returns>
         private bool FileExists(string documentFileName)
         {
-            var file = new FileInfo(Path.Combine(_workingDirectory.FullName, documentFileName));
-            bool fileExists = file.Exists;
-            return fileExists;
+            try
+            {
+                var file = new FileInfo(Path.Combine(_workingDirectory.FullName, documentFileName));
+                bool fileExists = file.Exists;
+                return fileExists;
+            }
+            catch
+            {
+                return false; // File reference parse error means file doesn't exist with given filename
+            }
         }
     }
 }
