@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Logging;
 using System.Linq;
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -57,10 +58,19 @@ namespace Arkivverket.Arkade.Core.Addml
                     catch (ArkadeAddmlDelimiterException afed)
                     {
                         _totalFoundFieldDelimErrors++;
-                        _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new AddmlLocation(file.GetName(), afed.RecordName,""), afed.Message + " Felt tekst: " + afed.RecordData));
-                        new EventReportingHelper(_statusEventHandler).RaiseEventOperationMessageErrorAddmlFieldDelim($"{Resources.AddmlMessages.RecordLengthErrorTestName} i fil {file.GetName()}, post nummer {recordIdx}, feil nummer {_testResultsFailedRecordsList.Count}" , 
-                            afed.Message + " Felt tekst: " + afed.RecordData, OperationMessageStatus.Error, _totalFoundFieldDelimErrors);
-                       
+
+                        if (_totalFoundFieldDelimErrors <= ArkadeConstants.MaxNumberAcceptibleAddmlFieldDelimErrors)
+                        {
+                            _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new AddmlLocation(file.GetName(), afed.RecordName, ""), afed.Message + " Felt tekst: " + afed.RecordData));
+                            new EventReportingHelper(_statusEventHandler).RaiseEventOperationMessage($"{Resources.AddmlMessages.RecordLengthErrorTestName} i fil {file.GetName()}, post nummer {recordIdx}, feil nummer {_testResultsFailedRecordsList.Count}",
+                                afed.Message + " Felt tekst: " + afed.RecordData, OperationMessageStatus.Error);
+                        }
+                        else
+                        {
+                            new EventReportingHelper(_statusEventHandler).RaiseEventOperationMessage
+                            ($"Poster i filen {file.GetName()} med feil antall felt",
+                                $"Totalt antall: {_totalFoundFieldDelimErrors}", OperationMessageStatus.Error);
+                        }
                     }
                     catch
                     {
@@ -73,6 +83,10 @@ namespace Arkivverket.Arkade.Core.Addml
 
                     recordIdx++;
                 }
+
+                _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new Location(file.GetName()),
+                    $"Filens totale antall poster med feil antall felt: {_totalFoundFieldDelimErrors}"));
+
                 _addmlProcessRunner.EndOfFile(file);
 
                 _statusEventHandler.RaiseEventFileProcessingFinished(new FileProcessingStatusEventArgs(testName, file.GetName(), true));

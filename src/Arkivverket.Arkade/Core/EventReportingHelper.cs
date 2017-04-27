@@ -22,20 +22,12 @@ namespace Arkivverket.Arkade.Core
         }
 
 
-        public void RaiseEventOperationMessageErrorAddmlFieldDelim(string identifier, string message, OperationMessageStatus status, int totalDelimErrors)
+        public void RaiseEventOperationMessage(string identifier, string message, OperationMessageStatus status)
         {
             _statusEventHandler.RaiseEventOperationMessage(identifier, message, status);
-            CheckForMaxAllowableAddmlFiledDelimErrors(totalDelimErrors);
         }
 
 
-        public void CheckForMaxAllowableAddmlFiledDelimErrors(int foundNumberAddmlFieldDelimiterErrors)
-        {
-            if (foundNumberAddmlFieldDelimiterErrors > ArkadeConstants.MaxNumberAcceptibleAddmlFieldDelimErrors)
-            {
-                throw new ArkadeException(Resources.AddmlMessages.MaxNumberOfFieldDelimErrorsReached);
-            }
-        }
 
 
 
