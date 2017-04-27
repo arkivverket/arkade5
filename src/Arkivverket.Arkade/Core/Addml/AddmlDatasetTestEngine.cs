@@ -1,28 +1,28 @@
-using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Logging;
-using System.Linq;
+using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
-using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
     public class AddmlDatasetTestEngine : ITestEngine
     {
         private readonly AddmlProcessRunner _addmlProcessRunner;
-        private readonly IStatusEventHandler _statusEventHandler;
         private readonly FlatFileReaderFactory _flatFileReaderFactory;
+        private readonly IStatusEventHandler _statusEventHandler;
         private readonly List<TestResult> _testResultsFailedRecordsList = new List<TestResult>();
-        private int _totalFoundFieldDelimErrors = 0;
+        private int _numberOfRecordsWithFieldDelimiterError;
+        private const int MaxNumberOfSingleReportedFieldDelimiterErrors = 100;
 
-        public AddmlDatasetTestEngine(FlatFileReaderFactory flatFileReaderFactory, AddmlProcessRunner addmlProcessRunner, IStatusEventHandler statusEventHandler)
+        public AddmlDatasetTestEngine(FlatFileReaderFactory flatFileReaderFactory, AddmlProcessRunner addmlProcessRunner,
+            IStatusEventHandler statusEventHandler)
         {
             _flatFileReaderFactory = flatFileReaderFactory;
             _addmlProcessRunner = addmlProcessRunner;
             _statusEventHandler = statusEventHandler;
         }
-        
+
         public TestSuite RunTestsOnArchive(TestSession testSession)
         {
             AddmlDefinition addmlDefinition = testSession.AddmlDefinition;
@@ -33,13 +33,18 @@ namespace Arkivverket.Arkade.Core.Addml
 
             foreach (FlatFile file in flatFiles)
             {
-                string testName = string.Format(Resources.Messages.RunningAddmlProcessesOnFile, file.GetName());
-                int recordIdx = 0;
-                _statusEventHandler.RaiseEventFileProcessingStarted(new FileProcessingStatusEventArgs(testName, file.GetName()));
+                string testName = string.Format(Messages.RunningAddmlProcessesOnFile, file.GetName());
+
+                var recordIdx = 0;
+
+                _statusEventHandler.RaiseEventFileProcessingStarted(
+                    new FileProcessingStatusEventArgs(testName, file.GetName())
+                );
 
                 _addmlProcessRunner.RunProcesses(file);
 
-                IRecordEnumerator recordEnumerator = _flatFileReaderFactory.GetRecordEnumerator(testSession.Archive, file);
+                IRecordEnumerator recordEnumerator =
+                    _flatFileReaderFactory.GetRecordEnumerator(testSession.Archive, file);
 
                 while (recordEnumerator != null && recordEnumerator.MoveNext())
                 {
@@ -50,31 +55,32 @@ namespace Arkivverket.Arkade.Core.Addml
                         _addmlProcessRunner.RunProcesses(file, record);
 
                         foreach (Field field in record.Fields)
-                        {
                             _addmlProcessRunner.RunProcesses(file, field);
-                        }
-
                     }
-                    catch (ArkadeAddmlDelimiterException afed)
+                    catch (ArkadeAddmlDelimiterException exception)
                     {
-                        _totalFoundFieldDelimErrors++;
+                        _numberOfRecordsWithFieldDelimiterError++;
 
-                        if (_totalFoundFieldDelimErrors <= ArkadeConstants.MaxNumberAcceptibleAddmlFieldDelimErrors)
+                        if (_numberOfRecordsWithFieldDelimiterError <= MaxNumberOfSingleReportedFieldDelimiterErrors)
                         {
-                            _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new AddmlLocation(file.GetName(), afed.RecordName, ""), afed.Message + " Felt tekst: " + afed.RecordData));
-                            new EventReportingHelper(_statusEventHandler).RaiseEventOperationMessage($"{Resources.AddmlMessages.RecordLengthErrorTestName} i fil {file.GetName()}, post nummer {recordIdx}, feil nummer {_testResultsFailedRecordsList.Count}",
-                                afed.Message + " Felt tekst: " + afed.RecordData, OperationMessageStatus.Error);
+                            _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error,
+                                new AddmlLocation(file.GetName(), exception.RecordName, ""),
+                                exception.Message + " Felttekst: " + exception.RecordData)
+                            );
+
+                            _statusEventHandler.RaiseEventOperationMessage(
+                                $"{AddmlMessages.RecordLengthErrorTestName} i fil {file.GetName()}, post nummer {recordIdx}, feil nummer {_numberOfRecordsWithFieldDelimiterError}",
+                                exception.Message + " Felttekst: " + exception.RecordData, OperationMessageStatus.Error
+                            );
                         }
                         else
                         {
-                            new EventReportingHelper(_statusEventHandler).RaiseEventOperationMessage
-                            ($"Poster i filen {file.GetName()} med feil antall felt",
-                                $"Totalt antall: {_totalFoundFieldDelimErrors}", OperationMessageStatus.Error);
+                            _statusEventHandler.RaiseEventOperationMessage(
+                                $"ADDML-poster med feil antall felt i filen {file.GetName()}",
+                                $"Totalt antall: {_numberOfRecordsWithFieldDelimiterError}",
+                                OperationMessageStatus.Error
+                            );
                         }
-                    }
-                    catch
-                    {
-                        throw;
                     }
                     finally
                     {
@@ -85,22 +91,24 @@ namespace Arkivverket.Arkade.Core.Addml
                 }
 
                 _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new Location(file.GetName()),
-                    $"Filens totale antall poster med feil antall felt: {_totalFoundFieldDelimErrors}"));
+                    $"Filens totale antall poster med feil antall felt: {_numberOfRecordsWithFieldDelimiterError}")
+                );
 
                 _addmlProcessRunner.EndOfFile(file);
 
-                _statusEventHandler.RaiseEventFileProcessingFinished(new FileProcessingStatusEventArgs(testName, file.GetName(), true));
+                _statusEventHandler.RaiseEventFileProcessingFinished(
+                    new FileProcessingStatusEventArgs(testName, file.GetName(), true)
+                );
             }
 
             TestSuite testSuite = _addmlProcessRunner.GetTestSuite();
 
-            HardcodedProcessRunner p = new HardcodedProcessRunner(addmlDefinition, testSession.Archive);
+            var p = new HardcodedProcessRunner(addmlDefinition, testSession.Archive);
             p.Run().ForEach(t => testSuite.AddTestRun(t));
 
-
-            var failedRecoredTestRun = new TestRun(Resources.AddmlMessages.RecordLengthErrorTestName, TestType.Structure)
+            var failedRecoredTestRun = new TestRun(AddmlMessages.RecordLengthErrorTestName, TestType.Structure)
             {
-                Results = _testResultsFailedRecordsList,
+                Results = _testResultsFailedRecordsList
             };
 
             testSuite.AddTestRun(failedRecoredTestRun);

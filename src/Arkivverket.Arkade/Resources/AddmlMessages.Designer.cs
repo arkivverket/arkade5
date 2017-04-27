@@ -61,16 +61,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Programmet har nådd grensen for tillatte feil antall felt i en post. Kjøringen termineres..
-        /// </summary>
-        internal static string MaxNumberOfFieldDelimErrorsReached {
-            get {
-                return ResourceManager.GetString("MaxNumberOfFieldDelimErrorsReached", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ADDML post med feil antall felt.
+        ///   Looks up a localized string similar to ADDML-post med feil antall felt.
         /// </summary>
         internal static string RecordLengthErrorTestName {
             get {
@@ -79,7 +70,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fant feil nummer felt (funnet/forventet).
+        ///   Looks up a localized string similar to Uventet felt-antall (funnet/forventet).
         /// </summary>
         internal static string UnexpectedNumberOfFields {
             get {

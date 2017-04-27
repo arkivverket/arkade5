@@ -154,7 +154,6 @@
     <Compile Include="Core\ArchiveMetadata.cs" />
     <Compile Include="Core\ArkadeAddmlDelimiterException.cs" />
     <Compile Include="Core\ArkadeApi.cs" />
-    <Compile Include="Core\EventReportingHelper.cs" />
     <Compile Include="ExternalModels\Cpf.cs" />
     <Compile Include="ExternalModels\DiasMets.cs" />
     <Compile Include="ExternalModels\DiasPremis.cs" />
@@ -369,6 +368,7 @@
     <EmbeddedResource Include="Resources\AddmlMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddmlMessages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\arkade.css" />
     <EmbeddedResource Include="Resources\bootstrap.min.css" />

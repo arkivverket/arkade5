@@ -33,8 +33,6 @@ namespace Arkivverket.Arkade.Util
         public const string DirectoryNameContent = "content";
         public const string DirectoryNameDocuments = "dokumenter";
 
-        public const int MaxNumberAcceptibleAddmlFieldDelimErrors = 100;
-
         private static readonly string UserHomeDirectoryString =
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
