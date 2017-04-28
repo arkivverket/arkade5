@@ -1,4 +1,7 @@
+using System;
 using System.IO;
+using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Util
 {
@@ -32,7 +35,18 @@ namespace Arkivverket.Arkade.Util
 
         private static FileInfo AppendFileToPath(DirectoryInfo directory, string fileName)
         {
-            return new FileInfo(Path.Combine(directory.FullName, fileName));
+            try
+            {
+                return new FileInfo(Path.Combine(directory.FullName, fileName));
+            }
+            catch (ArgumentException argumentException)
+            {
+                string pathCombineExceptionMessage = string.Format(
+                    ExceptionMessages.PathCombine, directory.FullName, fileName
+                );
+
+                throw new ArkadeException($"{pathCombineExceptionMessage}: {argumentException.Message}");
+            }
         }
 
         public ArkadeDirectory WithSubDirectory(string subDirectoryName)

@@ -168,6 +168,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AddmlMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ExceptionMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExceptionMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Tests\Noark5\ArchivepartReferenceControl.cs" />
     <Compile Include="Tests\Noark5\ArchiveStartAndEndDateControl.cs" />
     <Compile Include="Tests\Noark5\ChangeLogArchiveReferenceControl.cs" />
@@ -377,6 +382,10 @@
     <Content Include="ExternalModels\xsd\testSessionLog.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\ExceptionMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
