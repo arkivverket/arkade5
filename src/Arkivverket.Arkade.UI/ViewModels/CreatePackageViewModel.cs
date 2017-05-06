@@ -16,7 +16,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private bool _isRunningCreatePackage;
         private bool _selectedPackageTypeAip;
         private bool _selectedPackageTypeSip = true;
-        private string _statusMessage;
+        private string _statusMessageText;
+        private string _statusMessagePath;
         private TestSession _testSession;
         private readonly IRegionManager _regionManager;
 
@@ -43,10 +44,15 @@ namespace Arkivverket.Arkade.UI.ViewModels
             }
         }
 
-        public string StatusMessage
+        public string StatusMessageText
         {
-            get { return _statusMessage; }
-            set { SetProperty(ref _statusMessage, value); }
+            get { return _statusMessageText; }
+            set { SetProperty(ref _statusMessageText, value); }
+        }
+        public string StatusMessagePath
+        {
+            get { return _statusMessagePath; }
+            set { SetProperty(ref _statusMessagePath, value); }
         }
 
         public CreatePackageViewModel(ArkadeApi arkadeApi, IRegionManager regionManager)
@@ -95,7 +101,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _arkadeApi.CreatePackage(_testSession, packageType);
 
             string informationPackageFileName = _testSession.Archive.GetInformationPackageFileName().FullName;
-            StatusMessage = "IP og metadata lagret i " +  informationPackageFileName;
+            StatusMessageText = "IP og metadata lagret i ";
+            StatusMessagePath = informationPackageFileName;
             Log.Debug("Package created in " + informationPackageFileName);
 
             _isRunningCreatePackage = false;
