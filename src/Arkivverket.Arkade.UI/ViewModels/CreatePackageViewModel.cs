@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             Log.Debug("Package created in " + informationPackageFileName);
 
             _isRunningCreatePackage = false;
-            CreatePackageCommand.RaiseCanExecuteChanged();
+            //CreatePackageCommand.RaiseCanExecuteChanged();
         }
 
     }

@@ -261,7 +261,7 @@
                 Content="{x:Static resources:UI.NewProgramSessionButton}" HorizontalAlignment="Left" Width="130" Height="30" Margin="5,0,0,0"/>
         </StackPanel>
 
-        <StackPanel  Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="5" Margin="10">
+        <StackPanel  Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="5" Margin="10" Orientation="Vertical">
             <TextBlock Text="{Binding StatusMessageText, Mode=OneWay}"  TextWrapping="Wrap" />
             <TextBox Background="Transparent" BorderThickness="0" Text="{Binding StatusMessagePath}" IsReadOnly="True" TextWrapping="Wrap" />
         </StackPanel>
