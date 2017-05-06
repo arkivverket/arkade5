@@ -24,7 +24,9 @@ namespace Arkivverket.Arkade.Metadata
         {
             _diasMetsCreator.CreateAndSaveFile(archive, metadata);
             _diasPremisCreator.CreateAndSaveFile(archive, metadata);
+            // EAD is not included in v1.0
             _eadCreator.CreateAndSaveFile(archive, metadata);
+            // EAC-CPF is not included in v1.0
             _eacCpfCreator.CreateAndSaveFile(archive, metadata);
             CopyDiasMetsXsdToRootDirectory(archive.WorkingDirectory);
         }

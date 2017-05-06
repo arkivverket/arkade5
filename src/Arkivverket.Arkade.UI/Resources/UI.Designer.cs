@@ -196,7 +196,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg tar-fil.
+        ///   Looks up a localized string similar to Velg SIP/AIP fil.
         /// </summary>
         public static string LoadArchiveChooseTarFileButtonText {
             get {

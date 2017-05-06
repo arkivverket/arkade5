@@ -163,7 +163,7 @@
     <value>Velg katalog</value>
   </data>
   <data name="LoadArchiveChooseTarFileButtonText" xml:space="preserve">
-    <value>Velg tar-fil</value>
+    <value>Velg SIP/AIP fil</value>
   </data>
   <data name="LoadArchiveSelectedFileText" xml:space="preserve">
     <value>Valgt fil</value>
