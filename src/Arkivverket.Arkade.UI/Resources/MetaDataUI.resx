@@ -157,6 +157,9 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <value>Versjon (Uttrekk)</value>
     <comment>Versjon av applikasjonen</comment>
   </data>
+  <data name="ArchiveSystem" xml:space="preserve">
+    <value>Uttrekkssystem</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Kommentar</value>
   </data>
@@ -171,13 +174,23 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <value>Arkivskaper</value>
   </data>
   <data name="GuiSubsection_ArchiveMain" xml:space="preserve">
-    <value>Arkiv</value>
+    <value>Beskrivelse av arkiv</value>
+  </data>
+  <data name="GuiSubsection_ArchiveSystem" xml:space="preserve">
+    <value>Uttrekkssystem</value>
+  </data>
+  <data name="GuiSubsection_Comment" xml:space="preserve">
+    <value>Kommentar</value>
   </data>
   <data name="GuiSubsection_Owner" xml:space="preserve">
     <value>Eier</value>
   </data>
   <data name="GuiSubsection_Producer" xml:space="preserve">
     <value>Produsent</value>
+  </data>
+  <data name="GuiSubsection_Recipient" xml:space="preserve">
+    <value>Mottaker</value>
+    <comment>Institusjonsnavn</comment>
   </data>
   <data name="GuiSubsection_System" xml:space="preserve">
     <value>System</value>
@@ -246,6 +259,9 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="SystemVersion" xml:space="preserve">
     <value>Versjon (System)</value>
     <comment>Versjon av system</comment>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Metadata</value>

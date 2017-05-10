@@ -151,6 +151,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uttrekkssystem.
+        /// </summary>
+        public static string ArchiveSystem {
+            get {
+                return ResourceManager.GetString("ArchiveSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kommentar.
         /// </summary>
         public static string Comment {
@@ -187,11 +196,29 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkiv.
+        ///   Looks up a localized string similar to Beskrivelse av arkiv.
         /// </summary>
         public static string GuiSubsection_ArchiveMain {
             get {
                 return ResourceManager.GetString("GuiSubsection_ArchiveMain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uttrekkssystem.
+        /// </summary>
+        public static string GuiSubsection_ArchiveSystem {
+            get {
+                return ResourceManager.GetString("GuiSubsection_ArchiveSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kommentar.
+        /// </summary>
+        public static string GuiSubsection_Comment {
+            get {
+                return ResourceManager.GetString("GuiSubsection_Comment", resourceCulture);
             }
         }
         
@@ -210,6 +237,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         public static string GuiSubsection_Producer {
             get {
                 return ResourceManager.GetString("GuiSubsection_Producer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mottaker.
+        /// </summary>
+        public static string GuiSubsection_Recipient {
+            get {
+                return ResourceManager.GetString("GuiSubsection_Recipient", resourceCulture);
             }
         }
         
@@ -381,6 +417,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         public static string SystemVersion {
             get {
                 return ResourceManager.GetString("SystemVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test.
+        /// </summary>
+        public static string Test {
+            get {
+                return ResourceManager.GetString("Test", resourceCulture);
             }
         }
         

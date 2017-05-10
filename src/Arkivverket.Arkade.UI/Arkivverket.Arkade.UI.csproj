@@ -137,7 +137,7 @@
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\ArchiveInformationStatus.cs" />
-    <Compile Include="Models\MetaDataModel.cs" />
+    <Compile Include="Models\GuiMetaDataModel.cs" />
     <Compile Include="Models\OperationMessage.cs" />
     <Compile Include="ModuleAModule.cs" />
     <Compile Include="Resources\MetaDataUI.Designer.cs">
@@ -148,6 +148,7 @@
     <Compile Include="Util\Colors.cs" />
     <Compile Include="Util\ExceptionMessageBox.cs" />
     <Compile Include="Util\Extensions.cs" />
+    <Compile Include="Models\PopulateMetadataDataModels.cs" />
     <Compile Include="Util\RadioConverter.cs" />
     <Compile Include="Util\UiProcessingExceptions.cs" />
     <Compile Include="Util\FileFolderDialogs.cs" />
