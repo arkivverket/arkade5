@@ -11,6 +11,43 @@ Gjennstående funsjonalitet før release 1.0
 * Oppdateringer av Noark5 tester (se v. 0.6.18)
 
 
+Versjon 0.6.41
+--------------
+*Dato: 10.05.2017*
+
+*Oppdateringer siden forrige versjon:*
+
+*Oppdateringer*
+
+* Løpende journal, offentlig journal: kan nå lese store filer
+* Undermapper i Dokumenter, Noark5: leser nå disse 
+* XML validering: stoppe validering etter 100 feil
+* Kjøre videre ved feil filnavn
+* ADDML skilletegn: raportere 100, så telle videre, ikke terminerer
+* Mer brukervennlige feil meldinger
+
+
+*Ytlese*
+
+* søkefunksjoner i Noark5 ded behandliung av dokumenter
+* leser bare nødvendig informasjon fra enkelte filer, journal og logg fil
+
+*Bug fix*
+
+* Problem ved valg av vedlagt XSD addml, arkivstruktur
+* Oppdateringer på Lag pakke GUIet.
+
+
+*Nyttutvikling*
+
+* GUI for Metadata, eksempel implementasjon av dette for testing og feedback. Funksjonen er ikke integrert inn i pakke genereringen.
+
+Preutfylling a person data i filen:
+C:\Users\{innlogget bruker}\Arkade\metadata-feltverdier.xml
+C:\Brukere\{innlogget bruker}\Arkade\metadata-feltverdier.xml
+
+
+
 Versjon 0.6.24
 --------------
 *Dato: 03.04.2017*
