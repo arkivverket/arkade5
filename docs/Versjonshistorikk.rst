@@ -1,14 +1,15 @@
 Versjonshistorikk
 =================
 
-Gjenstående funsjonalitet før release 1.0
+Gjenstående funksjonalitet før release 1.0
 ------------------------------------------
 
-* Metadata registrering
-* Noark 4 (implementere støtte for utvidet XSLT transformasjon til ADDML)
+* Metadata-registrering
+* Noark 4 (implementere støtte for utvidet XSLT-transformasjon til ADDML)
 * Rapporter (utbedringer med tekster og sammendrag) 
-* Laste inn tar pakke (av mappe mappestruktur)
-* Oppdateringer av Noark5 tester (se v. 0.6.18)
+* Laste inn tar-pakke (av mappe/mappestruktur)
+* Oppdateringer av Noark 5-tester (se v. 0.6.18)
+
 
 
 Versjon 0.6.41
@@ -19,32 +20,30 @@ Versjon 0.6.41
 
 *Oppdateringer*
 
-* Løpende journal, offentlig journal: kan nå lese store filer
-* Undermapper i Dokumenter, Noark5: leser nå disse 
-* XML validering: stoppe validering etter 100 feil
-* Kjøre videre ved feil filnavn
-* ADDML skilletegn: raportere 100, så telle videre, ikke terminerer
-* Mer brukervennlige feil meldinger
+* Store løpende/offentlige journaler og endringslogger håndteres
+* Filer i underkataloger av dokumenter-katalogen håndteres i aktuelle Noark5-tester
+* Kun de første 100 XML-valideringsfeil rapporteres
+* Kun de første 100 skilletegn-feil (ADDML) rapporteres enkeltvis. I tillegg rapporteres totalantallet
+* Ugyldige filnavn håndteres og rapporteres
+* Mer bruk av brukervennlige feilmeldinger ved nødvendig programstopp
 
+*Ytelsesforbedringer*
 
-*Ytelse*
+* Mindre minnekrevende og raskere behandling av journalfiler og loggfiler
+* Mer robust håndtering av store antall XML-validerings- og skilletegnfeil
 
-* søkefunksjoner i Noark5 ved behandling av dokumenter
-* leser bare nødvendig informasjon fra enkelte filer, journal og logg fil
+*Feilretting*
 
-*Bug fix*
+* Feil på rutine for bruk av vedlagt arkivstruktur-skjemafil er rettet
+* Oppdateringer på GUI for å lage pakke.
 
-* Problem ved valg av vedlagt XSD addml, arkivstruktur
-* Oppdateringer på Lag pakke GUIet.
+*Nyutvikling*
 
+* GUI for metadata. Eksempel-implementasjon av dette for testing og tilbakemelding. Funksjonen er ikke integrert i pakke-genereringen.
 
-*Nyttutvikling*
-
-* GUI for Metadata, eksempel implementasjon av dette for testing og feedback. Funksjonen er ikke integrert inn i pakke genereringen.
-
-Preutfylling av person data i filen:
-C:\Users\{innlogget bruker}\Arkade\metadata-feltverdier.xml
-C:\Brukere\{innlogget bruker}\Arkade\metadata-feltverdier.xml
+Preutfylling a persondata i filen:
+C:\\Brukere\\{innlogget bruker}\\Arkade\\metadata-feltverdier.xml
+(C:\\Users\\{logged in user}\\Arkade\metadata-feltverdier.xml)
 
 
 
