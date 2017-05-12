@@ -1,7 +1,7 @@
 Versjonshistorikk
 =================
 
-Gjennstående funsjonalitet før release 1.0
+Gjenstående funsjonalitet før release 1.0
 ------------------------------------------
 
 * Metadata registrering
@@ -27,9 +27,9 @@ Versjon 0.6.41
 * Mer brukervennlige feil meldinger
 
 
-*Ytlese*
+*Ytelse*
 
-* søkefunksjoner i Noark5 ded behandliung av dokumenter
+* søkefunksjoner i Noark5 ved behandling av dokumenter
 * leser bare nødvendig informasjon fra enkelte filer, journal og logg fil
 
 *Bug fix*
@@ -42,7 +42,7 @@ Versjon 0.6.41
 
 * GUI for Metadata, eksempel implementasjon av dette for testing og feedback. Funksjonen er ikke integrert inn i pakke genereringen.
 
-Preutfylling a person data i filen:
+Preutfylling av person data i filen:
 C:\Users\{innlogget bruker}\Arkade\metadata-feltverdier.xml
 C:\Brukere\{innlogget bruker}\Arkade\metadata-feltverdier.xml
 
