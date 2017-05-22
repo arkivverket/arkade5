@@ -88,7 +88,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finner ingen referanse til {0}. Denne må være definert..
+        ///   Looks up a localized string similar to Finner ingen referanse til {0}. Dette må være definert..
         /// </summary>
         internal static string AssertNotNull {
             get {

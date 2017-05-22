@@ -127,7 +127,7 @@
     <value>nødvending ADDML informasjon</value>
   </data>
   <data name="AssertNotNull" xml:space="preserve">
-    <value>Finner ingen referanse til {0}. Denne må være definert.</value>
+    <value>Finner ingen referanse til {0}. Dette må være definert.</value>
   </data>
   <data name="AssertNotNullOrEmpty" xml:space="preserve">
     <value>Finner ikke {0}. Denne må både være definert of satt til en verdi.</value>
