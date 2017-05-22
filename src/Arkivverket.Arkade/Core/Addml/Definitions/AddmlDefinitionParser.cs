@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public AddmlDefinitionParser(AddmlInfo addmlInfo, WorkingDirectory workingDirectory)
         {
-            Assert.AssertNotNull("addmlInfo", addmlInfo);
+            Assert.AssertNotNull(Resources.AddmlMessages.AddmlInfo, addmlInfo);
             _addmlInfo = addmlInfo;
             _workingDirectory = workingDirectory;
 
@@ -573,7 +573,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         private List<recordDefinition> GetRecordDefinitions(flatFileDefinition flatFileDefinition)
         {
             recordDefinition[] recordDefinitions = flatFileDefinition.recordDefinitions;
-            Assert.AssertNotNull("recordDefinitions", recordDefinitions);
+            Assert.AssertNotNull(Resources.AddmlMessages.RecordDefinitions, recordDefinitions);
 
             return new List<recordDefinition>(recordDefinitions);
         }
@@ -606,17 +606,17 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         private flatFile[] GetFlatFiles()
         {
             var flatFiles = GetDataset().flatFiles;
-            Assert.AssertNotNull("flatFiles", flatFiles);
+            Assert.AssertNotNull(Resources.AddmlMessages.FlatFiles, flatFiles);
             return flatFiles.flatFile;
         }
 
         private flatFileDefinition[] GetFlatFileDefinitions()
         {
             var flatFiles = GetDataset().flatFiles;
-            Assert.AssertNotNull("flatFiles", flatFiles);
+            Assert.AssertNotNull(Resources.AddmlMessages.FlatFiles, flatFiles);
 
             var flatFileDefinitions = flatFiles.flatFileDefinitions;
-            Assert.AssertNotNull("flatFileDefinitions", flatFileDefinitions);
+            Assert.AssertNotNull(Resources.AddmlMessages.FlatFileDefinitions, flatFileDefinitions);
 
             return flatFileDefinitions;
         }
@@ -624,7 +624,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         private dataset GetDataset()
         {
             dataset[] datasets = _addmlInfo.Addml.dataset;
-            Assert.AssertNotNull("dataset", datasets);
+            Assert.AssertNotNull(Resources.AddmlMessages.Dataset, datasets);
 
             if (datasets.Length != 1)
             {

@@ -61,6 +61,87 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to nødvending ADDML data.
+        /// </summary>
+        internal static string Addml {
+            get {
+                return ResourceManager.GetString("Addml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to nødvending ADDML fil.
+        /// </summary>
+        internal static string AddmlFile {
+            get {
+                return ResourceManager.GetString("AddmlFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to nødvending ADDML informasjon.
+        /// </summary>
+        internal static string AddmlInfo {
+            get {
+                return ResourceManager.GetString("AddmlInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finner ingen referanse til {0}. Denne må være definert..
+        /// </summary>
+        internal static string AssertNotNull {
+            get {
+                return ResourceManager.GetString("AssertNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finner ikke {0}. Denne må både være definert of satt til en verdi..
+        /// </summary>
+        internal static string AssertNotNullOrEmpty {
+            get {
+                return ResourceManager.GetString("AssertNotNullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ADDML element dataset.
+        /// </summary>
+        internal static string Dataset {
+            get {
+                return ResourceManager.GetString("Dataset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ADDML element flatFileDefinitions.
+        /// </summary>
+        internal static string FlatFileDefinitions {
+            get {
+                return ResourceManager.GetString("FlatFileDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ADDML element flatFiles.
+        /// </summary>
+        internal static string FlatFiles {
+            get {
+                return ResourceManager.GetString("FlatFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ADDML element recordDefinitions.
+        /// </summary>
+        internal static string RecordDefinitions {
+            get {
+                return ResourceManager.GetString("RecordDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADDML-post med feil antall felt.
         /// </summary>
         internal static string RecordLengthErrorTestName {

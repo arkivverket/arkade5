@@ -1,4 +1,5 @@
 ﻿using System;
+using Arkivverket.Arkade.Core;
 
 namespace Arkivverket.Arkade.Util
 {
@@ -9,14 +10,14 @@ namespace Arkivverket.Arkade.Util
         {
             if (o == null)
             {
-                throw new ArgumentException(variableName + " cannot be null");
+                throw new ArkadeException(string.Format(Resources.AddmlMessages.AssertNotNull, variableName));
             }
         }
         public static void AssertNotNullOrEmpty(string variableName, string o)
         {
             if (string.IsNullOrEmpty(o))
             {
-                throw new ArgumentException(variableName + " cannot be null or empty");
+                throw new ArkadeException(string.Format(Resources.AddmlMessages.AssertNotNullOrEmpty, variableName));
             }
         }
 

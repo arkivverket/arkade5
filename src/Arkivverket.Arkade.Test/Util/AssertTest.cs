@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
+using Arkivverket.Arkade.Core;
 using Xunit;
 
 namespace Arkivverket.Arkade.Test.Util
@@ -14,8 +15,8 @@ namespace Arkivverket.Arkade.Test.Util
         [Fact]
         public void AssertNotNullShouldThrowExeptionWhenParamenterIsNull()
         {
-            var exception = Assert.Throws<ArgumentException>(() => Arkade.Util.Assert.AssertNotNull("variable", null));
-            Assert.Equal("variable cannot be null", exception.Message);
+            var exception = Assert.Throws<ArkadeException>(() => Arkade.Util.Assert.AssertNotNull("variable", null));
+            Assert.Equal("Finner ingen referanse til variable. Denne må være definert.", exception.Message);
         }
 
         [Fact]

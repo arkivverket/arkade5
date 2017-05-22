@@ -117,6 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Addml" xml:space="preserve">
+    <value>nødvending ADDML data</value>
+  </data>
+  <data name="AddmlFile" xml:space="preserve">
+    <value>nødvending ADDML fil</value>
+  </data>
+  <data name="AddmlInfo" xml:space="preserve">
+    <value>nødvending ADDML informasjon</value>
+  </data>
+  <data name="AssertNotNull" xml:space="preserve">
+    <value>Finner ingen referanse til {0}. Denne må være definert.</value>
+  </data>
+  <data name="AssertNotNullOrEmpty" xml:space="preserve">
+    <value>Finner ikke {0}. Denne må både være definert of satt til en verdi.</value>
+  </data>
+  <data name="Dataset" xml:space="preserve">
+    <value>ADDML element dataset</value>
+  </data>
+  <data name="FlatFileDefinitions" xml:space="preserve">
+    <value>ADDML element flatFileDefinitions</value>
+  </data>
+  <data name="FlatFiles" xml:space="preserve">
+    <value>ADDML element flatFiles</value>
+  </data>
+  <data name="RecordDefinitions" xml:space="preserve">
+    <value>ADDML element recordDefinitions</value>
+  </data>
   <data name="RecordLengthErrorTestName" xml:space="preserve">
     <value>ADDML-post med feil antall felt</value>
   </data>

@@ -11,8 +11,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         
         public AddmlInfo(addml addml, FileInfo addmlFile)
         {
-            Assert.AssertNotNull("addml", addml);
-            Assert.AssertNotNull("addmlFile", addmlFile);
+            Assert.AssertNotNull(Resources.AddmlMessages.Addml, addml);
+            Assert.AssertNotNull(Resources.AddmlMessages.AddmlFile, addmlFile);
 
             Addml = addml;
             AddmlFile = addmlFile;
