@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Test.Util
         public void AssertNotNullShouldThrowExeptionWhenParamenterIsNull()
         {
             var exception = Assert.Throws<ArkadeException>(() => Arkade.Util.Assert.AssertNotNull("variable", null));
-            Assert.Equal("Finner ingen referanse til variable. Denne må være definert.", exception.Message);
+            Assert.Equal("Finner ingen referanse til variable. Dette må være definert.", exception.Message);
         }
 
         [Fact]
