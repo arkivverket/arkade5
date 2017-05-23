@@ -219,6 +219,9 @@
   <data name="ControlDataFormatMessage" xml:space="preserve">
     <value>Ugyldig dataformat: {0}</value>
   </data>
+  <data name="ControlDataFormatMessageExtension" xml:space="preserve">
+    <value> + {0} flere</value>
+  </data>
   <data name="ControlDateValueDescription" xml:space="preserve">
     <value>Kontroll av verdiene i et dato-felt</value>
   </data>

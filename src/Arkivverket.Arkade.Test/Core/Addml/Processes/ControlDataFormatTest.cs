@@ -202,5 +202,32 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             testRun.Results[1].Message.Should().Be("Ugyldig dataformat: '', 'Y', 'N'");
         }
 
+        [Fact]
+        public void ShouldOnlyShowSixErrorsPerFieldDefinition()
+        {
+            AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new StringDataType("fnr", null))
+                .Build();
+
+            FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());
+
+            ControlDataFormat test = new ControlDataFormat();
+            test.Run(flatFile);
+            test.Run(new Field(fieldDefinition1, "19980803")); // not ok
+            test.Run(new Field(fieldDefinition1, "19990715")); // not ok
+            test.Run(new Field(fieldDefinition1, "19880805")); // not ok
+            test.Run(new Field(fieldDefinition1, "19890915")); // not ok
+            test.Run(new Field(fieldDefinition1, "19990803")); // not ok
+            test.Run(new Field(fieldDefinition1, "19880211")); // not ok
+            test.Run(new Field(fieldDefinition1, "19890311")); // not ok, not shown
+            test.Run(new Field(fieldDefinition1, "19890725")); // not ok, not shown
+            test.EndOfFile();
+
+            TestRun testRun = test.GetTestRun();
+            testRun.IsSuccess().Should().BeFalse();
+            testRun.Results.Count.Should().Be(1);
+            testRun.Results[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
+            testRun.Results[0].Message.Should().Be("Ugyldig dataformat: '19980803', '19990715', '19880805', '19890915', '19990803', '19880211' + 2 flere");
+        }
     }
 }

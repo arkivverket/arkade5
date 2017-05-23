@@ -10,6 +10,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     public class ControlDataFormat : AddmlProcess
     {
         public const string Name = "Control_DataFormat";
+        private const int NumberOfShownErrors = 6;
 
         private readonly Dictionary<FieldIndex, HashSet<string>> _incorrectDataFormat
             = new Dictionary<FieldIndex, HashSet<string>>();
@@ -51,9 +52,21 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                 FieldIndex fieldIndex = entry.Key;
                 HashSet<string> incorrectDataFormat = entry.Value;
 
-                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(fieldIndex),
-                    string.Format(Messages.ControlDataFormatMessage, string.Join(", ", 
-                    incorrectDataFormat.Select(s => "'" + s + "'").ToList()))));
+                string errorsToShow = string.Join(", ", incorrectDataFormat
+                    .Take(NumberOfShownErrors)
+                    .Select(s => "'" + s + "'")
+                    .ToList()
+                );
+
+                string message = string.Format(Messages.ControlDataFormatMessage, errorsToShow);
+
+                if (incorrectDataFormat.Count > NumberOfShownErrors)
+                {
+                    int remainingErrors = incorrectDataFormat.Count - NumberOfShownErrors;
+                    message += string.Format(Messages.ControlDataFormatMessageExtension, remainingErrors);
+                }
+
+                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(fieldIndex), message));
             }
 
             _incorrectDataFormat.Clear();

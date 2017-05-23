@@ -367,6 +367,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  + {0} flere.
+        /// </summary>
+        internal static string ControlDataFormatMessageExtension {
+            get {
+                return ResourceManager.GetString("ControlDataFormatMessageExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontroll av verdiene i et dato-felt.
         /// </summary>
         internal static string ControlDateValueDescription {
