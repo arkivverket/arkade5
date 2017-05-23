@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Arkivverket.Arkade.Core;
@@ -266,11 +267,22 @@ namespace Arkivverket.Arkade.UI.ViewModels
             {
                 _testSession?.AddLogEntry("Test run failed: " + e.Message);
                 _log.Error(e.Message, e);
-                _statusEventHandler.RaiseEventOperationMessage(Resources.UI.TestrunnerFinishedWithError, e.Message, OperationMessageStatus.Error);
+
+                var operationMessageBuilder = new StringBuilder(e.Message);
+
+                string fileName = new DetailedExceptionMessage(e).WriteToFile();
+
+                if (!string.IsNullOrEmpty(fileName))
+                    operationMessageBuilder.AppendLine("\n" + string.Format(Resources.UI.DetailedErrorMessageInfo, fileName));
+
+                string operationMessage = operationMessageBuilder.ToString();
+
+                _statusEventHandler.RaiseEventOperationMessage(
+                    Resources.UI.TestrunnerFinishedWithError, operationMessage, OperationMessageStatus.Error
+                );
+
                 NotifyFinishedRunningTests();
-                ExceptionMessageBox.Show(e);
             }
-            
         }
 
 

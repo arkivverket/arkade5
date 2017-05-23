@@ -132,6 +132,14 @@
   <data name="CreatePackageWindowTitle" xml:space="preserve">
     <value>Opprett pakke</value>
   </data>
+  <data name="DetailedErrorMessageFileName" xml:space="preserve">
+    <value>arkade-feil-{0}.txt</value>
+    <comment>{0} = timestamp/identifier</comment>
+  </data>
+  <data name="DetailedErrorMessageInfo" xml:space="preserve">
+    <value>Detaljer er skrevet til {0}</value>
+    <comment>{0} = filename</comment>
+  </data>
   <data name="FileException_ErrorWithChosenFile" xml:space="preserve">
     <value>Det oppstod en feil med den valgte filen</value>
   </data>

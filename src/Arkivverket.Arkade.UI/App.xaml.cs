@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.UI
         public static void MyHandler(object sender, UnhandledExceptionEventArgs args)
         {
             var e = (Exception) args.ExceptionObject;
-            ExceptionMessageBox.Show(e);
+            new DetailedExceptionMessage(e).ShowMessageBox();
             Log.Error("Unexpected exception", e);
         }
 

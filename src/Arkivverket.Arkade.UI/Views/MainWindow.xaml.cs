@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.UI.Views
             }
             catch (Exception e)
             {
-                ExceptionMessageBox.Show(e);
+                new DetailedExceptionMessage(e).ShowMessageBox();
                 throw;
             }
         }

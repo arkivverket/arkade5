@@ -106,6 +106,24 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to arkade-feil-{0}.txt.
+        /// </summary>
+        public static string DetailedErrorMessageFileName {
+            get {
+                return ResourceManager.GetString("DetailedErrorMessageFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detaljer er skrevet til {0}.
+        /// </summary>
+        public static string DetailedErrorMessageInfo {
+            get {
+                return ResourceManager.GetString("DetailedErrorMessageInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Det oppstod en feil med den valgte filen.
         /// </summary>
         public static string FileException_ErrorWithChosenFile {
