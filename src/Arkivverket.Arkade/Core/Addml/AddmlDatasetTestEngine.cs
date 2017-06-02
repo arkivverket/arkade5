@@ -90,9 +90,12 @@ namespace Arkivverket.Arkade.Core.Addml
                     recordIdx++;
                 }
 
-                _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new Location(file.GetName()),
-                    $"Filens totale antall poster med feil antall felt: {_numberOfRecordsWithFieldDelimiterError}")
-                );
+                if (_numberOfRecordsWithFieldDelimiterError > 0)
+                {
+                    _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new Location(file.GetName()),
+                        $"Filens totale antall poster med feil antall felt: {_numberOfRecordsWithFieldDelimiterError}")
+                    );
+                }
 
                 _addmlProcessRunner.EndOfFile(file);
 
