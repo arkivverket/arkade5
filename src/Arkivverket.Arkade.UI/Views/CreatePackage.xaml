@@ -703,7 +703,7 @@
                                     <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Comment}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                             Text="{Binding SystemName, Mode=TwoWay}" />
+                                             Text="{Binding SystemName, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
 
                                     <Button Grid.Row="4" Grid.Column="1"
                                             Style="{DynamicResource MaterialDesignToolButton}"
