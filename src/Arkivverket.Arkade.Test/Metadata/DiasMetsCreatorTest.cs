@@ -247,11 +247,14 @@ namespace Arkivverket.Arkade.Test.Metadata
 
             // COMMENTS:
 
+            /* Awaiting support in schema
+            
             mets.amdSec.Any(a => a.techMD.Any(
                 t1 => t1.mdWrap.Item.Equals("Some comment A")
                       && a.techMD.Any(
                           t2 => t2.mdWrap.Item.Equals("Some comment B")))
             ).Should().BeTrue();
+            */
         }
 
         [Fact]
