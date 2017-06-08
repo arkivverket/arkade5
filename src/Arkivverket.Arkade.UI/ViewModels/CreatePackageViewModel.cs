@@ -40,11 +40,11 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private ObservableCollection<GuiMetaDataModel> _metaDataComments = new ObservableCollection<GuiMetaDataModel>();
         private ObservableCollection<GuiMetaDataModel> _metadataPreregistreredUsers = new ObservableCollection<GuiMetaDataModel>();
 
+        private GuiMetaDataModel _selectedCreatorDataModel;
         private GuiMetaDataModel _selectedTransfererDataModel;
         private GuiMetaDataModel _selectedProducerDataModel;
         private GuiMetaDataModel _selectedOwnerDataModel;
         private GuiMetaDataModel _selectedArchiveSystemDataModel;
-        private GuiMetaDataModel _selectedPreRegistreredUserDataModel;
 
 
         private readonly List<MetadataEntityInformationUnit> _metaDataEntityInformationUnits = new List<MetadataEntityInformationUnit>();
@@ -188,13 +188,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
             }
         }
 
-        public GuiMetaDataModel SelectedPreRegistreredUserDataModel
+        public GuiMetaDataModel SelectedCreatorDataModel
         {
-            get { return _selectedPreRegistreredUserDataModel; }
+            get { return _selectedCreatorDataModel; }
             set
             {
-                SetProperty(ref _selectedPreRegistreredUserDataModel, value);
-                MetaDataArchiveCreators.Add(_selectedPreRegistreredUserDataModel);
+                SetProperty(ref _selectedCreatorDataModel, value);
+                MetaDataArchiveCreators.Add(_selectedCreatorDataModel);
             }
         }
 
