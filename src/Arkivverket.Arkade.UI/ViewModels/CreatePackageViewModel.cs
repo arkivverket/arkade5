@@ -30,28 +30,25 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private readonly PopulateMetadataDataModels _populateMetadataDataModels = new PopulateMetadataDataModels();
 
         private ObservableCollection<GuiMetaDataModel> _metaDataArchiveDescriptions = new ObservableCollection<GuiMetaDataModel>();
-        private ObservableCollection<GuiMetaDataModel> _metaDataArchiveCreator = new ObservableCollection<GuiMetaDataModel>();
-        private ObservableCollection<GuiMetaDataModel> _metaDataEntity = new ObservableCollection<GuiMetaDataModel>();
-        private GuiMetaDataModel _selectedEntityDataModel;
-
-        private ObservableCollection<GuiMetaDataModel> _metaDatatransferer = new ObservableCollection<GuiMetaDataModel>();
-        private GuiMetaDataModel _selectedTransfererDataModel;
-
-        private ObservableCollection<GuiMetaDataModel> _metaDataProducer = new ObservableCollection<GuiMetaDataModel>();
-        private GuiMetaDataModel _selectedProducerDataModel;
-
-        private ObservableCollection<GuiMetaDataModel> _metaDataOwner = new ObservableCollection<GuiMetaDataModel>();
-        private GuiMetaDataModel _selectedOwnerDataModel;
-
+        private ObservableCollection<GuiMetaDataModel> _metaDataArchiveCreators = new ObservableCollection<GuiMetaDataModel>();
+        private ObservableCollection<GuiMetaDataModel> _metaDatatransferers = new ObservableCollection<GuiMetaDataModel>();
+        private ObservableCollection<GuiMetaDataModel> _metaDataProducers = new ObservableCollection<GuiMetaDataModel>();
+        private ObservableCollection<GuiMetaDataModel> _metaDataOwners = new ObservableCollection<GuiMetaDataModel>();
         private ObservableCollection<GuiMetaDataModel> _metaDataRecipient = new ObservableCollection<GuiMetaDataModel>();
         private ObservableCollection<GuiMetaDataModel> _metaDataSystem = new ObservableCollection<GuiMetaDataModel>();
         private ObservableCollection<GuiMetaDataModel> _metaDataArchiveSystem = new ObservableCollection<GuiMetaDataModel>();
-        private GuiMetaDataModel _selectedArchiveSystemDataModel;
-
         private ObservableCollection<GuiMetaDataModel> _metaDataComments = new ObservableCollection<GuiMetaDataModel>();
+        private ObservableCollection<GuiMetaDataModel> _metadataPreregistreredUsers = new ObservableCollection<GuiMetaDataModel>();
+
+        private GuiMetaDataModel _selectedTransfererDataModel;
+        private GuiMetaDataModel _selectedProducerDataModel;
+        private GuiMetaDataModel _selectedOwnerDataModel;
+        private GuiMetaDataModel _selectedArchiveSystemDataModel;
+        private GuiMetaDataModel _selectedPreRegistreredUserDataModel;
 
 
-        private List<MetadataEntityInformationUnit> _metaDataEntityInformationUnits = new List<MetadataEntityInformationUnit>();
+        private readonly List<MetadataEntityInformationUnit> _metaDataEntityInformationUnits = new List<MetadataEntityInformationUnit>();
+
         public DelegateCommand CreatePackageCommand { get; set; }
         public DelegateCommand NewProgramSessionCommand { get; set; }
         public DelegateCommand AddMetadataAchiveDescriptionEntry { get; set; }
@@ -61,6 +58,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
         public DelegateCommand AddMetadataAchiveOwnerEntry { get; set; }
         public DelegateCommand AddMetadataAchiveArchiveSystemEntry { get; set; }
         public DelegateCommand AddMetadataCommentEntry { get; set; }
+
+        //---------------------------------------------------------------------------
+
 
         public bool SelectedPackageTypeSip
         {
@@ -83,58 +83,35 @@ namespace Arkivverket.Arkade.UI.ViewModels
         }
 
 
-        public ObservableCollection<GuiMetaDataModel> MetaDataArchiveEntity
+        public ObservableCollection<GuiMetaDataModel> MetaDataModelArchiveDescriptions
         {
-            get { return _metaDataEntity; }
-            set { SetProperty(ref _metaDataEntity, value); }
-        }
-
-        public GuiMetaDataModel SelectedEntityDataModel
-        {
-            get { return _selectedEntityDataModel; }
-            set
-            {
-                SetProperty(ref _selectedEntityDataModel, value);
-                MetaDataArchiveCreator.Add(_selectedEntityDataModel);
-            }
-        }
-        public ObservableCollection<GuiMetaDataModel> MetaDataTransferer
-        {
-            get { return _metaDatatransferer; }
-            set { SetProperty(ref _metaDatatransferer, value); }
-        }
-
-        public GuiMetaDataModel SelectedTransfererDataModel
-        {
-            get { return _selectedTransfererDataModel; }
-            set
-            {
-                SetProperty(ref _selectedTransfererDataModel, value);
-                MetaDataTransferer.Add(_selectedTransfererDataModel);
-            }
-        }
-
-        public ObservableCollection<GuiMetaDataModel> MetaDataProducer
-        {
-            get { return _metaDataProducer; }
-            set { SetProperty(ref _metaDataProducer, value); }
-        }
-
-        public GuiMetaDataModel SelectedProducerDataModel
-        {
-            get { return _selectedProducerDataModel; }
-            set
-            {
-                SetProperty(ref _selectedProducerDataModel, value);
-                MetaDataProducer.Add(_selectedProducerDataModel);
-            }
+            get { return _metaDataArchiveDescriptions; }
+            set { SetProperty(ref _metaDataArchiveDescriptions, value); }
         }
 
 
-        public ObservableCollection<GuiMetaDataModel> MetaDataOwner
+        public ObservableCollection<GuiMetaDataModel> MetaDataArchiveCreators
         {
-            get { return _metaDataOwner; }
-            set { SetProperty(ref _metaDataOwner, value); }
+            get { return _metaDataArchiveCreators; }
+            set { SetProperty(ref _metaDataArchiveCreators, value); }
+        }
+
+        public ObservableCollection<GuiMetaDataModel> MetaDataTransferers
+        {
+            get { return _metaDatatransferers; }
+            set { SetProperty(ref _metaDatatransferers, value); }
+        }
+
+        public ObservableCollection<GuiMetaDataModel> MetaDataProducers
+        {
+            get { return _metaDataProducers; }
+            set { SetProperty(ref _metaDataProducers, value); }
+        }
+
+        public ObservableCollection<GuiMetaDataModel> MetaDataOwners
+        {
+            get { return _metaDataOwners; }
+            set { SetProperty(ref _metaDataOwners, value); }
         }
 
         public ObservableCollection<GuiMetaDataModel> MetaDataRecipient
@@ -161,16 +138,45 @@ namespace Arkivverket.Arkade.UI.ViewModels
         }
 
 
+        public ObservableCollection<GuiMetaDataModel> MetaDataPreregistreredUsers
+        {
+            get { return _metadataPreregistreredUsers; }
+            set { SetProperty(ref _metadataPreregistreredUsers, value); }
+        }
+
+
+        //---------------------------------------------------------------------------
+
+
+        public GuiMetaDataModel SelectedTransfererDataModel
+        {
+            get { return _selectedTransfererDataModel; }
+            set
+            {
+                SetProperty(ref _selectedTransfererDataModel, value);
+                MetaDataTransferers.Add(_selectedTransfererDataModel);
+            }
+        }
+
+        public GuiMetaDataModel SelectedProducerDataModel
+        {
+            get { return _selectedProducerDataModel; }
+            set
+            {
+                SetProperty(ref _selectedProducerDataModel, value);
+                MetaDataProducers.Add(_selectedProducerDataModel);
+            }
+        }
+
         public GuiMetaDataModel SelectedOwnerDataModel
         {
             get { return _selectedOwnerDataModel; }
             set
             {
                 SetProperty(ref _selectedOwnerDataModel, value);
-                MetaDataOwner.Add(_selectedOwnerDataModel);
+                MetaDataOwners.Add(_selectedOwnerDataModel);
             }
         }
-
 
         public GuiMetaDataModel SelectedArchiveSystemDataModel
         {
@@ -182,9 +188,15 @@ namespace Arkivverket.Arkade.UI.ViewModels
             }
         }
 
-
-
-        
+        public GuiMetaDataModel SelectedPreRegistreredUserDataModel
+        {
+            get { return _selectedPreRegistreredUserDataModel; }
+            set
+            {
+                SetProperty(ref _selectedPreRegistreredUserDataModel, value);
+                MetaDataArchiveCreators.Add(_selectedPreRegistreredUserDataModel);
+            }
+        }
 
 
 
@@ -200,27 +212,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _statusMessagePath, value); }
         }
 
-        public ObservableCollection<GuiMetaDataModel> MetaDataModelArchiveDescriptions
-        {
-            get { return _metaDataArchiveDescriptions; }
-            set { SetProperty(ref _metaDataArchiveDescriptions, value); }
-        }
-
-        public ObservableCollection<GuiMetaDataModel> MetaDataArchiveCreator
-        {
-            get { return _metaDataArchiveCreator; }
-            set { SetProperty(ref _metaDataArchiveCreator, value); }
-        }
-
-
 
         public CreatePackageViewModel(ArkadeApi arkadeApi, IRegionManager regionManager)
         {
-            // TODO: Call function to populate Metadata object in TestSession
-            // ObservableCollection<GuiMetaDataModel> _metaDataOwner
-            //ProcessGuiMetaDataOwers(bservableCollection<GuiMetaDataModel>, enum)
-
-
             _arkadeApi = arkadeApi;
             _regionManager = regionManager;
             CreatePackageCommand = new DelegateCommand(RunCreatePackage, CanExecuteCreatePackage);
@@ -247,22 +241,22 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         public void RunAddMetadataAchiveCreatorEntry()
         {
-            MetaDataArchiveCreator.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty));
+            MetaDataArchiveCreators.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty));
         }
 
         public void RunAddMetadataAchiveTransfererEntry()
         {
-            MetaDataTransferer.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty));
+            MetaDataTransferers.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty));
         }
 
         public void RunAddMetadataAchiveProducerEntry()
         {
-            MetaDataProducer.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty));
+            MetaDataProducers.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty));
         }
 
         public void RunAddMetadataAchiveOwnerEntry()
         {
-            MetaDataOwner.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty));
+            MetaDataOwners.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty));
         }
 
         public void RunAddMetadataAchiveArchiveSystemEntry()
@@ -282,9 +276,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             else
                 CreatePredefinedMetadataFieldValuesFile(predefinedMetadataFieldValuesFileInfo);
 
-            //_populateMetadataDataModels.DatafillArchiveDescription(_testSession.ArchiveMetadata, MetaDataModelArchiveDescriptions);
-            //_populateMetadataDataModels.DatafillArchiveCreator(_testSession.ArchiveMetadata, MetaDataArchiveCreator);
-            _populateMetadataDataModels.DatafillArchiveEntity(_metaDataEntityInformationUnits, MetaDataArchiveEntity);
+            _populateMetadataDataModels.DatafillArchiveEntity(_metaDataEntityInformationUnits, MetaDataPreregistreredUsers);
             _populateMetadataDataModels.DatafillArchiveRecipient(_testSession.ArchiveMetadata, MetaDataRecipient);
             _populateMetadataDataModels.DatafillArchiveSystem(_testSession.ArchiveMetadata, MetaDataSystem);
 

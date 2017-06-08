@@ -146,15 +146,15 @@
                             <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
                         </Button>
 
-                        <ComboBox  Name="ListEntities" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MetaDataArchiveEntity}" 
-                                   materialDesign:HintAssist.Hint="Fyll" SelectedItem="{Binding SelectedEntityDataModel}">
+                        <ComboBox  Name="ListEntities" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MetaDataPreregistreredUsers}" 
+                                   materialDesign:HintAssist.Hint="Fyll" SelectedItem="{Binding SelectedPreRegistreredUserDataModel}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                <WrapPanel>
-                                    <TextBlock Text="{Binding ContactPerson}" FontWeight="Bold" />
-                                    <TextBlock Text=", " />
-                                    <TextBlock Text="{Binding Entity}" FontWeight="Bold" />
-                                </WrapPanel>
+                                    <WrapPanel>
+                                        <TextBlock Text="{Binding ContactPerson}" FontWeight="Bold" />
+                                        <TextBlock Text=", " />
+                                        <TextBlock Text="{Binding Entity}" FontWeight="Bold" />
+                                    </WrapPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
@@ -162,7 +162,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <ItemsControl Grid.Row="3" ItemsSource="{Binding MetaDataArchiveCreator}">
+                <ItemsControl Grid.Row="3" ItemsSource="{Binding MetaDataArchiveCreators}">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -222,7 +222,7 @@
                 </ItemsControl>
 
 
-                
+
                 <!-- Overforer -->
                 <GroupBox Grid.Row="4" Header="{x:Static resources:MetaDataUI.GuiSubsection_Transferer}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
@@ -235,7 +235,7 @@
                             <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
                         </Button>
 
-                        <ComboBox  Name="ListTransfereres" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MetaDataArchiveEntity}" 
+                        <ComboBox  Name="ListTransfereres" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MetaDataPreregistreredUsers}" 
                                    materialDesign:HintAssist.Hint="Fyll" SelectedItem="{Binding SelectedTransfererDataModel}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -251,7 +251,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <ItemsControl Grid.Row="5" ItemsSource="{Binding MetaDataTransferer}">
+                <ItemsControl Grid.Row="5" ItemsSource="{Binding MetaDataTransferers}">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -323,7 +323,7 @@
                             <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
                         </Button>
 
-                        <ComboBox  Name="ListProducers" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MetaDataArchiveEntity}" 
+                        <ComboBox  Name="ListProducers" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MetaDataPreregistreredUsers}" 
                                    materialDesign:HintAssist.Hint="Fyll" SelectedItem="{Binding SelectedProducerDataModel}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -339,7 +339,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <ItemsControl Grid.Row="8" ItemsSource="{Binding MetaDataProducer}">
+                <ItemsControl Grid.Row="8" ItemsSource="{Binding MetaDataProducers}">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -412,7 +412,7 @@
                             <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
                         </Button>
 
-                        <ComboBox  Name="ListOwners" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MetaDataArchiveEntity}" 
+                        <ComboBox  Name="ListOwners" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MetaDataPreregistreredUsers}" 
                                    materialDesign:HintAssist.Hint="Fyll" SelectedItem="{Binding SelectedOwnerDataModel}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -428,7 +428,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <ItemsControl Grid.Row="10" ItemsSource="{Binding MetaDataOwner}">
+                <ItemsControl Grid.Row="10" ItemsSource="{Binding MetaDataOwners}">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -486,7 +486,7 @@
                 </ItemsControl>
 
 
-                
+
                 <!-- Mottaker -->
                 <GroupBox Grid.Row="11" Header="{x:Static resources:MetaDataUI.GuiSubsection_Recipient}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
