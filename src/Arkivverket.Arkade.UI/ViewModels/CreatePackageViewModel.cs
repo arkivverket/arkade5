@@ -217,6 +217,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
         public CreatePackageViewModel(ArkadeApi arkadeApi, IRegionManager regionManager)
         {
             // TODO: Call function to populate Metadata object in TestSession
+            // ObservableCollection<GuiMetaDataModel> _metaDataOwner
+            //ProcessGuiMetaDataOwers(bservableCollection<GuiMetaDataModel>, enum)
 
 
             _arkadeApi = arkadeApi;

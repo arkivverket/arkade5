@@ -180,16 +180,4 @@ namespace Arkivverket.Arkade.UI.Models
             ItemVisibility = Visibility.Collapsed;
         }
     }
-
-    public enum GuiMetaDataType
-    {
-        MetadataEntityInformationUnitCreator,
-        MetadataEntityInformationUnitTransferer,
-        MetadataEntityInformationUnitProducer,
-        MetadataEntityInformationUnitOwner,
-        MetadataSystemInformationUnitSystem,
-        MetadataSystemInformationUnitArchive,
-        Comment
-    }
-
 }
