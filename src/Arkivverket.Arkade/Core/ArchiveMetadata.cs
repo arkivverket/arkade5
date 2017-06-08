@@ -7,21 +7,29 @@ namespace Arkivverket.Arkade.Core
     {
         public string ArchiveDescription { get; set; }
         public string AgreementNumber { get; set; }
-        public List<MetadataEntityInformationUnit> ArchiveCreators { get; } = new List<MetadataEntityInformationUnit>();
+        public List<MetadataEntityInformationUnit> ArchiveCreators { get; set; }
         public MetadataEntityInformationUnit Transferer { get; set; }
         public MetadataEntityInformationUnit Producer { get; set; }
-        public List<MetadataEntityInformationUnit> Owners { get; } = new List<MetadataEntityInformationUnit>();
+        public List<MetadataEntityInformationUnit> Owners { get; set; }
         public string Recipient { get; set; }
         public MetadataSystemInformationUnit System { get; set; }
         public MetadataSystemInformationUnit ArchiveSystem { get; set; }
-        public List<string> Comments { get; } = new List<string>();
+        public List<string> Comments { get; set; }
         public string History { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime ExtractionDate { get; set; }
         public string IncommingSeparator { get; set; }
         public string OutgoingSeparator { get; set; }
+
+        public ArchiveMetadata()
+        {
+            ArchiveCreators = new List<MetadataEntityInformationUnit>();
+            Owners = new List<MetadataEntityInformationUnit>();
+            Comments = new List<string>();
+        }
     }
+
 
     public class MetadataEntityInformationUnit
     {
