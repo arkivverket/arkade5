@@ -20,14 +20,14 @@ namespace Arkivverket.Arkade.Test.Metadata
             {
                 ArchiveDescription = "Some archive description",
                 AgreementNumber = "XX 00-0000/0000; 0000-00-00",
-                ArchiveCreator =
+                ArchiveCreators =
                 {
                     CreateMetadataEntityInformationUnit('A'),
                     CreateMetadataEntityInformationUnit('B')
                 },
                 Transferer = CreateMetadataEntityInformationUnit('E'),
                 Producer = CreateMetadataEntityInformationUnit('F'),
-                Owner =
+                Owners =
                 {
                     CreateMetadataEntityInformationUnit('C'),
                     CreateMetadataEntityInformationUnit('D')

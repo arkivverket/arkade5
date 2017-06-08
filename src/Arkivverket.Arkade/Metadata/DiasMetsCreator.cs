@@ -80,7 +80,7 @@ namespace Arkivverket.Arkade.Metadata
 
             // CREATORS:
 
-            foreach (MetadataEntityInformationUnit metadataArchiveCreator in metadata.ArchiveCreator)
+            foreach (MetadataEntityInformationUnit metadataArchiveCreator in metadata.ArchiveCreators)
             {
                 metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                 {
@@ -144,7 +144,7 @@ namespace Arkivverket.Arkade.Metadata
 
             // OWNERS:
 
-            foreach (MetadataEntityInformationUnit metadataOwner in metadata.Owner)
+            foreach (MetadataEntityInformationUnit metadataOwner in metadata.Owners)
             {
                 metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                 {
