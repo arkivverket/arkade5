@@ -13,9 +13,8 @@ namespace Arkivverket.Arkade.UI.Models
 {
     public class GuiMetaDataModel : BindableBase
     {
-
-
         private Visibility _itemVisibility = Visibility.Visible;
+        public bool IsDeleted = false;
 
         private string _iconAdd = "PlusCircleOutline";
         private string _iconDelete = "Delete";
@@ -47,7 +46,6 @@ namespace Arkivverket.Arkade.UI.Models
             get { return _itemVisibility; }
             set { SetProperty(ref _itemVisibility, value); }
         }
-
 
 
         private string _archiveDescription;
@@ -103,16 +101,19 @@ namespace Arkivverket.Arkade.UI.Models
             get { return _systemName; }
             set { SetProperty(ref _systemName, value); }
         }
+
         public string SystemVersion
         {
             get { return _systemVersion; }
             set { SetProperty(ref _systemVersion, value); }
         }
+
         public string SystemType
         {
             get { return _systemType; }
             set { SetProperty(ref _systemType, value); }
         }
+
         public string SystemTypeVersion
         {
             get { return _systemTypeVersion; }
@@ -120,14 +121,12 @@ namespace Arkivverket.Arkade.UI.Models
         }
 
 
-
-
-
         public string ArchiveDescription
         {
             get { return _archiveDescription; }
             set { SetProperty(ref _archiveDescription, value); }
         }
+
         public string AgreementNumber
         {
             get { return _agreementNumber; }
@@ -153,7 +152,8 @@ namespace Arkivverket.Arkade.UI.Models
             MyCommand = new DelegateCommand(MyCommandExecute);
         }
 
-        public GuiMetaDataModel(string systemName, string systemVersion, string systemType, string systemTypeVersion, bool thisIsASystemEntry)
+        public GuiMetaDataModel(string systemName, string systemVersion, string systemType, string systemTypeVersion,
+            bool thisIsASystemEntry)
         {
             SystemName = systemName;
             SystemVersion = systemVersion;
@@ -174,12 +174,22 @@ namespace Arkivverket.Arkade.UI.Models
         }
 
 
-
         public void MyCommandExecute()
         {
+            IsDeleted = true;
             ItemVisibility = Visibility.Collapsed;
         }
+    }
 
+    public enum GuiMetaDataType
+    {
+        MetadataEntityInformationUnitCreator,
+        MetadataEntityInformationUnitTransferer,
+        MetadataEntityInformationUnitProducer,
+        MetadataEntityInformationUnitOwner,
+        MetadataSystemInformationUnitSystem,
+        MetadataSystemInformationUnitArchive,
+        Comment
+    }
 
-}
 }

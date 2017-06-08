@@ -216,6 +216,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         public CreatePackageViewModel(ArkadeApi arkadeApi, IRegionManager regionManager)
         {
+            // TODO: Call function to populate Metadata object in TestSession
+
+
             _arkadeApi = arkadeApi;
             _regionManager = regionManager;
             CreatePackageCommand = new DelegateCommand(RunCreatePackage, CanExecuteCreatePackage);
