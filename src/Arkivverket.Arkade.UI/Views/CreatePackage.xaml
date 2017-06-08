@@ -339,7 +339,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <ItemsControl Grid.Row="8" ItemsSource="{Binding MetaDataProducers}">
+                <ItemsControl Grid.Row="7" ItemsSource="{Binding MetaDataProducers}">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
