@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.UI.Models
         private string _iconDelete = "Delete";
         private string _iconNameList = "MenuDown";
 
-        public ICommand MyCommand { get; set; }
+        public ICommand CmdVisibilityCollapsed { get; set; }
 
 
         public string IconAdd
@@ -138,7 +138,7 @@ namespace Arkivverket.Arkade.UI.Models
         {
             ArchiveDescription = archiveDescription;
             AgreementNumber = agreementNumber;
-            MyCommand = new DelegateCommand(MyCommandExecute);
+            CmdVisibilityCollapsed = new DelegateCommand(CmdVisibilityCollapsedExecute);
         }
 
 
@@ -149,7 +149,7 @@ namespace Arkivverket.Arkade.UI.Models
             Telephone = telephone;
             Email = email;
 
-            MyCommand = new DelegateCommand(MyCommandExecute);
+            CmdVisibilityCollapsed = new DelegateCommand(CmdVisibilityCollapsedExecute);
         }
 
         public GuiMetaDataModel(string systemName, string systemVersion, string systemType, string systemTypeVersion,
@@ -162,7 +162,7 @@ namespace Arkivverket.Arkade.UI.Models
 
             ThisIsASystemEntry = thisIsASystemEntry;
 
-            MyCommand = new DelegateCommand(MyCommandExecute);
+            CmdVisibilityCollapsed = new DelegateCommand(CmdVisibilityCollapsedExecute);
         }
 
 
@@ -170,11 +170,11 @@ namespace Arkivverket.Arkade.UI.Models
         {
             Comment = comment;
 
-            MyCommand = new DelegateCommand(MyCommandExecute);
+            CmdVisibilityCollapsed = new DelegateCommand(CmdVisibilityCollapsedExecute);
         }
 
 
-        public void MyCommandExecute()
+        public void CmdVisibilityCollapsedExecute()
         {
             IsDeleted = true;
             ItemVisibility = Visibility.Collapsed;

@@ -123,7 +123,7 @@
 
                                     <Button Grid.Row="2" Grid.Column="1"
                                             Style="{DynamicResource MaterialDesignToolButton}" Height="24" Width="24"
-                                            Command="{Binding MyCommand}">
+                                            Command="{Binding CmdVisibilityCollapsed}">
                                         <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56" />
                                     </Button>
 
@@ -210,7 +210,7 @@
 
                                     <Button Grid.Row="4" Grid.Column="1"
                                             Style="{DynamicResource MaterialDesignToolButton}"
-                                            Height="24" Width="24" Command="{Binding MyCommand}">
+                                            Height="24" Width="24" Command="{Binding CmdVisibilityCollapsed}">
                                         <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56" />
                                     </Button>
 
@@ -299,7 +299,7 @@
 
                                     <Button Grid.Row="4" Grid.Column="1"
                                             Style="{DynamicResource MaterialDesignToolButton}"
-                                            Height="24" Width="24" Command="{Binding MyCommand}">
+                                            Height="24" Width="24" Command="{Binding CmdVisibilityCollapsed}">
                                         <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56" />
                                     </Button>
 
@@ -387,7 +387,7 @@
 
                                     <Button Grid.Row="4" Grid.Column="1"
                                             Style="{DynamicResource MaterialDesignToolButton}"
-                                            Height="24" Width="24" Command="{Binding MyCommand}">
+                                            Height="24" Width="24" Command="{Binding CmdVisibilityCollapsed}">
                                         <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56" />
                                     </Button>
                                 </Grid>
@@ -476,7 +476,7 @@
 
                                     <Button Grid.Row="4" Grid.Column="1"
                                             Style="{DynamicResource MaterialDesignToolButton}"
-                                            Height="24" Width="24" Command="{Binding MyCommand}">
+                                            Height="24" Width="24" Command="{Binding CmdVisibilityCollapsed}">
                                         <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56" />
                                     </Button>
                                 </Grid>
@@ -649,7 +649,7 @@
 
                                     <Button Grid.Row="4" Grid.Column="1"
                                             Style="{DynamicResource MaterialDesignToolButton}"
-                                            Height="24" Width="24" Command="{Binding MyCommand}">
+                                            Height="24" Width="24" Command="{Binding CmdVisibilityCollapsed}">
                                         <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56" />
                                     </Button>
                                 </Grid>
@@ -707,7 +707,7 @@
 
                                     <Button Grid.Row="4" Grid.Column="1"
                                             Style="{DynamicResource MaterialDesignToolButton}"
-                                            Height="24" Width="24" Command="{Binding MyCommand}">
+                                            Height="24" Width="24" Command="{Binding CmdVisibilityCollapsed}">
                                         <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56" />
                                     </Button>
                                 </Grid>
