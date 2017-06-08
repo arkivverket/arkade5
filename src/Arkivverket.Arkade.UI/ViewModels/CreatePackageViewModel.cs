@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Xml;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.UI.Models;
+using Arkivverket.Arkade.UI.Util;
 using Arkivverket.Arkade.Util;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -323,6 +324,20 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void RunCreatePackage()
         {
+            _testSession.ArchiveMetadata = new ArchiveMetadata
+            {
+                ArchiveDescription = ArchiveMetadataMapper.MapToArchiveDescription(_metaDataArchiveDescription),
+                AgreementNumber = ArchiveMetadataMapper.MapToAgreementNumber(_metaDataArchiveDescription),
+                ArchiveCreators = ArchiveMetadataMapper.MapToArchiveCreators(_metaDataArchiveCreators),
+                Transferer = ArchiveMetadataMapper.MapToTransferer(_metaDataTransferer),
+                Producer = ArchiveMetadataMapper.MapToProducer(_metaDataProducer),
+                Owners = ArchiveMetadataMapper.MapToArchiveOwners(_metaDataOwners),
+                Recipient = ArchiveMetadataMapper.MapToRecipient(_metaDataRecipient),
+                System = ArchiveMetadataMapper.MapToSystem(_metaDataSystem),
+                ArchiveSystem = ArchiveMetadataMapper.MapToArchiveSystem(_metaDataArchiveSystem),
+                Comments = ArchiveMetadataMapper.MapToComments(_metaDataComments)
+            };
+
             Log.Debug("Running create package command");
             _isRunningCreatePackage = true;
             CreatePackageCommand.RaiseCanExecuteChanged();

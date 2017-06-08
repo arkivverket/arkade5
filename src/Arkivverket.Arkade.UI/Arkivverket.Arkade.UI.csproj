@@ -145,6 +145,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MetaDataUI.resx</DependentUpon>
     </Compile>
+    <Compile Include="Util\ArchiveMetadataMapper.cs" />
     <Compile Include="Util\Colors.cs" />
     <Compile Include="Util\DetailedExceptionMessage.cs" />
     <Compile Include="Util\Extensions.cs" />
