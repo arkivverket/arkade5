@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using Arkivverket.Arkade.Resources;
-using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core
 {
@@ -37,17 +36,12 @@ namespace Arkivverket.Arkade.Core
 
         private static Stream GetFileAsStream(string fileName)
         {
-            var fileInfo = new FileInfo(fileName);
-
             try
             {
-                return fileInfo.OpenRead();
+                return File.OpenRead(fileName);
             }
             catch (Exception e)
             {
-                if(fileName.Contains(ArkadeConstants.GetArkadeWorkDirectory().Name))
-                    fileName = fileInfo.Name;
-
                 string message = string.Format(Messages.FileNotFoundMessage, fileName);
                 throw new ArkadeException(message, e);
             }
