@@ -13,14 +13,16 @@ namespace Arkivverket.Arkade.UI.Models
 {
     public class GuiMetaDataModel : BindableBase
     {
-        private Visibility _itemVisibility = Visibility.Visible;
+        private Visibility _visibilityItem = Visibility.Visible;
+        private Visibility _visibilityAddItem = Visibility.Hidden;
         public bool IsDeleted = false;
 
         private string _iconAdd = "PlusCircleOutline";
         private string _iconDelete = "Delete";
         private string _iconNameList = "MenuDown";
 
-        public ICommand CmdVisibilityCollapsed { get; set; }
+        public ICommand CommandDeleteItem { get; set; }
+        public ICommand CommandAddItem { get; set; }
 
 
         public string IconAdd
@@ -41,10 +43,16 @@ namespace Arkivverket.Arkade.UI.Models
             set { SetProperty(ref _iconNameList, value); }
         }
 
-        public Visibility ItemVisibility
+        public Visibility VisibilityItem
         {
-            get { return _itemVisibility; }
-            set { SetProperty(ref _itemVisibility, value); }
+            get { return _visibilityItem; }
+            set { SetProperty(ref _visibilityItem, value); }
+        }
+
+        public Visibility VisibilityAddItem
+        {
+            get { return _visibilityAddItem; }
+            set { SetProperty(ref _visibilityAddItem, value); }
         }
 
 
@@ -138,7 +146,8 @@ namespace Arkivverket.Arkade.UI.Models
         {
             ArchiveDescription = archiveDescription;
             AgreementNumber = agreementNumber;
-            CmdVisibilityCollapsed = new DelegateCommand(CmdVisibilityCollapsedExecute);
+            CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
+            CommandAddItem = new DelegateCommand(ExecuteAddItem);
         }
 
 
@@ -149,7 +158,8 @@ namespace Arkivverket.Arkade.UI.Models
             Telephone = telephone;
             Email = email;
 
-            CmdVisibilityCollapsed = new DelegateCommand(CmdVisibilityCollapsedExecute);
+            CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
+            CommandAddItem = new DelegateCommand(ExecuteAddItem);
         }
 
         public GuiMetaDataModel(string systemName, string systemVersion, string systemType, string systemTypeVersion,
@@ -162,7 +172,8 @@ namespace Arkivverket.Arkade.UI.Models
 
             ThisIsASystemEntry = thisIsASystemEntry;
 
-            CmdVisibilityCollapsed = new DelegateCommand(CmdVisibilityCollapsedExecute);
+            CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
+            CommandAddItem = new DelegateCommand(ExecuteAddItem);
         }
 
 
@@ -170,14 +181,42 @@ namespace Arkivverket.Arkade.UI.Models
         {
             Comment = comment;
 
-            CmdVisibilityCollapsed = new DelegateCommand(CmdVisibilityCollapsedExecute);
+            CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
+            CommandAddItem = new DelegateCommand(ExecuteAddItem);
         }
 
 
-        public void CmdVisibilityCollapsedExecute()
+        public void ExecuteDeleteItem()
         {
             IsDeleted = true;
-            ItemVisibility = Visibility.Collapsed;
+            VisibilityItem = Visibility.Collapsed;
+            VisibilityAddItem = Visibility.Visible;
         }
+        
+        public void ExecuteAddItem()
+        {
+            IsDeleted = false;
+            _ResetAllDataFields();
+            VisibilityItem = Visibility.Visible;
+            VisibilityAddItem = Visibility.Hidden;
+        }
+
+
+        private void _ResetAllDataFields()
+        {
+            Comment = string.Empty;
+            Email = string.Empty;
+            Telephone = string.Empty;
+            ContactPerson = string.Empty;
+            Entity = string.Empty;
+            SystemName = string.Empty;
+            SystemVersion = string.Empty;
+            SystemType = string.Empty;
+            SystemTypeVersion = string.Empty;
+            ArchiveDescription = string.Empty;
+            AgreementNumber = string.Empty;
+        }
+
+
     }
 }
