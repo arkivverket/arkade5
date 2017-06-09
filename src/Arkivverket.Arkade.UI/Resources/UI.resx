@@ -149,6 +149,9 @@
   <data name="FileException_NoFileChosen" xml:space="preserve">
     <value>Ingen fil ble valgt</value>
   </data>
+  <data name="FileNotFoundMessage" xml:space="preserve">
+    <value>Fil ikke funnet: {0}</value>
+  </data>
   <data name="FileSelectionDefaultTar" xml:space="preserve">
     <value>.tar</value>
   </data>

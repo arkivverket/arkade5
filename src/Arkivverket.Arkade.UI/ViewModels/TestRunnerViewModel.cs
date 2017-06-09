@@ -13,6 +13,7 @@ using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.UI.Util;
+using Arkivverket.Arkade.Util;
 using Application = System.Windows.Application;
 
 namespace Arkivverket.Arkade.UI.ViewModels
@@ -268,7 +269,17 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 _testSession?.AddLogEntry("Test run failed: " + e.Message);
                 _log.Error(e.Message, e);
 
-                var operationMessageBuilder = new StringBuilder(e.Message);
+                var operationMessageBuilder = new StringBuilder();
+
+                if (e.GetType() == typeof(FileNotFoundException))
+                {
+                    string nameOfMissingFile = new FileInfo(((FileNotFoundException) e).FileName).Name;
+                    operationMessageBuilder.Append(string.Format(Resources.UI.FileNotFoundMessage, nameOfMissingFile));
+                }
+                else
+                {
+                    operationMessageBuilder.Append(e.Message);
+                }
 
                 string fileName = new DetailedExceptionMessage(e).WriteToFile();
 

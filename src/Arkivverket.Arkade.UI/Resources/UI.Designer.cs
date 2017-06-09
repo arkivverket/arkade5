@@ -151,6 +151,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fil ikke funnet: {0}.
+        /// </summary>
+        public static string FileNotFoundMessage {
+            get {
+                return ResourceManager.GetString("FileNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .tar.
         /// </summary>
         public static string FileSelectionDefaultTar {
