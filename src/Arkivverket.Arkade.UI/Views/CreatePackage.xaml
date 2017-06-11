@@ -123,6 +123,97 @@
                 </Border>
 
 
+                
+
+                <!-- Arkivskaper -->
+                <GroupBox Grid.Row="2" Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveCreator}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="32" Width="32"
+                                Command="{Binding AddMetadataAchiveCreatorEntry}">
+                            <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
+                        </Button>
+
+                        <ComboBox  Name="ListEntities" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MetaDataPreregistreredUsers}" 
+                                   materialDesign:HintAssist.Hint="Fyll" SelectedItem="{Binding SelectedCreatorDataModel}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <WrapPanel>
+                                        <TextBlock Text="{Binding ContactPerson}" FontWeight="Bold" />
+                                        <TextBlock Text=", " />
+                                        <TextBlock Text="{Binding Entity}" FontWeight="Bold" />
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                    </StackPanel>
+                </GroupBox>
+
+                <ItemsControl Grid.Row="3" ItemsSource="{Binding MetaDataArchiveCreators}">
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" Margin="5" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+
+                        <DataTemplate DataType="{x:Type models:GuiMetaDataModel}">
+                            <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                                    Visibility="{Binding VisibilityItem}">
+                                <Grid Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="250" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveCreator}"
+                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                             Text="{Binding Entity, Mode=TwoWay}" />
+
+                                    <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveCreator_ContactPerson}"
+                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                             Text="{Binding ContactPerson, Mode=TwoWay}" />
+
+                                    <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveCreator_Telephone}"
+                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                             Text="{Binding Telephone, Mode=TwoWay}" />
+
+                                    <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveCreator_Email}"
+                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                             Text="{Binding Email, Mode=TwoWay}" />
+
+                                    <Button Grid.Row="4" Grid.Column="1"
+                                            Style="{DynamicResource MaterialDesignToolButton}"
+                                            Height="24" Width="24" Command="{Binding CommandDeleteItem}">
+                                        <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56" />
+                                    </Button>
+
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+
+
 
 
 

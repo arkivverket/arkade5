@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Arkivverket.Arkade.ExternalModels.Ead;
 using Prism.Commands;
@@ -13,6 +14,7 @@ namespace Arkivverket.Arkade.UI.Models
 {
     public class GuiMetaDataModel : BindableBase
     {
+
         private Visibility _visibilityItem = Visibility.Visible;
         private Visibility _visibilityAddItem = Visibility.Hidden;
         public bool IsDeleted = false;

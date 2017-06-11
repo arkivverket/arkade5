@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
 using System.Reflection;
+using System.Windows.Input;
 using System.Xml;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.UI.Models;
@@ -47,6 +49,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private GuiMetaDataModel _selectedArchiveSystemDataModel;
 
 
+
         private readonly List<MetadataEntityInformationUnit> _metaDataEntityInformationUnits = new List<MetadataEntityInformationUnit>();
 
         public DelegateCommand CreatePackageCommand { get; set; }
@@ -88,9 +91,11 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         public ObservableCollection<GuiMetaDataModel> MetaDataArchiveCreators
         {
-            get { return _metaDataArchiveCreators; }
-            set { SetProperty(ref _metaDataArchiveCreators, value); }
+            get {return _metaDataArchiveCreators; }
+            set {SetProperty(ref _metaDataArchiveCreators, value); }
         }
+
+
 
         public GuiMetaDataModel MetaDataTransferer
         {
@@ -190,7 +195,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set
             {
                 SetProperty(ref _selectedCreatorDataModel, value);
-                MetaDataArchiveCreators.Add(_selectedCreatorDataModel);
+                MetaDataArchiveCreators.Add(new GuiMetaDataModel(_selectedCreatorDataModel.Entity, _selectedCreatorDataModel.ContactPerson, _selectedCreatorDataModel.Telephone, _selectedCreatorDataModel.Email));
             }
         }
 
@@ -219,6 +224,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             AddMetadataCommentEntry = new DelegateCommand(RunAddMetadataCommentEntry);
         }
 
+
         public void RunAddMetadataAchiveCreatorEntry()
         {
             MetaDataArchiveCreators.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty));
@@ -246,9 +252,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 CreatePredefinedMetadataFieldValuesFile(predefinedMetadataFieldValuesFileInfo);
 
             _populateMetadataDataModels.DatafillArchiveEntity(_metaDataEntityInformationUnits, MetaDataPreregistreredUsers);
-            //_populateMetadataDataModels.DatafillArchiveRecipient(_testSession.ArchiveMetadata, MetaDataRecipient);
-            //_populateMetadataDataModels.DatafillArchiveSystem(_testSession.ArchiveMetadata, MetaDataSystem);
-
         }
 
         private static FileInfo GetPredefinedMetadataFieldValuesFileInfo()
