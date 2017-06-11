@@ -27,6 +27,7 @@ namespace Arkivverket.Arkade.UI.Models
 
         public ICommand CommandDeleteItem { get; set; }
         public ICommand CommandAddItem { get; set; }
+        public ICommand CommandNullOutEntry { get; set; }
 
 
         public string IconAdd
@@ -160,6 +161,7 @@ namespace Arkivverket.Arkade.UI.Models
             AgreementNumber = agreementNumber;
             CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
             CommandAddItem = new DelegateCommand(ExecuteAddItem);
+            CommandNullOutEntry = new DelegateCommand(NullOutRecord);
         }
 
 
@@ -172,6 +174,7 @@ namespace Arkivverket.Arkade.UI.Models
 
             CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
             CommandAddItem = new DelegateCommand(ExecuteAddItem);
+            CommandNullOutEntry = new DelegateCommand(NullOutRecord);
         }
 
         public GuiMetaDataModel(string systemName, string systemVersion, string systemType, string systemTypeVersion,
@@ -186,6 +189,7 @@ namespace Arkivverket.Arkade.UI.Models
 
             CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
             CommandAddItem = new DelegateCommand(ExecuteAddItem);
+            CommandNullOutEntry = new DelegateCommand(NullOutRecord);
         }
 
 
@@ -195,6 +199,7 @@ namespace Arkivverket.Arkade.UI.Models
 
             CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
             CommandAddItem = new DelegateCommand(ExecuteAddItem);
+            CommandNullOutEntry = new DelegateCommand(NullOutRecord);
         }
 
 
@@ -222,6 +227,11 @@ namespace Arkivverket.Arkade.UI.Models
         public void SetDeleteButtonHidden()
         {
             DeleteButtonVisibility = Visibility.Hidden;
+        }
+
+        public void NullOutRecord()
+        {
+            _ResetAllDataFields();
         }
 
 

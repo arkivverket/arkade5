@@ -87,8 +87,9 @@
                     </StackPanel>
                 </GroupBox>
 
-                <Border Grid.Row="1" BorderBrush="LightGray" BorderThickness="1" 
-                        CornerRadius="10" Margin="5" Visibility="{Binding MetaDataModelArchiveDescription.VisibilityItem}" 
+                <Border Grid.Row="1" BorderBrush="LightGray" BorderThickness="1"
+                        CornerRadius="10" Margin="5"
+                        Visibility="{Binding MetaDataModelArchiveDescription.VisibilityItem}"
                         Width="264" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
@@ -100,30 +101,29 @@
                             <ColumnDefinition Width="250" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Row="0" Grid.Column="0" 
-                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveDescription}"
-                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                             Text="{Binding MetaDataModelArchiveDescription.ArchiveDescription, Mode=TwoWay}" 
-                                             TextWrapping="Wrap"/>
+                        <TextBox Grid.Row="0" Grid.Column="0"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveDescription}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataModelArchiveDescription.ArchiveDescription, Mode=TwoWay}"
+                                 TextWrapping="Wrap" />
 
 
-                        <TextBox Grid.Row="1" Grid.Column="0" 
-                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.AgreementNumber}"
-                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                             Text="{Binding MetaDataModelArchiveDescription.AgreementNumber, Mode=TwoWay}" 
-                                             TextWrapping="Wrap"/>
+                        <TextBox Grid.Row="1" Grid.Column="0"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.AgreementNumber}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataModelArchiveDescription.AgreementNumber, Mode=TwoWay}"
+                                 TextWrapping="Wrap" />
 
                         <Button Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"
-                                            Style="{DynamicResource MaterialDesignToolButton}" Height="24" Width="24"
-                                            Command="{Binding MetaDataModelArchiveDescription.CommandDeleteItem}">
-                            <materialDesign:PackIcon Kind="{Binding MetaDataModelArchiveDescription.IconDelete}" Opacity=".56" />
+                                Style="{DynamicResource MaterialDesignToolButton}" Height="24" Width="24"
+                                Command="{Binding MetaDataModelArchiveDescription.CommandDeleteItem}">
+                            <materialDesign:PackIcon Kind="{Binding MetaDataModelArchiveDescription.IconDelete}"
+                                                     Opacity=".56" />
                         </Button>
 
                     </Grid>
                 </Border>
 
-
-                
 
                 <!-- Arkivskaper -->
                 <GroupBox Grid.Row="2" Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveCreator}"
@@ -137,8 +137,10 @@
                             <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
                         </Button>
 
-                        <ComboBox  Name="ListEntities" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MetaDataPreregistreredUsers}" 
-                                   materialDesign:HintAssist.Hint="Fyll" SelectedItem="{Binding SelectedCreatorDataModel}">
+                        <ComboBox Name="ListEntities" VerticalAlignment="Top" Width="Auto"
+                                  ItemsSource="{Binding MetaDataPreregistreredUsers}"
+                                  materialDesign:HintAssist.Hint="Fyll"
+                                  SelectedItem="{Binding SelectedCreatorDataModel}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <WrapPanel>
@@ -201,8 +203,9 @@
 
                                     <Button Grid.Row="4" Grid.Column="1"
                                             Style="{DynamicResource MaterialDesignToolButton}"
-                                            Height="24" Width="24" Command="{Binding CommandDeleteItem}" Visibility="{Binding DeleteButtonVisibility}">
-                                        <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56"/>
+                                            Height="24" Width="24" Command="{Binding CommandDeleteItem}"
+                                            Visibility="{Binding DeleteButtonVisibility}">
+                                        <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56" />
                                     </Button>
 
 
@@ -213,11 +216,82 @@
                 </ItemsControl>
 
 
+                <!-- Overforer -->
+                <GroupBox Grid.Row="4" Header="{x:Static resources:MetaDataUI.GuiSubsection_Transferer}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0" Width="264" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <!--<Button Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="32" Width="32"
+                                Command="{Binding AddMetadataAchiveTransfererEntry}">
+                            <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
+                        </Button> -->
 
+                        <ComboBox Name="ListTransfereres" VerticalAlignment="Top" Width="Auto"
+                                  ItemsSource="{Binding MetaDataPreregistreredUsers}"
+                                  materialDesign:HintAssist.Hint="Fyll"
+                                  SelectedItem="{Binding SelectedTransfererDataModel}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <WrapPanel>
+                                        <TextBlock Text="{Binding ContactPerson}" FontWeight="Bold" />
+                                        <TextBlock Text=", " />
+                                        <TextBlock Text="{Binding Entity}" FontWeight="Bold" />
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
 
+                    </StackPanel>
+                </GroupBox>
 
+                <Border Grid.Row="5" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                        Visibility="{Binding MetaDataTransferer.ItemVisibility}">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
+                        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Transferer}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataTransferer.Entity, Mode=TwoWay}" />
 
+                        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Transferer_ContractPerson}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataTransferer.ContactPerson, Mode=TwoWay}" />
+
+                        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Transferer_Telephone}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataTransferer.Telephone, Mode=TwoWay}" />
+
+                        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Transferer_Email}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataTransferer.Email, Mode=TwoWay}" />
+
+                        <Button Grid.Row="4" Grid.Column="1"
+                                Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="24" Width="24" Command="{Binding MetaDataTransferer.CommandNullOutEntry}">
+                            <materialDesign:PackIcon Kind="{Binding MetaDataTransferer.IconDelete}" Opacity=".56" />
+                        </Button>
+                    </Grid>
+                </Border>
+
+                
+                
+                
 
             </Grid>
         </ScrollViewer>

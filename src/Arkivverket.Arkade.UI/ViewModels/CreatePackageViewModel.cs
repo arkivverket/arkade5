@@ -157,7 +157,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set
             {
                 SetProperty(ref _selectedTransfererDataModel, value);
-                MetaDataTransferer = _selectedTransfererDataModel;
+                MetaDataTransferer.Entity = SelectedTransfererDataModel.Entity;
+                MetaDataTransferer.ContactPerson = SelectedTransfererDataModel.ContactPerson;
+                MetaDataTransferer.Telephone = SelectedTransfererDataModel.Telephone;
+                MetaDataTransferer.Email = SelectedTransfererDataModel.Email;
             }
         }
 
