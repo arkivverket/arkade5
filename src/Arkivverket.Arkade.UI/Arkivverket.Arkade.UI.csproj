@@ -137,6 +137,7 @@
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\ArchiveInformationStatus.cs" />
+    <Compile Include="Models\ObservableCollectionEx.cs" />
     <Compile Include="Models\GuiMetaDataModel.cs" />
     <Compile Include="Models\OperationMessage.cs" />
     <Compile Include="ModuleAModule.cs" />

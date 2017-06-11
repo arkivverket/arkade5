@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Windows.Input;
@@ -32,7 +33,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private readonly PopulateMetadataDataModels _populateMetadataDataModels = new PopulateMetadataDataModels();
 
         private GuiMetaDataModel _metaDataArchiveDescription = new GuiMetaDataModel(string.Empty, string.Empty);
-        private ObservableCollection<GuiMetaDataModel> _metaDataArchiveCreators = new ObservableCollection<GuiMetaDataModel>();
+        private ObservableCollection<GuiMetaDataModel> _metaDataArchiveCreators = new ObservableCollectionEx<GuiMetaDataModel>();
         private GuiMetaDataModel _metaDataTransferer = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataProducer = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty);
         private ObservableCollection<GuiMetaDataModel> _metaDataOwners = new ObservableCollection<GuiMetaDataModel>();
@@ -222,6 +223,14 @@ namespace Arkivverket.Arkade.UI.ViewModels
             AddMetadataAchiveCreatorEntry = new DelegateCommand(RunAddMetadataAchiveCreatorEntry);
             AddMetadataAchiveOwnerEntry = new DelegateCommand(RunAddMetadataAchiveOwnerEntry);
             AddMetadataCommentEntry = new DelegateCommand(RunAddMetadataCommentEntry);
+
+           ((INotifyPropertyChanged)MetaDataArchiveCreators).PropertyChanged += (x, y) => ReactToChange();
+
+        }
+
+        public void ReactToChange()
+        {
+            int whollyMamDidItWork = 2;
         }
 
 
