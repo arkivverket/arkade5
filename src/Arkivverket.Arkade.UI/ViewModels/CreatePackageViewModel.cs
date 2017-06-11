@@ -197,7 +197,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set
             {
                 SetProperty(ref _selectedCreatorDataModel, value);
-                MetaDataArchiveCreators.Add(new GuiMetaDataModel(_selectedCreatorDataModel.Entity, _selectedCreatorDataModel.ContactPerson, _selectedCreatorDataModel.Telephone, _selectedCreatorDataModel.Email));
+                if (_EnterElementIfOneNotDeletedEntryIsNotFilled(MetaDataArchiveCreators, _selectedCreatorDataModel.Entity, _selectedCreatorDataModel.ContactPerson, _selectedCreatorDataModel.Telephone, _selectedCreatorDataModel.Email) == false)
+                {
+                    MetaDataArchiveCreators.Add(new GuiMetaDataModel(_selectedCreatorDataModel.Entity, _selectedCreatorDataModel.ContactPerson, _selectedCreatorDataModel.Telephone, _selectedCreatorDataModel.Email));
+                }
             }
         }
 
@@ -383,6 +386,28 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private int _GetNumNotDeletedEntriesIn(ObservableCollection<GuiMetaDataModel> collection)
         {
             return collection.Count(x => x.IsDeleted == false);
+        }
+
+        private bool _EnterElementIfOneNotDeletedEntryIsNotFilled(ObservableCollection<GuiMetaDataModel> collection, string entity, string contactPerson, string telephone, string email)
+        {
+            if ((collection.Count(x => (x.IsDeleted == false) && (x.Entity == string.Empty))) == 1)
+            {
+                foreach (var entry in collection)
+                {
+                    if (entry.IsDeleted == false)
+                    {
+                        entry.Entity = entity;
+                        entry.ContactPerson = contactPerson;
+                        entry.Telephone = telephone;
+                        entry.Email = email;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
