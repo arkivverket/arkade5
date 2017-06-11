@@ -17,6 +17,8 @@ namespace Arkivverket.Arkade.UI.Models
 
         private Visibility _visibilityItem = Visibility.Visible;
         private Visibility _visibilityAddItem = Visibility.Hidden;
+        private Visibility _deleteButtonVisibility = Visibility.Visible;
+
         public bool IsDeleted = false;
 
         private string _iconAdd = "PlusCircleOutline";
@@ -56,6 +58,14 @@ namespace Arkivverket.Arkade.UI.Models
             get { return _visibilityAddItem; }
             set { SetProperty(ref _visibilityAddItem, value); }
         }
+
+
+        public Visibility DeleteButtonVisibility
+        {
+            get { return _deleteButtonVisibility; }
+            set { SetProperty(ref _deleteButtonVisibility, value); }
+        }
+
 
 
         private string _archiveDescription;
@@ -202,6 +212,18 @@ namespace Arkivverket.Arkade.UI.Models
             VisibilityItem = Visibility.Visible;
             VisibilityAddItem = Visibility.Hidden;
         }
+
+
+        public void SetDeleteButtonVisible()
+        {
+            DeleteButtonVisibility = Visibility.Visible;
+        }
+
+        public void SetDeleteButtonHidden()
+        {
+            DeleteButtonVisibility = Visibility.Hidden;
+        }
+
 
 
         private void _ResetAllDataFields()

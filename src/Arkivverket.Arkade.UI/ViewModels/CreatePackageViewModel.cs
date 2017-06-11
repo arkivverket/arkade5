@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 using System.Xml;
@@ -224,13 +225,15 @@ namespace Arkivverket.Arkade.UI.ViewModels
             AddMetadataAchiveOwnerEntry = new DelegateCommand(RunAddMetadataAchiveOwnerEntry);
             AddMetadataCommentEntry = new DelegateCommand(RunAddMetadataCommentEntry);
 
-           ((INotifyPropertyChanged)MetaDataArchiveCreators).PropertyChanged += (x, y) => ReactToChange();
+           ((INotifyPropertyChanged)MetaDataArchiveCreators).PropertyChanged += (x, y) => OnMetaDataArchiveCreatorsDataElementChaneChange();
 
         }
 
-        public void ReactToChange()
+        public void OnMetaDataArchiveCreatorsDataElementChaneChange()
         {
-            int whollyMamDidItWork = 2;
+            // Fires when any change is carried out in the MetaDataArchiveCreators ObservableCollection
+            // Calls function to aminister GUI based as needed
+            _SetDeleteButtonToHiddenIfCollectionOnlyContainsOneElements(MetaDataArchiveCreators);
         }
 
 
@@ -261,6 +264,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 CreatePredefinedMetadataFieldValuesFile(predefinedMetadataFieldValuesFileInfo);
 
             _populateMetadataDataModels.DatafillArchiveEntity(_metaDataEntityInformationUnits, MetaDataPreregistreredUsers);
+
+            // Pre populate metadata entries that require at least one entry
+            RunAddMetadataAchiveCreatorEntry();
+
         }
 
         private static FileInfo GetPredefinedMetadataFieldValuesFileInfo()
@@ -369,5 +376,37 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _isRunningCreatePackage = false;
             //CreatePackageCommand.RaiseCanExecuteChanged();
         }
+
+
+
+
+        private int _GetNumNotDeletedEntriesIn(ObservableCollection<GuiMetaDataModel> collection)
+        {
+            return collection.Count(x => x.IsDeleted == false);
+        }
+
+
+
+        private void _SetDeleteButtonToHiddenIfCollectionOnlyContainsOneElements(ObservableCollection<GuiMetaDataModel> collection)
+        {
+            if (_GetNumNotDeletedEntriesIn(collection) == 1)
+            {
+                foreach (var entry in collection)
+                {
+                    if (entry.IsDeleted == false)
+                        entry.SetDeleteButtonHidden();
+                }
+            }
+            else
+            {
+                foreach (var entry in collection)
+                {
+                    if (entry.IsDeleted == false)
+                        entry.SetDeleteButtonVisible();
+                }
+            }
+        }
+
+
     }
 }

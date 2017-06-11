@@ -201,8 +201,8 @@
 
                                     <Button Grid.Row="4" Grid.Column="1"
                                             Style="{DynamicResource MaterialDesignToolButton}"
-                                            Height="24" Width="24" Command="{Binding CommandDeleteItem}">
-                                        <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56" />
+                                            Height="24" Width="24" Command="{Binding CommandDeleteItem}" Visibility="{Binding DeleteButtonVisibility}">
+                                        <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56"/>
                                     </Button>
 
 
