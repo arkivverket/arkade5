@@ -328,17 +328,17 @@ namespace Arkivverket.Arkade.UI.ViewModels
             {
                 new MetadataEntityInformationUnit
                 {
-                    Entity = " ",
-                    ContactPerson = " ",
-                    Telephone = " ",
-                    Email = " "
+                    Entity = "Eksempelorganisasjon 1",
+                    ContactPerson = "Ola Nordmann",
+                    Telephone = "99999999",
+                    Email = "ola@nordmann.no"
                 },
                 new MetadataEntityInformationUnit
                 {
-                    Entity = " ",
-                    ContactPerson = " ",
-                    Telephone = " ",
-                    Email = " "
+                    Entity = "Eksempelorganisasjon 2",
+                    ContactPerson = "Kari Nordmann",
+                    Telephone = "44444444",
+                    Email = "kari@nordmann.no"
                 }
             };
 
