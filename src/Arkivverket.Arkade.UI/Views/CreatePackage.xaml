@@ -180,17 +180,17 @@
                                         <ColumnDefinition Width="250" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBox Grid.Row="0" Grid.Column="0" 
+                                    <TextBox Grid.Row="0" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveCreator}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Entity, Mode=TwoWay}" />
 
-                                    <TextBox Grid.Row="1" Grid.Column="0" 
+                                    <TextBox Grid.Row="1" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveCreator_ContactPerson}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding ContactPerson, Mode=TwoWay}" />
 
-                                    <TextBox Grid.Row="2" Grid.Column="0" 
+                                    <TextBox Grid.Row="2" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveCreator_Telephone}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Telephone, Mode=TwoWay}" />
@@ -200,7 +200,7 @@
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Email, Mode=TwoWay}" />
 
-                                    <Button Grid.Row="4" 
+                                    <Button Grid.Row="4"
                                             Style="{DynamicResource MaterialDesignToolButton}"
                                             Height="24" Width="24" Command="{Binding CommandDeleteItem}"
                                             Visibility="{Binding DeleteButtonVisibility}" HorizontalAlignment="Right">
@@ -259,17 +259,17 @@
                             <ColumnDefinition Width="250" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Row="0" Grid.Column="0" 
+                        <TextBox Grid.Row="0" Grid.Column="0"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Transferer}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataTransferer.Entity, Mode=TwoWay}" />
 
-                        <TextBox Grid.Row="1" Grid.Column="0" 
+                        <TextBox Grid.Row="1" Grid.Column="0"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Transferer_ContractPerson}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataTransferer.ContactPerson, Mode=TwoWay}" />
 
-                        <TextBox Grid.Row="2" Grid.Column="0" 
+                        <TextBox Grid.Row="2" Grid.Column="0"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Transferer_Telephone}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataTransferer.Telephone, Mode=TwoWay}" />
@@ -288,12 +288,11 @@
                 </Border>
 
 
-                
                 <!-- Produsent -->
                 <GroupBox Grid.Row="6" Header="{x:Static resources:MetaDataUI.GuiSubsection_Producer}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0" >
+                          BorderThickness="0">
                     <StackPanel Orientation="Horizontal">
                         <!--<Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -333,22 +332,22 @@
                             <ColumnDefinition Width="250" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Row="0" 
+                        <TextBox Grid.Row="0"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Producer}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataProducer.Entity, Mode=TwoWay}" />
 
-                        <TextBox Grid.Row="1" 
+                        <TextBox Grid.Row="1"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Producer_ContactPerson}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataProducer.ContactPerson, Mode=TwoWay}" />
 
-                        <TextBox Grid.Row="2" 
+                        <TextBox Grid.Row="2"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Producer_Telephone}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataProducer.Telephone, Mode=TwoWay}" />
 
-                        <TextBox Grid.Row="3" 
+                        <TextBox Grid.Row="3"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Producer_Email}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataProducer.Email, Mode=TwoWay}" />
@@ -362,9 +361,6 @@
                 </Border>
 
 
-                
-                
-                
                 <!-- Eier -->
                 <GroupBox Grid.Row="8" Header="{x:Static resources:MetaDataUI.GuiSubsection_Owner}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
@@ -377,8 +373,9 @@
                             <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
                         </Button>
 
-                        <ComboBox  Name="ListOwners" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MetaDataPreregistreredUsers}" 
-                                   materialDesign:HintAssist.Hint="Fyll" SelectedItem="{Binding SelectedOwnerDataModel}">
+                        <ComboBox Name="ListOwners" VerticalAlignment="Top" Width="Auto"
+                                  ItemsSource="{Binding MetaDataPreregistreredUsers}"
+                                  materialDesign:HintAssist.Hint="Fyll" SelectedItem="{Binding SelectedOwnerDataModel}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <WrapPanel>
@@ -418,27 +415,27 @@
                                         <ColumnDefinition Width="250" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBox Grid.Row="0" Grid.Column="0" 
+                                    <TextBox Grid.Row="0" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Owner}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Entity, Mode=TwoWay}" />
 
-                                    <TextBox Grid.Row="1" Grid.Column="0" 
+                                    <TextBox Grid.Row="1" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Owner_ContactPerson}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding ContactPerson, Mode=TwoWay}" />
 
-                                    <TextBox Grid.Row="2" Grid.Column="0" 
+                                    <TextBox Grid.Row="2" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Owner_Telephone}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Telephone, Mode=TwoWay}" />
 
-                                    <TextBox Grid.Row="3" Grid.Column="0" 
+                                    <TextBox Grid.Row="3" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Owner_Email}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Email, Mode=TwoWay}" />
 
-                                    <Button Grid.Row="4" 
+                                    <Button Grid.Row="4"
                                             Style="{DynamicResource MaterialDesignToolButton}"
                                             Height="24" Width="24" Command="{Binding CommandDeleteItem}"
                                             Visibility="{Binding DeleteButtonVisibility}" HorizontalAlignment="Right">
@@ -451,9 +448,33 @@
                 </ItemsControl>
 
 
+                <!-- Mottaker -->
+                <GroupBox Grid.Row="11" Header="{x:Static resources:MetaDataUI.GuiSubsection_Recipient}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderThickness="0" />
 
+                <Border Grid.Row="12" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                        Visibility="{Binding MetaDataRecipient.ItemVisibility}" Width="269" HorizontalAlignment="Left">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                        </Grid.ColumnDefinitions>
 
+                        <TextBox Grid.Row="0"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Recepient}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataRecipient.Entity, Mode=TwoWay}" />
+                    </Grid>
+                </Border>
 
+                
+                
+                
 
             </Grid>
         </ScrollViewer>
