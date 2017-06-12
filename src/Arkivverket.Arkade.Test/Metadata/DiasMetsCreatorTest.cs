@@ -22,32 +22,32 @@ namespace Arkivverket.Arkade.Test.Metadata
                 AgreementNumber = "XX 00-0000/0000; 0000-00-00",
                 ArchiveCreators =
                 {
-                    CreateMetadataEntityInformationUnit('A'),
-                    CreateMetadataEntityInformationUnit('B')
+                    CreateMetadataEntityInformationUnit('1'),
+                    CreateMetadataEntityInformationUnit('2')
                 },
-                Transferer = CreateMetadataEntityInformationUnit('E'),
-                Producer = CreateMetadataEntityInformationUnit('F'),
+                Transferer = CreateMetadataEntityInformationUnit('3'),
+                Producer = CreateMetadataEntityInformationUnit('4'),
                 Owners =
                 {
-                    CreateMetadataEntityInformationUnit('C'),
-                    CreateMetadataEntityInformationUnit('D')
+                    CreateMetadataEntityInformationUnit('5'),
+                    CreateMetadataEntityInformationUnit('6')
                 },
                 Recipient = "Some recipient",
                 System = new MetadataSystemInformationUnit
                 {
                     Name = "Some system name",
-                    Version = "vX.Y.Z",
+                    Version = "v1.0.0",
                     Type = "Some system type",
-                    TypeVersion = "vA.B.C"
+                    TypeVersion = "v1.1.0"
                 },
                 ArchiveSystem = new MetadataSystemInformationUnit
                 {
                     Name = "Some archive system name",
-                    Version = "vX.Y.Z",
+                    Version = "v2.0.0",
                     Type = "Some archive system type",
-                    TypeVersion = "vA.B.C"
+                    TypeVersion = "v2.1.0"
                 },
-                Comments = { "Some comment A", "Some comment B" },
+                Comments = { "Some comment 1", "Some comment 2" },
             };
         }
 
@@ -79,15 +79,15 @@ namespace Arkivverket.Arkade.Test.Metadata
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.ARCHIVIST &&
-                         agent.name.Equals("Entity A")
+                         agent.name.Equals("Entity 1")
             );
 
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.CREATOR &&
-                         agent.name.Equals("Contactperson A") &&
-                         agent.note.Contains("A-99999999") &&
-                         agent.note.Contains("post@entity-a.com")
+                         agent.name.Equals("Contactperson 1") &&
+                         agent.note.Contains("1-99999999") &&
+                         agent.note.Contains("post@entity-1.com")
             );
 
             // ARCHIVECREATOR 2: 
@@ -95,14 +95,14 @@ namespace Arkivverket.Arkade.Test.Metadata
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.ARCHIVIST &&
-                         agent.name.Equals("Entity B")
+                         agent.name.Equals("Entity 2")
             );
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.CREATOR &&
-                         agent.name.Equals("Contactperson B") &&
-                         agent.note.Contains("B-99999999") &&
-                         agent.note.Contains("post@entity-b.com")
+                         agent.name.Equals("Contactperson 2") &&
+                         agent.note.Contains("2-99999999") &&
+                         agent.note.Contains("post@entity-2.com")
             );
 
             // TRANSFERER:
@@ -111,16 +111,16 @@ namespace Arkivverket.Arkade.Test.Metadata
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
                          agent.OTHERROLE.Equals("SUBMITTER") &&
-                         agent.name.Equals("Entity E")
+                         agent.name.Equals("Entity 3")
             );
 
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
                          agent.OTHERROLE.Equals("SUBMITTER") &&
-                         agent.name.Equals("Contactperson E") &&
-                         agent.note.Contains("E-99999999") &&
-                         agent.note.Contains("post@entity-e.com")
+                         agent.name.Equals("Contactperson 3") &&
+                         agent.note.Contains("3-99999999") &&
+                         agent.note.Contains("post@entity-3.com")
             );
 
             // PRODUCER:
@@ -129,16 +129,16 @@ namespace Arkivverket.Arkade.Test.Metadata
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
                          agent.OTHERROLE.Equals("PRODUCER") &&
-                         agent.name.Equals("Entity F")
+                         agent.name.Equals("Entity 4")
             );
 
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
                          agent.OTHERROLE.Equals("PRODUCER") &&
-                         agent.name.Equals("Contactperson F") &&
-                         agent.note.Contains("F-99999999") &&
-                         agent.note.Contains("post@entity-f.com")
+                         agent.name.Equals("Contactperson 4") &&
+                         agent.note.Contains("4-99999999") &&
+                         agent.note.Contains("post@entity-4.com")
             );
 
             // OWNER 1:
@@ -146,15 +146,15 @@ namespace Arkivverket.Arkade.Test.Metadata
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.IPOWNER &&
-                         agent.name.Equals("Entity C")
+                         agent.name.Equals("Entity 5")
             );
 
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.IPOWNER &&
-                         agent.name.Equals("Contactperson C") &&
-                         agent.note.Contains("C-99999999") &&
-                         agent.note.Contains("post@entity-c.com")
+                         agent.name.Equals("Contactperson 5") &&
+                         agent.note.Contains("5-99999999") &&
+                         agent.note.Contains("post@entity-5.com")
             );
 
             // OWNER 2:
@@ -162,15 +162,15 @@ namespace Arkivverket.Arkade.Test.Metadata
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.IPOWNER &&
-                         agent.name.Equals("Entity D")
+                         agent.name.Equals("Entity 6")
             );
 
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.IPOWNER &&
-                         agent.name.Equals("Contactperson D") &&
-                         agent.note.Contains("D-99999999") &&
-                         agent.note.Contains("post@entity-d.com")
+                         agent.name.Equals("Contactperson 6") &&
+                         agent.note.Contains("6-99999999") &&
+                         agent.note.Contains("post@entity-6.com")
             );
 
             // RECIPIENT:
@@ -194,7 +194,7 @@ namespace Arkivverket.Arkade.Test.Metadata
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                          agent.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.ARCHIVIST
-                         && agent.name.Equals("vX.Y.Z")
+                         && agent.name.Equals("v1.0.0")
             );
 
             metsHdrAgents.Should().Contain(
@@ -208,7 +208,7 @@ namespace Arkivverket.Arkade.Test.Metadata
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                          agent.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.ARCHIVIST
-                         && agent.name.Equals("vA.B.C")
+                         && agent.name.Equals("v1.1.0")
             );
 
             // ARCHIVE SYSTEM:
@@ -226,7 +226,7 @@ namespace Arkivverket.Arkade.Test.Metadata
                          agent.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
                          agent.OTHERROLE == "PRODUCER" &&
-                         agent.name.Equals("vX.Y.Z")
+                         agent.name.Equals("v2.0.0")
             );
 
             metsHdrAgents.Should().Contain(
@@ -242,13 +242,12 @@ namespace Arkivverket.Arkade.Test.Metadata
                          agent.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
                          agent.OTHERROLE == "PRODUCER" &&
-                         agent.name.Equals("vA.B.C")
+                         agent.name.Equals("v2.1.0")
             );
 
             // COMMENTS:
 
-            /* Awaiting support in schema
-            
+            /* TODO: Enable check for comments when they are supported in built in mets schema
             mets.amdSec.Any(a => a.techMD.Any(
                 t1 => t1.mdWrap.Item.Equals("Some comment A")
                       && a.techMD.Any(
@@ -260,7 +259,7 @@ namespace Arkivverket.Arkade.Test.Metadata
         [Fact]
         public void ShouldSaveCreatedMetsfileToDisk()
         {
-            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Metadata\\DiasMets";
+            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Metadata\\DiasMetsCreator";
 
             Archive archive = new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)

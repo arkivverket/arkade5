@@ -409,7 +409,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestData\kvotekontroll89\kvotekontroll89.XML" />
-    <Content Include="TestData\Metadata\DiasMets\directorykeeper.txt">
+    <Content Include="TestData\Metadata\DiasMetsCreator\directorykeeper.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\noark3\addml.xml" />
