@@ -117,8 +117,7 @@
                         <Button Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"
                                 Style="{DynamicResource MaterialDesignToolButton}" Height="24" Width="24"
                                 Command="{Binding MetaDataModelArchiveDescription.CommandDeleteItem}">
-                            <materialDesign:PackIcon Kind="{Binding MetaDataModelArchiveDescription.IconDelete}"
-                                                     Opacity=".56" />
+                            <materialDesign:PackIcon Kind="{Binding MetaDataModelArchiveDescription.IconDelete}" Opacity=".56" />
                         </Button>
 
                     </Grid>
@@ -472,6 +471,115 @@
                     </Grid>
                 </Border>
 
+
+                <!-- System -->
+                <GroupBox Grid.Row="13" Header="{x:Static resources:MetaDataUI.GuiSubsection_System}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0" />
+
+                <Border Grid.Row="14" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                        Visibility="{Binding MetaDataSystem.ItemVisibility}" Width="269" HorizontalAlignment="Left">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemName}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataSystem.SystemName, Mode=TwoWay}" />
+
+                        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemVersion}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataSystem.SystemVersion, Mode=TwoWay}" />
+
+                        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemType}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataSystem.SystemType, Mode=TwoWay}" />
+
+                        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemTypeVersion}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataSystem.SystemTypeVersion, Mode=TwoWay}" />
+
+                    </Grid>
+                </Border>
+
+
+                
+                
+                
+                <!-- Uttrekkssystem -->
+                <GroupBox Grid.Row="15" Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveSystem}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="32" Width="32"
+                                Command="{Binding MetaDataArchiveSystem.CommandAddItem}"
+                                Visibility="{Binding MetaDataArchiveSystem.VisibilityAddItem}">
+                            <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
+                        </Button>
+                    </StackPanel>
+                </GroupBox>
+
+                <Border Grid.Row="16" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                        Visibility="{Binding MetaDataArchiveSystem.VisibilityItem}" Width="269"
+                        HorizontalAlignment="Left">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Row="0"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveSystem}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataArchiveSystem.SystemName, Mode=TwoWay}" />
+
+                        <TextBox Grid.Row="1"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemVersion}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataArchiveSystem.SystemVersion, Mode=TwoWay}" />
+
+                        <TextBox Grid.Row="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemType}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataArchiveSystem.SystemType, Mode=TwoWay}" />
+
+                        <TextBox Grid.Row="3"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemTypeVersion}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataArchiveSystem.SystemTypeVersion, Mode=TwoWay}" />
+
+                        <Button Grid.Row="4"
+                                Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Right"
+                                Height="24" Width="24" Command="{Binding  MetaDataArchiveSystem.CommandDeleteItem}">
+                            <materialDesign:PackIcon Kind="{Binding  MetaDataArchiveSystem.IconDelete}" Opacity=".56" />
+                        </Button>
+                    </Grid>
+                </Border>
+
+                
+                
                 
                 
                 
