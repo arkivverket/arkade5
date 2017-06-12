@@ -170,7 +170,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set
             {
                 SetProperty(ref _selectedProducerDataModel, value);
-                MetaDataProducer = _selectedProducerDataModel;
+                MetaDataProducer.Entity = SelectedProducerDataModel.Entity;
+                MetaDataProducer.ContactPerson = SelectedProducerDataModel.ContactPerson;
+                MetaDataProducer.Telephone = SelectedProducerDataModel.Telephone;
+                MetaDataProducer.Email = SelectedProducerDataModel.Email;
             }
         }
 
