@@ -578,11 +578,69 @@
                     </Grid>
                 </Border>
 
-                
-                
-                
-                
-                
+
+
+
+                <!-- Kommentarer -->
+                <GroupBox Grid.Row="17" Header="{x:Static resources:MetaDataUI.GuiSubsection_Comment}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="32" Width="32"
+                                Command="{Binding AddMetadataCommentEntry}">
+                            <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
+                        </Button>
+                    </StackPanel>
+                </GroupBox>
+
+                <ItemsControl Grid.Row="18" ItemsSource="{Binding MetaDataComments}">
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" Margin="5" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+
+                        <DataTemplate DataType="{x:Type models:GuiMetaDataModel}">
+                            <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                                    Visibility="{Binding VisibilityItem}">
+                                <Grid Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="250" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Comment}"
+                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                             Text="{Binding SystemName, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
+
+                                    <Button Grid.Row="4" Grid.Column="1"
+                                            Style="{DynamicResource MaterialDesignToolButton}"
+                                            Height="24" Width="24" Command="{Binding CommandDeleteItem}">
+                                        <materialDesign:PackIcon Kind="{Binding IconDelete}" Opacity=".56" />
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+
+
+
+
 
             </Grid>
         </ScrollViewer>
