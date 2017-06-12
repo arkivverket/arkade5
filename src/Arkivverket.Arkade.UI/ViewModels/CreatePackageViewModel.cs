@@ -370,10 +370,10 @@ namespace Arkivverket.Arkade.UI.ViewModels
             {
                 ArchiveDescription = ArchiveMetadataMapper.MapToArchiveDescription(_metaDataArchiveDescription),
                 AgreementNumber = ArchiveMetadataMapper.MapToAgreementNumber(_metaDataArchiveDescription),
-                ArchiveCreators = ArchiveMetadataMapper.MapToArchiveCreators(_metaDataArchiveCreators),
+                ArchiveCreators = ArchiveMetadataMapper.MapToArchiveCreators(_metaDataArchiveCreators.Where(c => !c.IsDeleted)),
                 Transferer = ArchiveMetadataMapper.MapToTransferer(_metaDataTransferer),
                 Producer = ArchiveMetadataMapper.MapToProducer(_metaDataProducer),
-                Owners = ArchiveMetadataMapper.MapToArchiveOwners(_metaDataOwners),
+                Owners = ArchiveMetadataMapper.MapToArchiveOwners(_metaDataOwners.Where(o => !o.IsDeleted)),
                 Recipient = ArchiveMetadataMapper.MapToRecipient(_metaDataRecipient),
                 System = ArchiveMetadataMapper.MapToSystem(_metaDataSystem),
                 ArchiveSystem = ArchiveMetadataMapper.MapToArchiveSystem(_metaDataArchiveSystem),
