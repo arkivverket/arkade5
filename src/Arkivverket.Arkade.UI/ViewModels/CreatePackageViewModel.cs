@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private ObservableCollection<GuiMetaDataModel> _metaDataArchiveCreators = new ObservableCollectionEx<GuiMetaDataModel>();
         private GuiMetaDataModel _metaDataTransferer = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataProducer = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty);
-        private ObservableCollection<GuiMetaDataModel> _metaDataOwners = new ObservableCollection<GuiMetaDataModel>();
+        private ObservableCollection<GuiMetaDataModel> _metaDataOwners = new ObservableCollectionEx<GuiMetaDataModel>();
         private GuiMetaDataModel _metaDataRecipient = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, true);
         private GuiMetaDataModel _metaDataArchiveSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, true);
@@ -183,7 +183,11 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set
             {
                 SetProperty(ref _selectedOwnerDataModel, value);
-                MetaDataOwners.Add(_selectedOwnerDataModel);
+                SetProperty(ref _selectedCreatorDataModel, value);
+                if (_EnterElementIfOneNotDeletedEntryIsNotFilled(MetaDataOwners, _selectedOwnerDataModel.Entity, _selectedOwnerDataModel.ContactPerson, _selectedOwnerDataModel.Telephone, _selectedOwnerDataModel.Email) == false)
+                {
+                    MetaDataOwners.Add(new GuiMetaDataModel(_selectedOwnerDataModel.Entity, _selectedOwnerDataModel.ContactPerson, _selectedOwnerDataModel.Telephone, _selectedOwnerDataModel.Email));
+                }
             }
         }
 
@@ -235,6 +239,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             AddMetadataCommentEntry = new DelegateCommand(RunAddMetadataCommentEntry);
 
            ((INotifyPropertyChanged)MetaDataArchiveCreators).PropertyChanged += (x, y) => OnMetaDataArchiveCreatorsDataElementChaneChange();
+           ((INotifyPropertyChanged)MetaDataOwners).PropertyChanged += (x, y) => OnMetaDataOwnersDataElementChaneChange();
 
         }
 
@@ -244,6 +249,14 @@ namespace Arkivverket.Arkade.UI.ViewModels
             // Calls function to aminister GUI based as needed
             _SetDeleteButtonToHiddenIfCollectionOnlyContainsOneElements(MetaDataArchiveCreators);
         }
+
+        public void OnMetaDataOwnersDataElementChaneChange()
+        {
+            // Fires when any change is carried out in the MetaDataArchiveCreators ObservableCollection
+            // Calls function to aminister GUI based as needed
+            _SetDeleteButtonToHiddenIfCollectionOnlyContainsOneElements(MetaDataOwners);
+        }
+
 
 
         public void RunAddMetadataAchiveCreatorEntry()
@@ -276,6 +289,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
             // Pre populate metadata entries that require at least one entry
             RunAddMetadataAchiveCreatorEntry();
+            RunAddMetadataAchiveOwnerEntry();
 
         }
 
