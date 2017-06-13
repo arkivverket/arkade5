@@ -12,6 +12,19 @@ Gjenstående funksjonalitet før release 1.0
 
 
 
+Versjon 0.7.0
+--------------
+*Dato: 13.06.2017*
+
+*Oppdateringer siden forrige versjon:*
+
+* Forbedring av Metadata GUI
+* Metadata legges i DIAS-METS.xml fil i pakke
+* Utbedret exception håndtering
+* Feilretting
+
+
+
 Versjon 0.6.41
 --------------
 *Dato: 10.05.2017*
