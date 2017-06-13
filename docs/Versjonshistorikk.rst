@@ -4,7 +4,7 @@ Versjonshistorikk
 Gjenstående funksjonalitet før release 1.0
 ------------------------------------------
 
-* Metadata-registrering
+* Metadata-registrering (flere/utvidet)
 * Noark 4 (implementere støtte for utvidet XSLT-transformasjon til ADDML)
 * Rapporter (utbedringer med tekster og sammendrag) 
 * Laste inn tar-pakke (av mappe/mappestruktur)
