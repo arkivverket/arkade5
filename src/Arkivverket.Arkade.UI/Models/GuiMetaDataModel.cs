@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -14,7 +15,6 @@ namespace Arkivverket.Arkade.UI.Models
 {
     public class GuiMetaDataModel : BindableBase
     {
-
         private Visibility _visibilityItem = Visibility.Visible;
         private Visibility _visibilityAddItem = Visibility.Hidden;
         private Visibility _deleteButtonVisibility = Visibility.Visible;
@@ -66,7 +66,6 @@ namespace Arkivverket.Arkade.UI.Models
             get { return _deleteButtonVisibility; }
             set { SetProperty(ref _deleteButtonVisibility, value); }
         }
-
 
 
         private string _archiveDescription;
@@ -155,6 +154,53 @@ namespace Arkivverket.Arkade.UI.Models
         }
 
 
+        private string _history;
+        private DateTime _startDate;
+        private DateTime _endDate;
+        private DateTime _extractionDate;
+        private string _incommingSeparator;
+        private string _outgoingSeparator;
+
+
+        public string History
+        {
+            get { return _history; }
+            set { SetProperty(ref _history, value); }
+        }
+
+
+        public DateTime StartDate
+        {
+            get { return _startDate; }
+            set { SetProperty(ref _startDate, value); }
+        }
+
+
+        public DateTime EndDate
+        {
+            get { return _endDate; }
+            set { SetProperty(ref _endDate, value); }
+        }
+
+        public DateTime ExtractionDate
+        {
+            get { return _extractionDate; }
+            set { SetProperty(ref _extractionDate, value); }
+        }
+
+        public string IncommingSeparator
+        {
+            get { return _incommingSeparator; }
+            set { SetProperty(ref _incommingSeparator, value); }
+        }
+
+        public string OutgoingSeparator
+        {
+            get { return _outgoingSeparator; }
+            set { SetProperty(ref _outgoingSeparator, value); }
+        }
+
+
         public GuiMetaDataModel(string archiveDescription, string agreementNumber)
         {
             ArchiveDescription = archiveDescription;
@@ -209,7 +255,7 @@ namespace Arkivverket.Arkade.UI.Models
             VisibilityItem = Visibility.Collapsed;
             VisibilityAddItem = Visibility.Visible;
         }
-        
+
         public void ExecuteAddItem()
         {
             IsDeleted = false;
@@ -235,7 +281,6 @@ namespace Arkivverket.Arkade.UI.Models
         }
 
 
-
         private void _ResetAllDataFields()
         {
             Comment = string.Empty;
@@ -249,8 +294,12 @@ namespace Arkivverket.Arkade.UI.Models
             SystemTypeVersion = string.Empty;
             ArchiveDescription = string.Empty;
             AgreementNumber = string.Empty;
+            History = string.Empty;
+            StartDate = default(DateTime);
+            EndDate = default(DateTime);
+            ExtractionDate = default(DateTime);
+            IncommingSeparator = string.Empty;
+            OutgoingSeparator = string.Empty;
         }
-
-
     }
 }
