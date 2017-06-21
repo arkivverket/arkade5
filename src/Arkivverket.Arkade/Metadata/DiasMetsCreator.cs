@@ -209,49 +209,11 @@ namespace Arkivverket.Arkade.Metadata
                     ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
                     name = metadata.System.TypeVersion
                 });
-
-                // ARCHIVE SYSTEM:
-
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                {
-                    TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                    OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                    ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                    OTHERROLE = "PRODUCER",
-                    name = metadata.ArchiveSystem.Name
-                });
-
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                {
-                    TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                    OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                    ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                    OTHERROLE = "PRODUCER",
-                    name = metadata.ArchiveSystem.Version
-                });
-
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                {
-                    TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                    OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                    ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                    OTHERROLE = "PRODUCER",
-                    name = metadata.ArchiveSystem.Type
-                });
-
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                {
-                    TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                    OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                    ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                    OTHERROLE = "PRODUCER",
-                    name = metadata.ArchiveSystem.TypeVersion
-                });
             }
 
             // ARCHIVE SYSTEM:
 
-            if (metadata.System != null)
+            if (metadata.ArchiveSystem != null)
             {
                 metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                 {
