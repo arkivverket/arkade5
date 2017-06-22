@@ -182,7 +182,7 @@ namespace Arkivverket.Arkade.UI.Models
         {
             SystemName = systemName;
             SystemVersion = systemVersion;
-            SystemVersion = systemType;
+            SystemType = systemType;
             SystemTypeVersion = systemTypeVersion;
 
             ThisIsASystemEntry = thisIsASystemEntry;
