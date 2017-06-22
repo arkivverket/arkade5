@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core;
@@ -20,14 +21,14 @@ namespace Arkivverket.Arkade.Test.Metadata
             {
                 ArchiveDescription = "Some archive description",
                 AgreementNumber = "XX 00-0000/0000; 0000-00-00",
-                ArchiveCreators =
+                ArchiveCreators = new List<MetadataEntityInformationUnit>
                 {
                     CreateMetadataEntityInformationUnit('1'),
                     CreateMetadataEntityInformationUnit('2')
                 },
                 Transferer = CreateMetadataEntityInformationUnit('3'),
                 Producer = CreateMetadataEntityInformationUnit('4'),
-                Owners =
+                Owners = new List<MetadataEntityInformationUnit>
                 {
                     CreateMetadataEntityInformationUnit('5'),
                     CreateMetadataEntityInformationUnit('6')
@@ -47,7 +48,7 @@ namespace Arkivverket.Arkade.Test.Metadata
                     Type = "Some archive system type",
                     TypeVersion = "v2.1.0"
                 },
-                Comments = { "Some comment 1", "Some comment 2" },
+                Comments = new List<string> { "Some comment 1", "Some comment 2" }
             };
         }
 

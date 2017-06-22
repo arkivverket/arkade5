@@ -21,13 +21,6 @@ namespace Arkivverket.Arkade.Core
         public DateTime ExtractionDate { get; set; }
         public string IncommingSeparator { get; set; }
         public string OutgoingSeparator { get; set; }
-
-        public ArchiveMetadata()
-        {
-            ArchiveCreators = new List<MetadataEntityInformationUnit>();
-            Owners = new List<MetadataEntityInformationUnit>();
-            Comments = new List<string>();
-        }
     }
 
 
