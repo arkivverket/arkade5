@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Core;
@@ -29,142 +30,173 @@ namespace Arkivverket.Arkade.Metadata
 
         public mets Create(ArchiveMetadata metadata)
         {
-            var mets = new mets
-            {
-                metsHdr = new metsTypeMetsHdr
-                {
-                    agent = CreateHdrAgents(metadata),
-                    altRecordID = new[]
-                    {
-                        new metsTypeMetsHdrAltRecordID
-                        {
-                            TYPE = "DELIVERYSPECIFICATION",
-                            Value = metadata.ArchiveDescription
-                        },
-                        new metsTypeMetsHdrAltRecordID
-                        {
-                            TYPE = "SUBMISSIONAGREEMENT",
-                            Value = metadata.AgreementNumber
-                        }
-                    },
-                },
-                //amdSec = new[] { new amdSecType { techMD = CreateMdSecTypesForTechMd(metadata) } },
-            };
+            var mets = new mets();
+
+            CreateMetsHdr(mets, metadata);
+
+            CreateAmdSec(mets, metadata);
 
             return mets;
         }
 
-        private static mdSecType[] CreateMdSecTypesForTechMd(ArchiveMetadata metadata)
+        private static void CreateMetsHdr(metsType mets, ArchiveMetadata metadata)
         {
-            var mdSecTypes = new List<mdSecType>();
+            var metsHdr = new metsTypeMetsHdr();
 
-            foreach (string comment in metadata.Comments)
+            CreateAltRecordIDs(metsHdr, metadata);
+
+            CreateHdrAgents(metsHdr, metadata);
+
+            if (metsHdr.altRecordID != null || metsHdr.agent != null)
+                mets.metsHdr = metsHdr;
+        }
+
+        private static void CreateAltRecordIDs(metsTypeMetsHdr metsHdr, ArchiveMetadata metadata)
+        {
+            var altRecordIDs = new List<metsTypeMetsHdrAltRecordID>();
+
+            if (!string.IsNullOrEmpty(metadata.ArchiveDescription))
             {
-                mdSecTypes.Add(new mdSecType
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
                 {
-                    mdWrap = new mdSecTypeMdWrap
-                    {
-                        MDTYPE = mdSecTypeMdRefMDTYPE.OTHER,
-                        //OTHERMDTYPE = mdSecTypeMdRefOTHERMDTYPE.METS, // "COMMENT"
-                        Item = comment
-                    }
+                    TYPE = "DELIVERYSPECIFICATION",
+                    Value = metadata.ArchiveDescription
                 });
             }
 
-            return mdSecTypes.ToArray();
+            if (!string.IsNullOrEmpty(metadata.AgreementNumber))
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPE = "SUBMISSIONAGREEMENT",
+                    Value = metadata.AgreementNumber
+                });
+            }
+
+            if (altRecordIDs.Any())
+                metsHdr.altRecordID = altRecordIDs.ToArray();
         }
 
-        private static metsTypeMetsHdrAgent[] CreateHdrAgents(ArchiveMetadata metadata)
+        private static void CreateHdrAgents(metsTypeMetsHdr metsHdr, ArchiveMetadata metadata)
         {
             var metsTypeMetsHdrAgents = new List<metsTypeMetsHdrAgent>();
 
             // CREATORS:
 
-            foreach (MetadataEntityInformationUnit metadataArchiveCreator in metadata.ArchiveCreators)
+            if (metadata.ArchiveCreators != null)
             {
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                foreach (MetadataEntityInformationUnit metadataArchiveCreator in metadata.ArchiveCreators)
                 {
-                    TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
-                    ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
-                    name = metadataArchiveCreator.Entity
-                });
+                    if (HasEntity(metadataArchiveCreator))
+                    {
+                        metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                        {
+                            TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
+                            ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
+                            name = metadataArchiveCreator.Entity
+                        });
+                    }
 
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                {
-                    TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                    ROLE = metsTypeMetsHdrAgentROLE.CREATOR,
-                    name = metadataArchiveCreator.ContactPerson,
-                    note = new[] { metadataArchiveCreator.Telephone, metadataArchiveCreator.Email }
-                });
+                    if (HasContactData(metadataArchiveCreator))
+                    {
+                        metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                        {
+                            TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                            ROLE = metsTypeMetsHdrAgentROLE.CREATOR,
+                            name = metadataArchiveCreator.ContactPerson,
+                            note = new[] { metadataArchiveCreator.Telephone, metadataArchiveCreator.Email }
+                        });
+                    }
+                }
             }
 
             // TRANSFERRER:
 
             if (metadata.Transferer != null)
             {
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                if (HasEntity(metadata.Transferer))
                 {
-                    TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
-                    ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                    OTHERROLE = "SUBMITTER",
-                    name = metadata.Transferer.Entity
-                });
-
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
+                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = "SUBMITTER",
+                        name = metadata.Transferer.Entity
+                    });
+                }
+                if (HasContactData(metadata.Transferer))
                 {
-                    TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                    ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                    OTHERROLE = "SUBMITTER",
-                    name = metadata.Transferer.ContactPerson,
-                    note = new[] { metadata.Transferer.Telephone, metadata.Transferer.Email }
-                });
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = "SUBMITTER",
+                        name = metadata.Transferer.ContactPerson,
+                        note = new[] { metadata.Transferer.Telephone, metadata.Transferer.Email }
+                    });
+                }
             }
 
             // PRODUCER:
 
             if (metadata.Producer != null)
             {
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                if (HasEntity(metadata.Producer))
                 {
-                    TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
-                    ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                    OTHERROLE = "PRODUCER",
-                    name = metadata.Producer.Entity
-                });
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
+                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = "PRODUCER",
+                        name = metadata.Producer.Entity
+                    });
+                }
 
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                if (HasContactData(metadata.Producer))
                 {
-                    TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                    ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                    OTHERROLE = "PRODUCER",
-                    name = metadata.Producer.ContactPerson,
-                    note = new[] { metadata.Producer.Telephone, metadata.Producer.Email }
-                });
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = "PRODUCER",
+                        name = metadata.Producer.ContactPerson,
+                        note = new[] { metadata.Producer.Telephone, metadata.Producer.Email }
+                    });
+                }
             }
 
             // OWNERS:
 
-            foreach (MetadataEntityInformationUnit metadataOwner in metadata.Owners)
+            if (metadata.Owners != null)
             {
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                foreach (MetadataEntityInformationUnit metadataOwner in metadata.Owners)
                 {
-                    TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
-                    ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
-                    name = metadataOwner.Entity
-                });
+                    if (HasEntity(metadataOwner))
+                    {
+                        metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                        {
+                            TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
+                            ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
+                            name = metadataOwner.Entity
+                        });
+                    }
 
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                {
-                    TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                    ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
-                    name = metadataOwner.ContactPerson,
-                    note = new[] { metadataOwner.Telephone, metadataOwner.Email }
-                });
+                    if (HasContactData(metadataOwner))
+                    {
+                        metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                        {
+                            TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                            ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
+                            name = metadataOwner.ContactPerson,
+                            note = new[] { metadataOwner.Telephone, metadataOwner.Email }
+                        });
+                    }
+                }
             }
 
             // RECIPIENT:
 
-            if (metadata.Recipient != null)
+            if (!string.IsNullOrEmpty(metadata.Recipient))
             {
                 metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                 {
@@ -178,81 +210,127 @@ namespace Arkivverket.Arkade.Metadata
 
             if (metadata.System != null)
             {
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                {
-                    TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                    OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                    ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
-                    name = metadata.System.Name
-                });
+                MetadataSystemInformationUnit system = metadata.System;
 
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                if (!string.IsNullOrEmpty(system.Name))
                 {
-                    TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                    OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                    ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
-                    name = metadata.System.Version
-                });
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
+                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
+                        ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
+                        name = system.Name
+                    });
+                }
 
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                if (!string.IsNullOrEmpty(system.Version))
                 {
-                    TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                    OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                    ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
-                    name = metadata.System.Type
-                });
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
+                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
+                        ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
+                        name = system.Version
+                    });
+                }
 
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                if (!string.IsNullOrEmpty(system.Type))
                 {
-                    TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                    OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                    ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
-                    name = metadata.System.TypeVersion
-                });
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
+                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
+                        ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
+                        name = system.Type
+                    });
+                }
+
+                if (!string.IsNullOrEmpty(system.TypeVersion))
+                {
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
+                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
+                        ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
+                        name = system.TypeVersion
+                    });
+                }
             }
 
             // ARCHIVE SYSTEM:
 
             if (metadata.ArchiveSystem != null)
             {
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                {
-                    TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                    OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                    ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                    OTHERROLE = "PRODUCER",
-                    name = metadata.ArchiveSystem.Name
-                });
+                MetadataSystemInformationUnit archiveSystem = metadata.ArchiveSystem;
 
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                if (!string.IsNullOrEmpty(archiveSystem.Name))
                 {
-                    TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                    OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                    ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                    OTHERROLE = "PRODUCER",
-                    name = metadata.ArchiveSystem.Version
-                });
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
+                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
+                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = "PRODUCER",
+                        name = archiveSystem.Name
+                    });
+                }
 
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                if (!string.IsNullOrEmpty(archiveSystem.Version))
                 {
-                    TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                    OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                    ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                    OTHERROLE = "PRODUCER",
-                    name = metadata.ArchiveSystem.Type
-                });
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
+                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
+                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = "PRODUCER",
+                        name = archiveSystem.Version
+                    });
+                }
 
-                metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                if (!string.IsNullOrEmpty(archiveSystem.Type))
                 {
-                    TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                    OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                    ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                    OTHERROLE = "PRODUCER",
-                    name = metadata.ArchiveSystem.TypeVersion
-                });
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
+                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
+                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = "PRODUCER",
+                        name = archiveSystem.Type
+                    });
+                }
+
+                if (!string.IsNullOrEmpty(archiveSystem.TypeVersion))
+                {
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
+                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
+                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = "PRODUCER",
+                        name = archiveSystem.TypeVersion
+                    });
+                }
             }
 
-            return metsTypeMetsHdrAgents.ToArray();
+            if (metsTypeMetsHdrAgents.Any())
+                metsHdr.agent = metsTypeMetsHdrAgents.ToArray();
+        }
+
+        private static void CreateAmdSec(metsType mets, ArchiveMetadata metadata)
+        {
+            // TODO: Implement when type "mdSecTypeMdRefOTHERMDTYPE.COMMENT" is supported in built in mets schema
+        }
+
+        private static bool HasEntity(MetadataEntityInformationUnit entityInformationUnit)
+        {
+            return !string.IsNullOrEmpty(entityInformationUnit.Entity);
+        }
+
+        private static bool HasContactData(MetadataEntityInformationUnit entityInformationUnit)
+        {
+            return !string.IsNullOrEmpty(entityInformationUnit.ContactPerson) ||
+                   !string.IsNullOrEmpty(entityInformationUnit.Telephone) ||
+                   !string.IsNullOrEmpty(entityInformationUnit.Email);
         }
     }
 }
