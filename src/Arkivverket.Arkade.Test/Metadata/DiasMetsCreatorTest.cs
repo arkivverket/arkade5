@@ -38,15 +38,15 @@ namespace Arkivverket.Arkade.Test.Metadata
                 {
                     Name = "Some system name",
                     Version = "v1.0.0",
-                    Type = "Some system type",
-                    TypeVersion = "v1.1.0"
+                    Type = "Noark 5",
+                    TypeVersion = "v3.1"
                 },
                 ArchiveSystem = new MetadataSystemInformationUnit
                 {
                     Name = "Some archive system name",
                     Version = "v2.0.0",
-                    Type = "Some archive system type",
-                    TypeVersion = "v2.1.0"
+                    Type = "Noark 4",
+                    TypeVersion = "N/A" // To be ignored by DiasMetsCreator
                 },
                 Comments = new List<string> { "Some comment 1", "Some comment 2" }
             };
@@ -202,14 +202,14 @@ namespace Arkivverket.Arkade.Test.Metadata
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                          agent.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.ARCHIVIST
-                         && agent.name.Equals("Some system type")
+                         && agent.name.Equals("Noark 5")
             );
 
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                          agent.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.ARCHIVIST
-                         && agent.name.Equals("v1.1.0")
+                         && agent.name.Equals("v3.1")
             );
 
             // ARCHIVE SYSTEM:
@@ -235,15 +235,15 @@ namespace Arkivverket.Arkade.Test.Metadata
                          agent.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
                          agent.OTHERROLE == "PRODUCER" &&
-                         agent.name.Equals("Some archive system type")
+                         agent.name.Equals("Noark 4")
             );
 
-            metsHdrAgents.Should().Contain(
+            metsHdrAgents.Should().NotContain( // NB! "NOT CONTAIN"
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                          agent.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
                          agent.OTHERROLE == "PRODUCER" &&
-                         agent.name.Equals("v2.1.0")
+                         agent.name.Equals("N/A") // Type-version applies to Noark 5 only
             );
 
             // COMMENTS:

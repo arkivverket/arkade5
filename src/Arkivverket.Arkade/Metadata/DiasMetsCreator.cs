@@ -245,7 +245,7 @@ namespace Arkivverket.Arkade.Metadata
                     });
                 }
 
-                if (!string.IsNullOrEmpty(system.TypeVersion))
+                if (!string.IsNullOrEmpty(system.TypeVersion) && system.Type.ToUpper().Equals("NOARK 5"))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
@@ -299,7 +299,7 @@ namespace Arkivverket.Arkade.Metadata
                     });
                 }
 
-                if (!string.IsNullOrEmpty(archiveSystem.TypeVersion))
+                if (!string.IsNullOrEmpty(archiveSystem.TypeVersion) && archiveSystem.Type.ToUpper().Equals("NOARK 5"))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
