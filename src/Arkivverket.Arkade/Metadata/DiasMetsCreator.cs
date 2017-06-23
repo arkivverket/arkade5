@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -234,7 +235,7 @@ namespace Arkivverket.Arkade.Metadata
                     });
                 }
 
-                if (!string.IsNullOrEmpty(system.Type))
+                if (!string.IsNullOrEmpty(system.Type) && IsValidSystemType(system.Type))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
@@ -245,7 +246,7 @@ namespace Arkivverket.Arkade.Metadata
                     });
                 }
 
-                if (!string.IsNullOrEmpty(system.TypeVersion) && system.Type.ToUpper().Equals("NOARK 5"))
+                if (!string.IsNullOrEmpty(system.TypeVersion) && IsSystemTypeNoark5(system.Type))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
@@ -287,7 +288,7 @@ namespace Arkivverket.Arkade.Metadata
                     });
                 }
 
-                if (!string.IsNullOrEmpty(archiveSystem.Type))
+                if (!string.IsNullOrEmpty(archiveSystem.Type) && IsValidSystemType(archiveSystem.Type))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
@@ -299,7 +300,7 @@ namespace Arkivverket.Arkade.Metadata
                     });
                 }
 
-                if (!string.IsNullOrEmpty(archiveSystem.TypeVersion) && archiveSystem.Type.ToUpper().Equals("NOARK 5"))
+                if (!string.IsNullOrEmpty(archiveSystem.TypeVersion) && IsSystemTypeNoark5(archiveSystem.Type))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
@@ -331,6 +332,24 @@ namespace Arkivverket.Arkade.Metadata
             return !string.IsNullOrEmpty(entityInformationUnit.ContactPerson) ||
                    !string.IsNullOrEmpty(entityInformationUnit.Telephone) ||
                    !string.IsNullOrEmpty(entityInformationUnit.Email);
+        }
+
+        private static bool IsValidSystemType(string systemType)
+        {
+            // TODO: Use Enum ExternalModels.Mets.type (not ExternalModels.Info.type) when/if supported in built in mets schema
+
+            return Enum.IsDefined(typeof(ExternalModels.Info.type), systemType);
+        }
+
+        private static bool IsSystemTypeNoark5(string systemType)
+        {
+            // TODO: Use Enum ExternalModels.Mets.type (not ExternalModels.Info.type) when/if supported in built in mets schema
+
+            ExternalModels.Info.type enumSystemType;
+
+            bool isParsableSystemType = Enum.TryParse(systemType, out enumSystemType);
+
+            return isParsableSystemType && enumSystemType == ExternalModels.Info.type.Noark5;
         }
     }
 }

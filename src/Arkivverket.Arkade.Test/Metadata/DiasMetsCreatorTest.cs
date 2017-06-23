@@ -38,14 +38,14 @@ namespace Arkivverket.Arkade.Test.Metadata
                 {
                     Name = "Some system name",
                     Version = "v1.0.0",
-                    Type = "Noark 5",
+                    Type = "Noark5",
                     TypeVersion = "v3.1"
                 },
                 ArchiveSystem = new MetadataSystemInformationUnit
                 {
                     Name = "Some archive system name",
                     Version = "v2.0.0",
-                    Type = "Noark 4",
+                    Type = "Noark4",
                     TypeVersion = "N/A" // To be ignored by DiasMetsCreator
                 },
                 Comments = new List<string> { "Some comment 1", "Some comment 2" }
@@ -202,7 +202,7 @@ namespace Arkivverket.Arkade.Test.Metadata
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                          agent.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.ARCHIVIST
-                         && agent.name.Equals("Noark 5")
+                         && agent.name.Equals("Noark5")
             );
 
             metsHdrAgents.Should().Contain(
@@ -235,7 +235,7 @@ namespace Arkivverket.Arkade.Test.Metadata
                          agent.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
                          agent.OTHERROLE == "PRODUCER" &&
-                         agent.name.Equals("Noark 4")
+                         agent.name.Equals("Noark4")
             );
 
             metsHdrAgents.Should().NotContain( // NB! "NOT CONTAIN"
@@ -243,7 +243,7 @@ namespace Arkivverket.Arkade.Test.Metadata
                          agent.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                          agent.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
                          agent.OTHERROLE == "PRODUCER" &&
-                         agent.name.Equals("N/A") // Type-version applies to Noark 5 only
+                         agent.name.Equals("N/A") // Type-version applies to Noark5 only
             );
 
             // COMMENTS:
