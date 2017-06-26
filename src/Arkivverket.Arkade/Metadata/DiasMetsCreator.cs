@@ -88,7 +88,7 @@ namespace Arkivverket.Arkade.Metadata
             {
                 foreach (MetadataEntityInformationUnit metadataArchiveCreator in metadata.ArchiveCreators)
                 {
-                    if (HasEntity(metadataArchiveCreator))
+                    if (!string.IsNullOrEmpty(metadataArchiveCreator.Entity))
                     {
                         metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                         {
@@ -134,7 +134,7 @@ namespace Arkivverket.Arkade.Metadata
 
             if (metadata.Transferer != null)
             {
-                if (HasEntity(metadata.Transferer))
+                if (!string.IsNullOrEmpty(metadata.Transferer.Entity))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
@@ -183,7 +183,7 @@ namespace Arkivverket.Arkade.Metadata
 
             if (metadata.Producer != null)
             {
-                if (HasEntity(metadata.Producer))
+                if (!string.IsNullOrEmpty(metadata.Producer.Entity))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
@@ -234,7 +234,7 @@ namespace Arkivverket.Arkade.Metadata
             {
                 foreach (MetadataEntityInformationUnit metadataOwner in metadata.Owners)
                 {
-                    if (HasEntity(metadataOwner))
+                    if (!string.IsNullOrEmpty(metadataOwner.Entity))
                     {
                         metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                         {
@@ -401,18 +401,6 @@ namespace Arkivverket.Arkade.Metadata
         private static void CreateAmdSec(metsType mets, ArchiveMetadata metadata)
         {
             // TODO: Implement when type "mdSecTypeMdRefOTHERMDTYPE.COMMENT" is supported in built in mets schema
-        }
-
-        private static bool HasEntity(MetadataEntityInformationUnit entityInformationUnit)
-        {
-            return !string.IsNullOrEmpty(entityInformationUnit.Entity);
-        }
-
-        private static bool HasContactData(MetadataEntityInformationUnit entityInformationUnit)
-        {
-            return !string.IsNullOrEmpty(entityInformationUnit.ContactPerson) ||
-                   !string.IsNullOrEmpty(entityInformationUnit.Telephone) ||
-                   !string.IsNullOrEmpty(entityInformationUnit.Email);
         }
 
         private static bool IsValidSystemType(string systemType)
