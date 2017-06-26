@@ -98,14 +98,33 @@ namespace Arkivverket.Arkade.Metadata
                         });
                     }
 
-                    if (HasContactData(metadataArchiveCreator))
+                    if (!string.IsNullOrEmpty(metadataArchiveCreator.ContactPerson))
                     {
                         metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                         {
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                             ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
-                            name = metadataArchiveCreator.ContactPerson,
-                            note = new[] { metadataArchiveCreator.Telephone, metadataArchiveCreator.Email }
+                            name = metadataArchiveCreator.ContactPerson
+                        });
+                    }
+
+                    if (!string.IsNullOrEmpty(metadataArchiveCreator.Telephone))
+                    {
+                        metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                        {
+                            TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                            ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
+                            note = new[] { metadataArchiveCreator.Telephone }
+                        });
+                    }
+
+                    if (!string.IsNullOrEmpty(metadataArchiveCreator.Email))
+                    {
+                        metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                        {
+                            TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                            ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
+                            note = new[] { metadataArchiveCreator.Email }
                         });
                     }
                 }
@@ -125,15 +144,37 @@ namespace Arkivverket.Arkade.Metadata
                         name = metadata.Transferer.Entity
                     });
                 }
-                if (HasContactData(metadata.Transferer))
+
+                if (!string.IsNullOrEmpty(metadata.Transferer.ContactPerson))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
                         TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
                         OTHERROLE = "SUBMITTER",
-                        name = metadata.Transferer.ContactPerson,
-                        note = new[] { metadata.Transferer.Telephone, metadata.Transferer.Email }
+                        name = metadata.Transferer.ContactPerson
+                    });
+                }
+
+                if (!string.IsNullOrEmpty(metadata.Transferer.Telephone))
+                {
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = "SUBMITTER",
+                        note = new[] { metadata.Transferer.Telephone }
+                    });
+                }
+
+                if (!string.IsNullOrEmpty(metadata.Transferer.Email))
+                {
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = "SUBMITTER",
+                        note = new[] { metadata.Transferer.Email }
                     });
                 }
             }
@@ -153,7 +194,7 @@ namespace Arkivverket.Arkade.Metadata
                     });
                 }
 
-                if (HasContactData(metadata.Producer))
+                if (!string.IsNullOrEmpty(metadata.Producer.ContactPerson))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
@@ -161,7 +202,28 @@ namespace Arkivverket.Arkade.Metadata
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
                         OTHERROLE = "PRODUCER",
                         name = metadata.Producer.ContactPerson,
-                        note = new[] { metadata.Producer.Telephone, metadata.Producer.Email }
+                    });
+                }
+
+                if (!string.IsNullOrEmpty(metadata.Producer.Telephone))
+                {
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = "PRODUCER",
+                        note = new[] { metadata.Producer.Telephone }
+                    });
+                }
+
+                if (!string.IsNullOrEmpty(metadata.Producer.Email))
+                {
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = "PRODUCER",
+                        note = new[] { metadata.Producer.Email }
                     });
                 }
             }
@@ -182,14 +244,33 @@ namespace Arkivverket.Arkade.Metadata
                         });
                     }
 
-                    if (HasContactData(metadataOwner))
+                    if (!string.IsNullOrEmpty(metadataOwner.ContactPerson))
                     {
                         metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                         {
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                             ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
-                            name = metadataOwner.ContactPerson,
-                            note = new[] { metadataOwner.Telephone, metadataOwner.Email }
+                            name = metadataOwner.ContactPerson
+                        });
+                    }
+
+                    if (!string.IsNullOrEmpty(metadataOwner.Telephone))
+                    {
+                        metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                        {
+                            TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                            ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
+                            note = new[] { metadataOwner.Telephone }
+                        });
+                    }
+
+                    if (!string.IsNullOrEmpty(metadataOwner.Email))
+                    {
+                        metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                        {
+                            TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                            ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
+                            note = new[] { metadataOwner.Email }
                         });
                     }
                 }
