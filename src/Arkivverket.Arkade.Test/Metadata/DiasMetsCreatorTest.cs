@@ -207,17 +207,17 @@ namespace Arkivverket.Arkade.Test.Metadata
             metsHdrAgents[26].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
             metsHdrAgents[26].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
             metsHdrAgents[26].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.ARCHIVIST);
-            metsHdrAgents[26].name.Should().Be("v1.0.0");
+            metsHdrAgents[26].note.First().Should().Be("v1.0.0");
 
             metsHdrAgents[27].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
             metsHdrAgents[27].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
             metsHdrAgents[27].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.ARCHIVIST);
-            metsHdrAgents[27].name.Should().Be("Noark5");
+            metsHdrAgents[27].note.First().Should().Be("Noark5");
 
             metsHdrAgents[28].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
             metsHdrAgents[28].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
             metsHdrAgents[28].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.ARCHIVIST);
-            metsHdrAgents[28].name.Should().Be("v3.1");
+            metsHdrAgents[28].note.First().Should().Be("v3.1");
 
             // ARCHIVE SYSTEM:
 
@@ -231,13 +231,13 @@ namespace Arkivverket.Arkade.Test.Metadata
             metsHdrAgents[30].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
             metsHdrAgents[30].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
             metsHdrAgents[30].OTHERROLE.Should().Be("PRODUCER");
-            metsHdrAgents[30].name.Should().Be("v2.0.0");
+            metsHdrAgents[30].note.First().Should().Be("v2.0.0");
 
             metsHdrAgents[31].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
             metsHdrAgents[31].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
             metsHdrAgents[31].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
             metsHdrAgents[31].OTHERROLE.Should().Be("PRODUCER");
-            metsHdrAgents[31].name.Should().Be("Noark4");
+            metsHdrAgents[31].note.First().Should().Be("Noark4");
 
             // Type-version applies to Noark5 only and is not expected amongst agents:
             metsHdrAgents.Length.Should().Be(32);
