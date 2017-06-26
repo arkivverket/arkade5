@@ -103,7 +103,7 @@ namespace Arkivverket.Arkade.Metadata
                         metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                         {
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                            ROLE = metsTypeMetsHdrAgentROLE.CREATOR,
+                            ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
                             name = metadataArchiveCreator.ContactPerson,
                             note = new[] { metadataArchiveCreator.Telephone, metadataArchiveCreator.Email }
                         });

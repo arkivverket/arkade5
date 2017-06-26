@@ -85,7 +85,7 @@ namespace Arkivverket.Arkade.Test.Metadata
 
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL &&
-                         agent.ROLE == metsTypeMetsHdrAgentROLE.CREATOR &&
+                         agent.ROLE == metsTypeMetsHdrAgentROLE.ARCHIVIST &&
                          agent.name.Equals("Contactperson 1") &&
                          agent.note.Contains("1-99999999") &&
                          agent.note.Contains("post@entity-1.com")
@@ -100,7 +100,7 @@ namespace Arkivverket.Arkade.Test.Metadata
             );
             metsHdrAgents.Should().Contain(
                 agent => agent.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL &&
-                         agent.ROLE == metsTypeMetsHdrAgentROLE.CREATOR &&
+                         agent.ROLE == metsTypeMetsHdrAgentROLE.ARCHIVIST &&
                          agent.name.Equals("Contactperson 2") &&
                          agent.note.Contains("2-99999999") &&
                          agent.note.Contains("post@entity-2.com")
