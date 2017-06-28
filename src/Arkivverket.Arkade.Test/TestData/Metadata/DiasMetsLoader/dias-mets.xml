@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mets:mets xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TYPE="SIP" xmlns:mets="http://arkivverket.no/standarder/DIAS-METS">
+  <mets:metsHdr CREATEDATE="0001-01-01T00:00:00">
+    <mets:agent ROLE="ARCHIVIST" TYPE="ORGANIZATION">
+      <mets:name>Entity 1</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 1</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="INDIVIDUAL">
+      <mets:note>1-99999999</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="INDIVIDUAL">
+      <mets:note>post@entity-1.com</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="ORGANIZATION">
+      <mets:name>Entity 2</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 2</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="INDIVIDUAL">
+      <mets:note>2-99999999</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="INDIVIDUAL">
+      <mets:note>post@entity-2.com</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="SUBMITTER" TYPE="ORGANIZATION">
+      <mets:name>Entity 3</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="SUBMITTER" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 3</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="SUBMITTER" TYPE="INDIVIDUAL">
+      <mets:note>3-99999999</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="SUBMITTER" TYPE="INDIVIDUAL">
+      <mets:note>post@entity-3.com</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="ORGANIZATION">
+      <mets:name>Entity 4</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 4</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="INDIVIDUAL">
+      <mets:note>4-99999999</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="INDIVIDUAL">
+      <mets:note>post@entity-4.com</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="IPOWNER" TYPE="ORGANIZATION">
+      <mets:name>Entity 5</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="IPOWNER" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 5</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="IPOWNER" TYPE="INDIVIDUAL">
+      <mets:note>5-99999999</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="IPOWNER" TYPE="INDIVIDUAL">
+      <mets:note>post@entity-5.com</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="IPOWNER" TYPE="ORGANIZATION">
+      <mets:name>Entity 6</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="IPOWNER" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 6</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="IPOWNER" TYPE="INDIVIDUAL">
+      <mets:note>6-99999999</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="IPOWNER" TYPE="INDIVIDUAL">
+      <mets:note>post@entity-6.com</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="PRESERVATION" TYPE="ORGANIZATION">
+      <mets:name>Some recipient</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER">
+      <mets:name>Some system name</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER">
+      <mets:note>v1.0.0</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER">
+      <mets:note>Noark5</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER">
+      <mets:note>v3.1</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="OTHER">
+      <mets:name>Some archive system name</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="OTHER">
+      <mets:note>v2.0.0</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="OTHER">
+      <mets:note>Noark4</mets:note>
+    </mets:agent>
+    <mets:altRecordID TYPE="DELIVERYSPECIFICATION">Some archive description</mets:altRecordID>
+    <mets:altRecordID TYPE="SUBMISSIONAGREEMENT">XX 00-0000/0000; 0000-00-00</mets:altRecordID>
+  </mets:metsHdr>
+</mets:mets>

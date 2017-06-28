@@ -159,6 +159,7 @@
     <Compile Include="ExternalModels\DiasPremis.cs" />
     <Compile Include="ExternalModels\Ead.cs" />
     <Compile Include="Metadata\DiasMetsCreator.cs" />
+    <Compile Include="Metadata\DiasMetsLoader.cs" />
     <Compile Include="Metadata\DiasPremisCreator.cs" />
     <Compile Include="Metadata\EacCpfCreator.cs" />
     <Compile Include="Metadata\EadCreator.cs" />
