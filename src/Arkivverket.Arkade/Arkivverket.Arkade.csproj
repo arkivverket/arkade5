@@ -163,6 +163,7 @@
     <Compile Include="Metadata\EacCpfCreator.cs" />
     <Compile Include="Metadata\EadCreator.cs" />
     <Compile Include="Metadata\MetadataFilesCreator.cs" />
+    <Compile Include="Metadata\MetsTranslationHelper.cs" />
     <Compile Include="Resources\AddmlMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
