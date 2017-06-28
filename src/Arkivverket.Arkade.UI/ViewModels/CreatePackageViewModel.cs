@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Windows.Input;
 using System.Xml;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Metadata;
 using Arkivverket.Arkade.UI.Models;
 using Arkivverket.Arkade.UI.Util;
 using Arkivverket.Arkade.Util;
@@ -278,6 +279,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             _testSession = (TestSession) context.Parameters["TestSession"];
 
+            LoadExistingMetsFileAsArchiveMetadata();
+
             FileInfo predefinedMetadataFieldValuesFileInfo = GetPredefinedMetadataFieldValuesFileInfo();
 
             if (predefinedMetadataFieldValuesFileInfo.Exists)
@@ -291,6 +294,45 @@ namespace Arkivverket.Arkade.UI.ViewModels
             RunAddMetadataAchiveCreatorEntry();
             RunAddMetadataAchiveOwnerEntry();
 
+        }
+
+        private void LoadExistingMetsFileAsArchiveMetadata()
+        {
+            FileInfo diasMetsFile = _testSession.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
+
+            if (diasMetsFile.Exists)
+            {
+                ArchiveMetadata archiveMetadata = DiasMetsLoader.Load(diasMetsFile.FullName);
+
+                if (archiveMetadata.AgreementNumber != null) // archiveMetadata.ArchiveDescription is not required
+                    MetaDataModelArchiveDescription = GuiMetadataMapper.MapToArchiveDescription(
+                        archiveMetadata.ArchiveDescription, archiveMetadata.AgreementNumber
+                    );
+
+                if (archiveMetadata.ArchiveCreators != null && archiveMetadata.ArchiveCreators.Any())
+                    MetaDataArchiveCreators = GuiMetadataMapper.MapToArchiveCreators(archiveMetadata.ArchiveCreators);
+
+                if (archiveMetadata.Transferer != null)
+                    MetaDataTransferer = GuiMetadataMapper.MapToTransferer(archiveMetadata.Transferer);
+
+                if (archiveMetadata.Producer != null)
+                    MetaDataProducer = GuiMetadataMapper.MapToProducer(archiveMetadata.Producer);
+
+                if (archiveMetadata.Owners != null && archiveMetadata.Owners.Any())
+                    MetaDataOwners = GuiMetadataMapper.MapToOwners(archiveMetadata.Owners);
+
+                if (archiveMetadata.Recipient != null)
+                    MetaDataRecipient = GuiMetadataMapper.MapToRecipient(archiveMetadata.Recipient);
+
+                if (archiveMetadata.System != null)
+                    MetaDataSystem = GuiMetadataMapper.MapToSystem(archiveMetadata.System);
+
+                if (archiveMetadata.ArchiveSystem != null)
+                    MetaDataArchiveSystem = GuiMetadataMapper.MapToArchiveSystem(archiveMetadata.ArchiveSystem);
+
+                if (archiveMetadata.Comments != null && archiveMetadata.Comments.Any())
+                    MetaDataComments = GuiMetadataMapper.MapToComments(archiveMetadata.Comments);
+            }
         }
 
         private static FileInfo GetPredefinedMetadataFieldValuesFileInfo()
