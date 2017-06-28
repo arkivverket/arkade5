@@ -431,15 +431,29 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 : PackageType.ArchivalInformationPackage;
 
             // todo must be async
-            _arkadeApi.CreatePackage(_testSession, packageType);
 
             string informationPackageFileName = _testSession.Archive.GetInformationPackageFileName().FullName;
-            StatusMessageText = "IP og metadata lagret i ";
-            StatusMessagePath = informationPackageFileName;
-            Log.Debug("Package created in " + informationPackageFileName);
 
-            _isRunningCreatePackage = false;
-            //CreatePackageCommand.RaiseCanExecuteChanged();
+            try
+            {
+                _arkadeApi.CreatePackage(_testSession, packageType);
+
+                StatusMessageText = "IP og metadata lagret i ";
+                StatusMessagePath = informationPackageFileName;
+                Log.Debug("Package created in " + informationPackageFileName);
+
+                _isRunningCreatePackage = false;
+                //CreatePackageCommand.RaiseCanExecuteChanged();
+            }
+            catch
+            {
+                StatusMessageText = Resources.MetaDataUI.PackageCreationErrorStatusMessage;
+                StatusMessagePath = informationPackageFileName;
+
+                Log.Debug(string.Format(Resources.MetaDataUI.PackageCreationErrorLogMessage, informationPackageFileName));
+
+                _isRunningCreatePackage = false;
+            }
         }
 
 

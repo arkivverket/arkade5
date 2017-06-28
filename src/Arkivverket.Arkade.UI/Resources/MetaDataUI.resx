@@ -222,6 +222,12 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="Owner_Telephone" xml:space="preserve">
     <value>Telefon (Kontakt, Eier)</value>
   </data>
+  <data name="PackageCreationErrorLogMessage" xml:space="preserve">
+    <value>Error: Could not create/overwrite package in {0}</value>
+  </data>
+  <data name="PackageCreationErrorStatusMessage" xml:space="preserve">
+    <value>Klarte ikke opprette/overskrive pakke. Sjekk om pakkedestinasjonen er opptatt:</value>
+  </data>
   <data name="Producer" xml:space="preserve">
     <value>Produsent</value>
     <comment>Institusjonsnavn/Firmanavn</comment>
