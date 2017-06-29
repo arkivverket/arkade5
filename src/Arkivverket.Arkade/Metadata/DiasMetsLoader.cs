@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.ExternalModels.DiasMets;
+using Arkivverket.Arkade.ExternalModels.Mets;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Metadata
@@ -60,14 +60,14 @@ namespace Arkivverket.Arkade.Metadata
             IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
         {
             archiveMetadata.ArchiveDescription = metsHdrAltRecordIds.FirstOrDefault(a =>
-                a.TYPE.Equals("DELIVERYSPECIFICATION"))?.Value;
+                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.DELIVERYSPECIFICATION)?.Value;
         }
 
         private static void LoadAgreementNumber(ArchiveMetadata archiveMetadata,
             IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
         {
             archiveMetadata.AgreementNumber = metsHdrAltRecordIds.FirstOrDefault(a =>
-                a.TYPE.Equals("SUBMISSIONAGREEMENT"))?.Value;
+                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.SUBMISSIONAGREEMENT)?.Value;
         }
 
         private static void LoadArchiveCreators(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
@@ -92,7 +92,7 @@ namespace Arkivverket.Arkade.Metadata
         {
             metsTypeMetsHdrAgent[] metsTransfererAgents = metsHdrAgents.Where(a =>
                 a.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
-                a.OTHERROLE.Equals("SUBMITTER") &&
+                a.OTHERROLE.Equals(metsTypeMetsHdrAgentOTHERROLE.SUBMITTER) &&
                 (a.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION || a.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL)
             ).ToArray();
 
@@ -113,7 +113,7 @@ namespace Arkivverket.Arkade.Metadata
         {
             metsTypeMetsHdrAgent[] metsProducerAgents = metsHdrAgents.Where(a =>
                 a.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
-                a.OTHERROLE.Equals("PRODUCER") &&
+                a.OTHERROLE.Equals(metsTypeMetsHdrAgentOTHERROLE.PRODUCER) &&
                 (a.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION || a.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL)
             ).ToArray();
 
@@ -222,7 +222,7 @@ namespace Arkivverket.Arkade.Metadata
                 a.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                 a.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                 a.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
-                a.OTHERROLE == "PRODUCER"
+                a.OTHERROLE == metsTypeMetsHdrAgentOTHERROLE.PRODUCER
             ).ToArray();
 
             if (!metsArchiveSystemAgents.Any())
@@ -274,7 +274,7 @@ namespace Arkivverket.Arkade.Metadata
 
         private static void LoadComments(ArchiveMetadata archiveMetadata, IEnumerable<amdSecType> amdSecTypes)
         {
-            // Implement when type mdSecTypeMdRefOTHERMDTYPE.COMMENT is supported in built in mets schema
+            // TODO: Implement
 
             /*
             var archiveMetadataComments = new List<string>();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.ExternalModels.DiasMets;
+using Arkivverket.Arkade.ExternalModels.Mets;
 using Arkivverket.Arkade.Metadata;
 using Arkivverket.Arkade.Test.Core;
 using FluentAssertions;
@@ -62,14 +62,14 @@ namespace Arkivverket.Arkade.Test.Metadata
             // ARCHIVEDESCRIPTION:
 
             metsHdr.altRecordID.Should().Contain(altRecordId =>
-                altRecordId.TYPE.Equals("DELIVERYSPECIFICATION") &&
+                altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.DELIVERYSPECIFICATION &&
                 altRecordId.Value.Equals("Some archive description")
             );
 
             // AGREEMENTNUMBER:
 
             metsHdr.altRecordID.Should().Contain(altRecordId =>
-                altRecordId.TYPE.Equals("SUBMISSIONAGREEMENT") &&
+                altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.SUBMISSIONAGREEMENT &&
                 altRecordId.Value.Equals("XX 00-0000/0000; 0000-00-00")
             );
 
@@ -115,44 +115,44 @@ namespace Arkivverket.Arkade.Test.Metadata
 
             metsHdrAgents[8].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.ORGANIZATION);
             metsHdrAgents[8].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[8].OTHERROLE.Should().Be("SUBMITTER");
+            metsHdrAgents[8].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.SUBMITTER);
             metsHdrAgents[8].name.Should().Be("Entity 3");
 
             metsHdrAgents[9].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
             metsHdrAgents[9].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[9].OTHERROLE.Should().Be("SUBMITTER");
+            metsHdrAgents[9].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.SUBMITTER);
             metsHdrAgents[9].name.Should().Be("Contactperson 3");
 
             metsHdrAgents[10].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
             metsHdrAgents[10].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[10].OTHERROLE.Should().Be("SUBMITTER");
+            metsHdrAgents[10].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.SUBMITTER);
             metsHdrAgents[10].note.First().Should().Be("3-99999999");
 
             metsHdrAgents[11].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
             metsHdrAgents[11].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[11].OTHERROLE.Should().Be("SUBMITTER");
+            metsHdrAgents[11].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.SUBMITTER);
             metsHdrAgents[11].note.First().Should().Be("post@entity-3.com");
 
             // PRODUCER:
 
             metsHdrAgents[12].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.ORGANIZATION);
             metsHdrAgents[12].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[12].OTHERROLE.Should().Be("PRODUCER");
+            metsHdrAgents[12].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
             metsHdrAgents[12].name.Should().Be("Entity 4");
 
             metsHdrAgents[13].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
             metsHdrAgents[13].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[13].OTHERROLE.Should().Be("PRODUCER");
+            metsHdrAgents[13].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
             metsHdrAgents[13].name.Should().Be("Contactperson 4");
 
             metsHdrAgents[14].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
             metsHdrAgents[14].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[14].OTHERROLE.Should().Be("PRODUCER");
+            metsHdrAgents[14].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
             metsHdrAgents[14].note.First().Should().Be("4-99999999");
 
             metsHdrAgents[15].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
             metsHdrAgents[15].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[15].OTHERROLE.Should().Be("PRODUCER");
+            metsHdrAgents[15].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
             metsHdrAgents[15].note.First().Should().Be("post@entity-4.com");
 
             // OWNER 1:
@@ -224,19 +224,19 @@ namespace Arkivverket.Arkade.Test.Metadata
             metsHdrAgents[29].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
             metsHdrAgents[29].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
             metsHdrAgents[29].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[29].OTHERROLE.Should().Be("PRODUCER");
+            metsHdrAgents[29].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
             metsHdrAgents[29].name.Should().Be("Some archive system name");
 
             metsHdrAgents[30].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
             metsHdrAgents[30].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
             metsHdrAgents[30].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[30].OTHERROLE.Should().Be("PRODUCER");
+            metsHdrAgents[30].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
             metsHdrAgents[30].note.First().Should().Be("v2.0.0");
 
             metsHdrAgents[31].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
             metsHdrAgents[31].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
             metsHdrAgents[31].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[31].OTHERROLE.Should().Be("PRODUCER");
+            metsHdrAgents[31].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
             metsHdrAgents[31].note.First().Should().Be("Noark4");
 
             // Type-version applies to Noark5 only and is not expected amongst agents:
@@ -244,7 +244,7 @@ namespace Arkivverket.Arkade.Test.Metadata
 
             // COMMENTS:
 
-            /* TODO: Enable check for comments when they are supported in built in mets schema
+            /* TODO: Enable when comments-creation is implemented
             mets.amdSec.Any(a => a.techMD.Any(
                 t1 => t1.mdWrap.Item.Equals("Some comment A")
                       && a.techMD.Any(

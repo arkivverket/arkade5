@@ -2,7 +2,6 @@ using System.IO;
 using System.Reflection;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.ExternalModels.DiasMets;
 using Arkivverket.Arkade.ExternalModels.Ead;
 using Arkivverket.Arkade.Util;
 using Serilog;

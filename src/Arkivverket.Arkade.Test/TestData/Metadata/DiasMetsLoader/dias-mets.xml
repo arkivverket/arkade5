@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<mets:mets xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TYPE="SIP" xmlns:mets="http://arkivverket.no/standarder/DIAS-METS">
+<mets:mets xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TYPE="SIP" xmlns:mets="http://www.loc.gov/METS/">
   <mets:metsHdr CREATEDATE="0001-01-01T00:00:00">
     <mets:agent ROLE="ARCHIVIST" TYPE="ORGANIZATION">
       <mets:name>Entity 1</mets:name>
@@ -76,25 +76,25 @@
     <mets:agent ROLE="PRESERVATION" TYPE="ORGANIZATION">
       <mets:name>Some recipient</mets:name>
     </mets:agent>
-    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER">
+    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER" OTHERTYPE="SOFTWARE">
       <mets:name>Some system name</mets:name>
     </mets:agent>
-    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER">
+    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER" OTHERTYPE="SOFTWARE">
       <mets:note>v1.0.0</mets:note>
     </mets:agent>
-    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER">
+    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER" OTHERTYPE="SOFTWARE">
       <mets:note>Noark5</mets:note>
     </mets:agent>
-    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER">
+    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER" OTHERTYPE="SOFTWARE">
       <mets:note>v3.1</mets:note>
     </mets:agent>
-    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="OTHER">
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="OTHER" OTHERTYPE="SOFTWARE">
       <mets:name>Some archive system name</mets:name>
     </mets:agent>
-    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="OTHER">
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="OTHER" OTHERTYPE="SOFTWARE">
       <mets:note>v2.0.0</mets:note>
     </mets:agent>
-    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="OTHER">
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="OTHER" OTHERTYPE="SOFTWARE">
       <mets:note>Noark4</mets:note>
     </mets:agent>
     <mets:altRecordID TYPE="DELIVERYSPECIFICATION">Some archive description</mets:altRecordID>
