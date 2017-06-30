@@ -21,6 +21,7 @@ namespace Arkivverket.Arkade.Core
         public DateTime ExtractionDate { get; set; }
         public string IncommingSeparator { get; set; }
         public string OutgoingSeparator { get; set; }
+        public List<FileDescription> FileDescriptions { get; set; }
     }
 
 
@@ -38,5 +39,15 @@ namespace Arkivverket.Arkade.Core
         public string Version { get; set; }
         public string Type { get; set; }
         public string TypeVersion { get; set; }
+    }
+
+    public class FileDescription
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Extension { get; set; }
+        public string Sha256Checksum { get; set; }
+        public long Size { get; set; }
+        public DateTime CreationTime { get; set; }
     }
 }

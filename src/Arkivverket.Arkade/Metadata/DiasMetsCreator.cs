@@ -1,3 +1,4 @@
+using System.Collections;
 using System.IO;
 using System.Reflection;
 using System.Xml.Serialization;
@@ -14,6 +15,12 @@ namespace Arkivverket.Arkade.Metadata
 
         public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata)
         {
+            DirectoryInfo documentsDirectory = archive.WorkingDirectory.Content()
+                .WithSubDirectory(ArkadeConstants.DirectoryNameDocuments).DirectoryInfo();
+
+            if(documentsDirectory.Exists)
+                metadata.FileDescriptions = GetFileDescriptions(documentsDirectory);
+
             mets mets = Create(metadata);
 
             FileInfo targetFileName = archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);

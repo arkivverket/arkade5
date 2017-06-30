@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.ExternalModels.Mets;
@@ -45,7 +46,19 @@ namespace Arkivverket.Arkade.Test.Metadata
                     Type = "Noark4",
                     TypeVersion = "N/A" // To be ignored by MetsCreator
                 },
-                Comments = new List<string> { "Some comment 1", "Some comment 2" }
+                Comments = new List<string> { "Some comment 1", "Some comment 2" },
+                FileDescriptions = new List<FileDescription>
+                {
+                    new FileDescription
+                    {
+                        Id = 1,
+                        Name = "someFileName.pdf",
+                        Extension = "pdf",
+                        Sha256Checksum = "3B29DFCC4286E50B180AF8F21904C86F8AA42A23C4055C3A71D0512F9AE3886F",
+                        Size = 2325452,
+                        CreationTime = new DateTime(2017, 06, 30)
+                    }
+                }
             };
         }
 
@@ -248,6 +261,26 @@ namespace Arkivverket.Arkade.Test.Metadata
                           t2 => t2.mdWrap.Item.Equals("Some comment B")))
             ).Should().BeTrue();
             */
+
+            // FILE DESCRIPTIONS:
+
+            var metsFile = mets.fileSec.fileGrp[0].Items[0] as fileType;
+
+            metsFile?.ID.Should().Be("fileId_1");
+            metsFile?.MIMETYPE.Should().Be("application/pdf");
+            metsFile?.USE.Should().Be("Datafile");
+            metsFile?.CHECKSUMTYPE.Should().Be(fileTypeCHECKSUMTYPE.SHA256);
+            metsFile?.CHECKSUM.Should().Be("3B29DFCC4286E50B180AF8F21904C86F8AA42A23C4055C3A71D0512F9AE3886F");
+            metsFile?.SIZE.Should().Be(2325452);
+            metsFile?.CREATED.Year.Should().Be(2017);
+            metsFile?.CREATED.Month.Should().Be(06);
+            metsFile?.CREATED.Day.Should().Be(30);
+            metsFile?.FLocat.href.Should().Be("someFileName.pdf");
+            metsFile?.FLocat.LOCTYPE.Should().Be(mdSecTypeMdRefLOCTYPE.URL);
+
+            // MISCELLANEOUS:
+
+            mets.structMap.Length.Should().Be(1);
         }
 
         private static MetadataEntityInformationUnit CreateMetadataEntityInformationUnit(char distinctive)

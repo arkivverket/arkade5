@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.ExternalModels.Mets;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Metadata
 {
@@ -24,6 +26,10 @@ namespace Arkivverket.Arkade.Metadata
             CreateMetsHdr(mets, metadata);
 
             CreateAmdSec(mets, metadata);
+
+            CreateFileSec(mets, metadata);
+
+            CreateStructMap(mets, metadata);
 
             return mets;
         }
@@ -414,5 +420,74 @@ namespace Arkivverket.Arkade.Metadata
         {
             // TODO: Implement
         } 
+
+        private static void CreateFileSec(mets mets, ArchiveMetadata metadata)
+        {
+            if (metadata.FileDescriptions == null || !metadata.FileDescriptions.Any())
+                return;
+
+            var metsFiles = new List<object>();
+
+            foreach (FileDescription fileDescription in metadata.FileDescriptions)
+            {
+                metsFiles.Add(new fileType
+                {
+                    ID = $"fileId_{fileDescription.Id}",
+                    MIMETYPE = $"application/{fileDescription.Extension}",
+                    USE = "Datafile",
+                    CHECKSUMTYPESpecified = true,
+                    CHECKSUMTYPE = fileTypeCHECKSUMTYPE.SHA256,
+                    CHECKSUM = fileDescription.Sha256Checksum,
+                    SIZE = fileDescription.Size,
+                    CREATED = fileDescription.CreationTime,
+                    FLocat = new fileTypeFLocat
+                    {
+                        href = fileDescription.Name,
+                        LOCTYPE = mdSecTypeMdRefLOCTYPE.URL
+                    }
+                });
+            }
+
+            var metsTypeFileSecFileGrp = new metsTypeFileSecFileGrp
+            {
+                ID = "fileGroup001",
+                USE = "FILES",
+                Items = metsFiles.ToArray()
+            };
+
+            mets.fileSec = new metsTypeFileSec { fileGrp = new[] { metsTypeFileSecFileGrp } };
+        }
+
+        private static void CreateStructMap(mets mets, ArchiveMetadata metadata)
+        {
+            mets.structMap = new[] { new structMapType() };
+        }
+
+        protected static List<FileDescription> GetFileDescriptions(DirectoryInfo directory)
+        {
+            var fileDescriptions = new List<FileDescription>();
+
+            var fileId = 1;
+
+            foreach (FileInfo file in directory.EnumerateFiles())
+            {
+                fileDescriptions.Add(new FileDescription
+                {
+                    Id = fileId++,
+                    Name = file.Name,
+                    Extension = file.Extension,
+                    Sha256Checksum = GetSha256Checksum(file),
+                    Size = file.Length,
+                    CreationTime = file.CreationTime
+                });
+            }
+
+            return fileDescriptions;
+        }
+
+        protected static string GetSha256Checksum(FileInfo file)
+        {
+            return new Sha256ChecksumGenerator().GenerateChecksum(file.FullName);
+        }
     }
 }
