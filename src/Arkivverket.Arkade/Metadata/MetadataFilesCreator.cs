@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Metadata
             // EAC-CPF is not included in v1.0
             _eacCpfCreator.CreateAndSaveFile(archive, metadata);
             CopyDiasMetsXsdToRootDirectory(archive.WorkingDirectory);
-            _infoXmlCreator.CreateAndSaveFile(archive, metadata);
+            //_infoXmlCreator.CreateAndSaveFile(archive, metadata);
         }
 
         private void CopyDiasMetsXsdToRootDirectory(WorkingDirectory workingDirectory)
