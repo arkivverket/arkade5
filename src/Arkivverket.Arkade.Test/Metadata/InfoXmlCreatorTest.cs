@@ -8,23 +8,23 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Test.Metadata
 {
-    public class DiasMetsCreatorTest : MetsCreatorTest
+    public class InfoXmlCreatorTest : MetsCreatorTest
     {
         [Fact]
-        public void ShouldSaveCreatedDiasMetsFileToDisk()
+        public void ShouldSaveCreatedInfoXmlFileToDisk()
         {
-            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Metadata\\DiasMetsCreator";
+            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Metadata\\InfoXmlCreator";
 
             Archive archive = new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .Build();
 
-            new DiasMetsCreator().CreateAndSaveFile(archive, ArchiveMetadata);
+            new InfoXmlCreator().CreateAndSaveFile(archive, ArchiveMetadata);
 
-            string metsFilePath = Path.Combine(workingDirectory, "dias-mets.xml");
+            string infoXmlFilePath = Path.Combine(workingDirectory, "info.xml");
 
-            File.Exists(metsFilePath).Should().BeTrue();
+            File.Exists(infoXmlFilePath).Should().BeTrue();
         }
     }
 }

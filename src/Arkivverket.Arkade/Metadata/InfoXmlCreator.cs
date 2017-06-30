@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Core;
@@ -8,21 +8,21 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Metadata
 {
-    public class DiasMetsCreator : MetsCreator
+    public class InfoXmlCreator : MetsCreator
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
         public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata)
         {
-            mets mets = Create(metadata);
+            mets infoXml = Create(metadata);
 
-            FileInfo targetFileName = archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
+            FileInfo targetFileName = archive.WorkingDirectory.Root().WithFile(ArkadeConstants.InfoXmlFileName);
 
             XmlSerializerNamespaces namespaces = SetupNamespaces();
 
-            SerializeUtil.SerializeToFile(mets, targetFileName, namespaces);
+            SerializeUtil.SerializeToFile(infoXml, targetFileName, namespaces);
 
-            Log.Information($"Created {ArkadeConstants.DiasMetsXmlFileName}");
+            Log.Information($"Created {ArkadeConstants.InfoXmlFileName}");
         }
     }
 }

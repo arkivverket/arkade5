@@ -192,6 +192,8 @@
     <Compile Include="Logging\TestSessionLogXmlValidator.cs" />
     <Compile Include="Metadata\DiasMetsCreatorTest.cs" />
     <Compile Include="Metadata\DiasMetsLoaderTest.cs" />
+    <Compile Include="Metadata\InfoXmlCreatorTest.cs" />
+    <Compile Include="Metadata\MetsCreatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\HtmlReportGeneratorTest.cs" />
     <Compile Include="Tests\Noark5\ArchivepartReferenceControlTest.cs" />
@@ -414,6 +416,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Metadata\DiasMetsLoader\dias-mets.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Metadata\InfoXmlCreator\directorykeeper.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\noark3\addml.xml" />

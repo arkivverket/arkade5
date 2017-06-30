@@ -10,14 +10,16 @@ namespace Arkivverket.Arkade.Metadata
         private readonly DiasPremisCreator _diasPremisCreator;
         private readonly EacCpfCreator _eacCpfCreator;
         private readonly EadCreator _eadCreator;
+        private readonly InfoXmlCreator _infoXmlCreator;
 
         public MetadataFilesCreator(DiasMetsCreator diasMetsCreator, DiasPremisCreator diasPremisCreator, EadCreator eadCreator,
-            EacCpfCreator eacCpfCreator)
+            EacCpfCreator eacCpfCreator, InfoXmlCreator infoXmlCreator)
         {
             _diasMetsCreator = diasMetsCreator;
             _diasPremisCreator = diasPremisCreator;
             _eadCreator = eadCreator;
             _eacCpfCreator = eacCpfCreator;
+            _infoXmlCreator = infoXmlCreator;
         }
 
         public void Create(Archive archive, ArchiveMetadata metadata)
@@ -29,6 +31,7 @@ namespace Arkivverket.Arkade.Metadata
             // EAC-CPF is not included in v1.0
             _eacCpfCreator.CreateAndSaveFile(archive, metadata);
             CopyDiasMetsXsdToRootDirectory(archive.WorkingDirectory);
+            _infoXmlCreator.CreateAndSaveFile(archive, metadata);
         }
 
         private void CopyDiasMetsXsdToRootDirectory(WorkingDirectory workingDirectory)
