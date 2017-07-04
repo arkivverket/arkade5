@@ -60,6 +60,8 @@ namespace Arkivverket.Arkade.Core
             {
                 _informationPackageCreator.CreateAip(testSession.Archive);
             }
+
+            new InfoXmlCreator().CreateAndSaveFile(testSession.Archive, testSession.ArchiveMetadata);
         }
 
         public void SaveReport(TestSession testSession, FileInfo file)
