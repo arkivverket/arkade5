@@ -39,10 +39,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private GuiMetaDataModel _metaDataProducer = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty);
         private ObservableCollection<GuiMetaDataModel> _metaDataOwners = new ObservableCollectionEx<GuiMetaDataModel>();
         private GuiMetaDataModel _metaDataRecipient = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty);
-        private GuiMetaDataModel _metaDataSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, true);
-        private GuiMetaDataModel _metaDataArchiveSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, true);
+        private GuiMetaDataModel _metaDataSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
+        private GuiMetaDataModel _metaDataArchiveSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
         private ObservableCollection<GuiMetaDataModel> _metaDataComments = new ObservableCollection<GuiMetaDataModel>();
+        private GuiMetaDataModel _metaDataHistory = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
+
         private ObservableCollection<GuiMetaDataModel> _metadataPreregistreredUsers = new ObservableCollection<GuiMetaDataModel>();
+
 
         private GuiMetaDataModel _selectedCreatorDataModel;
         private GuiMetaDataModel _selectedTransfererDataModel;
@@ -139,6 +142,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
             get { return _metaDataComments; }
             set { SetProperty(ref _metaDataComments, value); }
         }
+
+        public GuiMetaDataModel MetaDataHistory
+        {
+            get { return _metaDataHistory; }
+            set { SetProperty(ref _metaDataHistory, value); }
+        }
+
 
 
         public ObservableCollection<GuiMetaDataModel> MetaDataPreregistreredUsers
@@ -270,7 +280,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         }
         public void RunAddMetadataCommentEntry()
         {
-            MetaDataComments.Add(new GuiMetaDataModel(string.Empty));
+            MetaDataComments.Add(new GuiMetaDataModel(string.Empty, GuiObjectType.comment));
         }
 
 
@@ -287,7 +297,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
             _populateMetadataDataModels.DatafillArchiveEntity(_metaDataEntityInformationUnits, MetaDataPreregistreredUsers);
 
-            // Pre populate metadata entries that require at least one entry
+            // Pre populate metadata objects that require at least one entry
             RunAddMetadataAchiveCreatorEntry();
             RunAddMetadataAchiveOwnerEntry();
 

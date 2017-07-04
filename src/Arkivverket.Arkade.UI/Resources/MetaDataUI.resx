@@ -182,6 +182,9 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="GuiSubsection_Comment" xml:space="preserve">
     <value>Kommentar</value>
   </data>
+  <data name="GuiSubsection_History" xml:space="preserve">
+    <value>Historie</value>
+  </data>
   <data name="GuiSubsection_Owner" xml:space="preserve">
     <value>Eier</value>
   </data>

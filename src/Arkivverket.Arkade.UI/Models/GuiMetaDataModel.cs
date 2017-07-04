@@ -85,8 +85,6 @@ namespace Arkivverket.Arkade.UI.Models
         }
 
 
-        public bool ThisIsASystemEntry { get; set; }
-
         public string Email
         {
             get { return _email; }
@@ -223,15 +221,16 @@ namespace Arkivverket.Arkade.UI.Models
             CommandNullOutEntry = new DelegateCommand(NullOutRecord);
         }
 
-        public GuiMetaDataModel(string systemName, string systemVersion, string systemType, string systemTypeVersion,
-            bool thisIsASystemEntry)
+        public GuiMetaDataModel(string systemName, string systemVersion, string systemType, string systemTypeVersion, GuiObjectType guiObjectType)
         {
-            SystemName = systemName;
-            SystemVersion = systemVersion;
-            SystemVersion = systemType;
-            SystemTypeVersion = systemTypeVersion;
 
-            ThisIsASystemEntry = thisIsASystemEntry;
+            if (guiObjectType == GuiObjectType.system)
+            {
+                SystemName = systemName;
+                SystemVersion = systemVersion;
+                SystemVersion = systemType;
+                SystemTypeVersion = systemTypeVersion;
+            }
 
             CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
             CommandAddItem = new DelegateCommand(ExecuteAddItem);
@@ -239,14 +238,23 @@ namespace Arkivverket.Arkade.UI.Models
         }
 
 
-        public GuiMetaDataModel(string comment)
+        public GuiMetaDataModel(string strArg, GuiObjectType guiObjectType)
         {
-            Comment = comment;
+
+            if (guiObjectType == GuiObjectType.comment)
+            {
+                Comment = strArg;
+            }
+            else if (guiObjectType == GuiObjectType.history)
+            {
+                History = strArg;
+            }
 
             CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
             CommandAddItem = new DelegateCommand(ExecuteAddItem);
             CommandNullOutEntry = new DelegateCommand(NullOutRecord);
         }
+
 
 
         public void ExecuteDeleteItem()
@@ -302,4 +310,17 @@ namespace Arkivverket.Arkade.UI.Models
             OutgoingSeparator = string.Empty;
         }
     }
+
+
+    public enum GuiObjectType
+    {
+        archiveDescription,
+        entity,
+        system,
+        comment,
+        history,
+        archiveData,
+        noarkObligatory
+    }
+
 }

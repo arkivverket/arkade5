@@ -223,6 +223,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Historie.
+        /// </summary>
+        public static string GuiSubsection_History {
+            get {
+                return ResourceManager.GetString("GuiSubsection_History", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eier.
         /// </summary>
         public static string GuiSubsection_Owner {

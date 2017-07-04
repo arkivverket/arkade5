@@ -71,6 +71,8 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <!-- Arkivbeskrivelse -->
@@ -624,7 +626,7 @@
                                     <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Comment}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                             Text="{Binding SystemName, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
+                                             Text="{Binding Comment, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
 
                                     <Button Grid.Row="4" Grid.Column="1"
                                             Style="{DynamicResource MaterialDesignToolButton}"
@@ -639,12 +641,55 @@
 
 
 
+                <!-- Historie -->
+                <GroupBox Grid.Row="19" Header="{x:Static resources:MetaDataUI.GuiSubsection_History}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="32" Width="32"
+                                Command="{Binding MetaDataHistory.CommandAddItem}"
+                                Visibility="{Binding MetaDataHistory.VisibilityAddItem}">
+                            <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
+                        </Button>
+                    </StackPanel>
+                </GroupBox>
+
+                <Border Grid.Row ="20" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                        Visibility="{Binding MetaDataHistory.VisibilityItem}" Width="269" HorizontalAlignment="Left">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.History}"
+                                    Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding MetaDataHistory.History, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
+
+                        <Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
+                                Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="24" Width="24" Command="{Binding MetaDataHistory.CommandDeleteItem}">
+                            <materialDesign:PackIcon Kind="{Binding MetaDataHistory.IconDelete}" Opacity=".56" />
+                        </Button>
+                    </Grid>
+                </Border>
+
 
 
 
             </Grid>
         </ScrollViewer>
+        <!-- END METADATA  -->
 
+        
+        
 
         <TextBlock Grid.Row="6" Grid.Column="0" Text="{x:Static resources:UI.CreatePackageSelectTypeLabel}" Margin="10" />
 
