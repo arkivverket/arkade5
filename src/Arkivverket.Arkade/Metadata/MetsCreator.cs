@@ -467,25 +467,28 @@ namespace Arkivverket.Arkade.Metadata
         {
             var fileDescriptions = new List<FileDescription>();
 
-            var fileId = 1;
+            var fileId = 1; // Reserving 0 for package file
 
             foreach (FileInfo file in directory.EnumerateFiles())
-            {
-                fileDescriptions.Add(new FileDescription
-                {
-                    Id = fileId++,
-                    Name = file.Name,
-                    Extension = file.Extension,
-                    Sha256Checksum = GetSha256Checksum(file),
-                    Size = file.Length,
-                    CreationTime = file.CreationTime
-                });
-            }
+                fileDescriptions.Add(GetFileDescription(file, ref fileId));
 
             return fileDescriptions;
         }
 
-        protected static string GetSha256Checksum(FileInfo file)
+        public static FileDescription GetFileDescription(FileInfo file, ref int fileId)
+        {
+            return new FileDescription
+            {
+                Id = fileId++,
+                Name = file.Name,
+                Extension = file.Extension,
+                Sha256Checksum = GetSha256Checksum(file),
+                Size = file.Length,
+                CreationTime = file.CreationTime
+            };
+        }
+
+        private static string GetSha256Checksum(FileInfo file)
         {
             return new Sha256ChecksumGenerator().GenerateChecksum(file.FullName);
         }
