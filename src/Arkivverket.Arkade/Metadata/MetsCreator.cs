@@ -481,7 +481,7 @@ namespace Arkivverket.Arkade.Metadata
             {
                 Id = fileId++,
                 Name = file.Name,
-                Extension = file.Extension,
+                Extension = file.Extension.Replace(".", string.Empty),
                 Sha256Checksum = GetSha256Checksum(file),
                 Size = file.Length,
                 CreationTime = file.CreationTime
