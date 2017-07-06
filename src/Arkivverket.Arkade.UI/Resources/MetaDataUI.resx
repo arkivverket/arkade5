@@ -182,8 +182,14 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="GuiSubsection_Comment" xml:space="preserve">
     <value>Kommentar</value>
   </data>
+  <data name="GuiSubsection_ExtractionDate" xml:space="preserve">
+    <value>Uttrekksdato</value>
+  </data>
   <data name="GuiSubsection_History" xml:space="preserve">
     <value>Historie</value>
+  </data>
+  <data name="GuiSubsection_NoarkParameters" xml:space="preserve">
+    <value>Noark felter</value>
   </data>
   <data name="GuiSubsection_Owner" xml:space="preserve">
     <value>Eier</value>
@@ -207,6 +213,10 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="IncommingSeperator" xml:space="preserve">
     <value>Inngående skille</value>
     <comment>Obligatorisk for Noark (addml)</comment>
+  </data>
+  <data name="MetadataGuiLocale" xml:space="preserve">
+    <value>no</value>
+    <comment>Can't get it to work as a reference</comment>
   </data>
   <data name="OutgoingSeperator" xml:space="preserve">
     <value>Utgående skille</value>

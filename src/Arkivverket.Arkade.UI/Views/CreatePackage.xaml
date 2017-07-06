@@ -73,6 +73,10 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <!-- Arkivbeskrivelse -->
@@ -680,6 +684,107 @@
                         </Button>
                     </Grid>
                 </Border>
+
+
+
+                <!-- Noark section (start/end/inncomming/outgoing seps) -->
+                <GroupBox Grid.Row="21" Header="{x:Static resources:MetaDataUI.GuiSubsection_NoarkParameters}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="32" Width="32"
+                                Command="{Binding MetaDataNoarkSection.CommandAddItem}"
+                                Visibility="{Binding MetaDataNoarkSection.VisibilityAddItem}">
+                            <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
+                        </Button>
+                    </StackPanel>
+                </GroupBox>
+
+                
+                <Border Grid.Row ="22" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                        Visibility="{Binding MetaDataNoarkSection.VisibilityItem}" Width="269" HorizontalAlignment="Left">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+
+                        <DatePicker Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
+                                    Language="no"
+                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.StartDate}" 
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                    SelectedDate="{Binding MetaDataNoarkSection.StartDate, Mode=TwoWay}"/>
+
+                        <DatePicker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
+                                    Language="no"
+                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.EndData}" 
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                    SelectedDate="{Binding MetaDataNoarkSection.EndDate, Mode=TwoWay}"/>
+
+                        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.IncommingSeperator}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataNoarkSection.IncommingSeparator, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
+
+                        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.OutgoingSeperator}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataNoarkSection.OutgoingSeparator, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
+
+                        <Button Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"
+                                Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="24" Width="24" Command="{Binding MetaDataNoarkSection.CommandDeleteItem}">
+                            <materialDesign:PackIcon Kind="{Binding MetaDataNoarkSection.IconDelete}" Opacity=".56" />
+                        </Button>
+                    </Grid>
+                </Border>
+
+                
+
+
+                <!-- Uttrekksdato -->
+                <GroupBox Grid.Row="23" Header="{x:Static resources:MetaDataUI.GuiSubsection_ExtractionDate}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                    </StackPanel>
+                </GroupBox>
+
+
+                <Border Grid.Row ="24" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                        Visibility="{Binding MetaDataExtractionDate.VisibilityItem}" Width="269" HorizontalAlignment="Left">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+
+                        <DatePicker Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
+                                    Language="no"
+                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ExtractionDate}" 
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                    SelectedDate="{Binding MetaDataExtractionDate.ExtractionDate, Mode=TwoWay}"/>
+                    </Grid>
+                </Border>
+
 
 
 

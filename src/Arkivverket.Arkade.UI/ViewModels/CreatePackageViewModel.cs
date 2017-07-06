@@ -42,7 +42,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private GuiMetaDataModel _metaDataSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
         private GuiMetaDataModel _metaDataArchiveSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
         private ObservableCollection<GuiMetaDataModel> _metaDataComments = new ObservableCollection<GuiMetaDataModel>();
-        private GuiMetaDataModel _metaDataHistory = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
+        private GuiMetaDataModel _metaDataHistory = new GuiMetaDataModel(string.Empty, GuiObjectType.history);
+        private GuiMetaDataModel _metaDataNoarkSection = new GuiMetaDataModel(DateTime.Today, DateTime.Today, string.Empty, string.Empty);
+        private GuiMetaDataModel _metaDataExtractionDate = new GuiMetaDataModel(DateTime.Today);
 
         private ObservableCollection<GuiMetaDataModel> _metadataPreregistreredUsers = new ObservableCollection<GuiMetaDataModel>();
 
@@ -149,7 +151,17 @@ namespace Arkivverket.Arkade.UI.ViewModels
             set { SetProperty(ref _metaDataHistory, value); }
         }
 
+        public GuiMetaDataModel MetaDataNoarkSection
+        {
+            get { return _metaDataNoarkSection; }
+            set { SetProperty(ref _metaDataNoarkSection, value); }
+        }
 
+        public GuiMetaDataModel MetaDataExtractionDate
+        {
+            get { return _metaDataExtractionDate; }
+            set { SetProperty(ref _metaDataExtractionDate, value); }
+        }
 
         public ObservableCollection<GuiMetaDataModel> MetaDataPreregistreredUsers
         {

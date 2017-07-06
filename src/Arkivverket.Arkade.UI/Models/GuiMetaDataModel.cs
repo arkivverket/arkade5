@@ -230,8 +230,30 @@ namespace Arkivverket.Arkade.UI.Models
                 SystemVersion = systemVersion;
                 SystemVersion = systemType;
                 SystemTypeVersion = systemTypeVersion;
-            }
+            } 
 
+            CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
+            CommandAddItem = new DelegateCommand(ExecuteAddItem);
+            CommandNullOutEntry = new DelegateCommand(NullOutRecord);
+        }
+
+
+        public GuiMetaDataModel(DateTime startDate, DateTime endDate, string incommingSeparator, string outgoingSeparator)
+        {
+            StartDate = startDate;
+            EndDate = endDate;
+            IncommingSeparator = incommingSeparator;
+            OutgoingSeparator = outgoingSeparator;
+
+            CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
+            CommandAddItem = new DelegateCommand(ExecuteAddItem);
+            CommandNullOutEntry = new DelegateCommand(NullOutRecord);
+        }
+
+
+        public GuiMetaDataModel(DateTime extractionDate)
+        {
+            ExtractionDate = extractionDate;
             CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
             CommandAddItem = new DelegateCommand(ExecuteAddItem);
             CommandNullOutEntry = new DelegateCommand(NullOutRecord);
@@ -244,10 +266,13 @@ namespace Arkivverket.Arkade.UI.Models
             if (guiObjectType == GuiObjectType.comment)
             {
                 Comment = strArg;
+
             }
             else if (guiObjectType == GuiObjectType.history)
             {
                 History = strArg;
+                // Start disabled for [0-1] multiplicity
+                ExecuteDeleteItem();
             }
 
             CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);

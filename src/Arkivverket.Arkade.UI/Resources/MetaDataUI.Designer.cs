@@ -223,11 +223,29 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uttrekksdato.
+        /// </summary>
+        public static string GuiSubsection_ExtractionDate {
+            get {
+                return ResourceManager.GetString("GuiSubsection_ExtractionDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Historie.
         /// </summary>
         public static string GuiSubsection_History {
             get {
                 return ResourceManager.GetString("GuiSubsection_History", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noark felter.
+        /// </summary>
+        public static string GuiSubsection_NoarkParameters {
+            get {
+                return ResourceManager.GetString("GuiSubsection_NoarkParameters", resourceCulture);
             }
         }
         
@@ -291,6 +309,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         public static string IncommingSeperator {
             get {
                 return ResourceManager.GetString("IncommingSeperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to no.
+        /// </summary>
+        public static string MetadataGuiLocale {
+            get {
+                return ResourceManager.GetString("MetadataGuiLocale", resourceCulture);
             }
         }
         
