@@ -16,6 +16,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
+using System.Windows.Controls;
 
 namespace Arkivverket.Arkade.UI.ViewModels
 {
@@ -473,7 +474,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 }
             }
         }
-
 
     }
 }
