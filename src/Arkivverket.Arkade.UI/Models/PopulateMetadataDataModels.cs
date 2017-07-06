@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.UI.Models
 
         public void DatafillArchiveSystem(ArchiveMetadata archiveMetadata, ObservableCollection<GuiMetaDataModel> metaDataModel)
         {
-            metaDataModel.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, true));
+            metaDataModel.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system));
         }
 
         public void DatafillArchiveEntity(List<MetadataEntityInformationUnit> metaDataEntityInformationUnits, ObservableCollection<GuiMetaDataModel> metaDataModel)

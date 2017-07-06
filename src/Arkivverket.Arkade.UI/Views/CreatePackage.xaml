@@ -7,6 +7,7 @@
              xmlns:resources="clr-namespace:Arkivverket.Arkade.UI.Resources"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:models="clr-namespace:Arkivverket.Arkade.UI.Models"
+             xmlns:validation="clr-namespace:Arkivverket.Arkade.UI.Util"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d"
              d:DesignHeight="300" Width="730">
@@ -71,20 +72,18 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <!-- Arkivbeskrivelse -->
                 <GroupBox Grid.Row="0" Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveMain}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderThickness="0">
-                    <StackPanel Orientation="Horizontal">
-                        <Button Style="{DynamicResource MaterialDesignToolButton}"
-                                Height="32" Width="32"
-                                Command="{Binding MetaDataModelArchiveDescription.CommandAddItem}"
-                                Visibility="{Binding MetaDataModelArchiveDescription.VisibilityAddItem}">
-                            <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
-                        </Button>
-                    </StackPanel>
                 </GroupBox>
 
                 <Border Grid.Row="1" BorderBrush="LightGray" BorderThickness="1"
@@ -93,7 +92,6 @@
                         Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
@@ -108,17 +106,17 @@
                                  TextWrapping="Wrap" />
 
 
-                        <TextBox Grid.Row="1" Grid.Column="0"
+                        <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,0,15"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.AgreementNumber}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataModelArchiveDescription.AgreementNumber, Mode=TwoWay}"
-                                 TextWrapping="Wrap" />
-
-                        <Button Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"
-                                Style="{DynamicResource MaterialDesignToolButton}" Height="24" Width="24"
-                                Command="{Binding MetaDataModelArchiveDescription.CommandDeleteItem}">
-                            <materialDesign:PackIcon Kind="{Binding MetaDataModelArchiveDescription.IconDelete}" Opacity=".56" />
-                        </Button>
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="MetaDataModelArchiveDescription.AgreementNumber" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
                     </Grid>
                 </Border>
@@ -179,10 +177,17 @@
                                         <ColumnDefinition Width="250" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBox Grid.Row="0" Grid.Column="0"
+                                    <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,0,15"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveCreator}"
-                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                             Text="{Binding Entity, Mode=TwoWay}" />
+                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                                        <TextBox.Text>
+                                            <Binding Path="Entity" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
 
                                     <TextBox Grid.Row="1" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ArchiveCreator_ContactPerson}"
@@ -258,15 +263,30 @@
                             <ColumnDefinition Width="250" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Row="0" Grid.Column="0"
+                        <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,0,15"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Transferer}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataTransferer.Entity, Mode=TwoWay}" />
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="MetaDataTransferer.Entity" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
-                        <TextBox Grid.Row="1" Grid.Column="0"
+                        <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,0,15"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Transferer_ContractPerson}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataTransferer.ContactPerson, Mode=TwoWay}" />
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="MetaDataTransferer.ContactPerson" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
 
                         <TextBox Grid.Row="2" Grid.Column="0"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Transferer_Telephone}"
@@ -331,15 +351,30 @@
                             <ColumnDefinition Width="250" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Row="0"
+                        <TextBox Grid.Row="0" Margin="0,0,0,15"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Producer}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataProducer.Entity, Mode=TwoWay}" />
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="MetaDataProducer.Entity" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
-                        <TextBox Grid.Row="1"
+
+                        <TextBox Grid.Row="1" Margin="0,0,0,15"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Producer_ContactPerson}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataProducer.ContactPerson, Mode=TwoWay}" />
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="MetaDataProducer.ContactPerson" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
                         <TextBox Grid.Row="2"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Producer_Telephone}"
@@ -414,10 +449,17 @@
                                         <ColumnDefinition Width="250" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBox Grid.Row="0" Grid.Column="0"
+                                    <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,0,15"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Owner}"
-                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                             Text="{Binding Entity, Mode=TwoWay}" />
+                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                                        <TextBox.Text>
+                                            <Binding Path="Entity" Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
 
                                     <TextBox Grid.Row="1" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Owner_ContactPerson}"
@@ -464,10 +506,17 @@
                             <ColumnDefinition Width="250" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Row="0"
+                        <TextBox Grid.Row="0" Margin="0,0,0,15"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Recepient}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataRecipient.Entity, Mode=TwoWay}" />
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="MetaDataRecipient.Entity" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                     </Grid>
                 </Border>
 
@@ -493,20 +542,42 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,15"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemName}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataSystem.SystemName, Mode=TwoWay}" />
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="MetaDataSystem.SystemName" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
-                        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+
+                        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,15"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemVersion}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataSystem.SystemVersion, Mode=TwoWay}" />
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="MetaDataSystem.SystemVersion" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
-                        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,15"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemType}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataSystem.SystemType, Mode=TwoWay}" />
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="MetaDataSystem.SystemType" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
                         <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemTypeVersion}"
@@ -517,9 +588,9 @@
                 </Border>
 
 
-                
-                
-                
+
+
+
                 <!-- Uttrekkssystem -->
                 <GroupBox Grid.Row="15" Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveSystem}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
@@ -560,10 +631,17 @@
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataArchiveSystem.SystemVersion, Mode=TwoWay}" />
 
-                        <TextBox Grid.Row="2"
+                        <TextBox Grid.Row="2" Margin="0,0,0,15"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemType}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataArchiveSystem.SystemType, Mode=TwoWay}" />
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="MetaDataArchiveSystem.SystemType" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
                         <TextBox Grid.Row="3"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemTypeVersion}"
@@ -624,7 +702,7 @@
                                     <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.Comment}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                             Text="{Binding SystemName, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
+                                             Text="{Binding Comment, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
 
                                     <Button Grid.Row="4" Grid.Column="1"
                                             Style="{DynamicResource MaterialDesignToolButton}"
@@ -639,11 +717,149 @@
 
 
 
+                <!-- Historie -->
+                <GroupBox Grid.Row="19" Header="{x:Static resources:MetaDataUI.GuiSubsection_History}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="32" Width="32"
+                                Command="{Binding MetaDataHistory.CommandAddItem}"
+                                Visibility="{Binding MetaDataHistory.VisibilityAddItem}">
+                            <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
+                        </Button>
+                    </StackPanel>
+                </GroupBox>
+
+                <Border Grid.Row ="20" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                        Visibility="{Binding MetaDataHistory.VisibilityItem}" Width="269" HorizontalAlignment="Left">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.History}"
+                                    Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding MetaDataHistory.History, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
+
+                        <Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
+                                Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="24" Width="24" Command="{Binding MetaDataHistory.CommandDeleteItem}">
+                            <materialDesign:PackIcon Kind="{Binding MetaDataHistory.IconDelete}" Opacity=".56" />
+                        </Button>
+                    </Grid>
+                </Border>
 
 
 
+                <!-- Noark section (start/end/inncomming/outgoing seps) -->
+                <GroupBox Grid.Row="21" Header="{x:Static resources:MetaDataUI.GuiSubsection_NoarkParameters}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="32" Width="32"
+                                Command="{Binding MetaDataNoarkSection.CommandAddItem}"
+                                Visibility="{Binding MetaDataNoarkSection.VisibilityAddItem}">
+                            <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
+                        </Button>
+                    </StackPanel>
+                </GroupBox>
+
+
+                <Border Grid.Row ="22" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                        Visibility="{Binding MetaDataNoarkSection.VisibilityItem}" Width="269" HorizontalAlignment="Left">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+
+                        <DatePicker Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
+                                    Language="no"
+                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.StartDate}" 
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                    SelectedDate="{Binding MetaDataNoarkSection.StartDate, Mode=TwoWay}"/>
+
+                        <DatePicker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
+                                    Language="no"
+                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.EndData}" 
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                    SelectedDate="{Binding MetaDataNoarkSection.EndDate, Mode=TwoWay}"/>
+
+                        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.IncommingSeperator}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataNoarkSection.IncommingSeparator, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
+
+                        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.OutgoingSeperator}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataNoarkSection.OutgoingSeparator, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
+
+                        <Button Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"
+                                Style="{DynamicResource MaterialDesignToolButton}"
+                                Height="24" Width="24" Command="{Binding MetaDataNoarkSection.CommandDeleteItem}">
+                            <materialDesign:PackIcon Kind="{Binding MetaDataNoarkSection.IconDelete}" Opacity=".56" />
+                        </Button>
+                    </Grid>
+                </Border>
+
+
+
+
+                <!-- Uttrekksdato -->
+                <GroupBox Grid.Row="23" Header="{x:Static resources:MetaDataUI.GuiSubsection_ExtractionDate}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                    </StackPanel>
+                </GroupBox>
+
+
+                <Border Grid.Row ="24" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                        Visibility="{Binding MetaDataExtractionDate.VisibilityItem}" Width="269" HorizontalAlignment="Left">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <DatePicker Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
+                                    Language="no"
+                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ExtractionDate}" 
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                    SelectedDate="{Binding MetaDataExtractionDate.ExtractionDate, Mode=TwoWay}"/>
+                    </Grid>
+                </Border>
             </Grid>
         </ScrollViewer>
+        <!-- END METADATA  -->
+
+
 
 
         <TextBlock Grid.Row="6" Grid.Column="0" Text="{x:Static resources:UI.CreatePackageSelectTypeLabel}" Margin="10" />
