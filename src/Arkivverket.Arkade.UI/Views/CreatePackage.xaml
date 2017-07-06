@@ -855,7 +855,7 @@
                                     SelectedDate="{Binding MetaDataExtractionDate.ExtractionDate, Mode=TwoWay}"/>
                     </Grid>
                 </Border>
-
+            </Grid>
         </ScrollViewer>
         <!-- END METADATA  -->
 
