@@ -567,17 +567,26 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemType}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
-                            <TextBox.Text>
-                                <Binding Path="MetaDataSystem.SystemType" Mode="TwoWay">
+
+                        <ComboBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemType}" 
+                                  MinWidth="72"
+                                  ItemsSource="{Binding SystemTypeList}"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBox.Text>
+                                <Binding Path="MetaDataSystem.SystemType" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
-                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
                                     </Binding.ValidationRules>
                                 </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                            </ComboBox.Text>
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+
 
                         <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemTypeVersion}"
@@ -631,17 +640,26 @@
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataArchiveSystem.SystemVersion, Mode=TwoWay}" />
 
-                        <TextBox Grid.Row="2" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemType}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
-                            <TextBox.Text>
-                                <Binding Path="MetaDataArchiveSystem.SystemType" Mode="TwoWay">
+
+                        <ComboBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemType}" 
+                                  MinWidth="72"
+                                  ItemsSource="{Binding SystemTypeList}"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBox.Text>
+                                <Binding Path="MetaDataArchiveSystem.SystemType" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
-                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
                                     </Binding.ValidationRules>
                                 </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                            </ComboBox.Text>
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+
 
                         <TextBox Grid.Row="3"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.SystemTypeVersion}"
