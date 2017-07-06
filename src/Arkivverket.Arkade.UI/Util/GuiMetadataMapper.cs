@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.UI.Util
 
         public static GuiMetaDataModel MapToSystem(MetadataSystemInformationUnit system)
         {
-            return new GuiMetaDataModel(system.Name, system.Version, system.Type, system.TypeVersion, true);
+            return new GuiMetaDataModel(system.Name, system.Version, system.Type, system.TypeVersion, GuiObjectType.system);
         }
 
         public static GuiMetaDataModel MapToArchiveSystem(MetadataSystemInformationUnit archiveSystem)
@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.UI.Util
             var guiMetadataComments = new ObservableCollection<GuiMetaDataModel>();
 
             foreach (string comment in comments)
-                guiMetadataComments.Add(new GuiMetaDataModel(comment));
+                guiMetadataComments.Add(new GuiMetaDataModel(comment, GuiObjectType.comment));
 
             return guiMetadataComments;
         }
