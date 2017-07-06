@@ -328,9 +328,9 @@ namespace Arkivverket.Arkade.UI.Models
             ArchiveDescription = string.Empty;
             AgreementNumber = string.Empty;
             History = string.Empty;
-            StartDate = default(DateTime);
-            EndDate = default(DateTime);
-            ExtractionDate = default(DateTime);
+            StartDate = DateTime.Today;
+            EndDate = DateTime.Today;
+            ExtractionDate = DateTime.Today;
             IncommingSeparator = string.Empty;
             OutgoingSeparator = string.Empty;
         }
