@@ -47,7 +47,12 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private GuiMetaDataModel _metaDataNoarkSection = new GuiMetaDataModel(DateTime.Today, DateTime.Today, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataExtractionDate = new GuiMetaDataModel(DateTime.Today);
 
+
         private ObservableCollection<GuiMetaDataModel> _metadataPreregistreredUsers = new ObservableCollection<GuiMetaDataModel>();
+        private IList<String> _systemTypeList  = new List<string>()
+        {
+            "Noark3", "Noark4", "Noark5", "Fagsystem"
+        }; 
 
 
         private GuiMetaDataModel _selectedCreatorDataModel;
@@ -168,6 +173,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             get { return _metadataPreregistreredUsers; }
             set { SetProperty(ref _metadataPreregistreredUsers, value); }
+        }
+
+
+        public IList<String> SystemTypeList
+        {
+            get { return _systemTypeList; }
+            set { SetProperty(ref _systemTypeList, value); }
         }
 
 
