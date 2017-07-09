@@ -111,7 +111,8 @@ namespace Arkivverket.Arkade.Core.Addml
             }
             else
             {
-                return(_ReturnStringWithoutDelimAtEndOfStringbuilder(sb, delim).Equals(delim));
+                string endOfSb = sb.ToString(sb.Length - delim.Length, sb.Length);
+                return endOfSb.Equals(delim);
             }
         }
 
@@ -124,7 +125,7 @@ namespace Arkivverket.Arkade.Core.Addml
             }
             else
             {
-                return (sb.ToString(sb.Length - delim.Length, sb.Length));
+                return (sb.ToString(0, sb.Length - delim.Length));
             }
         }
 
