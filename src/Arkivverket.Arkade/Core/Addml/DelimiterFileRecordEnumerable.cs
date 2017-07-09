@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
-    class DelimiterFileRecordEnumerable : IEnumerable
+    class DelimiterFileRecordEnumerable : IEnumerable<string>
     {
 
         private StreamReader _stream;
-        private String _delimiter;
+        private string _delimiter;
 
         public DelimiterFileRecordEnumerable(StreamReader stream, string delimiter)
         {
@@ -20,9 +20,9 @@ namespace Arkivverket.Arkade.Core.Addml
             _delimiter = delimiter;
         }
 
-        public IEnumerator GetEnumerator()
+        public IEnumerator<string> GetEnumerator()
         {
-            return (IEnumerator)GetEnumerator();
+            return GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

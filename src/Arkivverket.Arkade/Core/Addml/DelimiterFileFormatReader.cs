@@ -23,7 +23,8 @@ namespace Arkivverket.Arkade.Core.Addml
             string recordDelimiter = GetRecordDelimiter(flatFile);
             _fieldDelimiter = GetFieldDelimiter(flatFile);
             _recordIdentifierPosition = GetRecordIdentifierPosition(flatFile);
-            _lines = stream.ReadUntil(recordDelimiter).GetEnumerator();
+            //_lines = stream.ReadUntil(recordDelimiter).GetEnumerator();
+            _lines = new DelimiterFileRecordEnumerable(stream, recordDelimiter).GetEnumerator();
         }
 
         private int? GetRecordIdentifierPosition(FlatFile flatFile)

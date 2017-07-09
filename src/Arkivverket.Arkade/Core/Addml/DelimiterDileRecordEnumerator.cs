@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
-    class DelimiterDileRecordEnumerator : IEnumerator
+    class DelimiterDileRecordEnumerator : IEnumerator<string>
     {
 
         private StreamReader _stream;
         private string _delimiter;
         private string _foundRecord = null;
-        private bool _isMoveNext = false;
 
 
         public DelimiterDileRecordEnumerator(StreamReader stream, string delimiter)
@@ -23,7 +22,22 @@ namespace Arkivverket.Arkade.Core.Addml
             _delimiter = delimiter;
         }
 
-    public object Current
+        string IEnumerator<string>.Current
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_foundRecord))
+                {
+                    return _foundRecord;
+                }
+                else
+                {
+                    throw new Exception("Current element null error");
+                }
+            }
+        }
+
+        public object Current
         {
             get
             {
@@ -40,10 +54,10 @@ namespace Arkivverket.Arkade.Core.Addml
 
         public bool MoveNext()
         {
-
             StringBuilder strBld = new StringBuilder();
             int readChar;
             bool search = true;
+            bool returnVal = false;
 
             while (search)
             {
@@ -54,22 +68,28 @@ namespace Arkivverket.Arkade.Core.Addml
                     if (strBld.Length > 0)
                     {
                         _foundRecord = strBld.ToString();
-                        return true;
+                        returnVal = true;
+                        search = false;
                     }
                     else
                     {
                         _foundRecord = null;
-                        return false;
+                        returnVal = false;
+                        search = false;
                     }
-                } 
-
-                strBld.Append(Convert.ToChar(readChar));
-                if (_CheckIfEndOfStringContainsDelimiter(strBld, _delimiter))
+                }
+                else
                 {
-                    _foundRecord = _ReturnStringWithoutDelimAtEndOfStringbuilder(strBld, _delimiter);
-                    return true;
+                    strBld.Append(Convert.ToChar(readChar));
+                    if (_CheckIfEndOfStringContainsDelimiter(strBld, _delimiter))
+                    {
+                        _foundRecord = _ReturnStringWithoutDelimAtEndOfStringbuilder(strBld, _delimiter);
+                        returnVal = true;
+                        search = false;
+                    }
                 }
             }
+            return returnVal;
         }
 
         public void Reset()
@@ -79,7 +99,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _stream.Dispose();
         }
 
 
