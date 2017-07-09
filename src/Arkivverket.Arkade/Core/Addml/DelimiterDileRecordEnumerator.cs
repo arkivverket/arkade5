@@ -111,7 +111,7 @@ namespace Arkivverket.Arkade.Core.Addml
             }
             else
             {
-                string endOfSb = sb.ToString(sb.Length - delim.Length, sb.Length);
+                string endOfSb = sb.ToString(sb.Length - delim.Length, delim.Length);
                 return endOfSb.Equals(delim);
             }
         }
