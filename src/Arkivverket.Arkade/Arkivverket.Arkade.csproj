@@ -99,7 +99,7 @@
     <Compile Include="Core\Addml\Definitions\RecordIndex.cs" />
     <Compile Include="Core\Addml\Definitions\Separator.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\StringDataType.cs" />
-    <Compile Include="Core\Addml\DelimiterDileRecordEnumerator.cs" />
+    <Compile Include="Core\Addml\DelimiterFileRecordEnumerator.cs" />
     <Compile Include="Core\Addml\DelimiterFileFormatReader.cs" />
     <Compile Include="Core\Addml\DelimiterFileRecordEnumerable.cs" />
     <Compile Include="Core\Addml\Field.cs" />

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
-    class DelimiterDileRecordEnumerator : IEnumerator<string>
+    class DelimiterFileRecordEnumerator : IEnumerator<string>
     {
 
         private StreamReader _stream;
@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Addml
         private string _foundRecord = null;
 
 
-        public DelimiterDileRecordEnumerator(StreamReader stream, string delimiter)
+        public DelimiterFileRecordEnumerator(StreamReader stream, string delimiter)
         {
             _stream = stream;
             _delimiter = delimiter;

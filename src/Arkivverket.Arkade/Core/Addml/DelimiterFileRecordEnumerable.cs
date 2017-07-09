@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
         public IEnumerator<string> GetEnumerator()
         {
-            return new DelimiterDileRecordEnumerator(_stream, _delimiter);
+            return new DelimiterFileRecordEnumerator(_stream, _delimiter);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
