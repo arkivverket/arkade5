@@ -323,7 +323,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 string recordDefinitionFieldValue = recordDefinition.recordDefinitionFieldValue;
                 List<string> recordProcesses = GetRecordProcessNames(addmlFlatFileDefinition.Name, recordDefinition.name);
 
-                AddmlRecordDefinition addmlRecordDefinition = 
+                AddmlRecordDefinition addmlRecordDefinition =
                     addmlFlatFileDefinition.AddAddmlRecordDefinition(recordDefinitionName, recordLength, recordDefinitionFieldValue, recordProcesses);
 
                 List<fieldDefinition> fieldDefinitions = GetFieldDefinitions(recordDefinition);
@@ -331,13 +331,16 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 {
                     string name = fieldDefinition.name;
                     int? startPosition = GetStartPosition(fieldDefinition);
-                    int? fixedLength = GetFixedLength(fieldDefinition);
+                    int? endPosition = GetEndPosition(fieldDefinition); // Henter slutt-posisjon med ny funksjon
                     DataType dataType = GetFieldType(fieldDefinition.typeReference);
                     bool isPartOfPrimaryKey = IsPartOfPrimaryKey(recordDefinition, fieldDefinition);
                     bool isUnique = IsUnique(fieldDefinition);
                     bool isNullable = IsNullable(fieldDefinition);
                     int? minLength = GetMinLength(fieldDefinition);
                     int? maxLength = GetMaxLength(fieldDefinition);
+                    int? fixedLength = GetFixedLength(fieldDefinition);
+                    if (fixedLength == (int?)null)
+                        fixedLength = endPosition - startPosition + 1; // Fordi et felt fra 1 til 11 ikke er på 10.. :/
                     FieldIndex foreignKeyIndex = GetForeignKeyIndex(recordDefinition, fieldDefinition);
                     List<string> processes = GetFieldProcessNames(flatFileDefinition.name, recordDefinition.name,
                         fieldDefinition.name);
@@ -356,6 +359,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 }
             }
         }
+
 
         private List<AddmlCode> GetCodes(fieldDefinition fieldDefinition)
         {
@@ -387,6 +391,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         {
             return fieldDefinition.startPos == null ? (int?) null : int.Parse(fieldDefinition.startPos);
         }
+
+        private int? GetEndPosition(fieldDefinition fieldDefinition)
+        {
+            return fieldDefinition.endPos == null ? (int?)null : int.Parse(fieldDefinition.endPos);
+        }
+
 
         private int? GetMinLength(fieldDefinition fieldDefinition)
         {

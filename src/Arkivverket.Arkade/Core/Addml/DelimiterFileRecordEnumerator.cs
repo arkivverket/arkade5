@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
         private StreamReader _stream;
         private string _delimiter;
-        private string _foundRecord = null;
+        private string _foundRecord = string.Empty;
 
 
         public DelimiterFileRecordEnumerator(StreamReader stream, string delimiter)
@@ -26,14 +26,7 @@ namespace Arkivverket.Arkade.Core.Addml
         {
             get
             {
-                if (!string.IsNullOrEmpty(_foundRecord))
-                {
-                    return _foundRecord;
-                }
-                else
-                {
-                    throw new Exception("Current element null error");
-                }
+                return _foundRecord;
             }
         }
 
@@ -41,14 +34,7 @@ namespace Arkivverket.Arkade.Core.Addml
         {
             get
             {
-                if (!string.IsNullOrEmpty(_foundRecord))
-                {
-                    return _foundRecord;
-                }
-                else
-                {
-                    throw new Exception("Current element null error");
-                }
+                return _foundRecord;
             }
         }
 
