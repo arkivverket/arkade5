@@ -269,7 +269,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _regionManager = regionManager;
 
             CreatePackageCommand = new DelegateCommand(RunCreatePackage, CanExecuteCreatePackage);
-            NewProgramSessionCommand = new DelegateCommand(RunNavigateToLoadArchivePage, CanExecuteCreatePackage);
+            NewProgramSessionCommand = new DelegateCommand(RunNavigateToLoadArchivePage, CanLeaveCreatePackageView);
             AddMetadataAchiveCreatorEntry = new DelegateCommand(RunAddMetadataAchiveCreatorEntry);
             AddMetadataAchiveOwnerEntry = new DelegateCommand(RunAddMetadataAchiveOwnerEntry);
             AddMetadataCommentEntry = new DelegateCommand(RunAddMetadataCommentEntry);
@@ -434,6 +434,11 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private void RunNavigateToLoadArchivePage()
         {
             _regionManager.RequestNavigate("MainContentRegion", "LoadArchiveExtraction");
+        }
+
+        private bool CanLeaveCreatePackageView()
+        {
+            return !_isRunningCreatePackage;
         }
 
         private bool CanExecuteCreatePackage()
