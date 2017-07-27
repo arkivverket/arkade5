@@ -30,6 +30,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly IStatusEventHandler _statusEventHandler;
 
+        public DelegateCommand StartTestingCommand { get; set; }
         public DelegateCommand NavigateToCreatePackageCommand { get; set; }
         private DelegateCommand RunTestEngineCommand { get; set; }
         public DelegateCommand ShowReportCommand { get; set; }
@@ -38,6 +39,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private string _archiveFileName;
         private ArchiveType _archiveType;
         private TestSession _testSession;
+        private bool _testRunHasBeenExecuted;
         private bool _isRunningTests;
         private bool _testRunCompletedSuccessfully;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
@@ -131,11 +133,18 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _statusEventHandler.RecordProcessingFinishedEvent += OnRecordProcessingFinishedEvent;
             _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveInformationEvent;
             
+            StartTestingCommand = new DelegateCommand(StartTesting, CanStartTestRun);
             RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
-            NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, CanContinueOperationOnTestRun);
+            NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, CanCreatePackage);
             NewProgramSessionCommand = new DelegateCommand(ReturnToProgramStart, IsFinishedRunningTests);
             ShowReportCommand = new DelegateCommand(ShowHtmlReport, CanContinueOperationOnTestRun);
         }
+
+        private void StartTesting()
+        {
+            RunTestEngineCommand.Execute();
+        }
+
         private void OnTestStartedEvent(object sender, OperationMessageEventArgs eventArgs)
         {
             CurrentlyRunningTest = eventArgs.Id;
@@ -160,6 +169,16 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _regionManager.RequestNavigate("MainContentRegion", "CreatePackage", navigationParameters);
         }
 
+        private bool CanStartTestRun()
+        {
+            return !_testRunHasBeenExecuted;
+        }
+
+        private bool CanCreatePackage()
+        {
+            return !_isRunningTests;
+        }
+
         private bool IsFinishedRunningTests()
         {
             return !_isRunningTests;
@@ -175,7 +194,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _archiveType = (ArchiveType)context.Parameters["archiveType"];
             _archiveFileName = (string)context.Parameters["archiveFileName"];
 
-            RunTestEngineCommand.Execute();
+            _testSession = Directory.Exists(_archiveFileName)
+                ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
+                : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -238,15 +259,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
             {
                 NotifyStartRunningTests();
 
-                if (Directory.Exists(_archiveFileName))
-                {
-                    _testSession = _arkadeApi.RunTests(ArchiveDirectory.Read(_archiveFileName, _archiveType));
-                }
-                else
-                {
-                    _testSession = _arkadeApi.RunTests(ArchiveFile.Read(_archiveFileName, _archiveType));
-                }
-
+                _arkadeApi.RunTests(_testSession);
+                
                 _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords, _numberOfTestsFinished);
 
                 _testSession.AddLogEntry("Test run completed.");
@@ -308,7 +322,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void NotifyStartRunningTests()
         {
+            _testRunHasBeenExecuted = true;
             _isRunningTests = true;
+            StartTestingCommand.RaiseCanExecuteChanged();
             ShowReportCommand.RaiseCanExecuteChanged();
             NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
             NewProgramSessionCommand.RaiseCanExecuteChanged();

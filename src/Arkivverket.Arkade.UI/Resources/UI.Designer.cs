@@ -250,11 +250,11 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start testing.
+        ///   Looks up a localized string similar to Last inn uttrekk.
         /// </summary>
-        public static string LoadArchiveStartTestingButtonText {
+        public static string LoadArchiveLoadArchiveButtonText {
             get {
-                return ResourceManager.GetString("LoadArchiveStartTestingButtonText", resourceCulture);
+                return ResourceManager.GetString("LoadArchiveLoadArchiveButtonText", resourceCulture);
             }
         }
         

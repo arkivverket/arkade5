@@ -176,14 +176,14 @@
   <data name="LoadArchiveChooseTarFileButtonText" xml:space="preserve">
     <value>Velg SIP/AIP fil</value>
   </data>
+  <data name="LoadArchiveLoadArchiveButtonText" xml:space="preserve">
+    <value>Last inn uttrekk</value>
+  </data>
   <data name="LoadArchiveSelectedFileText" xml:space="preserve">
     <value>Valgt fil</value>
   </data>
   <data name="LoadArchiveSelectedFolderText" xml:space="preserve">
     <value>Valgt katalog</value>
-  </data>
-  <data name="LoadArchiveStartTestingButtonText" xml:space="preserve">
-    <value>Start testing</value>
   </data>
   <data name="LoadArchiveTypeFagsystem" xml:space="preserve">
     <value>Fagsystem</value>

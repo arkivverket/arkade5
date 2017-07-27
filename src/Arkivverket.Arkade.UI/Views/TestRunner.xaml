@@ -58,7 +58,8 @@
             <TextBlock Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedFiles}" Visibility="{Binding AddmlFlatFileStatusVisibility}"></TextBlock>
             <TextBlock Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedRecords}"></TextBlock>
 
-            <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
+                <Button Margin="20" HorizontalAlignment="Left" Content="Start testing"  Width="130" Height="30" Command="{Binding StartTestingCommand}"/>
                 <Button Margin="20" HorizontalAlignment="Left" Content="Vis rapport"  Width="130" Height="30" Command="{Binding ShowReportCommand}"/>
                 <Button Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.CreatePackageButtonText}"  Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}"/>
                 <Button Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:UI.NewProgramSessionButton}"  Width="130" Height="30" Command="{Binding NewProgramSessionCommand}"/>

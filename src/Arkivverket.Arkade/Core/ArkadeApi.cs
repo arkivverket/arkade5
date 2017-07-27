@@ -29,19 +29,29 @@ namespace Arkivverket.Arkade.Core
 
         public TestSession RunTests(ArchiveDirectory archiveDirectory)
         {
-            TestSession testSession = _testSessionFactory.NewSession(archiveDirectory);
+            TestSession testSession = CreateTestSession(archiveDirectory);
             RunTests(testSession);
             return testSession;
         }
 
         public TestSession RunTests(ArchiveFile archive)
         {
-            TestSession testSession = _testSessionFactory.NewSession(archive);
+            TestSession testSession = CreateTestSession(archive);
             RunTests(testSession);
             return testSession;
         }
+        
+        public TestSession CreateTestSession(ArchiveDirectory archiveDirectory)
+        {
+            return _testSessionFactory.NewSession(archiveDirectory);
+        }
 
-        private void RunTests(TestSession testSession)
+        public TestSession CreateTestSession(ArchiveFile archive)
+        {
+            return _testSessionFactory.NewSession(archive);
+        }
+
+        public void RunTests(TestSession testSession)
         {
             ITestEngine testEngine = _testEngineFactory.GetTestEngine(testSession);
             testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);

@@ -42,7 +42,7 @@
             <RadioButton Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 4" VerticalAlignment="Center" Content="{x:StaticExtension resources:UI.LoadArchiveTypeNoark5}"    Command="{Binding SetArchiveTypeCommand}" CommandParameter="{x:StaticExtension resources:UI.LoadArchiveTypeNoark5}"/>
         </StackPanel>
 
-        <Button Grid.Row="7" Grid.Column="2" Margin="0,20,5,20" Content="{x:StaticExtension resources:UI.LoadArchiveStartTestingButtonText}" HorizontalAlignment="Right" Width="140" Command="{Binding NavigateCommand}" Height="31" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
+        <Button Grid.Row="7" Grid.Column="2" Margin="0,20,5,20" Content="{x:StaticExtension resources:UI.LoadArchiveLoadArchiveButtonText}" HorizontalAlignment="Right" Width="140" Command="{Binding NavigateCommand}" Height="31" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
 
     </Grid>
 </UserControl>
