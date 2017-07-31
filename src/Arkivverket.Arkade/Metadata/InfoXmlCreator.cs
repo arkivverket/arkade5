@@ -19,13 +19,13 @@ namespace Arkivverket.Arkade.Metadata
 
             mets infoXml = Create(metadata);
 
-            FileInfo targetFileName = archive.WorkingDirectory.Root().WithFile(ArkadeConstants.InfoXmlFileName);
+            FileInfo targetFileName = archive.GetInfoXmlFileName();
 
             XmlSerializerNamespaces namespaces = SetupNamespaces();
 
             SerializeUtil.SerializeToFile(infoXml, targetFileName, namespaces);
 
-            Log.Information($"Created {ArkadeConstants.InfoXmlFileName}");
+            Log.Information($"Created {targetFileName}");
         }
 
         private static void PrepareForPackageDescription(Archive archive, ArchiveMetadata metadata)

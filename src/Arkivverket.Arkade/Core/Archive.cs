@@ -60,6 +60,11 @@ namespace Arkivverket.Arkade.Core
         {
             return WorkingDirectory.Root().WithFile(Uuid + ".tar");
         }
+
+        public FileInfo GetInfoXmlFileName()
+        {
+            return WorkingDirectory.Root().WithFile(Uuid + ".xml");
+        }
     }
 
     public enum ArchiveType

@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Test.Metadata
 
             new InfoXmlCreator().CreateAndSaveFile(archive, ArchiveMetadata);
 
-            string infoXmlFilePath = Path.Combine(workingDirectory, "info.xml");
+            string infoXmlFilePath = archive.GetInfoXmlFileName().FullName;
 
             File.Exists(infoXmlFilePath).Should().BeTrue();
         }
