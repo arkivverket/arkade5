@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Tests;
@@ -11,10 +12,12 @@ namespace Arkivverket.Arkade.Report
     public class HtmlReportGenerator : IReportGenerator
     {
         private readonly StreamWriter _stream;
+        private readonly CultureInfo _norwegianCulture;
 
         public HtmlReportGenerator(StreamWriter stream)
         {
             _stream = stream;
+            _norwegianCulture = CultureInfo.CreateSpecificCulture("nb-NO");
         }
 
         public void Generate(TestSession testSession)
@@ -138,7 +141,7 @@ namespace Arkivverket.Arkade.Report
             _stream.WriteLine(Resources.Report.LabelDateOfTesting);
             _stream.WriteLine("                 </td>");
             _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(testSession.DateOfTesting.ToString(Resources.Report.DateFormat));
+            _stream.WriteLine(testSession.DateOfTesting.ToString(Resources.Report.DateFormat, _norwegianCulture));
             _stream.WriteLine("                 </td>");
             _stream.WriteLine(@"            </tr>");
 
