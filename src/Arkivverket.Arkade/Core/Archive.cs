@@ -5,9 +5,9 @@ namespace Arkivverket.Arkade.Core
 {
     public class Archive
     {
-        public Uuid Uuid { get; private set; }
-        public WorkingDirectory WorkingDirectory { get; private set; }
-        public ArchiveType ArchiveType { get; private set; }
+        public Uuid Uuid { get; }
+        public WorkingDirectory WorkingDirectory { get; }
+        public ArchiveType ArchiveType { get; }
 
         public Archive(ArchiveType archiveType, Uuid uuid, WorkingDirectory workingDirectory)
         {
@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.Core
 
         public FileInfo GetInformationPackageFileName()
         {
-            return WorkingDirectory.Root().WithFile(Uuid.ToString() + ".tar");
+            return WorkingDirectory.Root().WithFile(Uuid + ".tar");
         }
     }
 
