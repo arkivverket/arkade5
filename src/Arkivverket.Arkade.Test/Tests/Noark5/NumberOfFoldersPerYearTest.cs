@@ -42,9 +42,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                 new XmlElementHelper().Add("klasse",
                                     new XmlElementHelper()
                                         .Add("mappe",
-                                            new XmlElementHelper().Add("opprettetDato", "1864-10-18T00:00:00Z"))
+                                            new XmlElementHelper().Add("opprettetDato", "1865-10-18T00:00:00Z"))
                                         .Add("mappe",
-                                            new XmlElementHelper().Add("opprettetDato", "1865-10-18T00:00:00Z")))))));
+                                            new XmlElementHelper().Add("opprettetDato", "1864-10-18T00:00:00Z")))))));
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfFoldersPerYear());
 

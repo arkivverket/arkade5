@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
 
@@ -26,7 +27,9 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             var testResults = new List<TestResult>();
 
-            foreach (KeyValuePair<int, int> foldersAtYear in _foldersByYear)
+            var foldersByYearOrdered = _foldersByYear.OrderBy(r => r.Key);
+
+            foreach (KeyValuePair<int, int> foldersAtYear in foldersByYearOrdered)
             {
                 int year = foldersAtYear.Key;
                 int count = foldersAtYear.Value;
