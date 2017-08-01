@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.IO;
 using System.Reflection;
@@ -15,8 +16,7 @@ namespace Arkivverket.Arkade.Metadata
 
         public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata)
         {
-            DirectoryInfo documentsDirectory = archive.WorkingDirectory.Content()
-                .WithSubDirectory(ArkadeConstants.DirectoryNameDocuments).DirectoryInfo();
+            DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
 
             if(documentsDirectory.Exists)
                 metadata.FileDescriptions = GetFileDescriptions(documentsDirectory);

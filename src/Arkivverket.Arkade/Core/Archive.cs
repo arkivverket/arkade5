@@ -8,6 +8,7 @@ namespace Arkivverket.Arkade.Core
         public Uuid Uuid { get; }
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
+        private DirectoryInfo DocumentsDirectory { get; set; }
 
         public Archive(ArchiveType archiveType, Uuid uuid, WorkingDirectory workingDirectory)
         {
@@ -64,6 +65,28 @@ namespace Arkivverket.Arkade.Core
         public FileInfo GetInfoXmlFileName()
         {
             return WorkingDirectory.Root().WithFile(Uuid + ".xml");
+        }
+
+        public DirectoryInfo GetDocumentsDirectory()
+        {
+            // Looks (once) for a document-directory with one of the names defined in DocumentDirectoryNames.
+            // If an actual directory is found, the field DocumentsDirectory is assigned with it and returned.
+            // If none is found, the field DocumentsDirectory is assigned with a new, non-existing directory
+            // given the name of the first element of DocumentDirectoryNames (should be the most common name).
+            // The method will always return a DirectoryInfo object in which can be checked by it's Exists-field.
+
+            if (DocumentsDirectory == null)
+            {
+                int index = ArkadeConstants.DocumentDirectoryNames.Length - 1;
+
+                do DocumentsDirectory = WorkingDirectory.Content().WithSubDirectory(
+                        ArkadeConstants.DocumentDirectoryNames[index--]
+                    ).DirectoryInfo();
+
+                while (index >= 0 && !DocumentsDirectory.Exists);
+            }
+
+            return DocumentsDirectory;
         }
     }
 

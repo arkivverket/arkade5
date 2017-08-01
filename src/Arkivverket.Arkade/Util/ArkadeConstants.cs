@@ -32,7 +32,9 @@ namespace Arkivverket.Arkade.Util
 
         public const string DirectoryNameRepositoryOperations = "repository_operations";
         public const string DirectoryNameContent = "content";
-        public const string DirectoryNameDocuments = "dokumenter";
+
+        public static readonly string[] DocumentDirectoryNames =
+            { "DOKUMENT", "DOKUMENTER", "dokument", "dokumenter" };
 
         private static readonly string UserHomeDirectoryString =
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);

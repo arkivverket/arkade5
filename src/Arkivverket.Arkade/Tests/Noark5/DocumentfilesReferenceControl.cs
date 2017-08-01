@@ -4,7 +4,6 @@ using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
-using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
@@ -14,10 +13,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
     public class DocumentfilesReferenceControl : Noark5XmlReaderBaseTest
     {
         private static Hashtable _documentFileNames;
+        private static DirectoryInfo _documentsDirectory;
 
         public DocumentfilesReferenceControl(Archive archive)
         {
-            _documentFileNames = GetNamesActualFiles(archive);
+            _documentsDirectory = archive.GetDocumentsDirectory();
+            _documentFileNames = GetNamesActualFiles();
         }
 
         public override string GetName()
@@ -36,21 +37,18 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
             foreach (DictionaryEntry fileNameEntry in _documentFileNames)
                 testResults.Add(new TestResult(ResultType.Error,
-                    new Location(ArkadeConstants.DirectoryNameDocuments),
+                    new Location(_documentsDirectory.Name),
                     string.Format(Noark5Messages.DocumentfilesReferenceControlMessage, fileNameEntry.Key)));
 
             return testResults;
         }
 
-        private static Hashtable GetNamesActualFiles(Archive archive)
+        private static Hashtable GetNamesActualFiles()
         {
-            DirectoryInfo documentsDirectory = archive.WorkingDirectory.Content()
-                .WithSubDirectory(ArkadeConstants.DirectoryNameDocuments).DirectoryInfo();
-
             var filenames = new Hashtable();
 
-            if (documentsDirectory.Exists)
-                FindFilenames(documentsDirectory, filenames, documentsDirectory.Name);
+            if (_documentsDirectory.Exists)
+                FindFilenames(_documentsDirectory, filenames, _documentsDirectory.Name);
 
             return filenames;
         }
