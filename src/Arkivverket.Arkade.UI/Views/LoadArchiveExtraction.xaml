@@ -7,7 +7,7 @@
              xmlns:resources="clr-namespace:Arkivverket.Arkade.UI.Resources"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="700">
+             d:DesignHeight="600" d:DesignWidth="1000">
     <Grid Height="350" Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -28,8 +28,8 @@
 
         <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="0 6 0 8" Text="{x:StaticExtension resources:UI.LoadArchiveViewHeadingText}"/>
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Button Margin="5" Content="{x:StaticExtension resources:UI.LoadArchiveChooseTarFileButtonText}" HorizontalAlignment="Center" Width="140" Height="31" Command="{Binding OpenArchiveFileCommand}"/>
             <Button Margin="5" Content="{x:StaticExtension resources:UI.LoadArchiveChooseFolderButtonText}" HorizontalAlignment="Center" Width="140" Height="31" Command="{Binding OpenArchiveFolderCommand}"/>
+            <Button Margin="5" Content="{x:StaticExtension resources:UI.LoadArchiveChooseTarFileButtonText}" HorizontalAlignment="Center" Width="140" Height="31" Command="{Binding OpenArchiveFileCommand}"/>
         </StackPanel>
 
         <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="40" TextWrapping="Wrap" Text="{Binding ArchiveFileNameGuiRepresentation}" VerticalAlignment="Top" IsEnabled="False"/>

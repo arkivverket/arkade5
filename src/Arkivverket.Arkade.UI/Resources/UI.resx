@@ -130,7 +130,7 @@
     <value>SIP</value>
   </data>
   <data name="CreatePackageWindowTitle" xml:space="preserve">
-    <value>Opprett pakke</value>
+    <value>Registrer metadata og opprett pakke</value>
   </data>
   <data name="DetailedErrorMessageFileName" xml:space="preserve">
     <value>arkade-feil-{0}.txt</value>

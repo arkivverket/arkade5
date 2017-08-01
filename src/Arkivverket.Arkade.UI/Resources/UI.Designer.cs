@@ -97,7 +97,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opprett pakke.
+        ///   Looks up a localized string similar to Registrer metadata og opprett pakke.
         /// </summary>
         public static string CreatePackageWindowTitle {
             get {

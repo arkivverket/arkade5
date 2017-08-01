@@ -10,7 +10,7 @@
              xmlns:validation="clr-namespace:Arkivverket.Arkade.UI.Util"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d"
-             d:DesignHeight="300" Width="730">
+             d:DesignHeight="600" Width="1000">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -30,63 +30,37 @@
             <ColumnDefinition Width="218" />
             <ColumnDefinition Width="23" />
             <ColumnDefinition Width="218" />
-            <ColumnDefinition Width="23" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="0"
-                   Grid.ColumnSpan="2"
+                   Grid.ColumnSpan="6"
                    Text="{x:Static resources:UI.CreatePackageWindowTitle}"
                    Style="{StaticResource MaterialDesignTitleTextBlock}"
                    Margin="10" />
 
+        <!--
         <TextBlock Grid.Row="1"
                    Grid.Column="0"
                    Grid.ColumnSpan="3"
                    Margin="10"
                    Style="{StaticResource MaterialDesignSubheadingTextBlock}"
                    Text="{x:Static resources:MetaDataUI.Title}" />
-
+        -->
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~ METADATA ~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="5" Grid.Column="0" VerticalScrollBarVisibility="Auto"
-                      HorizontalScrollBarVisibility="Disabled" Height="400" Margin="5,5,0,25">
+        <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled" Height="500" Margin="20,25">
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+            <StackPanel>
 
                 <!-- Arkivbeskrivelse -->
-                <GroupBox Grid.Row="0" Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveMain}"
+                <GroupBox Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveMain}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderThickness="0">
                 </GroupBox>
 
-                <Border Grid.Row="1" BorderBrush="LightGray" BorderThickness="1"
+                <Border BorderBrush="LightGray" BorderThickness="1"
                         CornerRadius="10" Margin="5"
                         Visibility="{Binding MetaDataModelArchiveDescription.VisibilityItem}"
                         Width="269" HorizontalAlignment="Left">
@@ -123,10 +97,10 @@
 
 
                 <!-- Arkivskaper -->
-                <GroupBox Grid.Row="2" Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveCreator}"
+                <GroupBox Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveCreator}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0">
+                          BorderThickness="0" Margin="0,20,0,0">
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -136,7 +110,7 @@
 
                         <ComboBox Name="ListEntities" VerticalAlignment="Top" Width="Auto"
                                   ItemsSource="{Binding MetaDataPreregistreredUsers}"
-                                  materialDesign:HintAssist.Hint="Fyll"
+                                  materialDesign:HintAssist.Hint="Registrer"
                                   SelectedItem="{Binding SelectedCreatorDataModel}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -152,7 +126,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <ItemsControl Grid.Row="3" ItemsSource="{Binding MetaDataArchiveCreators}">
+                <ItemsControl ItemsSource="{Binding MetaDataArchiveCreators}">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -220,10 +194,10 @@
 
 
                 <!-- Overforer -->
-                <GroupBox Grid.Row="4" Header="{x:Static resources:MetaDataUI.GuiSubsection_Transferer}"
+                <GroupBox Header="{x:Static resources:MetaDataUI.GuiSubsection_Transferer}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0">
+                          BorderThickness="0" Margin="0,20,0,0">
                     <StackPanel Orientation="Horizontal">
                         <!--<Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -233,7 +207,7 @@
 
                         <ComboBox Name="ListTransfereres" VerticalAlignment="Top" Width="Auto"
                                   ItemsSource="{Binding MetaDataPreregistreredUsers}"
-                                  materialDesign:HintAssist.Hint="Fyll"
+                                  materialDesign:HintAssist.Hint="Registrer"
                                   SelectedItem="{Binding SelectedTransfererDataModel}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -249,7 +223,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <Border Grid.Row="5" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
                         Visibility="{Binding MetaDataTransferer.ItemVisibility}" Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
@@ -308,10 +282,10 @@
 
 
                 <!-- Produsent -->
-                <GroupBox Grid.Row="6" Header="{x:Static resources:MetaDataUI.GuiSubsection_Producer}"
+                <GroupBox Header="{x:Static resources:MetaDataUI.GuiSubsection_Producer}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0">
+                          BorderThickness="0" Margin="0,20,0,0">
                     <StackPanel Orientation="Horizontal">
                         <!--<Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -321,7 +295,7 @@
 
                         <ComboBox Name="ListProducers" VerticalAlignment="Top" Width="Auto"
                                   ItemsSource="{Binding MetaDataPreregistreredUsers}"
-                                  materialDesign:HintAssist.Hint="Fyll"
+                                  materialDesign:HintAssist.Hint="Registrer"
                                   SelectedItem="{Binding SelectedProducerDataModel}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -337,7 +311,7 @@
                 </GroupBox>
 
 
-                <Border Grid.Row="7" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
                         Visibility="{Binding ItemVisibility}" Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
@@ -396,10 +370,10 @@
 
 
                 <!-- Eier -->
-                <GroupBox Grid.Row="8" Header="{x:Static resources:MetaDataUI.GuiSubsection_Owner}"
+                <GroupBox Header="{x:Static resources:MetaDataUI.GuiSubsection_Owner}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0">
+                          BorderThickness="0" Margin="0,20,0,0">
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -409,7 +383,7 @@
 
                         <ComboBox Name="ListOwners" VerticalAlignment="Top" Width="Auto"
                                   ItemsSource="{Binding MetaDataPreregistreredUsers}"
-                                  materialDesign:HintAssist.Hint="Fyll" SelectedItem="{Binding SelectedOwnerDataModel}">
+                                  materialDesign:HintAssist.Hint="Registrer" SelectedItem="{Binding SelectedOwnerDataModel}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <WrapPanel>
@@ -424,7 +398,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <ItemsControl Grid.Row="10" ItemsSource="{Binding MetaDataOwners}">
+                <ItemsControl ItemsSource="{Binding MetaDataOwners}">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -490,11 +464,11 @@
 
 
                 <!-- Mottaker -->
-                <GroupBox Grid.Row="11" Header="{x:Static resources:MetaDataUI.GuiSubsection_Recipient}"
+                <GroupBox Header="{x:Static resources:MetaDataUI.GuiSubsection_Recipient}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
-                          materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderThickness="0" />
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderThickness="0" Margin="0,20,0,0" />
 
-                <Border Grid.Row="12" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
                         Visibility="{Binding MetaDataRecipient.ItemVisibility}" Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
@@ -522,12 +496,12 @@
 
 
                 <!-- System -->
-                <GroupBox Grid.Row="13" Header="{x:Static resources:MetaDataUI.GuiSubsection_System}"
+                <GroupBox Header="{x:Static resources:MetaDataUI.GuiSubsection_System}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0" />
+                          BorderThickness="0" Margin="0,20,0,0"/>
 
-                <Border Grid.Row="14" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
                         Visibility="{Binding MetaDataSystem.ItemVisibility}" Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
@@ -601,10 +575,10 @@
 
 
                 <!-- Uttrekkssystem -->
-                <GroupBox Grid.Row="15" Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveSystem}"
+                <GroupBox Header="{x:Static resources:MetaDataUI.GuiSubsection_ArchiveSystem}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0">
+                          BorderThickness="0" Margin="0,20,0,0">
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -615,7 +589,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <Border Grid.Row="16" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
                         Visibility="{Binding MetaDataArchiveSystem.VisibilityItem}" Width="269"
                         HorizontalAlignment="Left">
                     <Grid Margin="5">
@@ -678,10 +652,10 @@
 
 
                 <!-- Kommentarer -->
-                <GroupBox Grid.Row="17" Header="{x:Static resources:MetaDataUI.GuiSubsection_Comment}"
+                <GroupBox Header="{x:Static resources:MetaDataUI.GuiSubsection_Comment}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0">
+                          BorderThickness="0" Margin="0,20,0,0">
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -691,7 +665,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <ItemsControl Grid.Row="18" ItemsSource="{Binding MetaDataComments}">
+                <ItemsControl ItemsSource="{Binding MetaDataComments}">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -736,10 +710,10 @@
 
 
                 <!-- Historie -->
-                <GroupBox Grid.Row="19" Header="{x:Static resources:MetaDataUI.GuiSubsection_History}"
+                <GroupBox Header="{x:Static resources:MetaDataUI.GuiSubsection_History}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0">
+                          BorderThickness="0" Margin="0,20,0,0">
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -750,7 +724,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <Border Grid.Row ="20" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
                         Visibility="{Binding MetaDataHistory.VisibilityItem}" Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
@@ -763,9 +737,9 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.History}"
-                                    Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding MetaDataHistory.History, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.History}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataHistory.History, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
 
                         <Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
                                 Style="{DynamicResource MaterialDesignToolButton}"
@@ -778,10 +752,10 @@
 
 
                 <!-- Noark section (start/end/inncomming/outgoing seps) -->
-                <GroupBox Grid.Row="21" Header="{x:Static resources:MetaDataUI.GuiSubsection_NoarkParameters}"
+                <GroupBox Header="{x:Static resources:MetaDataUI.GuiSubsection_NoarkParameters}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0">
+                          BorderThickness="0" Margin="0,20,0,0">
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -793,7 +767,7 @@
                 </GroupBox>
 
 
-                <Border Grid.Row ="22" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
                         Visibility="{Binding MetaDataNoarkSection.VisibilityItem}" Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
@@ -845,16 +819,16 @@
 
 
                 <!-- Uttrekksdato -->
-                <GroupBox Grid.Row="23" Header="{x:Static resources:MetaDataUI.GuiSubsection_ExtractionDate}"
+                <GroupBox Header="{x:Static resources:MetaDataUI.GuiSubsection_ExtractionDate}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0">
+                          BorderThickness="0" Margin="0,20,0,0">
                     <StackPanel Orientation="Horizontal">
                     </StackPanel>
                 </GroupBox>
 
 
-                <Border Grid.Row ="24" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
                         Visibility="{Binding MetaDataExtractionDate.VisibilityItem}" Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
@@ -873,42 +847,43 @@
                                     SelectedDate="{Binding MetaDataExtractionDate.ExtractionDate, Mode=TwoWay}"/>
                     </Grid>
                 </Border>
-            </Grid>
-        </ScrollViewer>
-        <!-- END METADATA  -->
+                <!-- END METADATA  -->
 
+                <!-- Line divider  -->
+                <Border Margin="0,16" BorderThickness="0 2 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" />
 
+                <!-- Create SIP/AIP package  -->
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="{x:Static resources:UI.CreatePackageSelectTypeLabel}" Margin="10" />
 
-
-        <TextBlock Grid.Row="6" Grid.Column="0" Text="{x:Static resources:UI.CreatePackageSelectTypeLabel}" Margin="10" />
-
-        <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Orientation="Horizontal">
-            <RadioButton Content="{x:Static resources:UI.CreatePackageTypeSIP}"
+                <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Orientation="Horizontal">
+                    <RadioButton Content="{x:Static resources:UI.CreatePackageTypeSIP}"
                          IsChecked="{Binding SelectedPackageTypeSip, Mode=TwoWay}"
                          Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 8" VerticalAlignment="Center" />
-            <RadioButton Content="{x:Static resources:UI.CreatePackageTypeAIP}"
+                    <RadioButton Content="{x:Static resources:UI.CreatePackageTypeAIP}"
                          IsChecked="{Binding SelectedPackageTypeAip, Mode=TwoWay}"
                          Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 8" VerticalAlignment="Center" />
-        </StackPanel>
+                </StackPanel>
 
-        <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 10" Orientation="Horizontal">
-            <Button
+                <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 10" Orientation="Horizontal">
+                    <Button
                 Command="{Binding CreatePackageCommand}"
                 Content="{x:Static resources:UI.CreatePackageButtonText}" HorizontalAlignment="Left" Width="130"
                 Height="30" />
 
-            <Button
+                    <Button
                 Command="{Binding NewProgramSessionCommand}"
                 Content="{x:Static resources:UI.NewProgramSessionButton}" HorizontalAlignment="Left" Width="130"
                 Height="30" Margin="5,0,0,0" />
-        </StackPanel>
+                </StackPanel>
 
-        <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="5" Margin="10" Orientation="Vertical">
-            <TextBlock Text="{Binding StatusMessageText, Mode=OneWay}" TextWrapping="Wrap" />
-            <TextBox Background="Transparent" BorderThickness="0" Text="{Binding StatusMessagePath}" IsReadOnly="True"
+                <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="5" Margin="10" Orientation="Vertical">
+                    <TextBlock Text="{Binding StatusMessageText, Mode=OneWay}" TextWrapping="Wrap" />
+                    <TextBox Background="Transparent" BorderThickness="0" Text="{Binding StatusMessagePath}" IsReadOnly="True"
                      TextWrapping="Wrap" />
-        </StackPanel>
+                </StackPanel>
 
+            </StackPanel>
+        </ScrollViewer>
 
     </Grid>
 </UserControl>
