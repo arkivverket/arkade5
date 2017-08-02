@@ -463,24 +463,33 @@ namespace Arkivverket.Arkade.Metadata
             mets.structMap = new[] { new structMapType() };
         }
 
-        protected static List<FileDescription> GetFileDescriptions(DirectoryInfo directory)
+        protected static List<FileDescription> GetFileDescriptions(DirectoryInfo directory, DirectoryInfo pathRoot = null)
         {
             var fileDescriptions = new List<FileDescription>();
 
             var fileId = 1; // Reserving 0 for package file
 
-            foreach (FileInfo file in directory.EnumerateFiles())
-                fileDescriptions.Add(GetFileDescription(file, ref fileId));
+            foreach (FileInfo file in directory.EnumerateFiles(".", SearchOption.AllDirectories))
+                fileDescriptions.Add(GetFileDescription(file, ref fileId, pathRoot));
 
             return fileDescriptions;
         }
 
-        public static FileDescription GetFileDescription(FileInfo file, ref int fileId)
+        public static FileDescription GetFileDescription(FileInfo file, ref int fileId, DirectoryInfo pathRoot = null)
         {
+            string fileName = file.Name;
+
+            if (pathRoot != null)
+            {
+                // Including in fileName the file's path from pathRoot:
+                string excludedPath = (pathRoot.Parent?.FullName ?? pathRoot.FullName) + Path.DirectorySeparatorChar;
+                fileName = file.FullName.Replace(excludedPath, string.Empty);
+            }
+
             return new FileDescription
             {
                 Id = fileId++,
-                Name = file.Name,
+                Name = fileName,
                 Extension = file.Extension.Replace(".", string.Empty),
                 Sha256Checksum = GetSha256Checksum(file),
                 Size = file.Length,

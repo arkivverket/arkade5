@@ -18,8 +18,8 @@ namespace Arkivverket.Arkade.Metadata
         {
             DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
 
-            if(documentsDirectory.Exists)
-                metadata.FileDescriptions = GetFileDescriptions(documentsDirectory);
+            if (documentsDirectory.Exists)
+                metadata.FileDescriptions = GetFileDescriptions(documentsDirectory, documentsDirectory);
 
             mets mets = Create(metadata);
 

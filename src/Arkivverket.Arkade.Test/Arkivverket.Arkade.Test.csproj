@@ -272,6 +272,9 @@
     <None Include="TestData\Metadata\DiasMetsCreator\content\dokumenter\5000001.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\Metadata\DiasMetsCreator\content\dokumenter\underkatalog\5000002.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\noark3\ARKIV.DAT" />
     <None Include="TestData\noark3\DOK.DAT" />
     <None Include="TestData\noark3\SAK.DAT" />
