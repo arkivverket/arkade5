@@ -142,6 +142,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void StartTesting()
         {
+            _log.Information("User action: Start testing");
+
             RunTestEngineCommand.Execute();
         }
 
@@ -158,12 +160,16 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void ReturnToProgramStart()
         {
+            _log.Information("User action: Leave test session and return to load archive window");
+
             _regionManager.RequestNavigate("MainContentRegion", "LoadArchiveExtraction");
         }
 
 
         private void NavigateToCreatePackage()
         {
+            _log.Information("User action: Navigate to create package window");
+
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add("TestSession", _testSession);
             _regionManager.RequestNavigate("MainContentRegion", "CreatePackage", navigationParameters);
@@ -367,6 +373,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void ShowHtmlReport()
         {
+            _log.Information("User action: Show HTML report");
+            
             OpenFile(GetHtmlFile());
         }
 

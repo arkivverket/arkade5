@@ -86,7 +86,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void SetArchiveTypeUserInput(string archiveTypeSelected)
         {
-            _log.Debug($"User set archive type to {archiveTypeSelected}");
+            _log.Information($"User action: Select archive type {archiveTypeSelected}");
+
             ArchiveType tempArchiveType;
             if (ArchiveType.TryParse(archiveTypeSelected, true, out tempArchiveType))
             {
@@ -97,11 +98,11 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void Navigate()
         {
+            _log.Information("User action: Navigate to test runner window with archive file {ArchiveFile} and archive type {ArchiveType}", ArchiveFileName, ArchiveType);
+
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add("archiveFileName", ArchiveFileName);
             navigationParameters.Add("archiveType", ArchiveType);
-
-            _log.Debug("Navigating to TestRunner window with archive file {ArchiveFile} and archive type {ArchiveType}", ArchiveFileName, ArchiveType);
 
             _regionManager.RequestNavigate("MainContentRegion", "TestRunner", navigationParameters);
         }
@@ -113,12 +114,16 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void OpenMetadataFileDialog()
         {
+            _log.Information("User action: Open metadata file dialog");
+
             MetadataFileName = OpenFileDialog();
         }
 
 
         private void OpenArchiveFileDialog()
         {
+            _log.Information("User action: Open archive file dialog");
+
             ArchiveFileName = OpenFileDialog();
 
             if (ArchiveFileName == null)
@@ -126,6 +131,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 MetadataFileName = null;
                 return;
             }
+
+            _log.Information("User action: Choose archive file {ArchiveFileName}", ArchiveFileName);
 
             string infoXmlFileName = Path.Combine(new FileInfo(ArchiveFileName).Directory?.FullName, ArkadeConstants.InfoXmlFileName);
             if (File.Exists(infoXmlFileName))
@@ -141,6 +148,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void OpenArchiveFolderDialog()
         {
+            _log.Information("User action: Open archive folder dialog");
+
             ArchiveFileName = OpenFolderDialog();
 
             if (ArchiveFileName == null)
@@ -148,6 +157,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 MetadataFileName = null;
                 return;
             }
+
+            _log.Information("User action: Choose archive folder {ArchiveFileName}", ArchiveFileName);
 
             string infoXmlFileName = Path.Combine(new DirectoryInfo(ArchiveFileName).Parent?.FullName, ArkadeConstants.InfoXmlFileName);
             if (File.Exists(infoXmlFileName))

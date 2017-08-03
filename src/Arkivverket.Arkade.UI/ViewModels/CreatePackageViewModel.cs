@@ -433,6 +433,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void RunNavigateToLoadArchivePage()
         {
+            Log.Information("User action: Leave test session and return to load archive window");
+
             _regionManager.RequestNavigate("MainContentRegion", "LoadArchiveExtraction");
         }
 
@@ -448,6 +450,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void RunCreatePackage()
         {
+            Log.Information("User action: Create package");
+
             _testSession.ArchiveMetadata = new ArchiveMetadata
             {
                 ArchiveDescription = ArchiveMetadataMapper.MapToArchiveDescription(_metaDataArchiveDescription),
@@ -462,7 +466,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 Comments = ArchiveMetadataMapper.MapToComments(_metaDataComments)
             };
 
-            Log.Debug("Running create package command");
             _isRunningCreatePackage = true;
             CreatePackageCommand.RaiseCanExecuteChanged();
 
