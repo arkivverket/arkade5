@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                             new XmlElementHelper()
                                                 .Add("systemID", "someClassSystemId_3")
                                                 .Add("registrering", string.Empty)))
-                                .Add("klasse", // Has 2 sub-class
+                                .Add("klasse", // Has sub-class
                                     new XmlElementHelper()
                                         .Add("systemID", "someClassSystemId_4")
                                         .Add("klasse", // Has no registrations
@@ -71,7 +71,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                                 new XmlElementHelper()
                                                     .Add("systemID", "someClassSystemId_3")
                                                     .Add("registrering", string.Empty)))
-                                    .Add("klasse", // Has 2 sub-class
+                                    .Add("klasse", // Has sub-class
                                         new XmlElementHelper()
                                             .Add("systemID", "someClassSystemId_4")
                                             .Add("klasse", // Has no registrations
@@ -94,7 +94,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                                 new XmlElementHelper()
                                                     .Add("systemID", "someClassSystemId_8")
                                                     .Add("registrering", string.Empty)))
-                                    .Add("klasse", // Has 2 sub-class
+                                    .Add("klasse", // Has sub-class
                                         new XmlElementHelper()
                                             .Add("systemID", "someClassSystemId_9")
                                             .Add("klasse", // Has no registrations
