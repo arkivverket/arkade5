@@ -497,4 +497,13 @@ Generert:  {2}</value>
   <data name="InternalSchemaFileIsUsed" xml:space="preserve">
     <value>Skjemafil {0} ble ikke funnet i uttrekket. Validering gjøres ihht. en versjon av {0} som er innebygget i Arkade</value>
   </data>
+  <data name="NumberOfFoldersPerClass" xml:space="preserve">
+    <value>Antall mapper for hver klasse</value>
+  </data>
+  <data name="NumberOfFoldersPerClassMessage_NumberOfClassesWithoutFolders" xml:space="preserve">
+    <value>Klasser uten mapper (og uten underklasser) - Antall: {0}</value>
+  </data>
+  <data name="NumberOfFoldersPerClassMessage_NumberOfFolders" xml:space="preserve">
+    <value>Klasse (systemID): {0} - Antall: {1}</value>
+  </data>
 </root>

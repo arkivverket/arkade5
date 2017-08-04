@@ -855,6 +855,33 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall mapper for hver klasse.
+        /// </summary>
+        internal static string NumberOfFoldersPerClass {
+            get {
+                return ResourceManager.GetString("NumberOfFoldersPerClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klasser uten mapper (og uten underklasser) - Antall: {0}.
+        /// </summary>
+        internal static string NumberOfFoldersPerClassMessage_NumberOfClassesWithoutFolders {
+            get {
+                return ResourceManager.GetString("NumberOfFoldersPerClassMessage_NumberOfClassesWithoutFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klasse (systemID): {0} - Antall: {1}.
+        /// </summary>
+        internal static string NumberOfFoldersPerClassMessage_NumberOfFolders {
+            get {
+                return ResourceManager.GetString("NumberOfFoldersPerClassMessage_NumberOfFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall mapper for hvert år.
         /// </summary>
         internal static string NumberOfFoldersPerYear {

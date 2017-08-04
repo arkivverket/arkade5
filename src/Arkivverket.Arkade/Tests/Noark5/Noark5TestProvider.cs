@@ -52,7 +52,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfFoldersWithoutRegistrationsOrSubfolders(),
                 new FirstAndLastRegistrationCreationDates(),
                 new NumberOfJournalPosts(archive),
-                new NumberOfFoldersClassified(),
+                new NumberOfFoldersPerClass(),
                 new NumberOfCaseStatusesPerArchivePart(),
                 new DocumentfilesReferenceControl(archive),
                 new NumberOfEachJournalPostType(),
