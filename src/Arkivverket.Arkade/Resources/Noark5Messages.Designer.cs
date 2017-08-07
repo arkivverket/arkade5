@@ -738,6 +738,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall av ulike saksmappestatuser.
+        /// </summary>
+        internal static string NumberOfEachCaseFolderStatus {
+            get {
+                return ResourceManager.GetString("NumberOfEachCaseFolderStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saksmappestatus: {0} - Antall: {1}.
+        /// </summary>
+        internal static string NumberOfEachCaseFolderStatusMessage {
+            get {
+                return ResourceManager.GetString("NumberOfEachCaseFolderStatusMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall ulike dokumentformater.
         /// </summary>
         internal static string NumberOfEachDocumentFormat {

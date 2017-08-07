@@ -209,12 +209,12 @@
     <Compile Include="Tests\Noark5\ArchiveContentMockReader.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchivePartsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchivesTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfCaseStatusesPerArchivePartTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfChangesLoggedTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassesInMainClassificationSystemWithoutSubClassesOrFoldersTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfCasePartsTests.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassesTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfConversionsTest.cs" />
+    <Compile Include="Tests\Noark5\NumberOfEachCaseFolderStatusTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfRestrictionsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfDisposalResolutionsTest.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassificationsTest.cs" />

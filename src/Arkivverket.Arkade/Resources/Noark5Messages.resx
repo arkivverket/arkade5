@@ -506,4 +506,10 @@ Generert:  {2}</value>
   <data name="NumberOfFoldersPerClassMessage_NumberOfFolders" xml:space="preserve">
     <value>Klasse (systemID): {0} - Antall: {1}</value>
   </data>
+  <data name="NumberOfEachCaseFolderStatus" xml:space="preserve">
+    <value>Antall av ulike saksmappestatuser</value>
+  </data>
+  <data name="NumberOfEachCaseFolderStatusMessage" xml:space="preserve">
+    <value>Saksmappestatus: {0} - Antall: {1}</value>
+  </data>
 </root>
