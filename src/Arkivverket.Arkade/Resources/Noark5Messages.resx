@@ -512,4 +512,7 @@ Generert:  {2}</value>
   <data name="NumberOfEachCaseFolderStatusMessage" xml:space="preserve">
     <value>Saksmappestatus: {0} - Antall: {1}</value>
   </data>
+  <data name="NumberOfArchivesMessage_ArchivesAtLevel" xml:space="preserve">
+    <value>Antall arkiv på nivå {0}: {1}</value>
+  </data>
 </root>

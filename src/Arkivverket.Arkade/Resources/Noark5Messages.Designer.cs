@@ -414,6 +414,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall arkiv på nivå {0}: {1}.
+        /// </summary>
+        internal static string NumberOfArchivesMessage_ArchivesAtLevel {
+            get {
+                return ResourceManager.GetString("NumberOfArchivesMessage_ArchivesAtLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall saksparter.
         /// </summary>
         internal static string NumberOfCaseParts {
