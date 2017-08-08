@@ -1,7 +1,100 @@
+*******************
 Systemdokumentasjon
-===================
+*******************
 
-List of supported ADDML processes
+Source code
+===========
+
+The source code is located at the GitHub-repository: https://github.com/arkivverket/arkade5/
+
+Arkade is developed with .Net and C#. The solution-file (.sln) is compatible with Visual Studio 2015 and above. 
+
+Below is a brief description of each project in the solution. 
+
+
+Arkivverket.Arkade
+------------------
+This is the core library with functions for reading and testing archive extractions, generating reports and creating SIP/AIP-packages.
+
+List of packages:
+
+**Core** - Domain classes
+
+**ExternalModels** - Classes generated from xml schemas
+
+**Identify** - Identification classes for reading and identifying an archive extraction
+
+**Logging** - Classes related to logging of events during testing
+
+**Metadata** - Contains classes related to creating metadata files for archive extractions
+
+**Report** - Classes for generating test reports
+
+**Resource** - Various resource files, language files, images etc.
+
+**Tests** - Contains all test classes for testing archive extractions
+
+**Util** - General utilities
+
+
+Arkivverket.Arkade.UI
+---------------------
+
+This project provides the graphical user interface of the Arkade 5 software. It is based on WPF, Windows Presentation Foundation. 
+Together with WPF, the application uses the Prism_ library for creating a loosly coupled, maintainable and testable XAML application.  
+
+Autofac_ is used as a dependency framework. Bootstrapping of the applications happens in **Bootstrapper.cs**. It is based on the bootstrapper provided by Prism and it loads the Autofac-module provided by the Arkade core library. 
+
+The design and layout is based on Google's Material_ Design. This has been implemented with the help of the [MaterialDesignThemes-library](http://materialdesigninxaml.net/). Note that the user interface is only inspired by the material design, not neccessary strictly following it in every situation. 
+
+
+.. _Prism: https://github.com/PrismLibrary/Prism
+.. _Autofac: https://github.com/PrismLibrary/Prism
+.. _Material: https://material.google.com/
+
+Arkivverket.Arkade.ConsoleTest
+------------------------------
+This is a sample application, which demonstrates the use of the Arkade API.
+
+Arkivverket.Arkade.Test
+-----------------------
+This project contains the unit tests and other tests classes for the project. Unit tests are created with xUnit. 
+
+Setup
+-----
+This is the setup project for creating installation binaries. You need the `Wix-toolset <http://wixtoolset.org/>`_ to be able to use the Setup-project. 
+
+Arkade API
+==========
+
+The Arkade project provides API-classes for simplified use of the core functionality. There are two API-classes included: Arkade.cs and ArkadeApi.cs. They are located inside the namespace **Arkivverket.Arkade.Core**. Both classes provides the same functionality, the difference is that Autofac is used for dependency injection in the Arkade class. The ArkadeApi class must be instantiated manually. There is an Autofac module that can be used, **Arkivverket.Arkade.Util.ArkadeAutofacModule**, if the client software already is using Autofac for dependency injection. 
+
+This is the signature of the Arkade API class:
+
+.. image:: img/api-signature.png
+
+
+There are two **RunTests** methods that runs for a given archive, either from a directory structure or a SIP/AIP package file (.tar). After the tests are run, the api returns a **TestSession**. The **TestSession** class contains all necessary information for creating a package with tests results or generating a report. 
+
+A simple test run may look like this:
+
+.. code-block:: C
+
+   
+   var arkade = new Arkade();
+   var testSession = arkade.RunTests(ArchiveFile.Read("c:\\tmp\\ExampleArchive.tar", ArchiveType.Noark5));
+   arkade.SaveReport(testSession, new FileInfo("c:\\tmp\TestReport.html"));
+   arkade.CreatePackage(testSession, PackageType.SubmissionInformationPackage);
+
+Also the **TestSession** class contains various information about the testing that has been done. The TestSuite property contains a list of all tests that has been run and their results. 
+
+
+ADDML
+=====
+
+Arkade is built to support ADDML version 8.2. 
+
+List of supported ADDML processes:
 
 * Analyse_CountRecords
 * Analyse_CountChars
@@ -33,7 +126,12 @@ List of supported ADDML processes
 * Control_ForeignKey
 
 
-List of implemeted Noark5 Tests
+NOARK 5
+=======
+
+Arkade supports the NOARK5 standard.
+
+List of implemeted Noark5 Tests:
 
 * Noark5 Testpunkt Analyse 01. Antall arkiver i arkivstrukturen
 * Noark5 Testpunkt Analyse 02. Antall arkivdeler i arkivstrukturen
@@ -87,59 +185,3 @@ List of implemeted Noark5 Tests
 * Noark5 Testpunkt Analyse 36. Eventuelt - antall utfÃ¸rte kassasjoner i arkivstrukturen
 * Noark5 Testpunkt Analyse 33. Eventuelt - antall skjerminger i arkivstrukturen
 
-
-
-Arkivverket.Arkade
-------------------
-This is the core library with functions for reading and testing archive extractions, generating reports and creating SIP/AIP-packages.
-
-List of packages:
-
-**Core** - Common classes
-
-**ExternalModels** - Classes generated from xml schemas
-
-**Identify** - Identification classes for reading and identifying an archive extraction
-
-**Tests** - Contains all test classes for testing archive extractions
-
-**Util** - General utilities
-
-ArkadeAPI
----------
-
-Single interface to the core functionality.
-
-
-.. code-block:: C
-
-   public class ArkadeApi
-   {
-      public ArkadeApi(TestSessionFactory testSessionFactory, 
-            TestEngineFactory testEngineFactory, 
-            MetadataFilesCreator metadataFilesCreator, 
-            InformationPackageCreator informationPackageCreator, 
-            TestSessionXmlGenerator testSessionXmlGenerator) {}
-         
-         public TestSession RunTests(ArchiveDirectory archiveDirectory) {}
-         public TestSession RunTests(ArchiveFile archive) {}
-         public void CreatePackage(TestSession testSession, PackageType packageType)
-         public void SaveReport(TestSession testSession, FileInfo file) {}
-   }
-
-
-
-Arkivverket.Arkade.UI
----------------------
-
-This project provides the graphical user interface of the Arkade 5 software. It is based on WPF, Windows Presentation Foundation. 
-Together with WPF, the application uses the Prism_ library for creating a loosly coupled, maintainable and testable XAML application.  
-
-Autofac_ is used as a dependency framework. Bootstrapping of the applications happens in **Bootstrapper.cs**. It is based on the bootstrapper provided by Prism and it loads the Autofac-module provided by the Arkade core library. 
-
-The design and layout is based on Google's Material_ Design. This has been implemented with the help of the [MaterialDesignThemes-library](http://materialdesigninxaml.net/). Note that the user interface is only inspired by the material design, not neccessary strictly following it in every situation. 
-
-
-.. _Prism: https://github.com/PrismLibrary/Prism
-.. _Autofac: https://github.com/PrismLibrary/Prism
-.. _Material: https://material.google.com/
