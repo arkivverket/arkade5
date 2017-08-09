@@ -83,6 +83,24 @@ Sample.ConsoleApp
 ------------------------------
 This is a sample application, which demonstrates the use of the Arkade API.
 
+Porting to other platforms
+--------------------------
+For now the application is only developed for use on the Microsoft Windows platform. However, with the new `.Net Core project <https://www.microsoft.com/net/core/platform>`_ from Microsoft, a cross platform application should be possible when the framework and tools has matured. The .Net Core platform allows running .net applications on linux and mac in addition to windows. 
+
+The Arkade project has few external dependencies and it should be possible to either update them to newer versions when they are compatible with .net core or replace them with other compatible libraries. Currently there are only three external libraries in use: 
+
+* `SharpZipLib <https://icsharpcode.github.io/SharpZipLib/>`_
+* Autofac_
+* `Serilog <https://serilog.net/>`_
+
+In addition there are some of the .net packages that has been restructured, deprecated or removed that need to be fixed before the application is fully cross platform compatible.
+
+The graphical user interface can be a challenge to port, currently Microsoft has no plans for porting the Windows Presentation Framework to other platforms. This means that for creating a linux desktop app, you might have to recreate the user interface with another graphics library. Preferably a library that works on both linux and mac.
+
+Some useful links regarding porting to .net core: 
+* https://blogs.msdn.microsoft.com/dotnet/2016/02/10/porting-to-net-core/
+* https://marketplace.visualstudio.com/items?itemName=ConnieYau.NETPortabilityAnalyzer
+
 
 Arkade API
 ==========
@@ -152,57 +170,56 @@ NOARK 5
 
 Arkade supports the NOARK5 standard.
 
-List of implemeted Noark5 Tests:
+List of implemented Noark5 Tests:
 
-* Noark5 Testpunkt Analyse 01. Antall arkiver i arkivstrukturen
-* Noark5 Testpunkt Analyse 02. Antall arkivdeler i arkivstrukturen
-* Noark5 Testpunkt Analyse 03: Arkivdelen[e]s status i arkivstrukturen
-* Noark5 Testpunkt Analyse 05. Antall klasser i arkivstrukturen
-* Noark5 Testpunkt Analyse 04. Antall klassifikasjonssystemer i arkivstrukturen
-* Noark5 Testpunkt Analyse 06. Antall klasser uten underklasser eller mapper i det primære klassifikasjonssystemet i arkivstrukturen
-* Noark5 Testpunkt Kontroll 46. Kontroll på om dokumentobjektene i arkivstrukturen refererer til eksisterende dokumentfiler i arkivuttrekket
-* Noark5 Testpunkt Analyse 07. Antall mapper i arkivstrukturen
-* Noark5 Testpunkt Analyse 12. Antall registreringer i arkivstrukturen
-* Noark5 Testpunkt Kontroll 40. Kontroll av sjekksummene i arkivuttrekk.xml
-* Noark5 Testpunkt Kontroll 41. Validering av arkivstruktur.xml
-* Noark5 Testpunkt Kontroll 44. Kontroll på at registreringer bare er knyttet til klasser uten underklasser i arkivstrukturen
-* Noark5 Testpunkt Kontroll 42. Validering av endringslogg.xml
-* Noark5 Testpunkt Analyse 37. Eventuelt - antall konverterte dokumenter i arkivstrukturen
-* Noark5 Testpunkt Analyse 14. Antall registreringer for hvert år i arkivstrukturen
-* Noark5 Testpunkt Kontroll 48. Kontroll av systemidentifikasjonene i arkivstrukturen
-* Noark5 Testpunkt Analyse 39. Start- og sluttdato i arkivuttrekket
-* Noark5 Testpunkt Kontroll 49. Kontroll av referansene til arkivdel i arkivstrukturen
-* Noark5 Testpunkt Kontroll 50. Kontroll av referansene til sekundær klassifikasjon i arkivstrukturen
-* Noark5 Testpunkt Kontroll 51. Kontroll av referansene i endringsloggen
-* Noark5 Testpunkt Kontroll 45. Kontroll av sjekksummer
-* Noark5 Testpunkt Analyse 26. Antall saksparter i arkivstrukturen
-* Noark5 Testpunkt Analyse 29. Antall presedenser i arkivstrukturen
-* Noark5 Testpunkt Analyse 30. Antall korrespondanseparter i arkivstrukturen
-* Noark5 Testpunkt Analyse 31. Antall avskrivninger i arkivstrukturen
-* Noark5 Testpunkt Analyse 32. Antall dokumentflyter i arkivstrukturen
-* Noark5 Testpunkt Analyse 08. Antall mapper for hvert år i arkivstrukturen
-* Noark5 Testpunkt Analyse 27. Antall merknader i arkivstrukturen
-* Noark5 Testpunkt Analyse 10. Antall mapper uten undermapper eller registreringer i arkivstrukturen
-* Noark5 Testpunkt Analyse 28. Antall kryssreferanser i arkivstrukturen
-* Noark5 Testpunkt Analyse 21. Antall dokumentobjekter i arkivstrukturen
-* Noark5 Testpunkt Analyse 19. Antall dokumentbeskrivelser uten dokumentobjekt i arkivstrukturen
-* Noark5 Testpunkt Analyse 18. Antall dokumentbeskrivelser i arkivstrukturen
-* Noark5 Testpunkt Analyse 16. Antall registreringer uten dokumentbeskrivelse i arkivstrukturen
-* Noark5 Testpunkt Analyse 23. Antall dokumentfiler i arkivuttrekket
-* Noark5 Testpunkt Analyse 22. Start- og sluttdato for dokumentene i arkivstrukturen
-* Noark5 Testpunkt Analyse 38. Antall journalposter i arkivuttrekket
-* Noark5 Testpunkt Analyse 09. Antall mapper som er klassifisert med hver enkelt klasse i arkivstrukturen
-* Noark5 Testpunkt Analyse 11. Saksmappenes status i arkivstrukturen
-* Noark5 Testpunkt Kontroll 47. Kontroll på at det ikke finnes dokumentfiler i arkivuttrekket som mangler referanse fra arkivstrukturen
-* Noark5 Testpunkt Analyse 13. Antall forskjellige journalposttyper i arkivstrukturen
-* Noark5 Testpunkt Analyse 15. Antall registreringer som er klassifisert med hver enkelt klasse i arkivstrukturen
-* Noark5 Testpunkt Analyse 17. Journalpostenes status i arkivstrukturen
-* Noark5 Testpunkt Analyse 20. Dokumentbeskrivelsenes status i arkivstrukturen
-* Noark5 Testpunkt Analyse 24. Antall dokumenter i arkivuttrekket fordelt på dokumentformat
-* Noark5 Testpunkt Analyse 25. Antall dokumentfiler som blir referert til av flere enn ett dokumentobjekt
-* Noark5 Testpunkt Analyse 34. Eventuelt - antall graderinger i arkivstrukturen
-* Noark5 Testpunkt Kontroll 43. Kontroll på at mappene bare er knyttet til klasser uten underklasser i arkivstrukturen
-* Noark5 Testpunkt Analyse 35. Eventuelt - antall kassasjonsvedtak i arkivstrukturen
-* Noark5 Testpunkt Analyse 36. Eventuelt - antall utfÃ¸rte kassasjoner i arkivstrukturen
-* Noark5 Testpunkt Analyse 33. Eventuelt - antall skjerminger i arkivstrukturen
-
+* Analyse 01 - Antall arkiver i arkivstrukturen
+* Analyse 02 - Antall arkivdeler i arkivstrukturen
+* Analyse 03 - Arkivdelen[e]s status i arkivstrukturen
+* Analyse 04 - Antall klassifikasjonssystemer i arkivstrukturen
+* Analyse 05 - Antall klasser i arkivstrukturen
+* Analyse 06 - Antall klasser uten underklasser eller mapper i det primære klassifikasjonssystemet i arkivstrukturen
+* Analyse 07 - Antall mapper i arkivstrukturen
+* Analyse 08 - Antall mapper for hvert år i arkivstrukturen
+* Analyse 09 - Antall mapper som er klassifisert med hver enkelt klasse i arkivstrukturen
+* Analyse 10 - Antall mapper uten undermapper eller registreringer i arkivstrukturen
+* Analyse 11 - Saksmappenes status i arkivstrukturen
+* Analyse 12 - Antall registreringer i arkivstrukturen
+* Analyse 13 - Antall forskjellige journalposttyper i arkivstrukturen
+* Analyse 14 - Antall registreringer for hvert år i arkivstrukturen
+* Analyse 15 - Antall registreringer som er klassifisert med hver enkelt klasse i arkivstrukturen
+* Analyse 16 - Antall registreringer uten dokumentbeskrivelse i arkivstrukturen
+* Analyse 17 - Journalpostenes status i arkivstrukturen
+* Analyse 18 - Antall dokumentbeskrivelser i arkivstrukturen
+* Analyse 19 - Antall dokumentbeskrivelser uten dokumentobjekt i arkivstrukturen
+* Analyse 20 - Dokumentbeskrivelsenes status i arkivstrukturen
+* Analyse 21 - Antall dokumentobjekter i arkivstrukturen
+* Analyse 22 - Start- og sluttdato for dokumentene i arkivstrukturen
+* Analyse 23 - Antall dokumentfiler i arkivuttrekket
+* Analyse 24 - Antall dokumenter i arkivuttrekket fordelt på dokumentformat
+* Analyse 25 - Antall dokumentfiler som blir referert til av flere enn ett dokumentobjekt
+* Analyse 26 - Antall saksparter i arkivstrukturen
+* Analyse 27 - Antall merknader i arkivstrukturen
+* Analyse 28 - Antall kryssreferanser i arkivstrukturen
+* Analyse 29 - Antall presedenser i arkivstrukturen
+* Analyse 30 - Antall korrespondanseparter i arkivstrukturen
+* Analyse 31 - Antall avskrivninger i arkivstrukturen
+* Analyse 32 - Antall dokumentflyter i arkivstrukturen
+* Analyse 33 - Eventuelt - antall skjerminger i arkivstrukturen
+* Analyse 34 - Eventuelt - antall graderinger i arkivstrukturen
+* Analyse 35 - Eventuelt - antall kassasjonsvedtak i arkivstrukturen
+* Analyse 36 - Eventuelt - antall utførte kassasjoner i arkivstrukturen
+* Analyse 37 - Eventuelt - antall konverterte dokumenter i arkivstrukturen
+* Analyse 38 - Antall journalposter i arkivuttrekket
+* Analyse 39 - Start- og sluttdato i arkivuttrekket
+* Kontroll 40 - Kontroll av sjekksummene i arkivuttrekk.xml
+* Kontroll 41 - Validering av arkivstruktur.xml
+* Kontroll 42 - Validering av endringslogg.xml
+* Kontroll 43 - Kontroll på at mappene bare er knyttet til klasser uten underklasser i arkivstrukturen
+* Kontroll 44 - Kontroll på at registreringer bare er knyttet til klasser uten underklasser i arkivstrukturen
+* Kontroll 45 - Kontroll av sjekksummer
+* Kontroll 46 - Kontroll på om dokumentobjektene i arkivstrukturen refererer til eksisterende dokumentfiler i arkivuttrekket
+* Kontroll 47 - Kontroll på at det ikke finnes dokumentfiler i arkivuttrekket som mangler referanse fra arkivstrukturen
+* Kontroll 48 - Kontroll av systemidentifikasjonene i arkivstrukturen
+* Kontroll 49 - Kontroll av referansene til arkivdel i arkivstrukturen
+* Kontroll 50 - Kontroll av referansene til sekundær klassifikasjon i arkivstrukturen
+* Kontroll 51 - Kontroll av referansene i endringsloggen
