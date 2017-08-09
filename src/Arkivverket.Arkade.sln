@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.UI", "Arkivverket.Arkade.UI\Arkivverket.Arkade.UI.csproj", "{13964257-FE3D-427B-841A-402EAA8E1942}"
 EndProject
@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.Test", "
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "Setup\Setup.wixproj", "{43B24E21-8DC8-474E-88D3-47153856D35D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.ConsoleTest", "Arkivverket.Arkade.ConsoleTest\Arkivverket.Arkade.ConsoleTest.csproj", "{CED5C6CC-FCEB-4FDD-B638-4273F6B0EA95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.ConsoleApp", "Arkivverket.Arkade.ConsoleTest\Sample.ConsoleApp.csproj", "{CED5C6CC-FCEB-4FDD-B638-4273F6B0EA95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

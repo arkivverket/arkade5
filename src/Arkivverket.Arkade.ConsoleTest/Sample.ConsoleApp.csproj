@@ -7,8 +7,8 @@
     <ProjectGuid>{CED5C6CC-FCEB-4FDD-B638-4273F6B0EA95}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Arkivverket.Arkade.ConsoleTest</RootNamespace>
-    <AssemblyName>Arkivverket.Arkade.ConsoleTest</AssemblyName>
+    <RootNamespace>Sample.ConsoleApp</RootNamespace>
+    <AssemblyName>Sample.ConsoleApp</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -60,6 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="noark5-testuttrekk.tar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
