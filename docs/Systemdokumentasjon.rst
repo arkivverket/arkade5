@@ -9,14 +9,33 @@ The source code is located at the GitHub-repository: https://github.com/arkivver
 
 Arkade is developed with .Net and C#. The solution-file (.sln) is compatible with Visual Studio 2015 and above. 
 
+Overview
+--------
+Arkade provides mainly three different functions: 
+
+* Archive testing
+* Report generator
+* Package creator
+
+These functions are exposed in the API and the graphical user interface project is also using the API-class to interact with the core functions.
+
+.. image:: img/project-overview.png
+
 Below is a brief description of each project in the solution. 
 
 
 Arkivverket.Arkade
 ------------------
-This is the core library with functions for reading and testing archive extractions, generating reports and creating SIP/AIP-packages.
+This is the core library with functions for testing archive extractions, generating reports and creating SIP/AIP-packages.
 
-List of packages:
+The most notable classes in the core project are the test engines, package creator and report generator:
+
+* Arkivverket.Arkade.Core.Noark5.Noark5TestEngine
+* Arkivverket.Arkade.Core.Addml.AddmlDatasetTestEngine
+* Arkivverket.Arkade.Core.InformationPackageCreator
+* Arkivverket.Arkade.Report.HtmlReportGenerator
+
+A short description of the packages in the core project:
 
 **Core** - Domain classes
 
@@ -32,7 +51,7 @@ List of packages:
 
 **Resource** - Various resource files, language files, images etc.
 
-**Tests** - Contains all test classes for testing archive extractions
+**Tests** - Contains test classes for testing archive extractions
 
 **Util** - General utilities
 
@@ -45,16 +64,12 @@ Together with WPF, the application uses the Prism_ library for creating a loosly
 
 Autofac_ is used as a dependency framework. Bootstrapping of the applications happens in **Bootstrapper.cs**. It is based on the bootstrapper provided by Prism and it loads the Autofac-module provided by the Arkade core library. 
 
-The design and layout is based on Google's Material_ Design. This has been implemented with the help of the [MaterialDesignThemes-library](http://materialdesigninxaml.net/). Note that the user interface is only inspired by the material design, not neccessary strictly following it in every situation. 
+The design and layout is based on Google's Material_ Design. This has been implemented with the help of the `MaterialDesignThemes-library <http://materialdesigninxaml.net/>`_. Note that the user interface is only inspired by the material design, not neccessary strictly following it in every situation. 
 
 
 .. _Prism: https://github.com/PrismLibrary/Prism
-.. _Autofac: https://github.com/PrismLibrary/Prism
+.. _Autofac: https://autofac.org
 .. _Material: https://material.google.com/
-
-Arkivverket.Arkade.ConsoleTest
-------------------------------
-This is a sample application, which demonstrates the use of the Arkade API.
 
 Arkivverket.Arkade.Test
 -----------------------
@@ -64,15 +79,19 @@ Setup
 -----
 This is the setup project for creating installation binaries. You need the `Wix-toolset <http://wixtoolset.org/>`_ to be able to use the Setup-project. 
 
+Sample.ConsoleApp
+------------------------------
+This is a sample application, which demonstrates the use of the Arkade API.
+
+
 Arkade API
 ==========
 
-The Arkade project provides API-classes for simplified use of the core functionality. There are two API-classes included: Arkade.cs and ArkadeApi.cs. They are located inside the namespace **Arkivverket.Arkade.Core**. Both classes provides the same functionality, the difference is that Autofac is used for dependency injection in the Arkade class. The ArkadeApi class must be instantiated manually. There is an Autofac module that can be used, **Arkivverket.Arkade.Util.ArkadeAutofacModule**, if the client software already is using Autofac for dependency injection. 
+The Arkade project provides API-classes for simplified use of the core functionality. There are two API-classes included: Arkade.cs and ArkadeApi.cs. They are located inside the namespace **Arkivverket.Arkade.Core**. Both classes provides the same functionality, the difference is that Autofac_ is used for dependency injection in the Arkade class. The ArkadeApi class must be instantiated manually. There is an Autofac module that can be used, **Arkivverket.Arkade.Util.ArkadeAutofacModule**, if the client software already is using Autofac for dependency injection. 
 
 This is the signature of the Arkade API class:
 
 .. image:: img/api-signature.png
-
 
 There are two **RunTests** methods that runs for a given archive, either from a directory structure or a SIP/AIP package file (.tar). After the tests are run, the api returns a **TestSession**. The **TestSession** class contains all necessary information for creating a package with tests results or generating a report. 
 
@@ -86,7 +105,9 @@ A simple test run may look like this:
    arkade.SaveReport(testSession, new FileInfo("c:\\tmp\TestReport.html"));
    arkade.CreatePackage(testSession, PackageType.SubmissionInformationPackage);
 
-Also the **TestSession** class contains various information about the testing that has been done. The TestSuite property contains a list of all tests that has been run and their results. 
+The **TestSession** class contains various information about the testing that has been done. The TestSuite property contains a list of all tests that has been run and their results. 
+
+See the sample project (Sample.ConsoleApp) in the source code, for a complete example that runs testing on a Noark5 archive.
 
 
 ADDML
