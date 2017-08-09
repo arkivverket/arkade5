@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Noark5
 
             if (description == null)
             {
-                Log.Warning($"Missing description of Noark5Test: {GetType().FullName}");
+                Log.Debug($"Missing description of Noark5Test: {GetType().FullName}");
             }
 
             return description;
