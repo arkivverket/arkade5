@@ -50,7 +50,7 @@
                             <fieldType name="integer">
                                 <dataType>integer</dataType>
                             </fieldType>
-                            <fieldType name="date">
+                            <fieldType name="date8">
                                 <dataType>date</dataType>
                                 <fieldFormat>yyyymmdd</fieldFormat>
                             </fieldType>
@@ -2278,19 +2278,19 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SA.DATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SA.SISTEJP'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SA.KASSDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SA.OBS'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SA.UTLDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SA.PAPIR'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
@@ -2359,10 +2359,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='JP.JDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='JP.JDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='JP.UDATERT'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
@@ -2371,19 +2371,19 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='JP.AVSKDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='JP.EKSPDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='JP.FORFDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='JP.OVDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='JP.AGDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='JP.TGGRUPPE'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2398,7 +2398,7 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='JP.UTLDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='JP.UTLTIL'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2434,13 +2434,13 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AM.AVSKDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AM.BESVAR'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AM.FRIST'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='ER.JPID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2503,7 +2503,7 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PS.DATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PS.FORELDET'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
@@ -2545,7 +2545,7 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AK.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AK.TGGRUPPE'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2566,25 +2566,25 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PO.OPRDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PO.NEDLDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='KA.ADRID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='KA.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='KA.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='KA.AUTAV'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='KA.AUTDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SE.ID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2593,16 +2593,16 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SE.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SE.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SE.VERAV'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SE.VERDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='KF.ADRID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2629,10 +2629,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='ME.OPPBEDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='ME.REGDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='ME.REGKL'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="time"/>
@@ -2668,10 +2668,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='TI.OPPBEDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='TI.REGDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='TI.REGKL'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="time"/>
@@ -2701,7 +2701,7 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='DL.TKDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='DL.TKAV'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2716,7 +2716,7 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='DB.AGDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='DB.TGGRUPPE'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2734,7 +2734,7 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='VE.OPPBEDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='DI.DOKID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2758,7 +2758,7 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='DI.SIGVERDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='ED.DOKID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2782,10 +2782,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AI.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AI.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AL.ADMIDFRA'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2803,10 +2803,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AP.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AP.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AR.NUMSER'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2815,10 +2815,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AR.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AR.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AD.PERIODE'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2845,16 +2845,16 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AD.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AD.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AD.EKSPDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AR.KONTRDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='AD.KONTRAV'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2878,10 +2878,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='OP.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='OP.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='OP.MAKSLEN'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2899,7 +2899,7 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='JE.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='NU.ID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2929,10 +2929,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PE.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PE.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PN.ID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2944,10 +2944,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PN.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PN.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PA.PEID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -2971,10 +2971,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PR.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PR.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='FR.PRID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3031,10 +3031,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='TJ.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='TJ.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='TJ.AUTOPPAV'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3046,10 +3046,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='TK.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='TK.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='TK.EPOSTNIV'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3079,10 +3079,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PT.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PT.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PT.AUTOPPAV'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3097,10 +3097,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='TG.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='TG.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PG.PEID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3118,10 +3118,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PG.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PG.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='PG.UTMAV'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3133,10 +3133,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='UT.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='UT.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='UT.OPPNAV'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3145,16 +3145,16 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='UT.OPPNDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='UT.ANTMEDL'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='UT.ETABLERT'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='UT.NEDLAGT'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='UT.ADRID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3181,7 +3181,7 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='MO.DATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='MO.START'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="time"/>
@@ -3190,7 +3190,7 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="time"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='MO.FRIST'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='MO.SAKSKART'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
@@ -3211,10 +3211,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='UM.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='UM.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='UM.SORT'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3253,7 +3253,7 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='MD.DATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='MD.PAPIRDOK'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
@@ -3271,13 +3271,13 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='MD.AGDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='MD.BEVTID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='MD.KASSDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='MI.MDPID'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3289,7 +3289,7 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='MI.TKDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='MI.TKAV'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3346,10 +3346,10 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="boolean"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SG.STARTDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SG.VEDTDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='SG.SISTEVEDT'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3490,13 +3490,13 @@
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='EI.FRADATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='EI.TILDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='EI.PRODDATO'">
-                                        <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                                        <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                                     </xsl:when>
                                     <xsl:when test="$feltnavn='TI.ANTFILER'">
                                         <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
@@ -3542,7 +3542,7 @@
                     <fieldDefinition name="{$feltnavn}" typeReference="integer"/>
                 </xsl:when>
                 <xsl:when test="$feltnavn='SA.DATO'">
-                    <fieldDefinition name="{$feltnavn}" typeReference="date"/>
+                    <fieldDefinition name="{$feltnavn}" typeReference="date8"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <fieldDefinition name="{$feltnavn}" typeReference="string"/>
