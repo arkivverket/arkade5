@@ -135,6 +135,7 @@
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionParserTest.cs" />
     <Compile Include="Core\Addml\Definitions\AddmlDefinitionTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\BooleanDataTypeTest.cs" />
+    <Compile Include="Core\Addml\Definitions\DataTypes\TimeDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\DateDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\FloatDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\IntegerDataTypeTest.cs" />

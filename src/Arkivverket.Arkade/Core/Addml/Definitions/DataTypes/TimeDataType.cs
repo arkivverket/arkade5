@@ -1,20 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions.DataTypes
 {
-    internal class TimeDataType : DataType
+    public class TimeDataType : DataType
     {
-/* 
-    <fieldType name="time"> 
-    <dataType>time</dataType> 
-    <fieldFormat>hhmmss</fieldFormat> 
-    </fieldType> 
-*/
+        private readonly string _timeFormat;
 
-
-        public override bool IsValid(string s)
+        public TimeDataType(string timeFormat, List<string> nullValues = null) : base(nullValues)
         {
-            throw new NotImplementedException();
+            _timeFormat = timeFormat;
+        }
+
+        public override bool IsValid(string timeString)
+        {
+            TimeSpan unUsed;
+
+            string escapedLowerCaseFormat = EscapeColonsAndDashes(_timeFormat).ToLower();
+
+            return TimeSpan.TryParseExact(timeString, escapedLowerCaseFormat, CultureInfo.InvariantCulture, out unUsed);
+        }
+
+        private static string EscapeColonsAndDashes(string someString)
+        {
+            return someString.Replace(":", "\\:").Replace("-", "\\-");
         }
     }
 }

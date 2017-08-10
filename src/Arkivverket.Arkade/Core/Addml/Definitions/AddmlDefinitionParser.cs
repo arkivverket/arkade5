@@ -103,6 +103,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     return new FloatDataType(format, nullValues);
                 case "date":
                     return new DateDataType(format, nullValues);
+                case "time":
+                    return new TimeDataType(format, nullValues);
                 case "boolean":
                     return new BooleanDataType(format, nullValues);
                 case "link":
