@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Numerics;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
@@ -61,8 +62,8 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         protected override void DoRun(Field field)
         {
-            int value;
-            if (!int.TryParse(field.Value, out value))
+            BigInteger value;
+            if (!BigInteger.TryParse(field.Value, out value))
             {
                 return;
             }
