@@ -208,12 +208,12 @@ namespace Arkivverket.Arkade.UI.ViewModels
             if (isDirectory)
             {
                 ArchiveFileNameGuiRepresentation =
-                    $"{Resources.UI.LoadArchiveSelectedFolderText}: {new DirectoryInfo(archiveFileName).Name}";
+                    $"{Resources.UI.LoadArchiveSelectedFolderText}: {new DirectoryInfo(archiveFileName).FullName}";
             }
             else
             {
                 ArchiveFileNameGuiRepresentation =
-                    $"{Resources.UI.LoadArchiveSelectedFileText}: {Path.GetFileName(archiveFileName)}";
+                    $"{Resources.UI.LoadArchiveSelectedFileText}: {Path.GetFullPath(archiveFileName)}";
             }
         }
 
