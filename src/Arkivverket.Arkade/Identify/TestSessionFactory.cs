@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Identify
             _log.Information(
                 $"Building new TestSession from file [archiveType: {archiveFile.ArchiveType}] [directory: {archiveFile.File.FullName}]");
             Uuid uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFile.File.Name));
-            ArchiveInformationEvent(archiveFile.File.Name, archiveFile.ArchiveType, uuid);
+            ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, uuid);
 
             WorkingDirectory workingDirectory = WorkingDirectory.FromUuid(uuid);
 
