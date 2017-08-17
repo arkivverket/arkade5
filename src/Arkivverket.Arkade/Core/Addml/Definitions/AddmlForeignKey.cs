@@ -63,16 +63,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
         public string GetForeignKeyReferenceIndexesAsString()
         {
-            var builder = new StringBuilder();
-            foreach (FieldIndex index in ForeignKeyReferenceIndexes)
-            {
-                if (builder.Length != 0)
-                {
-                    builder.Append(CombinedKeyDelimiter);
-                }
-                builder.Append(index);
-            }
-            return builder.ToString();
+            return CombineFieldIndexesToString(ForeignKeyReferenceIndexes);
         }
 
         public void AddValue(List<AddmlForeignKeyValue> foreignKeyValues)
@@ -91,6 +82,25 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     builder.Append(CombinedKeyDelimiter);
                 }
                 builder.Append(foreignKeyValue.Value);
+            }
+            return builder.ToString();
+        }
+
+        public string GetForeignKeyIndexesAsString()
+        {
+            return CombineFieldIndexesToString(ForeignKeyIndexes);
+        }
+
+        private string CombineFieldIndexesToString(List<FieldIndex> fieldIndexes)
+        {
+            var builder = new StringBuilder();
+            foreach (FieldIndex index in fieldIndexes)
+            {
+                if (builder.Length != 0)
+                {
+                    builder.Append(CombinedKeyDelimiter);
+                }
+                builder.Append(index);
             }
             return builder.ToString();
         }

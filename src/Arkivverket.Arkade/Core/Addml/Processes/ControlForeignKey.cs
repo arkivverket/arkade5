@@ -2,12 +2,15 @@ using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class ControlForeignKey : AddmlProcess
     {
         public const string Name = "Control_ForeignKey";
+
+        private static readonly ILogger Log = Serilog.Log.ForContext<ControlForeignKey>();
 
         private readonly Dictionary<string, AddmlForeignKey> _foreignKeys = new Dictionary<string, AddmlForeignKey>();
 
@@ -78,15 +81,15 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                         HashSet<string> primaryKeyValues = CollectedPrimaryKeys[index];
                         if (!primaryKeyValues.Contains(value))
                         {
-                            results.Add(new TestResult(ResultType.Error, new Location(index),
-                                string.Format(Messages.ControlForeignKeyMessage1, PrettyPrintValue(value), PrettyPrintValue(index), null)));
+                            results.Add(new TestResult(ResultType.Error, new Location(foreignKey.GetForeignKeyIndexesAsString()),
+                                string.Format(Messages.ControlForeignKeyMessage1, PrettyPrintValue(value), foreignKey.GetForeignKeyIndexesAsString(), PrettyPrintValue(index))));
                         }
                     }
                 }
                 else
                 {
                     results.Add(new TestResult(ResultType.Error, new Location(index),
-                        string.Format(Messages.ControlForeignKeyMessage2, index, null)));
+                        string.Format(Messages.ControlForeignKeyMessage2, index, foreignKey.GetForeignKeyIndexesAsString())));
                 }
             }
             return results;
