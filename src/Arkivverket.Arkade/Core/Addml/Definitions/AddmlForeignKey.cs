@@ -104,6 +104,20 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             }
             return builder.ToString();
         }
+
+        public override string ToString()
+        {
+            var builder = new StringBuilder();
+            builder.Append("Foreign key name: ").AppendLine(Name);
+
+            builder.Append("fields:");
+            ForeignKeyIndexes.ForEach(fk => builder.AppendLine(fk.ToString()));
+
+            builder.Append("references:");
+            ForeignKeyReferenceIndexes.ForEach(fkRef => builder.AppendLine(fkRef.ToString()));
+
+            return builder.ToString();
+        }
     }
 
     public class AddmlForeignKeyValue

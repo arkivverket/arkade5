@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.Identify
             if (archiveType != ArchiveType.Noark5)
             {
                 AddmlInfo addml = AddmlUtil.ReadFromFile(archive.GetStructureDescriptionFileName());
-                testSession.AddmlDefinition = new AddmlDefinitionParser(addml, workingDirectory).GetAddmlDefinition();
+                testSession.AddmlDefinition = new AddmlDefinitionParser(addml, workingDirectory, _statusEventHandler).GetAddmlDefinition();
             }
 
             return testSession;

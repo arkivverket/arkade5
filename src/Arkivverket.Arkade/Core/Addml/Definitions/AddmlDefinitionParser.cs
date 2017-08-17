@@ -4,15 +4,20 @@ using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
 using Arkivverket.Arkade.ExternalModels.Addml;
+using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Util;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
     // TODO: This class should be split into different parsers for different parts of the ADDML. E.g. AddmlFieldDefinitionParser AddmlRecordDefinitionParser, etc
     public class AddmlDefinitionParser
     {
+        private readonly ILogger _log = Log.ForContext<AddmlDefinitionParser>();
+
         private readonly AddmlInfo _addmlInfo;
         private readonly WorkingDirectory _workingDirectory;
+        private readonly IStatusEventHandler _statusEventHandler;
 
         private readonly Dictionary<string, flatFileType> _flatFileTypes = new Dictionary<string, flatFileType>();
         private readonly Dictionary<string, DataType> _fieldTypes = new Dictionary<string, DataType>();
@@ -24,11 +29,12 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _allFieldDefinitions =
             new Dictionary<FieldIndex, AddmlFieldDefinition>();
 
-        public AddmlDefinitionParser(AddmlInfo addmlInfo, WorkingDirectory workingDirectory)
+        public AddmlDefinitionParser(AddmlInfo addmlInfo, WorkingDirectory workingDirectory, IStatusEventHandler statusEventHandler)
         {
             Assert.AssertNotNull(Resources.AddmlMessages.AddmlInfo, addmlInfo);
             _addmlInfo = addmlInfo;
             _workingDirectory = workingDirectory;
+            _statusEventHandler = statusEventHandler;
 
             PopulateFlatFileTypes();
             PopulateFieldTypes();
@@ -195,23 +201,28 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 {
                     foreach (var foreignKey in recordDefinition.ForeignKeys)
                     {
-                        foreignKey.ForeignKeys.AddRange(ResolveFieldIndexesToDefinitions(foreignKey.ForeignKeyIndexes));
-                        foreignKey.ForeignKeyReferenceFields.AddRange(ResolveFieldIndexesToDefinitions(foreignKey.ForeignKeyReferenceIndexes));
+                        foreignKey.ForeignKeys.AddRange(ResolveFieldIndexesToDefinitions(foreignKey.ForeignKeyIndexes, foreignKey));
+                        foreignKey.ForeignKeyReferenceFields.AddRange(ResolveFieldIndexesToDefinitions(foreignKey.ForeignKeyReferenceIndexes, foreignKey));
                     }
                 }
             }
         }
 
-        private List<AddmlFieldDefinition> ResolveFieldIndexesToDefinitions(List<FieldIndex> fieldIndexes)
+        private List<AddmlFieldDefinition> ResolveFieldIndexesToDefinitions(List<FieldIndex> fieldIndexes, AddmlForeignKey foreignkey)
         {
             var definitions = new List<AddmlFieldDefinition>();
             foreach (var fieldIndex in fieldIndexes)
             {
                 if (!_allFieldDefinitions.ContainsKey(fieldIndex))
                 {
-                    throw new AddmlDefinitionParseException("Could not find definition object for field " + fieldIndex);
+                    string errorMessage = "Missing ADDML definition object for field: " + fieldIndex;
+                    Log.Debug(errorMessage + "\n" + foreignkey);
+                    _statusEventHandler.RaiseEventOperationMessage(errorMessage, foreignkey.ToString(), OperationMessageStatus.Error);
                 }
-                definitions.Add(_allFieldDefinitions[fieldIndex]);
+                else
+                {
+                    definitions.Add(_allFieldDefinitions[fieldIndex]);
+                }
             }
             return definitions;
         }
