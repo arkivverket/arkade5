@@ -48,7 +48,9 @@ namespace Arkivverket.Arkade.Core.Addml
                     LoadCollectedPrimaryKeysIntoControlForeignKeyProcess(addmlProcess);
                 }
 
-                testSuite.AddTestRun(addmlProcess.GetTestRun());
+                // CollectPrimaryKey is internal and should not be part of the test report
+                if (addmlProcess.GetType() != typeof(CollectPrimaryKey))
+                    testSuite.AddTestRun(addmlProcess.GetTestRun());
             }
 
             return testSuite;
