@@ -44,6 +44,9 @@ namespace Arkivverket.Arkade.Core.Addml
         private HashSet<string> GetUniqueProcesses()
         {
             var uniqueProcessSet = new HashSet<string>();
+
+            AddDefaultProcesses(uniqueProcessSet);
+
             foreach (AddmlFlatFileDefinition flatFileDefinition in _addmlDefinition.AddmlFlatFileDefinitions)
             {
                 uniqueProcessSet.UnionWith(flatFileDefinition.Processes);
@@ -59,6 +62,11 @@ namespace Arkivverket.Arkade.Core.Addml
                 }
             }
             return uniqueProcessSet;
+        }
+
+        private void AddDefaultProcesses(HashSet<string> processes)
+        {
+            processes.Add(CollectPrimaryKey.Name);
         }
 
         public Dictionary<IAddmlIndex, List<IAddmlProcess>> GetFileProcesses()
