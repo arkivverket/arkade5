@@ -7,12 +7,13 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
     public class AddmlRecordDefinitionBuilder
     {
         private static readonly Random Random = new Random();
+        private readonly List<string> _processes = new List<string>();
+        private readonly string _recordDefinitionFieldValue = null;
 
         private AddmlFlatFileDefinition _addmlFlatFileDefinition;
         private string _name = "Record" + Random.Next();
-        private List<string> _processes = new List<string>();
-        private string _recordDefinitionFieldValue = null;
         private int? _recordLength = 100;
+        private List<AddmlForeignKey> _foreignKeys = new List<AddmlForeignKey>();
 
         public AddmlRecordDefinitionBuilder WithName(string name)
         {
@@ -39,12 +40,24 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
                 _addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder().Build();
             }
 
-            AddmlRecordDefinition addmlRecordDefinition = new AddmlRecordDefinition(_addmlFlatFileDefinition, _name, _recordLength, _recordDefinitionFieldValue,
-                _processes);
+            var addmlRecordDefinition = new AddmlRecordDefinition(_addmlFlatFileDefinition, _name, _recordLength,
+                _recordDefinitionFieldValue, _foreignKeys, _processes);
 
             _addmlFlatFileDefinition.AddmlRecordDefinitions.Add(addmlRecordDefinition);
 
             return addmlRecordDefinition;
+        }
+
+        public AddmlRecordDefinitionBuilder WithRecordProcess(string processName)
+        {
+            _processes.Add(processName);
+            return this;
+        }
+
+        public AddmlRecordDefinitionBuilder WithForeignKey(AddmlForeignKey foreignKey)
+        {
+            _foreignKeys.Add(foreignKey);
+            return this;
         }
     }
 }

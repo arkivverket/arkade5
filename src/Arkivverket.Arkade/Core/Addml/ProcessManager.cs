@@ -113,5 +113,14 @@ namespace Arkivverket.Arkade.Core.Addml
             }
             return new List<IAddmlProcess>(0);
         }
+
+        public IAddmlProcess GetProcessInstanceByName(string name)
+        {
+            if (_processesByName.ContainsKey(name))
+            {
+                return _processesByName[name];
+            }
+            return null;
+        }
     }
 }

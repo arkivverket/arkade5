@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
         }
 
         [Fact]
-        public void ShouldAddControlForeignKeyToFlatFileContainingReferencedPrimaryKey()
+        public void ShouldAddCollectPrimaryKeyToRecordDefinitionsContainingReferencedPrimaryKey()
         {
             AddmlFlatFileDefinition personFile = new AddmlFlatFileDefinitionBuilder().WithName("personFile").Build();
             AddmlRecordDefinition personFileRecordDef = new AddmlRecordDefinitionBuilder().WithAddmlFlatFileDefinition(personFile).Build();
@@ -30,13 +30,23 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
 
 
             AddmlFlatFileDefinition addressFile = new AddmlFlatFileDefinitionBuilder().WithName("addressFile").Build();
-            AddmlRecordDefinition addressFileRecordDef = new AddmlRecordDefinitionBuilder().WithAddmlFlatFileDefinition(addressFile).Build();
+            var addmlForeignKey = new AddmlForeignKey("testkey");
+            
+            AddmlRecordDefinition addressFileRecordDef = new AddmlRecordDefinitionBuilder()
+                .WithAddmlFlatFileDefinition(addressFile)
+                .WithRecordProcess(ControlForeignKey.Name)
+                .WithForeignKey(addmlForeignKey)
+                .Build();
+
             new AddmlFieldDefinitionBuilder().WithRecordDefinition(addressFileRecordDef).WithName("addressPrimaryKey").IsPartOfPrimaryKey(true).Build();
             AddmlFieldDefinition addressForeignKey = new AddmlFieldDefinitionBuilder().WithRecordDefinition(addressFileRecordDef)
                 .WithName("addressForeignKey")
-                .WithForeignKey(personPrimaryKey)
-                .WithProcess(ControlForeignKey.Name)
+//                .WithForeignKey(personPrimaryKey)
                 .Build();
+
+            addmlForeignKey.ForeignKeys.Add(addressForeignKey);
+            addmlForeignKey.ForeignKeyReferenceIndexes.Add(personPrimaryKey.GetIndex());
+            addmlForeignKey.ForeignKeyReferenceFields.Add(personPrimaryKey);
 
             AddmlFlatFileDefinition unrelatedFile = new AddmlFlatFileDefinitionBuilder().WithName("unrelatedFile").Build();
             AddmlRecordDefinition unrelatedFileRecordDef = new AddmlRecordDefinitionBuilder().WithAddmlFlatFileDefinition(unrelatedFile).Build();
@@ -47,10 +57,19 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
 
             AddmlDefinition addmlDefinition = new AddmlDefinition(new List<AddmlFlatFileDefinition>() {personFile, addressFile, unrelatedFile});
 
-            Dictionary<IAddmlIndex, List<string>> fieldProcesses = addmlDefinition.GetFieldProcessesGroupedByField();
+            Dictionary<IAddmlIndex, List<string>> recordProcesses = addmlDefinition.GetRecordProcessesGroupedByRecord();
 
-            _testOutputHelper.WriteLine("field processes:");
-            foreach (var item in fieldProcesses)
+            DebugPrintListOfProcesses(recordProcesses);
+
+            recordProcesses[personFileRecordDef.GetIndex()].Contains(CollectPrimaryKey.Name).Should().BeTrue();
+            recordProcesses[addressFileRecordDef.GetIndex()].Contains(ControlForeignKey.Name).Should().BeTrue();
+            recordProcesses[unrelatedFileRecordDef.GetIndex()].Should().BeEmpty();
+        }
+
+        private void DebugPrintListOfProcesses(Dictionary<IAddmlIndex, List<string>> recordProcesses)
+        {
+            _testOutputHelper.WriteLine("record processes:");
+            foreach (var item in recordProcesses)
             {
                 _testOutputHelper.WriteLine(item.Key.ToString());
                 if (item.Value == null || !item.Value.Any())
@@ -65,14 +84,10 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
                     }
                 }
             }
-
-            fieldProcesses[personPrimaryKey.GetIndex()].Contains(ControlForeignKey.Name).Should().BeTrue();
-            fieldProcesses[addressForeignKey.GetIndex()].Contains(ControlForeignKey.Name).Should().BeTrue();
-            fieldProcesses[unrelatedFilePrimaryKey.GetIndex()].Contains(ControlForeignKey.Name).Should().BeFalse();
         }
 
         [Fact]
-        public void ShouldNotAddControlForeignKeyProcessWhenNotDefinedInAnyFieldDefinition()
+        public void ShouldNotAddCollectPrimaryKeyProcessWhenControlForeignKeyIsNotDefinedInAnyRecordDefinition()
         {
             AddmlFlatFileDefinition personFile = new AddmlFlatFileDefinitionBuilder().WithName("personFile").Build();
             AddmlRecordDefinition personFileRecordDef = new AddmlRecordDefinitionBuilder().WithAddmlFlatFileDefinition(personFile).Build();
@@ -82,36 +97,30 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
 
 
             AddmlFlatFileDefinition addressFile = new AddmlFlatFileDefinitionBuilder().WithName("addressFile").Build();
-            AddmlRecordDefinition addressFileRecordDef = new AddmlRecordDefinitionBuilder().WithAddmlFlatFileDefinition(addressFile).Build();
-            new AddmlFieldDefinitionBuilder().WithRecordDefinition(addressFileRecordDef).WithName("addressPrimaryKey").IsPartOfPrimaryKey(true).Build();
-            AddmlFieldDefinition addressForeignKey = new AddmlFieldDefinitionBuilder().WithRecordDefinition(addressFileRecordDef)
-                .WithName("addressForeignKey")
-                .WithForeignKey(personPrimaryKey)
+            var addmlForeignKey = new AddmlForeignKey("testkey");
+            AddmlRecordDefinition addressFileRecordDef = new AddmlRecordDefinitionBuilder()
+                .WithAddmlFlatFileDefinition(addressFile)
+                .WithForeignKey(addmlForeignKey)
                 .Build();
+
+            new AddmlFieldDefinitionBuilder().WithRecordDefinition(addressFileRecordDef).WithName("addressPrimaryKey").IsPartOfPrimaryKey(true).Build();
+            var addressField = new AddmlFieldDefinitionBuilder().WithRecordDefinition(addressFileRecordDef)
+                .WithName("addressForeignKey")
+                .Build();
+
+            addmlForeignKey.ForeignKeys.Add(addressField);
+            addmlForeignKey.ForeignKeyReferenceIndexes.Add(personPrimaryKey.GetIndex());
+            addmlForeignKey.ForeignKeyReferenceFields.Add(personPrimaryKey);
+
 
             AddmlDefinition addmlDefinition = new AddmlDefinition(new List<AddmlFlatFileDefinition>() { personFile, addressFile });
 
-            Dictionary<IAddmlIndex, List<string>> fieldProcesses = addmlDefinition.GetFieldProcessesGroupedByField();
+            Dictionary<IAddmlIndex, List<string>> recordProcesses = addmlDefinition.GetRecordProcessesGroupedByRecord();
 
-            _testOutputHelper.WriteLine("field processes:");
-            foreach (var item in fieldProcesses)
-            {
-                _testOutputHelper.WriteLine(item.Key.ToString());
-                if (item.Value == null || !item.Value.Any())
-                {
-                    _testOutputHelper.WriteLine("* [empty]");
-                }
-                else
-                {
-                    foreach (var process in item.Value)
-                    {
-                        _testOutputHelper.WriteLine($"* {process}");
-                    }
-                }
-            }
+            DebugPrintListOfProcesses(recordProcesses);
 
-            fieldProcesses[personPrimaryKey.GetIndex()].Contains(ControlForeignKey.Name).Should().BeFalse();
-            fieldProcesses[addressForeignKey.GetIndex()].Contains(ControlForeignKey.Name).Should().BeFalse();
+            recordProcesses[personFileRecordDef.GetIndex()].Should().BeEmpty();
+            recordProcesses[addressFileRecordDef.GetIndex()].Should().BeEmpty();
         }
 
     }

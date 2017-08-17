@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
-using Arkivverket.Arkade.ExternalModels.Addml;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
@@ -13,6 +12,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public int? RecordLength { get; }
 
         public string RecordDefinitionFieldValue { get; }
+        public List<AddmlForeignKey> ForeignKeys { get; }
 
         public List<AddmlFieldDefinition> PrimaryKey { get; private set; }
 
@@ -24,12 +24,14 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             string name,
             int? recordLength,
             string recordDefinitionFieldValue,
+            List<AddmlForeignKey> foreignKeys,
             List<string> processes)
         {
             AddmlFlatFileDefinition = addmlFlatFileDefinition;
             Name = name;
             RecordLength = recordLength;
             RecordDefinitionFieldValue = recordDefinitionFieldValue;
+            ForeignKeys = foreignKeys;
             AddmlFieldDefinitions = new List<AddmlFieldDefinition>();
             Processes = processes;
         }
@@ -42,7 +44,6 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             bool isNullable,
             int? minLength,
             int? maxLength,
-            FieldIndex foreignKeyIndex,
             List<string> processes,
             List<AddmlCode> codes,
             bool isPartOfPrimaryKey)
@@ -56,7 +57,6 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 isNullable,
                 minLength,
                 maxLength,
-                foreignKeyIndex,
                 this,
                 processes,
                 codes);
@@ -69,6 +69,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 }
                 PrimaryKey.Add(addmlFieldDefinition);
             }
+
+            
 
             AddmlFieldDefinitions.Add(addmlFieldDefinition);
 
@@ -85,17 +87,15 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return new RecordIndex(AddmlFlatFileDefinition.Name, Name);
         }
 
-        public IEnumerable<AddmlFieldDefinition> GetFieldDefinitionsWithProcess(string processName)
+        public bool HasProcessWithName(string processName)
         {
-            var definitionsWithProcess = new List<AddmlFieldDefinition>();
-            foreach (var fieldDef in AddmlFieldDefinitions)
-            {
-                if (fieldDef.HasProcess(processName))
-                {
-                    definitionsWithProcess.Add(fieldDef);
-                }
-            }
-            return definitionsWithProcess;
+            return Processes.Contains(processName);
+        }
+
+        public void AddProcess(string processName)
+        {
+            if (!HasProcessWithName(processName))
+                Processes.Add(processName);
         }
     }
 }

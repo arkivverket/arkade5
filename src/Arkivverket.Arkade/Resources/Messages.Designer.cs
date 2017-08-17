@@ -448,7 +448,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ugyldig fremmednøkkel: {0} med referanse til {1}.
+        ///   Looks up a localized string similar to Ugyldig fremmednøkkel: Verdien {0} i feltet {1} er referert fra posten {2} men finnes ikke..
         /// </summary>
         internal static string ControlForeignKeyMessage1 {
             get {
@@ -457,7 +457,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot find referenced field {0} from foreign key {1}.
+        ///   Looks up a localized string similar to Ugyldige fremmednøkler. Finner ingen verdier for feltet {0} som er referert fra posten {1}..
         /// </summary>
         internal static string ControlForeignKeyMessage2 {
             get {

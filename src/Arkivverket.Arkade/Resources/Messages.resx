@@ -247,10 +247,10 @@
     <value>Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst</value>
   </data>
   <data name="ControlForeignKeyMessage1" xml:space="preserve">
-    <value>Ugyldig fremmednøkkel: {0} med referanse til {1}</value>
+    <value>Ugyldig fremmednøkkel: Verdien {0} i feltet {1} er referert fra posten {2} men finnes ikke.</value>
   </data>
   <data name="ControlForeignKeyMessage2" xml:space="preserve">
-    <value>Cannot find referenced field {0} from foreign key {1}</value>
+    <value>Ugyldige fremmednøkler. Finner ingen verdier for feltet {0} som er referert fra posten {1}.</value>
   </data>
   <data name="ControlKeyDescription" xml:space="preserve">
     <value>Kontrollerer at nøkkelen (primary eller alternate) er unik</value>

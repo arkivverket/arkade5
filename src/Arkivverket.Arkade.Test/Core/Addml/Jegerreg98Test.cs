@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
@@ -75,9 +76,9 @@ namespace Arkivverket.Arkade.Test.Core.Addml
                 addmlFieldDefinitions[0].MaxLength.Should().NotHaveValue();
                 addmlFieldDefinitions[0].MinLength.Should().NotHaveValue();
                 addmlFieldDefinitions[0].Type.Should().Be(StringDataType.Default);
-                addmlFieldDefinitions[0].ForeignKey.Should().Be(
+  /*              addmlFieldDefinitions[0].ForeignKeys.First().Should().Be(
                     addmlFlatFileDefinitions[0].AddmlRecordDefinitions[0].AddmlFieldDefinitions[0]
-                );
+                );*/
 
                 addmlFieldDefinitions[1].Name.Should().Be("etternavn");
                 addmlFieldDefinitions[1].StartPosition.Should().Be(12);
@@ -87,7 +88,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
                 addmlFieldDefinitions[1].MaxLength.Should().NotHaveValue();
                 addmlFieldDefinitions[1].MinLength.Should().NotHaveValue();
                 addmlFieldDefinitions[1].Type.Should().Be(StringDataType.Default);
-                addmlFieldDefinitions[1].ForeignKey.Should().BeNull();
+//                addmlFieldDefinitions[1].ForeignKeys.Should().BeEmpty();
 
                 addmlRecordDefinition.PrimaryKey.Should()
                     .Equal(new List<AddmlFieldDefinition>()

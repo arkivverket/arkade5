@@ -16,14 +16,19 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             Assert.AssertNotNullOrEmpty("recordDefinitionName", recordDefinitionName);
             Assert.AssertNotNullOrEmpty("fieldDefinitionName", fieldDefinitionName);
 
-            _flatFileDefinitionName = flatFileDefinitionName;
-            _recordDefinitionName = recordDefinitionName;
-            _fieldDefinitionName = fieldDefinitionName;
+            _flatFileDefinitionName = flatFileDefinitionName.ToLower();
+            _recordDefinitionName = recordDefinitionName.ToLower();
+            _fieldDefinitionName = fieldDefinitionName.ToLower();
         }
 
         public FieldIndex(flatFileDefinition flatFileDefinition, recordDefinition recordDefinition,
             fieldDefinition fieldDefinition)
             : this(flatFileDefinition.name, recordDefinition.name, fieldDefinition.name)
+        {
+        }
+        public FieldIndex(flatFileDefinition flatFileDefinition, recordDefinition recordDefinition,
+            fieldDefinitionReference fieldDefinitionReference)
+            : this(flatFileDefinition.name, recordDefinition.name, fieldDefinitionReference.name)
         {
         }
 
@@ -59,7 +64,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((FieldIndex) obj);
         }
 

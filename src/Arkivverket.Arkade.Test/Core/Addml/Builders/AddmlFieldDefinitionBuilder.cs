@@ -10,18 +10,17 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         private static readonly Random Random = new Random();
 
         private string _name = "Field" + Random.Next();
-        private int? _startPosition = null;
-        private int? _fixedLength = null;
+        private readonly int? _startPosition = null;
+        private int? _fixedLength;
         private DataType _dataType = StringDataType.Default;
         private bool _isUnique = false;
         private bool _isNullable = true;
-        private int? _minLength = null;
-        private int? _maxLength = null;
-        private AddmlFieldDefinition _foreignKey = null;
+        private int? _minLength;
+        private int? _maxLength;
         private AddmlRecordDefinition _addmlRecordDefinition;
         private readonly List<string> _processes = new List<string>();
-        private List<AddmlCode> _codes = null;
-        private bool _isPartOfPrimaryKey = false;
+        private List<AddmlCode> _codes;
+        private bool _isPartOfPrimaryKey;
 
         public AddmlFieldDefinition Build()
         {
@@ -39,11 +38,10 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
                 _isNullable,
                 _minLength,
                 _maxLength,
-                _foreignKey?.GetIndex(),
                 _processes,
                 _codes,
                 _isPartOfPrimaryKey);
-            addmlFieldDefinition.ForeignKey = _foreignKey;
+
             return addmlFieldDefinition;
         }
 
@@ -92,16 +90,5 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
             return this;
         }
 
-        public AddmlFieldDefinitionBuilder WithForeignKey(AddmlFieldDefinition foreignKey)
-        {
-            _foreignKey = foreignKey;
-            return this;
-        }
-
-        public AddmlFieldDefinitionBuilder WithProcess(string addmlProcessName)
-        {
-            _processes.Add(addmlProcessName);
-            return this;
-        }
     }
 }

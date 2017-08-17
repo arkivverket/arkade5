@@ -5,8 +5,8 @@ namespace Arkivverket.Arkade.Core.Addml
 {
     public class Field : HasProcesses
     {
-        public AddmlFieldDefinition Definition { private set; get; }
-        public string Value { private set; get; }
+        public AddmlFieldDefinition Definition { get; }
+        public string Value { get; }
 
         public Field(AddmlFieldDefinition definition, string value)
         {
@@ -22,6 +22,11 @@ namespace Arkivverket.Arkade.Core.Addml
         public List<string> GetProcesses()
         {
             return Definition.Processes;
+        }
+
+        public bool IsPartOfForeignKey(AddmlForeignKey foreignKey)
+        {
+            return foreignKey.ForeignKeys.Contains(Definition);
         }
     }
 }

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
-using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
@@ -10,11 +9,9 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
     {
         public const string Name = "Control_ForeignKey";
 
-        private readonly List<ForeignKeyValue> _foreignKeys = new List<ForeignKeyValue>();
+        private readonly Dictionary<string, AddmlForeignKey> _foreignKeys = new Dictionary<string, AddmlForeignKey>();
 
-        private readonly ILogger _log = Log.ForContext<ControlForeignKey>();
-
-        private readonly Dictionary<FieldIndex, PrimaryKeyValue> _primaryKeys = new Dictionary<FieldIndex, PrimaryKeyValue>();
+        public Dictionary<string, HashSet<string>> CollectedPrimaryKeys = new Dictionary<string, HashSet<string>>();
 
         public override string GetName()
         {
@@ -33,18 +30,34 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         protected override void DoRun(Record record)
         {
+            foreach (AddmlForeignKey foreignKey in record.Definition.ForeignKeys)
+            {
+                var foreignKeyValues = new List<AddmlForeignKeyValue>();
+
+                foreach (Field field in record.Fields)
+                {
+                    if (field.IsPartOfForeignKey(foreignKey))
+                    {
+                        foreignKeyValues.Add(new AddmlForeignKeyValue(field.Definition.GetIndex(), field.Value));
+                    }
+                }
+
+                foreignKey.AddValue(foreignKeyValues);
+
+                if (!_foreignKeys.ContainsKey(foreignKey.GetForeignKeyReferenceIndexesAsString()))
+                {
+                    _foreignKeys[foreignKey.GetForeignKeyReferenceIndexesAsString()] = foreignKey;
+                }
+            }
         }
+
 
         protected override void DoRun(Field field)
         {
-            if (field.Definition.IsPartOfPrimaryKey())
-            {
-                AddPrimaryKey(field);
-            }
-            if (field.Definition.ForeignKey != null)
-            {
-                _foreignKeys.Add(new ForeignKeyValue(field));
-            }
+        }
+
+        protected override void DoRun(FlatFile flatFile)
+        {
         }
 
         protected override void DoEndOfFile()
@@ -54,84 +67,43 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         protected override List<TestResult> GetTestResults()
         {
             var results = new List<TestResult>();
-            foreach (ForeignKeyValue foreignKeyValue in _foreignKeys)
+            foreach (KeyValuePair<string, AddmlForeignKey> item in _foreignKeys)
             {
-                if (_primaryKeys.ContainsKey(foreignKeyValue.ReferencingField))
+                string index = item.Key;
+                AddmlForeignKey foreignKey = item.Value;
+                if (CollectedPrimaryKeys.ContainsKey(index))
                 {
-                    PrimaryKeyValue primaryKeyValue = _primaryKeys[foreignKeyValue.ReferencingField];
-                    if (!primaryKeyValue.HasValue(foreignKeyValue.Value))
+                    foreach (string value in foreignKey.Values)
                     {
-                        results.Add(CreateInvalidForeignKeyError(foreignKeyValue));
+                        HashSet<string> primaryKeyValues = CollectedPrimaryKeys[index];
+                        if (!primaryKeyValues.Contains(value))
+                        {
+                            results.Add(new TestResult(ResultType.Error, new Location(index),
+                                string.Format(Messages.ControlForeignKeyMessage1, PrettyPrintValue(value), PrettyPrintValue(index), null)));
+                        }
                     }
                 }
                 else
                 {
-                    results.Add(CreateInvalidForeignKeyError(foreignKeyValue));
+                    results.Add(new TestResult(ResultType.Error, new Location(index),
+                        string.Format(Messages.ControlForeignKeyMessage2, index, null)));
                 }
             }
             return results;
         }
 
-        private static TestResult CreateInvalidForeignKeyError(ForeignKeyValue foreignKeyValue)
+        private string PrettyPrintValue(string input)
         {
-            return new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(foreignKeyValue.Field),
-                string.Format(Messages.ControlForeignKeyMessage1, foreignKeyValue.Value,
-                    foreignKeyValue.ReferencingField));
+            if (input.Contains(AddmlKey.FieldDelimiter))
+            {
+                return "[" + input.Replace(AddmlKey.FieldDelimiter, ", ") + "]";
+            }
+            return input;
         }
 
-        protected override void DoRun(FlatFile flatFile)
+        public void GetCollectedPrimaryKeys(CollectPrimaryKey collectPrimaryKeyProcess)
         {
-        }
-
-        private void AddPrimaryKey(Field field)
-        {
-            PrimaryKeyValue primaryKeyValue;
-            FieldIndex key = field.Definition.GetIndex();
-            if (_primaryKeys.ContainsKey(key))
-            {
-                primaryKeyValue = _primaryKeys[key];
-            }
-            else
-            {
-                primaryKeyValue = new PrimaryKeyValue(field);
-                _primaryKeys.Add(key, primaryKeyValue);
-            }
-            primaryKeyValue.AddValue(field.Value);
-        }
-
-        private class PrimaryKeyValue
-        {
-            private readonly HashSet<string> _values = new HashSet<string>();
-            private FieldIndex _field;
-
-            public PrimaryKeyValue(Field field)
-            {
-                _field = field.Definition.GetIndex();
-            }
-
-            public void AddValue(string value)
-            {
-                _values.Add(value);
-            }
-
-            public bool HasValue(string value)
-            {
-                return _values.Contains(value);
-            }
-        }
-
-        private class ForeignKeyValue
-        {
-            public FieldIndex Field { get; set; }
-            public string Value { get; set; }
-            public FieldIndex ReferencingField { get; set; }
-
-            public ForeignKeyValue(Field field)
-            {
-                Field = field.Definition.GetIndex();
-                Value = field.Value;
-                ReferencingField = field.Definition.ForeignKey.GetIndex();
-            }
+            CollectedPrimaryKeys = collectPrimaryKeyProcess._primaryKeys;
         }
     }
 }

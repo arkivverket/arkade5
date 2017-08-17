@@ -146,6 +146,8 @@
     <Compile Include="Core\Addml\Processes\ControlExtraOrMissingFilesTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlDataFormatTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlChecksumTest.cs" />
+    <Compile Include="Core\Addml\Processes\ControlForeignKeyCombinedKeyTest.cs" />
+    <Compile Include="Core\Addml\Processes\ControlForeignKeySingleTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlNotUsedRecordDefTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlMaxLengthTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlFixedLengthTest.cs" />
@@ -167,7 +169,6 @@
     <Compile Include="Core\Addml\Processes\AnalyseCountCharsTest.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountRecordsTest.cs" />
     <Compile Include="Core\Addml\Processes\AnalyseCountRecordDefinitionOccurencesTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlForeignKeyTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
     <Compile Include="Core\Addml\Jegerreg98Test.cs" />
     <Compile Include="Core\Addml\FixedFormatReaderTest.cs" />

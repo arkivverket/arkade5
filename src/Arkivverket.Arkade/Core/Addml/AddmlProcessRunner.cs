@@ -1,4 +1,5 @@
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Core.Addml.Processes;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -40,10 +41,24 @@ namespace Arkivverket.Arkade.Core.Addml
 
             foreach (IAddmlProcess addmlProcess in _processManager.GetAllProcesses())
             {
+                // ControlForeignKey needs to access results of CollectPrimaryKey process
+                // Consider moving this to ProcessManager.InstantiateProcesses()
+                if (addmlProcess.GetType() == typeof(ControlForeignKey))
+                {
+                    LoadCollectedPrimaryKeysIntoControlForeignKeyProcess(addmlProcess);
+                }
+
                 testSuite.AddTestRun(addmlProcess.GetTestRun());
             }
 
             return testSuite;
+        }
+
+        private void LoadCollectedPrimaryKeysIntoControlForeignKeyProcess(IAddmlProcess addmlProcess)
+        {
+            CollectPrimaryKey collectPrimaryKeyProcess = (CollectPrimaryKey) _processManager.GetProcessInstanceByName(CollectPrimaryKey.Name);
+
+            ((ControlForeignKey) addmlProcess).GetCollectedPrimaryKeys(collectPrimaryKeyProcess);
         }
 
         public void EndOfFile(FlatFile file)

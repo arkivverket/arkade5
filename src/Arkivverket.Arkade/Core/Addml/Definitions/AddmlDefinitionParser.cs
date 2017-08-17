@@ -5,7 +5,6 @@ using System.Linq;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
 using Arkivverket.Arkade.ExternalModels.Addml;
 using Arkivverket.Arkade.Util;
-using System.Text;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions
 {
@@ -170,7 +169,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 addmlFlatFileDefinitions.Add(addmlFlatFileDefinition);
             }
 
-            SetForeginKeyReferences(addmlFlatFileDefinitions);
+            SetForeignKeyReferences(addmlFlatFileDefinitions);
 
             return addmlFlatFileDefinitions;
         }
@@ -188,31 +187,35 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return new Checksum(algorithm, value);
         }
 
-        private void SetForeginKeyReferences(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
+        private void SetForeignKeyReferences(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
         {
             foreach (AddmlFlatFileDefinition fileDefinitions in addmlFlatFileDefinitions)
             {
                 foreach (AddmlRecordDefinition recordDefinition in fileDefinitions.AddmlRecordDefinitions)
                 {
-                    foreach (AddmlFieldDefinition fieldDefinition in recordDefinition.AddmlFieldDefinitions)
+                    foreach (var foreignKey in recordDefinition.ForeignKeys)
                     {
-                        FieldIndex index = fieldDefinition.ForeignKeyIndex;
-
-                        if (index != null) {
-                            if (!_allFieldDefinitions.ContainsKey(index))
-                            {
-                                throw new AddmlDefinitionParseException("Could not find foreign reference " + index);
-                            }
-
-                            fieldDefinition.ForeignKey = _allFieldDefinitions[index];
-                        }
+                        foreignKey.ForeignKeys.AddRange(ResolveFieldIndexesToDefinitions(foreignKey.ForeignKeyIndexes));
+                        foreignKey.ForeignKeyReferenceFields.AddRange(ResolveFieldIndexesToDefinitions(foreignKey.ForeignKeyReferenceIndexes));
                     }
                 }
             }
-
-
-
         }
+
+        private List<AddmlFieldDefinition> ResolveFieldIndexesToDefinitions(List<FieldIndex> fieldIndexes)
+        {
+            var definitions = new List<AddmlFieldDefinition>();
+            foreach (var fieldIndex in fieldIndexes)
+            {
+                if (!_allFieldDefinitions.ContainsKey(fieldIndex))
+                {
+                    throw new AddmlDefinitionParseException("Could not find definition object for field " + fieldIndex);
+                }
+                definitions.Add(_allFieldDefinitions[fieldIndex]);
+            }
+            return definitions;
+        }
+
 
         private AddmlFlatFileFormat GetFlatFileFormat(string flatFileTypeName)
         {
@@ -325,8 +328,10 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                 string recordDefinitionFieldValue = recordDefinition.recordDefinitionFieldValue;
                 List<string> recordProcesses = GetRecordProcessNames(addmlFlatFileDefinition.Name, recordDefinition.name);
 
+                List<AddmlForeignKey> foreignKeys = GetForeignKeysForRecord(flatFileDefinition, recordDefinition);
+
                 AddmlRecordDefinition addmlRecordDefinition =
-                    addmlFlatFileDefinition.AddAddmlRecordDefinition(recordDefinitionName, recordLength, recordDefinitionFieldValue, recordProcesses);
+                    addmlFlatFileDefinition.AddAddmlRecordDefinition(recordDefinitionName, recordLength, recordDefinitionFieldValue, foreignKeys, recordProcesses);
 
                 List<fieldDefinition> fieldDefinitions = GetFieldDefinitions(recordDefinition);
                 foreach (fieldDefinition fieldDefinition in fieldDefinitions)
@@ -340,17 +345,14 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     bool isNullable = IsNullable(fieldDefinition);
                     int? minLength = GetMinLength(fieldDefinition);
                     int? maxLength = GetMaxLength(fieldDefinition);
-                    int? fixedLength = GetFixedLength(fieldDefinition);
-                    if (fixedLength == (int?)null)
-                        fixedLength = endPosition - startPosition + 1; // Fordi et felt fra 1 til 11 ikke er på 10.. :/
-                    FieldIndex foreignKeyIndex = GetForeignKeyIndex(recordDefinition, fieldDefinition);
+                    int? fixedLength = GetFixedLength(fieldDefinition) ?? endPosition - startPosition + 1;
                     List<string> processes = GetFieldProcessNames(flatFileDefinition.name, recordDefinition.name,
                         fieldDefinition.name);
                     List<AddmlCode> addmlCodes = GetCodes(fieldDefinition);
 
                     AddmlFieldDefinition addAddmlFieldDefinition = addmlRecordDefinition.AddAddmlFieldDefinition(
                         name, startPosition, fixedLength, dataType, isUnique, isNullable, minLength,
-                        maxLength, foreignKeyIndex, processes, addmlCodes, isPartOfPrimaryKey);
+                        maxLength, processes, addmlCodes, isPartOfPrimaryKey);
 
                     FieldIndex fieldIndex = new FieldIndex(flatFileDefinition, recordDefinition, fieldDefinition);
                     if (_allFieldDefinitions.ContainsKey(fieldIndex))
@@ -360,6 +362,37 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
                     _allFieldDefinitions.Add(fieldIndex, addAddmlFieldDefinition);
                 }
             }
+        }
+
+        private List<AddmlForeignKey> GetForeignKeysForRecord(flatFileDefinition flatFileDefinition, recordDefinition recordDefinition)
+        {
+            List<AddmlForeignKey> foreignKeys = new List<AddmlForeignKey>();
+            key[] keys = recordDefinition.keys;
+            if (keys != null)
+            {
+                foreach (key key in keys)
+                {
+                    var foreignKey = key.Item as foreignKey;
+                    if (foreignKey != null)
+                    {
+                        var addmlForeignKey = new AddmlForeignKey(key.name);
+                        addmlForeignKey.ForeignKeyIndexes = GetForeignKeyIndexes(flatFileDefinition, recordDefinition, key);
+                        addmlForeignKey.ForeignKeyReferenceIndexes = GetForeignKeyReferenceIndexes(foreignKey);
+                        foreignKeys.Add(addmlForeignKey);
+                    }
+                }
+            }
+            return foreignKeys;
+        }
+
+        private List<FieldIndex> GetForeignKeyIndexes(flatFileDefinition flatFileDefinition, recordDefinition recordDefinition, key key)
+        {
+            var indexes = new List<FieldIndex>();
+            foreach (var fieldReference in key.fieldDefinitionReferences)
+            {
+                indexes.Add(new FieldIndex(flatFileDefinition, recordDefinition, fieldReference));
+            }
+            return indexes;
         }
 
 
@@ -488,55 +521,8 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return recordDefinition.fixedLength == null ? (int?)null : int.Parse(recordDefinition.fixedLength);
         }
 
-        private FieldIndex GetForeignKeyIndex(recordDefinition recordDefinition,
-            fieldDefinition fieldDefinition)
-        {
-            key[] keys = recordDefinition.keys;
-            if (keys != null)
-            {
-                foreach (key key in keys)
-                {
-                    fieldDefinitionReference[] keyFieldDefinitionReferences = key.fieldDefinitionReferences;
-                    foreach (fieldDefinitionReference fieldDefinitionReference in keyFieldDefinitionReferences)
-                    {
-                        if (fieldDefinitionReference.name.Equals(fieldDefinition.name))
-                        {
-                            object o = key.Item;
-                            if (o is foreignKey)
-                            {
-                                foreignKey f = (foreignKey) o;
-                                List<FieldIndex> indexes = GetForeignKeyIndexes(f);
 
-                                // TODO: Is it possible to have reference to more than one AddmlFieldDefinition?
-                                if (indexes.Count != 1)
-                                {
-                                    throw new AddmlDefinitionParseException(
-                                        "foreignKey must reference exactly one fieldDefinitionReference. " + f);
-                                }
-
-                                FieldIndex index = indexes[0];
-
-                                // Må puttes på til slutt!
-                                return index;
-
-                                /*
-                                if (!_allFieldDefinitions.ContainsKey(index))
-                                {
-                                    return null;
-                                }
-
-                                return _allFieldDefinitions[index];
-                                */
-                            }
-                        }
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        private List<FieldIndex> GetForeignKeyIndexes(foreignKey foreignKey)
+        private List<FieldIndex> GetForeignKeyReferenceIndexes(foreignKey foreignKey)
         {
             List<FieldIndex> indexes = new List<FieldIndex>();
 
@@ -676,7 +662,7 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((PropertyIndex)obj);
         }
 

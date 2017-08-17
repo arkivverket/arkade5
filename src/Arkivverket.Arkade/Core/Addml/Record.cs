@@ -24,5 +24,11 @@ namespace Arkivverket.Arkade.Core.Addml
             Definition = definition;
             Fields = fields;
         }
+
+        public Record(AddmlRecordDefinition definition, params Field[] fields)
+        {
+            Definition = definition;
+            Fields = fields.ToList();
+        }
     }
 }

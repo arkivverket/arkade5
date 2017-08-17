@@ -11,17 +11,18 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
         public AddmlDefinition(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
         {
             AddmlFlatFileDefinitions = addmlFlatFileDefinitions;
-            InsertForeignKeyProcessInFilesWithReferencedPrimaryKey();
+            InsertCollectPrimaryKeyProcessInDefinitionsReferencedFromAForeignKeyWithControlProcess();
         }
 
         /// <summary>
         /// The ControlForeignKey ADDML process requires a list of all existing primary keys in order to function correct. 
-        /// But the process it self is only defined on the foreign key field. This method makes sure that the ControlForeignKey process
-        /// is inserted into all primary key field definitions that are referenced from a foreign key field definition.
+        /// But the process it self is only defined on the foreign key record. This method makes sure that the CollectPrimaryKey process,
+        /// is inserted into all primary key field definitions that are referenced from a foreign key field definition,
+        /// where the ControlForeignKey process is defined.
         /// </summary>
-        private void InsertForeignKeyProcessInFilesWithReferencedPrimaryKey()
+        private void InsertCollectPrimaryKeyProcessInDefinitionsReferencedFromAForeignKeyWithControlProcess()
         {
-            AddmlFlatFileDefinition.InsertForeignKeyProcessInFilesWithReferencedPrimaryKey(AddmlFlatFileDefinitions);
+            AddmlFlatFileDefinition.InsertCollectPrimaryKeyProcessInDefinitionsReferencedFromAForeignKeyWithControlProcess(AddmlFlatFileDefinitions);
         }
 
         public List<FlatFile> GetFlatFiles()

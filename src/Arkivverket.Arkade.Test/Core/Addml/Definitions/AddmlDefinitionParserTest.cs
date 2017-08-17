@@ -13,12 +13,40 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
     {
         public AddmlDefinitionParserTest()
         {
-            var workingDirectory = new WorkingDirectory(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory+"\\..\\..\\TestData\\noark3\\"));
+            var workingDirectory =
+                new WorkingDirectory(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\TestData\\noark3\\"));
             AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Root().WithFile("noark_3_arkivuttrekk_med_prosesser.xml").FullName);
             _parser = new AddmlDefinitionParser(addml, workingDirectory);
         }
 
         private readonly AddmlDefinitionParser _parser;
+
+        [Fact]
+        public void ShouldParseAddmlWithForeignKey()
+        {
+            AddmlDefinition addmlDefinition = _parser.GetAddmlDefinition();
+            List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
+            addmlFlatFileDefinitions.Count.Should().Be(3);
+            addmlFlatFileDefinitions[0].Name.Should().Be("Saksregister");
+
+            AddmlRecordDefinition addmlRecordDefinition = addmlFlatFileDefinitions[0].AddmlRecordDefinitions[0];
+            addmlRecordDefinition.Name.Should().Be("Saksregisterpost");
+            addmlRecordDefinition.Processes.Should().BeEmpty();
+
+            addmlRecordDefinition.ForeignKeys.Should().NotBeNullOrEmpty();
+            addmlRecordDefinition.ForeignKeys.Count.Should().Be(1);
+            AddmlForeignKey foreignKey = addmlRecordDefinition.ForeignKeys[0];
+            foreignKey.Name.Should().Be("FK1sak");
+            foreignKey.ForeignKeys.Count.Should().Be(1);
+            foreignKey.ForeignKeys[0].Name.Should().Be("Arkiv_2_delfelt");
+            foreignKey.ForeignKeyReferenceIndexes[0].GetFlatFileDefinitionName().Should().Be("arkivnoekkelregister");
+            foreignKey.ForeignKeyReferenceIndexes[0].GetRecordDefinitionName().Should().Be("arkivnoekkelregisterpost");
+            foreignKey.ForeignKeyReferenceIndexes[0].GetFieldDefinitionName().Should().Be("arkivkode");
+
+            List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
+            addmlFieldDefinitions.Count.Should().Be(18);
+            addmlFieldDefinitions[5].Name.Should().Be("Arkiv_2_delfelt");
+        }
 
         [Fact]
         public void ShouldParseAddmlWithMultipleRecordDefinitions()
@@ -30,6 +58,17 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
             addmlFlatFileDefinitions[1].AddmlRecordDefinitions.Count.Should().Be(2);
             addmlFlatFileDefinitions[1].AddmlRecordDefinitions[0].Name.Should().Be("Eksterne_dokumenter");
             addmlFlatFileDefinitions[1].AddmlRecordDefinitions[1].Name.Should().Be("Interne_dokumenter");
+        }
+
+
+        [Fact]
+        public void ShouldParseAddmlWithNumberOfRecordsProperty()
+        {
+            AddmlDefinition addmlDefinition = _parser.GetAddmlDefinition();
+            List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
+
+            addmlFlatFileDefinitions[1].Name.Should().Be("Dokumentregister");
+            addmlFlatFileDefinitions[1].NumberOfRecords.Should().Be(195);
         }
 
         [Fact]
@@ -65,44 +104,8 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
             addmlFieldDefinitions[3].Name.Should().Be("Dato");
 
             addmlRecordDefinition.PrimaryKey.Should().Equal(
-                new List<AddmlFieldDefinition>() {addmlFieldDefinitions[2]}
+                new List<AddmlFieldDefinition> {addmlFieldDefinitions[2]}
             );
-
-
         }
-
-        [Fact]
-        public void ShouldParseAddmlWithForeignKey()
-        {
-            AddmlDefinition addmlDefinition = _parser.GetAddmlDefinition();
-            List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
-            addmlFlatFileDefinitions.Count.Should().Be(3);
-            addmlFlatFileDefinitions[0].Name.Should().Be("Saksregister");
-
-            AddmlRecordDefinition addmlRecordDefinition = addmlFlatFileDefinitions[0].AddmlRecordDefinitions[0];
-            addmlRecordDefinition.Name.Should().Be("Saksregisterpost");
-            addmlRecordDefinition.Processes.Should().BeEmpty();
-
-            List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
-            addmlFieldDefinitions.Count.Should().Be(18);
-            addmlFieldDefinitions[5].Name.Should().Be("Arkiv_2_delfelt");
-
-            addmlFieldDefinitions[5].ForeignKey.Should().NotBeNull();
-            addmlFieldDefinitions[5].ForeignKey.Name.Should().Be("Arkivkode");
-            addmlFieldDefinitions[5].ForeignKey.AddmlRecordDefinition.Name.Should().Be("Arkivnoekkelregisterpost");
-            addmlFieldDefinitions[5].ForeignKey.AddmlRecordDefinition.AddmlFlatFileDefinition.Name.Should().Be("Arkivnoekkelregister");
-        }
-
-
-        [Fact]
-        public void ShouldParseAddmlWithNumberOfRecordsProperty()
-        {
-            AddmlDefinition addmlDefinition = _parser.GetAddmlDefinition();
-            List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
-
-            addmlFlatFileDefinitions[1].Name.Should().Be("Dokumentregister");
-            addmlFlatFileDefinitions[1].NumberOfRecords.Should().Be(195);
-        }
-
     }
 }

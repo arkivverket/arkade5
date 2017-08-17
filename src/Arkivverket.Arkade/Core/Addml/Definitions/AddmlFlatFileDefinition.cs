@@ -55,21 +55,16 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             _index = new FlatFileIndex(name);
         }
 
-        internal AddmlRecordDefinition AddAddmlRecordDefinition(string name, int? recordLength,
-            string recordDefinitionFieldValue, List<string> processes)
+        internal AddmlRecordDefinition AddAddmlRecordDefinition(string name, int? recordLength, string recordDefinitionFieldValue, List<AddmlForeignKey> foreignKeys, List<string> processes)
         {
             AddmlRecordDefinition addmlFieldDefinition = new AddmlRecordDefinition(this,
                 name,
                 recordLength,
                 recordDefinitionFieldValue,
+                foreignKeys,
                 processes);
             AddmlRecordDefinitions.Add(addmlFieldDefinition);
             return addmlFieldDefinition;
-        }
-
-        public string Key()
-        {
-            return Name;
         }
 
         public FlatFileIndex GetIndex()
@@ -77,30 +72,36 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return _index;
         }
 
-        public static void InsertForeignKeyProcessInFilesWithReferencedPrimaryKey(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
+        public static void InsertCollectPrimaryKeyProcessInDefinitionsReferencedFromAForeignKeyWithControlProcess(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
         {
-            Log.Debug("Inserting foreign key process in definitions with a referenced primary key");
-            var fieldDefsWithControlForeignKey = new List<AddmlFieldDefinition>();
+            Log.Debug("Inserting CollectPrimaryKey process in definitions with a referenced primary key from records with ControlForeignKey process.");
+            var recordDefsWithControlForeignKey = new List<AddmlRecordDefinition>();
             foreach (var flatFileDef in addmlFlatFileDefinitions)
             {
-                fieldDefsWithControlForeignKey.AddRange(flatFileDef.GetFieldDefinitionsWithProcess(ControlForeignKey.Name));
+                recordDefsWithControlForeignKey.AddRange(flatFileDef.GetRecordDefinitionsWithProcess(ControlForeignKey.Name));
             }
 
-            Log.Debug($"Number of {ControlForeignKey.Name} processes found: {fieldDefsWithControlForeignKey.Count}");
+            Log.Debug($"Number of {ControlForeignKey.Name} processes found: {recordDefsWithControlForeignKey.Count}");
 
-            foreach (var fieldDef in fieldDefsWithControlForeignKey)
+            foreach (var recordDef in recordDefsWithControlForeignKey)
             {
-                fieldDef.ForeignKey.AddProcess(ControlForeignKey.Name);
+                foreach (var foreignKey in recordDef.ForeignKeys)
+                {
+                    foreach (var fieldDef in foreignKey.ForeignKeyReferenceFields)
+                    {
+                        fieldDef.AddmlRecordDefinition.AddProcess(CollectPrimaryKey.Name);
+                    }
+                }
             }
-
         }
 
-        private IEnumerable<AddmlFieldDefinition> GetFieldDefinitionsWithProcess(string processName)
+        private IEnumerable<AddmlRecordDefinition> GetRecordDefinitionsWithProcess(string processName)
         {
-            var definitionsWithProcess = new List<AddmlFieldDefinition>();
+            var definitionsWithProcess = new List<AddmlRecordDefinition>();
             foreach (var recordDef in AddmlRecordDefinitions)
             {
-                definitionsWithProcess.AddRange(recordDef.GetFieldDefinitionsWithProcess(processName));
+                if (recordDef.HasProcessWithName(processName))
+                    definitionsWithProcess.Add(recordDef);
             }
             return definitionsWithProcess;
         }
