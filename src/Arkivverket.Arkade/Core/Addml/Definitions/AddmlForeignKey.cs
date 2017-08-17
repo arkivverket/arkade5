@@ -110,11 +110,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             var builder = new StringBuilder();
             builder.Append("Foreign key name: ").AppendLine(Name);
 
-            builder.Append("fields:");
-            ForeignKeyIndexes.ForEach(fk => builder.AppendLine(fk.ToString()));
+            builder.AppendLine("fields:");
+            ForeignKeyIndexes.ForEach(fk => builder.AppendLine("\t* " + fk.ToString()));
 
-            builder.Append("references:");
-            ForeignKeyReferenceIndexes.ForEach(fkRef => builder.AppendLine(fkRef.ToString()));
+            builder.AppendLine("references: ");
+            ForeignKeyReferenceIndexes.ForEach(fkRef => builder.AppendLine("\t* " + fkRef.ToString()));
 
             return builder.ToString();
         }
