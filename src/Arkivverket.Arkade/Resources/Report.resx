@@ -120,6 +120,18 @@
   <data name="DateFormat" xml:space="preserve">
     <value>dd. MMMM yyyy</value>
   </data>
+  <data name="HeadingTestReport" xml:space="preserve">
+    <value>Testrapport</value>
+  </data>
+  <data name="HeadingTestResults" xml:space="preserve">
+    <value>Testresultater</value>
+  </data>
+  <data name="HeadingTests" xml:space="preserve">
+    <value>Tester</value>
+  </data>
+  <data name="HeadingTestSummary" xml:space="preserve">
+    <value>Testsammendrag</value>
+  </data>
   <data name="LabelArchiveType" xml:space="preserve">
     <value>Arkivtype</value>
   </data>
@@ -140,5 +152,17 @@
   </data>
   <data name="LabelUuid" xml:space="preserve">
     <value>Uuid</value>
+  </data>
+  <data name="TestLocation" xml:space="preserve">
+    <value>Lokasjon</value>
+  </data>
+  <data name="TestMessage" xml:space="preserve">
+    <value>Melding</value>
+  </data>
+  <data name="TestMoreErrorsOfSameKind" xml:space="preserve">
+    <value>{0} flere feil av samme type.</value>
+  </data>
+  <data name="TestNoErrorsFound" xml:space="preserve">
+    <value>Ingen avvik funnet.</value>
   </data>
 </root>

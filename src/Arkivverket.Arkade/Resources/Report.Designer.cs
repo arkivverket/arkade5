@@ -70,6 +70,42 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Testrapport.
+        /// </summary>
+        internal static string HeadingTestReport {
+            get {
+                return ResourceManager.GetString("HeadingTestReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Testresultater.
+        /// </summary>
+        internal static string HeadingTestResults {
+            get {
+                return ResourceManager.GetString("HeadingTestResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tester.
+        /// </summary>
+        internal static string HeadingTests {
+            get {
+                return ResourceManager.GetString("HeadingTests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Testsammendrag.
+        /// </summary>
+        internal static string HeadingTestSummary {
+            get {
+                return ResourceManager.GetString("HeadingTestSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkivtype.
         /// </summary>
         internal static string LabelArchiveType {
@@ -129,6 +165,42 @@ namespace Arkivverket.Arkade.Resources {
         internal static string LabelUuid {
             get {
                 return ResourceManager.GetString("LabelUuid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lokasjon.
+        /// </summary>
+        internal static string TestLocation {
+            get {
+                return ResourceManager.GetString("TestLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Melding.
+        /// </summary>
+        internal static string TestMessage {
+            get {
+                return ResourceManager.GetString("TestMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} flere feil av samme type..
+        /// </summary>
+        internal static string TestMoreErrorsOfSameKind {
+            get {
+                return ResourceManager.GetString("TestMoreErrorsOfSameKind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingen avvik funnet..
+        /// </summary>
+        internal static string TestNoErrorsFound {
+            get {
+                return ResourceManager.GetString("TestNoErrorsFound", resourceCulture);
             }
         }
     }

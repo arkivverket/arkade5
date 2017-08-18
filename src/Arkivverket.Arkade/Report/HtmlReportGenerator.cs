@@ -11,6 +11,8 @@ namespace Arkivverket.Arkade.Report
 {
     public class HtmlReportGenerator : IReportGenerator
     {
+        private const int NumberOfErrorsToShow = 100;
+
         private readonly StreamWriter _stream;
         private readonly CultureInfo _norwegianCulture;
 
@@ -37,9 +39,9 @@ namespace Arkivverket.Arkade.Report
             _stream.WriteLine(@"<div class=""container"">");
             _stream.WriteLine(@"");
             ArkivverketImage();
-            _stream.WriteLine(@"    <h1>Testrapport</h1>");
+            _stream.WriteLine(@"    <h1>" + Resources.Report.HeadingTestReport + "</h1>");
             Summary(testSession);
-            _stream.WriteLine(@"    <h2>Tests</h2>");
+            _stream.WriteLine(@"    <h2>" + Resources.Report.HeadingTests + "</h2>");
             foreach (TestRun testRun in testSession.TestSuite.TestRuns)
             {
                 Test(testRun);
@@ -69,29 +71,23 @@ namespace Arkivverket.Arkade.Report
             _stream.WriteLine(@"            " + testRun.TestDescription);
             _stream.WriteLine(@"        </p>");
             _stream.WriteLine(@"");
-            /*
-            sb.AppendLine(@"        <p class=""test-duration"">");
-            sb.AppendLine(@"            Tidsbruk: " + testRun.TestDuration + " millisekunder");
-            sb.AppendLine(@"        </p>");
-            sb.AppendLine(@"");
-            */
-            _stream.WriteLine(@"        <h4>Testresultater</h4>");
+            _stream.WriteLine(@"        <h4>" + Resources.Report.HeadingTestResults + "</h4>");
             if (testRun.IsSuccess() && (testRun.TestType == TestType.ContentControl || testRun.TestType == TestType.Structure))
             {
-                _stream.WriteLine("<p>Ingen avvik funnet.</p>");
+                _stream.WriteLine("<p>" + Resources.Report.TestNoErrorsFound + "</p>");
             } 
             else
             {
                 _stream.WriteLine(@"        <table class=""table"">");
                 _stream.WriteLine(@"            <thead>");
                 _stream.WriteLine(@"            <tr>");
-                _stream.WriteLine(@"                <th>Lokasjon</th>");
-                _stream.WriteLine(@"                <th>Melding</th>");
+                _stream.WriteLine(@"                <th>" + Resources.Report.TestLocation + "</th>");
+                _stream.WriteLine(@"                <th>" + Resources.Report.TestMessage + "</th>");
                 _stream.WriteLine(@"            </tr>");
                 _stream.WriteLine(@"            </thead>");
                 _stream.WriteLine(@"            <tbody>");
 
-                foreach (TestResult testResult in testRun.Results.Take(100)) // TODO only first 100 results are included due to problem loading report in browser
+                foreach (TestResult testResult in testRun.Results.Take(NumberOfErrorsToShow)) // TODO only first 100 results are included due to problem loading report in browser
                 {
                     _stream.WriteLine(@"            <tr>");
                     _stream.WriteLine(@"                <td>");
@@ -100,6 +96,14 @@ namespace Arkivverket.Arkade.Report
                     _stream.WriteLine(@"                <td>");
                     _stream.WriteLine(@"                " + SubstitueLineBreaksWithHtmlBreak(testResult.Message));
                     _stream.WriteLine(@"                </td>");
+                    _stream.WriteLine(@"            </tr>");
+                }
+
+                if (testRun.Results.Count > NumberOfErrorsToShow)
+                {
+                    _stream.WriteLine(@"            <tr>");
+                    _stream.WriteLine(@"                <td></td>");
+                    _stream.WriteLine(@"                <td>" + string.Format(Resources.Report.TestMoreErrorsOfSameKind, testRun.Results.Count - NumberOfErrorsToShow) + "</td>");
                     _stream.WriteLine(@"            </tr>");
                 }
 
@@ -118,7 +122,7 @@ namespace Arkivverket.Arkade.Report
         {
             _stream.WriteLine(@"    <div class=""summary"">");
             _stream.WriteLine(@"    <div class=""jumbotron"">");
-            _stream.WriteLine(@"        <h2>Testsammendrag</h2>");
+            _stream.WriteLine(@"        <h2>" + Resources.Report.HeadingTestSummary + "</h2>");
             _stream.WriteLine(@"");
             _stream.WriteLine(@"        <table class=""table"">");
             _stream.WriteLine(@"            <tbody>");
@@ -193,7 +197,7 @@ namespace Arkivverket.Arkade.Report
             _stream.WriteLine(@"    <meta charset=""utf-8"" />");
             _stream.WriteLine(@"    <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"" />");
             _stream.WriteLine(@"    <meta name=""viewport"" content=""width=device-width, initial-scale=1"" />");
-            _stream.WriteLine(@"    <title>Testrapport</title>");
+            _stream.WriteLine(@"    <title>" + Resources.Report.HeadingTestReport + "</title>");
             _stream.WriteLine(@"");
             BootstrapCss();
             ArkadeCss();
