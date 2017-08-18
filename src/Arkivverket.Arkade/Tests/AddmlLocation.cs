@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 
@@ -48,5 +49,9 @@ namespace Arkivverket.Arkade.Tests
             return builder.ToString();
         }
 
+        public static AddmlGroupLocation FromFieldIndex(List<FieldIndex> indexes)
+        {
+            return new AddmlGroupLocation(indexes);
+        }
     }
 }

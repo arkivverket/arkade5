@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests
@@ -19,7 +20,7 @@ namespace Arkivverket.Arkade.Tests
             Location = location;
             Message = message;
         }
-
+        
         public bool IsError()
         {
             return Result == ResultType.Error;

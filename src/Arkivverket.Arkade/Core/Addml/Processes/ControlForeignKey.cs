@@ -81,15 +81,26 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                         HashSet<string> primaryKeyValues = CollectedPrimaryKeys[index];
                         if (!primaryKeyValues.Contains(value))
                         {
-                            results.Add(new TestResult(ResultType.Error, new Location(foreignKey.GetForeignKeyIndexesAsString()),
-                                string.Format(Messages.ControlForeignKeyMessage1, PrettyPrintValue(value), foreignKey.GetForeignKeyIndexesAsString(), PrettyPrintValue(index))));
+
+                            string errorMessageTemplate = Messages.ControlForeignKeyMessage1;
+                            if (foreignKey.IsCombinedForeignKey())
+                            {
+                                errorMessageTemplate = Messages.ControlForeignKeyMessage1Combined;
+                            }
+
+                            results.Add(new TestResult(ResultType.Error, 
+                                AddmlLocation.FromFieldIndex(foreignKey.ForeignKeyIndexes),
+                                string.Format(errorMessageTemplate, 
+                                    PrettyPrintValue(value), 
+                                    AddmlLocation.FromFieldIndex(foreignKey.ForeignKeyReferenceIndexes))));
                         }
                     }
                 }
                 else
                 {
-                    results.Add(new TestResult(ResultType.Error, new Location(index),
-                        string.Format(Messages.ControlForeignKeyMessage2, index, foreignKey.GetForeignKeyIndexesAsString())));
+                    results.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(foreignKey.ForeignKeyIndexes),
+                        string.Format(Messages.ControlForeignKeyMessage2, 
+                        AddmlLocation.FromFieldIndex(foreignKey.ForeignKeyReferenceIndexes))));
                 }
             }
             return results;
@@ -99,7 +110,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         {
             if (input.Contains(AddmlKey.FieldDelimiter))
             {
-                return "[" + input.Replace(AddmlKey.FieldDelimiter, ", ") + "]";
+                return input.Replace(AddmlKey.FieldDelimiter, ", ");
             }
             return input;
         }

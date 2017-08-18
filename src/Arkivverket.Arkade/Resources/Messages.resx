@@ -247,10 +247,13 @@
     <value>Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst</value>
   </data>
   <data name="ControlForeignKeyMessage1" xml:space="preserve">
-    <value>Ugyldig fremmednøkkel: Verdien [{0}] i feltet {1} refererer til {2} men ingen gyldig verdi ble funnet.</value>
+    <value>Ugyldig fremmednøkkel: Verdien [{0}] finnes ikke i det refererte feltet {1}</value>
+  </data>
+  <data name="ControlForeignKeyMessage1Combined" xml:space="preserve">
+    <value>Ugyldig fremmednøkkel: Verdiene [{0}] finnes ikke i de refererte feltene {1}</value>
   </data>
   <data name="ControlForeignKeyMessage2" xml:space="preserve">
-    <value>Ugyldige fremmednøkler. Finner ingen verdier for feltet {0} som er referert fra posten {1}.</value>
+    <value>Ugyldig fremmednøkkel: Finner ingen verdier for feltet {0}</value>
   </data>
   <data name="ControlKeyDescription" xml:space="preserve">
     <value>Kontrollerer at nøkkelen (primary eller alternate) er unik</value>

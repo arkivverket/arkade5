@@ -118,6 +118,11 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
 
             return builder.ToString();
         }
+
+        public bool IsCombinedForeignKey()
+        {
+            return ForeignKeyReferenceIndexes.Count > 1;
+        }
     }
 
     public class AddmlForeignKeyValue

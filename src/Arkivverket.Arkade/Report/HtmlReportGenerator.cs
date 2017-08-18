@@ -98,7 +98,7 @@ namespace Arkivverket.Arkade.Report
                     _stream.WriteLine(@"                " + testResult.Location);
                     _stream.WriteLine(@"                </td>");
                     _stream.WriteLine(@"                <td>");
-                    _stream.WriteLine(@"                " + testResult.Message);
+                    _stream.WriteLine(@"                " + SubstitueLineBreaksWithHtmlBreak(testResult.Message));
                     _stream.WriteLine(@"                </td>");
                     _stream.WriteLine(@"            </tr>");
                 }
@@ -107,6 +107,11 @@ namespace Arkivverket.Arkade.Report
                 _stream.WriteLine(@"        </table>");
             }
             _stream.WriteLine(@"    </div>");
+        }
+
+        private string SubstitueLineBreaksWithHtmlBreak(string input)
+        {
+            return input.Replace("\n", "<br/>");
         }
 
         private void Summary(TestSession testSession)
