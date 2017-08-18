@@ -4,6 +4,7 @@ using System.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Util;
 using FluentAssertions;
 using Xunit;
@@ -171,7 +172,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             var workingDirectory = new WorkingDirectory(ArkadeConstants.GetArkadeWorkDirectory(), new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\TestData\\noark3\\"));
             AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content().WithFile("noark_3_arkivuttrekk_med_prosesser.xml").FullName);
 
-            AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml, workingDirectory).GetAddmlDefinition();
+            AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml, workingDirectory, new StatusEventHandler()).GetAddmlDefinition();
             FlatFile flatFile = addmlDefinition.GetFlatFiles().Single(file => file.Definition.FileName == "DOK.DAT");
             return flatFile;
         }

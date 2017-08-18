@@ -4,6 +4,7 @@ using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Logging;
 using FluentAssertions;
 using Xunit;
 
@@ -16,7 +17,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
             var workingDirectory =
                 new WorkingDirectory(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\TestData\\noark3\\"));
             AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Root().WithFile("noark_3_arkivuttrekk_med_prosesser.xml").FullName);
-            _parser = new AddmlDefinitionParser(addml, workingDirectory);
+            _parser = new AddmlDefinitionParser(addml, workingDirectory, new StatusEventHandler());
         }
 
         private readonly AddmlDefinitionParser _parser;

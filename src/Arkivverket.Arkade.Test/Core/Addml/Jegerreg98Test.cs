@@ -6,6 +6,7 @@ using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
+using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Util;
 using FluentAssertions;
 using Xunit;
@@ -21,7 +22,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             var workingDirectory = new WorkingDirectory(ArkadeConstants.GetArkadeWorkDirectory(), externalContentDirectory);
             AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content().WithFile("arkivuttrekk.xml").FullName);
 
-            AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml, workingDirectory).GetAddmlDefinition();
+            AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml, workingDirectory, new StatusEventHandler()).GetAddmlDefinition();
 
             List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
             addmlFlatFileDefinitions.Count.Should().Be(10);
