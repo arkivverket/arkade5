@@ -222,30 +222,24 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void OnFileProcessStartedEvent(object sender, FileProcessingStatusEventArgs eventArgs)
         {
-            _log.Debug("Got a onFileProcessStartEvent");
             CurrentlyProcessingFile = eventArgs.FileName;
         }
 
         private void OnFileProcessFinishedEvent(object sender, FileProcessingStatusEventArgs eventArgs)
         {
-            _log.Debug("Got a onFileProcessStopEvent");
             NumberOfProcessedFiles = NumberOfProcessedFiles + 1;
         }
 
         private void OnRecordProcessingStartedEvent(object sender, EventArgs eventArgs)
         {
-            _log.Verbose("Got a onRecordProcessStartEvent");
         }
         private void OnRecordProcessingFinishedEvent(object sender, EventArgs eventArgs)
         {
-            _log.Verbose("Got a onRecordProcessFinishedEvent");
             NumberOfProcessedRecords = NumberOfProcessedRecords + 1;
         }
 
         private void OnNewArchiveInformationEvent(object sender, ArchiveInformationEventArgs eventArgs)
         {
-            _log.Debug("Got a OnNewArchiveProcessEvent");
-
             ArchiveInformationStatus.Update(eventArgs);
             ArchiveCurrentProcessing = Visibility.Visible;
 
