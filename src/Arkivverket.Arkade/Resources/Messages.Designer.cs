@@ -674,6 +674,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Testing av arkivet er fullført..
+        /// </summary>
+        internal static string LogMessageFinishedTesting {
+            get {
+                return ResourceManager.GetString("LogMessageFinishedTesting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starter testing av arkivet..
+        /// </summary>
+        internal static string LogMessageStartTesting {
+            get {
+                return ResourceManager.GetString("LogMessageStartTesting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Noark4 - Feil ved konvertering av {0} til {1}.
         /// </summary>
         internal static string Noark4ConvertNoarkihFileError {

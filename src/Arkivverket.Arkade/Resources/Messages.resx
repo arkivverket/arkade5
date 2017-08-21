@@ -322,6 +322,12 @@
   <data name="FileNotFoundMessage" xml:space="preserve">
     <value>Finner ikke filen: {0}</value>
   </data>
+  <data name="LogMessageFinishedTesting" xml:space="preserve">
+    <value>Testing av arkivet er fullført.</value>
+  </data>
+  <data name="LogMessageStartTesting" xml:space="preserve">
+    <value>Starter testing av arkivet.</value>
+  </data>
   <data name="Noark4ConvertNoarkihFileError" xml:space="preserve">
     <value>Noark4 - Feil ved konvertering av {0} til {1}</value>
   </data>

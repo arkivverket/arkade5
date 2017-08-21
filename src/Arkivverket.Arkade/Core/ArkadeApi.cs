@@ -3,6 +3,7 @@ using Arkivverket.Arkade.Identify;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Metadata;
 using Arkivverket.Arkade.Report;
+using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Core
 {
@@ -53,8 +54,13 @@ namespace Arkivverket.Arkade.Core
 
         public void RunTests(TestSession testSession)
         {
+            testSession.AddLogEntry(Messages.LogMessageStartTesting);
+
             ITestEngine testEngine = _testEngineFactory.GetTestEngine(testSession);
             testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
+
+            testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
+
             _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession);
         }
 
