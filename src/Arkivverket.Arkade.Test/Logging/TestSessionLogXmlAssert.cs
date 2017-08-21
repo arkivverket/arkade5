@@ -112,12 +112,6 @@ namespace Arkivverket.Arkade.Test.Logging
             return this;
         }
 
-        public TestSessionLogTestResultXmlAssert AssertTestCategory(string testCategory)
-        {
-            _testResultsTestResult.testCategory.Should().Be(testCategory);
-            return this;
-        }
-
         public TestSessionLogTestResultXmlAssert AssertStatus(string status)
         {
             _testResultsTestResult.status.Should().Be(status);

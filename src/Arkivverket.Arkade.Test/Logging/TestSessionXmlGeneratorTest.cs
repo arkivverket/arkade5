@@ -60,7 +60,6 @@ namespace Arkivverket.Arkade.Test.Logging
                 .AssertNumberOfTestResult(1)
                 .FirstTestResult()
                 .AssertTestName("test1")
-                .AssertTestCategory("category1")
                 .AssertDurationMillis(123)
                 .AssertStatus("SUCCESS")
                 .AssertMessage("[location] message1")
