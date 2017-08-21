@@ -55,13 +55,10 @@ En HTML-rapport vil automatisk bli generert ved fullført testing. Klikk på kna
 .. image:: img/HtmlTestReport.png
 
 
-Etter ADDML- og Noark 5-testkjøringer er det anledning til å lage en AIP eller SIP pakke. Klikk på Opprett Pakke for å gå videre.
-
-
 Arkivpakkegenerering
 --------------------
 
-Klikk "Opprett pakke" for å lage en arkivpakke (AIP/SIP) av uttrekket. Dette åpner arkivpakkevinduet der valg for pakken kan gjøres før den opprettes.
+Klikk på knappen "Opprett pakke" for å lage en arkivpakke (AIP/SIP) av uttrekket. Dette åpner arkivpakkevinduet der valg for pakken kan gjøres før den opprettes.
 
 *Det er mulig å opprette en arkivpakke uten først å utføre testing av det aktuelle arkivuttrekket. En slik pakke vil ikke inneholde noen testrapport.*
 
@@ -69,7 +66,7 @@ Klikk "Opprett pakke" for å lage en arkivpakke (AIP/SIP) av uttrekket. Dette å
 Nytt uttrekk / ny kjøring
 -------------------------
 
-Ved klikk på knappen "Ny kjøring", avsluttes pågående arkivbehandling og Arkade returnerer til innlastingsvinduet. 
+Ved klikk på knappen "Ny kjøring" avsluttes pågående arkivbehandling og Arkade returnerer til innlastingsvinduet. 
 Dersom det inneværende arkivuttrekket endres, f.eks. som følge av feil/mangler vist i testrapporten, må uttrekket lastes inn på nytt (og ev. tester kjøres på nytt) før knappen "Opprett pakke" oppretter en pakke som inneholder endringene (og knappen "Vis rapport" åpner en gyldig testrapport). Uttrekket lastes inn på nytt ved å klikke "Ny kjøring" (eller ved å starte Arkade på nytt).
 
 *NB! Skal det opprettes en arkivpakke som inkluderer resultatene fra inneværende testkjøring, må dette gjøres før "Ny kjøring" klikkes (eller Arkade avsluttes).*
@@ -80,18 +77,17 @@ Arkivpakkevinduet
 
 .. image:: img/PackageWindow.png
 
-Arkade tillater registrering av metadata for arkivpakken før den opprettes. Arkade vil forsøke å lese inn eventuelle eksisterende metadata, fra en mets.xml-fil i arkivittrekket, og forhåndsutfylle feltene i pakkevinduet. Når pakken opprettes, skrives den utfylte informasjonen til en (ny) mets.xml-fil som legges ved i arkivpakken. Matadataene skrives også til filen info.xml* som legges utenfor, og på samme nivå som, arkivpakken.
+Arkade tillater registrering av metadata for arkivpakken som skal opprettes. Arkade vil forsøke å lese inn eventuelle eksisterende metadata, fra en mets.xml-fil i arkivittrekket, og forhåndsutfylle feltene i pakkevinduet. Når pakken opprettes skrives den utfylte informasjonen til en (ny) mets.xml-fil som legges ved i arkivpakken. Metadataene skrives også til filen info.xml* som legges utenfor, på samme nivå som, arkivpakken.
 
-*\*info.xml-filen vil bli opprettet med et filnavnet som tilsvarer ID-en til den gjeldende arkivbehandlingen: {pakke-uuid}.xml*
+*\*Filnavnet info.xml-filen blir opprettet med vil være UUID-en som er generert for den gjeldende arkivbehandlingen: {uuid}.xml*
 
-I nedre del av vinduet velges pakketype, SIP/AIP.
+I nedre del av vinduet velges ønsket pakketype, SIP eller AIP.
 
-En arkivpakke opprettes med knappen "Opprett pakke". 
+For å opprette en arkivpakke, klikk på knappen "Opprett pakke". 
 
-Pakken opprettes som en tar-fil, gis et filnavn tilsvarende ID-en til den gjeldende arkivbehandlingen og plasseres i arbeidskatalogen (se .. `Fil- og kataloginformasjon`_).
+Arkivpakken vil opprettes som en tar-fil og filnavnet vil være UUID-en som er generert for den gjeldende arkivbehandlingen: *{uuid}.tar*. Pakken vil plasseres i arbeidskatalogen for den gjeldende arkivbehandlingen. (Mer om arbeidskatalogen under `Fil- og kataloginformasjon`_)
 
-*TIPS: Metadata for pakken kan endres etter at den er opprettet forutsatt at gjeldende arkivbehandling/Arkade-seanse ikke er avsluttet. Ved gjentatte klikk på "Opprett pakke" vil den samme pakken (samt info.xml-fil) overskrives. Sørg bare for at fildestinasjonen ikke er opptatt, f.eks ved at pakken er åpnet i, og oppholdes av, et eksternt pakkeprogram.*
-
+*TIPS: Metadata for arkivpakken kan endres etter at pakken er opprettet forutsatt at gjeldende arkivbehandling ikke er avsluttet. Ved gjentatte klikk på "Opprett pakke" vil den samme pakken (samt info.xml-fil) overskrives. Sørg bare for at fildestinasjonen ikke er opptatt, f.eks. ved at pakken er åpnet i, og oppholdes av, et eksternt pakkeprogram.*
 
 NB! Knappen "Ny kjøring" avslutter gjeldene arkivbehandling.
 
@@ -103,7 +99,7 @@ Arkade benytter en katalog, "Arkade", for alle filer som produseres/oppdateres u
 
 Hver gang et arkivuttrekk lastes inn med Arkade, opprettes det en arbeidskatalog for den gjeldende behandlingen av uttrekket. Plasseringen for arbeidkatalogene er *~\\Arkade\\work\\*.
 
-Navnet på en arbeidskatalog blir generert under innlasting av arkivuttrekket og er sammensatt av dato/tid for innlastingen og en unik identifikator (UUID).
+Navnet på en arbeidskatalog blir generert under innlasting av arkivuttrekket og er sammensatt av dato og tidspunkt for innlastingen etterfulgt av en unik identifikator (UUID) som blir generert for den gjeldende arkivbehandlingen.
 
 Etter fullført testkjøring vil en loggfil på XML-format, inneholdende informasjon om utførelsen av hver test, og en testrapport på HTML-format være opprettet under følgende plassering i den gjeldende arbeidkatalogen:
 *\\administrative_metadata\\repository_operations\\arkade-log.xml*
