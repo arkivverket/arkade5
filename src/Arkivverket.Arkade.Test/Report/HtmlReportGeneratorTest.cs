@@ -19,7 +19,6 @@ namespace Arkivverket.Arkade.Test.Report
                 .WithDurationMillis(100L)
                 .WithTestName("Test 1")
                 .WithTestDescription("Test description 1")
-                .WithTestCategory("Testkategori 1")
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
                 .Build();
@@ -28,7 +27,6 @@ namespace Arkivverket.Arkade.Test.Report
                 .WithDurationMillis(100L)
                 .WithTestName("Test 2")
                 .WithTestDescription("Test description 2")
-                .WithTestCategory("Testkategori 2")
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 3"))
@@ -65,7 +63,6 @@ namespace Arkivverket.Arkade.Test.Report
                 .WithDurationMillis(100L)
                 .WithTestName("Test 1")
                 .WithTestDescription("Test description 1")
-                .WithTestCategory("Testkategori 1")
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
                 .Build();
@@ -92,7 +89,6 @@ namespace Arkivverket.Arkade.Test.Report
                 .WithDurationMillis(100L)
                 .WithTestName("Test 1")
                 .WithTestDescription("Test description 1")
-                .WithTestCategory("Testkategori 1")
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
                 .Build();

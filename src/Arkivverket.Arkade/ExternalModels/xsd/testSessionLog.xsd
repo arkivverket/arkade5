@@ -24,7 +24,7 @@
           <xs:sequence>
             <xs:element name="testName" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="testCategory" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="testDescription" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="testDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="durationMillis" type="xs:integer" minOccurs="1" maxOccurs="1"/>
             <xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="message" type="xs:string" minOccurs="1" maxOccurs="1"/>

@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.Logging
             {
                 var testResult = new testResultsTestResult();
                 testResult.testName = testRun.TestName;
-                testResult.testCategory = testRun.TestCategory;
+                testResult.testCategory = testRun.TestType.ToString();
                 testResult.durationMillis = testRun.TestDuration.ToString();
                 testResult.testDescription = testRun.TestDescription;
                 testResult.status = testRun.IsSuccess() ? "SUCCESS" : "ERROR";

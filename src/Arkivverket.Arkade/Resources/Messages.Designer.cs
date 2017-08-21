@@ -683,6 +683,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oppsummering av antall poster som har feil tilknyttet feltseparator og/eller postseparator..
+        /// </summary>
+        internal static string NumberOfRecordsWithFieldDelimiterErrorDescription {
+            get {
+                return ResourceManager.GetString("NumberOfRecordsWithFieldDelimiterErrorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Innlesing av arkiv.
         /// </summary>
         internal static string ReadingArchiveEvent {

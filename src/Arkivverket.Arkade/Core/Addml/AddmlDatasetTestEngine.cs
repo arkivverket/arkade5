@@ -111,7 +111,8 @@ namespace Arkivverket.Arkade.Core.Addml
 
             var failedRecoredTestRun = new TestRun(AddmlMessages.RecordLengthErrorTestName, TestType.Structure)
             {
-                Results = _testResultsFailedRecordsList
+                Results = _testResultsFailedRecordsList,
+                TestDescription = Messages.NumberOfRecordsWithFieldDelimiterErrorDescription
             };
 
             testSuite.AddTestRun(failedRecoredTestRun);

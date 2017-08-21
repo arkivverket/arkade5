@@ -13,7 +13,6 @@
     <testResult>
       <testName>NumberOfFolders</testName>
       <testCategory>Noark5</testCategory>
-      <testDescription>Teller antall kataloger</testDescription>
       <durationMillis>50</durationMillis>
       <status>SUCCESS</status>
       <message>Found 2 classification systems</message>

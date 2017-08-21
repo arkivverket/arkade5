@@ -49,7 +49,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             TestRun testRun = new TestRun(GetName(), GetTestType());
             testRun.TestDuration = _stopwatch.ElapsedMilliseconds;
             testRun.TestDescription = GetDescription();
-            //testRun.TestCategory = GetCategory();
+            testRun.TestType = GetTestType();
             testRun.Results = testRunResults;
 
             return testRun;

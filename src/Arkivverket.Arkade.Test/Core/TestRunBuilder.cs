@@ -7,7 +7,6 @@ namespace Arkivverket.Arkade.Test.Core
     public class TestRunBuilder
     {
         private long _durationMillis = 1234;
-        private string _testCategory = "testCategory";
         private string _testDescription = "testDescription";
         private string _testName = "test1";
         private List<TestResult> _testResults = new List<TestResult>();
@@ -17,7 +16,7 @@ namespace Arkivverket.Arkade.Test.Core
         public TestRun Build()
         {
             var testRun = new TestRun(_testName, _testType);
-            testRun.TestCategory = _testCategory;
+            testRun.TestType = _testType;
             testRun.TestDescription = _testDescription;
             testRun.TestDuration = _durationMillis;
 
@@ -33,12 +32,6 @@ namespace Arkivverket.Arkade.Test.Core
         public TestRunBuilder WithTestName(string testName)
         {
             _testName = testName;
-            return this;
-        }
-
-        public TestRunBuilder WithTestCategory(string testCategory)
-        {
-            _testCategory = testCategory;
             return this;
         }
 

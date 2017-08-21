@@ -85,9 +85,5 @@ namespace Arkivverket.Arkade.Tests
             TestResults.Add(new TestResult(resultType, location, message));
         }
 
-        protected void AddAnalysisResult(string key, string value)
-        {
-            TestResults.AddAnalysisResult(key, value);
-        }
     }
 }
