@@ -6,6 +6,7 @@
         xmlns:prism="http://prismlibrary.com/"
         xmlns:util="clr-namespace:Arkivverket.Arkade.UI.Util"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:resources="clr-namespace:Arkivverket.Arkade.UI.Resources"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         Title="TitleLoadedInCodeBehind" 
@@ -36,6 +37,8 @@
             </materialDesign:ColorZone>
         </DockPanel>
 
+        <Button Command="{Binding ShowUserGuideCommand}" Content="{x:Static resources:UI.ShowUserGuideButtonText}" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="12" Height="25"></Button>
+        
         <!-- Main Region -->
         <ContentControl Grid.Row="1"  x:Name="MainRegion"
                             prism:RegionManager.RegionName="MainContentRegion"

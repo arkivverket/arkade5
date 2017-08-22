@@ -322,6 +322,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brukerveiledning.
+        /// </summary>
+        public static string ShowUserGuideButtonText {
+            get {
+                return ResourceManager.GetString("ShowUserGuideButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valider gyldig xml.
         /// </summary>
         public static string TestName_CheckWellFormedXml {
