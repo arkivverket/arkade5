@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Arkivverket.Arkade.Core.Addml.Definitions;
-using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -17,21 +16,16 @@ namespace Arkivverket.Arkade.Core.Addml
 
         public override Record Current => GetCurrentRecord();
 
-        public DelimiterFileFormatReader(FlatFile flatFile) : base(flatFile.Definition)
+        public DelimiterFileFormatReader(FlatFile flatFile) : this(flatFile, GetStream(flatFile))
         {
-            StreamReader stream = GetStream(flatFile);
-            string recordDelimiter = GetRecordDelimiter(flatFile);
-            _fieldDelimiter = GetFieldDelimiter(flatFile);
-            _recordIdentifierPosition = GetRecordIdentifierPosition(flatFile);
-            //_lines = stream.ReadUntil(recordDelimiter).GetEnumerator();
-            _lines = new DelimiterFileRecordEnumerable(stream, recordDelimiter).GetEnumerator();
         }
 
-        private int? GetRecordIdentifierPosition(FlatFile flatFile)
+        public DelimiterFileFormatReader(FlatFile flatFile, StreamReader streamReader) : base(flatFile.Definition)
         {
-            // TODO jostein: Støtte for flere recordDefinitions
-
-            return null;
+            string recordDelimiter = GetRecordDelimiter(flatFile);
+            _fieldDelimiter = GetFieldDelimiter(flatFile);
+            _recordIdentifierPosition = flatFile.GetRecordIdentifierPosition();
+            _lines = new DelimiterFileRecordEnumerable(streamReader, recordDelimiter).GetEnumerator();
         }
 
         private string GetFieldDelimiter(FlatFile flatFile)
@@ -52,7 +46,6 @@ namespace Arkivverket.Arkade.Core.Addml
             return streamReader;
         }
 
-
         private Record GetCurrentRecord()
         {
             List<Field> fields = new List<Field>();
@@ -71,8 +64,8 @@ namespace Arkivverket.Arkade.Core.Addml
 
             if (fieldDefinitions.Count != strings.Length)
             {
-                int maxFields = 40;
-                string fielddata = currentLine.Length <= maxFields ? currentLine : currentLine.Substring(0, maxFields-1);
+                int maxNumberOfCharactersInErrorMessage = 40;
+                string fielddata = currentLine.Length <= maxNumberOfCharactersInErrorMessage ? currentLine : currentLine.Substring(0, maxNumberOfCharactersInErrorMessage-1);
                 throw new ArkadeAddmlDelimiterException(
                     $"{Resources.AddmlMessages.UnexpectedNumberOfFields}: {strings.Length}/{fieldDefinitions.Count}", 
                     recordDefinition.Name, 

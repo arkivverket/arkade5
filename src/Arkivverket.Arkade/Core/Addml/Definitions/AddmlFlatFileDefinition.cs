@@ -105,6 +105,31 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             }
             return definitionsWithProcess;
         }
+
+
+        /// <summary>
+        /// Field position is zero-based
+        /// </summary>
+        /// <returns>null if recordDefinitionFieldIdentifier is not defined</returns>
+        public int? GetRecordIdentifierPosition()
+        {
+            if (string.IsNullOrEmpty(RecordDefinitionFieldIdentifier))
+            {
+                return null;
+            }
+
+            int recordIdentifierPosition = 0;
+            foreach (var fieldDef in AddmlRecordDefinitions[0].AddmlFieldDefinitions) // assume recordDefinitionFieldIdentifier is in same position across all record types
+            {
+                if (fieldDef.Name == RecordDefinitionFieldIdentifier)
+                {
+                    break;
+                }
+                recordIdentifierPosition++;
+            }
+            return recordIdentifierPosition;
+                
+        }
     }
 
     public enum AddmlFlatFileFormat
