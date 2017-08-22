@@ -12,7 +12,6 @@ namespace Arkivverket.Arkade.Core.Addml
         private readonly FlatFileReaderFactory _flatFileReaderFactory;
         private readonly IStatusEventHandler _statusEventHandler;
         private readonly List<TestResult> _testResultsFailedRecordsList = new List<TestResult>();
-        private int _numberOfRecordsWithFieldDelimiterError;
         private const int MaxNumberOfSingleReportedFieldDelimiterErrors = 99;
 
         public AddmlDatasetTestEngine(FlatFileReaderFactory flatFileReaderFactory, AddmlProcessRunner addmlProcessRunner,
@@ -46,6 +45,8 @@ namespace Arkivverket.Arkade.Core.Addml
                 IRecordEnumerator recordEnumerator =
                     _flatFileReaderFactory.GetRecordEnumerator(testSession.Archive, file);
 
+                int numberOfRecordsWithFieldDelimiterError = 0;
+
                 while (recordEnumerator != null && recordEnumerator.MoveNext())
                 {
                     try
@@ -59,9 +60,9 @@ namespace Arkivverket.Arkade.Core.Addml
                     }
                     catch (ArkadeAddmlDelimiterException exception)
                     {
-                        _numberOfRecordsWithFieldDelimiterError++;
+                        numberOfRecordsWithFieldDelimiterError++;
 
-                        if (_numberOfRecordsWithFieldDelimiterError <= MaxNumberOfSingleReportedFieldDelimiterErrors)
+                        if (numberOfRecordsWithFieldDelimiterError <= MaxNumberOfSingleReportedFieldDelimiterErrors)
                         {
                             _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error,
                                 new AddmlLocation(file.GetName(), exception.RecordName, ""),
@@ -69,7 +70,7 @@ namespace Arkivverket.Arkade.Core.Addml
                             );
 
                             _statusEventHandler.RaiseEventOperationMessage(
-                                $"{AddmlMessages.RecordLengthErrorTestName} i fil {file.GetName()}, post nummer {recordIdx}, feil nummer {_numberOfRecordsWithFieldDelimiterError}",
+                                $"{AddmlMessages.RecordLengthErrorTestName} i fil {file.GetName()}, post nummer {recordIdx}, feil nummer {numberOfRecordsWithFieldDelimiterError}",
                                 exception.Message + " Felttekst: " + exception.RecordData, OperationMessageStatus.Error
                             );
                         }
@@ -77,7 +78,7 @@ namespace Arkivverket.Arkade.Core.Addml
                         {
                             _statusEventHandler.RaiseEventOperationMessage(
                                 $"ADDML-poster med feil antall felt i filen {file.GetName()}",
-                                $"Totalt antall: {_numberOfRecordsWithFieldDelimiterError}",
+                                $"Totalt antall: {numberOfRecordsWithFieldDelimiterError}",
                                 OperationMessageStatus.Error
                             );
                         }
@@ -90,10 +91,10 @@ namespace Arkivverket.Arkade.Core.Addml
                     recordIdx++;
                 }
 
-                if (_numberOfRecordsWithFieldDelimiterError > 0)
+                if (numberOfRecordsWithFieldDelimiterError > 0)
                 {
                     _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new Location(file.GetName()),
-                        $"Filens totale antall poster med feil antall felt: {_numberOfRecordsWithFieldDelimiterError}")
+                        $"Filens totale antall poster med feil antall felt: {numberOfRecordsWithFieldDelimiterError}")
                     );
                 }
 
