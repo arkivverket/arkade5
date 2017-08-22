@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
     {
         private static readonly Random Random = new Random();
         private readonly List<string> _processes = new List<string>();
-        private readonly string _recordDefinitionFieldValue = null;
+        private string _recordDefinitionFieldValue;
 
         private AddmlFlatFileDefinition _addmlFlatFileDefinition;
         private string _name = "Record" + Random.Next();
@@ -57,6 +57,12 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         public AddmlRecordDefinitionBuilder WithForeignKey(AddmlForeignKey foreignKey)
         {
             _foreignKeys.Add(foreignKey);
+            return this;
+        }
+
+        public AddmlRecordDefinitionBuilder WithRecordDefinitionFieldValue(string recordDefinitionFieldValue)
+        {
+            _recordDefinitionFieldValue = recordDefinitionFieldValue;
             return this;
         }
     }

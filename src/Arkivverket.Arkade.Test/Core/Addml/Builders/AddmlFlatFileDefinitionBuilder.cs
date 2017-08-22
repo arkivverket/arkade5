@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
 
         private int? _numberOfRecords = null;
         private readonly List<string> _processes = null;
-        private readonly string _recordDefinitionFieldIdentifier = null;
+        private string _recordDefinitionFieldIdentifier;
 
         private string _recordSeparator = null;
         private string _fieldSeparator = null;
@@ -74,5 +74,10 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Builders
         }
 
 
+        public AddmlFlatFileDefinitionBuilder WithRecordDefinitionFieldIdentifier(string fieldIdentifier)
+        {
+            _recordDefinitionFieldIdentifier = fieldIdentifier;
+            return this;
+        }
     }
 }

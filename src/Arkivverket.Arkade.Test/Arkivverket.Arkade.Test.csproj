@@ -139,6 +139,7 @@
     <Compile Include="Core\Addml\Definitions\DataTypes\DateDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\FloatDataTypeTest.cs" />
     <Compile Include="Core\Addml\Definitions\DataTypes\IntegerDataTypeTest.cs" />
+    <Compile Include="Core\Addml\DelimiterFileFormatReaderTest.cs" />
     <Compile Include="Core\Addml\FixedFileFormatReaderTest.cs" />
     <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
