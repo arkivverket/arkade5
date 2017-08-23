@@ -7,7 +7,7 @@ Arkade 5 utvikles av Arkitektum_ for Arkivverket_. Verktøyet benyttes til å te
 
 Disse sidene vil fungere som dokumentasjonssider og for nedlasting av programmet.
 
-Den nyeste versjonen av programmet ligger her arkade5-1.0-rc1_ (2017-08-23)
+Den nyeste versjonen av programmet ligger her arkade5-0.9.0_ (2017-08-23)
 
 Innhold
 -------
@@ -26,4 +26,4 @@ Denne siden har informasjon forandringer og oppdateringer som er gjort fra versj
 
 .. _Arkitektum: http://www.Arkitektum.no
 .. _Arkivverket: http://http://arkivverket.no/
-.. _arkade5-1.0-rc1: https://download.arkitektum.no/arkade/release/arkade5-1.0-rc1.msi
+.. _arkade5-0.9.0: https://download.arkitektum.no/arkade/release/arkade5-0.9.0.msi
