@@ -22,13 +22,15 @@ namespace Arkivverket.Arkade.Metadata
 
         public void Create(Archive archive, ArchiveMetadata metadata)
         {
-            _diasMetsCreator.CreateAndSaveFile(archive, metadata);
             _diasPremisCreator.CreateAndSaveFile(archive, metadata);
             // EAD is not included in v1.0
             _eadCreator.CreateAndSaveFile(archive, metadata);
             // EAC-CPF is not included in v1.0
             _eacCpfCreator.CreateAndSaveFile(archive, metadata);
             CopyDiasMetsXsdToRootDirectory(archive.WorkingDirectory);
+
+            // Generate mets-file last for it to describe all other package content
+            _diasMetsCreator.CreateAndSaveFile(archive, metadata);
         }
 
         private void CopyDiasMetsXsdToRootDirectory(WorkingDirectory workingDirectory)
