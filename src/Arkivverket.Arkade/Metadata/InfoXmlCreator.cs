@@ -40,7 +40,12 @@ namespace Arkivverket.Arkade.Metadata
 
                 metadata.FileDescriptions = new List<FileDescription>
                 {
-                    GetFileDescription(informationPackageFile, ref informationPackageFileIdForMets)
+                    GetFileDescription
+                    (
+                        informationPackageFile,
+                        ref informationPackageFileIdForMets,
+                        informationPackageFile.Directory
+                    )
                 };
             }
         }

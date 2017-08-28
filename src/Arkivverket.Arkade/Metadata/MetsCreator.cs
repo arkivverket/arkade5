@@ -477,11 +477,11 @@ namespace Arkivverket.Arkade.Metadata
 
         public static FileDescription GetFileDescription(FileInfo file, ref int fileId, DirectoryInfo pathRoot = null)
         {
-            string fileName = file.Name;
+            string fileName = file.FullName;
 
             if (pathRoot != null)
             {
-                // Including in fileName the file's path from pathRoot:
+                // Makes fileName contain path from pathRoot only:
                 string excludedPath = pathRoot.FullName + Path.DirectorySeparatorChar;
                 fileName = file.FullName.Replace(excludedPath, string.Empty);
             }
