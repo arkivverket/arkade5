@@ -16,10 +16,10 @@ namespace Arkivverket.Arkade.Metadata
 
         public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata)
         {
-            DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
+            DirectoryInfo rootDirectory = archive.WorkingDirectory.Root().DirectoryInfo();
 
-            if (documentsDirectory.Exists)
-                metadata.FileDescriptions = GetFileDescriptions(documentsDirectory, documentsDirectory);
+            if (rootDirectory.Exists)
+                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory);
 
             mets mets = Create(metadata);
 
