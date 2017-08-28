@@ -482,7 +482,7 @@ namespace Arkivverket.Arkade.Metadata
             if (pathRoot != null)
             {
                 // Including in fileName the file's path from pathRoot:
-                string excludedPath = (pathRoot.Parent?.FullName ?? pathRoot.FullName) + Path.DirectorySeparatorChar;
+                string excludedPath = pathRoot.FullName + Path.DirectorySeparatorChar;
                 fileName = file.FullName.Replace(excludedPath, string.Empty);
             }
 
