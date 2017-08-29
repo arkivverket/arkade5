@@ -3,17 +3,41 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Arkivverket Arkade 5 dokumentasjon
-==================================
+Dokumentasjon av Arkade 5 
+==========================
 
-Innhold:
+Introduksjon og nedlasting
+--------------------------
+Arkade 5 utvikles av Arkitektum_ for Arkivverket_. Verktøyet benyttes til å teste arkivuttrekk både før og etter leveranse til Arkivverket.
+
+Disse sidene vil fungere som dokumentasjonssider og for nedlasting av programmet.
+
+Den nyeste versjonen av programmet ligger her arkade5-0.9.0_ (2017-08-23)
+
+Innhold
+-------
+**Installasjonsveiledning:**
+Dette dokumentet beskriver hvordan verktøyet skal installeres.
+
+**Brukerveiledning:**
+Brukerveiledningen beskriver hvordan Arkade 5 brukes.
+
+**Systemdokumentasjon:**
+Her finner du utviklerinformasjon på engelsk.
+
+**Versjonshistorikk:**
+Denne siden har informasjon forandringer og oppdateringer som er gjort fra versjon til versjon. (Release notes.) 
+
+
+.. _Arkitektum: http://www.Arkitektum.no
+.. _Arkivverket: http://http://arkivverket.no/
+.. _arkade5-0.9.0: https://download.arkitektum.no/arkade/release/arkade5-0.9.0.msi
+
 
 .. toctree::
    :maxdepth: 2
 
-   Hjem
    Installasjonsveiledning
    Brukerveiledning
    Systemdokumentasjon
    Versjonshistorikk
-
