@@ -17,6 +17,7 @@ namespace Arkivverket.Arkade.Test.Metadata
         {
             ArchiveMetadata = new ArchiveMetadata
             {
+                Id = "UUID:12345-12345-12345-12345-12345-12345",
                 ArchiveDescription = "Some archive description",
                 AgreementNumber = "XX 00-0000/0000; 0000-00-00",
                 ArchiveCreators = new List<MetadataEntityInformationUnit>
@@ -58,7 +59,9 @@ namespace Arkivverket.Arkade.Test.Metadata
                         Size = 2325452,
                         CreationTime = new DateTime(2017, 06, 30)
                     }
-                }
+                },
+                StartDate = new DateTime(2017, 01, 01),
+                EndDate = new DateTime(2020, 01, 01),
             };
         }
 
@@ -66,6 +69,9 @@ namespace Arkivverket.Arkade.Test.Metadata
         public void ShouldCreateMetsFromMetadata()
         {
             mets mets = MetsCreator.Create(ArchiveMetadata);
+
+            mets.LABEL.Should().Be("Some system name (2017 - 2020)");
+            mets.OBJID.Should().Be("UUID:12345-12345-12345-12345-12345-12345");
 
             metsTypeMetsHdr metsHdr = mets.metsHdr;
 

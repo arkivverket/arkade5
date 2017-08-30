@@ -454,6 +454,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
             _testSession.ArchiveMetadata = new ArchiveMetadata
             {
+                Id = $"UUID:{_testSession.Archive.Uuid}",
+
                 ArchiveDescription = ArchiveMetadataMapper.MapToArchiveDescription(_metaDataArchiveDescription),
                 AgreementNumber = ArchiveMetadataMapper.MapToAgreementNumber(_metaDataArchiveDescription),
                 ArchiveCreators = ArchiveMetadataMapper.MapToArchiveCreators(_metaDataArchiveCreators.Where(c => !c.IsDeleted)),

@@ -23,6 +23,8 @@ namespace Arkivverket.Arkade.Metadata
         {
             var mets = new mets();
 
+            CreateMetsElementAttributes(mets, metadata);
+
             CreateMetsHdr(mets, metadata);
 
             CreateAmdSec(mets, metadata);
@@ -32,6 +34,13 @@ namespace Arkivverket.Arkade.Metadata
             CreateStructMap(mets, metadata);
 
             return mets;
+        }
+
+        private static void CreateMetsElementAttributes(mets mets, ArchiveMetadata metadata)
+        {
+            mets.LABEL = $"{metadata.System.Name} ({metadata.StartDate.Year} - {metadata.EndDate.Year})";
+            mets.OBJID = metadata.Id;
+            mets.PROFILE = "http://xml.ra.se/METS/RA_METS_eARD.xml";
         }
 
         private static void CreateMetsHdr(metsType mets, ArchiveMetadata metadata)
