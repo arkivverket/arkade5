@@ -1,16 +1,18 @@
 Versjonshistorikk
 =================
 
-Gjenstående funksjonalitet før release 1.0
+Versjon 0.9.0
 ------------------------------------------
+*Dato: 22.08.2017*
 
-* Metadata-registrering (flere/utvidet)
-* Noark 4 (implementere støtte for utvidet XSLT-transformasjon til ADDML)
-* Rapporter (utbedringer med tekster og sammendrag) 
-* Laste inn tar-pakke (av mappe/mappestruktur)
-* Oppdateringer av Noark 5-tester (se v. 0.6.18)
-
-
+* Lage SIP/AIP pakke uten å kjøre tester på arkivvuttrekket
+* Støtte for datatypen 'time' i ADDML
+* Støtte flere forskjellige typer poster i samme fil (tegnseparert)
+* Korrigert sjekk av fremmednøkler i Noark 4
+* Endret navn på produsert fil, info.xml skal være <UUID>.xml
+* Logg av brukerens handlinger
+* Oppdatert XSLT for transformasjon av NOARKIH til ADDML
+* Oppdatert dokumentasjon
 
 Versjon 0.7.0
 --------------
@@ -22,8 +24,6 @@ Versjon 0.7.0
 * Metadata legges i DIAS-METS.xml fil i pakke
 * Utbedret exception håndtering
 * Feilretting
-
-
 
 Versjon 0.6.41
 --------------
