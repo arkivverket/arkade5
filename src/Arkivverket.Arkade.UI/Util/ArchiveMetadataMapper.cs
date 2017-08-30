@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.UI.Models;
 
@@ -61,6 +62,16 @@ namespace Arkivverket.Arkade.UI.Util
                 archiveMetadataComments.Add(guiMetaDataModel.Comment);
 
             return archiveMetadataComments;
+        }
+
+        public static DateTime MapToStartDate(GuiMetaDataModel metaDataNoarkSection)
+        {
+            return metaDataNoarkSection.StartDate;
+        }
+
+        public static DateTime MapToEndDate(GuiMetaDataModel metaDataNoarkSection)
+        {
+            return metaDataNoarkSection.EndDate;
         }
 
         private static List<MetadataEntityInformationUnit> MapToMetadataEntityInformationUnits(

@@ -463,7 +463,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 Recipient = ArchiveMetadataMapper.MapToRecipient(_metaDataRecipient),
                 System = ArchiveMetadataMapper.MapToSystem(_metaDataSystem),
                 ArchiveSystem = ArchiveMetadataMapper.MapToArchiveSystem(_metaDataArchiveSystem),
-                Comments = ArchiveMetadataMapper.MapToComments(_metaDataComments)
+                Comments = ArchiveMetadataMapper.MapToComments(_metaDataComments),
+                StartDate = ArchiveMetadataMapper.MapToStartDate(_metaDataNoarkSection),
+                EndDate = ArchiveMetadataMapper.MapToEndDate(_metaDataNoarkSection),
             };
 
             _isRunningCreatePackage = true;
