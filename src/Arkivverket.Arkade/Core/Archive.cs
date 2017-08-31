@@ -27,6 +27,11 @@ namespace Arkivverket.Arkade.Core
             return WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
         }
 
+        public FileInfo GetStructureDescriptionFile()
+        {
+            return WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName);
+        }
+
         public string GetContentDescriptionXmlSchemaFileName()
         {
             return WorkingDirectory.Content().WithFile(ArkadeConstants.ArkivstrukturXsdFileName).FullName;
