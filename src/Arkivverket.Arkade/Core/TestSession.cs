@@ -41,5 +41,10 @@ namespace Arkivverket.Arkade.Core
         {
             return Archive.WorkingDirectory.RepositoryOperations().DirectoryInfo();
         }
+
+        public bool IsTestableArchive()
+        {
+            return AddmlDefinition != null || Archive.ArchiveType == ArchiveType.Noark5;
+        }
     }
 }

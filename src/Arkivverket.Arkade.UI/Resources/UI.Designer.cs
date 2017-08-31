@@ -232,6 +232,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last inn uttrekk.
+        /// </summary>
+        public static string LoadArchiveLoadArchiveButtonText {
+            get {
+                return ResourceManager.GetString("LoadArchiveLoadArchiveButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valgt fil.
         /// </summary>
         public static string LoadArchiveSelectedFileText {
@@ -246,15 +255,6 @@ namespace Arkivverket.Arkade.UI.Resources {
         public static string LoadArchiveSelectedFolderText {
             get {
                 return ResourceManager.GetString("LoadArchiveSelectedFolderText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last inn uttrekk.
-        /// </summary>
-        public static string LoadArchiveLoadArchiveButtonText {
-            get {
-                return ResourceManager.GetString("LoadArchiveLoadArchiveButtonText", resourceCulture);
             }
         }
         
@@ -417,6 +417,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         public static string TestName_ValidateXmlWithSchema {
             get {
                 return ResourceManager.GetString("TestName_ValidateXmlWithSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivuttrekket kan ikke testes. Finner ingen spesifikasjonsfiler for uttrekket..
+        /// </summary>
+        public static string TestrunnerArchiveNotTestable {
+            get {
+                return ResourceManager.GetString("TestrunnerArchiveNotTestable", resourceCulture);
             }
         }
         

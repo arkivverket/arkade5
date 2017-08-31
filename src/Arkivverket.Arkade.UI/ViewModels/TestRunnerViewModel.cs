@@ -177,7 +177,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private bool CanStartTestRun()
         {
-            return !_testRunHasBeenExecuted;
+            return _testSession != null && _testSession.IsTestableArchive() && !_testRunHasBeenExecuted;
         }
 
         private bool CanCreatePackage()
@@ -203,6 +203,11 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _testSession = Directory.Exists(_archiveFileName)
                 ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
                 : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
+
+            if (!_testSession.IsTestableArchive())
+                _statusEventHandler.RaiseEventOperationMessage(null, Resources.UI.TestrunnerArchiveNotTestable, OperationMessageStatus.Error);
+
+            StartTestingCommand.RaiseCanExecuteChanged(); // testSession has been updated, reevaluate command
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -258,7 +263,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             try
             {
                 NotifyStartRunningTests();
-
+                
                 _arkadeApi.RunTests(_testSession);
                 
                 _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords, _numberOfTestsFinished);

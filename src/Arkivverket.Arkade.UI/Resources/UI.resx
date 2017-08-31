@@ -239,6 +239,9 @@
   <data name="TestName_ValidateXmlWithSchema" xml:space="preserve">
     <value>Valider xml i henhold til skjema</value>
   </data>
+  <data name="TestrunnerArchiveNotTestable" xml:space="preserve">
+    <value>Arkivuttrekket kan ikke testes. Finner ingen spesifikasjonsfiler for uttrekket.</value>
+  </data>
   <data name="TestrunnerFinishedOperationMessage" xml:space="preserve">
     <value>Testingen er fullført</value>
   </data>
