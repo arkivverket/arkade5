@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml.Serialization;
@@ -20,6 +21,21 @@ namespace Arkivverket.Arkade.Metadata
 
             if (rootDirectory.Exists)
                 metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory);
+
+            if (archive.WorkingDirectory.HasExternalContentDirectory())
+            {
+                DirectoryInfo externalContentDirectory = archive.WorkingDirectory.Content().DirectoryInfo();
+
+                if (externalContentDirectory.Exists)
+                {
+                    var fileDescriptions = GetFileDescriptions(externalContentDirectory, externalContentDirectory);
+
+                    foreach (FileDescription fileDescription in fileDescriptions)
+                        fileDescription.Name = Path.Combine("content", fileDescription.Name);
+
+                    metadata.FileDescriptions.AddRange(fileDescriptions);
+                }
+            }
 
             mets mets = Create(metadata);
 
