@@ -165,25 +165,17 @@ namespace Arkivverket.Arkade.Metadata
                 if (metsEntityAgent.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL && entityInfoUnit != null)
                 {
                     if (!string.IsNullOrEmpty(metsEntityAgent.name))
-                    {
                         entityInfoUnit.ContactPerson = metsEntityAgent.name;
-                        continue;
-                    }
 
                     string phoneNumber = metsEntityAgent.note?.FirstOrDefault(LooksLikePhoneNumber);
 
                     if (!string.IsNullOrEmpty(phoneNumber))
-                    {
                         entityInfoUnit.Telephone = phoneNumber;
-                        continue;
-                    }
 
                     string emailAddress = metsEntityAgent.note?.FirstOrDefault(LooksLikeEmailAddress);
 
                     if (!string.IsNullOrEmpty(emailAddress))
-                    {
                         entityInfoUnit.Email = emailAddress;
-                    }
                 }
             }
         }
@@ -200,17 +192,18 @@ namespace Arkivverket.Arkade.Metadata
 
         private static void LoadSystem(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
         {
-            metsTypeMetsHdrAgent[] metsSystemAgents = metsHdrAgents.Where(a =>
+            metsTypeMetsHdrAgent metsSystemAgent = metsHdrAgents.FirstOrDefault(a =>
                 a.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                 a.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                 a.ROLE == metsTypeMetsHdrAgentROLE.ARCHIVIST
-            ).ToArray();
+            );
 
-            if (!metsSystemAgents.Any()) return;
+            if (metsSystemAgent == null)
+                return;
 
             var system = new MetadataSystemInformationUnit();
 
-            LoadSystemProperties(system, metsSystemAgents);
+            LoadSystemProperties(system, metsSystemAgent);
 
             if (HasData(system))
                 archiveMetadata.System = system;
@@ -218,58 +211,47 @@ namespace Arkivverket.Arkade.Metadata
 
         private static void LoadArchiveSystem(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
         {
-            metsTypeMetsHdrAgent[] metsArchiveSystemAgents = metsHdrAgents.Where(a =>
+            metsTypeMetsHdrAgent metsArchiveSystemAgent = metsHdrAgents.FirstOrDefault(a =>
                 a.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                 a.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                 a.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
                 a.OTHERROLE == metsTypeMetsHdrAgentOTHERROLE.PRODUCER
-            ).ToArray();
+            );
 
-            if (!metsArchiveSystemAgents.Any())
+            if (metsArchiveSystemAgent == null)
                 return;
 
             var archiveSystem = new MetadataSystemInformationUnit();
 
-            LoadSystemProperties(archiveSystem, metsArchiveSystemAgents);
+            LoadSystemProperties(archiveSystem, metsArchiveSystemAgent);
 
             if (HasData(archiveSystem))
                 archiveMetadata.ArchiveSystem = archiveSystem;
         }
 
         private static void LoadSystemProperties(MetadataSystemInformationUnit system,
-            metsTypeMetsHdrAgent[] metsSystemAgents)
+            metsTypeMetsHdrAgent metsSystemAgent)
         {
-            foreach (metsTypeMetsHdrAgent metsSystemAgent in metsSystemAgents)
-            {
-                if (metsSystemAgent.name != null && LooksLikeSystemName(metsSystemAgent.name))
-                {
-                    system.Name = metsSystemAgent.name;
-                    continue;
-                }
+            if (metsSystemAgent.name != null && LooksLikeSystemName(metsSystemAgent.name))
+                system.Name = metsSystemAgent.name;
 
-                string version = metsSystemAgent.note?.FirstOrDefault(LooksLikeSystemVersion);
+            string type = metsSystemAgent.note?.FirstOrDefault(LooksLikeSystemType);
 
-                if (version != null && system.Version == null) // May be TypeVersion (found after Version)
-                {
-                    system.Version = version;
-                    continue;
-                }
+            if (type != null)
+                system.Type = type;
 
-                string type = metsSystemAgent.note?.FirstOrDefault(LooksLikeSystemType);
+            // Find first occurance of a version number defined before Type. That's probably the version ...
+            string version = metsSystemAgent.note?.TakeWhile(n => !n.Equals(type))
+                .FirstOrDefault(LooksLikeSystemVersion);
 
-                if (type != null)
-                {
-                    system.Type = type;
-                    continue;
-                }
+            if (version != null)
+                system.Version = version;
 
-                string typeVersion = metsSystemAgent.note?.FirstOrDefault(LooksLikeSystemTypeVersion);
+            // Find first occurance of a version number defined after Type. That's probably the type-version ...
+            string typeVersion = metsSystemAgent.note?.SkipWhile(n => !n.Equals(type)).FirstOrDefault(LooksLikeSystemTypeVersion);
 
-                if (typeVersion != null && MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
-                {
-                    system.TypeVersion = typeVersion;
-                }
-            }
+            if (typeVersion != null && MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
+                system.TypeVersion = typeVersion;
         }
 
         private static void LoadComments(ArchiveMetadata archiveMetadata, IEnumerable<amdSecType> amdSecTypes)

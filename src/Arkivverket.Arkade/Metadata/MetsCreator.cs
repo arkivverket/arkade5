@@ -93,7 +93,7 @@ namespace Arkivverket.Arkade.Metadata
             {
                 foreach (MetadataEntityInformationUnit metadataArchiveCreator in metadata.ArchiveCreators)
                 {
-                    if (!string.IsNullOrEmpty(metadataArchiveCreator.Entity))
+                    if (HasEntity(metadataArchiveCreator))
                     {
                         metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                         {
@@ -103,33 +103,14 @@ namespace Arkivverket.Arkade.Metadata
                         });
                     }
 
-                    if (!string.IsNullOrEmpty(metadataArchiveCreator.ContactPerson))
+                    if (HasContactData(metadataArchiveCreator))
                     {
                         metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                         {
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                             ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
-                            name = metadataArchiveCreator.ContactPerson
-                        });
-                    }
-
-                    if (!string.IsNullOrEmpty(metadataArchiveCreator.Telephone))
-                    {
-                        metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                        {
-                            TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                            ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
-                            note = new[] { metadataArchiveCreator.Telephone }
-                        });
-                    }
-
-                    if (!string.IsNullOrEmpty(metadataArchiveCreator.Email))
-                    {
-                        metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                        {
-                            TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                            ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
-                            note = new[] { metadataArchiveCreator.Email }
+                            name = metadataArchiveCreator.ContactPerson,
+                            note = new[] { metadataArchiveCreator.Telephone, metadataArchiveCreator.Email }
                         });
                     }
                 }
@@ -139,7 +120,7 @@ namespace Arkivverket.Arkade.Metadata
 
             if (metadata.Transferer != null)
             {
-                if (!string.IsNullOrEmpty(metadata.Transferer.Entity))
+                if (HasEntity(metadata.Transferer))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
@@ -151,7 +132,7 @@ namespace Arkivverket.Arkade.Metadata
                     });
                 }
 
-                if (!string.IsNullOrEmpty(metadata.Transferer.ContactPerson))
+                if (HasContactData(metadata.Transferer))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
@@ -159,31 +140,8 @@ namespace Arkivverket.Arkade.Metadata
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
                         OTHERROLESpecified = true,
                         OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.SUBMITTER,
-                        name = metadata.Transferer.ContactPerson
-                    });
-                }
-
-                if (!string.IsNullOrEmpty(metadata.Transferer.Telephone))
-                {
-                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                    {
-                        TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                        OTHERROLESpecified = true,
-                        OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.SUBMITTER,
-                        note = new[] { metadata.Transferer.Telephone }
-                    });
-                }
-
-                if (!string.IsNullOrEmpty(metadata.Transferer.Email))
-                {
-                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                    {
-                        TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                        OTHERROLESpecified = true,
-                        OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.SUBMITTER,
-                        note = new[] { metadata.Transferer.Email }
+                        name = metadata.Transferer.ContactPerson,
+                        note = new[] { metadata.Transferer.Telephone, metadata.Transferer.Email }
                     });
                 }
             }
@@ -192,7 +150,7 @@ namespace Arkivverket.Arkade.Metadata
 
             if (metadata.Producer != null)
             {
-                if (!string.IsNullOrEmpty(metadata.Producer.Entity))
+                if (HasEntity(metadata.Producer))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
@@ -204,7 +162,7 @@ namespace Arkivverket.Arkade.Metadata
                     });
                 }
 
-                if (!string.IsNullOrEmpty(metadata.Producer.ContactPerson))
+                if (HasContactData(metadata.Producer))
                 {
                     metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                     {
@@ -213,30 +171,7 @@ namespace Arkivverket.Arkade.Metadata
                         OTHERROLESpecified = true,
                         OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
                         name = metadata.Producer.ContactPerson,
-                    });
-                }
-
-                if (!string.IsNullOrEmpty(metadata.Producer.Telephone))
-                {
-                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                    {
-                        TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                        OTHERROLESpecified = true,
-                        OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
-                        note = new[] { metadata.Producer.Telephone }
-                    });
-                }
-
-                if (!string.IsNullOrEmpty(metadata.Producer.Email))
-                {
-                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                    {
-                        TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                        OTHERROLESpecified = true,
-                        OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
-                        note = new[] { metadata.Producer.Email }
+                        note = new[] { metadata.Producer.Telephone, metadata.Producer.Email }
                     });
                 }
             }
@@ -247,7 +182,7 @@ namespace Arkivverket.Arkade.Metadata
             {
                 foreach (MetadataEntityInformationUnit metadataOwner in metadata.Owners)
                 {
-                    if (!string.IsNullOrEmpty(metadataOwner.Entity))
+                    if (HasEntity(metadataOwner))
                     {
                         metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                         {
@@ -257,33 +192,14 @@ namespace Arkivverket.Arkade.Metadata
                         });
                     }
 
-                    if (!string.IsNullOrEmpty(metadataOwner.ContactPerson))
+                    if (HasContactData(metadataOwner))
                     {
                         metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
                         {
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                             ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
-                            name = metadataOwner.ContactPerson
-                        });
-                    }
-
-                    if (!string.IsNullOrEmpty(metadataOwner.Telephone))
-                    {
-                        metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                        {
-                            TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                            ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
-                            note = new[] { metadataOwner.Telephone }
-                        });
-                    }
-
-                    if (!string.IsNullOrEmpty(metadataOwner.Email))
-                    {
-                        metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                        {
-                            TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
-                            ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
-                            note = new[] { metadataOwner.Email }
+                            name = metadataOwner.ContactPerson,
+                            note = new[] { metadataOwner.Telephone, metadataOwner.Email }
                         });
                     }
                 }
@@ -309,50 +225,18 @@ namespace Arkivverket.Arkade.Metadata
 
                 if (!string.IsNullOrEmpty(system.Name))
                 {
-                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    var systemAgent = new metsTypeMetsHdrAgent
                     {
                         TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
                         OTHERTYPESpecified = true,
                         OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
                         ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
                         name = system.Name
-                    });
-                }
+                    };
 
-                if (!string.IsNullOrEmpty(system.Version))
-                {
-                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                    {
-                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                        OTHERTYPESpecified = true,
-                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                        ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
-                        note = new[] { system.Version }
-                    });
-                }
+                    systemAgent.note = GetSystemPropertiesNotes(system);
 
-                if (!string.IsNullOrEmpty(system.Type) && MetsTranslationHelper.IsValidSystemType(system.Type))
-                {
-                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                    {
-                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                        OTHERTYPESpecified = true,
-                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                        ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
-                        note = new[] { system.Type }
-                    });
-                }
-
-                if (!string.IsNullOrEmpty(system.TypeVersion) && MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
-                {
-                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                    {
-                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                        OTHERTYPESpecified = true,
-                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                        ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
-                        note = new[] { system.TypeVersion }
-                    });
+                    metsTypeMetsHdrAgents.Add(systemAgent);
                 }
             }
 
@@ -364,7 +248,7 @@ namespace Arkivverket.Arkade.Metadata
 
                 if (!string.IsNullOrEmpty(archiveSystem.Name))
                 {
-                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    var archiveSystemAgent = new metsTypeMetsHdrAgent
                     {
                         TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
                         OTHERTYPESpecified = true,
@@ -373,51 +257,11 @@ namespace Arkivverket.Arkade.Metadata
                         OTHERROLESpecified = true,
                         OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
                         name = archiveSystem.Name
-                    });
-                }
+                    };
 
-                if (!string.IsNullOrEmpty(archiveSystem.Version))
-                {
-                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                    {
-                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                        OTHERTYPESpecified = true,
-                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                        OTHERROLESpecified = true,
-                        OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
-                        note = new[] { archiveSystem.Version }
-                    });
-                }
+                    archiveSystemAgent.note = GetSystemPropertiesNotes(archiveSystem);
 
-                if (!string.IsNullOrEmpty(archiveSystem.Type) &&
-                    MetsTranslationHelper.IsValidSystemType(archiveSystem.Type))
-                {
-                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                    {
-                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                        OTHERTYPESpecified = true,
-                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                        OTHERROLESpecified = true,
-                        OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
-                        note = new[] { archiveSystem.Type }
-                    });
-                }
-
-                if (!string.IsNullOrEmpty(archiveSystem.TypeVersion) &&
-                    MetsTranslationHelper.IsSystemTypeNoark5(archiveSystem.Type))
-                {
-                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
-                    {
-                        TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
-                        OTHERTYPESpecified = true,
-                        OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
-                        ROLE = metsTypeMetsHdrAgentROLE.OTHER,
-                        OTHERROLESpecified = true,
-                        OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
-                        note = new[] { archiveSystem.TypeVersion }
-                    });
+                    metsTypeMetsHdrAgents.Add(archiveSystemAgent);
                 }
             }
 
@@ -472,7 +316,8 @@ namespace Arkivverket.Arkade.Metadata
             mets.structMap = new[] { new structMapType() };
         }
 
-        protected static List<FileDescription> GetFileDescriptions(DirectoryInfo directory, DirectoryInfo pathRoot = null)
+        protected static List<FileDescription> GetFileDescriptions(DirectoryInfo directory,
+            DirectoryInfo pathRoot = null)
         {
             var fileDescriptions = new List<FileDescription>();
 
@@ -509,6 +354,42 @@ namespace Arkivverket.Arkade.Metadata
         private static string GetSha256Checksum(FileInfo file)
         {
             return new Sha256ChecksumGenerator().GenerateChecksum(file.FullName);
+        }
+
+        private static bool HasEntity(MetadataEntityInformationUnit entityInformationUnit)
+        {
+            return !string.IsNullOrEmpty(entityInformationUnit.Entity);
+        }
+
+        private static bool HasContactData(MetadataEntityInformationUnit entityInformationUnit)
+        {
+            return !string.IsNullOrEmpty(entityInformationUnit.ContactPerson) ||
+                   !string.IsNullOrEmpty(entityInformationUnit.Telephone) ||
+                   !string.IsNullOrEmpty(entityInformationUnit.Email);
+        }
+
+        private static string[] GetSystemPropertiesNotes(MetadataSystemInformationUnit system)
+        {
+            var notes = new List<string>();
+
+            if (!string.IsNullOrEmpty(system.Version))
+            {
+                notes.Add(system.Version);
+            }
+
+            if (!string.IsNullOrEmpty(system.Type) &&
+                MetsTranslationHelper.IsValidSystemType(system.Type))
+            {
+                notes.Add(system.Type);
+            }
+
+            if (!string.IsNullOrEmpty(system.TypeVersion) &&
+                MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
+            {
+                notes.Add(system.TypeVersion);
+            }
+
+            return notes.Any() ? notes.ToArray() : null;
         }
     }
 }
