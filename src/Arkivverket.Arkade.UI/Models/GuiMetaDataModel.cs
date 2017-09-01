@@ -153,9 +153,9 @@ namespace Arkivverket.Arkade.UI.Models
 
 
         private string _history;
-        private DateTime _startDate;
-        private DateTime _endDate;
-        private DateTime _extractionDate;
+        private DateTime? _startDate;
+        private DateTime? _endDate;
+        private DateTime? _extractionDate;
         private string _incommingSeparator;
         private string _outgoingSeparator;
 
@@ -167,20 +167,20 @@ namespace Arkivverket.Arkade.UI.Models
         }
 
 
-        public DateTime StartDate
+        public DateTime? StartDate
         {
             get { return _startDate; }
             set { SetProperty(ref _startDate, value); }
         }
 
 
-        public DateTime EndDate
+        public DateTime? EndDate
         {
             get { return _endDate; }
             set { SetProperty(ref _endDate, value); }
         }
 
-        public DateTime ExtractionDate
+        public DateTime? ExtractionDate
         {
             get { return _extractionDate; }
             set { SetProperty(ref _extractionDate, value); }
@@ -251,7 +251,7 @@ namespace Arkivverket.Arkade.UI.Models
         }
 
 
-        public GuiMetaDataModel(DateTime extractionDate)
+        public GuiMetaDataModel(DateTime? extractionDate)
         {
             ExtractionDate = extractionDate;
             CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);

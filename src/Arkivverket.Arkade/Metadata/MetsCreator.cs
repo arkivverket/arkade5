@@ -38,9 +38,12 @@ namespace Arkivverket.Arkade.Metadata
 
         private static void CreateMetsElementAttributes(mets mets, ArchiveMetadata metadata)
         {
-            mets.LABEL = $"{metadata.System.Name} ({metadata.StartDate.Year} - {metadata.EndDate.Year})";
             mets.OBJID = metadata.Id;
             mets.PROFILE = "http://xml.ra.se/METS/RA_METS_eARD.xml";
+            mets.LABEL = $"{metadata.System.Name}";
+
+            if (metadata.StartDate != null && metadata.EndDate != null)
+                mets.LABEL += $" ({metadata.StartDate?.Year} - {metadata.EndDate?.Year})";
         }
 
         private static void CreateMetsHdr(metsType mets, ArchiveMetadata metadata)

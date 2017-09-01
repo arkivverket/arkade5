@@ -64,12 +64,12 @@ namespace Arkivverket.Arkade.UI.Util
             return archiveMetadataComments;
         }
 
-        public static DateTime MapToStartDate(GuiMetaDataModel metaDataNoarkSection)
+        public static DateTime? MapToStartDate(GuiMetaDataModel metaDataNoarkSection)
         {
             return metaDataNoarkSection.StartDate;
         }
 
-        public static DateTime MapToEndDate(GuiMetaDataModel metaDataNoarkSection)
+        public static DateTime? MapToEndDate(GuiMetaDataModel metaDataNoarkSection)
         {
             return metaDataNoarkSection.EndDate;
         }
