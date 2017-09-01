@@ -23,6 +23,7 @@ namespace Arkivverket.Arkade.Logging
     {
         Started,
         Ok,
-        Error
+        Error,
+        Warning
     }
 }

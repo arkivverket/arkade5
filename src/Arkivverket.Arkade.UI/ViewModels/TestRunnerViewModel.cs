@@ -205,7 +205,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
 
             if (!_testSession.IsTestableArchive())
-                _statusEventHandler.RaiseEventOperationMessage(null, Resources.UI.TestrunnerArchiveNotTestable, OperationMessageStatus.Error);
+                _statusEventHandler.RaiseEventOperationMessage(null, Resources.UI.TestrunnerArchiveNotTestable, OperationMessageStatus.Warning);
 
             StartTestingCommand.RaiseCanExecuteChanged(); // testSession has been updated, reevaluate command
         }

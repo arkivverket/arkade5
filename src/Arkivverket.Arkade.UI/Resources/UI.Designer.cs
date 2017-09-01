@@ -421,7 +421,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivuttrekket kan ikke testes. Finner ingen spesifikasjonsfiler for uttrekket..
+        ///   Looks up a localized string similar to Arkivuttrekket kan ikke testes. Finner ingen spesifikasjonsfiler for uttrekket. Du kan fortsatt lage en pakke av uttrekket..
         /// </summary>
         public static string TestrunnerArchiveNotTestable {
             get {
@@ -444,6 +444,33 @@ namespace Arkivverket.Arkade.UI.Resources {
         public static string TestrunnerFinishedWithError {
             get {
                 return ResourceManager.GetString("TestrunnerFinishedWithError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feil.
+        /// </summary>
+        public static string TestrunnerMessageLabelError {
+            get {
+                return ResourceManager.GetString("TestrunnerMessageLabelError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string TestrunnerMessageLabelSuccess {
+            get {
+                return ResourceManager.GetString("TestrunnerMessageLabelSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advarsel.
+        /// </summary>
+        public static string TestrunnerMessageLabelWarning {
+            get {
+                return ResourceManager.GetString("TestrunnerMessageLabelWarning", resourceCulture);
             }
         }
     }

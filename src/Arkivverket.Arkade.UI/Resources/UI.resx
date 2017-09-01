@@ -240,12 +240,21 @@
     <value>Valider xml i henhold til skjema</value>
   </data>
   <data name="TestrunnerArchiveNotTestable" xml:space="preserve">
-    <value>Arkivuttrekket kan ikke testes. Finner ingen spesifikasjonsfiler for uttrekket.</value>
+    <value>Arkivuttrekket kan ikke testes. Finner ingen spesifikasjonsfiler for uttrekket. Du kan fortsatt lage en pakke av uttrekket.</value>
   </data>
   <data name="TestrunnerFinishedOperationMessage" xml:space="preserve">
     <value>Testingen er fullført</value>
   </data>
   <data name="TestrunnerFinishedWithError" xml:space="preserve">
     <value>Feil under testkjøring</value>
+  </data>
+  <data name="TestrunnerMessageLabelError" xml:space="preserve">
+    <value>Feil</value>
+  </data>
+  <data name="TestrunnerMessageLabelSuccess" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="TestrunnerMessageLabelWarning" xml:space="preserve">
+    <value>Advarsel</value>
   </data>
 </root>

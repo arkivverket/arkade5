@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Windows;
 using System.Windows.Media;
 using Arkivverket.Arkade.Logging;
@@ -9,9 +8,12 @@ namespace Arkivverket.Arkade.UI.Models
 {
     public class OperationMessage : BindableBase, IComparable
     {
-        private readonly SolidColorBrush _colorFailed = new SolidColorBrush(System.Windows.Media.Color.FromRgb(244, 67, 54));
-
-        private readonly SolidColorBrush _colorSuccess = new SolidColorBrush(System.Windows.Media.Color.FromRgb(76, 175, 80));
+        private static readonly SolidColorBrush ColorError = new SolidColorBrush(System.Windows.Media.Color.FromRgb(244, 67, 54));
+        private static readonly SolidColorBrush ColorWarning = new SolidColorBrush(System.Windows.Media.Color.FromRgb(33, 150, 243));
+        private static readonly SolidColorBrush ColorSuccess = new SolidColorBrush(System.Windows.Media.Color.FromRgb(76, 175, 80));
+        private const string IconError = "Alert";
+        private const string IconWarning = "InformationOutline";
+        private const string IconSuccess = "Check";
 
         private string _message;
 
@@ -81,36 +83,45 @@ namespace Arkivverket.Arkade.UI.Models
 
         public void UpdateStatus(OperationMessageStatus status)
         {
-            if (status == OperationMessageStatus.Ok || status == OperationMessageStatus.Error)
+            if (status == OperationMessageStatus.Started)
+                ShowProgressBar();
+            else
             {
-                ShowTestResults();
+                ShowMessages();
                 if (status == OperationMessageStatus.Error)
                 {
                     ShowOperationAsError();
+                }
+                else if (status == OperationMessageStatus.Warning)
+                {
+                    ShowOperationAsWarning();
                 }
                 else
                 {
                     ShowOperationAsSuccess();
                 }
             }
-            else
-            {
-                ShowProgressBar();
-            }
         }
 
         private void ShowOperationAsSuccess()
         {
-            Color = _colorSuccess;
-            Label = "OK";
-            Icon = "Check";
+            Color = ColorSuccess;
+            Label = Resources.UI.TestrunnerMessageLabelSuccess;
+            Icon = IconSuccess;
         }
 
         private void ShowOperationAsError()
         {
-            Color = _colorFailed;
-            Label = "Feil";
-            Icon = "Alert";
+            Color = ColorError;
+            Label = Resources.UI.TestrunnerMessageLabelError;
+            Icon = IconError;
+        }
+
+        private void ShowOperationAsWarning()
+        {
+            Color = ColorWarning;
+            Label = Resources.UI.TestrunnerMessageLabelWarning;
+            Icon = IconWarning;
         }
 
         private void ShowProgressBar()
@@ -119,7 +130,7 @@ namespace Arkivverket.Arkade.UI.Models
             StatusVisibility = Visibility.Collapsed;
         }
 
-        private void ShowTestResults()
+        private void ShowMessages()
         {
             StatusVisibility = Visibility.Visible;
             ProgressBarVisibility = Visibility.Collapsed;
