@@ -28,10 +28,14 @@ All kildekode og funksjonalitet i Arkade er lagt ut som åpen kildekode, så det
 Arkivverket vektlegger dessuten forvaltning og videreutvikling av programvaren. Det er allerede en løpende prosess for å legge inn mer funksjonalitet basert på registrerte ønsker under utvikling av versjon 1.0. Det vil også etableres brukerforum og tekniske støttefunksjoner, der man tidligere kanskje ikke har vært gode nok utad.
 Utvikling av Arkade 5 har krevd ett år med utvikling og testing. Prosjektet har vært styrt av Arkivverket, mens programvaren har vært utviklet eksternt av firmaet `Arkitektum AS <http://arkitektum.no>`_. Samarbeidet med Arkitektum fortsetter, men forvaltning videre vil være Arkivverkets ansvar.
 
+*"Arkade vil utgjøre en enorm tidsbesparelse ved testing av uttrekk, både for arkivskaper og depot."*
+Solveig Heløe Olsen, Rådgiver, Interkommunalt Arkiv, Troms.
+
+
 .. image:: img/arkade5-prosjektgruppe-600x327.jpg
 
 *Team Arkade, fra Arkitektum AS (A) og Arkivverket (AV): 
-Fra venstre: Jørgen Tellnes (A), Henning Jensen (A), Joachim Fugleberg (AV), Hallstein Søvik (A), Erik Aaberg (AV), Terje Pettersen Dahl (AV), Tor Oskar Ova Johansen (A), Jørgen Østengen Vik-Strandli (AV).*
+Fra venstre: Jørgen Tellnes (A), Henning Jensen (A), Joachim Fugleberg (AV), Hallstein Søvik (A), Erik Aaberg (AV), Terje Pettersen Dahl (AV), Tor Oskar Ova Johnsen (A), Jørgen Østengen Vik-Strandli (AV).*
 
 *Foto: Benjamin Dehli (A)*
 
