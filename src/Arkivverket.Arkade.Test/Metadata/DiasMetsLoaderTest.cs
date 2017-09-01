@@ -73,6 +73,9 @@ namespace Arkivverket.Arkade.Test.Metadata
             /* TODO: Enable check for comments when they are supported in built in mets schema
             archiveMetadata.Comments.Should().Contain(c => c.Equals("Some comment A") && c.Equals("Some comment B"));
             */
+
+            archiveMetadata.StartDate.Should().Be(new DateTime(2017, 01, 01));
+            archiveMetadata.EndDate.Should().Be(new DateTime(2020, 01, 01));
         }
     }
 }

@@ -367,6 +367,13 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
                 if (archiveMetadata.Comments != null && archiveMetadata.Comments.Any())
                     MetaDataComments = GuiMetadataMapper.MapToComments(archiveMetadata.Comments);
+
+                if (archiveMetadata.StartDate != null)
+                    _metaDataNoarkSection.StartDate = archiveMetadata.StartDate;
+
+                if (archiveMetadata.EndDate != null)
+                    _metaDataNoarkSection.EndDate = archiveMetadata.EndDate;
+
             }
         }
 

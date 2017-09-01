@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -79,6 +80,26 @@ namespace Arkivverket.Arkade.Metadata
                     TYPESpecified = true,
                     TYPE = metsTypeMetsHdrAltRecordIDTYPE.SUBMISSIONAGREEMENT,
                     Value = metadata.AgreementNumber
+                });
+            }
+
+            if (metadata.StartDate != null)
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPESpecified = true,
+                    TYPE = metsTypeMetsHdrAltRecordIDTYPE.STARTDATE,
+                    Value = ((DateTime) metadata.StartDate).ToShortDateString()
+                });
+            }
+
+            if (metadata.EndDate != null)
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPESpecified = true,
+                    TYPE = metsTypeMetsHdrAltRecordIDTYPE.ENDDATE,
+                    Value = ((DateTime) metadata.EndDate).ToShortDateString()
                 });
             }
 

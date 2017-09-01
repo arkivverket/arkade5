@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Arkivverket.Arkade.Core;
@@ -38,6 +39,8 @@ namespace Arkivverket.Arkade.Metadata
         {
             LoadArchiveDescription(archiveMetadata, metsHdrAltRecordIds);
             LoadAgreementNumber(archiveMetadata, metsHdrAltRecordIds);
+            LoadStartDate(archiveMetadata, metsHdrAltRecordIds);
+            LoadEndDate(archiveMetadata, metsHdrAltRecordIds);
         }
 
         private static void LoadMetsHdrAgents(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
@@ -69,6 +72,25 @@ namespace Arkivverket.Arkade.Metadata
             archiveMetadata.AgreementNumber = metsHdrAltRecordIds.FirstOrDefault(a =>
                 a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.SUBMISSIONAGREEMENT)?.Value;
         }
+
+        private static void LoadStartDate(ArchiveMetadata archiveMetadata,
+            IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
+        {
+            string dateValue = metsHdrAltRecordIds.FirstOrDefault(a =>
+                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.STARTDATE)?.Value;
+
+            archiveMetadata.StartDate = LoadDateOrNull(dateValue);
+        }
+
+        private static void LoadEndDate(ArchiveMetadata archiveMetadata,
+            IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
+        {
+            string dateValue = metsHdrAltRecordIds.FirstOrDefault(a =>
+                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.ENDDATE)?.Value;
+
+            archiveMetadata.EndDate = LoadDateOrNull(dateValue);
+        }
+
 
         private static void LoadArchiveCreators(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
         {
@@ -320,6 +342,16 @@ namespace Arkivverket.Arkade.Metadata
         private static bool HasData(object anObject)
         {
             return anObject.GetType().GetProperties().Any(p => p.GetValue(anObject) != null);
+        }
+
+        private static DateTime? LoadDateOrNull(string dateValue)
+        {
+            DateTime date;
+
+            if (DateTime.TryParse(dateValue, out date))
+                return date;
+
+            return null;
         }
     }
 }

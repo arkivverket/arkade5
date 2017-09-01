@@ -89,6 +89,20 @@ namespace Arkivverket.Arkade.Test.Metadata
                 altRecordId.Value.Equals("XX 00-0000/0000; 0000-00-00")
             );
 
+            // STARTDATE
+
+            metsHdr.altRecordID.Should().Contain(altRecordId =>
+                altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.STARTDATE &&
+                altRecordId.Value.Equals(new DateTime(2017, 01, 01).ToShortDateString())
+            );
+
+            // ENDDATE
+
+            metsHdr.altRecordID.Should().Contain(altRecordId =>
+                altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.ENDDATE &&
+                altRecordId.Value.Equals(new DateTime(2020, 01, 01).ToShortDateString())
+            );
+
             metsTypeMetsHdrAgent[] metsHdrAgents = metsHdr.agent;
 
             // ARCHIVECREATOR 1:
