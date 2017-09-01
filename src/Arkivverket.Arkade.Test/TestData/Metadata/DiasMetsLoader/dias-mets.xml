@@ -70,7 +70,7 @@
   </mets:metsHdr>
   <mets:fileSec>
     <mets:fileGrp ID="fileGroup001" USE="FILES">
-      <mets:file ID="fileId_1" MIMETYPE="application/xml" SIZE="5293" CREATED="2017-06-09T15:28:23.7917016+02:00" CHECKSUM="EF0C9DC7D73B1965DE61ABBB67C619E6D5FB3B288B23D7EDDCED8579D938273B" CHECKSUMTYPE="SHA-256" USE="Datafile">
+      <mets:file ID="fileId_1" MIMETYPE="application/xml" SIZE="5293" CREATED="2017-06-09T15:28:23.7917016+02:00" CHECKSUM="41FF0A56FD7F0848EC7AB4017828A824031E0630A8A9C51E0E00C00F21CAF1CC" CHECKSUMTYPE="SHA-256" USE="Datafile">
         <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="dias-mets.xml" />
       </mets:file>
       <mets:file ID="fileId_2" MIMETYPE="application/xml" SIZE="4330" CREATED="2017-06-29T11:25:26.2496002+02:00" CHECKSUM="285B84912A01A7534ECAE336024C107A404B9E4CFF6960734ACB4384011B7004" CHECKSUMTYPE="SHA-256" USE="Datafile">
@@ -87,5 +87,7 @@
       </mets:file>
     </mets:fileGrp>
   </mets:fileSec>
-  <mets:structMap />
+  <mets:structMap>
+    <mets:div />
+  </mets:structMap>
 </mets:mets>

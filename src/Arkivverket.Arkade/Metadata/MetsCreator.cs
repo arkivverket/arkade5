@@ -337,7 +337,7 @@ namespace Arkivverket.Arkade.Metadata
 
         private static void CreateStructMap(mets mets, ArchiveMetadata metadata)
         {
-            mets.structMap = new[] { new structMapType() };
+            mets.structMap = new[] { new structMapType { div = new divType() } };
         }
 
         protected static List<FileDescription> GetFileDescriptions(DirectoryInfo directory,
