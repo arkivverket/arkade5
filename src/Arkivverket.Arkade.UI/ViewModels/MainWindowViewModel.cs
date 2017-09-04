@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void ShowUserGuide()
         {
-            System.Diagnostics.Process.Start("http://arkade.arkitektum.no/no/latest/Brukerveiledning.html");
+            System.Diagnostics.Process.Start("http://arkade.arkivverket.no/no/latest/Brukerveiledning.html");
         }
 
 
