@@ -197,17 +197,27 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         public void OnNavigatedTo(NavigationContext context)
         {
-            _archiveType = (ArchiveType)context.Parameters["archiveType"];
-            _archiveFileName = (string)context.Parameters["archiveFileName"];
+            try
+            {
+                _archiveType = (ArchiveType) context.Parameters["archiveType"];
+                _archiveFileName = (string) context.Parameters["archiveFileName"];
 
-            _testSession = Directory.Exists(_archiveFileName)
-                ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
-                : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
+                _testSession = Directory.Exists(_archiveFileName)
+                    ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
+                    : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
 
-            if (!_testSession.IsTestableArchive())
-                _statusEventHandler.RaiseEventOperationMessage(null, Resources.UI.TestrunnerArchiveNotTestable, OperationMessageStatus.Warning);
+                if (!_testSession.IsTestableArchive())
+                    _statusEventHandler.RaiseEventOperationMessage(null, Resources.UI.TestrunnerArchiveNotTestable,
+                        OperationMessageStatus.Warning);
 
-            StartTestingCommand.RaiseCanExecuteChanged(); // testSession has been updated, reevaluate command
+                StartTestingCommand.RaiseCanExecuteChanged(); // testSession has been updated, reevaluate command
+            }
+            catch (Exception e)
+            {
+                string message = string.Format(Resources.UI.ErrorReadingArchive, e.Message);
+                Log.Error(message, e);
+                _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
+            }
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

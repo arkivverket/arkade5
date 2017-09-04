@@ -140,6 +140,9 @@
     <value>Detaljer er skrevet til {0}</value>
     <comment>{0} = filename</comment>
   </data>
+  <data name="ErrorReadingArchive" xml:space="preserve">
+    <value>Feil ved innlesing av arkiv: {0}</value>
+  </data>
   <data name="FileException_ErrorWithChosenFile" xml:space="preserve">
     <value>Det oppstod en feil med den valgte filen</value>
   </data>
