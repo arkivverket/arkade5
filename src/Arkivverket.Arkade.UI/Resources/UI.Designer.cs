@@ -124,6 +124,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to En feil har oppstått: {0}.
+        /// </summary>
+        public static string ErrorGeneral {
+            get {
+                return ResourceManager.GetString("ErrorGeneral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feil ved innlesing av arkiv: {0}.
         /// </summary>
         public static string ErrorReadingArchive {

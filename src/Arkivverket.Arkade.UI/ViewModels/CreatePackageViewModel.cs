@@ -312,23 +312,33 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         public void OnNavigatedTo(NavigationContext context)
         {
-            _testSession = (TestSession) context.Parameters["TestSession"];
+            try
+            {
+                _testSession = (TestSession) context.Parameters["TestSession"];
 
-            LoadExistingMetsFileAsArchiveMetadata();
+                LoadExistingMetsFileAsArchiveMetadata();
 
-            FileInfo predefinedMetadataFieldValuesFileInfo = GetPredefinedMetadataFieldValuesFileInfo();
+                FileInfo predefinedMetadataFieldValuesFileInfo = GetPredefinedMetadataFieldValuesFileInfo();
 
-            if (predefinedMetadataFieldValuesFileInfo.Exists)
-                LoadPredefinedMetadataFieldValues(predefinedMetadataFieldValuesFileInfo);
-            else
-                CreatePredefinedMetadataFieldValuesFile(predefinedMetadataFieldValuesFileInfo);
+                if (predefinedMetadataFieldValuesFileInfo.Exists)
+                    LoadPredefinedMetadataFieldValues(predefinedMetadataFieldValuesFileInfo);
+                else
+                    CreatePredefinedMetadataFieldValuesFile(predefinedMetadataFieldValuesFileInfo);
 
-            _populateMetadataDataModels.DatafillArchiveEntity(_metaDataEntityInformationUnits, MetaDataPreregistreredUsers);
+                _populateMetadataDataModels.DatafillArchiveEntity(_metaDataEntityInformationUnits, MetaDataPreregistreredUsers);
 
-            // Pre populate metadata objects that require at least one entry
-            RunAddMetadataAchiveCreatorEntry();
-            RunAddMetadataAchiveOwnerEntry();
-
+                // Pre populate metadata objects that require at least one entry
+                RunAddMetadataAchiveCreatorEntry();
+                RunAddMetadataAchiveOwnerEntry();
+            }
+            catch (Exception e)
+            {
+                
+                string message = string.Format(Resources.UI.ErrorGeneral, e.Message);
+                StatusMessageText = message;
+                
+                Log.Error(e, message);
+            }
         }
 
         private void LoadExistingMetsFileAsArchiveMetadata()
