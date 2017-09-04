@@ -215,7 +215,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             catch (Exception e)
             {
                 string message = string.Format(Resources.UI.ErrorReadingArchive, e.Message);
-                Log.Error(message, e);
+                Log.Error(e, message);
                 _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
             }
         }
