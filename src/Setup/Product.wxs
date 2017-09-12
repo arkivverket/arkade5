@@ -27,6 +27,8 @@
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
 
     <UIRef Id="WixUI_InstallDir" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
 <!--
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcut" Guid="*">
