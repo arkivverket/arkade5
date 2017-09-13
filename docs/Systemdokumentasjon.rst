@@ -79,6 +79,15 @@ Setup
 -----
 This is the setup project for creating installation binaries. You need the `Wix-toolset <http://wixtoolset.org/>`_ to be able to use the Setup-project. 
 
+Signing the installation file
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In order to sign the msi file, you need the **signtool.exe** on your computer. This can be installed together with the Visual Studio. The ClickOnce Publishing package contains this tools.
+
+Signing of the installation file is done by the continuous integration server. Signing is performed with a certificate provided by Arkivverket. The following command is run to sign the installation file::
+
+    "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe" sign /f PATH_TO_CERTIFICATE_FILE.pfx /p CERTIFICATE_PASSWORD src\Setup\bin\Release\Setup.msi
+
 Sample.ConsoleApp
 ------------------------------
 This is a sample application, which demonstrates the use of the Arkade API.
