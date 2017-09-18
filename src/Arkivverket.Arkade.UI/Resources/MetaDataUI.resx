@@ -236,10 +236,10 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <value>Telefon (Kontakt, Eier)</value>
   </data>
   <data name="PackageCreationErrorLogMessage" xml:space="preserve">
-    <value>Error: Could not create/overwrite package in {0}</value>
+    <value>Error: Could not create/overwrite package.</value>
   </data>
   <data name="PackageCreationErrorStatusMessage" xml:space="preserve">
-    <value>Klarte ikke opprette/overskrive pakke. Sjekk om pakkedestinasjonen er opptatt:</value>
+    <value>Klarte ikke opprette/overskrive pakke. Sjekk om pakkedestinasjonen er opptatt.</value>
   </data>
   <data name="Producer" xml:space="preserve">
     <value>Produsent</value>
@@ -257,6 +257,9 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="Recepient" xml:space="preserve">
     <value>Mottaker</value>
     <comment>Institusjonsnavn</comment>
+  </data>
+  <data name="SelectOutputDirectoryMessage" xml:space="preserve">
+    <value>Velg plassering for pakke</value>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>Startdato</value>

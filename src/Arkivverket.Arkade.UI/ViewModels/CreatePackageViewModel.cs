@@ -18,6 +18,7 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
 using System.Windows.Controls;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Arkivverket.Arkade.UI.ViewModels
 {
@@ -31,6 +32,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private string _statusMessageText;
         private string _statusMessagePath;
         private TestSession _testSession;
+        private string _archiveFileName;
         private readonly IRegionManager _regionManager;
 
         private readonly PopulateMetadataDataModels _populateMetadataDataModels = new PopulateMetadataDataModels();
@@ -315,6 +317,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             try
             {
                 _testSession = (TestSession) context.Parameters["TestSession"];
+                _archiveFileName = (string) context.Parameters["archiveFileName"];
 
                 LoadExistingMetsFileAsArchiveMetadata();
 
@@ -469,6 +472,24 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             Log.Information("User action: Create package");
 
+            string suggestedOutputDirectory = new FileInfo(_archiveFileName).DirectoryName;
+
+            var selectOutputDirectoryDialog = new CommonOpenFileDialog
+            {
+                Title = Resources.MetaDataUI.SelectOutputDirectoryMessage,
+                IsFolderPicker = true,
+                InitialDirectory = suggestedOutputDirectory,
+                DefaultFileName = suggestedOutputDirectory,
+            };
+            
+            string outputDirectory;
+
+            if (selectOutputDirectoryDialog.ShowDialog() == CommonFileDialogResult.Ok)
+                outputDirectory = selectOutputDirectoryDialog.FileName;
+            else return;
+            
+            Log.Information("User action: Choose package destination {informationPackageDestination}", outputDirectory);
+
             _testSession.ArchiveMetadata = new ArchiveMetadata
             {
                 Id = $"UUID:{_testSession.Archive.Uuid}",
@@ -495,26 +516,32 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 : PackageType.ArchivalInformationPackage;
 
             // todo must be async
-
-            string informationPackageFileName = _testSession.Archive.GetInformationPackageFileName().FullName;
-
+            
             try
             {
-                _arkadeApi.CreatePackage(_testSession, packageType);
+                string packageFilePath = _arkadeApi.CreatePackage(_testSession, packageType, outputDirectory);
+
+                string packageOutputContainer = new FileInfo(packageFilePath).DirectoryName;
+
+                string argument = "/select, \"" + packageOutputContainer + "\"";
+                System.Diagnostics.Process.Start("explorer.exe", argument);
 
                 StatusMessageText = "IP og metadata lagret i ";
-                StatusMessagePath = informationPackageFileName;
-                Log.Debug("Package created in " + informationPackageFileName);
+                StatusMessagePath = packageOutputContainer;
+                Log.Debug("Package created in " + packageOutputContainer);
 
                 _isRunningCreatePackage = false;
                 //CreatePackageCommand.RaiseCanExecuteChanged();
             }
-            catch
+            catch(IOException exception)
             {
                 StatusMessageText = Resources.MetaDataUI.PackageCreationErrorStatusMessage;
-                StatusMessagePath = informationPackageFileName;
+                Log.Debug(Resources.MetaDataUI.PackageCreationErrorLogMessage);
 
-                Log.Debug(string.Format(Resources.MetaDataUI.PackageCreationErrorLogMessage, informationPackageFileName));
+                string fileName = new DetailedExceptionMessage(exception).WriteToFile();
+
+                if (!string.IsNullOrEmpty(fileName))
+                    StatusMessagePath = string.Format(Resources.UI.DetailedErrorMessageInfo, fileName);
 
                 _isRunningCreatePackage = false;
             }

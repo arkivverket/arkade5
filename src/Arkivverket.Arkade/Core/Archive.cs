@@ -62,14 +62,9 @@ namespace Arkivverket.Arkade.Core
             return File.Exists(GetMetadataCatalogXmlSchemaFileName());
         }
 
-        public FileInfo GetInformationPackageFileName()
+        public string GetInformationPackageFileName()
         {
-            return WorkingDirectory.Root().WithFile(Uuid + ".tar");
-        }
-
-        public FileInfo GetInfoXmlFileName()
-        {
-            return WorkingDirectory.Root().WithFile(Uuid + ".xml");
+            return Uuid + ".tar";
         }
 
         public DirectoryInfo GetDocumentsDirectory()

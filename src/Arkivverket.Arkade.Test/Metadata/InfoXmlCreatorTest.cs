@@ -20,9 +20,11 @@ namespace Arkivverket.Arkade.Test.Metadata
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .Build();
 
-            new InfoXmlCreator().CreateAndSaveFile(archive, ArchiveMetadata);
+            var packageFileName = Path.Combine(workingDirectory, archive.Uuid + ".tar");
 
-            string infoXmlFilePath = archive.GetInfoXmlFileName().FullName;
+            new InfoXmlCreator().CreateAndSaveFile(archive, ArchiveMetadata, packageFileName);
+
+            string infoXmlFilePath = Path.Combine(workingDirectory, archive.Uuid + ".xml");
 
             File.Exists(infoXmlFilePath).Should().BeTrue();
         }

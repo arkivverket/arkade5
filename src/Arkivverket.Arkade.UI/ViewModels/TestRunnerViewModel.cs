@@ -172,6 +172,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add("TestSession", _testSession);
+            navigationParameters.Add("archiveFileName", _archiveFileName);
             _regionManager.RequestNavigate("MainContentRegion", "CreatePackage", navigationParameters);
         }
 

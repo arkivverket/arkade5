@@ -367,7 +367,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: Could not create/overwrite package in {0}.
+        ///   Looks up a localized string similar to Error: Could not create/overwrite package..
         /// </summary>
         public static string PackageCreationErrorLogMessage {
             get {
@@ -376,7 +376,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klarte ikke opprette/overskrive pakke. Sjekk om pakkedestinasjonen er opptatt:.
+        ///   Looks up a localized string similar to Klarte ikke opprette/overskrive pakke. Sjekk om pakkedestinasjonen er opptatt..
         /// </summary>
         public static string PackageCreationErrorStatusMessage {
             get {
@@ -426,6 +426,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         public static string Recepient {
             get {
                 return ResourceManager.GetString("Recepient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg plassering for pakke.
+        /// </summary>
+        public static string SelectOutputDirectoryMessage {
+            get {
+                return ResourceManager.GetString("SelectOutputDirectoryMessage", resourceCulture);
             }
         }
         

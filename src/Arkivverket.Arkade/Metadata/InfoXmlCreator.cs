@@ -13,28 +13,28 @@ namespace Arkivverket.Arkade.Metadata
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata)
+        public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata, string packageFileName)
         {
-            PrepareForPackageDescription(archive, metadata);
+            var packageFile = new FileInfo(packageFileName);
+
+            PrepareForPackageDescription(metadata, packageFile);
 
             mets infoXml = Create(metadata);
 
-            FileInfo targetFileName = archive.GetInfoXmlFileName();
+            FileInfo targetFileObject = PrepareTargetFileObject(archive, packageFile);
 
             XmlSerializerNamespaces namespaces = SetupNamespaces();
 
-            SerializeUtil.SerializeToFile(infoXml, targetFileName, namespaces);
+            SerializeUtil.SerializeToFile(infoXml, targetFileObject, namespaces);
 
-            Log.Information($"Created {targetFileName}");
+            Log.Information($"Created {targetFileObject}");
         }
 
-        private static void PrepareForPackageDescription(Archive archive, ArchiveMetadata metadata)
+        private static void PrepareForPackageDescription(ArchiveMetadata metadata, FileInfo packageFile)
         {
             metadata.FileDescriptions = null; // Removes any existing file-descriptions
-
-            FileInfo informationPackageFile = archive.GetInformationPackageFileName();
-
-            if (informationPackageFile.Exists)
+            
+            if (packageFile.Exists)
             {
                 var informationPackageFileIdForMets = 0;
 
@@ -42,12 +42,21 @@ namespace Arkivverket.Arkade.Metadata
                 {
                     GetFileDescription
                     (
-                        informationPackageFile,
+                        packageFile,
                         ref informationPackageFileIdForMets,
-                        informationPackageFile.Directory
+                        packageFile.Directory
                     )
                 };
             }
+        }
+
+        private static FileInfo PrepareTargetFileObject(Archive archive, FileInfo packageFile)
+        {
+            string infoXmlFileName = archive.Uuid + ".xml";
+
+            string infoXmlFullFileName = Path.Combine(packageFile.DirectoryName, infoXmlFileName);
+
+            return new FileInfo(infoXmlFullFileName);
         }
     }
 }

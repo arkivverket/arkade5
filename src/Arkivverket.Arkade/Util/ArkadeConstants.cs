@@ -32,7 +32,8 @@ namespace Arkivverket.Arkade.Util
 
         public const string DirectoryNameRepositoryOperations = "repository_operations";
         public const string DirectoryNameContent = "content";
-
+        public const string DirectoryNamePackageOutputContainer = "Arkadepakke";
+        
         public static readonly string[] DocumentDirectoryNames =
             { "DOKUMENT", "DOKUMENTER", "dokument", "dokumenter" };
 

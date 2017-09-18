@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Arkivverket.Arkade.Metadata;
 using Arkivverket.Arkade.Util;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
@@ -24,28 +25,35 @@ namespace Arkivverket.Arkade.Core
 
         /// <summary>
         /// Create SIP (Submission Information Package). 
-        /// Output file is written to Arkade's work directory for this test session
+        /// Package- and metafile are written to the given output directory
+        /// The full path of the created package is returned
         /// </summary>
-        public void CreateSip(Archive archive, string targetFileName = null)
+        public string CreateSip(Archive archive, ArchiveMetadata metadata, string outputDirectory)
         {
-            CreatePackage(PackageType.SubmissionInformationPackage, archive, targetFileName);
+            string packageFilePath = CreatePackage(PackageType.SubmissionInformationPackage, archive, metadata, outputDirectory);
+
+            return packageFilePath;
         }
 
         /// <summary>
         /// Create AIP (Archival Information Package)
-        /// Output file is written to Arkade's work directory for this test session
+        /// Package- and metafile are written to the given output directory
+        /// The full path of the created package is returned
         /// </summary>
-        public void CreateAip(Archive archive, string targetFileName = null)
+        public string CreateAip(Archive archive, ArchiveMetadata metadata, string outputDirectory)
         {
-            CreatePackage(PackageType.ArchivalInformationPackage, archive, targetFileName);
+            string packageFilePath = CreatePackage(PackageType.ArchivalInformationPackage, archive, metadata, outputDirectory);
+
+            return packageFilePath;
         }
 
-        private void CreatePackage(PackageType packageType, Archive archive, string targetFileName)
+        private string CreatePackage(PackageType packageType, Archive archive, ArchiveMetadata metadata, string outputDirectory)
         {
-            if (targetFileName == null)
-                targetFileName = archive.GetInformationPackageFileName().FullName;
+            string packageDirectory = CreatePackageDirectory(archive, outputDirectory);
 
-            Stream outStream = File.Create(targetFileName);
+            string packageFilePath = Path.Combine(packageDirectory, archive.GetInformationPackageFileName());
+
+            Stream outStream = File.Create(packageFilePath);
             TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
 
             AddFilesInDirectory(archive, archive.WorkingDirectory.Root().DirectoryInfo(), packageType, tarArchive);
@@ -58,6 +66,21 @@ namespace Arkivverket.Arkade.Core
             }
 
             tarArchive.Close();
+
+            new InfoXmlCreator().CreateAndSaveFile(archive, metadata, packageFilePath);
+
+            return packageFilePath;
+        }
+
+        private string CreatePackageDirectory(Archive archive, string outputDirectory)
+        {
+            var packageDirectory = new DirectoryInfo(
+                Path.Combine(outputDirectory, $"{ArkadeConstants.DirectoryNamePackageOutputContainer}-{archive.Uuid}")
+            );
+
+            packageDirectory.Create();
+
+            return packageDirectory.FullName;
         }
 
         private void AddFilesInDirectory(Archive archive, DirectoryInfo rootDirectory, PackageType? packageType, TarArchive tarArchive,
@@ -92,7 +115,7 @@ namespace Arkivverket.Arkade.Core
 
             foreach (FileInfo file in directory.GetFiles())
             {
-                if (file.FullName == archive.GetInformationPackageFileName().FullName) // don't try to add the tar file into the tar file...
+                if (file.Name == archive.GetInformationPackageFileName()) // don't try to add the tar file into the tar file...
                 {
                     continue;
                 }

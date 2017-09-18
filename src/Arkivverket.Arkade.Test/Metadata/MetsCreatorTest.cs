@@ -15,54 +15,7 @@ namespace Arkivverket.Arkade.Test.Metadata
 
         public MetsCreatorTest()
         {
-            ArchiveMetadata = new ArchiveMetadata
-            {
-                Id = "UUID:12345-12345-12345-12345-12345-12345",
-                ArchiveDescription = "Some archive description",
-                AgreementNumber = "XX 00-0000/0000; 0000-00-00",
-                ArchiveCreators = new List<MetadataEntityInformationUnit>
-                {
-                    CreateMetadataEntityInformationUnit('1'),
-                    CreateMetadataEntityInformationUnit('2')
-                },
-                Transferer = CreateMetadataEntityInformationUnit('3'),
-                Producer = CreateMetadataEntityInformationUnit('4'),
-                Owners = new List<MetadataEntityInformationUnit>
-                {
-                    CreateMetadataEntityInformationUnit('5'),
-                    CreateMetadataEntityInformationUnit('6')
-                },
-                Recipient = "Some recipient",
-                System = new MetadataSystemInformationUnit
-                {
-                    Name = "Some system name",
-                    Version = "v1.0.0",
-                    Type = "Noark5",
-                    TypeVersion = "v3.1"
-                },
-                ArchiveSystem = new MetadataSystemInformationUnit
-                {
-                    Name = "Some archive system name",
-                    Version = "v2.0.0",
-                    Type = "Noark4",
-                    TypeVersion = "N/A" // To be ignored by MetsCreator
-                },
-                Comments = new List<string> { "Some comment 1", "Some comment 2" },
-                FileDescriptions = new List<FileDescription>
-                {
-                    new FileDescription
-                    {
-                        Id = 1,
-                        Name = "someFileName.pdf",
-                        Extension = "pdf",
-                        Sha256Checksum = "3B29DFCC4286E50B180AF8F21904C86F8AA42A23C4055C3A71D0512F9AE3886F",
-                        Size = 2325452,
-                        CreationTime = new DateTime(2017, 06, 30)
-                    }
-                },
-                StartDate = new DateTime(2017, 01, 01),
-                EndDate = new DateTime(2020, 01, 01),
-            };
+            ArchiveMetadata = FakeArchiveMetadata();
         }
 
         [Fact]
@@ -239,6 +192,58 @@ namespace Arkivverket.Arkade.Test.Metadata
             // MISCELLANEOUS:
 
             mets.structMap.Length.Should().Be(1);
+        }
+
+        public static ArchiveMetadata FakeArchiveMetadata()
+        {
+            return new ArchiveMetadata
+            {
+                Id = "UUID:12345-12345-12345-12345-12345-12345",
+                ArchiveDescription = "Some archive description",
+                AgreementNumber = "XX 00-0000/0000; 0000-00-00",
+                ArchiveCreators = new List<MetadataEntityInformationUnit>
+                {
+                    CreateMetadataEntityInformationUnit('1'),
+                    CreateMetadataEntityInformationUnit('2')
+                },
+                Transferer = CreateMetadataEntityInformationUnit('3'),
+                Producer = CreateMetadataEntityInformationUnit('4'),
+                Owners = new List<MetadataEntityInformationUnit>
+                {
+                    CreateMetadataEntityInformationUnit('5'),
+                    CreateMetadataEntityInformationUnit('6')
+                },
+                Recipient = "Some recipient",
+                System = new MetadataSystemInformationUnit
+                {
+                    Name = "Some system name",
+                    Version = "v1.0.0",
+                    Type = "Noark5",
+                    TypeVersion = "v3.1"
+                },
+                ArchiveSystem = new MetadataSystemInformationUnit
+                {
+                    Name = "Some archive system name",
+                    Version = "v2.0.0",
+                    Type = "Noark4",
+                    TypeVersion = "N/A" // To be ignored by MetsCreator
+                },
+                Comments = new List<string> { "Some comment 1", "Some comment 2" },
+                FileDescriptions = new List<FileDescription>
+                {
+                    new FileDescription
+                    {
+                        Id = 1,
+                        Name = "someFileName.pdf",
+                        Extension = "pdf",
+                        Sha256Checksum = "3B29DFCC4286E50B180AF8F21904C86F8AA42A23C4055C3A71D0512F9AE3886F",
+                        Size = 2325452,
+                        CreationTime = new DateTime(2017, 06, 30)
+                    }
+                },
+                StartDate = new DateTime(2017, 01, 01),
+                EndDate = new DateTime(2020, 01, 01),
+            };
         }
 
         private static MetadataEntityInformationUnit CreateMetadataEntityInformationUnit(char distinctive)

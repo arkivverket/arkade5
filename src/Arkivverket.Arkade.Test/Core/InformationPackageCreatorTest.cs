@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Test.Metadata;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Tar;
 using Xunit;
@@ -15,17 +16,18 @@ namespace Arkivverket.Arkade.Test.Core
     {
         private readonly string _workingDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\TestData\\package-creation\\";
         private readonly Uuid _uuid = Uuid.Random();
+        private readonly ArchiveMetadata _archiveMetadata = MetsCreatorTest.FakeArchiveMetadata();
+        private readonly string _outputDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
         [Fact]
         [Trait("Category", "Integration")]
         public void ShouldCreateSip()
         {
             Archive archive = new ArchiveBuilder().WithUuid(_uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
-            string targetFileName = AppDomain.CurrentDomain.BaseDirectory + "\\" + _uuid + "-sip.tar";
 
-            new InformationPackageCreator().CreateSip(archive, targetFileName);
+            string packageFilePath = new InformationPackageCreator().CreateSip(archive, _archiveMetadata, _outputDirectory);
 
-            List<string> fileList = GetFileListFromArchive(targetFileName);
+            List<string> fileList = GetFileListFromArchive(packageFilePath);
 
             fileList.Count.Should().Be(8);
             fileList.Contains("content\\").Should().BeTrue();
@@ -51,11 +53,10 @@ namespace Arkivverket.Arkade.Test.Core
         {
             Uuid uuid = Uuid.Random();
             Archive archive = new ArchiveBuilder().WithUuid(uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
-            string targetFileName = AppDomain.CurrentDomain.BaseDirectory + "\\" + _uuid + "-aip.tar";
 
-            new InformationPackageCreator().CreateAip(archive, targetFileName);
+            string packageFilePath = new InformationPackageCreator().CreateAip(archive, _archiveMetadata, _outputDirectory);
 
-            List<string> fileList = GetFileListFromArchive(targetFileName);
+            List<string> fileList = GetFileListFromArchive(packageFilePath);
 
             fileList.Count.Should().Be(13);
             fileList.Contains("content\\").Should().BeTrue();

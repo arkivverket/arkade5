@@ -64,20 +64,26 @@ namespace Arkivverket.Arkade.Core
             _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession);
         }
 
-        public void CreatePackage(TestSession testSession, PackageType packageType)
+        public string CreatePackage(TestSession testSession, PackageType packageType, string outputDirectory)
         {
             _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata);
 
+            string packageFilePath;
+
             if (packageType == PackageType.SubmissionInformationPackage)
             {
-                _informationPackageCreator.CreateSip(testSession.Archive);
+                packageFilePath = _informationPackageCreator.CreateSip(
+                    testSession.Archive, testSession.ArchiveMetadata, outputDirectory
+                );
             }
-            else
+            else // ArchivalInformationPackage
             {
-                _informationPackageCreator.CreateAip(testSession.Archive);
+                packageFilePath = _informationPackageCreator.CreateAip(
+                    testSession.Archive, testSession.ArchiveMetadata, outputDirectory
+                );
             }
 
-            new InfoXmlCreator().CreateAndSaveFile(testSession.Archive, testSession.ArchiveMetadata);
+            return packageFilePath;
         }
 
         public void SaveReport(TestSession testSession, FileInfo file)
