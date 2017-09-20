@@ -518,4 +518,10 @@ Generert:  {2}</value>
   <data name="NumberOfArchivePartsMessage_ArchivepartsInArchive" xml:space="preserve">
     <value>Antall arkivdeler i arkiv (systemID) {0}: {1}</value>
   </data>
+  <data name="StatusOfArchivePartsMessage" xml:space="preserve">
+    <value>Arkivdelstatus: {0}</value>
+  </data>
+  <data name="StatusOfArchivePartsMessage_ForArchivePart" xml:space="preserve">
+    <value>Status for arkivdel (systemID) {0}: {1}</value>
+  </data>
 </root>

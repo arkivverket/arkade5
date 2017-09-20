@@ -1143,6 +1143,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkivdelstatus: {0}.
+        /// </summary>
+        internal static string StatusOfArchivePartsMessage {
+            get {
+                return ResourceManager.GetString("StatusOfArchivePartsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status for arkivdel (systemID) {0}: {1}.
+        /// </summary>
+        internal static string StatusOfArchivePartsMessage_ForArchivePart {
+            get {
+                return ResourceManager.GetString("StatusOfArchivePartsMessage_ForArchivePart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Systemidentifikasjoner.
         /// </summary>
         internal static string SystemIdUniqueControl {

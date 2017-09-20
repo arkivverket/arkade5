@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
 
@@ -9,10 +10,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// </summary>
     public class StatusOfArchiveParts : Noark5XmlReaderBaseTest
     {
-        private readonly List<ArkivdelStatus> _arkivdelStatuses = new List<ArkivdelStatus>();
-
-        private string _currentArkivdelName;
-        private string _currentArkivdelStatus;
+        private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
+        private ArchivePart _currentArchivePart;
 
         public override string GetName()
         {
@@ -24,6 +23,33 @@ namespace Arkivverket.Arkade.Tests.Noark5
             return TestType.ContentAnalysis;
         }
 
+        protected override List<TestResult> GetTestResults()
+        {
+            var testResults = new List<TestResult>();
+
+            if (_archiveParts.Count == 1)
+            {
+                string archivePartStatus = _archiveParts.FirstOrDefault()?.Status;
+
+                testResults.Add(new TestResult(ResultType.Success, new Location(""),
+                    string.Format(Noark5Messages.StatusOfArchivePartsMessage, archivePartStatus)));
+            }
+            else
+            {
+                foreach (ArchivePart archivePart in _archiveParts)
+                {
+                    testResults.Add(
+                        new TestResult(ResultType.Success, new Location(""), string.Format(
+                            Noark5Messages.StatusOfArchivePartsMessage_ForArchivePart,
+                            archivePart.SystemId,
+                            archivePart.Status
+                        )));
+                }
+            }
+
+            return testResults;
+        }
+
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
         }
@@ -32,42 +58,24 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
         }
 
+        protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+            if (eventArgs.Path.Matches("systemID", "arkivdel"))
+                _currentArchivePart = new ArchivePart {SystemId = eventArgs.Value};
+
+            if (eventArgs.Path.Matches("arkivdelstatus", "arkivdel"))
+                _currentArchivePart.Status = eventArgs.Value;
+        }
+
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.NameEquals("arkivdel"))
-            {
-                _arkivdelStatuses.Add(new ArkivdelStatus {Arkivdel = _currentArkivdelName, Status = _currentArkivdelStatus});
-
-                _currentArkivdelName = null;
-                _currentArkivdelStatus = null;
-            }
+                _archiveParts.Add(_currentArchivePart);
         }
 
-        protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
+        private class ArchivePart
         {
-            if (eventArgs.Path.Matches("tittel", "arkivdel"))
-            {
-                _currentArkivdelName = eventArgs.Value;
-            }
-            if (eventArgs.Path.Matches("arkivdelstatus", "arkivdel"))
-            {
-                _currentArkivdelStatus = eventArgs.Value;
-            }
-        }
-
-        protected override List<TestResult> GetTestResults()
-        {
-            var testResults = new List<TestResult>();
-            foreach (ArkivdelStatus arkivdelStatus in _arkivdelStatuses)
-            {
-                testResults.Add(new TestResult(ResultType.Success, new Location(""), arkivdelStatus.Arkivdel + ": " + arkivdelStatus.Status));
-            }
-            return testResults;
-        }
-
-        private class ArkivdelStatus
-        {
-            public string Arkivdel;
+            public string SystemId;
             public string Status;
         }
     }

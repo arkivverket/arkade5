@@ -9,30 +9,40 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
     public class StatusOfArchivePartsTest
     {
         [Fact]
-        public void ShouldReturnStatusOfAllArchiveParts()
+        public void ShouldFindStatusOfSingleArchivePart()
         {
-            const string title1 = "Dette er tittel 1";
-            const string status1 = "Avsluttet";
-            const string title2 = "Dette er tittel 2";
-            const string status2 = "Startet";
-
             XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
                 new XmlElementHelper()
-                    .Add("arkivdel",
-                        new XmlElementHelper()
-                            .Add("tittel", title1)
-                            .Add("arkivdelstatus", status1)
-                    )
-                    .Add("arkivdel",
-                        new XmlElementHelper()
-                            .Add("tittel", title2)
-                            .Add("arkivdelstatus", status2)
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("arkivdelstatus", "someStatus_1")
                     ));
 
             TestRun testRun = helper.RunEventsOnTest(new StatusOfArchiveParts());
 
-            testRun.Results[0].Message.Should().Contain(title1 + ": " + status1);
-            testRun.Results[1].Message.Should().Contain(title2 + ": " + status2);
+            testRun.Results.First().Message.Should().Be("Arkivdelstatus: someStatus_1");
+        }
+
+        [Fact]
+        public void ShouldFindStatusOfSeveralArchiveParts()
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("arkivdelstatus", "someStatus_1")
+                    )
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_2")
+                        .Add("arkivdelstatus", "someStatus_2")
+                    ));
+
+            TestRun testRun = helper.RunEventsOnTest(new StatusOfArchiveParts());
+
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("Status for arkivdel (systemID) someSystemId_1: someStatus_1"));
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("Status for arkivdel (systemID) someSystemId_2: someStatus_2"));
         }
     }
 }
