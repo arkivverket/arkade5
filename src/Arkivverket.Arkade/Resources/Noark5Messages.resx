@@ -524,4 +524,7 @@ Generert:  {2}</value>
   <data name="StatusOfArchivePartsMessage_ForArchivePart" xml:space="preserve">
     <value>Status for arkivdel (systemID) {0}: {1}</value>
   </data>
+  <data name="NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart" xml:space="preserve">
+    <value>Antall klassifikasjonssystemer i arkivdel (systemID) {0}: {1}</value>
+  </data>
 </root>

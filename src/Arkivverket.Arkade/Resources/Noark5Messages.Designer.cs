@@ -540,6 +540,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall klassifikasjonssystemer i arkivdel (systemID) {0}: {1}.
+        /// </summary>
+        internal static string NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart {
+            get {
+                return ResourceManager.GetString("NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall merknader.
         /// </summary>
         internal static string NumberOfComments {
