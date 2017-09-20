@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Noark5Messages {
@@ -392,6 +392,15 @@ namespace Arkivverket.Arkade.Resources {
         internal static string NumberOfArchivePartsMessage {
             get {
                 return ResourceManager.GetString("NumberOfArchivePartsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall arkivdeler i arkiv (systemID) {0}: {1}.
+        /// </summary>
+        internal static string NumberOfArchivePartsMessage_ArchivepartsInArchive {
+            get {
+                return ResourceManager.GetString("NumberOfArchivePartsMessage_ArchivepartsInArchive", resourceCulture);
             }
         }
         
