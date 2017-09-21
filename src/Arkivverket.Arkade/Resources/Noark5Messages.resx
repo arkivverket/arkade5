@@ -527,4 +527,7 @@ Generert:  {2}</value>
   <data name="NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart" xml:space="preserve">
     <value>Antall klassifikasjonssystemer i arkivdel (systemID) {0}: {1}</value>
   </data>
+  <data name="NumberOfRegistrationsWithoutDocumentDescription_ForArchivePart" xml:space="preserve">
+    <value>I arkivdel (systemID) {0}: {1}</value>
+  </data>
 </root>

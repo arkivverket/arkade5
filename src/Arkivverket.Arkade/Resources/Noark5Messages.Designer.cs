@@ -1098,6 +1098,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I arkivdel (systemID) {0}: {1}.
+        /// </summary>
+        internal static string NumberOfRegistrationsWithoutDocumentDescription_ForArchivePart {
+            get {
+                return ResourceManager.GetString("NumberOfRegistrationsWithoutDocumentDescription_ForArchivePart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall skjerminger.
         /// </summary>
         internal static string NumberOfRestrictions {
