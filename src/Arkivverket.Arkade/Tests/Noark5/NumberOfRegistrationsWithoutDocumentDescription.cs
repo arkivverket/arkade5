@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
 
@@ -12,7 +11,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
     {
         private bool _documentDescriptionIsFound;
         private readonly Dictionary<string, int> _noDocumentDescriptionCountPerArchivepart = new Dictionary<string, int>();
-        private string _currentArchivePartSystemId = "unknown";
+        private string _currentArchivePartSystemId;
         private int _totalNumberOfMissingDocumentDescriptions;
 
         public override string GetName()
