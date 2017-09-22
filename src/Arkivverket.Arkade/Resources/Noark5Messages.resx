@@ -174,10 +174,10 @@ Generert:  {2}</value>
     <value>Antall arkiv: {0}</value>
   </data>
   <data name="NumberOfCaseParts" xml:space="preserve">
-    <value>Finn antall saksparter</value>
+    <value>Antall saksparter</value>
   </data>
   <data name="NumberOfCasePartsMessage" xml:space="preserve">
-    <value>Antall saksparter:{0}</value>
+    <value>I arkivdel (systemID) {0}: {1}</value>
   </data>
   <data name="NumberOfCaseStatusesPerArchivePart" xml:space="preserve">
     <value>Saksmappenes status i arkivstrukturen</value>

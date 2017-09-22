@@ -432,7 +432,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall saksparter.
+        ///   Looks up a localized string similar to Antall saksparter.
         /// </summary>
         internal static string NumberOfCaseParts {
             get {
@@ -441,7 +441,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall saksparter:{0}.
+        ///   Looks up a localized string similar to I arkivdel (systemID) {0}: {1}.
         /// </summary>
         internal static string NumberOfCasePartsMessage {
             get {
