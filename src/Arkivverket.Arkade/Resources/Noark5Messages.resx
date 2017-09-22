@@ -219,10 +219,10 @@ Generert:  {2}</value>
     <value>Antall avskrivninger: {0}</value>
   </data>
   <data name="NumberOfDocumentDescriptions" xml:space="preserve">
-    <value>Finn antall dokumentbeskrivelser</value>
+    <value>Antall dokumentbeskrivelser</value>
   </data>
-  <data name="NumberOfDocumentDescriptionsMessage" xml:space="preserve">
-    <value>Antall dokumentbeskrivelser: {0}</value>
+  <data name="NumberOfDocumentDescriptionsPerArchivePartMessage" xml:space="preserve">
+    <value>I arkivdel (systemID) {0}: {1}</value>
   </data>
   <data name="NumberOfDocumentDescriptionsWithoutDocumentObject" xml:space="preserve">
     <value>Antall dokumentbeskrivelser uten dokumentobjekt</value>
