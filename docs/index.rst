@@ -8,7 +8,7 @@ Arkade 5 - testverktøy for arkivuttrekk
 
 Nedlasting
 --------------------------
-`Last ned siste versjon av Arkade <https://download.arkitektum.no/arkade/release/arkade5-1.0.1.msi>`_ (2017-09-04)
+`Last ned siste versjon av Arkade <https://download.arkitektum.no/arkade/release/arkade5-1.0.4.msi>`_ (2017-09-22)
 
 
 Pressemelding
