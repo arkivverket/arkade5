@@ -16,7 +16,7 @@ Versjon 1.0.1
 * Fikset feil i lenke til brukerveiledningen
 
 Versjon 1.0.0
-*************
+-------------
 *Dato: 04.09.2017*
 
 * Første versjon utgitt!
