@@ -378,6 +378,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I arkivdel (systemID) {0}: {1}.
+        /// </summary>
+        internal static string NumberOf_PerArchivePart {
+            get {
+                return ResourceManager.GetString("NumberOf_PerArchivePart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finn antall arkivdeler.
         /// </summary>
         internal static string NumberOfArchiveParts {

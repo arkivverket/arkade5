@@ -8,25 +8,52 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
     public class NumberOfDocumentDescriptionsWithoutDocumentObjectTests
     {
         [Fact]
-        public void ShouldReturnDocumentDescriptionsWithoutWithoutDocumentObject()
+        public void ShouldFindNoDocumentDescriptionWithoutDocumentObject()
         {
-            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
-                new XmlElementHelper()
-                    .Add("arkivdel",
-                        new XmlElementHelper().Add("klassifikasjonssystem",
-                            new XmlElementHelper().Add("klasse",
-                                new XmlElementHelper()
-                                    .Add("mappe",
-                                        new XmlElementHelper().Add("registrering", new XmlElementHelper().Add("dokumentbeskrivelse",
-                                                new XmlElementHelper().Add("dokumentobjekt", new XmlElementHelper().Add("versjonsnummer", "1") ))))
-                                    .Add("mappe",
-                                        new XmlElementHelper().Add("registrering",
-                                            new XmlElementHelper().Add("dokumentbeskrivelse", new XmlElementHelper().Add("systemID", "journpost56fd39c30a5373.09722056") )))))));
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv", new XmlElementHelper()
+                .Add("arkivdel", new XmlElementHelper()
+                    .Add("systemID", "someSystemId_1")
+                    .Add("klassifikasjonssystem", new XmlElementHelper()
+                        .Add("klasse", new XmlElementHelper()
+                            .Add("mappe", new XmlElementHelper()
+                                .Add("registrering", new XmlElementHelper()
+                                    .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                        .Add("dokumentobjekt", new XmlElementHelper()))))
+                            .Add("mappe", new XmlElementHelper()
+                                .Add("registrering", new XmlElementHelper()
+                                    .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                        .Add("dokumentobjekt", new XmlElementHelper()))))))));
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDocumentDescriptionsWithoutDocumentObject());
 
-            testRun.Results[0].Message.Should().Be("1");
+            testRun.Results[0].Message.Should().Be("0");
+        }
+
+        [Fact]
+        public void ShouldFindTwoDocumentDescriptionsWithoutDocumentObjectInOneOfTwoArchiveParts()
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv", new XmlElementHelper()
+                .Add("arkivdel", new XmlElementHelper()
+                    .Add("systemID", "someSystemId_1")
+                    .Add("klassifikasjonssystem", new XmlElementHelper()
+                        .Add("klasse", new XmlElementHelper()
+                            .Add("mappe", new XmlElementHelper()
+                                .Add("registrering", new XmlElementHelper()
+                                    .Add("dokumentbeskrivelse", new XmlElementHelper())
+                                    .Add("dokumentbeskrivelse", new XmlElementHelper()))))))
+                .Add("arkivdel", new XmlElementHelper()
+                    .Add("systemID", "someSystemId_2")
+                    .Add("klassifikasjonssystem", new XmlElementHelper()
+                        .Add("klasse", new XmlElementHelper()
+                            .Add("mappe", new XmlElementHelper()
+                                .Add("registrering", new XmlElementHelper()
+                                    .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                        .Add("dokumentobjekt", new XmlElementHelper()))))))));
+
+            TestRun testRun = helper.RunEventsOnTest(new NumberOfDocumentDescriptionsWithoutDocumentObject());
+
+            testRun.Results.Should().Contain(r => r.Message.Equals("2"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("I arkivdel (systemID) someSystemId_1: 2"));
         }
     }
 }
-
