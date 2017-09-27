@@ -747,7 +747,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall dokumentobjekter.
+        ///   Looks up a localized string similar to Antall dokumentobjekter.
         /// </summary>
         internal static string NumberOfDocumentObjects {
             get {
@@ -756,7 +756,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentobjekter: {0}.
+        ///   Looks up a localized string similar to I arkivdel (systemID) {0}: {1}.
         /// </summary>
         internal static string NumberOfDocumentObjectsMessage {
             get {
