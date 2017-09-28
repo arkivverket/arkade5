@@ -85,7 +85,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (IdentifiesJournalPostRegistration(eventArgs))
+            if (Noark5TestHelper.IdentifiesJournalPostRegistration(eventArgs))
                 _archiveExtractionJournalPostCount++;
         }
         
@@ -95,13 +95,6 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-        }
-
-        private static bool IdentifiesJournalPostRegistration(ReadElementEventArgs eventArgs)
-        {
-            return eventArgs.Path.Matches("registrering") &&
-                   eventArgs.Name.Equals("xsi:type") &&
-                   eventArgs.Value.Equals("journalpost");
         }
     }
 }

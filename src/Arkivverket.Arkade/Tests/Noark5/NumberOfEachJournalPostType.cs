@@ -68,7 +68,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (IdentifiesJournalPostRegistration(eventArgs))
+            if (Noark5TestHelper.IdentifiesJournalPostRegistration(eventArgs))
                 _journalPostAttributeIsFound = true;
         }
 
@@ -100,13 +100,6 @@ namespace Arkivverket.Arkade.Tests.Noark5
             _journalPostAttributeIsFound = false; // reset
             _currentJournalPostSystemId = ""; // reset
             _mainDocumentBindingIsFound = false; // reset
-        }
-
-        private static bool IdentifiesJournalPostRegistration(ReadElementEventArgs eventArgs)
-        {
-            return eventArgs.Path.Matches("registrering") &&
-                   eventArgs.Name.Equals("xsi:type") &&
-                   eventArgs.Value.Equals("journalpost");
         }
 
         internal class JournalPost

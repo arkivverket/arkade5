@@ -193,6 +193,7 @@
     <Compile Include="Tests\Noark5\DocumentFilesChecksumControl.cs" />
     <Compile Include="Tests\Noark5\DocumentfilesReferenceControl.cs" />
     <Compile Include="Tests\Noark5\FirstAndLastRegistrationCreationDates.cs" />
+    <Compile Include="Tests\Noark5\Noark5TestHelper.cs" />
     <Compile Include="Tests\Noark5\NumberOfEachCaseFolderStatus.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersPerClass.cs" />
     <Compile Include="Util\JournalGuillotine.cs" />
