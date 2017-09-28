@@ -16,8 +16,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
-                                    .Add("registrering", new XmlElementHelper()
-                                        .Add("korrespondansepart", new XmlElementHelper())))))));
+                                    .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                        new XmlElementHelper()
+                                            .Add("korrespondansepart", new XmlElementHelper())))))));
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfCorrespondenceParts());
 
@@ -33,9 +34,8 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
-                                    .Add("registrering", new XmlElementHelper()
-                                        // No correspondence part
-                                        .Add("somesubelement", "some value")))))));
+                                    .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                        new XmlElementHelper()))))));
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfCorrespondenceParts());
 
@@ -52,15 +52,17 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
-                                    .Add("registrering", new XmlElementHelper()
-                                        .Add("korrespondansepart", new XmlElementHelper()))))))
-                    .Add("arkivdel", new XmlElementHelper()
-                        .Add("systemID", "someSystemId_2")
-                        .Add("klassifikasjonssystem", new XmlElementHelper()
-                            .Add("klasse", new XmlElementHelper()
-                                .Add("mappe", new XmlElementHelper()
-                                    .Add("registrering", new XmlElementHelper()
-                                        .Add("korrespondansepart", new XmlElementHelper())))))));
+                                    .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                        new XmlElementHelper()
+                                            .Add("korrespondansepart", new XmlElementHelper())))))
+                        .Add("arkivdel", new XmlElementHelper()
+                            .Add("systemID", "someSystemId_2")
+                            .Add("klassifikasjonssystem", new XmlElementHelper()
+                                .Add("klasse", new XmlElementHelper()
+                                    .Add("mappe", new XmlElementHelper()
+                                        .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                            new XmlElementHelper()
+                                                .Add("korrespondansepart", new XmlElementHelper()))))))));
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfCorrespondenceParts());
 

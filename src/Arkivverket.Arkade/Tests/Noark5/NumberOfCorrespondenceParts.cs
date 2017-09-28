@@ -12,6 +12,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
         private int _totalNumberOfCorrespondanceParts;
         private string _currentArchivePartSystemId;
         private readonly Dictionary<string, int> _correspondancePartsPerArchivePart = new Dictionary<string, int>();
+        private bool _journalPostAttributeIsFound;
 
         public override string GetName()
         {
@@ -54,6 +55,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if (IdentifiesJournalPostRegistration(eventArgs))
+                _journalPostAttributeIsFound = true;
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
@@ -69,14 +72,26 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             if (eventArgs.NameEquals("korrespondansepart"))
             {
-                _totalNumberOfCorrespondanceParts++;
-
-                if (_correspondancePartsPerArchivePart.Count > 0)
+                if (_journalPostAttributeIsFound)
                 {
-                    if (_correspondancePartsPerArchivePart.ContainsKey(_currentArchivePartSystemId))
-                        _correspondancePartsPerArchivePart[_currentArchivePartSystemId]++;
+                    _totalNumberOfCorrespondanceParts++;
+
+                    if (_correspondancePartsPerArchivePart.Count > 0)
+                    {
+                        if (_correspondancePartsPerArchivePart.ContainsKey(_currentArchivePartSystemId))
+                            _correspondancePartsPerArchivePart[_currentArchivePartSystemId]++;
+                    }
                 }
+
+                _journalPostAttributeIsFound = false;
             }
+        }
+
+        private static bool IdentifiesJournalPostRegistration(ReadElementEventArgs eventArgs)
+        {
+            return eventArgs.Path.Matches("registrering") &&
+                   eventArgs.Name.Equals("xsi:type") &&
+                   eventArgs.Value.Equals("journalpost");
         }
     }
 }
