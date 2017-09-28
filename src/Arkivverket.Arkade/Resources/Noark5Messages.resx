@@ -204,7 +204,7 @@ Generert:  {2}</value>
     <value>Antall merknader: {0}</value>
   </data>
   <data name="NumberOfCorrespondenceParts" xml:space="preserve">
-    <value>Finn antall korrespondanseparter</value>
+    <value>Antall korrespondanseparter</value>
   </data>
   <data name="NumberOfCorrespondencePartsMessage" xml:space="preserve">
     <value>Antall korrespondanseparter: {0}</value>

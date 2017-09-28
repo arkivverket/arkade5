@@ -594,7 +594,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall korrespondanseparter.
+        ///   Looks up a localized string similar to Antall korrespondanseparter.
         /// </summary>
         internal static string NumberOfCorrespondenceParts {
             get {

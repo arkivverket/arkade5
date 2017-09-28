@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Arkivverket.Arkade.Core;
+﻿using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Tests.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -18,12 +17,11 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
                                     .Add("registrering", new XmlElementHelper()
-                                        .Add("korrespondansepart", new XmlElementHelper()
-                                            .Add("somesubelement", "some value"))))))));
+                                        .Add("korrespondansepart", new XmlElementHelper())))))));
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfCorrespondenceParts());
 
-            testRun.Results.First().Message.Should().Be("Antall korrespondanseparter: 1");
+            testRun.Results[0].Message.Should().Be("1");
         }
 
         [Fact]
@@ -41,7 +39,34 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfCorrespondenceParts());
 
-            testRun.Results.First().Message.Should().Be("Antall korrespondanseparter: 0");
+            testRun.Results[0].Message.Should().Be("0");
+        }
+
+        [Fact]
+        public void NumberOfCorrespondencePartsIsTwoOneInEachArchivePart()
+        {
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("registrering", new XmlElementHelper()
+                                        .Add("korrespondansepart", new XmlElementHelper()))))))
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_2")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("registrering", new XmlElementHelper()
+                                        .Add("korrespondansepart", new XmlElementHelper())))))));
+
+            TestRun testRun = helper.RunEventsOnTest(new NumberOfCorrespondenceParts());
+
+            testRun.Results.Should().Contain(r => r.Message.Equals("2"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("I arkivdel (systemID) someSystemId_1: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("I arkivdel (systemID) someSystemId_2: 1"));
         }
     }
 }
