@@ -1,7 +1,3 @@
-﻿using System;
-using System.IO;
-using Serilog;
-
 namespace Arkivverket.Arkade.Util
 {
     public class ArkadeConstants
@@ -30,54 +26,14 @@ namespace Arkivverket.Arkade.Util
         public const string MetadatakatalogXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.metadatakatalog.xsd";
         public const string DiasMetsXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.mets.xsd";
 
+        public const string DirectoryNameArkadeProcessingAreaRoot = "Arkade";
+        public const string DirectoryNameArkadeProcessingAreaWork = "work";
+        public const string DirectoryNameArkadeProcessingAreaLogs = "logs";
         public const string DirectoryNameRepositoryOperations = "repository_operations";
         public const string DirectoryNameContent = "content";
         public const string DirectoryNamePackageOutputContainer = "Arkadepakke";
         
         public static readonly string[] DocumentDirectoryNames =
             { "DOKUMENT", "DOKUMENTER", "dokument", "dokumenter" };
-
-        private static readonly string UserHomeDirectoryString =
-            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-
-        private static readonly string ArkadeDirectoryString = Path.Combine(UserHomeDirectoryString, "Arkade");
-        private static readonly DirectoryInfo ArkadeDirectory = new DirectoryInfo(ArkadeDirectoryString);
-
-        private static readonly string ArkadeWorkDirectoryString = Path.Combine(ArkadeDirectoryString, "work");
-        private static readonly DirectoryInfo ArkadeWorkDirectory = new DirectoryInfo(ArkadeWorkDirectoryString);
-
-        private static readonly string ArkadeLogDirectoryString = Path.Combine(ArkadeDirectoryString, "logs");
-        private static readonly DirectoryInfo ArkadeLogDirectory = new DirectoryInfo(ArkadeLogDirectoryString);
-        
-        static ArkadeConstants()
-        {
-            if (!ArkadeDirectory.Exists)
-            {
-                ArkadeDirectory.Create();
-                Log.Information("Arkade application directory created: " + ArkadeDirectory.FullName);
-            }
-
-            if (!ArkadeWorkDirectory.Exists)
-            {
-                ArkadeWorkDirectory.Create();
-                Log.Information("Arkade temp directory created: " + ArkadeWorkDirectory.FullName);
-            }
-        }
-
-
-        public static DirectoryInfo GetArkadeDirectory()
-        {
-            return ArkadeDirectory;
-        }
-
-        public static DirectoryInfo GetArkadeWorkDirectory()
-        {
-            return ArkadeWorkDirectory;
-        }
-
-        public static DirectoryInfo GetArkadeLogDirectory()
-        {
-            return ArkadeLogDirectory;
-        }
     }
 }

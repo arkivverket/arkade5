@@ -393,7 +393,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private static FileInfo GetPredefinedMetadataFieldValuesFileInfo()
         {
             string predefinedMetadataFieldValuesFileFullName = Path.Combine(
-                ArkadeConstants.GetArkadeDirectory().FullName,
+                ArkadeProcessingArea.GetRootDirectory().FullName,
                 ArkadeConstants.MetadataPredefinedFieldValuesFileName
             );
 

@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Util
 
         public static long GetAvailableDiskSpaceInBytes()
         {
-            DirectoryInfo arkadeDirectory = ArkadeConstants.GetArkadeDirectory();
+            DirectoryInfo arkadeDirectory = ArkadeProcessingArea.GetRootDirectory();
             string drive = Path.GetPathRoot(arkadeDirectory.FullName);
 
             DriveInfo[] allDrives = DriveInfo.GetDrives();
@@ -60,7 +60,7 @@ namespace Arkivverket.Arkade.Util
 
         public static long GetTotalDiskSpaceInBytes()
         {
-            DirectoryInfo arkadeDirectory = ArkadeConstants.GetArkadeDirectory();
+            DirectoryInfo arkadeDirectory = ArkadeProcessingArea.GetRootDirectory();
             string drive = Path.GetPathRoot(arkadeDirectory.FullName);
 
             DriveInfo[] allDrives = DriveInfo.GetDrives();

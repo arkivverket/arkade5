@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Test.Identify
         public void ExtractAndIdentifyTarFiles()
         {
             var uuid = Uuid.Of("c3db9d4e-720c-4f75-bfb6-de90231dc44c");
-            string pathToExtractedFilesRegex = ArkadeConstants.GetArkadeWorkDirectory().FullName +
+            string pathToExtractedFilesRegex = ArkadeProcessingArea.GetWorkDirectory().FullName +
                                                Path.DirectorySeparatorChar + "..............-" + uuid +
                                                Path.DirectorySeparatorChar + uuid;
             pathToExtractedFilesRegex = pathToExtractedFilesRegex.Replace("\\", "\\\\");

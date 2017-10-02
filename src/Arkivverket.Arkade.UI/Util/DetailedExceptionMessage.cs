@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Windows;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Util;
 using Serilog;
 
@@ -35,7 +36,7 @@ namespace Arkivverket.Arkade.UI.Util
             string timeStamp = DateTime.Now.ToString("ddMMyyHHmmss");
 
             string fileName = Path.Combine(
-                ArkadeConstants.GetArkadeLogDirectory().FullName,
+                ArkadeProcessingArea.GetLogsDirectory().FullName,
                 string.Format(Resources.UI.DetailedErrorMessageFileName, timeStamp)
             );
 
