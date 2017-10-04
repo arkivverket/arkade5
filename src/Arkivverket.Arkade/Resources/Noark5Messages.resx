@@ -530,4 +530,7 @@ Generert:  {2}</value>
   <data name="NumberOf_PerArchivePart" xml:space="preserve">
     <value>I arkivdel (systemID) {0}: {1}</value>
   </data>
+  <data name="NumberOfFoldersPerYear_ForArchivePart" xml:space="preserve">
+    <value>I arkivdel (systemID) {0} - {1}: {2}</value>
+  </data>
 </root>

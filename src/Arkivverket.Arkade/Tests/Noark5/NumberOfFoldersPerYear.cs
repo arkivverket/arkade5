@@ -11,7 +11,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// </summary>
     public class NumberOfFoldersPerYear : Noark5XmlReaderBaseTest
     {
-        private readonly Dictionary<int, int> _foldersByYear = new Dictionary<int, int>();
+        private ArchivePart _currentArchivePart;
+        private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
 
         public override string GetName()
         {
@@ -27,14 +28,24 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             var testResults = new List<TestResult>();
 
-            var foldersByYearOrdered = _foldersByYear.OrderBy(r => r.Key);
-
-            foreach (KeyValuePair<int, int> foldersAtYear in foldersByYearOrdered)
+            foreach (ArchivePart archivePart in _archiveParts)
             {
-                int year = foldersAtYear.Key;
-                int count = foldersAtYear.Value;
+                var foldersByYearOrdered = archivePart.FoldersByYear.OrderBy(r => r.Key);
 
-                testResults.Add(new TestResult(ResultType.Success, new Location(""), year + ": " + count));
+                foreach (KeyValuePair<int, int> foldersAtYear in foldersByYearOrdered)
+                {
+                    int year = foldersAtYear.Key;
+                    int count = foldersAtYear.Value;
+
+                    if (_archiveParts.Count == 1)
+                        testResults.Add(new TestResult(ResultType.Success, new Location(""), year + ": " + count));
+                    else
+                    {
+                        testResults.Add(new TestResult(ResultType.Success, new Location(""),
+                            string.Format(Noark5Messages.NumberOfFoldersPerYear_ForArchivePart, archivePart.SystemId,
+                                year, count)));
+                    }
+                }
             }
 
             return testResults;
@@ -42,15 +53,21 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (!eventArgs.Path.Matches("opprettetDato", "mappe"))
-                return;
+            if (eventArgs.Path.Matches("systemID", "arkivdel"))
+            {
+                _currentArchivePart = new ArchivePart {SystemId = eventArgs.Value};
+                _archiveParts.Add(_currentArchivePart);
+            }
 
-            int year = DateTime.Parse(eventArgs.Value).Year;
+            if (eventArgs.Path.Matches("opprettetDato", "mappe"))
+            {
+                int year = DateTime.Parse(eventArgs.Value).Year;
 
-            if (_foldersByYear.ContainsKey(year))
-                _foldersByYear[year]++;
-            else
-                _foldersByYear.Add(year, 1);
+                if (_currentArchivePart.FoldersByYear.ContainsKey(year))
+                    _currentArchivePart.FoldersByYear[year]++;
+                else
+                    _currentArchivePart.FoldersByYear.Add(year, 1);
+            }
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -63,6 +80,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
+        }
+
+        private class ArchivePart
+        {
+            public readonly Dictionary<int, int> FoldersByYear = new Dictionary<int, int>();
+            public string SystemId { get; set; }
         }
     }
 }

@@ -936,6 +936,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - {1}: {2}.
+        /// </summary>
+        internal static string NumberOfFoldersPerYear_ForArchivePart {
+            get {
+                return ResourceManager.GetString("NumberOfFoldersPerYear_ForArchivePart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall mapper uten registreringer eller undermapper.
         /// </summary>
         internal static string NumberOfFoldersWithoutRegistrationsOrSubfolders {
