@@ -146,6 +146,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MetaDataUI.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\SettingsUI.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SettingsUI.resx</DependentUpon>
+    </Compile>
     <Compile Include="Util\ArchiveMetadataMapper.cs" />
     <Compile Include="Util\Colors.cs" />
     <Compile Include="Util\DetailedExceptionMessage.cs" />
@@ -160,6 +165,7 @@
     <Compile Include="ViewModels\CreatePackageViewModel.cs" />
     <Compile Include="ViewModels\LoadArchiveExtractionViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TestRunnerViewModel.cs" />
     <Compile Include="Views\CreatePackage.xaml.cs">
       <DependentUpon>CreatePackage.xaml</DependentUpon>
@@ -169,6 +175,9 @@
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestRunner.xaml.cs">
       <DependentUpon>TestRunner.xaml</DependentUpon>
@@ -182,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -211,6 +224,11 @@
     <EmbeddedResource Include="Resources\MetaDataUI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MetaDataUI.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SettingsUI.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SettingsUI.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\UI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -37,8 +37,15 @@
             </materialDesign:ColorZone>
         </DockPanel>
 
-        <Button Command="{Binding ShowUserGuideCommand}" Content="{x:Static resources:UI.ShowUserGuideButtonText}" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="12" Height="25"></Button>
-        
+        <WrapPanel Grid.Row="0" HorizontalAlignment="Right">
+            <Button Command="{Binding ShowUserGuideCommand}" ToolTip="{x:Static resources:UI.ShowUserGuideButtonText}" Margin="2" Padding="0">
+                <materialDesign:PackIcon Kind="HelpCircleOutline" Height="22" Width="30" Margin="0"></materialDesign:PackIcon>
+            </Button>
+            <Button Command="{Binding ShowSettingsCommand}" ToolTip="Endre innstillinger" Margin="2" Padding="0">
+                <materialDesign:PackIcon Kind="Settings" Height="22" Width="30" Margin="0"></materialDesign:PackIcon>
+            </Button>
+        </WrapPanel>
+
         <!-- Main Region -->
         <ContentControl Grid.Row="1"  x:Name="MainRegion"
                             prism:RegionManager.RegionName="MainContentRegion"

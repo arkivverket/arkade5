@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
         public void ShouldParseJegerreg98ArkivuttrekkXml()
         {
             var externalContentDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\TestData\\jegerreg-98-dos\\");
-            var workingDirectory = new WorkingDirectory(ArkadeProcessingArea.GetWorkDirectory(), externalContentDirectory);
+            var workingDirectory = new WorkingDirectory(ArkadeProcessingArea.WorkDirectory, externalContentDirectory);
             AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content().WithFile("arkivuttrekk.xml").FullName);
 
             AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml, workingDirectory, new StatusEventHandler()).GetAddmlDefinition();

@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core
         {
             string dateString = DateTime.Now.ToString("yyyyMMddHHmmss");
             var rootDirectory = new DirectoryInfo(
-                ArkadeProcessingArea.GetWorkDirectory().FullName +
+                ArkadeProcessingArea.WorkDirectory.FullName +
                 Path.DirectorySeparatorChar + dateString + "-" + uuid.GetValue());
 
             var workingDirectory = new WorkingDirectory(rootDirectory, externalContentDirectory);

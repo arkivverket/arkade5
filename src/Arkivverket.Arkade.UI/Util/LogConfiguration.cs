@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.UI.Util
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .Enrich.With(new ThreadIdEnricher())
-                .WriteTo.RollingFile(ArkadeProcessingArea.GetLogsDirectory() + "\\arkade-{Date}.log",
+                .WriteTo.RollingFile(ArkadeProcessingArea.LogsDirectory + "\\arkade-{Date}.log",
                     outputTemplate: $"{Resources.UI.SerilogFormatConfig}")
                 .WriteTo.ColoredConsole(outputTemplate: $"{Resources.UI.SerilogFormatConfig}")
                 .CreateLogger();

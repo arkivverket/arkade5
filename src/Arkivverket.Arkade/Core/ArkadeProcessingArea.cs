@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Arkivverket.Arkade.Properties;
 using Arkivverket.Arkade.Util;
 using Serilog;
 
@@ -7,51 +8,73 @@ namespace Arkivverket.Arkade.Core
 {
     public static class ArkadeProcessingArea
     {
-        private static readonly DirectoryInfo RootDirectory;
-        private static readonly DirectoryInfo WorkDirectory;
-        private static readonly DirectoryInfo LogsDirectory;
+        public static readonly DirectoryInfo Location;
+
+        public static DirectoryInfo RootDirectory;
+        public static DirectoryInfo WorkDirectory;
+        public static DirectoryInfo LogsDirectory;
 
         static ArkadeProcessingArea()
         {
-            string rootDirectoryPath = Path.Combine(
-                GetRootDirectoryLocationPath(), ArkadeConstants.DirectoryNameArkadeProcessingAreaRoot
+            string locationSetting = GetLocationSetting();
+
+            if (String.IsNullOrEmpty(locationSetting))
+                SetupTemporaryLogsDirectory();
+            else
+            {
+                Location = new DirectoryInfo(locationSetting);
+                if (Location.Exists)
+                    SetupDirectories();
+            }
+        }
+
+        public static string GetLocationSetting()
+        {
+            return Settings.Default.ArkadeProcessingAreaLocation;
+        }
+
+        public static void SetLocationSetting(string location)
+        {
+            Settings.Default.ArkadeProcessingAreaLocation = location;
+            Settings.Default.Save();
+        }
+
+        private static void SetupDirectories()
+        {
+            RootDirectory = CreateDirectory(
+                Path.Combine(Location.FullName, ArkadeConstants.DirectoryNameArkadeProcessingAreaRoot)
             );
-            string workDirectoryPath = Path.Combine(
-                rootDirectoryPath, ArkadeConstants.DirectoryNameArkadeProcessingAreaWork
-            );
-            string logsDirectoryPath = Path.Combine(
-                rootDirectoryPath, ArkadeConstants.DirectoryNameArkadeProcessingAreaLogs
+
+            WorkDirectory = CreateDirectory(
+                Path.Combine(RootDirectory.FullName, ArkadeConstants.DirectoryNameArkadeProcessingAreaWork)
             );
 
-            RootDirectory = new DirectoryInfo(rootDirectoryPath);
-            WorkDirectory = new DirectoryInfo(workDirectoryPath);
-            LogsDirectory = new DirectoryInfo(logsDirectoryPath);
+            LogsDirectory = CreateDirectory(
+                Path.Combine(RootDirectory.FullName, ArkadeConstants.DirectoryNameArkadeProcessingAreaLogs)
+            );
+
+            // TODO: Remove any temporary logs
         }
 
-        public static DirectoryInfo GetRootDirectory()
+        private static void SetupTemporaryLogsDirectory()
         {
-            return RootDirectory.Exists ? RootDirectory : CreateArkadeProcessingAreaDirectory(RootDirectory);
+            string temporaryLogsDirectoryPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                ArkadeConstants.DirectoryNameTemporaryLogsLocation
+            );
+
+            LogsDirectory = new DirectoryInfo(temporaryLogsDirectoryPath);
         }
 
-        public static DirectoryInfo GetWorkDirectory()
-        {
-            return WorkDirectory.Exists ? WorkDirectory : CreateArkadeProcessingAreaDirectory(WorkDirectory);
-        }
 
-        public static DirectoryInfo GetLogsDirectory()
+        private static DirectoryInfo CreateDirectory(string directoryPath)
         {
-            return LogsDirectory.Exists ? LogsDirectory : CreateArkadeProcessingAreaDirectory(LogsDirectory);
-        }
+            var directory = new DirectoryInfo(directoryPath);
 
-        private static string GetRootDirectoryLocationPath()
-        {
-            return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        }
-
-        private static DirectoryInfo CreateArkadeProcessingAreaDirectory(DirectoryInfo directory)
-        {
             directory.Create();
-            Log.Information("Arkade processing area directory created: " + LogsDirectory.FullName);
+
+            Log.Information("Arkade processing area directory created: " + directory.FullName);
+
             return directory;
         }
     }

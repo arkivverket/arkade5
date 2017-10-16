@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Arkivverket.Arkade.UI.Properties {
+namespace Arkivverket.Arkade.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,6 +20,18 @@ namespace Arkivverket.Arkade.UI.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ArkadeProcessingAreaLocation {
+            get {
+                return ((string)(this["ArkadeProcessingAreaLocation"]));
+            }
+            set {
+                this["ArkadeProcessingAreaLocation"] = value;
             }
         }
     }

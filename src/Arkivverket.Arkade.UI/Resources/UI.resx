@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArkadeDirectoryPathInfo" xml:space="preserve">
+    <value>Arbeidsområde - {0}</value>
+  </data>
+  <data name="RestartArkadeDialogTitle" xml:space="preserve">
+    <value>Omstart av Arkade</value>
+  </data>
   <data name="CreatePackageButtonText" xml:space="preserve">
     <value>Opprett pakke</value>
   </data>
@@ -209,6 +215,9 @@
   <data name="NewProgramSessionButton" xml:space="preserve">
     <value>Ny kjøring</value>
   </data>
+  <data name="RestartArkadeForChangesToTakeEffectPrompt" xml:space="preserve">
+    <value>Arkade må startes på nytt for at endringene skal tre i kraft. Vil du starte Arkade på nytt nå?</value>
+  </data>
   <data name="SerilogFormatConfig" xml:space="preserve">
     <value>{Timestamp:yyyy-MM-ddTHH:mm:ss.fff} [{Level}] {SourceContext} {Message}{NewLine}{Exception}</value>
   </data>
@@ -262,5 +271,11 @@
   </data>
   <data name="TestrunnerMessageLabelWarning" xml:space="preserve">
     <value>Advarsel</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Lukk</value>
+  </data>
+  <data name="RestartArkadeButtonText" xml:space="preserve">
+    <value>Start Arkade på nytt</value>
   </data>
 </root>

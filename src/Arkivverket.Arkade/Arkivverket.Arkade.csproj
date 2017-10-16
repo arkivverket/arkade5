@@ -160,6 +160,7 @@
     <Compile Include="Core\ArkadeAddmlDelimiterException.cs" />
     <Compile Include="Core\ArkadeApi.cs" />
     <Compile Include="Core\ArkadeProcessingArea.cs" />
+    <Compile Include="Core\ArkadeStatus.cs" />
     <Compile Include="ExternalModels\Cpf.cs" />
     <Compile Include="ExternalModels\DiasPremis.cs" />
     <Compile Include="ExternalModels\Ead.cs" />
@@ -174,6 +175,11 @@
     <Compile Include="Metadata\MetsPartial.cs" />
     <Compile Include="Metadata\MetsTranslationHelper.cs" />
     <Compile Include="Metadata\InfoXmlCreator.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Resources\AddmlMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -380,6 +386,10 @@
     </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

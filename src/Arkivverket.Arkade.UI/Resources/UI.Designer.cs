@@ -61,6 +61,24 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arbeidsområde - {0}.
+        /// </summary>
+        public static string ArkadeDirectoryPathInfo {
+            get {
+                return ResourceManager.GetString("ArkadeDirectoryPathInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lukk.
+        /// </summary>
+        public static string CloseButtonText {
+            get {
+                return ResourceManager.GetString("CloseButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opprett pakke.
         /// </summary>
         public static string CreatePackageButtonText {
@@ -327,6 +345,33 @@ namespace Arkivverket.Arkade.UI.Resources {
         public static string NewProgramSessionButton {
             get {
                 return ResourceManager.GetString("NewProgramSessionButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Arkade på nytt.
+        /// </summary>
+        public static string RestartArkadeButtonText {
+            get {
+                return ResourceManager.GetString("RestartArkadeButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Omstart av Arkade.
+        /// </summary>
+        public static string RestartArkadeDialogTitle {
+            get {
+                return ResourceManager.GetString("RestartArkadeDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkade må startes på nytt for at endringene skal tre i kraft. Vil du starte Arkade på nytt nå?.
+        /// </summary>
+        public static string RestartArkadeForChangesToTakeEffectPrompt {
+            get {
+                return ResourceManager.GetString("RestartArkadeForChangesToTakeEffectPrompt", resourceCulture);
             }
         }
         

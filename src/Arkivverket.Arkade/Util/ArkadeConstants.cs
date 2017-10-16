@@ -29,6 +29,7 @@ namespace Arkivverket.Arkade.Util
         public const string DirectoryNameArkadeProcessingAreaRoot = "Arkade";
         public const string DirectoryNameArkadeProcessingAreaWork = "work";
         public const string DirectoryNameArkadeProcessingAreaLogs = "logs";
+        public const string DirectoryNameTemporaryLogsLocation = ".arkade-tmplogs";
         public const string DirectoryNameRepositoryOperations = "repository_operations";
         public const string DirectoryNameContent = "content";
         public const string DirectoryNamePackageOutputContainer = "Arkadepakke";

@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.UI.Util
             string timeStamp = DateTime.Now.ToString("ddMMyyHHmmss");
 
             string fileName = Path.Combine(
-                ArkadeProcessingArea.GetLogsDirectory().FullName,
+                ArkadeProcessingArea.LogsDirectory.FullName,
                 string.Format(Resources.UI.DetailedErrorMessageFileName, timeStamp)
             );
 
