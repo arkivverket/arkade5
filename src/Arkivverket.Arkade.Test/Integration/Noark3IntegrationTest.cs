@@ -9,9 +9,11 @@ namespace Arkivverket.Arkade.Test.Integration
 {
     public class Noark3IntegrationTest
     {
-        [Fact]
+        [Fact(Skip = "Needs Arkade processing area setting")]
         public void Test1()
         {
+            ArkadeProcessingArea.SetLocationSetting("..\\..\\TestData\\");
+
             ArchiveFile archive1 =
                 ArchiveFile.Read("..\\..\\TestData\\tar\\Noark3-eksempel-1\\c3db9d4e-720c-4f75-bfb6-de90231dc44c.tar", ArchiveType.Noark3);
 
