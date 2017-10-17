@@ -115,7 +115,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Du må velge et prosesseringsområde for Arkade. Klikk OK..
+        ///   Looks up a localized string similar to Vennligst velg et prosesseringsområde som er tilgjengelig for Arkade.
         /// </summary>
         public static string UndefinedArkadeProcessingAreaLocationDialogMessage {
             get {
@@ -124,7 +124,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg prosesseringsområde for Arkade.
+        ///   Looks up a localized string similar to Gyldig prosesseringsområde mangler.
         /// </summary>
         public static string UndefinedArkadeProcessingAreaLocationDialogTitle {
             get {

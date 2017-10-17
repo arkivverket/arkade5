@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private static void HandleUndefinedProcessingAreaLocation()
         {
-            if (string.IsNullOrEmpty(ArkadeProcessingArea.GetLocationSetting()))
+            if (!ArkadeProcessingArea.HasValidLocation())
             {
                 MessageBox.Show(
                     SettingsUI.UndefinedArkadeProcessingAreaLocationDialogMessage,

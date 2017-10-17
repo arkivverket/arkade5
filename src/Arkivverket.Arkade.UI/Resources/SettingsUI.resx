@@ -136,9 +136,9 @@
     <value>NB! Prosesseringsområdet vil potensielt inneholde sensitive data og store datamengder.</value>
   </data>
   <data name="UndefinedArkadeProcessingAreaLocationDialogMessage" xml:space="preserve">
-    <value>Du må velge et prosesseringsområde for Arkade. Klikk OK.</value>
+    <value>Vennligst velg et prosesseringsområde som er tilgjengelig for Arkade</value>
   </data>
   <data name="UndefinedArkadeProcessingAreaLocationDialogTitle" xml:space="preserve">
-    <value>Velg prosesseringsområde for Arkade</value>
+    <value>Gyldig prosesseringsområde mangler</value>
   </data>
 </root>

@@ -39,6 +39,11 @@ namespace Arkivverket.Arkade.Core
             Settings.Default.Save();
         }
 
+        public static bool HasValidLocation()
+        {
+            return Location != null && Location.Exists;
+        }
+
         private static void SetupDirectories()
         {
             RootDirectory = CreateDirectory(
