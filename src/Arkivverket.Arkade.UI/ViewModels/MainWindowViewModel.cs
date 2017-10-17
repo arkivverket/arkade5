@@ -33,13 +33,17 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             if (!ArkadeProcessingArea.HasValidLocation())
             {
-                MessageBox.Show(
+                DialogResult dialogResult = MessageBox.Show(
                     SettingsUI.UndefinedArkadeProcessingAreaLocationDialogMessage,
                     SettingsUI.UndefinedArkadeProcessingAreaLocationDialogTitle,
-                    MessageBoxButtons.OK
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Exclamation
                 );
 
-                ShowSettingsCommand.Execute();
+                if (dialogResult == DialogResult.OK)
+                    ShowSettingsCommand.Execute();
+                else
+                    System.Windows.Application.Current.Shutdown();
             }
         }
 
