@@ -179,6 +179,7 @@
     <Compile Include="Core\Addml\RecordTest.cs" />
     <Compile Include="Core\Addml\XmlFormatReaderTest.cs" />
     <Compile Include="Core\ArchiveBuilder.cs" />
+    <Compile Include="Core\ArkadeProcessingAreaTest.cs" />
     <Compile Include="Core\EncodingsTest.cs" />
     <Compile Include="Core\InformationPackageCreatorTest.cs" />
     <Compile Include="Core\TestRunBuilder.cs" />
