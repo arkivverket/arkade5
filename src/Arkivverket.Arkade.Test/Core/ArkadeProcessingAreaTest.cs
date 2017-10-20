@@ -25,6 +25,8 @@ namespace Arkivverket.Arkade.Test.Core
         [Fact]
         public void ProcessingAreaIsEstablishedWithInvalidLocation()
         {
+            ArkadeProcessingArea.Location = null; // To prevent disposal issues on build server ...
+
             string nonExistingLocation = Path.Combine(Environment.CurrentDirectory, "NonExistingDirectory");
 
             ArkadeProcessingArea.Establish(nonExistingLocation);
@@ -35,6 +37,8 @@ namespace Arkivverket.Arkade.Test.Core
         [Fact]
         public void ProcessingAreaIsEstablishedWithMissingLocation()
         {
+            ArkadeProcessingArea.Location = null; // To prevent disposal issues on build server ...
+
             ArkadeProcessingArea.Establish("");
 
             ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly();
