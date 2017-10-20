@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+﻿using System;
+using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml.Processes;
@@ -9,10 +11,10 @@ namespace Arkivverket.Arkade.Test.Integration
 {
     public class Noark3IntegrationTest
     {
-        [Fact(Skip = "Needs Arkade processing area setting")]
+        [Fact]
         public void Test1()
         {
-            ArkadeProcessingArea.SetLocationSetting("..\\..\\TestData\\");
+            ArkadeProcessingArea.Establish(Path.Combine(Environment.CurrentDirectory, "TestData"));
 
             ArchiveFile archive1 =
                 ArchiveFile.Read("..\\..\\TestData\\tar\\Noark3-eksempel-1\\c3db9d4e-720c-4f75-bfb6-de90231dc44c.tar", ArchiveType.Noark3);
