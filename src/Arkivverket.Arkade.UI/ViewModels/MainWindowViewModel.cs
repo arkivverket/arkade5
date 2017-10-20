@@ -1,6 +1,6 @@
 using System.Windows.Forms;
-using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.UI.Resources;
+using Arkivverket.Arkade.UI.Util;
 using Arkivverket.Arkade.UI.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         public DelegateCommand<string> NavigateCommandMain { get; set; }
         public DelegateCommand ShowUserGuideCommand { get; set; }
         public static DelegateCommand ShowSettingsCommand { get; set; }
-        public DelegateCommand HandleUndefinedProcessingAreaLocationCommand { get; }
+        public DelegateCommand ShowInvalidProcessingAreaLocationDialogCommand { get; }
 
         public MainWindowViewModel(IRegionManager regionManager)
         {
@@ -26,25 +26,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
             NavigateCommandMain = new DelegateCommand<string>(Navigate);
             ShowUserGuideCommand = new DelegateCommand(ShowUserGuide);
             ShowSettingsCommand = new DelegateCommand(ShowSettings);
-            HandleUndefinedProcessingAreaLocationCommand = new DelegateCommand(HandleUndefinedProcessingAreaLocation);
-        }
-
-        private static void HandleUndefinedProcessingAreaLocation()
-        {
-            if (!ArkadeProcessingArea.HasValidLocation())
-            {
-                DialogResult dialogResult = MessageBox.Show(
-                    SettingsUI.UndefinedArkadeProcessingAreaLocationDialogMessage,
-                    SettingsUI.UndefinedArkadeProcessingAreaLocationDialogTitle,
-                    MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Exclamation
-                );
-
-                if (dialogResult == DialogResult.OK)
-                    ShowSettingsCommand.Execute();
-                else
-                    System.Windows.Application.Current.Shutdown();
-            }
+            ShowInvalidProcessingAreaLocationDialogCommand =
+                new DelegateCommand(ShowInvalidProcessingAreaLocationDialog);
         }
 
         private void Navigate(string uri)
@@ -61,14 +44,30 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             new Settings().ShowDialog();
 
+            if (!ArkadeProcessingAreaLocationSetting.IsValid())
+                ShowInvalidProcessingAreaLocationDialog();
+            
             RestartArkadeIfNeededAndWanted();
+        }
 
-            HandleUndefinedProcessingAreaLocation();
+        private static void ShowInvalidProcessingAreaLocationDialog()
+        {
+            DialogResult dialogResult = MessageBox.Show(
+                SettingsUI.UndefinedArkadeProcessingAreaLocationDialogMessage,
+                SettingsUI.UndefinedArkadeProcessingAreaLocationDialogTitle,
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Exclamation
+            );
+
+            if (dialogResult == DialogResult.OK)
+                ShowSettingsCommand.Execute();
+            else
+                System.Windows.Application.Current.Shutdown();
         }
 
         private static void RestartArkadeIfNeededAndWanted()
         {
-            bool restartIsNeeded = ArkadeStatus.RestartIsNeeded;
+            bool restartIsNeeded = !ArkadeProcessingAreaLocationSetting.IsApplied();
 
             if (restartIsNeeded)
             {

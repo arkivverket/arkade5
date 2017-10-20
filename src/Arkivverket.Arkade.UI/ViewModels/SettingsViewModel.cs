@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         public SettingsViewModel()
         {
-            ArkadeProcessingAreaLocationSetting = ArkadeProcessingArea.GetLocationSetting(); // Why is the setting needed?
+            ArkadeProcessingAreaLocationSetting = Util.ArkadeProcessingAreaLocationSetting.Get();
             CurrentArkadeProcessingAreaLocation = ArkadeProcessingArea.Location?.FullName;
 
             ChangeArkadeProcessingAreaLocationCommand = new DelegateCommand(ChangeArkadeProcessingAreaLocation);
@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void ApplyChanges()
         {
-            ArkadeProcessingArea.SetLocationSetting(ArkadeProcessingAreaLocationSetting);
+            Util.ArkadeProcessingAreaLocationSetting.Set(ArkadeProcessingAreaLocationSetting);
         }
     }
 }

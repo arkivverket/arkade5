@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows;
+using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.UI.Properties;
 using Arkivverket.Arkade.UI.Util;
 using Arkivverket.Arkade.Util;
 using Serilog;
@@ -12,6 +14,8 @@ namespace Arkivverket.Arkade.UI
 
         public App()
         {
+            ArkadeProcessingArea.Establish(Settings.Default.ArkadeProcessingAreaLocation);
+
             LogConfiguration.ConfigureSeriLog();
             Log = Serilog.Log.ForContext<App>();
             // For some reason this will not work for exceptions thrown from inside the Views.

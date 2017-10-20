@@ -22,17 +22,5 @@ namespace Arkivverket.Arkade.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ArkadeProcessingAreaLocation {
-            get {
-                return ((string)(this["ArkadeProcessingAreaLocation"]));
-            }
-            set {
-                this["ArkadeProcessingAreaLocation"] = value;
-            }
-        }
     }
 }

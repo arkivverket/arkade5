@@ -16,7 +16,8 @@ namespace Arkivverket.Arkade.UI.Views
                 Title = string.Format(UI.Resources.UI.General_WindowTitle, ArkadeVersion.Version);
                 Loaded += (sender, e) =>
                 {
-                    ((MainWindowViewModel) DataContext).HandleUndefinedProcessingAreaLocationCommand.Execute();
+                    if (!ArkadeProcessingAreaLocationSetting.IsValid())
+                        ((MainWindowViewModel) DataContext).ShowInvalidProcessingAreaLocationDialogCommand.Execute();
                 };
             }
             catch (Exception e)

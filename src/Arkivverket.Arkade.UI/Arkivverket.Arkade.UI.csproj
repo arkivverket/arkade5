@@ -152,6 +152,7 @@
       <DependentUpon>SettingsUI.resx</DependentUpon>
     </Compile>
     <Compile Include="Util\ArchiveMetadataMapper.cs" />
+    <Compile Include="Util\ArkadeProcessingAreaLocationSetting.cs" />
     <Compile Include="Util\Colors.cs" />
     <Compile Include="Util\DetailedExceptionMessage.cs" />
     <Compile Include="Util\Extensions.cs" />

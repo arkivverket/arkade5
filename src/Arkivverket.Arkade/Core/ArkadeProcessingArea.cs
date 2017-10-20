@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Arkivverket.Arkade.Properties;
 using Arkivverket.Arkade.Util;
 using Serilog;
 
@@ -8,40 +7,33 @@ namespace Arkivverket.Arkade.Core
 {
     public static class ArkadeProcessingArea
     {
-        public static readonly DirectoryInfo Location;
+        public static DirectoryInfo Location;
 
         public static DirectoryInfo RootDirectory;
         public static DirectoryInfo WorkDirectory;
         public static DirectoryInfo LogsDirectory;
 
-        static ArkadeProcessingArea()
+        public static void Establish(string locationPath)
         {
-            string locationSetting = GetLocationSetting();
-
-            if (String.IsNullOrEmpty(locationSetting))
-                SetupTemporaryLogsDirectory();
-            else
+            try
             {
-                Location = new DirectoryInfo(locationSetting);
-                if (Location.Exists)
-                    SetupDirectories();
+                SetupLocation(locationPath);
+                SetupDirectories();
+            }
+            catch
+            {
+                SetupTemporaryLogsDirectory();
             }
         }
 
-        public static string GetLocationSetting()
+        private static void SetupLocation(string locationPath)
         {
-            return Settings.Default.ArkadeProcessingAreaLocation;
-        }
+            var location = new DirectoryInfo(locationPath);
 
-        public static void SetLocationSetting(string location)
-        {
-            Settings.Default.ArkadeProcessingAreaLocation = location;
-            Settings.Default.Save();
-        }
+            if (!location.Exists)
+                throw new IOException("Non existing path");
 
-        public static bool HasValidLocation()
-        {
-            return Location != null && Location.Exists;
+            Location = location;
         }
 
         private static void SetupDirectories()
