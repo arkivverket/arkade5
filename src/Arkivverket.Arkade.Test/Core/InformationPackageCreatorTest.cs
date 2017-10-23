@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Test.Core
 
         [Fact]
         [Trait("Category", "Integration")]
-        public void ShouldCreateSip()
+        public void ShouldCreateSip() // TODO: Remove the created packages
         {
             Archive archive = new ArchiveBuilder().WithUuid(_uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
 
@@ -49,7 +49,7 @@ namespace Arkivverket.Arkade.Test.Core
 
         [Fact]
         [Trait("Category", "Integration")]
-        public void ShouldCreateAip()
+        public void ShouldCreateAip() // TODO: Remove the created packages
         {
             Uuid uuid = Uuid.Random();
             Archive archive = new ArchiveBuilder().WithUuid(uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
