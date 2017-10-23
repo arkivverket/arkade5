@@ -26,6 +26,11 @@ namespace Arkivverket.Arkade.Core
             }
         }
 
+        public static void CleanUp()
+        {
+            WorkDirectory?.Delete(true);
+        }
+
         private static void SetupLocation(string locationPath)
         {
             var location = new DirectoryInfo(locationPath);
