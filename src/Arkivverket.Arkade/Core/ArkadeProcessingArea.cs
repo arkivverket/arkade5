@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
+using System.Text.RegularExpressions;
 using Arkivverket.Arkade.Util;
 using Serilog;
 
@@ -29,6 +31,8 @@ namespace Arkivverket.Arkade.Core
         public static void CleanUp()
         {
             WorkDirectory?.Delete(true);
+
+            DeleteOldLogs();
         }
 
         private static void SetupLocation(string locationPath)
@@ -78,6 +82,21 @@ namespace Arkivverket.Arkade.Core
             Log.Information("Arkade processing area directory created: " + directory.FullName);
 
             return directory;
+        }
+
+        private static void DeleteOldLogs()
+        {
+            foreach (FileInfo logFile in LogsDirectory.GetFiles())
+                if (IsOldLog(logFile))
+                    logFile.Delete();
+        }
+
+        private static bool IsOldLog(FileSystemInfo logFile)
+        {
+            string dateString = Regex.Match(logFile.Name, @"^arkade-(?<date>\d{8}).log$").Groups["date"].Value;
+            DateTime logDate = DateTime.ParseExact(dateString, "yyyyMMdd", CultureInfo.InvariantCulture);
+
+            return logDate.AddDays(7) < DateTime.Now; // The log is more than 7 days old
         }
     }
 }
