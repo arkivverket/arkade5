@@ -59,27 +59,26 @@ namespace Arkivverket.Arkade.Core
                 Path.Combine(RootDirectory.FullName, ArkadeConstants.DirectoryNameArkadeProcessingAreaLogs)
             );
 
-            // TODO: Remove any temporary logs
+            Directory.Delete(GetTemporaryLogsDirectoryPath(), true); // Deletes any temporary logs
         }
 
         private static void SetupTemporaryLogsDirectory()
         {
-            string temporaryLogsDirectoryPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                ArkadeConstants.DirectoryNameTemporaryLogsLocation
-            );
+            string directoryPath = GetTemporaryLogsDirectoryPath();
+            const string logMessage = "Temporary system logs directory created: ";
 
-            LogsDirectory = new DirectoryInfo(temporaryLogsDirectoryPath);
+            LogsDirectory = CreateDirectory(directoryPath, logMessage);
         }
 
-
-        private static DirectoryInfo CreateDirectory(string directoryPath)
+        private static DirectoryInfo CreateDirectory(string directoryPath, string customLogMessage = null)
         {
             var directory = new DirectoryInfo(directoryPath);
 
             directory.Create();
 
-            Log.Information("Arkade processing area directory created: " + directory.FullName);
+            const string defaultLogMessage = "Arkade processing area directory created: ";
+            
+            Log.Information((customLogMessage ?? defaultLogMessage) + directory.FullName);
 
             return directory;
         }
@@ -101,6 +100,14 @@ namespace Arkivverket.Arkade.Core
             DateTime logDate = DateTime.ParseExact(dateString, "yyyyMMdd", CultureInfo.InvariantCulture);
 
             return logDate.AddDays(7) < DateTime.Now; // The log is more than 7 days old
+        }
+
+        private static string GetTemporaryLogsDirectoryPath()
+        {
+            return Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                ArkadeConstants.DirectoryNameTemporaryLogsLocation
+            );
         }
     }
 }
