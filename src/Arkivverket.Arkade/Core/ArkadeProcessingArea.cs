@@ -93,7 +93,11 @@ namespace Arkivverket.Arkade.Core
 
         private static bool IsOldLog(FileSystemInfo logFile)
         {
-            string dateString = Regex.Match(logFile.Name, @"^arkade-(?<date>\d{8}).log$").Groups["date"].Value;
+            // Extracts date from either arkade-20171024.log or arkade-error-20171024091500.log
+            const string dateCaptureRegexPattern = @"^arkade(-error)?-(?<date>\d{8})(\d{6})?\.log$";
+
+            string dateString = Regex.Match(logFile.Name, dateCaptureRegexPattern).Groups["date"].Value;
+
             DateTime logDate = DateTime.ParseExact(dateString, "yyyyMMdd", CultureInfo.InvariantCulture);
 
             return logDate.AddDays(7) < DateTime.Now; // The log is more than 7 days old
