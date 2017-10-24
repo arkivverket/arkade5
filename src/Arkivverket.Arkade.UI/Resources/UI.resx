@@ -139,7 +139,7 @@
     <value>Registrer metadata og opprett pakke</value>
   </data>
   <data name="DetailedErrorMessageFileName" xml:space="preserve">
-    <value>arkade-feil-{0}.txt</value>
+    <value>arkade-error-{0}.log</value>
     <comment>{0} = timestamp/identifier</comment>
   </data>
   <data name="DetailedErrorMessageInfo" xml:space="preserve">

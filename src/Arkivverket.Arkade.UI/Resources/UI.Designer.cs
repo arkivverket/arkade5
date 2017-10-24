@@ -124,7 +124,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to arkade-feil-{0}.txt.
+        ///   Looks up a localized string similar to arkade-error-{0}.log.
         /// </summary>
         public static string DetailedErrorMessageFileName {
             get {

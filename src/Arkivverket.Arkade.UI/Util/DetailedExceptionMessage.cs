@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.UI.Util
 
         public string WriteToFile()
         {
-            string timeStamp = DateTime.Now.ToString("ddMMyyHHmmss");
+            string timeStamp = DateTime.Now.ToString("yyyyMMddHHmmss");
 
             string fileName = Path.Combine(
                 ArkadeProcessingArea.LogsDirectory.FullName,
