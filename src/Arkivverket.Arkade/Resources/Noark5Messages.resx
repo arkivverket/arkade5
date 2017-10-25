@@ -533,4 +533,7 @@ Generert:  {2}</value>
   <data name="NumberOfFoldersPerYear_ForArchivePart" xml:space="preserve">
     <value>I arkivdel (systemID) {0} - {1}: {2}</value>
   </data>
+  <data name="CouldNotReadFromFiles" xml:space="preserve">
+    <value>Kunne ikke lese fra en eller flere filer</value>
+  </data>
 </root>

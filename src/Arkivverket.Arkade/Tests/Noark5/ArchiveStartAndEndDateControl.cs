@@ -18,17 +18,16 @@ namespace Arkivverket.Arkade.Tests.Noark5
         private readonly SortedSet<DateTime> _registrationCreationDates;
         private readonly JournalHead _headPublicJournal;
         private readonly JournalHead _headRunningJournal;
-        private readonly addml _archiveExtraction;
-        private static List<string> _filesNotFound;
+        private readonly bool _periodSeparationIsSharp;
 
         public ArchiveStartAndEndDateControl(Archive archive)
         {
             _registrationCreationDates = new SortedSet<DateTime>();
+            
+            _headPublicJournal = Noark5TestHelper.GetJournalHead(ArkadeConstants.PublicJournalXmlFileName, archive);
+            _headRunningJournal = Noark5TestHelper.GetJournalHead(ArkadeConstants.RunningJournalXmlFileName, archive);
 
-            _filesNotFound = new List<string>();
-            _headPublicJournal = GetJournalHead(ArkadeConstants.PublicJournalXmlFileName, archive);
-            _headRunningJournal = GetJournalHead(ArkadeConstants.RunningJournalXmlFileName, archive);
-            _archiveExtraction = GetAddmlObject(ArkadeConstants.ArkivuttrekkXmlFileName, archive);
+            _periodSeparationIsSharp = Noark5TestHelper.PeriodSeparationIsSharp(archive);
         }
 
         public override string GetName()
@@ -45,15 +44,15 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             var testResults = new List<TestResult>();
 
-            if (_filesNotFound.Any())
+            if (_headPublicJournal == null || _headRunningJournal == null)
             {
-                foreach (var fileNotFound in _filesNotFound)
-                    testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
-                        string.Format(Noark5Messages.FileNotFound, fileNotFound)));
+                testResults.Add(new TestResult(
+                    ResultType.Error, new Location(string.Empty), Noark5Messages.CouldNotReadFromFiles)
+                );
 
                 return testResults;
             }
-
+    
             var archiveDates = new StartAndEndDate(
                 _registrationCreationDates.First(),
                 _registrationCreationDates.Last()
@@ -87,8 +86,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 testResults.Add(new TestResult(ResultType.Error, new Location(""),
                     Noark5Messages.ArchiveStartAndEndDateControlMessage_UnEqualJournalDates));
 
-            if (PeriodSeparationIsSharp() &&
-                !StartAndEndDate.Equals(archiveDates, publicJournalDates, runningJournalDates))
+            
+            if (_periodSeparationIsSharp && !StartAndEndDate.Equals(archiveDates, publicJournalDates, runningJournalDates))
                 testResults.Add(new TestResult(ResultType.Error, new Location(""),
                     Noark5Messages.ArchiveStartAndEndDateControlMessage_UnEqualJournalAndArchiveDates));
 
@@ -118,52 +117,6 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-        }
-
-        private bool PeriodSeparationIsSharp()
-        {
-            dataObject archiveExtractionElement = _archiveExtraction.dataset[0].dataObjects.dataObject[0];
-            property infoElement = archiveExtractionElement.properties[0];
-            property additionalInfoElement = infoElement.properties[1];
-            property periodProperty =
-                additionalInfoElement.properties.FirstOrDefault(p => p.name == "periode");
-
-            property inboundSeparation = periodProperty.properties[0];
-            property outboundSeparation = periodProperty.properties[1];
-
-            return inboundSeparation.value.Equals("skarp") && outboundSeparation.value.Equals("skarp");
-        }
-
-        private static JournalHead GetJournalHead(string journalXmlFileName, Archive archive)
-        {
-            string journalXmlFile = archive.WorkingDirectory.Content().WithFile(journalXmlFileName).FullName;
-
-            try
-            {
-                return JournalGuillotine.Behead(journalXmlFile);
-            }
-            catch
-            {
-                _filesNotFound.Add(journalXmlFileName);
-                return null;
-            }
-            // TODO: Check for file existance to distinguish file not found error from deserialize error
-        }
-
-        private static addml GetAddmlObject(string addmlXmlFileName, Archive archive)
-        {
-            string addmlXmlFile = archive.WorkingDirectory.Content().WithFile(addmlXmlFileName).FullName;
-
-            try
-            {
-                return SerializeUtil.DeserializeFromFile<addml>(addmlXmlFile);
-            }
-            catch (Exception)
-            {
-                _filesNotFound.Add(addmlXmlFileName);
-                return null;
-            }
-            // TODO: Check for file existance to distinguish file not found error from deserialize error
         }
 
         private class StartAndEndDate

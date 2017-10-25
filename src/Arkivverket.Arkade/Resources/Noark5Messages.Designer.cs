@@ -250,6 +250,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kunne ikke lese fra en eller flere filer.
+        /// </summary>
+        internal static string CouldNotReadFromFiles {
+            get {
+                return ResourceManager.GetString("CouldNotReadFromFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opprettelsesdatoer for første og siste registrering.
         /// </summary>
         internal static string DatesFirstAndLastRegistration {
