@@ -8,42 +8,46 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
     public class FirstAndLastRegistrationCreationDatesTest
     {
         [Fact]
-        public void ShouldFindValidAndInvalidCreationDates()
+        public void ShouldFindValidAndInvalidCreationDatesInDifferentArchiveParts()
         {
-            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
-                new XmlElementHelper()
-                    .Add("arkivdel",
-                        new XmlElementHelper().Add("klassifikasjonssystem",
-                            new XmlElementHelper().Add("klasse",
-                                new XmlElementHelper()
-                                    .Add("mappe",
-                                        new XmlElementHelper().Add("registrering",
-                                            // Invalid format:
-                                            new XmlElementHelper().Add("opprettetDato", " -- invalid format -- ")))
-                                    .Add("mappe",
-                                        new XmlElementHelper().Add("registrering",
-                                            // First (valid) date:
-                                            new XmlElementHelper().Add("opprettetDato", "1863-10-18T00:00:00Z"))))))
-                    .Add("arkivdel",
-                        new XmlElementHelper().Add("klassifikasjonssystem",
-                            new XmlElementHelper().Add("klasse",
-                                new XmlElementHelper().Add("klasse",
-                                    new XmlElementHelper()
-                                        .Add("mappe",
-                                            new XmlElementHelper().Add("registrering",
-                                                new XmlElementHelper().Add("opprettetDato", "1864-10-18T00:00:00Z")))
-                                        .Add("mappe",
-                                            new XmlElementHelper().Add("registrering",
-                                                // Last (valid) date:
-                                                new XmlElementHelper().Add("opprettetDato", "1865-10-18T00:00:00Z"))))))));
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("registrering", new XmlElementHelper() // Invalid format:
+                                        .Add("opprettetDato", " -- invalid format -- "))
+                                    .Add("mappe", new XmlElementHelper()
+                                        .Add("registrering", new XmlElementHelper()
+                                            .Add("opprettetDato", "1863-10-18T00:00:00Z")))))))
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_2")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("klasse", new XmlElementHelper()
+                                    .Add("mappe", new XmlElementHelper()
+                                        .Add("registrering", new XmlElementHelper()
+                                            .Add("opprettetDato", "1864-10-18T00:00:00Z")))
+                                    .Add("mappe", new XmlElementHelper()
+                                        .Add("registrering", new XmlElementHelper()
+                                            .Add("opprettetDato", "1865-10-18T00:00:00Z"))))))));
 
             TestRun testRun = helper.RunEventsOnTest(new FirstAndLastRegistrationCreationDates());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall registreringer funnet: 4"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Første registrering: Opprettet 18.10.1863"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Siste registrering: Opprettet 18.10.1865"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Antall ugyldige datoer for registreringsopprettelse funnet: 1"));
-            testRun.Results.Count.Should().Be(4);
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("I arkivdel (systemID) someSystemId_1 - Første registrering: Opprettet 18.10.1863"));
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("I arkivdel (systemID) someSystemId_1 - Siste registrering: Opprettet 18.10.1863"));
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("I arkivdel (systemID) someSystemId_2 - Første registrering: Opprettet 18.10.1864"));
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("I arkivdel (systemID) someSystemId_2 - Siste registrering: Opprettet 18.10.1865"));
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("Antall ugyldige datoer for registreringsopprettelse funnet: 1"));
+            testRun.Results.Count.Should().Be(6);
         }
 
         [Fact]
@@ -52,33 +56,35 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
                 new XmlElementHelper()
                     .Add("arkivdel",
-                        new XmlElementHelper().Add("klassifikasjonssystem",
-                            new XmlElementHelper().Add("klasse",
-                                new XmlElementHelper()
-                                    .Add("mappe",
-                                        new XmlElementHelper().Add("registrering",
-                                            new XmlElementHelper().Add("opprettetDato", "lorem ipsum")))
-                                    .Add("mappe",
-                                        new XmlElementHelper().Add("registrering",
-                                            new XmlElementHelper().Add("opprettetDato", "123456789"))))))
-                    .Add("arkivdel",
-                        new XmlElementHelper().Add("klassifikasjonssystem",
-                            new XmlElementHelper().Add("klasse",
+                        new XmlElementHelper().Add("systemID", "someSystemId_1")
+                            .Add("klassifikasjonssystem",
                                 new XmlElementHelper().Add("klasse",
                                     new XmlElementHelper()
                                         .Add("mappe",
                                             new XmlElementHelper().Add("registrering",
-                                                new XmlElementHelper().Add("opprettetDato", "1864")))
+                                                new XmlElementHelper().Add("opprettetDato", "lorem ipsum")))
                                         .Add("mappe",
                                             new XmlElementHelper().Add("registrering",
-                                                new XmlElementHelper().Add("opprettetDato", "10 18"))))))));
+                                                new XmlElementHelper().Add("opprettetDato", "123456789"))))))
+                    .Add("arkivdel",
+                        new XmlElementHelper().Add("systemID", "someSystemId_2")
+                            .Add("klassifikasjonssystem",
+                                new XmlElementHelper().Add("klasse",
+                                    new XmlElementHelper().Add("klasse",
+                                        new XmlElementHelper()
+                                            .Add("mappe",
+                                                new XmlElementHelper().Add("registrering",
+                                                    new XmlElementHelper().Add("opprettetDato", "1864")))
+                                            .Add("mappe",
+                                                new XmlElementHelper().Add("registrering",
+                                                    new XmlElementHelper().Add("opprettetDato", "10 18"))))))));
 
             TestRun testRun = helper.RunEventsOnTest(new FirstAndLastRegistrationCreationDates());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall registreringer funnet: 4"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Ingen gyldige datoer for registreringsopprettelse funnet"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Antall ugyldige datoer for registreringsopprettelse funnet: 4"));
-            testRun.Results.Count.Should().Be(3);
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("Antall ugyldige datoer for registreringsopprettelse funnet: 4"));
+            testRun.Results.Count.Should().Be(2);
         }
     }
 }

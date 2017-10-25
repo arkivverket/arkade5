@@ -277,11 +277,29 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - Første registrering: Opprettet {1}.
+        /// </summary>
+        internal static string DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart {
+            get {
+                return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Siste registrering: Opprettet {0}.
         /// </summary>
         internal static string DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration {
             get {
                 return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - Siste registrering: Opprettet {1}.
+        /// </summary>
+        internal static string DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart {
+            get {
+                return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart", resourceCulture);
             }
         }
         

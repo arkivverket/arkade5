@@ -6,11 +6,15 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
+    /// <summary>
+    ///     Noark5 - test #38
+    /// </summary>
     public class FirstAndLastRegistrationCreationDates : Noark5XmlReaderBaseTest
     {
-        private readonly SortedSet<DateTime> _registrationCreationDates = new SortedSet<DateTime>();
         private int _invalidRegistrationCreationDateCount;
         private int _registrationCount;
+        private ArchivePart _currentArchivePart;
+        private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
 
         public override string GetName()
         {
@@ -27,36 +31,53 @@ namespace Arkivverket.Arkade.Tests.Noark5
             var testResults = new List<TestResult>();
 
             testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                string.Format(Noark5Messages.DatesFirstAndLastRegistrationMessage_NumberOfRegistrations, _registrationCount)));
+                string.Format(Noark5Messages.DatesFirstAndLastRegistrationMessage_NumberOfRegistrations,
+                    _registrationCount)));
 
-            if (_registrationCreationDates.Any())
+            foreach (ArchivePart archivePart in _archiveParts)
             {
-                testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                    string.Format(Noark5Messages.DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration, _registrationCreationDates.First().ToShortDateString())));
-                testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                    string.Format(Noark5Messages.DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration, _registrationCreationDates.Last().ToShortDateString())));
+                if (archivePart.RegistrationCreationDates.Any())
+                {
+                    testResults.Add(new TestResult(ResultType.Success, new Location(""),
+                        string.Format(
+                            Noark5Messages
+                                .DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart,
+                            archivePart.SystemId,
+                            archivePart.RegistrationCreationDates.First().ToShortDateString())));
+                    testResults.Add(new TestResult(ResultType.Success, new Location(""),
+                        string.Format(
+                            Noark5Messages
+                                .DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart,
+                            archivePart.SystemId,
+                            archivePart.RegistrationCreationDates.Last().ToShortDateString())));
+                }
             }
-            else
-                testResults.Add(new TestResult(ResultType.Error, new Location(""),
-                    Noark5Messages.DatesFirstAndLastRegistrationMessage_NoValidRegistrationCreationDates));
+
 
             if (_invalidRegistrationCreationDateCount > 0)
                 testResults.Add(new TestResult(ResultType.Error, new Location(""),
-                    string.Format(Noark5Messages.DatesFirstAndLastRegistrationMessage_NumberOfInvalidRegistrationCreationDates, _invalidRegistrationCreationDateCount)));
+                    string.Format(
+                        Noark5Messages.DatesFirstAndLastRegistrationMessage_NumberOfInvalidRegistrationCreationDates,
+                        _invalidRegistrationCreationDateCount)));
 
             return testResults;
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if (eventArgs.Path.Matches("systemID", "arkivdel"))
+            {
+                _currentArchivePart = new ArchivePart {SystemId = eventArgs.Value};
+                _archiveParts.Add(_currentArchivePart);
+            }
+
             if (!eventArgs.Path.Matches("opprettetDato", "registrering"))
                 return;
 
             DateTime registrationCreatedTime;
 
             if (DateTime.TryParse(eventArgs.Value, out registrationCreatedTime))
-                _registrationCreationDates.Add(registrationCreatedTime);
-
+                _currentArchivePart.RegistrationCreationDates.Add(registrationCreatedTime);
             else
                 _invalidRegistrationCreationDateCount++;
         }
@@ -73,6 +94,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
+        }
+
+        private class ArchivePart
+        {
+            public string SystemId { get; set; }
+            public readonly SortedSet<DateTime> RegistrationCreationDates = new SortedSet<DateTime>();
         }
     }
 }
