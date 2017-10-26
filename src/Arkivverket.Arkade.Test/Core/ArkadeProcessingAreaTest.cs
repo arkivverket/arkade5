@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Test.Core
 {
-    public class ArkadeProcessingAreaTest : IDisposable
+    public class ArkadeProcessingAreaTest
     {
         private readonly string _locationPath;
         private readonly DirectoryInfo _location;
@@ -62,7 +62,7 @@ namespace Arkivverket.Arkade.Test.Core
             ArkadeProcessingArea.WorkDirectory.Should().BeNull();
         }
 
-        public void Dispose()
+        ~ArkadeProcessingAreaTest()
         {
             _location.Delete(true);
         }
