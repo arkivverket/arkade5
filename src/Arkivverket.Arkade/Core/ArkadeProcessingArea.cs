@@ -59,7 +59,9 @@ namespace Arkivverket.Arkade.Core
                 Path.Combine(RootDirectory.FullName, ArkadeConstants.DirectoryNameArkadeProcessingAreaLogs)
             );
 
-            Directory.Delete(GetTemporaryLogsDirectoryPath(), true); // Deletes any temporary logs
+            // Deletes any temporary logs:
+            if (Directory.Exists(GetTemporaryLogsDirectoryPath()))
+                Directory.Delete(GetTemporaryLogsDirectoryPath(), true);
         }
 
         private static void SetupTemporaryLogsDirectory()
