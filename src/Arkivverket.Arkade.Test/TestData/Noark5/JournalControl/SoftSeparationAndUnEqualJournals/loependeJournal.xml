@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <loependeJournal xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.arkivverket.no/standarder/noark5/loependeJournal" xmlns:n5mdk="http://www.arkivverket.no/standarder/noark5/metadatakatalog" xsi:schemaLocation="http://www.arkivverket.no/standarder/noark5/loependeJournal loependeJournal.xsd">
   <journalhode>
-    <journalStartDato>2011-09-09</journalStartDato>
-    <journalSluttDato>2012-10-10</journalSluttDato>
+    <journalStartDato>2010-09-09</journalStartDato>
+    <journalSluttDato>2013-10-10</journalSluttDato>
     <antallJournalposter>3</antallJournalposter>
     <arkivskaper>
       <arkivskaperID>964963193</arkivskaperID>

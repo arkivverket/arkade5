@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
-using Arkivverket.Arkade.ExternalModels.Addml;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Util;
 

@@ -490,56 +490,38 @@
     <Content Include="TestData\Noark5\DocumentfilesControl\NoFiles\content\dokumenter\directorykeeper.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\JournalPosts\running4public4\loependeJournal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalPosts\running4public4\offentligJournal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalPosts\running3public4\loependeJournal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalPosts\running3public4\offentligJournal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalPosts\running4public3\loependeJournal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalPosts\running4public3\offentligJournal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="TestData\Noark5\Small\arkivstruktur.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Noark5\Small\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\StartAndEndDateControl\SharpSeparation\arkivuttrekk.xml">
+    <Content Include="TestData\Noark5\JournalControl\SharpSeparation\arkivuttrekk.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\StartAndEndDateControl\SharpSeparation\loependeJournal.xml">
+    <Content Include="TestData\Noark5\JournalControl\SharpSeparation\loependeJournal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\StartAndEndDateControl\SharpSeparation\offentligJournal.xml">
+    <Content Include="TestData\Noark5\JournalControl\SharpSeparation\offentligJournal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\StartAndEndDateControl\SoftSeparationAndUnEqualJournals\arkivuttrekk.xml">
+    <Content Include="TestData\Noark5\JournalControl\SoftSeparationAndUnEqualJournals\arkivuttrekk.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="TestData\Noark5\StartAndEndDateControl\SoftSeparationAndUnEqualJournals\loependeJournal.xml">
+    <Content Include="TestData\Noark5\JournalControl\SoftSeparationAndUnEqualJournals\loependeJournal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\StartAndEndDateControl\SoftSeparationAndUnEqualJournals\offentligJournal.xml">
+    <Content Include="TestData\Noark5\JournalControl\SoftSeparationAndUnEqualJournals\offentligJournal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\StartAndEndDateControl\SoftSeparation\arkivuttrekk.xml">
+    <Content Include="TestData\Noark5\JournalControl\SoftSeparation\arkivuttrekk.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\StartAndEndDateControl\SoftSeparation\loependeJournal.xml">
+    <Content Include="TestData\Noark5\JournalControl\SoftSeparation\loependeJournal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Noark5\StartAndEndDateControl\SoftSeparation\offentligJournal.xml">
+    <Content Include="TestData\Noark5\JournalControl\SoftSeparation\offentligJournal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>

@@ -254,14 +254,14 @@ Generert:  {2}</value>
   <data name="NumberOfJournalPosts" xml:space="preserve">
     <value>Antall journalposter</value>
   </data>
-  <data name="NumberOfJournalPostsMessage_ArchiveAndJournalMismatch" xml:space="preserve">
-    <value>Det er ikke samsvar mellom dokumentert antall og faktisk antall journalposter</value>
+  <data name="NumberOfJournalPostsMessage_UnEqualJournalNumbers" xml:space="preserve">
+    <value>Antallet journalposter i offentlig og løpende journal er ulikt</value>
   </data>
-  <data name="NumberOfJournalPostsMessage_JournalFilesMissing" xml:space="preserve">
-    <value>En eller flere journalfiler mangler</value>
+  <data name="NumberOfJournalPostsMessage_CouldNotReadFromJournals" xml:space="preserve">
+    <value>Kunne ikke lese fra en eller flere journalfiler</value>
   </data>
   <data name="NumberOfJournalPostsMessage_NumberOfJournalPostsFound" xml:space="preserve">
-    <value>Antall journalposter funnet i arkivstruktur: {0}</value>
+    <value>Antall journalposter funnet i arkivstrukturen: {0}</value>
   </data>
   <data name="NumberOfJournalPostsMessage_NumberOfJournalPostsInPublicJournal" xml:space="preserve">
     <value>Antall journalposter dokumentert i offentlig journal: {0}</value>
@@ -541,5 +541,8 @@ Generert:  {2}</value>
   </data>
   <data name="CouldNotReadFromFiles" xml:space="preserve">
     <value>Kunne ikke lese fra en eller flere filer</value>
+  </data>
+  <data name="NumberOfJournalPostsMessage_UnEqualJournalAndArchiveNumbers" xml:space="preserve">
+    <value>Periodeskille er skarpt og antallet journalposter i arkivstrukturen er ikke likt det i offentlig og løpende journal</value>
   </data>
 </root>

@@ -7,12 +7,16 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
+    /// <summary>
+    ///     Noark5 - test #38
+    /// </summary>
     public class NumberOfJournalPosts : Noark5XmlReaderBaseTest
     {
         private readonly int _publicJournalNumberOfJournalPosts;
         private readonly int _runningJournalNumberOfJournalPosts;
         private int _archiveExtractionJournalPostCount;
         private readonly List<TestResult> _testResults = new List<TestResult>();
+        private readonly bool _periodSeparationIsSharp;
 
         public NumberOfJournalPosts(Archive archive)
         {
@@ -27,8 +31,10 @@ namespace Arkivverket.Arkade.Tests.Noark5
             catch (Exception)
             {
                 _testResults.Add(new TestResult(ResultType.Error, Location.Archive,
-                    Noark5Messages.NumberOfJournalPostsMessage_JournalFilesMissing));
+                    Noark5Messages.NumberOfJournalPostsMessage_CouldNotReadFromJournals));
             }
+
+            _periodSeparationIsSharp = Noark5TestHelper.PeriodSeparationIsSharp(archive);
         }
 
         public override string GetName()
@@ -43,9 +49,13 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override List<TestResult> GetTestResults()
         {
-            if (!ActualAndDocumentedNumberOfJournalPostsMatch())
+            if (!PublicAndRunningJournalNumbersMatch())
                 _testResults.Add(new TestResult(ResultType.Error, Location.Archive,
-                    Noark5Messages.NumberOfJournalPostsMessage_ArchiveAndJournalMismatch));
+                    Noark5Messages.NumberOfJournalPostsMessage_UnEqualJournalNumbers));
+
+            if (_periodSeparationIsSharp && !NumberOfJournalPostsInArchiveAndJournalsMatch())
+                _testResults.Add(new TestResult(ResultType.Error, Location.Archive,
+                    Noark5Messages.NumberOfJournalPostsMessage_UnEqualJournalAndArchiveNumbers));
 
             _testResults.Add(new TestResult(ResultType.Success, Location.Archive,
                 string.Format(Noark5Messages.NumberOfJournalPostsMessage_NumberOfJournalPostsFound,
@@ -62,17 +72,20 @@ namespace Arkivverket.Arkade.Tests.Noark5
             return _testResults;
         }
 
-        private bool ActualAndDocumentedNumberOfJournalPostsMatch()
+        private bool NumberOfJournalPostsInArchiveAndJournalsMatch()
         {
             return _archiveExtractionJournalPostCount == _publicJournalNumberOfJournalPosts &&
                    _archiveExtractionJournalPostCount == _runningJournalNumberOfJournalPosts;
         }
 
+        private bool PublicAndRunningJournalNumbersMatch()
+        {
+            return _publicJournalNumberOfJournalPosts == _runningJournalNumberOfJournalPosts;
+        }
+
         private static int GetPostCountFromJournal(string journalXmlFileName, Archive archive)
         {
             string journalXmlFile = archive.WorkingDirectory.Content().WithFile(journalXmlFileName).FullName;
-
-            // TODO: Check for file existance to distinguish file not found error from deserialize error
 
             JournalHead journalHead = JournalGuillotine.Behead(journalXmlFile);
 

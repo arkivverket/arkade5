@@ -990,25 +990,16 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det er ikke samsvar mellom dokumentert antall og faktisk antall journalposter.
+        ///   Looks up a localized string similar to Kunne ikke lese fra en eller flere journalfiler.
         /// </summary>
-        internal static string NumberOfJournalPostsMessage_ArchiveAndJournalMismatch {
+        internal static string NumberOfJournalPostsMessage_CouldNotReadFromJournals {
             get {
-                return ResourceManager.GetString("NumberOfJournalPostsMessage_ArchiveAndJournalMismatch", resourceCulture);
+                return ResourceManager.GetString("NumberOfJournalPostsMessage_CouldNotReadFromJournals", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to En eller flere journalfiler mangler.
-        /// </summary>
-        internal static string NumberOfJournalPostsMessage_JournalFilesMissing {
-            get {
-                return ResourceManager.GetString("NumberOfJournalPostsMessage_JournalFilesMissing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall journalposter funnet i arkivstruktur: {0}.
+        ///   Looks up a localized string similar to Antall journalposter funnet i arkivstrukturen: {0}.
         /// </summary>
         internal static string NumberOfJournalPostsMessage_NumberOfJournalPostsFound {
             get {
@@ -1031,6 +1022,24 @@ namespace Arkivverket.Arkade.Resources {
         internal static string NumberOfJournalPostsMessage_NumberOfJournalPostsInRunningJournal {
             get {
                 return ResourceManager.GetString("NumberOfJournalPostsMessage_NumberOfJournalPostsInRunningJournal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Periodeskille er skarpt og antallet journalposter i arkivstrukturen er ikke likt det i offentlig og løpende journal.
+        /// </summary>
+        internal static string NumberOfJournalPostsMessage_UnEqualJournalAndArchiveNumbers {
+            get {
+                return ResourceManager.GetString("NumberOfJournalPostsMessage_UnEqualJournalAndArchiveNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antallet journalposter i offentlig og løpende journal er ulikt.
+        /// </summary>
+        internal static string NumberOfJournalPostsMessage_UnEqualJournalNumbers {
+            get {
+                return ResourceManager.GetString("NumberOfJournalPostsMessage_UnEqualJournalNumbers", resourceCulture);
             }
         }
         
