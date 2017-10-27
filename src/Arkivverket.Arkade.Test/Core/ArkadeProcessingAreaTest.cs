@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Test.Core
 {
-    public class ArkadeProcessingAreaTest
+    public class ArkadeProcessingAreaTest : IDisposable
     {
         private readonly string _locationPath;
         private readonly DirectoryInfo _location;
@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Test.Core
             ArkadeProcessingArea.LogsDirectory.FullName.Should().Be(_locationPath + "\\Arkade\\logs");
         }
 
-        [Fact (Skip = "Failing on buildserver ...")]
+        [Fact]
         public void ProcessingAreaIsCleanedUp()
         {
             ArkadeProcessingArea.Establish(_locationPath);
@@ -81,7 +81,7 @@ namespace Arkivverket.Arkade.Test.Core
             ArkadeProcessingArea.LogsDirectory.GetFiles().Should().NotContain(log => log.Name.Equals(fileNameOldErrorLog));
         }
 
-        [Fact (Skip="Failing on buildserver ...")]
+        [Fact]
         public void ProcessingAreaIsEstablishedWithInvalidLocation()
         {
             string nonExistingLocation = Path.Combine(Environment.CurrentDirectory, "TestData", "NonExistingDirectory");
@@ -91,7 +91,7 @@ namespace Arkivverket.Arkade.Test.Core
             ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly();
         }
 
-        [Fact (Skip = "Failing on buildserver ...")]
+        [Fact]
         public void ProcessingAreaIsEstablishedWithMissingLocation()
         {
             ArkadeProcessingArea.Establish("");
@@ -113,8 +113,13 @@ namespace Arkivverket.Arkade.Test.Core
             ArkadeProcessingArea.WorkDirectory.Should().BeNull();
         }
 
-        ~ArkadeProcessingAreaTest()
+        public void Dispose()
         {
+            ArkadeProcessingArea.Location = null;
+            ArkadeProcessingArea.RootDirectory = null;
+            ArkadeProcessingArea.WorkDirectory = null;
+            ArkadeProcessingArea.LogsDirectory = null;
+
             _location.Delete(true);
         }
     }
