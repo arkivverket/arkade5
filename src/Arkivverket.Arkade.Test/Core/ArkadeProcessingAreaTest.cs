@@ -31,6 +31,24 @@ namespace Arkivverket.Arkade.Test.Core
         }
 
         [Fact]
+        public void ProcessingAreaIsEstablishedWithMissingLocation()
+        {
+            ArkadeProcessingArea.Establish("");
+
+            ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly().Should().BeTrue();
+        }
+
+        [Fact]
+        public void ProcessingAreaIsEstablishedWithInvalidLocation()
+        {
+            string nonExistingLocation = Path.Combine(Environment.CurrentDirectory, "TestData", "NonExistingDirectory");
+
+            ArkadeProcessingArea.Establish(nonExistingLocation);
+
+            ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly().Should().BeTrue();
+        }
+
+        [Fact]
         public void ProcessingAreaIsCleanedUp()
         {
             ArkadeProcessingArea.Establish(_locationPath);
@@ -81,36 +99,17 @@ namespace Arkivverket.Arkade.Test.Core
             ArkadeProcessingArea.LogsDirectory.GetFiles().Should().NotContain(log => log.Name.Equals(fileNameOldErrorLog));
         }
 
-        [Fact]
-        public void ProcessingAreaIsEstablishedWithInvalidLocation()
-        {
-            string nonExistingLocation = Path.Combine(Environment.CurrentDirectory, "TestData", "NonExistingDirectory");
-
-            ArkadeProcessingArea.Establish(nonExistingLocation);
-
-            ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly();
-        }
-
-        [Fact]
-        public void ProcessingAreaIsEstablishedWithMissingLocation()
-        {
-            ArkadeProcessingArea.Establish("");
-
-            ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly();
-        }
-
-        private static void ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly()
+        private static bool ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly()
         {
             string temporaryLogsDirectoryPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
                 ArkadeConstants.DirectoryNameTemporaryLogsLocation
             );
 
-            ArkadeProcessingArea.LogsDirectory.FullName.Should().Be(temporaryLogsDirectoryPath);
-
-            ArkadeProcessingArea.Location.Should().BeNull();
-            ArkadeProcessingArea.RootDirectory.Should().BeNull();
-            ArkadeProcessingArea.WorkDirectory.Should().BeNull();
+            return ArkadeProcessingArea.LogsDirectory.FullName.Equals(temporaryLogsDirectoryPath)
+                   && ArkadeProcessingArea.Location == null
+                   && ArkadeProcessingArea.RootDirectory == null
+                   && ArkadeProcessingArea.WorkDirectory == null;
         }
 
         public void Dispose()
