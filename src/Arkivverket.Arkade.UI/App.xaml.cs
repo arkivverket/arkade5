@@ -40,10 +40,14 @@ namespace Arkivverket.Arkade.UI
 
         protected override void OnExit(ExitEventArgs e)
         {
-            ArkadeProcessingArea.CleanUp();
-            
-            base.OnExit(e);
             Log.Information("Arkade " + ArkadeVersion.Version + " stopping");
+
+            if (!ArkadeProcessingAreaLocationSetting.IsApplied())
+                ArkadeProcessingArea.Destroy();
+            else
+                ArkadeProcessingArea.CleanUp();
+
+            base.OnExit(e);
         }
     }
 }

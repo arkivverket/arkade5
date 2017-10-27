@@ -99,6 +99,16 @@ namespace Arkivverket.Arkade.Test.Core
             ArkadeProcessingArea.LogsDirectory.GetFiles().Should().NotContain(log => log.Name.Equals(fileNameOldErrorLog));
         }
 
+        [Fact]
+        public void ProcessingAreaIsDestroyed()
+        {
+            ArkadeProcessingArea.Establish(_locationPath);
+            ArkadeProcessingArea.RootDirectory.Exists.Should().BeTrue();
+
+            ArkadeProcessingArea.Destroy();
+            ArkadeProcessingArea.RootDirectory.Exists.Should().BeFalse();
+        }
+
         private static bool ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly()
         {
             string temporaryLogsDirectoryPath = Path.Combine(

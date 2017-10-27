@@ -35,6 +35,15 @@ namespace Arkivverket.Arkade.Core
             DeleteOldLogs();
         }
 
+        public static void Destroy()
+        {
+            Log.CloseAndFlush();
+
+            RootDirectory?.Delete(true);
+
+            RootDirectory?.Refresh();
+        }
+
         private static void SetupLocation(string locationPath)
         {
             var location = new DirectoryInfo(locationPath);
