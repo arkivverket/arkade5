@@ -51,11 +51,14 @@ namespace Arkivverket.Arkade.Metadata
         {
             var metsHdr = new metsTypeMetsHdr();
 
+            if (metadata.ExtractionDate != null)
+                metsHdr.CREATEDATE = (DateTime) metadata.ExtractionDate;
+            
             CreateAltRecordIDs(metsHdr, metadata);
 
             CreateHdrAgents(metsHdr, metadata);
 
-            if (metsHdr.altRecordID != null || metsHdr.agent != null)
+            if (metadata.ExtractionDate != null || metsHdr.altRecordID != null || metsHdr.agent != null)
                 mets.metsHdr = metsHdr;
         }
 

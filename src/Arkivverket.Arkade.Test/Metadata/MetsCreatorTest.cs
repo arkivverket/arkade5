@@ -28,6 +28,10 @@ namespace Arkivverket.Arkade.Test.Metadata
 
             metsTypeMetsHdr metsHdr = mets.metsHdr;
 
+            // CREATEDATE:
+
+            metsHdr.CREATEDATE.Should().Be(new DateTime(2023, 01, 01));
+
             // ARCHIVEDESCRIPTION:
 
             metsHdr.altRecordID.Should().Contain(altRecordId =>
@@ -243,6 +247,7 @@ namespace Arkivverket.Arkade.Test.Metadata
                 },
                 StartDate = new DateTime(2017, 01, 01),
                 EndDate = new DateTime(2020, 01, 01),
+                ExtractionDate = new DateTime(2023, 01, 01),
             };
         }
 

@@ -76,6 +76,7 @@ namespace Arkivverket.Arkade.Test.Metadata
 
             archiveMetadata.StartDate.Should().Be(new DateTime(2017, 01, 01));
             archiveMetadata.EndDate.Should().Be(new DateTime(2020, 01, 01));
+            archiveMetadata.ExtractionDate.Should().Be(new DateTime(2023, 01, 01));
         }
     }
 }

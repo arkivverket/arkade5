@@ -387,6 +387,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 if (archiveMetadata.EndDate != null)
                     MetaDataNoarkSection.EndDate = archiveMetadata.EndDate;
 
+                if (archiveMetadata.ExtractionDate != null)
+                    MetaDataExtractionDate = GuiMetadataMapper.MapToExtractionDate(archiveMetadata.ExtractionDate);
             }
         }
 
@@ -506,6 +508,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 Comments = ArchiveMetadataMapper.MapToComments(_metaDataComments),
                 StartDate = ArchiveMetadataMapper.MapToStartDate(_metaDataNoarkSection),
                 EndDate = ArchiveMetadataMapper.MapToEndDate(_metaDataNoarkSection),
+                ExtractionDate = ArchiveMetadataMapper.MapToExtractionDate(_metaDataExtractionDate),
             };
 
             _isRunningCreatePackage = true;

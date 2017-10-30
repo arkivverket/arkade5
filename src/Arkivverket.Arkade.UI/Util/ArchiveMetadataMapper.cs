@@ -74,6 +74,11 @@ namespace Arkivverket.Arkade.UI.Util
             return metaDataNoarkSection.EndDate;
         }
 
+        public static DateTime? MapToExtractionDate(GuiMetaDataModel metaDataNoarkSection)
+        {
+            return metaDataNoarkSection.ExtractionDate;
+        }
+
         private static List<MetadataEntityInformationUnit> MapToMetadataEntityInformationUnits(
             IEnumerable<GuiMetaDataModel> guiMetaDataModels)
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.UI.Models;
@@ -57,6 +58,11 @@ namespace Arkivverket.Arkade.UI.Util
                 guiMetadataComments.Add(new GuiMetaDataModel(comment, GuiObjectType.comment));
 
             return guiMetadataComments;
+        }
+
+        public static GuiMetaDataModel MapToExtractionDate(DateTime? extractionDate)
+        {
+            return new GuiMetaDataModel(extractionDate);
         }
 
         private static ObservableCollectionEx<GuiMetaDataModel> MapToGuiMetadataEntities(
