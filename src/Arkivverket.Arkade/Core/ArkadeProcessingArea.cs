@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Arkivverket.Arkade.Util;
 using Serilog;
@@ -9,12 +10,19 @@ namespace Arkivverket.Arkade.Core
 {
     public static class ArkadeProcessingArea
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+
         public static DirectoryInfo Location;
 
         public static DirectoryInfo RootDirectory;
         public static DirectoryInfo WorkDirectory;
         public static DirectoryInfo LogsDirectory;
 
+        /// <summary>
+        /// Establish processing directory for Arkade. 
+        /// Throws IOException on non-existing paths. 
+        /// </summary>
+        /// <param name="locationPath">Path to root processing area - must exist!</param>
         public static void Establish(string locationPath)
         {
             try
@@ -22,7 +30,7 @@ namespace Arkivverket.Arkade.Core
                 SetupLocation(locationPath);
                 SetupDirectories();
             }
-            catch
+            finally
             {
                 SetupTemporaryLogsDirectory();
             }
@@ -37,7 +45,7 @@ namespace Arkivverket.Arkade.Core
 
         public static void Destroy()
         {
-            Log.CloseAndFlush();
+            Serilog.Log.CloseAndFlush();
 
             RootDirectory?.Delete(true);
 
@@ -49,7 +57,7 @@ namespace Arkivverket.Arkade.Core
             var location = new DirectoryInfo(locationPath);
 
             if (!location.Exists)
-                throw new IOException("Non existing path");
+                throw new IOException("Non existing path: " + locationPath);
 
             Location = location;
         }
