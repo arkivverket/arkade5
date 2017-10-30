@@ -247,6 +247,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Arkivverket.Arkade.Cli\Arkivverket.Arkade.Cli.csproj">
+      <Project>{d0d921d0-7b81-4ede-a1b7-ed80c6bb368b}</Project>
+      <Name>Arkivverket.Arkade.Cli</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Arkivverket.Arkade\Arkivverket.Arkade.csproj">
       <Project>{d4008c3c-61ef-48a4-b333-793476b7104d}</Project>
       <Name>Arkivverket.Arkade</Name>
