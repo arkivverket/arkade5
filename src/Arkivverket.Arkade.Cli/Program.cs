@@ -1,9 +1,5 @@
 ﻿using System;
-using System.IO;
-using Arkivverket.Arkade.Core;
 using CommandLine;
-using CommandLine.Text;
-using Newtonsoft.Json;
 using Serilog;
 
 namespace Arkivverket.Arkade.Cli
@@ -22,30 +18,40 @@ namespace Arkivverket.Arkade.Cli
             {
                 Parser.Default.ParseArgumentsStrict(args, options);
 
-                if (!string.IsNullOrWhiteSpace(options.GenerateMetadataExample))
+                if (ValidArgumentsForMetadataCreation(options))
+                {
                     new MetadataExampleGenerator().Generate(options.GenerateMetadataExample);
+                }
                 else
                 {
                     if (ValidArgumentsForTesting(options))
-                        new CommandLineRunner().Run(options.Archive, options.ArchiveType, options.MetadataFile);
+                    {
+                        new CommandLineRunner().Run(options);
+                    }
                     else
+                    {
                         Console.WriteLine(options.GetUsage());
+                    }
                 }
-                    
             }
             catch (Exception e)
             {
                 Log.Error(e, "An error occured: {exceptionMessage}", e.Message);
             }
+        }
 
-            
+        private static bool ValidArgumentsForMetadataCreation(CommandLineOptions options)
+        {
+            return !string.IsNullOrWhiteSpace(options.GenerateMetadataExample);
         }
 
         private static bool ValidArgumentsForTesting(CommandLineOptions options)
         {
             return !string.IsNullOrWhiteSpace(options.Archive)
                    && !string.IsNullOrWhiteSpace(options.ArchiveType)
-                   && !string.IsNullOrWhiteSpace(options.MetadataFile);
+                   && !string.IsNullOrWhiteSpace(options.MetadataFile)
+                   && !string.IsNullOrWhiteSpace(options.ProcessingArea)
+                   && !string.IsNullOrWhiteSpace(options.PackageOutputDirectory);
         }
     }
 }

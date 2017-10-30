@@ -11,48 +11,55 @@ namespace Arkivverket.Arkade.Cli
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public void Run(string archivePath, string incomingArchiveType, string metadataFile)
+        public void Run(CommandLineOptions options)
         {
-            ArkadeProcessingArea.Establish(@"c:\dev\tmp\arkadecli\processingarea");
-
-            var arkade = new Core.Arkade();
-
-            var fileInfo = new FileInfo(archivePath);
-            Log.Information($"Processing archive: {fileInfo.FullName}");
-
-            if (!Enum.TryParse(incomingArchiveType, true, out ArchiveType archiveType))
+            try
             {
-                Log.Error("Unknown archive type");
-                throw new ArgumentException("unknown archive type");
-            }
+                ArkadeProcessingArea.Establish(options.ProcessingArea);
 
-            TestSession testSession;
-            if (File.Exists(archivePath))
-            {
-                Log.Debug("File exists");
-                testSession = arkade.RunTests(ArchiveFile.Read(archivePath, archiveType));
-            }
-            else if (Directory.Exists(archivePath))
-            {
-                Log.Debug("Directory exists");
-                testSession = arkade.RunTests(ArchiveDirectory.Read(archivePath, archiveType));
-            }
-            else
-            {
-                throw new ArgumentException("Invalid archive path");
-            }
+                var arkade = new Core.Arkade();
 
-            if (testSession != null)
-            {
-                string metadataJsonFile = @"c:\dev\tmp\arkadecli\metadata.json";
-                var archiveMetadata = JsonConvert.DeserializeObject<ArchiveMetadata>(File.ReadAllText(metadataJsonFile));
+                var fileInfo = new FileInfo(options.Archive);
+                Log.Information($"Processing archive: {fileInfo.FullName}");
+
+                if (!Enum.TryParse(options.ArchiveType, true, out ArchiveType archiveType))
+                {
+                    Log.Error("Unknown archive type");
+                    throw new ArgumentException("unknown archive type");
+                }
+
+                TestSession testSession = CreateTestSession(options, arkade, archiveType);
+
+                var archiveMetadata = JsonConvert.DeserializeObject<ArchiveMetadata>(File.ReadAllText(options.MetadataFile));
 
                 testSession.ArchiveMetadata = archiveMetadata;
 
-                arkade.CreatePackage(testSession, PackageType.SubmissionInformationPackage, @"c:\dev\tmp\arkadecli");
+                arkade.CreatePackage(testSession, PackageType.SubmissionInformationPackage, options.PackageOutputDirectory);
             }
+            finally
+            {
+                ArkadeProcessingArea.CleanUp();
+            }
+        }
 
-            ArkadeProcessingArea.CleanUp();
+        private static TestSession CreateTestSession(CommandLineOptions options, Core.Arkade arkade, ArchiveType archiveType)
+        {
+            TestSession testSession;
+            if (File.Exists(options.Archive))
+            {
+                Log.Debug("File exists");
+                testSession = arkade.RunTests(ArchiveFile.Read(options.Archive, archiveType));
+            }
+            else if (Directory.Exists(options.Archive))
+            {
+                Log.Debug("Directory exists");
+                testSession = arkade.RunTests(ArchiveDirectory.Read(options.Archive, archiveType));
+            }
+            else
+            {
+                throw new ArgumentException("Invalid archive path: " + options.Archive);
+            }
+            return testSession;
         }
     }
 }

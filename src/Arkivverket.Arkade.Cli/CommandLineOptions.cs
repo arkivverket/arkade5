@@ -21,6 +21,12 @@ namespace Arkivverket.Arkade.Cli
         [Option('g', "generate-metadata-example", HelpText = "Generate example metadata file. Argument is output file name.")]
         public string GenerateMetadataExample { get; set; }
 
+        [Option('p', "processing-area", HelpText = "Directory to place temporary files and logs.")]
+        public string ProcessingArea { get; set; }
+
+        [Option('o', "output-directory", HelpText = "Directory to put created packages.")]
+        public string PackageOutputDirectory { get; set; }
+
         [Option('v', "verbose", HelpText = "Print details during execution.")]
         public bool Verbose { get; set; }
         
