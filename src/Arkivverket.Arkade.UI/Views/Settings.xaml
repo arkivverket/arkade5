@@ -33,12 +33,12 @@
                        FontStyle="Italic" />
         </StackPanel>
         <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
-            <Button IsCancel="True"
-                    Content="{x:Static resources:SettingsUI.ArkadeProcessingAreaLocation_CancelButtonText}"
-                    Width="75" />
             <Button Click="ApplyChangesAndClose"
                     Content="{x:Static resources:SettingsUI.ArkadeProcessingAreaLocation_ApplyButtonText}"
-                    Width="75"
+                    Width="75" />
+            <Button IsCancel="True"
+                    Content="{x:Static resources:SettingsUI.ArkadeProcessingAreaLocation_CancelButtonText}"
+                    Width="75" 
                     Margin="10,0,0,0" />
         </WrapPanel>
     </Grid>
