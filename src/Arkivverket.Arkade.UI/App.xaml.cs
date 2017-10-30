@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.UI.Properties;
@@ -14,7 +15,14 @@ namespace Arkivverket.Arkade.UI
 
         public App()
         {
-            ArkadeProcessingArea.Establish(Settings.Default.ArkadeProcessingAreaLocation);
+            try
+            {
+                ArkadeProcessingArea.Establish(Settings.Default.ArkadeProcessingAreaLocation);
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine("Exception while establishing arkade processing area: " + e.Message);
+            }
 
             LogConfiguration.ConfigureSeriLog();
             Log = Serilog.Log.ForContext<App>();
