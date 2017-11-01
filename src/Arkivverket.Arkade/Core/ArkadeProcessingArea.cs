@@ -30,9 +30,10 @@ namespace Arkivverket.Arkade.Core
                 SetupLocation(locationPath);
                 SetupDirectories();
             }
-            finally
+            catch(Exception e)
             {
                 SetupTemporaryLogsDirectory();
+                throw new ArgumentException("Unable to establish processing area in: " + locationPath, e);
             }
         }
 

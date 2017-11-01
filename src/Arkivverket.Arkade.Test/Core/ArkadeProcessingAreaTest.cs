@@ -33,7 +33,15 @@ namespace Arkivverket.Arkade.Test.Core
         [Fact]
         public void ProcessingAreaIsEstablishedWithMissingLocation()
         {
-            ArkadeProcessingArea.Establish("");
+            try
+            {
+                ArkadeProcessingArea.Establish("");
+            }
+            catch (Exception exception)
+            {
+                exception.GetType().Should().Be(typeof(ArgumentException));
+                exception.Message.Should().Be("Unable to establish processing area in: " + "");
+            }
 
             ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly().Should().BeTrue();
         }
@@ -43,7 +51,18 @@ namespace Arkivverket.Arkade.Test.Core
         {
             string nonExistingLocation = Path.Combine(Environment.CurrentDirectory, "TestData", "NonExistingDirectory");
 
-            ArkadeProcessingArea.Establish(nonExistingLocation);
+            try
+            {
+                ArkadeProcessingArea.Establish(nonExistingLocation);
+            }
+            catch (Exception exception)
+            {
+                exception.GetType().Should().Be(typeof(ArgumentException));
+                exception.Message.Should().Be("Unable to establish processing area in: " + nonExistingLocation);
+
+                exception.InnerException?.GetType().Should().Be(typeof(IOException));
+                exception.InnerException?.Message.Should().Be("Non existing path: " + nonExistingLocation);
+            }
 
             ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly().Should().BeTrue();
         }
