@@ -185,7 +185,7 @@ namespace Arkivverket.Arkade.Test.Metadata
             metsFile?.MIMETYPE.Should().Be("application/pdf");
             metsFile?.USE.Should().Be("Datafile");
             metsFile?.CHECKSUMTYPE.Should().Be(fileTypeCHECKSUMTYPE.SHA256);
-            metsFile?.CHECKSUM.Should().Be("3B29DFCC4286E50B180AF8F21904C86F8AA42A23C4055C3A71D0512F9AE3886F");
+            metsFile?.CHECKSUM.Should().Be("3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f");
             metsFile?.SIZE.Should().Be(2325452);
             metsFile?.CREATED.Year.Should().Be(2017);
             metsFile?.CREATED.Month.Should().Be(06);

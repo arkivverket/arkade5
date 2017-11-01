@@ -317,7 +317,7 @@ namespace Arkivverket.Arkade.Metadata
                     USE = "Datafile",
                     CHECKSUMTYPESpecified = true,
                     CHECKSUMTYPE = fileTypeCHECKSUMTYPE.SHA256,
-                    CHECKSUM = fileDescription.Sha256Checksum,
+                    CHECKSUM = fileDescription.Sha256Checksum.ToLower(),
                     SIZE = fileDescription.Size,
                     CREATED = fileDescription.CreationTime,
                     FLocat = new fileTypeFLocat
