@@ -85,13 +85,13 @@ namespace Arkivverket.Arkade.Test.Core
 
             // CREATE SOME LOG-FILES:
 
-            DateTime nowDate = DateTime.Now;
-            DateTime oldDate = DateTime.Now.AddDays(-7); // Date one week ago
+            string nowDate = DateTime.Now.ToString("yyyyMMdd");
+            string oldDate = DateTime.Now.AddDays(-7).ToString("yyyyMMdd"); // Date one week ago
 
-            string fileNameNewLog = $"arkade-{nowDate.Year}{nowDate.Month}{nowDate.Day}.log";
-            string fileNameOldLog = $"arkade-{oldDate.Year}{oldDate.Month}{oldDate.Day}.log";
-            string fileNameNewErrorLog = $"arkade-error-{nowDate.Year}{nowDate.Month}{nowDate.Day}235959.log";
-            string fileNameOldErrorLog = $"arkade-error-{oldDate.Year}{oldDate.Month}{oldDate.Day}235959.log";
+            string fileNameNewLog = $"arkade-{nowDate}.log";
+            string fileNameOldLog = $"arkade-{oldDate}.log";
+            string fileNameNewErrorLog = $"arkade-error-{nowDate}235959.log";
+            string fileNameOldErrorLog = $"arkade-error-{oldDate}235959.log";
 
             // Create a new log file in the logs-directory:
             new FileInfo(Path.Combine(ArkadeProcessingArea.LogsDirectory.FullName, fileNameNewLog)).Create().Close();
