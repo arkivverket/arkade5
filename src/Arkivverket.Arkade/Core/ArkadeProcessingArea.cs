@@ -19,10 +19,11 @@ namespace Arkivverket.Arkade.Core
         public static DirectoryInfo LogsDirectory;
 
         /// <summary>
-        /// Establish processing directory for Arkade. 
-        /// Throws IOException on non-existing paths. 
+        /// Establish processing area for Arkade in the given location.
+        /// Throws ArgumentException on invalid location.
         /// </summary>
-        /// <param name="locationPath">Path to root processing area - must exist!</param>
+        /// <param name="locationPath">Path to an existing and accessible location
+        /// for the processing area (root directory) to be created.</param>
         public static void Establish(string locationPath)
         {
             try
