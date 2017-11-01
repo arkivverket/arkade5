@@ -190,7 +190,7 @@ namespace Arkivverket.Arkade.Test.Metadata
             metsFile?.CREATED.Year.Should().Be(2017);
             metsFile?.CREATED.Month.Should().Be(06);
             metsFile?.CREATED.Day.Should().Be(30);
-            metsFile?.FLocat.href.Should().Be("someFileName.pdf");
+            metsFile?.FLocat.href.Should().Be("someDirectory/someFileName.pdf");
             metsFile?.FLocat.LOCTYPE.Should().Be(mdSecTypeMdRefLOCTYPE.URL);
 
             // MISCELLANEOUS:
@@ -238,7 +238,7 @@ namespace Arkivverket.Arkade.Test.Metadata
                     new FileDescription
                     {
                         Id = 1,
-                        Name = "someFileName.pdf",
+                        Name = "someDirectory\\someFileName.pdf",
                         Extension = "pdf",
                         Sha256Checksum = "3B29DFCC4286E50B180AF8F21904C86F8AA42A23C4055C3A71D0512F9AE3886F",
                         Size = 2325452,
