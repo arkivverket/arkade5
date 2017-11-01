@@ -322,7 +322,7 @@ namespace Arkivverket.Arkade.Metadata
                     CREATED = fileDescription.CreationTime,
                     FLocat = new fileTypeFLocat
                     {
-                        href = fileDescription.Name.Replace("\\", "/"),
+                        href = "file:///" + fileDescription.Name.Replace("\\", "/"),
                         LOCTYPE = mdSecTypeMdRefLOCTYPE.URL
                     }
                 });
