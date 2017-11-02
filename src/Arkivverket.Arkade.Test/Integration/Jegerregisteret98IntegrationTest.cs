@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Test.Integration
 {
     public class Jegerregisteret98IntegrationTest
     {
-        [Fact]
+        [Fact(Skip = "IO-issues")]
         public void ShouldReadSmallVersionOfJegerregisteret98()
         {
             ArkadeProcessingArea.Establish(Path.Combine(Environment.CurrentDirectory, "TestData"));
