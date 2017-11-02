@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
@@ -121,21 +122,23 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             private DateTime _startDate;
             private DateTime _endDate;
+            private readonly string _dateFormat;
 
             public StartAndEndDate(DateTime startDate, DateTime endDate)
             {
                 _startDate = startDate;
                 _endDate = endDate;
+                _dateFormat = "dd.MM.yyyy";
             }
 
             public string StartDate()
             {
-                return _startDate.ToShortDateString();
+                return _startDate.ToString(_dateFormat);
             }
 
             public string EndDate()
             {
-                return _endDate.ToShortDateString();
+                return _endDate.ToString(_dateFormat);
             }
 
             public bool Equals(StartAndEndDate startAndEndDate)

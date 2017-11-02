@@ -11,6 +11,8 @@ namespace Arkivverket.Arkade.Metadata
 {
     public class MetsCreator
     {
+        private const string DateFormat = "yyyy-MM-dd";
+
         protected static XmlSerializerNamespaces SetupNamespaces()
         {
             var namespaces = new XmlSerializerNamespaces();
@@ -92,7 +94,7 @@ namespace Arkivverket.Arkade.Metadata
                 {
                     TYPESpecified = true,
                     TYPE = metsTypeMetsHdrAltRecordIDTYPE.STARTDATE,
-                    Value = ((DateTime) metadata.StartDate).ToShortDateString()
+                    Value = ((DateTime) metadata.StartDate).ToString(DateFormat)
                 });
             }
 
@@ -102,7 +104,7 @@ namespace Arkivverket.Arkade.Metadata
                 {
                     TYPESpecified = true,
                     TYPE = metsTypeMetsHdrAltRecordIDTYPE.ENDDATE,
-                    Value = ((DateTime) metadata.EndDate).ToShortDateString()
+                    Value = ((DateTime) metadata.EndDate).ToString(DateFormat)
                 });
             }
 

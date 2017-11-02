@@ -65,12 +65,12 @@
     </mets:agent>
     <mets:altRecordID TYPE="DELIVERYSPECIFICATION">Some archive description</mets:altRecordID>
     <mets:altRecordID TYPE="SUBMISSIONAGREEMENT">XX 00-0000/0000; 0000-00-00</mets:altRecordID>
-    <mets:altRecordID TYPE="STARTDATE">01.01.2017</mets:altRecordID>
-    <mets:altRecordID TYPE="ENDDATE">01.01.2020</mets:altRecordID>
+    <mets:altRecordID TYPE="STARTDATE">2017-01-01</mets:altRecordID>
+    <mets:altRecordID TYPE="ENDDATE">2020-01-01</mets:altRecordID>
   </mets:metsHdr>
   <mets:fileSec>
     <mets:fileGrp ID="fileGroup001" USE="FILES">
-      <mets:file ID="fileId_1" MIMETYPE="application/xml" SIZE="5033" CREATED="2017-10-26T13:00:13.1605788+02:00" CHECKSUM="7d189a1d6eb5ff5e86b8916eab21333bda9ff42d317a0d05b03d1384ec935749" CHECKSUMTYPE="SHA-256" USE="Datafile">
+      <mets:file ID="fileId_1" MIMETYPE="application/xml" SIZE="5033" CREATED="2017-10-26T13:00:13.1605788+02:00" CHECKSUM="f945e44de8c16585145949432137341e39a8d2ebe955648f14fd2b7cf5b7d6a5" CHECKSUMTYPE="SHA-256" USE="Datafile">
         <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:///dias-mets.xml" />
       </mets:file>
       <mets:file ID="fileId_2" MIMETYPE="application/pdf" SIZE="20637" CREATED="2017-11-01T09:43:48.0586224+01:00" CHECKSUM="3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f" CHECKSUMTYPE="SHA-256" USE="Datafile">

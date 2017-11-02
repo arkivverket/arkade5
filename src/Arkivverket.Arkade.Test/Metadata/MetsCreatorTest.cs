@@ -50,14 +50,14 @@ namespace Arkivverket.Arkade.Test.Metadata
 
             metsHdr.altRecordID.Should().Contain(altRecordId =>
                 altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.STARTDATE &&
-                altRecordId.Value.Equals(new DateTime(2017, 01, 01).ToShortDateString())
+                altRecordId.Value.Equals("2017-01-01")
             );
 
             // ENDDATE
 
             metsHdr.altRecordID.Should().Contain(altRecordId =>
                 altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.ENDDATE &&
-                altRecordId.Value.Equals(new DateTime(2020, 01, 01).ToShortDateString())
+                altRecordId.Value.Equals("2020-01-01")
             );
 
             metsTypeMetsHdrAgent[] metsHdrAgents = metsHdr.agent;

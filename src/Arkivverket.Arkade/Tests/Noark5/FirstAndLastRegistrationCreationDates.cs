@@ -43,13 +43,13 @@ namespace Arkivverket.Arkade.Tests.Noark5
                             Noark5Messages
                                 .DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart,
                             archivePart.SystemId,
-                            archivePart.RegistrationCreationDates.First().ToShortDateString())));
+                            archivePart.RegistrationCreationDates.First().ToString("dd.MM.yyyy"))));
                     testResults.Add(new TestResult(ResultType.Success, new Location(""),
                         string.Format(
                             Noark5Messages
                                 .DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart,
                             archivePart.SystemId,
-                            archivePart.RegistrationCreationDates.Last().ToShortDateString())));
+                            archivePart.RegistrationCreationDates.Last().ToString("dd.MM.yyyy"))));
                 }
             }
 
