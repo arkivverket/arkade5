@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
@@ -58,6 +59,14 @@ namespace Arkivverket.Arkade.Tests.Noark5
             {
                 return null;
             }
+        }
+
+        public static bool TryParseArchiveDate(string dateStringFromArchive, out DateTime dateTime)
+        {
+            var acceptedFormats = new[] { "yyyy-MM-dd", "yyyy-MM-ddTHH:mm:ssZ" };
+
+            return DateTime.TryParseExact(dateStringFromArchive, acceptedFormats,
+                CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dateTime);
         }
     }
 }

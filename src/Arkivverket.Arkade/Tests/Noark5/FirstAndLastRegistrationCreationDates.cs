@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
@@ -74,9 +75,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
             if (!eventArgs.Path.Matches("opprettetDato", "registrering"))
                 return;
 
-            DateTime registrationCreatedTime;
-
-            if (DateTime.TryParse(eventArgs.Value, out registrationCreatedTime))
+            if (Noark5TestHelper.TryParseArchiveDate(eventArgs.Value, out DateTime registrationCreatedTime))
                 _currentArchivePart.RegistrationCreationDates.Add(registrationCreatedTime);
             else
                 _invalidRegistrationCreationDateCount++;

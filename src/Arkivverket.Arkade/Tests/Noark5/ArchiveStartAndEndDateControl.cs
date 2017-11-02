@@ -99,15 +99,9 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.Path.Matches("opprettetDato", "registrering"))
-            {
-                string dateString = eventArgs.Value.Substring(0, 10); // Time part stripped off
-
-                DateTime registrationCreatedTime;
-
-                if (DateTime.TryParse(dateString, out registrationCreatedTime))
+            if (eventArgs.Path.Matches("opprettetDato", "registrering") &&
+                Noark5TestHelper.TryParseArchiveDate(eventArgs.Value, out DateTime registrationCreatedTime))
                     _registrationCreationDates.Add(registrationCreatedTime);
-            }
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
