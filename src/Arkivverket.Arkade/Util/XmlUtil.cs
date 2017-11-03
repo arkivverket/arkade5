@@ -9,16 +9,16 @@ namespace Arkivverket.Arkade.Util
     public class XmlUtil
     {
         private const int _validationErrorCountLimit = 100;
-        private static readonly List<string> _validationErrorMessages = new List<string>();
+        private readonly List<string> _validationErrorMessages = new List<string>();
 
-        public static List<string> Validate(string xmlString, string xmlSchemaString)
+        public List<string> Validate(string xmlString, string xmlSchemaString)
         {
             var xmlStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlString));
             var xmlSchemaStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlSchemaString));
             return Validate(xmlStream, xmlSchemaStream);
         }
 
-        public static List<string> Validate(Stream xmlStream, Stream xmlSchemaStream)
+        public List<string> Validate(Stream xmlStream, Stream xmlSchemaStream)
         {
             XmlSchema xmlSchema = XmlSchema.Read(xmlSchemaStream, ValidationCallBack);
             XmlReaderSettings xmlReaderSettings = SetupXmlValidation(new List<XmlSchema> {xmlSchema});
@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Util
             return _validationErrorMessages;
         }
 
-        public static List<string> Validate(Stream xmlStream, Stream[] xmlSchemaStreams)
+        public List<string> Validate(Stream xmlStream, Stream[] xmlSchemaStreams)
         {
             var xmlSchemas = new List<XmlSchema>();
 
@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Util
             return _validationErrorMessages;
         }
 
-        private static void Validate(Stream xmlStream, XmlReaderSettings xmlReaderSettings)
+        private void Validate(Stream xmlStream, XmlReaderSettings xmlReaderSettings)
         {
             using (XmlReader validationReader = XmlReader.Create(xmlStream, xmlReaderSettings))
             {
@@ -50,7 +50,7 @@ namespace Arkivverket.Arkade.Util
             }
         }
 
-        private static XmlReaderSettings SetupXmlValidation(IEnumerable<XmlSchema> xmlSchemas)
+        private XmlReaderSettings SetupXmlValidation(IEnumerable<XmlSchema> xmlSchemas)
         {
             var settings = new XmlReaderSettings();
             settings.ValidationType = ValidationType.Schema;
@@ -65,7 +65,7 @@ namespace Arkivverket.Arkade.Util
             return settings;
         }
 
-        private static void ValidationCallBack(object sender, ValidationEventArgs args)
+        private void ValidationCallBack(object sender, ValidationEventArgs args)
         {
             _validationErrorMessages.Add(args.Message);
         }
