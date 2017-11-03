@@ -6,9 +6,9 @@ using System.Xml.Schema;
 
 namespace Arkivverket.Arkade.Util
 {
-    public class XmlUtil
+    public class XmlValidator
     {
-        private const int _validationErrorCountLimit = 100;
+        private const int ValidationErrorCountLimit = 100;
         private readonly List<string> _validationErrorMessages = new List<string>();
 
         public List<string> Validate(string xmlString, string xmlSchemaString)
@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Util
             using (XmlReader validationReader = XmlReader.Create(xmlStream, xmlReaderSettings))
             {
                 while (validationReader.Read())
-                    if (_validationErrorMessages.Count >= _validationErrorCountLimit)
+                    if (_validationErrorMessages.Count >= ValidationErrorCountLimit)
                         break;
             }
         }

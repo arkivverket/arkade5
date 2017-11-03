@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             string fileName = Path.GetFileName(fullPathToFile);
             try
             {
-                List<string> validationErrorMessages = new XmlUtil().Validate(fileStream, xsdResources);
+                List<string> validationErrorMessages = new XmlValidator().Validate(fileStream, xsdResources);
                 if (validationErrorMessages.Any())
                     foreach (string validationErrorMessage in validationErrorMessages)
                     {

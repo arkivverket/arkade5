@@ -347,7 +347,7 @@
     <Compile Include="Util\SystemInfo.cs" />
     <Compile Include="Util\TarCompressionUtility.cs" />
     <Compile Include="Util\XmlReaderHelpers.cs" />
-    <Compile Include="Util\XmlUtil.cs" />
+    <Compile Include="Util\XmlValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

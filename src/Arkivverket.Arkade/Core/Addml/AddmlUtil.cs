@@ -43,7 +43,7 @@ namespace Arkivverket.Arkade.Core.Addml
         {
             try
             {
-                new XmlUtil().Validate(fileContent, addmlXsd);
+                new XmlValidator().Validate(fileContent, addmlXsd);
             } catch (XmlSchemaException e)
             {
                 throw new ArkadeException(e.Message);
