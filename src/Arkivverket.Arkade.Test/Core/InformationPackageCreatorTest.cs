@@ -30,21 +30,21 @@ namespace Arkivverket.Arkade.Test.Core
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
             fileList.Count.Should().Be(8);
-            fileList.Contains("content\\").Should().BeTrue();
-            fileList.Contains("content\\arkivstruktur.xml").Should().BeTrue();
-            fileList.Contains("content\\arkivuttrekk.xml").Should().BeTrue();
-            fileList.Contains("content\\dokumenter\\").Should().BeTrue();
-            fileList.Contains("content\\dokumenter\\5000000.pdf").Should().BeTrue();
-            fileList.Contains("content\\dokumenter\\5000001.pdf").Should().BeTrue();
-            fileList.Contains("descriptive_metadata\\").Should().BeTrue();
-            fileList.Contains("administrative_metadata\\").Should().BeTrue();
+            fileList.Contains("content/").Should().BeTrue();
+            fileList.Contains("content/arkivstruktur.xml").Should().BeTrue();
+            fileList.Contains("content/arkivuttrekk.xml").Should().BeTrue();
+            fileList.Contains("content/dokumenter/").Should().BeTrue();
+            fileList.Contains("content/dokumenter/5000000.pdf").Should().BeTrue();
+            fileList.Contains("content/dokumenter/5000001.pdf").Should().BeTrue();
+            fileList.Contains("descriptive_metadata/").Should().BeTrue();
+            fileList.Contains("administrative_metadata/").Should().BeTrue();
 
             // sip should not contain these files
-            fileList.Contains("administrative_metadata\\repository_operations\\").Should().BeFalse();
-            fileList.Contains("administrative_metadata\\repository_operations\\arkade-log.xml").Should().BeFalse();
-            fileList.Contains("administrative_metadata\\repository_operations\\report.html").Should().BeFalse();
-            fileList.Contains("descriptive_metadata\\ead.xml").Should().BeFalse();
-            fileList.Contains("descriptive_metadata\\eac-cpf.xml").Should().BeFalse();
+            fileList.Contains("administrative_metadata/repository_operations/").Should().BeFalse();
+            fileList.Contains("administrative_metadata/repository_operations/arkade-log.xml").Should().BeFalse();
+            fileList.Contains("administrative_metadata/repository_operations/report.html").Should().BeFalse();
+            fileList.Contains("descriptive_metadata/ead.xml").Should().BeFalse();
+            fileList.Contains("descriptive_metadata/eac-cpf.xml").Should().BeFalse();
         }
 
         [Fact]
@@ -59,21 +59,21 @@ namespace Arkivverket.Arkade.Test.Core
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
             fileList.Count.Should().Be(13);
-            fileList.Contains("content\\").Should().BeTrue();
-            fileList.Contains("content\\arkivstruktur.xml").Should().BeTrue();
-            fileList.Contains("content\\arkivuttrekk.xml").Should().BeTrue();
-            fileList.Contains("content\\dokumenter\\").Should().BeTrue();
-            fileList.Contains("content\\dokumenter\\5000000.pdf").Should().BeTrue();
-            fileList.Contains("content\\dokumenter\\5000001.pdf").Should().BeTrue();
-            fileList.Contains("descriptive_metadata\\").Should().BeTrue();
-            fileList.Contains("administrative_metadata\\").Should().BeTrue();
+            fileList.Contains("content/").Should().BeTrue();
+            fileList.Contains("content/arkivstruktur.xml").Should().BeTrue();
+            fileList.Contains("content/arkivuttrekk.xml").Should().BeTrue();
+            fileList.Contains("content/dokumenter/").Should().BeTrue();
+            fileList.Contains("content/dokumenter/5000000.pdf").Should().BeTrue();
+            fileList.Contains("content/dokumenter/5000001.pdf").Should().BeTrue();
+            fileList.Contains("descriptive_metadata/").Should().BeTrue();
+            fileList.Contains("administrative_metadata/").Should().BeTrue();
 
             // additional files for aip
-            fileList.Contains("administrative_metadata\\repository_operations\\").Should().BeTrue();
-            fileList.Contains("administrative_metadata\\repository_operations\\arkade-log.xml").Should().BeTrue();
-            fileList.Contains("administrative_metadata\\repository_operations\\report.html").Should().BeTrue();
-            fileList.Contains("descriptive_metadata\\ead.xml").Should().BeTrue();
-            fileList.Contains("descriptive_metadata\\eac-cpf.xml").Should().BeTrue();
+            fileList.Contains("administrative_metadata/repository_operations/").Should().BeTrue();
+            fileList.Contains("administrative_metadata/repository_operations/arkade-log.xml").Should().BeTrue();
+            fileList.Contains("administrative_metadata/repository_operations/report.html").Should().BeTrue();
+            fileList.Contains("descriptive_metadata/ead.xml").Should().BeTrue();
+            fileList.Contains("descriptive_metadata/eac-cpf.xml").Should().BeTrue();
 
         }
 

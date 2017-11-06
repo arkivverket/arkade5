@@ -133,7 +133,15 @@ namespace Arkivverket.Arkade.Core
             string filenameSuffix = null)
         {
             TarEntry tarEntry = TarEntry.CreateEntryFromFile(fileName);
-            tarEntry.Name = fileNamePrefix + RemoveRootDirectoryFromFilename(fileName, rootDirectory.FullName) + filenameSuffix;
+
+            string packagePreparedFileName = fileNamePrefix +
+                                             RemoveRootDirectoryFromFilename(fileName, rootDirectory.FullName) +
+                                             filenameSuffix;
+
+            string tarEntryName = packagePreparedFileName.Replace("\\", "/"); // UNIX-style directory-separators
+
+            tarEntry.Name = tarEntryName;
+
             tarArchive.WriteEntry(tarEntry, false);
         }
 
