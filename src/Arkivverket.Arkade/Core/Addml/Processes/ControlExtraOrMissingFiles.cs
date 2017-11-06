@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 using System.Diagnostics;
@@ -16,7 +17,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         private readonly AddmlDefinition _addmlDefinition;
         private readonly Archive _archive;
 
-        private List<string> _knownFiles = new List<string> {
+        private readonly List<string> _knownFiles = new List<string> {
             "addml.xml",
             "NOARKIH.XML"
         };
@@ -24,15 +25,17 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 
         public TestRun GetTestRun()
         {
-            Stopwatch _stopwatch = new Stopwatch();
+            Stopwatch stopwatch = new Stopwatch();
 
-            _stopwatch.Start();
-            List<string> allFilesInWorkingDirectory = GetAllFilesInDirectory(_archive.WorkingDirectory.Content().DirectoryInfo());
-            allFilesInWorkingDirectory = FilterKnownFiles(allFilesInWorkingDirectory);
-            List<string> allFilesInAddml = GetAllFilesInAddmlDefinition(_addmlDefinition);
+            stopwatch.Start();
+            HashSet<string> allFilesInWorkingDirectory = GetAllFilesInDirectory(_archive.WorkingDirectory.Content().DirectoryInfo());
+            HashSet<string> allFilesInAddml = GetAllFilesInAddmlDefinition(_addmlDefinition);
 
-            List<string> filesInWorkingDirectoryNotInAddml = allFilesInWorkingDirectory.Except(allFilesInAddml).ToList();
-            List<string> filesInAddmlNotInWorkingDirectory = allFilesInAddml.Except(allFilesInWorkingDirectory).ToList();
+            allFilesInWorkingDirectory.ExceptWith(_knownFiles);
+
+            HashSet<string> filesInWorkingDirectoryNotInAddml = new HashSet<string>(allFilesInWorkingDirectory.Except(allFilesInAddml));
+
+            IEnumerable<string> filesInAddmlNotInWorkingDirectory = allFilesInAddml.Except(allFilesInWorkingDirectory);
 
             if (_archive.ArchiveType.Equals(ArchiveType.Noark4))
             {
@@ -50,39 +53,61 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                 testResults.Add(new TestResult(ResultType.Error, new Location(s),
                   string.Format(Messages.ControlExtraOrMissingFilesMessage1)));
             }
-            _stopwatch.Stop();
+            stopwatch.Stop();
 
             TestRun testRun = new TestRun(Name, TestType.ContentControl);
-            testRun.TestDuration = _stopwatch.ElapsedMilliseconds;
+            testRun.TestDuration = stopwatch.ElapsedMilliseconds;
             testRun.TestDescription = Messages.ControlExtraOrMissingFilesDescription;
             testRun.Results = testResults;
 
             return testRun;
         }
 
-        
-        // This can be sensitive for file paths and use of different slashes for file separators
-        private void FilterNoark4DokversReferences(List<string> unfiltered)
+        private void FilterNoark4DokversReferences(HashSet<string> unfiltered)
         {
+            if (unfiltered == null || !unfiltered.Any())
+                return;
 
             var pathToDokvers = _archive.WorkingDirectory.Content().WithSubDirectory("DATA").WithFile("DOKVERS.XML").FullName;
+
+            // potential spot for using stream reader instead. 
             var xmlDoc = new XmlDocument();
             xmlDoc.XmlResolver = null; // skip resolving of DTD
             xmlDoc.Load(File.OpenRead(pathToDokvers));
+
+            bool usesForwardSlashAsSeparator = HasForwardSlashInFilename(unfiltered);
             
-            foreach(XmlNode row in xmlDoc.SelectNodes("//VE.FILREF"))
+            foreach (XmlNode row in xmlDoc.SelectNodes("//VE.FILREF"))
             {
                 string dokversReference = row.InnerText;
-                
+
+                if (dokversReference.Contains("/") && usesForwardSlashAsSeparator == false)
+                    dokversReference = dokversReference.Replace("/", "\\");
+                else if (dokversReference.Contains("\\") && usesForwardSlashAsSeparator)
+                    dokversReference = dokversReference.Replace("\\", "/");
+
                 var fileReference = "DATA";
                 if (!dokversReference.StartsWith("\\"))
                     fileReference = fileReference + "\\";
                 fileReference = fileReference + dokversReference;
-                
+
                 unfiltered.Remove(fileReference);
             }
         }
 
+        private bool HasForwardSlashInFilename(HashSet<string> unfiltered)
+        {
+            int counter = 0;
+            foreach(string item in unfiltered)
+            {
+                if (item.IndexOf("/", StringComparison.Ordinal) != -1)
+                    return true;
+
+                if (counter++ == 10) // only check the first 10 entries
+                    break;
+            }
+            return false;
+        }
 
         public ControlExtraOrMissingFiles(AddmlDefinition addmlDefinition, Archive archive)
         {
@@ -90,25 +115,21 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             _archive = archive;
         }
 
-        private List<string> GetAllFilesInAddmlDefinition(AddmlDefinition addmlDefinition)
+        private HashSet<string> GetAllFilesInAddmlDefinition(AddmlDefinition addmlDefinition)
         {
-            return addmlDefinition.AddmlFlatFileDefinitions
+            return new HashSet<string>(
+                addmlDefinition.AddmlFlatFileDefinitions
                 .Select(d => d.FileName)
-                .ToList();
+                .AsEnumerable());
         }
 
-        private List<string> GetAllFilesInDirectory(DirectoryInfo directory)
+        private HashSet<string> GetAllFilesInDirectory(DirectoryInfo directory)
         {
-            string[] files = System.IO.Directory.GetFiles(directory.FullName, "*", SearchOption.AllDirectories);
+            string[] files = Directory.GetFiles(directory.FullName, "*", SearchOption.AllDirectories);
 
-            return files
-                .Select(f => f.Substring(directory.FullName.Length + 1))
-                .ToList();
-        }
-
-        private List<string> FilterKnownFiles(List<string> files)
-        {
-            return files.Where(f => !_knownFiles.Contains(f)).ToList();
+            return new HashSet<string>(
+                files.Select(f => f.Substring(directory.FullName.Length + 1))
+                .AsEnumerable());
         }
     }
 }

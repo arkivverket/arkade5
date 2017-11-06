@@ -9,7 +9,7 @@
       <VE.DOKFORMAT>RA-PDF</VE.DOKFORMAT>
       <VE.REGAV>111</VE.REGAV>
       <VE.LAGRENH>CD002-Dokumenter</VE.LAGRENH>
-      <VE.FILREF>\Dokumenter001\extra1.txt</VE.FILREF>
+      <VE.FILREF>Dokumenter001\extra1.txt</VE.FILREF>
    </DOKVERSJON>
    <DOKVERSJON>
       <VE.DOKID>2000124</VE.DOKID>
@@ -19,6 +19,6 @@
       <VE.DOKFORMAT>RA-PDF</VE.DOKFORMAT>
       <VE.REGAV>111</VE.REGAV>
       <VE.LAGRENH>CD002-Dokumenter</VE.LAGRENH>
-      <VE.FILREF>\Dokumenter001\extra2.txt</VE.FILREF>
+      <VE.FILREF>Dokumenter001\extra2.txt</VE.FILREF>
    </DOKVERSJON> 
 </DOKVERSJON.TAB>
