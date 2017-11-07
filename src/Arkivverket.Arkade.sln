@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.UI", "Arkivverket.Arkade.UI\Arkivverket.Arkade.UI.csproj", "{13964257-FE3D-427B-841A-402EAA8E1942}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.Test", "Arkivverket.Arkade.Test\Arkivverket.Arkade.Test.csproj", "{24B2B89B-9399-4FBA-9C48-B1DBBBFE6ED7}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "Setup\Setup.wixproj", "{43B24E21-8DC8-474E-88D3-47153856D35D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.ConsoleApp", "Sample.ConsoleApp\Sample.ConsoleApp.csproj", "{CED5C6CC-FCEB-4FDD-B638-4273F6B0EA95}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.Cli", "Arkivverket.Arkade.Cli\Arkivverket.Arkade.Cli.csproj", "{D0D921D0-7B81-4EDE-A1B7-ED80C6BB368B}"
 EndProject
@@ -53,14 +51,6 @@ Global
 		{43B24E21-8DC8-474E-88D3-47153856D35D}.Release|Any CPU.ActiveCfg = Release|x86
 		{43B24E21-8DC8-474E-88D3-47153856D35D}.Release|x86.ActiveCfg = Release|x86
 		{43B24E21-8DC8-474E-88D3-47153856D35D}.Release|x86.Build.0 = Release|x86
-		{CED5C6CC-FCEB-4FDD-B638-4273F6B0EA95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CED5C6CC-FCEB-4FDD-B638-4273F6B0EA95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CED5C6CC-FCEB-4FDD-B638-4273F6B0EA95}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CED5C6CC-FCEB-4FDD-B638-4273F6B0EA95}.Debug|x86.Build.0 = Debug|Any CPU
-		{CED5C6CC-FCEB-4FDD-B638-4273F6B0EA95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CED5C6CC-FCEB-4FDD-B638-4273F6B0EA95}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CED5C6CC-FCEB-4FDD-B638-4273F6B0EA95}.Release|x86.ActiveCfg = Release|Any CPU
-		{CED5C6CC-FCEB-4FDD-B638-4273F6B0EA95}.Release|x86.Build.0 = Release|Any CPU
 		{D0D921D0-7B81-4EDE-A1B7-ED80C6BB368B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D0D921D0-7B81-4EDE-A1B7-ED80C6BB368B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0D921D0-7B81-4EDE-A1B7-ED80C6BB368B}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -74,7 +64,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 		SolutionGuid = {AB0D5E6B-A55A-4489-BF2C-2BAB34E12796}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 	EndGlobalSection
 EndGlobal
