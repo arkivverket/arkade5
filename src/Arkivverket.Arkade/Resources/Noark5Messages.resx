@@ -273,10 +273,10 @@ Generert:  {2}</value>
     <value>Antall av ulike journalposttyper</value>
   </data>
   <data name="NumberOfPrecedents" xml:space="preserve">
-    <value>Finn antall presedenser</value>
+    <value>Antall presedenser</value>
   </data>
-  <data name="NumberOfPrecedentsMessage" xml:space="preserve">
-    <value>Antall presedenser: {0}</value>
+  <data name="NumberOfPrecedentsInCaseFolderMessage" xml:space="preserve">
+    <value>Antall presedenser i saksmapper: {0}</value>
   </data>
   <data name="NumberOfRegistrations" xml:space="preserve">
     <value>Finn antall registreringer</value>
@@ -544,5 +544,14 @@ Generert:  {2}</value>
   </data>
   <data name="NumberOfJournalPostsMessage_UnEqualJournalAndArchiveNumbers" xml:space="preserve">
     <value>Periodeskille er skarpt og antallet journalposter i arkivstrukturen er ikke likt det i offentlig og løpende journal</value>
+  </data>
+  <data name="NumberOfPrecedentsInJournalpostsMessage_ForArchivePart" xml:space="preserve">
+    <value>I arkivdel (systemID) {0} - Antall presedenser i journalposter: {1}</value>
+  </data>
+  <data name="NumberOfPrecedentsInCaseFolderMessage_ForArchivePart" xml:space="preserve">
+    <value>I arkivdel (systemID) {0} - Antall presedenser i saksmapper: {1}</value>
+  </data>
+  <data name="NumberOfPrecedentsInJournalpostsMessage" xml:space="preserve">
+    <value>Antall presedenser i journalposter: {0}</value>
   </data>
 </root>

@@ -1062,7 +1062,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall presedenser.
+        ///   Looks up a localized string similar to Antall presedenser.
         /// </summary>
         internal static string NumberOfPrecedents {
             get {
@@ -1071,11 +1071,38 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall presedenser: {0}.
+        ///   Looks up a localized string similar to Antall presedenser i saksmapper: {0}.
         /// </summary>
-        internal static string NumberOfPrecedentsMessage {
+        internal static string NumberOfPrecedentsInCaseFolderMessage {
             get {
-                return ResourceManager.GetString("NumberOfPrecedentsMessage", resourceCulture);
+                return ResourceManager.GetString("NumberOfPrecedentsInCaseFolderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - Antall presedenser i saksmapper: {1}.
+        /// </summary>
+        internal static string NumberOfPrecedentsInCaseFolderMessage_ForArchivePart {
+            get {
+                return ResourceManager.GetString("NumberOfPrecedentsInCaseFolderMessage_ForArchivePart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall presedenser i journalposter: {0}.
+        /// </summary>
+        internal static string NumberOfPrecedentsInJournalpostsMessage {
+            get {
+                return ResourceManager.GetString("NumberOfPrecedentsInJournalpostsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - Antall presedenser i journalposter: {1}.
+        /// </summary>
+        internal static string NumberOfPrecedentsInJournalpostsMessage_ForArchivePart {
+            get {
+                return ResourceManager.GetString("NumberOfPrecedentsInJournalpostsMessage_ForArchivePart", resourceCulture);
             }
         }
         

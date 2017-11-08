@@ -17,6 +17,13 @@ namespace Arkivverket.Arkade.Tests.Noark5
                    eventArgs.Value.Equals("journalpost");
         }
 
+        public static bool IdentifiesCasefolder(ReadElementEventArgs eventArgs)
+        {
+            return eventArgs.Path.Matches("mappe") &&
+                   eventArgs.Name.Equals("xsi:type") &&
+                   eventArgs.Value.Equals("saksmappe");
+        }
+
         public static bool PeriodSeparationIsSharp(Archive archive)
         {
             var archiveExtraction = GetAddmlObject(ArkadeConstants.ArkivuttrekkXmlFileName, archive);
