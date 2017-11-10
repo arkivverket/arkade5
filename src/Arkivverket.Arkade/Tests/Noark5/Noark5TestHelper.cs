@@ -23,6 +23,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
                    eventArgs.Name.Equals("xsi:type") &&
                    eventArgs.Value.Equals("saksmappe");
         }
+        public static bool IdentifiesBaseRegistrationInRegistration(ReadElementEventArgs eventArgs)
+        {
+            return eventArgs.Path.Matches("registrering") &&
+                   eventArgs.Name.Equals("xsi:type") &&
+                   eventArgs.Value.Equals("basisregistrering");
+        }
 
         public static bool PeriodSeparationIsSharp(Archive archive)
         {

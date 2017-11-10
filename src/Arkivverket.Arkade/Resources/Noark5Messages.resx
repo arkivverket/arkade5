@@ -198,10 +198,10 @@ Generert:  {2}</value>
     <value>Antall klassifikasjonssystem: {0}</value>
   </data>
   <data name="NumberOfComments" xml:space="preserve">
-    <value>Finn antall merknader</value>
+    <value>Antall merknader</value>
   </data>
-  <data name="NumberOfCommentsMessage" xml:space="preserve">
-    <value>Antall merknader: {0}</value>
+  <data name="NumberOfCommentsInFoldersMessage" xml:space="preserve">
+    <value>Antall merknader i mapper: {0}</value>
   </data>
   <data name="NumberOfCorrespondenceParts" xml:space="preserve">
     <value>Antall korrespondanseparter</value>
@@ -553,5 +553,20 @@ Generert:  {2}</value>
   </data>
   <data name="NumberOfPrecedentsInJournalpostsMessage" xml:space="preserve">
     <value>Antall presedenser i journalposter: {0}</value>
+  </data>
+  <data name="NumberOfCommentsInBaseRegistrationMessage" xml:space="preserve">
+    <value>Antall merknader i basisregistreringer: {0}</value>
+  </data>
+  <data name="NumberOfCommentsInDocumentDescriptionMessage" xml:space="preserve">
+    <value>Antall merknader i dokumentbeskrivelser: {0}</value>
+  </data>
+  <data name="NumberOfCommentsInBaseRegistrationMessage_ForArchivePart" xml:space="preserve">
+    <value>I arkivdel (systemID) {0} - Antall merknader i basisregistreringer: {1}</value>
+  </data>
+  <data name="NumberOfCommentsInDocumentDescriptionMessage_ForArchivePart" xml:space="preserve">
+    <value>I arkivdel (systemID) {0} - Antall merknader i dokumentbeskrivelser: {1}</value>
+  </data>
+  <data name="NumberOfCommentsInFoldersMessage_ForArchivePart" xml:space="preserve">
+    <value>I arkivdel (systemID) {0} - Antall merknader i mapper: {1}</value>
   </data>
 </root>
