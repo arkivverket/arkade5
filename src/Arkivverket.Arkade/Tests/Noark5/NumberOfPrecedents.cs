@@ -91,7 +91,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
             if (Noark5TestHelper.IdentifiesJournalPostRegistration(eventArgs))
                 _journalPostAttributeIsFound = true;
 
-            if (Noark5TestHelper.IdentifiesCasefolderInFolder(eventArgs))
+            if (Noark5TestHelper.IdentifiesCasefolder(eventArgs))
                 _casefolderAttributeIsFound = true;
         }
 
