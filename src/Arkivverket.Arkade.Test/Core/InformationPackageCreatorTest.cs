@@ -85,8 +85,7 @@ namespace Arkivverket.Arkade.Test.Core
             TarArchive tarArchive = TarArchive.CreateInputTarArchive(inStream);
             tarArchive.ProgressMessageEvent += delegate(TarArchive archive1, TarEntry entry, string message)
             {
-                // remove base path of all entries - 17 is length of 'package-creation\'
-                fileList.Add(entry.Name.Substring(entry.Name.IndexOf("package-creation", StringComparison.Ordinal) + 17));
+                fileList.Add(entry.Name);
             };
             tarArchive.ListContents();
             return fileList;

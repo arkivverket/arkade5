@@ -147,7 +147,10 @@ namespace Arkivverket.Arkade.Core
 
         private string RemoveRootDirectoryFromFilename(string filename, string rootDirectory)
         {
-            return filename.Replace(rootDirectory + Path.DirectorySeparatorChar, "");
+            if (!rootDirectory.EndsWith(Path.DirectorySeparatorChar.ToString()))
+                rootDirectory += Path.DirectorySeparatorChar;
+
+            return filename.Replace(rootDirectory, "");
         }
 
         private static bool FileIsInSkipList(PackageType? packageType, FileInfo file)
