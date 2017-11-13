@@ -56,13 +56,23 @@ namespace Arkivverket.Arkade.Core
             Stream outStream = File.Create(packageFilePath);
             TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
 
-            AddFilesInDirectory(archive, archive.WorkingDirectory.Root().DirectoryInfo(), packageType, tarArchive);
+            string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
+
+            AddFilesInDirectory(
+                archive, archive.WorkingDirectory.Root().DirectoryInfo(), packageType, tarArchive, packageRootDirectory
+            );
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())
             {
                 Log.Debug($"Archive has external content directory, including files from {archive.WorkingDirectory.Content()}");
-                string filenamePrefix = ArkadeConstants.DirectoryNameContent + Path.DirectorySeparatorChar;
-                AddFilesInDirectory(archive, archive.WorkingDirectory.Content().DirectoryInfo(), null, tarArchive, filenamePrefix);
+
+                string contentDirectory = packageRootDirectory +
+                                          ArkadeConstants.DirectoryNameContent +
+                                          Path.DirectorySeparatorChar;
+
+                AddFilesInDirectory(
+                    archive, archive.WorkingDirectory.Content().DirectoryInfo(), null, tarArchive, contentDirectory
+                );
             }
 
             tarArchive.Close();
