@@ -57,6 +57,7 @@ namespace Arkivverket.Arkade.Core
             TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
 
             string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
+            CreateEntry(packageRootDirectory, false, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
                 archive, archive.WorkingDirectory.Root().DirectoryInfo(), packageType, tarArchive, packageRootDirectory
@@ -119,7 +120,7 @@ namespace Arkivverket.Arkade.Core
                     continue;
                 }
 
-                CreateEntry(currentDirectory.FullName, rootDirectory, tarArchive, fileNamePrefix, Path.DirectorySeparatorChar.ToString());
+                CreateEntry(currentDirectory.FullName, true, rootDirectory, tarArchive, fileNamePrefix, Path.DirectorySeparatorChar.ToString());
                 AddFilesInDirectory(archive, currentDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
             }
 
@@ -135,14 +136,14 @@ namespace Arkivverket.Arkade.Core
                     continue;
                 }
 
-                CreateEntry(file.FullName, rootDirectory, tarArchive, fileNamePrefix);
+                CreateEntry(file.FullName, true, rootDirectory, tarArchive, fileNamePrefix);
             }
         }
 
-        private void CreateEntry(string fileName, DirectoryInfo rootDirectory, TarArchive tarArchive, string fileNamePrefix,
+        private void CreateEntry(string fileName, bool fileExists, DirectoryInfo rootDirectory, TarArchive tarArchive, string fileNamePrefix,
             string filenameSuffix = null)
         {
-            TarEntry tarEntry = TarEntry.CreateEntryFromFile(fileName);
+            TarEntry tarEntry = fileExists? TarEntry.CreateEntryFromFile(fileName) : TarEntry.CreateTarEntry(fileName);
 
             string packagePreparedFileName = fileNamePrefix +
                                              RemoveRootDirectoryFromFilename(fileName, rootDirectory.FullName) +

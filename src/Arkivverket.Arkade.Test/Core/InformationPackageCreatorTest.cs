@@ -31,7 +31,8 @@ namespace Arkivverket.Arkade.Test.Core
 
             string rootDir = _uuid.GetValue() + "/";
 
-            fileList.Count.Should().Be(8);
+            fileList.Count.Should().Be(9);
+            fileList.Contains(rootDir).Should().BeTrue();
             fileList.Contains(rootDir + "content/").Should().BeTrue();
             fileList.Contains(rootDir + "content/arkivstruktur.xml").Should().BeTrue();
             fileList.Contains(rootDir + "content/arkivuttrekk.xml").Should().BeTrue();
@@ -62,7 +63,8 @@ namespace Arkivverket.Arkade.Test.Core
 
             string rootDir = uuid.GetValue() + "/";
 
-            fileList.Count.Should().Be(13);
+            fileList.Count.Should().Be(14);
+            fileList.Contains(rootDir).Should().BeTrue();
             fileList.Contains(rootDir + "content/").Should().BeTrue();
             fileList.Contains(rootDir + "content/arkivstruktur.xml").Should().BeTrue();
             fileList.Contains(rootDir + "content/arkivuttrekk.xml").Should().BeTrue();
