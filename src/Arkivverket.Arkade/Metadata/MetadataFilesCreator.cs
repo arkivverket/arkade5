@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Metadata
             _eacCpfCreator = eacCpfCreator;
         }
 
-        public void Create(Archive archive, ArchiveMetadata metadata)
+        public void Create(Archive archive, ArchiveMetadata metadata, PackageType packageType)
         {
             _diasPremisCreator.CreateAndSaveFile(archive, metadata);
             // EAD is not included in v1.0
@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Metadata
             CopyDiasMetsXsdToRootDirectory(archive.WorkingDirectory);
 
             // Generate mets-file last for it to describe all other package content
-            _diasMetsCreator.CreateAndSaveFile(archive, metadata);
+            _diasMetsCreator.CreateAndSaveFile(archive, metadata, packageType);
         }
 
         private void CopyDiasMetsXsdToRootDirectory(WorkingDirectory workingDirectory)

@@ -346,19 +346,19 @@ namespace Arkivverket.Arkade.Metadata
         }
 
         protected static List<FileDescription> GetFileDescriptions(DirectoryInfo directory,
-            DirectoryInfo pathRoot = null)
+            DirectoryInfo pathRoot, string[] filesToSkip = null)
         {
             var fileDescriptions = new List<FileDescription>();
 
             var fileId = 1; // Reserving 0 for package file
 
-            foreach (FileInfo file in directory.EnumerateFiles(".", SearchOption.AllDirectories))
+            foreach (FileInfo file in GetFilesToDescribe(directory, filesToSkip))
                 fileDescriptions.Add(GetFileDescription(file, ref fileId, pathRoot));
 
             return fileDescriptions;
         }
 
-        public static FileDescription GetFileDescription(FileInfo file, ref int fileId, DirectoryInfo pathRoot = null)
+        protected static FileDescription GetFileDescription(FileInfo file, ref int fileId, DirectoryInfo pathRoot)
         {
             string fileName = file.FullName;
 
@@ -378,6 +378,15 @@ namespace Arkivverket.Arkade.Metadata
                 Size = file.Length,
                 CreationTime = file.CreationTime
             };
+        }
+
+        private static IEnumerable<FileInfo> GetFilesToDescribe(DirectoryInfo directory, string[] filesToSkip)
+        {
+            IEnumerable<FileInfo> filesToDescribe = directory.EnumerateFiles(".", SearchOption.AllDirectories);
+            
+            return filesToSkip != null
+                ? filesToDescribe.Where(f => !filesToSkip.Contains(f.Name))
+                : filesToDescribe;
         }
 
         private static string GetSha256Checksum(FileInfo file)

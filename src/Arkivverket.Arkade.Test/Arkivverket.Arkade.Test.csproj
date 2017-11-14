@@ -425,6 +425,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestData\kvotekontroll89\kvotekontroll89.XML" />
+    <Content Include="TestData\Metadata\DiasMetsCreator\descriptive_metadata\eac-cpf.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Metadata\DiasMetsCreator\descriptive_metadata\ead.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\Metadata\DiasMetsLoader\dias-mets.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -66,7 +66,7 @@ namespace Arkivverket.Arkade.Core
 
         public string CreatePackage(TestSession testSession, PackageType packageType, string outputDirectory)
         {
-            _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata);
+            _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata, packageType);
 
             string packageFilePath;
 

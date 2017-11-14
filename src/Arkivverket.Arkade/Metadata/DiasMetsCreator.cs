@@ -15,12 +15,18 @@ namespace Arkivverket.Arkade.Metadata
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata)
+        public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata, PackageType packageType)
         {
             DirectoryInfo rootDirectory = archive.WorkingDirectory.Root().DirectoryInfo();
 
             if (rootDirectory.Exists)
-                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory);
+            {
+                string[] filesToSkip = packageType.Equals(PackageType.SubmissionInformationPackage)
+                    ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
+                    : null;
+
+                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip);
+            }
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())
             {
