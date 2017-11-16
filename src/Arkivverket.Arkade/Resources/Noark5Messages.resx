@@ -213,10 +213,10 @@ Generert:  {2}</value>
     <value>Antall kryssreferanser</value>
   </data>
   <data name="NumberOfDepreciations" xml:space="preserve">
-    <value>Finn antall avskrivninger</value>
+    <value>Antall avskrivninger</value>
   </data>
   <data name="NumberOfDepreciationsMessage" xml:space="preserve">
-    <value>Antall avskrivninger: {0}</value>
+    <value>Antall journalposter som avskriver andre journalposter: {0}</value>
   </data>
   <data name="NumberOfDocumentDescriptions" xml:space="preserve">
     <value>Antall dokumentbeskrivelser</value>
@@ -568,5 +568,8 @@ Generert:  {2}</value>
   </data>
   <data name="NumberOfCommentsInFoldersMessage_ForArchivePart" xml:space="preserve">
     <value>I arkivdel (systemID) {0} - Antall merknader i mapper: {1}</value>
+  </data>
+  <data name="NumberOfDepreciationsMessage_ForArchivePart" xml:space="preserve">
+    <value>I arkivdel (systemID) {0} - Antall journalposter som avskriver andre journalposter: {1}</value>
   </data>
 </root>

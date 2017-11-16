@@ -14,34 +14,44 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
                                     .Add("registrering", new XmlElementHelper()
                                         .Add("avskrivning", new XmlElementHelper()
-                                            .Add("somesubelement", "some value"))))))));
+                                            .Add("referanseAvskrivesAvJournalpost", "some value"))))))));
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDepreciations());
 
-            testRun.Results.First().Message.Should().Be("Antall avskrivninger: 1");
+            testRun.Results.Should().Contain(r => r.Message.Equals("Antall journalposter som avskriver andre journalposter: 1"));
         }
 
         [Fact]
-        public void NumberOfDepreciationsIsZero()
+        public void NumberOfDepreciationsIsOneInOneOfTwoArchiveparts()
         {
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
                                     .Add("registrering", new XmlElementHelper()
-                                            // No depreciation
-                                            .Add("somesubelement", "some value")))))));
+                                        .Add("avskrivning", new XmlElementHelper()))))))
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_2")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("registrering", new XmlElementHelper()
+                                        .Add("avskrivning", new XmlElementHelper()
+                                            .Add("referanseAvskrivesAvJournalpost", new XmlElementHelper()))
+                                    ))))));
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDepreciations());
 
-            testRun.Results.First().Message.Should().Be("Antall avskrivninger: 0");
+            testRun.Results.Should().Contain(r => r.Message.Equals("I arkivdel (systemID) someSystemId_2 - Antall journalposter som avskriver andre journalposter: 1"));
         }
     }
 }

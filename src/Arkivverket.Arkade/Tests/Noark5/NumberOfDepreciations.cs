@@ -1,24 +1,82 @@
-﻿using Arkivverket.Arkade.Resources;
+﻿using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Noark5;
+using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Noark5 - test #31
     /// </summary>
-    public class NumberOfDepreciations : CountElementsWithUniqueName
+    public class NumberOfDepreciations : Noark5XmlReaderBaseTest
     {
-        public NumberOfDepreciations() : base("avskrivning")
-        {
-        }
+        private int _totalNumberOfDeprecations;
+        private readonly Dictionary<string, int> _numberOfDeprecationsPerArchivePart = new Dictionary<string, int>();
+        private string _currentArchivePartSystemId;
 
         public override string GetName()
         {
             return Noark5Messages.NumberOfDepreciations;
         }
 
-        protected override string GetResultMessage()
+        public override TestType GetTestType()
         {
-            return Noark5Messages.NumberOfDepreciationsMessage;
+            return TestType.ContentAnalysis;
+        }
+
+        protected override List<TestResult> GetTestResults()
+        {
+            var testResults = new List<TestResult>()
+            {
+                new TestResult(ResultType.Success, new Location(string.Empty), string.Format(Noark5Messages.NumberOfDepreciationsMessage, _totalNumberOfDeprecations))
+            };
+
+            if (_numberOfDeprecationsPerArchivePart.Count > 1)
+            {
+                foreach (KeyValuePair<string, int> numberOfDepreciation in _numberOfDeprecationsPerArchivePart)
+                {
+                    if (numberOfDepreciation.Value > 0)
+                    {
+                        var testresult = new TestResult(ResultType.Success, new Location(string.Empty),
+                            string.Format(Noark5Messages.NumberOfDepreciationsMessage_ForArchivePart, numberOfDepreciation.Key,
+                                numberOfDepreciation.Value));
+
+                        testResults.Add(testresult);
+                    }
+                }
+            }
+            return testResults;
+        }
+
+        protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+        }
+
+        protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+        }
+
+        protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+            if (eventArgs.Path.Matches("systemID", "arkivdel"))
+            {
+                _currentArchivePartSystemId = eventArgs.Value;
+                _numberOfDeprecationsPerArchivePart.Add(_currentArchivePartSystemId, 0);
+            }
+        }
+
+        protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+            if (eventArgs.NameEquals("referanseAvskrivesAvJournalpost"))
+            {
+                _totalNumberOfDeprecations++;
+
+                if (_numberOfDeprecationsPerArchivePart.Count > 0)
+                {
+                    if (_numberOfDeprecationsPerArchivePart.ContainsKey(_currentArchivePartSystemId))
+                        _numberOfDeprecationsPerArchivePart[_currentArchivePartSystemId]++;
+                }
+            }
         }
     }
 }
