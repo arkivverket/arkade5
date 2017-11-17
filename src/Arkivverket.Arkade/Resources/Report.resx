@@ -165,4 +165,7 @@
   <data name="TestNoErrorsFound" xml:space="preserve">
     <value>Ingen avvik funnet.</value>
   </data>
+  <data name="FooterArkadeVersion" xml:space="preserve">
+    <value>Arkade 5 versjon: {0}</value>
+  </data>
 </root>

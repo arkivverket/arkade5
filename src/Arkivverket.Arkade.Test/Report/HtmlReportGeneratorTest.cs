@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Report;
 using Arkivverket.Arkade.Test.Core;
 using Arkivverket.Arkade.Tests;
 using FluentAssertions;
 using Xunit;
-using System.IO;
-using System.Text;
 
 namespace Arkivverket.Arkade.Test.Report
 {
     public class HtmlReportGeneratorTest
     {
-        [Fact]
-        public void ShouldGenerateReport()
+        private static TestSession CreateTestSessionWithTwoTestRuns()
         {
             TestRun testRun1 = new TestRunBuilder()
                 .WithDurationMillis(100L)
@@ -32,12 +32,28 @@ namespace Arkivverket.Arkade.Test.Report
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 3"))
                 .Build();
 
-            List<TestRun> testRuns = new List<TestRun> { testRun1, testRun2 };
+            var testRuns = new List<TestRun> {testRun1, testRun2};
 
             TestSession testSession = new TestSessionBuilder()
                 .WithTestRuns(testRuns)
                 .WithTestSummary(new TestSummary(0, 0, 0))
                 .Build();
+            return testSession;
+        }
+
+        private static string GenerateReport(TestSession testSession)
+        {
+            var ms = new MemoryStream();
+            var sw = new StreamWriter(ms);
+            var htmlReportGenerator = new HtmlReportGenerator(sw);
+            htmlReportGenerator.Generate(testSession);
+            return Encoding.UTF8.GetString(ms.ToArray());
+        }
+
+        [Fact]
+        public void ShouldGenerateReport()
+        {
+            TestSession testSession = CreateTestSessionWithTwoTestRuns();
 
             string html = GenerateReport(testSession);
 
@@ -47,13 +63,32 @@ namespace Arkivverket.Arkade.Test.Report
             html.Should().Contain("</html>");
         }
 
-        private static string GenerateReport(TestSession testSession)
+        [Fact]
+        public void ShouldGenerateReportWithSummaryForAddmlFlatFile()
         {
-            MemoryStream ms = new MemoryStream();
-            StreamWriter sw = new StreamWriter(ms);
-            HtmlReportGenerator htmlReportGenerator = new HtmlReportGenerator(sw);
-            htmlReportGenerator.Generate(testSession);
-            return Encoding.UTF8.GetString(ms.ToArray());
+            TestRun testRun1 = new TestRunBuilder()
+                .WithDurationMillis(100L)
+                .WithTestName("Test 1")
+                .WithTestDescription("Test description 1")
+                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
+                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
+                .Build();
+
+            var testRuns = new List<TestRun> {testRun1};
+
+            TestSession testSession = new TestSessionBuilder()
+                .WithArchive(new Archive(ArchiveType.Noark3, null, null))
+                .WithTestSummary(new TestSummary(41, 42, 0))
+                .WithTestRuns(testRuns)
+                .Build();
+
+            testSession.TestSummary = new TestSummary(42, 43, 44);
+
+            string html = GenerateReport(testSession);
+
+            // xunit was not very happy to report errors on a very huge string
+            html.Contains("Antall filer").Should().BeTrue();
+            html.Contains("Antall poster").Should().BeTrue();
         }
 
         [Fact]
@@ -67,7 +102,7 @@ namespace Arkivverket.Arkade.Test.Report
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
                 .Build();
 
-            List<TestRun> testRuns = new List<TestRun> { testRun1 };
+            var testRuns = new List<TestRun> {testRun1};
 
             TestSession testSession = new TestSessionBuilder()
                 .WithArchive(new Archive(ArchiveType.Noark5, null, null))
@@ -83,31 +118,12 @@ namespace Arkivverket.Arkade.Test.Report
         }
 
         [Fact]
-        public void ShouldGenerateReportWithSummaryForAddmlFlatFile()
+        public void ShouldShowArkadeVersionNumberInReport()
         {
-            TestRun testRun1 = new TestRunBuilder()
-                .WithDurationMillis(100L)
-                .WithTestName("Test 1")
-                .WithTestDescription("Test description 1")
-                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
-                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
-                .Build();
-
-            List<TestRun> testRuns = new List<TestRun> { testRun1 };
-
-            TestSession testSession = new TestSessionBuilder()
-                .WithArchive(new Archive(ArchiveType.Noark3, null, null))
-                .WithTestSummary(new TestSummary(41, 42, 0))
-                .WithTestRuns(testRuns)
-                .Build();
-
-            testSession.TestSummary = new TestSummary(42, 43, 44);
+            TestSession testSession = CreateTestSessionWithTwoTestRuns();
 
             string html = GenerateReport(testSession);
-
-            // xunit was not very happy to report errors on a very huge string
-            html.Contains("Antall filer").Should().BeTrue();
-            html.Contains("Antall poster").Should().BeTrue();
+            html.Contains(String.Format(Resources.Report.FooterArkadeVersion, "0.0.0.0")).Should().BeTrue();
         }
     }
 }

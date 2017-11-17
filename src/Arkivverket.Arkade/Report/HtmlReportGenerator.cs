@@ -46,8 +46,18 @@ namespace Arkivverket.Arkade.Report
             {
                 Test(testRun);
             }
+
+            _stream.WriteLine(@"<hr/>");
+            VersionNumber();
             _stream.WriteLine(@"</div>");
             _stream.WriteLine(@"</body>");
+        }
+
+        private void VersionNumber()
+        {
+            _stream.WriteLine(@"<p class=""text-right"">");
+            _stream.WriteLine(Resources.Report.FooterArkadeVersion, ArkadeVersion.Version);
+            _stream.WriteLine("</p>");
         }
 
         private void ArkivverketImage()
