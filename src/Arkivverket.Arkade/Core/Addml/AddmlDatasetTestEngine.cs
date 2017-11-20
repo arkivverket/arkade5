@@ -93,8 +93,9 @@ namespace Arkivverket.Arkade.Core.Addml
 
                 if (numberOfRecordsWithFieldDelimiterError > 0)
                 {
-                    _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error, new Location(file.GetName()),
-                        $"Filens totale antall poster med feil antall felt: {numberOfRecordsWithFieldDelimiterError}")
+                    _testResultsFailedRecordsList.Add(new TestResult(ResultType.ErrorGroup, new Location(file.GetName()),
+                        $"Filens totale antall poster med feil antall felt: {numberOfRecordsWithFieldDelimiterError}",
+                        numberOfRecordsWithFieldDelimiterError)
                     );
                 }
 

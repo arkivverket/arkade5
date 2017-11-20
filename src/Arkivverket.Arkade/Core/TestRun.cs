@@ -65,7 +65,7 @@ namespace Arkivverket.Arkade.Core
 
         public int FindNumberOfErrors()
         {
-            return Results.Count(r => r.IsError());
+            return Results.Count(r => r.IsError()) + Results.Where(r => r.IsErrorGroup()).Sum(r => r.GroupErrors);
         }
     }
 }

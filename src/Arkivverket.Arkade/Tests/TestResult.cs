@@ -9,8 +9,9 @@ namespace Arkivverket.Arkade.Tests
         public ILocation Location { get; }
 
         public string Message { get; }
+        public int GroupErrors { get; }
 
-        public TestResult(ResultType result, ILocation location, string message)
+        public TestResult(ResultType result, ILocation location, string message, int groupErrors = 0)
         {
             Assert.AssertNotNull("result", result);
             Assert.AssertNotNull("location", location);
@@ -19,11 +20,17 @@ namespace Arkivverket.Arkade.Tests
             Result = result;
             Location = location;
             Message = message;
+            GroupErrors = groupErrors;
         }
         
         public bool IsError()
         {
             return Result == ResultType.Error;
+        }
+
+        public bool IsErrorGroup()
+        {
+            return Result == ResultType.ErrorGroup;
         }
 
         public override string ToString()
@@ -35,6 +42,7 @@ namespace Arkivverket.Arkade.Tests
     public enum ResultType
     {
         Success,
-        Error
+        Error,
+        ErrorGroup
     }
 }
