@@ -123,7 +123,10 @@ namespace Arkivverket.Arkade.Test.Report
             TestSession testSession = CreateTestSessionWithTwoTestRuns();
 
             string html = GenerateReport(testSession);
-            html.Contains(String.Format(Resources.Report.FooterArkadeVersion, "0.0.0.0")).Should().BeTrue();
+            string versionText = Resources.Report.FooterArkadeVersion;
+            // remove version number from text - causes trouble on build server.
+            versionText = versionText.Substring(0, versionText.IndexOf("{0}", StringComparison.Ordinal));
+            html.Contains(versionText).Should().BeTrue();
         }
     }
 }
