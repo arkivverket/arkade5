@@ -70,17 +70,17 @@
   </mets:metsHdr>
   <mets:fileSec>
     <mets:fileGrp ID="fileGroup001" USE="FILES">
-      <mets:file ID="fileId_1" MIMETYPE="application/xml" SIZE="5033" CREATED="2017-10-26T13:00:13.1605788+02:00" CHECKSUM="f945e44de8c16585145949432137341e39a8d2ebe955648f14fd2b7cf5b7d6a5" CHECKSUMTYPE="SHA-256" USE="Datafile">
-        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:///dias-mets.xml" />
+      <mets:file ID="fileId_1" MIMETYPE="application/xml" SIZE="5021" CREATED="2017-10-26T13:00:13.1605788+02:00" CHECKSUM="d0c68b2c8447d787f820a036cc1ecdf22392a2aecd6d275b964ff4d3e80c0488" CHECKSUMTYPE="SHA-256" USE="Datafile">
+        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:dias-mets.xml" />
       </mets:file>
-      <mets:file ID="fileId_2" MIMETYPE="application/pdf" SIZE="20637" CREATED="2017-11-01T09:43:48.0586224+01:00" CHECKSUM="3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f" CHECKSUMTYPE="SHA-256" USE="Datafile">
-        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:///content/dokumenter/5000000.pdf" />
+      <mets:file ID="fileId_2" MIMETYPE="application/pdf" SIZE="20637" CREATED="2017-11-13T15:26:06.1458311+01:00" CHECKSUM="3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f" CHECKSUMTYPE="SHA-256" USE="Datafile">
+        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:content/dokumenter/5000000.pdf" />
       </mets:file>
-      <mets:file ID="fileId_3" MIMETYPE="application/pdf" SIZE="18432" CREATED="2017-11-01T09:43:48.0586224+01:00" CHECKSUM="2ea3a86de226d791a07abb5279b0e2813b037730730ba630de4f14dea7c32208" CHECKSUMTYPE="SHA-256" USE="Datafile">
-        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:///content/dokumenter/5000001.pdf" />
+      <mets:file ID="fileId_3" MIMETYPE="application/pdf" SIZE="18432" CREATED="2017-11-13T15:26:06.1543543+01:00" CHECKSUM="2ea3a86de226d791a07abb5279b0e2813b037730730ba630de4f14dea7c32208" CHECKSUMTYPE="SHA-256" USE="Datafile">
+        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:content/dokumenter/5000001.pdf" />
       </mets:file>
-      <mets:file ID="fileId_4" MIMETYPE="application/pdf" SIZE="18432" CREATED="2017-11-01T09:43:48.0586224+01:00" CHECKSUM="2ea3a86de226d791a07abb5279b0e2813b037730730ba630de4f14dea7c32208" CHECKSUMTYPE="SHA-256" USE="Datafile">
-        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:///content/dokumenter/underkatalog/5000002.pdf" />
+      <mets:file ID="fileId_4" MIMETYPE="application/pdf" SIZE="18432" CREATED="2017-11-13T15:26:06.1623847+01:00" CHECKSUM="2ea3a86de226d791a07abb5279b0e2813b037730730ba630de4f14dea7c32208" CHECKSUMTYPE="SHA-256" USE="Datafile">
+        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:content/dokumenter/underkatalog/5000002.pdf" />
       </mets:file>
     </mets:fileGrp>
   </mets:fileSec>

@@ -190,7 +190,7 @@ namespace Arkivverket.Arkade.Test.Metadata
             metsFile?.CREATED.Year.Should().Be(2017);
             metsFile?.CREATED.Month.Should().Be(06);
             metsFile?.CREATED.Day.Should().Be(30);
-            metsFile?.FLocat.href.Should().Be("file:///someDirectory/someFileName.pdf");
+            metsFile?.FLocat.href.Should().Be("file:someDirectory/someFileName.pdf");
             metsFile?.FLocat.LOCTYPE.Should().Be(mdSecTypeMdRefLOCTYPE.URL);
 
             // MISCELLANEOUS:
