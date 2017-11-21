@@ -30,20 +30,43 @@ namespace Arkivverket.Arkade.Metadata
             _eadCreator.CreateAndSaveFile(archive, metadata);
             // EAC-CPF is not included in v1.0
             _eacCpfCreator.CreateAndSaveFile(archive, metadata);
-            CopyDiasMetsXsdToRootDirectory(archive.WorkingDirectory);
 
+            CopyXsdFiles(archive.WorkingDirectory);
+            
             // Generate mets-file last for it to describe all other package content
             _diasMetsCreator.CreateAndSaveFile(archive, metadata, packageType);
         }
 
-        private void CopyDiasMetsXsdToRootDirectory(WorkingDirectory workingDirectory)
+        private static void CopyXsdFiles(WorkingDirectory workingDirectory)
         {
-            using (Stream xsdAsStream = ResourceUtil.GetResourceAsStream(ArkadeConstants.DiasMetsXsdResource))
+            CopyXsdFile(
+                ArkadeConstants.DiasMetsXsdResource,
+                ArkadeConstants.DiasMetsXsdFileName,
+                workingDirectory.Root()
+            );
+
+            CopyXsdFile(
+                ArkadeConstants.DiasPremisXsdResource,
+                ArkadeConstants.DiasPremisXsdFileName,
+                workingDirectory.AdministrativeMetadata()
+            );
+
+            CopyXsdFile(
+                ArkadeConstants.AddmlXsdResource,
+                ArkadeConstants.AddmlXsdFileName,
+                workingDirectory.AdministrativeMetadata()
+            );
+        }
+
+        private static void CopyXsdFile(string xsdResource, string xsdFileName, ArkadeDirectory arkadeDirectory)
+        {
+            using (Stream xsdResourceStream = ResourceUtil.GetResourceAsStream(xsdResource))
             {
-                string targetFile = workingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXsdFileName).FullName;
-                using (FileStream fileStream = File.Create(targetFile))
+                string targetXsdFileName = arkadeDirectory.WithFile(xsdFileName).FullName;
+
+                using (FileStream targetXsdFileStream = File.Create(targetXsdFileName))
                 {
-                    xsdAsStream.CopyTo(fileStream);
+                    xsdResourceStream.CopyTo(targetXsdFileStream);
                 }
             }
         }

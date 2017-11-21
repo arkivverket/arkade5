@@ -364,9 +364,9 @@
     <EmbeddedResource Include="ExternalModels\xsd\mets.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="ExternalModels\xsd\DIAS_PREMIS.xsd">
+    <EmbeddedResource Include="ExternalModels\xsd\DIAS_PREMIS.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
     <None Include="ExternalModels\xsd\ead3.xsd">
       <SubType>Designer</SubType>
     </None>

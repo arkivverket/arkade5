@@ -13,6 +13,7 @@ namespace Arkivverket.Arkade.Util
         public const string EadXmlFileName = "ead.xml";
         public const string EacCpfXmlFileName = "eac-cpf.xml";
         public const string DiasPremisXmlFileName = "dias-premis.xml";
+        public const string DiasPremisXsdFileName = "dias-premis.xsd";
         public const string DiasMetsXmlFileName = "dias-mets.xml";
         public const string DiasMetsXsdFileName = "dias-mets.xsd";
         public const string LogXmlFileName = "log.xml";
@@ -25,6 +26,7 @@ namespace Arkivverket.Arkade.Util
         public const string AddmlXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.addml.xsd";
         public const string ArkivstrukturXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.arkivstruktur.xsd";
         public const string MetadatakatalogXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.metadatakatalog.xsd";
+        public const string DiasPremisXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.DIAS_PREMIS.xsd";
         public const string DiasMetsXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.mets.xsd";
 
         public const string DirectoryNameArkadeProcessingAreaRoot = "Arkade";
