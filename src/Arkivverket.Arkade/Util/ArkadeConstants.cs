@@ -15,6 +15,7 @@ namespace Arkivverket.Arkade.Util
         public const string DiasPremisXmlFileName = "dias-premis.xml";
         public const string DiasMetsXmlFileName = "dias-mets.xml";
         public const string DiasMetsXsdFileName = "dias-mets.xsd";
+        public const string LogXmlFileName = "log.xml";
         public const string ArkivuttrekkXmlFileName = "arkivuttrekk.xml";
         public const string PublicJournalXmlFileName = "offentligJournal.xml";
         public const string RunningJournalXmlFileName = "loependeJournal.xml";

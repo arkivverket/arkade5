@@ -29,6 +29,7 @@ namespace Arkivverket.Arkade.Util
             builder.RegisterType<MetadataFilesCreator>().AsSelf();
             builder.RegisterType<DiasMetsCreator>().AsSelf();
             builder.RegisterType<DiasPremisCreator>().AsSelf();
+            builder.RegisterType<LogCreator>().AsSelf();
             builder.RegisterType<EadCreator>().AsSelf();
             builder.RegisterType<EacCpfCreator>().AsSelf();
             builder.RegisterType<InfoXmlCreator>().AsSelf();
