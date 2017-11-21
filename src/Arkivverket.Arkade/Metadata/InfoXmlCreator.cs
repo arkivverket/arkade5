@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Metadata
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata, string packageFileName)
+        public void CreateAndSaveFile(ArchiveMetadata metadata, string packageFileName)
         {
             var packageFile = new FileInfo(packageFileName);
 
@@ -21,7 +21,9 @@ namespace Arkivverket.Arkade.Metadata
 
             mets infoXml = Create(metadata);
 
-            FileInfo targetFileObject = PrepareTargetFileObject(archive, packageFile);
+            var targetFileObject = new FileInfo(
+                Path.Combine(packageFile.DirectoryName, ArkadeConstants.InfoXmlFileName)
+            );
 
             XmlSerializerNamespaces namespaces = SetupNamespaces();
 
@@ -48,15 +50,6 @@ namespace Arkivverket.Arkade.Metadata
                     )
                 };
             }
-        }
-
-        private static FileInfo PrepareTargetFileObject(Archive archive, FileInfo packageFile)
-        {
-            string infoXmlFileName = archive.Uuid + ".xml";
-
-            string infoXmlFullFileName = Path.Combine(packageFile.DirectoryName, infoXmlFileName);
-
-            return new FileInfo(infoXmlFullFileName);
         }
     }
 }

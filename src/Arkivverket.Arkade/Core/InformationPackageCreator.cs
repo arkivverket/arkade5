@@ -78,7 +78,7 @@ namespace Arkivverket.Arkade.Core
 
             tarArchive.Close();
 
-            new InfoXmlCreator().CreateAndSaveFile(archive, metadata, packageFilePath);
+            new InfoXmlCreator().CreateAndSaveFile(metadata, packageFilePath);
 
             return packageFilePath;
         }

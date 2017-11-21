@@ -15,18 +15,15 @@ namespace Arkivverket.Arkade.Test.Metadata
         {
             string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Metadata\\InfoXmlCreator";
 
-            Archive archive = new ArchiveBuilder()
-                .WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot(workingDirectory)
-                .Build();
+            var packageFileName = Path.Combine(workingDirectory, "package.tar");
 
-            var packageFileName = Path.Combine(workingDirectory, archive.Uuid + ".tar");
+            new InfoXmlCreator().CreateAndSaveFile(ArchiveMetadata, packageFileName);
 
-            new InfoXmlCreator().CreateAndSaveFile(archive, ArchiveMetadata, packageFileName);
-
-            string infoXmlFilePath = Path.Combine(workingDirectory, archive.Uuid + ".xml");
+            string infoXmlFilePath = Path.Combine(workingDirectory, "info.xml");
 
             File.Exists(infoXmlFilePath).Should().BeTrue();
+
+            File.Delete(infoXmlFilePath);
         }
     }
 }
