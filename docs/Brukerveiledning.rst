@@ -47,10 +47,10 @@ Klikk på knappen "Start testing" for å starte testkjøring på det valgte uttr
 Under testkjøring vil det, i den nedre delen av vinduet, vises meldinger om innlesing, ev. strukturelle feil/mangler ved uttrekket, rapportgenerering og fullført testing.
 
 
-Rapportgenerering
------------------
+Testrapport
+-----------
 
-En HTML-rapport vil automatisk bli generert ved fullført testing. Klikk på knappen "Vis rapport" for å se rapporten i en nettleser. Rapporten vil tilpasse seg den gjeldende skjermflaten.
+Etter fullført testing vil en rapport i HTML-format bli generert. Klikk på knappen "Vis rapport" for å åpne den i en nettleser (den vil tilpasse seg gjeldende skjermflate). Ved opprettelse av arkivpakke inkluderes alltid testrapporten. Dersom den (i tillegg) skal tas vare på et annet sted, lagre den ved hjelp av nettleseren. Med rapporten åpen kan dette, i de fleste nettlesere, gjøres ved å taste Ctrl+s.
 
 .. image:: img/HtmlTestReport.png
 
