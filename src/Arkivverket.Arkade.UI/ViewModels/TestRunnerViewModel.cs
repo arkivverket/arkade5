@@ -13,6 +13,7 @@ using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.UI.Util;
+using Arkivverket.Arkade.UI.Views;
 using Arkivverket.Arkade.Util;
 using Application = System.Windows.Application;
 
@@ -344,6 +345,8 @@ namespace Arkivverket.Arkade.UI.ViewModels
             ShowReportCommand.RaiseCanExecuteChanged();
             NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
             NewProgramSessionCommand.RaiseCanExecuteChanged();
+
+            MainWindow.TestsIsRunningOrHasRun = true;
         }
 
         private void UpdateOperationMessageList(OperationMessageEventArgs operationMessageEventArgs)

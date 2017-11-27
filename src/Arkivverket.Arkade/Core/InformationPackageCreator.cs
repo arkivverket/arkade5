@@ -23,6 +23,8 @@ namespace Arkivverket.Arkade.Core
             ArkadeConstants.DirectoryNameRepositoryOperations
         };
 
+        public static bool HasRun { get; private set; }
+
         /// <summary>
         /// Create SIP (Submission Information Package). 
         /// Package- and metafile are written to the given output directory
@@ -79,6 +81,8 @@ namespace Arkivverket.Arkade.Core
             tarArchive.Close();
 
             new InfoXmlCreator().CreateAndSaveFile(metadata, packageFilePath);
+
+            HasRun = true;
 
             return packageFilePath;
         }

@@ -281,4 +281,7 @@
   <data name="NewVersionMessage" xml:space="preserve">
     <value>Ny versjon tilgjengelig</value>
   </data>
+  <data name="UnsavedTestResultsOnExitWarning" xml:space="preserve">
+    <value>Hvis du avslutter nå vil resultater fra testkjøringen gå tapt. Ønsker du likevel å avslutte?</value>
+  </data>
 </root>

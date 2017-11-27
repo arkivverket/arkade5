@@ -545,5 +545,14 @@ namespace Arkivverket.Arkade.UI.Resources {
                 return ResourceManager.GetString("TestrunnerMessageLabelWarning", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hvis du avslutter nå vil resultater fra testkjøringen gå tapt. Ønsker du likevel å avslutte?.
+        /// </summary>
+        public static string UnsavedTestResultsOnExitWarning {
+            get {
+                return ResourceManager.GetString("UnsavedTestResultsOnExitWarning", resourceCulture);
+            }
+        }
     }
 }
