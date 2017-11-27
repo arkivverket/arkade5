@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Logging
         {
             testSessionLog log = new testSessionLog();
             log.timestamp = DateTime.Now;
-            log.arkadeVersion = ArkadeVersion.Version;
+            log.arkadeVersion = ArkadeVersion.Current;
 
             log.archiveType = testSession?.Archive?.ArchiveType.ToString();
             log.archiveUuid = testSession?.Archive?.Uuid?.GetValue();

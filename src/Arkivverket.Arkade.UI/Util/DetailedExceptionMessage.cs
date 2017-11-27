@@ -59,7 +59,7 @@ namespace Arkivverket.Arkade.UI.Util
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("System information:");
-            sb.AppendLine("Arkade version: " + ArkadeVersion.Version);
+            sb.AppendLine("Arkade version: " + ArkadeVersion.Current);
             sb.AppendLine("OS: " + SystemInfo.GetOsName());
             sb.AppendLine("OS Version: " + SystemInfo.GetOsVersion());
             sb.AppendLine(".NET Framework: " + SystemInfo.GetDotNetFrameworkVersion());

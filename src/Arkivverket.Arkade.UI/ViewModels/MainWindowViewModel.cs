@@ -1,7 +1,12 @@
+using System;
+using System.Diagnostics;
+using System.Net;
 using System.Windows.Forms;
+using System.Windows.Navigation;
 using Arkivverket.Arkade.UI.Resources;
 using Arkivverket.Arkade.UI.Util;
 using Arkivverket.Arkade.UI.Views;
+using Arkivverket.Arkade.Util;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -19,8 +24,11 @@ namespace Arkivverket.Arkade.UI.ViewModels
         public DelegateCommand ShowUserGuideCommand { get; set; }
         public static DelegateCommand ShowSettingsCommand { get; set; }
         public DelegateCommand ShowInvalidProcessingAreaLocationDialogCommand { get; }
+        public string CurrentVersion { get; }
+        public string VersionStatusMessage { get; }
+        public DelegateCommand DownloadNewVersionCommand { get; }
 
-        public MainWindowViewModel(IRegionManager regionManager)
+        public MainWindowViewModel(IRegionManager regionManager, ArkadeVersion arkadeVersion)
         {
             _regionManager = regionManager;
             NavigateCommandMain = new DelegateCommand<string>(Navigate);
@@ -28,6 +36,9 @@ namespace Arkivverket.Arkade.UI.ViewModels
             ShowSettingsCommand = new DelegateCommand(ShowSettings);
             ShowInvalidProcessingAreaLocationDialogCommand =
                 new DelegateCommand(ShowInvalidProcessingAreaLocationDialog);
+            CurrentVersion = "Versjon " + ArkadeVersion.Current;
+            VersionStatusMessage = arkadeVersion.UpdateIsAvailable() ? Resources.UI.NewVersionMessage : null;
+            DownloadNewVersionCommand = new DelegateCommand(DownloadNewVersion);
         }
 
         private void Navigate(string uri)
@@ -82,6 +93,11 @@ namespace Arkivverket.Arkade.UI.ViewModels
                     System.Windows.Application.Current.Shutdown();
                 }
             }
+        }
+
+        private static void DownloadNewVersion()
+        {
+            Process.Start("https://github.com/arkivverket/arkade5/releases/latest");
         }
     }
 }

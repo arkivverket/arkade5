@@ -174,7 +174,7 @@
     <value>Velg en arkiv fil</value>
   </data>
   <data name="General_WindowTitle" xml:space="preserve">
-    <value>Arkade 5 - versjon {0}</value>
+    <value>Arkade 5</value>
   </data>
   <data name="LoadArchiveChooseArchiveHeadingText" xml:space="preserve">
     <value>Arkivuttrekk</value>
@@ -277,5 +277,8 @@
   </data>
   <data name="RestartArkadeButtonText" xml:space="preserve">
     <value>Start Arkade på nytt</value>
+  </data>
+  <data name="NewVersionMessage" xml:space="preserve">
+    <value>Ny versjon tilgjengelig</value>
   </data>
 </root>

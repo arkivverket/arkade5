@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.UI.Views
             try
             {
                 InitializeComponent();
-                Title = string.Format(UI.Resources.UI.General_WindowTitle, ArkadeVersion.Version);
+                Title = UI.Resources.UI.General_WindowTitle;
                 Loaded += (sender, e) =>
                 {
                     if (!ArkadeProcessingAreaLocationSetting.IsValid())

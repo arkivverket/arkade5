@@ -51,6 +51,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.2.0.0\lib\net45\Serilog.dll</HintPath>
       <Private>True</Private>
@@ -203,6 +206,9 @@
     <Compile Include="Tests\Noark5\Noark5TestHelper.cs" />
     <Compile Include="Tests\Noark5\NumberOfEachCaseFolderStatus.cs" />
     <Compile Include="Tests\Noark5\NumberOfFoldersPerClass.cs" />
+    <Compile Include="Util\GitHubReleaseInfoReader.cs" />
+    <Compile Include="Util\IReleaseInfoReader.cs" />
+    <Compile Include="Util\LocalInfo.cs" />
     <Compile Include="Util\JournalGuillotine.cs" />
     <Compile Include="Tests\Noark5\NumberOfChangesLogged.cs" />
     <Compile Include="Tests\Noark5\NumberOfConversions.cs" />

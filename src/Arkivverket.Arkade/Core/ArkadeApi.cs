@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Metadata;
 using Arkivverket.Arkade.Report;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core
 {

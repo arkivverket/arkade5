@@ -56,7 +56,7 @@ namespace Arkivverket.Arkade.Report
         private void VersionNumber()
         {
             _stream.WriteLine(@"<p class=""text-right"">");
-            _stream.WriteLine(Resources.Report.FooterArkadeVersion, ArkadeVersion.Version);
+            _stream.WriteLine(Resources.Report.FooterArkadeVersion, ArkadeVersion.Current);
             _stream.WriteLine("</p>");
         }
 

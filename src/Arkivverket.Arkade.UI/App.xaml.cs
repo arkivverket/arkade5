@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            Log.Information("Arkade " + ArkadeVersion.Version + " started");
+            Log.Information("Arkade " + ArkadeVersion.Current + " started");
 
             base.OnStartup(e);
             var bs = new Bootstrapper();
@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.UI
 
         protected override void OnExit(ExitEventArgs e)
         {
-            Log.Information("Arkade " + ArkadeVersion.Version + " stopping");
+            Log.Information("Arkade " + ArkadeVersion.Current + " stopping");
 
             if (!ArkadeProcessingAreaLocationSetting.IsApplied())
                 ArkadeProcessingArea.Destroy();

@@ -36,6 +36,8 @@ namespace Arkivverket.Arkade.Util
             builder.RegisterType<InformationPackageCreator>().AsSelf();
             builder.RegisterType<ArkadeApi>().AsSelf();
             builder.RegisterType<TestSessionXmlGenerator>().AsSelf();
+            builder.RegisterType<ArkadeVersion>().AsSelf();
+            builder.RegisterType<GitHubReleaseInfoReader>().As<IReleaseInfoReader>();
         }
     }
 }
