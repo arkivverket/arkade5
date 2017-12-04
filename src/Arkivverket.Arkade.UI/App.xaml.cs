@@ -51,7 +51,20 @@ namespace Arkivverket.Arkade.UI
             Log.Information("Arkade " + ArkadeVersion.Current + " stopping");
 
             if (!ArkadeProcessingAreaLocationSetting.IsApplied())
-                ArkadeProcessingArea.Destroy();
+            {
+                try
+                {
+                    ArkadeProcessingArea.Destroy();
+                }
+                catch
+                {
+                    string messageBoxText = string.Format(
+                        UI.Resources.UI.ProcessingAreaDestroyErrorMessage,
+                        ArkadeProcessingArea.RootDirectory.FullName
+                    );
+                    MessageBox.Show(messageBoxText, "NB!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
             else
                 ArkadeProcessingArea.CleanUp();
 

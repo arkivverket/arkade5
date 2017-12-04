@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Core
 
         public static void CleanUp()
         {
-            WorkDirectory?.Delete(true);
+            DeleteWorkDirectory();
 
             DeleteOldLogs();
         }
@@ -104,6 +104,12 @@ namespace Arkivverket.Arkade.Core
             return directory;
         }
 
+        private static void DeleteWorkDirectory()
+        {
+            if (WorkDirectory != null && WorkDirectory.Exists)
+                WorkDirectory.Delete(true);
+        }
+
         private static void DeleteOldLogs()
         {
             foreach (FileInfo logFile in LogsDirectory.GetFiles())
@@ -113,8 +119,9 @@ namespace Arkivverket.Arkade.Core
 
         private static bool IsOldLog(FileSystemInfo logFile)
         {
-            // Extracts date from either arkade-20171024.log or arkade-error-20171024091500.log
-            const string dateCaptureRegexPattern = @"^arkade(-error)?-(?<date>\d{8})(\d{6})?\.log$";
+            // Extracts date from filename looking like either arkade-20171024.log, arkade-error-20171024091500.log
+            // arkade-20171024_001.log or arkade-error-20171024091500_001.log
+            const string dateCaptureRegexPattern = @"^arkade(-error)?-(?<date>\d{8})(\d{6})?(_\d{3})?\.log$";
 
             string dateString = Regex.Match(logFile.Name, dateCaptureRegexPattern).Groups["date"].Value;
 

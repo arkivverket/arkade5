@@ -358,6 +358,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Noe gikk galt under sletting av tidligere prosesseringsområde. Vennligst lukk alle instanser av Arkade og slett denne katalogen manuelt: {0}.
+        /// </summary>
+        public static string ProcessingAreaDestroyErrorMessage {
+            get {
+                return ResourceManager.GetString("ProcessingAreaDestroyErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start Arkade på nytt.
         /// </summary>
         public static string RestartArkadeButtonText {

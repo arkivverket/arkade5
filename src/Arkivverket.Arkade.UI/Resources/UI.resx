@@ -284,4 +284,7 @@
   <data name="UnsavedTestResultsOnExitWarning" xml:space="preserve">
     <value>Hvis du avslutter nå vil resultater fra testkjøringen gå tapt. Ønsker du likevel å avslutte?</value>
   </data>
+  <data name="ProcessingAreaDestroyErrorMessage" xml:space="preserve">
+    <value>Noe gikk galt under sletting av tidligere prosesseringsområde. Vennligst lukk alle instanser av Arkade og slett denne katalogen manuelt: {0}</value>
+  </data>
 </root>
