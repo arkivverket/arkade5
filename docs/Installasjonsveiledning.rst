@@ -11,7 +11,8 @@ Systemkrav for å kjøre Arkade 5
 
 Installer ny versjon av Arkade
 ------------------------------
-Last ned den siste versjonen av Arkade 5 fra `forsiden <index.html>`_.
+
+`Last ned siste versjon av Arkade 5 fra GitHub <https://github.com/arkivverket/arkade5/releases/latest>`_ (velg .msi-filen under Downloads)
 
 Deretter startes installasjonen verd å klikke eller åpne den nedlastede .msi filen 
 
