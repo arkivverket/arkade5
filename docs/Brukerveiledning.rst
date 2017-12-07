@@ -3,8 +3,15 @@ Brukerveiledning
 
 Oppdatert 21.08.2017
 
-Arkade 5 brukes ved å lese inn et arkivuttrekk, kjøre tester på uttrekket og/eller opprette en arkivpakke av uttrekket. Ved testing genereres det en utfyllende testrapport.
+Arkade 5 brukes ved å lese inn et arkivuttrekk, utføre testing av uttrekket og/eller opprette en arkivpakke av uttrekket. Ved testing genereres det en utfyllende testrapport.
 Arkade 5 muliggjør også opprettelse/endring av metadata for arkivuttrekk.
+
+
+Oppstart/avslutning
+~~~~~~~~~~~~~~~~~~~
+
+Ved oppstart av Arkade åpnes innlastingsvinduet. Dersom et tilgjengelig område for midlertidige filer ikke allerede er definert, vil Arkade først be om at dette blir opppgitt (se innstillinger). Arkade avsluttes ved å lukke hovedvinduet. Ved avslutning igangsettes sletting av midlertidige filer.
+
 
 Innlastingsvinduet
 ~~~~~~~~~~~~~~~~~~
@@ -50,7 +57,7 @@ Under testkjøring vil det, i den nedre delen av vinduet, vises meldinger om inn
 Testrapport
 -----------
 
-Etter fullført testing vil en rapport i HTML-format bli generert. Klikk på knappen "Vis rapport" for å åpne den i en nettleser (den vil tilpasse seg gjeldende skjermflate). Ved opprettelse av arkivpakke inkluderes alltid testrapporten. Dersom den (i tillegg) skal tas vare på et annet sted, lagre den ved hjelp av nettleseren. Med rapporten åpen kan dette, i de fleste nettlesere, gjøres ved å taste Ctrl+s.
+Etter fullført testing vil en rapport i HTML-format bli generert. Klikk på knappen "Vis rapport" for å åpne den i en nettleser (den vil tilpasse seg gjeldende skjermflate). Ved opprettelse av arkivpakke inkluderes alltid testrapporten. Dersom den (i tillegg) skal tas vare på et annet sted, lagres den ved hjelp av nettleseren. Med rapporten åpen kan dette, i de fleste nettlesere, gjøres ved å taste Ctrl+s.
 
 .. image:: img/HtmlTestReport.png
 
@@ -77,31 +84,23 @@ Arkivpakkevinduet
 
 .. image:: img/PackageWindow.png
 
-Arkade tillater registrering av metadata for arkivpakken som skal opprettes. Arkade vil forsøke å lese inn eventuelle eksisterende metadata, fra en mets.xml-fil i arkivittrekket, og forhåndsutfylle feltene i pakkevinduet. Når pakken opprettes skrives den utfylte informasjonen til en (ny) mets.xml-fil som legges ved i arkivpakken. Metadataene skrives også til filen info.xml* som legges utenfor, på samme nivå som, arkivpakken.
-
-*\*Filnavnet info.xml-filen blir opprettet med vil være UUID-en som er generert for den gjeldende arkivbehandlingen: {uuid}.xml*
+Arkade tillater registrering av metadata for arkivpakken som skal opprettes. Arkade vil forsøke å lese inn eventuelle eksisterende metadata, fra en mets.xml-fil i arkivuttrekket, og forhåndsutfylle feltene i arkivpakkevinduet. Når pakken opprettes skrives den utfylte informasjonen til en (ny) mets.xml-fil som legges ved i arkivpakken. Metadataene skrives også til filen info.xml som legges utenfor, på samme nivå som, arkivpakken.
 
 I nedre del av vinduet velges ønsket pakketype, SIP eller AIP.
 
-For å opprette en arkivpakke, klikk på knappen "Opprett pakke". 
+Når ønskede metadata er oppgitt, klikkes knappen "Opprett pakke". Dette åpner et dialogvindu for valg av pakkens plassering. Ved valgt plassering opprettes arkivpakken.
 
-Arkivpakken vil opprettes som en tar-fil og filnavnet vil være UUID-en som er generert for den gjeldende arkivbehandlingen: *{uuid}.tar*. Pakken vil plasseres i arbeidskatalogen for den gjeldende arkivbehandlingen. (Mer om arbeidskatalogen under `Fil- og kataloginformasjon`_)
+Arkivpakken vil opprettes som en tar-fil og filnavnet vil være UUID-en som er generert for den gjeldende arkivbehandlingen: *{uuid}.tar*. Pakken og tilhørende info.xml-fil plasseres i en katalog *Arkadepakke-{uuid}*. Når alt er ferdig generert, vises denne katalogen på den valgte plasseringen.
 
-*TIPS: Metadata for arkivpakken kan endres etter at pakken er opprettet forutsatt at gjeldende arkivbehandling ikke er avsluttet. Ved gjentatte klikk på "Opprett pakke" vil den samme pakken (samt info.xml-fil) overskrives. Sørg bare for at fildestinasjonen ikke er opptatt, f.eks. ved at pakken er åpnet i, og oppholdes av, et eksternt pakkeprogram.*
+*TIPS: Så lenge arkivpakkevinduet ikke forlates, kan metadata endres og "Opprett pakke" klikkes på nytt. Velges samme pakkeplassering, overskrives foregående pakke og info.xml med oppdaterte metadata. Sørg bare for at filene som skal overskrives ikke er opptatt, f.eks. ved at de er åpnet i andre programmer.*
 
 NB! Knappen "Ny kjøring" avslutter gjeldene arkivbehandling.
 
 
-Fil- og kataloginformasjon
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Innstillinger
+~~~~~~~~~~~~~
 
-Arkade benytter en katalog, "Arkade", for alle filer som produseres/oppdateres under kjøring av programmet. Katalogen opprettes automatisk om den ikke finnes og er/blir plassert direkte under filområdet for innlogget Windows-bruker: *C:\\Brukere\\{bruker}\\Arkade\\*
+Prosesseringsområde
+-------------------
 
-Hver gang et arkivuttrekk lastes inn med Arkade, opprettes det en arbeidskatalog for den gjeldende behandlingen av uttrekket. Plasseringen for arbeidkatalogene er *~\\Arkade\\work\\*.
-
-Navnet på en arbeidskatalog blir generert under innlasting av arkivuttrekket og er sammensatt av dato og tidspunkt for innlastingen etterfulgt av en unik identifikator (UUID) som blir generert for den gjeldende arkivbehandlingen.
-
-Etter fullført testkjøring vil en loggfil på XML-format, inneholdende informasjon om utførelsen av hver test, og en testrapport på HTML-format være opprettet under følgende plassering i den gjeldende arbeidkatalogen:
-*\\administrative_metadata\\repository_operations\\arkade-log.xml*
-
-*Arkades system- og feillogger (beregnet på systemutviklere) skrives til katalogen ~\\Arkade\\logs\\.*
+Under kjøring benytter Arkade et filområde til plassering av midlertidige filer fra arkivprosessering, system- og feillogger samt andre systemfiler. Plassering for prosesseringsområdet velges av bruker som en katalog i filsystemet og må være definert før arkiv kan behandles. Plasseringen som velges må være egnet med tanke på størrelse, tilgjengelighet og personvern. Størrelsen må være minst den av alle uttrekk som skal behandles under samme kjøring i tillegg til plass for systemfiler. Ved avslutning av Arkade igangsettes sletting av midlertidige filer og gamle loggfiler. Plasseringen av prosesseringsområdet kan når som helst endres fra innstillingsvinduet. Ved endring av plassering, igangsettes sletting av opprinnelig prosesseringsområde. Ny plassering vil tas i bruk neste gang Arkade startes.
