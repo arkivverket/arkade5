@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Core
 
         public static void CleanUp()
         {
-            WorkDirectory?.Delete(true);
+            DeleteWorkDirectory();
 
             DeleteOldLogs();
         }
@@ -102,6 +102,12 @@ namespace Arkivverket.Arkade.Core
             Log.Information((customLogMessage ?? defaultLogMessage) + directory.FullName);
 
             return directory;
+        }
+
+        private static void DeleteWorkDirectory()
+        {
+            if (WorkDirectory != null && WorkDirectory.Exists)
+                WorkDirectory.Delete(true);
         }
 
         private static void DeleteOldLogs()
