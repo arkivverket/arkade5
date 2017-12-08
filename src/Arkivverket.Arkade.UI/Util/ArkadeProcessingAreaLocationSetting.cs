@@ -8,12 +8,15 @@ namespace Arkivverket.Arkade.UI.Util
     {
         public static string Get()
         {
+            Settings.Default.Reload();
+            
             return Settings.Default.ArkadeProcessingAreaLocation;
         }
 
         public static void Set(string locationSetting)
         {
             Settings.Default.ArkadeProcessingAreaLocation = locationSetting;
+
             Settings.Default.Save();
         }
 
@@ -21,7 +24,9 @@ namespace Arkivverket.Arkade.UI.Util
         {
             try
             {
-                return new DirectoryInfo(Settings.Default.ArkadeProcessingAreaLocation).Exists;
+                string definedLocation = Get();
+
+                return Directory.Exists(definedLocation);
             }
             catch
             {
@@ -32,7 +37,8 @@ namespace Arkivverket.Arkade.UI.Util
         public static bool IsApplied()
         {
             string appliedLocation = ArkadeProcessingArea.Location?.FullName ?? string.Empty;
-            string definedLocation = Settings.Default.ArkadeProcessingAreaLocation;
+            
+            string definedLocation = Get();
 
             return appliedLocation.Equals(definedLocation);
         }
