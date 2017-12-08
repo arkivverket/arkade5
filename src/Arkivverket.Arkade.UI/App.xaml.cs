@@ -52,7 +52,8 @@ namespace Arkivverket.Arkade.UI
 
             if (!ArkadeProcessingAreaLocationSetting.IsApplied())
                 ArkadeProcessingArea.Destroy();
-            else
+
+            else if (ArkadeInstance.IsOnlyInstance)
                 ArkadeProcessingArea.CleanUp();
 
             base.OnExit(e);

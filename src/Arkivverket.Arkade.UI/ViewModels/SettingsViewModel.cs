@@ -1,4 +1,6 @@
 ﻿using Arkivverket.Arkade.Core;
+﻿using System.Windows;
+using Arkivverket.Arkade.UI.Util;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -32,6 +34,16 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private void ChangeArkadeProcessingAreaLocation()
         {
+            if (!ArkadeInstance.IsOnlyInstance)
+            {
+                string message = Resources.SettingsUI.OtherInstancesRunningOnProcessingAreaChangeMessage;
+                MessageBox.Show(message, "NB!", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                _log.Information("Arkade processing area location change denied due to other running Arkade instances");
+
+                return;
+            }
+
             _log.Information("User action: Open choose Arkade processing area location dialog");
 
             var selectDirectoryDialog = new CommonOpenFileDialog

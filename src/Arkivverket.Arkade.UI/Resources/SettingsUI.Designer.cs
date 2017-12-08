@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.UI.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class SettingsUI {
@@ -111,6 +111,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         public static string ArkadeProcessingAreaLocation_Warning {
             get {
                 return ResourceManager.GetString("ArkadeProcessingAreaLocation_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vennligst avslutt andre instanser av Arkade før du endrer plassering av prosesseringområdet..
+        /// </summary>
+        public static string OtherInstancesRunningOnProcessingAreaChangeMessage {
+            get {
+                return ResourceManager.GetString("OtherInstancesRunningOnProcessingAreaChangeMessage", resourceCulture);
             }
         }
         
