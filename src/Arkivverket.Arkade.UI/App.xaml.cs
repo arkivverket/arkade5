@@ -9,9 +9,9 @@ using Serilog;
 
 namespace Arkivverket.Arkade.UI
 {
-    public partial class App : Application
+    public partial class App
     {
-        private static ILogger Log;
+        private static ILogger _log;
 
         public App()
         {
@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.UI
             }
 
             LogConfiguration.ConfigureSeriLog();
-            Log = Serilog.Log.ForContext<App>();
+            _log = Log.ForContext<App>();
             // For some reason this will not work for exceptions thrown from inside the Views.
             AppDomain.CurrentDomain.UnhandledException += MyHandler;
         }
@@ -34,12 +34,12 @@ namespace Arkivverket.Arkade.UI
         {
             var e = (Exception) args.ExceptionObject;
             new DetailedExceptionMessage(e).ShowMessageBox();
-            Log.Error("Unexpected exception", e);
+            _log.Error("Unexpected exception", e);
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            Log.Information("Arkade " + ArkadeVersion.Current + " started");
+            _log.Information("Arkade " + ArkadeVersion.Current + " started");
 
             base.OnStartup(e);
             var bs = new Bootstrapper();
@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.UI
 
         protected override void OnExit(ExitEventArgs e)
         {
-            Log.Information("Arkade " + ArkadeVersion.Current + " stopping");
+            _log.Information("Arkade " + ArkadeVersion.Current + " stopping");
 
             if (!ArkadeProcessingAreaLocationSetting.IsApplied())
                 ArkadeProcessingArea.Destroy();
