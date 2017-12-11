@@ -130,7 +130,9 @@ namespace Arkivverket.Arkade.Identify
 
             if (!noarkihFile.Exists)
             {
-                throw new ArkadeException(string.Format(Resources.Messages.FileNotFoundMessage, noarkihFile.FullName));
+                Log.Warning("Expected file not found: " + noarkihFile.FullName);
+
+                return;
             }
 
             string noarkihString = File.ReadAllText(noarkihFile.FullName);
