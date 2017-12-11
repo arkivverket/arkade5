@@ -6,7 +6,6 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Noark5 - test #29
     ///  Antall presedenser i saksmapper: NN
     ///  Antall presedenser i journalposter: NN
     /// </summary>

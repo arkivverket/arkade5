@@ -4,9 +4,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #21
-    /// </summary>
     public class NumberOfDocumentObjects : Noark5XmlReaderBaseTest
     {
         private string _currentArchivePartSystemId;

@@ -9,9 +9,6 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #35
-    /// </summary>
     public class NumberOfDisposalResolutions : Noark5XmlReaderBaseTest
     {
         private string _currentArchivePartSystemId;

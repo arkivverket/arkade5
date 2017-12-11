@@ -5,9 +5,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #4
-    /// </summary>
     public class NumberOfClassificationSystems : Noark5XmlReaderBaseTest
     {
         private readonly Dictionary<string, int> _classificationSystemsPerArchivePart = new Dictionary<string, int>();

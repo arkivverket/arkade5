@@ -6,9 +6,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #09
-    /// </summary>
     public class NumberOfFoldersPerClass : Noark5XmlReaderBaseTest
     {
         private readonly List<Class> _classes = new List<Class>();

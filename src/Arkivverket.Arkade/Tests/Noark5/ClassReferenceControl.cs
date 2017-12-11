@@ -4,9 +4,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #50
-    /// </summary>
     public class ClassReferenceControl : Noark5XmlReaderBaseTest
     {
         private readonly List<string> _classSystemIds = new List<string>();

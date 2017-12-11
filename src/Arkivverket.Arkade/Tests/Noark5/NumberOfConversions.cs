@@ -6,9 +6,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #37
-    /// </summary>
     public class NumberOfConversions : Noark5XmlReaderBaseTest
     {
         private readonly Dictionary<string, int> _numberOfConvertionsPerArchivePart = new Dictionary<string, int>();

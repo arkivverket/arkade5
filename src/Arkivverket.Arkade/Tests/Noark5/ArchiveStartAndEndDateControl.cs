@@ -9,9 +9,6 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #39
-    /// </summary>
     public class ArchiveStartAndEndDateControl : Noark5XmlReaderBaseTest
     {
         private readonly SortedSet<DateTime> _registrationCreationDates;

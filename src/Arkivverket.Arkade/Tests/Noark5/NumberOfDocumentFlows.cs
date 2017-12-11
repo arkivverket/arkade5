@@ -4,9 +4,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #32
-    /// </summary>
     public class NumberOfDocumentFlows : Noark5XmlReaderBaseTest
     {
         private int _totalNumberOfDocumentFlows;

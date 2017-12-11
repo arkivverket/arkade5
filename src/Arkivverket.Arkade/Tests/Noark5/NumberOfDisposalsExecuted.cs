@@ -9,9 +9,6 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary> 
-    ///     Noark5 - test #36
-    /// </summary> 
     public class NumberOfDisposalsExecuted : Noark5XmlReaderBaseTest
     {
         private readonly Dictionary<string, int> _numberOfDisposalsExecutedPerArchivePart;

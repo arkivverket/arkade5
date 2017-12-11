@@ -6,9 +6,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #17
-    /// </summary>
     public class NumberOfEachJournalStatus : Noark5XmlReaderBaseTest
     {
         private string _currentArchivePartSystemId;

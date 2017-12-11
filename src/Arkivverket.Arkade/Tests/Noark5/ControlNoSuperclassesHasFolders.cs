@@ -6,9 +6,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #43
-    /// </summary>
     public class ControlNoSuperclassesHasFolders : Noark5XmlReaderBaseTest
     {
         private string _currentArchivePartSystemId;

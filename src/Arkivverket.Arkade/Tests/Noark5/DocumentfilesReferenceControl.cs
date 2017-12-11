@@ -7,9 +7,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #47
-    /// </summary>
     public class DocumentfilesReferenceControl : Noark5XmlReaderBaseTest
     {
         private static Hashtable _documentFileNames;

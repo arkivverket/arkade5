@@ -7,9 +7,6 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #38
-    /// </summary>
     public class NumberOfJournalPosts : Noark5XmlReaderBaseTest
     {
         private readonly int _publicJournalNumberOfJournalPosts;

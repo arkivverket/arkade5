@@ -4,9 +4,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #27
-    /// </summary>
     public class NumberOfComments : Noark5XmlReaderBaseTest
     {
         private ArchivePart _currentArchivePart = new ArchivePart();

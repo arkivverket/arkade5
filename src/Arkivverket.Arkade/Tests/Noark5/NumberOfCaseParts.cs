@@ -5,9 +5,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #26
-    /// </summary>
     public class NumberOfCaseParts : Noark5XmlReaderBaseTest
     {
         private string _currentArchivePartSystemId;

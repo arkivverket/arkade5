@@ -8,9 +8,6 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #51
-    /// </summary>
     public class ChangeLogArchiveReferenceControl : Noark5XmlReaderBaseTest
     {
         private readonly Archive _archive;

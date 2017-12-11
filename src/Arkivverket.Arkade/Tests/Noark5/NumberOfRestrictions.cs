@@ -11,9 +11,6 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #33
-    /// </summary>
     public class NumberOfRestrictions : Noark5XmlReaderBaseTest
     {
         private string _currentArchivePartSystemId;

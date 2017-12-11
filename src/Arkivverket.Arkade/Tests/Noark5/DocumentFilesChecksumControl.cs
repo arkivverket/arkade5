@@ -8,9 +8,6 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #45
-    /// </summary>
     public class DocumentFilesChecksumControl : Noark5XmlReaderBaseTest
     {
         private string _currentArchivePartSystemId;

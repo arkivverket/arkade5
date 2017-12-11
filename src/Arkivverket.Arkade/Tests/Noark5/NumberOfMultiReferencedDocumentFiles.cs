@@ -6,9 +6,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #25
-    /// </summary>
     public class NumberOfMultiReferencedDocumentFiles : Noark5XmlReaderBaseTest
     {
         private readonly List<DocumentObject> _documentObjects = new List<DocumentObject>();

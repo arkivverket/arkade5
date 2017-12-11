@@ -6,9 +6,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #08
-    /// </summary>
     public class NumberOfFoldersPerYear : Noark5XmlReaderBaseTest
     {
         private ArchivePart _currentArchivePart;

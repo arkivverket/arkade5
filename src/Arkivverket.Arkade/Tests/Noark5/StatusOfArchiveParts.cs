@@ -5,9 +5,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #3
-    /// </summary>
     public class StatusOfArchiveParts : Noark5XmlReaderBaseTest
     {
         private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();

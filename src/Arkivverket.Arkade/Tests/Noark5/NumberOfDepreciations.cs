@@ -5,9 +5,6 @@ using Arkivverket.Arkade.Resources;
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     /// <inheritdoc />
-    /// <summary>
-    ///     Noark5 - test #31
-    /// </summary>
     public class NumberOfDepreciations : Noark5XmlReaderBaseTest
     {
         private int _totalNumberOfDeprecations;

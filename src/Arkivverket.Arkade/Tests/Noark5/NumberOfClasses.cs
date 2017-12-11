@@ -2,9 +2,6 @@
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #5
-    /// </summary>
     public class NumberOfClasses : CountElementsWithUniqueName
     {
         public NumberOfClasses() : base("klasse")

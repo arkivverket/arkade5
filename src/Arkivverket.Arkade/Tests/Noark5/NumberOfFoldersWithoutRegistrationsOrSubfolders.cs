@@ -4,9 +4,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #10
-    /// </summary>
     public class NumberOfFoldersWithoutRegistrationsOrSubfolders : Noark5XmlReaderBaseTest
     {
         private bool _registrationIsFound;

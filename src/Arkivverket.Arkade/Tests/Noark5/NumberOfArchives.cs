@@ -5,9 +5,6 @@ using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
-    /// <summary>
-    ///     Noark5 - test #1
-    /// </summary>
     public class NumberOfArchives : Noark5XmlReaderBaseTest
     {
         private readonly Dictionary<int, int> _archiveCountByLevel = new Dictionary<int, int>();
