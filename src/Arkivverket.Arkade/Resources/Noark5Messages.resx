@@ -359,9 +359,6 @@ Generert:  {2}</value>
   <data name="NumberOfEachDocumentFormatMessage_FormatMismatch" xml:space="preserve">
     <value>Format-misforhold: Dokumentformat: {0} - Dokumentfilreferanse: {1}</value>
   </data>
-  <data name="NumberOfWithheldElements" xml:space="preserve">
-    <value>Eventuelt - antall skjerminger i arkivstrukturen</value>
-  </data>
   <data name="NumberOfMultiReferencedDocumentFiles" xml:space="preserve">
     <value>Dokumentfiler med referanse fra mer enn ett dokumentobjekt</value>
   </data>

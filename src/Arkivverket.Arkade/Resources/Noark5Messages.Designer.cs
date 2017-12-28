@@ -1269,15 +1269,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eventuelt - antall skjerminger i arkivstrukturen.
-        /// </summary>
-        internal static string NumberOfWithheldElements {
-            get {
-                return ResourceManager.GetString("NumberOfWithheldElements", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Finn status på arkivdeler.
         /// </summary>
         internal static string StatusOfArchiveParts {

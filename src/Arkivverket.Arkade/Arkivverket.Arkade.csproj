@@ -236,7 +236,6 @@
     <Compile Include="Tests\Noark5\NumberOfFoldersWithoutRegistrationsOrSubfolders.cs" />
     <Compile Include="Tests\Noark5\NumberOfRegistrationsPerClass.cs" />
     <Compile Include="Tests\Noark5\NumberOfEachJournalStatus.cs" />
-    <Compile Include="Tests\Noark5\NumberOfWithheldElements.cs" />
     <Compile Include="Tests\Noark5\Structure\ValidateNumberOfDocumentfiles.cs" />
     <Compile Include="Tests\Noark5\SystemIdUniqueControl.cs" />
     <Compile Include="Util\ArkadeDirectory.cs" />
