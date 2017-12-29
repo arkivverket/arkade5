@@ -325,7 +325,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Noark5Messages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Tests\BaseNoark5Test.cs" />
     <Compile Include="Tests\Common\CheckWellFormedXml.cs" />
     <Compile Include="Tests\INoark5Test.cs" />
     <Compile Include="Tests\ITestProvider.cs" />
