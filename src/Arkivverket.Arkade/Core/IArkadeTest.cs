@@ -27,6 +27,5 @@ namespace Arkivverket.Arkade.Core
         /// </summary>
         /// <returns></returns>
         TestRun GetTestRun();
-
     }
 }

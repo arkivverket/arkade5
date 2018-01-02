@@ -1,6 +1,4 @@
-﻿using Arkivverket.Arkade.Tests;
-
-namespace Arkivverket.Arkade.Core.Addml
+﻿namespace Arkivverket.Arkade.Core.Addml
 {
     public interface IAddmlHardcodedProcess
     {
