@@ -2,6 +2,7 @@
 using Arkivverket.Arkade.Core.Addml.Processes;
 using System.Collections.Generic;
 using System.Linq;
+using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml
 {
@@ -9,11 +10,15 @@ namespace Arkivverket.Arkade.Core.Addml
     {
         private List<IAddmlHardcodedProcess> _hardcodedProcesses;
 
-        public HardcodedProcessRunner(AddmlDefinition addmlDefinition, Archive archive)
+        public HardcodedProcessRunner(AddmlDefinition addmlDefinition, Archive archive,
+            List<TestResult> delimiterErrorTestResults = null)
         {
             _hardcodedProcesses = new List<IAddmlHardcodedProcess> {
                 new ControlExtraOrMissingFiles(addmlDefinition, archive)
             };
+
+            if (delimiterErrorTestResults != null && delimiterErrorTestResults.Any())
+                _hardcodedProcesses.Add(new ControlRecordAndFieldDelimiters(delimiterErrorTestResults));
         }
 
         public List<TestRun> Run()

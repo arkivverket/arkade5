@@ -108,16 +108,8 @@ namespace Arkivverket.Arkade.Core.Addml
 
             TestSuite testSuite = _addmlProcessRunner.GetTestSuite();
 
-            var p = new HardcodedProcessRunner(addmlDefinition, testSession.Archive);
+            var p = new HardcodedProcessRunner(addmlDefinition, testSession.Archive, _testResultsFailedRecordsList);
             p.Run().ForEach(t => testSuite.AddTestRun(t));
-
-            var failedRecoredTestRun = new TestRun(AddmlMessages.RecordLengthErrorTestName, TestType.Structure)
-            {
-                Results = _testResultsFailedRecordsList,
-                TestDescription = Messages.NumberOfRecordsWithFieldDelimiterErrorDescription
-            };
-
-            testSuite.AddTestRun(failedRecoredTestRun);
 
             return testSuite;
         }
