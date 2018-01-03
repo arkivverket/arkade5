@@ -23,6 +23,21 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         };
 
 
+        public string GetName()
+        {
+            return Name;
+        }
+
+        public TestType GetTestType()
+        {
+            return TestType.ContentControl;
+        }
+
+        public string GetDescription()
+        {
+            return Messages.ControlExtraOrMissingFilesDescription;
+        }
+
         public TestRun GetTestRun()
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -55,9 +70,9 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             }
             stopwatch.Stop();
 
-            TestRun testRun = new TestRun(Name, TestType.ContentControl);
+            TestRun testRun = new TestRun(GetName(), GetTestType());
             testRun.TestDuration = stopwatch.ElapsedMilliseconds;
-            testRun.TestDescription = Messages.ControlExtraOrMissingFilesDescription;
+            testRun.TestDescription = GetDescription();
             testRun.Results = testResults;
 
             return testRun;

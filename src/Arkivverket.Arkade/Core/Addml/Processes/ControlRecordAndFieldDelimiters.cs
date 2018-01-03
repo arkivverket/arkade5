@@ -13,11 +13,26 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             _testResults = testResults;
         }
 
+        public string GetName()
+        {
+            return AddmlMessages.RecordLengthErrorTestName;
+        }
+
+        public TestType GetTestType()
+        {
+            return TestType.Structure;
+        }
+
+        public string GetDescription()
+        {
+            return Messages.NumberOfRecordsWithFieldDelimiterErrorDescription;
+        }
+
         public TestRun GetTestRun()
         {
-            return new TestRun(AddmlMessages.RecordLengthErrorTestName, TestType.Structure)
+            return new TestRun(GetName(), GetTestType())
             {
-                TestDescription = Messages.NumberOfRecordsWithFieldDelimiterErrorDescription,
+                TestDescription = GetDescription(),
                 Results = _testResults
             };
         }

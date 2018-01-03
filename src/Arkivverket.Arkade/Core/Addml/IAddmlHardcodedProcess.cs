@@ -1,7 +1,6 @@
 ﻿namespace Arkivverket.Arkade.Core.Addml
 {
-    public interface IAddmlHardcodedProcess
+    public interface IAddmlHardcodedProcess : IArkadeTest
     {
-        TestRun GetTestRun();
     }
 }
