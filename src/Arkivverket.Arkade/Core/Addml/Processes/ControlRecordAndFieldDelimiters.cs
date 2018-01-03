@@ -4,7 +4,7 @@ using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class ControlRecordAndFieldDelimiters : IAddmlHardcodedProcess
+    public class ControlRecordAndFieldDelimiters : AddmlHardcodedProcess
     {
         private readonly List<TestResult> _testResults;
 
@@ -13,28 +13,24 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             _testResults = testResults;
         }
 
-        public string GetName()
+        public override string GetName()
         {
             return AddmlMessages.RecordLengthErrorTestName;
         }
 
-        public TestType GetTestType()
+        public override TestType GetTestType()
         {
             return TestType.Structure;
         }
 
-        public string GetDescription()
+        public override string GetDescription()
         {
             return Messages.NumberOfRecordsWithFieldDelimiterErrorDescription;
         }
 
-        public TestRun GetTestRun()
+        protected override List<TestResult> GetTestResults()
         {
-            return new TestRun(GetName(), GetTestType())
-            {
-                TestDescription = GetDescription(),
-                Results = _testResults
-            };
+            return _testResults;
         }
     }
 }

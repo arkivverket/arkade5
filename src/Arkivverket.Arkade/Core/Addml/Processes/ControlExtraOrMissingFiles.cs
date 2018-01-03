@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
-using System.Diagnostics;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using System.IO;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Xml;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
-    public class ControlExtraOrMissingFiles : IAddmlHardcodedProcess
+    public class ControlExtraOrMissingFiles : AddmlHardcodedProcess
     {
         public const string Name = "Control_ExtraOrMissingFiles";
 
@@ -23,26 +22,23 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         };
 
 
-        public string GetName()
+        public override string GetName()
         {
             return Name;
         }
 
-        public TestType GetTestType()
+        public override TestType GetTestType()
         {
             return TestType.ContentControl;
         }
 
-        public string GetDescription()
+        public override string GetDescription()
         {
             return Messages.ControlExtraOrMissingFilesDescription;
         }
 
-        public TestRun GetTestRun()
+        protected override List<TestResult> GetTestResults()
         {
-            Stopwatch stopwatch = new Stopwatch();
-
-            stopwatch.Start();
             HashSet<string> allFilesInWorkingDirectory = GetAllFilesInDirectory(_archive.WorkingDirectory.Content().DirectoryInfo());
             HashSet<string> allFilesInAddml = GetAllFilesInAddmlDefinition(_addmlDefinition);
 
@@ -68,14 +64,8 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
                 testResults.Add(new TestResult(ResultType.Error, new Location(s),
                   string.Format(Messages.ControlExtraOrMissingFilesMessage1)));
             }
-            stopwatch.Stop();
 
-            TestRun testRun = new TestRun(GetName(), GetTestType());
-            testRun.TestDuration = stopwatch.ElapsedMilliseconds;
-            testRun.TestDescription = GetDescription();
-            testRun.Results = testResults;
-
-            return testRun;
+            return testResults;
         }
 
         private void FilterNoark4DokversReferences(HashSet<string> unfiltered)
