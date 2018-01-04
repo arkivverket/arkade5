@@ -18,9 +18,8 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
             List<TestResult> testResults = GetTestResults();
             _stopwatch.Stop();
 
-            return new TestRun(GetName(), GetTestType())
+            return new TestRun(this)
             {
-                TestDescription = GetDescription(),
                 TestDuration = _stopwatch.ElapsedMilliseconds,
                 Results = testResults
             };

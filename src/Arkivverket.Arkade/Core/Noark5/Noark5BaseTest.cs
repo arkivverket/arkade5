@@ -33,9 +33,8 @@ namespace Arkivverket.Arkade.Core.Noark5
             List<TestResult> testResults = GetTestResults();
             Stopwatch.Stop();
 
-            return new TestRun(GetName(), GetTestType())
+            return new TestRun(this)
             {
-                TestDescription = GetDescription(),
                 Results = testResults,
                 TestDuration = Stopwatch.ElapsedMilliseconds
             };

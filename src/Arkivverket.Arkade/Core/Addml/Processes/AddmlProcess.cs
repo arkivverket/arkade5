@@ -22,10 +22,9 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             List<TestResult> testRunResults = GetTestResults();
             _stopwatch.Stop();
 
-            return new TestRun(GetName(), GetTestType())
+            return new TestRun(this)
             {
                 TestDuration = _stopwatch.ElapsedMilliseconds,
-                TestDescription = GetDescription(),
                 Results = testRunResults
             };
         }

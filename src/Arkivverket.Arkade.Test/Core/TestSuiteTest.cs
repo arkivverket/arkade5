@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Test.Core
         public void FindNumberOfErrorsShouldReturnOneError()
         {
             var testSuite = new TestSuite();
-            var testRun = new TestRun("test with error", TestType.ContentAnalysis);
+            TestRun testRun = new ArkadeTestMock("test with error", TestType.ContentAnalysis).GetTestRun();
             testRun.Add(new TestResult(ResultType.Error, new Location(""), "feil"));
             testSuite.AddTestRun(testRun);
 
@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Test.Core
         private static TestSuite CreateTestSuite(params TestResult[] testResults)
         {
             var testSuite = new TestSuite();
-            var testRun = new TestRun("test with error", TestType.ContentAnalysis);
+            TestRun testRun = new ArkadeTestMock("test with error", TestType.ContentAnalysis).GetTestRun();
             if (testResults != null)
             {
                 foreach (var testResult in testResults)

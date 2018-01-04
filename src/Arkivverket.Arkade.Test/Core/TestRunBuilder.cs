@@ -15,9 +15,7 @@ namespace Arkivverket.Arkade.Test.Core
 
         public TestRun Build()
         {
-            var testRun = new TestRun(_testName, _testType);
-            testRun.TestType = _testType;
-            testRun.TestDescription = _testDescription;
+            TestRun testRun = new ArkadeTestMock(_testName, _testType, _testDescription).GetTestRun();
             testRun.TestDuration = _durationMillis;
 
             if (_testResults.Count == 0)
