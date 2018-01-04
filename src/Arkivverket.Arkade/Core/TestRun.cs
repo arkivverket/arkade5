@@ -28,31 +28,19 @@ namespace Arkivverket.Arkade.Core
 
         public bool IsSuccess()
         {
-            var success = true;
-            foreach (var result in Results)
-            {
-                if (result.IsError())
-                {
-                    success = false;
-                    break;
-                }
-            }
-            return success;
+            return Results.TrueForAll(r => !r.IsError());
         }
-
 
         public override string ToString()
         {
             var builder = new StringBuilder();
+
             builder.Append("Test: ").AppendLine(TestName);
             builder.Append("Test type: ").AppendLine(TestType.ToString());
             builder.Append("IsSuccess: ").AppendLine(IsSuccess().ToString());
             builder.AppendLine("Results: ");
-
-            foreach (var result in Results)
-            {
+            foreach (TestResult result in Results)
                 builder.AppendLine(result.ToString());
-            }
 
             return builder.ToString();
         }
