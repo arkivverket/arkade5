@@ -144,7 +144,7 @@
     <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
     <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
     <Compile Include="Core\Addml\Processes\ControlAllFixedLengthTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlExtraOrMissingFilesTest.cs" />
+    <Compile Include="Core\Addml\Processes\Hardcoded\ControlExtraOrMissingFilesTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlDataFormatTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlChecksumTest.cs" />
     <Compile Include="Core\Addml\Processes\ControlForeignKeyCombinedKeyTest.cs" />

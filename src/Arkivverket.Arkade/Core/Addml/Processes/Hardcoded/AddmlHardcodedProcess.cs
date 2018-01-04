@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Arkivverket.Arkade.Tests;
 
-namespace Arkivverket.Arkade.Core.Addml.Processes
+namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
 {
     public abstract class AddmlHardcodedProcess : IAddmlHardcodedProcess
     {

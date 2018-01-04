@@ -123,10 +123,10 @@
     <Compile Include="Core\Addml\HasProcesses.cs" />
     <Compile Include="Core\Addml\NoarkihToAddmlTransformer.cs" />
     <Compile Include="Core\Addml\Processes\AddmlProcess.cs" />
-    <Compile Include="Core\Addml\Processes\AddmlHardcodedProcess.cs" />
+    <Compile Include="Core\Addml\Processes\Hardcoded\AddmlHardcodedProcess.cs" />
     <Compile Include="Core\Addml\Processes\CollectPrimaryKey.cs" />
     <Compile Include="Core\Addml\Processes\ControlAllFixedLength.cs" />
-    <Compile Include="Core\Addml\Processes\ControlExtraOrMissingFiles.cs" />
+    <Compile Include="Core\Addml\Processes\Hardcoded\ControlExtraOrMissingFiles.cs" />
     <Compile Include="Core\Addml\Processes\ControlChecksum.cs" />
     <Compile Include="Core\Addml\Processes\ControlDataFormat.cs" />
     <Compile Include="Core\Addml\Processes\ControlNotUsedRecordDef.cs" />
@@ -138,7 +138,7 @@
     <Compile Include="Core\Addml\Processes\ControlNotNull.cs" />
     <Compile Include="Core\Addml\Processes\ControlCodes.cs" />
     <Compile Include="Core\Addml\Processes\ControlKey.cs" />
-    <Compile Include="Core\Addml\Processes\ControlRecordAndFieldDelimiters.cs" />
+    <Compile Include="Core\Addml\Processes\Hardcoded\ControlRecordAndFieldDelimiters.cs" />
     <Compile Include="Core\Addml\Processes\ControlUniqueness.cs" />
     <Compile Include="Core\Addml\Processes\ControlOrganizationNumber.cs" />
     <Compile Include="Core\Addml\Processes\ControlAccountNumber.cs" />

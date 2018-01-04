@@ -1,7 +1,7 @@
 ﻿using Arkivverket.Arkade.Core.Addml.Definitions;
-using Arkivverket.Arkade.Core.Addml.Processes;
 using System.Collections.Generic;
 using System.Linq;
+using Arkivverket.Arkade.Core.Addml.Processes.Hardcoded;
 using Arkivverket.Arkade.Tests;
 
 namespace Arkivverket.Arkade.Core.Addml

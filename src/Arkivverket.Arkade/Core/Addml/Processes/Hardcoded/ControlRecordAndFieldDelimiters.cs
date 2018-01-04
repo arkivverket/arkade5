@@ -2,7 +2,7 @@
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 
-namespace Arkivverket.Arkade.Core.Addml.Processes
+namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
 {
     public class ControlRecordAndFieldDelimiters : AddmlHardcodedProcess
     {

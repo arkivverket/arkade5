@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 
-namespace Arkivverket.Arkade.Core.Addml.Processes
+namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
 {
     public class ControlExtraOrMissingFiles : AddmlHardcodedProcess
     {
