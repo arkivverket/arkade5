@@ -2,6 +2,7 @@
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Core.Addml.Processes;
+using Arkivverket.Arkade.Core.Addml.Processes.Internal;
 using Arkivverket.Arkade.Test.Core.Addml.Builders;
 using FluentAssertions;
 using Xunit;

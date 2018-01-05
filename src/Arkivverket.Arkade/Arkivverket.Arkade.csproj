@@ -122,7 +122,7 @@
     <Compile Include="Core\Addml\HasProcesses.cs" />
     <Compile Include="Core\Addml\NoarkihToAddmlTransformer.cs" />
     <Compile Include="Core\Addml\Processes\AddmlProcess.cs" />
-    <Compile Include="Core\Addml\Processes\CollectPrimaryKey.cs" />
+    <Compile Include="Core\Addml\Processes\Internal\CollectPrimaryKey.cs" />
     <Compile Include="Core\Addml\Processes\ControlAllFixedLength.cs" />
     <Compile Include="Core\Addml\Processes\Hardcoded\ControlExtraOrMissingFiles.cs" />
     <Compile Include="Core\Addml\Processes\Hardcoded\ControlChecksum.cs" />

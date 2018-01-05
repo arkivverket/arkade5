@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Addml.Processes;
+using Arkivverket.Arkade.Core.Addml.Processes.Internal;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml.Definitions

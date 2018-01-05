@@ -4,7 +4,7 @@ using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Util;
 
-namespace Arkivverket.Arkade.Core.Addml.Processes
+namespace Arkivverket.Arkade.Core.Addml.Processes.Internal
 {
     public class CollectPrimaryKey : AddmlProcess
     {

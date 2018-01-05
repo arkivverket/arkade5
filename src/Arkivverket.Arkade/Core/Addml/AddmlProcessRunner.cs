@@ -1,5 +1,6 @@
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Core.Addml.Processes;
+using Arkivverket.Arkade.Core.Addml.Processes.Internal;
 
 namespace Arkivverket.Arkade.Core.Addml
 {

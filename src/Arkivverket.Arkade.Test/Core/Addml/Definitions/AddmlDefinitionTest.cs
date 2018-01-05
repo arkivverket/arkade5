@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Core.Addml.Processes;
+using Arkivverket.Arkade.Core.Addml.Processes.Internal;
 using Arkivverket.Arkade.ExternalModels.Cpf;
 using Arkivverket.Arkade.Test.Core.Addml.Builders;
 using FluentAssertions;
