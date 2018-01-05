@@ -10,7 +10,7 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
 {
-    public class ControlExtraOrMissingFiles : AddmlHardcodedProcess
+    public class ControlExtraOrMissingFiles : AddmlProcess
     {
         private readonly TestId _id = new TestId(TestId.TestKind.AddmlHardcoded, 0); // TODO: Assign correct test number
 
@@ -73,6 +73,22 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
             }
 
             return testResults;
+        }
+
+        protected override void DoRun(FlatFile flatFile)
+        {
+        }
+
+        protected override void DoRun(Record record)
+        {
+        }
+
+        protected override void DoRun(Field field)
+        {
+        }
+
+        protected override void DoEndOfFile()
+        {
         }
 
         private void FilterNoark4DokversReferences(HashSet<string> unfiltered)

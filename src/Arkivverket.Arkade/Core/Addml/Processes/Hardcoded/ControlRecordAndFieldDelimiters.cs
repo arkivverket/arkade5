@@ -5,7 +5,7 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
 {
-    public class ControlRecordAndFieldDelimiters : AddmlHardcodedProcess
+    public class ControlRecordAndFieldDelimiters : AddmlProcess
     {
         private readonly TestId _id = new TestId(TestId.TestKind.AddmlHardcoded, 0); // TODO: Assign correct test number
 
@@ -39,6 +39,22 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
         protected override List<TestResult> GetTestResults()
         {
             return _testResults;
+        }
+
+        protected override void DoRun(FlatFile flatFile)
+        {
+        }
+
+        protected override void DoRun(Record record)
+        {
+        }
+
+        protected override void DoRun(Field field)
+        {
+        }
+
+        protected override void DoEndOfFile()
+        {
         }
     }
 }

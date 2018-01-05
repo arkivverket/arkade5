@@ -8,12 +8,12 @@ namespace Arkivverket.Arkade.Core.Addml
 {
     public class HardcodedProcessRunner
     {
-        private List<IAddmlHardcodedProcess> _hardcodedProcesses;
+        private List<IAddmlProcess> _hardcodedProcesses;
 
         public HardcodedProcessRunner(AddmlDefinition addmlDefinition, Archive archive,
             List<TestResult> delimiterErrorTestResults = null)
         {
-            _hardcodedProcesses = new List<IAddmlHardcodedProcess> {
+            _hardcodedProcesses = new List<IAddmlProcess> {
                 new ControlExtraOrMissingFiles(addmlDefinition, archive)
             };
 
