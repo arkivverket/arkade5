@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class ControlAccountNumber : AddmlProcess
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 34);
 
         public const string Name = "Control_Accountno";
 

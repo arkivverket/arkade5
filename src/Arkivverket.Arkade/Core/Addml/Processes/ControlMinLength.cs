@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class ControlMinLength : AddmlProcess
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 17);
 
         public const string Name = "Control_MinLength";
 
