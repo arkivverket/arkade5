@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class DocumentfilesReferenceControl : Noark5XmlReaderBaseTest
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 33);
 
         private static Hashtable _documentFileNames;
         private static DirectoryInfo _documentsDirectory;

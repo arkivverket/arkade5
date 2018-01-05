@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfComments : Noark5XmlReaderBaseTest
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 36);
 
         private ArchivePart _currentArchivePart = new ArchivePart();
         private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();

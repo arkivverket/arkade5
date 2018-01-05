@@ -5,7 +5,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfFolders : CountElementsWithUniqueName
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 10);
 
         public NumberOfFolders() : base("mappe")
         {

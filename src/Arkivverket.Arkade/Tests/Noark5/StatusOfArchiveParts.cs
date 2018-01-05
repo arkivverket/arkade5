@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class StatusOfArchiveParts : Noark5XmlReaderBaseTest
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 6);
 
         private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
         private ArchivePart _currentArchivePart;

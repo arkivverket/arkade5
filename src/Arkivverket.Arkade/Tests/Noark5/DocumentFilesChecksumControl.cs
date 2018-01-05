@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class DocumentFilesChecksumControl : Noark5XmlReaderBaseTest
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 30);
 
         private string _currentArchivePartSystemId;
         private string _currentDocumentDescriptionSystemId;

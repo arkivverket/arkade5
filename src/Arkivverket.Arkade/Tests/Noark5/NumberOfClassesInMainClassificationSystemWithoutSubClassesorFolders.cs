@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders : Noark5XmlReaderBaseTest
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 9);
 
         private int _classesWithoutSubClassOrFolder;
         private bool _foundSubClassOrFolder;

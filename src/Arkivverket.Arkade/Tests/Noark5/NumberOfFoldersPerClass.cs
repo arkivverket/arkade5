@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfFoldersPerClass : Noark5XmlReaderBaseTest
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 13);
 
         private readonly List<Class> _classes = new List<Class>();
         private string _currentArchivePartSystemId;

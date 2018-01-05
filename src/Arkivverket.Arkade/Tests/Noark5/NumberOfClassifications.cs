@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfClassifications : Noark5XmlReaderBaseTest
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 43);
 
         private readonly List<Classification> _classifications = new List<Classification>();
         private string _currentArchivePartSystemId;

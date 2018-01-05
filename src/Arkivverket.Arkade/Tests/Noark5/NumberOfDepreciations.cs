@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// <inheritdoc />
     public class NumberOfDepreciations : Noark5XmlReaderBaseTest
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 40);
 
         private int _totalNumberOfDeprecations;
         private readonly Dictionary<string, int> _numberOfDeprecationsPerArchivePart = new Dictionary<string, int>();

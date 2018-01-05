@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
     public class NumberOfRegistrations : CountElementsWithUniqueName
 
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 16);
 
         public NumberOfRegistrations() : base("registrering")
         {

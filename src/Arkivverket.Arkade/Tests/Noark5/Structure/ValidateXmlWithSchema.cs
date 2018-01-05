@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
     ///  </summary>
     public class ValidateXmlWithSchema : Noark5StructureBaseTest
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 3);
 
         private readonly IArchiveContentReader _archiveReader;
         private readonly List<TestResult> _testResults = new List<TestResult>();

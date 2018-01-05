@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfDocumentDescriptions : Noark5XmlReaderBaseTest
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 23);
 
         private string _currentArchivePartSystemId;
         private int _totalnumberOfDocumentDescriptions;

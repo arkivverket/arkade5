@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class ArchivepartReferenceControl : Noark5XmlReaderBaseTest
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 48);
 
         private readonly List<string> _archivepartSystemIds = new List<string>();
         private readonly Stack<Referrer> _possibleReferrers = new Stack<Referrer>();

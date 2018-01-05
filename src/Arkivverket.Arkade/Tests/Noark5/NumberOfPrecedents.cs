@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// </summary>
     public class NumberOfPrecedents : Noark5XmlReaderBaseTest
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 38);
 
         private bool _journalPostAttributeIsFound;
         private bool _casefolderAttributeIsFound;
