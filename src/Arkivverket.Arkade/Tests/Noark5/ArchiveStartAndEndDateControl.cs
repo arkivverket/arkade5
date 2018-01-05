@@ -11,6 +11,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class ArchiveStartAndEndDateControl : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private readonly SortedSet<DateTime> _registrationCreationDates;
         private readonly JournalHead _headPublicJournal;
         private readonly JournalHead _headRunningJournal;
@@ -24,6 +26,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
             _headRunningJournal = Noark5TestHelper.GetJournalHead(ArkadeConstants.RunningJournalXmlFileName, archive);
 
             _periodSeparationIsSharp = Noark5TestHelper.PeriodSeparationIsSharp(archive);
+        }
+
+        public override TestId GetId()
+        {
+            return _id;
         }
 
         public override string GetName()

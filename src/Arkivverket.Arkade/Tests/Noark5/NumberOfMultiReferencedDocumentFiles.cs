@@ -3,14 +3,22 @@ using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfMultiReferencedDocumentFiles : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private readonly List<DocumentObject> _documentObjects = new List<DocumentObject>();
         private string _currentArchivePartSystemId;
         private DocumentObject _currentDocumentObject;
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

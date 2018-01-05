@@ -9,6 +9,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfJournalPosts : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private readonly int _publicJournalNumberOfJournalPosts;
         private readonly int _runningJournalNumberOfJournalPosts;
         private int _archiveExtractionJournalPostCount;
@@ -32,6 +34,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
             }
 
             _periodSeparationIsSharp = Noark5TestHelper.PeriodSeparationIsSharp(archive);
+        }
+
+        public override TestId GetId()
+        {
+            return _id;
         }
 
         public override string GetName()

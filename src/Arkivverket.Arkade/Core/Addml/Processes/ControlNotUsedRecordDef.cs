@@ -3,17 +3,25 @@ using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 using System.Linq;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class ControlNotUsedRecordDef : AddmlProcess
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 0); // TODO: Assign correct test number
+
         public const string Name = "Control_NotUsedRecordDef";
 
         private readonly Dictionary<RecordIndex, bool> _recordDefinitionsInUse 
             = new Dictionary<RecordIndex, bool>();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

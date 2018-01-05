@@ -2,13 +2,21 @@
 using System.Linq;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class StatusOfArchiveParts : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
         private ArchivePart _currentArchivePart;
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

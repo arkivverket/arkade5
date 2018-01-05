@@ -1,15 +1,23 @@
 ﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfDocumentDescriptionsWithoutDocumentObject : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private bool _documentObjectIsFound;
         private int _totalNumberOfMissingDocumentObjects;
         private string _currentArchivePartSystemId;
         private readonly Dictionary<string, int> _noDocumentObjectCountPerArchivePart = new Dictionary<string, int>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

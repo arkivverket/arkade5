@@ -11,6 +11,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfDisposalsExecuted : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private readonly Dictionary<string, int> _numberOfDisposalsExecutedPerArchivePart;
         private readonly bool _disposalsAreDocumented;
 
@@ -18,6 +20,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             _numberOfDisposalsExecutedPerArchivePart = new Dictionary<string, int>();
             _disposalsAreDocumented = DisposalsAreDocumented(archive);
+        }
+
+        public override TestId GetId()
+        {
+            return _id;
         }
 
         public override string GetName()

@@ -3,11 +3,14 @@ using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class ControlDocumentFilesExists : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
         private readonly DirectoryInfo _workingDirectory;
@@ -15,6 +18,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
         public ControlDocumentFilesExists(Archive archive)
         {
             _workingDirectory = archive.WorkingDirectory.Content().DirectoryInfo();
+        }
+
+        public override TestId GetId()
+        {
+            return _id;
         }
 
         public override string GetName()

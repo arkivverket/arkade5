@@ -1,14 +1,22 @@
 ﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class ArchivepartReferenceControl : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private readonly List<string> _archivepartSystemIds = new List<string>();
         private readonly Stack<Referrer> _possibleReferrers = new Stack<Referrer>();
         private readonly List<Referrer> _archivepartReferrers = new List<Referrer>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

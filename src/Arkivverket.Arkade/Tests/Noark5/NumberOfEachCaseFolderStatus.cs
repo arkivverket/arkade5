@@ -3,14 +3,22 @@ using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfEachCaseFolderStatus : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private string _currentArchivePartSystemId;
         private CaseFolder _currentCaseFolder; // TODO: Support nested case folders?
         private readonly List<CaseFolder> _folders = new List<CaseFolder>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfFoldersWithoutRegistrationsOrSubfolders : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private bool _registrationIsFound;
         private bool _subfolderIsJustProcessed;
         private int _noRegistrationOrSubfolderCount;
@@ -13,6 +16,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         private readonly Dictionary<string, int> _noRegistrationOrSubfolderCountPerArchivePart =
             new Dictionary<string, int>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

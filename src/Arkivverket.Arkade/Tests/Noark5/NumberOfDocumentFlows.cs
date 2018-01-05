@@ -1,15 +1,23 @@
 ﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfDocumentFlows : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private int _totalNumberOfDocumentFlows;
         private string _currentArchivePartSystemId;
         private bool _journalPostAttributeIsFound;
         private readonly Dictionary<string, int> _documentFlowsPerArchivePart = new Dictionary<string, int>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

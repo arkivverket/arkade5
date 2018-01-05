@@ -3,11 +3,14 @@ using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 using System.Linq;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class ControlKey : AddmlProcess
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 0); // TODO: Assign correct test number
+
         public const string Name = "Control_Key";
 
         private readonly Dictionary<RecordIndex, HashSet<PrimaryKeyValue>> _primaryKeyValuesPerRecord
@@ -17,6 +20,11 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             = new Dictionary<RecordIndex, HashSet<PrimaryKeyValue>>();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

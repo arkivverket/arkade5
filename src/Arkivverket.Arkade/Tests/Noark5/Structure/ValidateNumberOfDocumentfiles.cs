@@ -12,7 +12,14 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
     public class ValidateNumberOfDocumentfiles : Noark5StructureBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private readonly List<TestResult> _testResults = new List<TestResult>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

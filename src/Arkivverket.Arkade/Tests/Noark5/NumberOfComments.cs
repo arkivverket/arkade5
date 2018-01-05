@@ -1,14 +1,22 @@
 ﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfComments : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private ArchivePart _currentArchivePart = new ArchivePart();
         private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
         private bool _baseRegistrationAttributeIsFound;
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

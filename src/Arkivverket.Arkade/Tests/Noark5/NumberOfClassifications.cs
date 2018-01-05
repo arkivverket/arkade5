@@ -3,13 +3,21 @@ using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfClassifications : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private readonly List<Classification> _classifications = new List<Classification>();
         private string _currentArchivePartSystemId;
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

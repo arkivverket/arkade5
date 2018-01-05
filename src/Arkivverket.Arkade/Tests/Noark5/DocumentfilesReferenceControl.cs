@@ -4,11 +4,14 @@ using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class DocumentfilesReferenceControl : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private static Hashtable _documentFileNames;
         private static DirectoryInfo _documentsDirectory;
 
@@ -16,6 +19,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             _documentsDirectory = archive.GetDocumentsDirectory();
             _documentFileNames = GetNamesActualFiles();
+        }
+
+        public override TestId GetId()
+        {
+            return _id;
         }
 
         public override string GetName()

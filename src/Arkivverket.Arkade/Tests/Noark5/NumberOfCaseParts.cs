@@ -2,14 +2,22 @@
 using System.Runtime.Remoting.Messaging;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfCaseParts : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private string _currentArchivePartSystemId;
         private int _totalNumberOfCaseParts;
         private readonly Dictionary<string, int> _casePartsPerArchivePart = new Dictionary<string, int>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

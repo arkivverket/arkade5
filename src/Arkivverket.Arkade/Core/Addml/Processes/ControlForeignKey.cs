@@ -2,12 +2,15 @@ using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class ControlForeignKey : AddmlProcess
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 0); // TODO: Assign correct test number
+
         public const string Name = "Control_ForeignKey";
 
         private static readonly ILogger Log = Serilog.Log.ForContext<ControlForeignKey>();
@@ -15,6 +18,11 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         private readonly Dictionary<string, AddmlForeignKey> _foreignKeys = new Dictionary<string, AddmlForeignKey>();
 
         public Dictionary<string, HashSet<string>> CollectedPrimaryKeys = new Dictionary<string, HashSet<string>>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

@@ -1,15 +1,23 @@
 ﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfCorrespondenceParts : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private int _totalNumberOfCorrespondanceParts;
         private string _currentArchivePartSystemId;
         private readonly Dictionary<string, int> _correspondancePartsPerArchivePart = new Dictionary<string, int>();
         private bool _journalPostAttributeIsFound;
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

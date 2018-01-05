@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Noark5
@@ -12,6 +13,7 @@ namespace Arkivverket.Arkade.Core.Noark5
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         protected readonly Stopwatch Stopwatch = new Stopwatch();
 
+        public abstract TestId GetId();
         public abstract string GetName();
         public abstract TestType GetTestType();
 

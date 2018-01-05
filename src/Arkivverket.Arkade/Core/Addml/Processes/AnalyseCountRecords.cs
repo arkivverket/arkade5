@@ -1,15 +1,23 @@
 ﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class AnalyseCountRecords : AddmlProcess
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 0); // TODO: Assign correct test number
+
         public const string Name = "Analyse_CountRecords";
         private readonly List<TestResult> _testResults = new List<TestResult>();
         private FlatFile _currentFlatFile;
         private int _numberRecords;
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

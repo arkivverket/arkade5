@@ -7,9 +7,16 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class ControlOrganizationNumber : AddmlProcess
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 0); // TODO: Assign correct test number
+
         public const string Name = "Control_Organisationno";
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

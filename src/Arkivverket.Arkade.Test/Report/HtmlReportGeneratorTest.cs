@@ -6,6 +6,7 @@ using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Report;
 using Arkivverket.Arkade.Test.Core;
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 using FluentAssertions;
 using Xunit;
 
@@ -68,6 +69,7 @@ namespace Arkivverket.Arkade.Test.Report
         {
             TestRun testRun1 = new TestRunBuilder()
                 .WithDurationMillis(100L)
+                .WithTestId(new TestId(TestId.TestKind.Addml, 0))
                 .WithTestName("Test 1")
                 .WithTestDescription("Test description 1")
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
@@ -96,6 +98,7 @@ namespace Arkivverket.Arkade.Test.Report
         {
             TestRun testRun1 = new TestRunBuilder()
                 .WithDurationMillis(100L)
+                .WithTestId(new TestId(TestId.TestKind.Noark5, 0))
                 .WithTestName("Test 1")
                 .WithTestDescription("Test description 1")
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))

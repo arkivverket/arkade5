@@ -3,14 +3,22 @@ using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfEachJournalStatus : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private string _currentArchivePartSystemId;
         private JournalPost _currentJournalPost;
         private readonly List<JournalPost> _journalPosts = new List<JournalPost>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

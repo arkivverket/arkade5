@@ -16,6 +16,8 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
     ///  </summary>
     public class ValidateXmlWithSchema : Noark5StructureBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private readonly IArchiveContentReader _archiveReader;
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
@@ -97,6 +99,11 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
                 string.Format(Noark5Messages.InternalSchemaFileIsUsed, ArkadeConstants.MetadatakatalogXsdFileName)));
 
             return ResourceUtil.GetResourceAsStream(ArkadeConstants.MetadatakatalogXsdResource);
+        }
+
+        public override TestId GetId()
+        {
+            return _id;
         }
 
         public override string GetName()

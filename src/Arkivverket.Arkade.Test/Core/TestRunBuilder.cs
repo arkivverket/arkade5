@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Test.Core
 {
@@ -8,6 +9,7 @@ namespace Arkivverket.Arkade.Test.Core
     {
         private long _durationMillis = 1234;
         private string _testDescription = "testDescription";
+        private TestId _testId = new TestId(TestId.TestKind.Other, 0);
         private string _testName = "test1";
         private List<TestResult> _testResults = new List<TestResult>();
         private readonly TestType _testType = TestType.ContentAnalysis;
@@ -25,6 +27,12 @@ namespace Arkivverket.Arkade.Test.Core
             testRun.Results = _testResults;
 
             return testRun;
+        }
+
+        public TestRunBuilder WithTestId(TestId testId)
+        {
+            _testId = testId;
+            return this;
         }
 
         public TestRunBuilder WithTestName(string testName)

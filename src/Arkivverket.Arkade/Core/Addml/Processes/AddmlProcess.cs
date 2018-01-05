@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public abstract class AddmlProcess : IAddmlProcess
     {
+        public abstract TestId GetId();
         public abstract string GetName();
         public abstract string GetDescription();
         public abstract TestType GetTestType();

@@ -13,6 +13,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfRestrictions : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private string _currentArchivePartSystemId;
         private bool _multipleArchiveParts;
         private readonly List<Restriction> _restrictions;
@@ -22,6 +24,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             _restrictions = new List<Restriction>();
             _documentationStatesRestrictions = DocumentationStatesRestrictions(testArchive);
+        }
+
+        public override TestId GetId()
+        {
+            return _id;
         }
 
         public override string GetName()

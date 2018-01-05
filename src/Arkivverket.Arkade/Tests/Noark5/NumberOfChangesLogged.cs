@@ -10,11 +10,18 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class NumberOfChangesLogged : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private readonly Archive _archive;
 
         public NumberOfChangesLogged(Archive archive)
         {
             _archive = archive;
+        }
+
+        public override TestId GetId()
+        {
+            return _id;
         }
 
         public override string GetName()

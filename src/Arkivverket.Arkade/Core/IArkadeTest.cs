@@ -1,9 +1,16 @@
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core
 {
     public interface IArkadeTest
     {
+        /// <summary>
+        ///     Returns the ID of the test
+        /// </summary>
+        /// <returns></returns>
+        TestId GetId();
+        
         /// <summary>
         ///     Returns the name of the test
         /// </summary>

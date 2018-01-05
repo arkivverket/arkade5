@@ -74,6 +74,8 @@ namespace Arkivverket.Arkade.Report
         {
             _stream.WriteLine(@"    <div class=""test"">");
             _stream.WriteLine(@"        <h3>");
+            if (testRun.TestId.Number != 0)
+                _stream.WriteLine(@"        " + testRun.TestId + " &ndash; ");
             _stream.WriteLine(@"        " + testRun.TestName);
             _stream.WriteLine(@"        </h3>");
             _stream.WriteLine(@"");

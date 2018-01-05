@@ -2,12 +2,14 @@ using Arkivverket.Arkade.Tests;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core
 {
     public class TestRun
     {
         private readonly IArkadeTest _test;
+        public TestId TestId => _test.GetId();
         public string TestName => _test.GetName();
         public TestType TestType => _test.GetTestType();
         public string TestDescription => _test.GetDescription();

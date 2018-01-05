@@ -2,17 +2,25 @@
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class AnalyseFindExtremeValues : AddmlProcess
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 0); // TODO: Assign correct test number
+
         public const string Name = "Analyse_FindExtremeValues";
 
         private readonly Dictionary<FieldIndex, MinAndMax> _minAndMaxLengthPerField
             = new Dictionary<FieldIndex, MinAndMax>();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

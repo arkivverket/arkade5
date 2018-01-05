@@ -6,11 +6,14 @@ using Arkivverket.Arkade.Core.Addml.Definitions;
 using System.IO;
 using System.Linq;
 using System.Xml;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
 {
     public class ControlExtraOrMissingFiles : AddmlHardcodedProcess
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.AddmlSup, 0); // TODO: Assign correct test number
+
         public const string Name = "Control_ExtraOrMissingFiles";
 
         private readonly AddmlDefinition _addmlDefinition;
@@ -21,6 +24,10 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
             "NOARKIH.XML"
         };
 
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

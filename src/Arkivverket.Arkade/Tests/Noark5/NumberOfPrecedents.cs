@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5
 {
@@ -11,11 +12,18 @@ namespace Arkivverket.Arkade.Tests.Noark5
     /// </summary>
     public class NumberOfPrecedents : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private bool _journalPostAttributeIsFound;
         private bool _casefolderAttributeIsFound;
         private ArchivePart _currentArchivePart;
         private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
 
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

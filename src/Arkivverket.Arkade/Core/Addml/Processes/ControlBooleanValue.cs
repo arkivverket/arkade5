@@ -3,17 +3,25 @@ using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Core.Addml.Definitions.DataTypes;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class ControlBooleanValue : AddmlProcess
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 0); // TODO: Assign correct test number
+
         public const string Name = "Control_Boolean_Value";
 
         private readonly Dictionary<FieldIndex, HashSet<string>> _nonBooleanValues
             = new Dictionary<FieldIndex, HashSet<string>>();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
+
+        public override TestId GetId()
+        {
+            return _id;
+        }
 
         public override string GetName()
         {

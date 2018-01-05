@@ -2,15 +2,23 @@
 using System.Text;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core.Addml.Processes
 {
     public class CollectPrimaryKey : AddmlProcess
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 0); // TODO: Assign correct test number
+
         public const string Name = "Collect_PrimaryKey";
 
         public readonly Dictionary<string, HashSet<string>> _primaryKeys = new Dictionary<string, HashSet<string>>();
         
+        public override TestId GetId()
+        {
+            return _id;
+        }
+
         public override string GetName()
         {
             return Name;

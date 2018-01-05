@@ -10,6 +10,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class ChangeLogArchiveReferenceControl : Noark5XmlReaderBaseTest
     {
+        private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 0); // TODO: Assign correct test number
+
         private readonly Archive _archive;
         private readonly HashSet<string> _systemIDs;
 
@@ -17,6 +19,10 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             _archive = archive;
             _systemIDs = new HashSet<string>();
+        }
+        public override TestId GetId()
+        {
+            return _id;
         }
 
         public override string GetName()
