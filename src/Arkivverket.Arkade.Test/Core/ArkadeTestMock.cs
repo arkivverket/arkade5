@@ -6,13 +6,19 @@ namespace Arkivverket.Arkade.Test.Core
 {
     public class ArkadeTestMock : IArkadeTest
     {
-        private readonly TestId _testId = new TestId(TestId.TestKind.Other, 0);
+        private readonly TestId _testId;
         private readonly string _name;
         private readonly TestType _testType;
         private readonly string _description;
 
-        public ArkadeTestMock(string name, TestType testType, string description = null)
+        public ArkadeTestMock(string name, TestType testType, string description = null) :
+            this(new TestId(TestId.TestKind.Other, 0), name, testType, description)
         {
+        }
+
+        public ArkadeTestMock(TestId testId, string name, TestType testType, string description = null)
+        {
+            _testId = testId;
             _name = name;
             _testType = testType;
             _description = description;
