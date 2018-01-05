@@ -12,8 +12,9 @@ namespace Arkivverket.Arkade.Util
             {
                 { TestKind.Noark5, "N5" },
                 { TestKind.Addml, "A" },
-                { TestKind.AddmlSup, "AS" },
-                { TestKind.Other, "O" },
+                { TestKind.AddmlHardcoded, "AH" },
+                { TestKind.AddmlInternal, "AI" },
+                { TestKind.Unidentified, "U" },
             };
 
         public TestId(TestKind testKind, uint number)
@@ -31,8 +32,9 @@ namespace Arkivverket.Arkade.Util
         {
             Noark5,
             Addml,
-            AddmlSup,
-            Other,
+            AddmlHardcoded,
+            AddmlInternal,
+            Unidentified
         }
     }
 }

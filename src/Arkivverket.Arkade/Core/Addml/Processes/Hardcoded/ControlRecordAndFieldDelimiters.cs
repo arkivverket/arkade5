@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
 {
     public class ControlRecordAndFieldDelimiters : AddmlHardcodedProcess
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.AddmlSup, 0); // TODO: Assign correct test number
+        private readonly TestId _id = new TestId(TestId.TestKind.AddmlHardcoded, 0); // TODO: Assign correct test number
 
         private readonly List<TestResult> _testResults;
 

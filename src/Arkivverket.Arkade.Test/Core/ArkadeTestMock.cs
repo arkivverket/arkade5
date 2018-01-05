@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Test.Core
         private readonly string _description;
 
         public ArkadeTestMock(string name, TestType testType, string description = null) :
-            this(new TestId(TestId.TestKind.Other, 0), name, testType, description)
+            this(new TestId(TestId.TestKind.Unidentified, 0), name, testType, description)
         {
         }
 

@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Test.Core
     {
         private long _durationMillis = 1234;
         private string _testDescription = "testDescription";
-        private TestId _testId = new TestId(TestId.TestKind.Other, 0);
+        private TestId _testId = new TestId(TestId.TestKind.Unidentified, 0);
         private string _testName = "test1";
         private List<TestResult> _testResults = new List<TestResult>();
         private readonly TestType _testType = TestType.ContentAnalysis;
