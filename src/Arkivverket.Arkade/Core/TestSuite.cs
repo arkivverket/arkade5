@@ -1,20 +1,32 @@
 ﻿using Arkivverket.Arkade.Tests;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Core
 {
     public class TestSuite
     {
-        public List<TestRun> TestRuns { get; }
+        public IEnumerable<TestRun> TestRuns => _testRuns.ToList();
+
+        private readonly SortedSet<TestRun> _testRuns;
 
         public TestSuite()
         {
-            TestRuns = new List<TestRun>();
+            _testRuns = new SortedSet<TestRun>();
         }
 
         public void AddTestRun(TestRun testRun)
         {
-            TestRuns.Add(testRun);
+            bool testRunWasAdded = _testRuns.Add(testRun);
+
+            if (!testRunWasAdded)
+            {
+                throw new Exception(
+                    string.Format(ExceptionMessages.AddTestRunToTestSuite, testRun.TestName, testRun.TestId)
+                );
+            }
         }
 
         public int FindNumberOfErrors()

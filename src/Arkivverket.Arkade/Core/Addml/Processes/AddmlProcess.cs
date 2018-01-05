@@ -58,5 +58,12 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
             DoEndOfFile();
             _stopwatch.Stop();
         }
+
+        public int CompareTo(object obj)
+        {
+            var arkadeTest = (IArkadeTest) obj;
+
+            return GetId().CompareTo(arkadeTest.GetId());
+        }
     }
 }

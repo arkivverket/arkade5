@@ -1,3 +1,4 @@
+using System;
 using Arkivverket.Arkade.Tests;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Core
 {
-    public class TestRun
+    public class TestRun : IComparable
     {
         private readonly IArkadeTest _test;
         public TestId TestId => _test.GetId();
@@ -50,6 +51,13 @@ namespace Arkivverket.Arkade.Core
         public int FindNumberOfErrors()
         {
             return Results.Count(r => r.IsError()) + Results.Where(r => r.IsErrorGroup()).Sum(r => r.GroupErrors);
+        }
+
+        public int CompareTo(object obj)
+        {
+            var testRun = (TestRun) obj;
+
+            return _test.CompareTo(testRun._test);
         }
     }
 }

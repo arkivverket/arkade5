@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ExceptionMessages {
@@ -57,6 +57,15 @@ namespace Arkivverket.Arkade.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TestRun for the test {0} with ID {1} was not added to test suite. Probable cause: Another test has already been added with the same ID.
+        /// </summary>
+        internal static string AddTestRunToTestSuite {
+            get {
+                return ResourceManager.GetString("AddTestRunToTestSuite", resourceCulture);
             }
         }
         

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+﻿using System;
 
 namespace Arkivverket.Arkade.Util
 {
-    public class TestId
+    public class TestId : IComparable
     {
         public readonly TestKind Kind;
         public readonly uint Number;
@@ -35,6 +36,16 @@ namespace Arkivverket.Arkade.Util
             AddmlHardcoded,
             AddmlInternal,
             Unidentified
+        }
+
+        public int CompareTo(object obj)
+        {
+            var testId = (TestId) obj;
+
+            int kindComparison = Kind.CompareTo(testId.Kind);
+            int numberComparison = Number.CompareTo(testId.Number);
+
+            return kindComparison == 0 ? numberComparison : kindComparison;
         }
     }
 }

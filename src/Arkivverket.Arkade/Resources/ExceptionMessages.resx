@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddTestRunToTestSuite" xml:space="preserve">
+    <value>TestRun for the test {0} with ID {1} was not added to test suite. Probable cause: Another test has already been added with the same ID</value>
+  </data>
   <data name="PathCombine" xml:space="preserve">
     <value>Kunne ikke kombinere {0} og {1}</value>
   </data>

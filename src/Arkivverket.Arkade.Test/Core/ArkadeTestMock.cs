@@ -48,5 +48,12 @@ namespace Arkivverket.Arkade.Test.Core
         {
             return new TestRun(this);
         }
+
+        public int CompareTo(object obj)
+        {
+            var arkadeTest = (IArkadeTest) obj;
+
+            return GetId().CompareTo(arkadeTest.GetId());
+        }
     }
 }

@@ -43,5 +43,12 @@ namespace Arkivverket.Arkade.Core.Noark5
         }
 
         protected abstract List<TestResult> GetTestResults();
+
+        public int CompareTo(object obj)
+        {
+            var arkadeTest = (IArkadeTest) obj;
+
+            return GetId().CompareTo(arkadeTest.GetId());
+        }
     }
 }
