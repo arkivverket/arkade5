@@ -125,7 +125,7 @@
     <Compile Include="Core\Addml\Processes\CollectPrimaryKey.cs" />
     <Compile Include="Core\Addml\Processes\ControlAllFixedLength.cs" />
     <Compile Include="Core\Addml\Processes\Hardcoded\ControlExtraOrMissingFiles.cs" />
-    <Compile Include="Core\Addml\Processes\ControlChecksum.cs" />
+    <Compile Include="Core\Addml\Processes\Hardcoded\ControlChecksum.cs" />
     <Compile Include="Core\Addml\Processes\ControlDataFormat.cs" />
     <Compile Include="Core\Addml\Processes\ControlNotUsedRecordDef.cs" />
     <Compile Include="Core\Addml\Processes\ControlMaxLength.cs" />

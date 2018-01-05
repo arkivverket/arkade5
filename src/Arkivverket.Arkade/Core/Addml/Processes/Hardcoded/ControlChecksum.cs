@@ -5,7 +5,7 @@ using System.IO;
 using System.Security.Cryptography;
 using Arkivverket.Arkade.Util;
 
-namespace Arkivverket.Arkade.Core.Addml.Processes
+namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
 {
     public class ControlChecksum : AddmlProcess
     {

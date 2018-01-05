@@ -1,7 +1,7 @@
 ﻿using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
-using Arkivverket.Arkade.Core.Addml.Processes;
+using Arkivverket.Arkade.Core.Addml.Processes.Hardcoded;
 using Arkivverket.Arkade.Test.Core.Addml.Builders;
 using Arkivverket.Arkade.Test.Tests.Noark5;
 using FluentAssertions;
