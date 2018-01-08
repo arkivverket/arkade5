@@ -156,6 +156,7 @@
     <Compile Include="Core\Addml\Processes\ControlForeignKey.cs" />
     <Compile Include="Core\Addml\Processes\ControlNumberOfRecords.cs" />
     <Compile Include="Core\Addml\ProcessManager.cs" />
+    <Compile Include="Core\Addml\ProcessProvider.cs" />
     <Compile Include="Core\Addml\Record.cs" />
     <Compile Include="Core\Addml\RecordProcessRunner.cs" />
     <Compile Include="Core\Addml\FixedFormatReader.cs" />

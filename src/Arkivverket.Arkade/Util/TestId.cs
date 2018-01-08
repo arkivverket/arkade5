@@ -47,5 +47,20 @@ namespace Arkivverket.Arkade.Util
 
             return kindComparison == 0 ? numberComparison : kindComparison;
         }
+
+        public override bool Equals(object obj)
+        {
+            var testId = (TestId) obj;
+
+            return Kind == testId?.Kind && Number == testId.Number;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (int) Kind * 397 ^ (int) Number;
+            }
+        }
     }
 }

@@ -199,6 +199,7 @@
     <Compile Include="Metadata\DiasMetsLoaderTest.cs" />
     <Compile Include="Metadata\InfoXmlCreatorTest.cs" />
     <Compile Include="Metadata\MetsCreatorTest.cs" />
+    <Compile Include="Misc\TestIdIntegrityTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\HtmlReportGeneratorTest.cs" />
     <Compile Include="Tests\Noark5\ArchivepartReferenceControlTest.cs" />
