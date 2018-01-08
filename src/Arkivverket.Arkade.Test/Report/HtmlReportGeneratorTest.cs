@@ -17,20 +17,22 @@ namespace Arkivverket.Arkade.Test.Report
         private static TestSession CreateTestSessionWithTwoTestRuns()
         {
             TestRun testRun1 = new TestRunBuilder()
-                .WithDurationMillis(100L)
+                .WithTestId(new TestId(TestId.TestKind.Unidentified, 1))
                 .WithTestName("Test 1")
                 .WithTestDescription("Test description 1")
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
+                .WithDurationMillis(100L)
                 .Build();
 
             TestRun testRun2 = new TestRunBuilder()
-                .WithDurationMillis(100L)
+                .WithTestId(new TestId(TestId.TestKind.Unidentified, 2))
                 .WithTestName("Test 2")
                 .WithTestDescription("Test description 2")
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
                 .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 3"))
+                .WithDurationMillis(100L)
                 .Build();
 
             var testRuns = new List<TestRun> {testRun1, testRun2};
