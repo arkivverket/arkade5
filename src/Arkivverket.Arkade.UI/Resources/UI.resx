@@ -255,7 +255,9 @@
     <value>Valider xml i henhold til skjema</value>
   </data>
   <data name="TestrunnerArchiveNotTestable" xml:space="preserve">
-    <value>Arkivuttrekket kan ikke testes. Finner ingen spesifikasjonsfiler for uttrekket. Du kan fortsatt lage en pakke av uttrekket.</value>
+    <value>Arkivuttrekket kan ikke testes: Det ble ikke funnet en gyldig spesifikasjonsfil for uttrekket.
+(Se logg for detaljer {0}).
+Du kan fortsatt lage en pakke av uttrekket.</value>
   </data>
   <data name="TestrunnerFinishedOperationMessage" xml:space="preserve">
     <value>Testingen er fullført</value>

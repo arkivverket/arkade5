@@ -493,7 +493,9 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivuttrekket kan ikke testes. Finner ingen spesifikasjonsfiler for uttrekket. Du kan fortsatt lage en pakke av uttrekket..
+        ///   Looks up a localized string similar to Arkivuttrekket kan ikke testes: Det ble ikke funnet en gyldig spesifikasjonsfil for uttrekket.
+        ///(Se logg for detaljer {0}).
+        ///Du kan fortsatt lage en pakke av uttrekket..
         /// </summary>
         public static string TestrunnerArchiveNotTestable {
             get {

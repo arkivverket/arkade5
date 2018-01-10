@@ -67,14 +67,23 @@ namespace Arkivverket.Arkade.Identify
             ConvertNoarkihToAddmlIfNoark4(archive);
 
             var testSession = new TestSession(archive);
-            if (archiveType != ArchiveType.Noark5)
+
+            if (archiveType == ArchiveType.Noark5)
+                return testSession;
+
+            FileInfo addmlFile = archive.GetStructureDescriptionFile();
+
+            try
             {
-                FileInfo addmlFile = archive.GetStructureDescriptionFile();
-                if (addmlFile.Exists) // file does not exist when user want to just do a simple packaging job
-                {
-                    AddmlInfo addml = AddmlUtil.ReadFromFile(addmlFile.FullName);
-                    testSession.AddmlDefinition = new AddmlDefinitionParser(addml, workingDirectory, _statusEventHandler).GetAddmlDefinition();
-                }
+                AddmlInfo addml = AddmlUtil.ReadFromFile(addmlFile.FullName);
+
+                var addmlDefinitionParser = new AddmlDefinitionParser(addml, workingDirectory, _statusEventHandler);
+
+                testSession.AddmlDefinition = addmlDefinitionParser.GetAddmlDefinition();
+            }
+            catch (Exception exception)
+            {
+                _log.Warning("Reading file " + addmlFile.Name + " failed: " + exception.Message);
             }
 
             return testSession;
