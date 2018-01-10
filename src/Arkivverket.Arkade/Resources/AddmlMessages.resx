@@ -130,7 +130,7 @@
     <value>Finner ingen referanse til {0}. Dette må være definert.</value>
   </data>
   <data name="AssertNotNullOrEmpty" xml:space="preserve">
-    <value>Finner ikke {0}. Denne må både være definert of satt til en verdi.</value>
+    <value>Finner ikke {0}. Denne må både være definert og satt til en verdi.</value>
   </data>
   <data name="Dataset" xml:space="preserve">
     <value>ADDML element dataset</value>
