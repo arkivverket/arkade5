@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
 
@@ -13,15 +14,59 @@ namespace Arkivverket.Arkade.Util
 
         public void ExtractFolderFromArchive(FileInfo file, DirectoryInfo targetDirectory)
         {
-            Stream inStream = File.OpenRead(file.FullName);
-            var tarArchive = TarArchive.CreateInputTarArchive(inStream);
-            tarArchive.ExtractContents(targetDirectory.FullName);
-            tarArchive.Close();
-            inStream.Close();
+            using (var inputStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read))
+            {
+                DirectoryInfo singleRootDirectory = GetSingleRootDirectory(inputStream);
+                inputStream.Position = 0; // Needs resetting after GetSingleRootDirectory()
 
+                var tarInputStream = new TarInputStream(inputStream);
+
+                TarEntry tarEntry;
+                while ((tarEntry = tarInputStream.GetNextEntry()) != null)
+                {
+                    if (tarEntry.IsDirectory)
+                        continue;
+
+                    string name = tarEntry.Name.Replace('/', Path.DirectorySeparatorChar);
+
+                    if (singleRootDirectory != null)
+                        name = name.Substring(singleRootDirectory.Name.Length);
+
+                    if (Path.IsPathRooted(name))
+                        name = name.Substring(Path.GetPathRoot(name).Length);
+
+                    string fullName = Path.Combine(targetDirectory.FullName, name);
+                    string directoryName = Path.GetDirectoryName(fullName);
+                    if (directoryName != null) Directory.CreateDirectory(directoryName);
+
+                    var outputStream = new FileStream(fullName, FileMode.Create);
+
+                    tarInputStream.CopyEntryContents(outputStream);
+                    outputStream.Close();
+
+                    DateTime dateTime = DateTime.SpecifyKind(tarEntry.ModTime, DateTimeKind.Utc);
+                    File.SetLastWriteTime(fullName, dateTime);
+                }
+                tarInputStream.Close();
+            }
             _log.Debug($"Extracted tar file: {file} to folder {targetDirectory}", file.FullName, targetDirectory.FullName);
         }
 
+        private static DirectoryInfo GetSingleRootDirectory(Stream inputStream)
+        {
+            var tarInputStream = new TarInputStream(inputStream);
+            TarEntry firstEntry = tarInputStream.GetNextEntry();
+
+            if (!firstEntry.IsDirectory)
+                return null;
+
+            TarEntry tarEntry;
+            while ((tarEntry = tarInputStream.GetNextEntry()) != null)
+                if (!tarEntry.Name.StartsWith(firstEntry.Name))
+                    return null;
+
+            return new DirectoryInfo(firstEntry.Name);
+        }
 
         public void CompressFolderContentToArchiveFile(FileInfo targetFileName, DirectoryInfo sourceFileFolder)
         {
