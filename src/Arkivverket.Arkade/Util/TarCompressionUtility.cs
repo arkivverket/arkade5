@@ -27,14 +27,13 @@ namespace Arkivverket.Arkade.Util
         {
             Stream outStream = File.Create(targetFileName.FullName);
             var tarOutputStream = new TarOutputStream(outStream);
-            var tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
 
             // TODO: check difference between writing and not writing this 
             // Optionally, write an entry for the directory itself.
             //TarEntry tarEntry = TarEntry.CreateEntryFromFile(sourceFileFolder);
             //tarOutputStream.PutNextEntry(tarEntry);
 
-            var filenames = System.IO.Directory.GetFiles(sourceFileFolder.FullName, "*.*", SearchOption.AllDirectories);
+            var filenames = Directory.GetFiles(sourceFileFolder.FullName, "*.*", SearchOption.AllDirectories);
 
             // Remove source file path from filename and add each file to the TAR acrchive
             foreach (var filename in filenames)
