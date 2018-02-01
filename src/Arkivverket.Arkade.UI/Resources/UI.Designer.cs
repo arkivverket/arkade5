@@ -493,13 +493,40 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Det kan ikke lages en pakke av uttrekket: Uttrekket inneholder for store enkeltfiler.
+        ///(Se logg for detaljer {0})..
+        /// </summary>
+        public static string TestrunnerArchiveNotPackable {
+            get {
+                return ResourceManager.GetString("TestrunnerArchiveNotPackable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkivuttrekket kan ikke testes: Det ble ikke funnet en gyldig spesifikasjonsfil for uttrekket.
-        ///(Se logg for detaljer {0}).
-        ///Du kan fortsatt lage en pakke av uttrekket..
+        ///(Se logg for detaljer {0})..
         /// </summary>
         public static string TestrunnerArchiveNotTestable {
             get {
                 return ResourceManager.GetString("TestrunnerArchiveNotTestable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pakkbarhet.
+        /// </summary>
+        public static string TestrunnerArchivePackability {
+            get {
+                return ResourceManager.GetString("TestrunnerArchivePackability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Testbarhet.
+        /// </summary>
+        public static string TestrunnerArchiveTestability {
+            get {
+                return ResourceManager.GetString("TestrunnerArchiveTestability", resourceCulture);
             }
         }
         

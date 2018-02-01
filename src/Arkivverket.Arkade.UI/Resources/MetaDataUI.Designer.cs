@@ -376,7 +376,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klarte ikke opprette/overskrive pakke. Sjekk om pakkedestinasjonen er opptatt..
+        ///   Looks up a localized string similar to Klarte ikke opprette/overskrive pakke..
         /// </summary>
         public static string PackageCreationErrorStatusMessage {
             get {

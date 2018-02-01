@@ -256,8 +256,7 @@
   </data>
   <data name="TestrunnerArchiveNotTestable" xml:space="preserve">
     <value>Arkivuttrekket kan ikke testes: Det ble ikke funnet en gyldig spesifikasjonsfil for uttrekket.
-(Se logg for detaljer {0}).
-Du kan fortsatt lage en pakke av uttrekket.</value>
+(Se logg for detaljer {0}).</value>
   </data>
   <data name="TestrunnerFinishedOperationMessage" xml:space="preserve">
     <value>Testingen er fullført</value>
@@ -285,5 +284,15 @@ Du kan fortsatt lage en pakke av uttrekket.</value>
   </data>
   <data name="UnsavedTestResultsOnExitWarning" xml:space="preserve">
     <value>Hvis du avslutter nå vil resultater fra testkjøringen gå tapt. Ønsker du likevel å avslutte?</value>
+  </data>
+  <data name="TestrunnerArchiveNotPackable" xml:space="preserve">
+    <value>Det kan ikke lages en pakke av uttrekket: Uttrekket inneholder for store enkeltfiler.
+(Se logg for detaljer {0}).</value>
+  </data>
+  <data name="TestrunnerArchivePackability" xml:space="preserve">
+    <value>Pakkbarhet</value>
+  </data>
+  <data name="TestrunnerArchiveTestability" xml:space="preserve">
+    <value>Testbarhet</value>
   </data>
 </root>
