@@ -11,6 +11,13 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         [Fact]
         public void AllFilesAreReferenced()
         {
+            /*
+            The documents directory does not use the default/fallback name (dokumenter).
+            One of the references use backslashes in the path.
+            2 of the referenced files are located in a documents directory subdirectory.
+            The referenced files have all combinations of lowercase/uppercase in their filename + extension.
+            */
+
             XmlElementHelper xmlElementHelper =
                 new XmlElementHelper().Add("arkiv",
                     new XmlElementHelper().Add("arkivdel",
@@ -18,24 +25,30 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                             new XmlElementHelper().Add("klasse",
                                 new XmlElementHelper().Add("mappe",
                                     new XmlElementHelper()
-                                        .Add("registrering", new[] {"xsi:type", "journalpost"},
-                                            new XmlElementHelper().Add("dokumentbeskrivelse",
-                                                new XmlElementHelper().Add("dokumentobjekt",
-                                                    new XmlElementHelper().Add("referanseDokumentfil",
-                                                        "dokumenter/5000000.pdf"))))
-                                        .Add("registrering", new[] {"xsi:type", "journalpost"},
-                                            new XmlElementHelper().Add("dokumentbeskrivelse",
-                                                new XmlElementHelper().Add("dokumentobjekt",
-                                                    new XmlElementHelper().Add("referanseDokumentfil",
-                                                        // Backslashed file reference supported:
-                                                        "dokumenter\\5000001.pdf"))))
                                         .Add("registrering", new[] { "xsi:type", "journalpost" },
                                             new XmlElementHelper().Add("dokumentbeskrivelse",
                                                 new XmlElementHelper().Add("dokumentobjekt",
-                                                    new XmlElementHelper().Add("referanseDokumentfil",
-                                                        // Subdirectory file reference:
-                                                        "dokumenter/underkatalog/5000002.pdf")))))))));
-
+                                                    new XmlElementHelper().Add(
+                                                        "referanseDokumentfil", "DOKUMENT/a.pdf"
+                                                    ))))
+                                        .Add("registrering", new[] { "xsi:type", "journalpost" },
+                                            new XmlElementHelper().Add("dokumentbeskrivelse",
+                                                new XmlElementHelper().Add("dokumentobjekt",
+                                                    new XmlElementHelper().Add(
+                                                        "referanseDokumentfil", "DOKUMENT\\B.PDF"
+                                                    ))))
+                                        .Add("registrering", new[] { "xsi:type", "journalpost" },
+                                            new XmlElementHelper().Add("dokumentbeskrivelse",
+                                                new XmlElementHelper().Add("dokumentobjekt",
+                                                    new XmlElementHelper().Add(
+                                                        "referanseDokumentfil", "DOKUMENT/underkatalog/C.pdf"
+                                                    ))))
+                                        .Add("registrering", new[] { "xsi:type", "journalpost" },
+                                            new XmlElementHelper().Add("dokumentbeskrivelse",
+                                                new XmlElementHelper().Add("dokumentobjekt",
+                                                    new XmlElementHelper().Add(
+                                                        "referanseDokumentfil", "DOKUMENT/underkatalog/d.PDF"
+                                                    )))))))));
 
             TestRun testRun = CreateTestRun(xmlElementHelper);
 
@@ -52,22 +65,30 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                             new XmlElementHelper().Add("klasse",
                                 new XmlElementHelper().Add("mappe",
                                     new XmlElementHelper()
-                                        .Add("registrering", new[] {"xsi:type", "journalpost"},
-                                            new XmlElementHelper().Add("dokumentbeskrivelse",
-                                                new XmlElementHelper().Add("dokumentobjekt",
-                                                    new XmlElementHelper().Add("referanseDokumentfil",
-                                                        "dokumenter/5000000.pdf"))))
                                         .Add("registrering", new[] { "xsi:type", "journalpost" },
                                             new XmlElementHelper().Add("dokumentbeskrivelse",
                                                 new XmlElementHelper().Add("dokumentobjekt",
-                                                    new XmlElementHelper().Add("referanseDokumentfil",
-                                                        "dokumenter/underkatalog/5000002.pdf")))))))));
+                                                    new XmlElementHelper().Add(
+                                                        "referanseDokumentfil", "DOKUMENT/a.pdf"
+                                                    ))))
+                                        .Add("registrering", new[] { "xsi:type", "journalpost" },
+                                            new XmlElementHelper().Add("dokumentbeskrivelse",
+                                                new XmlElementHelper().Add("dokumentobjekt",
+                                                    new XmlElementHelper().Add(
+                                                        "referanseDokumentfil", "DOKUMENT\\B.PDF"
+                                                    ))))
+                                        .Add("registrering", new[] { "xsi:type", "journalpost" },
+                                            new XmlElementHelper().Add("dokumentbeskrivelse",
+                                                new XmlElementHelper().Add("dokumentobjekt",
+                                                    new XmlElementHelper().Add(
+                                                        "referanseDokumentfil", "DOKUMENT/underkatalog/C.pdf"
+                                                    )))))))));
 
 
             TestRun testRun = CreateTestRun(xmlElementHelper);
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                    "Ikke-referert fil funnet: dokumenter/5000001.pdf")
+                "Ikke-referert fil funnet: DOKUMENT/underkatalog/d.PDF")
             );
 
             testRun.Results.Count.Should().Be(1);

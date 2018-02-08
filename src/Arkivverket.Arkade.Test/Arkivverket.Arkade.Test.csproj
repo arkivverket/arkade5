@@ -181,6 +181,7 @@
     <Compile Include="Core\ArchiveBuilder.cs" />
     <Compile Include="Core\ArkadeProcessingAreaTest.cs" />
     <Compile Include="Core\ArkadeTestMock.cs" />
+    <Compile Include="Core\DocumentsDirectoryTest.cs" />
     <Compile Include="Core\EncodingsTest.cs" />
     <Compile Include="Core\InformationPackageCreatorTest.cs" />
     <Compile Include="Core\TestRunBuilder.cs" />
@@ -344,7 +345,10 @@
     <None Include="TestData\Noark5\DocumentfilesControl\CountMismatch\content\dokumenter\5000000.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\dokumenter\underkatalog\5000002.pdf">
+    <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\DOKUMENT\underkatalog\d.PDF">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\DOKUMENT\underkatalog\C.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestData\Noark5\DocumentfilesControl\FilesWithDocumentedChecksums\content\dokumenter\5000000.pdf">
@@ -353,10 +357,10 @@
     <None Include="TestData\Noark5\DocumentfilesControl\FilesWithDocumentedChecksums\content\dokumenter\5000001.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\dokumenter\5000000.pdf">
+    <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\DOKUMENT\a.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\dokumenter\5000001.pdf">
+    <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\DOKUMENT\B.PDF">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\dokumenter\5000000.pdf">
@@ -581,6 +585,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="TestData\DocumentDirectoryTest\content\" />
     <Folder Include="TestData\package-creation\descriptive_metadata\" />
     <Folder Include="TestData\tar\Noark3-eksempel-1\" />
   </ItemGroup>
