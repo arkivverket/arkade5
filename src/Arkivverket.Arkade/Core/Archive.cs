@@ -69,24 +69,22 @@ namespace Arkivverket.Arkade.Core
 
         public DirectoryInfo GetDocumentsDirectory()
         {
-            // Looks (once) for a document-directory with one of the names defined in DocumentDirectoryNames.
-            // If an actual directory is found, the field DocumentsDirectory is assigned with it and returned.
-            // If none is found, the field DocumentsDirectory is assigned with a new, non-existing directory
-            // given the name of the first element of DocumentDirectoryNames (should be the most common name).
-            // The method will always return a DirectoryInfo object in which can be checked by it's Exists-field.
+            if (DocumentsDirectory != null)
+                return DocumentsDirectory;
 
-            if (DocumentsDirectory == null)
-            {
-                int index = ArkadeConstants.DocumentDirectoryNames.Length - 1;
+            foreach (DirectoryInfo directory in WorkingDirectory.Content().DirectoryInfo().EnumerateDirectories())
+            foreach (string documentDirectoryName in ArkadeConstants.DocumentDirectoryNames)
+                if (directory.Name.Equals(documentDirectoryName))
+                    DocumentsDirectory = directory;
 
-                do DocumentsDirectory = WorkingDirectory.Content().WithSubDirectory(
-                        ArkadeConstants.DocumentDirectoryNames[index--]
-                    ).DirectoryInfo();
+            return DocumentsDirectory ?? DefaultNamedDocumentsDirectory();
+        }
 
-                while (index >= 0 && !DocumentsDirectory.Exists);
-            }
-
-            return DocumentsDirectory;
+        private DirectoryInfo DefaultNamedDocumentsDirectory()
+        {
+            return WorkingDirectory.Content().WithSubDirectory(
+                ArkadeConstants.DocumentDirectoryNames[0]
+            ).DirectoryInfo();
         }
     }
 

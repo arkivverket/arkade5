@@ -39,6 +39,6 @@ namespace Arkivverket.Arkade.Util
         public const string DirectoryNameAppDataArkadeSubFolder = "Arkivverket";
         
         public static readonly string[] DocumentDirectoryNames =
-            { "DOKUMENT", "DOKUMENTER", "dokument", "dokumenter" };
+            { "dokumenter", "DOKUMENTER", "dokument", "DOKUMENT" };
     }
 }
