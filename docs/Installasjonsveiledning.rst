@@ -3,18 +3,17 @@ Installasjonsveiledning
 
 Systemkrav for å kjøre Arkade 5
 -------------------------------
-.NET Framework 4.5.2 må være installert for å kunne kjøre Arkade 5. Dette kan lastes ned og installeres her_.
+.NET Framework 4.5.2 må være installert for å kunne kjøre Arkade 5. Dette kan lastes ned her_.
 
 .. _her: https://www.microsoft.com/nb-no/download/details.aspx?id=42643
-
 
 
 Installer ny versjon av Arkade
 ------------------------------
 
-`Last ned siste versjon av Arkade 5 fra GitHub <https://github.com/arkivverket/arkade5/releases/latest>`_ (velg .msi-filen under Downloads)
+`Last ned siste versjon av Arkade 5 fra GitHub <https://github.com/arkivverket/arkade5/releases/latest>`_ (velg msi-filen under Assets)
 
-Deretter startes installasjonen verd å klikke eller åpne den nedlastede .msi filen 
+Deretter startes installasjonen ved å dobbeltklikke den nedlastede msi-filen.
 
 .. image:: img/NedlastningerFilViser.png
 

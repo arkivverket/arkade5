@@ -9,7 +9,7 @@ Arkade 5 - testverktøy for arkivuttrekk
 Nedlasting
 --------------------------
 
-`Last ned siste versjon av Arkade 5 fra GitHub <https://github.com/arkivverket/arkade5/releases/latest>`_ (velg .msi-filen under Downloads)
+`Last ned siste versjon av Arkade 5 fra GitHub <https://github.com/arkivverket/arkade5/releases/latest>`_ (velg .msi-filen under Assets)
 
 Pressemelding
 -------------
