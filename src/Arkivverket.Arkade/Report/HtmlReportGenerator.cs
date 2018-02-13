@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Text;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Util;
@@ -85,10 +84,11 @@ namespace Arkivverket.Arkade.Report
             _stream.WriteLine(@"        </p>");
             _stream.WriteLine(@"");
             _stream.WriteLine(@"        <h4>" + Resources.Report.HeadingTestResults + "</h4>");
-            if (testRun.IsSuccess() && (testRun.TestType == TestType.ContentControl || testRun.TestType == TestType.StructureControl))
+
+            if (TestTypeIsControl(testRun) && testRun.IsSuccess())
             {
                 _stream.WriteLine("<p>" + Resources.Report.TestNoErrorsFound + "</p>");
-            } 
+            }
             else
             {
                 _stream.WriteLine(@"        <table class=""table"">");
@@ -100,7 +100,7 @@ namespace Arkivverket.Arkade.Report
                 _stream.WriteLine(@"            </thead>");
                 _stream.WriteLine(@"            <tbody>");
 
-                foreach (TestResult testResult in testRun.Results.Take(NumberOfResultsToDisplay)) // TODO only first 100 results are included due to problem loading report in browser
+                foreach (TestResult testResult in testRun.Results.Take(NumberOfResultsToDisplay))
                 {
                     _stream.WriteLine(@"            <tr>");
                     _stream.WriteLine(@"                <td>");
@@ -114,16 +114,26 @@ namespace Arkivverket.Arkade.Report
 
                 if (testRun.Results.Count > NumberOfResultsToDisplay)
                 {
+                    string moreResultsMessage = string.Format(
+                        Resources.Report.TestMoreResultsOfSameKind, testRun.Results.Count - NumberOfResultsToDisplay
+                    );
+
                     _stream.WriteLine(@"            <tr>");
                     _stream.WriteLine(@"                <td></td>");
-                    _stream.WriteLine(@"                <td>" + string.Format(Resources.Report.TestMoreResultsOfSameKind, testRun.Results.Count - NumberOfResultsToDisplay) + "</td>");
+                    _stream.WriteLine(@"                <td>" + moreResultsMessage + "</td>");
                     _stream.WriteLine(@"            </tr>");
                 }
 
                 _stream.WriteLine(@"            </tbody>");
                 _stream.WriteLine(@"        </table>");
             }
+
             _stream.WriteLine(@"    </div>");
+        }
+
+        private static bool TestTypeIsControl(TestRun testRun)
+        {
+            return (testRun.TestType == TestType.ContentControl || testRun.TestType == TestType.StructureControl);
         }
 
         private static string GetTestTypeDisplayName(TestType testType)
@@ -178,7 +188,7 @@ namespace Arkivverket.Arkade.Report
             _stream.WriteLine("                 </td>");
             _stream.WriteLine(@"            </tr>");
 
-            
+
             _stream.WriteLine(@"            <tr>");
             _stream.WriteLine(@"                <td>");
             _stream.WriteLine(Resources.Report.LabelNumberOfFilesProcessed);
@@ -189,7 +199,7 @@ namespace Arkivverket.Arkade.Report
             _stream.WriteLine(@"            </tr>");
 
             if (testSession.Archive.ArchiveType != ArchiveType.Noark5)
-            { 
+            {
                 _stream.WriteLine(@"            <tr>");
                 _stream.WriteLine(@"                <td>");
                 _stream.WriteLine(Resources.Report.LabelNumberOfRecordsProcessed);
@@ -208,7 +218,7 @@ namespace Arkivverket.Arkade.Report
             _stream.WriteLine(testSession.TestSuite.FindNumberOfErrors());
             _stream.WriteLine("                 </td>");
             _stream.WriteLine(@"            </tr>");
-     
+
             _stream.WriteLine(@"            </tbody>");
             _stream.WriteLine(@"        </table>");
             _stream.WriteLine(@"    </div>");
@@ -245,6 +255,5 @@ namespace Arkivverket.Arkade.Report
             _stream.WriteLine(css);
             _stream.WriteLine(@"</style>");
         }
-
     }
 }
