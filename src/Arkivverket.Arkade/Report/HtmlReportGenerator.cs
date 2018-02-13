@@ -78,6 +78,7 @@ namespace Arkivverket.Arkade.Report
                 _stream.WriteLine(@"        " + testRun.TestId + " &ndash; ");
             _stream.WriteLine(@"        " + testRun.TestName);
             _stream.WriteLine(@"        </h3>");
+            _stream.WriteLine(@"        <p><b>Type:</b> " + GetTestTypeDisplayName(testRun.TestType) + "</p>");
             _stream.WriteLine(@"");
             _stream.WriteLine(@"        <p class=""test-description"">");
             _stream.WriteLine(@"            " + testRun.TestDescription);
@@ -123,6 +124,17 @@ namespace Arkivverket.Arkade.Report
                 _stream.WriteLine(@"        </table>");
             }
             _stream.WriteLine(@"    </div>");
+        }
+
+        private static string GetTestTypeDisplayName(TestType testType)
+        {
+            switch (testType)
+            {
+                case TestType.ContentAnalysis: return Resources.Report.TestTypeContentAnalysisDisplayName;
+                case TestType.ContentControl: return Resources.Report.TestTypeContentControlDisplayName;
+                case TestType.StructureControl: return Resources.Report.TestTypeStructureControlDisplayName;
+                default: return testType.ToString();
+            }
         }
 
         private string SubstitueLineBreaksWithHtmlBreak(string input)

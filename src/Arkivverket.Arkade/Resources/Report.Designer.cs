@@ -212,5 +212,32 @@ namespace Arkivverket.Arkade.Resources {
                 return ResourceManager.GetString("TestNoErrorsFound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Innholdsanalyse.
+        /// </summary>
+        internal static string TestTypeContentAnalysisDisplayName {
+            get {
+                return ResourceManager.GetString("TestTypeContentAnalysisDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Innholdskontroll.
+        /// </summary>
+        internal static string TestTypeContentControlDisplayName {
+            get {
+                return ResourceManager.GetString("TestTypeContentControlDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Strukturkontroll.
+        /// </summary>
+        internal static string TestTypeStructureControlDisplayName {
+            get {
+                return ResourceManager.GetString("TestTypeStructureControlDisplayName", resourceCulture);
+            }
+        }
     }
 }

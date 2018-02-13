@@ -168,4 +168,13 @@
   <data name="FooterArkadeVersion" xml:space="preserve">
     <value>Arkade 5 versjon: {0}</value>
   </data>
+  <data name="TestTypeContentAnalysisDisplayName" xml:space="preserve">
+    <value>Innholdsanalyse</value>
+  </data>
+  <data name="TestTypeContentControlDisplayName" xml:space="preserve">
+    <value>Innholdskontroll</value>
+  </data>
+  <data name="TestTypeStructureControlDisplayName" xml:space="preserve">
+    <value>Strukturkontroll</value>
+  </data>
 </root>
