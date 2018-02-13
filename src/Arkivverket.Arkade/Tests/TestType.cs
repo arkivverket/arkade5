@@ -2,7 +2,7 @@ namespace Arkivverket.Arkade.Tests
 {
     public enum TestType
     {
-        Structure,
+        StructureControl,
         ContentAnalysis,
         ContentControl
     }

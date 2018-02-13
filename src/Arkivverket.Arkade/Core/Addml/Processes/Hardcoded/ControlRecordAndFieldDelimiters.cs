@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
 
         public override TestType GetTestType()
         {
-            return TestType.Structure;
+            return TestType.StructureControl;
         }
 
         public override string GetDescription()

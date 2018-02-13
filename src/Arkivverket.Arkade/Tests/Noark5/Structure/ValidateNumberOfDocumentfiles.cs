@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         public override TestType GetTestType()
         {
-            return TestType.Structure;
+            return TestType.StructureControl;
         }
 
         protected override List<TestResult> GetTestResults()

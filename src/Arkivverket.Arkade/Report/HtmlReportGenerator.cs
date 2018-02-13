@@ -84,7 +84,7 @@ namespace Arkivverket.Arkade.Report
             _stream.WriteLine(@"        </p>");
             _stream.WriteLine(@"");
             _stream.WriteLine(@"        <h4>" + Resources.Report.HeadingTestResults + "</h4>");
-            if (testRun.IsSuccess() && (testRun.TestType == TestType.ContentControl || testRun.TestType == TestType.Structure))
+            if (testRun.IsSuccess() && (testRun.TestType == TestType.ContentControl || testRun.TestType == TestType.StructureControl))
             {
                 _stream.WriteLine("<p>" + Resources.Report.TestNoErrorsFound + "</p>");
             } 
