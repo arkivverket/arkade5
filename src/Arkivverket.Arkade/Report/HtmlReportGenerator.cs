@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Report
 {
     public class HtmlReportGenerator : IReportGenerator
     {
-        private const int NumberOfErrorsToShow = 100;
+        private const int NumberOfResultsToDisplay = 100;
 
         private readonly StreamWriter _stream;
         private readonly CultureInfo _norwegianCulture;
@@ -100,7 +100,7 @@ namespace Arkivverket.Arkade.Report
                 _stream.WriteLine(@"            </thead>");
                 _stream.WriteLine(@"            <tbody>");
 
-                foreach (TestResult testResult in testRun.Results.Take(NumberOfErrorsToShow)) // TODO only first 100 results are included due to problem loading report in browser
+                foreach (TestResult testResult in testRun.Results.Take(NumberOfResultsToDisplay)) // TODO only first 100 results are included due to problem loading report in browser
                 {
                     _stream.WriteLine(@"            <tr>");
                     _stream.WriteLine(@"                <td>");
@@ -112,11 +112,11 @@ namespace Arkivverket.Arkade.Report
                     _stream.WriteLine(@"            </tr>");
                 }
 
-                if (testRun.Results.Count > NumberOfErrorsToShow)
+                if (testRun.Results.Count > NumberOfResultsToDisplay)
                 {
                     _stream.WriteLine(@"            <tr>");
                     _stream.WriteLine(@"                <td></td>");
-                    _stream.WriteLine(@"                <td>" + string.Format(Resources.Report.TestMoreErrorsOfSameKind, testRun.Results.Count - NumberOfErrorsToShow) + "</td>");
+                    _stream.WriteLine(@"                <td>" + string.Format(Resources.Report.TestMoreResultsOfSameKind, testRun.Results.Count - NumberOfResultsToDisplay) + "</td>");
                     _stream.WriteLine(@"            </tr>");
                 }
 

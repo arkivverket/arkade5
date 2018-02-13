@@ -88,7 +88,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Testresultater.
+        ///   Looks up a localized string similar to Resultater.
         /// </summary>
         internal static string HeadingTestResults {
             get {
@@ -97,7 +97,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tester.
+        ///   Looks up a localized string similar to Analyser og kontroller.
         /// </summary>
         internal static string HeadingTests {
             get {
@@ -196,11 +196,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} flere feil av samme type..
+        ///   Looks up a localized string similar to {0} flere resultater av samme type..
         /// </summary>
-        internal static string TestMoreErrorsOfSameKind {
+        internal static string TestMoreResultsOfSameKind {
             get {
-                return ResourceManager.GetString("TestMoreErrorsOfSameKind", resourceCulture);
+                return ResourceManager.GetString("TestMoreResultsOfSameKind", resourceCulture);
             }
         }
         

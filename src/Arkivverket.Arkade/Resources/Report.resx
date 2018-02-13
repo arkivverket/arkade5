@@ -124,10 +124,10 @@
     <value>Testrapport</value>
   </data>
   <data name="HeadingTestResults" xml:space="preserve">
-    <value>Testresultater</value>
+    <value>Resultater</value>
   </data>
   <data name="HeadingTests" xml:space="preserve">
-    <value>Tester</value>
+    <value>Analyser og kontroller</value>
   </data>
   <data name="HeadingTestSummary" xml:space="preserve">
     <value>Testsammendrag</value>
@@ -159,8 +159,8 @@
   <data name="TestMessage" xml:space="preserve">
     <value>Melding</value>
   </data>
-  <data name="TestMoreErrorsOfSameKind" xml:space="preserve">
-    <value>{0} flere feil av samme type.</value>
+  <data name="TestMoreResultsOfSameKind" xml:space="preserve">
+    <value>{0} flere resultater av samme type.</value>
   </data>
   <data name="TestNoErrorsFound" xml:space="preserve">
     <value>Ingen avvik funnet.</value>
