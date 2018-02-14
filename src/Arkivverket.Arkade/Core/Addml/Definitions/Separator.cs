@@ -53,9 +53,13 @@ namespace Arkivverket.Arkade.Core.Addml.Definitions
             return _name?.GetHashCode() ?? 0;
         }
 
-        private string Convert(string s)
+        private static string Convert(string separator)
         {
-            return SpecialSeparators.ContainsKey(s) ? SpecialSeparators[s] : s;
+            foreach (string key in SpecialSeparators.Keys)
+                if (separator.Contains(key))
+                    separator = separator.Replace(key, SpecialSeparators[key]);
+
+            return separator;
         }
 
         internal int GetLength()
