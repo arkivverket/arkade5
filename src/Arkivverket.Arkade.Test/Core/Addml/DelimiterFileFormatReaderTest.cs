@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System;
 using System.Text;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
@@ -105,5 +106,29 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             record.Fields[fieldIndex].Value.Should().Be(value);
         } 
 
+        [Fact(Skip = "Test is for a not yet implemented feature")]
+        public void SemicolonsWithinQuotesAreNotInterpretedAsFieldDelimiters()
+        {
+            AddmlFlatFileDefinition addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder()
+                .WithRecordSeparator("CRLF").WithFieldSeparator(";").Build();
+
+            AddmlRecordDefinition recordDefinition = new AddmlRecordDefinitionBuilder()
+                .WithAddmlFlatFileDefinition(addmlFlatFileDefinition).Build();
+
+            new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
+            new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
+            new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
+
+            const string csvData = "AA;\"B;B\";CC";
+
+            var streamReader = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(csvData)));
+            var recordReader = new DelimiterFileFormatReader(new FlatFile(addmlFlatFileDefinition), streamReader);
+            var actionOfGettingCurrent = (Action) (() => ((Func<object>) (() => recordReader.Current))());
+
+            recordReader.MoveNext(); // AA;"B;B";CC
+
+            actionOfGettingCurrent.ShouldNotThrow<Exception>();
+            recordReader.Current?.Fields?.Count.Should().Be(3);
+        }
     }
 }
