@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using Arkivverket.Arkade.Core.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Core.Addml
@@ -52,7 +53,7 @@ namespace Arkivverket.Arkade.Core.Addml
 
             string currentLine = _lines.Current;
 
-            string[] strings = currentLine.Split(new[] {_fieldDelimiter}, StringSplitOptions.None);
+            string[] strings = Regex.Split(currentLine, $@"{_fieldDelimiter}(?=(?:[^""]*""[^""]*"")*[^""]*$)");
 
             string recordIdentifier = null;
             if (_recordIdentifierPosition.HasValue)

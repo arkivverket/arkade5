@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
             record.Fields[fieldIndex].Value.Should().Be(value);
         } 
 
-        [Fact(Skip = "Test is for a not yet implemented feature")]
+        [Fact]
         public void SemicolonsWithinQuotesAreNotInterpretedAsFieldDelimiters()
         {
             AddmlFlatFileDefinition addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder()
