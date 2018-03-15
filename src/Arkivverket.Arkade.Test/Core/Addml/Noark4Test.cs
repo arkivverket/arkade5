@@ -1,6 +1,6 @@
-﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml;
 using Arkivverket.Arkade.Core.Addml.Definitions;
@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
 
             // File is converted from NOARKIH.XML format
 
-            var externalContentDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\TestData\\noark4\\");
+            var externalContentDirectory = new DirectoryInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\TestData\\noark4");
             var workingDirectory = new WorkingDirectory(ArkadeProcessingArea.WorkDirectory, externalContentDirectory);
             AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content().WithFile("addml.xml").FullName);
 

@@ -53,7 +53,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
             string expectedChecksum = flatFile.Definition.Checksum.Value;
             FileInfo file = flatFile.Definition.FileInfo;
 
-            HashAlgorithm h = HashAlgorithm.Create(checksumAlgorithm);
+            HashAlgorithm h = (HashAlgorithm) CryptoConfig.CreateFromName(checksumAlgorithm);
             if (h == null)
             {
                 _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFlatFileIndex(flatFile.Definition.GetIndex()),

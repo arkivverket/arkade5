@@ -1,5 +1,5 @@
-using System;
 using System.IO;
+using System.Reflection;
 using Arkivverket.Arkade.Util;
 using FluentAssertions;
 using Xunit;
@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Test.Util
         [Fact]
         public void GenerateChecksum()
         {
-            var pathToFile = AppDomain.CurrentDomain.BaseDirectory + "\\Util\\demo.txt";
+            var pathToFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Util\\demo.txt";
             _output.WriteLine("File path: " + pathToFile);
 
             string checksum = new Sha256ChecksumGenerator().GenerateChecksum(pathToFile);
@@ -31,9 +31,9 @@ namespace Arkivverket.Arkade.Test.Util
         [Fact]
         public void CheckForFileExistence()
         {
-            Xunit.Assert.Throws(typeof(FileNotFoundException), delegate
+            Xunit.Assert.Throws<FileNotFoundException>(delegate
             {
-                var pathToFile = AppDomain.CurrentDomain.BaseDirectory + "\\Util\\demo2.txt";
+                var pathToFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Util\\demo2.txt";
                 new Sha256ChecksumGenerator().GenerateChecksum(pathToFile);
             });
         }

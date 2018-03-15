@@ -1,12 +1,13 @@
 using System;
 using System.IO;
+using System.Reflection;
 using Arkivverket.Arkade.Core;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
     public class TestUtil
     {
-        public static string TestDataDirectory =  AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + ".." + Path.DirectorySeparatorChar + ".." + Path.DirectorySeparatorChar + "TestData" + Path.DirectorySeparatorChar;
+        public static string TestDataDirectory =  Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + "TestData" + Path.DirectorySeparatorChar;
 
         public static Archive CreateArchiveExtraction(string testdataDirectory)
         {

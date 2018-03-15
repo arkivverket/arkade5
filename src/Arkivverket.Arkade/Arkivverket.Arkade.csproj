@@ -1,452 +1,49 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D4008C3C-61EF-48A4-B333-793476B7104D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Arkivverket.Arkade</RootNamespace>
-    <AssemblyName>Arkivverket.Arkade</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="AutofacSerilogIntegration, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutofacSerilogIntegration.1.0.12\lib\portable45-net45+win8+wp8+wpa81\AutofacSerilogIntegration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Data, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="RestSharp, Version=106.1.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.106.1.0\lib\net452\RestSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.2.0.0\lib\net45\Serilog.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Serilog.Sinks.ColoredConsole, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.Sinks.ColoredConsole.2.0.0\lib\net45\Serilog.Sinks.ColoredConsole.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Serialization" />
-    <Reference Include="WindowsBase" />
+    <None Remove="ExternalModels\xsd\addml.xsd" />
+    <None Remove="ExternalModels\xsd\arkivstruktur.xsd" />
+    <None Remove="ExternalModels\xsd\cpf.xsd" />
+    <None Remove="ExternalModels\xsd\DIAS_PREMIS.xsd" />
+    <None Remove="ExternalModels\xsd\ead3.xsd" />
+    <None Remove="ExternalModels\xsd\info.xsd" />
+    <None Remove="ExternalModels\xsd\metadatakatalog.xsd" />
+    <None Remove="ExternalModels\xsd\mets.xsd" />
+    <None Remove="ExternalModels\xsd\testSessionLog.xsd" />
+    <None Remove="ExternalModels\xsd\xlink.xsd" />
+    <None Remove="ExternalModels\xsl\noarkih-to-addml.xsl" />
+    <None Remove="Resources\arkade.css" />
+    <None Remove="Resources\arkivverket.gif" />
+    <None Remove="Resources\bootstrap.min.css" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Core\Addml\AddmlDatasetTestEngine.cs" />
-    <Compile Include="Core\Addml\AddmlUtil.cs" />
-    <Compile Include="Core\Addml\Definitions\AddmlCode.cs" />
-    <Compile Include="Core\Addml\Definitions\AddmlDefinition.cs" />
-    <Compile Include="Core\Addml\Definitions\AddmlDefinitionParseException.cs" />
-    <Compile Include="Core\Addml\Definitions\AddmlFieldDefinition.cs" />
-    <Compile Include="Core\Addml\Definitions\AddmlDefinitionParser.cs" />
-    <Compile Include="Core\Addml\AddmlProcessRunner.cs" />
-    <Compile Include="Core\Addml\Definitions\AddmlForeignKey.cs" />
-    <Compile Include="Core\Addml\Definitions\AddmlInfo.cs" />
-    <Compile Include="Core\Addml\Definitions\AddmlRecordDefinition.cs" />
-    <Compile Include="Core\Addml\Definitions\Checksum.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\BooleanDataType.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\DateDataType.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\DataType.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\TimeDataType.cs" />
-    <Compile Include="Core\Addml\Definitions\FieldIndex.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\FloatDataType.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\IntegerDataType.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\LinkDataType.cs" />
-    <Compile Include="Core\Addml\Definitions\FlatFileIndex.cs" />
-    <Compile Include="Core\Addml\Definitions\IAddmlIndex.cs" />
-    <Compile Include="Core\Addml\Definitions\RecordIndex.cs" />
-    <Compile Include="Core\Addml\Definitions\Separator.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\StringDataType.cs" />
-    <Compile Include="Core\Addml\DelimiterFileRecordEnumerator.cs" />
-    <Compile Include="Core\Addml\DelimiterFileFormatReader.cs" />
-    <Compile Include="Core\Addml\DelimiterFileRecordEnumerable.cs" />
-    <Compile Include="Core\Addml\Field.cs" />
-    <Compile Include="Core\Addml\Definitions\AddmlFlatFileDefinition.cs" />
-    <Compile Include="Core\Addml\FieldProcessRunner.cs" />
-    <Compile Include="Core\Addml\FileFormatReader.cs" />
-    <Compile Include="Core\Addml\FileProcessRunner.cs" />
-    <Compile Include="Core\Addml\FixedFileFormatReader.cs" />
-    <Compile Include="Core\Addml\FlatFileReaderFactory.cs" />
-    <Compile Include="Core\Addml\HardcodedProcessRunner.cs" />
-    <Compile Include="Core\Addml\IAddmlProcess.cs" />
-    <Compile Include="Core\Addml\IRecordEnumerator.cs" />
-    <Compile Include="Core\Addml\Noark4FileReader.cs" />
-    <Compile Include="Core\Addml\HasProcesses.cs" />
-    <Compile Include="Core\Addml\NoarkihToAddmlTransformer.cs" />
-    <Compile Include="Core\Addml\Processes\AddmlProcess.cs" />
-    <Compile Include="Core\Addml\Processes\Internal\CollectPrimaryKey.cs" />
-    <Compile Include="Core\Addml\Processes\ControlAllFixedLength.cs" />
-    <Compile Include="Core\Addml\Processes\Hardcoded\ControlExtraOrMissingFiles.cs" />
-    <Compile Include="Core\Addml\Processes\Hardcoded\ControlChecksum.cs" />
-    <Compile Include="Core\Addml\Processes\ControlDataFormat.cs" />
-    <Compile Include="Core\Addml\Processes\ControlNotUsedRecordDef.cs" />
-    <Compile Include="Core\Addml\Processes\ControlMaxLength.cs" />
-    <Compile Include="Core\Addml\Processes\ControlFixedLength.cs" />
-    <Compile Include="Core\Addml\Processes\ControlMinLength.cs" />
-    <Compile Include="Core\Addml\Processes\ControlDateValue.cs" />
-    <Compile Include="Core\Addml\Processes\ControlBooleanValue.cs" />
-    <Compile Include="Core\Addml\Processes\ControlNotNull.cs" />
-    <Compile Include="Core\Addml\Processes\ControlCodes.cs" />
-    <Compile Include="Core\Addml\Processes\ControlKey.cs" />
-    <Compile Include="Core\Addml\Processes\Hardcoded\ControlRecordAndFieldDelimiters.cs" />
-    <Compile Include="Core\Addml\Processes\ControlUniqueness.cs" />
-    <Compile Include="Core\Addml\Processes\ControlOrganizationNumber.cs" />
-    <Compile Include="Core\Addml\Processes\ControlAccountNumber.cs" />
-    <Compile Include="Core\Addml\Processes\ControlBirthNumber.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseCountChars.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseCountRecords.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseCountRecordDefinitionOccurences.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseCountNull.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseFindExtremeRecords.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseAllFrequenceList.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseFrequenceList.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseFindExtremeValues.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseFindMinMaxValues.cs" />
-    <Compile Include="Core\Addml\Processes\FrequencyList.cs" />
-    <Compile Include="Core\Addml\Processes\MinAndMax.cs" />
-    <Compile Include="Core\Addml\Processes\ProcessTypeMapping.cs" />
-    <Compile Include="Core\Addml\Processes\ControlForeignKey.cs" />
-    <Compile Include="Core\Addml\Processes\ControlNumberOfRecords.cs" />
-    <Compile Include="Core\Addml\ProcessManager.cs" />
-    <Compile Include="Core\Addml\ProcessProvider.cs" />
-    <Compile Include="Core\Addml\Record.cs" />
-    <Compile Include="Core\Addml\RecordProcessRunner.cs" />
-    <Compile Include="Core\Addml\FixedFormatReader.cs" />
-    <Compile Include="Core\Addml\XmlFormatReader.cs" />
-    <Compile Include="Core\ArchiveMetadata.cs" />
-    <Compile Include="Core\ArkadeAddmlDelimiterException.cs" />
-    <Compile Include="Core\ArkadeApi.cs" />
-    <Compile Include="Core\ArkadeProcessingArea.cs" />
-    <Compile Include="ExternalModels\Cpf.cs" />
-    <Compile Include="ExternalModels\DiasPremis.cs" />
-    <Compile Include="ExternalModels\Ead.cs" />
-    <Compile Include="ExternalModels\Mets.cs" />
-    <Compile Include="Metadata\DiasMetsCreator.cs" />
-    <Compile Include="Metadata\DiasMetsLoader.cs" />
-    <Compile Include="Metadata\LogCreator.cs" />
-    <Compile Include="Metadata\DiasPremisCreator.cs" />
-    <Compile Include="Metadata\EacCpfCreator.cs" />
-    <Compile Include="Metadata\EadCreator.cs" />
-    <Compile Include="Metadata\MetadataFilesCreator.cs" />
-    <Compile Include="Metadata\MetsCreator.cs" />
-    <Compile Include="Metadata\MetsPartial.cs" />
-    <Compile Include="Metadata\MetsTranslationHelper.cs" />
-    <Compile Include="Metadata\InfoXmlCreator.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\AddmlMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AddmlMessages.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\ExceptionMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ExceptionMessages.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Tests\AddmlGroupLocation.cs" />
-    <Compile Include="Tests\Noark5\ArchivepartReferenceControl.cs" />
-    <Compile Include="Tests\Noark5\ArchiveStartAndEndDateControl.cs" />
-    <Compile Include="Tests\Noark5\ChangeLogArchiveReferenceControl.cs" />
-    <Compile Include="Tests\Noark5\ClassReferenceControl.cs" />
-    <Compile Include="Tests\Noark5\ControlNoSuperclassesHasFolders.cs" />
-    <Compile Include="Tests\Noark5\ControlNoSuperclassesHasRegistrations.cs" />
-    <Compile Include="Tests\Noark5\DocumentFilesChecksumControl.cs" />
-    <Compile Include="Tests\Noark5\DocumentfilesReferenceControl.cs" />
-    <Compile Include="Tests\Noark5\FirstAndLastRegistrationCreationDates.cs" />
-    <Compile Include="Tests\Noark5\Noark5TestHelper.cs" />
-    <Compile Include="Tests\Noark5\NumberOfEachCaseFolderStatus.cs" />
-    <Compile Include="Tests\Noark5\NumberOfFoldersPerClass.cs" />
-    <Compile Include="Util\GitHubReleaseInfoReader.cs" />
-    <Compile Include="Util\IReleaseInfoReader.cs" />
-    <Compile Include="Util\LocalInfo.cs" />
-    <Compile Include="Util\JournalGuillotine.cs" />
-    <Compile Include="Tests\Noark5\NumberOfChangesLogged.cs" />
-    <Compile Include="Tests\Noark5\NumberOfConversions.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDisposalResolutions.cs" />
-    <Compile Include="Tests\Noark5\NumberOfClassifications.cs" />
-    <Compile Include="Tests\Noark5\NumberOfComments.cs" />
-    <Compile Include="Tests\Noark5\NumberOfCrossReferences.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDisposalsExecuted.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDocumentFlows.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDocumentDescriptions.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDocumentDescriptionsWithoutDocumentObject.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDocumentObjects.cs" />
-    <Compile Include="Tests\Noark5\NumberOfCaseParts.cs" />
-    <Compile Include="Tests\Noark5\NumberOfCorrespondenceParts.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDepreciations.cs" />
-    <Compile Include="Tests\Noark5\NumberOfEachDocumentFormat.cs" />
-    <Compile Include="Tests\Noark5\NumberOfEachDocumentStatus.cs" />
-    <Compile Include="Tests\Noark5\NumberOfJournalPosts.cs" />
-    <Compile Include="Tests\Noark5\NumberOfEachJournalPostType.cs" />
-    <Compile Include="Tests\Noark5\NumberOfRestrictions.cs" />
-    <Compile Include="Tests\Noark5\NumberOfMultiReferencedDocumentFiles.cs" />
-    <Compile Include="Tests\Noark5\NumberOfPrecedents.cs" />
-    <Compile Include="Tests\Noark5\NumberOfFoldersPerYear.cs" />
-    <Compile Include="Tests\Noark5\NumberOfFoldersWithoutRegistrationsOrSubfolders.cs" />
-    <Compile Include="Tests\Noark5\NumberOfRegistrationsPerClass.cs" />
-    <Compile Include="Tests\Noark5\NumberOfEachJournalStatus.cs" />
-    <Compile Include="Tests\Noark5\Structure\ValidateNumberOfDocumentfiles.cs" />
-    <Compile Include="Tests\Noark5\SystemIdUniqueControl.cs" />
-    <Compile Include="Util\ArkadeDirectory.cs" />
-    <Compile Include="Core\WorkingDirectory.cs" />
-    <Compile Include="Util\ArkadeFile.cs" />
-    <Compile Include="Core\InformationPackageCreator.cs" />
-    <Compile Include="Core\IArkadeStructureTest.cs" />
-    <Compile Include="Core\Noark5\Noark5BaseTest.cs" />
-    <Compile Include="Core\Noark5\Noark5StructureBaseTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfRegistrationsPerYear.cs" />
-    <Compile Include="Tests\Noark5\NumberOfRegistrationsWithoutDocumentDescription.cs" />
-    <Compile Include="Util\TestId.cs" />
-    <Compile Include="Util\XmlReaderUtil.cs" />
-    <Compile Include="Core\Archive.cs" />
-    <Compile Include="Core\ArchiveContentReader.cs" />
-    <Compile Include="Core\ArchiveDirectory.cs" />
-    <Compile Include="Core\ArchiveFile.cs" />
-    <Compile Include="Core\Addml\FlatFile.cs" />
-    <Compile Include="Core\Arkade.cs" />
-    <Compile Include="Core\IArkadeTest.cs" />
-    <Compile Include="Core\Noark5\Noark5XmlReaderBaseTest.cs" />
-    <Compile Include="Core\Noark5\Noark5TestEngine.cs" />
-    <Compile Include="Core\Noark5\ReadElementEventArgs.cs" />
-    <Compile Include="Logging\FileProcessingStatusEventArgs.cs" />
-    <Compile Include="Core\ArkadeException.cs" />
-    <Compile Include="Logging\ArchiveInformationEventArgs.cs" />
-    <Compile Include="Report\HtmlReport.cs" />
-    <Compile Include="Report\HtmlReportGenerator.cs" />
-    <Compile Include="Report\IReport.cs" />
-    <Compile Include="Report\PdfReport.cs" />
-    <Compile Include="Report\IReportGenerator.cs" />
-    <Compile Include="Resources\Noark5TestDescriptions.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Noark5TestDescriptions.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Report.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Report.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Tests\AddmlLocation.cs" />
-    <Compile Include="Tests\ILocation.cs" />
-    <Compile Include="Tests\Location.cs" />
-    <Compile Include="Tests\Noark5\ControlDocumentFilesExists.cs" />
-    <Compile Include="Tests\Noark5\CountElementsWithUniqueName.cs" />
-    <Compile Include="Tests\Noark5\NumberOfRegistrations.cs" />
-    <Compile Include="Tests\TestType.cs" />
-    <Compile Include="Util\ArkadeConstants.cs" />
-    <Compile Include="Core\Encodings.cs" />
-    <Compile Include="Core\IArchiveContentReader.cs" />
-    <Compile Include="Core\ITestEngine.cs" />
-    <Compile Include="Core\LogEntry.cs" />
-    <Compile Include="Util\FileUtil.cs" />
-    <Compile Include="Util\Hex.cs" />
-    <Compile Include="Util\NorwegianOrganizationNumber.cs" />
-    <Compile Include="Util\NorwegianAccountNumber.cs" />
-    <Compile Include="Util\NorwegianBirthNumber.cs" />
-    <Compile Include="Util\NorwegianNameGenerator.cs" />
-    <Compile Include="Util\ResourceUtil.cs" />
-    <Compile Include="Core\TestEngineFactory.cs" />
-    <Compile Include="Core\TestFinishedEventArgs.cs" />
-    <Compile Include="Core\TestSummary.cs" />
-    <Compile Include="Core\TestStartedEventArgs.cs" />
-    <Compile Include="Core\TestSuite.cs" />
-    <Compile Include="Core\TestSession.cs" />
-    <Compile Include="Core\Uuid.cs" />
-    <Compile Include="ExternalModels\Addml.cs" />
-    <Compile Include="ExternalModels\Arkivstruktur.cs" />
-    <Compile Include="ExternalModels\TestSessionLog.cs" />
-    <Compile Include="Identify\ITestSessionFactory.cs" />
-    <Compile Include="Logging\IStatusEventHandler.cs" />
-    <Compile Include="Logging\OperationMessageEventArgs.cs" />
-    <Compile Include="Logging\StatusEventHandler.cs" />
-    <Compile Include="Logging\TestSessionXmlGenerator.cs" />
-    <Compile Include="ExternalModels\Info.cs" />
-    <Compile Include="Identify\TestSessionFactory.cs" />
-    <Compile Include="Identify\ArchiveIdentifier.cs" />
-    <Compile Include="Identify\IArchiveIdentifier.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\Messages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Messages.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Noark5Messages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Noark5Messages.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Tests\Common\CheckWellFormedXml.cs" />
-    <Compile Include="Tests\INoark5Test.cs" />
-    <Compile Include="Tests\ITestProvider.cs" />
-    <Compile Include="Tests\Noark5\Noark5TestProvider.cs" />
-    <Compile Include="Tests\Noark5\NumberOfArchiveParts.cs" />
-    <Compile Include="Tests\Noark5\NumberOfArchives.cs" />
-    <Compile Include="Tests\Noark5\NumberOfClasses.cs" />
-    <Compile Include="Tests\Noark5\NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations.cs" />
-    <Compile Include="Tests\Noark5\NumberOfClassificationSystems.cs" />
-    <Compile Include="Tests\Noark5\NumberOfFolders.cs" />
-    <Compile Include="Tests\Noark5\StatusOfArchiveParts.cs" />
-    <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksums.cs" />
-    <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchema.cs" />
-    <Compile Include="Tests\TestResult.cs" />
-    <Compile Include="Core\TestRun.cs" />
-    <Compile Include="Util\ArkadeAutofacModule.cs" />
-    <Compile Include="Util\ArkadeVersion.cs" />
-    <Compile Include="Util\Assert.cs" />
-    <Compile Include="Util\ChecksumGenerator.cs" />
-    <Compile Include="Util\IChecksumGenerator.cs" />
-    <Compile Include="Util\ICompressionUtility.cs" />
-    <Compile Include="Util\SerializeUtil.cs" />
-    <Compile Include="Util\Sha256ChecksumGenerator.cs" />
-    <Compile Include="Util\StreamReaderExtensions.cs" />
-    <Compile Include="Util\StringUtil.cs" />
-    <Compile Include="Util\SystemInfo.cs" />
-    <Compile Include="Util\TarCompressionUtility.cs" />
-    <Compile Include="Util\XmlReaderHelpers.cs" />
-    <Compile Include="Util\XmlValidator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <EmbeddedResource Include="ExternalModels\xsd\addml.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExternalModels\xsd\arkivstruktur.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <None Include="ExternalModels\xsd\cpf.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <EmbeddedResource Include="ExternalModels\xsd\mets.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExternalModels\xsd\DIAS_PREMIS.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <None Include="ExternalModels\xsd\ead3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ExternalModels\xsd\GenerateClasses.bat" />
-    <None Include="ExternalModels\xsd\info.xsd">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <EmbeddedResource Include="ExternalModels\xsd\metadatakatalog.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <None Include="ExternalModels\xsd\testSessionLog.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ExternalModels\xsd\xlink.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\AddmlMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AddmlMessages.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\arkade.css" />
-    <EmbeddedResource Include="Resources\bootstrap.min.css" />
-    <EmbeddedResource Include="Resources\arkivverket.gif" />
+    <EmbeddedResource Include="ExternalModels\xsd\addml.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\arkivstruktur.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\cpf.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\DIAS_PREMIS.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\ead3.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\info.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\metadatakatalog.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\mets.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\testSessionLog.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\xlink.xsd" />
     <EmbeddedResource Include="ExternalModels\xsl\noarkih-to-addml.xsl" />
-    <Content Include="ExternalModels\xsd\testSessionLog.xml" />
+    <EmbeddedResource Include="Resources\arkade.css" />
+    <EmbeddedResource Include="Resources\arkivverket.gif" />
+    <EmbeddedResource Include="Resources\bootstrap.min.css" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\ExceptionMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Messages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Noark5TestDescriptions.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Noark5TestDescriptions.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Report.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Report.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Noark5Messages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Noark5Messages.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+
+  <ItemGroup> 
+    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="ICSharpCode.SharpZipLib.Patched" Version="0.86.5.1" />
+    <PackageReference Include="RestSharp" Version="106.2.1" />
+    <PackageReference Include="Serilog" Version="2.6.0" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\OctoPack.3.0.71\tools\OctoPack.targets" Condition="Exists('..\packages\OctoPack.3.0.71\tools\OctoPack.targets')" />
-  <Target Name="EnsureOctoPackImported" BeforeTargets="BeforeBuild" Condition="'$(OctoPackImported)' == ''">
-    <Error Condition="!Exists('..\packages\OctoPack.3.0.71\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="You are trying to build with OctoPack, but the NuGet targets file that OctoPack depends on is not available on this computer. This is probably because the OctoPack package has not been committed to source control, or NuGet Package Restore is not enabled. Please enable NuGet Package Restore to download them. For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\packages\OctoPack.3.0.71\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="OctoPack cannot be run because NuGet packages were restored prior to the build running, and the targets file was unavailable when the build started. Please build the project again to include these packages in the build. You may also need to make sure that your build server does not delete packages prior to each build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Test.Integration
         }
 
 
-        //[Fact]
+        [Fact(Skip = "Was commented out ...")]
         public void AnonymizeFiskermanntallet()
         {
             StreamWriter file = new StreamWriter(@"C:\tmp\file.txt", false, Encodings.ISO_8859_1);      

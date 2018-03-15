@@ -1,5 +1,5 @@
-using System;
 using System.IO;
+using System.Reflection;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
         [Fact]
         public void ShouldValidateThatAllChecksumsAreCorrect()
         {
-            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\StructureChecksums\\correct";
+            string workingDirectory = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\\TestData\\Noark5\\StructureChecksums\\correct";
             var archive = new Core.ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)

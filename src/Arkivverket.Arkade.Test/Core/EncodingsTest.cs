@@ -11,7 +11,6 @@ namespace Arkivverket.Arkade.Test.Core
         {
             Encodings.UTF8.Should().NotBeNull();
             Encodings.ISO_8859_1.Should().NotBeNull();
-            Encodings.ISO_8859_4.Should().NotBeNull();
         }
     }
 }

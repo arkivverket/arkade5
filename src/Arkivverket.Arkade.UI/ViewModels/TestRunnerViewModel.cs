@@ -135,7 +135,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveInformationEvent;
             
             StartTestingCommand = new DelegateCommand(StartTesting, CanStartTestRun);
-            RunTestEngineCommand = DelegateCommand.FromAsyncHandler(async () => await Task.Run(() => RunTests()));
+            RunTestEngineCommand = new DelegateCommand(async () => await Task.Run(() => RunTests()));
             NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, CanCreatePackage);
             NewProgramSessionCommand = new DelegateCommand(ReturnToProgramStart, IsFinishedRunningTests);
             ShowReportCommand = new DelegateCommand(ShowHtmlReport, CanContinueOperationOnTestRun);

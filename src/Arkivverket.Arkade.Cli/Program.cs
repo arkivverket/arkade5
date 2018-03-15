@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CommandLine;
 using Serilog;
 
@@ -13,31 +14,34 @@ namespace Arkivverket.Arkade.Cli
                 .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss.fff} {SourceContext} [{Level}] {Message}{NewLine}{Exception}")
                 .CreateLogger();
 
-            var options = new CommandLineOptions();
-            try
-            {
-                Parser.Default.ParseArgumentsStrict(args, options);
+            Parser.Default.ParseArguments<CommandLineOptions>(args)
+                .WithParsed(RunOptionsAndReturnExitCode)
+                .WithNotParsed(HandleParseError);
+        }
 
-                if (ValidArgumentsForMetadataCreation(options))
+        private static void RunOptionsAndReturnExitCode(CommandLineOptions options)
+        {
+            if (ValidArgumentsForMetadataCreation(options))
+            {
+                new MetadataExampleGenerator().Generate(options.GenerateMetadataExample);
+            }
+            else
+            {
+                if (ValidArgumentsForTesting(options))
                 {
-                    new MetadataExampleGenerator().Generate(options.GenerateMetadataExample);
+                    new CommandLineRunner().Run(options);
                 }
                 else
                 {
-                    if (ValidArgumentsForTesting(options))
-                    {
-                        new CommandLineRunner().Run(options);
-                    }
-                    else
-                    {
-                        Console.WriteLine(options.GetUsage());
-                    }
+                    Console.WriteLine("Usage ..."); //options.GetUsage());
                 }
             }
-            catch (Exception e)
-            {
-                Log.Error(e, "An error occured: {exceptionMessage}", e.Message);
-            }
+        }
+
+        private static void HandleParseError(IEnumerable<Error> errors)
+        {
+            foreach (Error error in errors)
+                Log.Error(error.ToString());
         }
 
         private static bool ValidArgumentsForMetadataCreation(CommandLineOptions options)

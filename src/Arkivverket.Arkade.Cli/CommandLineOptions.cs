@@ -29,12 +29,5 @@ namespace Arkivverket.Arkade.Cli
 
         [Option('v', "verbose", HelpText = "Print details during execution.")]
         public bool Verbose { get; set; }
-        
-        [HelpOption]
-        public string GetUsage()
-        {
-            return HelpText.AutoBuild(this, current => HelpText.DefaultParsingErrorsHandler(this, current));
-        }
-        
     }
 }

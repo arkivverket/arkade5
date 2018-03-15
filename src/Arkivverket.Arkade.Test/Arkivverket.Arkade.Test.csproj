@@ -1,352 +1,123 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{24B2B89B-9399-4FBA-9C48-B1DBBBFE6ED7}</ProjectGuid>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <ApplicationIcon />
+
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Arkivverket.Arkade.Test</RootNamespace>
-    <AssemblyName>Arkivverket.Arkade.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+
+    <StartupObject />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FluentAssertions, Version=4.11.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.11.0\lib\net45\FluentAssertions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FluentAssertions.Core, Version=4.11.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.11.0\lib\net45\FluentAssertions.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Moq, Version=4.5.13.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.5.13\lib\net45\Moq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.2.3.0\lib\net45\Serilog.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Serilog.Sinks.Observable, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.Sinks.Observable.2.0.1\lib\net45\Serilog.Sinks.Observable.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Reactive.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.Core.3.0.0\lib\net45\System.Reactive.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.Interfaces.3.0.0\lib\net45\System.Reactive.Interfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Reactive.Linq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.Linq.3.0.0\lib\net45\System.Reactive.Linq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.PlatformServices.3.0.0\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Reactive.Windows.Threading, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.Windows.Threading.3.0.0\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.assert, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.assert.2.1.0\lib\dotnet\xunit.assert.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.core, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensibility.core.2.1.0\lib\dotnet\xunit.core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.execution.desktop, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensibility.execution.2.1.0\lib\net45\xunit.execution.desktop.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <None Remove="TestData\noark3\noark_3_arkivuttrekk_med_prosesser.xml" />
   </ItemGroup>
-  <Choose>
-    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-      </ItemGroup>
-    </When>
-    <Otherwise />
-  </Choose>
+
   <ItemGroup>
-    <Compile Include="Core\Addml\AddmlDatasetTestEngineTest.cs" />
-    <Compile Include="Core\Addml\Builders\AddmlDefinitionBuilder.cs" />
-    <Compile Include="Core\Addml\Builders\AddmlFieldDefinitionBuilder.cs" />
-    <Compile Include="Core\Addml\Builders\AddmlRecordDefinitionBuilder.cs" />
-    <Compile Include="Core\Addml\Definitions\AddmlDefinitionParserTest.cs" />
-    <Compile Include="Core\Addml\Definitions\AddmlDefinitionTest.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\BooleanDataTypeTest.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\TimeDataTypeTest.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\DateDataTypeTest.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\FloatDataTypeTest.cs" />
-    <Compile Include="Core\Addml\Definitions\DataTypes\IntegerDataTypeTest.cs" />
-    <Compile Include="Core\Addml\DelimiterFileFormatReaderTest.cs" />
-    <Compile Include="Core\Addml\FixedFileFormatReaderTest.cs" />
-    <Compile Include="Core\Addml\FlatFileReaderTest.cs" />
-    <Compile Include="Core\Addml\Builders\AddmlFlatFileDefinitionBuilder.cs" />
-    <Compile Include="Core\Addml\Processes\ControlAllFixedLengthTest.cs" />
-    <Compile Include="Core\Addml\Processes\Hardcoded\ControlExtraOrMissingFilesTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlDataFormatTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlChecksumTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlForeignKeyCombinedKeyTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlForeignKeySingleTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlNotUsedRecordDefTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlMaxLengthTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlFixedLengthTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlMinLengthTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlDateValueTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlBooleanValueTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlNotNullTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlCodesTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlKeyTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlUniquenessTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlOrganizationNumberTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlAccountNumberTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlBirthNumberTest.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseCountNullTest.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseFindExtremeRecordsTest.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseAllFrequenceListTest.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseFrequenceListTest.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseFindExtremeValuesTest.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseCountCharsTest.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseCountRecordsTest.cs" />
-    <Compile Include="Core\Addml\Processes\AnalyseCountRecordDefinitionOccurencesTest.cs" />
-    <Compile Include="Core\Addml\FlatFileReaderFactoryTest.cs" />
-    <Compile Include="Core\Addml\Jegerreg98Test.cs" />
-    <Compile Include="Core\Addml\FixedFormatReaderTest.cs" />
-    <Compile Include="Core\Addml\NoarkihToAddmlTransformerTest.cs" />
-    <Compile Include="Core\Addml\Processes\ControlNumberOfRecordsTest.cs" />
-    <Compile Include="Core\Addml\RecordSeparatorTest.cs" />
-    <Compile Include="Core\Addml\RecordTest.cs" />
-    <Compile Include="Core\Addml\XmlFormatReaderTest.cs" />
-    <Compile Include="Core\ArchiveBuilder.cs" />
-    <Compile Include="Core\ArkadeProcessingAreaTest.cs" />
-    <Compile Include="Core\ArkadeTestMock.cs" />
-    <Compile Include="Core\DocumentsDirectoryTest.cs" />
-    <Compile Include="Core\EncodingsTest.cs" />
-    <Compile Include="Core\InformationPackageCreatorTest.cs" />
-    <Compile Include="Core\TestRunBuilder.cs" />
-    <Compile Include="Core\TestSessionBuilder.cs" />
-    <Compile Include="Core\Addml\Noark4Test.cs" />
-    <Compile Include="Core\TestSuiteTest.cs" />
-    <Compile Include="Integration\Jegerregisteret98IntegrationTest.cs" />
-    <Compile Include="Integration\FiskermanntalletAnonIntegrationTest.cs" />
-    <Compile Include="Integration\Noark3IntegrationTest.cs" />
-    <Compile Include="Logging\TestSessionLogXmlAssert.cs" />
-    <Compile Include="Logging\TestSessionXmlGeneratorTest.cs" />
-    <Compile Include="Identify\ArchiveExctractionReaderTest.cs" />
-    <Compile Include="Identify\ArchiveIdentifierTest.cs" />
-    <Compile Include="Logging\TestSessionLogXmlValidator.cs" />
-    <Compile Include="Metadata\DiasMetsCreatorTest.cs" />
-    <Compile Include="Metadata\DiasMetsLoaderTest.cs" />
-    <Compile Include="Metadata\InfoXmlCreatorTest.cs" />
-    <Compile Include="Metadata\MetsCreatorTest.cs" />
-    <Compile Include="Misc\TestIdIntegrityTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Report\HtmlReportGeneratorTest.cs" />
-    <Compile Include="Tests\Noark5\ArchivepartReferenceControlTest.cs" />
-    <Compile Include="Tests\Noark5\ArchiveStartAndEndDateControlTest.cs" />
-    <Compile Include="Tests\Noark5\ChangeLogArchiveReferenceControlTest.cs" />
-    <Compile Include="Tests\Noark5\ClassReferenceControlTest.cs" />
-    <Compile Include="Tests\Noark5\ControlNoSuperclassesHasFoldersTest.cs" />
-    <Compile Include="Tests\Noark5\ControlNoSuperclassesHasRegistrationsTest.cs" />
-    <Compile Include="Tests\Noark5\DocumentFilesChecksumControlTest.cs" />
-    <Compile Include="Tests\Noark5\DocumentfilesReferenceControlTest.cs" />
-    <Compile Include="Tests\Noark5\FirstAndLastRegistrationCreationDatesTest.cs" />
-    <Compile Include="Tests\Noark5\Noark5XmlBuilder.cs" />
-    <Compile Include="Tests\Noark5\ArchiveContentMockReader.cs" />
-    <Compile Include="Tests\Noark5\NumberOfArchivePartsTests.cs" />
-    <Compile Include="Tests\Noark5\NumberOfArchivesTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfChangesLoggedTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfClassesInMainClassificationSystemWithoutSubClassesOrFoldersTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfCasePartsTests.cs" />
-    <Compile Include="Tests\Noark5\NumberOfClassesTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfConversionsTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfEachCaseFolderStatusTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfRestrictionsTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDisposalResolutionsTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfClassificationsTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfClassificationSystemsTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfCommentsTests.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDisposalsExecutedTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDocumentFlowsTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfEachDocumentStatusTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfEachDocumentFormatTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfFoldersPerClassTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfJournalPostsTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfEachJournalPostTypeTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfMultiReferencedDocumentFilesTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfPrecedentsTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDepreciationsTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfCorrespondencePartsTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfCrossReferencesTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDocumentDescriptionsTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDocumentDescriptionsWithoutDocumentObjectTests.cs" />
-    <Compile Include="Tests\Noark5\NumberOfDocumentObjectsTests.cs" />
-    <Compile Include="Tests\Noark5\NumberOfFoldersTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfFoldersPerYearTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfRegistrationsPerClassTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfRegistrationsPerYearTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfFoldersWithoutRegistrationsOrSubfoldersTest.cs" />
-    <Compile Include="Tests\Noark5\StatusOfArchivePartsTest.cs" />
-    <Compile Include="Tests\Noark5\NumberOfEachJournalStatusTest.cs" />
-    <Compile Include="Tests\Noark5\Structure\ValidateAddmlDataobjectsChecksumsTest.cs" />
-    <Compile Include="Tests\Noark5\Structure\ValidateNumberOfDocumentfilesTest.cs" />
-    <Compile Include="Tests\Noark5\Structure\ValidateXmlWithSchemaTest.cs" />
-    <Compile Include="Tests\Noark5\SystemIdUniqueControlTest.cs" />
-    <Compile Include="Tests\Noark5\TestUtil.cs" />
-    <Compile Include="Tests\Noark5\XmlElementHelper.cs" />
-    <Compile Include="Tests\Noark5\NumberOfRegistrationsWithoutDocumentDescriptionTest.cs" />
-    <Compile Include="Util\AssertTest.cs" />
-    <Compile Include="Util\ChecksumTest.cs" />
-    <Compile Include="Util\InformationPackageCreatorTest.cs" />
-    <Compile Include="Util\LoggingHelper.cs" />
-    <Compile Include="Util\NorwegianOrganizationNumberTest.cs" />
-    <Compile Include="Util\NorwegianAccountNumberTest.cs" />
-    <Compile Include="Util\NorwegianBirthNumberTest.cs" />
-    <Compile Include="Util\NorwegianNameGeneratorTest.cs" />
-    <Compile Include="Util\TarTests.cs" />
-    <Compile Include="Util\ArkadeVersionTest.cs" />
-    <Compile Include="Util\XmlValidatorTest.cs" />
+    <Content Include="TestData\noark3\noark_3_arkivuttrekk_med_prosesser.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="TestData\Metadata\DiasMetsCreator\content\dokumenter\5000000.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\Metadata\DiasMetsCreator\content\dokumenter\5000001.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\Metadata\DiasMetsCreator\content\dokumenter\underkatalog\5000002.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\noark3\ARKIV.DAT" />
-    <None Include="TestData\noark3\DOK.DAT" />
-    <None Include="TestData\noark3\SAK.DAT" />
-    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5001111.pdf">
+    <PackageReference Include="FluentAssertions" Version="5.1.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
+    <PackageReference Include="Moq" Version="4.8.2" />
+    <PackageReference Include="Serilog" Version="2.6.0" />
+    <PackageReference Include="Serilog.Sinks.Observable" Version="2.0.2" />
+    <PackageReference Include="SharpZipLib" Version="1.0.0-alpha2" />
+    <PackageReference Include="System.Reactive" Version="3.1.1" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Arkivverket.Arkade\Arkivverket.Arkade.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestData\checksum.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011110.pdf">
+    <None Update="TestData\jegerreg-98-dos\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011111.pdf">
+    <None Update="TestData\kvotekontroll89\kvotekontroll89.XML">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011112.pdf">
+    <None Update="TestData\Metadata\DiasMetsCreator\content\dokumenter\5000000.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011113.pdf">
+    <None Update="TestData\Metadata\DiasMetsCreator\content\dokumenter\5000001.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011114.pdf">
+    <None Update="TestData\Metadata\DiasMetsCreator\content\dokumenter\underkatalog\5000002.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011115.pdf">
+    <None Update="TestData\Metadata\DiasMetsCreator\descriptive_metadata\eac-cpf.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011116.pdf">
+    <None Update="TestData\Metadata\DiasMetsCreator\descriptive_metadata\ead.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011117.pdf">
+    <None Update="TestData\Metadata\DiasMetsLoader\dias-mets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011118.pdf">
+    <None Update="TestData\Metadata\DiasMets\directorykeeper.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\AliceInWonderland\dokumenter\5011119.pdf">
+    <None Update="TestData\Metadata\InfoXmlCreator\directorykeeper.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\ContentClassificationSystem\addml.xsd">
-      <SubType>Designer</SubType>
+    <None Update="TestData\noark3-info.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\ContentClassificationSystem\arkivstruktur.xsd">
-      <SubType>Designer</SubType>
+    <None Update="TestData\noark3\addml.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\ContentClassificationSystem\dokumenter\5000000.pdf">
+    <None Update="TestData\noark3\ARKIV.DAT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\ContentClassificationSystem\dokumenter\5000001.pdf">
+    <None Update="TestData\noark3\DOK.DAT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\ContentClassificationSystem\metadatakatalog.xsd">
-      <SubType>Designer</SubType>
+    <None Update="TestData\noark3\SAK.DAT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\DocumentfilesControl\CountMatch\content\dokumenter\5000000.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="TestData\noark4-extrafiles\DATA\Dokumenter001\extra1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\DocumentfilesControl\CountMatch\content\dokumenter\5000001.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="TestData\noark4-extrafiles\DATA\Dokumenter001\extra2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\DocumentfilesControl\CountMismatch\content\dokumenter\5000000.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="TestData\noark4-extrafiles\DATA\DOKVERS.XML">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\noark4-extrafiles\NOARKIH.XML">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\noark4-info.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\noark4\addml.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\DOKUMENT\underkatalog\d.PDF">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\noark4\NOARKIH.XML">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\noark5-info.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\DOKUMENT\underkatalog\C.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -354,272 +125,279 @@
     <None Include="TestData\Noark5\DocumentfilesControl\FilesWithDocumentedChecksums\content\dokumenter\5000000.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\DocumentfilesControl\FilesWithDocumentedChecksums\content\dokumenter\5000001.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="TestData\Noark5\AliceInWonderland\arkivstrukturAbbreviated.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\AliceInWonderland\dokumenter\5001111.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\DOKUMENT\a.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\Noark5\AliceInWonderland\dokumenter\5011110.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\DOKUMENT\B.PDF">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\dokumenter\5000000.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\dokumenter\5000001.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\Noark5\DocumentfilesControl\Sub-directories\content\dokumenter\5000000.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\Noark5\DocumentfilesControl\Sub-directories\content\dokumenter\sub-directory\5000001.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\Noark5\DocumentfilesControl\Sub-directories\content\dokumenter\sub-directory\sub-sub-directory\5000002.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\Noark5\Small\addml.xsd">
-      <SubType>Designer</SubType>
+    <None Update="TestData\Noark5\AliceInWonderland\dokumenter\5011111.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\Small\arkivstruktur.xsd">
-      <SubType>Designer</SubType>
+    <None Update="TestData\Noark5\AliceInWonderland\dokumenter\5011112.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\Small\dokumenter\5000000.pdf">
+    <None Update="TestData\Noark5\AliceInWonderland\dokumenter\5011113.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\Small\dokumenter\5000001.pdf">
+    <None Update="TestData\Noark5\AliceInWonderland\dokumenter\5011114.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\Small\metadatakatalog.xsd">
-      <SubType>Designer</SubType>
+    <None Update="TestData\Noark5\AliceInWonderland\dokumenter\5011115.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\StructureChecksums\correct\content\addml.xsd">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\Noark5\StructureChecksums\correct\content\arkivstruktur.xsd">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\Noark5\StructureChecksums\correct\content\endringslogg.xsd">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\Noark5\StructureChecksums\correct\content\metadatakatalog.xsd">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\Noark5\StructureValidation\correct\addml.xsd">
-      <SubType>Designer</SubType>
+    <None Update="TestData\Noark5\AliceInWonderland\dokumenter\5011116.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\Noark5\StructureValidation\error\addml.xsd">
-      <SubType>Designer</SubType>
+    <None Update="TestData\Noark5\AliceInWonderland\dokumenter\5011117.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\package-creation\content\dokumenter\5000000.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="TestData\Noark5\AliceInWonderland\dokumenter\5011118.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\package-creation\content\dokumenter\5000001.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="TestData\Noark5\AliceInWonderland\dokumenter\5011119.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\tar\fiskermanntallet-anonymized\dab6c748-8d1a-4b6d-b091-3a7b8b3cb255.tar" />
-    <None Include="TestData\tar\jegerregisteret98-small\20b5f34c-4411-47c3-a0f9-0a8bca631603.tar" />
+    <None Update="TestData\Noark5\ContentClassificationSystem\addml.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\ContentClassificationSystem\arkivstruktur.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\ContentClassificationSystem\arkivstruktur.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\ContentClassificationSystem\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\ContentClassificationSystem\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\ContentClassificationSystem\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\ContentClassificationSystem\metadatakatalog.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\CountMatch\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\CountMatch\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\CountMatch\content\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\CountMismatch\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\CountMismatch\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\dokumenter\underkatalog\5000002.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\FilesWithDocumentedChecksums\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\FilesWithDocumentedChecksums\content\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\FilesWithDocumentedChecksums\content\dokumenter\checksums.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\NoFilesDirectory\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\NoFiles\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\NoFiles\content\dokumenter\directorykeeper.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\Sub-directories\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\Sub-directories\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\Sub-directories\content\dokumenter\sub-directory\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\Sub-directories\content\dokumenter\sub-directory\sub-sub-directory\5000002.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\JournalControl\SharpSeparation\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\JournalControl\SharpSeparation\loependeJournal.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\JournalControl\SharpSeparation\offentligJournal.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\JournalControl\SoftSeparationAndUnEqualJournals\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\JournalControl\SoftSeparationAndUnEqualJournals\loependeJournal.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\JournalControl\SoftSeparationAndUnEqualJournals\offentligJournal.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\JournalControl\SoftSeparation\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\JournalControl\SoftSeparation\loependeJournal.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\JournalControl\SoftSeparation\offentligJournal.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\LogsControl\endringslogg.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\MetadataTesting\BooleansFalse\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\MetadataTesting\BooleansTrue\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Small\addml.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Small\arkivstruktur.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Small\arkivstruktur.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Small\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Small\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Small\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Small\metadatakatalog.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\correct\administrative_metadata\addml.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\correct\content\addml.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\correct\content\arkivstruktur.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\correct\content\arkivstruktur.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\correct\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\correct\content\endringslogg.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\correct\content\endringslogg.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\correct\content\metadatakatalog.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\errors\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\correct\addml.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\correct\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\error\addml.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\error\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\package-creation\administrative_metadata\repository_operations\arkade-log.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\package-creation\administrative_metadata\repository_operations\report.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\package-creation\content\arkivstruktur.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\package-creation\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\package-creation\content\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\package-creation\content\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\package-creation\descriptive_metadata\eac-cpf.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\package-creation\descriptive_metadata\ead.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Report\report.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\tar\fiskermanntallet-anonymized\dab6c748-8d1a-4b6d-b091-3a7b8b3cb255.tar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\tar\fiskermanntallet-anonymized\info.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\tar\jegerregisteret98-small\20b5f34c-4411-47c3-a0f9-0a8bca631603.tar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\tar\jegerregisteret98-small\info.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\tar\Noark3-eksempel-1\c3db9d4e-720c-4f75-bfb6-de90231dc44c.tar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\tar\Noark3-eksempel-1\info.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Util\demo.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="TestData\kvotekontroll89\kvotekontroll89.XML" />
-    <Content Include="TestData\Metadata\DiasMetsCreator\descriptive_metadata\eac-cpf.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Metadata\DiasMetsCreator\descriptive_metadata\ead.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Metadata\DiasMetsLoader\dias-mets.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Metadata\InfoXmlCreator\directorykeeper.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\noark3\addml.xml" />
-    <Content Include="TestData\noark3\noark_3_arkivuttrekk_med_prosesser.xml" />
-    <Content Include="TestData\jegerreg-98-dos\arkivuttrekk.xml" />
-    <Content Include="TestData\noark3-info.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\noark4-extrafiles\DATA\Dokumenter001\extra1.txt" />
-    <Content Include="TestData\noark4-extrafiles\DATA\Dokumenter001\extra2.txt" />
-    <Content Include="TestData\noark4-extrafiles\DATA\DOKVERS.XML" />
-    <Content Include="TestData\noark4-extrafiles\NOARKIH.XML" />
-    <Content Include="TestData\noark4-info.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\noark4\addml.xml" />
-    <Content Include="TestData\noark4\NOARKIH.XML" />
-    <Content Include="TestData\noark5-info.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\AliceInWonderland\arkivstrukturAbbreviated.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\ContentClassificationSystem\arkivstruktur.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="TestData\Noark5\ContentClassificationSystem\arkivuttrekk.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Include="TestData\Noark5\DocumentfilesControl\FilesWithDocumentedChecksums\content\dokumenter\checksums.txt" />
-    <Content Include="TestData\Noark5\DocumentfilesControl\Sub-directories\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\LogsControl\endringslogg.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\MetadataTesting\BooleansTrue\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\MetadataTesting\BooleansFalse\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\DocumentfilesControl\CountMatch\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\DocumentfilesControl\CountMismatch\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\DocumentfilesControl\NoFilesDirectory\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\DocumentfilesControl\NoFiles\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\DocumentfilesControl\MissingDocumentation\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\DocumentfilesControl\NoFiles\content\dokumenter\directorykeeper.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\Small\arkivstruktur.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\Small\arkivuttrekk.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalControl\SharpSeparation\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalControl\SharpSeparation\loependeJournal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalControl\SharpSeparation\offentligJournal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalControl\SoftSeparationAndUnEqualJournals\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="TestData\Noark5\JournalControl\SoftSeparationAndUnEqualJournals\loependeJournal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalControl\SoftSeparationAndUnEqualJournals\offentligJournal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalControl\SoftSeparation\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalControl\SoftSeparation\loependeJournal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\JournalControl\SoftSeparation\offentligJournal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="TestData\Noark5\StructureChecksums\correct\administrative_metadata\addml.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\StructureChecksums\correct\content\arkivstruktur.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\StructureChecksums\correct\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\StructureChecksums\correct\content\endringslogg.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\StructureValidation\correct\arkivuttrekk.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Noark5\StructureValidation\error\arkivuttrekk.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\package-creation\administrative_metadata\repository_operations\arkade-log.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\package-creation\administrative_metadata\repository_operations\report.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\package-creation\content\arkivstruktur.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\package-creation\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Report\report.html" />
-    <Content Include="TestData\checksum.txt" />
-    <Content Include="TestData\tar\jegerregisteret98-small\info.xml" />
-    <Content Include="Util\demo.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Arkivverket.Arkade\Arkivverket.Arkade.csproj">
-      <Project>{D4008C3C-61EF-48A4-B333-793476B7104D}</Project>
-      <Name>Arkivverket.Arkade</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TestData\DocumentDirectoryTest\content\" />
-    <Folder Include="TestData\package-creation\descriptive_metadata\" />
-    <Folder Include="TestData\tar\Noark3-eksempel-1\" />
-  </ItemGroup>
-  <Choose>
-    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props'))" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

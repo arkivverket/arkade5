@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Util;

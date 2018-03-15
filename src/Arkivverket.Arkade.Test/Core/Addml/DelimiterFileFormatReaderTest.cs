@@ -127,7 +127,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
 
             recordReader.MoveNext(); // AA;"B;B";CC
 
-            actionOfGettingCurrent.ShouldNotThrow<Exception>();
+            actionOfGettingCurrent.Should().NotThrow<Exception>();
             recordReader.Current?.Fields?.Count.Should().Be(3);
         }
     }
