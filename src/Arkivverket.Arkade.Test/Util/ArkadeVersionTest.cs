@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Test.Util
             arkadeVersion.UpdateIsAvailable().Should().BeTrue();
         }
 
-        [Fact]
+        [Fact (Skip="Not used feature")]
         [Trait("Category", "Integration")]
         public void ShouldUpdateLastCheckForUpdateTime()
         {
