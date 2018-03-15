@@ -51,9 +51,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfPrecedents());
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("I arkivdel (systemID) someSystemId_1 - Antall presedenser i journalposter: 1"));
+                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Antall presedenser i journalposter: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("I arkivdel (systemID) someSystemId_2 - Antall presedenser i journalposter: 1"));
+                r.Message.Equals("Arkivdel (systemID) someSystemId_2 - Antall presedenser i journalposter: 1"));
         }
 
         [Fact]
@@ -82,9 +82,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfPrecedents());
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("I arkivdel (systemID) someSystemId_1 - Antall presedenser i journalposter: 2"));
+                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Antall presedenser i journalposter: 2"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("I arkivdel (systemID) someSystemId_2 - Antall presedenser i saksmapper: 1"));
+                r.Message.Equals("Arkivdel (systemID) someSystemId_2 - Antall presedenser i saksmapper: 1"));
         }
     }
 }

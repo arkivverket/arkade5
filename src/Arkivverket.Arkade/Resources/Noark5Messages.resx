@@ -176,9 +176,6 @@ Generert:  {2}</value>
   <data name="NumberOfCaseParts" xml:space="preserve">
     <value>Antall saksparter</value>
   </data>
-  <data name="NumberOfCasePartsMessage" xml:space="preserve">
-    <value>I arkivdel (systemID) {0}: {1}</value>
-  </data>
   <data name="NumberOfCaseStatusesPerArchivePart" xml:space="preserve">
     <value>Saksmappenes status i arkivstrukturen</value>
   </data>
@@ -221,9 +218,6 @@ Generert:  {2}</value>
   <data name="NumberOfDocumentDescriptions" xml:space="preserve">
     <value>Antall dokumentbeskrivelser</value>
   </data>
-  <data name="NumberOfDocumentDescriptionsPerArchivePartMessage" xml:space="preserve">
-    <value>I arkivdel (systemID) {0}: {1}</value>
-  </data>
   <data name="NumberOfDocumentDescriptionsWithoutDocumentObject" xml:space="preserve">
     <value>Antall dokumentbeskrivelser uten dokumentobjekt</value>
   </data>
@@ -232,9 +226,6 @@ Generert:  {2}</value>
   </data>
   <data name="NumberOfDocumentObjects" xml:space="preserve">
     <value>Antall dokumentobjekter</value>
-  </data>
-  <data name="NumberOfDocumentObjectsMessage" xml:space="preserve">
-    <value>I arkivdel (systemID) {0}: {1}</value>
   </data>
   <data name="NumberOfFolders" xml:space="preserve">
     <value>Finn antall mapper</value>
@@ -521,20 +512,17 @@ Generert:  {2}</value>
   <data name="NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart" xml:space="preserve">
     <value>Antall klassifikasjonssystemer i arkivdel (systemID) {0}: {1}</value>
   </data>
-  <data name="NumberOfRegistrationsWithoutDocumentDescription_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0}: {1}</value>
-  </data>
   <data name="NumberOf_PerArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0}: {1}</value>
+    <value>Arkivdel (systemID) {0}: {1}</value>
   </data>
   <data name="NumberOfFoldersPerYear_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - {1}: {2}</value>
+    <value>Arkivdel (systemID) {0} - {1}: {2}</value>
   </data>
   <data name="DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Første registrering: Opprettet {1}</value>
+    <value>Arkivdel (systemID) {0} - Første registrering: Opprettet {1}</value>
   </data>
   <data name="DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Siste registrering: Opprettet {1}</value>
+    <value>Arkivdel (systemID) {0} - Siste registrering: Opprettet {1}</value>
   </data>
   <data name="CouldNotReadFromFiles" xml:space="preserve">
     <value>Kunne ikke lese fra en eller flere filer</value>
@@ -543,10 +531,10 @@ Generert:  {2}</value>
     <value>Periodeskille er skarpt og antallet journalposter i arkivstrukturen er ikke likt det i offentlig og løpende journal</value>
   </data>
   <data name="NumberOfPrecedentsInJournalpostsMessage_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Antall presedenser i journalposter: {1}</value>
+    <value>Arkivdel (systemID) {0} - Antall presedenser i journalposter: {1}</value>
   </data>
   <data name="NumberOfPrecedentsInCaseFolderMessage_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Antall presedenser i saksmapper: {1}</value>
+    <value>Arkivdel (systemID) {0} - Antall presedenser i saksmapper: {1}</value>
   </data>
   <data name="NumberOfPrecedentsInJournalpostsMessage" xml:space="preserve">
     <value>Antall presedenser i journalposter: {0}</value>
@@ -558,15 +546,15 @@ Generert:  {2}</value>
     <value>Antall merknader i dokumentbeskrivelser: {0}</value>
   </data>
   <data name="NumberOfCommentsInBaseRegistrationMessage_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Antall merknader i basisregistreringer: {1}</value>
+    <value>Arkivdel (systemID) {0} - Antall merknader i basisregistreringer: {1}</value>
   </data>
   <data name="NumberOfCommentsInDocumentDescriptionMessage_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Antall merknader i dokumentbeskrivelser: {1}</value>
+    <value>Arkivdel (systemID) {0} - Antall merknader i dokumentbeskrivelser: {1}</value>
   </data>
   <data name="NumberOfCommentsInFoldersMessage_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Antall merknader i mapper: {1}</value>
+    <value>Arkivdel (systemID) {0} - Antall merknader i mapper: {1}</value>
   </data>
   <data name="NumberOfDepreciationsMessage_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Antall journalposter som avskriver andre journalposter: {1}</value>
+    <value>Arkivdel (systemID) {0} - Antall journalposter som avskriver andre journalposter: {1}</value>
   </data>
 </root>

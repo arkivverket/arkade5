@@ -43,7 +43,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                     if (noDocumentDescriptionCount.Value > 0)
                     {
                         var testResult = new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
-                            Noark5Messages.NumberOfRegistrationsWithoutDocumentDescription_ForArchivePart,
+                            Noark5Messages.NumberOf_PerArchivePart,
                             noDocumentDescriptionCount.Key, noDocumentDescriptionCount.Value));
 
                         testResults.Add(testResult);

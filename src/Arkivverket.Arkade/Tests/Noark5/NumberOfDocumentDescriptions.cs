@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 foreach (KeyValuePair<string, int> documentDescriptionCount in _documentDescriptionsPerArchivePart)
                 {
                     var testResult = new TestResult(ResultType.Success, new Location(string.Empty),
-                        string.Format(Noark5Messages.NumberOfDocumentDescriptionsPerArchivePartMessage,
+                        string.Format(Noark5Messages.NumberOf_PerArchivePart,
                             documentDescriptionCount.Key, documentDescriptionCount.Value));
 
                     testResults.Add(testResult);

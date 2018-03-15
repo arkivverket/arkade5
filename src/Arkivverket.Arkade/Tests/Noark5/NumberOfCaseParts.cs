@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                     if (casePartCount.Value > 0)
                     {
                         var testResult = new TestResult(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.NumberOfCasePartsMessage, casePartCount.Key,
+                            string.Format(Noark5Messages.NumberOf_PerArchivePart, casePartCount.Key,
                                 casePartCount.Value));
 
                         testResults.Add(testResult);
