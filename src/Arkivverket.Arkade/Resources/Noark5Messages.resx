@@ -183,7 +183,7 @@ Generert:  {2}</value>
     <value>Finn antall klasser</value>
   </data>
   <data name="NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders" xml:space="preserve">
-    <value>Antall klasser i det primære klassifikasjonssystemet uten underklasser eller mapper</value>
+    <value>Antall klasser i det primære klassifikasjonssystemet uten underklasser, mapper eller registreringer</value>
   </data>
   <data name="NumberOfClassesMessage" xml:space="preserve">
     <value>Antall klasser: {0}</value>

@@ -513,7 +513,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall klasser i det primære klassifikasjonssystemet uten underklasser eller mapper.
+        ///   Looks up a localized string similar to Antall klasser i det primære klassifikasjonssystemet uten underklasser, mapper eller registreringer.
         /// </summary>
         internal static string NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders {
             get {

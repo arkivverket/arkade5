@@ -334,7 +334,7 @@
     <Compile Include="Tests\Noark5\NumberOfArchiveParts.cs" />
     <Compile Include="Tests\Noark5\NumberOfArchives.cs" />
     <Compile Include="Tests\Noark5\NumberOfClasses.cs" />
-    <Compile Include="Tests\Noark5\NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders.cs" />
+    <Compile Include="Tests\Noark5\NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations.cs" />
     <Compile Include="Tests\Noark5\NumberOfClassificationSystems.cs" />
     <Compile Include="Tests\Noark5\NumberOfFolders.cs" />
     <Compile Include="Tests\Noark5\StatusOfArchiveParts.cs" />
