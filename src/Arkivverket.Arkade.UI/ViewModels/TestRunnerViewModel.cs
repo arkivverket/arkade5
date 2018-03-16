@@ -184,7 +184,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
 
         private bool CanCreatePackage()
         {
-            return _testSession != null && _testSession.IsPackableArchive() && !_isRunningTests;
+            return !_isRunningTests;
         }
 
         private bool IsFinishedRunningTests()
@@ -218,17 +218,6 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 }
 
                 StartTestingCommand.RaiseCanExecuteChanged(); // testSession has been updated, reevaluate command
-
-                if (!_testSession.IsPackableArchive())
-                {
-                    _statusEventHandler.RaiseEventOperationMessage(
-                        Resources.UI.TestrunnerArchivePackability,
-                        string.Format(Resources.UI.TestrunnerArchiveNotPackable, ArkadeProcessingArea.LogsDirectory),
-                        OperationMessageStatus.Warning
-                    );
-                }
-
-                NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
             }
             catch (Exception e)
             {

@@ -239,7 +239,7 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <value>Error: Could not create/overwrite package.</value>
   </data>
   <data name="PackageCreationErrorStatusMessage" xml:space="preserve">
-    <value>Klarte ikke opprette/overskrive pakke.</value>
+    <value>Klarte ikke opprette/overskrive pakke. Sjekk om pakkedestinasjonen er opptatt.</value>
   </data>
   <data name="Producer" xml:space="preserve">
     <value>Produsent</value>
