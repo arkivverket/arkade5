@@ -123,4 +123,7 @@
   <data name="PathCombine" xml:space="preserve">
     <value>Kunne ikke kombinere {0} og {1}</value>
   </data>
+  <data name="PeriodSeparationParseError" xml:space="preserve">
+    <value>Arkade klarte ikke å tolke informasjon om periodeskille i {0}</value>
+  </data>
 </root>

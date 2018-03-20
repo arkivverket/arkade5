@@ -77,5 +77,14 @@ namespace Arkivverket.Arkade.Resources {
                 return ResourceManager.GetString("PathCombine", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkade klarte ikke å tolke informasjon om periodeskille i {0}.
+        /// </summary>
+        internal static string PeriodSeparationParseError {
+            get {
+                return ResourceManager.GetString("PeriodSeparationParseError", resourceCulture);
+            }
+        }
     }
 }
