@@ -38,6 +38,11 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
         private void ValidateXml(string fullPathToFile, Stream fileStream, params Stream[] xsdResources)
         {
             string fileName = Path.GetFileName(fullPathToFile);
+
+            // Use the Noark 5 archive filename for testresults:
+            if (fileName.Equals(ArkadeConstants.AddmlXmlFileName)) 
+                fileName = ArkadeConstants.ArkivstrukturXmlFileName;
+
             try
             {
                 List<string> validationErrorMessages = new XmlValidator().Validate(fileStream, xsdResources);
