@@ -49,7 +49,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
                 if (validationErrorMessages.Any())
                     foreach (string validationErrorMessage in validationErrorMessages)
                     {
-                        _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                        _testResults.Add(new TestResult(ResultType.Error, new Location(fileName),
                             string.Format(Noark5Messages.XmlDoesNotValidateWithSchema,
                                 fileName, validationErrorMessage)));
                     }
