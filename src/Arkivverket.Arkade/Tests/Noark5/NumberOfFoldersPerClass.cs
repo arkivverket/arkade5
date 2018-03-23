@@ -67,7 +67,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
             if (eventArgs.NameEquals("klasse"))
                 _currentClass = new Class {ArchivePartSystemId = _currentArchivePartSystemId};
 
-            if (eventArgs.Path.Matches("mappe", "klasse"))
+            if (eventArgs.Path.Matches("mappe", "klasse") && _currentClass != null)
                 _currentClass.NumberOfFolders++;
         }
 
