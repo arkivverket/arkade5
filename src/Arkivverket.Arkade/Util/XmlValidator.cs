@@ -67,7 +67,11 @@ namespace Arkivverket.Arkade.Util
 
         private void ValidationCallBack(object sender, ValidationEventArgs args)
         {
-            _validationErrorMessages.Add(args.Message);
+            _validationErrorMessages.Add(string.Format(
+                Resources.ExceptionMessages.XmlValidationErrorMessage,
+                args.Exception.LineNumber,
+                args.Message
+            ));
         }
     }
 }

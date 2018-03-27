@@ -86,5 +86,14 @@ namespace Arkivverket.Arkade.Resources {
                 return ResourceManager.GetString("PeriodSeparationParseError", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linje {0}: {1}.
+        /// </summary>
+        internal static string XmlValidationErrorMessage {
+            get {
+                return ResourceManager.GetString("XmlValidationErrorMessage", resourceCulture);
+            }
+        }
     }
 }

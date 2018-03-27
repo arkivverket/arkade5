@@ -126,4 +126,7 @@
   <data name="PeriodSeparationParseError" xml:space="preserve">
     <value>Arkade klarte ikke å tolke informasjon om periodeskille i {0}</value>
   </data>
+  <data name="XmlValidationErrorMessage" xml:space="preserve">
+    <value>Linje {0}: {1}</value>
+  </data>
 </root>
