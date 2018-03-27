@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
             // Use the Noark 5 archive filename for testresults:
             if (fileName.Equals(ArkadeConstants.AddmlXmlFileName)) 
-                fileName = ArkadeConstants.ArkivstrukturXmlFileName;
+                fileName = ArkadeConstants.ArkivuttrekkXmlFileName;
 
             try
             {
