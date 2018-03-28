@@ -91,7 +91,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public static bool TryParseArchiveDate(string dateStringFromArchive, out DateTime dateTime)
         {
-            var acceptedFormats = new[] { "yyyy-MM-dd", "yyyy-MM-ddTHH:mm:ss", "yyyy-MM-ddTHH:mm:ssZ" };
+            var acceptedFormats = new[]
+            {
+                "yyyy-MM-dd", // date only
+                "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", // date + time [+ milliseconds] [+ timezone]
+            };
 
             return DateTime.TryParseExact(dateStringFromArchive, acceptedFormats,
                 CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dateTime);
