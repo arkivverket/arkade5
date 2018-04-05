@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Addml.Definitions;
+using Arkivverket.Arkade.Core.Addml.Processes.Hardcoded;
 using Arkivverket.Arkade.Logging;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
@@ -108,8 +109,8 @@ namespace Arkivverket.Arkade.Core.Addml
 
             TestSuite testSuite = _addmlProcessRunner.GetTestSuite();
 
-            var p = new HardcodedProcessRunner(addmlDefinition, testSession.Archive, _testResultsFailedRecordsList);
-            p.Run().ForEach(t => testSuite.AddTestRun(t));
+            testSuite.AddTestRun(new ControlExtraOrMissingFiles(addmlDefinition, testSession.Archive).GetTestRun());
+            testSuite.AddTestRun(new ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
 
             return testSuite;
         }
