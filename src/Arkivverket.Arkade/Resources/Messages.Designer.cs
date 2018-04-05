@@ -295,7 +295,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer checksum.
+        ///   Looks up a localized string similar to Kontroll av sjekksummer.
         /// </summary>
         internal static string ControlChecksumDescription {
             get {
@@ -304,29 +304,29 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ukjent algoritme &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Forventet sjekksum: {0} \n Reell sjekksum: {1}.
         /// </summary>
-        internal static string ControlChecksumMessage1 {
+        internal static string ControlChecksumMessage_ChecksumMismatch {
             get {
-                return ResourceManager.GetString("ControlChecksumMessage1", resourceCulture);
+                return ResourceManager.GetString("ControlChecksumMessage_ChecksumMismatch", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forventet checksum &apos;{0}&apos;. Var &apos;{1}&apos;..
+        ///   Looks up a localized string similar to Ingen sjekksum funnet i ADDML-filen.
         /// </summary>
-        internal static string ControlChecksumMessage2 {
+        internal static string ControlChecksumMessage_ChecksumMissing {
             get {
-                return ResourceManager.GetString("ControlChecksumMessage2", resourceCulture);
+                return ResourceManager.GetString("ControlChecksumMessage_ChecksumMissing", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ingen sjekksum i ADDML-filen.
+        ///   Looks up a localized string similar to Ukjent sjekksum-algoritme: {0}.
         /// </summary>
-        internal static string ControlChecksumMessage3 {
+        internal static string ControlChecksumMessage_UnknownChecksumAlgorithm {
             get {
-                return ResourceManager.GetString("ControlChecksumMessage3", resourceCulture);
+                return ResourceManager.GetString("ControlChecksumMessage_UnknownChecksumAlgorithm", resourceCulture);
             }
         }
         

@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
             if (flatFile.Definition.Checksum == null)
             {
                 _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFlatFileIndex(flatFile.Definition.GetIndex()),
-                           string.Format(Messages.ControlChecksumMessage3)));
+                           string.Format(Messages.ControlChecksumMessage_ChecksumMissing)));
                 return;
             }
 
@@ -57,7 +57,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
             if (h == null)
             {
                 _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFlatFileIndex(flatFile.Definition.GetIndex()),
-                           string.Format(Messages.ControlChecksumMessage1, checksumAlgorithm)));
+                           string.Format(Messages.ControlChecksumMessage_UnknownChecksumAlgorithm, checksumAlgorithm)));
                 return;
             }
 
@@ -71,7 +71,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
             if (expectedChecksum != actualChecksum)
             {
                 _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFlatFileIndex(flatFile.Definition.GetIndex()),
-                           string.Format(Messages.ControlChecksumMessage2, expectedChecksum, actualChecksum)));
+                           string.Format(Messages.ControlChecksumMessage_ChecksumMismatch, expectedChecksum, actualChecksum)));
             }
         }
 
