@@ -14,7 +14,6 @@ namespace Arkivverket.Arkade.Core.Addml
             List<TestResult> delimiterErrorTestResults = null)
         {
             _hardcodedProcesses = new List<IAddmlProcess> {
-                new ControlChecksum(),
                 new ControlExtraOrMissingFiles(addmlDefinition, archive)
             };
 
