@@ -304,7 +304,8 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forventet sjekksum: {0} \n Reell sjekksum: {1}.
+        ///   Looks up a localized string similar to Forventet sjekksum: {0}
+        ///Aktuell sjekksum: {1}.
         /// </summary>
         internal static string ControlChecksumMessage_ChecksumMismatch {
             get {
