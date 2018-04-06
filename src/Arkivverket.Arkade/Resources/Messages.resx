@@ -200,7 +200,7 @@
   </data>
   <data name="ControlChecksumMessage_ChecksumMismatch" xml:space="preserve">
     <value>Forventet sjekksum: {0}
-	Aktuell sjekksum: {1}</value>
+Aktuell sjekksum: {1}</value>
   </data>
   <data name="ControlChecksumMessage_ChecksumMissing" xml:space="preserve">
     <value>Ingen sjekksum funnet i ADDML-filen</value>

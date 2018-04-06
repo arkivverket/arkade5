@@ -53,7 +53,9 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             testRun.IsSuccess().Should().BeFalse();
             testRun.Results.Count.Should().Be(1);
             testRun.Results[0].Location.ToString().Should().Be(flatFileDefinition.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("Forventet checksum 'invalid'. Var '" + expectedSha256Hash + "'.");
+            testRun.Results[0].Message.Should()
+                .Contain("Forventet sjekksum: invalid").And
+                .Contain("Aktuell sjekksum: " + expectedSha256Hash);
         }
 
         [Fact]
@@ -76,7 +78,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
             testRun.IsSuccess().Should().BeFalse();
             testRun.Results.Count.Should().Be(1);
             testRun.Results[0].Location.ToString().Should().Be(flatFileDefinition.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("Ukjent algoritme 'invalid hash'");
+            testRun.Results[0].Message.Should().Be("Ukjent sjekksum-algoritme: invalid hash");
         }
     }
 }
