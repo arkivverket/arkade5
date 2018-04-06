@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.UI.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class SettingsUI {
+    public class SettingsUI {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.UI.Resources.SettingsUI", typeof(SettingsUI).Assembly);
@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Lagre.
         /// </summary>
-        internal static string ArkadeProcessingAreaLocation_ApplyButtonText {
+        public static string ArkadeProcessingAreaLocation_ApplyButtonText {
             get {
                 return ResourceManager.GetString("ArkadeProcessingAreaLocation_ApplyButtonText", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Avbryt.
         /// </summary>
-        internal static string ArkadeProcessingAreaLocation_CancelButtonText {
+        public static string ArkadeProcessingAreaLocation_CancelButtonText {
             get {
                 return ResourceManager.GetString("ArkadeProcessingAreaLocation_CancelButtonText", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Endre ....
         /// </summary>
-        internal static string ArkadeProcessingAreaLocation_EditButtonText {
+        public static string ArkadeProcessingAreaLocation_EditButtonText {
             get {
                 return ResourceManager.GetString("ArkadeProcessingAreaLocation_EditButtonText", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Arkades prosesseringsområde.
         /// </summary>
-        internal static string ArkadeProcessingAreaLocation_Header {
+        public static string ArkadeProcessingAreaLocation_Header {
             get {
                 return ResourceManager.GetString("ArkadeProcessingAreaLocation_Header", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Arkades prosesseringsområde er en katalog &quot;Arkade&quot; der midlertidige filer blir plassert under prosessering av arkivutrekk og der hvor system- og feillogger lagres. Du må velge en egnet plassering for denne katalogen..
         /// </summary>
-        internal static string ArkadeProcessingAreaLocation_Info {
+        public static string ArkadeProcessingAreaLocation_Info {
             get {
                 return ResourceManager.GetString("ArkadeProcessingAreaLocation_Info", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to NB! Prosesseringsområdet vil potensielt inneholde sensitive data og store datamengder..
         /// </summary>
-        internal static string ArkadeProcessingAreaLocation_Warning {
+        public static string ArkadeProcessingAreaLocation_Warning {
             get {
                 return ResourceManager.GetString("ArkadeProcessingAreaLocation_Warning", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Vennligst avslutt andre instanser av Arkade før du endrer plassering av prosesseringområdet..
         /// </summary>
-        internal static string OtherInstancesRunningOnProcessingAreaChangeMessage {
+        public static string OtherInstancesRunningOnProcessingAreaChangeMessage {
             get {
                 return ResourceManager.GetString("OtherInstancesRunningOnProcessingAreaChangeMessage", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Vennligst velg et prosesseringsområde som er tilgjengelig for Arkade.
         /// </summary>
-        internal static string UndefinedArkadeProcessingAreaLocationDialogMessage {
+        public static string UndefinedArkadeProcessingAreaLocationDialogMessage {
             get {
                 return ResourceManager.GetString("UndefinedArkadeProcessingAreaLocationDialogMessage", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Gyldig prosesseringsområde mangler.
         /// </summary>
-        internal static string UndefinedArkadeProcessingAreaLocationDialogTitle {
+        public static string UndefinedArkadeProcessingAreaLocationDialogTitle {
             get {
                 return ResourceManager.GetString("UndefinedArkadeProcessingAreaLocationDialogTitle", resourceCulture);
             }

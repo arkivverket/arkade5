@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.UI.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UI {
+    public class UI {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.UI.Resources.UI", typeof(UI).Assembly);
@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Arbeidsområde - {0}.
         /// </summary>
-        internal static string ArkadeDirectoryPathInfo {
+        public static string ArkadeDirectoryPathInfo {
             get {
                 return ResourceManager.GetString("ArkadeDirectoryPathInfo", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Lukk.
         /// </summary>
-        internal static string CloseButtonText {
+        public static string CloseButtonText {
             get {
                 return ResourceManager.GetString("CloseButtonText", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Opprett pakke.
         /// </summary>
-        internal static string CreatePackageButtonText {
+        public static string CreatePackageButtonText {
             get {
                 return ResourceManager.GetString("CreatePackageButtonText", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Velg pakketype.
         /// </summary>
-        internal static string CreatePackageSelectTypeLabel {
+        public static string CreatePackageSelectTypeLabel {
             get {
                 return ResourceManager.GetString("CreatePackageSelectTypeLabel", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to AIP.
         /// </summary>
-        internal static string CreatePackageTypeAIP {
+        public static string CreatePackageTypeAIP {
             get {
                 return ResourceManager.GetString("CreatePackageTypeAIP", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to SIP.
         /// </summary>
-        internal static string CreatePackageTypeSIP {
+        public static string CreatePackageTypeSIP {
             get {
                 return ResourceManager.GetString("CreatePackageTypeSIP", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Registrer metadata og opprett pakke.
         /// </summary>
-        internal static string CreatePackageWindowTitle {
+        public static string CreatePackageWindowTitle {
             get {
                 return ResourceManager.GetString("CreatePackageWindowTitle", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to arkade-error-{0}.log.
         /// </summary>
-        internal static string DetailedErrorMessageFileName {
+        public static string DetailedErrorMessageFileName {
             get {
                 return ResourceManager.GetString("DetailedErrorMessageFileName", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Detaljer er skrevet til {0}.
         /// </summary>
-        internal static string DetailedErrorMessageInfo {
+        public static string DetailedErrorMessageInfo {
             get {
                 return ResourceManager.GetString("DetailedErrorMessageInfo", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to En feil har oppstått: {0}.
         /// </summary>
-        internal static string ErrorGeneral {
+        public static string ErrorGeneral {
             get {
                 return ResourceManager.GetString("ErrorGeneral", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Feil ved innlesing av arkiv: {0}.
         /// </summary>
-        internal static string ErrorReadingArchive {
+        public static string ErrorReadingArchive {
             get {
                 return ResourceManager.GetString("ErrorReadingArchive", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Det oppstod en feil med den valgte filen.
         /// </summary>
-        internal static string FileException_ErrorWithChosenFile {
+        public static string FileException_ErrorWithChosenFile {
             get {
                 return ResourceManager.GetString("FileException_ErrorWithChosenFile", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Det oppstod en generell feil med filvalget.
         /// </summary>
-        internal static string FileException_GeneralError {
+        public static string FileException_GeneralError {
             get {
                 return ResourceManager.GetString("FileException_GeneralError", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Ingen fil ble valgt.
         /// </summary>
-        internal static string FileException_NoFileChosen {
+        public static string FileException_NoFileChosen {
             get {
                 return ResourceManager.GetString("FileException_NoFileChosen", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Fil ikke funnet: {0}.
         /// </summary>
-        internal static string FileNotFoundMessage {
+        public static string FileNotFoundMessage {
             get {
                 return ResourceManager.GetString("FileNotFoundMessage", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .tar.
         /// </summary>
-        internal static string FileSelectionDefaultTar {
+        public static string FileSelectionDefaultTar {
             get {
                 return ResourceManager.GetString("FileSelectionDefaultTar", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to TAR Files (*.tar)|*.tar|All Files (*.*)|*.*.
         /// </summary>
-        internal static string FileSelectionFilterTar {
+        public static string FileSelectionFilterTar {
             get {
                 return ResourceManager.GetString("FileSelectionFilterTar", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Velg en arkiv fil.
         /// </summary>
-        internal static string FileSelectionWindowNameArchive {
+        public static string FileSelectionWindowNameArchive {
             get {
                 return ResourceManager.GetString("FileSelectionWindowNameArchive", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Arkade 5.
         /// </summary>
-        internal static string General_WindowTitle {
+        public static string General_WindowTitle {
             get {
                 return ResourceManager.GetString("General_WindowTitle", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Arkivuttrekk.
         /// </summary>
-        internal static string LoadArchiveChooseArchiveHeadingText {
+        public static string LoadArchiveChooseArchiveHeadingText {
             get {
                 return ResourceManager.GetString("LoadArchiveChooseArchiveHeadingText", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Velg arkivtype.
         /// </summary>
-        internal static string LoadArchiveChooseArchiveTypeHeadingText {
+        public static string LoadArchiveChooseArchiveTypeHeadingText {
             get {
                 return ResourceManager.GetString("LoadArchiveChooseArchiveTypeHeadingText", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Velg katalog.
         /// </summary>
-        internal static string LoadArchiveChooseFolderButtonText {
+        public static string LoadArchiveChooseFolderButtonText {
             get {
                 return ResourceManager.GetString("LoadArchiveChooseFolderButtonText", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Velg SIP/AIP fil.
         /// </summary>
-        internal static string LoadArchiveChooseTarFileButtonText {
+        public static string LoadArchiveChooseTarFileButtonText {
             get {
                 return ResourceManager.GetString("LoadArchiveChooseTarFileButtonText", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Last inn uttrekk.
         /// </summary>
-        internal static string LoadArchiveLoadArchiveButtonText {
+        public static string LoadArchiveLoadArchiveButtonText {
             get {
                 return ResourceManager.GetString("LoadArchiveLoadArchiveButtonText", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Valgt fil.
         /// </summary>
-        internal static string LoadArchiveSelectedFileText {
+        public static string LoadArchiveSelectedFileText {
             get {
                 return ResourceManager.GetString("LoadArchiveSelectedFileText", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Valgt katalog.
         /// </summary>
-        internal static string LoadArchiveSelectedFolderText {
+        public static string LoadArchiveSelectedFolderText {
             get {
                 return ResourceManager.GetString("LoadArchiveSelectedFolderText", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Fagsystem.
         /// </summary>
-        internal static string LoadArchiveTypeFagsystem {
+        public static string LoadArchiveTypeFagsystem {
             get {
                 return ResourceManager.GetString("LoadArchiveTypeFagsystem", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Noark3.
         /// </summary>
-        internal static string LoadArchiveTypeNoark3 {
+        public static string LoadArchiveTypeNoark3 {
             get {
                 return ResourceManager.GetString("LoadArchiveTypeNoark3", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Noark4.
         /// </summary>
-        internal static string LoadArchiveTypeNoark4 {
+        public static string LoadArchiveTypeNoark4 {
             get {
                 return ResourceManager.GetString("LoadArchiveTypeNoark4", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Noark5.
         /// </summary>
-        internal static string LoadArchiveTypeNoark5 {
+        public static string LoadArchiveTypeNoark5 {
             get {
                 return ResourceManager.GetString("LoadArchiveTypeNoark5", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Last inn arkivuttrekk.
         /// </summary>
-        internal static string LoadArchiveViewHeadingText {
+        public static string LoadArchiveViewHeadingText {
             get {
                 return ResourceManager.GetString("LoadArchiveViewHeadingText", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Ny kjøring.
         /// </summary>
-        internal static string NewProgramSessionButton {
+        public static string NewProgramSessionButton {
             get {
                 return ResourceManager.GetString("NewProgramSessionButton", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Ny versjon tilgjengelig.
         /// </summary>
-        internal static string NewVersionMessage {
+        public static string NewVersionMessage {
             get {
                 return ResourceManager.GetString("NewVersionMessage", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Start Arkade på nytt.
         /// </summary>
-        internal static string RestartArkadeButtonText {
+        public static string RestartArkadeButtonText {
             get {
                 return ResourceManager.GetString("RestartArkadeButtonText", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Omstart av Arkade.
         /// </summary>
-        internal static string RestartArkadeDialogTitle {
+        public static string RestartArkadeDialogTitle {
             get {
                 return ResourceManager.GetString("RestartArkadeDialogTitle", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Arkade må startes på nytt for at endringene skal tre i kraft. Vil du starte Arkade på nytt nå?.
         /// </summary>
-        internal static string RestartArkadeForChangesToTakeEffectPrompt {
+        public static string RestartArkadeForChangesToTakeEffectPrompt {
             get {
                 return ResourceManager.GetString("RestartArkadeForChangesToTakeEffectPrompt", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {Timestamp:yyyy-MM-ddTHH:mm:ss.fff} [{Level}] {SourceContext} {Message}{NewLine}{Exception}.
         /// </summary>
-        internal static string SerilogFormatConfig {
+        public static string SerilogFormatConfig {
             get {
                 return ResourceManager.GetString("SerilogFormatConfig", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Brukerveiledning.
         /// </summary>
-        internal static string ShowUserGuideButtonText {
+        public static string ShowUserGuideButtonText {
             get {
                 return ResourceManager.GetString("ShowUserGuideButtonText", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Valider gyldig xml.
         /// </summary>
-        internal static string TestName_CheckWellFormedXml {
+        public static string TestName_CheckWellFormedXml {
             get {
                 return ResourceManager.GetString("TestName_CheckWellFormedXml", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Finn antall arkivdeler.
         /// </summary>
-        internal static string TestName_NumberOfArchiveParts {
+        public static string TestName_NumberOfArchiveParts {
             get {
                 return ResourceManager.GetString("TestName_NumberOfArchiveParts", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Finn antall arkiv.
         /// </summary>
-        internal static string TestName_NumberOfArchives {
+        public static string TestName_NumberOfArchives {
             get {
                 return ResourceManager.GetString("TestName_NumberOfArchives", resourceCulture);
             }
@@ -432,7 +432,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Finn antall klasser.
         /// </summary>
-        internal static string TestName_NumberOfClasses {
+        public static string TestName_NumberOfClasses {
             get {
                 return ResourceManager.GetString("TestName_NumberOfClasses", resourceCulture);
             }
@@ -441,7 +441,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Finn antall klasser i pri klassifikasjonssytem uten under klasser/mapper.
         /// </summary>
-        internal static string TestName_NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders {
+        public static string TestName_NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders {
             get {
                 return ResourceManager.GetString("TestName_NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders", resourceCulture);
             }
@@ -450,7 +450,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Finn antall klassifikasjonssystem.
         /// </summary>
-        internal static string TestName_NumberOfClassificationSystems {
+        public static string TestName_NumberOfClassificationSystems {
             get {
                 return ResourceManager.GetString("TestName_NumberOfClassificationSystems", resourceCulture);
             }
@@ -459,7 +459,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Finn antall mapper.
         /// </summary>
-        internal static string TestName_NumberOfFolders {
+        public static string TestName_NumberOfFolders {
             get {
                 return ResourceManager.GetString("TestName_NumberOfFolders", resourceCulture);
             }
@@ -468,7 +468,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Finn status på arkivdeler.
         /// </summary>
-        internal static string TestName_StatusOfArchiveParts {
+        public static string TestName_StatusOfArchiveParts {
             get {
                 return ResourceManager.GetString("TestName_StatusOfArchiveParts", resourceCulture);
             }
@@ -477,7 +477,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Valider gyldig sjekksummer.
         /// </summary>
-        internal static string TestName_ValidateAddmlDataobjectsChecksums {
+        public static string TestName_ValidateAddmlDataobjectsChecksums {
             get {
                 return ResourceManager.GetString("TestName_ValidateAddmlDataobjectsChecksums", resourceCulture);
             }
@@ -486,7 +486,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Valider xml i henhold til skjema.
         /// </summary>
-        internal static string TestName_ValidateXmlWithSchema {
+        public static string TestName_ValidateXmlWithSchema {
             get {
                 return ResourceManager.GetString("TestName_ValidateXmlWithSchema", resourceCulture);
             }
@@ -497,7 +497,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         ///(Se logg for detaljer {0}).
         ///Du kan fortsatt lage en pakke av uttrekket..
         /// </summary>
-        internal static string TestrunnerArchiveNotTestable {
+        public static string TestrunnerArchiveNotTestable {
             get {
                 return ResourceManager.GetString("TestrunnerArchiveNotTestable", resourceCulture);
             }
@@ -506,7 +506,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Testbarhet.
         /// </summary>
-        internal static string TestrunnerArchiveTestability {
+        public static string TestrunnerArchiveTestability {
             get {
                 return ResourceManager.GetString("TestrunnerArchiveTestability", resourceCulture);
             }
@@ -515,7 +515,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Testingen er fullført.
         /// </summary>
-        internal static string TestrunnerFinishedOperationMessage {
+        public static string TestrunnerFinishedOperationMessage {
             get {
                 return ResourceManager.GetString("TestrunnerFinishedOperationMessage", resourceCulture);
             }
@@ -524,7 +524,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Feil under testkjøring.
         /// </summary>
-        internal static string TestrunnerFinishedWithError {
+        public static string TestrunnerFinishedWithError {
             get {
                 return ResourceManager.GetString("TestrunnerFinishedWithError", resourceCulture);
             }
@@ -533,7 +533,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Feil.
         /// </summary>
-        internal static string TestrunnerMessageLabelError {
+        public static string TestrunnerMessageLabelError {
             get {
                 return ResourceManager.GetString("TestrunnerMessageLabelError", resourceCulture);
             }
@@ -542,7 +542,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string TestrunnerMessageLabelSuccess {
+        public static string TestrunnerMessageLabelSuccess {
             get {
                 return ResourceManager.GetString("TestrunnerMessageLabelSuccess", resourceCulture);
             }
@@ -551,7 +551,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Advarsel.
         /// </summary>
-        internal static string TestrunnerMessageLabelWarning {
+        public static string TestrunnerMessageLabelWarning {
             get {
                 return ResourceManager.GetString("TestrunnerMessageLabelWarning", resourceCulture);
             }
@@ -560,7 +560,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Hvis du avslutter nå vil resultater fra testkjøringen gå tapt. Ønsker du likevel å avslutte?.
         /// </summary>
-        internal static string UnsavedTestResultsOnExitWarning {
+        public static string UnsavedTestResultsOnExitWarning {
             get {
                 return ResourceManager.GetString("UnsavedTestResultsOnExitWarning", resourceCulture);
             }

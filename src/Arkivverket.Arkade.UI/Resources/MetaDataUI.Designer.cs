@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.UI.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class MetaDataUI {
+    public class MetaDataUI {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.UI.Resources.MetaDataUI", typeof(MetaDataUI).Assembly);
@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Avtalenr.
         /// </summary>
-        internal static string AgreementNumber {
+        public static string AgreementNumber {
             get {
                 return ResourceManager.GetString("AgreementNumber", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Arkivskaper.
         /// </summary>
-        internal static string ArchiveCreator {
+        public static string ArchiveCreator {
             get {
                 return ResourceManager.GetString("ArchiveCreator", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Kontaktperson (Arkivskaper).
         /// </summary>
-        internal static string ArchiveCreator_ContactPerson {
+        public static string ArchiveCreator_ContactPerson {
             get {
                 return ResourceManager.GetString("ArchiveCreator_ContactPerson", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to e-post(Kontakt, Arkivskaper).
         /// </summary>
-        internal static string ArchiveCreator_Email {
+        public static string ArchiveCreator_Email {
             get {
                 return ResourceManager.GetString("ArchiveCreator_Email", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Telefon(Kontakt, Arkivskaper).
         /// </summary>
-        internal static string ArchiveCreator_Telephone {
+        public static string ArchiveCreator_Telephone {
             get {
                 return ResourceManager.GetString("ArchiveCreator_Telephone", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Arkivbeskrivelse.
         /// </summary>
-        internal static string ArchiveDescription {
+        public static string ArchiveDescription {
             get {
                 return ResourceManager.GetString("ArchiveDescription", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Uttrekkssystem.
         /// </summary>
-        internal static string ArchiveExtractionSystem {
+        public static string ArchiveExtractionSystem {
             get {
                 return ResourceManager.GetString("ArchiveExtractionSystem", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Type (Uttrekk).
         /// </summary>
-        internal static string ArchiveExtractionType {
+        public static string ArchiveExtractionType {
             get {
                 return ResourceManager.GetString("ArchiveExtractionType", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Typeversjon (Uttrekk).
         /// </summary>
-        internal static string ArchiveExtractionTypeVersion {
+        public static string ArchiveExtractionTypeVersion {
             get {
                 return ResourceManager.GetString("ArchiveExtractionTypeVersion", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Versjon (Uttrekk).
         /// </summary>
-        internal static string ArchiveExtractionVersion {
+        public static string ArchiveExtractionVersion {
             get {
                 return ResourceManager.GetString("ArchiveExtractionVersion", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Uttrekkssystem.
         /// </summary>
-        internal static string ArchiveSystem {
+        public static string ArchiveSystem {
             get {
                 return ResourceManager.GetString("ArchiveSystem", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Kommentar.
         /// </summary>
-        internal static string Comment {
+        public static string Comment {
             get {
                 return ResourceManager.GetString("Comment", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sluttdato.
         /// </summary>
-        internal static string EndData {
+        public static string EndData {
             get {
                 return ResourceManager.GetString("EndData", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Uttrekksdato.
         /// </summary>
-        internal static string ExtractionDate {
+        public static string ExtractionDate {
             get {
                 return ResourceManager.GetString("ExtractionDate", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Arkivskaper.
         /// </summary>
-        internal static string GuiSubsection_ArchiveCreator {
+        public static string GuiSubsection_ArchiveCreator {
             get {
                 return ResourceManager.GetString("GuiSubsection_ArchiveCreator", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Beskrivelse av arkiv.
         /// </summary>
-        internal static string GuiSubsection_ArchiveMain {
+        public static string GuiSubsection_ArchiveMain {
             get {
                 return ResourceManager.GetString("GuiSubsection_ArchiveMain", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Uttrekkssystem.
         /// </summary>
-        internal static string GuiSubsection_ArchiveSystem {
+        public static string GuiSubsection_ArchiveSystem {
             get {
                 return ResourceManager.GetString("GuiSubsection_ArchiveSystem", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Kommentar.
         /// </summary>
-        internal static string GuiSubsection_Comment {
+        public static string GuiSubsection_Comment {
             get {
                 return ResourceManager.GetString("GuiSubsection_Comment", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Uttrekksdato.
         /// </summary>
-        internal static string GuiSubsection_ExtractionDate {
+        public static string GuiSubsection_ExtractionDate {
             get {
                 return ResourceManager.GetString("GuiSubsection_ExtractionDate", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Historie.
         /// </summary>
-        internal static string GuiSubsection_History {
+        public static string GuiSubsection_History {
             get {
                 return ResourceManager.GetString("GuiSubsection_History", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Noark felter.
         /// </summary>
-        internal static string GuiSubsection_NoarkParameters {
+        public static string GuiSubsection_NoarkParameters {
             get {
                 return ResourceManager.GetString("GuiSubsection_NoarkParameters", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Eier.
         /// </summary>
-        internal static string GuiSubsection_Owner {
+        public static string GuiSubsection_Owner {
             get {
                 return ResourceManager.GetString("GuiSubsection_Owner", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Produsent.
         /// </summary>
-        internal static string GuiSubsection_Producer {
+        public static string GuiSubsection_Producer {
             get {
                 return ResourceManager.GetString("GuiSubsection_Producer", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Mottaker.
         /// </summary>
-        internal static string GuiSubsection_Recipient {
+        public static string GuiSubsection_Recipient {
             get {
                 return ResourceManager.GetString("GuiSubsection_Recipient", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to System.
         /// </summary>
-        internal static string GuiSubsection_System {
+        public static string GuiSubsection_System {
             get {
                 return ResourceManager.GetString("GuiSubsection_System", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Overfører.
         /// </summary>
-        internal static string GuiSubsection_Transferer {
+        public static string GuiSubsection_Transferer {
             get {
                 return ResourceManager.GetString("GuiSubsection_Transferer", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Historie.
         /// </summary>
-        internal static string History {
+        public static string History {
             get {
                 return ResourceManager.GetString("History", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Inngående skille.
         /// </summary>
-        internal static string IncommingSeperator {
+        public static string IncommingSeperator {
             get {
                 return ResourceManager.GetString("IncommingSeperator", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to no.
         /// </summary>
-        internal static string MetadataGuiLocale {
+        public static string MetadataGuiLocale {
             get {
                 return ResourceManager.GetString("MetadataGuiLocale", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Utgående skille.
         /// </summary>
-        internal static string OutgoingSeperator {
+        public static string OutgoingSeperator {
             get {
                 return ResourceManager.GetString("OutgoingSeperator", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Eier.
         /// </summary>
-        internal static string Owner {
+        public static string Owner {
             get {
                 return ResourceManager.GetString("Owner", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Kontaktperson (Eier).
         /// </summary>
-        internal static string Owner_ContactPerson {
+        public static string Owner_ContactPerson {
             get {
                 return ResourceManager.GetString("Owner_ContactPerson", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to e-post (Kontakt, Eier).
         /// </summary>
-        internal static string Owner_Email {
+        public static string Owner_Email {
             get {
                 return ResourceManager.GetString("Owner_Email", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Telefon (Kontakt, Eier).
         /// </summary>
-        internal static string Owner_Telephone {
+        public static string Owner_Telephone {
             get {
                 return ResourceManager.GetString("Owner_Telephone", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Error: Could not create/overwrite package..
         /// </summary>
-        internal static string PackageCreationErrorLogMessage {
+        public static string PackageCreationErrorLogMessage {
             get {
                 return ResourceManager.GetString("PackageCreationErrorLogMessage", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Klarte ikke opprette/overskrive pakke. Sjekk om pakkedestinasjonen er opptatt..
         /// </summary>
-        internal static string PackageCreationErrorStatusMessage {
+        public static string PackageCreationErrorStatusMessage {
             get {
                 return ResourceManager.GetString("PackageCreationErrorStatusMessage", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Produsent.
         /// </summary>
-        internal static string Producer {
+        public static string Producer {
             get {
                 return ResourceManager.GetString("Producer", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Kontaktperson (Produsent).
         /// </summary>
-        internal static string Producer_ContactPerson {
+        public static string Producer_ContactPerson {
             get {
                 return ResourceManager.GetString("Producer_ContactPerson", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to e-post (Kontakt, Produsent).
         /// </summary>
-        internal static string Producer_Email {
+        public static string Producer_Email {
             get {
                 return ResourceManager.GetString("Producer_Email", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Telefon (Kontakt, Produsent).
         /// </summary>
-        internal static string Producer_Telephone {
+        public static string Producer_Telephone {
             get {
                 return ResourceManager.GetString("Producer_Telephone", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Mottaker.
         /// </summary>
-        internal static string Recepient {
+        public static string Recepient {
             get {
                 return ResourceManager.GetString("Recepient", resourceCulture);
             }
@@ -432,7 +432,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Velg plassering for pakke.
         /// </summary>
-        internal static string SelectOutputDirectoryMessage {
+        public static string SelectOutputDirectoryMessage {
             get {
                 return ResourceManager.GetString("SelectOutputDirectoryMessage", resourceCulture);
             }
@@ -441,7 +441,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Startdato.
         /// </summary>
-        internal static string StartDate {
+        public static string StartDate {
             get {
                 return ResourceManager.GetString("StartDate", resourceCulture);
             }
@@ -450,7 +450,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Systemnavn.
         /// </summary>
-        internal static string SystemName {
+        public static string SystemName {
             get {
                 return ResourceManager.GetString("SystemName", resourceCulture);
             }
@@ -459,7 +459,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Type (System).
         /// </summary>
-        internal static string SystemType {
+        public static string SystemType {
             get {
                 return ResourceManager.GetString("SystemType", resourceCulture);
             }
@@ -468,7 +468,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Typeversjon (System).
         /// </summary>
-        internal static string SystemTypeVersion {
+        public static string SystemTypeVersion {
             get {
                 return ResourceManager.GetString("SystemTypeVersion", resourceCulture);
             }
@@ -477,7 +477,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Versjon (System).
         /// </summary>
-        internal static string SystemVersion {
+        public static string SystemVersion {
             get {
                 return ResourceManager.GetString("SystemVersion", resourceCulture);
             }
@@ -486,7 +486,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Test.
         /// </summary>
-        internal static string Test {
+        public static string Test {
             get {
                 return ResourceManager.GetString("Test", resourceCulture);
             }
@@ -495,7 +495,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Metadata.
         /// </summary>
-        internal static string Title {
+        public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
@@ -504,7 +504,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Overfører.
         /// </summary>
-        internal static string Transferer {
+        public static string Transferer {
             get {
                 return ResourceManager.GetString("Transferer", resourceCulture);
             }
@@ -513,7 +513,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Kontaktperson (Overfører).
         /// </summary>
-        internal static string Transferer_ContractPerson {
+        public static string Transferer_ContractPerson {
             get {
                 return ResourceManager.GetString("Transferer_ContractPerson", resourceCulture);
             }
@@ -522,7 +522,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to e-post (Kontakt, Overfører).
         /// </summary>
-        internal static string Transferer_Email {
+        public static string Transferer_Email {
             get {
                 return ResourceManager.GetString("Transferer_Email", resourceCulture);
             }
@@ -531,7 +531,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Telefon (Kontakt, Overfører).
         /// </summary>
-        internal static string Transferer_Telephone {
+        public static string Transferer_Telephone {
             get {
                 return ResourceManager.GetString("Transferer_Telephone", resourceCulture);
             }
