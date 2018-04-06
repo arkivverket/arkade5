@@ -8,9 +8,13 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
     {
         private readonly Stream _contentStream;
         private readonly Stream _structureStream;
+        private readonly Stream _publicJournalStream;
+        private readonly Stream _runningJournalStream;
         private readonly Stream _contentSchemaStream;
         private readonly Stream _structureSchemaStream;
         private readonly Stream _metadataCatalogSchemaStream;
+        private readonly Stream _publicJournalSchemaStream;
+        private readonly Stream _runningJournalSchemaStream;
 
         public ArchiveContentMockReader(Stream contentStream, Stream structureStream)
         {
@@ -49,6 +53,26 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         public Stream GetMetadataCatalogXmlSchemaAsStream(Archive archive)
         {
             return _metadataCatalogSchemaStream;
+        }
+
+        public Stream GetPublicJournalAsStream(Archive archive)
+        {
+            return _publicJournalStream;
+        }
+
+        public Stream GetRunningJournalAsStream(Archive archive)
+        {
+            return _runningJournalStream;
+        }
+
+        public Stream GetPublicJournalXmlSchemaAsStream(Archive archive)
+        {
+            return _publicJournalSchemaStream;
+        }
+
+        public Stream GetRunningJournalXmlSchemaAsStream(Archive archive)
+        {
+            return _runningJournalSchemaStream;
         }
     }
 }

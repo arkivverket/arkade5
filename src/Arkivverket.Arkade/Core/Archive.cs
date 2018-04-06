@@ -47,6 +47,26 @@ namespace Arkivverket.Arkade.Core
             return WorkingDirectory.Content().WithFile(ArkadeConstants.MetadatakatalogXsdFileName).FullName;
         }
 
+        public string GetPublicJournalFileName()
+        {
+            return WorkingDirectory.Content().WithFile(ArkadeConstants.PublicJournalXmlFileName).FullName;
+        }
+
+        public string GetRunningJournalFileName()
+        {
+            return WorkingDirectory.Content().WithFile(ArkadeConstants.RunningJournalXmlFileName).FullName;
+        }
+
+        public string GetPublicJournalXmlSchemaFileName()
+        {
+            return WorkingDirectory.Content().WithFile(ArkadeConstants.PublicJournalXsdFileName).FullName;
+        }
+
+        public string GetRunningJournalXmlSchemaFileName()
+        {
+            return WorkingDirectory.Content().WithFile(ArkadeConstants.RunningJournalXsdFileName).FullName;
+        }
+
         public bool HasStructureDescriptionXmlSchema()
         {
             return File.Exists(GetStructureDescriptionXmlSchemaFileName());
@@ -60,6 +80,16 @@ namespace Arkivverket.Arkade.Core
         public bool HasMetadataCatalogXmlSchema()
         {
             return File.Exists(GetMetadataCatalogXmlSchemaFileName());
+        }
+
+        public bool HasPublicJournalXmlSchema()
+        {
+            return File.Exists(GetPublicJournalXmlSchemaFileName());
+        }
+
+        public bool HasRunningJournalXmlSchema()
+        {
+            return File.Exists(GetRunningJournalXmlSchemaFileName());
         }
 
         public string GetInformationPackageFileName()

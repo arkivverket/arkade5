@@ -33,6 +33,14 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
             ValidateXml(archive.GetContentDescriptionFileName(), _archiveReader.GetContentAsStream(archive),
                 GetContentDescriptionXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
+
+            if (Noark5TestHelper.FileIsDescribed(ArkadeConstants.PublicJournalXmlFileName, archive))
+                ValidateXml(archive.GetPublicJournalFileName(), _archiveReader.GetPublicJournalAsStream(archive),
+                    GetPublicJournalXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
+
+            if (Noark5TestHelper.FileIsDescribed(ArkadeConstants.RunningJournalXmlFileName, archive))
+                ValidateXml(archive.GetRunningJournalFileName(), _archiveReader.GetRunningJournalAsStream(archive),
+                    GetRunningJournalXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
         }
 
         private void ValidateXml(string fullPathToFile, Stream fileStream, params Stream[] xsdResources)
@@ -104,6 +112,34 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
                 string.Format(Noark5Messages.InternalSchemaFileIsUsed, ArkadeConstants.MetadatakatalogXsdFileName)));
 
             return ResourceUtil.GetResourceAsStream(ArkadeConstants.MetadatakatalogXsdResource);
+        }
+
+        private Stream GetPublicJournalXmlSchemaStream(Archive archive)
+        {
+            if (archive.HasPublicJournalXmlSchema())
+                return _archiveReader.GetPublicJournalXmlSchemaAsStream(archive);
+
+            // Fallback on internal schema for public journal:
+
+            _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                // TODO: Consider ResultType.Warning (if it becomes supported)
+                string.Format(Noark5Messages.InternalSchemaFileIsUsed, ArkadeConstants.PublicJournalXsdFileName)));
+
+            return ResourceUtil.GetResourceAsStream(ArkadeConstants.PublicJournalXsdResource);
+        }
+
+        private Stream GetRunningJournalXmlSchemaStream(Archive archive)
+        {
+            if (archive.HasRunningJournalXmlSchema())
+                return _archiveReader.GetRunningJournalXmlSchemaAsStream(archive);
+
+            // Fallback on internal schema for running journal:
+
+            _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                // TODO: Consider ResultType.Warning (if it becomes supported)
+                string.Format(Noark5Messages.InternalSchemaFileIsUsed, ArkadeConstants.RunningJournalXsdFileName)));
+
+            return ResourceUtil.GetResourceAsStream(ArkadeConstants.RunningJournalXsdResource);
         }
 
         public override TestId GetId()

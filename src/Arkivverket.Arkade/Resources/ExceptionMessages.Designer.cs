@@ -70,6 +70,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkade klarte ikke å finne informasjon om {0} i {1}.
+        /// </summary>
+        internal static string FileDescriptionParseError {
+            get {
+                return ResourceManager.GetString("FileDescriptionParseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kunne ikke kombinere {0} og {1}.
         /// </summary>
         internal static string PathCombine {

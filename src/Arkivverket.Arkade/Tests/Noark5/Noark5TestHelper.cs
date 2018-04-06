@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
@@ -59,6 +60,31 @@ namespace Arkivverket.Arkade.Tests.Noark5
             }
 
             return inboundSeparationIsSharp && outboundSeparationIsSharp;
+        }
+        public static bool FileIsDescribed(string fileName, Archive archive)
+        {
+            addml archiveExtraction = GetAddmlObject(ArkadeConstants.ArkivuttrekkXmlFileName, archive);
+
+            try
+            {
+                dataObject archiveExtractionElement = archiveExtraction.dataset[0].dataObjects.dataObject[0];
+
+                dataObject fileElement = archiveExtractionElement.dataObjects.dataObject.FirstOrDefault(
+                    d => d.name == Path.GetFileNameWithoutExtension(fileName)
+                );
+
+                return fileElement != null;
+            }
+            catch
+            {
+                string exceptionMessage = string.Format(
+                    Resources.ExceptionMessages.FileDescriptionParseError,
+                    fileName,
+                    ArkadeConstants.ArkivuttrekkXmlFileName
+                );
+
+                throw new ArkadeException(exceptionMessage);
+            }
         }
 
         public static addml GetAddmlObject(string addmlXmlFileName, Archive archive)

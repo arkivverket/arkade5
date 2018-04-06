@@ -34,6 +34,30 @@ namespace Arkivverket.Arkade.Core
             return GetFileAsStream(fileName);
         }
 
+        public Stream GetPublicJournalAsStream(Archive archive)
+        {
+            string fileName = archive.GetPublicJournalFileName();
+            return GetFileAsStream(fileName);
+        }
+
+        public Stream GetRunningJournalAsStream(Archive archive)
+        {
+            string fileName = archive.GetRunningJournalFileName();
+            return GetFileAsStream(fileName);
+        }
+
+        public Stream GetPublicJournalXmlSchemaAsStream(Archive archive)
+        {
+            string fileName = archive.GetPublicJournalXmlSchemaFileName();
+            return GetFileAsStream(fileName);
+        }
+
+        public Stream GetRunningJournalXmlSchemaAsStream(Archive archive)
+        {
+            string fileName = archive.GetRunningJournalXmlSchemaFileName();
+            return GetFileAsStream(fileName);
+        }
+
         private static Stream GetFileAsStream(string fileName)
         {
             try

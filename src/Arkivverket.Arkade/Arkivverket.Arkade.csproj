@@ -12,8 +12,10 @@
     <None Remove="ExternalModels\xsd\DIAS_PREMIS.xsd" />
     <None Remove="ExternalModels\xsd\ead3.xsd" />
     <None Remove="ExternalModels\xsd\info.xsd" />
+    <None Remove="ExternalModels\xsd\loependeJournal.xsd" />
     <None Remove="ExternalModels\xsd\metadatakatalog.xsd" />
     <None Remove="ExternalModels\xsd\mets.xsd" />
+    <None Remove="ExternalModels\xsd\offentligJournal.xsd" />
     <None Remove="ExternalModels\xsd\testSessionLog.xsd" />
     <None Remove="ExternalModels\xsd\xlink.xsd" />
     <None Remove="ExternalModels\xsl\noarkih-to-addml.xsl" />
@@ -29,8 +31,10 @@
     <EmbeddedResource Include="ExternalModels\xsd\DIAS_PREMIS.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\ead3.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\info.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\loependeJournal.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\metadatakatalog.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\mets.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\offentligJournal.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\testSessionLog.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\xlink.xsd" />
     <EmbeddedResource Include="ExternalModels\xsl\noarkih-to-addml.xsl" />
