@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 using System.IO;
@@ -68,7 +69,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
             }
             string actualChecksum = Hex.ToHexString(bytes);
 
-            if (expectedChecksum != actualChecksum)
+            if (!actualChecksum.Equals(expectedChecksum, StringComparison.InvariantCultureIgnoreCase))
             {
                 _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFlatFileIndex(flatFile.Definition.GetIndex()),
                            string.Format(Messages.ControlChecksumMessage_ChecksumMismatch, expectedChecksum, actualChecksum)));

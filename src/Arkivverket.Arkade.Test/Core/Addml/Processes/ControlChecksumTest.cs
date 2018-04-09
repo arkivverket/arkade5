@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes
         [Fact]
         public void ShouldReportNotReportCorrectChecksumValue()
         {
-            string expectedSha256Hash = "3b67b886241a7d63798ea0e63a70cbca6c2109ab3962b2a5815cbadcb90cbb08".ToUpper();
+            string expectedSha256Hash = "3b67b886241a7d63798ea0e63a70cbca6c2109ab3962b2a5815cbadcb90cbb08";
 
             AddmlFlatFileDefinition flatFileDefinition = new AddmlFlatFileDefinitionBuilder()
                 .WithChecksum(new Checksum("SHA-256", expectedSha256Hash))
