@@ -178,15 +178,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saksmappenes status i arkivstrukturen.
-        /// </summary>
-        internal static string NumberOfCaseStatusesPerArchivePart {
-            get {
-                return ResourceManager.GetString("NumberOfCaseStatusesPerArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Antall loggførte endringer.
         /// </summary>
         internal static string NumberOfChangesLogged {
@@ -381,15 +372,6 @@ namespace Arkivverket.Arkade.Resources {
         internal static string NumberOfFolders {
             get {
                 return ResourceManager.GetString("NumberOfFolders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall mapper som er klassifisert med hver enkelt klasse i arkivstrukturen.
-        /// </summary>
-        internal static string NumberOfFoldersClassified {
-            get {
-                return ResourceManager.GetString("NumberOfFoldersClassified", resourceCulture);
             }
         }
         
