@@ -113,7 +113,7 @@ namespace Arkivverket.Arkade.Core.Noark5
                         var message = new StringBuilder();
 
                         foreach (var result in errorTestResults)
-                            message.AppendLine().AppendLine(result.Message);
+                            message.AppendLine().AppendLine(result.Location + " - " + result.Message);
 
                         _statusEventHandler.RaiseEventOperationMessage(test.GetName(), message.ToString(),
                             OperationMessageStatus.Error);
