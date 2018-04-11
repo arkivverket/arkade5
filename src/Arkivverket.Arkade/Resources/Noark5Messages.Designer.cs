@@ -1359,15 +1359,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validert i henhold til XML-skjema..
-        /// </summary>
-        internal static string ValidateXmlWithSchemaMessageValid {
-            get {
-                return ResourceManager.GetString("ValidateXmlWithSchemaMessageValid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} er ikke gyldig i henhold til XML-skjema: {1}.
         /// </summary>
         internal static string XmlDoesNotValidateWithSchema {

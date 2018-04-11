@@ -311,9 +311,6 @@ Generert:  {2}</value>
   <data name="ValidateXmlWithSchema" xml:space="preserve">
     <value>Valider xml i henhold til skjema (ADDML)</value>
   </data>
-  <data name="ValidateXmlWithSchemaMessageValid" xml:space="preserve">
-    <value>Validert i henhold til XML-skjema.</value>
-  </data>
   <data name="NumberOfEachJournalPostTypeMessage_MissingMainDocument" xml:space="preserve">
     <value>Journalpost med systemID {0} mangler hoveddokument</value>
   </data>
