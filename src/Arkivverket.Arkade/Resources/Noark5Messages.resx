@@ -158,9 +158,6 @@
 Forventet: {1}
 Generert:  {2}</value>
   </data>
-  <data name="XmlDoesNotValidateWithSchema" xml:space="preserve">
-    <value>{0} er ikke gyldig i henhold til XML-skjema: {1}</value>
-  </data>
   <data name="NumberOfArchiveParts" xml:space="preserve">
     <value>Finn antall arkivdeler</value>
   </data>

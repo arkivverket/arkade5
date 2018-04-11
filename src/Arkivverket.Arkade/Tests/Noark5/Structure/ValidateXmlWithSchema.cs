@@ -54,11 +54,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             try
             {
                 foreach (string validationErrorMessage in new XmlValidator().Validate(fileStream, xsdResources))
-                {
-                    _testResults.Add(new TestResult(ResultType.Error, new Location(fileName),
-                        string.Format(Noark5Messages.XmlDoesNotValidateWithSchema,
-                            fileName, validationErrorMessage)));
-                }
+                    _testResults.Add(new TestResult(ResultType.Error, new Location(fileName), validationErrorMessage));
             }
             catch (Exception e)
             {
