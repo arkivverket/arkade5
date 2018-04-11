@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.DocumentFilesChecksumControl;
+            return Noark5TestNames.DocumentFilesChecksumControl;
         }
 
         public override TestType GetTestType()

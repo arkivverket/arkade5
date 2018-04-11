@@ -140,7 +140,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         public override string GetName()
         {
-            return Noark5Messages.ValidateXmlWithSchema;
+            return Noark5TestNames.ValidateXmlWithSchema;
         }
 
         public override TestType GetTestType()

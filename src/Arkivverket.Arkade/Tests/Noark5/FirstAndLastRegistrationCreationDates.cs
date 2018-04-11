@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.DatesFirstAndLastRegistration;
+            return Noark5TestNames.DatesFirstAndLastRegistration;
         }
 
         public override TestType GetTestType()

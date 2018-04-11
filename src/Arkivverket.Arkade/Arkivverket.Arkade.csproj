@@ -76,6 +76,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Noark5TestDescriptions.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Noark5TestNames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Noark5TestNames.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Report.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -103,6 +108,10 @@
     <EmbeddedResource Update="Resources\Noark5TestDescriptions.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Noark5TestDescriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Noark5TestNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Noark5TestNames.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Report.resx">
       <Generator>ResXFileCodeGenerator</Generator>

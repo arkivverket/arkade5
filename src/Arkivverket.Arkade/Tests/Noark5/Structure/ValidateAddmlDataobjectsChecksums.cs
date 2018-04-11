@@ -88,7 +88,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         public override string GetName()
         {
-            return Noark5Messages.ValidateAddmlDataobjectsChecksums;
+            return Noark5TestNames.ValidateAddmlDataobjectsChecksums;
         }
 
         public override TestType GetTestType()

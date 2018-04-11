@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.NumberOfFoldersPerYear;
+            return Noark5TestNames.NumberOfFoldersPerYear;
         }
 
         public override TestType GetTestType()

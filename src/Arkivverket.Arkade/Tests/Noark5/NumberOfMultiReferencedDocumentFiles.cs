@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.NumberOfMultiReferencedDocumentFiles;
+            return Noark5TestNames.NumberOfMultiReferencedDocumentFiles;
         }
 
         public override TestType GetTestType()

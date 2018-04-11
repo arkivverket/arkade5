@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.NumberOfFoldersPerClass;
+            return Noark5TestNames.NumberOfFoldersPerClass;
         }
 
         public override TestType GetTestType()

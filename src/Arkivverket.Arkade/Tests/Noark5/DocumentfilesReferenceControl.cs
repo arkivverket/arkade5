@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.DocumentfilesReferenceControl;
+            return Noark5TestNames.DocumentfilesReferenceControl;
         }
 
         public override TestType GetTestType()

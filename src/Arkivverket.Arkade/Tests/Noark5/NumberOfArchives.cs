@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.NumberOfArchives;
+            return Noark5TestNames.NumberOfArchives;
         }
 
         public override TestType GetTestType()

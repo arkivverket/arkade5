@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.NumberOfRegistrationsWithoutDocumentDescription;
+            return Noark5TestNames.NumberOfRegistrationsWithoutDocumentDescription;
         }
 
         public override TestType GetTestType()
