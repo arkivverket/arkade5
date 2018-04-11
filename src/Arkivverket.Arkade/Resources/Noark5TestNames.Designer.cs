@@ -97,7 +97,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollér at refererte dokumenter eksisterer.
+        ///   Looks up a localized string similar to Refererte dokumenters eksistens.
         /// </summary>
         internal static string ControlDocumentFilesExists {
             get {
@@ -151,7 +151,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall arkivdeler.
+        ///   Looks up a localized string similar to Antall arkivdeler.
         /// </summary>
         internal static string NumberOfArchiveParts {
             get {
@@ -160,7 +160,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall arkiv.
+        ///   Looks up a localized string similar to Antall arkiv.
         /// </summary>
         internal static string NumberOfArchives {
             get {
@@ -187,7 +187,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall klasser.
+        ///   Looks up a localized string similar to Antall klasser.
         /// </summary>
         internal static string NumberOfClasses {
             get {
@@ -214,7 +214,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall klassifikasjonssystem.
+        ///   Looks up a localized string similar to Antall klassifikasjonssystem.
         /// </summary>
         internal static string NumberOfClassificationSystems {
             get {
@@ -331,7 +331,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall ulike dokumentformater.
+        ///   Looks up a localized string similar to Antall av ulike dokumentformater.
         /// </summary>
         internal static string NumberOfEachDocumentFormat {
             get {
@@ -340,7 +340,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall ulike dokumentstatuser.
+        ///   Looks up a localized string similar to Antall av ulike dokumentstatuser.
         /// </summary>
         internal static string NumberOfEachDocumentStatus {
             get {
@@ -358,7 +358,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall ulike journalstatuser.
+        ///   Looks up a localized string similar to Antall av ulike journalstatuser.
         /// </summary>
         internal static string NumberOfEachJournalStatus {
             get {
@@ -367,7 +367,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall mapper.
+        ///   Looks up a localized string similar to Antall mapper.
         /// </summary>
         internal static string NumberOfFolders {
             get {
@@ -430,7 +430,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall registreringer.
+        ///   Looks up a localized string similar to Antall registreringer.
         /// </summary>
         internal static string NumberOfRegistrations {
             get {
@@ -439,7 +439,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall registreringer for hver klasse (Registreringer under mappe regnes ikke).
+        ///   Looks up a localized string similar to Antall registreringer for hver klasse (ikke medregnet registreringer under mappe).
         /// </summary>
         internal static string NumberOfRegistrationsPerClass {
             get {
@@ -475,7 +475,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn status på arkivdeler.
+        ///   Looks up a localized string similar to Status på arkivdeler.
         /// </summary>
         internal static string StatusOfArchiveParts {
             get {
@@ -493,7 +493,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valider sjekksummer.
+        ///   Looks up a localized string similar to Validering av sjekksummer.
         /// </summary>
         internal static string ValidateAddmlDataobjectsChecksums {
             get {
@@ -502,7 +502,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valider antallet dokumentfiler.
+        ///   Looks up a localized string similar to Validering av antall dokumentfiler.
         /// </summary>
         internal static string ValidateNumberOfDocumentfiles {
             get {
@@ -511,7 +511,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valider xml i henhold til skjema (ADDML).
+        ///   Looks up a localized string similar to Validering av XML i henhold til skjema.
         /// </summary>
         internal static string ValidateXmlWithSchema {
             get {

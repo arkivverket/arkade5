@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ControlDocumentFilesExists" xml:space="preserve">
-    <value>Kontrollér at refererte dokumenter eksisterer</value>
+    <value>Refererte dokumenters eksistens</value>
   </data>
   <data name="DatesFirstAndLastRegistration" xml:space="preserve">
     <value>Opprettelsesdatoer for første og siste registrering</value>
@@ -127,22 +127,22 @@
     <value>Dokumentfiler som mangler referanse</value>
   </data>
   <data name="NumberOfArchiveParts" xml:space="preserve">
-    <value>Finn antall arkivdeler</value>
+    <value>Antall arkivdeler</value>
   </data>
   <data name="NumberOfArchives" xml:space="preserve">
-    <value>Finn antall arkiv</value>
+    <value>Antall arkiv</value>
   </data>
   <data name="NumberOfCaseParts" xml:space="preserve">
     <value>Antall saksparter</value>
   </data>
   <data name="NumberOfClasses" xml:space="preserve">
-    <value>Finn antall klasser</value>
+    <value>Antall klasser</value>
   </data>
   <data name="NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders" xml:space="preserve">
     <value>Antall klasser i det primære klassifikasjonssystemet uten underklasser, mapper eller registreringer</value>
   </data>
   <data name="NumberOfClassificationSystems" xml:space="preserve">
-    <value>Finn antall klassifikasjonssystem</value>
+    <value>Antall klassifikasjonssystem</value>
   </data>
   <data name="NumberOfComments" xml:space="preserve">
     <value>Antall merknader</value>
@@ -169,7 +169,7 @@
     <value>Antall dokumentobjekter</value>
   </data>
   <data name="NumberOfFolders" xml:space="preserve">
-    <value>Finn antall mapper</value>
+    <value>Antall mapper</value>
   </data>
   <data name="NumberOfFoldersPerYear" xml:space="preserve">
     <value>Antall mapper for hvert år</value>
@@ -187,7 +187,7 @@
     <value>Antall presedenser</value>
   </data>
   <data name="NumberOfRegistrations" xml:space="preserve">
-    <value>Finn antall registreringer</value>
+    <value>Antall registreringer</value>
   </data>
   <data name="NumberOfRegistrationsPerYear" xml:space="preserve">
     <value>Antall registreringer for hvert år</value>
@@ -196,28 +196,28 @@
     <value>Antall registreringer uten dokumentbeskrivelse</value>
   </data>
   <data name="StatusOfArchiveParts" xml:space="preserve">
-    <value>Finn status på arkivdeler</value>
+    <value>Status på arkivdeler</value>
   </data>
   <data name="ValidateAddmlDataobjectsChecksums" xml:space="preserve">
-    <value>Valider sjekksummer</value>
+    <value>Validering av sjekksummer</value>
   </data>
   <data name="ValidateNumberOfDocumentfiles" xml:space="preserve">
-    <value>Valider antallet dokumentfiler</value>
+    <value>Validering av antall dokumentfiler</value>
   </data>
   <data name="ValidateXmlWithSchema" xml:space="preserve">
-    <value>Valider xml i henhold til skjema (ADDML)</value>
+    <value>Validering av XML i henhold til skjema</value>
   </data>
   <data name="NumberOfRegistrationsPerClass" xml:space="preserve">
-    <value>Antall registreringer for hver klasse (Registreringer under mappe regnes ikke)</value>
+    <value>Antall registreringer for hver klasse (ikke medregnet registreringer under mappe)</value>
   </data>
   <data name="NumberOfEachJournalStatus" xml:space="preserve">
-    <value>Antall ulike journalstatuser</value>
+    <value>Antall av ulike journalstatuser</value>
   </data>
   <data name="NumberOfEachDocumentStatus" xml:space="preserve">
-    <value>Antall ulike dokumentstatuser</value>
+    <value>Antall av ulike dokumentstatuser</value>
   </data>
   <data name="NumberOfEachDocumentFormat" xml:space="preserve">
-    <value>Antall ulike dokumentformater</value>
+    <value>Antall av ulike dokumentformater</value>
   </data>
   <data name="NumberOfMultiReferencedDocumentFiles" xml:space="preserve">
     <value>Dokumentfiler med referanse fra mer enn ett dokumentobjekt</value>
