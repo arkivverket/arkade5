@@ -124,15 +124,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opprettelsesdatoer for første og siste registrering.
-        /// </summary>
-        internal static string DatesFirstAndLastRegistration {
-            get {
-                return ResourceManager.GetString("DatesFirstAndLastRegistration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dokumentfilers sjekksummer.
         /// </summary>
         internal static string DocumentFilesChecksumControl {
@@ -147,6 +138,15 @@ namespace Arkivverket.Arkade.Resources {
         internal static string DocumentfilesReferenceControl {
             get {
                 return ResourceManager.GetString("DocumentfilesReferenceControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opprettelsesdatoer for første og siste registrering.
+        /// </summary>
+        internal static string FirstAndLastRegistrationCreationDates {
+            get {
+                return ResourceManager.GetString("FirstAndLastRegistrationCreationDates", resourceCulture);
             }
         }
         

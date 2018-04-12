@@ -120,7 +120,7 @@
   <data name="ControlDocumentFilesExists" xml:space="preserve">
     <value>Refererte dokumenters eksistens</value>
   </data>
-  <data name="DatesFirstAndLastRegistration" xml:space="preserve">
+  <data name="FirstAndLastRegistrationCreationDates" xml:space="preserve">
     <value>Opprettelsesdatoer for første og siste registrering</value>
   </data>
   <data name="DocumentfilesReferenceControl" xml:space="preserve">
