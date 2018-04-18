@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Cli
                 }
                 else
                 {
-                    Console.WriteLine("Usage ..."); //options.GetUsage());
+                    Console.WriteLine(options.GetUsage());
                 }
             }
         }

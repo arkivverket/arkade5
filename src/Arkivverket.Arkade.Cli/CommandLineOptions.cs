@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core;
+﻿using System;
 using CommandLine;
 using CommandLine.Text;
 
@@ -29,5 +29,21 @@ namespace Arkivverket.Arkade.Cli
 
         [Option('v', "verbose", HelpText = "Print details during execution.")]
         public bool Verbose { get; set; }
+
+        internal string GetUsage()
+        {
+            var result = new Parser().ParseArguments<CommandLineOptions>("".Split());
+
+            var helptext = HelpText.AutoBuild(result, help =>
+            {
+                help.AddOptions(result);
+                return help;
+            }, example =>
+            {
+                return example;
+            });
+
+            return helptext;
+        }
     }
 }
