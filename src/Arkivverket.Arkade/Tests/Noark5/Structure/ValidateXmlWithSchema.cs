@@ -18,28 +18,22 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 3);
 
-        private readonly IArchiveContentReader _archiveReader;
         private readonly List<TestResult> _testResults = new List<TestResult>();
-
-        public ValidateXmlWithSchema(IArchiveContentReader archiveReader)
-        {
-            _archiveReader = archiveReader;
-        }
 
         public override void Test(Archive archive)
         {
-            ValidateXml(archive.GetStructureDescriptionFileName(), _archiveReader.GetStructureContentAsStream(archive),
+            ValidateXml(archive.AddmlFile.FullName, archive.AddmlFile.AsStream(),
                 GetStructureDescriptionXmlSchemaStream(archive));
 
-            ValidateXml(archive.GetContentDescriptionFileName(), _archiveReader.GetContentAsStream(archive),
+            ValidateXml(archive.ArchiveStructureFile.FullName, archive.ArchiveStructureFile.AsStream(),
                 GetContentDescriptionXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
 
             if (Noark5TestHelper.FileIsDescribed(ArkadeConstants.PublicJournalXmlFileName, archive))
-                ValidateXml(archive.GetPublicJournalFileName(), _archiveReader.GetPublicJournalAsStream(archive),
+                ValidateXml(archive.PublicJournalFile.FullName, archive.PublicJournalFile.AsStream(),
                     GetPublicJournalXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
 
             if (Noark5TestHelper.FileIsDescribed(ArkadeConstants.RunningJournalXmlFileName, archive))
-                ValidateXml(archive.GetRunningJournalFileName(), _archiveReader.GetRunningJournalAsStream(archive),
+                ValidateXml(archive.RunningJournalFile.FullName, archive.RunningJournalFile.AsStream(),
                     GetRunningJournalXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
         }
 
@@ -65,8 +59,8 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         private Stream GetStructureDescriptionXmlSchemaStream(Archive archive)
         {
-            if (archive.HasStructureDescriptionXmlSchema())
-                return _archiveReader.GetStructureDescriptionXmlSchemaAsStream(archive);
+            if (archive.AddmlSchemaFile.Exists)
+                return archive.AddmlSchemaFile.AsStream();
 
             // Fallback on internal addml.xsd:
 
@@ -79,8 +73,8 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         private Stream GetContentDescriptionXmlSchemaStream(Archive archive)
         {
-            if (archive.HasContentDescriptionXmlSchema())
-                return _archiveReader.GetContentDescriptionXmlSchemaAsStream(archive);
+            if (archive.ArchiveStructureSchemaFile.Exists)
+                return archive.ArchiveStructureSchemaFile.AsStream();
 
             // Fallback on internal arkivstruktur.xsd:
 
@@ -93,8 +87,8 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         private Stream GetMetadataCatalogXmlSchemaStream(Archive archive)
         {
-            if (archive.HasMetadataCatalogXmlSchema())
-                return _archiveReader.GetMetadataCatalogXmlSchemaAsStream(archive);
+            if (archive.MetadataCatalogSchemaFile.Exists)
+                return archive.MetadataCatalogSchemaFile.AsStream();
 
             // Fallback on internal metadatakatalog.xsd:
 
@@ -107,8 +101,8 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         private Stream GetPublicJournalXmlSchemaStream(Archive archive)
         {
-            if (archive.HasPublicJournalXmlSchema())
-                return _archiveReader.GetPublicJournalXmlSchemaAsStream(archive);
+            if (archive.PublicJournalSchemaFile.Exists)
+                return archive.PublicJournalSchemaFile.AsStream();
 
             // Fallback on internal schema for public journal:
 
@@ -121,8 +115,8 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         private Stream GetRunningJournalXmlSchemaStream(Archive archive)
         {
-            if (archive.HasRunningJournalXmlSchema())
-                return _archiveReader.GetRunningJournalXmlSchemaAsStream(archive);
+            if (archive.RunningJournalSchemaFile.Exists)
+                return archive.RunningJournalSchemaFile.AsStream();
 
             // Fallback on internal schema for running journal:
 

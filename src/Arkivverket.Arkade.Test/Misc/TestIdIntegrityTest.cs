@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Test.Misc
         {
             var tests = new List<IArkadeTest>();
 
-            var noark5TestProvider = new Noark5TestProvider(Mock.Of<ArchiveContentReader>());
+            var noark5TestProvider = new Noark5TestProvider();
 
             Archive archive = TestUtil.CreateArchiveExtraction(Path.Combine("TestData", "Noark5", "Small"));
 

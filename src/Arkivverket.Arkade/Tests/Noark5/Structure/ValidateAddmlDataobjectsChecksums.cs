@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         public override void Test(Archive archive)
         {
-            var structure = SerializeUtil.DeserializeFromFile<addml>(archive.GetStructureDescriptionFileName());
+            var structure = SerializeUtil.DeserializeFromFile<addml>(archive.AddmlFile.FullName);
 
             foreach (var entry in structure.dataset[0].dataObjects.dataObject)
             {

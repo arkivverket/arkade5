@@ -1,5 +1,6 @@
 using System.IO;
 using Arkivverket.Arkade.Util;
+using static Arkivverket.Arkade.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core
 {
@@ -10,86 +11,21 @@ namespace Arkivverket.Arkade.Core
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
 
+        public ArkadeFile ArchiveStructureFile => SetupXmlFile(ArkivstrukturXmlFileName);
+        public ArkadeFile ArchiveStructureSchemaFile => SetupXmlFile(ArkivstrukturXsdFileName);
+        public ArkadeFile AddmlFile => SetupXmlFile(AddmlXmlFileName);
+        public ArkadeFile AddmlSchemaFile => SetupXmlFile(AddmlXsdFileName);
+        public ArkadeFile MetadataCatalogSchemaFile => SetupXmlFile(MetadatakatalogXsdFileName);
+        public ArkadeFile PublicJournalFile => SetupXmlFile(PublicJournalXmlFileName);
+        public ArkadeFile PublicJournalSchemaFile => SetupXmlFile(PublicJournalXsdFileName);
+        public ArkadeFile RunningJournalFile => SetupXmlFile(RunningJournalXmlFileName);
+        public ArkadeFile RunningJournalSchemaFile => SetupXmlFile(RunningJournalXsdFileName);
+        
         public Archive(ArchiveType archiveType, Uuid uuid, WorkingDirectory workingDirectory)
         {
             ArchiveType = archiveType;
             Uuid = uuid;
             WorkingDirectory = workingDirectory;
-        }
-
-        public string GetContentDescriptionFileName()
-        {
-            return WorkingDirectory.Content().WithFile(ArkadeConstants.ArkivstrukturXmlFileName).FullName;
-        }
-
-        public string GetStructureDescriptionFileName()
-        {
-            return WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName).FullName;
-        }
-
-        public FileInfo GetStructureDescriptionFile()
-        {
-            return WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName);
-        }
-
-        public string GetContentDescriptionXmlSchemaFileName()
-        {
-            return WorkingDirectory.Content().WithFile(ArkadeConstants.ArkivstrukturXsdFileName).FullName;
-        }
-
-        public string GetStructureDescriptionXmlSchemaFileName()
-        {
-            return WorkingDirectory.Content().WithFile(ArkadeConstants.AddmlXsdFileName).FullName;
-        }
-
-        public string GetMetadataCatalogXmlSchemaFileName()
-        {
-            return WorkingDirectory.Content().WithFile(ArkadeConstants.MetadatakatalogXsdFileName).FullName;
-        }
-
-        public string GetPublicJournalFileName()
-        {
-            return WorkingDirectory.Content().WithFile(ArkadeConstants.PublicJournalXmlFileName).FullName;
-        }
-
-        public string GetRunningJournalFileName()
-        {
-            return WorkingDirectory.Content().WithFile(ArkadeConstants.RunningJournalXmlFileName).FullName;
-        }
-
-        public string GetPublicJournalXmlSchemaFileName()
-        {
-            return WorkingDirectory.Content().WithFile(ArkadeConstants.PublicJournalXsdFileName).FullName;
-        }
-
-        public string GetRunningJournalXmlSchemaFileName()
-        {
-            return WorkingDirectory.Content().WithFile(ArkadeConstants.RunningJournalXsdFileName).FullName;
-        }
-
-        public bool HasStructureDescriptionXmlSchema()
-        {
-            return File.Exists(GetStructureDescriptionXmlSchemaFileName());
-        }
-
-        public bool HasContentDescriptionXmlSchema()
-        {
-            return File.Exists(GetContentDescriptionXmlSchemaFileName());
-        }
-
-        public bool HasMetadataCatalogXmlSchema()
-        {
-            return File.Exists(GetMetadataCatalogXmlSchemaFileName());
-        }
-
-        public bool HasPublicJournalXmlSchema()
-        {
-            return File.Exists(GetPublicJournalXmlSchemaFileName());
-        }
-
-        public bool HasRunningJournalXmlSchema()
-        {
-            return File.Exists(GetRunningJournalXmlSchemaFileName());
         }
 
         public string GetInformationPackageFileName()
@@ -103,7 +39,7 @@ namespace Arkivverket.Arkade.Core
                 return DocumentsDirectory;
 
             foreach (DirectoryInfo directory in WorkingDirectory.Content().DirectoryInfo().EnumerateDirectories())
-            foreach (string documentDirectoryName in ArkadeConstants.DocumentDirectoryNames)
+            foreach (string documentDirectoryName in DocumentDirectoryNames)
                 if (directory.Name.Equals(documentDirectoryName))
                     DocumentsDirectory = directory;
 
@@ -113,8 +49,17 @@ namespace Arkivverket.Arkade.Core
         private DirectoryInfo DefaultNamedDocumentsDirectory()
         {
             return WorkingDirectory.Content().WithSubDirectory(
-                ArkadeConstants.DocumentDirectoryNames[0]
+                DocumentDirectoryNames[0]
             ).DirectoryInfo();
+        }
+
+        private ArkadeFile SetupXmlFile(string fileName)
+        {
+            FileInfo fileInfo = fileName == AddmlXmlFileName
+                ? WorkingDirectory.AdministrativeMetadata().WithFile(fileName)
+                : WorkingDirectory.Content().WithFile(fileName);
+
+            return new ArkadeFile(fileInfo);
         }
     }
 
