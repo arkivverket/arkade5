@@ -79,6 +79,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finner ikke filen: {0}.
+        /// </summary>
+        internal static string FileNotFound {
+            get {
+                return ResourceManager.GetString("FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kunne ikke lese inn filen: {0}.
+        /// </summary>
+        internal static string FileNotRead {
+            get {
+                return ResourceManager.GetString("FileNotRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kunne ikke kombinere {0} og {1}.
         /// </summary>
         internal static string PathCombine {

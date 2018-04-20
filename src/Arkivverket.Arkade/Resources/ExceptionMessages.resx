@@ -123,6 +123,12 @@
   <data name="FileDescriptionParseError" xml:space="preserve">
     <value>Arkade klarte ikke å finne informasjon om {0} i {1}</value>
   </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Finner ikke filen: {0}</value>
+  </data>
+  <data name="FileNotRead" xml:space="preserve">
+    <value>Kunne ikke lese inn filen: {0}</value>
+  </data>
   <data name="PathCombine" xml:space="preserve">
     <value>Kunne ikke kombinere {0} og {1}</value>
   </data>

@@ -20,14 +20,16 @@ namespace Arkivverket.Arkade.Util
 
         public Stream AsStream()
         {
+            if (!Exists)
+                throw new ArkadeException(string.Format(ExceptionMessages.FileNotFound, FullName));
+            
             try
             {
                 return File.OpenRead(FullName);
             }
             catch (Exception e)
             {
-                string message = string.Format(Messages.FileNotFoundMessage, FullName);
-                throw new ArkadeException(message, e);
+                throw new ArkadeException(string.Format(ExceptionMessages.FileNotRead, FullName), e);
             }
         }
     }

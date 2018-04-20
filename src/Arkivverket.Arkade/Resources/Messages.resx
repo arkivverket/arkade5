@@ -320,9 +320,6 @@ Aktuell sjekksum: {1}</value>
     <value>Feil ved innlesing av ADDML.
 {0}</value>
   </data>
-  <data name="FileNotFoundMessage" xml:space="preserve">
-    <value>Finner ikke filen: {0}</value>
-  </data>
   <data name="LogMessageFinishedTesting" xml:space="preserve">
     <value>Testing av arkivet er fullført.</value>
   </data>
