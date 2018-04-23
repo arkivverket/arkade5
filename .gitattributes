@@ -4,6 +4,12 @@
 * text=auto
 
 ###############################################################################
+# Enforce UNIX line endings for specific files
+###############################################################################
+src/Arkivverket.Arkade.Cli/arkade.sh text eol=lf
+src/Arkivverket.Arkade.Cli/README.txt text eol=lf
+
+###############################################################################
 # Set default behavior for command prompt diff.
 #
 # This is need for earlier builds of msysgit that does not have it on by
