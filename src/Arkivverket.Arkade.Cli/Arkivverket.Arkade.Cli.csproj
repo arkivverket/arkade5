@@ -31,4 +31,19 @@
     <ProjectReference Include="..\Arkivverket.Arkade\Arkivverket.Arkade.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="OutputStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OutputStrings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="OutputStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OutputStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
