@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Cli
 
                 testSession.ArchiveMetadata = archiveMetadata;
 
-                arkade.CreatePackage(testSession, PackageType.SubmissionInformationPackage, options.PackageOutputDirectory);
+                arkade.CreatePackage(testSession, PackageType.SubmissionInformationPackage, options.OutputDirectory);
                 
                 arkade.SaveReport(testSession, PrepareTestReportFile(options, testSession));
             }
@@ -67,7 +67,7 @@ namespace Arkivverket.Arkade.Cli
         private static FileInfo PrepareTestReportFile(CommandLineOptions options, TestSession testSession)
         {
             string testReportFileName = string.Format(OutputStrings.TestReportFileName, testSession.Archive.Uuid);
-            string testReportFullPath = Path.Combine(options.PackageOutputDirectory, testReportFileName);
+            string testReportFullPath = Path.Combine(options.OutputDirectory, testReportFileName);
 
             return new FileInfo(testReportFullPath);
         }

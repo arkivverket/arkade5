@@ -24,8 +24,8 @@ namespace Arkivverket.Arkade.Cli
         [Option('p', "processing-area", HelpText = "Directory to place temporary files and logs.")]
         public string ProcessingArea { get; set; }
 
-        [Option('o', "output-directory", HelpText = "Directory to put created packages.")]
-        public string PackageOutputDirectory { get; set; }
+        [Option('o', "output-directory", HelpText = "Directory to place created package and test report.")]
+        public string OutputDirectory { get; set; }
 
         [Option('v', "verbose", HelpText = "Print details during execution.")]
         public bool Verbose { get; set; }
