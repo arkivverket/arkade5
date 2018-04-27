@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Util;
 using CommandLine;
 using Serilog;
 
@@ -9,10 +12,9 @@ namespace Arkivverket.Arkade.Cli
     {
         private static void Main(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss.fff} {SourceContext} [{Level}] {Message}{NewLine}{Exception}")
-                .CreateLogger();
+            ArkadeProcessingArea.SetupTemporaryLogsDirectory();
+
+            ConfigureLogging(); // Configured with temporary log directory
 
             Parser.Default.ParseArguments<CommandLineOptions>(args)
                 .WithParsed(RunOptionsAndReturnExitCode)
@@ -21,6 +23,10 @@ namespace Arkivverket.Arkade.Cli
 
         private static void RunOptionsAndReturnExitCode(CommandLineOptions options)
         {
+            ArkadeProcessingArea.Establish(options.ProcessingArea); // Removes temporary log directory
+
+            ConfigureLogging(); // Re-configured with log directory within processing area
+
             if (ValidArgumentsForMetadataCreation(options))
             {
                 new MetadataExampleGenerator().Generate(options.GenerateMetadataExample);
@@ -56,6 +62,20 @@ namespace Arkivverket.Arkade.Cli
                    && !string.IsNullOrWhiteSpace(options.MetadataFile)
                    && !string.IsNullOrWhiteSpace(options.ProcessingArea)
                    && !string.IsNullOrWhiteSpace(options.OutputDirectory);
+        }
+
+        private static void ConfigureLogging()
+        {
+            string systemLogFilePath = Path.Combine(
+                ArkadeProcessingArea.LogsDirectory.ToString(),
+                ArkadeConstants.SystemLogFileNameFormat
+            );
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.Console(outputTemplate: OutputStrings.SystemLogOutputTemplateForConsole)
+                .WriteTo.RollingFile(systemLogFilePath, outputTemplate: OutputStrings.SystemLogOutputTemplateForFile)
+                .CreateLogger();
         }
     }
 }

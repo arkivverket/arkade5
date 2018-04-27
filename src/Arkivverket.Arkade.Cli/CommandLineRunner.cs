@@ -15,8 +15,6 @@ namespace Arkivverket.Arkade.Cli
         {
             try
             {
-                ArkadeProcessingArea.Establish(options.ProcessingArea);
-
                 var arkade = new Core.Arkade();
 
                 var fileInfo = new FileInfo(options.Archive);

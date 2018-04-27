@@ -61,6 +61,24 @@ namespace Arkivverket.Arkade.Cli {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [{Level}] {Message}{NewLine}{Exception}.
+        /// </summary>
+        internal static string SystemLogOutputTemplateForConsole {
+            get {
+                return ResourceManager.GetString("SystemLogOutputTemplateForConsole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {Timestamp:yyyy-MM-ddTHH:mm:ss.fff} [{Level}] {SourceContext} {Message}{NewLine}{Exception}.
+        /// </summary>
+        internal static string SystemLogOutputTemplateForFile {
+            get {
+                return ResourceManager.GetString("SystemLogOutputTemplateForFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkaderapport-{0}.html.
         /// </summary>
         internal static string TestReportFileName {

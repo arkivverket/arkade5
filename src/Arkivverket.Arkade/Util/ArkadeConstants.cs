@@ -2,6 +2,8 @@ namespace Arkivverket.Arkade.Util
 {
     public class ArkadeConstants
     {
+        public const string SystemLogFileNameFormat = "arkade-{Date}.log";
+
         public const string NoarkihXmlFileName = "NOARKIH.XML";
         public const string AddmlXmlFileName = "addml.xml";
         public const string AddmlXsdFileName = "addml.xsd";
