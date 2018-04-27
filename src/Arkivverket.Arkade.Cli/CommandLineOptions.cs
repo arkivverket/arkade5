@@ -27,8 +27,8 @@ namespace Arkivverket.Arkade.Cli
         [Option('o', "output-directory", HelpText = "Directory to place created package and test report.")]
         public string OutputDirectory { get; set; }
 
-        [Option('v', "verbose", HelpText = "Print details during execution.")]
-        public bool Verbose { get; set; }
+        //[Option('v', "verbose", HelpText = "Print details during execution.")]
+        //public bool Verbose { get; set; }
 
         internal string GetUsage()
         {
