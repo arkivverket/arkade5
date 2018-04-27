@@ -21,7 +21,6 @@ namespace Arkivverket.Arkade.Logging
             string pathToLogFile = testSession.Archive.WorkingDirectory.RepositoryOperations()
                 .WithFile(ArkadeConstants.ArkadeXmlLogFileName)
                 .FullName;
-            _log.Information("Writing xml log file to {LogFile}", pathToLogFile);
 
             testSessionLog log = GetTestSessionLog(testSession);
             FileStream fs = new FileStream(pathToLogFile, FileMode.Create);
