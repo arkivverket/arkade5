@@ -93,13 +93,13 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfComments());
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("I arkivdel (systemID) someSystemId_1 - Antall merknader i mapper: 1"));
+                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Antall merknader i mapper: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("I arkivdel (systemID) someSystemId_1 - Antall merknader i basisregistreringer: 1"));
+                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Antall merknader i basisregistreringer: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("I arkivdel (systemID) someSystemId_1 - Antall merknader i dokumentbeskrivelser: 1"));
+                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Antall merknader i dokumentbeskrivelser: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("I arkivdel (systemID) someSystemId_2 - Antall merknader i basisregistreringer: 1"));
+                r.Message.Equals("Arkivdel (systemID) someSystemId_2 - Antall merknader i basisregistreringer: 1"));
          }
     }
 }

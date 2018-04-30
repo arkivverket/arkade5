@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.NumberOfChangesLogged;
+            return Noark5TestNames.NumberOfChangesLogged;
         }
 
         public override TestType GetTestType()

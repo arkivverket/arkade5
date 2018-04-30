@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.NumberOfRestrictions;
+            return Noark5TestNames.NumberOfRestrictions;
         }
 
         public override TestType GetTestType()

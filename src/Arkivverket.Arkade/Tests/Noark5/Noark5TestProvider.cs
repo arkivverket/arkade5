@@ -6,19 +6,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
 {
     public class Noark5TestProvider: ITestProvider
     {
-        private readonly IArchiveContentReader _archiveReader;
-
-        public Noark5TestProvider(IArchiveContentReader archiveReader)
-        {
-            _archiveReader = archiveReader;
-        }
-
         public List<IArkadeStructureTest> GetStructureTests()
         {
             return new List<IArkadeStructureTest>
             {
                 new ValidateAddmlDataobjectsChecksums(),
-                new ValidateXmlWithSchema(_archiveReader),
+                new ValidateXmlWithSchema(),
                 new ValidateNumberOfDocumentfiles(),
             };
         }
@@ -39,7 +32,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfDocumentDescriptions(),
                 new NumberOfDocumentDescriptionsWithoutDocumentObject(),
                 new NumberOfDocumentObjects(),
-                new NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders(),
+                new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations(),
                 new NumberOfCaseParts(),
                 new ControlDocumentFilesExists(archive),
                 new NumberOfComments(),

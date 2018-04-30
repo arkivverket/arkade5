@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.ControlNoSuperclassesHasRegistrations;
+            return Noark5TestNames.ControlNoSuperclassesHasRegistrations;
         }
 
         public override TestType GetTestType()

@@ -60,24 +60,7 @@ namespace Arkivverket.Arkade.UI.Util
 
             sb.AppendLine("System information:");
             sb.AppendLine("Arkade version: " + ArkadeVersion.Current);
-            sb.AppendLine("OS: " + SystemInfo.GetOsName());
-            sb.AppendLine("OS Version: " + SystemInfo.GetOsVersion());
-            sb.AppendLine(".NET Framework: " + SystemInfo.GetDotNetFrameworkVersion());
             sb.AppendLine(".NET CLR: " + SystemInfo.GetDotNetClrVersion());
-
-            ulong totalPhysicalMemoryInBytes = SystemInfo.GetTotalPhysicalMemoryInBytes();
-            sb.AppendLine("Total physical memory: " + totalPhysicalMemoryInBytes + " (" +
-                          (totalPhysicalMemoryInBytes / 1024 / 1024) + " MB)");
-            ulong availablePhysicalMemoryInBytes = SystemInfo.GetAvailablePhysicalMemoryInBytes();
-            sb.AppendLine("Available physical memory: " + availablePhysicalMemoryInBytes + " (" +
-                          (availablePhysicalMemoryInBytes / 1024 / 1024) + " MB)");
-
-            ulong totalVirtualMemoryInBytes = SystemInfo.GetTotalVirtualMemoryInBytes();
-            sb.AppendLine("Total virtual memory: " + totalVirtualMemoryInBytes + " (" +
-                          (totalVirtualMemoryInBytes / 1024 / 1024) + " MB)");
-            ulong availableVirtualMemoryInBytes = SystemInfo.GetAvailableVirtualMemoryInBytes();
-            sb.AppendLine("Available virtual memory: " + availableVirtualMemoryInBytes + " (" +
-                          (availableVirtualMemoryInBytes / 1024 / 1024) + " MB)");
 
             long totalSpaceInBytes = SystemInfo.GetTotalDiskSpaceInBytes();
             sb.AppendLine("Total disk space: " + totalSpaceInBytes + " (" + (totalSpaceInBytes / 1024 / 1024) + " MB)");

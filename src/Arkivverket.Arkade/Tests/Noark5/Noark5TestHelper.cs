@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
@@ -32,18 +33,58 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public static bool PeriodSeparationIsSharp(Archive archive)
         {
-            var archiveExtraction = GetAddmlObject(ArkadeConstants.ArkivuttrekkXmlFileName, archive);
+            bool inboundSeparationIsSharp;
+            bool outboundSeparationIsSharp;
 
-            dataObject archiveExtractionElement = archiveExtraction.dataset[0].dataObjects.dataObject[0];
-            property infoElement = archiveExtractionElement.properties[0];
-            property additionalInfoElement = infoElement.properties[1];
-            property periodProperty =
-                additionalInfoElement.properties.FirstOrDefault(p => p.name == "periode");
+            addml archiveExtraction = GetAddmlObject(ArkadeConstants.ArkivuttrekkXmlFileName, archive);
 
-            property inboundSeparation = periodProperty.properties[0];
-            property outboundSeparation = periodProperty.properties[1];
+            try
+            {
+                dataObject archiveExtractionElement = archiveExtraction.dataset[0].dataObjects.dataObject[0];
+                property infoElement = archiveExtractionElement.properties[0];
+                property additionalInfoElement = infoElement.properties[1];
+                property periodProperty =
+                    additionalInfoElement.properties.FirstOrDefault(p => p.name == "periode");
 
-            return inboundSeparation.value.Equals("skarp") && outboundSeparation.value.Equals("skarp");
+                property inboundSeparationProperty = periodProperty.properties[0];
+                property outboundSeparationProperty = periodProperty.properties[1];
+
+                inboundSeparationIsSharp = inboundSeparationProperty.value.Equals("skarp");
+                outboundSeparationIsSharp = outboundSeparationProperty.value.Equals("skarp");
+            }
+            catch
+            {
+                string exceptionMessage = string.Format(Resources.ExceptionMessages.PeriodSeparationParseError, ArkadeConstants.ArkivuttrekkXmlFileName);
+
+                throw new ArkadeException(exceptionMessage);
+            }
+
+            return inboundSeparationIsSharp && outboundSeparationIsSharp;
+        }
+        public static bool FileIsDescribed(string fileName, Archive archive)
+        {
+            addml archiveExtraction = GetAddmlObject(ArkadeConstants.ArkivuttrekkXmlFileName, archive);
+
+            try
+            {
+                dataObject archiveExtractionElement = archiveExtraction.dataset[0].dataObjects.dataObject[0];
+
+                dataObject fileElement = archiveExtractionElement.dataObjects.dataObject.FirstOrDefault(
+                    d => d.name == Path.GetFileNameWithoutExtension(fileName)
+                );
+
+                return fileElement != null;
+            }
+            catch
+            {
+                string exceptionMessage = string.Format(
+                    Resources.ExceptionMessages.FileDescriptionParseError,
+                    fileName,
+                    ArkadeConstants.ArkivuttrekkXmlFileName
+                );
+
+                throw new ArkadeException(exceptionMessage);
+            }
         }
 
         public static addml GetAddmlObject(string addmlXmlFileName, Archive archive)
@@ -76,7 +117,11 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public static bool TryParseArchiveDate(string dateStringFromArchive, out DateTime dateTime)
         {
-            var acceptedFormats = new[] { "yyyy-MM-dd", "yyyy-MM-ddTHH:mm:ss", "yyyy-MM-ddTHH:mm:ssZ" };
+            var acceptedFormats = new[]
+            {
+                "yyyy-MM-dd", // date only
+                "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", // date + time [+ milliseconds] [+ timezone]
+            };
 
             return DateTime.TryParseExact(dateStringFromArchive, acceptedFormats,
                 CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dateTime);

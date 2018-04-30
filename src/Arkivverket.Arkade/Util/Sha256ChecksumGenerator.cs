@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Util
         /// <returns></returns>
         public string GenerateChecksum(string pathToFile)
         {
-            HashAlgorithm h = HashAlgorithm.Create("SHA256");
+            HashAlgorithm h = (HashAlgorithm) CryptoConfig.CreateFromName("SHA256");
             if (h == null)
             {
                 throw new ArkadeException("Checksum algorithm SHA-256 not supported.");

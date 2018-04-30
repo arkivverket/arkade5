@@ -109,9 +109,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfRegistrationsPerYear());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("I arkivdel (systemID) someSystemId_1 - 1863: 2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("I arkivdel (systemID) someSystemId_2 - 1864: 1"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("I arkivdel (systemID) someSystemId_2 - 1865: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_1 - 1863: 2"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_2 - 1864: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_2 - 1865: 1"));
         }
     }
 }

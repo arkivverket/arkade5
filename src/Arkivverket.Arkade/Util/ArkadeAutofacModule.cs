@@ -16,7 +16,6 @@ namespace Arkivverket.Arkade.Util
         {
             builder.RegisterType<AddmlDatasetTestEngine>().AsSelf();
             builder.RegisterType<AddmlProcessRunner>().AsSelf();
-            builder.RegisterType<ArchiveContentReader>().As<IArchiveContentReader>();
             builder.RegisterType<ArchiveIdentifier>().As<IArchiveIdentifier>();
             builder.RegisterType<FlatFileReaderFactory>().AsSelf();
             builder.RegisterType<Noark5TestEngine>().AsSelf();

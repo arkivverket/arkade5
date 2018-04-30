@@ -1,5 +1,6 @@
 using Arkivverket.Arkade.Core.Addml.Definitions;
 using Arkivverket.Arkade.Core.Addml.Processes;
+using Arkivverket.Arkade.Core.Addml.Processes.Hardcoded;
 using Arkivverket.Arkade.Core.Addml.Processes.Internal;
 
 namespace Arkivverket.Arkade.Core.Addml
@@ -22,6 +23,7 @@ namespace Arkivverket.Arkade.Core.Addml
         public void RunProcesses(FlatFile file)
         {
             _fileProcessRunner.RunProcesses(file);
+            _processManager.GetProcessInstanceByName(ControlChecksum.Name).Run(file);
         }
 
         public void RunProcesses(FlatFile file, Record record)

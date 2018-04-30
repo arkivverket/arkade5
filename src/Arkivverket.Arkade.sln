@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.UI", "Arkivverket.Arkade.UI\Arkivverket.Arkade.UI.csproj", "{13964257-FE3D-427B-841A-402EAA8E1942}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade", "Arkivverket.Arkade\Arkivverket.Arkade.csproj", "{D4008C3C-61EF-48A4-B333-793476B7104D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arkivverket.Arkade", "Arkivverket.Arkade\Arkivverket.Arkade.csproj", "{D4008C3C-61EF-48A4-B333-793476B7104D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.Test", "Arkivverket.Arkade.Test\Arkivverket.Arkade.Test.csproj", "{24B2B89B-9399-4FBA-9C48-B1DBBBFE6ED7}"
 EndProject
@@ -66,5 +66,8 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB0D5E6B-A55A-4489-BF2C-2BAB34E12796}
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

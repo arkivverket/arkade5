@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.NumberOfDisposalsExecuted;
+            return Noark5TestNames.NumberOfDisposalsExecuted;
         }
 
         public override TestType GetTestType()

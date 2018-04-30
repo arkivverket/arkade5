@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ControlDocumentFilesExists" xml:space="preserve">
+    <value>Refererte dokumenters eksistens</value>
+  </data>
+  <data name="FirstAndLastRegistrationCreationDates" xml:space="preserve">
+    <value>Opprettelsesdatoer for første og siste registrering</value>
+  </data>
+  <data name="DocumentfilesReferenceControl" xml:space="preserve">
+    <value>Dokumentfiler som mangler referanse</value>
+  </data>
+  <data name="NumberOfArchiveParts" xml:space="preserve">
+    <value>Antall arkivdeler</value>
+  </data>
+  <data name="NumberOfArchives" xml:space="preserve">
+    <value>Antall arkiv</value>
+  </data>
+  <data name="NumberOfCaseParts" xml:space="preserve">
+    <value>Antall saksparter</value>
+  </data>
+  <data name="NumberOfClasses" xml:space="preserve">
+    <value>Antall klasser</value>
+  </data>
+  <data name="NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders" xml:space="preserve">
+    <value>Antall klasser i det primære klassifikasjonssystemet uten underklasser, mapper eller registreringer</value>
+  </data>
+  <data name="NumberOfClassificationSystems" xml:space="preserve">
+    <value>Antall klassifikasjonssystem</value>
+  </data>
+  <data name="NumberOfComments" xml:space="preserve">
+    <value>Antall merknader</value>
+  </data>
+  <data name="NumberOfCorrespondenceParts" xml:space="preserve">
+    <value>Antall korrespondanseparter</value>
+  </data>
+  <data name="NumberOfCrossReferences" xml:space="preserve">
+    <value>Antall kryssreferanser</value>
+  </data>
+  <data name="NumberOfDepreciations" xml:space="preserve">
+    <value>Antall avskrivninger</value>
+  </data>
+  <data name="NumberOfDocumentDescriptions" xml:space="preserve">
+    <value>Antall dokumentbeskrivelser</value>
+  </data>
+  <data name="NumberOfDocumentDescriptionsWithoutDocumentObject" xml:space="preserve">
+    <value>Antall dokumentbeskrivelser uten dokumentobjekt</value>
+  </data>
+  <data name="NumberOfDocumentFlows" xml:space="preserve">
+    <value>Antall dokumentflyter</value>
+  </data>
+  <data name="NumberOfDocumentObjects" xml:space="preserve">
+    <value>Antall dokumentobjekter</value>
+  </data>
+  <data name="NumberOfFolders" xml:space="preserve">
+    <value>Antall mapper</value>
+  </data>
+  <data name="NumberOfFoldersPerYear" xml:space="preserve">
+    <value>Antall mapper for hvert år</value>
+  </data>
+  <data name="NumberOfFoldersWithoutRegistrationsOrSubfolders" xml:space="preserve">
+    <value>Antall mapper uten registreringer eller undermapper</value>
+  </data>
+  <data name="NumberOfJournalPosts" xml:space="preserve">
+    <value>Antall journalposter</value>
+  </data>
+  <data name="NumberOfEachJournalPostType" xml:space="preserve">
+    <value>Antall av ulike journalposttyper</value>
+  </data>
+  <data name="NumberOfPrecedents" xml:space="preserve">
+    <value>Antall presedenser</value>
+  </data>
+  <data name="NumberOfRegistrations" xml:space="preserve">
+    <value>Antall registreringer</value>
+  </data>
+  <data name="NumberOfRegistrationsPerYear" xml:space="preserve">
+    <value>Antall registreringer for hvert år</value>
+  </data>
+  <data name="NumberOfRegistrationsWithoutDocumentDescription" xml:space="preserve">
+    <value>Antall registreringer uten dokumentbeskrivelse</value>
+  </data>
+  <data name="StatusOfArchiveParts" xml:space="preserve">
+    <value>Status på arkivdeler</value>
+  </data>
+  <data name="ValidateAddmlDataobjectsChecksums" xml:space="preserve">
+    <value>Validering av sjekksummer</value>
+  </data>
+  <data name="ValidateNumberOfDocumentfiles" xml:space="preserve">
+    <value>Validering av antall dokumentfiler</value>
+  </data>
+  <data name="ValidateXmlWithSchema" xml:space="preserve">
+    <value>Validering av XML i henhold til skjema</value>
+  </data>
+  <data name="NumberOfRegistrationsPerClass" xml:space="preserve">
+    <value>Antall registreringer for hver klasse (ikke medregnet registreringer under mappe)</value>
+  </data>
+  <data name="NumberOfEachJournalStatus" xml:space="preserve">
+    <value>Antall av ulike journalstatuser</value>
+  </data>
+  <data name="NumberOfEachDocumentStatus" xml:space="preserve">
+    <value>Antall av ulike dokumentstatuser</value>
+  </data>
+  <data name="NumberOfEachDocumentFormat" xml:space="preserve">
+    <value>Antall av ulike dokumentformater</value>
+  </data>
+  <data name="NumberOfMultiReferencedDocumentFiles" xml:space="preserve">
+    <value>Dokumentfiler med referanse fra mer enn ett dokumentobjekt</value>
+  </data>
+  <data name="ControlNoSuperclassesHasFolders" xml:space="preserve">
+    <value>Klasser med både underklasse(r) og mappe(r)</value>
+  </data>
+  <data name="NumberOfClassifications" xml:space="preserve">
+    <value>Antall graderinger</value>
+  </data>
+  <data name="NumberOfDisposalResolutions" xml:space="preserve">
+    <value>Antall kassasjonsvedtak</value>
+  </data>
+  <data name="NumberOfDisposalsExecuted" xml:space="preserve">
+    <value>Antall utførte kassasjoner</value>
+  </data>
+  <data name="NumberOfRestrictions" xml:space="preserve">
+    <value>Antall skjerminger</value>
+  </data>
+  <data name="NumberOfConversions" xml:space="preserve">
+    <value>Antall konverterte dokumenter</value>
+  </data>
+  <data name="ArchiveStartAndEndDateControl" xml:space="preserve">
+    <value>Start- og sluttdatoer</value>
+  </data>
+  <data name="NumberOfChangesLogged" xml:space="preserve">
+    <value>Antall loggførte endringer</value>
+  </data>
+  <data name="ChangeLogArchiveReferenceControl" xml:space="preserve">
+    <value>Endringslogg-referanser til arkivstrukturen</value>
+  </data>
+  <data name="SystemIdUniqueControl" xml:space="preserve">
+    <value>Systemidentifikasjoner</value>
+  </data>
+  <data name="ControlNoSuperclassesHasRegistrations" xml:space="preserve">
+    <value>Klasser med både underklasse(r) og registrering(er)</value>
+  </data>
+  <data name="ClassReferenceControl" xml:space="preserve">
+    <value>Klassereferanser</value>
+  </data>
+  <data name="DocumentFilesChecksumControl" xml:space="preserve">
+    <value>Dokumentfilers sjekksummer</value>
+  </data>
+  <data name="NumberOfFoldersPerClass" xml:space="preserve">
+    <value>Antall mapper for hver klasse</value>
+  </data>
+  <data name="NumberOfEachCaseFolderStatus" xml:space="preserve">
+    <value>Antall av ulike saksmappestatuser</value>
+  </data>
+  <data name="ArchivepartReferenceControl" xml:space="preserve">
+    <value>Arkivdelreferanser</value>
+  </data>
+</root>

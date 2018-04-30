@@ -196,16 +196,17 @@
     <value>Følgende ikke-boolske verdier finnes: {0}</value>
   </data>
   <data name="ControlChecksumDescription" xml:space="preserve">
-    <value>Kontrollerer checksum</value>
+    <value>Kontroll av sjekksummer</value>
   </data>
-  <data name="ControlChecksumMessage1" xml:space="preserve">
-    <value>Ukjent algoritme '{0}'</value>
+  <data name="ControlChecksumMessage_ChecksumMismatch" xml:space="preserve">
+    <value>Forventet sjekksum: {0}
+Aktuell sjekksum: {1}</value>
   </data>
-  <data name="ControlChecksumMessage2" xml:space="preserve">
-    <value>Forventet checksum '{0}'. Var '{1}'.</value>
+  <data name="ControlChecksumMessage_ChecksumMissing" xml:space="preserve">
+    <value>Ingen sjekksum funnet i ADDML-filen</value>
   </data>
-  <data name="ControlChecksumMessage3" xml:space="preserve">
-    <value>Ingen sjekksum i ADDML-filen</value>
+  <data name="ControlChecksumMessage_UnknownChecksumAlgorithm" xml:space="preserve">
+    <value>Ukjent sjekksum-algoritme: {0}</value>
   </data>
   <data name="ControlCodesDescription" xml:space="preserve">
     <value>Kontrollerer om definerte koder benyttes og om det benyttes koder som ikke er definert i kodelisten</value>
@@ -318,9 +319,6 @@
   <data name="ExceptionReadingAddmlFile" xml:space="preserve">
     <value>Feil ved innlesing av ADDML.
 {0}</value>
-  </data>
-  <data name="FileNotFoundMessage" xml:space="preserve">
-    <value>Finner ikke filen: {0}</value>
   </data>
   <data name="LogMessageFinishedTesting" xml:space="preserve">
     <value>Testing av arkivet er fullført.</value>

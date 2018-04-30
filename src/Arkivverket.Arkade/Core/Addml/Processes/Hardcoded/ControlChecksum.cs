@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Tests;
 using System.IO;
@@ -45,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
             if (flatFile.Definition.Checksum == null)
             {
                 _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFlatFileIndex(flatFile.Definition.GetIndex()),
-                           string.Format(Messages.ControlChecksumMessage3)));
+                           string.Format(Messages.ControlChecksumMessage_ChecksumMissing)));
                 return;
             }
 
@@ -53,11 +54,11 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
             string expectedChecksum = flatFile.Definition.Checksum.Value;
             FileInfo file = flatFile.Definition.FileInfo;
 
-            HashAlgorithm h = HashAlgorithm.Create(checksumAlgorithm);
+            HashAlgorithm h = (HashAlgorithm) CryptoConfig.CreateFromName(checksumAlgorithm);
             if (h == null)
             {
                 _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFlatFileIndex(flatFile.Definition.GetIndex()),
-                           string.Format(Messages.ControlChecksumMessage1, checksumAlgorithm)));
+                           string.Format(Messages.ControlChecksumMessage_UnknownChecksumAlgorithm, checksumAlgorithm)));
                 return;
             }
 
@@ -68,10 +69,10 @@ namespace Arkivverket.Arkade.Core.Addml.Processes.Hardcoded
             }
             string actualChecksum = Hex.ToHexString(bytes);
 
-            if (expectedChecksum != actualChecksum)
+            if (!actualChecksum.Equals(expectedChecksum, StringComparison.InvariantCultureIgnoreCase))
             {
                 _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFlatFileIndex(flatFile.Definition.GetIndex()),
-                           string.Format(Messages.ControlChecksumMessage2, expectedChecksum, actualChecksum)));
+                           string.Format(Messages.ControlChecksumMessage_ChecksumMismatch, expectedChecksum, actualChecksum)));
             }
         }
 

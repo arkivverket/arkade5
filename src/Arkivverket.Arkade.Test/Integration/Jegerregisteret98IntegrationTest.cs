@@ -2,7 +2,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Windows.Media.Animation;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Addml.Processes;
 using FluentAssertions;

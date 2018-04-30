@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core;
+﻿using System;
 using CommandLine;
 using CommandLine.Text;
 
@@ -24,17 +24,26 @@ namespace Arkivverket.Arkade.Cli
         [Option('p', "processing-area", HelpText = "Directory to place temporary files and logs.")]
         public string ProcessingArea { get; set; }
 
-        [Option('o', "output-directory", HelpText = "Directory to put created packages.")]
-        public string PackageOutputDirectory { get; set; }
+        [Option('o', "output-directory", HelpText = "Directory to place created package and test report.")]
+        public string OutputDirectory { get; set; }
 
-        [Option('v', "verbose", HelpText = "Print details during execution.")]
-        public bool Verbose { get; set; }
-        
-        [HelpOption]
-        public string GetUsage()
+        //[Option('v', "verbose", HelpText = "Print details during execution.")]
+        //public bool Verbose { get; set; }
+
+        internal string GetUsage()
         {
-            return HelpText.AutoBuild(this, current => HelpText.DefaultParsingErrorsHandler(this, current));
+            var result = new Parser().ParseArguments<CommandLineOptions>("".Split());
+
+            var helptext = HelpText.AutoBuild(result, help =>
+            {
+                help.AddOptions(result);
+                return help;
+            }, example =>
+            {
+                return example;
+            });
+
+            return helptext;
         }
-        
     }
 }

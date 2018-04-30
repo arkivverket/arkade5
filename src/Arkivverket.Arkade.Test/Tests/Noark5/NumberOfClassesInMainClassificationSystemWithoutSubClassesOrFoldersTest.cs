@@ -1,7 +1,5 @@
-using System;
 using System.Linq;
 using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Tests;
 using Arkivverket.Arkade.Tests.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -11,113 +9,86 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
     public class NumberOfClassesInMainClassificationSystemWithoutSubClassesOrFoldersTest
     {
         [Fact]
-        public void NumberOfClassesWithoutFolderIsZero()
+        public void NumberOfEmptyClassesIsZero()
         {
-            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
-                new XmlElementHelper()
-                    .Add("arkivdel",
-                        new XmlElementHelper()
-                        .Add("klassifikasjonssystem",
-                            new XmlElementHelper()
-                            .Add("klasse", 
-                                new XmlElementHelper()
-                                .Add("mappe", String.Empty)
-                            )
-                        )
-                    )
-            );
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someArchivePartSystemId")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", string.Empty))
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("registrering", string.Empty))
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("klasse", new XmlElementHelper()
+                                    .Add("mappe", string.Empty))))));
 
-            RunTestWith(helper).Message.Should().Contain("0");
+            TestRun testRun =
+                helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
+
+            testRun.Results.First().Message.Should().Be("0");
         }
 
         [Fact]
-        public void NumberOfClassesWithoutSubClassIsZero()
+        public void NumberOfEmptyClassesIsTwo()
         {
-            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
-                new XmlElementHelper()
-                    .Add("arkivdel",
-                        new XmlElementHelper()
-                        .Add("klassifikasjonssystem",
-                            new XmlElementHelper()
-                            .Add("klasse",
-                                new XmlElementHelper()
-                                .Add("klasse", String.Empty)
-                            )
-                        )
-                    )
-            );
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someArchivePartSystemId")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("klasse", string.Empty))
+                            .Add("klasse", string.Empty)))
+                );
 
-            RunTestWith(helper).Message.Should().Contain("0");
+            TestRun testRun =
+                helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
+
+            testRun.Results.First().Message.Should().Be("2");
         }
 
         [Fact]
-        public void NumberOfClassesWithoutSubClassesIsOne()
+        public void NumberOfEmptyClassesIsTwoInTwoDifferentArchiveparts()
         {
-            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
-                new XmlElementHelper()
-                    .Add("arkivdel",
-                        new XmlElementHelper().Add("klassifikasjonssystem",
-                            new XmlElementHelper()
-                                .Add("klasse", string.Empty)
-                        )
-                    )
-            );
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someArchivePartSystemId_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", string.Empty)))
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someArchivePartSystemId_2")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", string.Empty))));
 
-            RunTestWith(helper).Message.Should().Contain("1");
+            TestRun testRun =
+                helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
+
+            testRun.Results[0].Message.Should().Be("Arkivdel (systemID) someArchivePartSystemId_1: 1");
+            testRun.Results[1].Message.Should().Be("Arkivdel (systemID) someArchivePartSystemId_2: 1");
         }
 
         [Fact]
-        public void NumberOfClassesWithoutSubClassIsTwo()
+        public void NumberOfEmptyClassesIsOnlyCountedInPrimaryClassificationSystem()
         {
-            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
-                new XmlElementHelper()
-                    .Add("arkivdel",
-                        new XmlElementHelper()
-                        .Add("klassifikasjonssystem",
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv",
+                    new XmlElementHelper()
+                        .Add("arkivdel",
                             new XmlElementHelper()
-                            .Add("klasse", string.Empty)
-                            .Add("klasse",
-                                    new XmlElementHelper()
-                                    .Add("klasse", 
+                                .Add("systemID", "someArchivePartSystemId")
+                                .Add("klassifikasjonssystem",
                                     new XmlElementHelper())
-                                        .Add("mappe", string.Empty)
-                                )
-                            .Add("klasse", string.Empty)
-                        )
-                    )
-            );
+                                .Add("klassifikasjonssystem",
+                                    new XmlElementHelper()
+                                        .Add("klasse", string.Empty))));
 
-            RunTestWith(helper).Message.Should().Contain("2");
+            TestRun testRun =
+                helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
+
+            testRun.Results.First().Message.Should().Be("0");
         }
-
-        [Fact]
-        public void NumberOfClassesWithoutSubClassIsTwoInPrimaryClassificationSystem()
-        {
-            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
-                new XmlElementHelper()
-                    .Add("arkivdel",
-                        new XmlElementHelper()
-                        .Add("klassifikasjonssystem",
-                            new XmlElementHelper()
-                            .Add("klasse", string.Empty)
-                            .Add("klasse", string.Empty)
-                            )
-                        .Add("klassifikasjonssystem",
-                            new XmlElementHelper()
-                            .Add("klasse", string.Empty)
-                            .Add("klasse", string.Empty)
-                        )
-                    )
-            );
-
-            RunTestWith(helper).Message.Should().Contain("2");
-        }
-
-        private TestResult RunTestWith(XmlElementHelper helper)
-        {
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders());
-            return testRun.Results.First();
-        }
-
     }
 }

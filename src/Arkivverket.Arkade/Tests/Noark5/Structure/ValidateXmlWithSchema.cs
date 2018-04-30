@@ -18,39 +18,37 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 3);
 
-        private readonly IArchiveContentReader _archiveReader;
         private readonly List<TestResult> _testResults = new List<TestResult>();
-
-        public ValidateXmlWithSchema(IArchiveContentReader archiveReader)
-        {
-            _archiveReader = archiveReader;
-        }
 
         public override void Test(Archive archive)
         {
-            ValidateXml(archive.GetStructureDescriptionFileName(), _archiveReader.GetStructureContentAsStream(archive),
+            ValidateXml(archive.AddmlFile.FullName, archive.AddmlFile.AsStream(),
                 GetStructureDescriptionXmlSchemaStream(archive));
 
-            ValidateXml(archive.GetContentDescriptionFileName(), _archiveReader.GetContentAsStream(archive),
+            ValidateXml(archive.ArchiveStructureFile.FullName, archive.ArchiveStructureFile.AsStream(),
                 GetContentDescriptionXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
+
+            if (Noark5TestHelper.FileIsDescribed(ArkadeConstants.PublicJournalXmlFileName, archive))
+                ValidateXml(archive.PublicJournalFile.FullName, archive.PublicJournalFile.AsStream(),
+                    GetPublicJournalXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
+
+            if (Noark5TestHelper.FileIsDescribed(ArkadeConstants.RunningJournalXmlFileName, archive))
+                ValidateXml(archive.RunningJournalFile.FullName, archive.RunningJournalFile.AsStream(),
+                    GetRunningJournalXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
         }
 
         private void ValidateXml(string fullPathToFile, Stream fileStream, params Stream[] xsdResources)
         {
             string fileName = Path.GetFileName(fullPathToFile);
+
+            // Use the Noark 5 archive filename for testresults:
+            if (fileName.Equals(ArkadeConstants.AddmlXmlFileName)) 
+                fileName = ArkadeConstants.ArkivuttrekkXmlFileName;
+
             try
             {
-                List<string> validationErrorMessages = new XmlValidator().Validate(fileStream, xsdResources);
-                if (validationErrorMessages.Any())
-                    foreach (string validationErrorMessage in validationErrorMessages)
-                    {
-                        _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
-                            string.Format(Noark5Messages.XmlDoesNotValidateWithSchema,
-                                fileName, validationErrorMessage)));
-                    }
-                else
-                    _testResults.Add(new TestResult(ResultType.Success, new Location(fileName),
-                        Noark5Messages.ValidateXmlWithSchemaMessageValid));
+                foreach (string validationErrorMessage in new XmlValidator().Validate(fileStream, xsdResources))
+                    _testResults.Add(new TestResult(ResultType.Error, new Location(fileName), validationErrorMessage));
             }
             catch (Exception e)
             {
@@ -61,8 +59,8 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         private Stream GetStructureDescriptionXmlSchemaStream(Archive archive)
         {
-            if (archive.HasStructureDescriptionXmlSchema())
-                return _archiveReader.GetStructureDescriptionXmlSchemaAsStream(archive);
+            if (archive.AddmlSchemaFile.Exists)
+                return archive.AddmlSchemaFile.AsStream();
 
             // Fallback on internal addml.xsd:
 
@@ -75,8 +73,8 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         private Stream GetContentDescriptionXmlSchemaStream(Archive archive)
         {
-            if (archive.HasContentDescriptionXmlSchema())
-                return _archiveReader.GetContentDescriptionXmlSchemaAsStream(archive);
+            if (archive.ArchiveStructureSchemaFile.Exists)
+                return archive.ArchiveStructureSchemaFile.AsStream();
 
             // Fallback on internal arkivstruktur.xsd:
 
@@ -89,8 +87,8 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         private Stream GetMetadataCatalogXmlSchemaStream(Archive archive)
         {
-            if (archive.HasMetadataCatalogXmlSchema())
-                return _archiveReader.GetMetadataCatalogXmlSchemaAsStream(archive);
+            if (archive.MetadataCatalogSchemaFile.Exists)
+                return archive.MetadataCatalogSchemaFile.AsStream();
 
             // Fallback on internal metadatakatalog.xsd:
 
@@ -101,6 +99,34 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             return ResourceUtil.GetResourceAsStream(ArkadeConstants.MetadatakatalogXsdResource);
         }
 
+        private Stream GetPublicJournalXmlSchemaStream(Archive archive)
+        {
+            if (archive.PublicJournalSchemaFile.Exists)
+                return archive.PublicJournalSchemaFile.AsStream();
+
+            // Fallback on internal schema for public journal:
+
+            _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                // TODO: Consider ResultType.Warning (if it becomes supported)
+                string.Format(Noark5Messages.InternalSchemaFileIsUsed, ArkadeConstants.PublicJournalXsdFileName)));
+
+            return ResourceUtil.GetResourceAsStream(ArkadeConstants.PublicJournalXsdResource);
+        }
+
+        private Stream GetRunningJournalXmlSchemaStream(Archive archive)
+        {
+            if (archive.RunningJournalSchemaFile.Exists)
+                return archive.RunningJournalSchemaFile.AsStream();
+
+            // Fallback on internal schema for running journal:
+
+            _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                // TODO: Consider ResultType.Warning (if it becomes supported)
+                string.Format(Noark5Messages.InternalSchemaFileIsUsed, ArkadeConstants.RunningJournalXsdFileName)));
+
+            return ResourceUtil.GetResourceAsStream(ArkadeConstants.RunningJournalXsdResource);
+        }
+
         public override TestId GetId()
         {
             return _id;
@@ -108,7 +134,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         public override string GetName()
         {
-            return Noark5Messages.ValidateXmlWithSchema;
+            return Noark5TestNames.ValidateXmlWithSchema;
         }
 
         public override TestType GetTestType()

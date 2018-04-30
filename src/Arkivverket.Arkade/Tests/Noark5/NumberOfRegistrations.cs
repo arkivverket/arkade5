@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.NumberOfRegistrations;
+            return Noark5TestNames.NumberOfRegistrations;
         }
 
         protected override string GetResultMessage()

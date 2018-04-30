@@ -11,13 +11,11 @@ namespace Arkivverket.Arkade.Core.Noark5
 {
     public class Noark5TestEngine : ITestEngine
     {
-        private readonly IArchiveContentReader _archiveContentReader;
         private readonly ITestProvider _testProvider;
         private readonly IStatusEventHandler _statusEventHandler;
 
-        public Noark5TestEngine(IArchiveContentReader archiveContentReader, ITestProvider testProvider, IStatusEventHandler statusEventHandler)
+        public Noark5TestEngine(ITestProvider testProvider, IStatusEventHandler statusEventHandler)
         {
-            _archiveContentReader = archiveContentReader;
             _testProvider = testProvider;
             _statusEventHandler = statusEventHandler;
         }
@@ -52,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Noark5
 
             SubscribeTestsToReadElementEvent(contentTests);
 
-            using (var reader = XmlReader.Create(_archiveContentReader.GetContentAsStream(archive)))
+            using (var reader = XmlReader.Create(archive.ArchiveStructureFile.AsStream()))
             {
                 RaiseEventStartParsingFile();
 
@@ -113,7 +111,7 @@ namespace Arkivverket.Arkade.Core.Noark5
                         var message = new StringBuilder();
 
                         foreach (var result in errorTestResults)
-                            message.AppendLine().AppendLine(result.Message);
+                            message.AppendLine().AppendLine(result.Location + " - " + result.Message);
 
                         _statusEventHandler.RaiseEventOperationMessage(test.GetName(), message.ToString(),
                             OperationMessageStatus.Error);

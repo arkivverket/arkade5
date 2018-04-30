@@ -35,7 +35,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.ArchiveStartAndEndDateControl;
+            return Noark5TestNames.ArchiveStartAndEndDateControl;
         }
 
         public override TestType GetTestType()

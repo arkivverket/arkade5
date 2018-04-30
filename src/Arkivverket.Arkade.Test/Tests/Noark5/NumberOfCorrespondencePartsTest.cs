@@ -67,8 +67,8 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfCorrespondenceParts());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("I arkivdel (systemID) someSystemId_1: 1"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("I arkivdel (systemID) someSystemId_2: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_1: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_2: 1"));
         }
     }
 }

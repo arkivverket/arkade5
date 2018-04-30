@@ -70,11 +70,56 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkade klarte ikke å finne informasjon om {0} i {1}.
+        /// </summary>
+        internal static string FileDescriptionParseError {
+            get {
+                return ResourceManager.GetString("FileDescriptionParseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finner ikke filen: {0}.
+        /// </summary>
+        internal static string FileNotFound {
+            get {
+                return ResourceManager.GetString("FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kunne ikke lese inn filen: {0}.
+        /// </summary>
+        internal static string FileNotRead {
+            get {
+                return ResourceManager.GetString("FileNotRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kunne ikke kombinere {0} og {1}.
         /// </summary>
         internal static string PathCombine {
             get {
                 return ResourceManager.GetString("PathCombine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkade klarte ikke å tolke informasjon om periodeskille i {0}.
+        /// </summary>
+        internal static string PeriodSeparationParseError {
+            get {
+                return ResourceManager.GetString("PeriodSeparationParseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linje {0}: {1}.
+        /// </summary>
+        internal static string XmlValidationErrorMessage {
+            get {
+                return ResourceManager.GetString("XmlValidationErrorMessage", resourceCulture);
             }
         }
     }

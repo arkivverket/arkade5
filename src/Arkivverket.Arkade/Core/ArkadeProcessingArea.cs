@@ -54,6 +54,14 @@ namespace Arkivverket.Arkade.Core
             RootDirectory?.Refresh();
         }
 
+        public static void SetupTemporaryLogsDirectory()
+        {
+            string directoryPath = GetTemporaryLogsDirectoryPath();
+            const string logMessage = "Temporary system logs directory created: ";
+
+            LogsDirectory = CreateDirectory(directoryPath, logMessage);
+        }
+
         private static void SetupLocation(string locationPath)
         {
             var location = new DirectoryInfo(locationPath);
@@ -81,14 +89,6 @@ namespace Arkivverket.Arkade.Core
             // Deletes any temporary logs:
             if (Directory.Exists(GetTemporaryLogsDirectoryPath()))
                 Directory.Delete(GetTemporaryLogsDirectoryPath(), true);
-        }
-
-        private static void SetupTemporaryLogsDirectory()
-        {
-            string directoryPath = GetTemporaryLogsDirectoryPath();
-            const string logMessage = "Temporary system logs directory created: ";
-
-            LogsDirectory = CreateDirectory(directoryPath, logMessage);
         }
 
         private static DirectoryInfo CreateDirectory(string directoryPath, string customLogMessage = null)

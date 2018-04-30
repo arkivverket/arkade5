@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Reflection;
 using System.IO;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Metadata;
@@ -43,7 +43,7 @@ namespace Arkivverket.Arkade.Test.Metadata
 
         private string CreateMetsFile(PackageType packageType)
         {
-            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Metadata\\DiasMetsCreator";
+            string workingDirectory = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\\TestData\\Metadata\\DiasMetsCreator";
 
             Archive archive = new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)

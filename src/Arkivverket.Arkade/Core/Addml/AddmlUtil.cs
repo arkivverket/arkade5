@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Addml
             }
             catch (FileNotFoundException e)
             {
-                throw new ArkadeException(string.Format(Resources.Messages.FileNotFoundMessage, fileName), e);
+                throw new ArkadeException(string.Format(Resources.ExceptionMessages.FileNotFound, fileName), e);
             }
             catch (Exception e)
             {

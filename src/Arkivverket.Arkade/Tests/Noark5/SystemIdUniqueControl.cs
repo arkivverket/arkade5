@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.SystemIdUniqueControl;
+            return Noark5TestNames.SystemIdUniqueControl;
         }
 
         public override TestType GetTestType()

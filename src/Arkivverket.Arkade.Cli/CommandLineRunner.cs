@@ -15,8 +15,6 @@ namespace Arkivverket.Arkade.Cli
         {
             try
             {
-                ArkadeProcessingArea.Establish(options.ProcessingArea);
-
                 var arkade = new Core.Arkade();
 
                 var fileInfo = new FileInfo(options.Archive);
@@ -34,7 +32,9 @@ namespace Arkivverket.Arkade.Cli
 
                 testSession.ArchiveMetadata = archiveMetadata;
 
-                arkade.CreatePackage(testSession, PackageType.SubmissionInformationPackage, options.PackageOutputDirectory);
+                arkade.CreatePackage(testSession, PackageType.SubmissionInformationPackage, options.OutputDirectory);
+                
+                arkade.SaveReport(testSession, PrepareTestReportFile(options, testSession));
             }
             finally
             {
@@ -60,6 +60,14 @@ namespace Arkivverket.Arkade.Cli
                 throw new ArgumentException("Invalid archive path: " + options.Archive);
             }
             return testSession;
+        }
+
+        private static FileInfo PrepareTestReportFile(CommandLineOptions options, TestSession testSession)
+        {
+            string testReportFileName = string.Format(OutputStrings.TestReportFileName, testSession.Archive.Uuid);
+            string testReportFullPath = Path.Combine(options.OutputDirectory, testReportFileName);
+
+            return new FileInfo(testReportFullPath);
         }
     }
 }

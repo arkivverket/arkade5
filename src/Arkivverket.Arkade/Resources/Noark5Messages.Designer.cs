@@ -61,15 +61,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdelreferanser.
-        /// </summary>
-        internal static string ArchivepartReferenceControl {
-            get {
-                return ResourceManager.GetString("ArchivepartReferenceControl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Referanse fra {0} (systemID) {1} til arkivdel (systemID) {2} er ikke gyldig.
         /// </summary>
         internal static string ArchivepartReferenceControlMessage {
@@ -84,15 +75,6 @@ namespace Arkivverket.Arkade.Resources {
         internal static string ArchivePartSystemId {
             get {
                 return ResourceManager.GetString("ArchivePartSystemId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start- og sluttdatoer.
-        /// </summary>
-        internal static string ArchiveStartAndEndDateControl {
-            get {
-                return ResourceManager.GetString("ArchiveStartAndEndDateControl", resourceCulture);
             }
         }
         
@@ -142,47 +124,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Endringslogg-referanser til arkivstrukturen.
-        /// </summary>
-        internal static string ChangeLogArchiveReferenceControl {
-            get {
-                return ResourceManager.GetString("ChangeLogArchiveReferenceControl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Referanse til arkivenhet er ikke gyldig: (systemID) {0}.
         /// </summary>
         internal static string ChangeLogArchiveReferenceControlMessage {
             get {
                 return ResourceManager.GetString("ChangeLogArchiveReferenceControlMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valider xml (ADDML).
-        /// </summary>
-        internal static string CheckWellFormedArchiveStructureXml {
-            get {
-                return ResourceManager.GetString("CheckWellFormedArchiveStructureXml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valider xml (arkivvutrekk.xml).
-        /// </summary>
-        internal static string CheckWellFormedContentDescriptionXml {
-            get {
-                return ResourceManager.GetString("CheckWellFormedContentDescriptionXml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Klassereferanser.
-        /// </summary>
-        internal static string ClassReferenceControl {
-            get {
-                return ResourceManager.GetString("ClassReferenceControl", resourceCulture);
             }
         }
         
@@ -196,15 +142,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollér at refererte dokumenter eksisterer.
-        /// </summary>
-        internal static string ControlDocumentFilesExists {
-            get {
-                return ResourceManager.GetString("ControlDocumentFilesExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Finner ikke filen..
         /// </summary>
         internal static string ControlDocumentsFilesExistsMessage1 {
@@ -214,29 +151,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klasser med både underklasse(r) og mappe(r).
-        /// </summary>
-        internal static string ControlNoSuperclassesHasFolders {
-            get {
-                return ResourceManager.GetString("ControlNoSuperclassesHasFolders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Klasse med systemID {0}.
         /// </summary>
         internal static string ControlNoSuperclassesHasFoldersMessage {
             get {
                 return ResourceManager.GetString("ControlNoSuperclassesHasFoldersMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Klasser med både underklasse(r) og registrering(er).
-        /// </summary>
-        internal static string ControlNoSuperclassesHasRegistrations {
-            get {
-                return ResourceManager.GetString("ControlNoSuperclassesHasRegistrations", resourceCulture);
             }
         }
         
@@ -259,15 +178,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opprettelsesdatoer for første og siste registrering.
-        /// </summary>
-        internal static string DatesFirstAndLastRegistration {
-            get {
-                return ResourceManager.GetString("DatesFirstAndLastRegistration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Første registrering: Opprettet {0}.
         /// </summary>
         internal static string DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration {
@@ -277,7 +187,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - Første registrering: Opprettet {1}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Første registrering: Opprettet {1}.
         /// </summary>
         internal static string DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart {
             get {
@@ -295,7 +205,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - Siste registrering: Opprettet {1}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Siste registrering: Opprettet {1}.
         /// </summary>
         internal static string DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart {
             get {
@@ -331,29 +241,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dokumentfilers sjekksummer.
-        /// </summary>
-        internal static string DocumentFilesChecksumControl {
-            get {
-                return ResourceManager.GetString("DocumentFilesChecksumControl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Filen {0} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {1}.
         /// </summary>
         internal static string DocumentFilesChecksumControlMessage {
             get {
                 return ResourceManager.GetString("DocumentFilesChecksumControlMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dokumentfiler som mangler referanse.
-        /// </summary>
-        internal static string DocumentfilesReferenceControl {
-            get {
-                return ResourceManager.GetString("DocumentfilesReferenceControl", resourceCulture);
             }
         }
         
@@ -405,20 +297,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0}: {1}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0}: {1}.
         /// </summary>
         internal static string NumberOf_PerArchivePart {
             get {
                 return ResourceManager.GetString("NumberOf_PerArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finn antall arkivdeler.
-        /// </summary>
-        internal static string NumberOfArchiveParts {
-            get {
-                return ResourceManager.GetString("NumberOfArchiveParts", resourceCulture);
             }
         }
         
@@ -441,15 +324,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall arkiv.
-        /// </summary>
-        internal static string NumberOfArchives {
-            get {
-                return ResourceManager.GetString("NumberOfArchives", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Antall arkiv: {0}.
         /// </summary>
         internal static string NumberOfArchivesMessage {
@@ -468,65 +342,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall saksparter.
-        /// </summary>
-        internal static string NumberOfCaseParts {
-            get {
-                return ResourceManager.GetString("NumberOfCaseParts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0}: {1}.
-        /// </summary>
-        internal static string NumberOfCasePartsMessage {
-            get {
-                return ResourceManager.GetString("NumberOfCasePartsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Saksmappenes status i arkivstrukturen.
-        /// </summary>
-        internal static string NumberOfCaseStatusesPerArchivePart {
-            get {
-                return ResourceManager.GetString("NumberOfCaseStatusesPerArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall loggførte endringer.
-        /// </summary>
-        internal static string NumberOfChangesLogged {
-            get {
-                return ResourceManager.GetString("NumberOfChangesLogged", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Antall endringer: {0}.
         /// </summary>
         internal static string NumberOfChangesLoggedMessage {
             get {
                 return ResourceManager.GetString("NumberOfChangesLoggedMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finn antall klasser.
-        /// </summary>
-        internal static string NumberOfClasses {
-            get {
-                return ResourceManager.GetString("NumberOfClasses", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall klasser i det primære klassifikasjonssystemet uten underklasser eller mapper.
-        /// </summary>
-        internal static string NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders {
-            get {
-                return ResourceManager.GetString("NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders", resourceCulture);
             }
         }
         
@@ -540,29 +360,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall graderinger.
-        /// </summary>
-        internal static string NumberOfClassifications {
-            get {
-                return ResourceManager.GetString("NumberOfClassifications", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Graderinger i {0} - Antall: {1}.
         /// </summary>
         internal static string NumberOfClassificationsMessage {
             get {
                 return ResourceManager.GetString("NumberOfClassificationsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finn antall klassifikasjonssystem.
-        /// </summary>
-        internal static string NumberOfClassificationSystems {
-            get {
-                return ResourceManager.GetString("NumberOfClassificationSystems", resourceCulture);
             }
         }
         
@@ -585,15 +387,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall merknader.
-        /// </summary>
-        internal static string NumberOfComments {
-            get {
-                return ResourceManager.GetString("NumberOfComments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Antall merknader i basisregistreringer: {0}.
         /// </summary>
         internal static string NumberOfCommentsInBaseRegistrationMessage {
@@ -603,7 +396,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - Antall merknader i basisregistreringer: {1}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Antall merknader i basisregistreringer: {1}.
         /// </summary>
         internal static string NumberOfCommentsInBaseRegistrationMessage_ForArchivePart {
             get {
@@ -621,7 +414,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - Antall merknader i dokumentbeskrivelser: {1}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Antall merknader i dokumentbeskrivelser: {1}.
         /// </summary>
         internal static string NumberOfCommentsInDocumentDescriptionMessage_ForArchivePart {
             get {
@@ -639,20 +432,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - Antall merknader i mapper: {1}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Antall merknader i mapper: {1}.
         /// </summary>
         internal static string NumberOfCommentsInFoldersMessage_ForArchivePart {
             get {
                 return ResourceManager.GetString("NumberOfCommentsInFoldersMessage_ForArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall konverterte dokumenter.
-        /// </summary>
-        internal static string NumberOfConversions {
-            get {
-                return ResourceManager.GetString("NumberOfConversions", resourceCulture);
             }
         }
         
@@ -666,38 +450,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall korrespondanseparter.
-        /// </summary>
-        internal static string NumberOfCorrespondenceParts {
-            get {
-                return ResourceManager.GetString("NumberOfCorrespondenceParts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Antall korrespondanseparter: {0}.
         /// </summary>
         internal static string NumberOfCorrespondencePartsMessage {
             get {
                 return ResourceManager.GetString("NumberOfCorrespondencePartsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall kryssreferanser.
-        /// </summary>
-        internal static string NumberOfCrossReferences {
-            get {
-                return ResourceManager.GetString("NumberOfCrossReferences", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall avskrivninger.
-        /// </summary>
-        internal static string NumberOfDepreciations {
-            get {
-                return ResourceManager.GetString("NumberOfDepreciations", resourceCulture);
             }
         }
         
@@ -711,20 +468,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - Antall journalposter som avskriver andre journalposter: {1}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Antall journalposter som avskriver andre journalposter: {1}.
         /// </summary>
         internal static string NumberOfDepreciationsMessage_ForArchivePart {
             get {
                 return ResourceManager.GetString("NumberOfDepreciationsMessage_ForArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall kassasjonsvedtak.
-        /// </summary>
-        internal static string NumberOfDisposalResolutions {
-            get {
-                return ResourceManager.GetString("NumberOfDisposalResolutions", resourceCulture);
             }
         }
         
@@ -756,15 +504,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall utførte kassasjoner.
-        /// </summary>
-        internal static string NumberOfDisposalsExecuted {
-            get {
-                return ResourceManager.GetString("NumberOfDisposalsExecuted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Antall utførte kassasjoner: {0}.
         /// </summary>
         internal static string NumberOfDisposalsExecutedMessage {
@@ -792,83 +531,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentbeskrivelser.
-        /// </summary>
-        internal static string NumberOfDocumentDescriptions {
-            get {
-                return ResourceManager.GetString("NumberOfDocumentDescriptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0}: {1}.
-        /// </summary>
-        internal static string NumberOfDocumentDescriptionsPerArchivePartMessage {
-            get {
-                return ResourceManager.GetString("NumberOfDocumentDescriptionsPerArchivePartMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentbeskrivelser uten dokumentobjekt.
-        /// </summary>
-        internal static string NumberOfDocumentDescriptionsWithoutDocumentObject {
-            get {
-                return ResourceManager.GetString("NumberOfDocumentDescriptionsWithoutDocumentObject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentflyter.
-        /// </summary>
-        internal static string NumberOfDocumentFlows {
-            get {
-                return ResourceManager.GetString("NumberOfDocumentFlows", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentobjekter.
-        /// </summary>
-        internal static string NumberOfDocumentObjects {
-            get {
-                return ResourceManager.GetString("NumberOfDocumentObjects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0}: {1}.
-        /// </summary>
-        internal static string NumberOfDocumentObjectsMessage {
-            get {
-                return ResourceManager.GetString("NumberOfDocumentObjectsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall av ulike saksmappestatuser.
-        /// </summary>
-        internal static string NumberOfEachCaseFolderStatus {
-            get {
-                return ResourceManager.GetString("NumberOfEachCaseFolderStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Saksmappestatus: {0} - Antall: {1}.
         /// </summary>
         internal static string NumberOfEachCaseFolderStatusMessage {
             get {
                 return ResourceManager.GetString("NumberOfEachCaseFolderStatusMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall ulike dokumentformater.
-        /// </summary>
-        internal static string NumberOfEachDocumentFormat {
-            get {
-                return ResourceManager.GetString("NumberOfEachDocumentFormat", resourceCulture);
             }
         }
         
@@ -891,29 +558,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall ulike dokumentstatuser.
-        /// </summary>
-        internal static string NumberOfEachDocumentStatus {
-            get {
-                return ResourceManager.GetString("NumberOfEachDocumentStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dokumentstatus: {0} - Antall: {1}.
         /// </summary>
         internal static string NumberOfEachDocumentStatusMessage {
             get {
                 return ResourceManager.GetString("NumberOfEachDocumentStatusMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall av ulike journalposttyper.
-        /// </summary>
-        internal static string NumberOfEachJournalPostType {
-            get {
-                return ResourceManager.GetString("NumberOfEachJournalPostType", resourceCulture);
             }
         }
         
@@ -936,15 +585,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall ulike journalstatuser.
-        /// </summary>
-        internal static string NumberOfEachJournalStatus {
-            get {
-                return ResourceManager.GetString("NumberOfEachJournalStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Journalstatus: {0} - Antall: {1}.
         /// </summary>
         internal static string NumberOfEachJournalStatusMessage {
@@ -954,38 +594,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall mapper.
-        /// </summary>
-        internal static string NumberOfFolders {
-            get {
-                return ResourceManager.GetString("NumberOfFolders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall mapper som er klassifisert med hver enkelt klasse i arkivstrukturen.
-        /// </summary>
-        internal static string NumberOfFoldersClassified {
-            get {
-                return ResourceManager.GetString("NumberOfFoldersClassified", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Antall mapper: {0}.
         /// </summary>
         internal static string NumberOfFoldersMessage {
             get {
                 return ResourceManager.GetString("NumberOfFoldersMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall mapper for hver klasse.
-        /// </summary>
-        internal static string NumberOfFoldersPerClass {
-            get {
-                return ResourceManager.GetString("NumberOfFoldersPerClass", resourceCulture);
             }
         }
         
@@ -1008,38 +621,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall mapper for hvert år.
-        /// </summary>
-        internal static string NumberOfFoldersPerYear {
-            get {
-                return ResourceManager.GetString("NumberOfFoldersPerYear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - {1}: {2}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - {1}: {2}.
         /// </summary>
         internal static string NumberOfFoldersPerYear_ForArchivePart {
             get {
                 return ResourceManager.GetString("NumberOfFoldersPerYear_ForArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall mapper uten registreringer eller undermapper.
-        /// </summary>
-        internal static string NumberOfFoldersWithoutRegistrationsOrSubfolders {
-            get {
-                return ResourceManager.GetString("NumberOfFoldersWithoutRegistrationsOrSubfolders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall journalposter.
-        /// </summary>
-        internal static string NumberOfJournalPosts {
-            get {
-                return ResourceManager.GetString("NumberOfJournalPosts", resourceCulture);
             }
         }
         
@@ -1098,29 +684,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dokumentfiler med referanse fra mer enn ett dokumentobjekt.
-        /// </summary>
-        internal static string NumberOfMultiReferencedDocumentFiles {
-            get {
-                return ResourceManager.GetString("NumberOfMultiReferencedDocumentFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Referert dokumentfil: {0} - Antall referanser: {1}.
         /// </summary>
         internal static string NumberOfMultiReferencedDocumentFilesMessage {
             get {
                 return ResourceManager.GetString("NumberOfMultiReferencedDocumentFilesMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall presedenser.
-        /// </summary>
-        internal static string NumberOfPrecedents {
-            get {
-                return ResourceManager.GetString("NumberOfPrecedents", resourceCulture);
             }
         }
         
@@ -1134,7 +702,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - Antall presedenser i saksmapper: {1}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Antall presedenser i saksmapper: {1}.
         /// </summary>
         internal static string NumberOfPrecedentsInCaseFolderMessage_ForArchivePart {
             get {
@@ -1152,20 +720,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0} - Antall presedenser i journalposter: {1}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Antall presedenser i journalposter: {1}.
         /// </summary>
         internal static string NumberOfPrecedentsInJournalpostsMessage_ForArchivePart {
             get {
                 return ResourceManager.GetString("NumberOfPrecedentsInJournalpostsMessage_ForArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finn antall registreringer.
-        /// </summary>
-        internal static string NumberOfRegistrations {
-            get {
-                return ResourceManager.GetString("NumberOfRegistrations", resourceCulture);
             }
         }
         
@@ -1175,15 +734,6 @@ namespace Arkivverket.Arkade.Resources {
         internal static string NumberOfRegistrationsMessage {
             get {
                 return ResourceManager.GetString("NumberOfRegistrationsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall registreringer for hver klasse (Registreringer under mappe regnes ikke).
-        /// </summary>
-        internal static string NumberOfRegistrationsPerClass {
-            get {
-                return ResourceManager.GetString("NumberOfRegistrationsPerClass", resourceCulture);
             }
         }
         
@@ -1202,42 +752,6 @@ namespace Arkivverket.Arkade.Resources {
         internal static string NumberOfRegistrationsPerClassMessage_NumberOfRegistrations {
             get {
                 return ResourceManager.GetString("NumberOfRegistrationsPerClassMessage_NumberOfRegistrations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall registreringer for hvert år.
-        /// </summary>
-        internal static string NumberOfRegistrationsPerYear {
-            get {
-                return ResourceManager.GetString("NumberOfRegistrationsPerYear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall registreringer uten dokumentbeskrivelse.
-        /// </summary>
-        internal static string NumberOfRegistrationsWithoutDocumentDescription {
-            get {
-                return ResourceManager.GetString("NumberOfRegistrationsWithoutDocumentDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to I arkivdel (systemID) {0}: {1}.
-        /// </summary>
-        internal static string NumberOfRegistrationsWithoutDocumentDescription_ForArchivePart {
-            get {
-                return ResourceManager.GetString("NumberOfRegistrationsWithoutDocumentDescription_ForArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall skjerminger.
-        /// </summary>
-        internal static string NumberOfRestrictions {
-            get {
-                return ResourceManager.GetString("NumberOfRestrictions", resourceCulture);
             }
         }
         
@@ -1269,15 +783,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn status på arkivdeler.
-        /// </summary>
-        internal static string StatusOfArchiveParts {
-            get {
-                return ResourceManager.GetString("StatusOfArchiveParts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Arkivdelstatus: {0}.
         /// </summary>
         internal static string StatusOfArchivePartsMessage {
@@ -1296,38 +801,11 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Systemidentifikasjoner.
-        /// </summary>
-        internal static string SystemIdUniqueControl {
-            get {
-                return ResourceManager.GetString("SystemIdUniqueControl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ikke-unik ID: Systemidentifikasjonen (systemID) {0} forekommer {1} ganger.
         /// </summary>
         internal static string SystemIdUniqueControlMessage {
             get {
                 return ResourceManager.GetString("SystemIdUniqueControlMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valider sjekksummer.
-        /// </summary>
-        internal static string ValidateAddmlDataobjectsChecksums {
-            get {
-                return ResourceManager.GetString("ValidateAddmlDataobjectsChecksums", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valider antallet dokumentfiler.
-        /// </summary>
-        internal static string ValidateNumberOfDocumentfiles {
-            get {
-                return ResourceManager.GetString("ValidateNumberOfDocumentfiles", resourceCulture);
             }
         }
         
@@ -1382,33 +860,6 @@ namespace Arkivverket.Arkade.Resources {
         internal static string ValidateNumberOfDocumentfilesMessage_NumberOfFilesFound {
             get {
                 return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_NumberOfFilesFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valider xml i henhold til skjema (ADDML).
-        /// </summary>
-        internal static string ValidateXmlWithSchema {
-            get {
-                return ResourceManager.GetString("ValidateXmlWithSchema", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Validert i henhold til XML-skjema..
-        /// </summary>
-        internal static string ValidateXmlWithSchemaMessageValid {
-            get {
-                return ResourceManager.GetString("ValidateXmlWithSchemaMessageValid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} er ikke gyldig i henhold til XML-skjema: {1}.
-        /// </summary>
-        internal static string XmlDoesNotValidateWithSchema {
-            get {
-                return ResourceManager.GetString("XmlDoesNotValidateWithSchema", resourceCulture);
             }
         }
     }

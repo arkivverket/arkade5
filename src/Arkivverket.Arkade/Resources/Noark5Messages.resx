@@ -117,20 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CheckWellFormedArchiveStructureXml" xml:space="preserve">
-    <value>Valider xml (ADDML)</value>
-  </data>
-  <data name="CheckWellFormedContentDescriptionXml" xml:space="preserve">
-    <value>Valider xml (arkivvutrekk.xml)</value>
-  </data>
-  <data name="ControlDocumentFilesExists" xml:space="preserve">
-    <value>Kontrollér at refererte dokumenter eksisterer</value>
-  </data>
   <data name="ControlDocumentsFilesExistsMessage1" xml:space="preserve">
     <value>Finner ikke filen.</value>
-  </data>
-  <data name="DatesFirstAndLastRegistration" xml:space="preserve">
-    <value>Opprettelsesdatoer for første og siste registrering</value>
   </data>
   <data name="DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration" xml:space="preserve">
     <value>Første registrering: Opprettet {0}</value>
@@ -147,9 +135,6 @@
   <data name="DatesFirstAndLastRegistrationMessage_NumberOfRegistrations" xml:space="preserve">
     <value>Antall registreringer funnet: {0}</value>
   </data>
-  <data name="DocumentfilesReferenceControl" xml:space="preserve">
-    <value>Dokumentfiler som mangler referanse</value>
-  </data>
   <data name="DocumentfilesReferenceControlMessage" xml:space="preserve">
     <value>Ikke-referert fil funnet: {0}</value>
   </data>
@@ -158,101 +143,29 @@
 Forventet: {1}
 Generert:  {2}</value>
   </data>
-  <data name="XmlDoesNotValidateWithSchema" xml:space="preserve">
-    <value>{0} er ikke gyldig i henhold til XML-skjema: {1}</value>
-  </data>
-  <data name="NumberOfArchiveParts" xml:space="preserve">
-    <value>Finn antall arkivdeler</value>
-  </data>
   <data name="NumberOfArchivePartsMessage" xml:space="preserve">
     <value>Antall arkivdeler: {0}</value>
-  </data>
-  <data name="NumberOfArchives" xml:space="preserve">
-    <value>Finn antall arkiv</value>
   </data>
   <data name="NumberOfArchivesMessage" xml:space="preserve">
     <value>Antall arkiv: {0}</value>
   </data>
-  <data name="NumberOfCaseParts" xml:space="preserve">
-    <value>Antall saksparter</value>
-  </data>
-  <data name="NumberOfCasePartsMessage" xml:space="preserve">
-    <value>I arkivdel (systemID) {0}: {1}</value>
-  </data>
-  <data name="NumberOfCaseStatusesPerArchivePart" xml:space="preserve">
-    <value>Saksmappenes status i arkivstrukturen</value>
-  </data>
-  <data name="NumberOfClasses" xml:space="preserve">
-    <value>Finn antall klasser</value>
-  </data>
-  <data name="NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders" xml:space="preserve">
-    <value>Antall klasser i det primære klassifikasjonssystemet uten underklasser eller mapper</value>
-  </data>
   <data name="NumberOfClassesMessage" xml:space="preserve">
     <value>Antall klasser: {0}</value>
-  </data>
-  <data name="NumberOfClassificationSystems" xml:space="preserve">
-    <value>Finn antall klassifikasjonssystem</value>
   </data>
   <data name="NumberOfClassificationSystemsMessage" xml:space="preserve">
     <value>Antall klassifikasjonssystem: {0}</value>
   </data>
-  <data name="NumberOfComments" xml:space="preserve">
-    <value>Antall merknader</value>
-  </data>
   <data name="NumberOfCommentsInFoldersMessage" xml:space="preserve">
     <value>Antall merknader i mapper: {0}</value>
-  </data>
-  <data name="NumberOfCorrespondenceParts" xml:space="preserve">
-    <value>Antall korrespondanseparter</value>
   </data>
   <data name="NumberOfCorrespondencePartsMessage" xml:space="preserve">
     <value>Antall korrespondanseparter: {0}</value>
   </data>
-  <data name="NumberOfCrossReferences" xml:space="preserve">
-    <value>Antall kryssreferanser</value>
-  </data>
-  <data name="NumberOfDepreciations" xml:space="preserve">
-    <value>Antall avskrivninger</value>
-  </data>
   <data name="NumberOfDepreciationsMessage" xml:space="preserve">
     <value>Antall journalposter som avskriver andre journalposter: {0}</value>
   </data>
-  <data name="NumberOfDocumentDescriptions" xml:space="preserve">
-    <value>Antall dokumentbeskrivelser</value>
-  </data>
-  <data name="NumberOfDocumentDescriptionsPerArchivePartMessage" xml:space="preserve">
-    <value>I arkivdel (systemID) {0}: {1}</value>
-  </data>
-  <data name="NumberOfDocumentDescriptionsWithoutDocumentObject" xml:space="preserve">
-    <value>Antall dokumentbeskrivelser uten dokumentobjekt</value>
-  </data>
-  <data name="NumberOfDocumentFlows" xml:space="preserve">
-    <value>Antall dokumentflyter</value>
-  </data>
-  <data name="NumberOfDocumentObjects" xml:space="preserve">
-    <value>Antall dokumentobjekter</value>
-  </data>
-  <data name="NumberOfDocumentObjectsMessage" xml:space="preserve">
-    <value>I arkivdel (systemID) {0}: {1}</value>
-  </data>
-  <data name="NumberOfFolders" xml:space="preserve">
-    <value>Finn antall mapper</value>
-  </data>
-  <data name="NumberOfFoldersClassified" xml:space="preserve">
-    <value>Antall mapper som er klassifisert med hver enkelt klasse i arkivstrukturen</value>
-  </data>
   <data name="NumberOfFoldersMessage" xml:space="preserve">
     <value>Antall mapper: {0}</value>
-  </data>
-  <data name="NumberOfFoldersPerYear" xml:space="preserve">
-    <value>Antall mapper for hvert år</value>
-  </data>
-  <data name="NumberOfFoldersWithoutRegistrationsOrSubfolders" xml:space="preserve">
-    <value>Antall mapper uten registreringer eller undermapper</value>
-  </data>
-  <data name="NumberOfJournalPosts" xml:space="preserve">
-    <value>Antall journalposter</value>
   </data>
   <data name="NumberOfJournalPostsMessage_UnEqualJournalNumbers" xml:space="preserve">
     <value>Antallet journalposter i offentlig og løpende journal er ulikt</value>
@@ -269,35 +182,11 @@ Generert:  {2}</value>
   <data name="NumberOfJournalPostsMessage_NumberOfJournalPostsInRunningJournal" xml:space="preserve">
     <value>Antall journalposter dokumentert i løpende journal: {0}</value>
   </data>
-  <data name="NumberOfEachJournalPostType" xml:space="preserve">
-    <value>Antall av ulike journalposttyper</value>
-  </data>
-  <data name="NumberOfPrecedents" xml:space="preserve">
-    <value>Antall presedenser</value>
-  </data>
   <data name="NumberOfPrecedentsInCaseFolderMessage" xml:space="preserve">
     <value>Antall presedenser i saksmapper: {0}</value>
   </data>
-  <data name="NumberOfRegistrations" xml:space="preserve">
-    <value>Finn antall registreringer</value>
-  </data>
   <data name="NumberOfRegistrationsMessage" xml:space="preserve">
     <value>Antall registreringer: {0}</value>
-  </data>
-  <data name="NumberOfRegistrationsPerYear" xml:space="preserve">
-    <value>Antall registreringer for hvert år</value>
-  </data>
-  <data name="NumberOfRegistrationsWithoutDocumentDescription" xml:space="preserve">
-    <value>Antall registreringer uten dokumentbeskrivelse</value>
-  </data>
-  <data name="StatusOfArchiveParts" xml:space="preserve">
-    <value>Finn status på arkivdeler</value>
-  </data>
-  <data name="ValidateAddmlDataobjectsChecksums" xml:space="preserve">
-    <value>Valider sjekksummer</value>
-  </data>
-  <data name="ValidateNumberOfDocumentfiles" xml:space="preserve">
-    <value>Valider antallet dokumentfiler</value>
   </data>
   <data name="ValidateNumberOfDocumentfilesMessage_DocumentationNotFound" xml:space="preserve">
     <value>Antall dokumentfiler ble ikke funnet oppgitt</value>
@@ -317,20 +206,11 @@ Generert:  {2}</value>
   <data name="ValidateNumberOfDocumentfilesMessage_NumberOfFilesFound" xml:space="preserve">
     <value>Antall dokumentfiler funnet: {0}</value>
   </data>
-  <data name="ValidateXmlWithSchema" xml:space="preserve">
-    <value>Valider xml i henhold til skjema (ADDML)</value>
-  </data>
-  <data name="ValidateXmlWithSchemaMessageValid" xml:space="preserve">
-    <value>Validert i henhold til XML-skjema.</value>
-  </data>
   <data name="NumberOfEachJournalPostTypeMessage_MissingMainDocument" xml:space="preserve">
     <value>Journalpost med systemID {0} mangler hoveddokument</value>
   </data>
   <data name="NumberOfEachJournalPostTypeMessage_TypeAndCount" xml:space="preserve">
     <value>Journalposttype: {0} - Antall: {1}</value>
-  </data>
-  <data name="NumberOfRegistrationsPerClass" xml:space="preserve">
-    <value>Antall registreringer for hver klasse (Registreringer under mappe regnes ikke)</value>
   </data>
   <data name="NumberOfRegistrationsPerClassMessage_NumberOfRegistrations" xml:space="preserve">
     <value>Klasse (systemID): {0} - Antall: {1}</value>
@@ -338,20 +218,11 @@ Generert:  {2}</value>
   <data name="NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations" xml:space="preserve">
     <value>Klasser uten registreringer (og uten underklasser) - Antall: {0}</value>
   </data>
-  <data name="NumberOfEachJournalStatus" xml:space="preserve">
-    <value>Antall ulike journalstatuser</value>
-  </data>
   <data name="NumberOfEachJournalStatusMessage" xml:space="preserve">
     <value>Journalstatus: {0} - Antall: {1}</value>
   </data>
-  <data name="NumberOfEachDocumentStatus" xml:space="preserve">
-    <value>Antall ulike dokumentstatuser</value>
-  </data>
   <data name="NumberOfEachDocumentStatusMessage" xml:space="preserve">
     <value>Dokumentstatus: {0} - Antall: {1}</value>
-  </data>
-  <data name="NumberOfEachDocumentFormat" xml:space="preserve">
-    <value>Antall ulike dokumentformater</value>
   </data>
   <data name="NumberOfEachDocumentFormatMessage" xml:space="preserve">
     <value>Dokumentformat: {0} - Antall: {1}</value>
@@ -359,35 +230,20 @@ Generert:  {2}</value>
   <data name="NumberOfEachDocumentFormatMessage_FormatMismatch" xml:space="preserve">
     <value>Format-misforhold: Dokumentformat: {0} - Dokumentfilreferanse: {1}</value>
   </data>
-  <data name="NumberOfMultiReferencedDocumentFiles" xml:space="preserve">
-    <value>Dokumentfiler med referanse fra mer enn ett dokumentobjekt</value>
-  </data>
   <data name="NumberOfMultiReferencedDocumentFilesMessage" xml:space="preserve">
     <value>Referert dokumentfil: {0} - Antall referanser: {1}</value>
   </data>
   <data name="ArchivePartSystemId" xml:space="preserve">
     <value>Arkivdel (systemID): {0}</value>
   </data>
-  <data name="ControlNoSuperclassesHasFolders" xml:space="preserve">
-    <value>Klasser med både underklasse(r) og mappe(r)</value>
-  </data>
   <data name="ControlNoSuperclassesHasFoldersMessage" xml:space="preserve">
     <value>Klasse med systemID {0}</value>
-  </data>
-  <data name="NumberOfClassifications" xml:space="preserve">
-    <value>Antall graderinger</value>
   </data>
   <data name="NumberOfClassificationsMessage" xml:space="preserve">
     <value>Graderinger i {0} - Antall: {1}</value>
   </data>
-  <data name="NumberOfDisposalResolutions" xml:space="preserve">
-    <value>Antall kassasjonsvedtak</value>
-  </data>
   <data name="NumberOfDisposalResolutionsMessage" xml:space="preserve">
     <value>Kassasjonsvedtak i {0} - Antall: {1}</value>
-  </data>
-  <data name="NumberOfDisposalsExecuted" xml:space="preserve">
-    <value>Antall utførte kassasjoner</value>
   </data>
   <data name="NumberOfDisposalsExecutedMessage" xml:space="preserve">
     <value>Antall utførte kassasjoner: {0}</value>
@@ -404,9 +260,6 @@ Generert:  {2}</value>
   <data name="NumberOfDisposalResolutionsMessage_DocTrueActualFalse" xml:space="preserve">
     <value>Det er angitt at uttrekket skal inneholde kassasjonsvedtak, men ingen kassasjonsvedtak ble funnet</value>
   </data>
-  <data name="NumberOfRestrictions" xml:space="preserve">
-    <value>Antall skjerminger</value>
-  </data>
   <data name="NumberOfRestrictionsMessage" xml:space="preserve">
     <value>Skjerminger i {0} - Antall: {1}</value>
   </data>
@@ -416,14 +269,8 @@ Generert:  {2}</value>
   <data name="NumberOfRestrictionsMessage_DocTrueActualFalse" xml:space="preserve">
     <value>Det er angitt at uttrekket skal inneholde skjerminger, men ingen skjerminger ble funnet</value>
   </data>
-  <data name="NumberOfConversions" xml:space="preserve">
-    <value>Antall konverterte dokumenter</value>
-  </data>
   <data name="NumberOfConversionsMessage" xml:space="preserve">
     <value>Antall konverteringer: {0}</value>
-  </data>
-  <data name="ArchiveStartAndEndDateControl" xml:space="preserve">
-    <value>Start- og sluttdatoer</value>
   </data>
   <data name="ArchiveStartAndEndDateControlMessage_DatesArchive" xml:space="preserve">
     <value>Start- og sluttdato i arkivstrukturen: {0} - {1}</value>
@@ -440,14 +287,8 @@ Generert:  {2}</value>
   <data name="ArchiveStartAndEndDateControlMessage_UnEqualJournalDates" xml:space="preserve">
     <value>Datoer i offentlig og løpende journal er ikke like</value>
   </data>
-  <data name="NumberOfChangesLogged" xml:space="preserve">
-    <value>Antall loggførte endringer</value>
-  </data>
   <data name="NumberOfChangesLoggedMessage" xml:space="preserve">
     <value>Antall endringer: {0}</value>
-  </data>
-  <data name="ChangeLogArchiveReferenceControl" xml:space="preserve">
-    <value>Endringslogg-referanser til arkivstrukturen</value>
   </data>
   <data name="ChangeLogArchiveReferenceControlMessage" xml:space="preserve">
     <value>Referanse til arkivenhet er ikke gyldig: (systemID) {0}</value>
@@ -455,32 +296,17 @@ Generert:  {2}</value>
   <data name="FileNotFound" xml:space="preserve">
     <value>Filen {0} ble ikke funnet</value>
   </data>
-  <data name="ArchivepartReferenceControl" xml:space="preserve">
-    <value>Arkivdelreferanser</value>
-  </data>
   <data name="ArchivepartReferenceControlMessage" xml:space="preserve">
     <value>Referanse fra {0} (systemID) {1} til arkivdel (systemID) {2} er ikke gyldig</value>
-  </data>
-  <data name="SystemIdUniqueControl" xml:space="preserve">
-    <value>Systemidentifikasjoner</value>
   </data>
   <data name="SystemIdUniqueControlMessage" xml:space="preserve">
     <value>Ikke-unik ID: Systemidentifikasjonen (systemID) {0} forekommer {1} ganger</value>
   </data>
-  <data name="ControlNoSuperclassesHasRegistrations" xml:space="preserve">
-    <value>Klasser med både underklasse(r) og registrering(er)</value>
-  </data>
   <data name="ControlNoSuperclassesHasRegistrationsMessage" xml:space="preserve">
     <value>Klasse med systemID {0}</value>
   </data>
-  <data name="ClassReferenceControl" xml:space="preserve">
-    <value>Klassereferanser</value>
-  </data>
   <data name="ClassReferenceControlMessage" xml:space="preserve">
     <value>Referanse fra mappe (systemID) {0} til klasse (systemID) {1} er ikke gyldig</value>
-  </data>
-  <data name="DocumentFilesChecksumControl" xml:space="preserve">
-    <value>Dokumentfilers sjekksummer</value>
   </data>
   <data name="DocumentFilesChecksumControlMessage" xml:space="preserve">
     <value>Filen {0} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {1}</value>
@@ -491,17 +317,11 @@ Generert:  {2}</value>
   <data name="InternalSchemaFileIsUsed" xml:space="preserve">
     <value>Skjemafil {0} ble ikke funnet i uttrekket. Validering gjøres ihht. en versjon av {0} som er innebygget i Arkade</value>
   </data>
-  <data name="NumberOfFoldersPerClass" xml:space="preserve">
-    <value>Antall mapper for hver klasse</value>
-  </data>
   <data name="NumberOfFoldersPerClassMessage_NumberOfClassesWithoutFolders" xml:space="preserve">
     <value>Klasser uten mapper (og uten underklasser) - Antall: {0}</value>
   </data>
   <data name="NumberOfFoldersPerClassMessage_NumberOfFolders" xml:space="preserve">
     <value>Klasse (systemID): {0} - Antall: {1}</value>
-  </data>
-  <data name="NumberOfEachCaseFolderStatus" xml:space="preserve">
-    <value>Antall av ulike saksmappestatuser</value>
   </data>
   <data name="NumberOfEachCaseFolderStatusMessage" xml:space="preserve">
     <value>Saksmappestatus: {0} - Antall: {1}</value>
@@ -521,20 +341,17 @@ Generert:  {2}</value>
   <data name="NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart" xml:space="preserve">
     <value>Antall klassifikasjonssystemer i arkivdel (systemID) {0}: {1}</value>
   </data>
-  <data name="NumberOfRegistrationsWithoutDocumentDescription_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0}: {1}</value>
-  </data>
   <data name="NumberOf_PerArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0}: {1}</value>
+    <value>Arkivdel (systemID) {0}: {1}</value>
   </data>
   <data name="NumberOfFoldersPerYear_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - {1}: {2}</value>
+    <value>Arkivdel (systemID) {0} - {1}: {2}</value>
   </data>
   <data name="DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Første registrering: Opprettet {1}</value>
+    <value>Arkivdel (systemID) {0} - Første registrering: Opprettet {1}</value>
   </data>
   <data name="DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Siste registrering: Opprettet {1}</value>
+    <value>Arkivdel (systemID) {0} - Siste registrering: Opprettet {1}</value>
   </data>
   <data name="CouldNotReadFromFiles" xml:space="preserve">
     <value>Kunne ikke lese fra en eller flere filer</value>
@@ -543,10 +360,10 @@ Generert:  {2}</value>
     <value>Periodeskille er skarpt og antallet journalposter i arkivstrukturen er ikke likt det i offentlig og løpende journal</value>
   </data>
   <data name="NumberOfPrecedentsInJournalpostsMessage_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Antall presedenser i journalposter: {1}</value>
+    <value>Arkivdel (systemID) {0} - Antall presedenser i journalposter: {1}</value>
   </data>
   <data name="NumberOfPrecedentsInCaseFolderMessage_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Antall presedenser i saksmapper: {1}</value>
+    <value>Arkivdel (systemID) {0} - Antall presedenser i saksmapper: {1}</value>
   </data>
   <data name="NumberOfPrecedentsInJournalpostsMessage" xml:space="preserve">
     <value>Antall presedenser i journalposter: {0}</value>
@@ -558,15 +375,15 @@ Generert:  {2}</value>
     <value>Antall merknader i dokumentbeskrivelser: {0}</value>
   </data>
   <data name="NumberOfCommentsInBaseRegistrationMessage_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Antall merknader i basisregistreringer: {1}</value>
+    <value>Arkivdel (systemID) {0} - Antall merknader i basisregistreringer: {1}</value>
   </data>
   <data name="NumberOfCommentsInDocumentDescriptionMessage_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Antall merknader i dokumentbeskrivelser: {1}</value>
+    <value>Arkivdel (systemID) {0} - Antall merknader i dokumentbeskrivelser: {1}</value>
   </data>
   <data name="NumberOfCommentsInFoldersMessage_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Antall merknader i mapper: {1}</value>
+    <value>Arkivdel (systemID) {0} - Antall merknader i mapper: {1}</value>
   </data>
   <data name="NumberOfDepreciationsMessage_ForArchivePart" xml:space="preserve">
-    <value>I arkivdel (systemID) {0} - Antall journalposter som avskriver andre journalposter: {1}</value>
+    <value>Arkivdel (systemID) {0} - Antall journalposter som avskriver andre journalposter: {1}</value>
   </data>
 </root>

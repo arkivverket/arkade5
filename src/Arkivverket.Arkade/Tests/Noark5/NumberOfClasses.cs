@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.NumberOfClasses;
+            return Noark5TestNames.NumberOfClasses;
         }
 
         protected override string GetResultMessage()

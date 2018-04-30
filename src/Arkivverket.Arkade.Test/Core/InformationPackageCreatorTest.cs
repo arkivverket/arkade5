@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Test.Metadata;
 using FluentAssertions;
@@ -14,7 +15,7 @@ namespace Arkivverket.Arkade.Test.Core
     /// </summary>
     public class InformationPackageCreatorTest
     {
-        private readonly string _workingDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\TestData\\package-creation\\";
+        private readonly string _workingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\TestData\\package-creation");
         private readonly Uuid _uuid = Uuid.Random();
         private readonly ArchiveMetadata _archiveMetadata = MetsCreatorTest.FakeArchiveMetadata();
         private readonly string _outputDirectory = AppDomain.CurrentDomain.BaseDirectory;

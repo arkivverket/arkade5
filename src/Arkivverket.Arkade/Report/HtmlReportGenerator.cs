@@ -189,25 +189,28 @@ namespace Arkivverket.Arkade.Report
             _stream.WriteLine(@"            </tr>");
 
 
-            _stream.WriteLine(@"            <tr>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(Resources.Report.LabelNumberOfFilesProcessed);
-            _stream.WriteLine("                 </td>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(testSession.TestSummary.NumberOfProcessedFiles);
-            _stream.WriteLine("                 </td>");
-            _stream.WriteLine(@"            </tr>");
-
-            if (testSession.Archive.ArchiveType != ArchiveType.Noark5)
+            if (testSession.TestSummary != null)
             {
                 _stream.WriteLine(@"            <tr>");
                 _stream.WriteLine(@"                <td>");
-                _stream.WriteLine(Resources.Report.LabelNumberOfRecordsProcessed);
+                _stream.WriteLine(Resources.Report.LabelNumberOfFilesProcessed);
                 _stream.WriteLine("                 </td>");
                 _stream.WriteLine(@"                <td>");
-                _stream.WriteLine(testSession.TestSummary.NumberOfProcessedRecords);
+                _stream.WriteLine(testSession.TestSummary.NumberOfProcessedFiles);
                 _stream.WriteLine("                 </td>");
                 _stream.WriteLine(@"            </tr>");
+
+                if (testSession.Archive.ArchiveType != ArchiveType.Noark5)
+                {
+                    _stream.WriteLine(@"            <tr>");
+                    _stream.WriteLine(@"                <td>");
+                    _stream.WriteLine(Resources.Report.LabelNumberOfRecordsProcessed);
+                    _stream.WriteLine("                 </td>");
+                    _stream.WriteLine(@"                <td>");
+                    _stream.WriteLine(testSession.TestSummary.NumberOfProcessedRecords);
+                    _stream.WriteLine("                 </td>");
+                    _stream.WriteLine(@"            </tr>");
+                }
             }
 
             _stream.WriteLine(@"            <tr>");

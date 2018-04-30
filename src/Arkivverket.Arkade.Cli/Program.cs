@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Util;
 using CommandLine;
 using Serilog;
 
@@ -8,36 +12,42 @@ namespace Arkivverket.Arkade.Cli
     {
         private static void Main(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss.fff} {SourceContext} [{Level}] {Message}{NewLine}{Exception}")
-                .CreateLogger();
+            ArkadeProcessingArea.SetupTemporaryLogsDirectory();
 
-            var options = new CommandLineOptions();
-            try
+            ConfigureLogging(); // Configured with temporary log directory
+
+            Parser.Default.ParseArguments<CommandLineOptions>(args)
+                .WithParsed(RunOptionsAndReturnExitCode)
+                .WithNotParsed(HandleParseError);
+        }
+
+        private static void RunOptionsAndReturnExitCode(CommandLineOptions options)
+        {
+            ArkadeProcessingArea.Establish(options.ProcessingArea); // Removes temporary log directory
+
+            ConfigureLogging(); // Re-configured with log directory within processing area
+
+            if (ValidArgumentsForMetadataCreation(options))
             {
-                Parser.Default.ParseArgumentsStrict(args, options);
-
-                if (ValidArgumentsForMetadataCreation(options))
+                new MetadataExampleGenerator().Generate(options.GenerateMetadataExample);
+            }
+            else
+            {
+                if (ValidArgumentsForTesting(options))
                 {
-                    new MetadataExampleGenerator().Generate(options.GenerateMetadataExample);
+                    new CommandLineRunner().Run(options);
                 }
                 else
                 {
-                    if (ValidArgumentsForTesting(options))
-                    {
-                        new CommandLineRunner().Run(options);
-                    }
-                    else
-                    {
-                        Console.WriteLine(options.GetUsage());
-                    }
+                    Console.WriteLine(options.GetUsage());
                 }
             }
-            catch (Exception e)
-            {
-                Log.Error(e, "An error occured: {exceptionMessage}", e.Message);
-            }
+        }
+
+        private static void HandleParseError(IEnumerable<Error> errors)
+        {
+            foreach (Error error in errors)
+                Log.Error(error.ToString());
         }
 
         private static bool ValidArgumentsForMetadataCreation(CommandLineOptions options)
@@ -51,7 +61,21 @@ namespace Arkivverket.Arkade.Cli
                    && !string.IsNullOrWhiteSpace(options.ArchiveType)
                    && !string.IsNullOrWhiteSpace(options.MetadataFile)
                    && !string.IsNullOrWhiteSpace(options.ProcessingArea)
-                   && !string.IsNullOrWhiteSpace(options.PackageOutputDirectory);
+                   && !string.IsNullOrWhiteSpace(options.OutputDirectory);
+        }
+
+        private static void ConfigureLogging()
+        {
+            string systemLogFilePath = Path.Combine(
+                ArkadeProcessingArea.LogsDirectory.ToString(),
+                ArkadeConstants.SystemLogFileNameFormat
+            );
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.Console(outputTemplate: OutputStrings.SystemLogOutputTemplateForConsole)
+                .WriteTo.RollingFile(systemLogFilePath, outputTemplate: OutputStrings.SystemLogOutputTemplateForFile)
+                .CreateLogger();
         }
     }
 }

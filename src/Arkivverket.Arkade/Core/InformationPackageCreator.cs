@@ -130,14 +130,6 @@ namespace Arkivverket.Arkade.Core
 
             foreach (FileInfo file in directory.GetFiles())
             {
-                if (file.Length >= 8589934592) // 8 GB
-                {
-                    throw new IOException(
-                        "Cannot create tar entry from file with size of 8 GB. or more"
-                        + " The file " + file.Name + " has a size of: " + file.Length + " B."
-                    );
-                }
-
                 if (file.Name == archive.GetInformationPackageFileName()) // don't try to add the tar file into the tar file...
                 {
                     continue;

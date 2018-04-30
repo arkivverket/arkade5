@@ -14,6 +14,9 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,83 +41,90 @@
     <ApplicationIcon>Arkade5.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.1.0\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    <Reference Include="CommonServiceLocator">
+      <HintPath>..\packages\Unity.5.7.3\lib\net45\CommonServiceLocator.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MaterialDesignThemes.Wpf, Version=2.1.0.657, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignThemes.2.1.0.657\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    <Reference Include="MaterialDesignColors">
+      <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    <Reference Include="MaterialDesignThemes.Wpf">
+      <HintPath>..\packages\MaterialDesignThemes.2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.WindowsAPICodePack">
       <HintPath>..\packages\Windows7APICodePack-Core.1.1.0.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell">
       <HintPath>..\packages\Windows7APICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
+    <Reference Include="Prism">
+      <HintPath>..\packages\Prism.Core.7.0.0.396\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Prism.Autofac.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Autofac.6.2.0\lib\net45\Prism.Autofac.Wpf.dll</HintPath>
+    <Reference Include="Prism.Autofac.Wpf">
+      <HintPath>..\packages\Prism.Autofac.7.0.0.336-pre\lib\net45\Prism.Autofac.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Prism.Unity.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Unity.6.2.0\lib\net45\Prism.Unity.Wpf.dll</HintPath>
+    <Reference Include="Prism.Unity.Wpf">
+      <HintPath>..\packages\Prism.Unity.7.0.0.336-pre\lib\net45\Prism.Unity.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Prism.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\Prism.Wpf.dll</HintPath>
+    <Reference Include="Prism.Wpf">
+      <HintPath>..\packages\Prism.Wpf.7.0.0.336-pre\lib\net45\Prism.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.2.3.0\lib\net45\Serilog.dll</HintPath>
+    <Reference Include="Serilog">
+      <HintPath>..\packages\Serilog.2.6.0\lib\net45\Serilog.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Serilog.Settings.AppSettings, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.Settings.AppSettings.2.0.0\lib\net45\Serilog.Settings.AppSettings.dll</HintPath>
+    <Reference Include="Serilog.Settings.AppSettings">
+      <HintPath>..\packages\Serilog.Settings.AppSettings.2.1.2\lib\net45\Serilog.Settings.AppSettings.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Serilog.Sinks.ColoredConsole, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.Sinks.ColoredConsole.2.0.0\lib\net45\Serilog.Sinks.ColoredConsole.dll</HintPath>
+    <Reference Include="Serilog.Sinks.ColoredConsole">
+      <HintPath>..\packages\Serilog.Sinks.ColoredConsole.3.0.1\lib\net45\Serilog.Sinks.ColoredConsole.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.Sinks.File.3.1.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    <Reference Include="Serilog.Sinks.Console">
+      <HintPath>..\packages\Serilog.Sinks.Console.3.1.1\lib\net45\Serilog.Sinks.Console.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Serilog.Sinks.Literate, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.Sinks.Literate.2.0.0\lib\net45\Serilog.Sinks.Literate.dll</HintPath>
+    <Reference Include="Serilog.Sinks.File">
+      <HintPath>..\packages\Serilog.Sinks.File.4.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Serilog.Sinks.RollingFile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.Sinks.RollingFile.3.1.0\lib\net45\Serilog.Sinks.RollingFile.dll</HintPath>
+    <Reference Include="Serilog.Sinks.Literate">
+      <HintPath>..\packages\Serilog.Sinks.Literate.3.0.0\lib\net45\Serilog.Sinks.Literate.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Serilog.Sinks.TextWriter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.Sinks.TextWriter.2.0.0\lib\net45\Serilog.Sinks.TextWriter.dll</HintPath>
+    <Reference Include="Serilog.Sinks.RollingFile">
+      <HintPath>..\packages\Serilog.Sinks.RollingFile.3.3.0\lib\net45\Serilog.Sinks.RollingFile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.Sinks.TextWriter">
+      <HintPath>..\packages\Serilog.Sinks.TextWriter.2.1.0\lib\net45\Serilog.Sinks.TextWriter.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Globalization, Version=4.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\packages\Prism.Wpf.7.0.0.336-pre\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -125,6 +135,34 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Unity.Abstractions">
+      <HintPath>..\packages\Unity.5.7.3\lib\net45\Unity.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.Configuration">
+      <HintPath>..\packages\Unity.5.7.3\lib\net45\Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.Container">
+      <HintPath>..\packages\Unity.5.7.3\lib\net45\Unity.Container.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.Interception">
+      <HintPath>..\packages\Unity.5.7.3\lib\net45\Unity.Interception.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.Interception.Configuration">
+      <HintPath>..\packages\Unity.5.7.3\lib\net45\Unity.Interception.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.5.7.3\lib\net45\Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.ServiceLocation">
+      <HintPath>..\packages\Unity.5.7.3\lib\net45\Unity.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -248,25 +286,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Arkivverket.Arkade.Cli\Arkivverket.Arkade.Cli.csproj">
-      <Project>{d0d921d0-7b81-4ede-a1b7-ed80c6bb368b}</Project>
-      <Name>Arkivverket.Arkade.Cli</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Arkivverket.Arkade\Arkivverket.Arkade.csproj">
       <Project>{d4008c3c-61ef-48a4-b333-793476b7104d}</Project>
       <Name>Arkivverket.Arkade</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Arkade5.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\OctoPack.3.0.71\tools\OctoPack.targets" Condition="Exists('..\packages\OctoPack.3.0.71\tools\OctoPack.targets')" />
-  <Target Name="EnsureOctoPackImported" BeforeTargets="BeforeBuild" Condition="'$(OctoPackImported)' == ''">
-    <Error Condition="!Exists('..\packages\OctoPack.3.0.71\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="You are trying to build with OctoPack, but the NuGet targets file that OctoPack depends on is not available on this computer. This is probably because the OctoPack package has not been committed to source control, or NuGet Package Restore is not enabled. Please enable NuGet Package Restore to download them. For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\packages\OctoPack.3.0.71\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="OctoPack cannot be run because NuGet packages were restored prior to the build running, and the targets file was unavailable when the build started. Please build the project again to include these packages in the build. You may also need to make sure that your build server does not delete packages prior to each build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\OctoPack.3.6.3\build\OctoPack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OctoPack.3.6.3\build\OctoPack.targets'))" />
   </Target>
+  <Import Project="..\packages\OctoPack.3.6.3\build\OctoPack.targets" Condition="Exists('..\packages\OctoPack.3.6.3\build\OctoPack.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.NumberOfDocumentObjects;
+            return Noark5TestNames.NumberOfDocumentObjects;
         }
 
         public override TestType GetTestType()
@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                     if (documentObjectsCount.Value > 0)
                     {
                         var testresult = new TestResult(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.NumberOfDocumentObjectsMessage, documentObjectsCount.Key,
+                            string.Format(Noark5Messages.NumberOf_PerArchivePart, documentObjectsCount.Key,
                                 documentObjectsCount.Value));
 
                         testResults.Add(testresult);

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Util;
@@ -21,7 +20,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         public override string GetName()
         {
-            return Noark5Messages.NumberOfCaseParts;
+            return Noark5TestNames.NumberOfCaseParts;
         }
 
         public override TestType GetTestType()
@@ -44,7 +43,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                     if (casePartCount.Value > 0)
                     {
                         var testResult = new TestResult(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.NumberOfCasePartsMessage, casePartCount.Key,
+                            string.Format(Noark5Messages.NumberOf_PerArchivePart, casePartCount.Key,
                                 casePartCount.Value));
 
                         testResults.Add(testResult);
