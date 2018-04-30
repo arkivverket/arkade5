@@ -33,11 +33,15 @@ namespace Arkivverket.Arkade.Test.Integration
         [Fact(Skip = "Was commented out ...")]
         public void AnonymizeFiskermanntallet()
         {
-            StreamWriter file = new StreamWriter(@"C:\tmp\file.txt", false, Encodings.ISO_8859_1);      
+            var tmpFileName = Path.GetTempFileName();
+            StreamWriter file = new StreamWriter(tmpFileName, false, Encodings.ISO_8859_1);      
 
             Dictionary<string, string> randomFodselsnummerOgNavn = new Dictionary<string, string>();
 
-            string[] allLines = File.ReadAllLines("C:\\tmp\\_testdata\\fiskermanntallet-anon\\manntal2000_2009.dat", Encodings.ISO_8859_1);
+            // TODO Rewrite to read test data from a relative location.
+            // The file is found in 'Arkivverket.Arkade.Test/TestData/tar/fiskermanntallet-anonymized/dab6c748-8d1a-4b6d-b091-3a7b8b3cb255.tar'
+            // and there should probably be a setup step that unpacks those files to a deterministic location.
+            string[] allLines = File.ReadAllLines("C:/tmp/_testdata/fiskermanntallet-anon/manntal2000_2009.dat", Encodings.ISO_8859_1);
             foreach (string line in allLines)
             {
                 string[] fields = line.Split(';');

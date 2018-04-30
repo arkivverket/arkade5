@@ -67,7 +67,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
 
         private TestRun RunTest()
         {
-            Archive archive = new Core.ArchiveBuilder().WithWorkingDirectoryRoot("c:\\temp").Build();
+            var tmpFolder = new DirectoryInfo(Path.GetTempPath()+"/"+Path.GetRandomFileName());
+            tmpFolder.Create();
+            Archive archive = new Core.ArchiveBuilder().WithWorkingDirectoryRoot(tmpFolder.FullName).Build();
             var validateXmlWithSchema = new ValidateXmlWithSchema();
             validateXmlWithSchema.Test(archive);
             return validateXmlWithSchema.GetTestRun();
