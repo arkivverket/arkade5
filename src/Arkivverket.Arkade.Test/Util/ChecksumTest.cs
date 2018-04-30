@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Test.Util
         [Fact]
         public void GenerateChecksum()
         {
-            var pathToFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Util\\demo.txt";
+            var pathToFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/Util/demo.txt";
             _output.WriteLine("File path: " + pathToFile);
 
             string checksum = new Sha256ChecksumGenerator().GenerateChecksum(pathToFile);
@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Test.Util
         {
             Xunit.Assert.Throws<FileNotFoundException>(delegate
             {
-                var pathToFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Util\\demo2.txt";
+                var pathToFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/Util/demo2.txt";
                 new Sha256ChecksumGenerator().GenerateChecksum(pathToFile);
             });
         }

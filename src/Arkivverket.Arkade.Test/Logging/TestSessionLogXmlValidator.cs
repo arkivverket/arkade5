@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Test.Logging
 {
     class TestSessionLogXmlValidator
     {
-        private static string schemaFileName = $"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\..\\Arkivverket.Arkade\\ExternalModels\\xsd\\testSessionLog.xsd";
+        private static string schemaFileName = $"{AppDomain.CurrentDomain.BaseDirectory}/../../../Arkivverket.Arkade/ExternalModels/xsd/testSessionLog.xsd";
         private static string schemaNamespace = "http://www.arkivverket.no/dataextracttools/arkade5/testsessionlog";
 
         public static void Validate(string xml)

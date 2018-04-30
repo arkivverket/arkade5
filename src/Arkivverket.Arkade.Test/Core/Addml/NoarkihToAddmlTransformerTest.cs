@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
         [Fact]
         public void ShouldTransformFromNoarkihToAddml()
         {
-            string noark4Xml = TestUtil.ReadFromFileInTestDataDir("noark4\\NOARKIH.XML");
+            string noark4Xml = TestUtil.ReadFromFileInTestDataDir("noark4/NOARKIH.XML");
 
             string noark3Xml = NoarkihToAddmlTransformer.Transform(noark4Xml);
 

@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         [Fact]
         public void FindsLogEntries()
         {
-            const string testdataDirectory = "TestData\\Noark5\\LogsControl";
+            const string testdataDirectory = "TestData/Noark5/LogsControl";
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 

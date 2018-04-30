@@ -62,7 +62,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Processes.Hardcoded
                 .WithFileInfo(new FileInfo(
                     workingDirectory.Content().DirectoryInfo().FullName 
                     + Path.DirectorySeparatorChar + "DOKVERS.XML"))
-                .WithFileName("DATA\\DOKVERS.XML")
+                .WithFileName("DATA/DOKVERS.XML")
                 .Build();
 
             AddmlDefinition addmlDefinition = new AddmlDefinitionBuilder()

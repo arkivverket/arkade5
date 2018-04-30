@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         {
             XmlElementHelper xmlElementHelper = MockUp4JournalPostRegistrations();
 
-            const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SharpSeparation";
+            const string testdataDirectory = "TestData/Noark5/JournalControl/SharpSeparation";
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
@@ -32,7 +32,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         {
             XmlElementHelper xmlElementHelper = MockUp4JournalPostRegistrations();
 
-            const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SoftSeparationAndUnEqualJournals";
+            const string testdataDirectory = "TestData/Noark5/JournalControl/SoftSeparationAndUnEqualJournals";
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
@@ -67,7 +67,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                         .Add("registrering", " ... ") // No journalpost attribute
                                         .Add("registrering", new[] {"xsi:type", "journalpost"}, " ... "))))));
 
-            const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SharpSeparation";
+            const string testdataDirectory = "TestData/Noark5/JournalControl/SharpSeparation";
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
@@ -102,7 +102,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                         .Add("registrering", " ... ") // No journalpost attribute
                                         .Add("registrering", new[] {"xsi:type", "journalpost"}, " ... "))))));
 
-            const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SoftSeparation";
+            const string testdataDirectory = "TestData/Noark5/JournalControl/SoftSeparation";
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 

@@ -238,7 +238,7 @@ namespace Arkivverket.Arkade.Test.Metadata
                     new FileDescription
                     {
                         Id = 1,
-                        Name = "someDirectory\\someFileName.pdf",
+                        Name = "someDirectory/someFileName.pdf",
                         Extension = "pdf",
                         Sha256Checksum = "3B29DFCC4286E50B180AF8F21904C86F8AA42A23C4055C3A71D0512F9AE3886F",
                         Size = 2325452,

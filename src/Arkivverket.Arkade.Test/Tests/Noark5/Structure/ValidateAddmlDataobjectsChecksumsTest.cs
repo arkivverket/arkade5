@@ -23,11 +23,11 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
         [Fact]
         public void ShouldValidateThatAllChecksumsAreCorrect()
         {
-            string workingDirectory = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\\TestData\\Noark5\\StructureChecksums\\correct";
+            string workingDirectory = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/TestData/Noark5/StructureChecksums/correct";
             var archive = new Core.ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
-                .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
+                .WithWorkingDirectoryExternalContent(workingDirectory + "/content")
                 .Build();
 
             var validateAddmlDataobjectsChecksums = new ValidateAddmlDataobjectsChecksums();

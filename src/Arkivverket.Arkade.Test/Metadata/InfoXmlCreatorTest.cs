@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Test.Metadata
         [Fact]
         public void ShouldSaveCreatedInfoXmlFileToDisk()
         {
-            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Metadata\\InfoXmlCreator";
+            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}/TestData/Metadata/InfoXmlCreator";
 
             var packageFileName = Path.Combine(workingDirectory, "package.tar");
 

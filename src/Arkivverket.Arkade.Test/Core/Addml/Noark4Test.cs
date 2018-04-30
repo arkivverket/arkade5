@@ -18,12 +18,12 @@ namespace Arkivverket.Arkade.Test.Core.Addml
         public void ShouldParseNoark4ConvertedArkivuttrekkXml()
         {
             // Code to convert NOARKIH.XML to addml.xml
-            //string noarkihString = TestUtil.ReadFromFileInTestDataDir("noark4\\NOARKIH.XML");
+            //string noarkihString = TestUtil.ReadFromFileInTestDataDir("noark4/NOARKIH.XML");
             //string addmlString = NoarkihToAddmlTransformer.Transform(noarkihString);
 
             // File is converted from NOARKIH.XML format
 
-            var externalContentDirectory = new DirectoryInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\TestData\\noark4");
+            var externalContentDirectory = new DirectoryInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/TestData/noark4");
             var workingDirectory = new WorkingDirectory(ArkadeProcessingArea.WorkDirectory, externalContentDirectory);
             AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content().WithFile("addml.xml").FullName);
 

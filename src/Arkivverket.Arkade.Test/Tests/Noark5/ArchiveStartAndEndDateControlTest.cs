@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         {
             XmlElementHelper xmlElementHelper = MockUp4JournalPostRegistrations();
 
-            const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SharpSeparation";
+            const string testdataDirectory = "TestData/Noark5/JournalControl/SharpSeparation";
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             XmlElementHelper xmlElementHelper = MockUp4JournalPostRegistrations();
 
             const string testdataDirectory =
-                "TestData\\Noark5\\JournalControl\\SoftSeparationAndUnEqualJournals";
+                "TestData/Noark5/JournalControl/SoftSeparationAndUnEqualJournals";
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
@@ -55,7 +55,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         {
             XmlElementHelper xmlElementHelper = MockUp4JournalPostRegistrations();
 
-            const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SoftSeparation";
+            const string testdataDirectory = "TestData/Noark5/JournalControl/SoftSeparation";
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
@@ -75,7 +75,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         {
             XmlElementHelper xmlElementHelper = MockUp4JournalPostRegistrations("2013-10-10T00:00:00Z"); // Adjusted last date
 
-            const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SharpSeparation";
+            const string testdataDirectory = "TestData/Noark5/JournalControl/SharpSeparation";
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 

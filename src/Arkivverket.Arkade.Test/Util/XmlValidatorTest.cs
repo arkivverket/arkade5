@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Test.Util
     {
 
         private readonly string _addmlXsd = ResourceUtil.ReadResource(ArkadeConstants.AddmlXsdResource);
-        private readonly string _addml = TestUtil.ReadFromFileInTestDataDir("noark3\\addml.xml");
+        private readonly string _addml = TestUtil.ReadFromFileInTestDataDir("noark3/addml.xml");
 
         [Fact]
         public void ShouldNotCreateErrorsIfXmlDoesValidateAgainstSchema()

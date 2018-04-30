@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml.Definitions
         public AddmlDefinitionParserTest()
         {
             var workingDirectory =
-                new WorkingDirectory(new DirectoryInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\TestData\\noark3"));
+                new WorkingDirectory(new DirectoryInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/TestData/noark3"));
             AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Root().WithFile("noark_3_arkivuttrekk_med_prosesser.xml").FullName);
             _parser = new AddmlDefinitionParser(addml, workingDirectory, new StatusEventHandler());
         }

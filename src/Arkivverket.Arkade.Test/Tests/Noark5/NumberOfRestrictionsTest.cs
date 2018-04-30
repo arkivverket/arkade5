@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
             // Creating a test archive stating that it should contain restrictions:
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
+                .WithWorkingDirectoryRoot("TestData/Noark5/MetaDataTesting/BooleansTrue").Build();
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfRestrictions(testArchive));
 
@@ -127,7 +127,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
             // Creating a test archive stating that it should contain restrictions:
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
+                .WithWorkingDirectoryRoot("TestData/Noark5/MetaDataTesting/BooleansTrue").Build();
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfRestrictions(testArchive));
 
@@ -188,7 +188,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
             // Creating a test archive stating that it should not contain any restrictions:
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansFalse").Build();
+                .WithWorkingDirectoryRoot("TestData/Noark5/MetaDataTesting/BooleansFalse").Build();
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfRestrictions(testArchive));
 
@@ -225,7 +225,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
             // Creating a test archive stating that it should contain restrictions:
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
+                .WithWorkingDirectoryRoot("TestData/Noark5/MetaDataTesting/BooleansTrue").Build();
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfRestrictions(testArchive));
 

@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Test.Integration
         [Fact(Skip = "Takes 3 minutes to run")]
         public void ShouldRunTestsOnFiskermanntallet()
         {
-            ArchiveFile archive = ArchiveFile.Read("..\\..\\TestData\\tar\\fiskermanntallet-anonymized\\dab6c748-8d1a-4b6d-b091-3a7b8b3cb255.tar", ArchiveType.Noark3);
+            ArchiveFile archive = ArchiveFile.Read("../../TestData/tar/fiskermanntallet-anonymized/dab6c748-8d1a-4b6d-b091-3a7b8b3cb255.tar", ArchiveType.Noark3);
             Arkade.Core.Arkade arkade = new Arkade.Core.Arkade();
             TestSession testSesson = arkade.RunTests(archive);
 

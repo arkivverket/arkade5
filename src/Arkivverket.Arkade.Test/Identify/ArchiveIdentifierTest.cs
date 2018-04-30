@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Test.Identify
 
         private ArchiveType FindArchiveType(string testFileName)
         {
-            var metadata = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\{testFileName}";
+            var metadata = $"{AppDomain.CurrentDomain.BaseDirectory}/TestData/{testFileName}";
             return new ArchiveIdentifier().Identify(metadata);
         }
     }

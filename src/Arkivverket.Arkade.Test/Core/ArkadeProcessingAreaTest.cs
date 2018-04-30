@@ -25,9 +25,9 @@ namespace Arkivverket.Arkade.Test.Core
             ArkadeProcessingArea.Establish(_locationPath);
 
             ArkadeProcessingArea.Location.FullName.Should().Be(_locationPath);
-            ArkadeProcessingArea.RootDirectory.FullName.Should().Be(_locationPath + "\\Arkade");
-            ArkadeProcessingArea.WorkDirectory.FullName.Should().Be(_locationPath + "\\Arkade\\work");
-            ArkadeProcessingArea.LogsDirectory.FullName.Should().Be(_locationPath + "\\Arkade\\logs");
+            ArkadeProcessingArea.RootDirectory.FullName.Should().Be(_locationPath + "/Arkade");
+            ArkadeProcessingArea.WorkDirectory.FullName.Should().Be(_locationPath + "/Arkade/work");
+            ArkadeProcessingArea.LogsDirectory.FullName.Should().Be(_locationPath + "/Arkade/logs");
         }
 
         [Fact(Skip = "IO-issues")]

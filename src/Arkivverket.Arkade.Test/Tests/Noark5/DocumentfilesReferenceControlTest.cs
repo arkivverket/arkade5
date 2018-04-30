@@ -35,7 +35,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                             new XmlElementHelper().Add("dokumentbeskrivelse",
                                                 new XmlElementHelper().Add("dokumentobjekt",
                                                     new XmlElementHelper().Add(
-                                                        "referanseDokumentfil", "DOKUMENT\\B.PDF"
+                                                        "referanseDokumentfil", "DOKUMENT/B.PDF"
                                                     ))))
                                         .Add("registrering", new[] { "xsi:type", "journalpost" },
                                             new XmlElementHelper().Add("dokumentbeskrivelse",
@@ -75,7 +75,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                             new XmlElementHelper().Add("dokumentbeskrivelse",
                                                 new XmlElementHelper().Add("dokumentobjekt",
                                                     new XmlElementHelper().Add(
-                                                        "referanseDokumentfil", "DOKUMENT\\B.PDF"
+                                                        "referanseDokumentfil", "DOKUMENT/B.PDF"
                                                     ))))
                                         .Add("registrering", new[] { "xsi:type", "journalpost" },
                                             new XmlElementHelper().Add("dokumentbeskrivelse",
@@ -96,7 +96,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         private static TestRun CreateTestRun(XmlElementHelper xmlElementHelper)
         {
-            const string testdataDirectory = "TestData\\Noark5\\DocumentfilesControl\\FilesToBeReferenced";
+            const string testdataDirectory = "TestData/Noark5/DocumentfilesControl/FilesToBeReferenced";
 
             Archive testArchive = new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)

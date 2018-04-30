@@ -169,7 +169,7 @@ namespace Arkivverket.Arkade.Test.Core.Addml
         private FlatFile GetDokDat()
         {
 
-            var workingDirectory = new WorkingDirectory(ArkadeProcessingArea.WorkDirectory, new DirectoryInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\TestData\\noark3"));
+            var workingDirectory = new WorkingDirectory(ArkadeProcessingArea.WorkDirectory, new DirectoryInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/TestData/noark3"));
             AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content().WithFile("noark_3_arkivuttrekk_med_prosesser.xml").FullName);
 
             AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml, workingDirectory, new StatusEventHandler()).GetAddmlDefinition();

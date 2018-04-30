@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
 
         public static Archive CreateArchiveExtraction(string testdataDirectory)
         {
-            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\{testdataDirectory}";
+            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}/{testdataDirectory}";
             return new Core.ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryExternalContent(workingDirectory)

@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                     .Add("mappe",
                                         new XmlElementHelper().Add("systemID", "214e27a2-5e7f-484b-b2c2-dea4e50524a3"))))));
 
-            const string testdataDirectory = "TestData\\Noark5\\LogsControl";
+            const string testdataDirectory = "TestData/Noark5/LogsControl";
             // Changelog references archive units (systemID):
             // 734b493f-c64e-4fc5-a988-56be11e2ee10
             // 214e27a2-5e7f-484b-b2c2-dea4e50524a3
@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                 new XmlElementHelper().Add("mappe",
                                     new XmlElementHelper().Add("systemID", "734b493f-c64e-4fc5-a988-56be11e2ee10"))))));
 
-            const string testdataDirectory = "TestData\\Noark5\\LogsControl";
+            const string testdataDirectory = "TestData/Noark5/LogsControl";
             // Changelog references archive units (systemID):
             // 734b493f-c64e-4fc5-a988-56be11e2ee10
             // 214e27a2-5e7f-484b-b2c2-dea4e50524a3

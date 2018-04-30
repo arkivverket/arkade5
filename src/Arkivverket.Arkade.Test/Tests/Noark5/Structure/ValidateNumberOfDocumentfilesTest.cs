@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
         public void DocumentedAndActualFileCountMatch()
         {
             string workingDirectory =
-                $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\DocumentfilesControl\\CountMatch";
+                $"{AppDomain.CurrentDomain.BaseDirectory}/TestData/Noark5/DocumentfilesControl/CountMatch";
 
             TestRun testRun = CreateTestRun(workingDirectory);
 
@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
         public void DocumentedAndActualFileCountMisMatch()
         {
             string workingDirectory =
-                $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\DocumentfilesControl\\CountMisMatch";
+                $"{AppDomain.CurrentDomain.BaseDirectory}/TestData/Noark5/DocumentfilesControl/CountMisMatch";
 
             TestRun testRun = CreateTestRun(workingDirectory);
 
@@ -43,7 +43,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
         public void DocumentedFileCountIsMissing()
         {
             string workingDirectory =
-                $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\DocumentfilesControl\\MissingDocumentation";
+                $"{AppDomain.CurrentDomain.BaseDirectory}/TestData/Noark5/DocumentfilesControl/MissingDocumentation";
 
             TestRun testRun = CreateTestRun(workingDirectory);
 
@@ -57,7 +57,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
         public void ThereIsNoFiles()
         {
             string workingDirectory =
-                $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\DocumentfilesControl\\NoFiles";
+                $"{AppDomain.CurrentDomain.BaseDirectory}/TestData/Noark5/DocumentfilesControl/NoFiles";
 
             File.Delete(workingDirectory + @"\content\dokumenter\directorykeeper.txt");
 
@@ -72,7 +72,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
         public void ThereIsNoFilesDirectory()
         {
             string workingDirectory =
-                $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\DocumentfilesControl\\NoFilesDirectory";
+                $"{AppDomain.CurrentDomain.BaseDirectory}/TestData/Noark5/DocumentfilesControl/NoFilesDirectory";
 
             TestRun testRun = CreateTestRun(workingDirectory);
 
@@ -85,7 +85,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
         public void DocumentedAndActualFileCountMatchWhenThereIsSubDirectories()
         {
             string workingDirectory =
-                $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\DocumentfilesControl\\Sub-directories";
+                $"{AppDomain.CurrentDomain.BaseDirectory}/TestData/Noark5/DocumentfilesControl/Sub-directories";
 
             TestRun testRun = CreateTestRun(workingDirectory);
 
@@ -99,7 +99,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
             Archive archive = new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
-                .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
+                .WithWorkingDirectoryExternalContent(workingDirectory + "/content")
                 .Build();
 
             var validateNumberOfDocumentfiles = new ValidateNumberOfDocumentfiles();
