@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using RestSharp;
@@ -14,6 +15,8 @@ namespace Arkivverket.Arkade.Util
 
         public GitHubReleaseInfoReader()
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             _restClient = new RestClient("https://api.github.com/");
 
             _latestReleaseInfo = ReadGitHubLatestReleaseInfo();
