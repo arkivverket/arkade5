@@ -459,7 +459,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall journalposter som avskriver andre journalposter: {0}.
+        ///   Looks up a localized string similar to {1}: {2}.
         /// </summary>
         internal static string NumberOfDepreciationsMessage {
             get {
@@ -468,7 +468,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Antall journalposter som avskriver andre journalposter: {1}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - {1}: {2}.
         /// </summary>
         internal static string NumberOfDepreciationsMessage_ForArchivePart {
             get {

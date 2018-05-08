@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
     public class NumberOfDepreciationsTest
     {
         [Fact]
-        public void NumberOfDepreciationsIsOne()
+        public void NumberOfDepreciationsIsTwo()
         {
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv", new XmlElementHelper()
@@ -20,15 +20,19 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                 .Add("mappe", new XmlElementHelper()
                                     .Add("registrering", new XmlElementHelper()
                                         .Add("avskrivning", new XmlElementHelper()
-                                            .Add("referanseAvskrivesAvJournalpost", "some value"))))))));
+                                            .Add("avskrivningsmaate", "Besvart per telefon"))
+                                        .Add("avskrivning", new XmlElementHelper()
+                                            .Add("avskrivningsmaate", "Besvart per e-post"))))))));
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDepreciations());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("Antall journalposter som avskriver andre journalposter: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("2"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Besvart per telefon: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Besvart per e-post: 1"));
         }
 
         [Fact]
-        public void NumberOfDepreciationsIsOneInOneOfTwoArchiveparts()
+        public void NumberOfDepreciationsIsTwoInTwoDifferentArchiveparts()
         {
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv", new XmlElementHelper()
@@ -38,7 +42,10 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
                                     .Add("registrering", new XmlElementHelper()
-                                        .Add("avskrivning", new XmlElementHelper()))))))
+                                        .Add("avskrivning", new XmlElementHelper()
+                                            .Add("avskrivningsmaate", "Besvart per telefon"))
+                                        .Add("avskrivning", new XmlElementHelper()
+                                            .Add("avskrivningsmaate", "Besvart per e-post")))))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
@@ -46,12 +53,19 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                                 .Add("mappe", new XmlElementHelper()
                                     .Add("registrering", new XmlElementHelper()
                                         .Add("avskrivning", new XmlElementHelper()
-                                            .Add("referanseAvskrivesAvJournalpost", new XmlElementHelper()))
-                                    ))))));
+                                            .Add("avskrivningsmaate", "Besvart per telefon"))))))));
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDepreciations());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_2 - Antall journalposter som avskriver andre journalposter: 1"));
+
+            testRun.Results.Should().Contain(r => r.Message.Equals("3"));
+
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Besvart per telefon: 1"));
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Besvart per e-post: 1"));
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("Arkivdel (systemID) someSystemId_2 - Besvart per telefon: 1"));
         }
     }
 }
