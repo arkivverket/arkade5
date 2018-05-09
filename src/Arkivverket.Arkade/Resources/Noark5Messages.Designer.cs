@@ -459,6 +459,60 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall kryssreferanser fra basisregistreringer: {0}.
+        /// </summary>
+        internal static string NumberOfCrossReferencesToBasicRegistrationMessage {
+            get {
+                return ResourceManager.GetString("NumberOfCrossReferencesToBasicRegistrationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0 } - Antall kryssreferanser fra basisregistreringer: {1}.
+        /// </summary>
+        internal static string NumberOfCrossReferencesToBasicRegistrationMessage_ForArchivePart {
+            get {
+                return ResourceManager.GetString("NumberOfCrossReferencesToBasicRegistrationMessage_ForArchivePart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall kryssreferanser fra klasser: {0}.
+        /// </summary>
+        internal static string NumberOfCrossReferencesToClassMessage {
+            get {
+                return ResourceManager.GetString("NumberOfCrossReferencesToClassMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0 } - Antall kryssreferanser fra klasser: {1}.
+        /// </summary>
+        internal static string NumberOfCrossReferencesToClassMessage_ForArchivePart {
+            get {
+                return ResourceManager.GetString("NumberOfCrossReferencesToClassMessage_ForArchivePart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall kryssreferanser fra mapper: {0}.
+        /// </summary>
+        internal static string NumberOfCrossReferencesToFolderMessage {
+            get {
+                return ResourceManager.GetString("NumberOfCrossReferencesToFolderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0 } - Antall kryssreferanser fra mapper: {1}.
+        /// </summary>
+        internal static string NumberOfCrossReferencesToFolderMessage_ForArchivePart {
+            get {
+                return ResourceManager.GetString("NumberOfCrossReferencesToFolderMessage_ForArchivePart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {1}: {2}.
         /// </summary>
         internal static string NumberOfDepreciationsMessage {

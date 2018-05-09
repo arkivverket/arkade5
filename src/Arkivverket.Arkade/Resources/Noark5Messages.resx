@@ -386,4 +386,22 @@ Generert:  {2}</value>
   <data name="NumberOfDepreciationsMessage_ForArchivePart" xml:space="preserve">
     <value>Arkivdel (systemID) {0} - {1}: {2}</value>
   </data>
+  <data name="NumberOfCrossReferencesToBasicRegistrationMessage" xml:space="preserve">
+    <value>Antall kryssreferanser fra basisregistreringer: {0}</value>
+  </data>
+  <data name="NumberOfCrossReferencesToBasicRegistrationMessage_ForArchivePart" xml:space="preserve">
+    <value>Arkivdel (systemID): {0 } - Antall kryssreferanser fra basisregistreringer: {1}</value>
+  </data>
+  <data name="NumberOfCrossReferencesToClassMessage" xml:space="preserve">
+    <value>Antall kryssreferanser fra klasser: {0}</value>
+  </data>
+  <data name="NumberOfCrossReferencesToClassMessage_ForArchivePart" xml:space="preserve">
+    <value>Arkivdel (systemID): {0 } - Antall kryssreferanser fra klasser: {1}</value>
+  </data>
+  <data name="NumberOfCrossReferencesToFolderMessage" xml:space="preserve">
+    <value>Antall kryssreferanser fra mapper: {0}</value>
+  </data>
+  <data name="NumberOfCrossReferencesToFolderMessage_ForArchivePart" xml:space="preserve">
+    <value>Arkivdel (systemID): {0 } - Antall kryssreferanser fra mapper: {1}</value>
+  </data>
 </root>
