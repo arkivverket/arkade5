@@ -1,0 +1,8 @@
+# Config file used with Sublime Text plugin: https://packagecontrol.io/packages/On Save
+# Configured to run the make html command whenever a rst-file (in the same folder) is saved.
+
+LISTENER:
+  - CMD : make html; $FILENAME saved - docs built
+		CONSOLE : bottom
+		WATCH : *.rst
+		TIMEOUT : 5000
