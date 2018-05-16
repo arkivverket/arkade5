@@ -21,8 +21,7 @@
                            FontWeight="Bold"
                            Margin="0,0,0,10">
                     <Run Text="{Binding ArkadeProcessingAreaLocationSetting}"
-                         Background="LightGray" />
-                    <Run>\Arkade</Run>
+                         Background="LightGray" /><Run>\</Run><Run Text="{Binding DirectoryNameArkadeProcessingAreaRoot, Mode=OneWay}"></Run>
                 </TextBlock>
                 <Button Command="{Binding ChangeArkadeProcessingAreaLocationCommand}"
                         Content="{x:Static resources:SettingsUI.ArkadeProcessingAreaLocation_EditButtonText}"
