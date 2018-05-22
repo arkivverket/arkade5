@@ -1,7 +1,11 @@
 Brukerveiledning
 ================
 
-Oppdatert 21.08.2017
+Arkade 5
+********
+
+**Skrivebordsapplikasjon for Windows**
+
 
 Arkade 5 brukes ved å lese inn et arkivuttrekk, utføre testing av uttrekket og/eller opprette en arkivpakke av uttrekket. Ved testing genereres det en utfyllende testrapport.
 Arkade 5 muliggjør også opprettelse/endring av metadata for arkivuttrekk.
@@ -23,7 +27,7 @@ Innlasting
 
 Velg og last inn arkivuttrekket som skal behandles:
 
-1) Klikk på knappen "Velg katalog" dersom uttrekket er en ordinær fil-/mappestruktur. I tilfelle velges katalogen som inneholder arkivbeskrivelse-filen (arkivstruktur.xml, addml.xml eller NOARKIH.xml). Klikk på knappen "Velg SIP/AIP-fil" dersom uttrekket er en AIP- eller SIP-struktur pakket som en tar-fil.
+1) Klikk på knappen "Velg katalog" dersom uttrekket er en ordinær fil-/mappestruktur. I tilfelle velges katalogen som inneholder arkivbeskrivelse-filen (addml.xml, arkivuttrekk.xml eller NOARKIH.xml). Klikk på knappen "Velg SIP/AIP-fil" dersom uttrekket er en AIP- eller SIP-struktur pakket som en tar-fil.
 
 2) Oppgi arkivtype for det valgte uttrekket. Arkade 5 støtter typene "Fagsystem", "Noark 3", "Noark 4" og "Noark 5".
 
@@ -104,3 +108,105 @@ Prosesseringsområde
 -------------------
 
 Under kjøring benytter Arkade et filområde til plassering av midlertidige filer fra arkivprosessering, system- og feillogger samt andre systemfiler. Plassering for prosesseringsområdet velges av bruker som en katalog i filsystemet og må være definert før arkiv kan behandles. Plasseringen som velges må være egnet med tanke på størrelse, tilgjengelighet og personvern. Størrelsen må være minst den av alle uttrekk som skal behandles under samme kjøring i tillegg til plass for systemfiler. Ved avslutning av Arkade igangsettes sletting av midlertidige filer og gamle loggfiler. Plasseringen av prosesseringsområdet kan når som helst endres fra innstillingsvinduet. Ved endring av plassering, igangsettes sletting av opprinnelig prosesseringsområde. Ny plassering vil tas i bruk neste gang Arkade startes.
+
+__________________________________________________________________________
+
+
+Arkade 5 CLI 
+************
+
+**Kommandolinjegrensesnitt for Linux, macOS og Windows**
+
+
+Arkade 5 CLI tester og lager en arkivpakke (SIP) av et arkivuttrekk med én kommando. Plasseringer for arkivutrekket som skal behandles, metadata, ferdig arkivpakke og testrapport samt midlertidige filer og systemlogger, oppgis alle som parametre til kommandoen.
+
+
+`Se installasjonsveiledning for Arkade 5 CLI <Installasjonsveiledning.html#arkade-5-cli>`_
+
+
+Kjøring
+~~~~~~~
+
+Arkade CLI kjøres med skriptet :code:`arkade.sh` som medfølger installasjonspakken.
+
+(Arkade CLI som medfølger en installasjon av Arkade 5 for Windows, kjøres med :code:`Arkade.exe`)
+
+For å kjøre skriptet slik som vist i eksemplene (:code:`./arkade.sh`), naviger til installasjonskatalogen:
+
+.. code-block:: bash
+
+	cd Arkade5CLI-<versjon>
+
+*(Ved å tilgjengeliggjøre skriptet i PATH kan det kjøres med* :code:`arkade` *fra hvor som helst i filsystemet)*
+
+
+Parametre
+---------
+
+Bruk :code:`--help` for å vise en oversikt over parametre:
+
+.. code-block:: bash
+
+	./arkade.sh --help
+
+.. image:: img/cli/parameters.png
+
+Alle parametre foruten :code:`--help` og :code:`--version` kan oppgis i kortform og må etterfølges av aktuell verdi f.eks. :code:`--type Noark5` eller :code:`-t Noark5`
+
+Parametrenes rekkefølge er likegyldig.
+
+*NB! Alle kataloger som oppgis som må eksistere på forhånd.*
+
+Prosesseringsområde (CLI)
+-------------------------
+
+Under kjøring benytter Arkade et filområde til plassering av midlertidige filer fra arkivprosessering, system- og feillogger samt andre systemfiler. Plassering for prosesseringsområdet velges av bruker som en katalog i filsystemet og må oppgis med parameteret :code:`--processing-area` eller :code:`-p`. Plasseringen som velges må være egnet med tanke på størrelse, lese-/skrivehastighet og personvern. Størrelsen må være minst den av uttrekket som skal behandles, i tillegg til noen MB for systemfiler. Etter en arkivprosessering vil Arkade igangsette sletting av midlertidige filer og gamle loggfiler. Av tekniske hensyn fjernes ikke automatisk mindre enn 1 uke gamle loggfiler. Vær oppmerksom på at loggfiler kan inneholde personopplysninger. Det anbefales å bruke den samme plasseringen for prosesseringsområdet for hver kjøring. Slik kan Arkade automatisk fjerne loggfiler som er mer enn 1 uke gamle. Sørg ellers for manuelt å fjerne loggfilene.
+
+Eksempel på bruk
+----------------
+
+Plasseringer og navn på kataloger for inn- og utdata er valgfrie. I eksemplene som følger brukes katalogene :code:`tmp/` og :code:`output/` i hjemmekatalogen :code:`~/`. Opprett de samme katalogene dersom du vil bruke eksempelkommandoene i denne veiledningen slik som de står.
+
+.. code-block:: bash
+
+	mkdir ~/tmp
+	mkdir ~/output
+
+
+Metadata
+........
+
+Ved arkivprosessering må det refereres til en fil med metadata på JSON-format. Arkade CLI kan generere en fil med eksempel-metadata som så kan redigeres.
+
+Oppgi full filsti for metadatafilen som skal opprettes, med :code:`--generate-metadata-example` eller :code:`-g`. Det må også oppgis et prosesseringsområde med :code:`--processing-area` eller :code:`-p`.
+
+I kommandoen under gis metadatafilen navnet :code:`metadata.txt` og plassering i hjemmekatalogen :code:`~/`. Prosesseringsområdet er satt til katalogen :code:`~/tmp/`.
+
+.. code-block:: bash
+
+	./arkade.sh -g ~/metadata.txt -p ~/tmp/
+
+*Obligatoriske parametre ved metadatagenerering:* :code:`--generate-metadata-example`:code:`--processing-area`
+
+Prosessering av arkivuttrekk
+............................
+
+*Arkivuttrekket som skal prosesseres kan foreligge som en ordinær mappestruktur eller en AIP/SIP-struktur pakket som en tar-fil. Parameterverdien for* :code:`--archive`/:code:`-a` *settes til hhv. katalogen som inneholder arkivbeskrivelse-filen (addml.xml, arkivuttrekk.xml eller NOARKIH.xml) eller til tar-filen.*
+
+I eksempelkommandoen vist under leses det inn et arkivuttrekk fra katalogen :code:`~/N5-arkivuttrekk/`. Arkivuttrekkets type er oppgitt til :code:`noark5`. Metadata for uttrekket leses fra filen :code:`~/metadata.txt/`. Katalog for plassering av prosesseringsområdet er satt til :code:`~/tmp/` og katalog for resulterende data er satt til :code:`~/output/`.
+
+.. code-block:: bash
+
+	./arkade.sh -a ~/N5-arkivuttrekk/ -t noark5 -m ~/metadata.txt -p ~/tmp/ -o ~/output/
+
+*Obligatoriske parametre ved arkivprosessering:*
+:code:`--archive`:code:`--type`:code:`--metadata-file`:code:`--processing-area`:code:`--output-directory`
+
+Resulterende data
+.................
+
+Kommandoen over produserer en arkivpakke (SIP) som en tar-fil, med tilhørende info.xml på METS-format, samlet i en katalog. Ved siden av katalogen plasseres en testrapport på HTML-format.
+
+.. image:: img/cli/outputfiles.png
+
+*For hver prosessering genereres en unik UUID som bl.a. brukes i fil- og katalognavn for resultatene.*

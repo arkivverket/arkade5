@@ -6,13 +6,14 @@
 Arkade 5 - testverktøy for arkivuttrekk
 =======================================
 
-Nedlasting
---------------------------
+* |Installer Arkade 5|_
 
-`Last ned siste versjon av Arkade 5 fra GitHub <https://github.com/arkivverket/arkade5/releases/latest>`_ (velg .msi-filen under Assets)
+.. |Installer Arkade 5| replace:: **Installer Arkade 5**
+.. _Installer Arkade 5: Installasjonsveiledning.html
+
 
 Pressemelding
--------------
+~~~~~~~~~~~~~
 
 4. september 2017 lanserte `Arkivverket <https://www.arkivverket.no>`_ versjon 1.0 av et nytt testverktøy - "Arkade 5".
 
@@ -42,7 +43,7 @@ Fra venstre: Jørgen Tellnes (A), Henning Jensen (A), Joachim Fugleberg (AV), Ha
 
 
 Innhold
--------
+~~~~~~~
 
 .. toctree::
    :maxdepth: 2
