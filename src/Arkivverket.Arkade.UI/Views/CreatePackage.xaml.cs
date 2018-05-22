@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -23,6 +24,14 @@ namespace Arkivverket.Arkade.UI.Views
         public CreatePackage()
         {
             InitializeComponent();
+        }
+
+        private void DatePicker_CalendarOpened(object sender, RoutedEventArgs e)
+        {
+            DatePicker datepicker = (DatePicker)sender;
+            Popup popup = (Popup)datepicker.Template.FindName("PART_Popup", datepicker);
+            System.Windows.Controls.Calendar cal = (System.Windows.Controls.Calendar)popup.Child;
+            cal.DisplayMode = System.Windows.Controls.CalendarMode.Decade;
         }
     }
 }

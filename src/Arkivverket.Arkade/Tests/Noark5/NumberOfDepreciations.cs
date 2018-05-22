@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
 using Arkivverket.Arkade.Util;
@@ -11,8 +13,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 40);
 
         private int _totalNumberOfDeprecations;
-        private readonly Dictionary<string, int> _numberOfDeprecationsPerArchivePart = new Dictionary<string, int>();
-        private string _currentArchivePartSystemId;
+        private readonly List<Archivepart> _archiveParts = new List<Archivepart>();
+        private Archivepart _currentArchivePart;
 
         public override TestId GetId()
         {
@@ -31,20 +33,31 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override List<TestResult> GetTestResults()
         {
-            var testResults = new List<TestResult>()
-            {
-                new TestResult(ResultType.Success, new Location(string.Empty), string.Format(Noark5Messages.NumberOfDepreciationsMessage, _totalNumberOfDeprecations))
-            };
+            var testResults = new List<TestResult>();
 
-            if (_numberOfDeprecationsPerArchivePart.Count > 1)
+            testResults.Add(new TestResult(ResultType.Success, new Location(""),
+                _totalNumberOfDeprecations.ToString()));
+
+            foreach (Archivepart archivePart in _archiveParts)
             {
-                foreach (KeyValuePair<string, int> numberOfDepreciation in _numberOfDeprecationsPerArchivePart)
+                foreach (KeyValuePair<string, int> pair in archivePart.TypeOfDepreciation)
                 {
-                    if (numberOfDepreciation.Value > 0)
+                    var type = pair.Value;
+                    var numberOf = pair.Key;
+
+                    if (_archiveParts.Count == 1)
+                    {
+                        testResults.Add(new TestResult(ResultType.Success, new Location(""),
+                            string.Format(Noark5Messages.NumberOfDepreciationsMessage,
+                                _totalNumberOfDeprecations, numberOf, type)));
+                    }
+                    else
                     {
                         var testresult = new TestResult(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.NumberOfDepreciationsMessage_ForArchivePart, numberOfDepreciation.Key,
-                                numberOfDepreciation.Value));
+                            string.Format(Noark5Messages.NumberOfDepreciationsMessage_ForArchivePart,
+                                archivePart.SystemId,
+                                numberOf,
+                                type));
 
                         testResults.Add(testresult);
                     }
@@ -65,23 +78,35 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
-                _currentArchivePartSystemId = eventArgs.Value;
-                _numberOfDeprecationsPerArchivePart.Add(_currentArchivePartSystemId, 0);
+                _currentArchivePart = new Archivepart {SystemId = eventArgs.Value};
+                _archiveParts.Add(_currentArchivePart);
+            }
+
+            if (eventArgs.Path.Matches("avskrivningsmaate", "avskrivning"))
+            {
+                _totalNumberOfDeprecations++;
+
+                string type = eventArgs.Value;
+
+                if (_currentArchivePart.TypeOfDepreciation.ContainsKey(type))
+                {
+                    _currentArchivePart.TypeOfDepreciation[type]++;
+                }
+                else
+                {
+                    _currentArchivePart.TypeOfDepreciation.Add(type, 1);
+                }
             }
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.NameEquals("referanseAvskrivesAvJournalpost"))
-            {
-                _totalNumberOfDeprecations++;
+        }
 
-                if (_numberOfDeprecationsPerArchivePart.Count > 0)
-                {
-                    if (_numberOfDeprecationsPerArchivePart.ContainsKey(_currentArchivePartSystemId))
-                        _numberOfDeprecationsPerArchivePart[_currentArchivePartSystemId]++;
-                }
-            }
+        private class Archivepart
+        {
+            public string SystemId { get; set; }
+            public readonly Dictionary<string, int> TypeOfDepreciation = new Dictionary<string, int>();
         }
     }
 }

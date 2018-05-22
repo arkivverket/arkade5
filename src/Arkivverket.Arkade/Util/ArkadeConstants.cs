@@ -35,7 +35,7 @@ namespace Arkivverket.Arkade.Util
         public const string PublicJournalXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.offentligJournal.xsd";
         public const string RunningJournalXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.loependeJournal.xsd";
 
-        public const string DirectoryNameArkadeProcessingAreaRoot = "Arkade";
+        public const string DirectoryNameArkadeProcessingAreaRoot = "arkade-tmp";
         public const string DirectoryNameArkadeProcessingAreaWork = "work";
         public const string DirectoryNameArkadeProcessingAreaLogs = "logs";
         public const string DirectoryNameTemporaryLogsLocation = ".arkade-tmplogs";

@@ -788,14 +788,14 @@
                                     Language="no"
                                     materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.StartDate}" 
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
-                                    SelectedDate="{Binding MetaDataNoarkSection.StartDate, Mode=TwoWay}"/>
+                                    SelectedDate="{Binding MetaDataNoarkSection.StartDate, Mode=TwoWay}" CalendarOpened="DatePicker_CalendarOpened"/>
 
                         <DatePicker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
                                     Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
                                     Language="no"
                                     materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.EndData}" 
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
-                                    SelectedDate="{Binding MetaDataNoarkSection.EndDate, Mode=TwoWay}"/>
+                                    SelectedDate="{Binding MetaDataNoarkSection.EndDate, Mode=TwoWay}" CalendarOpened="DatePicker_CalendarOpened"/>
 
                         <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.IncommingSeperator}"
@@ -844,7 +844,7 @@
                                     Language="no"
                                     materialDesign:HintAssist.Hint="{x:Static resources:MetaDataUI.ExtractionDate}" 
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
-                                    SelectedDate="{Binding MetaDataExtractionDate.ExtractionDate, Mode=TwoWay}"/>
+                                    SelectedDate="{Binding MetaDataExtractionDate.ExtractionDate, Mode=TwoWay}" CalendarOpened="DatePicker_CalendarOpened"/>
                     </Grid>
                 </Border>
                 <!-- END METADATA  -->

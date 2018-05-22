@@ -162,7 +162,7 @@ Generert:  {2}</value>
     <value>Antall korrespondanseparter: {0}</value>
   </data>
   <data name="NumberOfDepreciationsMessage" xml:space="preserve">
-    <value>Antall journalposter som avskriver andre journalposter: {0}</value>
+    <value>{1}: {2}</value>
   </data>
   <data name="NumberOfFoldersMessage" xml:space="preserve">
     <value>Antall mapper: {0}</value>
@@ -384,6 +384,24 @@ Generert:  {2}</value>
     <value>Arkivdel (systemID) {0} - Antall merknader i mapper: {1}</value>
   </data>
   <data name="NumberOfDepreciationsMessage_ForArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID) {0} - Antall journalposter som avskriver andre journalposter: {1}</value>
+    <value>Arkivdel (systemID) {0} - {1}: {2}</value>
+  </data>
+  <data name="NumberOfCrossReferencesToBasicRegistrationMessage" xml:space="preserve">
+    <value>Antall kryssreferanser fra basisregistreringer: {0}</value>
+  </data>
+  <data name="NumberOfCrossReferencesToBasicRegistrationMessage_ForArchivePart" xml:space="preserve">
+    <value>Arkivdel (systemID): {0 } - Antall kryssreferanser fra basisregistreringer: {1}</value>
+  </data>
+  <data name="NumberOfCrossReferencesToClassMessage" xml:space="preserve">
+    <value>Antall kryssreferanser fra klasser: {0}</value>
+  </data>
+  <data name="NumberOfCrossReferencesToClassMessage_ForArchivePart" xml:space="preserve">
+    <value>Arkivdel (systemID): {0 } - Antall kryssreferanser fra klasser: {1}</value>
+  </data>
+  <data name="NumberOfCrossReferencesToFolderMessage" xml:space="preserve">
+    <value>Antall kryssreferanser fra mapper: {0}</value>
+  </data>
+  <data name="NumberOfCrossReferencesToFolderMessage_ForArchivePart" xml:space="preserve">
+    <value>Arkivdel (systemID): {0 } - Antall kryssreferanser fra mapper: {1}</value>
   </data>
 </root>

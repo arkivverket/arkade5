@@ -13,6 +13,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         private readonly ILogger _log = Log.ForContext<SettingsViewModel>();
         private string _arkadeProcessingAreaLocationSetting;
         public string CurrentArkadeProcessingAreaLocation { get; }
+        public string DirectoryNameArkadeProcessingAreaRoot { get; }
 
         public string ArkadeProcessingAreaLocationSetting
         {
@@ -27,6 +28,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
         {
             ArkadeProcessingAreaLocationSetting = Util.ArkadeProcessingAreaLocationSetting.Get();
             CurrentArkadeProcessingAreaLocation = ArkadeProcessingArea.Location?.FullName;
+            DirectoryNameArkadeProcessingAreaRoot = Arkade.Util.ArkadeConstants.DirectoryNameArkadeProcessingAreaRoot;
 
             ChangeArkadeProcessingAreaLocationCommand = new DelegateCommand(ChangeArkadeProcessingAreaLocation);
             ApplyChangesCommand = new DelegateCommand(ApplyChanges);
