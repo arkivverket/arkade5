@@ -351,11 +351,29 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0} - {1} klassifikasjonssystem - Totalt antall klasser: {2}.
+        /// </summary>
+        internal static string NumberOfClasses {
+            get {
+                return ResourceManager.GetString("NumberOfClasses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall klasser: {0}.
         /// </summary>
         internal static string NumberOfClassesMessage {
             get {
                 return ResourceManager.GetString("NumberOfClassesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0} - {1} klassifikasjonssystem - Klasser på nivå {2}: {3}.
+        /// </summary>
+        internal static string NumberOfClassesPerLevel {
+            get {
+                return ResourceManager.GetString("NumberOfClassesPerLevel", resourceCulture);
             }
         }
         
@@ -833,6 +851,24 @@ namespace Arkivverket.Arkade.Resources {
         internal static string NumberOfRestrictionsMessage_DocTrueActualFalse {
             get {
                 return ResourceManager.GetString("NumberOfRestrictionsMessage_DocTrueActualFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primært.
+        /// </summary>
+        internal static string Primary {
+            get {
+                return ResourceManager.GetString("Primary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sekundært.
+        /// </summary>
+        internal static string Secondary {
+            get {
+                return ResourceManager.GetString("Secondary", resourceCulture);
             }
         }
         

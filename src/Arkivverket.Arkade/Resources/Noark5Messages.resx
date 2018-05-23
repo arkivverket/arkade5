@@ -404,4 +404,16 @@ Generert:  {2}</value>
   <data name="NumberOfCrossReferencesToFolderMessage_ForArchivePart" xml:space="preserve">
     <value>Arkivdel (systemID): {0 } - Antall kryssreferanser fra mapper: {1}</value>
   </data>
+  <data name="NumberOfClasses" xml:space="preserve">
+    <value>Arkivdel (systemID): {0} - {1} klassifikasjonssystem - Totalt antall klasser: {2}</value>
+  </data>
+  <data name="NumberOfClassesPerLevel" xml:space="preserve">
+    <value>Arkivdel (systemID): {0} - {1} klassifikasjonssystem - Klasser på nivå {2}: {3}</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Primært</value>
+  </data>
+  <data name="Secondary" xml:space="preserve">
+    <value>Sekundært</value>
+  </data>
 </root>
