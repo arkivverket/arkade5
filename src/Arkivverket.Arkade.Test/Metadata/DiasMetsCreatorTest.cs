@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Test.Metadata
         [Fact]
         public void ShouldSaveCreatedDiasMetsFileToDisk()
         {
-            string pathToMetsFile = CreateMetsFile();
+            string pathToMetsFile = CreateMetsFile(ArchiveMetadata);
 
             File.Exists(pathToMetsFile).Should().BeTrue();
         }
@@ -22,26 +22,22 @@ namespace Arkivverket.Arkade.Test.Metadata
         [Fact]
         public void DiasMetsFileForAipShouldReferenceEadXmlAndEacCpfXml()
         {
-            string pathToMetsFileForAip = CreateMetsFile(PackageType.ArchivalInformationPackage);
+            ArchiveMetadata.PackageType = PackageType.ArchivalInformationPackage;
+
+            string pathToMetsFileForAip = CreateMetsFile(ArchiveMetadata);
 
             IsReferencingEadXmlAndEacCpfXml(pathToMetsFileForAip).Should().BeTrue();
         }
 
-
         [Fact]
         public void DiasMetsFileForSipShouldNotReferenceEadXmlOrEacCpfXml()
         {
-            string pathToMetsFileForSip = CreateMetsFile(PackageType.SubmissionInformationPackage);
+            string pathToMetsFileForSip = CreateMetsFile(ArchiveMetadata); // Fake metadata package type default is SIP
 
             IsReferencingEadXmlOrEacCpfXml(pathToMetsFileForSip).Should().BeFalse();
         }
 
-        private string CreateMetsFile()
-        {
-            return CreateMetsFile(PackageType.SubmissionInformationPackage);
-        }
-
-        private string CreateMetsFile(PackageType packageType)
+        private string CreateMetsFile(ArchiveMetadata metadata)
         {
             string workingDirectory = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\\TestData\\Metadata\\DiasMetsCreator";
 
@@ -50,7 +46,7 @@ namespace Arkivverket.Arkade.Test.Metadata
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .Build();
 
-            new DiasMetsCreator().CreateAndSaveFile(archive, ArchiveMetadata, packageType);
+            new DiasMetsCreator().CreateAndSaveFile(archive, metadata);
 
             string metsFilePath = Path.Combine(workingDirectory, "dias-mets.xml");
 

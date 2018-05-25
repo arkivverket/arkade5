@@ -113,5 +113,12 @@ namespace Arkivverket.Arkade.UI.Util
                 TypeVersion = guiMetaDataModel.SystemTypeVersion
             };
         }
+
+        internal static PackageType MapToPackageType(bool SelectedPackageTypeSip)
+        {
+            return SelectedPackageTypeSip 
+                ? PackageType.SubmissionInformationPackage 
+                : PackageType.ArchivalInformationPackage;
+        }
     }
 }

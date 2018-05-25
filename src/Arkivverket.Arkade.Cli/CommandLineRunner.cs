@@ -30,9 +30,12 @@ namespace Arkivverket.Arkade.Cli
 
                 var archiveMetadata = JsonConvert.DeserializeObject<ArchiveMetadata>(File.ReadAllText(options.MetadataFile));
 
-                testSession.ArchiveMetadata = archiveMetadata;
+                archiveMetadata.PackageType = PackageType.SubmissionInformationPackage;
 
-                arkade.CreatePackage(testSession, PackageType.SubmissionInformationPackage, options.OutputDirectory);
+                testSession.ArchiveMetadata = archiveMetadata;
+                
+
+                arkade.CreatePackage(testSession, options.OutputDirectory);
                 
                 arkade.SaveReport(testSession, PrepareTestReportFile(options, testSession));
             }

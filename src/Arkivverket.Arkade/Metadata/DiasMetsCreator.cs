@@ -15,13 +15,13 @@ namespace Arkivverket.Arkade.Metadata
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata, PackageType packageType)
+        public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata)
         {
             DirectoryInfo rootDirectory = archive.WorkingDirectory.Root().DirectoryInfo();
 
             if (rootDirectory.Exists)
             {
-                string[] filesToSkip = packageType.Equals(PackageType.SubmissionInformationPackage)
+                string[] filesToSkip = metadata.PackageType == PackageType.SubmissionInformationPackage
                     ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
                     : null;
 

@@ -491,7 +491,7 @@ namespace Arkivverket.Arkade.UI.ViewModels
             else return;
             
             Log.Information("User action: Choose package destination {informationPackageDestination}", outputDirectory);
-
+            
             _testSession.ArchiveMetadata = new ArchiveMetadata
             {
                 Id = $"UUID:{_testSession.Archive.Uuid}",
@@ -509,20 +509,17 @@ namespace Arkivverket.Arkade.UI.ViewModels
                 StartDate = ArchiveMetadataMapper.MapToStartDate(_metaDataNoarkSection),
                 EndDate = ArchiveMetadataMapper.MapToEndDate(_metaDataNoarkSection),
                 ExtractionDate = ArchiveMetadataMapper.MapToExtractionDate(_metaDataExtractionDate),
+                PackageType = ArchiveMetadataMapper.MapToPackageType(SelectedPackageTypeSip)
             };
 
             _isRunningCreatePackage = true;
             CreatePackageCommand.RaiseCanExecuteChanged();
 
-            PackageType packageType = SelectedPackageTypeSip
-                ? PackageType.SubmissionInformationPackage
-                : PackageType.ArchivalInformationPackage;
-
             // todo must be async
-            
+
             try
             {
-                string packageFilePath = _arkadeApi.CreatePackage(_testSession, packageType, outputDirectory);
+                string packageFilePath = _arkadeApi.CreatePackage(_testSession, outputDirectory);
 
                 string packageOutputContainer = new FileInfo(packageFilePath).DirectoryName;
 
