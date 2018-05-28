@@ -177,4 +177,7 @@
   <data name="TestTypeStructureControlDisplayName" xml:space="preserve">
     <value>Strukturkontroll</value>
   </data>
+  <data name="TestTypeStructureAnalysisDisplayName" xml:space="preserve">
+    <value>Strukturanalyse</value>
+  </data>
 </root>
