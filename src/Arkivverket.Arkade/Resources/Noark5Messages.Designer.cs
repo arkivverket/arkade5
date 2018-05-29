@@ -666,6 +666,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - klassifikasjonssystem (systemID) {1}: {2}.
+        /// </summary>
+        internal static string NumberOfEmptyClassesInMainClassificationSystem {
+            get {
+                return ResourceManager.GetString("NumberOfEmptyClassesInMainClassificationSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall mapper: {0}.
         /// </summary>
         internal static string NumberOfFoldersMessage {

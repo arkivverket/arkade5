@@ -416,4 +416,7 @@ Generert:  {2}</value>
   <data name="Secondary" xml:space="preserve">
     <value>Sekundært</value>
   </data>
+  <data name="NumberOfEmptyClassesInMainClassificationSystem" xml:space="preserve">
+    <value>Arkivdel (systemID) {0} - klassifikasjonssystem (systemID) {1}: {2}</value>
+  </data>
 </root>
