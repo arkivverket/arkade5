@@ -351,7 +351,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID): {0} - {1} klassifikasjonssystem - Totalt antall klasser: {2}.
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - Totalt antall klasser: {3}.
         /// </summary>
         internal static string NumberOfClasses {
             get {
@@ -369,7 +369,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID): {0} - {1} klassifikasjonssystem - Klasser på nivå {2}: {3}.
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - Klasser på nivå {3}: {4}.
         /// </summary>
         internal static string NumberOfClassesPerLevel {
             get {

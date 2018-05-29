@@ -42,6 +42,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                     Noark5Messages.NumberOfClasses,
                     classificationSystem.ArchivepartSystemId,
                     primaryOrSecondary,
+                    classificationSystem.ClassificationSystemId,
                     classificationSystem.ClassesPerLevel.Values.Sum())));
 
                 foreach (KeyValuePair<int, int> classesOnLevel in classificationSystem.ClassesPerLevel)
@@ -50,6 +51,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                         Noark5Messages.NumberOfClassesPerLevel,
                         classificationSystem.ArchivepartSystemId,
                         primaryOrSecondary,
+                        classificationSystem.ClassificationSystemId,
                         classesOnLevel.Key,
                         classesOnLevel.Value)));
                 }
@@ -61,7 +63,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.NameEquals("klassifikasjonssystem"))
-                _currentClassificationSystem = new ClassificationSystem(_currentArchivePart);
+                _currentClassificationSystem = new ClassificationSystem(_currentArchivePart, eventArgs.Value);
 
             if (eventArgs.NameEquals("registrering") || eventArgs.NameEquals("mappe"))
                 _currentClassificationSystem.Primary = true;
@@ -83,6 +85,9 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if (eventArgs.Path.Matches("systemID", "klassifikasjonssystem"))
+                _currentClassificationSystem = new ClassificationSystem(_currentArchivePart, eventArgs.Value);
+
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
                 _currentArchivePart = eventArgs.Value;
         }
@@ -91,8 +96,6 @@ namespace Arkivverket.Arkade.Tests.Noark5
         {
             if (eventArgs.NameEquals("klassifikasjonssystem"))
             {
-                //_currentClassificationSystem.Primary = IsPrimaryClassificationSystem();
-
                 _classificationSystems.Add(_currentClassificationSystem);
             }
         }
@@ -105,12 +108,14 @@ namespace Arkivverket.Arkade.Tests.Noark5
         private class ClassificationSystem
         {
             public string ArchivepartSystemId { get; }
+            public string ClassificationSystemId { get; }
             public Dictionary<int, int> ClassesPerLevel { get; }
             public bool Primary { get; set; }
 
-            public ClassificationSystem(string archivepartSystemId)
+            public ClassificationSystem(string archivepartSystemId, string classificationSystemId)
             {
                 ArchivepartSystemId = archivepartSystemId;
+                ClassificationSystemId = classificationSystemId;
                 ClassesPerLevel = new Dictionary<int, int>();
             }
         }
