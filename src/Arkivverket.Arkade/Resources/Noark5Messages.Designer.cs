@@ -241,7 +241,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filen {0} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {1}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Filen {1} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {2}.
         /// </summary>
         internal static string DocumentFilesChecksumControlMessage {
             get {

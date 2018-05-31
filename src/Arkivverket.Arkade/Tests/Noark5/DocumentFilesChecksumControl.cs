@@ -90,6 +90,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                     {
                         _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
                             string.Format(Noark5Messages.DocumentFilesChecksumControlMessage,
+                                _currentArchivePartSystemId,
                                 _currentDocumentObject.DocumentFileReference,
                                 _currentDocumentObject.DocumentDescriptionSystemId
                             )));

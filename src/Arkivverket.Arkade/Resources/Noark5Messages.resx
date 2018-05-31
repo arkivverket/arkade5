@@ -309,7 +309,7 @@ Generert:  {2}</value>
     <value>Referanse fra mappe (systemID) {0} til klasse (systemID) {1} er ikke gyldig</value>
   </data>
   <data name="DocumentFilesChecksumControlMessage" xml:space="preserve">
-    <value>Filen {0} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {1}</value>
+    <value>Arkivdel (systemID) {0} - Filen {1} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {2}</value>
   </data>
   <data name="ExceptionDuringXmlValidation" xml:space="preserve">
     <value>Det oppsto et problem under validering av {0}: {1}</value>
