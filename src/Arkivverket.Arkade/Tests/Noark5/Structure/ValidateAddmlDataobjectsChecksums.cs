@@ -40,6 +40,31 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
                         var testResult = CreateTestResult(checksumsAreEqual, generatedChecksum, checksumValue, fileName, checksumAlgorithm);
                         _testResults.Add(testResult);
                     }
+
+
+                    foreach (var schema in currentObject.properties.Where(s => s.name == "schema"))
+                    {
+                        foreach (var fileProperty in schema.properties.Where(s => s.name == "file")) {
+
+                        string fileName = GetFileNameFromProperty(fileProperty);
+                        var fullPathToFile = archive.WorkingDirectory.Content().DirectoryInfo().FullName + Path.DirectorySeparatorChar + fileName;
+
+                        var checksumAlgorithm = GetChecksumAlgorithmFromProperty(fileProperty);
+
+                            if (!string.IsNullOrEmpty(checksumAlgorithm))
+                            { 
+
+                            var checksumValue = GetChecksumValueFromProperty(fileProperty);
+
+                            var generatedChecksum = GenerateChecksumForFile(fullPathToFile, checksumAlgorithm);
+
+                            var checksumsAreEqual = string.Equals(generatedChecksum, checksumValue, StringComparison.InvariantCultureIgnoreCase);
+
+                            var testResult = CreateTestResult(checksumsAreEqual, generatedChecksum, checksumValue, fileName, checksumAlgorithm);
+                            _testResults.Add(testResult);
+                            }
+                        }
+                    }
                 }
             }
         }
