@@ -29,11 +29,11 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
             TestRun testRun =
                 helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
 
-            testRun.Results.First().Message.Should().Be("0");
+            testRun.Results.Should().BeEmpty(); // Zero empty classes not reported
         }
 
         [Fact]
-        public void NumberOfEmptyClassesIsTwo()
+        public void NumberOfEmptyClassesInPrimaryClassificationSystemIsTwo()
         {
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv", new XmlElementHelper()
@@ -68,10 +68,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("systemID", "klassSys_1")
                             .Add("mappe", new XmlElementHelper()
-                                .Add("klasse", string.Empty)))
-                        .Add("klassifikasjonssystem", new XmlElementHelper()
-                            .Add("systemID", "klassSys_2")
-                            .Add("klasse", string.Empty))));
+                                .Add("klasse", string.Empty)))));
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
 
@@ -79,21 +76,31 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                 r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId_1 - klassifikasjonssystem (systemID) klassSys_1: 1"));
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId_2 - klassifikasjonssystem (systemID) klassSys_1: 1"));
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId_2 - klassifikasjonssystem (systemID) klassSys_2: 0"));
         }
 
         [Fact]
-        public void NumberOfEmptyClassesIsOnlyCountedInPrimaryClassificationSystem()
+        public void NumberOfEmptyClassesIsOnlyCountedInPrimaryClassificationSystems()
         {
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv",
                     new XmlElementHelper()
                         .Add("arkivdel",
                             new XmlElementHelper()
-                                .Add("systemID", "someArchivePartSystemId")
+                                .Add("systemID", "someArchivePartSystemId_1")
                                 .Add("klassifikasjonssystem", new XmlElementHelper()
                                     .Add("systemID", "klassSys_1")
+                                    .Add("klasse", string.Empty)
+                                    .Add("mappe", new XmlElementHelper()
+                                        .Add("klasse", string.Empty)))
+                                .Add("klassifikasjonssystem", new XmlElementHelper()
+                                    .Add("systemID", "klassSys_2")
+                                    .Add("klasse", string.Empty)))
+                        .Add("arkivdel",
+                            new XmlElementHelper()
+                                .Add("systemID", "someArchivePartSystemId_2")
+                                .Add("klassifikasjonssystem", new XmlElementHelper()
+                                    .Add("systemID", "klassSys_1")
+                                    .Add("klasse", string.Empty)
                                     .Add("mappe", new XmlElementHelper()
                                         .Add("klasse", string.Empty)))
                                 .Add("klassifikasjonssystem", new XmlElementHelper()
@@ -104,9 +111,9 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
                 helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId - klassifikasjonssystem (systemID) klassSys_1: 1"));
+                r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId_1 - klassifikasjonssystem (systemID) klassSys_1: 2"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId - klassifikasjonssystem (systemID) klassSys_2: 0"));
+                r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId_2 - klassifikasjonssystem (systemID) klassSys_1: 2"));
         }
     }
 }
