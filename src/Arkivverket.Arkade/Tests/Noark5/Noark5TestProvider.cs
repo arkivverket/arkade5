@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 new NumberOfArchiveParts(),
                 new StatusOfArchiveParts(),
                 new NumberOfClasses(),
-                new NumberOfFolders(),
+                new NumberOfFolders(archive),
                 new NumberOfClassificationSystems(),
                 new NumberOfRegistrations(),
                 new NumberOfRegistrationsPerYear(),

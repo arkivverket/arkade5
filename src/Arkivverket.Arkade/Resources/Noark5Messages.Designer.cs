@@ -342,6 +342,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall saksmapper: {0}.
+        /// </summary>
+        internal static string NumberOfCaseFolders {
+            get {
+                return ResourceManager.GetString("NumberOfCaseFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall saksmapper på nivå {0}: {1}.
+        /// </summary>
+        internal static string NumberOfCaseFoldersAtLevel {
+            get {
+                return ResourceManager.GetString("NumberOfCaseFoldersAtLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall endringer: {0}.
         /// </summary>
         internal static string NumberOfChangesLoggedMessage {
@@ -677,9 +695,18 @@ namespace Arkivverket.Arkade.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Antall mapper: {0}.
         /// </summary>
-        internal static string NumberOfFoldersMessage {
+        internal static string NumberOfFolders {
             get {
-                return ResourceManager.GetString("NumberOfFoldersMessage", resourceCulture);
+                return ResourceManager.GetString("NumberOfFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det er angitt at arkivstrukturen skal innholde {0} mapper men {1} ble funnet.
+        /// </summary>
+        internal static string NumberOfFolders_DocumentedAndActualMismatch {
+            get {
+                return ResourceManager.GetString("NumberOfFolders_DocumentedAndActualMismatch", resourceCulture);
             }
         }
         
@@ -761,6 +788,24 @@ namespace Arkivverket.Arkade.Resources {
         internal static string NumberOfJournalPostsMessage_UnEqualJournalNumbers {
             get {
                 return ResourceManager.GetString("NumberOfJournalPostsMessage_UnEqualJournalNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall møtemapper: {0}.
+        /// </summary>
+        internal static string NumberOfMeetingFolders {
+            get {
+                return ResourceManager.GetString("NumberOfMeetingFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall møtemapper på nivå {0}: {1}.
+        /// </summary>
+        internal static string NumberOfMeetingFoldersAtLevel {
+            get {
+                return ResourceManager.GetString("NumberOfMeetingFoldersAtLevel", resourceCulture);
             }
         }
         

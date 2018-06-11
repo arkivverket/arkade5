@@ -254,6 +254,12 @@
     <None Update="TestData\Noark5\DocumentfilesControl\Sub-directories\content\dokumenter\sub-directory\sub-sub-directory\5000002.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\Noark5\FolderControl\SixFolders\addml.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\FolderControl\TwoFolders\addml.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\Noark5\JournalControl\SharpSeparation\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

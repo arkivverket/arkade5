@@ -30,6 +30,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
                    eventArgs.Name.Equals("xsi:type") &&
                    eventArgs.Value.Equals("basisregistrering");
         }
+        public static bool IdentifiesMeetingFolder(ReadElementEventArgs eventArgs)
+        {
+            return eventArgs.Path.Matches("mappe") &&
+                   eventArgs.Name.Equals("xsi:type") &&
+                   eventArgs.Value.Equals("møtemappe");
+        }
 
         public static bool PeriodSeparationIsSharp(Archive archive)
         {
