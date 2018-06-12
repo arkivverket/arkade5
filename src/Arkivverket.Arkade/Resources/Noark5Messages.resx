@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ControlDocumentsFilesExistsMessage1" xml:space="preserve">
-    <value>Finner ikke filen.</value>
-  </data>
   <data name="DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration" xml:space="preserve">
     <value>Første registrering: Opprettet {0}</value>
   </data>

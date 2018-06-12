@@ -188,6 +188,12 @@
     <None Update="TestData\Noark5\ContentClassificationSystem\metadatakatalog.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\ArchiveReferencedFiles\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\ArchiveReferencedFiles\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\Noark5\DocumentfilesControl\CountMatch\content\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

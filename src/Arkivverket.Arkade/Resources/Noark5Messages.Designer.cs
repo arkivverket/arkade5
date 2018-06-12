@@ -142,15 +142,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finner ikke filen..
-        /// </summary>
-        internal static string ControlDocumentsFilesExistsMessage1 {
-            get {
-                return ResourceManager.GetString("ControlDocumentsFilesExistsMessage1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Klasse med systemID {0}.
         /// </summary>
         internal static string ControlNoSuperclassesHasFoldersMessage {
