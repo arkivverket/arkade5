@@ -128,7 +128,7 @@ namespace Arkivverket.Arkade.Tests.Noark5
 
         private int GetDocumentedNumberOfFolders()
         {
-            addml addml = Noark5TestHelper.GetAddmlObject(ArkadeConstants.AddmlXmlFileName, _archive);
+            addml addml = Noark5TestHelper.GetAddmlObject(ArkadeConstants.ArkivuttrekkXmlFileName, _archive);
 
             string numberOfFolders = addml.dataset[0].dataObjects.dataObject[0]
                 .dataObjects.dataObject[0].properties.FirstOrDefault(
