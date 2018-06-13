@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Avtalenr.
+        ///   Looks up a localized string similar to Avtalenr*.
         /// </summary>
         public static string AgreementNumber {
             get {
@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivskaper.
+        ///   Looks up a localized string similar to Arkivskaper*.
         /// </summary>
         public static string ArchiveCreator {
             get {
@@ -322,6 +322,15 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to * = Feltet er påkrevet for å skape en gyldig arkivpakke.
+        /// </summary>
+        public static string MetadataRequiredFieldsInfo {
+            get {
+                return ResourceManager.GetString("MetadataRequiredFieldsInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Utgående skille.
         /// </summary>
         public static string OutgoingSeperator {
@@ -331,7 +340,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eier.
+        ///   Looks up a localized string similar to Eier*.
         /// </summary>
         public static string Owner {
             get {
@@ -385,7 +394,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Produsent.
+        ///   Looks up a localized string similar to Produsent*.
         /// </summary>
         public static string Producer {
             get {
@@ -394,7 +403,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontaktperson (Produsent).
+        ///   Looks up a localized string similar to Kontaktperson (Produsent)*.
         /// </summary>
         public static string Producer_ContactPerson {
             get {
@@ -421,7 +430,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mottaker.
+        ///   Looks up a localized string similar to Mottaker*.
         /// </summary>
         public static string Recepient {
             get {
@@ -448,7 +457,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Systemnavn.
+        ///   Looks up a localized string similar to Systemnavn*.
         /// </summary>
         public static string SystemName {
             get {
@@ -457,7 +466,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type (System).
+        ///   Looks up a localized string similar to Type (System)*.
         /// </summary>
         public static string SystemType {
             get {
@@ -475,7 +484,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Versjon (System).
+        ///   Looks up a localized string similar to Versjon (System)*.
         /// </summary>
         public static string SystemVersion {
             get {
@@ -502,7 +511,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overfører.
+        ///   Looks up a localized string similar to Overfører*.
         /// </summary>
         public static string Transferer {
             get {
@@ -511,7 +520,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontaktperson (Overfører).
+        ///   Looks up a localized string similar to Kontaktperson (Overfører)*.
         /// </summary>
         public static string Transferer_ContractPerson {
             get {

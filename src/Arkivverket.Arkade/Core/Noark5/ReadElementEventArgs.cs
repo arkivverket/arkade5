@@ -54,5 +54,13 @@ namespace Arkivverket.Arkade.Core.Noark5
         {
             return _path.Count > 1 ? _path[1] : null;
         }
+        
+        public int GetSameElementSubLevel(int level = 1)
+        {
+            if (_path[level].Equals(_path[0]))
+                level = GetSameElementSubLevel(level + 1);
+
+            return level;
+        }
     }
 }

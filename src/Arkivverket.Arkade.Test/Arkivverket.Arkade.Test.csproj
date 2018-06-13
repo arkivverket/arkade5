@@ -188,6 +188,12 @@
     <None Update="TestData\Noark5\ContentClassificationSystem\metadatakatalog.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\ArchiveReferencedFiles\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\ArchiveReferencedFiles\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\Noark5\DocumentfilesControl\CountMatch\content\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -252,6 +258,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Noark5\DocumentfilesControl\Sub-directories\content\dokumenter\sub-directory\sub-sub-directory\5000002.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\FolderControl\SixFolders\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\FolderControl\TwoFolders\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Noark5\JournalControl\SharpSeparation\arkivuttrekk.xml">
@@ -332,10 +344,28 @@
     <None Update="TestData\Noark5\StructureChecksums\correct\content\endringslogg.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\Noark5\StructureChecksums\correct\content\loependeJournal.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\correct\content\loependeJournal.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\Noark5\StructureChecksums\correct\content\metadatakatalog.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\Noark5\StructureChecksums\errors\arkivuttrekk.xml">
+    <None Update="TestData\Noark5\StructureChecksums\correct\content\offentligJournal.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\correct\content\offentligJournal.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\errors\administrative_metadata\addml.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\errors\content\arkivstruktur.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureChecksums\errors\content\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Noark5\StructureValidation\correct\addml.xsd">

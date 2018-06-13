@@ -43,6 +43,11 @@ namespace Arkivverket.Arkade.Metadata
         {
             mets.OBJID = metadata.Id;
             mets.PROFILE = "http://xml.ra.se/METS/RA_METS_eARD.xml";
+
+            mets.TYPE = metadata.PackageType == PackageType.SubmissionInformationPackage 
+                ? metsTypeTYPE.SIP 
+                : metsTypeTYPE.AIP;
+
             mets.LABEL = $"{metadata.System.Name}";
 
             if (metadata.StartDate != null && metadata.EndDate != null)

@@ -28,6 +28,10 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             ValidateXml(archive.ArchiveStructureFile.FullName, archive.ArchiveStructureFile.AsStream(),
                 GetContentDescriptionXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
 
+            if(archive.ChangeLogFile.Exists)
+                ValidateXml(archive.ChangeLogFile.FullName, archive.ChangeLogFile.AsStream(),
+                    GetChangeLogFileXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
+
             if (Noark5TestHelper.FileIsDescribed(ArkadeConstants.PublicJournalXmlFileName, archive))
                 ValidateXml(archive.PublicJournalFile.FullName, archive.PublicJournalFile.AsStream(),
                     GetPublicJournalXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
@@ -99,6 +103,20 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
             return ResourceUtil.GetResourceAsStream(ArkadeConstants.MetadatakatalogXsdResource);
         }
 
+        private Stream GetChangeLogFileXmlSchemaStream(Archive archive)
+        {
+            if (archive.ChangeLogSchemaFile.Exists)
+                return archive.ChangeLogSchemaFile.AsStream();
+
+            // Fallback on internal schema change log:
+
+            _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                // TODO: Consider ResultType.Warning (if it becomes supported)
+                string.Format(Noark5Messages.InternalSchemaFileIsUsed, ArkadeConstants.ChangeLogXsdFileName)));
+
+            return ResourceUtil.GetResourceAsStream(ArkadeConstants.ChangeLogXsdResource);
+        }
+        
         private Stream GetPublicJournalXmlSchemaStream(Archive archive)
         {
             if (archive.PublicJournalSchemaFile.Exists)

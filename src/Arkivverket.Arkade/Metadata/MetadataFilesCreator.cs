@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Metadata
             _eacCpfCreator = eacCpfCreator;
         }
 
-        public void Create(Archive archive, ArchiveMetadata metadata, PackageType packageType)
+        public void Create(Archive archive, ArchiveMetadata metadata)
         {
             _diasPremisCreator.CreateAndSaveFile(archive, metadata);
             _logCreator.CreateAndSaveFile(archive, metadata);
@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Metadata
             CopyXsdFiles(archive.WorkingDirectory);
             
             // Generate mets-file last for it to describe all other package content
-            _diasMetsCreator.CreateAndSaveFile(archive, metadata, packageType);
+            _diasMetsCreator.CreateAndSaveFile(archive, metadata);
         }
 
         private static void CopyXsdFiles(WorkingDirectory workingDirectory)

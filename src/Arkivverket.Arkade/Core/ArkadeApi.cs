@@ -65,13 +65,13 @@ namespace Arkivverket.Arkade.Core
             _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession);
         }
 
-        public string CreatePackage(TestSession testSession, PackageType packageType, string outputDirectory)
+        public string CreatePackage(TestSession testSession, string outputDirectory)
         {
-            _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata, packageType);
+            _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata);
 
             string packageFilePath;
 
-            if (packageType == PackageType.SubmissionInformationPackage)
+            if (testSession.ArchiveMetadata.PackageType == PackageType.SubmissionInformationPackage)
             {
                 packageFilePath = _informationPackageCreator.CreateSip(
                     testSession.Archive, testSession.ArchiveMetadata, outputDirectory

@@ -11,6 +11,7 @@
     <None Remove="ExternalModels\xsd\cpf.xsd" />
     <None Remove="ExternalModels\xsd\DIAS_PREMIS.xsd" />
     <None Remove="ExternalModels\xsd\ead3.xsd" />
+    <None Remove="ExternalModels\xsd\endringslogg.xsd" />
     <None Remove="ExternalModels\xsd\info.xsd" />
     <None Remove="ExternalModels\xsd\loependeJournal.xsd" />
     <None Remove="ExternalModels\xsd\metadatakatalog.xsd" />
@@ -30,6 +31,7 @@
     <EmbeddedResource Include="ExternalModels\xsd\cpf.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\DIAS_PREMIS.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\ead3.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\endringslogg.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\info.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\loependeJournal.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\metadatakatalog.xsd" />

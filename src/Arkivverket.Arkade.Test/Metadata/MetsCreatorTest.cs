@@ -193,6 +193,10 @@ namespace Arkivverket.Arkade.Test.Metadata
             metsFile?.FLocat.href.Should().Be("file:someDirectory/someFileName.pdf");
             metsFile?.FLocat.LOCTYPE.Should().Be(mdSecTypeMdRefLOCTYPE.URL);
 
+            // PACKAGE TYPE
+
+            mets.TYPE.Should().Be(metsTypeTYPE.SIP);
+
             // MISCELLANEOUS:
 
             mets.structMap.Length.Should().Be(1);
@@ -233,6 +237,7 @@ namespace Arkivverket.Arkade.Test.Metadata
                     TypeVersion = "N/A" // To be ignored by MetsCreator
                 },
                 Comments = new List<string> { "Some comment 1", "Some comment 2" },
+                PackageType = PackageType.SubmissionInformationPackage,
                 FileDescriptions = new List<FileDescription>
                 {
                     new FileDescription

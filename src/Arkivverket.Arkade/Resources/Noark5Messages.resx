@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ControlDocumentsFilesExistsMessage1" xml:space="preserve">
-    <value>Finner ikke filen.</value>
-  </data>
   <data name="DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration" xml:space="preserve">
     <value>Første registrering: Opprettet {0}</value>
   </data>
@@ -163,9 +160,6 @@ Generert:  {2}</value>
   </data>
   <data name="NumberOfDepreciationsMessage" xml:space="preserve">
     <value>{1}: {2}</value>
-  </data>
-  <data name="NumberOfFoldersMessage" xml:space="preserve">
-    <value>Antall mapper: {0}</value>
   </data>
   <data name="NumberOfJournalPostsMessage_UnEqualJournalNumbers" xml:space="preserve">
     <value>Antallet journalposter i offentlig og løpende journal er ulikt</value>
@@ -309,7 +303,7 @@ Generert:  {2}</value>
     <value>Referanse fra mappe (systemID) {0} til klasse (systemID) {1} er ikke gyldig</value>
   </data>
   <data name="DocumentFilesChecksumControlMessage" xml:space="preserve">
-    <value>Filen {0} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {1}</value>
+    <value>Arkivdel (systemID) {0} - Filen {1} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {2}</value>
   </data>
   <data name="ExceptionDuringXmlValidation" xml:space="preserve">
     <value>Det oppsto et problem under validering av {0}: {1}</value>
@@ -403,5 +397,38 @@ Generert:  {2}</value>
   </data>
   <data name="NumberOfCrossReferencesToFolderMessage_ForArchivePart" xml:space="preserve">
     <value>Arkivdel (systemID): {0 } - Antall kryssreferanser fra mapper: {1}</value>
+  </data>
+  <data name="NumberOfClasses" xml:space="preserve">
+    <value>Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - Totalt antall klasser: {3}</value>
+  </data>
+  <data name="NumberOfClassesPerLevel" xml:space="preserve">
+    <value>Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - Klasser på nivå {3}: {4}</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Primært</value>
+  </data>
+  <data name="Secondary" xml:space="preserve">
+    <value>Sekundært</value>
+  </data>
+  <data name="NumberOfEmptyClassesInMainClassificationSystem" xml:space="preserve">
+    <value>Arkivdel (systemID) {0} - klassifikasjonssystem (systemID) {1}: {2}</value>
+  </data>
+  <data name="NumberOfCaseFolders" xml:space="preserve">
+    <value>Antall saksmapper: {0}</value>
+  </data>
+  <data name="NumberOfCaseFoldersAtLevel" xml:space="preserve">
+    <value>Antall saksmapper på nivå {0}: {1}</value>
+  </data>
+  <data name="NumberOfFolders" xml:space="preserve">
+    <value>Antall mapper: {0}</value>
+  </data>
+  <data name="NumberOfMeetingFoldersAtLevel" xml:space="preserve">
+    <value>Antall møtemapper på nivå {0}: {1}</value>
+  </data>
+  <data name="NumberOfMeetingFolders" xml:space="preserve">
+    <value>Antall møtemapper: {0}</value>
+  </data>
+  <data name="NumberOfFolders_DocumentedAndActualMismatch" xml:space="preserve">
+    <value>Det er angitt at arkivstrukturen skal innholde {0} mapper men {1} ble funnet</value>
   </data>
 </root>

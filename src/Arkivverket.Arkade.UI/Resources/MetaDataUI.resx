@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AgreementNumber" xml:space="preserve">
-    <value>Avtalenr</value>
+    <value>Avtalenr*</value>
   </data>
   <data name="ArchiveCreator" xml:space="preserve">
-    <value>Arkivskaper</value>
+    <value>Arkivskaper*</value>
     <comment>Institusjonsnavn</comment>
   </data>
   <data name="ArchiveCreator_ContactPerson" xml:space="preserve">
@@ -218,12 +218,15 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <value>no</value>
     <comment>Can't get it to work as a reference</comment>
   </data>
+  <data name="MetadataRequiredFieldsInfo" xml:space="preserve">
+    <value>* = Feltet er påkrevet for å skape en gyldig arkivpakke</value>
+  </data>
   <data name="OutgoingSeperator" xml:space="preserve">
     <value>Utgående skille</value>
     <comment>Obligatorisk for Noark (addml)</comment>
   </data>
   <data name="Owner" xml:space="preserve">
-    <value>Eier</value>
+    <value>Eier*</value>
     <comment>Intitusjons-/Firma-/Organisasjons-/Familienavn/Personnavn (ved personlig arkiv)</comment>
   </data>
   <data name="Owner_ContactPerson" xml:space="preserve">
@@ -242,11 +245,11 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <value>Klarte ikke opprette/overskrive pakke. Sjekk om pakkedestinasjonen er opptatt.</value>
   </data>
   <data name="Producer" xml:space="preserve">
-    <value>Produsent</value>
+    <value>Produsent*</value>
     <comment>Institusjonsnavn/Firmanavn</comment>
   </data>
   <data name="Producer_ContactPerson" xml:space="preserve">
-    <value>Kontaktperson (Produsent)</value>
+    <value>Kontaktperson (Produsent)*</value>
   </data>
   <data name="Producer_Email" xml:space="preserve">
     <value>e-post (Kontakt, Produsent)</value>
@@ -255,7 +258,7 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <value>Telefon (Kontakt, Produsent)</value>
   </data>
   <data name="Recepient" xml:space="preserve">
-    <value>Mottaker</value>
+    <value>Mottaker*</value>
     <comment>Institusjonsnavn</comment>
   </data>
   <data name="SelectOutputDirectoryMessage" xml:space="preserve">
@@ -266,10 +269,10 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <comment>Obligatorisk for Noark (addml)</comment>
   </data>
   <data name="SystemName" xml:space="preserve">
-    <value>Systemnavn</value>
+    <value>Systemnavn*</value>
   </data>
   <data name="SystemType" xml:space="preserve">
-    <value>Type (System)</value>
+    <value>Type (System)*</value>
     <comment>Type av system.
 Gyldige verdier er:
 Noark 3, Noark 4, Noark 5, Fagsystem</comment>
@@ -279,7 +282,7 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <comment>Gjelder kun Noark 5, da obligatorisk</comment>
   </data>
   <data name="SystemVersion" xml:space="preserve">
-    <value>Versjon (System)</value>
+    <value>Versjon (System)*</value>
     <comment>Versjon av system</comment>
   </data>
   <data name="Test" xml:space="preserve">
@@ -289,12 +292,12 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <value>Metadata</value>
   </data>
   <data name="Transferer" xml:space="preserve">
-    <value>Overfører</value>
+    <value>Overfører*</value>
     <comment>Institusjonsnavn
 Tidl. nevnt som avleverende myndighet</comment>
   </data>
   <data name="Transferer_ContractPerson" xml:space="preserve">
-    <value>Kontaktperson (Overfører)</value>
+    <value>Kontaktperson (Overfører)*</value>
   </data>
   <data name="Transferer_Email" xml:space="preserve">
     <value>e-post (Kontakt, Overfører)</value>

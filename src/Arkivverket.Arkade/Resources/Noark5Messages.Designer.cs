@@ -142,15 +142,6 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finner ikke filen..
-        /// </summary>
-        internal static string ControlDocumentsFilesExistsMessage1 {
-            get {
-                return ResourceManager.GetString("ControlDocumentsFilesExistsMessage1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Klasse med systemID {0}.
         /// </summary>
         internal static string ControlNoSuperclassesHasFoldersMessage {
@@ -241,7 +232,7 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filen {0} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {1}.
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Filen {1} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {2}.
         /// </summary>
         internal static string DocumentFilesChecksumControlMessage {
             get {
@@ -342,6 +333,24 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall saksmapper: {0}.
+        /// </summary>
+        internal static string NumberOfCaseFolders {
+            get {
+                return ResourceManager.GetString("NumberOfCaseFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall saksmapper på nivå {0}: {1}.
+        /// </summary>
+        internal static string NumberOfCaseFoldersAtLevel {
+            get {
+                return ResourceManager.GetString("NumberOfCaseFoldersAtLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall endringer: {0}.
         /// </summary>
         internal static string NumberOfChangesLoggedMessage {
@@ -351,11 +360,29 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - Totalt antall klasser: {3}.
+        /// </summary>
+        internal static string NumberOfClasses {
+            get {
+                return ResourceManager.GetString("NumberOfClasses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall klasser: {0}.
         /// </summary>
         internal static string NumberOfClassesMessage {
             get {
                 return ResourceManager.GetString("NumberOfClassesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - Klasser på nivå {3}: {4}.
+        /// </summary>
+        internal static string NumberOfClassesPerLevel {
+            get {
+                return ResourceManager.GetString("NumberOfClassesPerLevel", resourceCulture);
             }
         }
         
@@ -648,11 +675,29 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - klassifikasjonssystem (systemID) {1}: {2}.
+        /// </summary>
+        internal static string NumberOfEmptyClassesInMainClassificationSystem {
+            get {
+                return ResourceManager.GetString("NumberOfEmptyClassesInMainClassificationSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall mapper: {0}.
         /// </summary>
-        internal static string NumberOfFoldersMessage {
+        internal static string NumberOfFolders {
             get {
-                return ResourceManager.GetString("NumberOfFoldersMessage", resourceCulture);
+                return ResourceManager.GetString("NumberOfFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det er angitt at arkivstrukturen skal innholde {0} mapper men {1} ble funnet.
+        /// </summary>
+        internal static string NumberOfFolders_DocumentedAndActualMismatch {
+            get {
+                return ResourceManager.GetString("NumberOfFolders_DocumentedAndActualMismatch", resourceCulture);
             }
         }
         
@@ -734,6 +779,24 @@ namespace Arkivverket.Arkade.Resources {
         internal static string NumberOfJournalPostsMessage_UnEqualJournalNumbers {
             get {
                 return ResourceManager.GetString("NumberOfJournalPostsMessage_UnEqualJournalNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall møtemapper: {0}.
+        /// </summary>
+        internal static string NumberOfMeetingFolders {
+            get {
+                return ResourceManager.GetString("NumberOfMeetingFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall møtemapper på nivå {0}: {1}.
+        /// </summary>
+        internal static string NumberOfMeetingFoldersAtLevel {
+            get {
+                return ResourceManager.GetString("NumberOfMeetingFoldersAtLevel", resourceCulture);
             }
         }
         
@@ -833,6 +896,24 @@ namespace Arkivverket.Arkade.Resources {
         internal static string NumberOfRestrictionsMessage_DocTrueActualFalse {
             get {
                 return ResourceManager.GetString("NumberOfRestrictionsMessage_DocTrueActualFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primært.
+        /// </summary>
+        internal static string Primary {
+            get {
+                return ResourceManager.GetString("Primary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sekundært.
+        /// </summary>
+        internal static string Secondary {
+            get {
+                return ResourceManager.GetString("Secondary", resourceCulture);
             }
         }
         

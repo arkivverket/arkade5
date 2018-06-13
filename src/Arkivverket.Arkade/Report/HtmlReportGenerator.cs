@@ -142,6 +142,7 @@ namespace Arkivverket.Arkade.Report
             {
                 case TestType.ContentAnalysis: return Resources.Report.TestTypeContentAnalysisDisplayName;
                 case TestType.ContentControl: return Resources.Report.TestTypeContentControlDisplayName;
+                case TestType.StructureAnalysis: return Resources.Report.TestTypeStructureAnalysisDisplayName;
                 case TestType.StructureControl: return Resources.Report.TestTypeStructureControlDisplayName;
                 default: return testType.ToString();
             }

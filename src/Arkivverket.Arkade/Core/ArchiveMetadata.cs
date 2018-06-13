@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Arkivverket.Arkade.ExternalModels.Mets;
+using System;
 using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core
@@ -23,6 +24,7 @@ namespace Arkivverket.Arkade.Core
         public string IncommingSeparator { get; set; }
         public string OutgoingSeparator { get; set; }
         public List<FileDescription> FileDescriptions { get; set; }
+        public PackageType PackageType { get; set; }
     }
 
 

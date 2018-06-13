@@ -73,10 +73,10 @@
 									<property name="periode">
 										<properties>
 											<property name="inngaaendeSkille">
-												<value>mykt</value>
+												<value>skarp</value>
 											</property>
 											<property name="utgaaendeSkille">
-												<value>mykt</value>
+												<value>skarp</value>
 											</property>
 										</properties>
 									</property>
@@ -212,7 +212,7 @@
 												<value>//mappe</value>
 											</property>
 											<property dataType="integer" name="value">
-												<value>1</value>
+												<value>6</value>
 											</property>
 										</properties>
 									</property>

@@ -39,14 +39,14 @@
                    Style="{StaticResource MaterialDesignTitleTextBlock}"
                    Margin="10" />
 
-        <!--
+        
         <TextBlock Grid.Row="1"
                    Grid.Column="0"
-                   Grid.ColumnSpan="3"
+                   Grid.ColumnSpan="6"
                    Margin="10"
                    Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                   Text="{x:Static resources:MetaDataUI.Title}" />
-        -->
+                   Text="{x:Static resources:MetaDataUI.MetadataRequiredFieldsInfo}" />
+        
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~ METADATA ~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" VerticalScrollBarVisibility="Auto"
@@ -85,9 +85,6 @@
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataModelArchiveDescription.AgreementNumber" Mode="TwoWay">
-                                    <Binding.ValidationRules>
-                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
@@ -156,9 +153,6 @@
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                                         <TextBox.Text>
                                             <Binding Path="Entity" Mode="TwoWay">
-                                                <Binding.ValidationRules>
-                                                    <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                                </Binding.ValidationRules>
                                             </Binding>
                                         </TextBox.Text>
                                     </TextBox>
@@ -242,9 +236,6 @@
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataTransferer.Entity" Mode="TwoWay">
-                                    <Binding.ValidationRules>
-                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
@@ -254,9 +245,6 @@
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataTransferer.ContactPerson" Mode="TwoWay">
-                                    <Binding.ValidationRules>
-                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
@@ -330,9 +318,6 @@
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataProducer.Entity" Mode="TwoWay">
-                                    <Binding.ValidationRules>
-                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
@@ -343,9 +328,6 @@
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataProducer.ContactPerson" Mode="TwoWay">
-                                    <Binding.ValidationRules>
-                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
@@ -428,9 +410,6 @@
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                                         <TextBox.Text>
                                             <Binding Path="Entity" Mode="TwoWay">
-                                                <Binding.ValidationRules>
-                                                    <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                                </Binding.ValidationRules>
                                             </Binding>
                                         </TextBox.Text>
                                     </TextBox>
@@ -485,9 +464,6 @@
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataRecipient.Entity" Mode="TwoWay">
-                                    <Binding.ValidationRules>
-                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
@@ -521,9 +497,6 @@
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataSystem.SystemName" Mode="TwoWay">
-                                    <Binding.ValidationRules>
-                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
@@ -534,9 +507,6 @@
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataSystem.SystemVersion" Mode="TwoWay">
-                                    <Binding.ValidationRules>
-                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
@@ -549,9 +519,6 @@
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <ComboBox.Text>
                                 <Binding Path="MetaDataSystem.SystemType" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
                                 </Binding>
                             </ComboBox.Text>
                             <ComboBox.ItemsPanel>
@@ -622,9 +589,6 @@
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <ComboBox.Text>
                                 <Binding Path="MetaDataArchiveSystem.SystemType" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
                                 </Binding>
                             </ComboBox.Text>
                             <ComboBox.ItemsPanel>

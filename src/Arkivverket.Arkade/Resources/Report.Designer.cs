@@ -232,6 +232,15 @@ namespace Arkivverket.Arkade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Strukturanalyse.
+        /// </summary>
+        internal static string TestTypeStructureAnalysisDisplayName {
+            get {
+                return ResourceManager.GetString("TestTypeStructureAnalysisDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Strukturkontroll.
         /// </summary>
         internal static string TestTypeStructureControlDisplayName {

@@ -30,6 +30,12 @@ namespace Arkivverket.Arkade.Tests.Noark5
                    eventArgs.Name.Equals("xsi:type") &&
                    eventArgs.Value.Equals("basisregistrering");
         }
+        public static bool IdentifiesMeetingFolder(ReadElementEventArgs eventArgs)
+        {
+            return eventArgs.Path.Matches("mappe") &&
+                   eventArgs.Name.Equals("xsi:type") &&
+                   eventArgs.Value.Equals("møtemappe");
+        }
 
         public static bool PeriodSeparationIsSharp(Archive archive)
         {
@@ -49,8 +55,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 property inboundSeparationProperty = periodProperty.properties[0];
                 property outboundSeparationProperty = periodProperty.properties[1];
 
-                inboundSeparationIsSharp = inboundSeparationProperty.value.Equals("skarp");
-                outboundSeparationIsSharp = outboundSeparationProperty.value.Equals("skarp");
+                inboundSeparationIsSharp = inboundSeparationProperty.value.Equals("skarpt");
+                outboundSeparationIsSharp = outboundSeparationProperty.value.Equals("skarpt");
             }
             catch
             {

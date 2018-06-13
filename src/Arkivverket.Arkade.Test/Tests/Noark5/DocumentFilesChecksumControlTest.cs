@@ -47,44 +47,56 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         {
             XmlElementHelper xmlElementHelper =
                 new XmlElementHelper().Add("arkiv",
-                    new XmlElementHelper().Add("arkivdel",
-                        new XmlElementHelper().Add("klassifikasjonssystem",
-                            new XmlElementHelper().Add("klasse",
-                                new XmlElementHelper().Add("mappe",
-                                    new XmlElementHelper()
-                                        .Add("registrering",
-                                            new XmlElementHelper().Add("dokumentbeskrivelse",
-                                                new XmlElementHelper()
-                                                    .Add("systemID", "someSystemId_1")
-                                                    .Add("dokumentobjekt",
-                                                        new XmlElementHelper()
-                                                            .Add("referanseDokumentfil", "dokumenter\\5000000.pdf")
-                                                            .Add("sjekksum", "someNotMatchingCheckSum")
-                                                            .Add("sjekksumAlgoritme", "SHA-256"))))
-                                        .Add("registrering",
-                                            new XmlElementHelper().Add("dokumentbeskrivelse",
-                                                new XmlElementHelper()
-                                                    .Add("systemID", "someSystemId_2")
-                                                    .Add("dokumentobjekt",
-                                                        new XmlElementHelper()
-                                                            .Add("referanseDokumentfil", "dokumenter/5000001.pdf")
-                                                            .Add("sjekksum", "someNotMatchingCheckSum")
-                                                            .Add("sjekksumAlgoritme", "SHA-256")))))))));
+                    new XmlElementHelper()
+                        .Add("arkivdel", new XmlElementHelper().Add("systemID", "archivePartSystemId_1")
+                            .Add("klassifikasjonssystem", new XmlElementHelper()
+                                .Add("klasse", new XmlElementHelper()
+                                    .Add("mappe", new XmlElementHelper()
+                                        .Add("registrering", new XmlElementHelper()
+                                            .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                                .Add("systemID", "someSystemId_1")
+                                                .Add("dokumentobjekt", new XmlElementHelper()
+                                                    .Add("referanseDokumentfil", "dokumenter\\5000000.pdf")
+                                                    .Add("sjekksum", "someNotMatchingCheckSum")
+                                                    .Add("sjekksumAlgoritme", "SHA-256"))))
+                                        .Add("registrering", new XmlElementHelper()
+                                            .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                                .Add("systemID", "someSystemId_2")
+                                                .Add("dokumentobjekt", new XmlElementHelper()
+                                                    .Add("referanseDokumentfil", "dokumenter/5000001.pdf")
+                                                    .Add("sjekksum", "someNotMatchingCheckSum")
+                                                    .Add("sjekksumAlgoritme", "SHA-256"))))))))
+                        .Add("arkivdel", new XmlElementHelper().Add("systemID", "archivePartSystemId_2")
+                            .Add("klassifikasjonssystem", new XmlElementHelper()
+                                .Add("klasse", new XmlElementHelper()
+                                    .Add("mappe", new XmlElementHelper()
+                                        .Add("registrering", new XmlElementHelper()
+                                            .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                                .Add("systemID", "someSystemId_3")
+                                                .Add("dokumentobjekt", new XmlElementHelper()
+                                                    .Add("referanseDokumentfil", "dokumenter\\5000000.pdf")
+                                                    .Add("sjekksum", "someNotMatchingCheckSum")
+                                                    .Add("sjekksumAlgoritme", "SHA-256")))))))));
 
 
             TestRun testRun = CreateTestRun(xmlElementHelper);
 
             testRun.Results.Should().Contain(r =>
                 r.IsError() && r.Message.Equals(
-                    "Filen dokumenter\\5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_1"
+                    "Arkivdel (systemID) archivePartSystemId_1 - Filen dokumenter\\5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_1"
                 ));
 
             testRun.Results.Should().Contain(r =>
                 r.IsError() && r.Message.Equals(
-                    "Filen dokumenter/5000001.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_2"
+                    "Arkivdel (systemID) archivePartSystemId_1 - Filen dokumenter/5000001.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_2"
                 ));
 
-            testRun.Results.Count.Should().Be(2);
+            testRun.Results.Should().Contain(r =>
+                r.IsError() && r.Message.Equals(
+                    "Arkivdel (systemID) archivePartSystemId_2 - Filen dokumenter\\5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_3"
+                ));
+
+            testRun.Results.Count.Should().Be(3);
         }
 
         private static TestRun CreateTestRun(XmlElementHelper xmlElementHelper)

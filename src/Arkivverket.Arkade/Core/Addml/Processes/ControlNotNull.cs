@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Addml.Processes
         {
             foreach (FieldIndex index in _containsNullValues)
             {
-                _testResults.Add(new TestResult(ResultType.Success, AddmlLocation.FromFieldIndex(index),
+                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(index),
                     string.Format(Messages.ControlNotNullMessage)));
             }
 
