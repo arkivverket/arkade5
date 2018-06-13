@@ -25,6 +25,7 @@ namespace Arkivverket.Arkade.Util
         public const string RunningJournalXmlFileName = "loependeJournal.xml";
         public const string RunningJournalXsdFileName = "loependeJournal.xsd";
         public const string ChangeLogXmlFileName = "endringslogg.xml";
+        public const string ChangeLogXsdFileName = "endringslogg.xsd";
         public const string MetadataPredefinedFieldValuesFileName = "metadata-feltverdier.xml";
 
         public const string AddmlXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.addml.xsd";
@@ -32,6 +33,7 @@ namespace Arkivverket.Arkade.Util
         public const string MetadatakatalogXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.metadatakatalog.xsd";
         public const string DiasPremisXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.DIAS_PREMIS.xsd";
         public const string DiasMetsXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.mets.xsd";
+        public const string ChangeLogXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.endringslogg.xsd";
         public const string PublicJournalXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.offentligJournal.xsd";
         public const string RunningJournalXsdResource = "Arkivverket.Arkade.ExternalModels.xsd.loependeJournal.xsd";
 

@@ -15,6 +15,8 @@ namespace Arkivverket.Arkade.Core
         public ArkadeFile ArchiveStructureSchemaFile => SetupXmlFile(ArkivstrukturXsdFileName);
         public ArkadeFile AddmlFile => SetupXmlFile(AddmlXmlFileName);
         public ArkadeFile AddmlSchemaFile => SetupXmlFile(AddmlXsdFileName);
+        public ArkadeFile ChangeLogFile => SetupXmlFile(ChangeLogXmlFileName);
+        public ArkadeFile ChangeLogSchemaFile => SetupXmlFile(ChangeLogXsdFileName);
         public ArkadeFile MetadataCatalogSchemaFile => SetupXmlFile(MetadatakatalogXsdFileName);
         public ArkadeFile PublicJournalFile => SetupXmlFile(PublicJournalXmlFileName);
         public ArkadeFile PublicJournalSchemaFile => SetupXmlFile(PublicJournalXsdFileName);
