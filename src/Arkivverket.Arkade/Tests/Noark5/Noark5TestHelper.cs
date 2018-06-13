@@ -55,8 +55,8 @@ namespace Arkivverket.Arkade.Tests.Noark5
                 property inboundSeparationProperty = periodProperty.properties[0];
                 property outboundSeparationProperty = periodProperty.properties[1];
 
-                inboundSeparationIsSharp = inboundSeparationProperty.value.Equals("skarp");
-                outboundSeparationIsSharp = outboundSeparationProperty.value.Equals("skarp");
+                inboundSeparationIsSharp = inboundSeparationProperty.value.Equals("skarpt");
+                outboundSeparationIsSharp = outboundSeparationProperty.value.Equals("skarpt");
             }
             catch
             {

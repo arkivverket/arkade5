@@ -73,10 +73,10 @@
 									<property name="periode">
 										<properties>
 											<property name="inngaaendeSkille">
-												<value>skarp</value>
+												<value>skarpt</value>
 											</property>
 											<property name="utgaaendeSkille">
-												<value>skarp</value>
+												<value>skarpt</value>
 											</property>
 										</properties>
 									</property>

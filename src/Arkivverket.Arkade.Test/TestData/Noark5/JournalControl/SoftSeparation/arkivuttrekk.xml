@@ -73,10 +73,10 @@
 									<property name="periode">
 										<properties>
 											<property name="inngaaendeSkille">
-												<value>ikke skarp ...</value>
+												<value>mykt</value>
 											</property>
 											<property name="utgaaendeSkille">
-												<value>ikke skarp ...</value>
+												<value>mykt</value>
 											</property>
 										</properties>
 									</property>
