@@ -322,7 +322,7 @@ namespace Arkivverket.Arkade.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to * = påkrevd felt i mets-standard.
+        ///   Looks up a localized string similar to * = Feltet er påkrevet for å skape en gyldig arkivpakke.
         /// </summary>
         public static string MetadataRequiredFieldsInfo {
             get {

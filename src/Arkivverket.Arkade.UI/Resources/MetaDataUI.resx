@@ -219,7 +219,7 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <comment>Can't get it to work as a reference</comment>
   </data>
   <data name="MetadataRequiredFieldsInfo" xml:space="preserve">
-    <value>* = påkrevd felt i mets-standard</value>
+    <value>* = Feltet er påkrevet for å skape en gyldig arkivpakke</value>
   </data>
   <data name="OutgoingSeperator" xml:space="preserve">
     <value>Utgående skille</value>
