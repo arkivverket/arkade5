@@ -30,14 +30,16 @@ namespace Arkivverket.Arkade.Cli
 
                 var archiveMetadata = JsonConvert.DeserializeObject<ArchiveMetadata>(File.ReadAllText(options.MetadataFile));
 
-                archiveMetadata.PackageType = PackageType.SubmissionInformationPackage;
+                archiveMetadata.PackageType = options.InformationPackageType != null &&
+                                              options.InformationPackageType.Equals("AIP")
+                    ? PackageType.ArchivalInformationPackage
+                    : PackageType.SubmissionInformationPackage;
 
                 testSession.ArchiveMetadata = archiveMetadata;
                 
+                SaveTestReport(arkade, testSession, options);
 
                 arkade.CreatePackage(testSession, options.OutputDirectory);
-                
-                arkade.SaveReport(testSession, PrepareTestReportFile(options, testSession));
             }
             finally
             {
@@ -65,12 +67,17 @@ namespace Arkivverket.Arkade.Cli
             return testSession;
         }
 
-        private static FileInfo PrepareTestReportFile(CommandLineOptions options, TestSession testSession)
+        private static void SaveTestReport(Core.Arkade arkade, TestSession testSession, CommandLineOptions options)
         {
-            string testReportFileName = string.Format(OutputStrings.TestReportFileName, testSession.Archive.Uuid);
-            string testReportFullPath = Path.Combine(options.OutputDirectory, testReportFileName);
+            var packageTestReport = new FileInfo(Path.Combine(
+                testSession.GetReportDirectory().FullName, "report.html"
+            ));
+            arkade.SaveReport(testSession, packageTestReport);
 
-            return new FileInfo(testReportFullPath);
+            var standaloneTestReport = new FileInfo(Path.Combine(
+                options.OutputDirectory, string.Format(OutputStrings.TestReportFileName, testSession.Archive.Uuid)
+            ));
+            arkade.SaveReport(testSession, standaloneTestReport);
         }
     }
 }
