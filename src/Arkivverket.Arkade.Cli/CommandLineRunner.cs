@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using Arkivverket.Arkade.Core;
 using Newtonsoft.Json;
+using RestSharp.Extensions;
 using Serilog;
 
 namespace Arkivverket.Arkade.Cli
@@ -28,6 +29,12 @@ namespace Arkivverket.Arkade.Cli
 
                 TestSession testSession = CreateTestSession(options, arkade, archiveType);
 
+                if (!TestingIsSkipped(options))
+                {
+                    arkade.RunTests(testSession);
+                    SaveTestReport(arkade, testSession, options);
+                }
+
                 var archiveMetadata = JsonConvert.DeserializeObject<ArchiveMetadata>(File.ReadAllText(options.MetadataFile));
 
                 archiveMetadata.PackageType = options.InformationPackageType != null &&
@@ -37,8 +44,6 @@ namespace Arkivverket.Arkade.Cli
 
                 testSession.ArchiveMetadata = archiveMetadata;
                 
-                SaveTestReport(arkade, testSession, options);
-
                 arkade.CreatePackage(testSession, options.OutputDirectory);
             }
             finally
@@ -47,18 +52,23 @@ namespace Arkivverket.Arkade.Cli
             }
         }
 
+        private static bool TestingIsSkipped(CommandLineOptions options)
+        {
+            return options.Skip.HasValue() && options.Skip.Equals("testing");
+        }
+
         private static TestSession CreateTestSession(CommandLineOptions options, Core.Arkade arkade, ArchiveType archiveType)
         {
             TestSession testSession;
             if (File.Exists(options.Archive))
             {
                 Log.Debug("File exists");
-                testSession = arkade.RunTests(ArchiveFile.Read(options.Archive, archiveType));
+                testSession = arkade.CreateTestSession(ArchiveFile.Read(options.Archive, archiveType));
             }
             else if (Directory.Exists(options.Archive))
             {
                 Log.Debug("Directory exists");
-                testSession = arkade.RunTests(ArchiveDirectory.Read(options.Archive, archiveType));
+                testSession = arkade.CreateTestSession(ArchiveDirectory.Read(options.Archive, archiveType));
             }
             else
             {

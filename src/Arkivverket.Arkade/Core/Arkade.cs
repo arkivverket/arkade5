@@ -28,6 +28,16 @@ namespace Arkivverket.Arkade.Core
             _container.Dispose();
         }
 
+        public TestSession CreateTestSession(ArchiveDirectory archiveDirectory)
+        {
+            return _arkadeApi.CreateTestSession(archiveDirectory);
+        }
+
+        public TestSession CreateTestSession(ArchiveFile archive)
+        {
+            return _arkadeApi.CreateTestSession(archive);
+        }
+
         public TestSession RunTests(ArchiveFile archiveFile)
         {
             return _arkadeApi.RunTests(archiveFile);
@@ -36,6 +46,11 @@ namespace Arkivverket.Arkade.Core
         public TestSession RunTests(ArchiveDirectory archiveDirectory)
         {
             return _arkadeApi.RunTests(archiveDirectory);
+        }
+
+        public void RunTests(TestSession testSession)
+        {
+            _arkadeApi.RunTests(testSession);
         }
 
         public void CreatePackage(TestSession testSession, string outputDirectory)
