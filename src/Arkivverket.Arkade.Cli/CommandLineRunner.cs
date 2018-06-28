@@ -35,16 +35,19 @@ namespace Arkivverket.Arkade.Cli
                     SaveTestReport(arkade, testSession, options);
                 }
 
-                var archiveMetadata = JsonConvert.DeserializeObject<ArchiveMetadata>(File.ReadAllText(options.MetadataFile));
+                if (!PackingIsSkipped(options))
+                {
+                    var archiveMetadata = JsonConvert.DeserializeObject<ArchiveMetadata>(File.ReadAllText(options.MetadataFile));
 
-                archiveMetadata.PackageType = options.InformationPackageType != null &&
-                                              options.InformationPackageType.Equals("AIP")
-                    ? PackageType.ArchivalInformationPackage
-                    : PackageType.SubmissionInformationPackage;
+                    archiveMetadata.PackageType = options.InformationPackageType != null &&
+                                                  options.InformationPackageType.Equals("AIP")
+                        ? PackageType.ArchivalInformationPackage
+                        : PackageType.SubmissionInformationPackage;
 
-                testSession.ArchiveMetadata = archiveMetadata;
-                
-                arkade.CreatePackage(testSession, options.OutputDirectory);
+                    testSession.ArchiveMetadata = archiveMetadata;
+
+                    arkade.CreatePackage(testSession, options.OutputDirectory);
+                }
             }
             finally
             {
@@ -55,6 +58,11 @@ namespace Arkivverket.Arkade.Cli
         private static bool TestingIsSkipped(CommandLineOptions options)
         {
             return options.Skip.HasValue() && options.Skip.Equals("testing");
+        }
+
+        private static bool PackingIsSkipped(CommandLineOptions options)
+        {
+            return options.Skip.HasValue() && options.Skip.Equals("packing");
         }
 
         private static TestSession CreateTestSession(CommandLineOptions options, Core.Arkade arkade, ArchiveType archiveType)

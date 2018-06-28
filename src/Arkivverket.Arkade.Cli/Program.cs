@@ -59,7 +59,10 @@ namespace Arkivverket.Arkade.Cli
         {
             return !string.IsNullOrWhiteSpace(options.Archive)
                    && !string.IsNullOrWhiteSpace(options.ArchiveType)
-                   && !string.IsNullOrWhiteSpace(options.MetadataFile)
+                   && (
+                       !string.IsNullOrWhiteSpace(options.Skip) && options.Skip.Equals("packing")
+                       || !string.IsNullOrWhiteSpace(options.MetadataFile)
+                   )
                    && !string.IsNullOrWhiteSpace(options.ProcessingArea)
                    && !string.IsNullOrWhiteSpace(options.OutputDirectory);
         }
