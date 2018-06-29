@@ -1,0 +1,44 @@
+﻿<Window x:Class="Arkivverket.Arkade.GUI.Views.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Arkivverket.Arkade.GUI.Views"
+        xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
+        mc:Ignorable="d"
+        Title="Settings" Height="330" Width="500">
+    <Grid>
+        <StackPanel Margin="10">
+            <TextBlock Text="{x:Static resources:SettingsGUI.ArkadeProcessingAreaLocation_Header}"
+                       FontSize="18"
+                       Margin="0,0,0,10" />
+            <TextBlock Text="{x:Static resources:SettingsGUI.ArkadeProcessingAreaLocation_Info}"
+                       TextWrapping="Wrap" />
+            <WrapPanel HorizontalAlignment="Right"
+                       Margin="0,25">
+                <TextBlock VerticalAlignment="Center"
+                           TextWrapping="Wrap"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10">
+                    <Run Text="{Binding ArkadeProcessingAreaLocationSetting}"
+                         Background="LightGray" /><Run>\</Run><Run Text="{Binding DirectoryNameArkadeProcessingAreaRoot, Mode=OneWay}"></Run>
+                </TextBlock>
+                <Button Command="{Binding ChangeArkadeProcessingAreaLocationCommand}"
+                        Content="{x:Static resources:SettingsGUI.ArkadeProcessingAreaLocation_EditButtonText}"
+                        Margin="10,0,0,10" />
+            </WrapPanel>
+            <TextBlock Text="{x:Static resources:SettingsGUI.ArkadeProcessingAreaLocation_Warning}"
+                       TextWrapping="Wrap"
+                       FontStyle="Italic" />
+        </StackPanel>
+        <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+            <Button Click="ApplyChangesAndClose"
+                    Content="{x:Static resources:SettingsGUI.ArkadeProcessingAreaLocation_ApplyButtonText}"
+                    Width="75" />
+            <Button IsCancel="True"
+                    Content="{x:Static resources:SettingsGUI.ArkadeProcessingAreaLocation_CancelButtonText}"
+                    Width="75" 
+                    Margin="10,0,0,0" />
+        </WrapPanel>
+    </Grid>
+</Window>
