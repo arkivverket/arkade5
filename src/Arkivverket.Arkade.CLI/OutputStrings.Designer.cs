@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Arkivverket.Arkade.Cli {
+namespace Arkivverket.Arkade.CLI {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Cli {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.Cli.OutputStrings", typeof(OutputStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.CLI.OutputStrings", typeof(OutputStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

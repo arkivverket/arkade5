@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Arkivverket.Arkade.Cli")]
+[assembly: AssemblyTitle("Arkivverket.Arkade.CLI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Arkivverket.Arkade.Cli")]
+[assembly: AssemblyProduct("Arkivverket.Arkade.CLI")]
 [assembly: AssemblyCopyright("Copyright Arkivverket © 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

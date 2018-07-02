@@ -6,7 +6,7 @@ using Arkivverket.Arkade.Util;
 using CommandLine;
 using Serilog;
 
-namespace Arkivverket.Arkade.Cli
+namespace Arkivverket.Arkade.CLI
 {
     internal class Program
     {

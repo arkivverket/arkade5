@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using RestSharp.Extensions;
 using Serilog;
 
-namespace Arkivverket.Arkade.Cli
+namespace Arkivverket.Arkade.CLI
 {
     internal class CommandLineRunner
     {

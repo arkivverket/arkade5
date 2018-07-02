@@ -2,7 +2,7 @@
 using CommandLine;
 using CommandLine.Text;
 
-namespace Arkivverket.Arkade.Cli
+namespace Arkivverket.Arkade.CLI
 {
     /// <summary>
     ///     Using CommandLine library for parsing options. See https://github.com/gsscoder/commandline/wiki/

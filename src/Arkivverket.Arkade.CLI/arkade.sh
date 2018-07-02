@@ -1,5 +1,5 @@
 #!/bin/bash
 
-dotnet Arkivverket.Arkade.Cli.dll $@
+dotnet Arkivverket.Arkade.CLI.dll $@
 
 # See README.txt for info about running Arkade CLI

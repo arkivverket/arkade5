@@ -5,7 +5,7 @@ using Arkivverket.Arkade.Core;
 using Newtonsoft.Json;
 using Serilog;
 
-namespace Arkivverket.Arkade.Cli
+namespace Arkivverket.Arkade.CLI
 {
     internal class MetadataExampleGenerator
     {
