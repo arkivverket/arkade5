@@ -1,16 +1,17 @@
 ﻿using System.Reflection;
+﻿using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Arkivverket.Arkade.GUI")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Arkade 5")]
+[assembly: AssemblyDescription("Testverktøy for arkivuttrekk")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Arkivverket.Arkade.GUI")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("Arkivverket")]
+[assembly: AssemblyProduct("Arkade 5")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -46,6 +47,8 @@ using System.Windows;
 //      Build Number
 //      Revision
 //
-// TeamCity will set the version numbers
+// CI-server will set the version numbers
 [assembly: AssemblyVersion("0.0.0.0")]
 [assembly: AssemblyFileVersion("0.0.0.0")]
+[assembly: NeutralResourcesLanguage("nb-NO")]
+
