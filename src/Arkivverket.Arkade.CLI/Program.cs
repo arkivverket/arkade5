@@ -8,9 +8,9 @@ using Serilog;
 
 namespace Arkivverket.Arkade.CLI
 {
-    internal class Program
+    public class Program
     {
-        private static void Main(string[] args)
+        public static void Main(string[] args)
         {
             ArkadeProcessingArea.SetupTemporaryLogsDirectory();
 
