@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using Arkivverket.Arkade.GUI.Views;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Util;
 using Autofac;
 using Prism.Autofac;
 using Prism.Modularity;

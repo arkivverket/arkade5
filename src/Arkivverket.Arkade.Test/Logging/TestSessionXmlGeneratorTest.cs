@@ -1,8 +1,8 @@
-﻿using Arkivverket.Arkade.Logging;
+﻿using Arkivverket.Arkade.Core.Logging;
 using Xunit;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Test.Core;
-using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Tests;
+using Arkivverket.Arkade.Test.Base;
 
 namespace Arkivverket.Arkade.Test.Logging
 {

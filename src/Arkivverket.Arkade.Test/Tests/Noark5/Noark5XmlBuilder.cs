@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
-using Arkivverket.Arkade.ExternalModels.Noark5;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.ExternalModels.Noark5;
+using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {

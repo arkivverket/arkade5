@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Metadata;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Metadata;
 using FluentAssertions;
 using Xunit;
 

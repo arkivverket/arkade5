@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;

@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core;
+﻿using Arkivverket.Arkade.Core.Base;
 ﻿using System.Windows;
 using Arkivverket.Arkade.GUI.Util;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             ArkadeProcessingAreaLocationSetting = Util.ArkadeProcessingAreaLocationSetting.Get();
             CurrentArkadeProcessingAreaLocation = ArkadeProcessingArea.Location?.FullName;
-            DirectoryNameArkadeProcessingAreaRoot = Arkade.Util.ArkadeConstants.DirectoryNameArkadeProcessingAreaRoot;
+            DirectoryNameArkadeProcessingAreaRoot = Arkade.Core.Util.ArkadeConstants.DirectoryNameArkadeProcessingAreaRoot;
 
             ChangeArkadeProcessingAreaLocationCommand = new DelegateCommand(ChangeArkadeProcessingAreaLocation);
             ApplyChangesCommand = new DelegateCommand(ApplyChanges);

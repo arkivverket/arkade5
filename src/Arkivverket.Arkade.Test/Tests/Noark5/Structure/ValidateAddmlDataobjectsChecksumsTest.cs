@@ -1,9 +1,9 @@
 using System.IO;
 using System.Reflection;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Tests;
-using Arkivverket.Arkade.Tests.Noark5;
-using Arkivverket.Arkade.Tests.Noark5.Structure;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Tests;
+using Arkivverket.Arkade.Core.Tests.Noark5;
+using Arkivverket.Arkade.Core.Tests.Noark5.Structure;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
         public void ShouldValidateThatAllChecksumsAreCorrect()
         {
             string workingDirectory = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\\TestData\\Noark5\\StructureChecksums\\correct";
-            var archive = new Core.ArchiveBuilder()
+            var archive = new Base.ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5.Structure
         public void HasErrorChecksum()
         {
             string workingDirectory = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\\TestData\\Noark5\\StructureChecksums\\errors";
-            var archive = new Core.ArchiveBuilder()
+            var archive = new Base.ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")

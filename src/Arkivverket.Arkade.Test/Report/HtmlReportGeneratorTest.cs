@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Report;
-using Arkivverket.Arkade.Test.Core;
-using Arkivverket.Arkade.Tests;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Report;
+using Arkivverket.Arkade.Core.Tests;
+using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Test.Base;
 using FluentAssertions;
 using Xunit;
 
@@ -125,6 +125,7 @@ namespace Arkivverket.Arkade.Test.Report
         [Fact(Skip = "Archive is expected to have a content directory")]
         public void ShouldShowArkadeVersionNumberInReport()
         {
+            /*
             TestSession testSession = CreateTestSessionWithTwoTestRuns();
 
             string html = GenerateReport(testSession);
@@ -132,6 +133,7 @@ namespace Arkivverket.Arkade.Test.Report
             // remove version number from text - causes trouble on build server.
             versionText = versionText.Substring(0, versionText.IndexOf("{0}", StringComparison.Ordinal));
             html.Contains(versionText).Should().BeTrue();
+            */
         }
     }
 }

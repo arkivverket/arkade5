@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Base;
 using Newtonsoft.Json;
 using RestSharp.Extensions;
 using Serilog;
@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.CLI
         {
             try
             {
-                var arkade = new Core.Arkade();
+                var arkade = new Core.Base.Arkade();
 
                 var fileInfo = new FileInfo(options.Archive);
                 Log.Information($"Processing archive: {fileInfo.FullName}");
@@ -65,7 +65,7 @@ namespace Arkivverket.Arkade.CLI
             return options.Skip.HasValue() && options.Skip.Equals("packing");
         }
 
-        private static TestSession CreateTestSession(CommandLineOptions options, Core.Arkade arkade, ArchiveType archiveType)
+        private static TestSession CreateTestSession(CommandLineOptions options, Core.Base.Arkade arkade, ArchiveType archiveType)
         {
             TestSession testSession;
             if (File.Exists(options.Archive))
@@ -85,7 +85,7 @@ namespace Arkivverket.Arkade.CLI
             return testSession;
         }
 
-        private static void SaveTestReport(Core.Arkade arkade, TestSession testSession, CommandLineOptions options)
+        private static void SaveTestReport(Core.Base.Arkade arkade, TestSession testSession, CommandLineOptions options)
         {
             var packageTestReport = new FileInfo(Path.Combine(
                 testSession.GetReportDirectory().FullName, "report.html"

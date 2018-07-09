@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Core.Addml.Processes;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Addml.Processes;
+using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;
 
@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Test.Integration
         public void ShouldRunTestsOnFiskermanntallet()
         {
             ArchiveFile archive = ArchiveFile.Read("..\\..\\TestData\\tar\\fiskermanntallet-anonymized\\dab6c748-8d1a-4b6d-b091-3a7b8b3cb255.tar", ArchiveType.Noark3);
-            Arkade.Core.Arkade arkade = new Arkade.Core.Arkade();
+            Arkade.Core.Base.Arkade arkade = new Arkade.Core.Base.Arkade();
             TestSession testSesson = arkade.RunTests(archive);
 
             testSesson.Should().NotBeNull();

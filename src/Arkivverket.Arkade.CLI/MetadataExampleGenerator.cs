@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Base;
 using Newtonsoft.Json;
 using Serilog;
 

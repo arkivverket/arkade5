@@ -3,8 +3,8 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Core.Addml.Processes;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Addml.Processes;
 using FluentAssertions;
 using Xunit;
 
@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Test.Integration
             ArchiveFile archive1 =
                 ArchiveFile.Read(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\TestData\\tar\\Noark3-eksempel-1\\c3db9d4e-720c-4f75-bfb6-de90231dc44c.tar", ArchiveType.Noark3);
 
-            Arkade.Core.Arkade arkade = new Arkade.Core.Arkade();
+            Arkade.Core.Base.Arkade arkade = new Arkade.Core.Base.Arkade();
             TestSession testSesson = arkade.RunTests(archive1);
 
             testSesson.Should().NotBeNull();

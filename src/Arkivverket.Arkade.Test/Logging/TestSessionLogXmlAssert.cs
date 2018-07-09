@@ -1,9 +1,9 @@
-﻿using Arkivverket.Arkade.ExternalModels.TestSessionLog;
+﻿using Arkivverket.Arkade.Core.ExternalModels.TestSessionLog;
 using System;
 using System.IO;
 using System.Xml.Serialization;
 using FluentAssertions;
-using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Base;
 
 namespace Arkivverket.Arkade.Test.Logging
 {

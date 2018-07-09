@@ -1,6 +1,6 @@
 using System.IO;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Util;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;

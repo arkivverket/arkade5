@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Base;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {
@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Test.Tests.Noark5
         public static Archive CreateArchiveExtraction(string testdataDirectory)
         {
             string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\{testdataDirectory}";
-            return new Core.ArchiveBuilder()
+            return new Base.ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryExternalContent(workingDirectory)
                 .Build();

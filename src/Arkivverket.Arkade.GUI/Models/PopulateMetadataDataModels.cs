@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Base;
 using Prism.Mvvm;
 
 namespace Arkivverket.Arkade.GUI.Models

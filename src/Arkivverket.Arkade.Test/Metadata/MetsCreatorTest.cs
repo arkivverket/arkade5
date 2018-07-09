@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.ExternalModels.Mets;
-using Arkivverket.Arkade.Metadata;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.ExternalModels.Mets;
+using Arkivverket.Arkade.Core.Metadata;
 using FluentAssertions;
 using Xunit;
 

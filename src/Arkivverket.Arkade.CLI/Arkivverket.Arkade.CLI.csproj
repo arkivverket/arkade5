@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Arkivverket.Arkade\Arkivverket.Arkade.csproj" />
+    <ProjectReference Include="..\Arkivverket.Arkade.Core\Arkivverket.Arkade.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

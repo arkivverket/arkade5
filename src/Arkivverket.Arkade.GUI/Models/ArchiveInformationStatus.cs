@@ -1,5 +1,5 @@
 using System;
-using Arkivverket.Arkade.Logging;
+using Arkivverket.Arkade.Core.Logging;
 using Prism.Mvvm;
 
 namespace Arkivverket.Arkade.GUI.Models

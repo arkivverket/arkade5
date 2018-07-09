@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Util;
 using CommandLine;
 using Serilog;
 

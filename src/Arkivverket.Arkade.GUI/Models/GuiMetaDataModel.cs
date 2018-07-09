@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using Arkivverket.Arkade.ExternalModels.Ead;
+using Arkivverket.Arkade.Core.ExternalModels.Ead;
 using Prism.Commands;
 using Prism.Mvvm;
 

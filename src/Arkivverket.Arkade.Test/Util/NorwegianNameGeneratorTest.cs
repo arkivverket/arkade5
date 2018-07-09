@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Util;
+﻿using Arkivverket.Arkade.Core.Util;
 using Xunit;
 using Xunit.Abstractions;
 

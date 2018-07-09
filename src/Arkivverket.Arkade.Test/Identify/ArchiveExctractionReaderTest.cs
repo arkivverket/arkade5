@@ -1,8 +1,8 @@
 using System.IO;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Identify;
-using Arkivverket.Arkade.Logging;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Identify;
+using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Moq;
 using Xunit;

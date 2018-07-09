@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.GUI.Properties;
 
 namespace Arkivverket.Arkade.GUI.Util

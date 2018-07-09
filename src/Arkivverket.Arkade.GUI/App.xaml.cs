@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
-using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.GUI.Properties;
 using Arkivverket.Arkade.GUI.Util;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Util;
 using Serilog;
 
 namespace Arkivverket.Arkade.GUI

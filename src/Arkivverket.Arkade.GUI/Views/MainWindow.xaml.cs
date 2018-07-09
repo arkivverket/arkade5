@@ -2,10 +2,10 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
-using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.ViewModels;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Util;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Arkivverket.Arkade.GUI.Views

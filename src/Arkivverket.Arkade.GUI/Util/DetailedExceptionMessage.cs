@@ -2,8 +2,8 @@
 using System.IO;
 using System.Text;
 using System.Windows;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Util;
 using Serilog;
 
 namespace Arkivverket.Arkade.GUI.Util

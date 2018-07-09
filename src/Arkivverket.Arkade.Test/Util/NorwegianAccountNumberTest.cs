@@ -1,5 +1,5 @@
 ﻿using System;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;
 using Assert = Xunit.Assert;

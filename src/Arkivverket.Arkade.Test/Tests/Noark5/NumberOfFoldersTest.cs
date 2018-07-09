@@ -1,7 +1,7 @@
 using System.IO;
 using System.Linq;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Tests.Noark5;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Tests.Noark5;
 using FluentAssertions;
 using Xunit;
 

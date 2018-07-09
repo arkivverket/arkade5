@@ -1,6 +1,6 @@
 ﻿using System;
 using Xunit;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using System.Text.RegularExpressions;
 using Moq;

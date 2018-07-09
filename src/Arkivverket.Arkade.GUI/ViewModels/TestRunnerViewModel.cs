@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.GUI.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
-using Arkivverket.Arkade.Logging;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Util;
 using Application = System.Windows.Application;
 
 namespace Arkivverket.Arkade.GUI.ViewModels

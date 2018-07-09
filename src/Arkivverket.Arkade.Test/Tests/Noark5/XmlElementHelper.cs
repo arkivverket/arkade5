@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Arkivverket.Arkade.Core;
-using Arkivverket.Arkade.Core.Noark5;
-using Arkivverket.Arkade.Tests;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Noark5;
+using Arkivverket.Arkade.Core.Tests;
 
 namespace Arkivverket.Arkade.Test.Tests.Noark5
 {

@@ -6,7 +6,7 @@ using System.Windows.Navigation;
 using Arkivverket.Arkade.GUI.Resources;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
-using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Core.Util;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
