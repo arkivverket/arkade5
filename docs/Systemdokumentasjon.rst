@@ -181,54 +181,54 @@ Arkade supports the NOARK5 standard.
 
 List of implemented Noark5 Tests:
 
-* Analyse 01 - Antall arkiver i arkivstrukturen
-* Analyse 02 - Antall arkivdeler i arkivstrukturen
-* Analyse 03 - Arkivdelen[e]s status i arkivstrukturen
-* Analyse 04 - Antall klassifikasjonssystemer i arkivstrukturen
-* Analyse 05 - Antall klasser i arkivstrukturen
-* Analyse 06 - Antall klasser uten underklasser eller mapper i det primære klassifikasjonssystemet i arkivstrukturen
-* Analyse 07 - Antall mapper i arkivstrukturen
-* Analyse 08 - Antall mapper for hvert år i arkivstrukturen
-* Analyse 09 - Antall mapper som er klassifisert med hver enkelt klasse i arkivstrukturen
-* Analyse 10 - Antall mapper uten undermapper eller registreringer i arkivstrukturen
-* Analyse 11 - Saksmappenes status i arkivstrukturen
-* Analyse 12 - Antall registreringer i arkivstrukturen
-* Analyse 13 - Antall forskjellige journalposttyper i arkivstrukturen
-* Analyse 14 - Antall registreringer for hvert år i arkivstrukturen
-* Analyse 15 - Antall registreringer som er klassifisert med hver enkelt klasse i arkivstrukturen
-* Analyse 16 - Antall registreringer uten dokumentbeskrivelse i arkivstrukturen
-* Analyse 17 - Journalpostenes status i arkivstrukturen
-* Analyse 18 - Antall dokumentbeskrivelser i arkivstrukturen
-* Analyse 19 - Antall dokumentbeskrivelser uten dokumentobjekt i arkivstrukturen
-* Analyse 20 - Dokumentbeskrivelsenes status i arkivstrukturen
-* Analyse 21 - Antall dokumentobjekter i arkivstrukturen
-* Analyse 22 - Start- og sluttdato for dokumentene i arkivstrukturen
-* Analyse 23 - Antall dokumentfiler i arkivuttrekket
-* Analyse 24 - Antall dokumenter i arkivuttrekket fordelt på dokumentformat
-* Analyse 25 - Antall dokumentfiler som blir referert til av flere enn ett dokumentobjekt
-* Analyse 26 - Antall saksparter i arkivstrukturen
-* Analyse 27 - Antall merknader i arkivstrukturen
-* Analyse 28 - Antall kryssreferanser i arkivstrukturen
-* Analyse 29 - Antall presedenser i arkivstrukturen
-* Analyse 30 - Antall korrespondanseparter i arkivstrukturen
-* Analyse 31 - Antall avskrivninger i arkivstrukturen
-* Analyse 32 - Antall dokumentflyter i arkivstrukturen
-* Analyse 33 - Eventuelt - antall skjerminger i arkivstrukturen
-* Analyse 34 - Eventuelt - antall graderinger i arkivstrukturen
-* Analyse 35 - Eventuelt - antall kassasjonsvedtak i arkivstrukturen
-* Analyse 36 - Eventuelt - antall utførte kassasjoner i arkivstrukturen
-* Analyse 37 - Eventuelt - antall konverterte dokumenter i arkivstrukturen
-* Analyse 38 - Antall journalposter i arkivuttrekket
-* Analyse 39 - Start- og sluttdato i arkivuttrekket
-* Kontroll 40 - Kontroll av sjekksummene i arkivuttrekk.xml
-* Kontroll 41 - Validering av arkivstruktur.xml
-* Kontroll 42 - Validering av endringslogg.xml
-* Kontroll 43 - Kontroll på at mappene bare er knyttet til klasser uten underklasser i arkivstrukturen
-* Kontroll 44 - Kontroll på at registreringer bare er knyttet til klasser uten underklasser i arkivstrukturen
-* Kontroll 45 - Kontroll av sjekksummer
-* Kontroll 46 - Kontroll på om dokumentobjektene i arkivstrukturen refererer til eksisterende dokumentfiler i arkivuttrekket
-* Kontroll 47 - Kontroll på at det ikke finnes dokumentfiler i arkivuttrekket som mangler referanse fra arkivstrukturen
-* Kontroll 48 - Kontroll av systemidentifikasjonene i arkivstrukturen
-* Kontroll 49 - Kontroll av referansene til arkivdel i arkivstrukturen
-* Kontroll 50 - Kontroll av referansene til sekundær klassifikasjon i arkivstrukturen
-* Kontroll 51 - Kontroll av referansene i endringsloggen
+* N5.02 - Kontroll av sjekk-summene for filene arkivuttrekk.xml og addml.xsd
+* N5.03 - Kontroll av sjekk-summene for XML-filene og XML-skjemaene i avleveringspakken
+* N5.04 - Antall arkiver i arkivstrukturen
+* N5.05 - Antall arkivdeler i arkivstrukturen
+* N5.06 - Arkivdelen[e]s status i arkivstrukturen
+* N5.07 - Antall klassifikasjonssystemer i arkivstrukturen
+* N5.08 - Antall klasser i arkivstrukturen
+* N5.09 - Antall klasser uten underklasser eller mapper i det primære klassifikasjonssystemet i arkivstrukturen
+* N5.10 - Antall mapper i arkivstrukturen
+* N5.11 - Antall mapper for hvert år i arkivstrukturen
+* N5.12 - Kontroll på at mappene bare er knyttet til klasser uten underklasser i arkivstrukturen
+* N5.13 - Antall mapper som er klassifisert med hver enkelt klasse i arkivstrukturen
+* N5.14 - Antall mapper uten undermapper eller registreringer i arkivstrukturen
+* N5.15 - Saksmappenes status i arkivstrukturen
+* N5.16 - Antall registreringer i arkivstrukturen
+* N5.17 - Antall forskjellige journalposttyper i arkivstrukturen
+* N5.18 - Antall registreringer for hvert år i arkivstrukturen
+* N5.19 - Kontroll på at registreringer bare er knyttet til klasser uten underklasser i arkivstrukturen
+* N5.20 - Antall registreringer som er klassifisert med hver enkelt klasse i arkivstrukturen
+* N5.21 - Antall registreringer uten dokumentbeskrivelse i arkivstrukturen
+* N5.22 - Journalpostenes status i arkivstrukturen
+* N5.23 - Antall dokumentbeskrivelser i arkivstrukturen
+* N5.24 - Antall dokumentbeskrivelser uten dokumentobjekt i arkivstrukturen
+* N5.25 - Dokumentbeskrivelsenes status i arkivstrukturen
+* N5.26 - Antall dokumentobjekter i arkivstrukturen
+* N5.27 - Start- og sluttdato for dokumentene i arkivstrukturen
+* N5.28 - Antall dokumentfiler i arkivuttrekket
+* N5.29 - Antall dokumenter i arkivuttrekket fordelt på dokumentformat
+* N5.30 - Kontroll av sjekk-summen for hver dokumentfil i arkivuttrekket
+* N5.32 - Kontroll på om dokumentobjektene i arkivstrukturen refererer til eksisterende
+* N5.33 - Kontroll på at det ikke finnes dokumentfiler i arkivuttrekket som mangler referanse fra dokumentobjektet 
+* N5.34 - Antall dokumentfiler som blir referert til av flere enn ett dokumentobjekt
+* N5.35 - Antall saksparter i arkivstrukturen
+* N5.36 - Antall merknader i arkivstrukturen
+* N5.37 - Antall kryssreferanser i arkivstrukturen
+* N5.38 - Antall presedenser i arkivstrukturen
+* N5.39 - Antall korrespondanseparter i arkivstrukturen
+* N5.40 - Antall avskrivninger i arkivstrukturen
+* N5.41 - Antall dokumentflyter i arkivstrukturen
+* N5.42 - Eventuelt - antall skjerminger i arkivstrukturen
+* N5.43 - Eventuelt - antall graderinger i arkivstrukturen
+* N5.44 - Eventuelt - antall kassasjonsvedtak i arkivstrukturen
+* N5.45 - Eventuelt - antall utførte kassasjoner i arkivstrukturen
+* N5.46 - Eventuelt - antall konverterte dokumenter i arkivstrukturen
+* N5.47 - Kontroll av system-identifikasjonene i arkivstrukturen
+* N5.48 - Kontroll av referansene til arkivdel i arkivstrukturen
+* N5.51 - Kontroll av referansene til sekundær klassifikasjon i arkivstrukturen
+* N5.59 - Antall journalposter i arkivuttrekket
+* N5.60 - Start- og sluttdato i arkivuttrekket
+* N5.61 - Antall endringer i endringsloggen
+* N5.62 - Kontroll av referansene i endringsloggen
