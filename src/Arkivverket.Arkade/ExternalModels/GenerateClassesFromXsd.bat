@@ -1,6 +1,6 @@
 @ECHO off
 
-SET generator="C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\xsd.exe"
+SET generator="C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools\xsd.exe"
 SET baseNamespace=Arkivverket.Arkade.ExternalModels
 SET xsdFilePath=xsd
 
