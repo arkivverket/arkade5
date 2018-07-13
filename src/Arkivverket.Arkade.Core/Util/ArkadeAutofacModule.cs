@@ -4,8 +4,8 @@ using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
-using Arkivverket.Arkade.Core.Tests;
-using Arkivverket.Arkade.Core.Tests.Noark5;
+using Arkivverket.Arkade.Core.Testing;
+using Arkivverket.Arkade.Core.Testing.Noark5;
 using Autofac;
 
 namespace Arkivverket.Arkade.Core.Util

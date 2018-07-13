@@ -3,7 +3,7 @@ using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
-using Arkivverket.Arkade.Core.Tests;
+using Arkivverket.Arkade.Core.Testing;
 
 namespace Arkivverket.Arkade.Core.Base.Addml
 {

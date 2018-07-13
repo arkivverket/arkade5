@@ -1,5 +1,5 @@
 using System;
-using Arkivverket.Arkade.Core.Tests;
+using Arkivverket.Arkade.Core.Testing;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

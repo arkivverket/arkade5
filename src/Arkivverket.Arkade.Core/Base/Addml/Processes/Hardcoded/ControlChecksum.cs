@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using Arkivverket.Arkade.Core.Resources;
-using Arkivverket.Arkade.Core.Tests;
+using Arkivverket.Arkade.Core.Testing;
 using System.IO;
 using System.Security.Cryptography;
 using Arkivverket.Arkade.Core.Util;

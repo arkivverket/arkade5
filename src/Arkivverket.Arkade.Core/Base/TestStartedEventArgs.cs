@@ -1,5 +1,5 @@
 using System;
-using Arkivverket.Arkade.Core.Tests;
+using Arkivverket.Arkade.Core.Testing;
 
 namespace Arkivverket.Arkade.Core.Base
 {

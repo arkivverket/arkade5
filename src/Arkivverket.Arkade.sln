@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.GUI", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arkivverket.Arkade.Core", "Arkivverket.Arkade.Core\Arkivverket.Arkade.Core.csproj", "{D4008C3C-61EF-48A4-B333-793476B7104D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.Test", "Arkivverket.Arkade.Test\Arkivverket.Arkade.Test.csproj", "{24B2B89B-9399-4FBA-9C48-B1DBBBFE6ED7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.Core.Tests", "Arkivverket.Arkade.Core.Tests\Arkivverket.Arkade.Core.Tests.csproj", "{24B2B89B-9399-4FBA-9C48-B1DBBBFE6ED7}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "Setup\Setup.wixproj", "{43B24E21-8DC8-474E-88D3-47153856D35D}"
 EndProject

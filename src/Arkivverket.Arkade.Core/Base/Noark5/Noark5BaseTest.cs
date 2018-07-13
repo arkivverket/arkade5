@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Resources;
-using Arkivverket.Arkade.Core.Tests;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
 
