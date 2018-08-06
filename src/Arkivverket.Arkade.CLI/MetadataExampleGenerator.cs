@@ -24,7 +24,6 @@ namespace Arkivverket.Arkade.CLI
         {
             var metadataExample = new ArchiveMetadata
             {
-                Id = "UUID:12345-12345-12345-12345-12345-12345",
                 ArchiveDescription = "test description",
                 StartDate = new DateTime(2017, 5, 1),
                 EndDate = new DateTime(2017, 8, 31),

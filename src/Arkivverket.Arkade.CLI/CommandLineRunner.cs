@@ -45,6 +45,7 @@ namespace Arkivverket.Arkade.CLI
                         : PackageType.SubmissionInformationPackage;
 
                     testSession.ArchiveMetadata = archiveMetadata;
+                    testSession.ArchiveMetadata.Id = $"UUID:{testSession.Archive.Uuid}";
 
                     arkade.CreatePackage(testSession, options.OutputDirectory);
                 }
