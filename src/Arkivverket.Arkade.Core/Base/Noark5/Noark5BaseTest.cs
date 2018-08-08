@@ -19,11 +19,11 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
 
         public string GetDescription()
         {
-            var description = Noark5TestDescriptions.ResourceManager.GetObject(GetName()) as string;
+            var description = Noark5TestDescriptions.ResourceManager.GetObject(GetId().ToString()) as string;
 
             if (description == null)
             {
-                Log.Debug($"Missing description of Noark5Test: {GetType().FullName}");
+                Log.Debug($"Missing description of Noark 5 test: {GetId()}");
             }
 
             return description;
