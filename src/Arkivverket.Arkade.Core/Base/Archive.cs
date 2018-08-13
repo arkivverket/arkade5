@@ -57,9 +57,10 @@ namespace Arkivverket.Arkade.Core.Base
 
         private ArkadeFile SetupXmlFile(string fileName)
         {
-            FileInfo fileInfo = fileName == AddmlXmlFileName
-                ? WorkingDirectory.AdministrativeMetadata().WithFile(fileName)
-                : WorkingDirectory.Content().WithFile(fileName);
+            FileInfo fileInfo = WorkingDirectory.Content().WithFile(fileName);
+
+            if(fileName == AddmlXmlFileName && !fileInfo.Exists)
+                fileInfo = WorkingDirectory.Content().WithFile(ArkivuttrekkXmlFileName);
 
             return new ArkadeFile(fileInfo);
         }

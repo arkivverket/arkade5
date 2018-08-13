@@ -309,6 +309,192 @@
               </property>
             </properties>
           </dataObject>
+          <dataObject name="loependeJournal">
+            <properties>
+              <property name="file">
+                <properties>
+                  <property name="name">
+                    <value>loependeJournal.xml</value>
+                  </property>
+                  <property name="format">
+                    <value>XML</value>
+                    <properties>
+                      <property name="version">
+                        <value>1.0</value>
+                      </property>
+                    </properties>
+                  </property>
+                  <property name="checksum">
+                    <properties>
+                      <property name="algorithm">
+                        <value>SHA256</value>
+                      </property>
+                      <property name="value">
+                        <value>3EC23072426BE949E5F4CE708795CBF51BE43F08844CE611680B3CD3F41AA62C</value>
+                      </property>
+                    </properties>
+                  </property>
+                </properties>
+              </property>
+              <property name="schema">
+                <value>main</value>
+                <properties>
+                  <property name="file">
+                    <properties>
+                      <property name="name">
+                        <value>loependeJournal.xsd</value>
+                      </property>
+                      <property name="format">
+                        <value>XML</value>
+                        <properties>
+                          <property name="version">
+                            <value>1.0</value>
+                          </property>
+                        </properties>
+                      </property>
+                      <property name="checksum">
+                        <properties>
+                          <property name="algorithm">
+                            <value>SHA256</value>
+                          </property>
+                          <property name="value">
+                            <value>feef5b789397b0ffacd3d70244a7817b4f6ada4bcc2ed5009f0a1801be0a2c30</value>
+                          </property>
+                        </properties>
+                      </property>
+                    </properties>
+                  </property>
+                  <property name="type">
+                    <value>XML Schema</value>
+                    <properties>
+                      <property name="version">
+                        <value>1.0</value>
+                      </property>
+                    </properties>
+                  </property>
+                </properties>
+              </property>
+              <property name="schema">
+                <properties>
+                  <property name="file">
+                    <properties>
+                      <property name="name">
+                        <value>metadatakatalog.xsd</value>
+                      </property>
+                    </properties>
+                  </property>
+                </properties>
+              </property>
+              <property name="info">
+                <properties>
+                  <property name="numberOfOccurrences">
+                    <value>registrering</value>
+                    <properties>
+                      <property name="elementPath">
+                        <value>//registrering</value>
+                      </property>
+                      <property dataType="integer" name="value">
+                        <value>4</value>
+                      </property>
+                    </properties>
+                  </property>
+                </properties>
+              </property>
+            </properties>
+          </dataObject>
+          <dataObject name="offentligJournal">
+            <properties>
+              <property name="file">
+                <properties>
+                  <property name="name">
+                    <value>offentligJournal.xml</value>
+                  </property>
+                  <property name="format">
+                    <value>XML</value>
+                    <properties>
+                      <property name="version">
+                        <value>1.0</value>
+                      </property>
+                    </properties>
+                  </property>
+                  <property name="checksum">
+                    <properties>
+                      <property name="algorithm">
+                        <value>SHA-256</value>
+                      </property>
+                      <property name="value">
+                        <value>79651043FE0D25F45831BA720EE98FC30AC9501F6F50366DB21A28CD1C2F00D7</value>
+                      </property>
+                    </properties>
+                  </property>
+                </properties>
+              </property>
+              <property name="schema">
+                <value>main</value>
+                <properties>
+                  <property name="file">
+                    <properties>
+                      <property name="name">
+                        <value>offentligJournal.xsd</value>
+                      </property>
+                      <property name="format">
+                        <value>XML</value>
+                        <properties>
+                          <property name="version">
+                            <value>1.0</value>
+                          </property>
+                        </properties>
+                      </property>
+                      <property name="checksum">
+                        <properties>
+                          <property name="algorithm">
+                            <value>SHA256</value>
+                          </property>
+                          <property name="value">
+                            <value>a3eec68f2d5471eae518008eb374766ebc598f521e29c522d3d7fb9606e9c0a5</value>
+                          </property>
+                        </properties>
+                      </property>
+                    </properties>
+                  </property>
+                  <property name="type">
+                    <value>XML Schema</value>
+                    <properties>
+                      <property name="version">
+                        <value>1.0</value>
+                      </property>
+                    </properties>
+                  </property>
+                </properties>
+              </property>
+              <property name="schema">
+                <properties>
+                  <property name="file">
+                    <properties>
+                      <property name="name">
+                        <value>metadatakatalog.xsd</value>
+                      </property>
+                    </properties>
+                  </property>
+                </properties>
+              </property>
+              <property name="info">
+                <properties>
+                  <property name="numberOfOccurrences">
+                    <value>registrering</value>
+                    <properties>
+                      <property name="elementPath">
+                        <value>//registrering</value>
+                      </property>
+                      <property dataType="integer" name="value">
+                        <value>4</value>
+                      </property>
+                    </properties>
+                  </property>
+                </properties>
+              </property>
+            </properties>
+          </dataObject>
 				</dataObjects>
 			</dataObject>
 		</dataObjects>

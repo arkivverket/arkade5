@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             bool inboundSeparationIsSharp;
             bool outboundSeparationIsSharp;
 
-            addml archiveExtraction = GetAddmlObject(ArkadeConstants.ArkivuttrekkXmlFileName, archive);
+            addml archiveExtraction = SerializeUtil.DeserializeFromFile<addml>(archive.AddmlFile);
 
             try
             {
@@ -69,7 +69,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         }
         public static bool FileIsDescribed(string fileName, Archive archive)
         {
-            addml archiveExtraction = GetAddmlObject(ArkadeConstants.ArkivuttrekkXmlFileName, archive);
+            addml archiveExtraction = SerializeUtil.DeserializeFromFile<addml>(archive.AddmlFile);
 
             try
             {
@@ -90,20 +90,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 );
 
                 throw new ArkadeException(exceptionMessage);
-            }
-        }
-
-        public static addml GetAddmlObject(string addmlXmlFileName, Archive archive)
-        {
-            string addmlXmlFile = archive.WorkingDirectory.Content().WithFile(addmlXmlFileName).FullName;
-
-            try
-            {
-                return SerializeUtil.DeserializeFromFile<addml>(addmlXmlFile);
-            }
-            catch (Exception)
-            {
-                return null;
             }
         }
 

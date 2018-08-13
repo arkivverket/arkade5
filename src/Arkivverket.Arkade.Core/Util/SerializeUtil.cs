@@ -17,6 +17,11 @@ namespace Arkivverket.Arkade.Core.Util
             return (T)DeserializeFromString(objectData, typeof(T));
         }
 
+        public static T DeserializeFromFile<T>(ArkadeFile arkadeFile)
+        {
+            return DeserializeFromFile<T>(arkadeFile.FullName);
+        }
+
         public static T DeserializeFromString<T>(string objectData)
         {
             return (T)DeserializeFromString(objectData, typeof(T));

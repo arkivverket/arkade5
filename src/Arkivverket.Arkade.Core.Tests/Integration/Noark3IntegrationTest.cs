@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Tests.Integration
 {
     public class Noark3IntegrationTest
     {
-        [Fact]
+        [Fact (Skip = "Unpacked structure looks wrong and test creates testdata \"leftovers\"")]
         public void Test1()
         {
             ArkadeProcessingArea.Establish(Path.Combine(Environment.CurrentDirectory, "TestData"));
