@@ -6,9 +6,9 @@ namespace Arkivverket.Arkade.Core.Util
 {
     public static class JournalGuillotine
     {
-        public static JournalHead Behead(string journalXmlFile)
+        public static JournalHead Behead(ArkadeFile journalXmlFile)
         {
-            var xmlTextReader = new XmlTextReader(journalXmlFile) { Namespaces = false };
+            var xmlTextReader = new XmlTextReader(journalXmlFile.FullName) {Namespaces = false};
 
             while (!xmlTextReader.Name.Equals("journalhode"))
                 xmlTextReader.Read();

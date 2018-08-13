@@ -93,20 +93,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
         }
 
-        public static JournalHead GetJournalHead(string journalXmlFileName, Archive archive)
-        {
-            string journalXmlFile = archive.WorkingDirectory.Content().WithFile(journalXmlFileName).FullName;
-
-            try
-            {
-                return JournalGuillotine.Behead(journalXmlFile);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
         public static bool TryParseArchiveDate(string dateStringFromArchive, out DateTime dateTime)
         {
             var acceptedFormats = new[]

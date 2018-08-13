@@ -13,18 +13,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 60);
 
+        private readonly Archive _archive;
         private readonly SortedSet<DateTime> _registrationCreationDates;
-        private readonly JournalHead _headPublicJournal;
-        private readonly JournalHead _headRunningJournal;
         private readonly bool _periodSeparationIsSharp;
 
         public ArchiveStartAndEndDateControl(Archive archive)
         {
+            _archive = archive;
             _registrationCreationDates = new SortedSet<DateTime>();
-            
-            _headPublicJournal = Noark5TestHelper.GetJournalHead(ArkadeConstants.PublicJournalXmlFileName, archive);
-            _headRunningJournal = Noark5TestHelper.GetJournalHead(ArkadeConstants.RunningJournalXmlFileName, archive);
-
             _periodSeparationIsSharp = Noark5TestHelper.PeriodSeparationIsSharp(archive);
         }
 
@@ -47,7 +43,15 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             var testResults = new List<TestResult>();
 
-            if (_headPublicJournal == null || _headRunningJournal == null)
+            JournalHead headPublicJournal;
+            JournalHead headRunningJournal;
+
+            try
+            {
+                headPublicJournal = JournalGuillotine.Behead(_archive.PublicJournalFile);
+                headRunningJournal = JournalGuillotine.Behead(_archive.PublicJournalFile);
+            }
+            catch
             {
                 testResults.Add(new TestResult(
                     ResultType.Error, new Location(string.Empty), Noark5Messages.CouldNotReadFromFiles)
@@ -61,12 +65,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 _registrationCreationDates.Last()
             );
             var publicJournalDates = new StartAndEndDate(
-                _headPublicJournal.JournalStartDate,
-                _headPublicJournal.JournalEndDate
+                headPublicJournal.JournalStartDate,
+                headPublicJournal.JournalEndDate
             );
             var runningJournalDates = new StartAndEndDate(
-                _headRunningJournal.JournalStartDate,
-                _headRunningJournal.JournalEndDate
+                headRunningJournal.JournalStartDate,
+                headRunningJournal.JournalEndDate
             );
 
             testResults.AddRange(new[]

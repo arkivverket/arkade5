@@ -21,11 +21,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             try
             {
-                _publicJournalNumberOfJournalPosts =
-                    GetPostCountFromJournal(ArkadeConstants.PublicJournalXmlFileName, archive);
-
-                _runningJournalNumberOfJournalPosts =
-                    GetPostCountFromJournal(ArkadeConstants.RunningJournalXmlFileName, archive);
+                _publicJournalNumberOfJournalPosts = GetPostCountFromJournal(archive.PublicJournalFile);
+                _runningJournalNumberOfJournalPosts = GetPostCountFromJournal(archive.RunningJournalFile);
             }
             catch (Exception)
             {
@@ -87,11 +84,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return _publicJournalNumberOfJournalPosts == _runningJournalNumberOfJournalPosts;
         }
 
-        private static int GetPostCountFromJournal(string journalXmlFileName, Archive archive)
+        private static int GetPostCountFromJournal(ArkadeFile journalFile)
         {
-            string journalXmlFile = archive.WorkingDirectory.Content().WithFile(journalXmlFileName).FullName;
-
-            JournalHead journalHead = JournalGuillotine.Behead(journalXmlFile);
+            JournalHead journalHead = JournalGuillotine.Behead(journalFile);
 
             return journalHead.NumberOfJournalposts;
         }
