@@ -49,7 +49,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             try
             {
                 headPublicJournal = JournalGuillotine.Behead(_archive.PublicJournalFile);
-                headRunningJournal = JournalGuillotine.Behead(_archive.PublicJournalFile);
+                headRunningJournal = JournalGuillotine.Behead(_archive.RunningJournalFile);
             }
             catch
             {
