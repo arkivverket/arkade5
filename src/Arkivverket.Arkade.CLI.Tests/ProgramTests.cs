@@ -4,6 +4,7 @@ using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
 using Xunit;
 using FluentAssertions;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 namespace Arkivverket.Arkade.CLI.Tests
 {
