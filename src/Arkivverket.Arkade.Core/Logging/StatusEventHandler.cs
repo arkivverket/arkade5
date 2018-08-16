@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Core.Logging
     {
         public void RaiseEventTestStarted(INoark5Test noark5Test)
         {
-            OnTestStartedEvent(new OperationMessageEventArgs(noark5Test.GetName(),DateTime.Now, OperationMessageStatus.Started, string.Empty));
+            OnTestStartedEvent(new OperationMessageEventArgs(ArkadeTestInfoProvider.GetDisplayName(noark5Test), DateTime.Now, OperationMessageStatus.Started, string.Empty));
         }
        
         public void RaiseEventTestFinished(TestRun testRun)

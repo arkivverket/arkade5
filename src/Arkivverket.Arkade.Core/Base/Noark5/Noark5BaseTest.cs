@@ -14,7 +14,6 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
         protected readonly Stopwatch Stopwatch = new Stopwatch();
 
         public abstract TestId GetId();
-        public abstract string GetName();
         public abstract TestType GetTestType();
 
         public string GetDescription()

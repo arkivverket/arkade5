@@ -7,6 +7,11 @@
     public interface IAddmlProcess : IArkadeTest
     {
         /// <summary>
+        ///     Returns the formal name of the process
+        /// </summary>
+        string GetName();
+
+        /// <summary>
         ///     Invoked on the process when starting to read data from a new file
         /// </summary>
         /// <param name="flatFile">the file to process</param>

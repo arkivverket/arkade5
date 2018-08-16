@@ -11,12 +11,6 @@ namespace Arkivverket.Arkade.Core.Base
         /// </summary>
         /// <returns></returns>
         TestId GetId();
-        
-        /// <summary>
-        ///     Returns the name of the test
-        /// </summary>
-        /// <returns></returns>
-        string GetName();
 
         /// <summary>
         ///     Returns the description of the test.

@@ -18,11 +18,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return _id;
         }
 
-        public override string GetName()
-        {
-            return Noark5TestNames.NumberOfDocumentObjects;
-        }
-
         public override TestType GetTestType()
         {
             return TestType.ContentAnalysis;

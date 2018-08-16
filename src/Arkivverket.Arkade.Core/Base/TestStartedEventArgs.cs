@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         public TestStartedEventArgs(INoark5Test noark5Test)
         {
-            TestName = noark5Test.GetName();
+            TestName = ArkadeTestInfoProvider.GetDisplayName(noark5Test);
             StartTime = DateTime.Now;
         }
 

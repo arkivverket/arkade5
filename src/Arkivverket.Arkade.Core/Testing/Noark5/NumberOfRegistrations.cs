@@ -17,11 +17,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return _id;
         }
 
-        public override string GetName()
-        {
-            return Noark5TestNames.NumberOfRegistrations;
-        }
-
         protected override string GetResultMessage()
         {
             return Noark5Messages.NumberOfRegistrationsMessage;

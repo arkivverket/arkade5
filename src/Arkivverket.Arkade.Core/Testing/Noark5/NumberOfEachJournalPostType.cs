@@ -23,11 +23,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return _id;
         }
 
-        public override string GetName()
-        {
-            return Noark5TestNames.NumberOfEachJournalPostType;
-        }
-
         public override TestType GetTestType()
         {
             return TestType.ContentAnalysis;

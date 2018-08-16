@@ -23,8 +23,9 @@ namespace Arkivverket.Arkade.Core.Tests.Integration
             testSuite.Should().NotBeNull();
             testSuite.TestRuns.Should().NotBeNullOrEmpty();
 
+            var analyseFindMinMaxValuesTestId = new TestId(TestId.TestKind.Addml, 9);
             List<TestRun> analyseFindMinMaxValues = testSuite.TestRuns
-                .Where(run => run.TestName == AnalyseFindMinMaxValues.Name)
+                .Where(run => run.TestId.Equals(analyseFindMinMaxValuesTestId))
                 .ToList();
             analyseFindMinMaxValues.Count.Should().Be(1);
         }

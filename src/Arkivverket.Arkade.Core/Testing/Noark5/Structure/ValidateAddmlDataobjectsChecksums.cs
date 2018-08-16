@@ -111,11 +111,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             return _id;
         }
 
-        public override string GetName()
-        {
-            return Noark5TestNames.ValidateAddmlDataobjectsChecksums;
-        }
-
         public override TestType GetTestType()
         {
             return TestType.StructureControl;

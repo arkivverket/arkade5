@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
@@ -61,6 +61,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AddmlMessages.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\ArkadeTestDisplayNames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ArkadeTestDisplayNames.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\ExceptionMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -81,11 +86,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Noark5TestDescriptions.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Noark5TestNames.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Noark5TestNames.resx</DependentUpon>
-    </Compile>
     <Compile Update="Resources\Report.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -97,6 +97,10 @@
     <EmbeddedResource Update="Resources\AddmlMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddmlMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ArkadeTestDisplayNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ArkadeTestDisplayNames.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ExceptionMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -113,10 +117,6 @@
     <EmbeddedResource Update="Resources\Noark5TestDescriptions.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Noark5TestDescriptions.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Noark5TestNames.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Noark5TestNames.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Report.resx">
       <Generator>ResXFileCodeGenerator</Generator>

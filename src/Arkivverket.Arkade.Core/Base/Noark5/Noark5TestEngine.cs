@@ -100,9 +100,11 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
             List<IArkadeStructureTest> structureTests = _testProvider.GetStructureTests();
             foreach (var test in structureTests)
             {
+                string testName = ArkadeTestInfoProvider.GetDisplayName(test);
+
                 try
                 {
-                    _statusEventHandler.RaiseEventOperationMessage(test.GetName(), "", OperationMessageStatus.Started);
+                    _statusEventHandler.RaiseEventOperationMessage(testName, "", OperationMessageStatus.Started);
                     test.Test(archive);
 
                     var errorTestResults = test.GetTestRun().Results.Where(r => r.IsError());
@@ -113,15 +115,15 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
                         foreach (var result in errorTestResults)
                             message.AppendLine().AppendLine(result.Location + " - " + result.Message);
 
-                        _statusEventHandler.RaiseEventOperationMessage(test.GetName(), message.ToString(),
+                        _statusEventHandler.RaiseEventOperationMessage(testName, message.ToString(),
                             OperationMessageStatus.Error);
                     }
                     else
-                        _statusEventHandler.RaiseEventOperationMessage(test.GetName(), "", OperationMessageStatus.Ok);
+                        _statusEventHandler.RaiseEventOperationMessage(testName, "", OperationMessageStatus.Ok);
                 }
                 catch (Exception)
                 {
-                    _statusEventHandler.RaiseEventOperationMessage(test.GetName(), "", OperationMessageStatus.Error);
+                    _statusEventHandler.RaiseEventOperationMessage(testName, "", OperationMessageStatus.Error);
                     throw;
                 }
             }

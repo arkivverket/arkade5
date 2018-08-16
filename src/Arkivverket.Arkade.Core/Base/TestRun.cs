@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Base
     {
         private readonly IArkadeTest _test;
         public TestId TestId => _test.GetId();
-        public string TestName => _test.GetName();
+        public string TestName => ArkadeTestInfoProvider.GetDisplayName(_test);
         public TestType TestType => _test.GetTestType();
         public string TestDescription => _test.GetDescription();
         public List<TestResult> Results { get; set; }
