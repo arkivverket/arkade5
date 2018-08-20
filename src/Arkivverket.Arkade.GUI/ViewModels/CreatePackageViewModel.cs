@@ -18,6 +18,8 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using Arkivverket.Arkade.GUI.Resources;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
@@ -73,6 +75,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand AddMetadataAchiveCreatorEntry { get; set; }
         public DelegateCommand AddMetadataAchiveOwnerEntry { get; set; }
         public DelegateCommand AddMetadataCommentEntry { get; set; }
+        public DelegateCommand LoadExternalMetadataCommand { get; set; }
 
         //---------------------------------------------------------------------------
 
@@ -270,6 +273,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _arkadeApi = arkadeApi;
             _regionManager = regionManager;
 
+            LoadExternalMetadataCommand = new DelegateCommand(RunLoadExternalMetadata, CanLoadMetadata);
             CreatePackageCommand = new DelegateCommand(RunCreatePackage, CanExecuteCreatePackage);
             NewProgramSessionCommand = new DelegateCommand(RunNavigateToLoadArchivePage, CanLeaveCreatePackageView);
             AddMetadataAchiveCreatorEntry = new DelegateCommand(RunAddMetadataAchiveCreatorEntry);
@@ -319,7 +323,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 _testSession = (TestSession) context.Parameters["TestSession"];
                 _archiveFileName = (string) context.Parameters["archiveFileName"];
 
-                LoadExistingMetsFileAsArchiveMetadata();
+                FileInfo includedMetadataFile =
+                    _testSession.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
+
+                LoadMetadataIntoForm(includedMetadataFile,
+                    delegate { Log.Error("Not able to load metadata from file: " + includedMetadataFile.FullName); }
+                );
 
                 FileInfo predefinedMetadataFieldValuesFileInfo = GetPredefinedMetadataFieldValuesFileInfo();
 
@@ -344,52 +353,59 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             }
         }
 
-        private void LoadExistingMetsFileAsArchiveMetadata()
+        private void LoadMetadataIntoForm(FileSystemInfo metadataFile, Action errorAction)
         {
-            FileInfo diasMetsFile = _testSession.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
-
-            if (diasMetsFile.Exists)
+            try
             {
-                ArchiveMetadata archiveMetadata = DiasMetsLoader.Load(diasMetsFile.FullName);
+                ArchiveMetadata metadata = DiasMetsLoader.Load(metadataFile.FullName);
 
-                if (archiveMetadata.AgreementNumber != null) // archiveMetadata.ArchiveDescription is not required
-                    MetaDataModelArchiveDescription = GuiMetadataMapper.MapToArchiveDescription(
-                        archiveMetadata.ArchiveDescription, archiveMetadata.AgreementNumber
-                    );
-
-                if (archiveMetadata.ArchiveCreators != null && archiveMetadata.ArchiveCreators.Any())
-                    MetaDataArchiveCreators = GuiMetadataMapper.MapToArchiveCreators(archiveMetadata.ArchiveCreators);
-
-                if (archiveMetadata.Transferer != null)
-                    MetaDataTransferer = GuiMetadataMapper.MapToTransferer(archiveMetadata.Transferer);
-
-                if (archiveMetadata.Producer != null)
-                    MetaDataProducer = GuiMetadataMapper.MapToProducer(archiveMetadata.Producer);
-
-                if (archiveMetadata.Owners != null && archiveMetadata.Owners.Any())
-                    MetaDataOwners = GuiMetadataMapper.MapToOwners(archiveMetadata.Owners);
-
-                if (archiveMetadata.Recipient != null)
-                    MetaDataRecipient = GuiMetadataMapper.MapToRecipient(archiveMetadata.Recipient);
-
-                if (archiveMetadata.System != null)
-                    MetaDataSystem = GuiMetadataMapper.MapToSystem(archiveMetadata.System);
-
-                if (archiveMetadata.ArchiveSystem != null)
-                    MetaDataArchiveSystem = GuiMetadataMapper.MapToArchiveSystem(archiveMetadata.ArchiveSystem);
-
-                if (archiveMetadata.Comments != null && archiveMetadata.Comments.Any())
-                    MetaDataComments = GuiMetadataMapper.MapToComments(archiveMetadata.Comments);
-
-                if (archiveMetadata.StartDate != null)
-                    MetaDataNoarkSection.StartDate = archiveMetadata.StartDate;
-
-                if (archiveMetadata.EndDate != null)
-                    MetaDataNoarkSection.EndDate = archiveMetadata.EndDate;
-
-                if (archiveMetadata.ExtractionDate != null)
-                    MetaDataExtractionDate = GuiMetadataMapper.MapToExtractionDate(archiveMetadata.ExtractionDate);
+                FillForm(metadata);
             }
+            catch
+            {
+                errorAction.Invoke();
+            }
+        }
+
+        private void FillForm(ArchiveMetadata archiveMetadata)
+        {
+            if (archiveMetadata.AgreementNumber != null) // archiveMetadata.ArchiveDescription is not required
+                MetaDataModelArchiveDescription = GuiMetadataMapper.MapToArchiveDescription(
+                    archiveMetadata.ArchiveDescription, archiveMetadata.AgreementNumber
+                );
+
+            if (archiveMetadata.ArchiveCreators != null && archiveMetadata.ArchiveCreators.Any())
+                MetaDataArchiveCreators = GuiMetadataMapper.MapToArchiveCreators(archiveMetadata.ArchiveCreators);
+
+            if (archiveMetadata.Transferer != null)
+                MetaDataTransferer = GuiMetadataMapper.MapToTransferer(archiveMetadata.Transferer);
+
+            if (archiveMetadata.Producer != null)
+                MetaDataProducer = GuiMetadataMapper.MapToProducer(archiveMetadata.Producer);
+
+            if (archiveMetadata.Owners != null && archiveMetadata.Owners.Any())
+                MetaDataOwners = GuiMetadataMapper.MapToOwners(archiveMetadata.Owners);
+
+            if (archiveMetadata.Recipient != null)
+                MetaDataRecipient = GuiMetadataMapper.MapToRecipient(archiveMetadata.Recipient);
+
+            if (archiveMetadata.System != null)
+                MetaDataSystem = GuiMetadataMapper.MapToSystem(archiveMetadata.System);
+
+            if (archiveMetadata.ArchiveSystem != null)
+                MetaDataArchiveSystem = GuiMetadataMapper.MapToArchiveSystem(archiveMetadata.ArchiveSystem);
+
+            if (archiveMetadata.Comments != null && archiveMetadata.Comments.Any())
+                MetaDataComments = GuiMetadataMapper.MapToComments(archiveMetadata.Comments);
+
+            if (archiveMetadata.StartDate != null)
+                MetaDataNoarkSection.StartDate = archiveMetadata.StartDate;
+
+            if (archiveMetadata.EndDate != null)
+                MetaDataNoarkSection.EndDate = archiveMetadata.EndDate;
+
+            if (archiveMetadata.ExtractionDate != null)
+                MetaDataExtractionDate = GuiMetadataMapper.MapToExtractionDate(archiveMetadata.ExtractionDate);
         }
 
         private static FileInfo GetPredefinedMetadataFieldValuesFileInfo()
@@ -468,6 +484,45 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool CanExecuteCreatePackage()
         {
             return !_isRunningCreatePackage && (SelectedPackageTypeSip || SelectedPackageTypeAip);
+        }
+
+        private bool CanLoadMetadata()
+        {
+            return !_isRunningCreatePackage;
+        }
+
+        private void RunLoadExternalMetadata()
+        {
+            Log.Information("User action: Open metadata file");
+
+            string suggestedMetadataFileDirectory = new FileInfo(_archiveFileName).DirectoryName;
+
+            var selectMetadataFileDialog = new CommonOpenFileDialog
+            {
+                Title = MetaDataGUI.SelectMetadataFile,
+                InitialDirectory = suggestedMetadataFileDirectory,
+                DefaultFileName = ArkadeConstants.InfoXmlFileName,
+            };
+
+            string metadataFileName;
+
+            if (selectMetadataFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+                metadataFileName = selectMetadataFileDialog.FileName;
+            else return;
+
+            Log.Information("User action: Choose metadata file", metadataFileName);
+
+            var metadataFile = new FileInfo(metadataFileName);
+
+            LoadMetadataIntoForm(metadataFile,
+                delegate
+                {
+                    MessageBox.Show(
+                        string.Format(MetaDataGUI.MetadataLoadError, metadataFile.FullName),
+                        null, MessageBoxButtons.OK, MessageBoxIcon.Exclamation
+                    );
+                }
+            );
         }
 
         private void RunCreatePackage()

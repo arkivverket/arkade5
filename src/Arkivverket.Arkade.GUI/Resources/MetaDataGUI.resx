@@ -261,6 +261,9 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <value>Mottaker*</value>
     <comment>Institusjonsnavn</comment>
   </data>
+  <data name="SelectMetadataFile" xml:space="preserve">
+    <value>Velg METS-fil for å laste inn metadata</value>
+  </data>
   <data name="SelectOutputDirectoryMessage" xml:space="preserve">
     <value>Velg plassering for pakke</value>
   </data>
@@ -304,5 +307,14 @@ Tidl. nevnt som avleverende myndighet</comment>
   </data>
   <data name="Transferer_Telephone" xml:space="preserve">
     <value>Telefon (Kontakt, Overfører)</value>
+  </data>
+  <data name="MetadataLoadError" xml:space="preserve">
+    <value>Klarte ikke å hente inn metadata fra {0}</value>
+  </data>
+  <data name="LoadExternalMetadataButtonText" xml:space="preserve">
+    <value>Hent eksterne metadata</value>
+  </data>
+  <data name="LoadExternalMetadataInfoText" xml:space="preserve">
+    <value>Fyll ut skjemaet med metadata fra en ekstern METS-fil, f.eks. info.xml vedlagt en tidligere opprettet pakke.</value>
   </data>
 </root>

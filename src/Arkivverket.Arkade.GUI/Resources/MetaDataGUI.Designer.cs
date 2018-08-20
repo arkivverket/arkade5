@@ -313,11 +313,38 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hent eksterne metadata.
+        /// </summary>
+        public static string LoadExternalMetadataButtonText {
+            get {
+                return ResourceManager.GetString("LoadExternalMetadataButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fyll ut skjemaet med metadata fra en ekstern METS-fil, f.eks. info.xml vedlagt en tidligere opprettet pakke..
+        /// </summary>
+        public static string LoadExternalMetadataInfoText {
+            get {
+                return ResourceManager.GetString("LoadExternalMetadataInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to no.
         /// </summary>
         public static string MetadataGuiLocale {
             get {
                 return ResourceManager.GetString("MetadataGuiLocale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klarte ikke å hente inn metadata fra {0}.
+        /// </summary>
+        public static string MetadataLoadError {
+            get {
+                return ResourceManager.GetString("MetadataLoadError", resourceCulture);
             }
         }
         
@@ -435,6 +462,15 @@ namespace Arkivverket.Arkade.GUI.Resources {
         public static string Recepient {
             get {
                 return ResourceManager.GetString("Recepient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg METS-fil for å laste inn metadata.
+        /// </summary>
+        public static string SelectMetadataFile {
+            get {
+                return ResourceManager.GetString("SelectMetadataFile", resourceCulture);
             }
         }
         
