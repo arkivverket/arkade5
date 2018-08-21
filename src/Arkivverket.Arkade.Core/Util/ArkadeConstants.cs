@@ -26,7 +26,6 @@ namespace Arkivverket.Arkade.Core.Util
         public const string RunningJournalXsdFileName = "loependeJournal.xsd";
         public const string ChangeLogXmlFileName = "endringslogg.xml";
         public const string ChangeLogXsdFileName = "endringslogg.xsd";
-        public const string MetadataPredefinedFieldValuesFileName = "metadata-feltverdier.xml";
 
         public const string AddmlXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.addml.xsd";
         public const string ArkivstrukturXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.arkivstruktur.xsd";

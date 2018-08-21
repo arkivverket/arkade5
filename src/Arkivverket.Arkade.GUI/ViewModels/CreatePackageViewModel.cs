@@ -330,13 +330,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     delegate { Log.Error("Not able to load metadata from file: " + includedMetadataFile.FullName); }
                 );
 
-                FileInfo predefinedMetadataFieldValuesFileInfo = GetPredefinedMetadataFieldValuesFileInfo();
-
-                if (predefinedMetadataFieldValuesFileInfo.Exists)
-                    LoadPredefinedMetadataFieldValues(predefinedMetadataFieldValuesFileInfo);
-                else
-                    CreatePredefinedMetadataFieldValuesFile(predefinedMetadataFieldValuesFileInfo);
-
                 _populateMetadataDataModels.DatafillArchiveEntity(_metaDataEntityInformationUnits, MetaDataPreregistreredUsers);
 
                 // Pre populate metadata objects that require at least one entry
@@ -406,58 +399,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             if (archiveMetadata.ExtractionDate != null)
                 MetaDataExtractionDate = GuiMetadataMapper.MapToExtractionDate(archiveMetadata.ExtractionDate);
-        }
-
-        private static FileInfo GetPredefinedMetadataFieldValuesFileInfo()
-        {
-            string predefinedMetadataFieldValuesFileFullName = Path.Combine(
-                ArkadeProcessingArea.RootDirectory.FullName,
-                ArkadeConstants.MetadataPredefinedFieldValuesFileName
-            );
-
-            return new FileInfo(predefinedMetadataFieldValuesFileFullName);
-        }
-
-        private void LoadPredefinedMetadataFieldValues(FileInfo predefinedMetadataFieldValuesFileInfo)
-        {
-            var fileReader = new XmlTextReader(predefinedMetadataFieldValuesFileInfo.FullName) { Namespaces = false };
-
-            while (fileReader.Read())
-            {
-                if (fileReader.Name.Equals("MetadataEntityInformationUnit") && fileReader.IsStartElement())
-                {
-                    string infoUnitXml = fileReader.ReadOuterXml();
-
-                    var infoUnit = SerializeUtil.DeserializeFromString<MetadataEntityInformationUnit>(infoUnitXml);
-
-                    _metaDataEntityInformationUnits.Add(infoUnit);
-                }
-            }
-
-            fileReader.Close();
-        }
-
-        private void CreatePredefinedMetadataFieldValuesFile(FileInfo predefinedMetadataFieldValuesFileInfo)
-        {
-            var metadataEntityInformationUnits = new List<MetadataEntityInformationUnit>
-            {
-                new MetadataEntityInformationUnit
-                {
-                    Entity = "Eksempelorganisasjon 1",
-                    ContactPerson = "Ola Nordmann",
-                    Telephone = "99999999",
-                    Email = "ola@nordmann.no"
-                },
-                new MetadataEntityInformationUnit
-                {
-                    Entity = "Eksempelorganisasjon 2",
-                    ContactPerson = "Kari Nordmann",
-                    Telephone = "44444444",
-                    Email = "kari@nordmann.no"
-                }
-            };
-
-            SerializeUtil.SerializeToFile(metadataEntityInformationUnits, predefinedMetadataFieldValuesFileInfo, null);
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
