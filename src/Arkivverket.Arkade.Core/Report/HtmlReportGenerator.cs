@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing;
@@ -169,6 +169,42 @@ namespace Arkivverket.Arkade.Core.Report
             _stream.WriteLine("                </td>");
             _stream.WriteLine(@"                <td>");
             _stream.WriteLine(testSession.Archive.Uuid);
+            _stream.WriteLine("                </td>");
+            _stream.WriteLine(@"            </tr>");
+
+            _stream.WriteLine(@"            <tr>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(Resources.Report.LabelArchiveCreators);
+            _stream.WriteLine("                </td>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(testSession.Archive.Details.ArchiveCreators);
+            _stream.WriteLine("                </td>");
+            _stream.WriteLine(@"            </tr>");
+
+            _stream.WriteLine(@"            <tr>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(Resources.Report.LabelArchivePeriod);
+            _stream.WriteLine("                </td>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(testSession.Archive.Details.ArchivalPeriod);
+            _stream.WriteLine("                </td>");
+            _stream.WriteLine(@"            </tr>");
+
+            _stream.WriteLine(@"            <tr>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(Resources.Report.LabelSystemName);
+            _stream.WriteLine("                </td>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(testSession.Archive.Details.SystemName);
+            _stream.WriteLine("                </td>");
+            _stream.WriteLine(@"            </tr>");
+
+            _stream.WriteLine(@"            <tr>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(Resources.Report.LabelSystemType);
+            _stream.WriteLine("                </td>");
+            _stream.WriteLine(@"                <td>");
+            _stream.WriteLine(testSession.Archive.Details.SystemType);
             _stream.WriteLine("                </td>");
             _stream.WriteLine(@"            </tr>");
 

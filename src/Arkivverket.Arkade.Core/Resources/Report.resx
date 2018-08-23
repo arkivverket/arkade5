@@ -180,4 +180,16 @@
   <data name="TestTypeStructureAnalysisDisplayName" xml:space="preserve">
     <value>Strukturanalyse</value>
   </data>
+  <data name="LabelArchiveCreators" xml:space="preserve">
+    <value>Arkivskaper</value>
+  </data>
+  <data name="LabelArchivePeriod" xml:space="preserve">
+    <value>Arkivperiode</value>
+  </data>
+  <data name="LabelSystemName" xml:space="preserve">
+    <value>Systemnavn</value>
+  </data>
+  <data name="LabelSystemType" xml:space="preserve">
+    <value>Systemtype</value>
+  </data>
 </root>

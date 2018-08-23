@@ -115,6 +115,24 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkivskaper.
+        /// </summary>
+        internal static string LabelArchiveCreators {
+            get {
+                return ResourceManager.GetString("LabelArchiveCreators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivperiode.
+        /// </summary>
+        internal static string LabelArchivePeriod {
+            get {
+                return ResourceManager.GetString("LabelArchivePeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkivtype.
         /// </summary>
         internal static string LabelArchiveType {
@@ -165,6 +183,24 @@ namespace Arkivverket.Arkade.Core.Resources {
         internal static string LabelNumberOfTestsRun {
             get {
                 return ResourceManager.GetString("LabelNumberOfTestsRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Systemnavn.
+        /// </summary>
+        internal static string LabelSystemName {
+            get {
+                return ResourceManager.GetString("LabelSystemName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Systemtype.
+        /// </summary>
+        internal static string LabelSystemType {
+            get {
+                return ResourceManager.GetString("LabelSystemType", resourceCulture);
             }
         }
         

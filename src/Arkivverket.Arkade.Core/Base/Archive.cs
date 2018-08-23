@@ -1,4 +1,5 @@
 using System.IO;
+using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.Util;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
@@ -10,7 +11,9 @@ namespace Arkivverket.Arkade.Core.Base
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
+        private ArchiveDetails _details;
 
+        public ArchiveDetails Details => _details ?? (_details = new ArchiveDetails(this));
         public ArkadeFile ArchiveStructureFile => SetupXmlFile(ArkivstrukturXmlFileName);
         public ArkadeFile ArchiveStructureSchemaFile => SetupXmlFile(ArkivstrukturXsdFileName);
         public ArkadeFile AddmlFile => SetupXmlFile(AddmlXmlFileName);
