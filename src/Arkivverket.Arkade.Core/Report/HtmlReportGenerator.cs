@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing;
@@ -40,6 +40,7 @@ namespace Arkivverket.Arkade.Core.Report
             ArkivverketImage();
             _stream.WriteLine(@"    <h1>" + Resources.Report.HeadingTestReport + "</h1>");
             Summary(testSession);
+            SummaryOfErrors(testSession);
             _stream.WriteLine(@"    <h2>" + Resources.Report.HeadingTests + "</h2>");
             foreach (TestRun testRun in testSession.TestSuite.TestRuns)
             {
@@ -72,7 +73,7 @@ namespace Arkivverket.Arkade.Core.Report
         private void Test(TestRun testRun)
         {
             _stream.WriteLine(@"    <div class=""test"">");
-            _stream.WriteLine(@"        <h3>");
+            _stream.WriteLine($@"       <h3 id=""{testRun.TestId}"">");
             if (testRun.TestId.Number != 0)
                 _stream.WriteLine(@"        " + testRun.TestId + " &ndash; ");
             _stream.WriteLine(@"        " + testRun.TestName);
@@ -223,6 +224,35 @@ namespace Arkivverket.Arkade.Core.Report
             _stream.WriteLine("                 </td>");
             _stream.WriteLine(@"            </tr>");
 
+            _stream.WriteLine(@"            </tbody>");
+            _stream.WriteLine(@"        </table>");
+            _stream.WriteLine(@"    </div>");
+            _stream.WriteLine(@"    </div>");
+        }
+
+        private void SummaryOfErrors(TestSession testSession)
+        {
+            _stream.WriteLine(@"    <div class=""summary"">");
+            _stream.WriteLine(@"    <div class=""jumbotron"">");
+            _stream.WriteLine(@"        <h2>Avvik</h2>");
+            _stream.WriteLine(@"");
+            _stream.WriteLine(@"        <table class=""table"">");
+            _stream.WriteLine(@"            <tbody>");
+
+            foreach (TestRun testRun in testSession.TestSuite.TestRuns)
+            {
+                if (TestTypeIsControl(testRun) && !testRun.IsSuccess())
+                {
+                    _stream.WriteLine(@"            <tr>");
+                    _stream.WriteLine(@"                <td>");
+                    _stream.WriteLine(@"<a href=""#" + testRun.TestId + @""">" + testRun.TestId + @" &ndash; " + testRun.TestName + @"</a>");
+                    _stream.WriteLine(@"                </td>");
+                    _stream.WriteLine(@"                <td>");
+                    _stream.WriteLine(testRun.FindNumberOfErrors());
+                    _stream.WriteLine(@"                </td>");
+                    _stream.WriteLine(@"            </tr>");
+                }
+            }
             _stream.WriteLine(@"            </tbody>");
             _stream.WriteLine(@"        </table>");
             _stream.WriteLine(@"    </div>");
