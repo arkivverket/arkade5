@@ -117,6 +117,96 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AH_01" xml:space="preserve">
+    <value>Kontroll av sjekksummer</value>
+  </data>
+  <data name="AH_02" xml:space="preserve">
+    <value>Kontroll av ekstra / manglende filer</value>
+  </data>
+  <data name="AH_03" xml:space="preserve">
+    <value>Kontroll av ugyldig postskille eller feil antall felter</value>
+  </data>
+  <data name="AI_01" xml:space="preserve">
+    <value>Kontroll av unik nøkkel for post</value>
+  </data>
+  <data name="A_01" xml:space="preserve">
+    <value>Antall poster</value>
+  </data>
+  <data name="A_02" xml:space="preserve">
+    <value>Antall tegn</value>
+  </data>
+  <data name="A_03" xml:space="preserve">
+    <value>Lengste og korteste post</value>
+  </data>
+  <data name="A_04" xml:space="preserve">
+    <value>Antall poster for posttype</value>
+  </data>
+  <data name="A_05" xml:space="preserve">
+    <value>Koder brukt i datasettet</value>
+  </data>
+  <data name="A_07" xml:space="preserve">
+    <value>Antall null-verdi for felt</value>
+  </data>
+  <data name="A_08" xml:space="preserve">
+    <value>Lengste og korteste verdi for felt</value>
+  </data>
+  <data name="A_09" xml:space="preserve">
+    <value>Laveste og høyeste verdi for felt</value>
+  </data>
+  <data name="A_10" xml:space="preserve">
+    <value>Antall forekomster av verdier for felt</value>
+  </data>
+  <data name="A_11" xml:space="preserve">
+    <value>Kontroll av oppgitt lengde for alle posttyper</value>
+  </data>
+  <data name="A_12" xml:space="preserve">
+    <value>Antall og kontroll av antall poster</value>
+  </data>
+  <data name="A_13" xml:space="preserve">
+    <value>Kontroll av oppgitt lengde for posttype</value>
+  </data>
+  <data name="A_14" xml:space="preserve">
+    <value>Kontroll om posttype benyttes</value>
+  </data>
+  <data name="A_15" xml:space="preserve">
+    <value>Kontroll av unik nøkkel</value>
+  </data>
+  <data name="A_16" xml:space="preserve">
+    <value>Kontroll av fremmednøkkel</value>
+  </data>
+  <data name="A_17" xml:space="preserve">
+    <value>Kontroll av oppgitt minste lengde</value>
+  </data>
+  <data name="A_18" xml:space="preserve">
+    <value>Kontroll av oppgitt største lengde</value>
+  </data>
+  <data name="A_19" xml:space="preserve">
+    <value>Kontroll av oppgitt dataformat for felt</value>
+  </data>
+  <data name="A_20" xml:space="preserve">
+    <value>Kontroll av null-verdier i felt</value>
+  </data>
+  <data name="A_21" xml:space="preserve">
+    <value>Kontroll av unike verdier i felt</value>
+  </data>
+  <data name="A_22" xml:space="preserve">
+    <value>Koder som benyttes i felt</value>
+  </data>
+  <data name="A_32" xml:space="preserve">
+    <value>Kontroll av fødselsnummer i felt</value>
+  </data>
+  <data name="A_33" xml:space="preserve">
+    <value>Kontroll av organisasjonsnummer i felt</value>
+  </data>
+  <data name="A_34" xml:space="preserve">
+    <value>Kontroll av kontonummer i felt</value>
+  </data>
+  <data name="A_35" xml:space="preserve">
+    <value>Kontroll av dato i felt</value>
+  </data>
+  <data name="A_36" xml:space="preserve">
+    <value>Kontroll av boolsk verdi i felt</value>
+  </data>
   <data name="N5_02" xml:space="preserve">
     <value>Validering av sjekksummer</value>
   </data>

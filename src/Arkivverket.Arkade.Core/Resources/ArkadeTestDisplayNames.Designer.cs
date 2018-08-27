@@ -61,6 +61,276 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall poster.
+        /// </summary>
+        internal static string A_01 {
+            get {
+                return ResourceManager.GetString("A_01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall tegn.
+        /// </summary>
+        internal static string A_02 {
+            get {
+                return ResourceManager.GetString("A_02", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lengste og korteste post.
+        /// </summary>
+        internal static string A_03 {
+            get {
+                return ResourceManager.GetString("A_03", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall poster for posttype.
+        /// </summary>
+        internal static string A_04 {
+            get {
+                return ResourceManager.GetString("A_04", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Koder brukt i datasettet.
+        /// </summary>
+        internal static string A_05 {
+            get {
+                return ResourceManager.GetString("A_05", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall null-verdi for felt.
+        /// </summary>
+        internal static string A_07 {
+            get {
+                return ResourceManager.GetString("A_07", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lengste og korteste verdi for felt.
+        /// </summary>
+        internal static string A_08 {
+            get {
+                return ResourceManager.GetString("A_08", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Laveste og høyeste verdi for felt.
+        /// </summary>
+        internal static string A_09 {
+            get {
+                return ResourceManager.GetString("A_09", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall forekomster av verdier for felt.
+        /// </summary>
+        internal static string A_10 {
+            get {
+                return ResourceManager.GetString("A_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av oppgitt lengde for alle posttyper.
+        /// </summary>
+        internal static string A_11 {
+            get {
+                return ResourceManager.GetString("A_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Antall og kontroll av antall poster.
+        /// </summary>
+        internal static string A_12 {
+            get {
+                return ResourceManager.GetString("A_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av oppgitt lengde for posttype.
+        /// </summary>
+        internal static string A_13 {
+            get {
+                return ResourceManager.GetString("A_13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll om posttype benyttes.
+        /// </summary>
+        internal static string A_14 {
+            get {
+                return ResourceManager.GetString("A_14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av unik nøkkel.
+        /// </summary>
+        internal static string A_15 {
+            get {
+                return ResourceManager.GetString("A_15", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av fremmednøkkel.
+        /// </summary>
+        internal static string A_16 {
+            get {
+                return ResourceManager.GetString("A_16", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av oppgitt minste lengde.
+        /// </summary>
+        internal static string A_17 {
+            get {
+                return ResourceManager.GetString("A_17", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av oppgitt største lengde.
+        /// </summary>
+        internal static string A_18 {
+            get {
+                return ResourceManager.GetString("A_18", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av oppgitt dataformat for felt.
+        /// </summary>
+        internal static string A_19 {
+            get {
+                return ResourceManager.GetString("A_19", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av null-verdier i felt.
+        /// </summary>
+        internal static string A_20 {
+            get {
+                return ResourceManager.GetString("A_20", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av unike verdier i felt.
+        /// </summary>
+        internal static string A_21 {
+            get {
+                return ResourceManager.GetString("A_21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Koder som benyttes i felt.
+        /// </summary>
+        internal static string A_22 {
+            get {
+                return ResourceManager.GetString("A_22", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av fødselsnummer i felt.
+        /// </summary>
+        internal static string A_32 {
+            get {
+                return ResourceManager.GetString("A_32", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av organisasjonsnummer i felt.
+        /// </summary>
+        internal static string A_33 {
+            get {
+                return ResourceManager.GetString("A_33", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av kontonummer i felt.
+        /// </summary>
+        internal static string A_34 {
+            get {
+                return ResourceManager.GetString("A_34", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av dato i felt.
+        /// </summary>
+        internal static string A_35 {
+            get {
+                return ResourceManager.GetString("A_35", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av boolsk verdi i felt.
+        /// </summary>
+        internal static string A_36 {
+            get {
+                return ResourceManager.GetString("A_36", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av sjekksummer.
+        /// </summary>
+        internal static string AH_01 {
+            get {
+                return ResourceManager.GetString("AH_01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av ekstra / manglende filer.
+        /// </summary>
+        internal static string AH_02 {
+            get {
+                return ResourceManager.GetString("AH_02", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av ugyldig postskille eller feil antall felter.
+        /// </summary>
+        internal static string AH_03 {
+            get {
+                return ResourceManager.GetString("AH_03", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontroll av unik nøkkel for post.
+        /// </summary>
+        internal static string AI_01 {
+            get {
+                return ResourceManager.GetString("AI_01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validering av sjekksummer.
         /// </summary>
         internal static string N5_02 {
