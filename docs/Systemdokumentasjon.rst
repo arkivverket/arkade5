@@ -144,34 +144,34 @@ Arkade is built to support ADDML version 8.2.
 
 List of supported ADDML processes:
 
-* Analyse_CountRecords
-* Analyse_CountChars
-* Analyse_FindExtremeRecords
-* Analyse_CountRecordDefinitionOccurences
-* Analyse_AllFrequenceList
-* Analyse_CrossTable
-* Analyse_CountNULL
-* Analyse_FindExtremeValues
-* Analyse_FindMinMaxValue
-* Analyse_FrequenceList
-* Control_AllFixedLength
-* Control_NumberOfRecords
-* Control_FixedLength
-* Control_NotUsedRecordDef
-* Control_Key 
-* Control_ForeignKey
-* Control_MinLength
-* Control_MaxLength
-* Control_DataFormat
-* Control_NotNull
-* Control_Uniqueness
-* Control_Codes
-* Control_Birthno
-* Control_Organisationno
-* Control_Accountno
-* Control_Date_Value
-* Control_Boolean_Value
-* Control_ForeignKey
+* A.01 Analyse_CountRecords - Antall poster
+* A.02 Analyse_CountChars - Antall tegn
+* A.03 Analyse_FindExtremeRecords - Lengste og kortest post
+* A.04 Analyse_CountRecordDefinitionOccurences - Antall poster for posttype
+* A.05 Analyse_AllFrequenceList - Koder brukt i datasettet
+* A.06 Analyse_CrossTable
+* A.07 Analyse_CountNULL - Antall null-verdi for felt
+* A.08 Analyse_FindExtremeValues - Lengste og korteste verdi for felt
+* A.09 Analyse_FindMinMaxValue - Laveste og høyeste verdi for felt
+* A.10 Analyse_FrequenceList - Antall forekomster av verdier for felt
+* A.11 Control_AllFixedLength - Kontroll av oppgitt lengde for alle posttyper
+* A.12 Control_NumberOfRecords - Antall og kontroll av antall poster
+* A.13 Control_FixedLength - Kontroll av oppgitt lengde for posttype
+* A.14 Control_NotUsedRecordDef - Kontroll om posttype benyttes
+* A.15 Control_Key - Kontroll av unik nøkkel
+* A.16 Control_ForeignKey - Kontroll av fremmednøkkel
+* A.17 Control_MinLength - Kontroll av oppgitt minste lengde
+* A.18 Control_MaxLength - Kontroll av oppgitt største lengde
+* A.19 Control_DataFormat - Kontroll av oppgitt dataformat for felt
+* A.20 Control_NotNull - Kontroll av null-verdier i felt
+* A.21 Control_Uniqueness - Kontroll av unike verdier i felt
+* A.22 Control_Codes - Koder som benyttes i felt
+* A.32 Control_Birthno - Kontroll av fødselsnummer i felt
+* A.33 Control_Organisationno - Kontroll av organisasjonsnummer i felt
+* A.34 Control_Accountno - Kontroll av kontonummer i felt
+* A.35 Control_Date_Value - Kontroll av dato i felt
+* A.36 Control_Boolean_Value - Kontroll av boolsk verdi i felt
+
 
 
 NOARK 5
