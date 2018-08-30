@@ -249,7 +249,7 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <comment>Institusjonsnavn/Firmanavn</comment>
   </data>
   <data name="Producer_ContactPerson" xml:space="preserve">
-    <value>Kontaktperson (Produsent)*</value>
+    <value>Kontaktperson (Produsent)</value>
   </data>
   <data name="Producer_Email" xml:space="preserve">
     <value>e-post (Kontakt, Produsent)</value>
