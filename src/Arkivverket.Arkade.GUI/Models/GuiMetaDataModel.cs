@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -73,6 +73,7 @@ namespace Arkivverket.Arkade.GUI.Models
 
         private string _entity;
         private string _contactPerson;
+        private string _address;
         private string _telephone;
         private string _email;
 
@@ -89,6 +90,12 @@ namespace Arkivverket.Arkade.GUI.Models
         {
             get { return _email; }
             set { SetProperty(ref _email, value); }
+        }
+
+        public string Address
+        {
+            get { return _address; }
+            set { SetProperty(ref _address, value); }
         }
 
         public string Telephone
@@ -209,10 +216,11 @@ namespace Arkivverket.Arkade.GUI.Models
         }
 
 
-        public GuiMetaDataModel(string entity, string contactPerson, string telephone, string email)
+        public GuiMetaDataModel(string entity, string contactPerson, string address, string telephone, string email)
         {
             Entity = entity;
             ContactPerson = contactPerson;
+            Address = address;
             Telephone = telephone;
             Email = email;
 
@@ -318,6 +326,7 @@ namespace Arkivverket.Arkade.GUI.Models
         {
             Comment = string.Empty;
             Email = string.Empty;
+            Address = string.Empty;
             Telephone = string.Empty;
             ContactPerson = string.Empty;
             Entity = string.Empty;

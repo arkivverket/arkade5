@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Arkivverket.Arkade.GUI.Views.CreatePackage"
+<UserControl x:Class="Arkivverket.Arkade.GUI.Views.CreatePackage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -167,16 +167,21 @@
                                              Text="{Binding ContactPerson, Mode=TwoWay}" />
 
                                     <TextBox Grid.Row="2" Grid.Column="0"
+                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.ArchiveCreator_Address}"
+                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                             Text="{Binding Address, Mode=TwoWay}" />
+                                    
+                                    <TextBox Grid.Row="3" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.ArchiveCreator_Telephone}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Telephone, Mode=TwoWay}" />
 
-                                    <TextBox Grid.Row="3" Grid.Column="0"
+                                    <TextBox Grid.Row="4" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.ArchiveCreator_Email}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Email, Mode=TwoWay}" />
 
-                                    <Button Grid.Row="4"
+                                    <Button Grid.Row="5"
                                             Style="{DynamicResource MaterialDesignToolButton}"
                                             Height="24" Width="24" Command="{Binding CommandDeleteItem}"
                                             Visibility="{Binding DeleteButtonVisibility}" HorizontalAlignment="Right">
@@ -255,16 +260,21 @@
 
 
                         <TextBox Grid.Row="2" Grid.Column="0"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Transferer_Address}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataTransferer.Address, Mode=TwoWay}" />
+                        
+                        <TextBox Grid.Row="3" Grid.Column="0"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Transferer_Telephone}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataTransferer.Telephone, Mode=TwoWay}" />
 
-                        <TextBox Grid.Row="3" Grid.Column="0"
+                        <TextBox Grid.Row="4" Grid.Column="0"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Transferer_Email}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataTransferer.Email, Mode=TwoWay}" />
 
-                        <Button Grid.Row="4" HorizontalAlignment="Right"
+                        <Button Grid.Row="5" HorizontalAlignment="Right"
                                 Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="24" Width="24" Command="{Binding MetaDataTransferer.CommandNullOutEntry}">
                             <materialDesign:PackIcon Kind="{Binding MetaDataTransferer.IconDelete}" Opacity=".56" />
@@ -337,16 +347,21 @@
                         </TextBox>
 
                         <TextBox Grid.Row="2"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Producer_Address}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataProducer.Address, Mode=TwoWay}" />
+
+                        <TextBox Grid.Row="3"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Producer_Telephone}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataProducer.Telephone, Mode=TwoWay}" />
 
-                        <TextBox Grid.Row="3"
+                        <TextBox Grid.Row="4"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Producer_Email}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataProducer.Email, Mode=TwoWay}" />
 
-                        <Button Grid.Row="4" HorizontalAlignment="Right"
+                        <Button Grid.Row="5" HorizontalAlignment="Right"
                                 Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="24" Width="24" Command="{Binding MetaDataProducer.CommandNullOutEntry}">
                             <materialDesign:PackIcon Kind="{Binding MetaDataProducer.IconDelete}" Opacity=".56" />
@@ -424,16 +439,21 @@
                                              Text="{Binding ContactPerson, Mode=TwoWay}" />
 
                                     <TextBox Grid.Row="2" Grid.Column="0"
+                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Owner_Address}"
+                                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                             Text="{Binding Address, Mode=TwoWay}" />
+
+                                    <TextBox Grid.Row="3" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Owner_Telephone}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Telephone, Mode=TwoWay}" />
 
-                                    <TextBox Grid.Row="3" Grid.Column="0"
+                                    <TextBox Grid.Row="4" Grid.Column="0"
                                              materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Owner_Email}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Email, Mode=TwoWay}" />
 
-                                    <Button Grid.Row="4"
+                                    <Button Grid.Row="5"
                                             Style="{DynamicResource MaterialDesignToolButton}"
                                             Height="24" Width="24" Command="{Binding CommandDeleteItem}"
                                             Visibility="{Binding DeleteButtonVisibility}" HorizontalAlignment="Right">

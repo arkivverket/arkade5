@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 ﻿using System;
 using System.Collections.ObjectModel;
 using Arkivverket.Arkade.Core.Base;
@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.GUI.Util
 
         public static GuiMetaDataModel MapToRecipient(string recipient)
         {
-            return new GuiMetaDataModel(recipient, string.Empty, string.Empty, string.Empty);
+            return new GuiMetaDataModel(recipient, string.Empty, string.Empty, string.Empty, string.Empty);
         }
 
         public static GuiMetaDataModel MapToSystem(MetadataSystemInformationUnit system)
@@ -82,6 +82,7 @@ namespace Arkivverket.Arkade.GUI.Util
             return new GuiMetaDataModel(
                 metadataEntityInformationUnit.Entity,
                 metadataEntityInformationUnit.ContactPerson,
+                metadataEntityInformationUnit.Address,
                 metadataEntityInformationUnit.Telephone,
                 metadataEntityInformationUnit.Email
             );

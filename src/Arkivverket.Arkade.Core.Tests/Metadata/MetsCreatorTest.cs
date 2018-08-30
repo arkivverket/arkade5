@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
@@ -71,6 +71,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[1].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
             metsHdrAgents[1].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.ARCHIVIST);
             metsHdrAgents[1].name.Should().Be("Contactperson 1");
+            metsHdrAgents[1].note.Should().Contain(n => n.Equals("Road 1, 1000 City"));
             metsHdrAgents[1].note.Should().Contain(n => n.Equals("1-99999999"));
             metsHdrAgents[1].note.Should().Contain(n => n.Equals("post@entity-1.com"));
 
@@ -83,6 +84,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[3].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
             metsHdrAgents[3].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.ARCHIVIST);
             metsHdrAgents[3].name.Should().Be("Contactperson 2");
+            metsHdrAgents[3].note.Should().Contain(n => n.Equals("Road 2, 2000 City"));
             metsHdrAgents[3].note.Should().Contain(n => n.Equals("2-99999999"));
             metsHdrAgents[3].note.Should().Contain(n => n.Equals("post@entity-2.com"));
 
@@ -97,6 +99,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[5].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
             metsHdrAgents[5].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.SUBMITTER);
             metsHdrAgents[5].name.Should().Be("Contactperson 3");
+            metsHdrAgents[5].note.Should().Contain(n => n.Equals("Road 3, 3000 City"));
             metsHdrAgents[5].note.Should().Contain(n => n.Equals("3-99999999"));
             metsHdrAgents[5].note.Should().Contain(n => n.Equals("post@entity-3.com"));
 
@@ -111,6 +114,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[7].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
             metsHdrAgents[7].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
             metsHdrAgents[7].name.Should().Be("Contactperson 4");
+            metsHdrAgents[7].note.Should().Contain(n => n.Equals("Road 4, 4000 City"));
             metsHdrAgents[7].note.Should().Contain(n => n.Equals("4-99999999"));
             metsHdrAgents[7].note.Should().Contain(n => n.Equals("post@entity-4.com"));
 
@@ -123,6 +127,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[9].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
             metsHdrAgents[9].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.IPOWNER);
             metsHdrAgents[9].name.Should().Be("Contactperson 5");
+            metsHdrAgents[9].note.Should().Contain(n => n.Equals("Road 5, 5000 City"));
             metsHdrAgents[9].note.Should().Contain(n => n.Equals("5-99999999"));
             metsHdrAgents[9].note.Should().Contain(n => n.Equals("post@entity-5.com"));
 
@@ -135,6 +140,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[11].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
             metsHdrAgents[11].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.IPOWNER);
             metsHdrAgents[11].name.Should().Be("Contactperson 6");
+            metsHdrAgents[11].note.Should().Contain(n => n.Equals("Road 6, 6000 City"));
             metsHdrAgents[11].note.Should().Contain(n => n.Equals("6-99999999"));
             metsHdrAgents[11].note.Should().Contain(n => n.Equals("post@entity-6.com"));
 
@@ -262,6 +268,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             {
                 Entity = $"Entity {distinctive}",
                 ContactPerson = $"Contactperson {distinctive}",
+                Address = $"Road {distinctive}, {distinctive}000 City",
                 Telephone = $"{distinctive}-99999999",
                 Email = $"post@entity-{char.ToLower(distinctive)}.com"
             };

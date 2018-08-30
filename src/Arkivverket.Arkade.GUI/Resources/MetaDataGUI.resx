@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -124,6 +124,9 @@
     <value>Arkivskaper*</value>
     <comment>Institusjonsnavn</comment>
   </data>
+  <data name="ArchiveCreator_Address" xml:space="preserve">
+    <value>Adresse (Kontakt, Arkivskaper)</value>
+  </data>
   <data name="ArchiveCreator_ContactPerson" xml:space="preserve">
     <value>Kontaktperson (Arkivskaper)</value>
     <comment>pr Arkivskaper</comment>
@@ -229,6 +232,9 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <value>Eier*</value>
     <comment>Intitusjons-/Firma-/Organisasjons-/Familienavn/Personnavn (ved personlig arkiv)</comment>
   </data>
+  <data name="Owner_Address" xml:space="preserve">
+    <value>Adresse (Kontakt, Eier)</value>
+  </data>
   <data name="Owner_ContactPerson" xml:space="preserve">
     <value>Kontaktperson (Eier)</value>
   </data>
@@ -247,6 +253,9 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="Producer" xml:space="preserve">
     <value>Produsent*</value>
     <comment>Institusjonsnavn/Firmanavn</comment>
+  </data>
+  <data name="Producer_Address" xml:space="preserve">
+    <value>Adresse (Kontakt, Produsent)</value>
   </data>
   <data name="Producer_ContactPerson" xml:space="preserve">
     <value>Kontaktperson (Produsent)</value>
@@ -298,6 +307,9 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <value>Overfører*</value>
     <comment>Institusjonsnavn
 Tidl. nevnt som avleverende myndighet</comment>
+  </data>
+  <data name="Transferer_Address" xml:space="preserve">
+    <value>Adresse (Kontakt, Overfører)</value>
   </data>
   <data name="Transferer_ContractPerson" xml:space="preserve">
     <value>Kontaktperson (Overfører)*</value>

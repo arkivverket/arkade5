@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.GUI.Models;
@@ -97,8 +97,9 @@ namespace Arkivverket.Arkade.GUI.Util
             {
                 Entity = guiMetaDataModel.Entity,
                 ContactPerson = guiMetaDataModel.ContactPerson,
-                Email = guiMetaDataModel.Email,
-                Telephone = guiMetaDataModel.Telephone
+                Address = guiMetaDataModel.Address,
+                Telephone = guiMetaDataModel.Telephone,
+                Email = guiMetaDataModel.Email
             };
         }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -191,6 +191,11 @@ namespace Arkivverket.Arkade.Core.Metadata
                     if (!string.IsNullOrEmpty(metsEntityAgent.name))
                         entityInfoUnit.ContactPerson = metsEntityAgent.name;
 
+                    string address = metsEntityAgent.note?.FirstOrDefault(LooksLikeAddress);
+
+                    if (!string.IsNullOrEmpty(address))
+                        entityInfoUnit.Address = address;
+
                     string phoneNumber = metsEntityAgent.note?.FirstOrDefault(LooksLikePhoneNumber);
 
                     if (!string.IsNullOrEmpty(phoneNumber))
@@ -299,6 +304,11 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (archiveMetadataComments.Any())
                 archiveMetadata.Comments = archiveMetadataComments;
             */
+        }
+
+        private static bool LooksLikeAddress(string possibleAddress)
+        {
+            return !LooksLikeEmailAddress(possibleAddress) && !LooksLikePhoneNumber(possibleAddress);
         }
 
         private static bool LooksLikePhoneNumber(string possiblePhoneNumber)

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 ﻿using System;
 using System.IO;
 using System.Linq;
@@ -144,7 +144,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                             ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
                             name = metadataArchiveCreator.ContactPerson,
-                            note = new[] { metadataArchiveCreator.Telephone, metadataArchiveCreator.Email }
+                            note = new[] { metadataArchiveCreator.Address, metadataArchiveCreator.Telephone, metadataArchiveCreator.Email }
                         });
                     }
                 }
@@ -175,7 +175,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         OTHERROLESpecified = true,
                         OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.SUBMITTER,
                         name = metadata.Transferer.ContactPerson,
-                        note = new[] { metadata.Transferer.Telephone, metadata.Transferer.Email }
+                        note = new[] { metadata.Transferer.Address, metadata.Transferer.Telephone, metadata.Transferer.Email }
                     });
                 }
             }
@@ -205,7 +205,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         OTHERROLESpecified = true,
                         OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
                         name = metadata.Producer.ContactPerson,
-                        note = new[] { metadata.Producer.Telephone, metadata.Producer.Email }
+                        note = new[] { metadata.Producer.Address, metadata.Producer.Telephone, metadata.Producer.Email }
                     });
                 }
             }
@@ -233,7 +233,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                             ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
                             name = metadataOwner.ContactPerson,
-                            note = new[] { metadataOwner.Telephone, metadataOwner.Email }
+                            note = new[] { metadataOwner.Address, metadataOwner.Telephone, metadataOwner.Email }
                         });
                     }
                 }
@@ -407,6 +407,7 @@ namespace Arkivverket.Arkade.Core.Metadata
         private static bool HasContactData(MetadataEntityInformationUnit entityInformationUnit)
         {
             return !string.IsNullOrEmpty(entityInformationUnit.ContactPerson) ||
+                   !string.IsNullOrEmpty(entityInformationUnit.Address) ||
                    !string.IsNullOrEmpty(entityInformationUnit.Telephone) ||
                    !string.IsNullOrEmpty(entityInformationUnit.Email);
         }
