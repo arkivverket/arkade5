@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
     /// </summary>
     public class InformationPackageCreatorTest
     {
-        private readonly string _workingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\TestData\\package-creation");
+        private readonly string _workingDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\package-creation";
         private readonly Uuid _uuid = Uuid.Random();
         private readonly ArchiveMetadata _archiveMetadata = MetsCreatorTest.FakeArchiveMetadata();
         private readonly string _outputDirectory = AppDomain.CurrentDomain.BaseDirectory;

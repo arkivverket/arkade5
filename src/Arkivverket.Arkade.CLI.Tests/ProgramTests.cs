@@ -1,10 +1,10 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
 using Xunit;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 namespace Arkivverket.Arkade.CLI.Tests
 {
@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.CLI.Tests
         {
             // Establish/clear needed paths:
 
-            string workingDirectoryPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string workingDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
             string testDataDirectoryPath = Path.Combine(workingDirectoryPath, "TestData");
             string metadataFilePath = Path.Combine(testDataDirectoryPath, "metadata.txt");
             string archiveDirectoryPath = Path.Combine(testDataDirectoryPath, "N5-archive");

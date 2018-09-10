@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Tests.Integration
             ArkadeProcessingArea.Establish(Path.Combine(Environment.CurrentDirectory, "TestData"));
 
             ArchiveFile archive1 =
-                ArchiveFile.Read(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\TestData\\tar\\Noark3-eksempel-1\\c3db9d4e-720c-4f75-bfb6-de90231dc44c.tar", ArchiveType.Noark3);
+                ArchiveFile.Read(AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\tar\\Noark3-eksempel-1\\c3db9d4e-720c-4f75-bfb6-de90231dc44c.tar", ArchiveType.Noark3);
 
             Arkade.Core.Base.Arkade arkade = new Arkade.Core.Base.Arkade();
             TestSession testSesson = arkade.RunTests(archive1);

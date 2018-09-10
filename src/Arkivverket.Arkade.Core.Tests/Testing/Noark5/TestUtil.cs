@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
     public class TestUtil
     {
-        public static string TestDataDirectory =  Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + "TestData" + Path.DirectorySeparatorChar;
+        public static string TestDataDirectory =  AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + "TestData" + Path.DirectorySeparatorChar;
 
         public static Archive CreateArchiveExtraction(string testdataDirectory)
         {
