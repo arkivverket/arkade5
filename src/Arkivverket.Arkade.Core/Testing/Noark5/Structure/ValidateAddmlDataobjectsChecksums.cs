@@ -74,7 +74,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
         {
             if (!checksumsAreEqual)
             {
-                var message = string.Format(Noark5Messages.ExceptionInvalidChecksum, fileName, expectedChecksum, generatedChecksum);
+                var message = string.Format(Noark5Messages.ExceptionInvalidChecksum, fileName,
+                    expectedChecksum.ToLower(), generatedChecksum.ToLower());
                 throw new ArkadeException(message);
             }
             return new TestResult(ResultType.Success, new Location(fileName), $"Sjekksum er kontrollert med algoritmen {checksumAlgorithm}.");
