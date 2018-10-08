@@ -31,6 +31,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool _isRunningCreatePackage;
         private bool _selectedPackageTypeAip;
         private bool _selectedPackageTypeSip = true;
+        private bool _standardLabelIsSelected = true;
+        private bool _userdefinedLabelIsSelected;
         private string _statusMessageText;
         private string _statusMessagePath;
         private TestSession _testSession;
@@ -100,6 +102,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             }
         }
 
+        public bool StandardLabelIsSelected
+        {
+            get { return _standardLabelIsSelected; }
+            set { SetProperty(ref _standardLabelIsSelected, value); }
+        }
+
+        public bool UserdefinedLabelIsSelected
+        {
+            get { return _userdefinedLabelIsSelected; }
+            set { SetProperty(ref _userdefinedLabelIsSelected, value); }
+        }
 
         public GuiMetaDataModel MetaDataModelArchiveDescription
         {
@@ -352,7 +365,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             try
             {
-                ArchiveMetadata metadata = DiasMetsLoader.Load(metadataFile.FullName);
+                ArchiveMetadata metadata = MetadataLoader.Load(metadataFile.FullName);
 
                 FillForm(metadata);
             }
@@ -401,6 +414,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             if (archiveMetadata.ExtractionDate != null)
                 MetaDataExtractionDate = GuiMetadataMapper.MapToExtractionDate(archiveMetadata.ExtractionDate);
+
+            if (archiveMetadata.Label != null)
+                MetaDataNoarkSection.UserdefinedLabel = archiveMetadata.Label;
+
+            UserdefinedLabelIsSelected = true;
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -494,6 +512,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 Id = $"UUID:{_testSession.Archive.Uuid}",
 
+                Label = ArchiveMetadataMapper.MapToLabel(_metaDataNoarkSection, StandardLabelIsSelected),
                 ArchiveDescription = ArchiveMetadataMapper.MapToArchiveDescription(_metaDataArchiveDescription),
                 AgreementNumber = ArchiveMetadataMapper.MapToAgreementNumber(_metaDataArchiveDescription),
                 ArchiveCreators = ArchiveMetadataMapper.MapToArchiveCreators(_metaDataArchiveCreators.Where(c => !c.IsDeleted)),

@@ -18,6 +18,8 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
 
             ArchiveMetadata archiveMetadata = DiasMetsLoader.Load(diasMetsFile);
 
+            archiveMetadata.Label.Should().Be("Some system name (2017 - 2020)");
+
             archiveMetadata.ArchiveDescription.Should().Be("Some archive description");
 
             archiveMetadata.AgreementNumber.Should().Be("XX 00-0000/0000; 0000-00-00");

@@ -7,6 +7,7 @@ namespace Arkivverket.Arkade.Core.Base
     public class ArchiveMetadata
     {
         public string Id { get; set; }
+        public string Label { get; set; }
         public string ArchiveDescription { get; set; }
         public string AgreementNumber { get; set; }
         public List<MetadataEntityInformationUnit> ArchiveCreators { get; set; }

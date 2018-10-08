@@ -16,13 +16,22 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             var archiveMetadata = new ArchiveMetadata();
 
+            LoadMetsElementAttributes(archiveMetadata, mets);
+
             if (mets.metsHdr != null)
                 LoadMetsHdr(archiveMetadata, mets.metsHdr);
 
             if (mets.amdSec != null)
                 LoadAmdSec(archiveMetadata, mets.amdSec);
 
+            MetadataLoader.HandleLabelPlaceholder(archiveMetadata);
+
             return archiveMetadata;
+        }
+
+        private static void LoadMetsElementAttributes(ArchiveMetadata archiveMetadata, mets mets)
+        {
+            archiveMetadata.Label = mets.LABEL;
         }
 
         private static void LoadMetsHdr(ArchiveMetadata archiveMetadata, metsTypeMetsHdr metsHdr)

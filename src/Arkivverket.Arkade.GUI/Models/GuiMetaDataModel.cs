@@ -165,6 +165,8 @@ namespace Arkivverket.Arkade.GUI.Models
         private DateTime? _extractionDate;
         private string _incommingSeparator;
         private string _outgoingSeparator;
+        private string _standardLabel;
+        private string _userdefinedLabel;
 
 
         public string History
@@ -205,6 +207,17 @@ namespace Arkivverket.Arkade.GUI.Models
             set { SetProperty(ref _outgoingSeparator, value); }
         }
 
+        public string StandardLabel
+        {
+            get { return _standardLabel; }
+            set { SetProperty(ref _standardLabel, value); }
+        }
+
+        public string UserdefinedLabel
+        {
+            get { return _userdefinedLabel; }
+            set { SetProperty(ref _userdefinedLabel, value); }
+        }
 
         public GuiMetaDataModel(string archiveDescription, string agreementNumber)
         {

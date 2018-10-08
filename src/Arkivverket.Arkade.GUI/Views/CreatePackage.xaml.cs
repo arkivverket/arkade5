@@ -1,4 +1,5 @@
 ﻿using System;
+using Arkivverket.Arkade.GUI.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Arkivverket.Arkade.Core.Metadata;
 
 namespace Arkivverket.Arkade.GUI.Views
 {
@@ -32,6 +34,15 @@ namespace Arkivverket.Arkade.GUI.Views
             Popup popup = (Popup)datepicker.Template.FindName("PART_Popup", datepicker);
             System.Windows.Controls.Calendar cal = (System.Windows.Controls.Calendar)popup.Child;
             cal.DisplayMode = System.Windows.Controls.CalendarMode.Decade;
+        }
+
+        private void UpdateStandardLabel(object sender, RoutedEventArgs e)
+        {
+            string standardLabel = MetadataLoader.ComposeStandardLabel(
+                MetaDataSystemName.Text, MetadataStartDate.SelectedDate, MetadataEndDate.SelectedDate
+            );
+
+            ((CreatePackageViewModel) DataContext).MetaDataNoarkSection.StandardLabel = standardLabel;
         }
     }
 }

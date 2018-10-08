@@ -217,6 +217,9 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
     <value>Inngående skille</value>
     <comment>Obligatorisk for Noark (addml)</comment>
   </data>
+  <data name="Label" xml:space="preserve">
+    <value>Merkelapp</value>
+  </data>
   <data name="MetadataGuiLocale" xml:space="preserve">
     <value>no</value>
     <comment>Can't get it to work as a reference</comment>
@@ -328,5 +331,17 @@ Tidl. nevnt som avleverende myndighet</comment>
   </data>
   <data name="LoadExternalMetadataInfoText" xml:space="preserve">
     <value>Fyll ut skjemaet med metadata fra en ekstern METS-fil, f.eks. info.xml vedlagt en tidligere opprettet pakke.</value>
+  </data>
+  <data name="Label_HintTextStandardLabel" xml:space="preserve">
+    <value>Gjeldende systemnavn, startår og sluttår</value>
+  </data>
+  <data name="Label_HintTextUserdefinedLabel" xml:space="preserve">
+    <value>Innlastet eller oppgitt verdi</value>
+  </data>
+  <data name="Label_OptionTextStandardLabel" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Label_OptionTextUserdefinedLabel" xml:space="preserve">
+    <value>Egendefinert</value>
   </data>
 </root>

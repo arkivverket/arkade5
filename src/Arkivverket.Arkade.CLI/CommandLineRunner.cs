@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
-using Newtonsoft.Json;
+using Arkivverket.Arkade.Core.Metadata;
 using RestSharp.Extensions;
 using Serilog;
 
@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.CLI
 
                 if (!PackingIsSkipped(options))
                 {
-                    var archiveMetadata = JsonConvert.DeserializeObject<ArchiveMetadata>(File.ReadAllText(options.MetadataFile));
+                    ArchiveMetadata archiveMetadata = MetadataLoader.Load(options.MetadataFile);
 
                     archiveMetadata.PackageType = options.InformationPackageType != null &&
                                                   options.InformationPackageType.Equals("AIP")

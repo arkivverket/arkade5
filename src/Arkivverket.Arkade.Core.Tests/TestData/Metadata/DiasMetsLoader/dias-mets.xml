@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mets:mets xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OBJID="UUID:12345-12345-12345-12345-12345-12345" LABEL="Some system name (2017 - 2020)" TYPE="SIP" PROFILE="http://xml.ra.se/METS/RA_METS_eARD.xml" xsi:schemaLocation="http://www.loc.gov/METS/ http://schema.arkivverket.no/METS/mets.xsd" xmlns:mets="http://www.loc.gov/METS/">
+<mets:mets xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OBJID="UUID:12345-12345-12345-12345-12345-12345" LABEL="[standard_label]" TYPE="SIP" PROFILE="http://xml.ra.se/METS/RA_METS_eARD.xml" xsi:schemaLocation="http://www.loc.gov/METS/ http://schema.arkivverket.no/METS/mets.xsd" xmlns:mets="http://www.loc.gov/METS/">
   <mets:metsHdr CREATEDATE="2023-01-01T00:00:00">
     <mets:agent ROLE="ARCHIVIST" TYPE="ORGANIZATION">
       <mets:name>Entity 1</mets:name>

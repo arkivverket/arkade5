@@ -1,12 +1,20 @@
 using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.GUI.Models;
 
 namespace Arkivverket.Arkade.GUI.Util
 {
     public static class ArchiveMetadataMapper
     {
+        
+
+        public static string MapToLabel(GuiMetaDataModel metaDataNoarkSection, bool standardLabelIsSelected)
+        {
+            return standardLabelIsSelected ? metaDataNoarkSection.StandardLabel : metaDataNoarkSection.UserdefinedLabel;
+        }
+
         public static string MapToArchiveDescription(GuiMetaDataModel guiMetaDataModel)
         {
             return guiMetaDataModel.ArchiveDescription;

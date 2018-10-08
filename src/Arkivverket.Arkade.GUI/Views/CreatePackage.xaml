@@ -517,6 +517,8 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,15"
+                                 Name="MetaDataSystemName"
+                                 GotFocus="UpdateStandardLabel" TextChanged="UpdateStandardLabel"
                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.SystemName}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
@@ -772,6 +774,8 @@
 
 
                         <DatePicker Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    Name="MetadataStartDate"
+                                    GotFocus="UpdateStandardLabel" SelectedDateChanged="UpdateStandardLabel"
                                     Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
                                     Language="no"
                                     materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.StartDate}" 
@@ -779,6 +783,8 @@
                                     SelectedDate="{Binding MetaDataNoarkSection.StartDate, Mode=TwoWay}" CalendarOpened="DatePicker_CalendarOpened"/>
 
                         <DatePicker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    Name="MetadataEndDate"
+                                    GotFocus="UpdateStandardLabel" SelectedDateChanged="UpdateStandardLabel"
                                     Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
                                     Language="no"
                                     materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.EndData}" 
@@ -835,6 +841,50 @@
                                     SelectedDate="{Binding MetaDataExtractionDate.ExtractionDate, Mode=TwoWay}" CalendarOpened="DatePicker_CalendarOpened"/>
                     </Grid>
                 </Border>
+
+                <!-- Label -->
+                <GroupBox Header="{x:Static resources:MetaDataGUI.Label}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0" Margin="0,20,0,0">
+                </GroupBox>
+
+                <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
+                    <RadioButton Content="{x:Static resources:MetaDataGUI.Label_OptionTextStandardLabel}"
+                                 IsChecked="{Binding StandardLabelIsSelected}"
+                                 Style="{StaticResource MaterialDesignRadioButton}"/>
+                    <RadioButton Content="{x:Static resources:MetaDataGUI.Label_OptionTextUserdefinedLabel}"
+                                 IsChecked="{Binding UserdefinedLabelIsSelected}"
+                                 Style="{StaticResource MaterialDesignRadioButton}"
+                                 Margin="205 0 0 0" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                    <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10"
+                            Margin="5" Width="275" HorizontalAlignment="Left"
+                            Visibility="{Binding MetaDataExtractionDate.VisibilityItem}">
+                        <Grid Margin="5">
+                            <TextBox Margin="0,0,0,5" Width="260" TextWrapping="Wrap"
+                                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                     materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Label_HintTextStandardLabel}"
+                                     Text="{Binding MetaDataNoarkSection.StandardLabel}"
+                                     IsEnabled="{Binding StandardLabelIsSelected}"
+                                     IsReadOnly="True" />
+                        </Grid>
+                    </Border>
+                    <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10"
+                            Margin="5" Width="275" HorizontalAlignment="Left"
+                            Visibility="{Binding MetaDataExtractionDate.VisibilityItem}">
+                        <Grid Margin="5">
+                            <TextBox Margin="0,0,0,5" Width="260" TextWrapping="Wrap"
+                                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                     materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Label_HintTextUserdefinedLabel}"
+                                     Text="{Binding MetaDataNoarkSection.UserdefinedLabel, Mode=TwoWay}"
+                                     IsEnabled="{Binding UserdefinedLabelIsSelected}" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
                 <!-- END METADATA  -->
 
                 <!-- Line divider  -->

@@ -48,10 +48,8 @@ namespace Arkivverket.Arkade.Core.Metadata
                 ? metsTypeTYPE.SIP 
                 : metsTypeTYPE.AIP;
 
-            mets.LABEL = $"{metadata.System.Name}";
-
-            if (metadata.StartDate != null && metadata.EndDate != null)
-                mets.LABEL += $" ({metadata.StartDate?.Year} - {metadata.EndDate?.Year})";
+            if (!string.IsNullOrEmpty(metadata.Label))
+                mets.LABEL = metadata.Label;
         }
 
         private static void CreateMetsHdr(metsType mets, ArchiveMetadata metadata)

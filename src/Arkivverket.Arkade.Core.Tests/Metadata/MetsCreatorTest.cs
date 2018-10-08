@@ -213,6 +213,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             return new ArchiveMetadata
             {
                 Id = "UUID:12345-12345-12345-12345-12345-12345",
+                Label = "Some system name (2017 - 2020)", 
                 ArchiveDescription = "Some archive description",
                 AgreementNumber = "XX 00-0000/0000; 0000-00-00",
                 ArchiveCreators = new List<MetadataEntityInformationUnit>

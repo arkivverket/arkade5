@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Util;
 using Newtonsoft.Json;
 using Serilog;
 
@@ -24,6 +25,7 @@ namespace Arkivverket.Arkade.CLI
         {
             var metadataExample = new ArchiveMetadata
             {
+                Label = ArkadeConstants.MetadataStandardLabelPlaceholder,
                 ArchiveDescription = "test description",
                 StartDate = new DateTime(2017, 5, 1),
                 EndDate = new DateTime(2017, 8, 31),
