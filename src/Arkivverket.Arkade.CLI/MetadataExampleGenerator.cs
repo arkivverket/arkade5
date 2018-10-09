@@ -35,7 +35,7 @@ namespace Arkivverket.Arkade.CLI
             }
             catch (Exception e)
             {
-                Log.Error(e, "Feil ved skriving av metadata til fil: " + e.Message);
+                Log.Error(e, $"Could not write file {outputFileName}: {e.Message}");
             }
         }
     }
