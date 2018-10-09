@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Tests.Metadata;
+using Arkivverket.Arkade.Core.Metadata;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Tar;
 using Xunit;
@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
     {
         private readonly string _workingDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\package-creation";
         private readonly Uuid _uuid = Uuid.Random();
-        private readonly ArchiveMetadata _archiveMetadata = MetsCreatorTest.FakeArchiveMetadata();
+        private readonly ArchiveMetadata _archiveMetadata = MetadataExampleCreator.Create(MetadataExamplePurpose.InternalTesting);
         private readonly string _outputDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
         [Fact]
