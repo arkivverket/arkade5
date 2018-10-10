@@ -241,15 +241,6 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Historie.
-        /// </summary>
-        public static string GuiSubsection_History {
-            get {
-                return ResourceManager.GetString("GuiSubsection_History", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Noark felter.
         /// </summary>
         public static string GuiSubsection_NoarkParameters {
@@ -300,15 +291,6 @@ namespace Arkivverket.Arkade.GUI.Resources {
         public static string GuiSubsection_Transferer {
             get {
                 return ResourceManager.GetString("GuiSubsection_Transferer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Historie.
-        /// </summary>
-        public static string History {
-            get {
-                return ResourceManager.GetString("History", resourceCulture);
             }
         }
         

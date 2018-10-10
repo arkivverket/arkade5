@@ -18,7 +18,6 @@ namespace Arkivverket.Arkade.Core.Base
         public MetadataSystemInformationUnit System { get; set; }
         public MetadataSystemInformationUnit ArchiveSystem { get; set; }
         public List<string> Comments { get; set; }
-        public string History { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public DateTime? ExtractionDate { get; set; }

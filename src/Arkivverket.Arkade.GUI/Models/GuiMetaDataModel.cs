@@ -159,7 +159,6 @@ namespace Arkivverket.Arkade.GUI.Models
         }
 
 
-        private string _history;
         private DateTime? _startDate;
         private DateTime? _endDate;
         private DateTime? _extractionDate;
@@ -169,11 +168,6 @@ namespace Arkivverket.Arkade.GUI.Models
         private string _userdefinedLabel;
 
 
-        public string History
-        {
-            get { return _history; }
-            set { SetProperty(ref _history, value); }
-        }
 
 
         public DateTime? StartDate
@@ -289,12 +283,6 @@ namespace Arkivverket.Arkade.GUI.Models
                 Comment = strArg;
 
             }
-            else if (guiObjectType == GuiObjectType.history)
-            {
-                History = strArg;
-                // Start disabled for [0-1] multiplicity
-                ExecuteDeleteItem();
-            }
 
             CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
             CommandAddItem = new DelegateCommand(ExecuteAddItem);
@@ -349,7 +337,6 @@ namespace Arkivverket.Arkade.GUI.Models
             SystemTypeVersion = string.Empty;
             ArchiveDescription = string.Empty;
             AgreementNumber = string.Empty;
-            History = string.Empty;
             StartDate = DateTime.Today;
             EndDate = DateTime.Today;
             ExtractionDate = DateTime.Today;
@@ -365,7 +352,6 @@ namespace Arkivverket.Arkade.GUI.Models
         entity,
         system,
         comment,
-        history,
         archiveData,
         noarkObligatory
     }

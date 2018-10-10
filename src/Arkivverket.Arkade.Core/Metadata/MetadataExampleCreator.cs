@@ -43,7 +43,6 @@ namespace Arkivverket.Arkade.Core.Metadata
                     TypeVersion = "N/A" // To be ignored by MetsCreator
                 },
                 Comments = new List<string> {"Some comment 1", "Some comment 2"},
-                History = "Some history",
                 PackageType = PackageType.SubmissionInformationPackage,
                 FileDescriptions = new List<FileDescription>
                 {
