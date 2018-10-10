@@ -77,15 +77,6 @@ namespace Arkivverket.Arkade.GUI.Models
         private string _telephone;
         private string _email;
 
-        private string _comment;
-
-        public string Comment
-        {
-            get { return _comment; }
-            set { SetProperty(ref _comment, value); }
-        }
-
-
         public string Email
         {
             get { return _email; }
@@ -275,22 +266,6 @@ namespace Arkivverket.Arkade.GUI.Models
         }
 
 
-        public GuiMetaDataModel(string strArg, GuiObjectType guiObjectType)
-        {
-
-            if (guiObjectType == GuiObjectType.comment)
-            {
-                Comment = strArg;
-
-            }
-
-            CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
-            CommandAddItem = new DelegateCommand(ExecuteAddItem);
-            CommandNullOutEntry = new DelegateCommand(NullOutRecord);
-        }
-
-
-
         public void ExecuteDeleteItem()
         {
             IsDeleted = true;
@@ -325,7 +300,6 @@ namespace Arkivverket.Arkade.GUI.Models
 
         private void _ResetAllDataFields()
         {
-            Comment = string.Empty;
             Email = string.Empty;
             Address = string.Empty;
             Telephone = string.Empty;
@@ -351,7 +325,6 @@ namespace Arkivverket.Arkade.GUI.Models
         archiveDescription,
         entity,
         system,
-        comment,
         archiveData,
         noarkObligatory
     }

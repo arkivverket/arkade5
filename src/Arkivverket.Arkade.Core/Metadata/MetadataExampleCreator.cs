@@ -42,7 +42,6 @@ namespace Arkivverket.Arkade.Core.Metadata
                     Type = "Noark4",
                     TypeVersion = "N/A" // To be ignored by MetsCreator
                 },
-                Comments = new List<string> {"Some comment 1", "Some comment 2"},
                 PackageType = PackageType.SubmissionInformationPackage,
                 FileDescriptions = new List<FileDescription>
                 {

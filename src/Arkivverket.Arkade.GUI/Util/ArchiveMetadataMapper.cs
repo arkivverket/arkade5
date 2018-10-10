@@ -62,16 +62,6 @@ namespace Arkivverket.Arkade.GUI.Util
             return MapToMetadataSystemInformationUnit(guiMetaDataModel);
         }
 
-        public static List<string> MapToComments(IEnumerable<GuiMetaDataModel> guiMetaDataModels)
-        {
-            var archiveMetadataComments = new List<string>();
-
-            foreach (GuiMetaDataModel guiMetaDataModel in guiMetaDataModels)
-                archiveMetadataComments.Add(guiMetaDataModel.Comment);
-
-            return archiveMetadataComments;
-        }
-
         public static DateTime? MapToStartDate(GuiMetaDataModel metaDataNoarkSection)
         {
             return metaDataNoarkSection.StartDate;

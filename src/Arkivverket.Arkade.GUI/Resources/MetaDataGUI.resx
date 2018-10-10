@@ -163,9 +163,6 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="ArchiveSystem" xml:space="preserve">
     <value>Uttrekkssystem</value>
   </data>
-  <data name="Comment" xml:space="preserve">
-    <value>Kommentar</value>
-  </data>
   <data name="EndData" xml:space="preserve">
     <value>Sluttdato</value>
     <comment>Obligatorisk for Noark (addml)</comment>
@@ -181,9 +178,6 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   </data>
   <data name="GuiSubsection_ArchiveSystem" xml:space="preserve">
     <value>Uttrekkssystem</value>
-  </data>
-  <data name="GuiSubsection_Comment" xml:space="preserve">
-    <value>Kommentar</value>
   </data>
   <data name="GuiSubsection_ExtractionDate" xml:space="preserve">
     <value>Uttrekksdato</value>

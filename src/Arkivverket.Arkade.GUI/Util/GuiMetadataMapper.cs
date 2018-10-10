@@ -50,16 +50,6 @@ namespace Arkivverket.Arkade.GUI.Util
             return MapToSystem(archiveSystem);
         }
 
-        public static ObservableCollection<GuiMetaDataModel> MapToComments(IEnumerable<string> comments)
-        {
-            var guiMetadataComments = new ObservableCollection<GuiMetaDataModel>();
-
-            foreach (string comment in comments)
-                guiMetadataComments.Add(new GuiMetaDataModel(comment, GuiObjectType.comment));
-
-            return guiMetadataComments;
-        }
-
         public static GuiMetaDataModel MapToExtractionDate(DateTime? extractionDate)
         {
             return new GuiMetaDataModel(extractionDate);

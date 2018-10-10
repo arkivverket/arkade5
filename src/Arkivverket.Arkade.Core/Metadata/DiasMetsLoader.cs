@@ -21,9 +21,6 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (mets.metsHdr != null)
                 LoadMetsHdr(archiveMetadata, mets.metsHdr);
 
-            if (mets.amdSec != null)
-                LoadAmdSec(archiveMetadata, mets.amdSec);
-
             MetadataLoader.HandleLabelPlaceholder(archiveMetadata);
 
             return archiveMetadata;
@@ -63,11 +60,6 @@ namespace Arkivverket.Arkade.Core.Metadata
             LoadRecipient(archiveMetadata, metsHdrAgents);
             LoadSystem(archiveMetadata, metsHdrAgents);
             LoadArchiveSystem(archiveMetadata, metsHdrAgents);
-        }
-
-        private static void LoadAmdSec(ArchiveMetadata archiveMetadata, IEnumerable<amdSecType> metsAmdSec)
-        {
-            LoadComments(archiveMetadata, metsAmdSec);
         }
 
         private static void LoadArchiveDescription(ArchiveMetadata archiveMetadata,
@@ -290,29 +282,6 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             if (typeVersion != null && MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
                 system.TypeVersion = typeVersion;
-        }
-
-        private static void LoadComments(ArchiveMetadata archiveMetadata, IEnumerable<amdSecType> amdSecTypes)
-        {
-            // TODO: Implement
-
-            /*
-            var archiveMetadataComments = new List<string>();
-
-            foreach (amdSecType amdSecType in amdSecTypes)
-            {
-                IEnumerable<mdSecType> metsCommentMdSecTypes = amdSecType.techMD.Where(m =>
-                        m.mdWrap.MDTYPE == mdSecTypeMdRefMDTYPE.OTHER &&
-                        m.mdWrap.OTHERMDTYPE == mdSecTypeMdRefOTHERMDTYPE.COMMENT
-                );
-
-                foreach (mdSecType metsCommentMdSecType in metsCommentMdSecTypes)
-                    archiveMetadataComments.Add(metsCommentMdSecType.mdWrap.Item as string);
-            }
-
-            if (archiveMetadataComments.Any())
-                archiveMetadata.Comments = archiveMetadataComments;
-            */
         }
 
         private static bool LooksLikeAddress(string possibleAddress)

@@ -169,15 +169,6 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kommentar.
-        /// </summary>
-        public static string Comment {
-            get {
-                return ResourceManager.GetString("Comment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sluttdato.
         /// </summary>
         public static string EndData {
@@ -219,15 +210,6 @@ namespace Arkivverket.Arkade.GUI.Resources {
         public static string GuiSubsection_ArchiveSystem {
             get {
                 return ResourceManager.GetString("GuiSubsection_ArchiveSystem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kommentar.
-        /// </summary>
-        public static string GuiSubsection_Comment {
-            get {
-                return ResourceManager.GetString("GuiSubsection_Comment", resourceCulture);
             }
         }
         

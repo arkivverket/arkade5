@@ -49,7 +49,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private GuiMetaDataModel _metaDataRecipient = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
         private GuiMetaDataModel _metaDataArchiveSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
-        private ObservableCollection<GuiMetaDataModel> _metaDataComments = new ObservableCollection<GuiMetaDataModel>();
         private GuiMetaDataModel _metaDataNoarkSection = new GuiMetaDataModel(null, null, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataExtractionDate = new GuiMetaDataModel(null);
 
@@ -75,7 +74,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand NewProgramSessionCommand { get; set; }
         public DelegateCommand AddMetadataAchiveCreatorEntry { get; set; }
         public DelegateCommand AddMetadataAchiveOwnerEntry { get; set; }
-        public DelegateCommand AddMetadataCommentEntry { get; set; }
         public DelegateCommand LoadExternalMetadataCommand { get; set; }
 
         //---------------------------------------------------------------------------
@@ -161,12 +159,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             get { return _metaDataArchiveSystem; }
             set { SetProperty(ref _metaDataArchiveSystem, value); }
-        }
-
-        public ObservableCollection<GuiMetaDataModel> MetaDataComments
-        {
-            get { return _metaDataComments; }
-            set { SetProperty(ref _metaDataComments, value); }
         }
 
         public GuiMetaDataModel MetaDataNoarkSection
@@ -286,7 +278,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             NewProgramSessionCommand = new DelegateCommand(RunNavigateToLoadArchivePage, CanLeaveCreatePackageView);
             AddMetadataAchiveCreatorEntry = new DelegateCommand(RunAddMetadataAchiveCreatorEntry);
             AddMetadataAchiveOwnerEntry = new DelegateCommand(RunAddMetadataAchiveOwnerEntry);
-            AddMetadataCommentEntry = new DelegateCommand(RunAddMetadataCommentEntry);
 
            ((INotifyPropertyChanged)MetaDataArchiveCreators).PropertyChanged += (x, y) => OnMetaDataArchiveCreatorsDataElementChaneChange();
            ((INotifyPropertyChanged)MetaDataOwners).PropertyChanged += (x, y) => OnMetaDataOwnersDataElementChaneChange();
@@ -317,10 +308,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public void RunAddMetadataAchiveOwnerEntry()
         {
             MetaDataOwners.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty));
-        }
-        public void RunAddMetadataCommentEntry()
-        {
-            MetaDataComments.Add(new GuiMetaDataModel(string.Empty, GuiObjectType.comment));
         }
 
 
@@ -395,9 +382,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             if (archiveMetadata.ArchiveSystem != null)
                 MetaDataArchiveSystem = GuiMetadataMapper.MapToArchiveSystem(archiveMetadata.ArchiveSystem);
-
-            if (archiveMetadata.Comments != null && archiveMetadata.Comments.Any())
-                MetaDataComments = GuiMetadataMapper.MapToComments(archiveMetadata.Comments);
 
             if (archiveMetadata.StartDate != null)
                 MetaDataNoarkSection.StartDate = archiveMetadata.StartDate;
@@ -515,7 +499,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 Recipient = ArchiveMetadataMapper.MapToRecipient(_metaDataRecipient),
                 System = ArchiveMetadataMapper.MapToSystem(_metaDataSystem),
                 ArchiveSystem = ArchiveMetadataMapper.MapToArchiveSystem(_metaDataArchiveSystem),
-                Comments = ArchiveMetadataMapper.MapToComments(_metaDataComments),
                 StartDate = ArchiveMetadataMapper.MapToStartDate(_metaDataNoarkSection),
                 EndDate = ArchiveMetadataMapper.MapToEndDate(_metaDataNoarkSection),
                 ExtractionDate = ArchiveMetadataMapper.MapToExtractionDate(_metaDataExtractionDate),

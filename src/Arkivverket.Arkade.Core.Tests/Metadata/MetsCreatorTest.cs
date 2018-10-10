@@ -173,16 +173,6 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             // Type-version applies to Noark5 only and is not expected amongst agents:
             metsHdrAgents.Length.Should().Be(15);
 
-            // COMMENTS:
-
-            /* TODO: Enable when comments-creation is implemented
-            mets.amdSec.Any(a => a.techMD.Any(
-                t1 => t1.mdWrap.Item.Equals("Some comment A")
-                      && a.techMD.Any(
-                          t2 => t2.mdWrap.Item.Equals("Some comment B")))
-            ).Should().BeTrue();
-            */
-
             // FILE DESCRIPTIONS:
 
             var metsFile = mets.fileSec.fileGrp[0].Items[0] as fileType;
