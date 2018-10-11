@@ -43,6 +43,9 @@ namespace Arkivverket.Arkade.Core.Metadata
                 }
             }
 
+            const int fileIdOffset = 1; // Reserving 0 for package file
+            AutoIncrementFileIds(metadata.FileDescriptions, fileIdOffset);
+
             mets mets = Create(metadata);
 
             FileInfo targetFileName = archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);

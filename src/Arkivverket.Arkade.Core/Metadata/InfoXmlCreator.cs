@@ -38,16 +38,17 @@ namespace Arkivverket.Arkade.Core.Metadata
             
             if (packageFile.Exists)
             {
-                var informationPackageFileIdForMets = 0;
+                FileDescription informationPackageFileDescription = GetFileDescription
+                (
+                    packageFile,
+                    packageFile.Directory
+                );
+
+                informationPackageFileDescription.Id = 0;
 
                 metadata.FileDescriptions = new List<FileDescription>
                 {
-                    GetFileDescription
-                    (
-                        packageFile,
-                        ref informationPackageFileIdForMets,
-                        packageFile.Directory
-                    )
+                    informationPackageFileDescription
                 };
             }
         }

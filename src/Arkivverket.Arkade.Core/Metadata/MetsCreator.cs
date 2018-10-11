@@ -353,15 +353,13 @@ namespace Arkivverket.Arkade.Core.Metadata
         {
             var fileDescriptions = new List<FileDescription>();
 
-            var fileId = 1; // Reserving 0 for package file
-
             foreach (FileInfo file in GetFilesToDescribe(directory, filesToSkip))
-                fileDescriptions.Add(GetFileDescription(file, ref fileId, pathRoot));
+                fileDescriptions.Add(GetFileDescription(file, pathRoot));
 
             return fileDescriptions;
         }
 
-        protected static FileDescription GetFileDescription(FileInfo file, ref int fileId, DirectoryInfo pathRoot)
+        protected static FileDescription GetFileDescription(FileInfo file, DirectoryInfo pathRoot)
         {
             string fileName = file.FullName;
 
@@ -374,7 +372,6 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             return new FileDescription
             {
-                Id = fileId++,
                 Name = fileName,
                 Extension = file.Extension.Replace(".", string.Empty),
                 Sha256Checksum = GetSha256Checksum(file),
@@ -390,6 +387,13 @@ namespace Arkivverket.Arkade.Core.Metadata
             return filesToSkip != null
                 ? filesToDescribe.Where(f => !filesToSkip.Contains(f.Name))
                 : filesToDescribe;
+        }
+
+        protected static void AutoIncrementFileIds(IEnumerable<FileDescription> fileDescriptions, int offset = 0)
+        {
+            int nextFileId = offset;
+            foreach (FileDescription fileDescription in fileDescriptions)
+                fileDescription.Id = nextFileId++;
         }
 
         private static string GetSha256Checksum(FileInfo file)
