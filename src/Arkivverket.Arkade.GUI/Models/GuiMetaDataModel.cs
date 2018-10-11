@@ -153,8 +153,6 @@ namespace Arkivverket.Arkade.GUI.Models
         private DateTime? _startDate;
         private DateTime? _endDate;
         private DateTime? _extractionDate;
-        private string _incommingSeparator;
-        private string _outgoingSeparator;
         private string _standardLabel;
         private string _userdefinedLabel;
 
@@ -178,18 +176,6 @@ namespace Arkivverket.Arkade.GUI.Models
         {
             get { return _extractionDate; }
             set { SetProperty(ref _extractionDate, value); }
-        }
-
-        public string IncommingSeparator
-        {
-            get { return _incommingSeparator; }
-            set { SetProperty(ref _incommingSeparator, value); }
-        }
-
-        public string OutgoingSeparator
-        {
-            get { return _outgoingSeparator; }
-            set { SetProperty(ref _outgoingSeparator, value); }
         }
 
         public string StandardLabel
@@ -244,12 +230,10 @@ namespace Arkivverket.Arkade.GUI.Models
         }
 
 
-        public GuiMetaDataModel(DateTime startDate, DateTime endDate, string incommingSeparator, string outgoingSeparator)
+        public GuiMetaDataModel(DateTime startDate, DateTime endDate)
         {
             StartDate = startDate;
             EndDate = endDate;
-            IncommingSeparator = incommingSeparator;
-            OutgoingSeparator = outgoingSeparator;
 
             CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
             CommandAddItem = new DelegateCommand(ExecuteAddItem);
@@ -314,8 +298,6 @@ namespace Arkivverket.Arkade.GUI.Models
             StartDate = DateTime.Today;
             EndDate = DateTime.Today;
             ExtractionDate = DateTime.Today;
-            IncommingSeparator = string.Empty;
-            OutgoingSeparator = string.Empty;
         }
     }
 

@@ -201,10 +201,6 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="GuiSubsection_Transferer" xml:space="preserve">
     <value>Overfører</value>
   </data>
-  <data name="IncommingSeperator" xml:space="preserve">
-    <value>Inngående skille</value>
-    <comment>Obligatorisk for Noark (addml)</comment>
-  </data>
   <data name="Label" xml:space="preserve">
     <value>Merkelapp</value>
   </data>
@@ -214,10 +210,6 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   </data>
   <data name="MetadataRequiredFieldsInfo" xml:space="preserve">
     <value>* = Feltet er påkrevet for å skape en gyldig arkivpakke</value>
-  </data>
-  <data name="OutgoingSeperator" xml:space="preserve">
-    <value>Utgående skille</value>
-    <comment>Obligatorisk for Noark (addml)</comment>
   </data>
   <data name="Owner" xml:space="preserve">
     <value>Eier*</value>

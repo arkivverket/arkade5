@@ -20,8 +20,6 @@ namespace Arkivverket.Arkade.Core.Base
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public DateTime? ExtractionDate { get; set; }
-        public string IncommingSeparator { get; set; }
-        public string OutgoingSeparator { get; set; }
         public List<FileDescription> FileDescriptions { get; set; }
         public PackageType PackageType { get; set; }
     }

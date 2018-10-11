@@ -633,16 +633,6 @@
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
                                     SelectedDate="{Binding MetaDataNoarkSection.EndDate, Mode=TwoWay}" CalendarOpened="DatePicker_CalendarOpened"/>
 
-                        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.IncommingSeperator}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataNoarkSection.IncommingSeparator, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
-
-                        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.OutgoingSeperator}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataNoarkSection.OutgoingSeparator, Mode=TwoWay}" Width="250" TextWrapping="Wrap"/>
-
                         <Button Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"
                                 Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="24" Width="24" Command="{Binding MetaDataNoarkSection.CommandDeleteItem}">

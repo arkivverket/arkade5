@@ -277,15 +277,6 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inngående skille.
-        /// </summary>
-        public static string IncommingSeperator {
-            get {
-                return ResourceManager.GetString("IncommingSeperator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Merkelapp.
         /// </summary>
         public static string Label {
@@ -372,15 +363,6 @@ namespace Arkivverket.Arkade.GUI.Resources {
         public static string MetadataRequiredFieldsInfo {
             get {
                 return ResourceManager.GetString("MetadataRequiredFieldsInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Utgående skille.
-        /// </summary>
-        public static string OutgoingSeperator {
-            get {
-                return ResourceManager.GetString("OutgoingSeperator", resourceCulture);
             }
         }
         
