@@ -201,7 +201,6 @@
     <Compile Include="Util\Colors.cs" />
     <Compile Include="Util\DetailedExceptionMessage.cs" />
     <Compile Include="Util\Extensions.cs" />
-    <Compile Include="Models\PopulateMetadataDataModels.cs" />
     <Compile Include="Util\NotEmptyValidationRule.cs" />
     <Compile Include="Util\GuiMetadataMapper.cs" />
     <Compile Include="Util\RadioConverter.cs" />

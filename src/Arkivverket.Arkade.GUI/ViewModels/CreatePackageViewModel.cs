@@ -462,31 +462,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             return collection.Count(x => x.IsDeleted == false);
         }
 
-        private bool _EnterElementIfOneNotDeletedEntryIsNotFilled(ObservableCollection<GuiMetaDataModel> collection, string entity, string contactPerson, string address, string telephone, string email)
-        {
-            if ((collection.Count(x => (x.IsDeleted == false) && (x.Entity == string.Empty))) == 1)
-            {
-                foreach (var entry in collection)
-                {
-                    if (entry.IsDeleted == false)
-                    {
-                        entry.Entity = entity;
-                        entry.ContactPerson = contactPerson;
-                        entry.Address = address;
-                        entry.Telephone = telephone;
-                        entry.Email = email;
-                    }
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
-
         private void _SetDeleteButtonToHiddenIfCollectionOnlyContainsOneElements(ObservableCollection<GuiMetaDataModel> collection)
         {
             if (_GetNumNotDeletedEntriesIn(collection) == 1)
