@@ -108,22 +108,6 @@
                                 Command="{Binding AddMetadataAchiveCreatorEntry}">
                             <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
                         </Button>
-
-                        <ComboBox Name="ListEntities" VerticalAlignment="Top" Width="Auto"
-                                  ItemsSource="{Binding MetaDataPreregistreredUsers}"
-                                  materialDesign:HintAssist.Hint="Registrer"
-                                  SelectedItem="{Binding SelectedCreatorDataModel}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBlock Text="{Binding ContactPerson}" FontWeight="Bold" />
-                                        <TextBlock Text=", " />
-                                        <TextBlock Text="{Binding Entity}" FontWeight="Bold" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-
                     </StackPanel>
                 </GroupBox>
 
@@ -208,21 +192,6 @@
                             <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
                         </Button> -->
 
-                        <ComboBox Name="ListTransfereres" VerticalAlignment="Top" Width="Auto"
-                                  ItemsSource="{Binding MetaDataPreregistreredUsers}"
-                                  materialDesign:HintAssist.Hint="Registrer"
-                                  SelectedItem="{Binding SelectedTransfererDataModel}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBlock Text="{Binding ContactPerson}" FontWeight="Bold" />
-                                        <TextBlock Text=", " />
-                                        <TextBlock Text="{Binding Entity}" FontWeight="Bold" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-
                     </StackPanel>
                 </GroupBox>
 
@@ -295,20 +264,6 @@
                             <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
                         </Button> -->
 
-                        <ComboBox Name="ListProducers" VerticalAlignment="Top" Width="Auto"
-                                  ItemsSource="{Binding MetaDataPreregistreredUsers}"
-                                  materialDesign:HintAssist.Hint="Registrer"
-                                  SelectedItem="{Binding SelectedProducerDataModel}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBlock Text="{Binding ContactPerson}" FontWeight="Bold" />
-                                        <TextBlock Text=", " />
-                                        <TextBlock Text="{Binding Entity}" FontWeight="Bold" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
                     </StackPanel>
                 </GroupBox>
 
@@ -381,20 +336,6 @@
                                 Command="{Binding AddMetadataAchiveOwnerEntry}">
                             <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
                         </Button>
-
-                        <ComboBox Name="ListOwners" VerticalAlignment="Top" Width="Auto"
-                                  ItemsSource="{Binding MetaDataPreregistreredUsers}"
-                                  materialDesign:HintAssist.Hint="Registrer" SelectedItem="{Binding SelectedOwnerDataModel}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBlock Text="{Binding ContactPerson}" FontWeight="Bold" />
-                                        <TextBlock Text=", " />
-                                        <TextBlock Text="{Binding Entity}" FontWeight="Bold" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
 
                     </StackPanel>
                 </GroupBox>

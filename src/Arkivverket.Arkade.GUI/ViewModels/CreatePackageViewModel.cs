@@ -39,7 +39,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private string _archiveFileName;
         private readonly IRegionManager _regionManager;
 
-        private readonly PopulateMetadataDataModels _populateMetadataDataModels = new PopulateMetadataDataModels();
 
         private GuiMetaDataModel _metaDataArchiveDescription = new GuiMetaDataModel(string.Empty, string.Empty);
         private ObservableCollection<GuiMetaDataModel> _metaDataArchiveCreators = new ObservableCollectionEx<GuiMetaDataModel>();
@@ -53,22 +52,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private GuiMetaDataModel _metaDataExtractionDate = new GuiMetaDataModel(null);
 
 
-        private ObservableCollection<GuiMetaDataModel> _metadataPreregistreredUsers = new ObservableCollection<GuiMetaDataModel>();
         private IList<String> _systemTypeList  = new List<string>()
         {
             "Noark3", "Noark4", "Noark5", "Fagsystem"
         }; 
 
-
-        private GuiMetaDataModel _selectedCreatorDataModel;
-        private GuiMetaDataModel _selectedTransfererDataModel;
-        private GuiMetaDataModel _selectedProducerDataModel;
-        private GuiMetaDataModel _selectedOwnerDataModel;
-        private GuiMetaDataModel _selectedArchiveSystemDataModel;
-
-
-
-        private readonly List<MetadataEntityInformationUnit> _metaDataEntityInformationUnits = new List<MetadataEntityInformationUnit>();
 
         public DelegateCommand CreatePackageCommand { get; set; }
         public DelegateCommand NewProgramSessionCommand { get; set; }
@@ -173,13 +161,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set { SetProperty(ref _metaDataExtractionDate, value); }
         }
 
-        public ObservableCollection<GuiMetaDataModel> MetaDataPreregistreredUsers
-        {
-            get { return _metadataPreregistreredUsers; }
-            set { SetProperty(ref _metadataPreregistreredUsers, value); }
-        }
-
-
         public IList<String> SystemTypeList
         {
             get { return _systemTypeList; }
@@ -189,71 +170,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         //---------------------------------------------------------------------------
 
-
-        public GuiMetaDataModel SelectedTransfererDataModel
-        {
-            get { return _selectedTransfererDataModel; }
-            set
-            {
-                SetProperty(ref _selectedTransfererDataModel, value);
-                MetaDataTransferer.Entity = SelectedTransfererDataModel.Entity;
-                MetaDataTransferer.ContactPerson = SelectedTransfererDataModel.ContactPerson;
-                MetaDataTransferer.Address = SelectedTransfererDataModel.Address;
-                MetaDataTransferer.Telephone = SelectedTransfererDataModel.Telephone;
-                MetaDataTransferer.Email = SelectedTransfererDataModel.Email;
-            }
-        }
-
-        public GuiMetaDataModel SelectedProducerDataModel
-        {
-            get { return _selectedProducerDataModel; }
-            set
-            {
-                SetProperty(ref _selectedProducerDataModel, value);
-                MetaDataProducer.Entity = SelectedProducerDataModel.Entity;
-                MetaDataProducer.ContactPerson = SelectedProducerDataModel.ContactPerson;
-                MetaDataProducer.Address = SelectedProducerDataModel.Address;
-                MetaDataProducer.Telephone = SelectedProducerDataModel.Telephone;
-                MetaDataProducer.Email = SelectedProducerDataModel.Email;
-            }
-        }
-
-        public GuiMetaDataModel SelectedOwnerDataModel
-        {
-            get { return _selectedOwnerDataModel; }
-            set
-            {
-                SetProperty(ref _selectedOwnerDataModel, value);
-                SetProperty(ref _selectedCreatorDataModel, value);
-                if (_EnterElementIfOneNotDeletedEntryIsNotFilled(MetaDataOwners, _selectedOwnerDataModel.Entity, _selectedOwnerDataModel.ContactPerson, _selectedOwnerDataModel.Address, _selectedOwnerDataModel.Telephone, _selectedOwnerDataModel.Email) == false)
-                {
-                    MetaDataOwners.Add(new GuiMetaDataModel(_selectedOwnerDataModel.Entity, _selectedOwnerDataModel.ContactPerson, _selectedOwnerDataModel.Address, _selectedOwnerDataModel.Telephone, _selectedOwnerDataModel.Email));
-                }
-            }
-        }
-
-        public GuiMetaDataModel SelectedArchiveSystemDataModel
-        {
-            get { return _selectedOwnerDataModel; }
-            set
-            {
-                SetProperty(ref _selectedArchiveSystemDataModel, value);
-                MetaDataArchiveSystem = _selectedArchiveSystemDataModel;
-            }
-        }
-
-        public GuiMetaDataModel SelectedCreatorDataModel
-        {
-            get { return _selectedCreatorDataModel; }
-            set
-            {
-                SetProperty(ref _selectedCreatorDataModel, value);
-                if (_EnterElementIfOneNotDeletedEntryIsNotFilled(MetaDataArchiveCreators, _selectedCreatorDataModel.Entity, _selectedCreatorDataModel.ContactPerson, _selectedCreatorDataModel.Address, _selectedCreatorDataModel.Telephone, _selectedCreatorDataModel.Email) == false)
-                {
-                    MetaDataArchiveCreators.Add(new GuiMetaDataModel(_selectedCreatorDataModel.Entity, _selectedCreatorDataModel.ContactPerson, _selectedCreatorDataModel.Address, _selectedCreatorDataModel.Telephone, _selectedCreatorDataModel.Email));
-                }
-            }
-        }
 
         public string StatusMessageText
         {
@@ -324,8 +240,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 LoadMetadataIntoForm(includedMetadataFile,
                     delegate { Log.Error("Not able to load metadata from file: " + includedMetadataFile.FullName); }
                 );
-
-                _populateMetadataDataModels.DatafillArchiveEntity(_metaDataEntityInformationUnits, MetaDataPreregistreredUsers);
 
                 // Pre populate metadata objects that require at least one entry
                 RunAddMetadataAchiveCreatorEntry();
