@@ -289,4 +289,7 @@ Du kan fortsatt lage en pakke av uttrekket.</value>
   <data name="TestrunnerArchiveTestability" xml:space="preserve">
     <value>Testbarhet</value>
   </data>
+  <data name="LoadArchiveNoark4OptionDisabledTooltip" xml:space="preserve">
+    <value>Arkade støtter inntil videre ikke arkivuttrekk av typen Noark 4</value>
+  </data>
 </root>

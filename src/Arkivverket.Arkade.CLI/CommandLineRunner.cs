@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
@@ -27,6 +27,12 @@ namespace Arkivverket.Arkade.CLI
                     throw new ArgumentException("unknown archive type");
                 }
 
+                if (archiveType == ArchiveType.Noark4)
+                {
+                    Log.Error("Archive type Noark 4 is currently not supported");
+                    throw new ArgumentException("unsupported archive type");
+                }
+                
                 TestSession testSession = CreateTestSession(options, arkade, archiveType);
 
                 if (!TestingIsSkipped(options))
