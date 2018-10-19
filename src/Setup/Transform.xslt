@@ -14,7 +14,7 @@
   
 <!-- Add specific ID-tag to exe file for use in Product.wxs
 
-  <xsl:template match="wix:File[contains(@Source, 'Arkade.UI.exe') and not(contains(@Source, '.config'))]">
+  <xsl:template match="wix:File[contains(@Source, 'Arkade.GUI.exe') and not(contains(@Source, '.config'))]">
     <xsl:copy>
       <xsl:attribute name="Id">ApplicationExe</xsl:attribute>
       <xsl:apply-templates select="@*[name()!='Id'] | node()" />
@@ -22,7 +22,7 @@
   </xsl:template>
 -->
   
-  <xsl:template match="wix:File[contains(@Source, 'Arkade.UI.exe') and not(contains(@Source, '.config'))]">
+  <xsl:template match="wix:File[contains(@Source, 'Arkade.GUI.exe') and not(contains(@Source, '.config'))]">
     <xsl:copy>
       <xsl:apply-templates select="@* | node()" />
       <wix:Shortcut Id="ApplicationStartMenuShortcut"
@@ -35,7 +35,7 @@
   </xsl:template>
   
 
-  <xsl:template match="wix:Component[wix:File[contains(@Source, 'Arkade.UI.exe') and not(contains(@Source, '.config'))]]">
+  <xsl:template match="wix:Component[wix:File[contains(@Source, 'Arkade.GUI.exe') and not(contains(@Source, '.config'))]]">
     <xsl:copy>
       <xsl:apply-templates select="@* | node()" />
       <wix:RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall"/>

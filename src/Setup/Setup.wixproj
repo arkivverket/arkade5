@@ -24,16 +24,6 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Arkivverket.Arkade.UI\Arkivverket.Arkade.UI.csproj">
-      <Name>Arkivverket.Arkade.UI</Name>
-      <Project>{13964257-fe3d-427b-841a-402eaa8e1942}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WixExtension Include="WixUIExtension">
       <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>
@@ -43,6 +33,16 @@
     <Content Include="Arkade5.ico" />
     <Content Include="License.rtf" />
     <Content Include="Transform.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Arkivverket.Arkade.GUI\Arkivverket.Arkade.GUI.csproj">
+      <Name>Arkivverket.Arkade.GUI</Name>
+      <Project>{13964257-fe3d-427b-841a-402eaa8e1942}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
