@@ -50,7 +50,7 @@
     <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>"$(WIX)bin\heat.exe" dir "$(ProjectDir)..\Arkivverket.Arkade.UI\bin\$(Configuration)" -cg ProductComponents -gg -scom -sreg -sfrag -srd -dr INSTALLFOLDER -var var.Arkivverket.Arkade.UI.TargetDir  -t $(Projectdir)Transform.xslt -out "$(ProjectDir)FilesFragment.wxs</PreBuildEvent>
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir "$(ProjectDir)..\Arkivverket.Arkade.GUI\bin\$(Configuration)" -cg ProductComponents -gg -scom -sreg -sfrag -srd -dr INSTALLFOLDER -var var.Arkivverket.Arkade.GUI.TargetDir  -t $(Projectdir)Transform.xslt -out "$(ProjectDir)FilesFragment.wxs</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
