@@ -1,0 +1,134 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>Arkivverket.Arkade.Core</AssemblyName>
+    <RootNamespace>Arkivverket.Arkade.Core</RootNamespace>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ExternalModels\xsd\addml.xsd" />
+    <None Remove="ExternalModels\xsd\arkivstruktur.xsd" />
+    <None Remove="ExternalModels\xsd\cpf.xsd" />
+    <None Remove="ExternalModels\xsd\DIAS_PREMIS.xsd" />
+    <None Remove="ExternalModels\xsd\ead3.xsd" />
+    <None Remove="ExternalModels\xsd\endringslogg.xsd" />
+    <None Remove="ExternalModels\xsd\info.xsd" />
+    <None Remove="ExternalModels\xsd\loependeJournal.xsd" />
+    <None Remove="ExternalModels\xsd\metadatakatalog.xsd" />
+    <None Remove="ExternalModels\xsd\mets.xsd" />
+    <None Remove="ExternalModels\xsd\offentligJournal.xsd" />
+    <None Remove="ExternalModels\xsd\testSessionLog.xsd" />
+    <None Remove="ExternalModels\xsd\xlink.xsd" />
+    <None Remove="ExternalModels\xsl\noarkih-to-addml.xsl" />
+    <None Remove="Resources\arkade.css" />
+    <None Remove="Resources\arkivverket.gif" />
+    <None Remove="Resources\bootstrap.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ExternalModels\xsd\addml.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\arkivstruktur.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\cpf.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\DIAS_PREMIS.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\ead3.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\endringslogg.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\info.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\loependeJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\metadatakatalog.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\mets.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\offentligJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\testSessionLog.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\xlink.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsl\noarkih-to-addml.xsl" />
+    <EmbeddedResource Include="Resources\arkade.css" />
+    <EmbeddedResource Include="Resources\arkivverket.gif" />
+    <EmbeddedResource Include="Resources\bootstrap.min.css" />
+  </ItemGroup>
+
+  <ItemGroup> 
+    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="ICSharpCode.SharpZipLib.Patched" Version="0.86.5.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+    <PackageReference Include="RestSharp" Version="106.2.1" />
+    <PackageReference Include="Serilog" Version="2.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\.nuget\packages\newtonsoft.json\11.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\AddmlMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AddmlMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\ArkadeTestDisplayNames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ArkadeTestDisplayNames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\ExceptionMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExceptionMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Messages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Noark5Messages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Noark5Messages.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Noark5TestDescriptions.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Noark5TestDescriptions.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Report.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Report.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\AddmlMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddmlMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ArkadeTestDisplayNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ArkadeTestDisplayNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ExceptionMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Noark5Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Noark5Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Noark5TestDescriptions.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Noark5TestDescriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Report.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Report.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

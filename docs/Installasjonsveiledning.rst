@@ -9,7 +9,7 @@ Arkade 5
 Installer .NET
 ~~~~~~~~~~~~~~
 
-For å kjøre Arkade 5 må .NET Framework (minimum versjon 4.5.2) være installert.
+For å kjøre Arkade 5 må .NET Framework (minimum versjon 4.6.1) være installert.
 
 `Last ned siste versjon av .NET Framework <https://www.microsoft.com/net/download/windows/run>`_
 

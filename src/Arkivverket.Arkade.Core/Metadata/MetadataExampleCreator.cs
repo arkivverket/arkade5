@@ -1,0 +1,94 @@
+using System;
+using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Util;
+
+namespace Arkivverket.Arkade.Core.Metadata
+{
+    public static class MetadataExampleCreator
+    {
+        public static ArchiveMetadata Create(MetadataExamplePurpose purpose)
+        {
+            var metadataExample = new ArchiveMetadata
+            {
+                Id = "UUID:12345-12345-12345-12345-12345-12345",
+                Label = "Some system name (2017 - 2020)",
+                ArchiveDescription = "Some archive description",
+                AgreementNumber = "XX 00-0000/0000; 0000-00-00",
+                ArchiveCreators = new List<MetadataEntityInformationUnit>
+                {
+                    CreateMetadataEntityInformationUnit('1'),
+                    CreateMetadataEntityInformationUnit('2')
+                },
+                Transferer = CreateMetadataEntityInformationUnit('3'),
+                Producer = CreateMetadataEntityInformationUnit('4'),
+                Owners = new List<MetadataEntityInformationUnit>
+                {
+                    CreateMetadataEntityInformationUnit('5'),
+                    CreateMetadataEntityInformationUnit('6')
+                },
+                Recipient = "Some recipient",
+                System = new MetadataSystemInformationUnit
+                {
+                    Name = "Some system name",
+                    Version = "v1.0.0",
+                    Type = "Noark5",
+                    TypeVersion = "v3.1"
+                },
+                ArchiveSystem = new MetadataSystemInformationUnit
+                {
+                    Name = "Some archive system name",
+                    Version = "v2.0.0",
+                    Type = "Noark4",
+                    TypeVersion = "N/A" // To be ignored by MetsCreator
+                },
+                PackageType = PackageType.SubmissionInformationPackage,
+                FileDescriptions = new List<FileDescription>
+                {
+                    new FileDescription
+                    {
+                        Id = 1,
+                        Name = "someDirectory\\someFileName.pdf",
+                        Extension = "pdf",
+                        Sha256Checksum = "3B29DFCC4286E50B180AF8F21904C86F8AA42A23C4055C3A71D0512F9AE3886F",
+                        Size = 2325452,
+                        CreationTime = new DateTime(2017, 06, 30)
+                    }
+                },
+                StartDate = new DateTime(2017, 01, 01),
+                EndDate = new DateTime(2020, 01, 01),
+                ExtractionDate = new DateTime(2023, 01, 01),
+            };
+
+            if (purpose == MetadataExamplePurpose.UserExample)
+                AdjustForUserExample(metadataExample);
+
+            return metadataExample;
+        }
+
+        private static MetadataEntityInformationUnit CreateMetadataEntityInformationUnit(char distinctive)
+        {
+            return new MetadataEntityInformationUnit
+            {
+                Entity = $"Entity {distinctive}",
+                ContactPerson = $"Contactperson {distinctive}",
+                Address = $"Road {distinctive}, {distinctive}000 City",
+                Telephone = $"{distinctive}-99999999",
+                Email = $"post@entity-{Char.ToLower(distinctive)}.com"
+            };
+        }
+
+        private static void AdjustForUserExample(ArchiveMetadata archiveMetadata)
+        {
+            archiveMetadata.Id = null;
+            archiveMetadata.Label = ArkadeConstants.MetadataStandardLabelPlaceholder;
+            archiveMetadata.FileDescriptions = null;
+        }
+    }
+
+    public enum MetadataExamplePurpose
+    {
+        InternalTesting,
+        UserExample
+    }
+}

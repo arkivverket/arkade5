@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arkiv xmlns="http://www.arkivverket.no/standarder/noark5/arkivstruktur" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <systemID>arkiv57d6608566c0b9.24287674</systemID>
+ <systemID>arkiv57d6608566c0b9.24287674</systemID>
+ <tittel>Alice in wonderland</tittel>
+ <beskrivelse>Case archive relating to Alice's behaviour, while in wonderland</beskrivelse>
+ <arkivstatus>Avsluttet</arkivstatus>
+ <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+ <opprettetDato>1863-11-27T00:00:00Z</opprettetDato>
+ <opprettetAv>Espen Tønnessen</opprettetAv>
+ <avsluttetDato>1864-04-09T00:00:00Z</avsluttetDato>
+ <avsluttetAv>Steve Jackson</avsluttetAv>
+ <arkivskaper>
+  <arkivskaperID>arkivskaper57d6608566c0b0.48437213</arkivskaperID>
+  <arkivskaperNavn>Lewis Caroll</arkivskaperNavn>
+  <beskrivelse>A small girls adventures in strange lands</beskrivelse>
+ </arkivskaper>
+ <arkivdel>
+  <systemID>arkivdel57d6608566c0b9.14601960</systemID>
+  <tittel>Alice 1863-1864</tittel>
+  <beskrivelse>Alice beginnings</beskrivelse>
+  <arkivdelstatus>Avsluttet periode</arkivdelstatus>
+  <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+  <opprettetDato>1864-08-20T00:00:00Z</opprettetDato>
+  <opprettetAv>Steve Jackson</opprettetAv>
+  <avsluttetDato>1864-12-26T00:00:00Z</avsluttetDato>
+  <avsluttetAv>Kristian Hunskaar</avsluttetAv>
+  <arkivperiodeStartDato>1864-03-12</arkivperiodeStartDato>
+  <arkivperiodeSluttDato>1864-02-02</arkivperiodeSluttDato>
+  <klassifikasjonssystem>
+   <systemID>klassSys57d6608566c0b6.73735847</systemID>
+   <klassifikasjonstype>Travel</klassifikasjonstype>
+   <tittel>arkivdelNøkkel for Traveling to nonsense worlds</tittel>
+   <beskrivelse>Traveling to nonsense worlds</beskrivelse>
+   <opprettetDato>1864-06-08T00:00:00Z</opprettetDato>
+   <opprettetAv>Espen Tønnessen</opprettetAv>
+   <avsluttetDato>1863-02-15T00:00:00Z</avsluttetDato>
+   <avsluttetAv>Steve Jackson</avsluttetAv>
+   <klasse>
+    <systemID>klasse57d6608566c0b6.68450327</systemID>
+    <klasseID>4</klasseID>
+    <tittel>Traveling</tittel>
+    <beskrivelse>Walkabout</beskrivelse>
+    <noekkelord>Reiser</noekkelord>
+    <noekkelord>NonSense</noekkelord>
+    <opprettetDato>1863-01-02T00:00:00Z</opprettetDato>
+    <opprettetAv>Joachim Fugleberg</opprettetAv>
+    <avsluttetDato>1864-10-18T00:00:00Z</avsluttetDato>
+    <avsluttetAv>Espen Tønnessen</avsluttetAv>
+    <kryssreferanse>
+     <referanseTilKlasse>klasse-8e45c136-2bca-250a-8394-45a13e6bf132</referanseTilKlasse>
+    </kryssreferanse>
+    <klasse>
+     <systemID>klasse57d6608566c0b1.75848454</systemID>
+     <klasseID>45</klasseID>
+     <tittel>Traveling to new worlds</tittel>
+     <beskrivelse>new worlds</beskrivelse>
+     <noekkelord>Worlds - new</noekkelord>
+     <opprettetDato>1864-01-12T00:00:00Z</opprettetDato>
+     <opprettetAv>Steve Jackson</opprettetAv>
+     <avsluttetDato>1864-08-10T00:00:00Z</avsluttetDato>
+     <avsluttetAv>Steve Jackson</avsluttetAv>
+     <klasse>
+      <systemID>klasse57d6608566c0b1.65492448</systemID>
+      <klasseID>452</klasseID>
+      <tittel>Traveling to new worlds - nonsense</tittel>
+      <beskrivelse>new worlds - nonsense</beskrivelse>
+      <noekkelord>preparing</noekkelord>
+      <opprettetDato>1863-09-28T00:00:00Z</opprettetDato>
+      <opprettetAv>Espen Tønnessen</opprettetAv>
+      <avsluttetDato>1863-10-19T00:00:00Z</avsluttetDato>
+      <avsluttetAv>Steve Jackson</avsluttetAv>
+      <mappe xsi:type="saksmappe">
+       <systemID>mappe57d6608566c0b1.89088729</systemID>
+       <mappeID>mappe1</mappeID>
+       <tittel>Eating the cake - 1</tittel>
+       <offentligTittel>offentligTittel1</offentligTittel>
+       <beskrivelse>Beskrivelse for Mappe1</beskrivelse>
+       <noekkelord>nøkkelordMappe1</noekkelord>
+       <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+       <opprettetDato>1863-04-24T00:00:00Z</opprettetDato>
+       <opprettetAv>Kristian Hunskaar</opprettetAv>
+       <avsluttetDato>1863-08-22T00:00:00Z</avsluttetDato>
+       <avsluttetAv>Steve Jackson</avsluttetAv>
+       <referanseArkivdel>arkivdel57d6608566c0b9.14601960</referanseArkivdel>
+       <kryssreferanse>
+        <referanseTilMappe>Mappe2</referanseTilMappe>
+       </kryssreferanse>
+       <merknad>
+        <merknadstekst>enMerknad</merknadstekst>
+        <merknadstype>Merknad fra saksbehandler</merknadstype>
+        <merknadsdato>1865-02-13T00:00:00Z</merknadsdato>
+        <merknadRegistrertAv>enSaksbehandler</merknadRegistrertAv>
+       </merknad>
+       <kassasjon>
+        <kassasjonsvedtak>Kasseres</kassasjonsvedtak>
+        <kassasjonshjemmel>enHjemmel</kassasjonshjemmel>
+        <bevaringstid>45</bevaringstid>
+        <kassasjonsdato>1942-07-25</kassasjonsdato>
+       </kassasjon>
+       <registrering xsi:type="journalpost">
+        <systemID>journpost57d6608566c0b0.29878286</systemID>
+        <opprettetDato>1863-10-18T00:00:00Z</opprettetDato>
+        <opprettetAv>Steve Jackson</opprettetAv>
+        <arkivertDato>1863-10-10T00:00:00Z</arkivertDato>
+        <arkivertAv>Kristian Hunskaar</arkivertAv>
+        <referanseArkivdel>arkivdel57d6608566c0b9.14601960</referanseArkivdel>
+        <skjerming>
+         <tilgangsrestriksjon>Personalsaker</tilgangsrestriksjon>
+         <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+         <skjermingMetadata>Skjermet</skjermingMetadata>
+         <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+         <skjermingsvarighet>60</skjermingsvarighet>
+         <skjermingOpphoererDato>1942-07-25</skjermingOpphoererDato>
+        </skjerming>
+        <gradering>
+         <gradering>Strengt hemmelig (sikkerhetsgrad)</gradering>
+         <graderingsdato>1865-02-13T00:00:00Z</graderingsdato>
+         <gradertAv>PST</gradertAv>
+         <nedgraderingsdato>2070-02-13T12:00:00</nedgraderingsdato>
+         <nedgradertAv>PST</nedgradertAv>
+        </gradering>
+        <dokumentbeskrivelse>
+         <systemID>dokumentb57d6608566c0b5.71024350</systemID>
+         <dokumenttype>Ordrebekreftelser</dokumenttype>
+         <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
+         <tittel>mappe1 - registering1</tittel>
+         <beskrivelse>mappe1 - registering1</beskrivelse>
+         <forfatter>Kristian Hunskaar</forfatter>
+         <opprettetDato>1864-07-21T00:00:00Z</opprettetDato>
+         <opprettetAv>Kristian Hunskaar</opprettetAv>
+         <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+         <referanseArkivdel>arkivdel57d6608566c0b9.14601960</referanseArkivdel>
+         <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
+         <dokumentnummer>1</dokumentnummer>
+         <tilknyttetDato>1864-05-04T00:00:00Z</tilknyttetDato>
+         <tilknyttetAv>Espen Tønnessen</tilknyttetAv>
+         <skjerming>
+          <tilgangsrestriksjon>skjeming dokumentbeskrivelse</tilgangsrestriksjon>
+          <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+          <skjermingMetadata>Skjermet</skjermingMetadata>
+          <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+          <skjermingsvarighet>40</skjermingsvarighet>
+          <skjermingOpphoererDato>1941-01-10</skjermingOpphoererDato>
+         </skjerming>
+         <dokumentobjekt>
+          <versjonsnummer>1</versjonsnummer>
+          <variantformat>Arkivformat</variantformat>
+          <format>pdf</format>
+          <formatDetaljer>Portable document format</formatDetaljer>
+          <opprettetDato>1864-10-09T00:00:00Z</opprettetDato>
+          <opprettetAv>Steve Jackson</opprettetAv>
+          <referanseDokumentfil>dokumenter\5000000.pdf</referanseDokumentfil>
+          <sjekksum>3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f</sjekksum>
+          <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
+          <filstoerrelse>20637</filstoerrelse>
+         </dokumentobjekt>
+        </dokumentbeskrivelse>
+        <registreringsID>mappe1/jrnpst-1</registreringsID>
+        <tittel>Eating the cake1 - Application to eat cake1</tittel>
+        <offentligTittel>Eating the cake1 - Application to eat cake1</offentligTittel>
+        <beskrivelse>Eating the cake1 - Application to eat cake1</beskrivelse>
+        <noekkelord>nøkkelordJrnpst1</noekkelord>
+        <forfatter>Joachim Fugleberg</forfatter>
+        <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+        <journalaar>1864</journalaar>
+        <journalsekvensnummer>18642194</journalsekvensnummer>
+        <journalpostnummer>1</journalpostnummer>
+        <journalposttype>Organinternt dokument for oppfølging</journalposttype>
+        <journalstatus>Arkivert</journalstatus>
+        <journaldato>1863-08-09</journaldato>
+        <dokumentetsDato>1863-12-13</dokumentetsDato>
+        <mottattDato>1863-10-06T00:00:00Z</mottattDato>
+        <antallVedlegg>0</antallVedlegg>
+        <journalenhet>journalseksjonen</journalenhet>
+        <korrespondansepart>
+         <korrespondanseparttype>Kopimottaker</korrespondanseparttype>
+         <korrespondansepartNavn>Riksarkivet</korrespondansepartNavn>
+         <postadresse>Sognsvann 12</postadresse>
+         <postnummer>0666</postnummer>
+         <poststed>Oslo</poststed>
+         <land>Norge</land>
+         <epostadresse>123@epost.no</epostadresse>
+         <telefonnummer>22221111</telefonnummer>
+         <kontaktperson>EnKontaktPerson</kontaktperson>
+         <administrativEnhet>DT</administrativEnhet>
+         <saksbehandler>Joachim Fugleberg</saksbehandler>
+        </korrespondansepart>
+        <avskrivning>
+         <avskrivningsdato>1863-05-10</avskrivningsdato>
+         <avskrevetAv>Espen Tønnessen</avskrevetAv>
+         <avskrivningsmaate>Besvart med e-post</avskrivningsmaate>
+        </avskrivning>
+       </registrering>
+       <registrering xsi:type="journalpost">
+        <systemID>journpost57d6608569ed33.70652483</systemID>
+        <opprettetDato>1864-05-19T00:00:00Z</opprettetDato>
+        <opprettetAv>Kristian Hunskaar</opprettetAv>
+        <arkivertDato>1864-02-13T00:00:00Z</arkivertDato>
+        <arkivertAv>Joachim Fugleberg</arkivertAv>
+        <referanseArkivdel>arkivdel57d6608566c0b9.14601960</referanseArkivdel>
+        <skjerming>
+         <tilgangsrestriksjon>Klientsaker</tilgangsrestriksjon>
+         <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+         <skjermingMetadata>Skjermet</skjermingMetadata>
+         <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+         <skjermingsvarighet>60</skjermingsvarighet>
+         <skjermingOpphoererDato>1940-04-12</skjermingOpphoererDato>
+        </skjerming>
+        <dokumentbeskrivelse>
+         <systemID>dokumentb57d6608569ed34.43360733</systemID>
+         <dokumenttype>Faktura</dokumenttype>
+         <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
+         <tittel>mappe1 - registering2</tittel>
+         <beskrivelse>mappe1 - registering2</beskrivelse>
+         <forfatter>Kristian Hunskaar</forfatter>
+         <opprettetDato>1863-11-02T00:00:00Z</opprettetDato>
+         <opprettetAv>Steve Jackson</opprettetAv>
+         <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+         <referanseArkivdel>arkivdel57d6608566c0b9.14601960</referanseArkivdel>
+         <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
+         <dokumentnummer>1</dokumentnummer>
+         <tilknyttetDato>1864-05-02T00:00:00Z</tilknyttetDato>
+         <tilknyttetAv>Kristian Hunskaar</tilknyttetAv>
+         <skjerming>
+          <tilgangsrestriksjon>skjeming dokumentbeskrivelse</tilgangsrestriksjon>
+          <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
+          <skjermingMetadata>Skjermet</skjermingMetadata>
+          <skjermingDokument>Skjerming av hele dokumentet</skjermingDokument>
+          <skjermingsvarighet>40</skjermingsvarighet>
+          <skjermingOpphoererDato>1945-03-06</skjermingOpphoererDato>
+         </skjerming>
+         <dokumentobjekt>
+          <versjonsnummer>1</versjonsnummer>
+          <variantformat>Arkivformat</variantformat>
+          <format>pdf</format>
+          <formatDetaljer>Portable document format</formatDetaljer>
+          <opprettetDato>1864-02-10T00:00:00Z</opprettetDato>
+          <opprettetAv>Joachim Fugleberg</opprettetAv>
+          <referanseDokumentfil>dokumenter\5000001.pdf</referanseDokumentfil>
+          <sjekksum>2ea3a86de226d791a07abb5279b0e2813b037730730ba630de4f14dea7c32208</sjekksum>
+          <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
+          <filstoerrelse>18432</filstoerrelse>
+          <konvertering>
+           <konvertertDato>1864-05-02T00:00:00Z</konvertertDato>
+           <konvertertAv>sakSystem</konvertertAv>
+           <konvertertFraFormat>DOC</konvertertFraFormat>
+           <konvertertTilFormat>PDF</konvertertTilFormat>
+           <konverteringsverktoey>KoverteringsVerktøy</konverteringsverktoey>
+           <konverteringskommentar>konvertert et worddoc</konverteringskommentar>
+          </konvertering>
+         </dokumentobjekt>
+        </dokumentbeskrivelse>
+        <registreringsID>mappe1/jrnpst-2</registreringsID>
+        <tittel>Eating the cake1 - Application to eat cake2</tittel>
+        <offentligTittel>Eating the cake1 - Application to eat cake2</offentligTittel>
+        <beskrivelse>Eating the cake1 - Application to eat cake2</beskrivelse>
+        <forfatter>Steve Jackson</forfatter>
+        <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+        <journalaar>1864</journalaar>
+        <journalsekvensnummer>186476249</journalsekvensnummer>
+        <journalpostnummer>2</journalpostnummer>
+        <journalposttype>Inngående dokument</journalposttype>
+        <journalstatus>Journalført</journalstatus>
+        <journaldato>1863-10-28</journaldato>
+        <dokumentetsDato>1864-04-10</dokumentetsDato>
+        <mottattDato>1863-01-03T00:00:00Z</mottattDato>
+        <antallVedlegg>0</antallVedlegg>
+        <korrespondansepart>
+         <korrespondanseparttype>Gruppemottaker</korrespondanseparttype>
+         <korrespondansepartNavn>Alan Turing</korrespondansepartNavn>
+         <administrativEnhet>DT</administrativEnhet>
+         <saksbehandler>Espen Tønnessen</saksbehandler>
+        </korrespondansepart>
+        <avskrivning>
+         <avskrivningsdato>1864-07-06</avskrivningsdato>
+         <avskrevetAv>Espen Tønnessen</avskrevetAv>
+         <avskrivningsmaate>Tatt til orientering</avskrivningsmaate>
+        </avskrivning>
+        <dokumentflyt>
+         <flytTil>PersonFlytTil</flytTil>
+         <flytFra>PersonFlytFra</flytFra>
+         <flytMottattDato>1864-02-13T00:00:00Z</flytMottattDato>
+         <flytSendtDato>1865-02-13T00:00:00Z</flytSendtDato>
+         <flytStatus>Godkjent</flytStatus>
+         <flytMerknad>Alt ok</flytMerknad>
+        </dokumentflyt>
+        <presedens>
+         <presedensDato>1865-02-13</presedensDato>
+         <opprettetDato>1865-02-13T00:00:00Z</opprettetDato>
+         <opprettetAv>The Queen</opprettetAv>
+         <tittel>Presedenssak</tittel>
+         <beskrivelse>Sak som setter presedens</beskrivelse>
+         <presedensHjemmel>Lov §100</presedensHjemmel>
+         <rettskildefaktor>lovforarbeider,</rettskildefaktor>
+         <presedensGodkjentDato>1865-02-13T00:00:00Z</presedensGodkjentDato>
+         <presedensGodkjentAv>Fredrik</presedensGodkjentAv>
+         <avsluttetDato>1865-02-13T00:00:00Z</avsluttetDato>
+         <avsluttetAv>Joachim</avsluttetAv>
+         <presedensStatus>Foreldet</presedensStatus>
+        </presedens>
+        <elektroniskSignatur>
+         <elektroniskSignaturSikkerhetsnivaa>Sendt med PKI/"person høy"-sertifikat</elektroniskSignaturSikkerhetsnivaa>
+         <elektroniskSignaturVerifisert>Signatur påført og verifisert</elektroniskSignaturVerifisert>
+         <verifisertDato>1865-02-13</verifisertDato>
+         <verifisertAv>Joachim</verifisertAv>
+        </elektroniskSignatur>
+       </registrering>
+       <saksaar>1864</saksaar>
+       <sakssekvensnummer>013</sakssekvensnummer>
+       <saksdato>1864-02-07</saksdato>
+       <administrativEnhet>DT</administrativEnhet>
+       <saksansvarlig>Espen Tønnessen</saksansvarlig>
+       <journalenhet>journalseksjonen</journalenhet>
+       <saksstatus>Avsluttet</saksstatus>
+       <sakspart>
+       	<sakspartID>Sakspart1</sakspartID>
+       	<sakspartNavn>Queen of Hearts</sakspartNavn>
+       	<sakspartRolle>Queen</sakspartRolle>
+		<postadresse>Rabbithole 12</postadresse>
+		<postnummer>0666</postnummer>
+		<poststed>Oslo</poststed>
+		<land>Norge</land>
+		<epostadresse>queen@hearts.com</epostadresse>
+		<telefonnummer>22221122</telefonnummer>
+		<kontaktperson>Alice</kontaktperson>
+       </sakspart>
+      </mappe>
+     </klasse>
+    </klasse>
+   </klasse>
+  </klassifikasjonssystem>
+ </arkivdel>
+</arkiv>

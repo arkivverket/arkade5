@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AH_01" xml:space="preserve">
+    <value>Kontroll av sjekksummer</value>
+  </data>
+  <data name="AH_02" xml:space="preserve">
+    <value>Kontroll av ekstra / manglende filer</value>
+  </data>
+  <data name="AH_03" xml:space="preserve">
+    <value>Kontroll av ugyldig postskille eller feil antall felter</value>
+  </data>
+  <data name="AI_01" xml:space="preserve">
+    <value>Kontroll av unik nøkkel for post</value>
+  </data>
+  <data name="A_01" xml:space="preserve">
+    <value>Antall poster</value>
+  </data>
+  <data name="A_02" xml:space="preserve">
+    <value>Antall tegn</value>
+  </data>
+  <data name="A_03" xml:space="preserve">
+    <value>Lengste og korteste post</value>
+  </data>
+  <data name="A_04" xml:space="preserve">
+    <value>Antall poster for posttype</value>
+  </data>
+  <data name="A_05" xml:space="preserve">
+    <value>Koder brukt i datasettet</value>
+  </data>
+  <data name="A_07" xml:space="preserve">
+    <value>Antall null-verdi for felt</value>
+  </data>
+  <data name="A_08" xml:space="preserve">
+    <value>Lengste og korteste verdi for felt</value>
+  </data>
+  <data name="A_09" xml:space="preserve">
+    <value>Laveste og høyeste verdi for felt</value>
+  </data>
+  <data name="A_10" xml:space="preserve">
+    <value>Antall forekomster av verdier for felt</value>
+  </data>
+  <data name="A_11" xml:space="preserve">
+    <value>Kontroll av oppgitt lengde for alle posttyper</value>
+  </data>
+  <data name="A_12" xml:space="preserve">
+    <value>Antall og kontroll av antall poster</value>
+  </data>
+  <data name="A_13" xml:space="preserve">
+    <value>Kontroll av oppgitt lengde for posttype</value>
+  </data>
+  <data name="A_14" xml:space="preserve">
+    <value>Kontroll om posttype benyttes</value>
+  </data>
+  <data name="A_15" xml:space="preserve">
+    <value>Kontroll av unik nøkkel</value>
+  </data>
+  <data name="A_16" xml:space="preserve">
+    <value>Kontroll av fremmednøkkel</value>
+  </data>
+  <data name="A_17" xml:space="preserve">
+    <value>Kontroll av oppgitt minste lengde</value>
+  </data>
+  <data name="A_18" xml:space="preserve">
+    <value>Kontroll av oppgitt største lengde</value>
+  </data>
+  <data name="A_19" xml:space="preserve">
+    <value>Kontroll av oppgitt dataformat for felt</value>
+  </data>
+  <data name="A_20" xml:space="preserve">
+    <value>Kontroll av null-verdier i felt</value>
+  </data>
+  <data name="A_21" xml:space="preserve">
+    <value>Kontroll av unike verdier i felt</value>
+  </data>
+  <data name="A_22" xml:space="preserve">
+    <value>Koder som benyttes i felt</value>
+  </data>
+  <data name="A_32" xml:space="preserve">
+    <value>Kontroll av fødselsnummer i felt</value>
+  </data>
+  <data name="A_33" xml:space="preserve">
+    <value>Kontroll av organisasjonsnummer i felt</value>
+  </data>
+  <data name="A_34" xml:space="preserve">
+    <value>Kontroll av kontonummer i felt</value>
+  </data>
+  <data name="A_35" xml:space="preserve">
+    <value>Kontroll av dato i felt</value>
+  </data>
+  <data name="A_36" xml:space="preserve">
+    <value>Kontroll av boolsk verdi i felt</value>
+  </data>
+  <data name="N5_02" xml:space="preserve">
+    <value>Validering av sjekksummer</value>
+  </data>
+  <data name="N5_03" xml:space="preserve">
+    <value>Validering av XML i henhold til skjema</value>
+  </data>
+  <data name="N5_04" xml:space="preserve">
+    <value>Antall arkiv</value>
+  </data>
+  <data name="N5_05" xml:space="preserve">
+    <value>Antall arkivdeler</value>
+  </data>
+  <data name="N5_06" xml:space="preserve">
+    <value>Status på arkivdeler</value>
+  </data>
+  <data name="N5_07" xml:space="preserve">
+    <value>Antall klassifikasjonssystem</value>
+  </data>
+  <data name="N5_08" xml:space="preserve">
+    <value>Antall klasser</value>
+  </data>
+  <data name="N5_09" xml:space="preserve">
+    <value>Antall klasser i det primære klassifikasjonssystemet uten underklasser, mapper eller registreringer</value>
+  </data>
+  <data name="N5_10" xml:space="preserve">
+    <value>Antall mapper</value>
+  </data>
+  <data name="N5_11" xml:space="preserve">
+    <value>Antall mapper for hvert år</value>
+  </data>
+  <data name="N5_12" xml:space="preserve">
+    <value>Klasser med både underklasse(r) og mappe(r)</value>
+  </data>
+  <data name="N5_13" xml:space="preserve">
+    <value>Antall mapper for hver klasse</value>
+  </data>
+  <data name="N5_14" xml:space="preserve">
+    <value>Antall mapper uten registreringer eller undermapper</value>
+  </data>
+  <data name="N5_15" xml:space="preserve">
+    <value>Antall av ulike saksmappestatuser</value>
+  </data>
+  <data name="N5_16" xml:space="preserve">
+    <value>Antall registreringer</value>
+  </data>
+  <data name="N5_17" xml:space="preserve">
+    <value>Antall av ulike journalposttyper</value>
+  </data>
+  <data name="N5_18" xml:space="preserve">
+    <value>Antall registreringer for hvert år</value>
+  </data>
+  <data name="N5_19" xml:space="preserve">
+    <value>Klasser med både underklasse(r) og registrering(er)</value>
+  </data>
+  <data name="N5_20" xml:space="preserve">
+    <value>Antall registreringer for hver klasse (ikke medregnet registreringer under mappe)</value>
+  </data>
+  <data name="N5_21" xml:space="preserve">
+    <value>Antall registreringer uten dokumentbeskrivelse</value>
+  </data>
+  <data name="N5_22" xml:space="preserve">
+    <value>Antall av ulike journalstatuser</value>
+  </data>
+  <data name="N5_23" xml:space="preserve">
+    <value>Antall dokumentbeskrivelser</value>
+  </data>
+  <data name="N5_24" xml:space="preserve">
+    <value>Antall dokumentbeskrivelser uten dokumentobjekt</value>
+  </data>
+  <data name="N5_25" xml:space="preserve">
+    <value>Antall av ulike dokumentstatuser</value>
+  </data>
+  <data name="N5_26" xml:space="preserve">
+    <value>Antall dokumentobjekter</value>
+  </data>
+  <data name="N5_27" xml:space="preserve">
+    <value>Opprettelsesdatoer for første og siste registrering</value>
+  </data>
+  <data name="N5_28" xml:space="preserve">
+    <value>Validering av antall dokumentfiler</value>
+  </data>
+  <data name="N5_29" xml:space="preserve">
+    <value>Antall av ulike dokumentformater</value>
+  </data>
+  <data name="N5_30" xml:space="preserve">
+    <value>Dokumentfilers sjekksummer</value>
+  </data>
+  <data name="N5_32" xml:space="preserve">
+    <value>Refererte dokumenters eksistens</value>
+  </data>
+  <data name="N5_33" xml:space="preserve">
+    <value>Dokumentfiler som mangler referanse</value>
+  </data>
+  <data name="N5_34" xml:space="preserve">
+    <value>Dokumentfiler med referanse fra mer enn ett dokumentobjekt</value>
+  </data>
+  <data name="N5_35" xml:space="preserve">
+    <value>Antall saksparter</value>
+  </data>
+  <data name="N5_36" xml:space="preserve">
+    <value>Antall merknader</value>
+  </data>
+  <data name="N5_37" xml:space="preserve">
+    <value>Antall kryssreferanser</value>
+  </data>
+  <data name="N5_38" xml:space="preserve">
+    <value>Antall presedenser</value>
+  </data>
+  <data name="N5_39" xml:space="preserve">
+    <value>Antall korrespondanseparter</value>
+  </data>
+  <data name="N5_40" xml:space="preserve">
+    <value>Antall avskrivninger</value>
+  </data>
+  <data name="N5_41" xml:space="preserve">
+    <value>Antall dokumentflyter</value>
+  </data>
+  <data name="N5_42" xml:space="preserve">
+    <value>Antall skjerminger</value>
+  </data>
+  <data name="N5_43" xml:space="preserve">
+    <value>Antall graderinger</value>
+  </data>
+  <data name="N5_44" xml:space="preserve">
+    <value>Antall kassasjonsvedtak</value>
+  </data>
+  <data name="N5_45" xml:space="preserve">
+    <value>Antall utførte kassasjoner</value>
+  </data>
+  <data name="N5_46" xml:space="preserve">
+    <value>Antall konverterte dokumenter</value>
+  </data>
+  <data name="N5_47" xml:space="preserve">
+    <value>Systemidentifikasjoner</value>
+  </data>
+  <data name="N5_48" xml:space="preserve">
+    <value>Arkivdelreferanser</value>
+  </data>
+  <data name="N5_51" xml:space="preserve">
+    <value>Klassereferanser</value>
+  </data>
+  <data name="N5_59" xml:space="preserve">
+    <value>Antall journalposter</value>
+  </data>
+  <data name="N5_60" xml:space="preserve">
+    <value>Start- og sluttdatoer</value>
+  </data>
+  <data name="N5_61" xml:space="preserve">
+    <value>Antall loggførte endringer</value>
+  </data>
+  <data name="N5_62" xml:space="preserve">
+    <value>Endringslogg-referanser til arkivstrukturen</value>
+  </data>
+</root>

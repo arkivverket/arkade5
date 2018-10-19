@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mets:mets xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OBJID="UUID:12345-12345-12345-12345-12345-12345" LABEL="[standard_label]" TYPE="SIP" PROFILE="http://xml.ra.se/METS/RA_METS_eARD.xml" xsi:schemaLocation="http://www.loc.gov/METS/ http://schema.arkivverket.no/METS/mets.xsd" xmlns:mets="http://www.loc.gov/METS/">
+  <mets:metsHdr CREATEDATE="2023-01-01T00:00:00">
+    <mets:agent ROLE="ARCHIVIST" TYPE="ORGANIZATION">
+      <mets:name>Entity 1</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 1</mets:name>
+      <mets:note>Road 1, 1000 City</mets:note>
+      <mets:note>1-99999999</mets:note>
+      <mets:note>post@entity-1.com</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="ORGANIZATION">
+      <mets:name>Entity 2</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 2</mets:name>
+      <mets:note>Road 2, 2000 City</mets:note>
+      <mets:note>2-99999999</mets:note>
+      <mets:note>post@entity-2.com</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="SUBMITTER" TYPE="ORGANIZATION">
+      <mets:name>Entity 3</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="SUBMITTER" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 3</mets:name>
+      <mets:note>Road 3, 3000 City</mets:note>
+      <mets:note>3-99999999</mets:note>
+      <mets:note>post@entity-3.com</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="ORGANIZATION">
+      <mets:name>Entity 4</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 4</mets:name>
+      <mets:note>Road 4, 4000 City</mets:note>
+      <mets:note>4-99999999</mets:note>
+      <mets:note>post@entity-4.com</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="IPOWNER" TYPE="ORGANIZATION">
+      <mets:name>Entity 5</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="IPOWNER" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 5</mets:name>
+      <mets:note>Road 5, 5000 City</mets:note>
+      <mets:note>5-99999999</mets:note>
+      <mets:note>post@entity-5.com</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="IPOWNER" TYPE="ORGANIZATION">
+      <mets:name>Entity 6</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="IPOWNER" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 6</mets:name>
+      <mets:note>Road 6, 6000 City</mets:note>
+      <mets:note>6-99999999</mets:note>
+      <mets:note>post@entity-6.com</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="PRESERVATION" TYPE="ORGANIZATION">
+      <mets:name>Some recipient</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="ARCHIVIST" TYPE="OTHER" OTHERTYPE="SOFTWARE">
+      <mets:name>Some system name</mets:name>
+      <mets:note>v1.0.0</mets:note>
+      <mets:note>Noark5</mets:note>
+      <mets:note>v3.1</mets:note>
+    </mets:agent>
+    <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="OTHER" OTHERTYPE="SOFTWARE">
+      <mets:name>Some archive system name</mets:name>
+      <mets:note>v2.0.0</mets:note>
+      <mets:note>Noark4</mets:note>
+    </mets:agent>
+    <mets:altRecordID TYPE="DELIVERYSPECIFICATION">Some archive description</mets:altRecordID>
+    <mets:altRecordID TYPE="SUBMISSIONAGREEMENT">XX 00-0000/0000; 0000-00-00</mets:altRecordID>
+    <mets:altRecordID TYPE="STARTDATE">2017-01-01</mets:altRecordID>
+    <mets:altRecordID TYPE="ENDDATE">2020-01-01</mets:altRecordID>
+  </mets:metsHdr>
+  <mets:fileSec>
+    <mets:fileGrp ID="fileGroup001" USE="FILES">
+      <mets:file ID="fileId_1" MIMETYPE="application/xml" SIZE="5307" CREATED="2018-08-30T09:48:07.471132+02:00" CHECKSUM="c8b1b1993988e8126a556b724c173896c9e47600da6f75333c3f7092a9b297dc" CHECKSUMTYPE="SHA-256" USE="Datafile">
+        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:dias-mets.xml" />
+      </mets:file>
+      <mets:file ID="fileId_2" MIMETYPE="application/pdf" SIZE="20637" CREATED="2017-11-13T15:26:06.1458311+01:00" CHECKSUM="3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f" CHECKSUMTYPE="SHA-256" USE="Datafile">
+        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:content/dokumenter/5000000.pdf" />
+      </mets:file>
+      <mets:file ID="fileId_3" MIMETYPE="application/pdf" SIZE="18432" CREATED="2017-11-13T15:26:06.1543543+01:00" CHECKSUM="2ea3a86de226d791a07abb5279b0e2813b037730730ba630de4f14dea7c32208" CHECKSUMTYPE="SHA-256" USE="Datafile">
+        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:content/dokumenter/5000001.pdf" />
+      </mets:file>
+      <mets:file ID="fileId_4" MIMETYPE="application/pdf" SIZE="18432" CREATED="2017-11-13T15:26:06.1623847+01:00" CHECKSUM="2ea3a86de226d791a07abb5279b0e2813b037730730ba630de4f14dea7c32208" CHECKSUMTYPE="SHA-256" USE="Datafile">
+        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:content/dokumenter/underkatalog/5000002.pdf" />
+      </mets:file>
+    </mets:fileGrp>
+  </mets:fileSec>
+  <mets:structMap>
+    <mets:div />
+  </mets:structMap>
+</mets:mets>

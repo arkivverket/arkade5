@@ -29,7 +29,7 @@ Velg og last inn arkivuttrekket som skal behandles:
 
 1) Klikk på knappen "Velg katalog" dersom uttrekket er en ordinær fil-/mappestruktur. I tilfelle velges katalogen som inneholder arkivbeskrivelse-filen (addml.xml, arkivuttrekk.xml eller NOARKIH.xml). Klikk på knappen "Velg SIP/AIP-fil" dersom uttrekket er en AIP- eller SIP-struktur pakket som en tar-fil.
 
-2) Oppgi arkivtype for det valgte uttrekket. Arkade 5 støtter typene "Fagsystem", "Noark 3", "Noark 4" og "Noark 5".
+2) Oppgi arkivtype for det valgte uttrekket. Arkade 5 støtter typene "Fagsystem", "Noark 3" og "Noark 5".
 
 3) Klikk på knappen "Last inn uttrekk". Det valgte uttrekket vil lastes inn og åpnes i testvinduet.
 
@@ -88,7 +88,7 @@ Arkivpakkevinduet
 
 .. image:: img/PackageWindow.png
 
-Arkade tillater registrering av metadata for arkivpakken som skal opprettes. Arkade vil forsøke å lese inn eventuelle eksisterende metadata, fra en mets.xml-fil i arkivuttrekket, og forhåndsutfylle feltene i arkivpakkevinduet. Når pakken opprettes skrives den utfylte informasjonen til en (ny) mets.xml-fil som legges ved i arkivpakken. Metadataene skrives også til filen info.xml som legges utenfor, på samme nivå som, arkivpakken.
+Før arkivpakke opprettes registreres aktuelle metadata. For å skape en gyldig arkivpakke må påkrevde felter (merket *) utfylles. Dersom det aktuelle arkivuttrekket i utgangspunktet var en arkivpakke (AIP/SIP) med allerede definerte metadata, vil Arkade forsøke å lese disse inn og forhåndsutfylle feltene i arkivpakkevinduet. Ved å klikke knappen "Last inn eksisterende metadata" kan det velges en fil med forhåndsdefinerte metadata, enten en METS-fil (f.eks. info.xml eller dias-mets.xml fra tidligere produsert pakke) eller metadata på JSON-format (f.eks. generert med Arkade CLI) for automatisk utfylling av feltene. Når pakken opprettes skrives den utfylte informasjonen til filen dias-mets.xml som legges ved i arkivpakken. Metadataene skrives også til filen info.xml som legges utenfor, på samme nivå som, arkivpakken.
 
 I nedre del av vinduet velges ønsket pakketype, SIP eller AIP.
 
@@ -118,7 +118,7 @@ Arkade 5 CLI
 **Kommandolinjegrensesnitt for Linux, macOS og Windows**
 
 
-Arkade 5 CLI tester og lager en arkivpakke (SIP) av et arkivuttrekk med én kommando. Plasseringer for arkivutrekket som skal behandles, metadata, ferdig arkivpakke og testrapport samt midlertidige filer og systemlogger, oppgis alle som parametre til kommandoen.
+Arkade 5 CLI tester og lager en arkivpakke av et arkivuttrekk med én kommando. Plasseringer for arkivutrekket som skal behandles, metadata, ferdig arkivpakke og testrapport samt midlertidige filer og systemlogger, oppgis alle som parametre til kommandoen.
 
 
 `Se installasjonsveiledning for Arkade 5 CLI <Installasjonsveiledning.html#arkade-5-cli>`_
@@ -176,15 +176,15 @@ Plasseringer og navn på kataloger for inn- og utdata er valgfrie. I eksemplene 
 Metadata
 ........
 
-Ved arkivprosessering må det refereres til en fil med metadata på JSON-format. Arkade CLI kan generere en fil med eksempel-metadata som så kan redigeres.
+Ved arkivprosessering må det refereres til en fil med metadata på JSON-format eller METS-format. Arkade CLI kan generere en JSON-fil med eksempel-metadata som så kan redigeres.
 
 Oppgi full filsti for metadatafilen som skal opprettes, med :code:`--generate-metadata-example` eller :code:`-g`. Det må også oppgis et prosesseringsområde med :code:`--processing-area` eller :code:`-p`.
 
-I kommandoen under gis metadatafilen navnet :code:`metadata.txt` og plassering i hjemmekatalogen :code:`~/`. Prosesseringsområdet er satt til katalogen :code:`~/tmp/`.
+I kommandoen under gis metadatafilen navnet :code:`metadata.json` og plassering i hjemmekatalogen :code:`~/`. Prosesseringsområdet er satt til katalogen :code:`~/tmp/`.
 
 .. code-block:: bash
 
-	./arkade.sh -g ~/metadata.txt -p ~/tmp/
+	./arkade.sh -g ~/metadata.json -p ~/tmp/
 
 *Obligatoriske parametre ved metadatagenerering:* :code:`--generate-metadata-example`:code:`--processing-area`
 
@@ -193,11 +193,11 @@ Prosessering av arkivuttrekk
 
 *Arkivuttrekket som skal prosesseres kan foreligge som en ordinær mappestruktur eller en AIP/SIP-struktur pakket som en tar-fil. Parameterverdien for* :code:`--archive`/:code:`-a` *settes til hhv. katalogen som inneholder arkivbeskrivelse-filen (addml.xml, arkivuttrekk.xml eller NOARKIH.xml) eller til tar-filen.*
 
-I eksempelkommandoen vist under leses det inn et arkivuttrekk fra katalogen :code:`~/N5-arkivuttrekk/`. Arkivuttrekkets type er oppgitt til :code:`noark5`. Metadata for uttrekket leses fra filen :code:`~/metadata.txt/`. Katalog for plassering av prosesseringsområdet er satt til :code:`~/tmp/` og katalog for resulterende data er satt til :code:`~/output/`.
+I eksempelkommandoen vist under leses det inn et arkivuttrekk fra katalogen :code:`~/N5-arkivuttrekk/`. Arkivuttrekkets type er oppgitt til :code:`noark5`. Metadata for uttrekket leses fra filen :code:`~/metadata.json/`. Katalog for plassering av prosesseringsområdet er satt til :code:`~/tmp/` og katalog for resulterende data er satt til :code:`~/output/`.
 
 .. code-block:: bash
 
-	./arkade.sh -a ~/N5-arkivuttrekk/ -t noark5 -m ~/metadata.txt -p ~/tmp/ -o ~/output/
+	./arkade.sh -a ~/N5-arkivuttrekk/ -t noark5 -m ~/metadata.json -p ~/tmp/ -o ~/output/
 
 *Obligatoriske parametre ved arkivprosessering:*
 :code:`--archive`:code:`--type`:code:`--metadata-file`:code:`--processing-area`:code:`--output-directory`
@@ -210,3 +210,10 @@ Kommandoen over produserer en arkivpakke (SIP) som en tar-fil, med tilhørende i
 .. image:: img/cli/outputfiles.png
 
 *For hver prosessering genereres en unik UUID som bl.a. brukes i fil- og katalognavn for resultatene.*
+
+Alternativer
+............
+
+Dersom det ønskes kun testing eller kun pakking av et arkivuttrekk, kan den ene av delprosessene utelates med :code:`--skip` eller :code:`-s` etterfulgt av parameterverdien :code:`testing` eller :code:`packing`. Oppgis :code:`-s testing` produseres en utestet pakke, følgelig uten testrapport. Oppgis :code:`-s packing` utføres kun testing og kun en testrapport blir produsert.
+
+Med :code:`--information-package-type` eller :code:`-i` etterfulgt av parameterverdien :code:`SIP` eller :code:`AIP` kan det velges om det skal produseres en pakke av typen SIP eller av typen AIP. Når dette parameteret ikke er oppgitt (som i eksempelet over) produseres en SIP som standard.

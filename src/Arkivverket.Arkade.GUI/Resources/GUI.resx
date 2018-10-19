@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ArkadeDirectoryPathInfo" xml:space="preserve">
+    <value>Arbeidsområde - {0}</value>
+  </data>
+  <data name="RestartArkadeDialogTitle" xml:space="preserve">
+    <value>Omstart av Arkade</value>
+  </data>
+  <data name="CreatePackageButtonText" xml:space="preserve">
+    <value>Opprett pakke</value>
+  </data>
+  <data name="CreatePackageSelectTypeLabel" xml:space="preserve">
+    <value>Velg pakketype</value>
+  </data>
+  <data name="CreatePackageTypeAIP" xml:space="preserve">
+    <value>AIP</value>
+  </data>
+  <data name="CreatePackageTypeSIP" xml:space="preserve">
+    <value>SIP</value>
+  </data>
+  <data name="CreatePackageWindowTitle" xml:space="preserve">
+    <value>Registrer metadata og opprett pakke</value>
+  </data>
+  <data name="DetailedErrorMessageFileName" xml:space="preserve">
+    <value>arkade-error-{0}.log</value>
+    <comment>{0} = timestamp/identifier</comment>
+  </data>
+  <data name="DetailedErrorMessageInfo" xml:space="preserve">
+    <value>Detaljer er skrevet til {0}</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="ErrorGeneral" xml:space="preserve">
+    <value>En feil har oppstått: {0}</value>
+  </data>
+  <data name="ErrorReadingArchive" xml:space="preserve">
+    <value>Feil ved innlesing av arkiv: {0}</value>
+  </data>
+  <data name="FileException_ErrorWithChosenFile" xml:space="preserve">
+    <value>Det oppstod en feil med den valgte filen</value>
+  </data>
+  <data name="FileException_GeneralError" xml:space="preserve">
+    <value>Det oppstod en generell feil med filvalget</value>
+  </data>
+  <data name="FileException_NoFileChosen" xml:space="preserve">
+    <value>Ingen fil ble valgt</value>
+  </data>
+  <data name="FileNotFoundMessage" xml:space="preserve">
+    <value>Fil ikke funnet: {0}</value>
+  </data>
+  <data name="FileSelectionDefaultTar" xml:space="preserve">
+    <value>.tar</value>
+  </data>
+  <data name="FileSelectionFilterTar" xml:space="preserve">
+    <value>TAR Files (*.tar)|*.tar|All Files (*.*)|*.*</value>
+  </data>
+  <data name="FileSelectionWindowNameArchive" xml:space="preserve">
+    <value>Velg en arkiv fil</value>
+  </data>
+  <data name="General_WindowTitle" xml:space="preserve">
+    <value>Arkade 5</value>
+  </data>
+  <data name="LoadArchiveChooseArchiveHeadingText" xml:space="preserve">
+    <value>Arkivuttrekk</value>
+  </data>
+  <data name="LoadArchiveChooseArchiveTypeHeadingText" xml:space="preserve">
+    <value>Velg arkivtype</value>
+  </data>
+  <data name="LoadArchiveChooseFolderButtonText" xml:space="preserve">
+    <value>Velg katalog</value>
+  </data>
+  <data name="LoadArchiveChooseTarFileButtonText" xml:space="preserve">
+    <value>Velg SIP/AIP fil</value>
+  </data>
+  <data name="LoadArchiveLoadArchiveButtonText" xml:space="preserve">
+    <value>Last inn uttrekk</value>
+  </data>
+  <data name="LoadArchiveSelectedFileText" xml:space="preserve">
+    <value>Valgt fil</value>
+  </data>
+  <data name="LoadArchiveSelectedFolderText" xml:space="preserve">
+    <value>Valgt katalog</value>
+  </data>
+  <data name="LoadArchiveTypeFagsystem" xml:space="preserve">
+    <value>Fagsystem</value>
+  </data>
+  <data name="LoadArchiveTypeNoark3" xml:space="preserve">
+    <value>Noark3</value>
+  </data>
+  <data name="LoadArchiveTypeNoark4" xml:space="preserve">
+    <value>Noark4</value>
+  </data>
+  <data name="LoadArchiveTypeNoark5" xml:space="preserve">
+    <value>Noark5</value>
+  </data>
+  <data name="LoadArchiveViewHeadingText" xml:space="preserve">
+    <value>Last inn arkivuttrekk</value>
+  </data>
+  <data name="NewProgramSessionButton" xml:space="preserve">
+    <value>Ny kjøring</value>
+  </data>
+  <data name="RestartArkadeForChangesToTakeEffectPrompt" xml:space="preserve">
+    <value>Arkade må startes på nytt for at endringene skal tre i kraft. Vil du starte Arkade på nytt nå?</value>
+  </data>
+  <data name="SerilogFormatConfig" xml:space="preserve">
+    <value>{Timestamp:yyyy-MM-ddTHH:mm:ss.fff} [{Level}] {SourceContext} {Message}{NewLine}{Exception}</value>
+  </data>
+  <data name="ShowUserGuideButtonText" xml:space="preserve">
+    <value>Brukerveiledning</value>
+  </data>
+  <data name="TestName_CheckWellFormedXml" xml:space="preserve">
+    <value>Valider gyldig xml</value>
+  </data>
+  <data name="TestName_NumberOfArchiveParts" xml:space="preserve">
+    <value>Finn antall arkivdeler</value>
+  </data>
+  <data name="TestName_NumberOfArchives" xml:space="preserve">
+    <value>Finn antall arkiv</value>
+  </data>
+  <data name="TestName_NumberOfClasses" xml:space="preserve">
+    <value>Finn antall klasser</value>
+  </data>
+  <data name="TestName_NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders" xml:space="preserve">
+    <value>Finn antall klasser i pri klassifikasjonssytem uten under klasser/mapper</value>
+  </data>
+  <data name="TestName_NumberOfClassificationSystems" xml:space="preserve">
+    <value>Finn antall klassifikasjonssystem</value>
+  </data>
+  <data name="TestName_NumberOfFolders" xml:space="preserve">
+    <value>Finn antall mapper</value>
+  </data>
+  <data name="TestName_StatusOfArchiveParts" xml:space="preserve">
+    <value>Finn status på arkivdeler</value>
+  </data>
+  <data name="TestName_ValidateAddmlDataobjectsChecksums" xml:space="preserve">
+    <value>Valider gyldig sjekksummer</value>
+  </data>
+  <data name="TestName_ValidateXmlWithSchema" xml:space="preserve">
+    <value>Valider xml i henhold til skjema</value>
+  </data>
+  <data name="TestrunnerArchiveNotTestable" xml:space="preserve">
+    <value>Arkivuttrekket kan ikke testes: Det ble ikke funnet en gyldig spesifikasjonsfil for uttrekket.
+(Se logg for detaljer {0}).
+Du kan fortsatt lage en pakke av uttrekket.</value>
+  </data>
+  <data name="TestrunnerFinishedOperationMessage" xml:space="preserve">
+    <value>Testingen er fullført</value>
+  </data>
+  <data name="TestrunnerFinishedWithError" xml:space="preserve">
+    <value>Feil under testkjøring</value>
+  </data>
+  <data name="TestrunnerMessageLabelError" xml:space="preserve">
+    <value>Feil</value>
+  </data>
+  <data name="TestrunnerMessageLabelSuccess" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="TestrunnerMessageLabelWarning" xml:space="preserve">
+    <value>Advarsel</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Lukk</value>
+  </data>
+  <data name="RestartArkadeButtonText" xml:space="preserve">
+    <value>Start Arkade på nytt</value>
+  </data>
+  <data name="NewVersionMessage" xml:space="preserve">
+    <value>Ny versjon tilgjengelig</value>
+  </data>
+  <data name="UnsavedTestResultsOnExitWarning" xml:space="preserve">
+    <value>Hvis du avslutter nå vil resultater fra testkjøringen gå tapt. Ønsker du likevel å avslutte?</value>
+  </data>
+  <data name="TestrunnerArchiveTestability" xml:space="preserve">
+    <value>Testbarhet</value>
+  </data>
+  <data name="LoadArchiveNoark4OptionDisabledTooltip" xml:space="preserve">
+    <value>Arkade støtter inntil videre ikke arkivuttrekk av typen Noark 4</value>
+  </data>
+</root>
