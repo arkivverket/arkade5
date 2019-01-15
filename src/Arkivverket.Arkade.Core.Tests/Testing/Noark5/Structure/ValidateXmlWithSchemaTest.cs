@@ -35,6 +35,28 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
             testRun.Results.Should().Contain(r => r.IsError());
         }
 
+        [Fact]
+        public void XmlFilesAreValidAccordingToCustomSchema()
+        {
+            string workingDirectory =
+                $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\StructureValidation\\custom";
+
+            TestRun testRun = CreateTestRun(workingDirectory);
+
+            testRun.IsSuccess().Should().BeTrue();
+        }
+
+        [Fact]
+        public void XmlFilesAreNotValidAccordingToCustomSchema()
+        {
+            string workingDirectory =
+                $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\StructureValidation\\customError";
+
+            TestRun testRun = CreateTestRun(workingDirectory);
+
+            testRun.Results.Should().Contain(r => r.IsError());
+        }
+
         private static TestRun CreateTestRun(string workingDirectory)
         {
             Archive archive = new ArchiveBuilder()

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Xml;
 using System.Xml.Serialization;
+using Arkivverket.Arkade.Core.Base;
 
 namespace Arkivverket.Arkade.Core.Util
 {
     public static class JournalGuillotine
     {
-        public static JournalHead Behead(ArkadeFile journalXmlFile)
+        public static JournalHead Behead(ArchiveXmlFile journalXmlFile)
         {
             var xmlTextReader = new XmlTextReader(journalXmlFile.FullName) {Namespaces = false};
 

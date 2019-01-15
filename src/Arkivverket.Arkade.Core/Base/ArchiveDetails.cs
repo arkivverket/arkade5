@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
@@ -11,12 +12,20 @@ namespace Arkivverket.Arkade.Core.Base
         public string ArchivalPeriod => GetArchivalPeriod();
         public string SystemName => GetSystemName();
         public string SystemType => GetSystemType();
+        public Dictionary<string, IEnumerable<string>> DocumentedXmlUnits => GetDocumentedXmlUnits();
 
         private readonly addml _addml;
 
         public ArchiveDetails(Archive archive)
         {
-            _addml = SerializeUtil.DeserializeFromFile<addml>(archive.AddmlFile);
+            try
+            {
+                _addml = SerializeUtil.DeserializeFromFile<addml>(archive.AddmlXmlUnit.File);
+            }
+            catch (Exception exception)
+            {
+                throw new ArkadeException($"Error reading addml xml: {exception.Message}");
+            }
         }
 
         private string GetArchiveCreators()
@@ -76,6 +85,51 @@ namespace Arkivverket.Arkade.Core.Base
             {
                 return string.Empty;
             }
+        }
+
+        private Dictionary<string, IEnumerable<string>> GetDocumentedXmlUnits()
+        {
+            var documentedXmlUnits = new Dictionary<string, IEnumerable<string>>();
+
+            try
+            {
+                dataObject archiveExtractionElement = _addml.dataset[0].dataObjects.dataObject[0];
+                List<dataObject> fileElements = archiveExtractionElement.dataObjects.dataObject.ToList();
+
+                foreach (dataObject fileElement in fileElements)
+                {
+                    string xmlFileName = fileElement.properties
+                        .FirstOrDefault(property => property.name == "file")?.properties
+                        .FirstOrDefault(property => property.name == "name")?.value;
+
+                    if (string.IsNullOrEmpty(xmlFileName))
+                        continue;
+
+                    IEnumerable<property> schemas = fileElement.properties.Where(property => property.name == "schema");
+
+                    var xmlSchemaFileNames = new List<string>();
+
+                    foreach (property schema in schemas)
+                    {
+                        string documentedXmlSchemaFileName = schema.properties
+                            .FirstOrDefault(property => property.name == "file")?.properties
+                            .FirstOrDefault(property => property.name == "name")?.value;
+
+                        if (string.IsNullOrEmpty(documentedXmlSchemaFileName))
+                            continue;
+
+                        xmlSchemaFileNames.Add(documentedXmlSchemaFileName);
+                    }
+
+                    documentedXmlUnits.Add(xmlFileName, xmlSchemaFileNames);
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new ArkadeException($"Error reading addml: {exception.Message}");
+            }
+
+            return documentedXmlUnits;
         }
 
         private additionalElements GetContentAdditionalElementsRoot()

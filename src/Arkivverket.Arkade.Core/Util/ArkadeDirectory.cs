@@ -37,6 +37,9 @@ namespace Arkivverket.Arkade.Core.Util
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(fileName))
+                    throw new ArkadeException("The given fileName cannot be null, empty or whitespace");
+
                 return new FileInfo(Path.Combine(directory.FullName, fileName));
             }
             catch (ArgumentException argumentException)

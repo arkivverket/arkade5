@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.organisasjon.no/vsmd" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  targetNamespace="http://www.organisasjon.no/vsmd"
+  elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:complexType name="virksomhetsData">
+		<xs:sequence>
+			<xs:element name="felt1" type="xs:integer"/>
+			<xs:element name="felt2" type="xs:string" minOccurs="0"/>
+			<xs:element name="felt3" type="xs:date" minOccurs="0"/>
+			<xs:element name="felt4" type="xs:date" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>

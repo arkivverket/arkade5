@@ -90,7 +90,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
 
         private static int GetDocumentedFileCount(Archive archive)
         {
-            var archiveExtractionXml = SerializeUtil.DeserializeFromFile<addml>(archive.AddmlFile);
+            var archiveExtractionXml = SerializeUtil.DeserializeFromFile<addml>(archive.AddmlXmlUnit.File);
 
             dataObject archiveExtractionElement = archiveExtractionXml.dataset[0].dataObjects.dataObject[0];
             property infoElement = archiveExtractionElement.properties[0];
