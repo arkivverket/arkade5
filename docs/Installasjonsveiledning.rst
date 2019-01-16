@@ -11,7 +11,11 @@ Installer .NET
 
 For å kjøre Arkade 5 må .NET Framework (minimum versjon 4.6.1) være installert.
 
-`Last ned siste versjon av .NET Framework <https://www.microsoft.com/net/download/windows/run>`_
+|dotnet_framework_download_link|
+
+.. |dotnet_framework_download_link| raw:: html
+
+   <a href="https://dotnet.microsoft.com/download/dotnet-framework-runtime" target="_blank">Last ned siste versjon av .NET Framework</a>
 
 
 Installer Arkade 5 
@@ -70,7 +74,11 @@ Installer .NET Core
 
 For å kjøre Arkade 5 CLI må .NET Core (minimum versjon 2.0) være installert.
 
-Last ned siste versjon av .NET Core runtime for: `Linux <https://www.microsoft.com/net/download/linux/run>`_, `macOS <https://www.microsoft.com/net/download/macos/run>`_ eller `Windows <https://www.microsoft.com/net/download/windows/run>`_.
+|dotnet_core_download_link|
+
+.. |dotnet_core_download_link| raw:: html
+
+   <a href="https://dotnet.microsoft.com/download" target="_blank">Last ned siste versjon av .NET Core runtime</a>
 
 
 Installer Arkade 5 CLI
