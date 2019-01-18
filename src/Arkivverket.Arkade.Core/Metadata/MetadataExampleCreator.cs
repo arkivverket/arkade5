@@ -27,6 +27,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     CreateMetadataEntityInformationUnit('5'),
                     CreateMetadataEntityInformationUnit('6')
                 },
+                Creator = CreateMetadataEntityInformationUnit('7'),
                 Recipient = "Some recipient",
                 System = new MetadataSystemInformationUnit
                 {

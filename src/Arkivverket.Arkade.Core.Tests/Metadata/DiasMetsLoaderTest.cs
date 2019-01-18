@@ -66,6 +66,12 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
                 a.Email.Equals("post@entity-6.com")
             );
 
+            archiveMetadata.Creator.Entity.Should().Be("Entity 7");
+            archiveMetadata.Creator.ContactPerson.Should().Be("Contactperson 7");
+            archiveMetadata.Creator.Address.Should().Be("Road 7, 7000 City");
+            archiveMetadata.Creator.Telephone.Should().Be("7-99999999");
+            archiveMetadata.Creator.Email.Should().Be("post@entity-7.com");
+
             archiveMetadata.Recipient.Should().Be("Some recipient");
 
             archiveMetadata.System.Name.Should().Be("Some system name");

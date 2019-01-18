@@ -169,6 +169,51 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skaper av informasjonspakke.
+        /// </summary>
+        public static string Creator {
+            get {
+                return ResourceManager.GetString("Creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adresse (Kontakt, Pakkeskaper).
+        /// </summary>
+        public static string Creator_Address {
+            get {
+                return ResourceManager.GetString("Creator_Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontaktperson (Pakkeskaper).
+        /// </summary>
+        public static string Creator_ContactPerson {
+            get {
+                return ResourceManager.GetString("Creator_ContactPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e-post (Kontakt, Pakkeskaper).
+        /// </summary>
+        public static string Creator_Email {
+            get {
+                return ResourceManager.GetString("Creator_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telefon (Kontakt, Pakkeskaper).
+        /// </summary>
+        public static string Creator_Telephone {
+            get {
+                return ResourceManager.GetString("Creator_Telephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sluttdato.
         /// </summary>
         public static string EndData {
@@ -210,6 +255,15 @@ namespace Arkivverket.Arkade.GUI.Resources {
         public static string GuiSubsection_ArchiveSystem {
             get {
                 return ResourceManager.GetString("GuiSubsection_ArchiveSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skaper av informasjonspakke.
+        /// </summary>
+        public static string GuiSubsection_Creator {
+            get {
+                return ResourceManager.GetString("GuiSubsection_Creator", resourceCulture);
             }
         }
         

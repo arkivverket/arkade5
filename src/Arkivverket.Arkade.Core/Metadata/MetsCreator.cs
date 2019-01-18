@@ -237,6 +237,32 @@ namespace Arkivverket.Arkade.Core.Metadata
                 }
             }
 
+            // CREATOR:
+
+            if (metadata.Creator != null)
+            {
+                if (HasEntity(metadata.Creator))
+                {
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
+                        ROLE = metsTypeMetsHdrAgentROLE.CREATOR,
+                        name = metadata.Creator.Entity
+                    });
+                }
+
+                if (HasContactData(metadata.Creator))
+                {
+                    metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+                    {
+                        TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
+                        ROLE = metsTypeMetsHdrAgentROLE.CREATOR,
+                        name = metadata.Creator.ContactPerson,
+                        note = new[] { metadata.Creator.Address, metadata.Creator.Telephone, metadata.Creator.Email }
+                    });
+                }
+            }
+
             // RECIPIENT:
 
             if (!string.IsNullOrEmpty(metadata.Recipient))

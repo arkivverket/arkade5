@@ -324,4 +324,22 @@ Tidl. nevnt som avleverende myndighet</comment>
   <data name="Label_OptionTextUserdefinedLabel" xml:space="preserve">
     <value>Egendefinert</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Skaper av informasjonspakke</value>
+  </data>
+  <data name="Creator_Address" xml:space="preserve">
+    <value>Adresse (Kontakt, Pakkeskaper)</value>
+  </data>
+  <data name="Creator_ContactPerson" xml:space="preserve">
+    <value>Kontaktperson (Pakkeskaper)</value>
+  </data>
+  <data name="Creator_Email" xml:space="preserve">
+    <value>e-post (Kontakt, Pakkeskaper)</value>
+  </data>
+  <data name="Creator_Telephone" xml:space="preserve">
+    <value>Telefon (Kontakt, Pakkeskaper)</value>
+  </data>
+  <data name="GuiSubsection_Creator" xml:space="preserve">
+    <value>Skaper av informasjonspakke</value>
+  </data>
 </root>
