@@ -68,7 +68,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.Path.Matches("dokumentobjekt"))
+            if (eventArgs.NameEquals("dokumentobjekt"))
             {
                 _totalNumberOfDocumentObjects++;
 
