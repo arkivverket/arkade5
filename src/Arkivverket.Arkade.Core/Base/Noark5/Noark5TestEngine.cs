@@ -50,7 +50,9 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
 
             SubscribeTestsToReadElementEvent(contentTests);
 
-            using (var reader = XmlReader.Create(archive.ArchiveStructureFile.AsStream()))
+            ArchiveXmlFile archiveStructureFile = archive.GetArchiveXmlFile(ArkadeConstants.ArkivstrukturXmlFileName);
+
+            using (var reader = XmlReader.Create(archiveStructureFile.AsStream()))
             {
                 RaiseEventStartParsingFile();
 

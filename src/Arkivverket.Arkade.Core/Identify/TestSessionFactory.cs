@@ -71,7 +71,7 @@ namespace Arkivverket.Arkade.Core.Identify
             if (archiveType == ArchiveType.Noark5)
                 return testSession;
 
-            ArkadeFile addmlFile = archive.AddmlFile;
+            ArchiveXmlFile addmlFile = archive.AddmlXmlUnit.File;
 
             try
             {

@@ -57,6 +57,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             LoadTransferer(archiveMetadata, metsHdrAgents);
             LoadProducer(archiveMetadata, metsHdrAgents);
             LoadOwners(archiveMetadata, metsHdrAgents);
+            LoadCreator(archiveMetadata, metsHdrAgents);
             LoadRecipient(archiveMetadata, metsHdrAgents);
             LoadSystem(archiveMetadata, metsHdrAgents);
             LoadArchiveSystem(archiveMetadata, metsHdrAgents);
@@ -171,6 +172,26 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             if (archiveMetadataOwners.Any())
                 archiveMetadata.Owners = archiveMetadataOwners;
+        }
+
+        private static void LoadCreator(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
+        {
+            metsTypeMetsHdrAgent[] metsCreators = metsHdrAgents.Where(a =>
+                a.ROLE == metsTypeMetsHdrAgentROLE.CREATOR &&
+                (a.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION || a.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL)
+            ).ToArray();
+
+            if (!metsCreators.Any())
+                return;
+
+            var archiveMetadataCreatorContainer = new List<MetadataEntityInformationUnit>();
+
+            LoadEntityInformationUnits(archiveMetadataCreatorContainer, metsCreators);
+
+            var archiveMetadataCreator = archiveMetadataCreatorContainer.FirstOrDefault();
+
+            if (archiveMetadataCreator != null && HasData(archiveMetadataCreator))
+                archiveMetadata.Creator = archiveMetadataCreator;
         }
 
         private static void LoadEntityInformationUnits(List<MetadataEntityInformationUnit> entityInfoUnits,

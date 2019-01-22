@@ -34,6 +34,10 @@ namespace Arkivverket.Arkade.GUI.Util
         {
             return MapToGuiMetadataEntities(owners);
         }
+        public static GuiMetaDataModel MapToCreator(MetadataEntityInformationUnit creator)
+        {
+            return MapToGuiMetadataEntity(creator);
+        }
 
         public static GuiMetaDataModel MapToRecipient(string recipient)
         {

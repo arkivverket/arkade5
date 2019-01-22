@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
-using Arkivverket.Arkade.Core.Util;
+using System.Linq;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base
@@ -11,31 +12,34 @@ namespace Arkivverket.Arkade.Core.Base
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
-        private ArchiveDetails _details;
+        public ArchiveXmlUnit AddmlXmlUnit { get; }
+        public ArchiveDetails Details { get; }
+        public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
-        public ArchiveDetails Details => _details ?? (_details = new ArchiveDetails(this));
-        public ArkadeFile ArchiveStructureFile => SetupXmlFile(ArkivstrukturXmlFileName);
-        public ArkadeFile ArchiveStructureSchemaFile => SetupXmlFile(ArkivstrukturXsdFileName);
-        public ArkadeFile AddmlFile => SetupXmlFile(AddmlXmlFileName);
-        public ArkadeFile AddmlSchemaFile => SetupXmlFile(AddmlXsdFileName);
-        public ArkadeFile ChangeLogFile => SetupXmlFile(ChangeLogXmlFileName);
-        public ArkadeFile ChangeLogSchemaFile => SetupXmlFile(ChangeLogXsdFileName);
-        public ArkadeFile MetadataCatalogSchemaFile => SetupXmlFile(MetadatakatalogXsdFileName);
-        public ArkadeFile PublicJournalFile => SetupXmlFile(PublicJournalXmlFileName);
-        public ArkadeFile PublicJournalSchemaFile => SetupXmlFile(PublicJournalXsdFileName);
-        public ArkadeFile RunningJournalFile => SetupXmlFile(RunningJournalXmlFileName);
-        public ArkadeFile RunningJournalSchemaFile => SetupXmlFile(RunningJournalXsdFileName);
-        
         public Archive(ArchiveType archiveType, Uuid uuid, WorkingDirectory workingDirectory)
         {
-            ArchiveType = archiveType;
             Uuid = uuid;
+
+            ArchiveType = archiveType;
+
             WorkingDirectory = workingDirectory;
+
+            AddmlXmlUnit = SetupAddmlXmlUnit();
+
+            Details = new ArchiveDetails(this);
+
+            if (archiveType == ArchiveType.Noark5)
+                SetupArchiveXmlUnits();
         }
 
         public string GetInformationPackageFileName()
         {
             return Uuid + ".tar";
+        }
+
+        public ArchiveXmlFile GetArchiveXmlFile(string fileName)
+        {
+            return XmlUnits.FirstOrDefault(xmlUnit => xmlUnit.File.Name.Equals(fileName))?.File;
         }
 
         public DirectoryInfo GetDocumentsDirectory()
@@ -58,14 +62,45 @@ namespace Arkivverket.Arkade.Core.Base
             ).DirectoryInfo();
         }
 
-        private ArkadeFile SetupXmlFile(string fileName)
+        private ArchiveXmlUnit SetupAddmlXmlUnit()
         {
-            FileInfo fileInfo = WorkingDirectory.Content().WithFile(fileName);
+            FileInfo addmlFileInfo = WorkingDirectory.Content().WithFile(AddmlXmlFileName);
 
-            if(fileName == AddmlXmlFileName && !fileInfo.Exists)
-                fileInfo = WorkingDirectory.Content().WithFile(ArkivuttrekkXmlFileName);
+            if (!addmlFileInfo.Exists)
+                addmlFileInfo = WorkingDirectory.Content().WithFile(ArkivuttrekkXmlFileName);
 
-            return new ArkadeFile(fileInfo);
+            var archiveXmlFile = new ArchiveXmlFile(addmlFileInfo);
+
+            FileInfo addmlXsdFileInfo = WorkingDirectory.Content().WithFile(AddmlXsdFileName);
+
+            return new ArchiveXmlUnit(archiveXmlFile, new UserProvidedXmlSchema(addmlXsdFileInfo));
+        }
+
+        private void SetupArchiveXmlUnits()
+        {
+            XmlUnits = new List<ArchiveXmlUnit>();
+
+            foreach (KeyValuePair<string, IEnumerable<string>> documentedXmlUnit in Details.DocumentedXmlUnits)
+            {
+                string xmlFileName = documentedXmlUnit.Key;
+
+                IEnumerable<string> xmlSchemaNames = documentedXmlUnit.Value;
+
+                var archiveXmlFile = new ArchiveXmlFile(WorkingDirectory.Content().WithFile(xmlFileName));
+
+                var archiveXmlSchemas = new List<ArchiveXmlSchema>();
+
+                foreach (string xmlSchemaName in xmlSchemaNames)
+                {
+                    FileInfo xmlSchemaFile = WorkingDirectory.Content().WithFile(xmlSchemaName);
+
+                    ArchiveXmlSchema archiveXmlSchema = ArchiveXmlSchema.Create(xmlSchemaFile);
+
+                    archiveXmlSchemas.Add(archiveXmlSchema);
+                }
+
+                XmlUnits.Add(new ArchiveXmlUnit(archiveXmlFile, archiveXmlSchemas));
+            }
         }
     }
 

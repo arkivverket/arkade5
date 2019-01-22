@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <None Remove="TestData\noark3\noark_3_arkivuttrekk_med_prosesser.xml" />
+    <None Remove="TestData\Noark5\StructureValidation\correct\custom.xml" />
+    <None Remove="TestData\Noark5\StructureValidation\correct\custom.xsd" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,10 +51,16 @@
     <None Update="TestData\checksum.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\DocumentDirectoryTest\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\jegerreg-98-dos\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\kvotekontroll89\kvotekontroll89.XML">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Metadata\DiasMetsCreator\content\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Metadata\DiasMetsCreator\content\dokumenter\5000000.pdf">
@@ -190,6 +198,9 @@
     <None Update="TestData\Noark5\ContentClassificationSystem\metadatakatalog.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\ArchiveReferencedFiles\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\Noark5\DocumentfilesControl\ArchiveReferencedFiles\dokumenter\5000000.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -221,6 +232,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\dokumenter\underkatalog\5000002.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\DocumentfilesControl\FilesWithDocumentedChecksums\content\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Noark5\DocumentfilesControl\FilesWithDocumentedChecksums\content\dokumenter\5000000.pdf">
@@ -294,6 +308,9 @@
     </None>
     <None Update="TestData\Noark5\JournalControl\SoftSeparation\offentligJournal.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\LogsControl\arkivuttrekk.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Noark5\LogsControl\endringslogg.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -397,6 +414,45 @@
     <None Update="TestData\Noark5\StructureValidation\correct\offentligJournal.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\Noark5\StructureValidation\customError\addml.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\customError\administrative_metadata\addml.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\customError\arkivstruktur.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\customError\arkivstruktur.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\customError\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\customError\metadatakatalog.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\customError\vsmd.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\custom\addml.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\custom\arkivstruktur.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\custom\arkivstruktur.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\custom\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\custom\metadatakatalog.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\custom\vsmd.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\Noark5\StructureValidation\error\addml.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -413,6 +469,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Noark5\StructureValidation\error\metadatakatalog.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidation\custom\administrative_metadata\addml.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\package-creation\administrative_metadata\repository_operations\arkade-log.xml">

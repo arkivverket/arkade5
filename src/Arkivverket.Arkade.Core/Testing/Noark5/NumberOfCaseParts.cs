@@ -69,7 +69,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.Path.Matches("sakspart"))
+            if (eventArgs.NameEquals("sakspart"))
             {
                 _totalNumberOfCaseParts++;
 

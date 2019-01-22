@@ -45,6 +45,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private GuiMetaDataModel _metaDataTransferer = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataProducer = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
         private ObservableCollection<GuiMetaDataModel> _metaDataOwners = new ObservableCollectionEx<GuiMetaDataModel>();
+        private GuiMetaDataModel _metaDataCreator = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataRecipient = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
         private GuiMetaDataModel _metaDataArchiveSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
@@ -130,6 +131,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             get { return _metaDataOwners; }
             set { SetProperty(ref _metaDataOwners, value); }
+        }
+
+        public GuiMetaDataModel MetaDataCreator
+        {
+            get { return _metaDataCreator; }
+            set { SetProperty(ref _metaDataCreator, value); }
         }
 
         public GuiMetaDataModel MetaDataRecipient
@@ -288,6 +295,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             if (archiveMetadata.Owners != null && archiveMetadata.Owners.Any())
                 MetaDataOwners = GuiMetadataMapper.MapToOwners(archiveMetadata.Owners);
 
+            if (archiveMetadata.Creator != null)
+                MetaDataCreator = GuiMetadataMapper.MapToCreator(archiveMetadata.Creator);
+
             if (archiveMetadata.Recipient != null)
                 MetaDataRecipient = GuiMetadataMapper.MapToRecipient(archiveMetadata.Recipient);
 
@@ -410,6 +420,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 Transferer = ArchiveMetadataMapper.MapToTransferer(_metaDataTransferer),
                 Producer = ArchiveMetadataMapper.MapToProducer(_metaDataProducer),
                 Owners = ArchiveMetadataMapper.MapToArchiveOwners(_metaDataOwners.Where(o => !o.IsDeleted)),
+                Creator = ArchiveMetadataMapper.MapToCreator(_metaDataCreator),
                 Recipient = ArchiveMetadataMapper.MapToRecipient(_metaDataRecipient),
                 System = ArchiveMetadataMapper.MapToSystem(_metaDataSystem),
                 ArchiveSystem = ArchiveMetadataMapper.MapToArchiveSystem(_metaDataArchiveSystem),

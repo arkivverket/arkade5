@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
+using Arkivverket.Arkade.Core.Base;
 
 namespace Arkivverket.Arkade.Core.Util
 {
@@ -48,6 +50,14 @@ namespace Arkivverket.Arkade.Core.Util
                     if (_validationErrorMessages.Count >= ValidationErrorCountLimit)
                         break;
             }
+        }
+
+        public IEnumerable<string> Validate(ArchiveXmlUnit xmlUnit)
+        {
+            Stream xmlStream = xmlUnit.File.AsStream();
+            Stream[] xmlSchemaStreams = xmlUnit.Schemas.Select(s => s.AsStream()).ToArray();
+
+            return Validate(xmlStream, xmlSchemaStreams);
         }
 
         private XmlReaderSettings SetupXmlValidation(IEnumerable<XmlSchema> xmlSchemas)

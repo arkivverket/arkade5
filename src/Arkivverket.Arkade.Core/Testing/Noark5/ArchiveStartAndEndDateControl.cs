@@ -41,10 +41,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             JournalHead headPublicJournal;
             JournalHead headRunningJournal;
 
+            ArchiveXmlFile publicJournal = _archive.GetArchiveXmlFile(ArkadeConstants.PublicJournalXmlFileName);
+            ArchiveXmlFile runningJournal = _archive.GetArchiveXmlFile(ArkadeConstants.RunningJournalXmlFileName);
+
             try
             {
-                headPublicJournal = JournalGuillotine.Behead(_archive.PublicJournalFile);
-                headRunningJournal = JournalGuillotine.Behead(_archive.RunningJournalFile);
+                headPublicJournal = JournalGuillotine.Behead(publicJournal);
+                headRunningJournal = JournalGuillotine.Behead(runningJournal);
             }
             catch
             {

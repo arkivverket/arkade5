@@ -144,34 +144,47 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[11].note.Should().Contain(n => n.Equals("6-99999999"));
             metsHdrAgents[11].note.Should().Contain(n => n.Equals("post@entity-6.com"));
 
+            // CREATOR:
+
+            metsHdrAgents[12].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.ORGANIZATION);//
+            metsHdrAgents[12].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.CREATOR);
+            metsHdrAgents[12].name.Should().Be("Entity 7");
+
+            metsHdrAgents[13].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
+            metsHdrAgents[13].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.CREATOR);
+            metsHdrAgents[13].name.Should().Be("Contactperson 7");
+            metsHdrAgents[13].note.Should().Contain(n => n.Equals("Road 7, 7000 City"));
+            metsHdrAgents[13].note.Should().Contain(n => n.Equals("7-99999999"));
+            metsHdrAgents[13].note.Should().Contain(n => n.Equals("post@entity-7.com"));
+
             // RECIPIENT:
 
-            metsHdrAgents[12].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.ORGANIZATION);
-            metsHdrAgents[12].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.PRESERVATION);
-            metsHdrAgents[12].name.Should().Be("Some recipient");
+            metsHdrAgents[14].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.ORGANIZATION);
+            metsHdrAgents[14].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.PRESERVATION);
+            metsHdrAgents[14].name.Should().Be("Some recipient");
 
             // SYSTEM:
 
-            metsHdrAgents[13].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
-            metsHdrAgents[13].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
-            metsHdrAgents[13].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.ARCHIVIST);
-            metsHdrAgents[13].name.Should().Be("Some system name");
-            metsHdrAgents[13].note.Should().Contain(n => n.Equals("v1.0.0"));
-            metsHdrAgents[13].note.Should().Contain(n => n.Equals("Noark5"));
-            metsHdrAgents[13].note.Should().Contain(n => n.Equals("v3.1"));
+            metsHdrAgents[15].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
+            metsHdrAgents[15].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
+            metsHdrAgents[15].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.ARCHIVIST);
+            metsHdrAgents[15].name.Should().Be("Some system name");
+            metsHdrAgents[15].note.Should().Contain(n => n.Equals("v1.0.0"));
+            metsHdrAgents[15].note.Should().Contain(n => n.Equals("Noark5"));
+            metsHdrAgents[15].note.Should().Contain(n => n.Equals("v3.1"));
 
             // ARCHIVE SYSTEM:
 
-            metsHdrAgents[14].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
-            metsHdrAgents[14].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
-            metsHdrAgents[14].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[14].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
-            metsHdrAgents[14].name.Should().Be("Some archive system name");
-            metsHdrAgents[14].note.Should().Contain(n => n.Equals("v2.0.0"));
-            metsHdrAgents[14].note.Should().Contain(n => n.Equals("Noark4"));
+            metsHdrAgents[16].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
+            metsHdrAgents[16].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
+            metsHdrAgents[16].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
+            metsHdrAgents[16].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
+            metsHdrAgents[16].name.Should().Be("Some archive system name");
+            metsHdrAgents[16].note.Should().Contain(n => n.Equals("v2.0.0"));
+            metsHdrAgents[16].note.Should().Contain(n => n.Equals("Noark4"));
 
             // Type-version applies to Noark5 only and is not expected amongst agents:
-            metsHdrAgents.Length.Should().Be(15);
+            metsHdrAgents.Length.Should().Be(17);
 
             // FILE DESCRIPTIONS:
 

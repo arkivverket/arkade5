@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using FluentAssertions;
 using Xunit;
@@ -8,16 +7,11 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 {
     public class DocumentsDirectoryTest
     {
-        private static DirectoryInfo _physicalWorkingDirectory;
+        private static DirectoryInfo _workingDirectory;
 
         public DocumentsDirectoryTest()
         {
-            _physicalWorkingDirectory = new DirectoryInfo(
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData", "DocumentDirectoryTest")
-            );
-
-            if (!_physicalWorkingDirectory.Exists)
-                _physicalWorkingDirectory.Create();
+            _workingDirectory = new DirectoryInfo(Path.Combine("TestData", "DocumentDirectoryTest"));
         }
 
         [Fact]
@@ -71,7 +65,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         private static DirectoryInfo SetupArchiveWithPhysicalDocumentsDirectory(string documentsDirectoryName)
         {
             // Remove any existing document directories:
-            RemovePhysicalContentsDirectory();
+            RemoveDirectoriesWithinContentsDirectory();
 
             // Make new archive to reset any existing documentsdirectory reference:
             Archive archive = SetupArchive();
@@ -82,26 +76,26 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             // Return what the archive has defined as its documentsdirectory:
             return archive.GetDocumentsDirectory();
         }
-        private static void RemovePhysicalContentsDirectory()
+        private static void RemoveDirectoriesWithinContentsDirectory()
         {
-            var contentDirectory = new DirectoryInfo(Path.Combine(_physicalWorkingDirectory.FullName, "content"));
+            var contentDirectory = new DirectoryInfo(Path.Combine(_workingDirectory.FullName, "content"));
 
-            if (contentDirectory.Exists)
-                contentDirectory.Delete(true);
+            foreach (DirectoryInfo directory in contentDirectory.EnumerateDirectories())
+                    directory.Delete(true);
         }
 
         private static Archive SetupArchive()
         {
             return new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot(_physicalWorkingDirectory.FullName)
+                .WithWorkingDirectoryRoot(_workingDirectory.FullName)
                 .Build();
         }
 
         private static void CreatePhysicalDocumentsDirectory(string documentsDirectoryName)
         {
             Directory.CreateDirectory(
-                Path.Combine(_physicalWorkingDirectory.FullName, "content", documentsDirectoryName)
+                Path.Combine(_workingDirectory.FullName, "content", documentsDirectoryName)
             );
         }
     }

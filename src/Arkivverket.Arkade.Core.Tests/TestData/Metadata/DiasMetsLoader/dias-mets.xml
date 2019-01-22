@@ -55,6 +55,15 @@
       <mets:note>6-99999999</mets:note>
       <mets:note>post@entity-6.com</mets:note>
     </mets:agent>
+    <mets:agent ROLE="CREATOR" TYPE="ORGANIZATION">
+      <mets:name>Entity 7</mets:name>
+    </mets:agent>
+    <mets:agent ROLE="CREATOR" TYPE="INDIVIDUAL">
+      <mets:name>Contactperson 7</mets:name>
+      <mets:note>Road 7, 7000 City</mets:note>
+      <mets:note>7-99999999</mets:note>
+      <mets:note>post@entity-7.com</mets:note>
+    </mets:agent>
     <mets:agent ROLE="PRESERVATION" TYPE="ORGANIZATION">
       <mets:name>Some recipient</mets:name>
     </mets:agent>

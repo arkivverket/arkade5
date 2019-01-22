@@ -1,17 +1,16 @@
 using System;
 using System.IO;
-using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Resources;
 
-namespace Arkivverket.Arkade.Core.Util
+namespace Arkivverket.Arkade.Core.Base
 {
-    public class ArkadeFile
+    public class ArchiveXmlFile
     {
         public string Name { get; }
         public string FullName { get; }
         public bool Exists { get; }
 
-        public ArkadeFile(FileSystemInfo fileInfo)
+        public ArchiveXmlFile(FileSystemInfo fileInfo)
         {
             Name = fileInfo.Name;
             FullName = fileInfo.FullName;
