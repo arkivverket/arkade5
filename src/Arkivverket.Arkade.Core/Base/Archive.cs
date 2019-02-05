@@ -37,6 +37,11 @@ namespace Arkivverket.Arkade.Core.Base
             return Uuid + ".tar";
         }
 
+        public string GetInfoXmlFileName()
+        {
+            return Uuid + ".xml";
+        }
+
         public ArchiveXmlFile GetArchiveXmlFile(string fileName)
         {
             return XmlUnits.FirstOrDefault(xmlUnit => xmlUnit.File.Name.Equals(fileName))?.File;

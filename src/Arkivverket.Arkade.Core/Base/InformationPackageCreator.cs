@@ -80,7 +80,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             tarArchive.Close();
 
-            new InfoXmlCreator().CreateAndSaveFile(metadata, packageFilePath);
+            new InfoXmlCreator().CreateAndSaveFile(metadata, packageFilePath, archive.GetInfoXmlFileName());
 
             HasRun = true;
 

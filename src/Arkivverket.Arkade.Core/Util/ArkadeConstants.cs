@@ -10,7 +10,6 @@ namespace Arkivverket.Arkade.Core.Util
         public const string ArkivstrukturXmlFileName = "arkivstruktur.xml";
         public const string ArkivstrukturXsdFileName = "arkivstruktur.xsd";
         public const string MetadatakatalogXsdFileName = "metadatakatalog.xsd";
-        public const string InfoXmlFileName = "info.xml";
         public const string ArkadeXmlLogFileName = "arkade-log.xml";
         public const string EadXmlFileName = "ead.xml";
         public const string EacCpfXmlFileName = "eac-cpf.xml";

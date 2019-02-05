@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Metadata
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public void CreateAndSaveFile(ArchiveMetadata metadata, string packageFileName)
+        public void CreateAndSaveFile(ArchiveMetadata metadata, string packageFileName, string infoXmlFileName)
         {
             var packageFile = new FileInfo(packageFileName);
 
@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             mets infoXml = Create(metadata);
 
             var targetFileObject = new FileInfo(
-                Path.Combine(packageFile.DirectoryName, ArkadeConstants.InfoXmlFileName)
+                Path.Combine(packageFile.DirectoryName, infoXmlFileName)
             );
 
             XmlSerializerNamespaces namespaces = SetupNamespaces();
