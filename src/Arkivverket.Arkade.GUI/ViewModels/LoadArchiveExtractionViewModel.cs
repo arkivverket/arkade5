@@ -19,7 +19,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private readonly IRegionManager _regionManager;
         private string _archiveFileName;
         private string _archiveFileNameGuiRepresentation;
-        private string _metadataFileName;
         private ArchiveType _archiveType;
         private bool _isArchiveTypeSelected;
 
@@ -56,7 +55,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
 
         public DelegateCommand NavigateCommand { get; set; }
-        public DelegateCommand OpenMetadataFileCommand { get; set; }
         public DelegateCommand OpenArchiveFileCommand { get; set; }
         public DelegateCommand OpenArchiveFolderCommand { get; set; }
         public DelegateCommand<string> SetArchiveTypeCommand { get; set; } // Would be better to user ArchiveType enum as arg, but could not get to work with Prism
@@ -64,7 +62,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public LoadArchiveExtractionViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
-            OpenMetadataFileCommand = new DelegateCommand(OpenMetadataFileDialog);
             OpenArchiveFileCommand = new DelegateCommand(OpenArchiveFileDialog);
             OpenArchiveFolderCommand = new DelegateCommand(OpenArchiveFolderDialog);
             SetArchiveTypeCommand = new DelegateCommand<string>(SetArchiveTypeUserInput); 
