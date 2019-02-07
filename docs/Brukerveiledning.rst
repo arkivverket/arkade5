@@ -207,7 +207,7 @@ Resulterende data
 
 Kommandoen over produserer en arkivpakke (SIP) som en tar-fil, med tilhørende {uuid}.xml på METS-format, samlet i en katalog. Ved siden av katalogen plasseres en testrapport på HTML-format.
 
-.. image:: img/cli/outputfiles.png
+.. image:: img/cli/generatedoutput.png
 
 *For hver prosessering genereres en unik UUID som bl.a. brukes i fil- og katalognavn for resultatene.*
 
