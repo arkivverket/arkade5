@@ -16,10 +16,11 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Metadata\\InfoXmlCreator";
 
             var packageFileName = Path.Combine(workingDirectory, "package.tar");
+            var infoXmlFileName = Path.Combine(workingDirectory, "UUID.xml");
 
-            new InfoXmlCreator().CreateAndSaveFile(ArchiveMetadata, packageFileName);
+            new InfoXmlCreator().CreateAndSaveFile(ArchiveMetadata, packageFileName, infoXmlFileName);
 
-            string infoXmlFilePath = Path.Combine(workingDirectory, "info.xml");
+            string infoXmlFilePath = Path.Combine(workingDirectory, infoXmlFileName);
 
             File.Exists(infoXmlFilePath).Should().BeTrue();
 

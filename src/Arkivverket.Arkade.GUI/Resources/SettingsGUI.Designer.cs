@@ -97,7 +97,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkades prosesseringsområde er en katalog &quot;Arkade&quot; der midlertidige filer blir plassert under prosessering av arkivutrekk og der hvor system- og feillogger lagres. Du må velge en egnet plassering for denne katalogen..
+        ///   Looks up a localized string similar to Arkades prosesseringsområde er en katalog &quot;arkade-tmp&quot; der midlertidige filer blir plassert under prosessering av arkivutrekk og der hvor system- og feillogger lagres. Du må velge en egnet plassering for denne katalogen..
         /// </summary>
         public static string ArkadeProcessingAreaLocation_Info {
             get {

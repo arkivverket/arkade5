@@ -130,7 +130,7 @@
     <value>Arkades prosesseringsområde</value>
   </data>
   <data name="ArkadeProcessingAreaLocation_Info" xml:space="preserve">
-    <value>Arkades prosesseringsområde er en katalog "Arkade" der midlertidige filer blir plassert under prosessering av arkivutrekk og der hvor system- og feillogger lagres. Du må velge en egnet plassering for denne katalogen.</value>
+    <value>Arkades prosesseringsområde er en katalog "arkade-tmp" der midlertidige filer blir plassert under prosessering av arkivutrekk og der hvor system- og feillogger lagres. Du må velge en egnet plassering for denne katalogen.</value>
   </data>
   <data name="ArkadeProcessingAreaLocation_Warning" xml:space="preserve">
     <value>NB! Prosesseringsområdet vil potensielt inneholde sensitive data og store datamengder.</value>

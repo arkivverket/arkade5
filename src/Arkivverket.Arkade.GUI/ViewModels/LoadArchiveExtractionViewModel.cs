@@ -19,20 +19,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private readonly IRegionManager _regionManager;
         private string _archiveFileName;
         private string _archiveFileNameGuiRepresentation;
-        private string _metadataFileName;
         private ArchiveType _archiveType;
         private bool _isArchiveTypeSelected;
-
-        // TODO: MetadataFileName is replaced by GUI selection of archiveType ... leaving code in case needed for METS based input meta file
-        public string MetadataFileName
-        {
-            get { return _metadataFileName; }
-            set
-            {
-                SetProperty(ref _metadataFileName, value);
-                NavigateCommand.RaiseCanExecuteChanged();
-            }
-        }
 
         public string ArchiveFileName
         {
@@ -67,7 +55,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
 
         public DelegateCommand NavigateCommand { get; set; }
-        public DelegateCommand OpenMetadataFileCommand { get; set; }
         public DelegateCommand OpenArchiveFileCommand { get; set; }
         public DelegateCommand OpenArchiveFolderCommand { get; set; }
         public DelegateCommand<string> SetArchiveTypeCommand { get; set; } // Would be better to user ArchiveType enum as arg, but could not get to work with Prism
@@ -75,7 +62,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public LoadArchiveExtractionViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
-            OpenMetadataFileCommand = new DelegateCommand(OpenMetadataFileDialog);
             OpenArchiveFileCommand = new DelegateCommand(OpenArchiveFileDialog);
             OpenArchiveFolderCommand = new DelegateCommand(OpenArchiveFolderDialog);
             SetArchiveTypeCommand = new DelegateCommand<string>(SetArchiveTypeUserInput); 
@@ -112,14 +98,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             return !string.IsNullOrEmpty(_archiveFileName) && _isArchiveTypeSelected;
         }
 
-        private void OpenMetadataFileDialog()
-        {
-            _log.Information("User action: Open metadata file dialog");
-
-            MetadataFileName = OpenFileDialog();
-        }
-
-
         private void OpenArchiveFileDialog()
         {
             _log.Information("User action: Open archive file dialog");
@@ -127,22 +105,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ArchiveFileName = OpenFileDialog();
 
             if (ArchiveFileName == null)
-            {
-                MetadataFileName = null;
                 return;
-            }
 
             _log.Information("User action: Choose archive file {ArchiveFileName}", ArchiveFileName);
 
-            string infoXmlFileName = Path.Combine(new FileInfo(ArchiveFileName).Directory?.FullName, ArkadeConstants.InfoXmlFileName);
-            if (File.Exists(infoXmlFileName))
-            {
-                MetadataFileName = infoXmlFileName;
-            }
-            else
-            {
-                MetadataFileName = null;
-            }
             PresentChosenArchiveInGui(ArchiveFileName, false);
         }
 
@@ -153,22 +119,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ArchiveFileName = OpenFolderDialog();
 
             if (ArchiveFileName == null)
-            {
-                MetadataFileName = null;
                 return;
-            }
 
             _log.Information("User action: Choose archive folder {ArchiveFileName}", ArchiveFileName);
-
-            string infoXmlFileName = Path.Combine(new DirectoryInfo(ArchiveFileName).Parent?.FullName, ArkadeConstants.InfoXmlFileName);
-            if (File.Exists(infoXmlFileName))
-            {
-                MetadataFileName = infoXmlFileName;
-            }
-            else
-            {
-                MetadataFileName = null;
-            }
 
             PresentChosenArchiveInGui(ArchiveFileName, true);
         }

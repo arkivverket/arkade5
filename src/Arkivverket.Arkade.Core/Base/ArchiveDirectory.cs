@@ -29,17 +29,5 @@ namespace Arkivverket.Arkade.Core.Base
 
             return new ArchiveDirectory(archiveDirectory, archiveType);
         }
-
-        private static FileInfo GetInfoXmlFile(DirectoryInfo archiveDirectory)
-        {
-            if (archiveDirectory.Parent == null)
-            {
-                return null;
-            }
-
-            string infoXml = Path.Combine(archiveDirectory.Parent.FullName, ArkadeConstants.InfoXmlFileName);
-            FileInfo fileInfo = new FileInfo(infoXml);
-            return fileInfo.Exists ? fileInfo : null;
-        }
     }
 }

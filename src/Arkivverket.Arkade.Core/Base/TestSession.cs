@@ -44,7 +44,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         public bool IsTestableArchive()
         {
-            return AddmlDefinition != null || Archive.ArchiveType == ArchiveType.Noark5;
+            return AddmlDefinition != null ||
+                   Archive.ArchiveType == ArchiveType.Noark5 && Archive.AddmlXmlUnit.File.Exists;
         }
     }
 }

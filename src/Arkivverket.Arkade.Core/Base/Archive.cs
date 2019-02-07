@@ -26,15 +26,23 @@ namespace Arkivverket.Arkade.Core.Base
 
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
-            Details = new ArchiveDetails(this);
+            if (AddmlXmlUnit.File.Exists)
+            {
+                Details = new ArchiveDetails(this);
 
-            if (archiveType == ArchiveType.Noark5)
-                SetupArchiveXmlUnits();
+                if (archiveType == ArchiveType.Noark5)
+                    SetupArchiveXmlUnits();
+            }
         }
 
         public string GetInformationPackageFileName()
         {
             return Uuid + ".tar";
+        }
+
+        public string GetInfoXmlFileName()
+        {
+            return Uuid + ".xml";
         }
 
         public ArchiveXmlFile GetArchiveXmlFile(string fileName)

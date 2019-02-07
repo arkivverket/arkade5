@@ -363,7 +363,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 Title = MetaDataGUI.SelectMetadataFile,
                 InitialDirectory = suggestedMetadataFileDirectory,
-                DefaultFileName = ArkadeConstants.InfoXmlFileName,
             };
 
             string metadataFileName;

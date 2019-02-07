@@ -277,7 +277,7 @@ namespace Arkivverket.Arkade.Core.Report
 
             foreach (TestRun testRun in testSession.TestSuite.TestRuns)
             {
-                if (TestTypeIsControl(testRun) && !testRun.IsSuccess())
+                if (!testRun.IsSuccess())
                 {
                     _stream.WriteLine(@"            <tr>");
                     _stream.WriteLine(@"                <td>");
