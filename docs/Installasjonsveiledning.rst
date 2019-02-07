@@ -72,7 +72,7 @@ Arkade 5 CLI
 Installer .NET Core
 ~~~~~~~~~~~~~~~~~~~
 
-For å kjøre Arkade 5 CLI må .NET Core (minimum versjon 2.0) være installert.
+For å kjøre Arkade 5 CLI må .NET Core (minimum versjon 2.1) være installert.
 
 |dotnet_core_download_link|
 
