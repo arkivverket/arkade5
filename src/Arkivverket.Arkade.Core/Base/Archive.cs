@@ -74,7 +74,7 @@ namespace Arkivverket.Arkade.Core.Base
         {
             FileInfo addmlFileInfo = WorkingDirectory.Content().WithFile(AddmlXmlFileName);
 
-            if (!addmlFileInfo.Exists)
+            if (!addmlFileInfo.Exists && ArchiveType == ArchiveType.Noark5)
                 addmlFileInfo = WorkingDirectory.Content().WithFile(ArkivuttrekkXmlFileName);
 
             var archiveXmlFile = new ArchiveXmlFile(addmlFileInfo);
