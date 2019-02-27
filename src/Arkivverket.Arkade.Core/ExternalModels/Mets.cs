@@ -20,8 +20,8 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.loc.gov/METS/", IsNullable=false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://arkivverket.no/standarder/METS", IsNullable=false)]
     public partial class mets : metsType {
     }
     
@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class metsType {
         
         private metsTypeMetsHdr metsHdrField;
@@ -192,7 +192,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class metsTypeMetsHdr {
         
         private metsTypeMetsHdrAgent[] agentField;
@@ -211,9 +211,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         private bool lASTMODDATEFieldSpecified;
         
-        private metsTypeMetsHdrRECORDSTATUS rECORDSTATUSField;
-        
-        private bool rECORDSTATUSFieldSpecified;
+        private string rECORDSTATUSField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("agent")]
@@ -304,23 +302,12 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public metsTypeMetsHdrRECORDSTATUS RECORDSTATUS {
+        public string RECORDSTATUS {
             get {
                 return this.rECORDSTATUSField;
             }
             set {
                 this.rECORDSTATUSField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool RECORDSTATUSSpecified {
-            get {
-                return this.rECORDSTATUSFieldSpecified;
-            }
-            set {
-                this.rECORDSTATUSFieldSpecified = value;
             }
         }
     }
@@ -330,7 +317,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class metsTypeMetsHdrAgent {
         
         private string nameField;
@@ -341,9 +328,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         private metsTypeMetsHdrAgentROLE rOLEField;
         
-        private metsTypeMetsHdrAgentOTHERROLE oTHERROLEField;
-        
-        private bool oTHERROLEFieldSpecified;
+        private string oTHERROLEField;
         
         private metsTypeMetsHdrAgentTYPE tYPEField;
         
@@ -396,23 +381,12 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public metsTypeMetsHdrAgentOTHERROLE OTHERROLE {
+        public string OTHERROLE {
             get {
                 return this.oTHERROLEField;
             }
             set {
                 this.oTHERROLEField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool OTHERROLESpecified {
-            get {
-                return this.oTHERROLEFieldSpecified;
-            }
-            set {
-                this.oTHERROLEFieldSpecified = value;
             }
         }
         
@@ -453,7 +427,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum metsTypeMetsHdrAgentROLE {
         
         /// <remarks/>
@@ -484,20 +458,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
-    public enum metsTypeMetsHdrAgentOTHERROLE {
-        
-        /// <remarks/>
-        SUBMITTER,
-        
-        /// <remarks/>
-        PRODUCER,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum metsTypeMetsHdrAgentTYPE {
         
         /// <remarks/>
@@ -513,7 +474,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum metsTypeMetsHdrAgentOTHERTYPE {
         
         /// <remarks/>
@@ -525,7 +486,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class objectType {
         
         private string idField;
@@ -705,20 +666,11 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum mdSecTypeMdRefLOCTYPE {
         
         /// <remarks/>
-        URN,
-        
-        /// <remarks/>
         URL,
-        
-        /// <remarks/>
-        HANDLE,
-        
-        /// <remarks/>
-        OTHER,
     }
     
     /// <remarks/>
@@ -767,7 +719,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class behaviorType {
         
         private objectType interfaceDefField;
@@ -904,7 +856,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class behaviorSecType {
         
         private behaviorSecType[] behaviorSecField;
@@ -991,7 +943,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class structLinkType {
         
         private object[] itemsField;
@@ -1027,7 +979,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class structLinkTypeSmLink {
         
         private string idField;
@@ -1153,7 +1105,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class structLinkTypeSmLinkGrp {
         
         private structLinkTypeSmLinkGrpSmLocatorLink[] smLocatorLinkField;
@@ -1259,7 +1211,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class structLinkTypeSmLinkGrpSmLocatorLink {
         
         private string idField;
@@ -1350,7 +1302,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class structLinkTypeSmLinkGrpSmArcLink {
         
         private string idField;
@@ -1517,7 +1469,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum structLinkTypeSmLinkGrpARCLINKORDER {
         
         /// <remarks/>
@@ -1532,7 +1484,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class seqType {
         
         private object[] itemsField;
@@ -1568,7 +1520,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class areaType {
         
         private string idField;
@@ -1757,7 +1709,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum areaTypeSHAPE {
         
         /// <remarks/>
@@ -1773,7 +1725,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum areaTypeBETYPE {
         
         /// <remarks/>
@@ -1825,7 +1777,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum areaTypeEXTTYPE {
         
         /// <remarks/>
@@ -1873,7 +1825,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class parType {
         
         private object[] itemsField;
@@ -1909,7 +1861,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class divType {
         
         private divTypeMptr[] mptrField;
@@ -1930,7 +1882,9 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         private string aDMIDField;
         
-        private string tYPEField;
+        private divTypeTYPE tYPEField;
+        
+        private bool tYPEFieldSpecified;
         
         private string[] cONTENTIDSField;
         
@@ -2037,12 +1991,23 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string TYPE {
+        public divTypeTYPE TYPE {
             get {
                 return this.tYPEField;
             }
             set {
                 this.tYPEField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool TYPESpecified {
+            get {
+                return this.tYPEFieldSpecified;
+            }
+            set {
+                this.tYPEFieldSpecified = value;
             }
         }
         
@@ -2074,7 +2039,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class divTypeMptr {
         
         private string idField;
@@ -2256,7 +2221,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class divTypeFptr {
         
         private object itemField;
@@ -2317,9 +2282,28 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
+    public enum divTypeTYPE {
+        
+        /// <remarks/>
+        preservationmetadata,
+        
+        /// <remarks/>
+        preservationdata,
+        
+        /// <remarks/>
+        technicalmetadata,
+        
+        /// <remarks/>
+        depotoperation,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class structMapType {
         
         private divType divField;
@@ -2379,7 +2363,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class fileType {
         
         private fileTypeFLocat fLocatField;
@@ -2398,7 +2382,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         private bool sEQFieldSpecified;
         
-        private string mIMETYPEField;
+        private mdSecTypeMdRefMIMETYPE mIMETYPEField;
         
         private long sIZEField;
         
@@ -2406,9 +2390,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         private string cHECKSUMField;
         
-        private fileTypeCHECKSUMTYPE cHECKSUMTYPEField;
-        
-        private bool cHECKSUMTYPEFieldSpecified;
+        private mdSecTypeMdRefCHECKSUMTYPE cHECKSUMTYPEField;
         
         private string oWNERIDField;
         
@@ -2516,7 +2498,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string MIMETYPE {
+        public mdSecTypeMdRefMIMETYPE MIMETYPE {
             get {
                 return this.mIMETYPEField;
             }
@@ -2560,23 +2542,12 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public fileTypeCHECKSUMTYPE CHECKSUMTYPE {
+        public mdSecTypeMdRefCHECKSUMTYPE CHECKSUMTYPE {
             get {
                 return this.cHECKSUMTYPEField;
             }
             set {
                 this.cHECKSUMTYPEField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool CHECKSUMTYPESpecified {
-            get {
-                return this.cHECKSUMTYPEFieldSpecified;
-            }
-            set {
-                this.cHECKSUMTYPEFieldSpecified = value;
             }
         }
         
@@ -2685,7 +2656,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class fileTypeFLocat {
         
         private string idField;
@@ -2867,7 +2838,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class fileTypeFContent {
         
         private object itemField;
@@ -2916,7 +2887,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class fileTypeFContentXmlData {
         
         private System.Xml.XmlElement[] anyField;
@@ -2938,7 +2909,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class fileTypeStream {
     }
     
@@ -2947,15 +2918,66 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class fileTypeTransformFile {
     }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
-    public enum fileTypeCHECKSUMTYPE {
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
+    public enum mdSecTypeMdRefMIMETYPE {
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("text/txt")]
+        texttxt,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("text/xml")]
+        textxml,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("image/jpg")]
+        imagejpg,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("image/pdf")]
+        imagepdf,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("image/tiff")]
+        imagetiff,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("audio/mp3")]
+        audiomp3,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("video/mpg")]
+        videompg,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("package/tar")]
+        packagetar,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("application/x-tar")]
+        applicationxtar,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("application/xml")]
+        applicationxml,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("text/plain")]
+        textplain,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
+    public enum mdSecTypeMdRefCHECKSUMTYPE {
         
         /// <remarks/>
         MD5,
@@ -2980,7 +3002,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum fileTypeBETYPE {
         
         /// <remarks/>
@@ -2992,7 +3014,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class fileGrpType {
         
         private object[] itemsField;
@@ -3080,7 +3102,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class amdSecType {
         
         private mdSecType[] techMDField;
@@ -3154,7 +3176,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/METS")]
     public partial class mdSecType {
         
         private mdSecTypeMdRef mdRefField;
@@ -3265,7 +3287,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class mdSecTypeMdRef {
         
         private string idField;
@@ -3300,21 +3322,15 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         private string mDTYPEVERSIONField;
         
-        private string mIMETYPEField;
+        private mdSecTypeMdRefMIMETYPE mIMETYPEField;
         
         private long sIZEField;
         
-        private bool sIZEFieldSpecified;
-        
         private System.DateTime cREATEDField;
-        
-        private bool cREATEDFieldSpecified;
         
         private string cHECKSUMField;
         
         private mdSecTypeMdRefCHECKSUMTYPE cHECKSUMTYPEField;
-        
-        private bool cHECKSUMTYPEFieldSpecified;
         
         private string lABELField;
         
@@ -3502,7 +3518,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string MIMETYPE {
+        public mdSecTypeMdRefMIMETYPE MIMETYPE {
             get {
                 return this.mIMETYPEField;
             }
@@ -3523,17 +3539,6 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool SIZESpecified {
-            get {
-                return this.sIZEFieldSpecified;
-            }
-            set {
-                this.sIZEFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public System.DateTime CREATED {
             get {
@@ -3541,17 +3546,6 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
             }
             set {
                 this.cREATEDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool CREATEDSpecified {
-            get {
-                return this.cREATEDFieldSpecified;
-            }
-            set {
-                this.cREATEDFieldSpecified = value;
             }
         }
         
@@ -3574,17 +3568,6 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
             }
             set {
                 this.cHECKSUMTYPEField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool CHECKSUMTYPESpecified {
-            get {
-                return this.cHECKSUMTYPEFieldSpecified;
-            }
-            set {
-                this.cHECKSUMTYPEFieldSpecified = value;
             }
         }
         
@@ -3614,7 +3597,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum mdSecTypeMdRefMDTYPE {
         
         /// <remarks/>
@@ -3681,17 +3664,13 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         ISO191152003NAP,
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("EAC-CPF")]
-        EACCPF,
-        
-        /// <remarks/>
         OTHER,
     }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum mdSecTypeMdRefOTHERMDTYPE {
         
         /// <remarks/>
@@ -3702,6 +3681,10 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         EACF,
         
         /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("EAC-CPF")]
+        EACCPF,
+        
+        /// <remarks/>
         EAG,
         
         /// <remarks/>
@@ -3709,35 +3692,6 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         /// <remarks/>
         EAC,
-        
-        /// <remarks/>
-        COMMENT,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
-    public enum mdSecTypeMdRefCHECKSUMTYPE {
-        
-        /// <remarks/>
-        MD5,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("SHA-1")]
-        SHA1,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("SHA-256")]
-        SHA256,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("SHA-384")]
-        SHA384,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("SHA-512")]
-        SHA512,
     }
     
     /// <remarks/>
@@ -3745,7 +3699,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class mdSecTypeMdWrap {
         
         private object itemField;
@@ -3760,7 +3714,9 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         private string mDTYPEVERSIONField;
         
-        private string mIMETYPEField;
+        private mdSecTypeMdWrapMIMETYPE mIMETYPEField;
+        
+        private bool mIMETYPEFieldSpecified;
         
         private long sIZEField;
         
@@ -3847,12 +3803,23 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string MIMETYPE {
+        public mdSecTypeMdWrapMIMETYPE MIMETYPE {
             get {
                 return this.mIMETYPEField;
             }
             set {
                 this.mIMETYPEField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool MIMETYPESpecified {
+            get {
+                return this.mIMETYPEFieldSpecified;
+            }
+            set {
+                this.mIMETYPEFieldSpecified = value;
             }
         }
         
@@ -3950,7 +3917,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class mdSecTypeMdWrapXmlData {
         
         private System.Xml.XmlElement[] anyField;
@@ -3970,7 +3937,42 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
+    public enum mdSecTypeMdWrapMIMETYPE {
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("text/txt")]
+        texttxt,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("text/xml")]
+        textxml,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("image/jpg")]
+        imagejpg,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("image/pdf")]
+        imagepdf,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("image/tiff")]
+        imagetiff,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("audio/mp3")]
+        audiomp3,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("video/mpg")]
+        videompg,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum mdSecTypeMdWrapCHECKSUMTYPE {
         
         /// <remarks/>
@@ -3998,14 +4000,12 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class metsTypeMetsHdrAltRecordID {
         
         private string idField;
         
-        private metsTypeMetsHdrAltRecordIDTYPE tYPEField;
-        
-        private bool tYPEFieldSpecified;
+        private string tYPEField;
         
         private string valueField;
         
@@ -4022,23 +4022,12 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public metsTypeMetsHdrAltRecordIDTYPE TYPE {
+        public string TYPE {
             get {
                 return this.tYPEField;
             }
             set {
                 this.tYPEField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool TYPESpecified {
-            get {
-                return this.tYPEFieldSpecified;
-            }
-            set {
-                this.tYPEFieldSpecified = value;
             }
         }
         
@@ -4057,61 +4046,9 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
-    public enum metsTypeMetsHdrAltRecordIDTYPE {
-        
-        /// <remarks/>
-        DELIVERYTYPE,
-        
-        /// <remarks/>
-        DELIVERYSPECIFICATION,
-        
-        /// <remarks/>
-        SUBMISSIONAGREEMENT,
-        
-        /// <remarks/>
-        SYSTEMTYPE,
-        
-        /// <remarks/>
-        PREVIOUSSUBMISSIONAGREEMENT,
-        
-        /// <remarks/>
-        DATASUBMISSIONSESSION,
-        
-        /// <remarks/>
-        PACKAGENUMBER,
-        
-        /// <remarks/>
-        REFERENCECODE,
-        
-        /// <remarks/>
-        PREVIOUSREFERENCECODE,
-        
-        /// <remarks/>
-        APPRAISAL,
-        
-        /// <remarks/>
-        ACCESSRESTRICT,
-        
-        /// <remarks/>
-        STARTDATE,
-        
-        /// <remarks/>
-        ENDDATE,
-        
-        /// <remarks/>
-        INFORMATIONCLASS,
-        
-        /// <remarks/>
-        POLICYID,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class metsTypeMetsHdrMetsDocumentID {
         
         private string idField;
@@ -4157,34 +4094,9 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
-    public enum metsTypeMetsHdrRECORDSTATUS {
-        
-        /// <remarks/>
-        SUPPLEMENT,
-        
-        /// <remarks/>
-        REPLACEMENT,
-        
-        /// <remarks/>
-        NEW,
-        
-        /// <remarks/>
-        TEST,
-        
-        /// <remarks/>
-        VERSION,
-        
-        /// <remarks/>
-        OTHER,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class metsTypeFileSec {
         
         private metsTypeFileSecFileGrp[] fileGrpField;
@@ -4219,7 +4131,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class metsTypeFileSecFileGrp : fileGrpType {
     }
     
@@ -4228,14 +4140,14 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public partial class metsTypeStructLink : structLinkType {
     }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.loc.gov/METS/")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://arkivverket.no/standarder/METS")]
     public enum metsTypeTYPE {
         
         /// <remarks/>
@@ -4248,9 +4160,9 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Mets {
         DIP,
         
         /// <remarks/>
-        AIU,
+        AIC,
         
         /// <remarks/>
-        AIC,
+        AIU,
     }
 }

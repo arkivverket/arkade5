@@ -10,6 +10,13 @@ namespace Arkivverket.Arkade.Core.Metadata
 {
     public static class DiasMetsLoader
     {
+        private const string Deliveryspecification = "DELIVERYSPECIFICATION";
+        private const string Submissionagreement = "SUBMISSIONAGREEMENT";
+        private const string Startdate = "STARTDATE";
+        private const string Enddate = "ENDDATE";
+        private const string Submitter = "SUBMITTER";
+        private const string Producer = "PRODUCER";
+
         public static ArchiveMetadata Load(string diasMetsFile)
         {
             var mets = SerializeUtil.DeserializeFromFile<mets>(diasMetsFile);
@@ -67,21 +74,21 @@ namespace Arkivverket.Arkade.Core.Metadata
             IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
         {
             archiveMetadata.ArchiveDescription = metsHdrAltRecordIds.FirstOrDefault(a =>
-                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.DELIVERYSPECIFICATION)?.Value;
+                a.TYPE == Deliveryspecification)?.Value;
         }
 
         private static void LoadAgreementNumber(ArchiveMetadata archiveMetadata,
             IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
         {
             archiveMetadata.AgreementNumber = metsHdrAltRecordIds.FirstOrDefault(a =>
-                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.SUBMISSIONAGREEMENT)?.Value;
+                a.TYPE == Submissionagreement)?.Value;
         }
 
         private static void LoadStartDate(ArchiveMetadata archiveMetadata,
             IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
         {
             string dateValue = metsHdrAltRecordIds.FirstOrDefault(a =>
-                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.STARTDATE)?.Value;
+                a.TYPE == Startdate)?.Value;
 
             archiveMetadata.StartDate = LoadDateOrNull(dateValue);
         }
@@ -90,7 +97,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
         {
             string dateValue = metsHdrAltRecordIds.FirstOrDefault(a =>
-                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.ENDDATE)?.Value;
+                a.TYPE == Enddate)?.Value;
 
             archiveMetadata.EndDate = LoadDateOrNull(dateValue);
         }
@@ -118,7 +125,7 @@ namespace Arkivverket.Arkade.Core.Metadata
         {
             metsTypeMetsHdrAgent[] metsTransfererAgents = metsHdrAgents.Where(a =>
                 a.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
-                a.OTHERROLE.Equals(metsTypeMetsHdrAgentOTHERROLE.SUBMITTER) &&
+                a.OTHERROLE.Equals(Submitter) &&
                 (a.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION || a.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL)
             ).ToArray();
 
@@ -139,7 +146,7 @@ namespace Arkivverket.Arkade.Core.Metadata
         {
             metsTypeMetsHdrAgent[] metsProducerAgents = metsHdrAgents.Where(a =>
                 a.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
-                a.OTHERROLE.Equals(metsTypeMetsHdrAgentOTHERROLE.PRODUCER) &&
+                a.OTHERROLE.Equals(Producer) &&
                 (a.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION || a.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL)
             ).ToArray();
 
@@ -266,7 +273,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                 a.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                 a.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
                 a.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
-                a.OTHERROLE == metsTypeMetsHdrAgentOTHERROLE.PRODUCER
+                a.OTHERROLE == Producer
             );
 
             if (metsArchiveSystemAgent == null)
