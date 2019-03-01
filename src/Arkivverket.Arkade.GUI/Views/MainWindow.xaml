@@ -55,7 +55,11 @@
                             HorizontalContentAlignment="Stretch" VerticalAlignment="Top"/>
 
         <DockPanel Grid.Row="2" VerticalAlignment="Bottom" Background="#ededed">
-            <TextBlock Text="{Binding CurrentVersion}" Padding="2" FontSize="10" FontStyle="Italic"></TextBlock>
+            <TextBlock Padding="2" FontSize="10" FontStyle="Italic">
+                <Hyperlink Command="{Binding VersionHistoryCommand}">
+                    <TextBlock  Text="{Binding CurrentVersion}"/>
+                </Hyperlink>
+            </TextBlock>
             <TextBlock Padding="2" FontSize="10" FontStyle="Italic">
                 <Hyperlink Command="{Binding DownloadNewVersionCommand}">
                     <TextBlock Text="{Binding VersionStatusMessage}" />

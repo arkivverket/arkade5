@@ -27,6 +27,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public string CurrentVersion { get; }
         public string VersionStatusMessage { get; }
         public DelegateCommand DownloadNewVersionCommand { get; }
+        public DelegateCommand VersionHistoryCommand { get; }
 
         public MainWindowViewModel(IRegionManager regionManager, ArkadeVersion arkadeVersion)
         {
@@ -39,6 +40,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             CurrentVersion = "Versjon " + ArkadeVersion.Current;
             VersionStatusMessage = arkadeVersion.UpdateIsAvailable() ? Resources.GUI.NewVersionMessage : null;
             DownloadNewVersionCommand = new DelegateCommand(DownloadNewVersion);
+            VersionHistoryCommand = new DelegateCommand(VersionHistory);
         }
 
         private void Navigate(string uri)
@@ -98,6 +100,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private static void DownloadNewVersion()
         {
             Process.Start("https://github.com/arkivverket/arkade5/releases/latest");
+        }
+
+        private static void VersionHistory()
+        {
+            Process.Start("https://github.com/arkivverket/arkade5/releases");
         }
     }
 }
