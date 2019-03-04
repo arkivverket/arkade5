@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             return eventArgs.Path.Matches("mappe") &&
                    eventArgs.Name.Equals("xsi:type") &&
-                   eventArgs.Value.Equals("møtemappe");
+                   eventArgs.Value.Equals("moetemappe");
         }
 
         public static bool PeriodSeparationIsSharp(Archive archive)
