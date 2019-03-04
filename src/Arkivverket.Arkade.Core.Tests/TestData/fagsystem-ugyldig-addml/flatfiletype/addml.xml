@@ -1,0 +1,710 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<addml name="Mal for arkivuttrekk som følger Noark 3" xmlns="http://www.arkivverket.no/standarder/addml">
+	<dataset name="Noark_3">
+		<reference>
+			<context>
+				<additionalElements>
+					<additionalElement name="systemType">
+						<value>Journalsystem (Noark-3)</value>
+					</additionalElement>
+				</additionalElements>
+			</context>
+		</reference>
+		<flatFiles>
+			<flatFile definitionReference="Saksregister" name="Saksregister">
+				<properties>
+					<property name="fileName">
+						<value>SAK.DAT</value>
+					</property>
+				</properties>
+			</flatFile>
+			<flatFile definitionReference="Dokumentregister" name="Dokumentregister">
+				<properties>
+					<property name="fileName">
+						<value>DOK.DAT</value>
+					</property>
+				</properties>
+			</flatFile>
+			<flatFile definitionReference="Arkivnoekkelregister" name="Arkivnoekkelregister">
+				<properties>
+					<property name="fileName">
+						<value>ARKIV.DAT</value>
+					</property>
+				</properties>
+			</flatFile>
+			<flatFileDefinitions>
+				<flatFileDefinition name="Saksregister" typeReference="fft1000">
+					<recordDefinitions>
+						<recordDefinition name="Saksregisterpost">
+							<fixedLength>280</fixedLength>
+							<keys>
+								<key name="PKsak">
+									<primaryKey/>
+									<fieldDefinitionReferences>
+										<fieldDefinitionReference name="Saksnr"/>
+									</fieldDefinitionReferences>
+								</key>
+								<key name="FK1sak">
+									<foreignKey>
+										<flatFileDefinitionReference name="Arkivnoekkelregister">
+											<recordDefinitionReferences>
+												<recordDefinitionReference name="Arkivnoekkelregisterpost">
+													<fieldDefinitionReferences>
+														<fieldDefinitionReference name="Arkivkode"/>
+													</fieldDefinitionReferences>
+												</recordDefinitionReference>
+											</recordDefinitionReferences>
+										</flatFileDefinitionReference>
+										<relationType>n:1</relationType>
+									</foreignKey>
+									<fieldDefinitionReferences>
+										<fieldDefinitionReference name="Arkiv_2_delfelt"/>
+									</fieldDefinitionReferences>
+								</key>
+							</keys>
+							<fieldDefinitions>
+								<fieldDefinition name="Posttype" typeReference="string-1">
+									<description>Fast verdi S</description>
+									<startPos>1</startPos>
+									<fixedLength>1</fixedLength>
+									<codes>
+										<code codeValue="S" explan="Sak"/>
+									</codes>
+								</fieldDefinition>
+								<fieldDefinition name="Grad" typeReference="string-1">
+									<startPos>2</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Saksnr" typeReference="string-1">
+									<description>Består av Årstall, Skråstrek og Fortløpende nr.</description>
+									<startPos>5</startPos>
+									<fixedLength>10</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Dato" typeReference="date-1">
+									<startPos>15</startPos>
+									<fixedLength>8</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Arkiv_1_delfelt" typeReference="string-1">
+									<description>Angir delarkiv</description>
+									<startPos>23</startPos>
+									<fixedLength>2</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Arkiv_2_delfelt" typeReference="string-1">
+									<description>Arkivkode/Arkivbetegnelse</description>
+									<startPos>25</startPos>
+									<fixedLength>16</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Blankt_felt_1" typeReference="string-1">
+									<description>Fast verdi: Blank</description>
+									<startPos>41</startPos>
+									<fixedLength>8</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Saksansv_1_delfelt" typeReference="string-1">
+									<description>Angir kontor</description>
+									<startPos>49</startPos>
+									<fixedLength>4</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Saksansv_2_delfelt" typeReference="string-1">
+									<description>Saksansvarligs initialer</description>
+									<startPos>53</startPos>
+									<fixedLength>4</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Presedens" typeReference="string-1">
+									<startPos>57</startPos>
+									<fixedLength>16</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Kassasjon" typeReference="integer-1">
+									<description>Kassasjonskode, høyrejustert</description>
+									<startPos>73</startPos>
+									<fixedLength>2</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Kryssreferanse" typeReference="string-1">
+									<startPos>75</startPos>
+									<fixedLength>16</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Sakstittel" typeReference="string-1">
+									<startPos>91</startPos>
+									<fixedLength>140</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Antall_dok" typeReference="integer-1">
+									<description>Høyrejustert</description>
+									<startPos>231</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Siste_dok" typeReference="date-1">
+									<description>(datofelt)</description>
+									<startPos>234</startPos>
+									<fixedLength>8</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Sak_avsluttet" typeReference="string-1">
+									<startPos>242</startPos>
+									<fixedLength>1</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Sekundaekode" typeReference="string-1">
+									<description>Sekundærkodeangivelse</description>
+									<startPos>243</startPos>
+									<fixedLength>30</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Blankt_felt_2" typeReference="string-1">
+									<description>Fast verdi: Blank</description>
+									<startPos>273</startPos>
+									<fixedLength>8</fixedLength>
+								</fieldDefinition>
+							</fieldDefinitions>
+						</recordDefinition>
+					</recordDefinitions>
+				</flatFileDefinition>
+				<flatFileDefinition name="Dokumentregister" typeReference="fft1">
+					<recordDefinitionFieldIdentifier>Posttype</recordDefinitionFieldIdentifier>
+					<recordDefinitions>
+						<recordDefinition name="Eksterne_dokumenter">
+							<recordDefinitionFieldValue>B</recordDefinitionFieldValue>
+							<fixedLength>580</fixedLength>
+							<keys>
+								<key name="PKdok">
+									<primaryKey/>
+									<fieldDefinitionReferences>
+										<fieldDefinitionReference name="Saksnr"/>
+										<fieldDefinitionReference name="Doknr"/>
+									</fieldDefinitionReferences>
+								</key>
+								<key name="FK1dok">
+									<foreignKey>
+										<flatFileDefinitionReference name="Saksregister">
+											<recordDefinitionReferences>
+												<recordDefinitionReference name="Saksregisterpost">
+													<fieldDefinitionReferences>
+														<fieldDefinitionReference name="Saksnr"/>
+													</fieldDefinitionReferences>
+												</recordDefinitionReference>
+											</recordDefinitionReferences>
+										</flatFileDefinitionReference>
+										<relationType>n:1</relationType>
+									</foreignKey>
+									<fieldDefinitionReferences>
+										<fieldDefinitionReference name="Saksnr"/>
+									</fieldDefinitionReferences>
+								</key>
+							</keys>
+							<fieldDefinitions>
+								<fieldDefinition name="Posttype" typeReference="string-1">
+									<description>Fast verdi B</description>
+									<startPos>1</startPos>
+									<fixedLength>1</fixedLength>
+									<codes>
+										<code codeValue="B" explan="Brev"/>
+									</codes>
+								</fieldDefinition>
+								<fieldDefinition name="Grad" typeReference="string-1">
+									<startPos>2</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Saksnr" typeReference="string-1">
+									<startPos>5</startPos>
+									<fixedLength>10</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Doknr" typeReference="integer-1">
+									<startPos>15</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Journaldato" typeReference="date-1">
+									<startPos>18</startPos>
+									<fixedLength>8</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Doktype" typeReference="string-1">
+									<description>Verdi I eller U</description>
+									<startPos>26</startPos>
+									<fixedLength>1</fixedLength>
+									<codes>
+										<code codeValue="I" explan="Inngående"/>
+										<code codeValue="U" explan="Utgående"/>
+									</codes>
+								</fieldDefinition>
+								<fieldDefinition name="Uoff" typeReference="string-1">
+									<startPos>27</startPos>
+									<fixedLength>16</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Bdato" typeReference="date-1">
+									<description>Bdato eller Ddato</description>
+									<startPos>43</startPos>
+									<fixedLength>8</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Vedlegg" typeReference="integer-1">
+									<startPos>51</startPos>
+									<fixedLength>2</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Avgradering" typeReference="string-1">
+									<description>Faste verdier: 2, 5, U eller Blank</description>
+									<startPos>53</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Saksbeh_for_dok_1_delfelt" typeReference="string-1">
+									<description>Angir kontor</description>
+									<startPos>56</startPos>
+									<fixedLength>4</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Saksbeh_for_dok_2_delfelt" typeReference="string-1">
+									<startPos>60</startPos>
+									<fixedLength>4</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Blankt_felt_1" typeReference="string-1">
+									<description>Fast verdi: Blank</description>
+									<startPos>64</startPos>
+									<fixedLength>7</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Avs_mot_forkortelse" typeReference="string-1">
+									<startPos>71</startPos>
+									<fixedLength>10</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Avs_mot" typeReference="string-1">
+									<startPos>81</startPos>
+									<fixedLength>70</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Dokumentbeskrivelse" typeReference="string-1">
+									<startPos>151</startPos>
+									<fixedLength>140</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Tillegg" typeReference="string-1">
+									<startPos>291</startPos>
+									<fixedLength>210</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Avskrivning_doknr" typeReference="integer-1">
+									<startPos>501</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Avskrivning_dato" typeReference="date-1">
+									<startPos>504</startPos>
+									<fixedLength>8</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Avskrivning_maate" typeReference="string-1">
+									<startPos>512</startPos>
+									<fixedLength>4</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Loepenr" typeReference="string-1">
+									<startPos>516</startPos>
+									<fixedLength>11</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Journalenhet" typeReference="string-1">
+									<startPos>527</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Blankt_felt_2" typeReference="string-1">
+									<startPos>530</startPos>
+									<fixedLength>11</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Filreferanse" typeReference="string-1">
+									<startPos>541</startPos>
+									<fixedLength>40</fixedLength>
+								</fieldDefinition>
+							</fieldDefinitions>
+						</recordDefinition>
+						<recordDefinition name="Interne_dokumenter">
+							<recordDefinitionFieldValue>N</recordDefinitionFieldValue>
+							<fixedLength>580</fixedLength>
+							<keys>
+								<key name="PKint">
+									<primaryKey/>
+									<fieldDefinitionReferences>
+										<fieldDefinitionReference name="Saksnr"/>
+										<fieldDefinitionReference name="Doknr"/>
+									</fieldDefinitionReferences>
+								</key>
+								<key name="FK1int">
+									<foreignKey>
+										<flatFileDefinitionReference name="Saksregister">
+											<recordDefinitionReferences>
+												<recordDefinitionReference name="Saksregisterpost">
+													<fieldDefinitionReferences>
+														<fieldDefinitionReference name="Saksnr"/>
+													</fieldDefinitionReferences>
+												</recordDefinitionReference>
+											</recordDefinitionReferences>
+										</flatFileDefinitionReference>
+										<relationType>n:1</relationType>
+									</foreignKey>
+									<fieldDefinitionReferences>
+										<fieldDefinitionReference name="Saksnr"/>
+									</fieldDefinitionReferences>
+								</key>
+							</keys>
+							<fieldDefinitions>
+								<fieldDefinition name="Posttype" typeReference="string-1">
+									<description>Fast verdi N</description>
+									<startPos>1</startPos>
+									<fixedLength>1</fixedLength>
+									<codes>
+										<code codeValue="N" explan="Notat"/>
+									</codes>
+								</fieldDefinition>
+								<fieldDefinition name="Grad" typeReference="string-1">
+									<startPos>2</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Saksnr" typeReference="string-1">
+									<startPos>5</startPos>
+									<fixedLength>10</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Doknr" typeReference="integer-1">
+									<startPos>15</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Journaldato" typeReference="date-1">
+									<startPos>18</startPos>
+									<fixedLength>8</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Doktype" typeReference="string-1">
+									<description>Verdi I eller U</description>
+									<startPos>26</startPos>
+									<fixedLength>1</fixedLength>
+									<codes>
+										<code codeValue="I" explan="Inngående"/>
+										<code codeValue="U" explan="Utgående"/>
+										<code codeValue="X"/>
+										<code codeValue="N"/>
+									</codes>
+								</fieldDefinition>
+								<fieldDefinition name="Uoff" typeReference="string-1">
+									<startPos>27</startPos>
+									<fixedLength>16</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Bdato" typeReference="date-1">
+									<description>Bdato eller Ddato</description>
+									<startPos>43</startPos>
+									<fixedLength>8</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Vedlegg" typeReference="integer-1">
+									<startPos>51</startPos>
+									<fixedLength>2</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Avgradering" typeReference="string-1">
+									<description>Faste verdier: 2, 5, U eller Blank</description>
+									<startPos>53</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Saksbeh_for_dok_1_delfelt" typeReference="string-1">
+									<description>Angir kontor</description>
+									<startPos>56</startPos>
+									<fixedLength>4</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Saksbeh_for_dok_2_delfelt" typeReference="string-1">
+									<startPos>60</startPos>
+									<fixedLength>4</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Blankt_felt_3" typeReference="string-1">
+									<description>Fast verdi: Blank</description>
+									<startPos>64</startPos>
+									<fixedLength>7</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Internt_dok_fra" typeReference="string-1">
+									<startPos>71</startPos>
+									<fixedLength>30</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Blankt_felt_4" typeReference="string-1">
+									<description>Fast verdi: Blank</description>
+									<startPos>101</startPos>
+									<fixedLength>8</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Internt_dok_til" typeReference="string-1">
+									<startPos>109</startPos>
+									<fixedLength>29</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Journalenhet_1" typeReference="string-1">
+									<description>Mottakers journalenhet</description>
+									<startPos>138</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Behandler_1_delfelt" typeReference="string-1">
+									<description>Mottakers kontor</description>
+									<startPos>141</startPos>
+									<fixedLength>4</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Behandler_2_delfelt" typeReference="string-1">
+									<description>Mottakers initialer</description>
+									<startPos>145</startPos>
+									<fixedLength>4</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Blankt_felt_5" typeReference="string-1">
+									<description>Fast verdi: Blank</description>
+									<startPos>149</startPos>
+									<fixedLength>2</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Dokumentbeskrivelse" typeReference="string-1">
+									<startPos>151</startPos>
+									<fixedLength>140</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Tillegg" typeReference="string-1">
+									<startPos>291</startPos>
+									<fixedLength>210</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Blankt_felt_6" typeReference="string-1">
+									<description>Fast verdi: Blank</description>
+									<startPos>501</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Avskrivning_dato" typeReference="date-1">
+									<startPos>504</startPos>
+									<fixedLength>8</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Avskrivning_maate" typeReference="string-1">
+									<startPos>512</startPos>
+									<fixedLength>4</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Loepenr" typeReference="string-1">
+									<startPos>516</startPos>
+									<fixedLength>11</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Journalenhet_2" typeReference="string-1">
+									<startPos>527</startPos>
+									<fixedLength>3</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Blankt_felt_7" typeReference="string-1">
+									<startPos>530</startPos>
+									<fixedLength>11</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Filreferanse" typeReference="string-1">
+									<startPos>541</startPos>
+									<fixedLength>40</fixedLength>
+								</fieldDefinition>
+							</fieldDefinitions>
+						</recordDefinition>
+					</recordDefinitions>
+				</flatFileDefinition>
+				<flatFileDefinition name="Arkivnoekkelregister" typeReference="fft1">
+					<recordDefinitions>
+						<recordDefinition name="Arkivnoekkelregisterpost">
+							<fixedLength>271</fixedLength>
+							<keys>
+								<key name="PKark">
+									<primaryKey/>
+									<fieldDefinitionReferences>
+										<fieldDefinitionReference name="Arkivkode"/>
+									</fieldDefinitionReferences>
+								</key>
+							</keys>
+							<fieldDefinitions>
+								<fieldDefinition name="Arkivkode" typeReference="string-1">
+									<startPos>1</startPos>
+									<fixedLength>16</fixedLength>
+								</fieldDefinition>
+								<fieldDefinition name="Gruppetekst" typeReference="string-1">
+									<startPos>17</startPos>
+									<fixedLength>255</fixedLength>
+								</fieldDefinition>
+							</fieldDefinitions>
+						</recordDefinition>
+					</recordDefinitions>
+				</flatFileDefinition>
+			</flatFileDefinitions>
+			<structureTypes>
+				<flatFileTypes>
+					<flatFileType name="fft1">
+						<charset>ISO-8859-1</charset>
+						<fixedFileFormat/>
+					</flatFileType>
+				</flatFileTypes>
+				<fieldTypes>
+					<fieldType name="date-1">
+						<dataType>date</dataType>
+						<fieldFormat>YYYYMMDD</fieldFormat>
+					</fieldType>
+					<fieldType name="integer-1">
+						<dataType>integer</dataType>
+					</fieldType>
+					<fieldType name="string-1">
+						<dataType>string</dataType>
+					</fieldType>
+				</fieldTypes>
+			</structureTypes>
+			<flatFileProcesses flatFileReference="Dokumentregister">
+				<processes>
+					<process name="Analyse_CountRecords"/>
+					<process name="Control_NumberOfRecords"/>
+				</processes>
+				<recordProcesses definitionReference="Eksterne_dokumenter">
+					<processes>
+						<process name="Analyse_CountRecordDefinitionOccurences"/>
+					</processes>
+				</recordProcesses>
+				<recordProcesses definitionReference="Interne_dokumenter">
+					<processes>
+						<process name="Analyse_CountRecordDefinitionOccurences"/>
+					</processes>
+				</recordProcesses>
+			</flatFileProcesses>
+			<flatFileProcesses flatFileReference="Saksregister">
+				<processes>
+					<process name="Analyse_CountRecords"/>
+					<process name="Control_NumberOfRecords"/>
+				</processes>
+				<recordProcesses definitionReference="Saksregisterpost">
+					<processes>
+						<process name="Control_ForeignKey"/>
+					</processes>
+					<fieldProcesses definitionReference="Posttype">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Grad">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Saksnr">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Dato">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Arkiv_1_delfelt">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Arkiv_2_delfelt">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+							<process name="Control_ForeignKey"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Blankt_felt_1">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Saksansv_1_delfelt">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Saksansv_2_delfelt">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Presedens">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Kassasjon">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Kryssreferanse">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Sakstittel">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Antall_dok">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Siste_dok">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Sak_avsluttet">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Sekundaekode">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+					<fieldProcesses definitionReference="Blankt_felt_2">
+						<processes>
+							<process name="Analyse_FindMinMaxLengths"/>
+							<process name="Control_BirthNumber"/>
+							<process name="Control_Codes"/>
+							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FrequencyList"/>
+						</processes>
+					</fieldProcesses>
+				</recordProcesses>
+			</flatFileProcesses>
+		</flatFiles>
+	</dataset>
+</addml>
