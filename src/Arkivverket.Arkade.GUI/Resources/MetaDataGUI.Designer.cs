@@ -484,6 +484,15 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oppretter pakke....
+        /// </summary>
+        public static string PackageCreationOngoing {
+            get {
+                return ResourceManager.GetString("PackageCreationOngoing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Produsent*.
         /// </summary>
         public static string Producer {

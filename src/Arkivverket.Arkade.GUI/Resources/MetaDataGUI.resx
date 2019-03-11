@@ -342,4 +342,7 @@ Tidl. nevnt som avleverende myndighet</comment>
   <data name="GuiSubsection_Creator" xml:space="preserve">
     <value>Skaper av informasjonspakke</value>
   </data>
+  <data name="PackageCreationOngoing" xml:space="preserve">
+    <value>Oppretter pakke...</value>
+  </data>
 </root>
