@@ -91,6 +91,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private bool FileExists(string documentFileName)
         {
+            if (Path.DirectorySeparatorChar == '/')
+                documentFileName = documentFileName.Replace('\\', '/');
+
             try
             {
                 var documentFileInfo = new FileInfo(Path.Combine(_workingDirectory.FullName, documentFileName));
