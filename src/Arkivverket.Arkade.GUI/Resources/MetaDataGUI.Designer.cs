@@ -97,7 +97,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e-post(Kontakt, Arkivskaper).
+        ///   Looks up a localized string similar to E-post (Kontakt, Arkivskaper).
         /// </summary>
         public static string ArchiveCreator_Email {
             get {
@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Telefon(Kontakt, Arkivskaper).
+        ///   Looks up a localized string similar to Telefon (Kontakt, Arkivskaper).
         /// </summary>
         public static string ArchiveCreator_Telephone {
             get {
@@ -196,7 +196,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e-post (Kontakt, Pakkeskaper).
+        ///   Looks up a localized string similar to E-post (Kontakt, Pakkeskaper).
         /// </summary>
         public static string Creator_Email {
             get {
@@ -448,7 +448,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e-post (Kontakt, Eier).
+        ///   Looks up a localized string similar to E-post (Kontakt, Eier).
         /// </summary>
         public static string Owner_Email {
             get {
@@ -520,7 +520,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e-post (Kontakt, Produsent).
+        ///   Looks up a localized string similar to E-post (Kontakt, Produsent).
         /// </summary>
         public static string Producer_Email {
             get {
@@ -655,7 +655,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e-post (Kontakt, Overfører).
+        ///   Looks up a localized string similar to E-post (Kontakt, Overfører).
         /// </summary>
         public static string Transferer_Email {
             get {
