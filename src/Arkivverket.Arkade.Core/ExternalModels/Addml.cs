@@ -825,6 +825,8 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Addml {
         
         private fieldDefinition[] fieldDefinitionsField;
         
+        private string headerLevelField;
+        
         private string nameField;
         
         private string typeReferenceField;
@@ -911,6 +913,17 @@ namespace Arkivverket.Arkade.Core.ExternalModels.Addml {
             }
             set {
                 this.fieldDefinitionsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+        public string headerLevel {
+            get {
+                return this.headerLevelField;
+            }
+            set {
+                this.headerLevelField = value;
             }
         }
         
