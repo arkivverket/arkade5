@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
@@ -20,13 +20,14 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
 
         private string _recordSeparator = null;
         private string _fieldSeparator = null;
+        private string _quotingSeparator;
         private readonly AddmlFlatFileFormat _format = AddmlFlatFileFormat.Fixed;
 
         private Checksum _checksum = null;
 
         public AddmlFlatFileDefinition Build()
         {
-            return new AddmlFlatFileDefinition(_name, _fileName, _fileInfo, _recordSeparator, _fieldSeparator, _charset,
+            return new AddmlFlatFileDefinition(_name, _fileName, _fileInfo, _recordSeparator, _fieldSeparator, _quotingSeparator, _charset,
                 _recordDefinitionFieldIdentifier, _numberOfRecords, _checksum, _format, _processes);
         }
 
@@ -59,6 +60,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
             _fieldSeparator = fieldSeparator;
             return this;
 
+        }
+
+        public AddmlFlatFileDefinitionBuilder WithQuotingSeparator(string quotingSeparator)
+        {
+            _quotingSeparator = quotingSeparator;
+            return this;
         }
 
         public AddmlFlatFileDefinitionBuilder WithChecksum(Checksum checksum)

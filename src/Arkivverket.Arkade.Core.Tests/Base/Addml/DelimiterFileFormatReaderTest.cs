@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System;
 using System.Text;
 using Arkivverket.Arkade.Core.Base.Addml;
@@ -110,7 +110,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
         public void SemicolonsWithinQuotesAreNotInterpretedAsFieldDelimiters()
         {
             AddmlFlatFileDefinition addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder()
-                .WithRecordSeparator("CRLF").WithFieldSeparator(";").Build();
+                .WithRecordSeparator("CRLF").WithFieldSeparator(";").WithQuotingSeparator("\"").Build();
 
             AddmlRecordDefinition recordDefinition = new AddmlRecordDefinitionBuilder()
                 .WithAddmlFlatFileDefinition(addmlFlatFileDefinition).Build();

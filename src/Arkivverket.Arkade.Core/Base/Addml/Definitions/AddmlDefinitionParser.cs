@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -157,6 +157,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
                 string name = flatFileDefinition.name;
                 string recordSeparator = GetRecordSeparator(flatFileDefinition.typeReference);
                 string fieldSeparator = GetFieldSeparator(flatFileDefinition.typeReference);
+                string quotingSeparator = GetQuotingSeparator(flatFileDefinition.typeReference);
                 string fileName = GetFileName(flatFileDefinition.name);
                 FileInfo fileInfo = _workingDirectory.Content().WithFile(fileName);
                 string charset = GetCharset(flatFileDefinition.typeReference);
@@ -167,7 +168,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
                 List<string> flatFileProcesses = GetFlatFileProcessNames(flatFileDefinition.name);
 
                 AddmlFlatFileDefinition addmlFlatFileDefinition =
-                    new AddmlFlatFileDefinition(name, fileName, fileInfo, recordSeparator, fieldSeparator, charset,
+                    new AddmlFlatFileDefinition(name, fileName, fileInfo, recordSeparator, fieldSeparator, quotingSeparator, charset,
                         recordDefinitionFieldIdentifier, numberOfRecords, checksum, format, flatFileProcesses);
 
                 AddAddmlFieldDefinitions(addmlFlatFileDefinition, flatFileDefinition);
@@ -501,6 +502,19 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             }
         }
 
+        private string GetQuotingSeparator(string flatFileTypeName)
+        {
+            flatFileType flatFileType = GetFlatFileType(flatFileTypeName);
+            Type type = flatFileType.Item.GetType();
+            if (type == typeof(delimFileFormat))
+            {
+                return ((delimFileFormat)flatFileType.Item).quotingChar;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         private flatFileType GetFlatFileType(string flatFileTypeName)
         {

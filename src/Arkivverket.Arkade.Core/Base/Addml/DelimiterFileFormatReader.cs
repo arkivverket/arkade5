@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -14,6 +14,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         // Zero based position of field used to identify recordDefinition
         private readonly int? _recordIdentifierPosition;
+        private readonly string _quotingDelimiter;
 
         public override Record Current => GetCurrentRecord();
 
@@ -25,6 +26,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         {
             string recordDelimiter = GetRecordDelimiter(flatFile);
             _fieldDelimiter = GetFieldDelimiter(flatFile);
+            _quotingDelimiter = GetQuotingDelimiter(flatFile);
             _recordIdentifierPosition = flatFile.GetRecordIdentifierPosition();
             _lines = new DelimiterFileRecordEnumerable(streamReader, recordDelimiter).GetEnumerator();
         }
@@ -37,6 +39,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         private string GetRecordDelimiter(FlatFile flatFile)
         {
             return flatFile.Definition.RecordSeparator.Get();
+        }
+
+        private string GetQuotingDelimiter(FlatFile flatFile)
+        {
+            return flatFile.Definition.QuotingSeparator?.Get();
         }
 
         private static StreamReader GetStream(FlatFile flatFile)
@@ -53,7 +60,16 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             string currentLine = _lines.Current;
 
-            string[] strings = Regex.Split(currentLine, $@"{_fieldDelimiter}(?=(?:[^""]*""[^""]*"")*[^""]*$)");
+            string splitPattern = _fieldDelimiter;
+
+            if (_quotingDelimiter != null)
+            {
+                string qd = _quotingDelimiter;
+                splitPattern += $@"(?=(?:[^{qd}]*{qd}[^{qd}]*{qd})*[^{qd}]*$)";
+                // Ignoring field delimiter characters occurring between quotes
+            }
+
+            string[] strings = Regex.Split(currentLine, splitPattern);
 
             string recordIdentifier = null;
             if (_recordIdentifierPosition.HasValue)
