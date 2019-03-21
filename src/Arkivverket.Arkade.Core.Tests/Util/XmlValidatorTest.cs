@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util
     public class XmlValidatorTest
     {
 
-        private readonly string _addmlXsd = ResourceUtil.ReadResource(ArkadeConstants.AddmlXsdResource);
+        private readonly string _addmlXsd = TestUtil.ReadFromFileInTestDataDir("noark3\\addml.xsd");
         private readonly string _addml = TestUtil.ReadFromFileInTestDataDir("noark3\\addml.xml");
 
         [Fact]
