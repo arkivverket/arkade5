@@ -345,10 +345,4 @@ Tidl. nevnt som avleverende myndighet</comment>
   <data name="PackageCreationOngoing" xml:space="preserve">
     <value>Oppretter pakke...</value>
   </data>
-  <data name="UnsufficientDiskSpaceLogMessage" xml:space="preserve">
-    <value>Not enough diskspace on target location.</value>
-  </data>
-  <data name="UnsufficientDiskSpaceStatusMessage" xml:space="preserve">
-    <value>Valgt destinasjon har ikke nok lagringsplass.</value>
-  </data>
 </root>

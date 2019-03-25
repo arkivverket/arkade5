@@ -127,10 +127,5 @@ namespace Arkivverket.Arkade.Core.Base
 
             }
         }
-
-        public long GetSize()
-        {
-            return Root().GetSize() + Content().GetSize();
-        }
     }
 }
