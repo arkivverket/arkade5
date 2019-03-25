@@ -5,6 +5,7 @@ using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
+using System.Linq;
 
 namespace Arkivverket.Arkade.Core.Base
 {
@@ -51,6 +52,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         private string CreatePackage(PackageType packageType, Archive archive, ArchiveMetadata metadata, string outputDirectory)
         {
+            EnsureSufficientDiskSpace(archive, outputDirectory);
+
             string packageDirectory = CreatePackageDirectory(archive, outputDirectory);
 
             string packageFilePath = Path.Combine(packageDirectory, archive.GetInformationPackageFileName());
@@ -85,6 +88,32 @@ namespace Arkivverket.Arkade.Core.Base
             HasRun = true;
 
             return packageFilePath;
+        }
+
+        private static void EnsureSufficientDiskSpace(Archive archive, string outputDirectory)
+        {
+            long driveSpace = GetAvailableFreeDriveSpace(outputDirectory);
+            long packageSize = archive.WorkingDirectory.GetSize();
+
+            if (packageSize > driveSpace)
+            {
+                string errorMessage =
+                    $"Insufficient diskspace: Package size is {packageSize} bytes." +
+                    $" Available space on destination drive is {driveSpace} bytes.";
+
+                Log.Error(errorMessage);
+
+                throw new InsufficientDiskSpaceException(errorMessage);
+            }
+        }
+        
+        private static long GetAvailableFreeDriveSpace(string directory)
+        {
+            string directoryPathRoot = Path.GetPathRoot(directory);
+
+            DriveInfo directoryDrive = DriveInfo.GetDrives().First(d => d.Name == directoryPathRoot);
+
+            return directoryDrive.AvailableFreeSpace;
         }
 
         private string CreatePackageDirectory(Archive archive, string outputDirectory)

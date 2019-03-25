@@ -471,10 +471,19 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 Log.Debug("Package created in " + packageOutputContainer);
 
             }
-            catch(IOException exception)
+            catch (Exception exception)
             {
-                StatusMessageText = Resources.MetaDataGUI.PackageCreationErrorStatusMessage;
-                Log.Debug(Resources.MetaDataGUI.PackageCreationErrorLogMessage);
+                if (exception is IOException)
+                {
+                    StatusMessageText = Resources.MetaDataGUI.PackageCreationErrorStatusMessage;
+                    Log.Debug(Resources.MetaDataGUI.PackageCreationErrorLogMessage);
+                }
+
+                if (exception is InsufficientDiskSpaceException)
+                {
+                    StatusMessageText = MetaDataGUI.UnsufficientDiskSpaceStatusMessage;
+                    Log.Debug(MetaDataGUI.UnsufficientDiskSpaceLogMessage);
+                }
 
                 string fileName = new DetailedExceptionMessage(exception).WriteToFile();
 
