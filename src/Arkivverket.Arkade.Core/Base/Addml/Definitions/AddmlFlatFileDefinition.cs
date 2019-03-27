@@ -56,14 +56,15 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             _index = new FlatFileIndex(name);
         }
 
-        internal AddmlRecordDefinition AddAddmlRecordDefinition(string name, int? recordLength, string recordDefinitionFieldValue, List<AddmlForeignKey> foreignKeys, List<string> processes)
+        internal AddmlRecordDefinition AddAddmlRecordDefinition(string name, int? recordLength, string recordDefinitionFieldValue, List<AddmlForeignKey> foreignKeys, List<string> processes, int? headerLevel)
         {
             AddmlRecordDefinition addmlFieldDefinition = new AddmlRecordDefinition(this,
                 name,
                 recordLength,
                 recordDefinitionFieldValue,
                 foreignKeys,
-                processes);
+                processes,
+                headerLevel);
             AddmlRecordDefinitions.Add(addmlFieldDefinition);
             return addmlFieldDefinition;
         }

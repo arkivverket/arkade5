@@ -341,8 +341,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
 
                 List<AddmlForeignKey> foreignKeys = GetForeignKeysForRecord(flatFileDefinition, recordDefinition);
 
+                int? headerLevel = GetHeaderLevel(recordDefinition);
+
                 AddmlRecordDefinition addmlRecordDefinition =
-                    addmlFlatFileDefinition.AddAddmlRecordDefinition(recordDefinitionName, recordLength, recordDefinitionFieldValue, foreignKeys, recordProcesses);
+                    addmlFlatFileDefinition.AddAddmlRecordDefinition(recordDefinitionName, recordLength, recordDefinitionFieldValue, foreignKeys, recordProcesses, headerLevel);
 
                 List<fieldDefinition> fieldDefinitions = GetFieldDefinitions(recordDefinition);
                 foreach (fieldDefinition fieldDefinition in fieldDefinitions)
@@ -530,6 +532,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         private int? GetRecordLength(recordDefinition recordDefinition)
         {
             return recordDefinition.fixedLength == null ? (int?)null : int.Parse(recordDefinition.fixedLength);
+        }
+
+        private int? GetHeaderLevel(recordDefinition recordDefinition)
+        {
+            return recordDefinition.headerLevel == null ? (int?)null : int.Parse(recordDefinition.headerLevel);
         }
 
 
