@@ -17,6 +17,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         public override Record Current => GetCurrentRecord();
 
+        int _lineNumber = 1;
+
         public DelimiterFileFormatReader(FlatFile flatFile) : this(flatFile, GetStream(flatFile))
         {
         }
@@ -49,6 +51,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         private Record GetCurrentRecord()
         {
+            System.Diagnostics.Debug.WriteLine(_lineNumber);
+
             List<Field> fields = new List<Field>();
 
             string currentLine = _lines.Current;
@@ -60,7 +64,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             {
                 recordIdentifier = strings[_recordIdentifierPosition.Value];
             }
-            AddmlRecordDefinition recordDefinition = GetAddmlRecordDefinition(recordIdentifier);
+            AddmlRecordDefinition recordDefinition = GetAddmlRecordDefinition(recordIdentifier, _lineNumber);
+            if (recordDefinition == null)
+                return null;
             List<AddmlFieldDefinition> fieldDefinitions = recordDefinition.AddmlFieldDefinitions;
 
             if (fieldDefinitions.Count != strings.Length)
@@ -79,6 +85,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 AddmlFieldDefinition fieldDefinition = fieldDefinitions[i];
                 fields.Add(new Field(fieldDefinition, s));
             }
+
+            _lineNumber++;
 
             return new Record(recordDefinition, fields);
         }

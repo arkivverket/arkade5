@@ -16,10 +16,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         public void RunProcesses(Record record)
         {
-            List<IAddmlProcess> processes = _processManager.GetProcesses(record.Definition.GetIndex(), _processCache);
-            foreach (IAddmlProcess process in processes)
-            {
-                process.Run(record);
+            if(record != null)
+            { 
+                List<IAddmlProcess> processes = _processManager.GetProcesses(record.Definition.GetIndex(), _processCache);
+                foreach (IAddmlProcess process in processes)
+                {
+                    process.Run(record);
+                }
             }
         }
 

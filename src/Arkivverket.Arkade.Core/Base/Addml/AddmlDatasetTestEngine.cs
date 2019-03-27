@@ -56,8 +56,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                         Record record = recordEnumerator.Current;
                         _addmlProcessRunner.RunProcesses(file, record);
 
+                        if(record != null) { 
                         foreach (Field field in record.Fields)
                             _addmlProcessRunner.RunProcesses(file, field);
+                        }
                     }
                     catch (ArkadeAddmlDelimiterException exception)
                     {

@@ -41,8 +41,16 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             }
         }
 
-        protected AddmlRecordDefinition GetAddmlRecordDefinition(string recordDefinitionFieldValue)
+        protected AddmlRecordDefinition GetAddmlRecordDefinition(string recordDefinitionFieldValue, int lineNumber)
         {
+
+            foreach (var addmlRecordDefinition in _addmlRecordDefinitions)
+            {
+                int headerLevel = addmlRecordDefinition.Value?.HeaderLevel == null ? -1 : addmlRecordDefinition.Value.HeaderLevel.Value;
+                if (headerLevel == lineNumber)
+                    return null; //skip header row
+            }
+
             if (recordDefinitionFieldValue == null)
             {
                 return _addmlRecordDefinition;
