@@ -406,6 +406,62 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
+                <!-- Pakkeskaper -->
+                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_Creator}"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          BorderThickness="0" Margin="0,20,0,0">
+                </GroupBox>
+
+                <Border BorderBrush="LightGray" BorderThickness="1"
+                        CornerRadius="10" Margin="5" Width="269"
+                        HorizontalAlignment="Left">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,0,15"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="MetaDataCreator.Entity" Mode="TwoWay">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,0,15"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator_ContactPerson}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="MetaDataCreator.ContactPerson" Mode="TwoWay">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBox Grid.Row="2" Grid.Column="0"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator_Address}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataCreator.Address, Mode=TwoWay}" />
+
+                        <TextBox Grid.Row="3" Grid.Column="0"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator_Telephone}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataCreator.Telephone, Mode=TwoWay}" />
+
+                        <TextBox Grid.Row="4" Grid.Column="0"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator_Email}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataCreator.Email, Mode=TwoWay}" />
+                    </Grid>
+                </Border>
 
                 <!-- Mottaker -->
                 <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_Recipient}"
@@ -716,63 +772,6 @@
                         </Grid>
                     </Border>
                 </StackPanel>
-
-                <!-- Pakkeskaper -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_Creator}"
-                          Style="{DynamicResource MaterialDesignGroupBox}"
-                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0" Margin="0,20,0,0">
-                </GroupBox>
-
-                <Border BorderBrush="LightGray" BorderThickness="1"
-                        CornerRadius="10" Margin="5" Width="269"
-                        HorizontalAlignment="Left">
-                    <Grid Margin="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
-                            <TextBox.Text>
-                                <Binding Path="MetaDataCreator.Entity" Mode="TwoWay">
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
-
-                        <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator_ContactPerson}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
-                            <TextBox.Text>
-                                <Binding Path="MetaDataCreator.ContactPerson" Mode="TwoWay">
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
-
-                        <TextBox Grid.Row="2" Grid.Column="0"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator_Address}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataCreator.Address, Mode=TwoWay}" />
-
-                        <TextBox Grid.Row="3" Grid.Column="0"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator_Telephone}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataCreator.Telephone, Mode=TwoWay}" />
-
-                        <TextBox Grid.Row="4" Grid.Column="0"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator_Email}"
-                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MetaDataCreator.Email, Mode=TwoWay}" />
-                    </Grid>
-                </Border>
 
                 <!-- END METADATA  -->
 
