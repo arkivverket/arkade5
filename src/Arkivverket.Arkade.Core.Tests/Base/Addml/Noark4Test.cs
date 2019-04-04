@@ -24,8 +24,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
 
             // File is converted from NOARKIH.XML format
 
-            var externalContentDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\noark4");
-            var workingDirectory = new WorkingDirectory(ArkadeProcessingArea.WorkDirectory, externalContentDirectory);
+            var testDataDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\noark4");
+            var workingDirectory = new WorkingDirectory(testDataDirectory, testDataDirectory);
+
             AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content().WithFile("addml.xml").FullName);
 
             AddmlDefinitionParser parser = new AddmlDefinitionParser(addml, workingDirectory, new StatusEventHandler());

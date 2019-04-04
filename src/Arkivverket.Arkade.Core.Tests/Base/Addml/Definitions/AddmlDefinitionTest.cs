@@ -56,7 +56,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions
                 .IsPartOfPrimaryKey(true).Build();
 
 
-            AddmlDefinition addmlDefinition = new AddmlDefinition(new List<AddmlFlatFileDefinition>() {personFile, addressFile, unrelatedFile});
+            AddmlDefinition addmlDefinition = new AddmlDefinition(
+                new List<AddmlFlatFileDefinition>() { personFile, addressFile, unrelatedFile },
+                new List<AddmlFlatFileDefinition>() { personFile, addressFile });
 
             Dictionary<IAddmlIndex, List<string>> recordProcesses = addmlDefinition.GetRecordProcessesGroupedByRecord();
 
@@ -114,7 +116,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions
             addmlForeignKey.ForeignKeyReferenceFields.Add(personPrimaryKey);
 
 
-            AddmlDefinition addmlDefinition = new AddmlDefinition(new List<AddmlFlatFileDefinition>() { personFile, addressFile });
+            AddmlDefinition addmlDefinition = new AddmlDefinition(
+                new List<AddmlFlatFileDefinition>() { personFile, addressFile },
+                new List<AddmlFlatFileDefinition>() { personFile, addressFile });
 
             Dictionary<IAddmlIndex, List<string>> recordProcesses = addmlDefinition.GetRecordProcessesGroupedByRecord();
 
