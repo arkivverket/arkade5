@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml;
 using Arkivverket.Arkade.Core.Base;
@@ -18,9 +19,11 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
 using System.Windows.Controls;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Arkivverket.Arkade.GUI.Resources;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
@@ -33,6 +36,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool _selectedPackageTypeSip = true;
         private bool _standardLabelIsSelected = true;
         private bool _userdefinedLabelIsSelected;
+        private Visibility _progressBarVisibility = Visibility.Hidden;
         private string _statusMessageText;
         private string _statusMessagePath;
         private TestSession _testSession;
@@ -66,6 +70,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand LoadExternalMetadataCommand { get; set; }
 
         //---------------------------------------------------------------------------
+        public Visibility ProgressBarVisibility
+        {
+            get { return _progressBarVisibility; }
+            set
+            {
+                SetProperty(ref _progressBarVisibility, value);
+            }
+        }
 
 
         public bool SelectedPackageTypeSip
@@ -406,6 +418,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 outputDirectory = selectOutputDirectoryDialog.FileName;
             else return;
             
+            ProgressBarVisibility = Visibility.Visible;
             Log.Information("User action: Choose package destination {informationPackageDestination}", outputDirectory);
             
             _testSession.ArchiveMetadata = new ArchiveMetadata
@@ -432,8 +445,18 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _isRunningCreatePackage = true;
             CreatePackageCommand.RaiseCanExecuteChanged();
 
-            // todo must be async
+            Task.Factory.StartNew(() => CreatePackageRunEngine(outputDirectory)).ContinueWith(t => OnCompletedCreatePackage());
+        }
 
+        private void OnCompletedCreatePackage()
+        {
+            _isRunningCreatePackage = false;
+            CreatePackageCommand.RaiseCanExecuteChanged();
+        }
+
+
+        private void CreatePackageRunEngine(string outputDirectory)
+        {
             try
             {
                 string packageFilePath = _arkadeApi.CreatePackage(_testSession, outputDirectory);
@@ -447,8 +470,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 StatusMessagePath = packageOutputContainer;
                 Log.Debug("Package created in " + packageOutputContainer);
 
-                _isRunningCreatePackage = false;
-                //CreatePackageCommand.RaiseCanExecuteChanged();
             }
             catch(IOException exception)
             {
@@ -462,6 +483,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                 _isRunningCreatePackage = false;
             }
+            ProgressBarVisibility = Visibility.Hidden;
         }
 
 

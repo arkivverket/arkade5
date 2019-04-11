@@ -220,7 +220,7 @@ namespace Arkivverket.Arkade.GUI.Models
             {
                 SystemName = systemName;
                 SystemVersion = systemVersion;
-                SystemVersion = systemType;
+                SystemType = systemType;
                 SystemTypeVersion = systemTypeVersion;
             } 
 

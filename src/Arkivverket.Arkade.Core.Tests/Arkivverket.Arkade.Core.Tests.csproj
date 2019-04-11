@@ -79,7 +79,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Metadata\DiasMetsLoader\dias-mets.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Metadata\DiasMets\directorykeeper.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

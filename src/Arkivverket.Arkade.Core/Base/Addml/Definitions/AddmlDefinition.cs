@@ -7,10 +7,12 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
     {
 
         public List<AddmlFlatFileDefinition> AddmlFlatFileDefinitions { get; }
+        public List<AddmlFlatFileDefinition> AddmlFlatFileDefinitionsExistingInDirectory { get; }
 
-        public AddmlDefinition(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
+        public AddmlDefinition(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions, List<AddmlFlatFileDefinition> addmlFlatFileDefinitionsExistingInDirectory)
         {
             AddmlFlatFileDefinitions = addmlFlatFileDefinitions;
+            AddmlFlatFileDefinitionsExistingInDirectory = addmlFlatFileDefinitionsExistingInDirectory;
             InsertCollectPrimaryKeyProcessInDefinitionsReferencedFromAForeignKeyWithControlProcess();
         }
 
@@ -27,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
 
         public List<FlatFile> GetFlatFiles()
         {
-            return AddmlFlatFileDefinitions.Select(
+            return AddmlFlatFileDefinitionsExistingInDirectory.Select(
                 addmlFlatFileDefinition => new FlatFile(addmlFlatFileDefinition)).ToList();
         }
 

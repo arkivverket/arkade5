@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("systemID", "someSystemId_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper())
-                            .Add("mappe", new[] {"xsi:type", "møtemappe"}, new XmlElementHelper()))));
+                            .Add("mappe", new[] {"xsi:type", "moetemappe"}, new XmlElementHelper()))));
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(
                 Path.Combine("TestData", "Noark5", "FolderControl", "TwoFolders")
@@ -41,14 +41,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper()
                                 .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper()))
-                            .Add("mappe", new[] {"xsi:type", "møtemappe"}, new XmlElementHelper()
+                            .Add("mappe", new[] {"xsi:type", "moetemappe"}, new XmlElementHelper()
                             )))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper()
                                 .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper()))
-                            .Add("mappe", new[] {"xsi:type", "møtemappe"}, new XmlElementHelper()
+                            .Add("mappe", new[] {"xsi:type", "moetemappe"}, new XmlElementHelper()
                             ))));
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(

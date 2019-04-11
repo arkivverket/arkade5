@@ -16,7 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -54,7 +54,7 @@
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~ METADATA ~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" VerticalScrollBarVisibility="Auto"
-                      HorizontalScrollBarVisibility="Disabled" Height="500" Margin="20,25">
+                      HorizontalScrollBarVisibility="Disabled" Height="Auto" Margin="20,25">
 
             <StackPanel>
 
@@ -802,8 +802,15 @@
                 Content="{x:Static resources:GUI.NewProgramSessionButton}" HorizontalAlignment="Left" Width="130"
                 Height="30" Margin="5,0,0,0" />
                 </StackPanel>
+                <StackPanel Grid.Row="8"  Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Orientation="Horizontal">
+                    <ProgressBar Visibility="{Binding ProgressBarVisibility}" Style="{StaticResource MaterialDesignCircularProgressBar}"                     
+                                 Value="0"
+                                 IsIndeterminate="True"
+                                 Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12 12 12 12" Width="19"/>
+                    <TextBlock Visibility="{Binding ProgressBarVisibility}"  Text="{x:Static resources:MetaDataGUI.PackageCreationOngoing}" TextWrapping="Wrap"/>
+                </StackPanel>
 
-                <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="5" Margin="10" Orientation="Vertical">
+                <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="5" Margin="10" Orientation="Vertical">
                     <TextBlock Text="{Binding StatusMessageText, Mode=OneWay}" TextWrapping="Wrap" />
                     <TextBox Background="Transparent" BorderThickness="0" Text="{Binding StatusMessagePath}" IsReadOnly="True"
                      TextWrapping="Wrap" />

@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.GUI.Properties;
 
@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.GUI.Util
             {
                 string definedLocation = Get();
 
-                return Directory.Exists(definedLocation);
+                return DirectoryIsWritable(definedLocation);
             }
             catch
             {
@@ -41,6 +41,25 @@ namespace Arkivverket.Arkade.GUI.Util
             string definedLocation = Get();
 
             return appliedLocation.Equals(definedLocation);
+        }
+
+        private static bool DirectoryIsWritable(string directory)
+        {
+            string tmpFile = Path.Combine(directory, Path.GetRandomFileName());
+
+            try
+            {
+                using (File.Create(tmpFile, 1, FileOptions.DeleteOnClose))
+                {
+                    // Attempt to write temporary file to the directory
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

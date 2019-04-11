@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded;
 using Arkivverket.Arkade.Core.Tests.Base.Addml.Builders;
@@ -29,10 +29,13 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
                 .Build();
 
             AddmlDefinition addmlDefinition = new AddmlDefinitionBuilder()
-                .WithAddmlFlatFileDefinitions(new List<AddmlFlatFileDefinition> {
+                .WithAddmlFlatFileDefinitions(
+                    new List<AddmlFlatFileDefinition> {
                         flatFileDefinition1,
-                        flatFileDefinition2
-                    })
+                        flatFileDefinition2},
+                    new List<AddmlFlatFileDefinition> {
+                        flatFileDefinition1,
+                 })
                 .Build();
 
             Archive archive = new Archive(ArchiveType.Fagsystem, Uuid.Random(), workingDirectory);
@@ -66,9 +69,13 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
                 .Build();
 
             AddmlDefinition addmlDefinition = new AddmlDefinitionBuilder()
-                .WithAddmlFlatFileDefinitions(new List<AddmlFlatFileDefinition> {
-                    flatFileDefinition2
-                })
+                .WithAddmlFlatFileDefinitions(
+                    new List<AddmlFlatFileDefinition> {
+                        flatFileDefinition2
+                },
+                    new List<AddmlFlatFileDefinition> {
+                        flatFileDefinition2
+                    })
                 .Build();
 
             Archive archive = new Archive(ArchiveType.Noark4, Uuid.Random(), workingDirectory);

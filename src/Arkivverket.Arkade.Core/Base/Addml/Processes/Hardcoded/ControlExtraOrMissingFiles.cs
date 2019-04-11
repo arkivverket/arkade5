@@ -21,6 +21,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
 
         private readonly List<string> _knownFiles = new List<string> {
             "addml.xml",
+            "addml.xsd",
             "NOARKIH.XML"
         };
 

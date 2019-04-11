@@ -107,8 +107,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private bool ActualAndDocumentedFileChecksumsMatch(DocumentObject documentObject)
         {
-            var filePath = Path.Combine(_contentDirectory.FullName, documentObject.DocumentFileReference);
+            string documentFileName = Path.DirectorySeparatorChar == '/'
+                ? documentObject.DocumentFileReference.Replace('\\', '/')
+                : documentObject.DocumentFileReference;
 
+            var filePath = Path.Combine(_contentDirectory.FullName, documentFileName);
+            
             var actualFileCheckSum = GenerateChecksumForFile(filePath, documentObject.ChecksumAlgorithm);
             return ChecksumsMatch(documentObject.Checksum, actualFileCheckSum);
         }
