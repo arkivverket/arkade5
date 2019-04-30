@@ -40,34 +40,26 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             foreach (ArchivePart archivePart in _archiveParts)
             {
-                totalNumberOfFolders += archivePart.MeetingFoldersPerLevel.Values.Sum() + archivePart.CaseFoldersPerLevel.Values.Sum();
-
                 if (_archiveParts.Count > 1)
                     message = string.Format(Noark5Messages.ArchivePartSystemId, archivePart.SystemId) + " - ";
 
-                testResults.Add(new TestResult(ResultType.Success, new Location(""), string.Format(
-                    message + Noark5Messages.NumberOfCaseFolders, archivePart.CaseFoldersPerLevel.Values.Sum())));
+                foreach (var foldersPerLevel in archivePart.FoldersPerLevel)
+                { 
+                    totalNumberOfFolders += foldersPerLevel.Value.Values.Sum();
 
-                if (archivePart.CaseFoldersPerLevel.Count > 1)
-                {
-                    foreach (KeyValuePair<int, int> caseFoldersAtLevel in archivePart.CaseFoldersPerLevel)
+                    string folderType = StripNamespace(foldersPerLevel.Key);
+
+                    testResults.Add(new TestResult(ResultType.Success, new Location(""), string.Format(
+                        message + Noark5Messages.NumberOfTypeFolders, folderType, foldersPerLevel.Value.Values.Sum())));
+
+                    if (foldersPerLevel.Value.Count > 1)
                     {
-                        testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                            message + string.Format(Noark5Messages.NumberOfCaseFoldersAtLevel,
-                                caseFoldersAtLevel.Key, caseFoldersAtLevel.Value)));
-                    }
-                }
-
-                testResults.Add(new TestResult(ResultType.Success, new Location(""), string.Format(
-                    message + Noark5Messages.NumberOfMeetingFolders, archivePart.MeetingFoldersPerLevel.Values.Sum())));
-
-                if (archivePart.MeetingFoldersPerLevel.Count > 1)
-                {
-                    foreach (KeyValuePair<int, int> meetingFoldersAtLevel in archivePart.MeetingFoldersPerLevel)
-                    {
-                        testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                            message + string.Format(Noark5Messages.NumberOfMeetingFoldersAtLevel,
-                                meetingFoldersAtLevel.Key, meetingFoldersAtLevel.Value)));
+                        foreach (var foldersAtLevel in foldersPerLevel.Value)
+                        {
+                            testResults.Add(new TestResult(ResultType.Success, new Location(""),
+                                message + string.Format(Noark5Messages.NumberOfTypeFoldersAtLevel, folderType,
+                                    foldersAtLevel.Key, foldersAtLevel.Value)));
+                        }
                     }
                 }
             }
@@ -81,22 +73,24 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return testResults;
         }
 
+        private string StripNamespace(string folder)
+        {
+            if (!string.IsNullOrEmpty(folder))
+                folder = folder.Replace("vsmd:", "");
+
+            return folder;
+        }
+
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (Noark5TestHelper.IdentifiesCasefolder(eventArgs))
+            if (Noark5TestHelper.IdentifiesTypefolder(eventArgs))
             {
                 int level = eventArgs.Path.GetSameElementSubLevel();
-                AddFolderOnLevel(_currentArchivePart.CaseFoldersPerLevel, level);
-            }
-
-            if (Noark5TestHelper.IdentifiesMeetingFolder(eventArgs))
-            {
-                int level = eventArgs.Path.GetSameElementSubLevel();
-                AddFolderOnLevel(_currentArchivePart.MeetingFoldersPerLevel, level);
+                AddFolderOnLevel(_currentArchivePart.FoldersPerLevel, eventArgs.Value, level);
             }
         }
 
@@ -113,7 +107,21 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
         }
 
-        private void AddFolderOnLevel(Dictionary<int, int> foldersPerLevel, int level)
+        private void AddFolderOnLevel(Dictionary<string, Dictionary<int, int>> foldersPerLevel, string name, int level)
+        {
+            if (foldersPerLevel.ContainsKey(name))
+            {
+                if (foldersPerLevel[name].ContainsKey(level))
+                    foldersPerLevel[name][level]++;
+                else foldersPerLevel[name].Add(level, 1);
+            }
+            else
+            {
+                foldersPerLevel.Add(name, new Dictionary<int, int>() { [level] = 1 });
+            }
+        }
+
+        private void AddFolderOnLevel(Dictionary<int, int> foldersPerLevel, string value, int level)
         {
             if (foldersPerLevel.ContainsKey(level))
                 foldersPerLevel[level]++;
@@ -139,8 +147,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private class ArchivePart
         {
             public string SystemId { get; set; }
-            public readonly Dictionary<int, int> CaseFoldersPerLevel = new Dictionary<int, int>();
-            public readonly Dictionary<int, int> MeetingFoldersPerLevel = new Dictionary<int, int>();
+            public readonly Dictionary<string, Dictionary<int, int>> FoldersPerLevel = new Dictionary<string, Dictionary<int, int>>();
         }
     }
 }
