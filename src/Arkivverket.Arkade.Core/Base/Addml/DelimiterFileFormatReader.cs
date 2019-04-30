@@ -64,7 +64,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             if (_quotingDelimiter != null)
             {
-                string qd = _quotingDelimiter;
+                string qd = _quotingDelimiter; // TODO: Escape regex reserved characters in qd
                 splitPattern += $@"(?=(?:[^{qd}]*{qd}[^{qd}]*{qd})*[^{qd}]*$)";
                 // Ignoring field delimiter characters occurring between quotes
             }
