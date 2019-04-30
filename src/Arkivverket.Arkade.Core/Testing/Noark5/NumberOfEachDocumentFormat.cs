@@ -118,7 +118,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public bool HasFormatMismatch()
             {
                 var fileExtension = Path.GetExtension(FileReference);
-                return fileExtension != null && !fileExtension.Equals($".{Format}");
+                return fileExtension != null && !fileExtension.ToLower().Equals($".{Format.ToLower()}");
             }
         }
     }
