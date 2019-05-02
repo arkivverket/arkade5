@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Base.Noark5;
@@ -16,7 +16,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private string _currentArchivePartSystemId;
         private string _currentJournalPostSystemId;
         private bool _journalPostAttributeIsFound;
-        private bool _mainDocumentBindingIsFound;
 
         public override TestId GetId()
         {
@@ -86,8 +85,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("journalposttype", "registrering") && _journalPostAttributeIsFound)
                 _journalPosts.Add(new JournalPost(eventArgs.Value, _currentArchivePartSystemId));
 
-            if (eventArgs.Path.Matches("tilknyttetRegistreringSom") && eventArgs.Value.Equals("Hoveddokument"))
-                _mainDocumentBindingIsFound = true;
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -95,14 +92,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (!eventArgs.NameEquals("registrering"))
                 return;
 
-            if (!_mainDocumentBindingIsFound)
-                _testResults.Add(new TestResult(ResultType.Error, new Location(""),
-                    string.Format(Noark5Messages.NumberOfEachJournalPostTypeMessage_MissingMainDocument,
-                        _currentJournalPostSystemId)));
-
             _journalPostAttributeIsFound = false; // reset
             _currentJournalPostSystemId = ""; // reset
-            _mainDocumentBindingIsFound = false; // reset
         }
 
         internal class JournalPost

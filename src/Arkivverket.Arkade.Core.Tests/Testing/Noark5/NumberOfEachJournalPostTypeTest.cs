@@ -278,18 +278,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             ));
 
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Journalpost med systemID someJournalPostSystemId_19 mangler hoveddokument"
-            ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Journalpost med systemID someJournalPostSystemId_20 mangler hoveddokument"
-            ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Journalpost med systemID someJournalPostSystemId_21 mangler hoveddokument"
-            ));
-
-
-            testRun.Results.Count.Should().Be(8);
+            testRun.Results.Count.Should().Be(5);
         }
     }
 }
