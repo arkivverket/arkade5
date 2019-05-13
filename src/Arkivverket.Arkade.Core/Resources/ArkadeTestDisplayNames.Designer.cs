@@ -331,6 +331,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontroll av eksistens for XML-filene.
+        /// </summary>
+        internal static string N5_01 {
+            get {
+                return ResourceManager.GetString("N5_01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validering av sjekksummer.
         /// </summary>
         internal static string N5_02 {

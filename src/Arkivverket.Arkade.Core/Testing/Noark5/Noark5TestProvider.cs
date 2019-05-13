@@ -10,6 +10,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             return new List<IArkadeStructureTest>
             {
+                new ValidateStructureFileExists(),
                 new ValidateAddmlDataobjectsChecksums(),
                 new ValidateXmlWithSchema(),
                 new ValidateNumberOfDocumentfiles(),

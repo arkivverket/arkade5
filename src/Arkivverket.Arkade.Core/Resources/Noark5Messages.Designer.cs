@@ -979,5 +979,14 @@ namespace Arkivverket.Arkade.Core.Resources {
                 return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_NumberOfFilesFound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filen {0} er listet opp i arkivuttrekket, men mangler i pakke.
+        /// </summary>
+        internal static string ValidateStructureFileExists_FileMissing {
+            get {
+                return ResourceManager.GetString("ValidateStructureFileExists_FileMissing", resourceCulture);
+            }
+        }
     }
 }
