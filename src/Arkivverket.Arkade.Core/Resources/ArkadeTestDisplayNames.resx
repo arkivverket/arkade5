@@ -363,4 +363,7 @@
   <data name="N5_62" xml:space="preserve">
     <value>Endringslogg-referanser til arkivstrukturen</value>
   </data>
+  <data name="N5_63" xml:space="preserve">
+    <value>Elementer som mangler innhold</value>
+  </data>
 </root>

@@ -69,6 +69,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 new ControlNoSuperclassesHasRegistrations(),
                 new ClassReferenceControl(),
                 new DocumentFilesChecksumControl(archive),
+                new ControlElementsHasContent(),
             };
         }
     }

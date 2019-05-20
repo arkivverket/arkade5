@@ -142,6 +142,24 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Etter systemID {0}.
+        /// </summary>
+        internal static string ControlElementHasContent_AfterSystemId {
+            get {
+                return ResourceManager.GetString("ControlElementHasContent_AfterSystemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elementet &lt;{0}&gt;&lt;/{0}&gt; mangler innhold.
+        /// </summary>
+        internal static string ControlElementHasContent_ElementHasNoContent {
+            get {
+                return ResourceManager.GetString("ControlElementHasContent_ElementHasNoContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Klasse med systemID {0}.
         /// </summary>
         internal static string ControlNoSuperclassesHasFoldersMessage {

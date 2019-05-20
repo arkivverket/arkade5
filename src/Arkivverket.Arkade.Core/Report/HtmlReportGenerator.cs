@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Globalization;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Util;
 using System.IO;
 using System.Linq;
+using System.Web;
 
 namespace Arkivverket.Arkade.Core.Report
 {
@@ -108,7 +109,7 @@ namespace Arkivverket.Arkade.Core.Report
                     _stream.WriteLine(@"                " + testResult.Location);
                     _stream.WriteLine(@"                </td>");
                     _stream.WriteLine(@"                <td>");
-                    _stream.WriteLine(@"                " + SubstitueLineBreaksWithHtmlBreak(testResult.Message));
+                    _stream.WriteLine(@"                " + HttpUtility.HtmlEncode(SubstitueLineBreaksWithHtmlBreak(testResult.Message)));
                     _stream.WriteLine(@"                </td>");
                     _stream.WriteLine(@"            </tr>");
                 }
