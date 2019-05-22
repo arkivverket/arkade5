@@ -75,9 +75,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private string StripNamespace(string folder)
         {
-            if (!string.IsNullOrEmpty(folder))
-                folder = folder.Replace("vsmd:", "");
-
+            int index = folder.IndexOf(":");
+            if (index >= 0)
+            {
+                return folder.Substring(index + 1);
+            }
             return folder;
         }
 
