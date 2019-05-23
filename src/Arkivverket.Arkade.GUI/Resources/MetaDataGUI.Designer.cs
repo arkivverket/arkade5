@@ -671,5 +671,23 @@ namespace Arkivverket.Arkade.GUI.Resources {
                 return ResourceManager.GetString("Transferer_Telephone", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not enough diskspace on target location..
+        /// </summary>
+        public static string UnsufficientDiskSpaceLogMessage {
+            get {
+                return ResourceManager.GetString("UnsufficientDiskSpaceLogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valgt destinasjon har ikke nok lagringsplass..
+        /// </summary>
+        public static string UnsufficientDiskSpaceStatusMessage {
+            get {
+                return ResourceManager.GetString("UnsufficientDiskSpaceStatusMessage", resourceCulture);
+            }
+        }
     }
 }
