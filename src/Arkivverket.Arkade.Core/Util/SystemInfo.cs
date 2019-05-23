@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.IO;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 
 namespace Arkivverket.Arkade.Core.Util
@@ -33,14 +34,14 @@ namespace Arkivverket.Arkade.Core.Util
 
         private static DriveInfo GetDirectoryDriveInfo(string directory)
         {
-            string fullyQualifiedPath = Path.GetFullPath(directory);
+            string fullyQualifiedDirectoryPath = // TODO: Uncomment below line when on .NET Standard 2.1 (reducing IO)
+                /*Path.IsPathFullyQualified(directory) ? directory :*/ Path.GetFullPath(directory);
+                
+            DriveInfo directoryDrive = DriveInfo.GetDrives()
+                .OrderByDescending(drive => drive.Name.Length)
+                .First(drive => fullyQualifiedDirectoryPath.StartsWith(drive.Name));
 
-            // TODO: Use below line when on .NET Standard 2.1 (reducing IO)
-            //string fullyQualifiedPath = Path.IsPathFullyQualified(directory) ? directory : Path.GetFullPath(directory);
-
-            string directoryPathRoot = Path.GetPathRoot(fullyQualifiedPath);
-
-            return new DriveInfo(directoryPathRoot);
+            return directoryDrive;
         }
     }
 }
