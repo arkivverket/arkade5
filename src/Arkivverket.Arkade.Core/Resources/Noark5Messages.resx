@@ -425,6 +425,15 @@ Generert:  {2}</value>
   <data name="NumberOfFolders_DocumentedAndActualMismatch" xml:space="preserve">
     <value>Det er angitt at arkivstrukturen skal innholde {0} mapper men {1} ble funnet</value>
   </data>
+  <data name="JournalPostRegistrationCount" xml:space="preserve">
+    <value>Journalpostregistreringer: {0}</value>
+  </data>
+  <data name="MeetingRegistrationCount" xml:space="preserve">
+    <value>Møteregistreringer: {0}</value>
+  </data>
+  <data name="TotalRegistrationCount" xml:space="preserve">
+    <value>Totalt antall registreringer: {0}</value>
+  </data>
   <data name="ValidateStructureFileExists_FileMissing" xml:space="preserve">
     <value>Filen {0} er listet opp i arkivuttrekket, men mangler i pakke</value>
   </data>

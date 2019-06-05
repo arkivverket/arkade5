@@ -17,6 +17,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                    eventArgs.Value.Equals("journalpost");
         }
 
+        public static bool IdentifiesMeetingRegistration(ReadElementEventArgs eventArgs)
+        {
+            return eventArgs.Path.Matches("registrering") &&
+                   eventArgs.Name.Equals("xsi:type") &&
+                   eventArgs.Value.Equals("moete");
+        }
+
         public static bool IdentifiesTypefolder(ReadElementEventArgs eventArgs)
         {
             return eventArgs.Path.Matches("mappe") &&

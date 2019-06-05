@@ -306,6 +306,24 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Journalpostregistreringer: {0}.
+        /// </summary>
+        internal static string JournalPostRegistrationCount {
+            get {
+                return ResourceManager.GetString("JournalPostRegistrationCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Møteregistreringer: {0}.
+        /// </summary>
+        internal static string MeetingRegistrationCount {
+            get {
+                return ResourceManager.GetString("MeetingRegistrationCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkivdel (systemID) {0}: {1}.
         /// </summary>
         internal static string NumberOf_PerArchivePart {
@@ -941,6 +959,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         internal static string SystemIdUniqueControlMessage {
             get {
                 return ResourceManager.GetString("SystemIdUniqueControlMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Totalt antall registreringer: {0}.
+        /// </summary>
+        internal static string TotalRegistrationCount {
+            get {
+                return ResourceManager.GetString("TotalRegistrationCount", resourceCulture);
             }
         }
         
