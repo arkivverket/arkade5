@@ -8,9 +8,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     public class NumberOfRegistrations : Noark5XmlReaderBaseTest
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 16);
-        private int _journalPostRegistrationCount;
-        private int _meetingRegistrationCount;
-        private int _totalRegistrationsCount;
+        private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
+        private ArchivePart _currentArchivePart = new ArchivePart();
 
         public override TestId GetId()
         {
@@ -24,32 +23,58 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override List<TestResult> GetTestResults()
         {
-            return new List<TestResult>
+            var testResults = new List<TestResult>();
+
+            var totalNumberOfRegistrations = 0;
+
+            bool hasMultipleArchiveParts = _archiveParts.Count > 1;
+
+            foreach (ArchivePart archivePart in _archiveParts)
             {
-                new TestResult(ResultType.Success, new Location(string.Empty),
-                    string.Format(Noark5Messages.TotalRegistrationCount, _totalRegistrationsCount)),
+                string archivePartMessagePrefix = hasMultipleArchiveParts
+                    ? string.Format(Noark5Messages.ArchivePartSystemId, archivePart.SystemId) + " - "
+                    : string.Empty;
 
-                new TestResult(ResultType.Success, new Location(string.Empty),
-                    string.Format(Noark5Messages.JournalPostRegistrationCount, _journalPostRegistrationCount)),
+                testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    archivePartMessagePrefix + string.Format(
+                        Noark5Messages.TotalRegistrationCount, archivePart.TotalRegistrationsCount
+                    )));
 
-                new TestResult(ResultType.Success, new Location(string.Empty),
-                    string.Format(Noark5Messages.MeetingRegistrationCount, _meetingRegistrationCount))
-            };
+                testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    archivePartMessagePrefix + string.Format(
+                        Noark5Messages.JournalPostRegistrationCount, archivePart.JournalPostRegistrationCount
+                    )));
+
+                testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    archivePartMessagePrefix + string.Format(
+                        Noark5Messages.MeetingRegistrationCount, archivePart.MeetingRegistrationCount
+                    )));
+
+                totalNumberOfRegistrations += archivePart.TotalRegistrationsCount;
+            }
+
+            if (hasMultipleArchiveParts)
+            {
+                testResults.Insert(0, new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.TotalRegistrationCount, totalNumberOfRegistrations)));
+            }
+
+            return testResults;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.NameEquals("registrering"))
-                _totalRegistrationsCount++;
+                _currentArchivePart.TotalRegistrationsCount++;
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (Noark5TestHelper.IdentifiesJournalPostRegistration(eventArgs))
-                _journalPostRegistrationCount++;
+                _currentArchivePart.JournalPostRegistrationCount++;
 
             if (Noark5TestHelper.IdentifiesMeetingRegistration(eventArgs))
-                _meetingRegistrationCount++;
+                _currentArchivePart.MeetingRegistrationCount++;
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -58,6 +83,19 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if (eventArgs.Path.Matches("systemID", "arkivdel"))
+            {
+                _currentArchivePart = new ArchivePart {SystemId = eventArgs.Value};
+                _archiveParts.Add(_currentArchivePart);
+            }
+        }
+
+        private class ArchivePart
+        {
+            public string SystemId { get; set; }
+            public int JournalPostRegistrationCount;
+            public int MeetingRegistrationCount;
+            public int TotalRegistrationsCount;
         }
     }
 }
