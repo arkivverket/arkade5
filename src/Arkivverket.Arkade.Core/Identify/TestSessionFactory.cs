@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
@@ -50,8 +51,10 @@ namespace Arkivverket.Arkade.Core.Identify
             WorkingDirectory workingDirectory = WorkingDirectory.FromUuid(uuid);
 
             TarExtractionStartedEvent();
-            _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo());
-            TarExtractionFinishedEvent(workingDirectory);
+
+            Task.Factory.StartNew(() =>
+                _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo())
+            ).ContinueWith(t => TarExtractionFinishedEvent(workingDirectory));
 
             TestSession testSession = NewSession(workingDirectory, archiveFile.ArchiveType, uuid);
 
