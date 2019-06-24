@@ -47,10 +47,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 "Totalt antall registreringer: 4"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Journalpostregistreringer: 3"
+                "Registertype: journalpost - Antall: 3"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Møteregistreringer: 1"
+                "Registertype: moete - Antall: 1"
             ));
             testRun.Results.Count.Should().Be(3);
         }

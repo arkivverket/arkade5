@@ -40,15 +40,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                         Noark5Messages.TotalRegistrationCount, archivePart.TotalRegistrationsCount
                     )));
 
-                testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
-                    archivePartMessagePrefix + string.Format(
-                        Noark5Messages.JournalPostRegistrationCount, archivePart.JournalPostRegistrationCount
-                    )));
-
-                testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
-                    archivePartMessagePrefix + string.Format(
-                        Noark5Messages.MeetingRegistrationCount, archivePart.MeetingRegistrationCount
-                    )));
+                foreach(var registration in archivePart.Registrations)
+                {
+                    testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                        archivePartMessagePrefix + string.Format(
+                            Noark5Messages.NumberOfTypeRegisters, Noark5TestHelper.StripNamespace(registration.Key), registration.Value
+                        )));
+                }
 
                 totalNumberOfRegistrations += archivePart.TotalRegistrationsCount;
             }
@@ -70,11 +68,15 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (Noark5TestHelper.IdentifiesJournalPostRegistration(eventArgs))
-                _currentArchivePart.JournalPostRegistrationCount++;
+            if (Noark5TestHelper.IdentifiesRegistration(eventArgs))
+            {
+                var registrationType = eventArgs.Value;
 
-            if (Noark5TestHelper.IdentifiesMeetingRegistration(eventArgs))
-                _currentArchivePart.MeetingRegistrationCount++;
+                if (_currentArchivePart.Registrations.ContainsKey(registrationType))
+                    _currentArchivePart.Registrations[registrationType]++;
+                else
+                    _currentArchivePart.Registrations.Add(registrationType, 1);
+            }
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -93,9 +95,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private class ArchivePart
         {
             public string SystemId { get; set; }
-            public int JournalPostRegistrationCount;
-            public int MeetingRegistrationCount;
             public int TotalRegistrationsCount;
+            public Dictionary<string, int> Registrations = new Dictionary<string, int>();
         }
     }
 }

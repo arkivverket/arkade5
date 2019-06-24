@@ -47,7 +47,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 { 
                     totalNumberOfFolders += foldersPerLevel.Value.Values.Sum();
 
-                    string folderType = StripNamespace(foldersPerLevel.Key);
+                    string folderType = Noark5TestHelper.StripNamespace(foldersPerLevel.Key);
 
                     testResults.Add(new TestResult(ResultType.Success, new Location(""), string.Format(
                         message + Noark5Messages.NumberOfTypeFolders, folderType, foldersPerLevel.Value.Values.Sum())));
@@ -71,16 +71,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     Noark5Messages.NumberOfFolders_DocumentedAndActualMismatch, documentedNumberOfFolders, totalNumberOfFolders)));
 
             return testResults;
-        }
-
-        private string StripNamespace(string folder)
-        {
-            int index = folder.IndexOf(":");
-            if (index >= 0)
-            {
-                return folder.Substring(index + 1);
-            }
-            return folder;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

@@ -24,6 +24,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                    eventArgs.Value.Equals("moete");
         }
 
+        public static bool IdentifiesRegistration(ReadElementEventArgs eventArgs)
+        {
+            return eventArgs.Path.Matches("registrering") &&
+                   eventArgs.Name.Equals("xsi:type");
+        }
+
         public static bool IdentifiesTypefolder(ReadElementEventArgs eventArgs)
         {
             return eventArgs.Path.Matches("mappe") &&
@@ -83,6 +89,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             return DateTime.TryParseExact(dateStringFromArchive, acceptedFormats,
                 CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dateTime);
+        }
+
+        public static string StripNamespace(string value)
+        {
+            int index = value.IndexOf(":");
+            if (index >= 0)
+            {
+                return value.Substring(index + 1);
+            }
+            return value;
         }
     }
 }

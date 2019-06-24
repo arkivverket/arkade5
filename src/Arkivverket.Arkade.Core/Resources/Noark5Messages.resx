@@ -443,4 +443,7 @@ Generert:  {2}</value>
   <data name="ControlElementHasContent_AfterSystemId" xml:space="preserve">
     <value>Etter systemID {0}</value>
   </data>
+  <data name="NumberOfTypeRegisters" xml:space="preserve">
+    <value>Registertype: {0} - Antall: {1}</value>
+  </data>
 </root>
