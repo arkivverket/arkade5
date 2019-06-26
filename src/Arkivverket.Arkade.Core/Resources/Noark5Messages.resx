@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -145,9 +145,6 @@ Generert:  {2}</value>
   </data>
   <data name="NumberOfArchivesMessage" xml:space="preserve">
     <value>Antall arkiv: {0}</value>
-  </data>
-  <data name="NumberOfClassesMessage" xml:space="preserve">
-    <value>Antall klasser: {0}</value>
   </data>
   <data name="NumberOfClassificationSystemsMessage" xml:space="preserve">
     <value>Antall klassifikasjonssystem: {0}</value>
@@ -418,9 +415,6 @@ Generert:  {2}</value>
   </data>
   <data name="NumberOfTypeFoldersAtLevel" xml:space="preserve">
     <value>Mappetype: {0} - Antall på nivå {1}: {2}</value>
-  </data>
-  <data name="NumberOfFolders" xml:space="preserve">
-    <value>Antall mapper: {0}</value>
   </data>
   <data name="NumberOfFolders_DocumentedAndActualMismatch" xml:space="preserve">
     <value>Det er angitt at arkivstrukturen skal innholde {0} mapper men {1} ble funnet</value>
