@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 23);
 
         private string _currentArchivePartSystemId;
-        private int _totalnumberOfDocumentDescriptions;
+        private int _totalNumberOfDocumentDescriptions;
         private readonly Dictionary<string, int> _documentDescriptionsPerArchivePart = new Dictionary<string, int>();
 
         public override TestId GetId()
@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var testResults = new List<TestResult>
             {
                 new TestResult(ResultType.Success, new Location(string.Empty),
-                   string.Format(Noark5Messages.TotalResultNumber, _totalnumberOfDocumentDescriptions.ToString()))
+                   string.Format(Noark5Messages.TotalResultNumber, _totalNumberOfDocumentDescriptions.ToString()))
             };
 
             if (_documentDescriptionsPerArchivePart.Count > 1)
@@ -67,7 +67,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.NameEquals("dokumentbeskrivelse"))
             {
-                _totalnumberOfDocumentDescriptions++;
+                _totalNumberOfDocumentDescriptions++;
 
                 if (_documentDescriptionsPerArchivePart.Count >0)
                 {

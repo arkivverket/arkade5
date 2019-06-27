@@ -495,15 +495,6 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}: {2}.
-        /// </summary>
-        internal static string NumberOfDepreciationsMessage {
-            get {
-                return ResourceManager.GetString("NumberOfDepreciationsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Arkivdel (systemID) {0} - {1}: {2}.
         /// </summary>
         internal static string NumberOfDepreciationsMessage_ForArchivePart {

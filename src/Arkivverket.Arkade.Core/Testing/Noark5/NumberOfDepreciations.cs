@@ -37,22 +37,22 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 foreach (KeyValuePair<string, int> pair in archivePart.TypeOfDepreciation)
                 {
-                    var type = pair.Value;
-                    var numberOf = pair.Key;
+                    var numberOf = pair.Value;
+                    var type = pair.Key;
 
                     if (_archiveParts.Count == 1)
                     {
                         testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                            string.Format(Noark5Messages.NumberOfDepreciationsMessage,
-                                _totalNumberOfDeprecations, numberOf, type)));
+                            $"{type}: {numberOf}"));
+
                     }
                     else
                     {
                         var testresult = new TestResult(ResultType.Success, new Location(string.Empty),
                             string.Format(Noark5Messages.NumberOfDepreciationsMessage_ForArchivePart,
                                 archivePart.SystemId,
-                                numberOf,
-                                type));
+                                type,
+                                numberOf));
 
                         testResults.Add(testresult);
                     }
@@ -73,7 +73,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
-                _currentArchivePart = new Archivepart {SystemId = eventArgs.Value};
+                _currentArchivePart = new Archivepart { SystemId = eventArgs.Value };
                 _archiveParts.Add(_currentArchivePart);
             }
 

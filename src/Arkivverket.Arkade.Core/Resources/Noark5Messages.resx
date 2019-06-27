@@ -143,9 +143,6 @@ Generert:  {2}</value>
   <data name="NumberOfCommentsInFoldersMessage" xml:space="preserve">
     <value>Antall merknader i mapper: {0}</value>
   </data>
-  <data name="NumberOfDepreciationsMessage" xml:space="preserve">
-    <value>{1}: {2}</value>
-  </data>
   <data name="NumberOfJournalPostsMessage_UnEqualJournalNumbers" xml:space="preserve">
     <value>Antallet journalposter i offentlig og løpende journal er ulikt</value>
   </data>
