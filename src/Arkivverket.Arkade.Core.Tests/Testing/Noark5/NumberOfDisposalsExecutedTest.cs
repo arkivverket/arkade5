@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Antall utførte kassasjoner: 2"
+                "Totalt: 2"
             ));
             testRun.Results.Count.Should().Be(1);
         }
@@ -86,10 +86,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Antall utførte kassasjoner: 2"
+                "Arkivdel (systemID): someArchivePartSystemId_1 - Totalt: 2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Antall utførte kassasjoner: 1"
+                "Arkivdel (systemID): someArchivePartSystemId_2 - Totalt: 1"
             ));
             testRun.Results.Count.Should().Be(2);
         }
@@ -123,7 +123,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Antall utførte kassasjoner: 1"
+                "Totalt: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Det er dokumentert at uttrekket ikke skal omfatte utførte kassasjoner, men utførte kassasjoner ble funnet"

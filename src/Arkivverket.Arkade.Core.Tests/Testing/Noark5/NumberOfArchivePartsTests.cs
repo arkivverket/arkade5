@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfArchiveParts());
 
-            testRun.Results.First().Message.Should().Be("Antall arkivdeler: 2");
+            testRun.Results.First().Message.Should().Be("Totalt: 2");
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfArchiveParts());
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Antall arkivdeler: 3"));
+                r.Message.Equals("Totalt: 3"));
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Antall arkivdeler i arkiv (systemID) someArchiveSystemId_1: 2"));
             testRun.Results.Should().Contain(r =>

@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfClassificationSystems());
 
-            testRun.Results.First().Message.Should().Be("Antall klassifikasjonssystem: 1");
+            testRun.Results.First().Message.Should().Be("Totalt: 1");
         }
 
         [Fact]

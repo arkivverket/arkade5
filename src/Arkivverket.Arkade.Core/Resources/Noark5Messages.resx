@@ -140,20 +140,8 @@
 Forventet: {1}
 Generert:  {2}</value>
   </data>
-  <data name="NumberOfArchivePartsMessage" xml:space="preserve">
-    <value>Antall arkivdeler: {0}</value>
-  </data>
-  <data name="NumberOfArchivesMessage" xml:space="preserve">
-    <value>Antall arkiv: {0}</value>
-  </data>
-  <data name="NumberOfClassificationSystemsMessage" xml:space="preserve">
-    <value>Antall klassifikasjonssystem: {0}</value>
-  </data>
   <data name="NumberOfCommentsInFoldersMessage" xml:space="preserve">
     <value>Antall merknader i mapper: {0}</value>
-  </data>
-  <data name="NumberOfCorrespondencePartsMessage" xml:space="preserve">
-    <value>Antall korrespondanseparter: {0}</value>
   </data>
   <data name="NumberOfDepreciationsMessage" xml:space="preserve">
     <value>{1}: {2}</value>
@@ -176,8 +164,8 @@ Generert:  {2}</value>
   <data name="NumberOfPrecedentsInCaseFolderMessage" xml:space="preserve">
     <value>Antall presedenser i saksmapper: {0}</value>
   </data>
-  <data name="NumberOfRegistrationsMessage" xml:space="preserve">
-    <value>Antall registreringer: {0}</value>
+  <data name="TotalResultNumber" xml:space="preserve">
+    <value>Totalt: {0}</value>
   </data>
   <data name="ValidateNumberOfDocumentfilesMessage_DocumentationNotFound" xml:space="preserve">
     <value>Antall dokumentfiler ble ikke funnet oppgitt</value>
@@ -236,9 +224,6 @@ Generert:  {2}</value>
   <data name="NumberOfDisposalResolutionsMessage" xml:space="preserve">
     <value>Kassasjonsvedtak i {0} - Antall: {1}</value>
   </data>
-  <data name="NumberOfDisposalsExecutedMessage" xml:space="preserve">
-    <value>Antall utførte kassasjoner: {0}</value>
-  </data>
   <data name="NumberOfDisposalsExecutedMessage_DocFalseActualTrue" xml:space="preserve">
     <value>Det er dokumentert at uttrekket ikke skal omfatte utførte kassasjoner, men utførte kassasjoner ble funnet</value>
   </data>
@@ -260,9 +245,6 @@ Generert:  {2}</value>
   <data name="NumberOfRestrictionsMessage_DocTrueActualFalse" xml:space="preserve">
     <value>Det er angitt at uttrekket skal inneholde skjerminger, men ingen skjerminger ble funnet</value>
   </data>
-  <data name="NumberOfConversionsMessage" xml:space="preserve">
-    <value>Antall konverteringer: {0}</value>
-  </data>
   <data name="ArchiveStartAndEndDateControlMessage_DatesArchive" xml:space="preserve">
     <value>Start- og sluttdato i arkivstrukturen: {0} - {1}</value>
   </data>
@@ -277,9 +259,6 @@ Generert:  {2}</value>
   </data>
   <data name="ArchiveStartAndEndDateControlMessage_UnEqualJournalDates" xml:space="preserve">
     <value>Datoer i offentlig og løpende journal er ikke like</value>
-  </data>
-  <data name="NumberOfChangesLoggedMessage" xml:space="preserve">
-    <value>Antall endringer: {0}</value>
   </data>
   <data name="ChangeLogArchiveReferenceControlMessage" xml:space="preserve">
     <value>Referanse til arkivenhet er ikke gyldig: (systemID) {0}</value>
@@ -424,9 +403,6 @@ Generert:  {2}</value>
   </data>
   <data name="MeetingRegistrationCount" xml:space="preserve">
     <value>Møteregistreringer: {0}</value>
-  </data>
-  <data name="TotalRegistrationCount" xml:space="preserve">
-    <value>Totalt antall registreringer: {0}</value>
   </data>
   <data name="ValidateStructureFileExists_FileMissing" xml:space="preserve">
     <value>Filen {0} er listet opp i arkivuttrekket, men mangler i pakke</value>

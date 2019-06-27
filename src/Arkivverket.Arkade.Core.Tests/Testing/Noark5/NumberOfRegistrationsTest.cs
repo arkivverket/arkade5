@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfRegistrations());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Totalt antall registreringer: 4"
+                "Totalt: 4"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Registertype: journalpost - Antall: 3"
@@ -122,10 +122,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfRegistrations());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Totalt antall registreringer: 9"
+                "Totalt: 9"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Totalt antall registreringer: 4"));
+                "Arkivdel (systemID): someArchivePartSystemId_1 - Totalt: 4"));
             testRun.Results.Count.Should().Be(7);
         }
     }

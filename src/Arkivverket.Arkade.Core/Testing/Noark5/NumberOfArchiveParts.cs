@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var testResults = new List<TestResult>
             {
                 new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
-                    Noark5Messages.NumberOfArchivePartsMessage, _archivepartsPerArchive.Values.Sum()
+                    Noark5Messages.TotalResultNumber, _archivepartsPerArchive.Values.Sum()
                 ))
             };
 

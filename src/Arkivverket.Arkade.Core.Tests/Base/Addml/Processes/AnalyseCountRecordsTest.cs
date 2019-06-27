@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeTrue();
             testRun.Results.Count.Should().Be(1);
-            testRun.Results[0].Message.Should().StartWith("4 ");
+            testRun.Results[0].Message.Should().Be("Totalt: 4 poster");
         }
     }
 }

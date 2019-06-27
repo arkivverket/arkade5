@@ -1,6 +1,7 @@
 ﻿using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
+using System.Linq;
 using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
@@ -31,8 +32,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDocumentObjects());
 
-            //testRun.Results.First().Message.Should().Be("Antall dokumentobjekter: 2");
-            testRun.Results[0].Message.Should().Be("2");
+            testRun.Results.First().Message.Should().Be("Totalt: 2");
         }
 
 
@@ -62,7 +62,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDocumentObjects());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("2"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_1: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_2: 1"));
         }

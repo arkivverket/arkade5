@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
                     archivePartMessagePrefix + string.Format(
-                        Noark5Messages.TotalRegistrationCount, archivePart.TotalRegistrationsCount
+                        Noark5Messages.TotalResultNumber, archivePart.TotalRegistrationsCount
                     )));
 
                 foreach(var registration in archivePart.Registrations)
@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (hasMultipleArchiveParts)
             {
                 testResults.Insert(0, new TestResult(ResultType.Success, new Location(string.Empty),
-                    string.Format(Noark5Messages.TotalRegistrationCount, totalNumberOfRegistrations)));
+                    string.Format(Noark5Messages.TotalResultNumber, totalNumberOfRegistrations)));
             }
 
             return testResults;

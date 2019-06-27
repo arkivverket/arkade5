@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     continue;
 
                 var message = new StringBuilder(
-                    string.Format(Noark5Messages.NumberOfConversionsMessage, archivePartConvertionsCount.Value)
+                    string.Format(Noark5Messages.TotalResultNumber, archivePartConvertionsCount.Value)
                 );
 
                 if (_numberOfConvertionsPerArchivePart.Keys.Count > 1) // Multiple archiveparts

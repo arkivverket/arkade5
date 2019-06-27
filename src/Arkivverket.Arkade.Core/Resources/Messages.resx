@@ -145,7 +145,7 @@
     <value>Teller opp antall poster i en fil</value>
   </data>
   <data name="AnalyseCountRecordsMessage" xml:space="preserve">
-    <value>{0} poster</value>
+    <value>Totalt: {0} poster</value>
   </data>
   <data name="AnalyseFindExtremeRecordsDescription" xml:space="preserve">
     <value>Finner lengste og korteste post for hver posttype</value>

@@ -49,7 +49,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 xmlTextReader.Close();
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(ArkadeConstants.ChangeLogXmlFileName),
-                    string.Format(Noark5Messages.NumberOfChangesLoggedMessage, numberOfChangesLogged)));
+                    string.Format(Noark5Messages.TotalResultNumber, numberOfChangesLogged)));
             }
             catch (Exception)
             {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base.Noark5;
@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var testResults = new List<TestResult>();
 
             testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                _totalNumberOfDeprecations.ToString()));
+                string.Format(Noark5Messages.TotalResultNumber, _totalNumberOfDeprecations.ToString())));
 
             foreach (Archivepart archivePart in _archiveParts)
             {

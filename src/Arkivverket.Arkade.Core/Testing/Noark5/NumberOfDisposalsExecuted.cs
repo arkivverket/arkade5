@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     continue;
 
                 var message = new StringBuilder(
-                    string.Format(Noark5Messages.NumberOfDisposalsExecutedMessage, archivePartDisposalsCount.Value)
+                    string.Format(Noark5Messages.TotalResultNumber, archivePartDisposalsCount.Value)
                 );
 
                 if (_numberOfDisposalsExecutedPerArchivePart.Keys.Count > 1) // Multiple archiveparts

@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfConversions());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Antall konverteringer: 2"
+                "Totalt: 2"
             ));
             testRun.Results.Count.Should().Be(1);
         }
@@ -98,10 +98,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfConversions());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Antall konverteringer: 2"
+                "Arkivdel (systemID): someArchivePartSystemId_1 - Totalt: 2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Antall konverteringer: 1"
+                "Arkivdel (systemID): someArchivePartSystemId_2 - Totalt: 1"
             ));
             testRun.Results.Count.Should().Be(2);
         }

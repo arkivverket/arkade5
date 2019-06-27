@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -27,7 +27,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             var testResults = new List<TestResult>
             {
-                new TestResult(ResultType.Success, new Location(string.Empty), _totalNumberOfDocumentObjects.ToString())
+                new TestResult(ResultType.Success, new Location(string.Empty), 
+                    string.Format(Noark5Messages.TotalResultNumber, _totalNumberOfDocumentObjects.ToString()))
             };
 
             if (_documentObjectsPerArchivePart.Count > 1)

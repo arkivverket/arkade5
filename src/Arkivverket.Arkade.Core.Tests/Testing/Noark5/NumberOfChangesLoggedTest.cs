@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = new XmlElementHelper().RunEventsOnTest(new NumberOfChangesLogged(testArchive));
 
-            testRun.Results.First().Message.Should().Be("Antall endringer: 2");
+            testRun.Results.First().Message.Should().Be("Totalt: 2");
         }
     }
 }

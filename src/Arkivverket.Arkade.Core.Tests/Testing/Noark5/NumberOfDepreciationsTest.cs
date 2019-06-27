@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDepreciations());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("2"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Besvart per telefon: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Besvart per e-post: 1"));
         }
@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDepreciations());
 
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("3"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 3"));
 
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Besvart per telefon: 1"));
