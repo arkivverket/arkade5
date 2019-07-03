@@ -70,6 +70,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 testResults.Add(new TestResult(ResultType.Error, new Location(""), string.Format(
                     Noark5Messages.NumberOfFolders_DocumentedAndActualMismatch, documentedNumberOfFolders, totalNumberOfFolders)));
 
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
+                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfFolders.ToString())));
+
             return testResults;
         }
 

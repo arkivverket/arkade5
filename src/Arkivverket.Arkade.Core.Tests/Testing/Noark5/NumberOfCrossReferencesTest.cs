@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -33,6 +34,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfCrossReferences());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 4");
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall kryssreferanser fra klasser: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall kryssreferanser fra mapper: 1"));
             testRun.Results.Should()
@@ -72,6 +74,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfCrossReferences());
 
+
+            testRun.Results.First().Message.Should().Be("Totalt: 5");
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID): someSystemId_1 - Antall kryssreferanser fra klasser: 2"));
             testRun.Results.Should().Contain(r =>

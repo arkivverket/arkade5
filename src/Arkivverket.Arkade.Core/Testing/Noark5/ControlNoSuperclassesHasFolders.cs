@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Base.Noark5;
@@ -43,6 +44,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 testResults.Add(new TestResult(ResultType.Error, new Location(""), message.ToString()));
             }
+
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""), 
+                string.Format(Noark5Messages.TotalResultNumber, _superClassesWithFolder.Count.ToString())));
 
             return testResults;
         }

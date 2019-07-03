@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Tests.Base;
@@ -48,6 +49,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfRestrictions(testArchive));
 
+
+            testRun.Results.First().Message.Should().Be("Totalt: 7");
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Skjerminger i arkivdel - Antall: 1"
             ));
@@ -63,7 +66,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Skjerminger i dokumentbeskrivelse - Antall: 2"
             ));
-            testRun.Results.Count.Should().Be(5);
+            testRun.Results.Count.Should().Be(6);
         }
 
         [Fact]
@@ -131,6 +134,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfRestrictions(testArchive));
 
+
+            testRun.Results.First().Message.Should().Be("Totalt: 14");
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID): someArchivePartSystemId_1 - Skjerminger i arkivdel - Antall: 1"
             ));
@@ -161,7 +166,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID): someArchivePartSystemId_2 - Skjerminger i dokumentbeskrivelse - Antall: 2"
             ));
-            testRun.Results.Count.Should().Be(10);
+            testRun.Results.Count.Should().Be(11);
         }
 
         [Fact]
@@ -200,7 +205,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     "Det er angitt at uttrekket ikke skal inneholde skjerminger, men skjerminger ble funnet"
                 ) && r.Location.ToString().Equals("arkivuttrekk.xml"));
 
-            testRun.Results.Count.Should().Be(2);
+            testRun.Results.Count.Should().Be(3);
         }
 
         [Fact]
@@ -229,12 +234,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfRestrictions(testArchive));
 
+            testRun.Results.First().Message.Should().Be("Totalt: 0");
             testRun.Results.Should().Contain(r =>
                 r.IsError() && r.Message.Equals(
                     "Det er angitt at uttrekket skal inneholde skjerminger, men ingen skjerminger ble funnet"
                 ) && r.Location.ToString().Equals("arkivuttrekk.xml"));
 
-            testRun.Results.Count.Should().Be(1);
+            testRun.Results.Count.Should().Be(2);
         }
     }
 }

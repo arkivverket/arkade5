@@ -1,3 +1,4 @@
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
@@ -47,6 +48,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfClasses());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 12");
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID): someSystemId_1 - Primært klassifikasjonssystem (systemID): klassSys_1 - Totalt antall klasser: 3"));
             testRun.Results.Should().Contain(r =>

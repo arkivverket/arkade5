@@ -241,7 +241,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall registreringer funnet: {0}.
+        ///   Looks up a localized string similar to Totalt: {0}.
         /// </summary>
         internal static string DatesFirstAndLastRegistrationMessage_NumberOfRegistrations {
             get {
@@ -351,7 +351,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - Totalt antall klasser: {3}.
+        ///   Looks up a localized string similar to Totalt antall klasser: {0}.
         /// </summary>
         internal static string NumberOfClasses {
             get {
@@ -360,11 +360,20 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - Klasser på nivå {3}: {4}.
+        ///   Looks up a localized string similar to Klasser på nivå {0}: {1}.
         /// </summary>
         internal static string NumberOfClassesPerLevel {
             get {
                 return ResourceManager.GetString("NumberOfClassesPerLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - .
+        /// </summary>
+        internal static string NumberOfClassesTestResultMessage {
+            get {
+                return ResourceManager.GetString("NumberOfClassesTestResultMessage", resourceCulture);
             }
         }
         

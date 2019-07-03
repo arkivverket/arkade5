@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Base.Noark5;
@@ -28,6 +28,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override List<TestResult> GetTestResults()
         {
             var testResults = new List<TestResult>();
+            int multiReferencedDocumentFilesCount = 0;
 
             // Group document objects by file reference and by archive part:
             var documentObjectQuery = from documentObject in _documentObjects
@@ -58,6 +59,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                         item.Count
                     ));
 
+                multiReferencedDocumentFilesCount++;
+
                 if (multipleArchiveParts)
                     message.Insert(0,
                         string.Format(
@@ -65,6 +68,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
             }
+
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
+                string.Format(Noark5Messages.TotalResultNumber, multiReferencedDocumentFilesCount.ToString())));
 
             return testResults;
         }

@@ -26,22 +26,25 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override List<TestResult> GetTestResults()
         {
             var testResults = new List<TestResult>();
+            int totalNumberOfConversions = 0;
 
             foreach (var archivePartConvertionsCount in _numberOfConvertionsPerArchivePart)
             {
                 if (archivePartConvertionsCount.Value == 0)
                     continue;
 
-                var message = new StringBuilder(
-                    string.Format(Noark5Messages.TotalResultNumber, archivePartConvertionsCount.Value)
-                );
+                totalNumberOfConversions += archivePartConvertionsCount.Value;
 
                 if (_numberOfConvertionsPerArchivePart.Keys.Count > 1) // Multiple archiveparts
-                    message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, archivePartConvertionsCount.Key) + " - ");
-
-                testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
+                {
+                    testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
+                        string.Format(Noark5Messages.ArchivePartSystemId, archivePartConvertionsCount.Key) +
+                        " - " + string.Format(Noark5Messages.TotalResultNumber, archivePartConvertionsCount.Value)));
+                }
             }
+
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
+                    string.Format(Noark5Messages.TotalResultNumber, totalNumberOfConversions)));
 
             return testResults;
         }

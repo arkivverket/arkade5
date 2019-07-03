@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -22,6 +23,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfPrecedents());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 0");
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall presedenser i journalposter: 0"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall presedenser i saksmapper: 0"));
         }
@@ -50,6 +52,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfPrecedents());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 2");
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Antall presedenser i journalposter: 1"));
             testRun.Results.Should().Contain(r =>
@@ -81,6 +84,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfPrecedents());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 3");
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Antall presedenser i journalposter: 2"));
             testRun.Results.Should().Contain(r =>

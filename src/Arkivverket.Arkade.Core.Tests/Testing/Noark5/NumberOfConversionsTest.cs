@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -97,13 +98,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfConversions());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 3");
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID): someArchivePartSystemId_1 - Totalt: 2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID): someArchivePartSystemId_2 - Totalt: 1"
             ));
-            testRun.Results.Count.Should().Be(2);
+            testRun.Results.Count.Should().Be(3);
         }
     }
 }

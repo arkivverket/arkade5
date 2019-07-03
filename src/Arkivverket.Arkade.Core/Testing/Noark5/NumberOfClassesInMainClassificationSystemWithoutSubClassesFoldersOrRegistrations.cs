@@ -29,11 +29,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override List<TestResult> GetTestResults()
         {
             var testResults = new List<TestResult>();
+            int numberOfEmptyClassesCount = 0;
 
             if (_primaryClassificationSystems.Count == 1)
             {
                 testResults.Add(new TestResult(ResultType.Success, Location.Archive,
-                    _primaryClassificationSystems[0].NumberOfEmptyClasses.ToString()));
+                    string.Format(Noark5Messages.TotalResultNumber,
+                        _primaryClassificationSystems[0].NumberOfEmptyClasses.ToString())));
             }
             else
             {
@@ -44,7 +46,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                         classificationSystem.ArchivepartSystemId,
                         classificationSystem.ClassificationSystemId,
                         classificationSystem.NumberOfEmptyClasses)));
+
+                    numberOfEmptyClassesCount += classificationSystem.NumberOfEmptyClasses;
                 }
+
+                testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
+                    string.Format(Noark5Messages.TotalResultNumber,
+                        numberOfEmptyClassesCount.ToString())));
             }
 
             return testResults;

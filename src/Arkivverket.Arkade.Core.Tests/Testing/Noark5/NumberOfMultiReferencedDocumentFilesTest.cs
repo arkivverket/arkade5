@@ -1,6 +1,7 @@
 ﻿using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
+using System.Linq;
 using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
@@ -20,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     new XmlElementHelper()
                                         .Add("mappe",
                                             new XmlElementHelper()
-                                                .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                .Add("registrering", new[] { "xsi:type", "journalpost" },
                                                     new XmlElementHelper()
                                                         .Add("dokumentbeskrivelse",
                                                             new XmlElementHelper()
@@ -29,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                         .Add("referanseDokumentfil", "filename1.pdf")))))
                                         .Add("mappe",
                                             new XmlElementHelper()
-                                                .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                .Add("registrering", new[] { "xsi:type", "journalpost" },
                                                     new XmlElementHelper()
                                                         .Add("dokumentbeskrivelse",
                                                             new XmlElementHelper()
@@ -38,7 +39,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                         .Add("referanseDokumentfil", "filename1.pdf")))))
                                         .Add("mappe",
                                             new XmlElementHelper()
-                                                .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                .Add("registrering", new[] { "xsi:type", "journalpost" },
                                                     new XmlElementHelper()
                                                         .Add("dokumentbeskrivelse",
                                                             new XmlElementHelper()
@@ -49,11 +50,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfMultiReferencedDocumentFiles());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 1");
             testRun.Results.Should()
                 .Contain(r =>
                             r.Message.Equals("Referert dokumentfil: filename1.pdf - Antall referanser: 2")
                 );
-            testRun.Results.Count.Should().Be(1);
         }
 
         [Fact]
@@ -69,7 +70,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     new XmlElementHelper()
                                         .Add("mappe",
                                             new XmlElementHelper()
-                                                .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                .Add("registrering", new[] { "xsi:type", "journalpost" },
                                                     new XmlElementHelper()
                                                         .Add("dokumentbeskrivelse",
                                                             new XmlElementHelper()
@@ -78,7 +79,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                         .Add("referanseDokumentfil", "filename1.pdf")))))
                                         .Add("mappe",
                                             new XmlElementHelper()
-                                                .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                .Add("registrering", new[] { "xsi:type", "journalpost" },
                                                     new XmlElementHelper()
                                                         .Add("dokumentbeskrivelse",
                                                             new XmlElementHelper()
@@ -87,7 +88,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                         .Add("referanseDokumentfil", "filename1.pdf")))))
                                         .Add("mappe",
                                             new XmlElementHelper()
-                                                .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                .Add("registrering", new[] { "xsi:type", "journalpost" },
                                                     new XmlElementHelper()
                                                         .Add("dokumentbeskrivelse",
                                                             new XmlElementHelper()
@@ -102,7 +103,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     new XmlElementHelper()
                                         .Add("mappe",
                                             new XmlElementHelper()
-                                                .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                .Add("registrering", new[] { "xsi:type", "journalpost" },
                                                     new XmlElementHelper()
                                                         .Add("dokumentbeskrivelse",
                                                             new XmlElementHelper()
@@ -111,7 +112,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                         .Add("referanseDokumentfil", "filename3.pdf")))))
                                         .Add("mappe",
                                             new XmlElementHelper()
-                                                .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                .Add("registrering", new[] { "xsi:type", "journalpost" },
                                                     new XmlElementHelper()
                                                         .Add("dokumentbeskrivelse",
                                                             new XmlElementHelper()
@@ -120,7 +121,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                         .Add("referanseDokumentfil", "filename3.pdf")))))
                                         .Add("mappe",
                                             new XmlElementHelper()
-                                                .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                                .Add("registrering", new[] { "xsi:type", "journalpost" },
                                                     new XmlElementHelper()
                                                         .Add("dokumentbeskrivelse",
                                                             new XmlElementHelper()
@@ -132,6 +133,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfMultiReferencedDocumentFiles());
 
+
+            testRun.Results.First().Message.Should().Be("Totalt: 2");
             testRun.Results.Should()
                 .Contain(r =>
                         r.Message.Equals(
@@ -142,7 +145,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         r.Message.Equals(
                             "Arkivdel (systemID): someArchivePartSystemId_2 - Referert dokumentfil: filename3.pdf - Antall referanser: 2")
                 );
-            testRun.Results.Count.Should().Be(2);
+            testRun.Results.Count.Should().Be(3);
         }
     }
 }

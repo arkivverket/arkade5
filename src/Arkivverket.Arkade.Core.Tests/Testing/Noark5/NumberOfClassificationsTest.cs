@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -57,12 +58,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfClassifications());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 7");
             testRun.Results.Should().Contain(r => r.Message.Equals("Graderinger i arkivdel - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Graderinger i klasse - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Graderinger i mappe - Antall: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Graderinger i registrering - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Graderinger i dokumentbeskrivelse - Antall: 2"));
-            testRun.Results.Count.Should().Be(5);
+            testRun.Results.Count.Should().Be(6);
         }
 
         [Fact]
@@ -155,6 +157,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfClassifications());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 14");
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID): someArchivePartSystemId_1 - Graderinger i arkivdel - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals(
@@ -175,7 +178,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 "Arkivdel (systemID): someArchivePartSystemId_2 - Graderinger i registrering - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID): someArchivePartSystemId_2 - Graderinger i dokumentbeskrivelse - Antall: 2"));
-            testRun.Results.Count.Should().Be(10);
+            testRun.Results.Count.Should().Be(11);
         }
     }
 }

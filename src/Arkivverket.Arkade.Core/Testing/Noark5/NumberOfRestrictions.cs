@@ -39,6 +39,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override List<TestResult> GetTestResults()
         {
             var testResults = new List<TestResult>();
+            int totalNumberOfRestrictions = 0;
 
             // Group restrictions by parent element name and by archive part:
             var restrictionQuery = from restriction in _restrictions
@@ -64,6 +65,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     message.Insert(0,
                         string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId) + " - ");
 
+                totalNumberOfRestrictions += item.Count;
+
                 testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
             }
 
@@ -76,6 +79,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (!_documentationStatesRestrictions && _restrictions.Any())
                 testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
                     Noark5Messages.NumberOfRestrictionsMessage_DocFalseActualTrue));
+
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""), 
+                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfRestrictions.ToString())));
 
             return testResults;
         }

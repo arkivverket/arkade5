@@ -27,6 +27,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override List<TestResult> GetTestResults()
         {
             var testResults = new List<TestResult>();
+            int totalNumberOfClassifications = 0;
 
             // Group classifications by parent element name and by archive part:
             var classificationQuery = from classification in _classifications
@@ -55,7 +56,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                         string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId) + " - ");
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
+
+                totalNumberOfClassifications += item.Count;
             }
+
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""), 
+                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfClassifications.ToString())));
 
             return testResults;
         }

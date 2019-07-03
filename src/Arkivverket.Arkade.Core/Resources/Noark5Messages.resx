@@ -130,7 +130,7 @@
     <value>Antall ugyldige datoer for registreringsopprettelse funnet: {0}</value>
   </data>
   <data name="DatesFirstAndLastRegistrationMessage_NumberOfRegistrations" xml:space="preserve">
-    <value>Antall registreringer funnet: {0}</value>
+    <value>Totalt: {0}</value>
   </data>
   <data name="DocumentfilesReferenceControlMessage" xml:space="preserve">
     <value>Ikke-referert fil funnet: {0}</value>
@@ -372,10 +372,10 @@ Generert:  {2}</value>
     <value>Arkivdel (systemID): {0 } - Antall kryssreferanser fra mapper: {1}</value>
   </data>
   <data name="NumberOfClasses" xml:space="preserve">
-    <value>Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - Totalt antall klasser: {3}</value>
+    <value>Totalt antall klasser: {0}</value>
   </data>
   <data name="NumberOfClassesPerLevel" xml:space="preserve">
-    <value>Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - Klasser på nivå {3}: {4}</value>
+    <value>Klasser på nivå {0}: {1}</value>
   </data>
   <data name="Primary" xml:space="preserve">
     <value>Primært</value>
@@ -412,5 +412,8 @@ Generert:  {2}</value>
   </data>
   <data name="NumberOfTypeRegisters" xml:space="preserve">
     <value>Registertype: {0} - Antall: {1}</value>
+  </data>
+  <data name="NumberOfClassesTestResultMessage" xml:space="preserve">
+    <value>Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - </value>
   </data>
 </root>

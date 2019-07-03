@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -33,6 +34,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override List<TestResult> GetTestResults()
         {
             var testResults = new List<TestResult>();
+            int totalNumberOfPrecedents = 0;
 
 
             if (_archiveParts.Count == 1)
@@ -47,6 +49,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     string.Format(Noark5Messages.NumberOfPrecedentsInJournalpostsMessage,
                         _currentArchivePart.NumberOfPrecedentsInJournalposts
                     )));
+
+                totalNumberOfPrecedents = CountTotalNumberOfPrecedents(_currentArchivePart);
             }
             else
             {
@@ -67,10 +71,26 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                                 archivePart.SystemId,
                                 archivePart.NumberOfPrecedentsInCasefolders)));
                     }
+
+                    totalNumberOfPrecedents += CountTotalNumberOfPrecedents(archivePart);
                 }
             }
 
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""), 
+                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfPrecedents.ToString())));
+
             return testResults;
+        }
+
+        private int CountTotalNumberOfPrecedents(ArchivePart currentArchivePart)
+        {
+            int totalNumberOfPrecedentsResult = new int[]
+            {
+                currentArchivePart.NumberOfPrecedentsInCasefolders,
+                currentArchivePart.NumberOfPrecedentsInJournalposts
+            }.Sum();
+
+            return totalNumberOfPrecedentsResult;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

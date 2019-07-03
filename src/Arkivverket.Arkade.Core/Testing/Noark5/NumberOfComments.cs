@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -26,6 +27,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override List<TestResult> GetTestResults()
         {
             var testResults = new List<TestResult>();
+            int totalNumberOfComments = 0;
 
             if (_archiveParts.Count == 1)
             {
@@ -46,6 +48,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     string.Format(Noark5Messages.NumberOfCommentsInDocumentDescriptionMessage,
                         _currentArchivePart.NumberOfCommentsInDocumentDescription
                     )));
+
+                totalNumberOfComments = CountTotalNumberOfComments(_currentArchivePart);
             }
             else
 
@@ -75,10 +79,27 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                                 archivePart.SystemId,
                                 archivePart.NumberOfCommentsInBaseRegistration)));
                     }
+
+                    totalNumberOfComments += CountTotalNumberOfComments(archivePart);
                 }
             }
 
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
+                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfComments.ToString())));
+
             return testResults;
+        }
+
+        private int CountTotalNumberOfComments(ArchivePart currentArchivePart)
+        {
+            int totalNumberOfComments = new[]
+            {
+                currentArchivePart.NumberOfCommentsInBaseRegistration,
+                currentArchivePart.NumberOfCommentsInDocumentDescription,
+                currentArchivePart.NumberOfCommentsInFolder
+            }.Sum();
+
+            return totalNumberOfComments;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

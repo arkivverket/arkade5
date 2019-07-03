@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new FirstAndLastRegistrationCreationDates());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("Antall registreringer funnet: 4"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 4"));
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Første registrering: Opprettet 18.10.1863"));
             testRun.Results.Should().Contain(r =>
@@ -81,7 +81,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new FirstAndLastRegistrationCreationDates());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("Antall registreringer funnet: 4"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 4"));
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Antall ugyldige datoer for registreringsopprettelse funnet: 4"));
             testRun.Results.Count.Should().Be(2);

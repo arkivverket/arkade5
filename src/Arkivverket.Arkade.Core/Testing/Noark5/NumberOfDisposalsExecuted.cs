@@ -35,6 +35,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override List<TestResult> GetTestResults()
         {
             var testResults = new List<TestResult>();
+            int totalNumberOfDisposalsExecuted = 0;
 
             foreach (var archivePartDisposalsCount in _numberOfDisposalsExecutedPerArchivePart)
             {
@@ -50,6 +51,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                         string.Format(Noark5Messages.ArchivePartSystemId, archivePartDisposalsCount.Key) + " - ");
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
+
+                totalNumberOfDisposalsExecuted += archivePartDisposalsCount.Value;
             }
 
             // Error message if disposals are documented but not found:
@@ -61,6 +64,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (!_disposalsAreDocumented && _numberOfDisposalsExecutedPerArchivePart.Any(a => a.Value > 0))
                 testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
                     Noark5Messages.NumberOfDisposalsExecutedMessage_DocFalseActualTrue));
+
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
+                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfDisposalsExecuted)));
 
             return testResults;
         }

@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -28,6 +29,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfEachCaseFolderStatus());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 3");
+
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals(
                     "Saksmappestatus: Avsluttet - Antall: 2"
@@ -43,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     "Saksmappestatus: Under behandling - Antall: 1"
                 ) && r.IsError()); // Only "Avsluttet" or "Utgår" on regular deposits
 
-            testRun.Results.Count.Should().Be(3);
+            testRun.Results.Count.Should().Be(4);
         }
 
         [Fact]
@@ -67,6 +70,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfEachCaseFolderStatus());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 1");
+
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals(
                     "Arkivdel (systemID): someArchivePartSystemId_1 - Saksmappestatus: Avsluttet - Antall: 1"
@@ -77,7 +82,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     "Arkivdel (systemID): someArchivePartSystemId_2 - Saksmappestatus: Avsluttet - Antall: 1"
                 ));
 
-            testRun.Results.Count.Should().Be(2);
+            testRun.Results.Count.Should().Be(3);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -25,6 +26,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override List<TestResult> GetTestResults()
         {
             var testResults = new List<TestResult>();
+            int totalNumberOfCrossReferences = 0;
 
             if (_archiveParts.Count == 1)
             {
@@ -39,6 +41,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 testResults.Add(new TestResult(ResultType.Success, new Location(""),
                     string.Format(Noark5Messages.NumberOfCrossReferencesToBasicRegistrationMessage,
                         _currentArchivePart.BasicRegistrationReferenceCount)));
+
+                totalNumberOfCrossReferences = CountTotalNumberOfCrossReferences(_currentArchivePart);
             }
 
             else
@@ -69,10 +73,27 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                                 archivePart.SystemId,
                                 archivePart.BasicRegistrationReferenceCount)));
                     }
+
+                    totalNumberOfCrossReferences += CountTotalNumberOfCrossReferences(archivePart);
                 }
             }
 
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
+                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfCrossReferences.ToString())));
+
             return testResults;
+        }
+
+        private int CountTotalNumberOfCrossReferences(ArchivePart currentArchivePart)
+        {
+            int totalNumberOfCrossReferencesResult = new[]
+            {
+                currentArchivePart.ClassReferenceCount,
+                currentArchivePart.BasicRegistrationReferenceCount,
+                currentArchivePart.FolderReferenceCount
+            }.Sum();
+
+            return totalNumberOfCrossReferencesResult;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

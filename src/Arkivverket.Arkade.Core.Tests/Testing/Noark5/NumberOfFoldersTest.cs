@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             );
             TestRun testRun = helper.RunEventsOnTest(new NumberOfFolders(testArchive));
 
-            testRun.Results.Count.Should().Be(2);
+            testRun.Results.Count.Should().Be(3); // "Totalt" added
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Mappetype: saksmappe - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Mappetype: moetemappe - Antall: 1"));
@@ -56,7 +56,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             );
             TestRun testRun = helper.RunEventsOnTest(new NumberOfFolders(testArchive));
 
-            testRun.Results.Count.Should().Be(8);
+            testRun.Results.Count.Should().Be(9); // "Totalt" added
 
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID): someSystemId_1 - Mappetype: saksmappe - Antall: 2"));
@@ -112,7 +112,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             );
             TestRun testRun = helper.RunEventsOnTest(new NumberOfFolders(testArchive));
 
-            testRun.Results.Count.Should().Be(2);
+            testRun.Results.Count.Should().Be(3);
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Mappetype: saksmappe - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Mappetype: minmappe - Antall: 1"));

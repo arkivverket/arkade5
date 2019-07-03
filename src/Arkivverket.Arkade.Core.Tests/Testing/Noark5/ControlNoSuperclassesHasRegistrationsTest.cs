@@ -1,6 +1,7 @@
 ﻿using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
+using System.Linq;
 using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
@@ -33,10 +34,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new ControlNoSuperclassesHasRegistrations());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.Results.First().Message.Should().Be("Totalt: 1");
+            testRun.Results[1].Message.Should().Be(
                 "Klasse med systemID someClassSystemId_2"
-            ));
-            testRun.Results.Count.Should().Be(1);
+            );
+            testRun.Results.Count.Should().Be(2);
         }
 
         [Fact]
@@ -81,13 +83,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new ControlNoSuperclassesHasRegistrations());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 2");
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID): someArchivePartSystemId_1 - Klasse med systemID someClassSystemId_2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID): someArchivePartSystemId_2 - Klasse med systemID someClassSystemId_5"
             ));
-            testRun.Results.Count.Should().Be(2);
+            testRun.Results.Count.Should().Be(3);
         }
     }
 }

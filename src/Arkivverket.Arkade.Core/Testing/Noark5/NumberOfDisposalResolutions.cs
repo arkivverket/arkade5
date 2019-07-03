@@ -37,6 +37,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override List<TestResult> GetTestResults()
         {
             var testResults = new List<TestResult>();
+            int totalNumberOfDisposalResolutions = 0;
 
             // Group disposal resolutions by parent element name and by archive part:
             var disposalResolutionQuery = from disposalResolution in _disposalResolutions
@@ -63,6 +64,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                         string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId) + " - ");
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
+
+                totalNumberOfDisposalResolutions += item.Count;
             }
 
             // Error message if documentation states instances of disposal resolutions but none are found:
@@ -74,6 +77,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (!_documentationStatesDisposalResolutions && _disposalResolutions.Any())
                 testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
                     Noark5Messages.NumberOfDisposalResolutionsMessage_DocFalseActualTrue));
+
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""), 
+                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfDisposalResolutions.ToString())));
 
             return testResults;
         }

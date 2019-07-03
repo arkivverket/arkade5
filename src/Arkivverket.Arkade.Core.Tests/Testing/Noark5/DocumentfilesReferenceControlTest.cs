@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Tests.Base;
 using FluentAssertions;
@@ -52,7 +53,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = CreateTestRun(xmlElementHelper);
 
-            testRun.Results.Count.Should().Be(0);
+            testRun.Results.First().Message.Should().Be("Totalt: 0");
         }
 
         [Fact]
@@ -91,7 +92,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 "Ikke-referert fil funnet: DOKUMENT/underkatalog/d.PDF")
             );
 
-            testRun.Results.Count.Should().Be(1);
+            testRun.Results.First().Message.Should().Be("Totalt: 1");
+            testRun.Results.Count.Should().Be(2);
         }
 
         private static TestRun CreateTestRun(XmlElementHelper xmlElementHelper)

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Collections;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
@@ -34,11 +34,19 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override List<TestResult> GetTestResults()
         {
             var testResults = new List<TestResult>();
+            int documentWithoutReferenceCount = 0;
 
             foreach (DictionaryEntry fileNameEntry in _documentFileNames)
+            {
                 testResults.Add(new TestResult(ResultType.Error,
                     new Location(_documentsDirectory.Name),
                     string.Format(Noark5Messages.DocumentfilesReferenceControlMessage, fileNameEntry.Key)));
+
+                documentWithoutReferenceCount++;
+            }
+
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""), string.Format(Noark5Messages.TotalResultNumber,
+                documentWithoutReferenceCount.ToString())));
 
             return testResults;
         }

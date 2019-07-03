@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -26,6 +27,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfComments());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 1");
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall merknader i mapper: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall merknader i basisregistreringer: 0"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall merknader i dokumentbeskrivelser: 0"));
@@ -53,6 +55,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfComments());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 2");
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Antall merknader i mapper: 2"));
             testRun.Results.Should().Contain(r =>
@@ -92,6 +95,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfComments());
 
+            testRun.Results.First().Message.Should().Be("Totalt: 4");
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Antall merknader i mapper: 1"));
             testRun.Results.Should().Contain(r =>

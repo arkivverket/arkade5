@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Tests.Base;
 using FluentAssertions;
@@ -37,10 +38,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
 
+            testRun.Results.First().Message.Should().Be("Totalt: 2");
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Totalt: 2"
             ));
-            testRun.Results.Count.Should().Be(1);
+            testRun.Results.Count.Should().Be(2);
         }
 
         [Fact]
@@ -85,13 +87,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
 
+            testRun.Results.First().Message.Should().Be("Totalt: 3");
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID): someArchivePartSystemId_1 - Totalt: 2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID): someArchivePartSystemId_2 - Totalt: 1"
             ));
-            testRun.Results.Count.Should().Be(2);
+            testRun.Results.Count.Should().Be(3);
         }
 
         [Fact]
@@ -122,13 +125,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
 
+            testRun.Results.First().Message.Should().Be("Totalt: 1");
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Totalt: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Det er dokumentert at uttrekket ikke skal omfatte utførte kassasjoner, men utførte kassasjoner ble funnet"
             ));
-            testRun.Results.Count.Should().Be(2);
+            testRun.Results.Count.Should().Be(3);
         }
 
         [Fact]
@@ -157,10 +161,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
 
+            testRun.Results.First().Message.Should().Be("Totalt: 0");
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Det er dokumentert at uttrekket skal omfatte utførte kassasjoner, men ingen utførte kassasjoner ble funnet"
             ));
-            testRun.Results.Count.Should().Be(1);
+            testRun.Results.Count.Should().Be(2);
         }
     }
 }

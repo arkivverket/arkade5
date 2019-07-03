@@ -43,6 +43,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     Count = grouped.Count()
                 };
 
+            int numberOfUniqueCaseFolderStatuses = _folders.GroupBy(x => x.CaseStatus).Count();
+
             bool multipleArchiveParts = _folders.GroupBy(j => j.ArchivePartSystemId).Count() > 1;
 
             foreach (var item in folderQuery)
@@ -60,6 +62,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 testResults.Add(new TestResult(resultType, new Location(string.Empty), message.ToString()));
             }
+
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""), string.Format(Noark5Messages.TotalResultNumber,
+                numberOfUniqueCaseFolderStatuses)));
 
             return testResults;
         }

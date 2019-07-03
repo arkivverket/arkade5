@@ -29,7 +29,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun =
                 helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
 
-            testRun.Results.Should().BeEmpty(); // Zero empty classes not reported
+            testRun.Results.First().Message.Should().Be("Totalt: 0");
+            testRun.Results.Should().HaveCount(1); // Zero empty classes not reported
         }
 
         [Fact]
@@ -49,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun =
                 helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
 
-            testRun.Results.First().Message.Should().Be("2");
+            testRun.Results.First().Message.Should().Be("Totalt: 2");
         }
 
         [Fact]

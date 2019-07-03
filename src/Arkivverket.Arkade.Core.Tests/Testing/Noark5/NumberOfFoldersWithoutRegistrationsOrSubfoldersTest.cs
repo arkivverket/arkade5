@@ -1,7 +1,7 @@
-﻿using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
+using System.Linq;
 using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
@@ -83,7 +83,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     new XmlElementHelper())
                                 .Add("mappe", // Folder has neither registration or subfolder
                                     new XmlElementHelper()))))
-                    .Add("arkivdel", new XmlElementHelper()
+                   .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
