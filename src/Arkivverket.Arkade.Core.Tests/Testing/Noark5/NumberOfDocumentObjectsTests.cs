@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     .Add("dokumentbeskrivelse", new XmlElementHelper()
                                         .Add("systemID", "journpost56fd39c30a5373.09722056"))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfDocumentObjects());
+            TestRun testRun = helper.RunEventsOnTest(new N5_26_NumberOfDocumentObjects());
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
         }
@@ -60,7 +60,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("versjonsnummer", "2"))))))))
             );
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfDocumentObjects());
+            TestRun testRun = helper.RunEventsOnTest(new N5_26_NumberOfDocumentObjects());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_1: 1"));

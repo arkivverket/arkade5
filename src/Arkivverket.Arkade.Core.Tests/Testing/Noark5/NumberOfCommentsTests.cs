@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                     new XmlElementHelper().Add("merknadstekst", "enMerknad")
                                                 ))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfComments());
+            TestRun testRun = helper.RunEventsOnTest(new N5_36_NumberOfComments());
 
             testRun.Results.First().Message.Should().Be("Totalt: 1");
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall merknader i mapper: 1"));
@@ -53,7 +53,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                         new XmlElementHelper().Add("merknadstekst", "mer merknad")))
                                         ))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfComments());
+            TestRun testRun = helper.RunEventsOnTest(new N5_36_NumberOfComments());
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
             testRun.Results.Should().Contain(r =>
@@ -93,7 +93,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         .Add("merknad", new XmlElementHelper()
                                         )))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfComments());
+            TestRun testRun = helper.RunEventsOnTest(new N5_36_NumberOfComments());
 
             testRun.Results.First().Message.Should().Be("Totalt: 4");
             testRun.Results.Should().Contain(r =>

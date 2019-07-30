@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     .Add("dokumentbeskrivelse", new XmlElementHelper()
                                         .Add("dokumentobjekt", new XmlElementHelper()))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfDocumentDescriptionsWithoutDocumentObject());
+            TestRun testRun = helper.RunEventsOnTest(new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject());
 
             testRun.Results[0].Message.Should().Be("Totalt: 0");
         }
@@ -50,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     .Add("dokumentbeskrivelse", new XmlElementHelper()
                                         .Add("dokumentobjekt", new XmlElementHelper()))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfDocumentDescriptionsWithoutDocumentObject());
+            TestRun testRun = helper.RunEventsOnTest(new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_1: 2"));

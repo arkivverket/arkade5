@@ -109,8 +109,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             TestSuite testSuite = _addmlProcessRunner.GetTestSuite();
 
-            testSuite.AddTestRun(new ControlExtraOrMissingFiles(addmlDefinition, testSession.Archive).GetTestRun());
-            testSuite.AddTestRun(new ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
+            testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, testSession.Archive).GetTestRun());
+            testSuite.AddTestRun(new AH_03_ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
 
             return testSuite;
         }

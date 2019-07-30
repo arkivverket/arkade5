@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new NumberOfJournalPosts(testArchive));
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_59_NumberOfJournalPosts(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter funnet i arkivstrukturen: 4"));
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new NumberOfJournalPosts(testArchive));
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_59_NumberOfJournalPosts(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Antallet journalposter i offentlig og løpende journal er ulikt"));
@@ -71,7 +71,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfJournalPosts(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_59_NumberOfJournalPosts(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Periodeskille er skarpt og antallet journalposter i arkivstrukturen er ikke likt det i offentlig og løpende journal"));
@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfJournalPosts(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_59_NumberOfJournalPosts(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter funnet i arkivstrukturen: 3"));

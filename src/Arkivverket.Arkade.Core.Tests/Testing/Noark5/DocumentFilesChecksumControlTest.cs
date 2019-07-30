@@ -108,7 +108,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 .WithWorkingDirectoryRoot(testdataDirectory)
                 .Build();
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new DocumentFilesChecksumControl(testArchive));
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_30_DocumentFilesChecksumControl(testArchive));
             return testRun;
         }
     }

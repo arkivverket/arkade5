@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                             new XmlElementHelper()
                                                                                 .Add("konvertering", string.Empty)))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfConversions());
+            TestRun testRun = helper.RunEventsOnTest(new N5_46_NumberOfConversions());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Totalt: 2"
@@ -96,7 +96,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                             new XmlElementHelper()
                                                                                 .Add("konvertering", string.Empty)))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfConversions());
+            TestRun testRun = helper.RunEventsOnTest(new N5_46_NumberOfConversions());
 
             testRun.Results.First().Message.Should().Be("Totalt: 3");
             testRun.Results.Should().Contain(r => r.Message.Equals(

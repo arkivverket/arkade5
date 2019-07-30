@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     )
                 );
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfClassificationSystems());
+            TestRun testRun = helper.RunEventsOnTest(new N5_07_NumberOfClassificationSystems());
 
             testRun.Results.First().Message.Should().Be("Totalt: 1");
         }
@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("klassifikasjonssystem", string.Empty))
                 );
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfClassificationSystems());
+            TestRun testRun = helper.RunEventsOnTest(new N5_07_NumberOfClassificationSystems());
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall klassifikasjonssystemer i arkivdel (systemID) someSystemId_1: 1"));

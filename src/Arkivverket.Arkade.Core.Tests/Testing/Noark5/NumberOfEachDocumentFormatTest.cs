@@ -60,7 +60,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                         .Add("referanseDokumentfil", "filename4.docx")))))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachDocumentFormat());
+            TestRun testRun = helper.RunEventsOnTest(new N5_29_NumberOfEachDocumentFormat());
 
             testRun.Results.Should()
                 .Contain(r =>
@@ -179,7 +179,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                         .Add("referanseDokumentfil", "filename8.docx")))))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachDocumentFormat());
+            TestRun testRun = helper.RunEventsOnTest(new N5_29_NumberOfEachDocumentFormat());
 
             testRun.Results.Should().Contain(r =>
                     r.Message.Equals(

@@ -83,7 +83,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                     .Add("journalposttype", "Saksframlegg")))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachJournalPostType());
+            TestRun testRun = helper.RunEventsOnTest(new N5_17_NumberOfEachJournalPostType());
 
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
@@ -176,7 +176,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                     .Add("journalposttype", "Saksframlegg")))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachJournalPostType());
+            TestRun testRun = helper.RunEventsOnTest(new N5_17_NumberOfEachJournalPostType());
 
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
@@ -258,7 +258,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                     .Add("journalposttype", "Saksframlegg")))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachJournalPostType());
+            TestRun testRun = helper.RunEventsOnTest(new N5_17_NumberOfEachJournalPostType());
 
 
             testRun.Results.Should().Contain(r => r.Message.Equals(

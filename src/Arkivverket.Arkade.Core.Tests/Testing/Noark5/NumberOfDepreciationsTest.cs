@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         .Add("avskrivning", new XmlElementHelper()
                                             .Add("avskrivningsmaate", "Besvart per e-post"))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfDepreciations());
+            TestRun testRun = helper.RunEventsOnTest(new N5_40_NumberOfDepreciations());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Besvart per telefon: 1"));
@@ -55,7 +55,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         .Add("avskrivning", new XmlElementHelper()
                                             .Add("avskrivningsmaate", "Besvart per telefon"))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfDepreciations());
+            TestRun testRun = helper.RunEventsOnTest(new N5_40_NumberOfDepreciations());
 
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 3"));

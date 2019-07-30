@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             Archive testArchive = TestUtil.CreateArchiveExtraction(
                 Path.Combine("TestData", "Noark5", "FolderControl", "TwoFolders")
             );
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfFolders(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_10_NumberOfFolders(testArchive));
 
             testRun.Results.Count.Should().Be(3); // "Totalt" added
 
@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             Archive testArchive = TestUtil.CreateArchiveExtraction(
                 Path.Combine("TestData", "Noark5", "FolderControl", "SixFolders")
             );
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfFolders(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_10_NumberOfFolders(testArchive));
 
             testRun.Results.Count.Should().Be(9); // "Totalt" added
 
@@ -90,7 +90,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             Archive testArchive = TestUtil.CreateArchiveExtraction(
                 Path.Combine("TestData", "Noark5", "FolderControl", "TwoFolders")
             );
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfFolders(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_10_NumberOfFolders(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Det er angitt at arkivstrukturen skal innholde 2 mapper men 1 ble funnet"
@@ -110,7 +110,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             Archive testArchive = TestUtil.CreateArchiveExtraction(
                 Path.Combine("TestData", "Noark5", "FolderControl", "TwoFolders")
             );
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfFolders(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_10_NumberOfFolders(testArchive));
 
             testRun.Results.Count.Should().Be(3);
 

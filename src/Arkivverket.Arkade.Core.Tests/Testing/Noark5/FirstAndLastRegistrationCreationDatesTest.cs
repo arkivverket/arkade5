@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         .Add("registrering", new XmlElementHelper()
                                             .Add("opprettetDato", "1865-10-18T00:00:00Z"))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new FirstAndLastRegistrationCreationDates());
+            TestRun testRun = helper.RunEventsOnTest(new N5_27_FirstAndLastRegistrationCreationDates());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 4"));
             testRun.Results.Should().Contain(r =>
@@ -79,7 +79,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 new XmlElementHelper().Add("registrering",
                                                     new XmlElementHelper().Add("opprettetDato", "10 18"))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new FirstAndLastRegistrationCreationDates());
+            TestRun testRun = helper.RunEventsOnTest(new N5_27_FirstAndLastRegistrationCreationDates());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 4"));
             testRun.Results.Should().Contain(r =>

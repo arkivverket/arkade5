@@ -104,7 +104,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(testdataDirectory).Build();
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new DocumentfilesReferenceControl(testArchive));
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_33_DocumentfilesReferenceControl(testArchive));
             return testRun;
         }
     }

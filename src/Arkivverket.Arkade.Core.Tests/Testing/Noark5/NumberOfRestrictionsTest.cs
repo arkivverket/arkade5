@@ -47,7 +47,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfRestrictions(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_42_NumberOfRestrictions(testArchive));
 
 
             testRun.Results.First().Message.Should().Be("Totalt: 7");
@@ -132,7 +132,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfRestrictions(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_42_NumberOfRestrictions(testArchive));
 
 
             testRun.Results.First().Message.Should().Be("Totalt: 14");
@@ -195,7 +195,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansFalse").Build();
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfRestrictions(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_42_NumberOfRestrictions(testArchive));
 
             testRun.Results.Should()
                 .Contain(r => r.Message.Equals("Skjerminger i dokumentbeskrivelse - Antall: 1"));
@@ -232,7 +232,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfRestrictions(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_42_NumberOfRestrictions(testArchive));
 
             testRun.Results.First().Message.Should().Be("Totalt: 0");
             testRun.Results.Should().Contain(r =>

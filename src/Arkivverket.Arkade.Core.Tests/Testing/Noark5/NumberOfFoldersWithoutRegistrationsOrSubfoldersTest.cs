@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 new XmlElementHelper().Add("registrering",
                                                     new XmlElementHelper().Add("someelement", "some value"))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfFoldersWithoutRegistrationsOrSubfolders());
+            TestRun testRun = helper.RunEventsOnTest(new N5_14_NumberOfFoldersWithoutRegistrationsOrSubfolders());
 
             testRun.Results.First().Message.Should().Be("Totalt: 0");
         }
@@ -46,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     .Add("mappe",
                                         new XmlElementHelper())))))); // Folder has neither registration or subfolder
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfFoldersWithoutRegistrationsOrSubfolders());
+            TestRun testRun = helper.RunEventsOnTest(new N5_14_NumberOfFoldersWithoutRegistrationsOrSubfolders());
 
             testRun.Results.First().Message.Should().Be("Totalt: 1");
         }
@@ -65,7 +65,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     .Add("mappe", // Folder has neither registration or subfolder
                                         new XmlElementHelper().Add("someelement", "some value"))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfFoldersWithoutRegistrationsOrSubfolders());
+            TestRun testRun = helper.RunEventsOnTest(new N5_14_NumberOfFoldersWithoutRegistrationsOrSubfolders());
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
         }
@@ -94,7 +94,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         .Add("registrering", new XmlElementHelper())))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfFoldersWithoutRegistrationsOrSubfolders());
+            TestRun testRun = helper.RunEventsOnTest(new N5_14_NumberOfFoldersWithoutRegistrationsOrSubfolders());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_1: 2"));

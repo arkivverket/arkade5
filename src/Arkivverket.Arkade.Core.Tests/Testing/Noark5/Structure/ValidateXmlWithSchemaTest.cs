@@ -65,7 +65,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithWorkingDirectoryExternalContent(workingDirectory)
                 .Build();
 
-            var validateXmlWithSchema = new ValidateXmlWithSchema();
+            var validateXmlWithSchema = new N5_03_ValidateXmlWithSchema();
 
             validateXmlWithSchema.Test(archive);
 

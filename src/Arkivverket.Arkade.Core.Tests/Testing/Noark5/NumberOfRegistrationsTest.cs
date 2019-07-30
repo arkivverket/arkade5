@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                             ""
                                                         ))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfRegistrations());
+            TestRun testRun = helper.RunEventsOnTest(new N5_16_NumberOfRegistrations());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Totalt: 4"
@@ -119,7 +119,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                            new[] { "xsi:type", "journalpost" },
                                                            ""
                                                        ))))));
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfRegistrations());
+            TestRun testRun = helper.RunEventsOnTest(new N5_16_NumberOfRegistrations());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Totalt: 9"

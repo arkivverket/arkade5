@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     .Add("arkivdel", string.Empty)
                 );
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfArchiveParts());
+            TestRun testRun = helper.RunEventsOnTest(new N5_05_NumberOfArchiveParts());
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
         }
@@ -35,7 +35,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     .Add("systemID", "someArchiveSystemId_2")
                     .Add("arkivdel", string.Empty));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfArchiveParts());
+            TestRun testRun = helper.RunEventsOnTest(new N5_05_NumberOfArchiveParts());
 
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Totalt: 3"));

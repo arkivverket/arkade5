@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_45_NumberOfDisposalsExecuted(testArchive));
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
             testRun.Results.Should().Contain(r => r.Message.Equals(
@@ -85,7 +85,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_45_NumberOfDisposalsExecuted(testArchive));
 
             testRun.Results.First().Message.Should().Be("Totalt: 3");
             testRun.Results.Should().Contain(r => r.Message.Equals(
@@ -123,7 +123,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansFalse").Build();
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_45_NumberOfDisposalsExecuted(testArchive));
 
             testRun.Results.First().Message.Should().Be("Totalt: 1");
             testRun.Results.Should().Contain(r => r.Message.Equals(
@@ -159,7 +159,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfDisposalsExecuted(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_45_NumberOfDisposalsExecuted(testArchive));
 
             testRun.Results.First().Message.Should().Be("Totalt: 0");
             testRun.Results.Should().Contain(r => r.Message.Equals(

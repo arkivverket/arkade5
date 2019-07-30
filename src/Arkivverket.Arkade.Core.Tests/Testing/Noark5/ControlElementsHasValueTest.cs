@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("systemID", "someSystemId_2")
                                             .Add("tittel", string.Empty))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new ControlElementsHasContent());
+            TestRun testRun = helper.RunEventsOnTest(new N5_63_ControlElementsHasContent());
 
             testRun.Results.Count.Should().Be(1);
             testRun.Results.Should().Contain(r => r.Location.ToString().Equals("Etter systemID someSystemId_2"));
@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("systemID", "someSystemId_2")
                                             .Add("tittel", "Some title"))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new ControlElementsHasContent());
+            TestRun testRun = helper.RunEventsOnTest(new N5_63_ControlElementsHasContent());
 
             testRun.Results.Count.Should().Be(0);
         }

@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                         .Add("referanseDokumentfil", "filename2.docx")))))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfMultiReferencedDocumentFiles());
+            TestRun testRun = helper.RunEventsOnTest(new N5_34_NumberOfMultiReferencedDocumentFiles());
 
             testRun.Results.First().Message.Should().Be("Totalt: 1");
             testRun.Results.Should()
@@ -131,7 +131,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             );
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfMultiReferencedDocumentFiles());
+            TestRun testRun = helper.RunEventsOnTest(new N5_34_NumberOfMultiReferencedDocumentFiles());
 
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");

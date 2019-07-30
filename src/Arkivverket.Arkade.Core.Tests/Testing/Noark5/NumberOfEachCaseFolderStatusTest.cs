@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     .Add("saksstatus", "Under behandling"))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachCaseFolderStatus());
+            TestRun testRun = helper.RunEventsOnTest(new N5_15_NumberOfEachCaseFolderStatus());
 
             testRun.Results.First().Message.Should().Be("Totalt: 3");
 
@@ -68,7 +68,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     .Add("saksstatus", "Avsluttet"))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachCaseFolderStatus());
+            TestRun testRun = helper.RunEventsOnTest(new N5_15_NumberOfEachCaseFolderStatus());
 
             testRun.Results.First().Message.Should().Be("Totalt: 1");
 

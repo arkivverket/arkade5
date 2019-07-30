@@ -32,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                     .Add("systemID", "someClassSystemId_3")
                                                                     .Add("mappe", string.Empty)))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new ControlNoSuperclassesHasFolders());
+            TestRun testRun = helper.RunEventsOnTest(new N5_12_ControlNoSuperclassesHasFolders());
 
             testRun.Results.First().Message.Should().Be("Totalt: 1");
             testRun.Results[1].Message.Should().Be(
@@ -82,7 +82,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                     .Add("systemID", "someClassSystemId_6")
                                                                     .Add("mappe", string.Empty)))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new ControlNoSuperclassesHasFolders());
+            TestRun testRun = helper.RunEventsOnTest(new N5_12_ControlNoSuperclassesHasFolders());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID): someArchivePartSystemId_1 - Klasse med systemID someClassSystemId_2"

@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                             new XmlElementHelper()
                                                                                 .Add("systemID", "someSystemId_8")))))))));
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new SystemIdUniqueControl());
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_47_SystemIdUniqueControl());
 
             testRun.Results.Count.Should().Be(0);
         }
@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                             new XmlElementHelper()
                                                                                 .Add("systemID", "someSystemId_5")))))))));
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new SystemIdUniqueControl());
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_47_SystemIdUniqueControl());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Ikke-unik ID: Systemidentifikasjonen (systemID) someSystemId_4 forekommer 2 ganger"

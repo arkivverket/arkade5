@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         .Add("sakspart", new XmlElementHelper()
                                             .Add("sakspartID", "Sakspart1"))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfCaseParts());
+            TestRun testRun = helper.RunEventsOnTest(new N5_35_NumberOfCaseParts());
 
             testRun.Results[0].Message.Should().Be("Totalt: 1");
         }
@@ -57,7 +57,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("sakspartID", "Sakspart1")))))))
                 );
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfCaseParts());
+            TestRun testRun = helper.RunEventsOnTest(new N5_35_NumberOfCaseParts());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_1: 1"));

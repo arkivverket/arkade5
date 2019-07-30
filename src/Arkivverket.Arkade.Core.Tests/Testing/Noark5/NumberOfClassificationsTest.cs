@@ -56,7 +56,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                                 .Add("gradering", "Strengt hemmelig")))))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfClassifications());
+            TestRun testRun = helper.RunEventsOnTest(new N5_43_NumberOfClassifications());
 
             testRun.Results.First().Message.Should().Be("Totalt: 7");
             testRun.Results.Should().Contain(r => r.Message.Equals("Graderinger i arkivdel - Antall: 1"));
@@ -155,7 +155,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                                 .Add("gradering", "Strengt hemmelig")))))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfClassifications());
+            TestRun testRun = helper.RunEventsOnTest(new N5_43_NumberOfClassifications());
 
             testRun.Results.First().Message.Should().Be("Totalt: 14");
             testRun.Results.Should().Contain(r => r.Message.Equals(

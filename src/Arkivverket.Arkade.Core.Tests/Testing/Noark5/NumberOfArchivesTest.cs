@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 .Add("arkiv", string.Empty)
                 .Add("arkiv", string.Empty);
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfArchives());
+            TestRun testRun = helper.RunEventsOnTest(new N5_04_NumberOfArchives());
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
 
@@ -32,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("arkiv", string.Empty))
                     .Add("arkiv", string.Empty));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfArchives());
+            TestRun testRun = helper.RunEventsOnTest(new N5_04_NumberOfArchives());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 5"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall arkiv på nivå 1: 2"));

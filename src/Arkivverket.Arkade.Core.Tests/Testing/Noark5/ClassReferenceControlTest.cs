@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 .Add("systemID", "someFolderSystemId_2")
                                                 .Add("referanseSekundaerKlassifikasjon", "someClassSystemId"))))));
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new ClassReferenceControl());
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_51_ClassReferenceControl());
 
             testRun.Results.Count.Should().Be(0);
         }
@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             new XmlElementHelper()
                                                 .Add("systemID", "someFolderSystemId_4"))))));
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new ClassReferenceControl());
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_51_ClassReferenceControl());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Referanse fra mappe (systemID) someFolderSystemId_1 til klasse (systemID) someNonExistingClassSystemId er ikke gyldig"

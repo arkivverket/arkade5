@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
                 .Build();
 
-            var validateAddmlDataobjectsChecksums = new ValidateAddmlDataobjectsChecksums();
+            var validateAddmlDataobjectsChecksums = new N5_02_ValidateAddmlDataobjectsChecksums();
             validateAddmlDataobjectsChecksums.Test(archive);
             var testRun = validateAddmlDataobjectsChecksums.GetTestRun();
             testRun.Results.Count.Should().Be(9);
@@ -52,7 +52,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
                 .Build();
 
-            var validateAddmlDataobjectsChecksums = new ValidateAddmlDataobjectsChecksums();
+            var validateAddmlDataobjectsChecksums = new N5_02_ValidateAddmlDataobjectsChecksums();
             System.Exception ex = Assert.Throws<ArkadeException>(() => validateAddmlDataobjectsChecksums.Test(archive));
         }
     }

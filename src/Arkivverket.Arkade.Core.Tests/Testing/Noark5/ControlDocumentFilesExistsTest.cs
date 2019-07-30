@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "ArchiveReferencedFiles")
             );
 
-            TestRun testRun = helper.RunEventsOnTest(new ControlDocumentFilesExists(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_32_ControlDocumentFilesExists(testArchive));
 
             testRun.Results.Count.Should().Be(0);
         }
@@ -87,7 +87,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "ArchiveReferencedFiles")
             );
 
-            TestRun testRun = helper.RunEventsOnTest(new ControlDocumentFilesExists(testArchive));
+            TestRun testRun = helper.RunEventsOnTest(new N5_32_ControlDocumentFilesExists(testArchive));
 
             testRun.Results.Count.Should().Be(2);
 

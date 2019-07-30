@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                             .Add("systemID", "someDocumentDescriptionSystemId")
                                                             .Add("referanseArkivdel", "someArchivePartSystemId"))))))));
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new ArchivepartReferenceControl());
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_48_ArchivepartReferenceControl());
 
             testRun.Results.Count.Should().Be(0);
         }
@@ -66,7 +66,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                             .Add("systemID", "someDocumentDescriptionSystemId")
                                                             .Add("referanseArkivdel", "someMissingArchivePartSystemId"))))))));
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new ArchivepartReferenceControl());
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_48_ArchivepartReferenceControl());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Referanse fra mappe (systemID) someFolderSystemId til arkivdel (systemID) someMissingArchivePartSystemId er ikke gyldig"

@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
-            TestRun testRun = new XmlElementHelper().RunEventsOnTest(new NumberOfChangesLogged(testArchive));
+            TestRun testRun = new XmlElementHelper().RunEventsOnTest(new N5_61_NumberOfChangesLogged(testArchive));
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
         }

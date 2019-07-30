@@ -32,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         // Reference to registration
                                         .Add("referanseTilRegistrering", "some-reference-identifier")))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfCrossReferences());
+            TestRun testRun = helper.RunEventsOnTest(new N5_37_NumberOfCrossReferences());
 
             testRun.Results.First().Message.Should().Be("Totalt: 4");
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall kryssreferanser fra klasser: 2"));
@@ -72,7 +72,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     // Reference to registration
                                     .Add("referanseTilRegistrering", "some-reference-identifier"))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfCrossReferences());
+            TestRun testRun = helper.RunEventsOnTest(new N5_37_NumberOfCrossReferences());
 
 
             testRun.Results.First().Message.Should().Be("Totalt: 5");

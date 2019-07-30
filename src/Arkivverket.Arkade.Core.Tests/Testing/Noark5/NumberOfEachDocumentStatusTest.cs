@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                 .Add("dokumentstatus", "Dokumentet er under redigering"))))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachDocumentStatus());
+            TestRun testRun = helper.RunEventsOnTest(new N5_25_NumberOfEachDocumentStatus());
 
             testRun.Results.Should()
                 .Contain(r =>
@@ -116,7 +116,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                 .Add("dokumentstatus", "Dokumentet er under redigering"))))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachDocumentStatus());
+            TestRun testRun = helper.RunEventsOnTest(new N5_25_NumberOfEachDocumentStatus());
 
             testRun.Results.Should().Contain(r =>
                     r.Message.Equals(

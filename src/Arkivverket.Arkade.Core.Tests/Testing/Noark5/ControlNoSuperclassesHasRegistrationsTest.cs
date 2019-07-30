@@ -32,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                     .Add("systemID", "someClassSystemId_3")
                                                                     .Add("registrering", string.Empty)))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new ControlNoSuperclassesHasRegistrations());
+            TestRun testRun = helper.RunEventsOnTest(new N5_19_ControlNoSuperclassesHasRegistrations());
 
             testRun.Results.First().Message.Should().Be("Totalt: 1");
             testRun.Results[1].Message.Should().Be(
@@ -81,7 +81,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                                     .Add("systemID", "someClassSystemId_6")
                                                                     .Add("registrering", string.Empty)))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new ControlNoSuperclassesHasRegistrations());
+            TestRun testRun = helper.RunEventsOnTest(new N5_19_ControlNoSuperclassesHasRegistrations());
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
             testRun.Results.Should().Contain(r => r.Message.Equals(

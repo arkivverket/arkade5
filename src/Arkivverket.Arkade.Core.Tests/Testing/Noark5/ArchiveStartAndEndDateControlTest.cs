@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new ArchiveStartAndEndDateControl(testArchive));
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_60_ArchiveStartAndEndDateControl(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i arkivstrukturen: 09.09.2011 - 10.10.2012"));
@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new ArchiveStartAndEndDateControl(testArchive));
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_60_ArchiveStartAndEndDateControl(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i arkivstrukturen: 09.09.2011 - 10.10.2012"));
@@ -59,7 +59,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new ArchiveStartAndEndDateControl(testArchive));
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_60_ArchiveStartAndEndDateControl(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i arkivstrukturen: 09.09.2011 - 10.10.2012")); // Different
@@ -79,7 +79,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
-            TestRun testRun = xmlElementHelper.RunEventsOnTest(new ArchiveStartAndEndDateControl(testArchive));
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_60_ArchiveStartAndEndDateControl(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i arkivstrukturen: 09.09.2011 - 10.10.2013")); // Different

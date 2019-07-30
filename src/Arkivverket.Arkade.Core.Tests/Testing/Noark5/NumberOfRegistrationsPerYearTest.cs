@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     new XmlElementHelper().Add("registrering",
                                         new XmlElementHelper().Add("opprettetDato", "1863-10-18T00:00:00Z")))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfRegistrationsPerYear());
+            TestRun testRun = helper.RunEventsOnTest(new N5_18_NumberOfRegistrationsPerYear());
 
             testRun.Results[0].Message.Should().Contain("1863: 1");
         }
@@ -55,7 +55,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             new XmlElementHelper().Add("opprettetDato",
                                                 "1864-10-18T00:00:00Z"))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfRegistrationsPerYear());
+            TestRun testRun = helper.RunEventsOnTest(new N5_18_NumberOfRegistrationsPerYear());
 
             testRun.Results[0].Message.Should().Contain("1863: 2");
             testRun.Results[1].Message.Should().Contain("1864: 1");
@@ -73,7 +73,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                             new XmlElementHelper().Add("mappe",
                                 new XmlElementHelper().Add("title", "Some title"))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfRegistrationsPerYear());
+            TestRun testRun = helper.RunEventsOnTest(new N5_18_NumberOfRegistrationsPerYear());
 
             testRun.Results.Count.Should().Be(0);
         }
@@ -107,7 +107,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             new XmlElementHelper().Add("opprettetDato",
                                                 "1864-10-18T00:00:00Z"))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfRegistrationsPerYear());
+            TestRun testRun = helper.RunEventsOnTest(new N5_18_NumberOfRegistrationsPerYear());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_1 - 1863: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_2 - 1864: 1"));

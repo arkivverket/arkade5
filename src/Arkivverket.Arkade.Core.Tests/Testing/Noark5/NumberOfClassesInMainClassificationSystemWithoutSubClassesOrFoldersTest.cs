@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         .Add("mappe", string.Empty)))))));
 
             TestRun testRun =
-                helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
+                helper.RunEventsOnTest(new N5_09_NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
 
             testRun.Results.First().Message.Should().Be("Totalt: 0");
             testRun.Results.Should().HaveCount(1); // Zero empty classes not reported
@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                 .Add("klasse", string.Empty)))));
 
             TestRun testRun =
-                helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
+                helper.RunEventsOnTest(new N5_09_NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
         }
@@ -71,7 +71,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                             .Add("mappe", new XmlElementHelper()
                                 .Add("klasse", string.Empty)))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
+            TestRun testRun = helper.RunEventsOnTest(new N5_09_NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
 
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId_1 - klassifikasjonssystem (systemID) klassSys_1: 1"));
@@ -109,7 +109,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     .Add("klasse", string.Empty))));
 
             TestRun testRun =
-                helper.RunEventsOnTest(new NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
+                helper.RunEventsOnTest(new N5_09_NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
 
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId_1 - klassifikasjonssystem (systemID) klassSys_1: 2"));

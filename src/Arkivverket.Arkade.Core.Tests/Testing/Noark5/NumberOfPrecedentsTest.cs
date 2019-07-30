@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     .Add("registrering", new[] {"xsi:type", "journalpost"}, new XmlElementHelper()
                                     ))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfPrecedents());
+            TestRun testRun = helper.RunEventsOnTest(new N5_38_NumberOfPrecedents());
 
             testRun.Results.First().Message.Should().Be("Totalt: 0");
             testRun.Results.Should().Contain(r => r.Message.Equals("Antall presedenser i journalposter: 0"));
@@ -50,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     .Add("registrering", new[] {"xsi:type", "journalpost"}, new XmlElementHelper()
                                         .Add("presedens", new XmlElementHelper())))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfPrecedents());
+            TestRun testRun = helper.RunEventsOnTest(new N5_38_NumberOfPrecedents());
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
             testRun.Results.Should().Contain(r =>
@@ -82,7 +82,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                 .Add("presedens", new XmlElementHelper()
                                 )))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfPrecedents());
+            TestRun testRun = helper.RunEventsOnTest(new N5_38_NumberOfPrecedents());
 
             testRun.Results.First().Message.Should().Be("Totalt: 3");
             testRun.Results.Should().Contain(r =>

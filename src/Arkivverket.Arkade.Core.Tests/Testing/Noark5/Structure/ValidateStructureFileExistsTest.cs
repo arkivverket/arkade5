@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithWorkingDirectoryExternalContent($"{workingDirectory}\\arkiv")
                 .Build();
 
-            var validateStructureFileExists = new ValidateStructureFileExists();
+            var validateStructureFileExists = new N5_01_ValidateStructureFileExists();
             validateStructureFileExists.Test(archive);
             var testRun = validateStructureFileExists.GetTestRun();
             testRun.IsSuccess().Should().BeTrue();
@@ -47,7 +47,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithWorkingDirectoryExternalContent($"{workingDirectory}\\arkiv")
                 .Build();
 
-            var validateStructureFileExists = new ValidateStructureFileExists();
+            var validateStructureFileExists = new N5_01_ValidateStructureFileExists();
             validateStructureFileExists.Test(archive);
             var testRun = validateStructureFileExists.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();

@@ -46,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                             .Add("klasse", new XmlElementHelper()
                                 .Add("klasse", new XmlElementHelper())))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfClasses());
+            TestRun testRun = helper.RunEventsOnTest(new N5_08_NumberOfClasses());
 
             testRun.Results.First().Message.Should().Be("Totalt: 12");
             testRun.Results.Should().Contain(r =>

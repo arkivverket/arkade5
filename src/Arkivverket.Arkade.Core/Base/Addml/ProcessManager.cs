@@ -68,8 +68,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         private void AddDefaultProcesses(HashSet<string> processes)
         {
-            processes.Add(CollectPrimaryKey.Name);
-            processes.Add(ControlChecksum.Name);
+            processes.Add(AI_01_CollectPrimaryKey.Name);
+            processes.Add(AH_01_ControlChecksum.Name);
         }
 
         public Dictionary<IAddmlIndex, List<IAddmlProcess>> GetFileProcesses()

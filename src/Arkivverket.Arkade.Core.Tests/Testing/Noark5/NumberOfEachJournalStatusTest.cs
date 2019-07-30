@@ -32,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 new XmlElementHelper().Add("journalstatus", "JournalFørt")))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachJournalStatus());
+            TestRun testRun = helper.RunEventsOnTest(new N5_22_NumberOfEachJournalStatus());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Journalstatus: Arkivert - Antall: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Journalstatus: Utgår - Antall: 1"));
@@ -84,7 +84,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 new XmlElementHelper().Add("journalstatus", "JournalFørt")))))));
 
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfEachJournalStatus());
+            TestRun testRun = helper.RunEventsOnTest(new N5_22_NumberOfEachJournalStatus());
 
             testRun.Results.Should().Contain(r =>
                     r.Message.Equals(

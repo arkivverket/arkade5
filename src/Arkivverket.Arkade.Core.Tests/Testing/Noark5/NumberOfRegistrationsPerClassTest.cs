@@ -35,7 +35,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             new XmlElementHelper()
                                                 .Add("systemID", "someClassSystemId_5"))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfRegistrationsPerClass());
+            TestRun testRun = helper.RunEventsOnTest(new N5_20_NumberOfRegistrationsPerClass());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Klasse (systemID): someClassSystemId_1 - Antall: 2"
@@ -101,7 +101,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 new XmlElementHelper()
                                                     .Add("systemID", "someClassSystemId_10"))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfRegistrationsPerClass());
+            TestRun testRun = helper.RunEventsOnTest(new N5_20_NumberOfRegistrationsPerClass());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID): someArchivePartSystemId_1 - Klasse (systemID): someClassSystemId_1 - Antall: 2"

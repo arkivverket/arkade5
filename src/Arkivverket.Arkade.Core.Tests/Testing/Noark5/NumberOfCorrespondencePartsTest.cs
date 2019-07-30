@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         new XmlElementHelper()
                                             .Add("korrespondansepart", new XmlElementHelper())))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfCorrespondenceParts());
+            TestRun testRun = helper.RunEventsOnTest(new N5_39_NumberOfCorrespondenceParts());
 
             testRun.Results[0].Message.Should().Be("Totalt: 1");
         }
@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     .Add("registrering", new[] {"xsi:type", "journalpost"},
                                         new XmlElementHelper()))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfCorrespondenceParts());
+            TestRun testRun = helper.RunEventsOnTest(new N5_39_NumberOfCorrespondenceParts());
 
             testRun.Results[0].Message.Should().Be("Totalt: 0");
         }
@@ -64,7 +64,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             new XmlElementHelper()
                                                 .Add("korrespondansepart", new XmlElementHelper()))))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new NumberOfCorrespondenceParts());
+            TestRun testRun = helper.RunEventsOnTest(new N5_39_NumberOfCorrespondenceParts());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_1: 1"));
