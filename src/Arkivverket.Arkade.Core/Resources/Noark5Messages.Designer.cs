@@ -151,7 +151,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Elementet &lt;{0}&gt;&lt;/{0}&gt; mangler innhold.
+        ///   Looks up a localized string similar to Elementet {0} mangler innhold.
         /// </summary>
         internal static string ControlElementHasContent_ElementHasNoContent {
             get {

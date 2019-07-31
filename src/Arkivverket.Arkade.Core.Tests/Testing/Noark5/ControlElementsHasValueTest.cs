@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.Results.Count.Should().Be(1);
             testRun.Results.Should().Contain(r => r.Location.ToString().Equals("Etter systemID someSystemId_2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Elementet <tittel></tittel> mangler innhold"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Elementet tittel mangler innhold"));
         }
 
         [Fact]

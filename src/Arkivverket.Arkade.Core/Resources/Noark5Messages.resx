@@ -405,7 +405,7 @@ Generert:  {2}</value>
     <value>Filen {0} er listet opp i arkivuttrekket, men mangler i pakke</value>
   </data>
   <data name="ControlElementHasContent_ElementHasNoContent" xml:space="preserve">
-    <value>Elementet &lt;{0}&gt;&lt;/{0}&gt; mangler innhold</value>
+    <value>Elementet {0} mangler innhold</value>
   </data>
   <data name="ControlElementHasContent_AfterSystemId" xml:space="preserve">
     <value>Etter systemID {0}</value>
