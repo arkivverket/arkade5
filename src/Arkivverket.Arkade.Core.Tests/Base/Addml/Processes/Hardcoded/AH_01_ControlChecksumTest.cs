@@ -8,7 +8,7 @@ using FluentAssertions;
 using System.IO;
 using Xunit;
 
-namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
+namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
 {
     public class AH_01_ControlChecksumTest
     {
