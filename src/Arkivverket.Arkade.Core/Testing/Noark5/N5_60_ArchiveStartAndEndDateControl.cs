@@ -126,8 +126,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             public StartAndEndDate(DateTime startDate, DateTime endDate)
             {
-                _startDate = startDate;
-                _endDate = endDate;
+                _startDate = startDate.Date;
+                _endDate = endDate.Date;
                 _dateFormat = "dd.MM.yyyy";
             }
 
