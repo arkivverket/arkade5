@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private ArchivePart _currentArchivePart = new ArchivePart();
         private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
-        private bool _baseRegistrationAttributeIsFound;
+        private readonly Dictionary<int, string> _lastSeenElementTypeByLevel = new Dictionary<int, string>();
 
         public override TestId GetId()
         {
@@ -29,59 +29,21 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var testResults = new List<TestResult>();
             int totalNumberOfComments = 0;
 
-            if (_archiveParts.Count == 1)
+            foreach (ArchivePart archivePart in _archiveParts)
             {
-                testResults.Add(new TestResult(ResultType.Success,
-                    new Location(""),
-                    string.Format(Noark5Messages.NumberOfCommentsInFoldersMessage,
-                        _currentArchivePart.NumberOfCommentsInFolder
-                    )));
-
-                testResults.Add(new TestResult(ResultType.Success,
-                    new Location(""),
-                    string.Format(Noark5Messages.NumberOfCommentsInBaseRegistrationMessage,
-                        _currentArchivePart.NumberOfCommentsInBaseRegistration
-                    )));
-
-                testResults.Add(new TestResult(ResultType.Success,
-                    new Location(""),
-                    string.Format(Noark5Messages.NumberOfCommentsInDocumentDescriptionMessage,
-                        _currentArchivePart.NumberOfCommentsInDocumentDescription
-                    )));
-
-                totalNumberOfComments = CountTotalNumberOfComments(_currentArchivePart);
-            }
-            else
-
-            {
-                foreach (ArchivePart archivePart in _archiveParts)
+                foreach (KeyValuePair<string, int> commentsForElement in archivePart.NumberOfCommentsByElement)
                 {
-                    if (archivePart.NumberOfCommentsInFolder > 0)
-                    {
-                        testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                            string.Format(Noark5Messages.NumberOfCommentsInFoldersMessage_ForArchivePart,
-                                archivePart.SystemId,
-                                archivePart.NumberOfCommentsInFolder)));
-                    }
+                    string message = string.Format(
+                        Noark5Messages.NumberOfCommentsMessage, commentsForElement.Key, commentsForElement.Value);
 
-                    if (archivePart.NumberOfCommentsInDocumentDescription > 0)
-                    {
-                        testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                            string.Format(Noark5Messages.NumberOfCommentsInDocumentDescriptionMessage_ForArchivePart,
-                                archivePart.SystemId,
-                                archivePart.NumberOfCommentsInDocumentDescription)));
-                    }
+                    if (_archiveParts.Count > 1)
+                        message = message.Insert(0,
+                            string.Format(Noark5Messages.ArchivePartSystemId, archivePart.SystemId) + " - ");
 
-                    if (archivePart.NumberOfCommentsInBaseRegistration > 0)
-                    {
-                        testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                            string.Format(Noark5Messages.NumberOfCommentsInBaseRegistrationMessage_ForArchivePart,
-                                archivePart.SystemId,
-                                archivePart.NumberOfCommentsInBaseRegistration)));
-                    }
-
-                    totalNumberOfComments += CountTotalNumberOfComments(archivePart);
+                    testResults.Add(new TestResult(ResultType.Success, new Location(""), message));
                 }
+
+                totalNumberOfComments += archivePart.NumberOfCommentsByElement.Sum(e => e.Value);
             }
 
             testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
@@ -90,37 +52,33 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return testResults;
         }
 
-        private int CountTotalNumberOfComments(ArchivePart currentArchivePart)
-        {
-            int totalNumberOfComments = new[]
-            {
-                currentArchivePart.NumberOfCommentsInBaseRegistration,
-                currentArchivePart.NumberOfCommentsInDocumentDescription,
-                currentArchivePart.NumberOfCommentsInFolder
-            }.Sum();
-
-            return totalNumberOfComments;
-        }
-
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.Path.Matches("merknad", "mappe"))
-                _currentArchivePart.NumberOfCommentsInFolder++;
-
-            if (eventArgs.Path.Matches("merknad", "dokumentbeskrivelse"))
-                _currentArchivePart.NumberOfCommentsInDocumentDescription++;
-
-            if (eventArgs.Path.Matches("merknad", "registrering"))
+            if (eventArgs.NameEquals("merknad"))
             {
-                if (_baseRegistrationAttributeIsFound)
-                    _currentArchivePart.NumberOfCommentsInBaseRegistration++;
+                int parentElementLevel = eventArgs.Path.Length() - 1;
+
+                if (_lastSeenElementTypeByLevel.TryGetValue(parentElementLevel, out string parentElementType))
+                {
+                    _currentArchivePart.RegisterCommentForElement(parentElementType);
+
+                    _lastSeenElementTypeByLevel.Remove(parentElementLevel);
+                }
+                else
+                {
+                    _currentArchivePart.RegisterCommentForElement(eventArgs.Path.GetParent());
+                }
             }
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (Noark5TestHelper.IdentifiesBaseRegistrationInRegistration(eventArgs))
-                _baseRegistrationAttributeIsFound = true;
+            int elementLevel = eventArgs.Path.Length();
+
+            if (_lastSeenElementTypeByLevel.ContainsKey(elementLevel))
+                _lastSeenElementTypeByLevel[elementLevel] = eventArgs.Value;
+            else
+                _lastSeenElementTypeByLevel.Add(elementLevel, eventArgs.Value);
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
@@ -134,17 +92,23 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            // TODO: Handle non-baseregistration-type subregistrations?
-            if (eventArgs.NameEquals("registrering"))
-                _baseRegistrationAttributeIsFound = false;
         }
 
         private class ArchivePart
         {
             public string SystemId { get; set; }
-            public int NumberOfCommentsInFolder { get; set; }
-            public int NumberOfCommentsInDocumentDescription { get; set; }
-            public int NumberOfCommentsInBaseRegistration { get; set; }
+            public Dictionary<string, int> NumberOfCommentsByElement { get; private set; }
+
+            public void RegisterCommentForElement(string element)
+            {
+                if (NumberOfCommentsByElement == null)
+                    NumberOfCommentsByElement = new Dictionary<string, int>();
+
+                if (NumberOfCommentsByElement.ContainsKey(element))
+                    NumberOfCommentsByElement[element]++;
+                else
+                    NumberOfCommentsByElement.Add(element, 1);
+            }
         }
     }
 }

@@ -140,9 +140,6 @@
 Forventet: {1}
 Generert:  {2}</value>
   </data>
-  <data name="NumberOfCommentsInFoldersMessage" xml:space="preserve">
-    <value>Antall merknader i mapper: {0}</value>
-  </data>
   <data name="NumberOfJournalPostsMessage_UnEqualJournalNumbers" xml:space="preserve">
     <value>Antallet journalposter i offentlig og løpende journal er ulikt</value>
   </data>
@@ -335,20 +332,8 @@ Generert:  {2}</value>
   <data name="NumberOfPrecedentsInJournalpostsMessage" xml:space="preserve">
     <value>Antall presedenser i journalposter: {0}</value>
   </data>
-  <data name="NumberOfCommentsInBaseRegistrationMessage" xml:space="preserve">
-    <value>Antall merknader i basisregistreringer: {0}</value>
-  </data>
-  <data name="NumberOfCommentsInDocumentDescriptionMessage" xml:space="preserve">
-    <value>Antall merknader i dokumentbeskrivelser: {0}</value>
-  </data>
-  <data name="NumberOfCommentsInBaseRegistrationMessage_ForArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID) {0} - Antall merknader i basisregistreringer: {1}</value>
-  </data>
-  <data name="NumberOfCommentsInDocumentDescriptionMessage_ForArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID) {0} - Antall merknader i dokumentbeskrivelser: {1}</value>
-  </data>
-  <data name="NumberOfCommentsInFoldersMessage_ForArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID) {0} - Antall merknader i mapper: {1}</value>
+  <data name="NumberOfCommentsMessage" xml:space="preserve">
+    <value>Antall merknader i {0}: {1}</value>
   </data>
   <data name="NumberOfDepreciationsMessage_ForArchivePart" xml:space="preserve">
     <value>Arkivdel (systemID) {0} - {1}: {2}</value>

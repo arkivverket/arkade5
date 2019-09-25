@@ -396,56 +396,11 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall merknader i basisregistreringer: {0}.
+        ///   Looks up a localized string similar to Antall merknader i {0}: {1}.
         /// </summary>
-        internal static string NumberOfCommentsInBaseRegistrationMessage {
+        internal static string NumberOfCommentsMessage {
             get {
-                return ResourceManager.GetString("NumberOfCommentsInBaseRegistrationMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Antall merknader i basisregistreringer: {1}.
-        /// </summary>
-        internal static string NumberOfCommentsInBaseRegistrationMessage_ForArchivePart {
-            get {
-                return ResourceManager.GetString("NumberOfCommentsInBaseRegistrationMessage_ForArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall merknader i dokumentbeskrivelser: {0}.
-        /// </summary>
-        internal static string NumberOfCommentsInDocumentDescriptionMessage {
-            get {
-                return ResourceManager.GetString("NumberOfCommentsInDocumentDescriptionMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Antall merknader i dokumentbeskrivelser: {1}.
-        /// </summary>
-        internal static string NumberOfCommentsInDocumentDescriptionMessage_ForArchivePart {
-            get {
-                return ResourceManager.GetString("NumberOfCommentsInDocumentDescriptionMessage_ForArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Antall merknader i mapper: {0}.
-        /// </summary>
-        internal static string NumberOfCommentsInFoldersMessage {
-            get {
-                return ResourceManager.GetString("NumberOfCommentsInFoldersMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID) {0} - Antall merknader i mapper: {1}.
-        /// </summary>
-        internal static string NumberOfCommentsInFoldersMessage_ForArchivePart {
-            get {
-                return ResourceManager.GetString("NumberOfCommentsInFoldersMessage_ForArchivePart", resourceCulture);
+                return ResourceManager.GetString("NumberOfCommentsMessage", resourceCulture);
             }
         }
         

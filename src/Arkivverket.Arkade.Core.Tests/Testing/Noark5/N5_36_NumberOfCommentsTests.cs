@@ -8,105 +8,71 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
     public class N5_36_NumberOfCommentsTests
     {
+
+
         [Fact]
-        public void NumberOfCommentsInFoldersIsOne()
+        public void CommentsAreFoundUnderCaseFolderBaseRegistrationJournalPostAndDocumentDescription()
         {
-            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
-                new XmlElementHelper()
-                    .Add("arkivdel",
-                        new XmlElementHelper()
-                            .Add("systemID", "someSystemId_1")
-                            .Add("klassifikasjonssystem",
-                                new XmlElementHelper().Add("klasse",
-                                    new XmlElementHelper().Add("klasse",
-                                        new XmlElementHelper().Add("klasse",
-                                            new XmlElementHelper().Add("mappe",
-                                                new XmlElementHelper().Add("merknad",
-                                                    new XmlElementHelper().Add("merknadstekst", "enMerknad")
-                                                ))))))));
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper()
+                                    .Add("merknad", string.Empty)))
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper()
+                                    .Add("merknad", string.Empty)))
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("registrering", new[] {"xsi:type", "basisregistrering"}, new XmlElementHelper()
+                                        .Add("merknad", new XmlElementHelper())))
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("registrering", new[] {"xsi:type", "journalpost"}, new XmlElementHelper()
+                                        .Add("merknad", string.Empty)
+                                        .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                            .Add("merknad", new XmlElementHelper()))))))));
 
             TestRun testRun = helper.RunEventsOnTest(new N5_36_NumberOfComments());
 
-            testRun.Results.First().Message.Should().Be("Totalt: 1");
-            testRun.Results.Should().Contain(r => r.Message.Equals("Antall merknader i mapper: 1"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Antall merknader i basisregistreringer: 0"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Antall merknader i dokumentbeskrivelser: 0"));
+            testRun.Results.First().Message.Should().Be("Totalt: 5");
+
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("Antall merknader i saksmappe: 2"));
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("Antall merknader i basisregistrering: 1"));
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("Antall merknader i journalpost: 1"));
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("Antall merknader i dokumentbeskrivelse: 1"));
         }
 
         [Fact]
-        public void NumberOfCommentsInFolderIsTwo()
+        public void CommentsAreFoundInDifferentArchiveParts()
         {
-            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
-                new XmlElementHelper()
-                    .Add("arkivdel",
-                        new XmlElementHelper()
-                            .Add("systemID", "someSystemId_1")
-                            .Add("klassifikasjonssystem",
-                                new XmlElementHelper().Add("klasse",
-                                    new XmlElementHelper().Add("klasse",
-                                        new XmlElementHelper().Add("klasse",
-                                            new XmlElementHelper().Add("mappe",
-                                                    new XmlElementHelper().Add("merknad",
-                                                        new XmlElementHelper().Add("merknadstekst", "enMerknad")))
-                                                .Add("mappe",
-                                                    new XmlElementHelper().Add("merknad",
-                                                        new XmlElementHelper().Add("merknadstekst", "mer merknad")))
-                                        ))))));
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new[] { "xsi:type", "saksmappe" }, new XmlElementHelper()
+                                    .Add("merknad", new XmlElementHelper())))))
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_2")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new[] { "xsi:type", "saksmappe" }, new XmlElementHelper()
+                                    .Add("merknad", new XmlElementHelper()))))));
 
             TestRun testRun = helper.RunEventsOnTest(new N5_36_NumberOfComments());
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Antall merknader i mapper: 2"));
+                r.Message.Equals("Arkivdel (systemID): someSystemId_1 - Antall merknader i saksmappe: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Antall merknader i basisregistreringer: 0"));
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Antall merknader i dokumentbeskrivelser: 0"));
+                r.Message.Equals("Arkivdel (systemID): someSystemId_2 - Antall merknader i saksmappe: 1"));
         }
-
-        [Fact]
-        public void NumberOfCommentsIsMoreThenOneInEachArchivePart()
-        {
-            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
-                new XmlElementHelper()
-                    .Add("arkivdel", new XmlElementHelper()
-                        .Add("systemID", "someSystemId_1")
-                        .Add("klassifikasjonssystem", new XmlElementHelper()
-                            .Add("klasse", new XmlElementHelper()
-                                .Add("klasse", new XmlElementHelper()
-                                    .Add("klasse", new XmlElementHelper()
-                                        .Add("mappe", new XmlElementHelper()
-                                            .Add("merknad", new XmlElementHelper()))
-                                        .Add("mappe", new XmlElementHelper()
-                                            .Add("registrering", new[] {"xsi:type", "basisregistrering"}, new XmlElementHelper()
-                                                    .Add("merknad", new XmlElementHelper()))
-                                            .Add("registrering", new XmlElementHelper()
-                                                .Add("dokumentbeskrivelse", new XmlElementHelper()
-                                                    .Add("merknad", new XmlElementHelper())))
-                                        ))))))
-                    .Add("arkivdel", new XmlElementHelper()
-                        .Add("systemID", "someSystemId_2")
-                        .Add("klassifikasjonssystem", new XmlElementHelper()
-                            .Add("klasse", new XmlElementHelper()
-                                .Add("mappe", new XmlElementHelper()
-                                    .Add("registrering", new[] {"xsi:type", "basisregistrering"}, new XmlElementHelper()
-                                        .Add("merknad", new XmlElementHelper()
-                                        )))))));
-
-            TestRun testRun = helper.RunEventsOnTest(new N5_36_NumberOfComments());
-
-            testRun.Results.First().Message.Should().Be("Totalt: 4");
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Antall merknader i mapper: 1"));
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Antall merknader i basisregistreringer: 1"));
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Antall merknader i dokumentbeskrivelser: 1"));
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someSystemId_2 - Antall merknader i basisregistreringer: 1"));
-         }
     }
 }
-
-
-// Forekomster av elementet merknad i mappe, registreringstypen basisregistrering og dokumentbeskrivelse telles opp.
