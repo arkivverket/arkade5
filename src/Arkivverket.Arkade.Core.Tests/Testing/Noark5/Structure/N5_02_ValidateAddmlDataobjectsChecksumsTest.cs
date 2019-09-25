@@ -53,7 +53,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .Build();
 
             var validateAddmlDataobjectsChecksums = new N5_02_ValidateAddmlDataobjectsChecksums();
-            System.Exception ex = Assert.Throws<ArkadeException>(() => validateAddmlDataobjectsChecksums.Test(archive));
+            validateAddmlDataobjectsChecksums.Test(archive);
+            var testRun = validateAddmlDataobjectsChecksums.GetTestRun();
+            testRun.Results.Count.Should().Be(1);
+            testRun.IsSuccess().Should().BeFalse();
         }
     }
 }
