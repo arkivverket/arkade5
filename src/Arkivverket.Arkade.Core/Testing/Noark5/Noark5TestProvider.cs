@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject(),
                 new N5_26_NumberOfDocumentObjects(),
                 new N5_09_NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations(),
-                new N5_35_NumberOfCaseParts(),
+                new N5_35_NumberOfCaseParts(archive),
                 new N5_32_ControlDocumentFilesExists(archive),
                 new N5_36_NumberOfComments(),
                 new N5_37_NumberOfCrossReferences(),

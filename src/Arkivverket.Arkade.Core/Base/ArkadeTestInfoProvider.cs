@@ -1,5 +1,6 @@
-﻿using Arkivverket.Arkade.Core.Base.Addml.Processes;
+using Arkivverket.Arkade.Core.Base.Addml.Processes;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base
 {
@@ -9,6 +10,11 @@ namespace Arkivverket.Arkade.Core.Base
         {
             string resourceDisplayNameKey = arkadeTest.GetId().ToString().Replace('.', '_');
 
+            if (arkadeTest.GetId().Version.Equals("5.5"))
+            {
+               resourceDisplayNameKey = $"{resourceDisplayNameKey}v5_5";
+            }
+            
             string resourceDisplayName = ArkadeTestDisplayNames.ResourceManager.GetString(resourceDisplayNameKey);
 
             return resourceDisplayName ?? GetFallBackDisplayName(arkadeTest);

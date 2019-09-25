@@ -18,6 +18,16 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 .Build();
         }
 
+        public static Archive CreateArchiveExtractionV5_5(string testdataDirectory)
+        {
+            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\{testdataDirectory}";
+            return new Base.ArchiveBuilder()
+                .WithArchiveType(ArchiveType.Noark5)
+                .WithWorkingDirectoryExternalContent(workingDirectory)
+                .WithArchiveDetails("5.5")
+                .Build();
+        }
+
         public static string ReadFromFileInTestDataDir(string fileName)
         {
             return File.ReadAllText(TestDataDirectory + fileName);

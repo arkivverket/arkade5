@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 ﻿using System;
 
 namespace Arkivverket.Arkade.Core.Util
@@ -7,6 +7,7 @@ namespace Arkivverket.Arkade.Core.Util
     {
         public readonly TestKind Kind;
         public readonly uint Number;
+        public readonly string Version;
 
         private static readonly Dictionary<TestKind, string> KindPrefix =
             new Dictionary<TestKind, string>
@@ -18,10 +19,11 @@ namespace Arkivverket.Arkade.Core.Util
                 { TestKind.Unidentified, "U" },
             };
 
-        public TestId(TestKind testKind, uint number)
+        public TestId(TestKind testKind, uint number, string version = "5.0")
         {
             Kind = testKind;
             Number = number;
+            Version = version;
         }
 
         public override string ToString()

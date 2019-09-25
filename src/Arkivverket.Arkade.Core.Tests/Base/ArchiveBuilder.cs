@@ -1,11 +1,13 @@
 ﻿using System.IO;
 using Arkivverket.Arkade.Core.Base;
+using Moq;
 
 namespace Arkivverket.Arkade.Core.Tests.Base
 {
     public class ArchiveBuilder
     {
         private ArchiveType _archiveType = ArchiveType.Noark5;
+        private ArchiveDetails _archiveDetails;
 
         private Uuid _uuid = Uuid.Random();
         private DirectoryInfo _workingDirectoryContent;
@@ -44,6 +46,14 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         public ArchiveBuilder WithArchiveType(ArchiveType archiveType)
         {
             _archiveType = archiveType;
+            return this;
+        }
+
+        public ArchiveBuilder WithArchiveDetails(string standardVersion)
+        {
+            var mock = new Mock<ArchiveDetails>(Build());
+            mock.Setup(x => x.ArchiveStandard).Returns(standardVersion);
+            _archiveDetails = mock.Object;
             return this;
         }
 
