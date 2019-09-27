@@ -528,26 +528,18 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
 
         private flatFileType GetFlatFileType(string flatFileTypeName)
         {
-            flatFileType flatFileType = _flatFileTypes[flatFileTypeName];
-
-            if (flatFileType == null)
-            {
+            if (!_flatFileTypes.ContainsKey(flatFileTypeName))
                 throw new AddmlDefinitionParseException("No flatFileType with name " + flatFileTypeName);
-            }
-
-            return flatFileType;
+                
+            return _flatFileTypes[flatFileTypeName];
         }
 
         private DataType GetFieldType(string typeReference)
         {
-            DataType dataType = _fieldTypes[typeReference];
-
-            if (dataType == null)
-            {
+            if (!_fieldTypes.ContainsKey(typeReference))
                 throw new AddmlDefinitionParseException("No FieldType with name " + typeReference);
-            }
 
-            return dataType;
+            return _fieldTypes[typeReference];
         }
 
 

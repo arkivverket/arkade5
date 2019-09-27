@@ -12,6 +12,7 @@ namespace Arkivverket.Arkade.Core.Base
         public string ArchivalPeriod => GetArchivalPeriod();
         public string SystemName => GetSystemName();
         public string SystemType => GetSystemType();
+        public virtual string ArchiveStandard => GetArchiveStandardVersion();
         public Dictionary<string, IEnumerable<string>> DocumentedXmlUnits => GetDocumentedXmlUnits();
 
         private readonly addml _addml;
@@ -82,6 +83,25 @@ namespace Arkivverket.Arkade.Core.Base
                 return GetAdditionalElements(GetContextAdditionalElementsRoot(), "systemType").FirstOrDefault()?.value;
             }
             catch
+            {
+                return string.Empty;
+            }
+        }
+
+        private string GetArchiveStandardVersion()
+        {
+            try
+            {
+                dataObject archiveExtractionElement = _addml.dataset[0].dataObjects.dataObject[0];
+
+                string archiveExtractionTypeVersion = archiveExtractionElement.properties
+                    .FirstOrDefault(property => property.name == "info")?.properties
+                    .FirstOrDefault(property => property.name == "type")?.properties
+                    .FirstOrDefault(property => property.name == "version")?.value;
+
+                return $"{archiveExtractionTypeVersion}";
+            }
+            catch (Exception)
             {
                 return string.Empty;
             }

@@ -50,6 +50,11 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
             return matches;
         }
 
+        public int Length()
+        {
+            return _path.Count;
+        }
+
         public string GetParent()
         {
             return _path.Count > 1 ? _path[1] : null;

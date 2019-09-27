@@ -17,10 +17,28 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                    eventArgs.Value.Equals("journalpost");
         }
 
-        public static bool IdentifiesCasefolder(ReadElementEventArgs eventArgs)
+        public static bool IdentifiesMeetingRegistration(ReadElementEventArgs eventArgs)
+        {
+            return eventArgs.Path.Matches("registrering") &&
+                   eventArgs.Name.Equals("xsi:type") &&
+                   eventArgs.Value.Equals("moete");
+        }
+
+        public static bool IdentifiesRegistration(ReadElementEventArgs eventArgs)
+        {
+            return eventArgs.Path.Matches("registrering") &&
+                   eventArgs.Name.Equals("xsi:type");
+        }
+
+        public static bool IdentifiesTypefolder(ReadElementEventArgs eventArgs)
         {
             return eventArgs.Path.Matches("mappe") &&
-                   eventArgs.Name.Equals("xsi:type") &&
+                   eventArgs.Name.Equals("xsi:type");
+        }
+
+        public static bool IdentifiesCasefolder(ReadElementEventArgs eventArgs)
+        {
+            return IdentifiesTypefolder(eventArgs) &&
                    eventArgs.Value.Equals("saksmappe");
         }
         public static bool IdentifiesBaseRegistrationInRegistration(ReadElementEventArgs eventArgs)
@@ -28,12 +46,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return eventArgs.Path.Matches("registrering") &&
                    eventArgs.Name.Equals("xsi:type") &&
                    eventArgs.Value.Equals("basisregistrering");
-        }
-        public static bool IdentifiesMeetingFolder(ReadElementEventArgs eventArgs)
-        {
-            return eventArgs.Path.Matches("mappe") &&
-                   eventArgs.Name.Equals("xsi:type") &&
-                   eventArgs.Value.Equals("moetemappe");
         }
 
         public static bool PeriodSeparationIsSharp(Archive archive)
@@ -77,6 +89,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             return DateTime.TryParseExact(dateStringFromArchive, acceptedFormats,
                 CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dateTime);
+        }
+
+        public static string StripNamespace(string value)
+        {
+            int index = value.IndexOf(":");
+            if (index >= 0)
+            {
+                return value.Substring(index + 1);
+            }
+            return value;
         }
     }
 }

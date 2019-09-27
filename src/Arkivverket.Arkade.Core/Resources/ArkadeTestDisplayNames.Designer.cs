@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ArkadeTestDisplayNames {
@@ -331,6 +331,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontroll av eksistens for XML-filene.
+        /// </summary>
+        internal static string N5_01 {
+            get {
+                return ResourceManager.GetString("N5_01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validering av sjekksummer.
         /// </summary>
         internal static string N5_02 {
@@ -628,6 +637,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Antall parter.
+        /// </summary>
+        internal static string N5_35v5_5 {
+            get {
+                return ResourceManager.GetString("N5_35v5_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall merknader.
         /// </summary>
         internal static string N5_36 {
@@ -786,6 +804,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         internal static string N5_62 {
             get {
                 return ResourceManager.GetString("N5_62", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elementer som mangler innhold.
+        /// </summary>
+        internal static string N5_63 {
+            get {
+                return ResourceManager.GetString("N5_63", resourceCulture);
             }
         }
     }

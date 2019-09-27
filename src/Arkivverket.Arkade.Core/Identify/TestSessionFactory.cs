@@ -83,7 +83,9 @@ namespace Arkivverket.Arkade.Core.Identify
             }
             catch (Exception exception)
             {
-                _log.Warning("Reading file " + addmlFile.Name + " failed: " + exception.Message);
+                var message = "Reading file " + addmlFile.Name + " failed: " + exception.Message;
+                _log.Warning(exception, message);
+                _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
             }
 
             return testSession;

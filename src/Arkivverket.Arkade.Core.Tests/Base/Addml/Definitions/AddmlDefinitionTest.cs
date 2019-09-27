@@ -35,7 +35,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions
             
             AddmlRecordDefinition addressFileRecordDef = new AddmlRecordDefinitionBuilder()
                 .WithAddmlFlatFileDefinition(addressFile)
-                .WithRecordProcess(ControlForeignKey.Name)
+                .WithRecordProcess(A_16_ControlForeignKey.Name)
                 .WithForeignKey(addmlForeignKey)
                 .Build();
 
@@ -64,8 +64,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions
 
             DebugPrintListOfProcesses(recordProcesses);
 
-            recordProcesses[personFileRecordDef.GetIndex()].Contains(CollectPrimaryKey.Name).Should().BeTrue();
-            recordProcesses[addressFileRecordDef.GetIndex()].Contains(ControlForeignKey.Name).Should().BeTrue();
+            recordProcesses[personFileRecordDef.GetIndex()].Contains(AI_01_CollectPrimaryKey.Name).Should().BeTrue();
+            recordProcesses[addressFileRecordDef.GetIndex()].Contains(A_16_ControlForeignKey.Name).Should().BeTrue();
             recordProcesses[unrelatedFileRecordDef.GetIndex()].Should().BeEmpty();
         }
 

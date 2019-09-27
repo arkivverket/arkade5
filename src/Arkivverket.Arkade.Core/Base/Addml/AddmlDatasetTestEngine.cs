@@ -35,7 +35,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             {
                 string testName = string.Format(Messages.RunningAddmlProcessesOnFile, file.GetName());
 
-                var recordIdx = 0;
+                var recordIdx = 1;
 
                 _statusEventHandler.RaiseEventFileProcessingStarted(
                     new FileProcessingStatusEventArgs(testName, file.GetName())
@@ -109,8 +109,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             TestSuite testSuite = _addmlProcessRunner.GetTestSuite();
 
-            testSuite.AddTestRun(new ControlExtraOrMissingFiles(addmlDefinition, testSession.Archive).GetTestRun());
-            testSuite.AddTestRun(new ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
+            testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, testSession.Archive).GetTestRun());
+            testSuite.AddTestRun(new AH_03_ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
 
             return testSuite;
         }

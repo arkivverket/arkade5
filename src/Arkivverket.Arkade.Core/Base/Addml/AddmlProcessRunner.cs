@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         public void RunProcesses(FlatFile file)
         {
             _fileProcessRunner.RunProcesses(file);
-            _processManager.GetProcessInstanceByName(ControlChecksum.Name).Run(file);
+            _processManager.GetProcessInstanceByName(AH_01_ControlChecksum.Name).Run(file);
         }
 
         public void RunProcesses(FlatFile file, Record record)
@@ -46,13 +46,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             {
                 // ControlForeignKey needs to access results of CollectPrimaryKey process
                 // Consider moving this to ProcessManager.InstantiateProcesses()
-                if (addmlProcess.GetType() == typeof(ControlForeignKey))
+                if (addmlProcess.GetType() == typeof(A_16_ControlForeignKey))
                 {
                     LoadCollectedPrimaryKeysIntoControlForeignKeyProcess(addmlProcess);
                 }
 
                 // CollectPrimaryKey is internal and should not be part of the test report
-                if (addmlProcess.GetType() != typeof(CollectPrimaryKey))
+                if (addmlProcess.GetType() != typeof(AI_01_CollectPrimaryKey))
                     testSuite.AddTestRun(addmlProcess.GetTestRun());
             }
 
@@ -61,9 +61,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         private void LoadCollectedPrimaryKeysIntoControlForeignKeyProcess(IAddmlProcess addmlProcess)
         {
-            CollectPrimaryKey collectPrimaryKeyProcess = (CollectPrimaryKey) _processManager.GetProcessInstanceByName(CollectPrimaryKey.Name);
+            AI_01_CollectPrimaryKey collectPrimaryKeyProcess = (AI_01_CollectPrimaryKey) _processManager.GetProcessInstanceByName(AI_01_CollectPrimaryKey.Name);
 
-            ((ControlForeignKey) addmlProcess).GetCollectedPrimaryKeys(collectPrimaryKeyProcess);
+            ((A_16_ControlForeignKey) addmlProcess).GetCollectedPrimaryKeys(collectPrimaryKeyProcess);
         }
 
         public void EndOfFile(FlatFile file)

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -79,10 +79,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             var recordDefsWithControlForeignKey = new List<AddmlRecordDefinition>();
             foreach (var flatFileDef in addmlFlatFileDefinitions)
             {
-                recordDefsWithControlForeignKey.AddRange(flatFileDef.GetRecordDefinitionsWithProcess(ControlForeignKey.Name));
+                recordDefsWithControlForeignKey.AddRange(flatFileDef.GetRecordDefinitionsWithProcess(A_16_ControlForeignKey.Name));
             }
 
-            Log.Debug($"Number of {ControlForeignKey.Name} processes found: {recordDefsWithControlForeignKey.Count}");
+            Log.Debug($"Number of {A_16_ControlForeignKey.Name} processes found: {recordDefsWithControlForeignKey.Count}");
 
             foreach (var recordDef in recordDefsWithControlForeignKey)
             {
@@ -90,7 +90,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
                 {
                     foreach (var fieldDef in foreignKey.ForeignKeyReferenceFields)
                     {
-                        fieldDef.AddmlRecordDefinition.AddProcess(CollectPrimaryKey.Name);
+                        fieldDef.AddmlRecordDefinition.AddProcess(AI_01_CollectPrimaryKey.Name);
                     }
                 }
             }

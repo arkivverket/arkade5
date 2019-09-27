@@ -114,8 +114,11 @@ namespace Arkivverket.Arkade.Core.Metadata
                 });
             }
 
-            if (altRecordIDs.Any())
-                metsHdr.altRecordID = altRecordIDs.ToArray();
+            // Ensure min. 3 altRecordIDs (ESSArch requirement)
+            while (altRecordIDs.Count < 3)
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID());
+            
+            metsHdr.altRecordID = altRecordIDs.ToArray();
         }
 
         private static void CreateHdrAgents(metsTypeMetsHdr metsHdr, ArchiveMetadata metadata)

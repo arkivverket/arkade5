@@ -207,6 +207,9 @@
   <data name="A_36" xml:space="preserve">
     <value>Kontroll av boolsk verdi i felt</value>
   </data>
+  <data name="N5_01" xml:space="preserve">
+    <value>Kontroll av eksistens for XML-filene</value>
+  </data>
   <data name="N5_02" xml:space="preserve">
     <value>Validering av sjekksummer</value>
   </data>
@@ -306,6 +309,9 @@
   <data name="N5_35" xml:space="preserve">
     <value>Antall saksparter</value>
   </data>
+  <data name="N5_35v5_5" xml:space="preserve">
+    <value>Antall parter</value>
+  </data>
   <data name="N5_36" xml:space="preserve">
     <value>Antall merknader</value>
   </data>
@@ -359,5 +365,8 @@
   </data>
   <data name="N5_62" xml:space="preserve">
     <value>Endringslogg-referanser til arkivstrukturen</value>
+  </data>
+  <data name="N5_63" xml:space="preserve">
+    <value>Elementer som mangler innhold</value>
   </data>
 </root>

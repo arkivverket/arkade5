@@ -1,46 +1,47 @@
-﻿using System;
+using System;
 using System.IO;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 
 namespace Arkivverket.Arkade.Core.Util
 {
-    public class SystemInfo
+    public static class SystemInfo
     {
         public static long GetAvailableDiskSpaceInBytes()
         {
-            DirectoryInfo arkadeDirectory = ArkadeProcessingArea.RootDirectory;
-            string drive = Path.GetPathRoot(arkadeDirectory.FullName);
-
-            DriveInfo[] allDrives = DriveInfo.GetDrives();
-            foreach (DriveInfo d in allDrives)
-            {
-                if (d.Name == drive)
-                {
-                    return d.AvailableFreeSpace;
-                }
-            }
-            return -1;
+            return GetAvailableDiskSpaceInBytes(ArkadeProcessingArea.RootDirectory.FullName);
         }
 
         public static long GetTotalDiskSpaceInBytes()
         {
-            DirectoryInfo arkadeDirectory = ArkadeProcessingArea.RootDirectory;
-            string drive = Path.GetPathRoot(arkadeDirectory.FullName);
+            return GetTotalDiskSpaceInBytes(ArkadeProcessingArea.RootDirectory.FullName);
+        }
 
-            DriveInfo[] allDrives = DriveInfo.GetDrives();
-            foreach (DriveInfo d in allDrives)
-            {
-                if (d.Name == drive)
-                {
-                    return d.TotalSize;
-                }
-            }
-            return -1;
+        public static long GetAvailableDiskSpaceInBytes(string directory)
+        {
+            return GetDirectoryDriveInfo(directory).AvailableFreeSpace;
+        }
+
+        public static long GetTotalDiskSpaceInBytes(string directory)
+        {
+            return GetDirectoryDriveInfo(directory).TotalSize;
         }
 
         public static string GetDotNetClrVersion()
         {
             return Environment.Version.ToString();
+        }
+
+        private static DriveInfo GetDirectoryDriveInfo(string directory)
+        {
+            string fullyQualifiedDirectoryPath = // TODO: Uncomment below line when on .NET Standard 2.1 (reducing IO)
+                /*Path.IsPathFullyQualified(directory) ? directory :*/ Path.GetFullPath(directory);
+                
+            DriveInfo directoryDrive = DriveInfo.GetDrives()
+                .OrderByDescending(drive => drive.Name.Length)
+                .First(drive => fullyQualifiedDirectoryPath.StartsWith(drive.Name));
+
+            return directoryDrive;
         }
     }
 }

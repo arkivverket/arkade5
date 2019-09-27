@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Base
             var missingFiles = new List<string>();
 
             if (!File.Exists)
-                missingFiles.Add(File.FullName);
+                missingFiles.Add(File.Name);
 
             missingFiles.AddRange(
                 from schema in

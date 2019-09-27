@@ -33,6 +33,24 @@ namespace Arkivverket.Arkade.Core.Util
             _directoryInfo.Create();
         }
 
+        public long GetSize()
+        {
+           return GetSize(_directoryInfo);
+        }
+
+        private static long GetSize(DirectoryInfo directory)
+        {
+            long size = 0;
+
+            foreach (FileInfo file in directory.GetFiles())
+                size += file.Length;
+
+            foreach (DirectoryInfo subDirectory in directory.GetDirectories())
+                size += GetSize(subDirectory);
+
+            return size;
+        }
+
         private static FileInfo AppendFileToPath(DirectoryInfo directory, string fileName)
         {
             try

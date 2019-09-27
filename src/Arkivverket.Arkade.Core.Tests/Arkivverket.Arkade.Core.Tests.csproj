@@ -45,6 +45,7 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="TestData\Noark5\StructureValidationFileExists\OneFileIsMissing\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -384,6 +385,51 @@
     <None Update="TestData\Noark5\StructureChecksums\errors\content\arkivuttrekk.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\AllListedFilesExists\arkiv\addml.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\AllListedFilesExists\arkiv\arkivstruktur.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\AllListedFilesExists\arkiv\arkivstruktur.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\AllListedFilesExists\arkiv\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\AllListedFilesExists\arkiv\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\AllListedFilesExists\arkiv\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\AllListedFilesExists\arkiv\dokumenter\someFile.tull">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\AllListedFilesExists\arkiv\metadatakatalog.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\OneFileIsMissing\arkiv\addml.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\OneFileIsMissing\arkiv\arkivstruktur.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\OneFileIsMissing\arkiv\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\OneFileIsMissing\arkiv\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\OneFileIsMissing\arkiv\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\OneFileIsMissing\arkiv\dokumenter\someFile.tull">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\StructureValidationFileExists\OneFileIsMissing\arkiv\metadatakatalog.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\Noark5\StructureValidation\correct\addml.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -474,6 +520,27 @@
     <None Update="TestData\Noark5\StructureValidation\custom\administrative_metadata\addml.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\Noark5\Version5_5\addml.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Version5_5\arkivstruktur.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Version5_5\arkivstruktur.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Version5_5\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Version5_5\dokumenter\5000000.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Version5_5\dokumenter\5000001.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Noark5\Version5_5\metadatakatalog.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\package-creation\administrative_metadata\repository_operations\arkade-log.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -522,6 +589,13 @@
     <None Update="Util\demo.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\fagsystem-ugyldig-addml\fieldtype\addml.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\fagsystem-ugyldig-addml\flatfiletype\addml.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
   </ItemGroup>
 
 </Project>

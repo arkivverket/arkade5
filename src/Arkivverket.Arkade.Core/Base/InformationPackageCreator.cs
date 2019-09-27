@@ -51,6 +51,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         private string CreatePackage(PackageType packageType, Archive archive, ArchiveMetadata metadata, string outputDirectory)
         {
+            EnsureSufficientDiskSpace(archive, outputDirectory);
+
             string packageDirectory = CreatePackageDirectory(archive, outputDirectory);
 
             string packageFilePath = Path.Combine(packageDirectory, archive.GetInformationPackageFileName());
@@ -87,6 +89,23 @@ namespace Arkivverket.Arkade.Core.Base
             return packageFilePath;
         }
 
+        private static void EnsureSufficientDiskSpace(Archive archive, string outputDirectory)
+        {
+            long driveSpace = SystemInfo.GetAvailableDiskSpaceInBytes(outputDirectory);
+            long packageSize = archive.WorkingDirectory.GetSize();
+
+            if (packageSize > driveSpace)
+            {
+                string errorMessage =
+                    $"Insufficient disk space: Package size is {packageSize} bytes." +
+                    $" Available space on destination drive is {driveSpace} bytes.";
+
+                Log.Error(errorMessage);
+
+                throw new InsufficientDiskSpaceException(errorMessage);
+            }
+        }
+        
         private string CreatePackageDirectory(Archive archive, string outputDirectory)
         {
             var packageDirectory = new DirectoryInfo(
