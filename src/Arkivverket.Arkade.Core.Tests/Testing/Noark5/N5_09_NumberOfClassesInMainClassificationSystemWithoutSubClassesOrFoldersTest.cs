@@ -116,5 +116,22 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId_2 - klassifikasjonssystem (systemID) klassSys_1: 2"));
         }
+
+        [Fact]
+        public void ArchiveIsWithoutClassificationSystem()
+        {
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("registrering", string.Empty))
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_2")
+                        .Add("mappe", string.Empty)));
+
+            TestRun testRun = helper.RunEventsOnTest(new N5_09_NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
+
+            testRun.Results.First().Message.Should().Be("Totalt: 0");
+        }
     }
 }
