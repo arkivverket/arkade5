@@ -74,5 +74,20 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID): someSystemId_2 - Antall merknader i saksmappe: 1"));
         }
+
+        [Fact]
+        public void NoCommentsAreFound()
+        {
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_2"))));
+
+            TestRun testRun = helper.RunEventsOnTest(new N5_36_NumberOfComments());
+
+            testRun.Results.First().Message.Should().Be("Totalt: 0");
+        }
     }
 }
