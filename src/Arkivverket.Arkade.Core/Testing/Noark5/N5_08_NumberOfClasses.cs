@@ -67,6 +67,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.NameEquals("klassifikasjonssystem"))
                 _currentClassificationSystem = new ClassificationSystem(_currentArchivePart, eventArgs.Value);
 
+            if (_currentClassificationSystem == null)
+                return;
+
             if (eventArgs.NameEquals("registrering") || eventArgs.NameEquals("mappe"))
                 _currentClassificationSystem.Primary = true;
 

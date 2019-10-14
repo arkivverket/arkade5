@@ -60,7 +60,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (IsClassFolderOrRegistration(eventArgs))
+            if (_currentClassificationSystem != null && IsClassFolderOrRegistration(eventArgs))
             {
                 if (_classes.Any())
                     _classes.Peek().IsCountable = false;
