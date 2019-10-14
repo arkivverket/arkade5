@@ -98,6 +98,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             public string SystemId { get; set; }
             public Dictionary<string, int> NumberOfCommentsByElement { get; private set; }
+                = new Dictionary<string, int>();
 
             public void RegisterCommentForElement(string element)
             {
