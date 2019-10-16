@@ -14,6 +14,11 @@
     <RootNamespace>Arkivverket.Arkade.Core.Tests</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="TestData\noark3\noark_3_arkivuttrekk_med_prosesser.xml" />
     <None Remove="TestData\Noark5\StructureValidation\correct\custom.xml" />
