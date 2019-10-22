@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;net472</TargetFrameworks>
 
     <IsPackable>false</IsPackable>
 
@@ -12,6 +12,11 @@
     <StartupObject />
     <AssemblyName>Arkivverket.Arkade.Core.Tests</AssemblyName>
     <RootNamespace>Arkivverket.Arkade.Core.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
@@ -83,7 +88,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Metadata\DiasMetsLoader\dias-mets.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Metadata\DiasMets\directorykeeper.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

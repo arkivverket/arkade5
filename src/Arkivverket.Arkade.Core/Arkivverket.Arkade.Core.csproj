@@ -8,6 +8,11 @@
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="ExternalModels\xsd\addml.xsd" />
     <None Remove="ExternalModels\xsd\arkivstruktur.xsd" />
