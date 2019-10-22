@@ -13,13 +13,6 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
     {
         protected readonly ArchiveMetadata ArchiveMetadata;
 
-        private const string Deliveryspecification = "DELIVERYSPECIFICATION";
-        private const string Submissionagreement = "SUBMISSIONAGREEMENT";
-        private const string Startdate = "STARTDATE";
-        private const string Enddate = "ENDDATE";
-        private const string Submitter = "SUBMITTER";
-        private const string Producer = "PRODUCER";
-
         public MetsCreatorTest()
         {
             ArchiveMetadata = MetadataExampleCreator.Create(MetadataExamplePurpose.InternalTesting);
@@ -42,28 +35,28 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             // ARCHIVEDESCRIPTION:
 
             metsHdr.altRecordID.Should().Contain(altRecordId =>
-                altRecordId.TYPE == Deliveryspecification &&
+                altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.DELIVERYSPECIFICATION &&
                 altRecordId.Value.Equals("Some archive description")
             );
 
             // AGREEMENTNUMBER:
 
             metsHdr.altRecordID.Should().Contain(altRecordId =>
-                altRecordId.TYPE == Submissionagreement &&
+                altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.SUBMISSIONAGREEMENT &&
                 altRecordId.Value.Equals("XX 00-0000/0000; 0000-00-00")
             );
 
             // STARTDATE
 
             metsHdr.altRecordID.Should().Contain(altRecordId =>
-                altRecordId.TYPE == Startdate &&
+                altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.STARTDATE &&
                 altRecordId.Value.Equals("2017-01-01")
             );
 
             // ENDDATE
 
             metsHdr.altRecordID.Should().Contain(altRecordId =>
-                altRecordId.TYPE == Enddate &&
+                altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.ENDDATE &&
                 altRecordId.Value.Equals("2020-01-01")
             );
 
@@ -99,12 +92,12 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
 
             metsHdrAgents[4].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.ORGANIZATION);
             metsHdrAgents[4].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[4].OTHERROLE.Should().Be(Submitter);
+            metsHdrAgents[4].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.SUBMITTER);
             metsHdrAgents[4].name.Should().Be("Entity 3");
 
             metsHdrAgents[5].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
             metsHdrAgents[5].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[5].OTHERROLE.Should().Be(Submitter);
+            metsHdrAgents[5].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.SUBMITTER);
             metsHdrAgents[5].name.Should().Be("Contactperson 3");
             metsHdrAgents[5].note.Should().Contain(n => n.Equals("Road 3, 3000 City"));
             metsHdrAgents[5].note.Should().Contain(n => n.Equals("3-99999999"));
@@ -114,12 +107,12 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
 
             metsHdrAgents[6].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.ORGANIZATION);
             metsHdrAgents[6].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[6].OTHERROLE.Should().Be(Producer);
+            metsHdrAgents[6].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
             metsHdrAgents[6].name.Should().Be("Entity 4");
 
             metsHdrAgents[7].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.INDIVIDUAL);
             metsHdrAgents[7].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[7].OTHERROLE.Should().Be(Producer);
+            metsHdrAgents[7].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
             metsHdrAgents[7].name.Should().Be("Contactperson 4");
             metsHdrAgents[7].note.Should().Contain(n => n.Equals("Road 4, 4000 City"));
             metsHdrAgents[7].note.Should().Contain(n => n.Equals("4-99999999"));
@@ -185,7 +178,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[16].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
             metsHdrAgents[16].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
             metsHdrAgents[16].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[16].OTHERROLE.Should().Be(Producer);
+            metsHdrAgents[16].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
             metsHdrAgents[16].name.Should().Be("Some archive system name");
             metsHdrAgents[16].note.Should().Contain(n => n.Equals("v2.0.0"));
             metsHdrAgents[16].note.Should().Contain(n => n.Equals("Noark4"));
@@ -198,9 +191,9 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             var metsFile = mets.fileSec.fileGrp[0].Items[0] as fileType;
 
             metsFile?.ID.Should().Be("fileId_1");
-            metsFile?.MIMETYPE.Should().Be(mdSecTypeMdRefMIMETYPE.imagepdf);
+            metsFile?.MIMETYPE.Should().Be("application/pdf");
             metsFile?.USE.Should().Be("Datafile");
-            metsFile?.CHECKSUMTYPE.Should().Be(mdSecTypeMdRefCHECKSUMTYPE.SHA256);
+            metsFile?.CHECKSUMTYPE.Should().Be(fileTypeCHECKSUMTYPE.SHA256);
             metsFile?.CHECKSUM.Should().Be("3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f");
             metsFile?.SIZE.Should().Be(2325452);
             metsFile?.CREATED.Year.Should().Be(2017);

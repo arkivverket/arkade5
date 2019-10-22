@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;net472</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageLicenseUrl>https://github.com/arkivverket/arkade5/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>http://arkade.arkivverket.no</PackageProjectUrl>
@@ -14,6 +14,11 @@
     <ApplicationIcon>Arkade5.ico</ApplicationIcon>
     <Authors>Arkitektum AS for Arkivverket</Authors>
     <PackageId>Arkade 5 CLI</PackageId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
