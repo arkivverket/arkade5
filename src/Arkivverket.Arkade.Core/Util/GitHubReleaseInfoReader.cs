@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Util
             if (_latestReleaseInfo?.TagName == null)
                 throw new Exception("Missing or unexpected data from GitHub");
 
-            if (!Regex.IsMatch(_latestReleaseInfo.TagName, @"^v\d+.\d+.\d+$"))
+            if (!Regex.IsMatch(_latestReleaseInfo.TagName, @"^v?\d+.\d+.\d+$"))
                 throw new Exception("Unexpected tag-name format");
 
             string versionNumber = _latestReleaseInfo.TagName.TrimStart('v') + ".0";
