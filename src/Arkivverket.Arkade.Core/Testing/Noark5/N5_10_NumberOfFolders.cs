@@ -15,6 +15,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly Archive _archive;
         private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
         private ArchivePart _currentArchivePart;
+        private Stack<string> _currentFolderType = new Stack<string>();
 
         public N5_10_NumberOfFolders(Archive archive)
         {
@@ -78,14 +79,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if (eventArgs.NameEquals("mappe"))
+                _currentFolderType.Push("mappe");
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (Noark5TestHelper.IdentifiesTypefolder(eventArgs))
             {
-                int level = eventArgs.Path.GetSameElementSubLevel();
-                AddFolderOnLevel(_currentArchivePart.FoldersPerLevel, eventArgs.Value, level);
+                _currentFolderType.Pop();
+                _currentFolderType.Push(eventArgs.Value);
             }
         }
 
@@ -100,6 +103,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if (eventArgs.NameEquals("mappe"))
+            {
+                int level = eventArgs.Path.GetSameElementSubLevel();
+                AddFolderOnLevel(_currentArchivePart.FoldersPerLevel, _currentFolderType.Pop(), level);
+
+            }
         }
 
         private void AddFolderOnLevel(Dictionary<string, Dictionary<int, int>> foldersPerLevel, string name, int level)
