@@ -73,7 +73,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         [Fact]
         public void DatesInArchiveThatIsDifferentFromDatesInJournalsIsNotOkWithSharpSeparation() // Should contain errors
         {
-            XmlElementHelper xmlElementHelper = MockUp4JournalPostRegistrations("2013-10-10T00:00:00Z"); // Adjusted last date
+            XmlElementHelper xmlElementHelper = MockUp4JournalPostRegistrations("2013-10-10"); // Adjusted last date
 
             const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SharpSeparation";
 
@@ -93,7 +93,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         }
 
 
-        private static XmlElementHelper MockUp4JournalPostRegistrations(string lastDate = "2012-10-10T00:00:00Z")
+        private static XmlElementHelper MockUp4JournalPostRegistrations(string lastDate = "2012-10-10")
         {
             return new XmlElementHelper().Add("arkiv",
                 new XmlElementHelper().Add("arkivdel",
@@ -102,13 +102,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                             new XmlElementHelper().Add("mappe",
                                 new XmlElementHelper()
                                     .Add("registrering", new[] { "xsi:type", "journalpost" },
-                                        new XmlElementHelper().Add("opprettetDato", "2011-09-09T00:00:00Z"))
+                                        new XmlElementHelper().Add("journaldato", "2011-09-09"))
                                     .Add("registrering", new[] { "xsi:type", "journalpost" },
-                                        new XmlElementHelper().Add("opprettetDato", "2011-10-10T00:00:00Z"))
+                                        new XmlElementHelper().Add("journaldato", "2011-10-10"))
                                     .Add("registrering", new[] { "xsi:type", "journalpost" },
-                                        new XmlElementHelper().Add("opprettetDato", "2012-09-09T00:00:00Z"))
+                                        new XmlElementHelper().Add("journaldato", "2012-09-09"))
                                     .Add("registrering", new[] { "xsi:type", "journalpost" },
-                                        new XmlElementHelper().Add("opprettetDato", lastDate)))))));
+                                        new XmlElementHelper().Add("journaldato", lastDate)))))));
         }
     }
 }

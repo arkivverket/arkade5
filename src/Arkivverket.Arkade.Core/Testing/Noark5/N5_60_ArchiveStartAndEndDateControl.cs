@@ -105,7 +105,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.Path.Matches("opprettetDato", "registrering") &&
+            if (eventArgs.Path.Matches("journaldato", "registrering") &&
                 Noark5TestHelper.TryParseArchiveDate(eventArgs.Value, out DateTime registrationCreatedTime))
                     _registrationCreationDates.Add(registrationCreatedTime);
         }
