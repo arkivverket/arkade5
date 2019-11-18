@@ -89,7 +89,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             _registrationIsFound = false; // Reset
 
-            if (eventArgs.Path.Matches("mappe"))
+            if (eventArgs.Path.GetParent().Equals("mappe"))
                 _subfolderIsJustProcessed = true;
         }
     }

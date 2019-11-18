@@ -80,8 +80,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         noark5TestClass.OnReadElementValueEvent(this, element.AsEventArgs(path));
                         break;
                     case ElementType.End:
-                        path.Pop();
                         noark5TestClass.OnReadEndElementEvent(this, element.AsEventArgs(path));
+                        path.Pop();
                         break;
                 }
             }
