@@ -57,7 +57,15 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 return testResults;
             }
-    
+
+            if (!_registrationCreationDates.Any())
+            {
+                testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                    Noark5Messages.ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound));
+
+                return testResults;
+            }
+
             var archiveDates = new StartAndEndDate(
                 _registrationCreationDates.First(),
                 _registrationCreationDates.Last()

@@ -106,6 +106,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Det ble ikke funnet noen journaldatoer i arkivuttrekket.
+        /// </summary>
+        internal static string ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound {
+            get {
+                return ResourceManager.GetString("ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Periodeskille er skarpt og datoer i arkivstrukturen er ikke like de i offentlig og løpende journal.
         /// </summary>
         internal static string ArchiveStartAndEndDateControlMessage_UnEqualJournalAndArchiveDates {

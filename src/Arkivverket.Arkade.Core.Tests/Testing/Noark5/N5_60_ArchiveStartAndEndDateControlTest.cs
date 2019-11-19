@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -92,6 +92,27 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.Results.Count.Should().Be(4);
         }
 
+        [Fact]
+        public void NoJournalDatesInArchiveIsHandled() // Should contain errors
+        {
+            XmlElementHelper xmlElementHelper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper().Add("arkivdel",
+                    new XmlElementHelper().Add("klassifikasjonssystem",
+                        new XmlElementHelper().Add("klasse",
+                            new XmlElementHelper().Add("mappe",
+                                new XmlElementHelper().Add("registrering", new[] {"xsi:type", "journalpost"},
+                                    "no journal date"))))));
+
+            const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SharpSeparation";
+
+            Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
+
+            TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_60_ArchiveStartAndEndDateControl(testArchive));
+
+            testRun.Results.Should().Contain(r => r.Message.Equals(
+                "Det ble ikke funnet noen journaldatoer i arkivuttrekket"));
+            testRun.Results.Count.Should().Be(1);
+        }
 
         private static XmlElementHelper MockUp4JournalPostRegistrations(string lastDate = "2012-10-10")
         {

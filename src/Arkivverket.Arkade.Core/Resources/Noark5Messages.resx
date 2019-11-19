@@ -401,4 +401,7 @@ Generert:  {2}</value>
   <data name="NumberOfClassesTestResultMessage" xml:space="preserve">
     <value>Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - </value>
   </data>
+  <data name="ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound" xml:space="preserve">
+    <value>Det ble ikke funnet noen journaldatoer i arkivuttrekket</value>
+  </data>
 </root>
