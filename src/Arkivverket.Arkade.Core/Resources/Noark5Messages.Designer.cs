@@ -792,11 +792,11 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registertype: {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Registreringstype: {0} - Antall: {1}.
         /// </summary>
-        internal static string NumberOfTypeRegisters {
+        internal static string NumberOfTypeRegistrations {
             get {
-                return ResourceManager.GetString("NumberOfTypeRegisters", resourceCulture);
+                return ResourceManager.GetString("NumberOfTypeRegistrations", resourceCulture);
             }
         }
         

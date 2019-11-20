@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 {
                     testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
                         archivePartMessagePrefix + string.Format(
-                            Noark5Messages.NumberOfTypeRegisters, Noark5TestHelper.StripNamespace(registration.Key), registration.Value
+                            Noark5Messages.NumberOfTypeRegistrations, Noark5TestHelper.StripNamespace(registration.Key), registration.Value
                         )));
                 }
 
