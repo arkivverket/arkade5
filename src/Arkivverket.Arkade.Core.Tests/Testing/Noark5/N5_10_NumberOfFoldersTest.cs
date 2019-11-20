@@ -96,6 +96,29 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 "Det er angitt at arkivstrukturen skal innholde 2 mapper men 1 ble funnet"
             ));
         }
+
+        [Fact]
+        public void ShouldFindOneCaseFolderAndOneFolderWithoutType()
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("mappe", new[] { "xsi:type", "saksmappe" }, new XmlElementHelper())
+                            .Add("mappe", /* No specific type */ new XmlElementHelper()))));
+
+            Archive testArchive = TestUtil.CreateArchiveExtraction(
+                Path.Combine("TestData", "Noark5", "FolderControl", "TwoFolders")
+            );
+            TestRun testRun = helper.RunEventsOnTest(new N5_10_NumberOfFolders(testArchive));
+
+            testRun.Results.Count.Should().Be(3);
+
+            testRun.Results.Should().Contain(r => r.Message.Equals("Mappetype: saksmappe - Antall: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Mappetype: mappe - Antall: 1"));
+        }
+
         [Fact]
         public void ShouldFindOneCaseFolderAndOneCustomfolder()
         {
