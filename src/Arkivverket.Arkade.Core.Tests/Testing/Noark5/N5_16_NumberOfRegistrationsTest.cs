@@ -31,6 +31,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                             ""
                                                         )
                                                         .Add("registrering",
+                                                            // No spesific type
+                                                            ""
+                                                        )
+                                                        .Add("registrering",
                                                             new[] {"xsi:type", "journalpost"},
                                                             ""
                                                         ))
@@ -44,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new N5_16_NumberOfRegistrations());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Totalt: 4"
+                "Totalt: 5"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Registreringstype: journalpost - Antall: 3"
@@ -52,7 +56,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Registreringstype: moete - Antall: 1"
             ));
-            testRun.Results.Count.Should().Be(3);
+            testRun.Results.Should().Contain(r => r.Message.Equals(
+                "Registreringstype: registrering - Antall: 1"
+            ));
+            testRun.Results.Count.Should().Be(4);
         }
 
         [Fact]
