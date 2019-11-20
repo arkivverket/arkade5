@@ -76,8 +76,8 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
                             RaiseReadElementValueEvent(CreateReadElementEventArgs(reader, path));
                             break;
                         case XmlNodeType.EndElement:
-                            path.Pop();
                             RaiseReadEndElementEvent(CreateReadElementEventArgs(reader, path));
+                            path.Pop();
                             _statusEventHandler.RaiseEventRecordProcessingStopped();
                             break;
                         case XmlNodeType.XmlDeclaration:

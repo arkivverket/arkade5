@@ -10,6 +10,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 16);
         private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
         private ArchivePart _currentArchivePart = new ArchivePart();
+        private Stack<string> _registrationTypes = new Stack<string>();
 
         public override TestId GetId()
         {
@@ -44,7 +45,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 {
                     testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
                         archivePartMessagePrefix + string.Format(
-                            Noark5Messages.NumberOfTypeRegisters, Noark5TestHelper.StripNamespace(registration.Key), registration.Value
+                            Noark5Messages.NumberOfTypeRegistrations, Noark5TestHelper.StripNamespace(registration.Key), registration.Value
                         )));
                 }
 
@@ -63,14 +64,26 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.NameEquals("registrering"))
+            {
                 _currentArchivePart.TotalRegistrationsCount++;
+                _registrationTypes.Push("registrering");
+            }
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (Noark5TestHelper.IdentifiesRegistration(eventArgs))
             {
-                var registrationType = eventArgs.Value;
+                _registrationTypes.Pop();
+                _registrationTypes.Push(eventArgs.Value);
+            }
+        }
+
+        protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
+        {
+            if (eventArgs.NameEquals("registrering"))
+            {
+                var registrationType = _registrationTypes.Pop();
 
                 if (_currentArchivePart.Registrations.ContainsKey(registrationType))
                     _currentArchivePart.Registrations[registrationType]++;
@@ -79,9 +92,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
         }
 
-        protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
-        {
-        }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
