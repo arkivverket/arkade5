@@ -13,9 +13,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 10);
 
         private readonly Archive _archive;
-        private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
-        private ArchivePart _currentArchivePart;
         private Stack<string> _currentFolderType = new Stack<string>();
+        private readonly List<N5_10_ArchivePart> _archiveParts = new List<N5_10_ArchivePart>();
+        private N5_10_ArchivePart _currentArchivePart = new N5_10_ArchivePart();
 
         public N5_10_NumberOfFolders(Archive archive)
         {
@@ -39,10 +39,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var totalNumberOfFolders = 0;
             var message = "";
 
-            foreach (ArchivePart archivePart in _archiveParts)
+            foreach (N5_10_ArchivePart archivePart in _archiveParts)
             {
                 if (_archiveParts.Count > 1)
-                    message = string.Format(Noark5Messages.ArchivePartSystemId, archivePart.SystemId) + " - ";
+                    message = string.Format(Noark5Messages.ArchivePartSystemId, archivePart.SystemId, archivePart.Name) + " - ";
 
                 foreach (var foldersPerLevel in archivePart.FoldersPerLevel)
                 { 
@@ -96,8 +96,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
-                _currentArchivePart = new ArchivePart {SystemId = eventArgs.Value};
-                _archiveParts.Add(_currentArchivePart);
+                _currentArchivePart.SystemId =  eventArgs.Value;
+            }
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+            {
+                _currentArchivePart.Name = eventArgs.Value;
             }
         }
 
@@ -108,6 +111,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 int level = eventArgs.Path.GetSameElementSubLevel();
                 AddFolderOnLevel(_currentArchivePart.FoldersPerLevel, _currentFolderType.Pop(), level);
 
+            }
+            if (eventArgs.NameEquals("arkivdel"))
+            {
+                _archiveParts.Add(_currentArchivePart);
+                _currentArchivePart = new N5_10_ArchivePart();
             }
         }
 
@@ -148,9 +156,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return int.Parse(numberOfFolders);
         }
 
-        private class ArchivePart
+        private class N5_10_ArchivePart : ArchivePart
         {
-            public string SystemId { get; set; }
             public readonly Dictionary<string, Dictionary<int, int>> FoldersPerLevel = new Dictionary<string, Dictionary<int, int>>();
         }
     }

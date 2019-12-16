@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
@@ -13,8 +13,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 44);
 
-        private string _currentArchivePartSystemId;
-        private bool _multipleArchiveParts;
+        private ArchivePart _currentArchivePart = new ArchivePart();
+        private List<ArchivePart> _archiveParts = new List<ArchivePart>();
         private readonly List<DisposalResolution> _disposalResolutions;
         private readonly bool _documentationStatesDisposalResolutions;
 
@@ -43,13 +43,15 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var disposalResolutionQuery = from disposalResolution in _disposalResolutions
                 group disposalResolution by new
                 {
-                    disposalResolution.ArchivePartSystemId,
+                    disposalResolution.ArchivePart.SystemId,
+                    disposalResolution.ArchivePart.Name,
                     disposalResolution.ParentElementName
                 }
                 into grouped
                 select new
                 {
-                    grouped.Key.ArchivePartSystemId,
+                    grouped.Key.SystemId,
+                    grouped.Key.Name,
                     grouped.Key.ParentElementName,
                     Count = grouped.Count()
                 };
@@ -59,9 +61,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 var message = new StringBuilder(
                     string.Format(Noark5Messages.NumberOfDisposalResolutionsMessage, item.ParentElementName, item.Count));
 
-                if (_multipleArchiveParts)
+                if (_archiveParts.Count > 1)
                     message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId) + " - ");
+                        string.Format(Noark5Messages.ArchivePartSystemId, item.SystemId, item.Name) + " - ");
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
 
@@ -90,7 +92,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 _disposalResolutions.Add(new DisposalResolution
                 {
-                    ArchivePartSystemId = _currentArchivePartSystemId,
+                    ArchivePart = _currentArchivePart,
                     ParentElementName = eventArgs.Path.GetParent()
                 });
             }
@@ -102,17 +104,20 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if (eventArgs.NameEquals("arkivdel"))
+            {
+                _archiveParts.Add(_currentArchivePart);
+                _currentArchivePart = new ArchivePart();
+            }
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-            {
-                if (_currentArchivePartSystemId != null)
-                    _multipleArchiveParts = true;
+                _currentArchivePart.SystemId = eventArgs.Value;
 
-                _currentArchivePartSystemId = eventArgs.Value;
-            }
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
         }
 
         private static bool DocumentationStatesDisposalResolutions(Archive archive)
@@ -130,8 +135,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private class DisposalResolution
         {
-            public string ArchivePartSystemId { get; set; }
+            public ArchivePart ArchivePart { get; set; }
             public string ParentElementName { get; set; }
         }
+
     }
 }

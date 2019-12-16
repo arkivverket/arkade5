@@ -10,9 +10,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 41);
 
         private int _totalNumberOfDocumentFlows;
-        private string _currentArchivePartSystemId;
+        private ArchivePart _currentArchivePart = new ArchivePart();
         private bool _journalPostAttributeIsFound;
-        private readonly Dictionary<string, int> _documentFlowsPerArchivePart = new Dictionary<string, int>();
+        private readonly Dictionary<ArchivePart, int> _documentFlowsPerArchivePart = new Dictionary<ArchivePart, int>();
 
         public override TestId GetId()
         {
@@ -34,13 +34,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (_documentFlowsPerArchivePart.Count > 1)
             {
-                foreach (KeyValuePair<string, int> correspondancePartCount in _documentFlowsPerArchivePart)
+                foreach (KeyValuePair<ArchivePart, int> correspondancePartCount in _documentFlowsPerArchivePart)
                 {
                     if (correspondancePartCount.Value > 0)
                     {
                         var testResult = new TestResult(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.NumberOf_PerArchivePart, correspondancePartCount.Key,
-                                correspondancePartCount.Value));
+                            string.Format(Noark5Messages.NumberOf_PerArchivePart, correspondancePartCount.Key.SystemId, correspondancePartCount.Key.Name,
+                                correspondancePartCount.Value, ""));
 
                         testResults.Add(testResult);
                     }
@@ -63,9 +63,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
-                _currentArchivePartSystemId = eventArgs.Value;
-                _documentFlowsPerArchivePart.Add(_currentArchivePartSystemId, 0);
+                _currentArchivePart.SystemId = eventArgs.Value;
+                _documentFlowsPerArchivePart.Add(_currentArchivePart, 0);
             }
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -78,13 +81,17 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                     if (_documentFlowsPerArchivePart.Count > 0)
                     {
-                        if (_documentFlowsPerArchivePart.ContainsKey(_currentArchivePartSystemId))
-                            _documentFlowsPerArchivePart[_currentArchivePartSystemId]++;
+                        if (_documentFlowsPerArchivePart.ContainsKey(_currentArchivePart))
+                            _documentFlowsPerArchivePart[_currentArchivePart]++;
                     }
                 }
 
                 _journalPostAttributeIsFound = false;
             }
+
+            if(eventArgs.NameEquals("arkivdel"))
+                _currentArchivePart = new ArchivePart();
         }
+
     }
 }

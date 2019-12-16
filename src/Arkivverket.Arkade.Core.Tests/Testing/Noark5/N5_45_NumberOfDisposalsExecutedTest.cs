@@ -54,6 +54,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("arkivdel",
                             new XmlElementHelper()
                                 .Add("systemID", "someArchivePartSystemId_1")
+                                .Add("tittel", "someArchivePartTitle_1")
                                 .Add("utfoertKassasjon", string.Empty)
                                 .Add("klassifikasjonssystem",
                                     new XmlElementHelper()
@@ -69,6 +70,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("arkivdel",
                             new XmlElementHelper()
                                 .Add("systemID", "someArchivePartSystemId_2")
+                                .Add("tittel", "someArchivePartTitle_2")
                                 .Add("klassifikasjonssystem",
                                     new XmlElementHelper()
                                         .Add("klasse",
@@ -89,10 +91,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.Results.First().Message.Should().Be("Totalt: 3");
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Totalt: 2"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Totalt: 2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Totalt: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Totalt: 1"
             ));
             testRun.Results.Count.Should().Be(3);
         }

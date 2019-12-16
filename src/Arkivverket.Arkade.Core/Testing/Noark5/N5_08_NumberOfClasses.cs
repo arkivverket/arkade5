@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 8);
 
-        private string _currentArchivePart;
+        private ArchivePart _currentArchivePart = new ArchivePart();
         private readonly List<ClassificationSystem> _classificationSystems = new List<ClassificationSystem>();
         private ClassificationSystem _currentClassificationSystem;
 
@@ -36,7 +36,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     classificationSystem.Primary ? Noark5Messages.Primary : Noark5Messages.Secondary;
 
                 string message = string.Format(Noark5Messages.NumberOfClassesTestResultMessage,
-                    classificationSystem.ArchivepartSystemId,
+                    classificationSystem.ArchivePart.SystemId,
+                    classificationSystem.ArchivePart.Name,
                     primaryOrSecondary,
                     classificationSystem.ClassificationSystemId);
 
@@ -93,8 +94,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("systemID", "klassifikasjonssystem"))
                 _currentClassificationSystem = new ClassificationSystem(_currentArchivePart, eventArgs.Value);
 
-            if (eventArgs.Path.Matches("systemID", "arkivdel"))
-                _currentArchivePart = eventArgs.Value;
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
+            if (eventArgs.Path.Matches("systemId", "arkivdel"))
+            {
+                _currentArchivePart.SystemId = eventArgs.Value;
+            }
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -103,26 +108,31 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 _classificationSystems.Add(_currentClassificationSystem);
             }
+            if (eventArgs.NameEquals("arkivdel"))
+            {
+                _currentArchivePart = new ArchivePart();
+            }
         }
 
         private bool IsPrimaryClassificationSystem()
         {
-            return _classificationSystems.All(c => c.ArchivepartSystemId != _currentArchivePart);
+            return _classificationSystems.All(c => c.ArchivePart.SystemId != _currentArchivePart.SystemId);
         }
 
         private class ClassificationSystem
         {
-            public string ArchivepartSystemId { get; }
+            public ArchivePart ArchivePart { get; }
             public string ClassificationSystemId { get; }
             public Dictionary<int, int> ClassesPerLevel { get; }
             public bool Primary { get; set; }
 
-            public ClassificationSystem(string archivepartSystemId, string classificationSystemId)
+            public ClassificationSystem(ArchivePart currentArchivePart, string classificationSystemId)
             {
-                ArchivepartSystemId = archivepartSystemId;
+                ArchivePart = currentArchivePart;
                 ClassificationSystemId = classificationSystemId;
                 ClassesPerLevel = new Dictionary<int, int>();
             }
         }
+
     }
 }

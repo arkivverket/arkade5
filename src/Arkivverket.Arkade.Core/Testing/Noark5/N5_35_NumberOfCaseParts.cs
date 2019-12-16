@@ -8,10 +8,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 {
     public class N5_35_NumberOfCaseParts : Noark5XmlReaderBaseTest
     {
-        private string _currentArchivePartSystemId;
+        private ArchivePart _currentArchivePart = new ArchivePart();
         private int _totalNumberOfCaseParts;
         private Archive archive;
-        private readonly Dictionary<string, int> _casePartsPerArchivePart = new Dictionary<string, int>();
+        private readonly Dictionary<ArchivePart, int> _casePartsPerArchivePart = new Dictionary<ArchivePart, int>();
         private readonly TestId _id;
 
         private string GetTestVersion()
@@ -52,13 +52,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (_casePartsPerArchivePart.Count > 1)
             {
-                foreach (KeyValuePair<string, int> casePartCount in _casePartsPerArchivePart)
+                foreach (KeyValuePair<ArchivePart, int> casePartCount in _casePartsPerArchivePart)
                 {
                     if (casePartCount.Value > 0)
                     {
                         var testResult = new TestResult(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.NumberOf_PerArchivePart, casePartCount.Key,
-                                casePartCount.Value));
+                            string.Format(Noark5Messages.NumberOf_PerArchivePart, casePartCount.Key.SystemId, casePartCount.Key.Name,
+                                casePartCount.Value, ""));
 
                         testResults.Add(testResult);
                     }
@@ -81,9 +81,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
-                _currentArchivePartSystemId = eventArgs.Value;
-                _casePartsPerArchivePart.Add(_currentArchivePartSystemId, 0);
+                _currentArchivePart.SystemId = eventArgs.Value;
+                _casePartsPerArchivePart.Add(_currentArchivePart, 0);
             }
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -92,6 +95,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 CountPartsForVersion5_5(eventArgs);
             }
+
+            if(eventArgs.NameEquals("arkivdel"))
+                _currentArchivePart = new ArchivePart();
 
             CountCaseParts(eventArgs);
         }
@@ -118,8 +124,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (_casePartsPerArchivePart.Count > 0)
             {
-                if (_casePartsPerArchivePart.ContainsKey(_currentArchivePartSystemId))
-                    _casePartsPerArchivePart[_currentArchivePartSystemId]++;
+                if (_casePartsPerArchivePart.ContainsKey(_currentArchivePart))
+                    _casePartsPerArchivePart[_currentArchivePart]++;
             }
         }
     }

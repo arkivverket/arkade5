@@ -17,8 +17,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private bool _journalPostAttributeIsFound;
         private bool _casefolderAttributeIsFound;
-        private ArchivePart _currentArchivePart;
-        private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
+        private N5_38_ArchivePart _currentArchivePart;
+        private readonly List<N5_38_ArchivePart> _archiveParts = new List<N5_38_ArchivePart>();
 
 
         public override TestId GetId()
@@ -54,13 +54,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
             else
             {
-                foreach (ArchivePart archivePart in _archiveParts)
+                foreach (N5_38_ArchivePart archivePart in _archiveParts)
                 {
                     if (archivePart.NumberOfPrecedentsInJournalposts > 0)
                     {
                         testResults.Add(new TestResult(ResultType.Success, new Location(""),
                             string.Format(Noark5Messages.NumberOfPrecedentsInJournalpostsMessage_ForArchivePart,
                                 archivePart.SystemId,
+                                archivePart.Name,
                                 archivePart.NumberOfPrecedentsInJournalposts)));
                     }
 
@@ -69,6 +70,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                         testResults.Add(new TestResult(ResultType.Success, new Location(""),
                             string.Format(Noark5Messages.NumberOfPrecedentsInCaseFolderMessage_ForArchivePart,
                                 archivePart.SystemId,
+                                archivePart.Name,
                                 archivePart.NumberOfPrecedentsInCasefolders)));
                     }
 
@@ -76,13 +78,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 }
             }
 
-            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""), 
+            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
                 string.Format(Noark5Messages.TotalResultNumber, totalNumberOfPrecedents.ToString())));
 
             return testResults;
         }
 
-        private int CountTotalNumberOfPrecedents(ArchivePart currentArchivePart)
+        private int CountTotalNumberOfPrecedents(N5_38_ArchivePart currentArchivePart)
         {
             int totalNumberOfPrecedentsResult = new int[]
             {
@@ -121,9 +123,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
-                _currentArchivePart = new ArchivePart {SystemId = eventArgs.Value};
+                _currentArchivePart = new N5_38_ArchivePart { SystemId = eventArgs.Value };
                 _archiveParts.Add(_currentArchivePart);
             }
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -137,9 +142,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 _casefolderAttributeIsFound = false;
         }
 
-        private class ArchivePart
+        private class N5_38_ArchivePart : ArchivePart
         {
-            public string SystemId { get; set; }
             public int NumberOfPrecedentsInCasefolders { get; set; }
             public int NumberOfPrecedentsInJournalposts { get; set; }
         }

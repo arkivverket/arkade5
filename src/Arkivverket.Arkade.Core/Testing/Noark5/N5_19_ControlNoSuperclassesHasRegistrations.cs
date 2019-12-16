@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 19);
 
-        private string _currentArchivePartSystemId;
+        private ArchivePart _currentArchivePart = new ArchivePart();
         private readonly Stack<Class> _classes = new Stack<Class>();
         private readonly List<Class> _superClassesWithRegistration = new List<Class>();
 
@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             var testResults = new List<TestResult>();
 
-            bool multipleArchiveParts = _superClassesWithRegistration.GroupBy(c => c.ArchivePartSystemId).Count() > 1;
+            bool multipleArchiveParts = _superClassesWithRegistration.GroupBy(c => c.ArchivePart.SystemId).Count() > 1;
 
             foreach (var superClassWithRegistration in _superClassesWithRegistration)
             {
@@ -37,9 +37,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     Noark5Messages.ControlNoSuperclassesHasRegistrationsMessage, superClassWithRegistration.SystemId));
 
                 if (multipleArchiveParts)
-                    message.Insert(0,
-                        string.Format(
-                            Noark5Messages.ArchivePartSystemId, superClassWithRegistration.ArchivePartSystemId) + " - ");
+                    message.Insert(0, string.Format(Noark5Messages.ArchivePartSystemId,
+                            superClassWithRegistration.ArchivePart.SystemId, superClassWithRegistration.ArchivePart.Name + " - "));
 
                 testResults.Add(new TestResult(ResultType.Error, new Location(""), message.ToString()));
             }
@@ -57,7 +56,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 if (_classes.Any())
                     _classes.Peek().HasSubclass = true;
 
-                _classes.Push(new Class { ArchivePartSystemId = _currentArchivePartSystemId });
+                _classes.Push(new Class {ArchivePart = _currentArchivePart});
             }
 
             if (eventArgs.Path.Matches("registrering", "klasse"))
@@ -67,7 +66,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-                _currentArchivePartSystemId = eventArgs.Value;
+                _currentArchivePart.SystemId = eventArgs.Value;
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
 
             if (eventArgs.Path.Matches("systemID", "klasse"))
                 _classes.Peek().SystemId = eventArgs.Value;
@@ -84,7 +86,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
 
             if (eventArgs.NameEquals("arkivdel"))
-                _currentArchivePartSystemId = null; // Reset
+                _currentArchivePart = new ArchivePart();
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
@@ -94,7 +96,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private class Class
         {
             public string SystemId { get; set; }
-            public string ArchivePartSystemId { get; set; }
+            public ArchivePart ArchivePart { get; set; }
             public bool HasSubclass { get; set; }
             public bool HasRegistration { get; set; }
 
@@ -103,5 +105,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 return HasSubclass && HasRegistration;
             }
         }
+
     }
 }

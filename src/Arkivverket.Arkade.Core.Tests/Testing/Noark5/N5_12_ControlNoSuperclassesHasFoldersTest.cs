@@ -52,6 +52,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                             .Add("arkivdel",
                                 new XmlElementHelper()
                                     .Add("systemID", "someArchivePartSystemId_1")
+                                    .Add("tittel", "someTitle_1")
                                     .Add("klassifikasjonssystem",
                                         new XmlElementHelper()
                                             .Add("klasse", // Class has class only = ok
@@ -68,6 +69,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                             .Add("arkivdel",
                                 new XmlElementHelper()
                                     .Add("systemID", "someArchivePartSystemId_2")
+                                    .Add("tittel", "someTitle_2")
                                     .Add("klassifikasjonssystem",
                                         new XmlElementHelper()
                                             .Add("klasse", // Class has class only = ok
@@ -85,10 +87,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new N5_12_ControlNoSuperclassesHasFolders());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Klasse med systemID someClassSystemId_2"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someTitle_1 - Klasse med systemID someClassSystemId_2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Klasse med systemID someClassSystemId_5"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someTitle_2 - Klasse med systemID someClassSystemId_5"
             ));
             testRun.Results.Count.Should().Be(3);
         }

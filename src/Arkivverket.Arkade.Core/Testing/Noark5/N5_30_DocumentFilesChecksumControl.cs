@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 30);
 
-        private string _currentArchivePartSystemId;
+        private ArchivePart _currentArchivePart = new ArchivePart();
         private string _currentDocumentDescriptionSystemId;
         private DocumentObject _currentDocumentObject;
         private readonly List<TestResult> _testResults;
@@ -47,7 +47,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 _currentDocumentObject = new DocumentObject
                 {
-                    ArchivePartSystemId = _currentArchivePartSystemId,
+                    ArchivePart = _currentArchivePart,
                     DocumentDescriptionSystemId = _currentDocumentDescriptionSystemId
                 };
             }
@@ -60,7 +60,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-                _currentArchivePartSystemId = eventArgs.Value;
+                _currentArchivePart.SystemId = eventArgs.Value;
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
 
             if (eventArgs.Path.Matches("systemID", "dokumentbeskrivelse"))
                 _currentDocumentDescriptionSystemId = eventArgs.Value;
@@ -85,7 +88,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     {
                         _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
                             string.Format(Noark5Messages.DocumentFilesChecksumControlMessage,
-                                _currentArchivePartSystemId,
+                                _currentArchivePart.SystemId,
+                                _currentArchivePart.Name,
                                 _currentDocumentObject.DocumentFileReference,
                                 _currentDocumentObject.DocumentDescriptionSystemId
                             )));
@@ -102,7 +106,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
 
             if (eventArgs.NameEquals("arkivdel"))
-                _currentArchivePartSystemId = null;
+                _currentArchivePart = new ArchivePart();
         }
 
         private bool ActualAndDocumentedFileChecksumsMatch(DocumentObject documentObject)
@@ -130,11 +134,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private class DocumentObject
         {
-            public string ArchivePartSystemId { get; set; }
+            public ArchivePart ArchivePart { get; set; }
             public string DocumentDescriptionSystemId { get; set; }
             public string DocumentFileReference { get; set; }
             public string Checksum { get; set; }
             public string ChecksumAlgorithm { get; set; }
         }
+
     }
 }

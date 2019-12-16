@@ -38,6 +38,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -48,6 +49,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("avskrivningsmaate", "Besvart per e-post")))))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
+                        .Add("tittel", "someTitle_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -61,11 +63,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 3"));
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Besvart per telefon: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel) someSystemId_1, someTitle_1 - Besvart per telefon: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Besvart per e-post: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel) someSystemId_1, someTitle_1 - Besvart per e-post: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someSystemId_2 - Besvart per telefon: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel) someSystemId_2, someTitle_2 - Besvart per telefon: 1"));
         }
     }
 }

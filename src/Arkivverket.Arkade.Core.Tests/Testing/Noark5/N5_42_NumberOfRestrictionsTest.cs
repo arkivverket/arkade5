@@ -78,6 +78,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("arkivdel",
                             new XmlElementHelper()
                                 .Add("systemID", "someArchivePartSystemId_1")
+                                .Add("tittel", "someArchivePartTitle_1")
                                 .Add("skjerming", string.Empty)
                                 .Add("klassifikasjonssystem",
                                     new XmlElementHelper()
@@ -104,6 +105,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("arkivdel",
                             new XmlElementHelper()
                                 .Add("systemID", "someArchivePartSystemId_2")
+                                .Add("tittel", "someArchivePartTitle_2")
                                 .Add("skjerming", string.Empty)
                                 .Add("klassifikasjonssystem",
                                     new XmlElementHelper()
@@ -137,34 +139,34 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.Results.First().Message.Should().Be("Totalt: 14");
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Skjerminger i arkivdel - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Skjerminger i arkivdel - Antall: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Skjerminger i klasse - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Skjerminger i klasse - Antall: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Skjerminger i mappe - Antall: 2"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Skjerminger i mappe - Antall: 2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Skjerminger i registrering - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Skjerminger i registrering - Antall: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Skjerminger i dokumentbeskrivelse - Antall: 2"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Skjerminger i dokumentbeskrivelse - Antall: 2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Skjerminger i arkivdel - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Skjerminger i arkivdel - Antall: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Skjerminger i klasse - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Skjerminger i klasse - Antall: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Skjerminger i mappe - Antall: 2"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Skjerminger i mappe - Antall: 2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Skjerminger i registrering - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Skjerminger i registrering - Antall: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Skjerminger i dokumentbeskrivelse - Antall: 2"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Skjerminger i dokumentbeskrivelse - Antall: 2"
             ));
             testRun.Results.Count.Should().Be(11);
         }

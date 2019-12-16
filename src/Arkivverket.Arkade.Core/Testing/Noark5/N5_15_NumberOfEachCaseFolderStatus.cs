@@ -12,8 +12,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 15);
 
         private string _currentArchivePartSystemId;
-        private CaseFolder _currentCaseFolder; // TODO: Support nested case folders?
-        private readonly List<CaseFolder> _folders = new List<CaseFolder>();
+        private string _currentArchiveTitle;
+        private CaseFolderInArchivePart _currentCaseFolder; // TODO: Support nested case folders?
+        private readonly List<CaseFolderInArchivePart> _folders = new List<CaseFolderInArchivePart>();
 
         public override TestId GetId()
         {
@@ -32,20 +33,22 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var folderQuery = from folder in _folders
                 group folder by new
                 {
-                    folder.ArchivePartSystemId,
+                    folder.SystemId,
+                    folder.Name,
                     Status = folder.CaseStatus
                 }
                 into grouped
                 select new
                 {
-                    grouped.Key.ArchivePartSystemId,
+                    grouped.Key.SystemId,
+                    grouped.Key.Name,
                     grouped.Key.Status,
                     Count = grouped.Count()
                 };
 
             int numberOfUniqueCaseFolderStatuses = _folders.GroupBy(x => x.CaseStatus).Count();
 
-            bool multipleArchiveParts = _folders.GroupBy(j => j.ArchivePartSystemId).Count() > 1;
+            bool multipleArchiveParts = _folders.GroupBy(j => j.SystemId).Count() > 1;
 
             foreach (var item in folderQuery)
             {
@@ -54,7 +57,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 if (multipleArchiveParts)
                     message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId) + " - ");
+                        string.Format(Noark5Messages.ArchivePartSystemId, item.SystemId, item.Name) + " - ");
 
                 ResultType resultType = item.Status.Equals("Avsluttet") || item.Status.Equals("Utgår")
                     ? ResultType.Success
@@ -75,14 +78,17 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (IdentifiesCaseFolder(eventArgs))
-                _currentCaseFolder = new CaseFolder { ArchivePartSystemId = _currentArchivePartSystemId };
+            if (Noark5TestHelper.IdentifiesCasefolder(eventArgs))
+                _currentCaseFolder = new CaseFolderInArchivePart { SystemId = _currentArchivePartSystemId, Name = _currentArchiveTitle};
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
                 _currentArchivePartSystemId = eventArgs.Value;
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchiveTitle = eventArgs.Value;
 
             if (eventArgs.Path.Matches("saksstatus", "mappe") && _currentCaseFolder != null)
                 _currentCaseFolder.CaseStatus = eventArgs.Value;
@@ -99,16 +105,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
         }
 
-        private static bool IdentifiesCaseFolder(ReadElementEventArgs eventArgs)
+        private class CaseFolderInArchivePart : ArchivePart
         {
-            return eventArgs.Path.Matches("mappe") &&
-                   eventArgs.Name.Equals("xsi:type") &&
-                   eventArgs.Value.Equals("saksmappe");
-        }
-
-        private class CaseFolder
-        {
-            public string ArchivePartSystemId { get; set; }
             public string CaseStatus { get; set; }
         }
     }

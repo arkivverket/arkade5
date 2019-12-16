@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base.Noark5;
@@ -11,8 +11,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 11);
 
-        private ArchivePart _currentArchivePart;
-        private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
+        private N5_11_ArchivePart _currentArchivePart = new N5_11_ArchivePart();
+        private readonly List<N5_11_ArchivePart> _archiveParts = new List<N5_11_ArchivePart>();
 
         public override TestId GetId()
         {
@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             var testResults = new List<TestResult>();
 
-            foreach (ArchivePart archivePart in _archiveParts)
+            foreach (N5_11_ArchivePart archivePart in _archiveParts)
             {
                 var foldersByYearOrdered = archivePart.FoldersByYear.OrderBy(r => r.Key);
 
@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     else
                     {
                         testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                            string.Format(Noark5Messages.NumberOfFoldersPerYear_ForArchivePart, archivePart.SystemId,
+                            string.Format(Noark5Messages.NumberOfFoldersPerYear_ForArchivePart, archivePart.SystemId, archivePart.Name,
                                 year, count)));
                     }
                 }
@@ -54,10 +54,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-            {
-                _currentArchivePart = new ArchivePart {SystemId = eventArgs.Value};
-                _archiveParts.Add(_currentArchivePart);
-            }
+                _currentArchivePart.SystemId = eventArgs.Value;
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
 
             if (eventArgs.Path.Matches("opprettetDato", "mappe"))
             {
@@ -80,12 +80,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if (eventArgs.NameEquals("arkivdel"))
+            {
+                _archiveParts.Add(_currentArchivePart);
+                _currentArchivePart = new N5_11_ArchivePart();
+            }
         }
 
-        private class ArchivePart
+        private class N5_11_ArchivePart : ArchivePart
         {
             public readonly Dictionary<int, int> FoldersByYear = new Dictionary<int, int>();
-            public string SystemId { get; set; }
         }
     }
 }

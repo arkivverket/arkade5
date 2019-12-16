@@ -56,12 +56,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someArchivePartSystemId_1")
+                        .Add("tittel", "someArchivePartTitle_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new[] { "xsi:type", "saksmappe" }, new XmlElementHelper()
                                     .Add("saksstatus", "Avsluttet")))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someArchivePartSystemId_2")
+                        .Add("tittel", "someArchivePartTitle_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new[] { "xsi:type", "saksmappe" }, new XmlElementHelper()
@@ -74,12 +76,12 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals(
-                    "Arkivdel (systemID): someArchivePartSystemId_1 - Saksmappestatus: Avsluttet - Antall: 1"
+                    "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Saksmappestatus: Avsluttet - Antall: 1"
                 ));
 
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals(
-                    "Arkivdel (systemID): someArchivePartSystemId_2 - Saksmappestatus: Avsluttet - Antall: 1"
+                    "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Saksmappestatus: Avsluttet - Antall: 1"
                 ));
 
             testRun.Results.Count.Should().Be(3);

@@ -63,6 +63,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     .Add("arkivdel",
                         new XmlElementHelper()
                             .Add("systemID", "someArchivePartSystemId_1")
+                            .Add("tittel", "someArchivePartTitle_1")
                             .Add("klassifikasjonssystem",
                                 new XmlElementHelper().Add("klasse",
                                     new XmlElementHelper()
@@ -90,6 +91,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     .Add("arkivdel",
                         new XmlElementHelper()
                             .Add("systemID", "someArchivePartSystemId_2")
+                            .Add("tittel", "someArchivePartTitle_2")
                             .Add("klassifikasjonssystem",
                                 new XmlElementHelper().Add("klasse",
                                     new XmlElementHelper()
@@ -120,20 +122,20 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.Results.Should().Contain(r =>
                     r.Message.Equals(
-                        "Arkivdel (systemID): someArchivePartSystemId_1 - Dokumentstatus: Dokumentet er ferdigstilt - Antall: 2")
+                        "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Dokumentstatus: Dokumentet er ferdigstilt - Antall: 2")
             );
             testRun.Results.Should().Contain(r =>
                     r.Message.Equals(
-                        "Arkivdel (systemID): someArchivePartSystemId_1 - Dokumentstatus: Dokumentet er under redigering - Antall: 1") &&
+                        "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Dokumentstatus: Dokumentet er under redigering - Antall: 1") &&
                     r.IsError() // Only "Dokumentet er ferdigstilt" on regular deposits
             );
             testRun.Results.Should().Contain(r =>
                     r.Message.Equals(
-                        "Arkivdel (systemID): someArchivePartSystemId_2 - Dokumentstatus: Dokumentet er ferdigstilt - Antall: 2")
+                        "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Dokumentstatus: Dokumentet er ferdigstilt - Antall: 2")
             );
             testRun.Results.Should().Contain(r =>
                     r.Message.Equals(
-                        "Arkivdel (systemID): someArchivePartSystemId_2 - Dokumentstatus: Dokumentet er under redigering - Antall: 1") &&
+                        "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Dokumentstatus: Dokumentet er under redigering - Antall: 1") &&
                     r.IsError() // Only "Dokumentet er ferdigstilt" on regular deposits
             );
             testRun.Results.Count.Should().Be(4);

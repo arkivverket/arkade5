@@ -60,12 +60,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someArchivePartSystemId_1")
+                        .Add("tittel", "someTitle_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("systemID", "klassSys_1")
                             .Add("registrering", new XmlElementHelper()
                                 .Add("klasse", string.Empty))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someArchivePartSystemId_2")
+                        .Add("tittel", "someTitle_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("systemID", "klassSys_1")
                             .Add("mappe", new XmlElementHelper()
@@ -74,9 +76,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new N5_09_NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId_1 - klassifikasjonssystem (systemID) klassSys_1: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel) someArchivePartSystemId_1, someTitle_1 - klassifikasjonssystem (systemID) klassSys_1: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId_2 - klassifikasjonssystem (systemID) klassSys_1: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel) someArchivePartSystemId_2, someTitle_2 - klassifikasjonssystem (systemID) klassSys_1: 1"));
         }
 
         [Fact]
@@ -88,6 +90,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("arkivdel",
                             new XmlElementHelper()
                                 .Add("systemID", "someArchivePartSystemId_1")
+                                .Add("tittel", "someTitle_1")
                                 .Add("klassifikasjonssystem", new XmlElementHelper()
                                     .Add("systemID", "klassSys_1")
                                     .Add("klasse", string.Empty)
@@ -99,6 +102,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("arkivdel",
                             new XmlElementHelper()
                                 .Add("systemID", "someArchivePartSystemId_2")
+                                .Add("tittel", "someTitle_2")
                                 .Add("klassifikasjonssystem", new XmlElementHelper()
                                     .Add("systemID", "klassSys_1")
                                     .Add("klasse", string.Empty)
@@ -112,9 +116,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 helper.RunEventsOnTest(new N5_09_NumberOfClassesInMainClassificationSystemWithoutSubClassesFoldersOrRegistrations());
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId_1 - klassifikasjonssystem (systemID) klassSys_1: 2"));
+                r.Message.Equals("Arkivdel (systemID, tittel) someArchivePartSystemId_1, someTitle_1 - klassifikasjonssystem (systemID) klassSys_1: 2"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someArchivePartSystemId_2 - klassifikasjonssystem (systemID) klassSys_1: 2"));
+                r.Message.Equals("Arkivdel (systemID, tittel) someArchivePartSystemId_2, someTitle_2 - klassifikasjonssystem (systemID) klassSys_1: 2"));
         }
 
         [Fact]

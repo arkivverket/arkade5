@@ -38,6 +38,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper()
                                 .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper()))
@@ -45,6 +46,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                             )))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
+                        .Add("tittel", "someTitle_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper()
                                 .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper()))
@@ -59,22 +61,22 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.Results.Count.Should().Be(9); // "Totalt" added
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID): someSystemId_1 - Mappetype: saksmappe - Antall: 2"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1 - Mappetype: saksmappe - Antall: 2"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID): someSystemId_1 - Mappetype: saksmappe - Antall på nivå 1: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1 - Mappetype: saksmappe - Antall på nivå 1: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID): someSystemId_1 - Mappetype: saksmappe - Antall på nivå 2: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1 - Mappetype: saksmappe - Antall på nivå 2: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID): someSystemId_1 - Mappetype: moetemappe - Antall: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1 - Mappetype: moetemappe - Antall: 1"));
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID): someSystemId_2 - Mappetype: saksmappe - Antall: 2"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, someTitle_2 - Mappetype: saksmappe - Antall: 2"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID): someSystemId_2 - Mappetype: saksmappe - Antall på nivå 1: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, someTitle_2 - Mappetype: saksmappe - Antall på nivå 1: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID): someSystemId_2 - Mappetype: saksmappe - Antall på nivå 2: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, someTitle_2 - Mappetype: saksmappe - Antall på nivå 2: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID): someSystemId_2 - Mappetype: moetemappe - Antall: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, someTitle_2 - Mappetype: moetemappe - Antall: 1"));
         }
 
         [Fact]

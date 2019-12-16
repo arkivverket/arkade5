@@ -57,6 +57,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     .Add("arkivdel",
                         new XmlElementHelper()
                             .Add("systemID", "someArchivePartSystemId_1")
+                            .Add("tittel", "someArchivePartTitle_1")
                             .Add("klassifikasjonssystem",
                                 new XmlElementHelper()
                                     .Add("klasse", // Has 2 registrations
@@ -80,6 +81,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     .Add("arkivdel",
                         new XmlElementHelper()
                             .Add("systemID", "someArchivePartSystemId_2")
+                            .Add("tittel", "someArchivePartTitle_2")
                             .Add("klassifikasjonssystem",
                                 new XmlElementHelper()
                                     .Add("klasse", // Has 2 registrations
@@ -104,16 +106,16 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new N5_20_NumberOfRegistrationsPerClass());
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Klasse (systemID): someClassSystemId_1 - Antall: 2"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Klasse (systemID): someClassSystemId_1 - Antall: 2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Klasse (systemID): someClassSystemId_3 - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Klasse (systemID): someClassSystemId_3 - Antall: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Klasse (systemID): someClassSystemId_6 - Antall: 2"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Klasse (systemID): someClassSystemId_6 - Antall: 2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Klasse (systemID): someClassSystemId_8 - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Klasse (systemID): someClassSystemId_8 - Antall: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Klasser uten registreringer (og uten underklasser) - Antall: 2"

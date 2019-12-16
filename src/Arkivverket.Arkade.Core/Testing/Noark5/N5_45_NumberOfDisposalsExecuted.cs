@@ -13,12 +13,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 45);
 
-        private readonly Dictionary<string, int> _numberOfDisposalsExecutedPerArchivePart;
+        private readonly Dictionary<ArchivePart, int> _numberOfDisposalsExecutedPerArchivePart;
+        private ArchivePart _currentArchivePart = new ArchivePart();
         private readonly bool _disposalsAreDocumented;
 
         public N5_45_NumberOfDisposalsExecuted(Archive archive)
         {
-            _numberOfDisposalsExecutedPerArchivePart = new Dictionary<string, int>();
+            _numberOfDisposalsExecutedPerArchivePart = new Dictionary<ArchivePart, int>();
             _disposalsAreDocumented = DisposalsAreDocumented(archive);
         }
 
@@ -48,7 +49,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 if (_numberOfDisposalsExecutedPerArchivePart.Keys.Count > 1) // Multiple archiveparts
                     message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, archivePartDisposalsCount.Key) + " - ");
+                        string.Format(Noark5Messages.ArchivePartSystemId, archivePartDisposalsCount.Key.SystemId, archivePartDisposalsCount.Key.Name) + " - ");
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
 
@@ -84,12 +85,20 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if(eventArgs.NameEquals("arkivdel"))
+                _currentArchivePart = new ArchivePart();
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-                _numberOfDisposalsExecutedPerArchivePart[eventArgs.Value] = 0;
+            {
+                _currentArchivePart.SystemId = eventArgs.Value;
+                _numberOfDisposalsExecutedPerArchivePart.Add(_currentArchivePart, 0);
+            }
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
         }
 
         private static bool DisposalsAreDocumented(Archive archive)
