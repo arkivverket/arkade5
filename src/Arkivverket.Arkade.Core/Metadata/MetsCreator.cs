@@ -145,7 +145,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                             ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
                             name = metadataArchiveCreator.ContactPerson,
-                            note = new[] { metadataArchiveCreator.Address, metadataArchiveCreator.Telephone, metadataArchiveCreator.Email }
+                            note = GetNotes(metadataArchiveCreator)
                         });
                     }
                 }
@@ -176,7 +176,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         OTHERROLESpecified = true,
                         OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.SUBMITTER,
                         name = metadata.Transferer.ContactPerson,
-                        note = new[] { metadata.Transferer.Address, metadata.Transferer.Telephone, metadata.Transferer.Email }
+                        note = GetNotes(metadata.Transferer)
                     });
                 }
             }
@@ -206,7 +206,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         OTHERROLESpecified = true,
                         OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
                         name = metadata.Producer.ContactPerson,
-                        note = new[] { metadata.Producer.Address, metadata.Producer.Telephone, metadata.Producer.Email }
+                        note = GetNotes(metadata.Producer)
                     });
                 }
             }
@@ -234,7 +234,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                             ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
                             name = metadataOwner.ContactPerson,
-                            note = new[] { metadataOwner.Address, metadataOwner.Telephone, metadataOwner.Email }
+                            note = GetNotes(metadataOwner)
                         });
                     }
                 }
@@ -261,7 +261,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                         ROLE = metsTypeMetsHdrAgentROLE.CREATOR,
                         name = metadata.Creator.ContactPerson,
-                        note = new[] { metadata.Creator.Address, metadata.Creator.Telephone, metadata.Creator.Email }
+                        note = GetNotes(metadata.Creator)
                     });
                 }
             }
@@ -328,6 +328,15 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             if (metsTypeMetsHdrAgents.Any())
                 metsHdr.agent = metsTypeMetsHdrAgents.ToArray();
+        }
+
+        private static string[] GetNotes(MetadataEntityInformationUnit infoUnit)
+        {
+            string[] fields = {infoUnit.Address, infoUnit.Telephone, infoUnit.Email};
+
+            string[] notes = fields.Where(field => !string.IsNullOrEmpty(field)).ToArray();
+
+            return notes;
         }
 
         private static void CreateAmdSec(metsType mets, ArchiveMetadata metadata)
