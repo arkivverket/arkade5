@@ -24,6 +24,8 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         public static mets Create(ArchiveMetadata metadata)
         {
+            MetadataCleaner.Clean(metadata);
+
             var mets = new mets();
 
             CreateMetsElementAttributes(mets, metadata);
