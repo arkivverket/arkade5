@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using Arkivverket.Arkade.Core.Base;
 
 namespace Arkivverket.Arkade.Core.Metadata
@@ -77,7 +76,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static string Clean(string text)
         {
-            return Regex.Replace(text, @"\t|\n|\r", "").Trim();
+            return text.Trim(' ', '\t', '\n', '\r');
         }
     }
 }

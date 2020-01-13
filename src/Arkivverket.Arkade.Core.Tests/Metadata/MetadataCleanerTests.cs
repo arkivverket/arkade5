@@ -17,18 +17,18 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
                 {
                     new MetadataEntityInformationUnit
                     {
-                        ContactPerson = "Neil\n Armstrong\r\n",
+                        ContactPerson = "\nNeil Armstrong\r\n",
                         Address = " The Moon "
                     }
                 },
                 Transferer = new MetadataEntityInformationUnit
                 {
-                    ContactPerson = "Buzz\n Aldrin\r\n",
+                    ContactPerson = "\nBuzz Aldrin\r\n",
                     Address = " The Eagle "
                 },
                 Producer = new MetadataEntityInformationUnit
                 {
-                    ContactPerson = "Michael\n Collins\r\n",
+                    ContactPerson = "\nMichael Collins\r\n",
                     Address = " The Command Module "
                 },
                 System = new MetadataSystemInformationUnit
