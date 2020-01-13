@@ -37,6 +37,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     journalPost.Status
                 }
                 into grouped
+                where !string.IsNullOrWhiteSpace(grouped.Key.Status)
                 select new
                 {
                     grouped.Key.SystemId,

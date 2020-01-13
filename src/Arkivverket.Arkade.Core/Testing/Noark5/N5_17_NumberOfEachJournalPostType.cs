@@ -37,6 +37,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                                        journalPost.JournalpostType
                                    }
                 into grouped
+                where !string.IsNullOrWhiteSpace(grouped.Key.JournalpostType)
                 select new
                 {
                     grouped.Key.ArchivePartSystemId,

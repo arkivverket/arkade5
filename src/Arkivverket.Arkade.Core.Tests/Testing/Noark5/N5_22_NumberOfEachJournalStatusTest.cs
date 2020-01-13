@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -115,6 +115,30 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     r.IsError() // Only "Arkivert" or "Utgår" on regular deposits
             );
             testRun.Results.Count.Should().Be(6);
+        }
+
+        [Fact]
+        public void ShouldHandleEmptyOrAbsentJournalStatuses()
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel",
+                        new XmlElementHelper()
+                            .Add("systemID", "someArchivePartSystemId_1")
+                            .Add("klassifikasjonssystem",
+                                new XmlElementHelper().Add("klasse",
+                                    new XmlElementHelper()
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering",
+                                                new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper().Add("journalstatus",
+                                                    string.Empty))) // Status empty
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering",
+                                                new[] {"xsi:type", "journalpost"},
+                                                string.Empty)))))); // No status element
+
+            helper.RunEventsOnTest(new N5_22_NumberOfEachJournalStatus()).Results.Count.Should().Be(0);
         }
     }
 }

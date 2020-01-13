@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -281,6 +281,41 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
 
             testRun.Results.Count.Should().Be(5);
+        }
+
+        [Fact]
+        public void ShouldHandleEmptyOrAbsentJournalPostTypes()
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel",
+                        new XmlElementHelper()
+                            .Add("systemID", "someArchivePartSystemId_3")
+                            .Add("klassifikasjonssystem",
+                                new XmlElementHelper().Add("klasse",
+                                    new XmlElementHelper()
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering",
+                                                new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper()
+                                                    .Add("systemID", "someJournalPostSystemId_8")
+                                                    .Add("dokumentbeskrivelse",
+                                                        new XmlElementHelper()
+                                                            .Add("tilknyttetRegistreringSom", "Hoveddokument"))
+                                                    .Add("journalposttype", string.Empty))) // Type empty
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering",
+                                                new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper()
+                                                    .Add("systemID", "someJournalPostSystemId_9")
+                                                    .Add("dokumentbeskrivelse",
+                                                        new XmlElementHelper().Add("tilknyttetRegistreringSom",
+                                                            "Hoveddokument")))))))); // No type element
+
+
+            TestRun testRun = helper.RunEventsOnTest(new N5_17_NumberOfEachJournalPostType());
+
+            testRun.Results.Count.Should().Be(0);
         }
     }
 }
