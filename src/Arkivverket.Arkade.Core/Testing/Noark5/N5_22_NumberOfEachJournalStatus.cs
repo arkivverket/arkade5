@@ -30,6 +30,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var testResults = new List<TestResult>();
 
             var journalPostQuery = from journalPost in _journalPosts
+                where journalPost.Status != null
                 group journalPost by new
                 {
                     journalPost.ArchivePart.SystemId,
@@ -37,7 +38,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     journalPost.Status
                 }
                 into grouped
-                where !string.IsNullOrWhiteSpace(grouped.Key.Status)
                 select new
                 {
                     grouped.Key.SystemId,

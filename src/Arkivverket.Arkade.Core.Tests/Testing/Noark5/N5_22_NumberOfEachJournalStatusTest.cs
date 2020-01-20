@@ -138,7 +138,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 new[] {"xsi:type", "journalpost"},
                                                 string.Empty)))))); // No status element
 
-            helper.RunEventsOnTest(new N5_22_NumberOfEachJournalStatus()).Results.Count.Should().Be(0);
+            TestRun testRun = helper.RunEventsOnTest(new N5_22_NumberOfEachJournalStatus());
+
+            testRun.Results.Should().Contain(r => r.Message.Equals("Journalstatus:  - Antall: 1") && r.IsError());
+
+            testRun.Results.Count.Should().Be(1);
         }
     }
 }

@@ -315,7 +315,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_17_NumberOfEachJournalPostType());
 
-            testRun.Results.Count.Should().Be(0);
+            testRun.Results.Should().Contain(r => r.Message.Equals("Journalposttype:  - Antall: 1") && r.IsError());
+
+            testRun.Results.Count.Should().Be(1);
         }
     }
 }

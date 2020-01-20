@@ -30,6 +30,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override List<TestResult> GetTestResults()
         {
             var journalPostQuery = from journalPost in _journalPosts
+                where journalPost.JournalpostType != null
                 group journalPost by new
                 {
                                        ArchivePartSystemId = journalPost.ArchivePart.SystemId,
@@ -37,7 +38,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                                        journalPost.JournalpostType
                                    }
                 into grouped
-                where !string.IsNullOrWhiteSpace(grouped.Key.JournalpostType)
                 select new
                 {
                     grouped.Key.ArchivePartSystemId,
@@ -61,7 +61,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     message.Insert(0,
                         string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId, item.ArchivePartName) + " - ");
 
-                _testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
+                ResultType resultType = item.JournalpostType == string.Empty ? ResultType.Error : ResultType.Success;
+
+                _testResults.Add(new TestResult(resultType, new Location(""), message.ToString()));
             }
 
             return _testResults;
