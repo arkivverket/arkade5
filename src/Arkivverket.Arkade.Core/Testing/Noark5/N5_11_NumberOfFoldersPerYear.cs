@@ -61,7 +61,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (eventArgs.Path.Matches("opprettetDato", "mappe"))
             {
-                int year = DateTime.Parse(eventArgs.Value).Year;
+                int year;
+
+                if (Noark5TestHelper.TryParseArchiveDate(eventArgs.Value, out DateTime registrationCreatedTime))
+                    year = registrationCreatedTime.Year;
+                else
+                    return;
 
                 if (_currentArchivePart.FoldersByYear.ContainsKey(year))
                     _currentArchivePart.FoldersByYear[year]++;
