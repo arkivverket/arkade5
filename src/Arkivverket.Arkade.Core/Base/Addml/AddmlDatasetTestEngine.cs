@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         private readonly FlatFileReaderFactory _flatFileReaderFactory;
         private readonly IStatusEventHandler _statusEventHandler;
         private readonly List<TestResult> _testResultsFailedRecordsList = new List<TestResult>();
-        private const int MaxNumberOfSingleReportedFieldDelimiterErrors = 99;
+        private const int MaxNumberOfSingleReportedFieldDelimiterErrors = 25;
 
         public AddmlDatasetTestEngine(FlatFileReaderFactory flatFileReaderFactory, AddmlProcessRunner addmlProcessRunner,
             IStatusEventHandler statusEventHandler)
