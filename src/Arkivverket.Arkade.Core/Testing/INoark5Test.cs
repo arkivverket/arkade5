@@ -5,9 +5,9 @@ namespace Arkivverket.Arkade.Core.Testing
 {
     public interface INoark5Test : IArkadeTest
     {
-        void OnReadStartElementEvent(object sender, ReadElementEventArgs e);
-        void OnReadAttributeEvent(object sender, ReadElementEventArgs e);
-        void OnReadEndElementEvent(object sender, ReadElementEventArgs e);
+        void OnReadStartElementEvent(object sender, ReadElementEventArgs eventArgs);
+        void OnReadAttributeEvent(object sender, ReadElementEventArgs eventArgs);
         void OnReadElementValueEvent(object sender, ReadElementEventArgs eventArgs);
+        void OnReadEndElementEvent(object sender, ReadElementEventArgs eventArgs);
     }
 }
