@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Util;
 using Autofac;
@@ -11,8 +11,11 @@ namespace Arkivverket.Arkade.Core.Base
     public class Arkade : IDisposable
     {
         private readonly ArkadeApi _arkadeApi;
+        private readonly ArkadeVersion _arkadeVersion;
         private readonly IContainer _container;
 
+        public ArkadeVersion Version() => _arkadeVersion;
+        
         public Arkade()
         {
             var builder = new ContainerBuilder();
@@ -21,6 +24,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             _container.BeginLifetimeScope();
             _arkadeApi = _container.Resolve<ArkadeApi>();
+            _arkadeVersion = _container.Resolve<ArkadeVersion>();
         }
 
         public void Dispose()

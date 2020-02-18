@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Util;
 using RestSharp.Extensions;
 using Serilog;
 
@@ -18,6 +19,19 @@ namespace Arkivverket.Arkade.CLI
             {
                 var arkade = new Core.Base.Arkade();
 
+                Log.Information($"ARKADE 5 v{ArkadeVersion.Current} \n--------------------------------\n");
+
+                if (arkade.Version().UpdateIsAvailable())
+                {
+                    Log.Warning("    The current Arkade 5 version is outdated!");
+                    Log.Information($"Arkade 5 v{arkade.Version().GetLatest()} is available.");
+                }
+
+                Log.Information(
+                    "Download the latest Arkade 5 version from: https://github.com/arkivverket/arkade5/releases/latest");
+                Log.Information(
+                    "See version history and release notes at: https://github.com/arkivverket/arkade5/releases \n");
+                
                 var fileInfo = new FileInfo(options.Archive);
                 Log.Information($"Processing archive: {fileInfo.FullName}");
 
