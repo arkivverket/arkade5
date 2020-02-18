@@ -53,6 +53,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private GuiMetaDataModel _metaDataRecipient = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
         private GuiMetaDataModel _metaDataArchiveSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
+        private GuiMetaDataModel _metaDataCreatorSoftwareSystem = new GuiMetaDataModel(null, null, null, null, GuiObjectType.system);
         private GuiMetaDataModel _metaDataNoarkSection = new GuiMetaDataModel(null, null, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataExtractionDate = new GuiMetaDataModel(null);
 
@@ -62,6 +63,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             "Noark3", "Noark4", "Noark5", "Fagsystem"
         }; 
 
+        public string ArkadeNameAndCurrentVersion { get; } = $"Arkade 5 {ArkadeVersion.Current}";
 
         public DelegateCommand CreatePackageCommand { get; set; }
         public DelegateCommand NewProgramSessionCommand { get; set; }
@@ -166,6 +168,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             get { return _metaDataArchiveSystem; }
             set { SetProperty(ref _metaDataArchiveSystem, value); }
+        }
+
+        public GuiMetaDataModel MetaDataCreatorSoftwareSystem
+        {
+            get { return _metaDataCreatorSoftwareSystem; }
+            set { SetProperty(ref _metaDataCreatorSoftwareSystem, value); }
         }
 
         public GuiMetaDataModel MetaDataNoarkSection
@@ -330,6 +338,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             if (archiveMetadata.Label != null)
                 MetaDataNoarkSection.UserdefinedLabel = archiveMetadata.Label;
+
+            if (archiveMetadata.CreatorSoftwareSystem != null)
+                MetaDataCreatorSoftwareSystem = GuiMetadataMapper.MapToCreatorSoftwareSystem(archiveMetadata.CreatorSoftwareSystem);
 
             UserdefinedLabelIsSelected = true;
         }

@@ -268,6 +268,18 @@ namespace Arkivverket.Arkade.Core.Metadata
                 }
             }
 
+            // CREATOR SOFTWARE SYSTEM:
+
+            metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+            {
+                ROLE = metsTypeMetsHdrAgentROLE.CREATOR,
+                TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
+                OTHERTYPESpecified = true,
+                OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
+                name = "Arkade 5",
+                note = new[] {$"{ArkadeVersion.Current}"}
+            });
+
             // RECIPIENT:
 
             if (!string.IsNullOrEmpty(metadata.Recipient))

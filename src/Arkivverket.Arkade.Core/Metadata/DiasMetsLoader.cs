@@ -60,6 +60,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             LoadCreator(archiveMetadata, metsHdrAgents);
             LoadRecipient(archiveMetadata, metsHdrAgents);
             LoadSystem(archiveMetadata, metsHdrAgents);
+            LoadCreatorSoftwareSystem(archiveMetadata, metsHdrAgents);
             LoadArchiveSystem(archiveMetadata, metsHdrAgents);
         }
 
@@ -258,6 +259,27 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             if (HasData(system))
                 archiveMetadata.System = system;
+        }
+
+
+        private static void LoadCreatorSoftwareSystem(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
+        {
+            metsTypeMetsHdrAgent metsSystemAgent = metsHdrAgents.FirstOrDefault(a =>
+                a.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
+                a.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
+                a.ROLE == metsTypeMetsHdrAgentROLE.CREATOR 
+       
+            );
+
+            if (metsSystemAgent == null)
+                return;
+
+            var creatorSoftwareSystem = new MetadataSystemInformationUnit();
+
+            LoadSystemProperties(creatorSoftwareSystem, metsSystemAgent);
+
+            if (HasData(creatorSoftwareSystem))
+                archiveMetadata.CreatorSoftwareSystem = creatorSoftwareSystem;
         }
 
         private static void LoadArchiveSystem(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)

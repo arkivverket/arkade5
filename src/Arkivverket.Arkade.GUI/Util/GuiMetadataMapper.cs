@@ -49,6 +49,11 @@ namespace Arkivverket.Arkade.GUI.Util
             return new GuiMetaDataModel(system.Name, system.Version, system.Type, system.TypeVersion, GuiObjectType.system);
         }
 
+        public static GuiMetaDataModel MapToCreatorSoftwareSystem(MetadataSystemInformationUnit creatorSoftwareSystem)
+        {
+            return new GuiMetaDataModel(creatorSoftwareSystem.Name, creatorSoftwareSystem.Version, string.Empty, string.Empty, GuiObjectType.system);
+        }
+
         public static GuiMetaDataModel MapToArchiveSystem(MetadataSystemInformationUnit archiveSystem)
         {
             return MapToSystem(archiveSystem);
