@@ -346,11 +346,31 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static string[] GetNotes(MetadataEntityInformationUnit infoUnit)
         {
-            string[] fields = {infoUnit.Address, infoUnit.Telephone, infoUnit.Email};
+            var notes = new List<string>();
+            var notesOrder = new List<string>();
 
-            string[] notes = fields.Where(field => !string.IsNullOrEmpty(field)).ToArray();
+            if (!string.IsNullOrEmpty(infoUnit.Address))
+            {
+                notes.Add(infoUnit.Address);
+                notesOrder.Add("address");
+            }
 
-            return notes;
+            if (!string.IsNullOrEmpty(infoUnit.Telephone))
+            {
+                notes.Add(infoUnit.Telephone);
+                notesOrder.Add("telephone");
+            }
+
+            if (!string.IsNullOrEmpty(infoUnit.Email))
+            {
+                notes.Add(infoUnit.Email);
+                notesOrder.Add("email");
+            }
+
+            if (notes.Count > 0)
+                notes.Add(string.Join(",", notesOrder));
+
+            return notes.ToArray();
         }
 
         private static void CreateAmdSec(metsType mets, ArchiveMetadata metadata)
