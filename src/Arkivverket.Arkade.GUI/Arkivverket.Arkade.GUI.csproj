@@ -164,14 +164,9 @@
     <Compile Include="Util\ArchiveMetadataMapper.cs" />
     <Compile Include="Util\ArkadeInstance.cs" />
     <Compile Include="Util\ArkadeProcessingAreaLocationSetting.cs" />
-    <Compile Include="Util\Colors.cs" />
     <Compile Include="Util\DetailedExceptionMessage.cs" />
     <Compile Include="Util\Extensions.cs" />
-    <Compile Include="Util\NotEmptyValidationRule.cs" />
     <Compile Include="Util\GuiMetadataMapper.cs" />
-    <Compile Include="Util\RadioConverter.cs" />
-    <Compile Include="Util\GuiProcessingExceptions.cs" />
-    <Compile Include="Util\FileFolderDialogs.cs" />
     <Compile Include="Util\LogConfiguration.cs" />
     <Compile Include="ViewModels\CreatePackageViewModel.cs" />
     <Compile Include="ViewModels\LoadArchiveExtractionViewModel.cs" />
