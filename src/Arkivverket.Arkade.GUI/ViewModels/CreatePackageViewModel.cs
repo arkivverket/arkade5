@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Arkivverket.Arkade.GUI.Resources;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.WindowsAPICodePack.Taskbar;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
@@ -352,6 +353,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
         }
 
         private void RunNavigateToLoadArchivePage()
@@ -455,6 +457,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _isRunningCreatePackage = true;
             CreatePackageCommand.RaiseCanExecuteChanged();
+            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Indeterminate);
 
             Task.Factory.StartNew(() => CreatePackageRunEngine(outputDirectory)).ContinueWith(t => OnCompletedCreatePackage());
         }
@@ -463,6 +466,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _isRunningCreatePackage = false;
             CreatePackageCommand.RaiseCanExecuteChanged();
+            TaskbarManager.Instance.SetProgressValue(1, 1);
         }
 
 
