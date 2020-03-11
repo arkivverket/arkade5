@@ -368,7 +368,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             }
 
             if (notes.Count > 0)
-                notes.Add(string.Join(",", notesOrder));
+                notes.Add("notescontent:" + string.Join(",", notesOrder));
 
             return notes.ToArray();
         }
