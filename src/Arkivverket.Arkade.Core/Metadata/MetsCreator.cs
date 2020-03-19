@@ -352,19 +352,19 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (!string.IsNullOrEmpty(infoUnit.Address))
             {
                 notes.Add(infoUnit.Address);
-                notesOrder.Add("address");
+                notesOrder.Add("Address");
             }
 
             if (!string.IsNullOrEmpty(infoUnit.Telephone))
             {
                 notes.Add(infoUnit.Telephone);
-                notesOrder.Add("telephone");
+                notesOrder.Add("Telephone");
             }
 
             if (!string.IsNullOrEmpty(infoUnit.Email))
             {
                 notes.Add(infoUnit.Email);
-                notesOrder.Add("email");
+                notesOrder.Add("Email");
             }
 
             if (notes.Count > 0)

@@ -75,7 +75,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[1].note.Should().Contain(n => n.Equals("Road 1, 1000 City"));
             metsHdrAgents[1].note.Should().Contain(n => n.Equals("1-99999999"));
             metsHdrAgents[1].note.Should().Contain(n => n.Equals("post@entity-1.com"));
-            metsHdrAgents[1].note.Should().Contain(n => n.Equals("notescontent:address,telephone,email"));
+            metsHdrAgents[1].note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
 
             // ARCHIVECREATOR 2: 
 
@@ -89,7 +89,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[3].note.Should().Contain(n => n.Equals("Road 2, 2000 City"));
             metsHdrAgents[3].note.Should().Contain(n => n.Equals("2-99999999"));
             metsHdrAgents[3].note.Should().Contain(n => n.Equals("post@entity-2.com"));
-            metsHdrAgents[3].note.Should().Contain(n => n.Equals("notescontent:address,telephone,email"));
+            metsHdrAgents[3].note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
 
             // TRANSFERER:
 
@@ -105,7 +105,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[5].note.Should().Contain(n => n.Equals("Road 3, 3000 City"));
             metsHdrAgents[5].note.Should().Contain(n => n.Equals("3-99999999"));
             metsHdrAgents[5].note.Should().Contain(n => n.Equals("post@entity-3.com"));
-            metsHdrAgents[5].note.Should().Contain(n => n.Equals("notescontent:address,telephone,email"));
+            metsHdrAgents[5].note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
 
             // PRODUCER:
 
@@ -121,7 +121,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[7].note.Should().Contain(n => n.Equals("Road 4, 4000 City"));
             metsHdrAgents[7].note.Should().Contain(n => n.Equals("4-99999999"));
             metsHdrAgents[7].note.Should().Contain(n => n.Equals("post@entity-4.com"));
-            metsHdrAgents[7].note.Should().Contain(n => n.Equals("notescontent:address,telephone,email"));
+            metsHdrAgents[7].note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
 
             // OWNER 1:
 
@@ -148,7 +148,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[11].note.Should().Contain(n => n.Equals("Road 6, 6000 City"));
             metsHdrAgents[11].note.Should().Contain(n => n.Equals("6-99999999"));
             metsHdrAgents[11].note.Should().Contain(n => n.Equals("post@entity-6.com"));
-            metsHdrAgents[11].note.Should().Contain(n => n.Equals("notescontent:address,telephone,email"));
+            metsHdrAgents[11].note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
 
             // CREATOR:
 
@@ -162,7 +162,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[13].note.Should().Contain(n => n.Equals("Road 7, 7000 City"));
             metsHdrAgents[13].note.Should().Contain(n => n.Equals("7-99999999"));
             metsHdrAgents[13].note.Should().Contain(n => n.Equals("post@entity-7.com"));
-            metsHdrAgents[13].note.Should().Contain(n => n.Equals("notescontent:address,telephone,email"));
+            metsHdrAgents[13].note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
 
             //  CREATOR SOFTWARE SYSTEM
 
@@ -265,7 +265,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             creator.note.Should().Contain(n => n.Equals("Some address"));
             creator.note.Should().Contain(n => n.Equals("99999999"));
             creator.note.Should().Contain(n => n.Equals("some@email.address"));
-            creator.note.Should().Contain(n => n.Equals("notescontent:address,telephone,email"));
+            creator.note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
 
             metsTypeMetsHdrAgent producer = metsHdrIndividualAgents.First(
                 a => a.OTHERROLE == metsTypeMetsHdrAgentOTHERROLE.PRODUCER
@@ -273,7 +273,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
 
             producer.note.Should().Contain(n => n.Equals("Some address"));
             producer.note.Should().Contain(n => n.Equals("some@email.address"));
-            producer.note.Should().Contain(n => n.Equals("notescontent:address,email")); // No telephone note
+            producer.note.Should().Contain(n => n.Equals("notescontent:Address,Email")); // No telephone note
 
             metsTypeMetsHdrAgent transferer = metsHdrIndividualAgents.First(
                 a => a.OTHERROLE == metsTypeMetsHdrAgentOTHERROLE.SUBMITTER
