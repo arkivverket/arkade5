@@ -171,6 +171,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[14].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
             metsHdrAgents[14].name.Should().Be("Arkade 5");
             metsHdrAgents[14].note.Should().Contain(n => n.Equals($"{ArkadeVersion.Current}"));
+            metsHdrAgents[14].note.Should().Contain(n => n.Equals("notescontent:Version"));
 
             // RECIPIENT:
 
@@ -187,6 +188,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[16].note.Should().Contain(n => n.Equals("v1.0.0"));
             metsHdrAgents[16].note.Should().Contain(n => n.Equals("Noark5"));
             metsHdrAgents[16].note.Should().Contain(n => n.Equals("v3.1"));
+            metsHdrAgents[16].note.Should().Contain(n => n.Equals("notescontent:Version,Type,TypeVersion"));
 
             // ARCHIVE SYSTEM:
 
@@ -197,6 +199,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[17].name.Should().Be("Some archive system name");
             metsHdrAgents[17].note.Should().Contain(n => n.Equals("v2.0.0"));
             metsHdrAgents[17].note.Should().Contain(n => n.Equals("Noark4"));
+            metsHdrAgents[17].note.Should().Contain(n => n.Equals("notescontent:Version,Type"));
 
             // Type-version applies to Noark5 only and is not expected amongst agents:
             metsHdrAgents.Length.Should().Be(18);
@@ -249,6 +252,20 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
                 {
                     ContactPerson = "Some person"
                     // No contact info
+                },
+                System = new MetadataSystemInformationUnit
+                {
+                    Name = "Some system",
+                    Version = "1.0",
+                    Type = "Noark5",
+                    TypeVersion = "2.0"
+                },
+                ArchiveSystem = new MetadataSystemInformationUnit
+                {
+                    Name = "Some system",
+                    Version = "1.0",
+                    Type = "Noark4",
+                    // No type-version
                 }
             };
 
@@ -280,6 +297,33 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             );
 
             transferer.note.Should().BeNull(); // No contact info notes = no describing note
+
+            IEnumerable<metsTypeMetsHdrAgent> metsHdrSoftwareAgents = mets.metsHdr.agent.Where(
+                a => a.OTHERTYPESpecified && a.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE
+            );
+            
+            metsTypeMetsHdrAgent system = metsHdrSoftwareAgents.First(
+                a => a.ROLE == metsTypeMetsHdrAgentROLE.ARCHIVIST
+            );
+
+            system.note.Should().Contain(n => n.Equals("1.0"));
+            system.note.Should().Contain(n => n.Equals("Noark5"));
+            system.note.Should().Contain(n => n.Equals("2.0"));
+            system.note.Should().Contain(n => n.Equals("notescontent:Version,Type,TypeVersion"));
+
+            metsTypeMetsHdrAgent archiveSystem = metsHdrSoftwareAgents.First(
+                a => a.OTHERROLE == metsTypeMetsHdrAgentOTHERROLE.PRODUCER
+            );
+
+            archiveSystem.note.Should().Contain(n => n.Equals("1.0"));
+            archiveSystem.note.Should().Contain(n => n.Equals("Noark4"));
+            archiveSystem.note.Should().Contain(n => n.Equals("notescontent:Version,Type")); // No type-version note
+
+            metsTypeMetsHdrAgent creatorSoftwareSystem = metsHdrSoftwareAgents.First(
+                a => a.ROLE == metsTypeMetsHdrAgentROLE.CREATOR
+            );
+
+            creatorSoftwareSystem.note.Should().Contain(n => n.Equals("notescontent:Version")); // Current Arkade version
         }
     }
 }

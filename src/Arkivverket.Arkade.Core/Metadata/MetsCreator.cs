@@ -277,7 +277,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                 OTHERTYPESpecified = true,
                 OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
                 name = "Arkade 5",
-                note = new[] {$"{ArkadeVersion.Current}"}
+                note = new[] {$"{ArkadeVersion.Current}", "notescontent:Version"}
             });
 
             // RECIPIENT:
@@ -309,7 +309,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         name = system.Name
                     };
 
-                    systemAgent.note = GetSystemPropertiesNotes(system);
+                    systemAgent.note = GetSystemInfoUnitNotes(system);
 
                     metsTypeMetsHdrAgents.Add(systemAgent);
                 }
@@ -334,7 +334,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         name = archiveSystem.Name
                     };
 
-                    archiveSystemAgent.note = GetSystemPropertiesNotes(archiveSystem);
+                    archiveSystemAgent.note = GetSystemInfoUnitNotes(archiveSystem);
 
                     metsTypeMetsHdrAgents.Add(archiveSystemAgent);
                 }
@@ -371,6 +371,35 @@ namespace Arkivverket.Arkade.Core.Metadata
                 notes.Add("notescontent:" + string.Join(",", notesContent));
 
             return notes.Any() ? notes.ToArray() : null;
+        }
+
+        private static string[] GetSystemInfoUnitNotes(MetadataSystemInformationUnit system)
+        {
+            var notes = new List<string>();
+            var notesContent = new List<string>();
+
+            if (!string.IsNullOrEmpty(system.Version))
+            {
+                notes.Add(system.Version);
+                notesContent.Add("Version");
+            }
+
+            if (!string.IsNullOrEmpty(system.Type) && MetsTranslationHelper.IsValidSystemType(system.Type))
+            {
+                notes.Add(system.Type);
+                notesContent.Add("Type");
+            }
+
+            if (!string.IsNullOrEmpty(system.TypeVersion) && MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
+            {
+                notes.Add(system.TypeVersion);
+                notesContent.Add("TypeVersion");
+            }
+
+            if (notes.Count > 0)
+                notes.Add("notescontent:" + string.Join(",", notesContent));
+
+            return notes.ToArray();
         }
 
         private static void CreateAmdSec(metsType mets, ArchiveMetadata metadata)
@@ -484,30 +513,6 @@ namespace Arkivverket.Arkade.Core.Metadata
                    !string.IsNullOrEmpty(entityInformationUnit.Address) ||
                    !string.IsNullOrEmpty(entityInformationUnit.Telephone) ||
                    !string.IsNullOrEmpty(entityInformationUnit.Email);
-        }
-
-        private static string[] GetSystemPropertiesNotes(MetadataSystemInformationUnit system)
-        {
-            var notes = new List<string>();
-
-            if (!string.IsNullOrEmpty(system.Version))
-            {
-                notes.Add(system.Version);
-            }
-
-            if (!string.IsNullOrEmpty(system.Type) &&
-                MetsTranslationHelper.IsValidSystemType(system.Type))
-            {
-                notes.Add(system.Type);
-            }
-
-            if (!string.IsNullOrEmpty(system.TypeVersion) &&
-                MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
-            {
-                notes.Add(system.TypeVersion);
-            }
-
-            return notes.Any() ? notes.ToArray() : null;
         }
     }
 }
