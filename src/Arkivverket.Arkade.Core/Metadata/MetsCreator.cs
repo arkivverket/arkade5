@@ -147,7 +147,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                             ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
                             name = metadataArchiveCreator.ContactPerson,
-                            note = GetNotes(metadataArchiveCreator)
+                            note = GetEntityInfoUnitNotes(metadataArchiveCreator)
                         });
                     }
                 }
@@ -178,7 +178,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         OTHERROLESpecified = true,
                         OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.SUBMITTER,
                         name = metadata.Transferer.ContactPerson,
-                        note = GetNotes(metadata.Transferer)
+                        note = GetEntityInfoUnitNotes(metadata.Transferer)
                     });
                 }
             }
@@ -208,7 +208,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         OTHERROLESpecified = true,
                         OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
                         name = metadata.Producer.ContactPerson,
-                        note = GetNotes(metadata.Producer)
+                        note = GetEntityInfoUnitNotes(metadata.Producer)
                     });
                 }
             }
@@ -236,7 +236,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                             ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
                             name = metadataOwner.ContactPerson,
-                            note = GetNotes(metadataOwner)
+                            note = GetEntityInfoUnitNotes(metadataOwner)
                         });
                     }
                 }
@@ -263,7 +263,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                         ROLE = metsTypeMetsHdrAgentROLE.CREATOR,
                         name = metadata.Creator.ContactPerson,
-                        note = GetNotes(metadata.Creator)
+                        note = GetEntityInfoUnitNotes(metadata.Creator)
                     });
                 }
             }
@@ -344,31 +344,31 @@ namespace Arkivverket.Arkade.Core.Metadata
                 metsHdr.agent = metsTypeMetsHdrAgents.ToArray();
         }
 
-        private static string[] GetNotes(MetadataEntityInformationUnit infoUnit)
+        private static string[] GetEntityInfoUnitNotes(MetadataEntityInformationUnit entity)
         {
             var notes = new List<string>();
-            var notesOrder = new List<string>();
+            var notesContent = new List<string>();
 
-            if (!string.IsNullOrEmpty(infoUnit.Address))
+            if (!string.IsNullOrEmpty(entity.Address))
             {
-                notes.Add(infoUnit.Address);
-                notesOrder.Add("Address");
+                notes.Add(entity.Address);
+                notesContent.Add("Address");
             }
 
-            if (!string.IsNullOrEmpty(infoUnit.Telephone))
+            if (!string.IsNullOrEmpty(entity.Telephone))
             {
-                notes.Add(infoUnit.Telephone);
-                notesOrder.Add("Telephone");
+                notes.Add(entity.Telephone);
+                notesContent.Add("Telephone");
             }
 
-            if (!string.IsNullOrEmpty(infoUnit.Email))
+            if (!string.IsNullOrEmpty(entity.Email))
             {
-                notes.Add(infoUnit.Email);
-                notesOrder.Add("Email");
+                notes.Add(entity.Email);
+                notesContent.Add("Email");
             }
 
             if (notes.Count > 0)
-                notes.Add("notescontent:" + string.Join(",", notesOrder));
+                notes.Add("notescontent:" + string.Join(",", notesContent));
 
             return notes.ToArray();
         }
