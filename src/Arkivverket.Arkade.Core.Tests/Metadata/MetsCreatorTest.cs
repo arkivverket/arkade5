@@ -279,7 +279,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
                 a => a.OTHERROLE == metsTypeMetsHdrAgentOTHERROLE.SUBMITTER
             );
 
-            transferer.note.Should().BeEmpty(); // No contact info notes = no describing note
+            transferer.note.Should().BeNull(); // No contact info notes = no describing note
         }
     }
 }

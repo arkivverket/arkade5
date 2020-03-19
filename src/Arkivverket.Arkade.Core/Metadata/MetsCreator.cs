@@ -370,7 +370,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (notes.Count > 0)
                 notes.Add("notescontent:" + string.Join(",", notesContent));
 
-            return notes.ToArray();
+            return notes.Any() ? notes.ToArray() : null;
         }
 
         private static void CreateAmdSec(metsType mets, ArchiveMetadata metadata)
