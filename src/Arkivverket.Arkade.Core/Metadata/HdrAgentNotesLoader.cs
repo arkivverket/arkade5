@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Metadata
         private static bool LooksLikeEmailAddress(string possibleEmailAddress)
         {
             return Regex.IsMatch(possibleEmailAddress,
-                @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
+                @"\A(?:[æøåa-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[æøåa-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[æøåa-z0-9](?:[æøåa-z0-9-]*[æøåa-z0-9])?\.)+[æøåa-z0-9](?:[æøåa-z0-9-]*[æøåa-z0-9])?)\Z",
                 RegexOptions.IgnoreCase
             );
         }

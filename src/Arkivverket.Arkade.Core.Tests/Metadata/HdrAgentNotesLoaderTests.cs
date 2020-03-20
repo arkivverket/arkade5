@@ -47,6 +47,12 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
         }
 
         [Fact]
+        public void GetEmailWithÆøåTest()
+        {
+            HdrAgentNotesLoader.GetEmail(new[] {"æøå@æøå.æøå", "eoa@eoa.eoa"}).Should().Be("æøå@æøå.æøå");
+        }
+
+        [Fact]
         public void GetVersionTest()
         {
             HdrAgentNotesLoader.GetVersion(_systemNotes).Should().Be(Version);
