@@ -214,17 +214,17 @@ namespace Arkivverket.Arkade.Core.Metadata
                     if (!string.IsNullOrEmpty(metsEntityAgent.name))
                         entityInfoUnit.ContactPerson = metsEntityAgent.name;
 
-                    string address = metsEntityAgent.note?.FirstOrDefault(LooksLikeAddress);
+                    string address = HdrAgentNotesLoader.GetAddress(metsEntityAgent.note);
 
                     if (!string.IsNullOrEmpty(address))
                         entityInfoUnit.Address = address;
 
-                    string phoneNumber = metsEntityAgent.note?.FirstOrDefault(LooksLikePhoneNumber);
+                    string phoneNumber = HdrAgentNotesLoader.GetTelephone(metsEntityAgent.note);
 
                     if (!string.IsNullOrEmpty(phoneNumber))
                         entityInfoUnit.Telephone = phoneNumber;
 
-                    string emailAddress = metsEntityAgent.note?.FirstOrDefault(LooksLikeEmailAddress);
+                    string emailAddress = HdrAgentNotesLoader.GetEmail(metsEntityAgent.note);
 
                     if (!string.IsNullOrEmpty(emailAddress))
                         entityInfoUnit.Email = emailAddress;
@@ -308,61 +308,20 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (metsSystemAgent.name != null)
                 system.Name = metsSystemAgent.name;
 
-            string type = metsSystemAgent.note?.FirstOrDefault(LooksLikeSystemType);
+            string type = HdrAgentNotesLoader.GetType(metsSystemAgent.note);
 
             if (type != null)
                 system.Type = type;
 
-            // Find first occurance of a version number defined before Type. That's probably the version ...
-            string version = metsSystemAgent.note?.TakeWhile(n => !n.Equals(type))
-                .FirstOrDefault(LooksLikeSystemVersion);
+            string version = HdrAgentNotesLoader.GetVersion(metsSystemAgent.note);
 
             if (version != null)
                 system.Version = version;
 
-            // Find first occurance of a version number defined after Type. That's probably the type-version ...
-            string typeVersion = metsSystemAgent.note?.SkipWhile(n => !n.Equals(type)).FirstOrDefault(LooksLikeSystemTypeVersion);
+            string typeVersion = HdrAgentNotesLoader.GetTypeVersion(metsSystemAgent.note);
 
             if (typeVersion != null && MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
                 system.TypeVersion = typeVersion;
-        }
-
-        private static bool LooksLikeAddress(string possibleAddress)
-        {
-            return !LooksLikeEmailAddress(possibleAddress) && !LooksLikePhoneNumber(possibleAddress);
-        }
-
-        private static bool LooksLikePhoneNumber(string possiblePhoneNumber)
-        {
-            return Regex.IsMatch(possiblePhoneNumber, @"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$");
-        }
-
-        private static bool LooksLikeEmailAddress(string possibleEmailAddress)
-        {
-            return Regex.IsMatch(possibleEmailAddress,
-                @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
-                RegexOptions.IgnoreCase
-            );
-        }
-
-        private static bool LooksLikeSystemVersion(string possibleSystemVersion)
-        {
-            return LooksLikeVersionNumber(possibleSystemVersion);
-        }
-
-        private static bool LooksLikeSystemType(string possibleSystemType)
-        {
-            return MetsTranslationHelper.IsValidSystemType(possibleSystemType);
-        }
-
-        private static bool LooksLikeSystemTypeVersion(string possibleSystemTypeVersion)
-        {
-            return LooksLikeVersionNumber(possibleSystemTypeVersion);
-        }
-
-        private static bool LooksLikeVersionNumber(string possibleVersionNumber)
-        {
-            return Regex.IsMatch(possibleVersionNumber, @"\d+(\.\d+)+");
         }
 
         private static bool HasData(object anObject)
