@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 20);
 
         private readonly List<Class> _classes = new List<Class>();
-        private string _currentArchivePartSystemId;
+        private ArchivePart _currentArchivePart = new ArchivePart();
         private Class _currentClass;
 
         public override TestId GetId()
@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             var testResults = new List<TestResult>();
 
-            bool multipleArchiveParts = _classes.GroupBy(j => j.ArchivePartSystemId).Count() > 1;
+            bool multipleArchiveParts = _classes.GroupBy(j => j.ArchivePart.SystemId).Count() > 1;
 
             foreach (Class @class in _classes.Where(c => c.NumberOfRegistrations > 0))
             {
@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 if (multipleArchiveParts)
                     message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, @class.ArchivePartSystemId) + " - ");
+                        string.Format(Noark5Messages.ArchivePartSystemId, @class.ArchivePart.SystemId, @class.ArchivePart.Name) + " - ");
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
             }
@@ -60,7 +60,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.NameEquals("klasse"))
-                _currentClass = new Class {ArchivePartSystemId = _currentArchivePartSystemId};
+                _currentClass = new Class {ArchivePart = _currentArchivePart};
 
             if (eventArgs.Path.Matches("registrering", "klasse"))
                 _currentClass.NumberOfRegistrations++;
@@ -69,7 +69,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-                _currentArchivePartSystemId = eventArgs.Value;
+                _currentArchivePart.SystemId = eventArgs.Value;
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
 
             if (eventArgs.Path.Matches("systemID", "klasse"))
                 _currentClass.SystemId = eventArgs.Value;
@@ -82,6 +85,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 _classes.Add(_currentClass);
                 _currentClass = null;
             }
+            if (eventArgs.NameEquals("arkivdel"))
+            {
+                _currentArchivePart = new ArchivePart();
+            }
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
@@ -91,8 +98,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private class Class
         {
             public string SystemId { get; set; }
-            public string ArchivePartSystemId { get; set; }
+            public ArchivePart ArchivePart { get; set; }
             public int NumberOfRegistrations { get; set; }
         }
+
     }
 }

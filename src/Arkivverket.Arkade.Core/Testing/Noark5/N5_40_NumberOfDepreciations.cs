@@ -13,8 +13,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 40);
 
         private int _totalNumberOfDeprecations;
-        private readonly List<Archivepart> _archiveParts = new List<Archivepart>();
-        private Archivepart _currentArchivePart;
+        private readonly List<N5_40_ArchivePart> _archiveParts = new List<N5_40_ArchivePart>();
+        private N5_40_ArchivePart _currentArchivePart;
 
         public override TestId GetId()
         {
@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             testResults.Add(new TestResult(ResultType.Success, new Location(""),
                 string.Format(Noark5Messages.TotalResultNumber, _totalNumberOfDeprecations.ToString())));
 
-            foreach (Archivepart archivePart in _archiveParts)
+            foreach (N5_40_ArchivePart archivePart in _archiveParts)
             {
                 foreach (KeyValuePair<string, int> pair in archivePart.TypeOfDepreciation)
                 {
@@ -50,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     {
                         var testresult = new TestResult(ResultType.Success, new Location(string.Empty),
                             string.Format(Noark5Messages.NumberOfDepreciationsMessage_ForArchivePart,
-                                archivePart.SystemId,
+                                archivePart.SystemId, archivePart.Name,
                                 type,
                                 numberOf));
 
@@ -73,9 +73,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
-                _currentArchivePart = new Archivepart { SystemId = eventArgs.Value };
+                _currentArchivePart = new N5_40_ArchivePart { SystemId = eventArgs.Value };
                 _archiveParts.Add(_currentArchivePart);
             }
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
 
             if (eventArgs.Path.Matches("avskrivningsmaate", "avskrivning"))
             {
@@ -98,9 +101,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
         }
 
-        private class Archivepart
+        private class N5_40_ArchivePart : ArchivePart
         {
-            public string SystemId { get; set; }
             public readonly Dictionary<string, int> TypeOfDepreciation = new Dictionary<string, int>();
         }
     }

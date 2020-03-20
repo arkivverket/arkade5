@@ -14,8 +14,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private int _invalidRegistrationCreationDateCount;
         private int _registrationCount;
-        private ArchivePart _currentArchivePart;
-        private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
+        private N5_27_ArchivePart _currentArchivePart;
+        private readonly List<N5_27_ArchivePart> _archiveParts = new List<N5_27_ArchivePart>();
 
         public override TestId GetId()
         {
@@ -35,7 +35,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 string.Format(Noark5Messages.DatesFirstAndLastRegistrationMessage_NumberOfRegistrations,
                     _registrationCount)));
 
-            foreach (ArchivePart archivePart in _archiveParts)
+            foreach (N5_27_ArchivePart archivePart in _archiveParts)
             {
                 if (archivePart.RegistrationCreationDates.Any())
                 {
@@ -43,13 +43,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                         string.Format(
                             Noark5Messages
                                 .DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart,
-                            archivePart.SystemId,
+                            archivePart.SystemId, archivePart.Name,
                             archivePart.RegistrationCreationDates.First().ToString("dd.MM.yyyy"))));
                     testResults.Add(new TestResult(ResultType.Success, new Location(""),
                         string.Format(
                             Noark5Messages
                                 .DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart,
-                            archivePart.SystemId,
+                            archivePart.SystemId, archivePart.Name,
                             archivePart.RegistrationCreationDates.Last().ToString("dd.MM.yyyy"))));
                 }
             }
@@ -68,9 +68,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
-                _currentArchivePart = new ArchivePart {SystemId = eventArgs.Value};
+                _currentArchivePart = new N5_27_ArchivePart {SystemId = eventArgs.Value};
                 _archiveParts.Add(_currentArchivePart);
             }
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
 
             if (!eventArgs.Path.Matches("opprettetDato", "registrering"))
                 return;
@@ -93,11 +96,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if(eventArgs.NameEquals("arkivdel"))
+                _currentArchivePart = new N5_27_ArchivePart();
         }
 
-        private class ArchivePart
+        private class N5_27_ArchivePart : ArchivePart
         {
-            public string SystemId { get; set; }
             public readonly SortedSet<DateTime> RegistrationCreationDates = new SortedSet<DateTime>();
         }
     }

@@ -207,7 +207,7 @@ Generert:  {2}</value>
     <value>Referert dokumentfil: {0} - Antall referanser: {1}</value>
   </data>
   <data name="ArchivePartSystemId" xml:space="preserve">
-    <value>Arkivdel (systemID): {0}</value>
+    <value>Arkivdel (systemID, tittel): {0}, {1}</value>
   </data>
   <data name="ControlNoSuperclassesHasFoldersMessage" xml:space="preserve">
     <value>Klasse med systemID {0}</value>
@@ -273,7 +273,7 @@ Generert:  {2}</value>
     <value>Referanse fra mappe (systemID) {0} til klasse (systemID) {1} er ikke gyldig</value>
   </data>
   <data name="DocumentFilesChecksumControlMessage" xml:space="preserve">
-    <value>Arkivdel (systemID) {0} - Filen {1} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {2}</value>
+    <value>Arkivdel (systemID, tittel): {0}, {1} - Filen {2} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {3}</value>
   </data>
   <data name="ExceptionDuringXmlValidation" xml:space="preserve">
     <value>Det oppsto et problem under validering av {0}: {1}</value>
@@ -300,22 +300,22 @@ Generert:  {2}</value>
     <value>Arkivdelstatus: {0}</value>
   </data>
   <data name="StatusOfArchivePartsMessage_ForArchivePart" xml:space="preserve">
-    <value>Status for arkivdel (systemID) {0}: {1}</value>
+    <value>Status for arkivdel (systemID, tittel) {0}, {1}: {2}</value>
   </data>
   <data name="NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart" xml:space="preserve">
-    <value>Antall klassifikasjonssystemer i arkivdel (systemID) {0}: {1}</value>
+    <value>Antall klassifikasjonssystemer i arkivdel (systemID, tittel) {0}, {1}: {2}</value>
   </data>
   <data name="NumberOf_PerArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID) {0}: {1}</value>
+    <value>Arkivdel (systemID - tittel) {0} - {1}: {2}</value>
   </data>
   <data name="NumberOfFoldersPerYear_ForArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID) {0} - {1}: {2}</value>
+    <value>Arkivdel (systemID, tittel) {0}, {1} - {2}: {3}</value>
   </data>
   <data name="DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID) {0} - Første registrering: Opprettet {1}</value>
+    <value>Arkivdel (systemID, tittel): {0}, {1} - Første registrering: Opprettet {2}</value>
   </data>
   <data name="DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID) {0} - Siste registrering: Opprettet {1}</value>
+    <value>Arkivdel (systemID, tittel): {0}, {1} - Siste registrering: Opprettet {2}</value>
   </data>
   <data name="CouldNotReadFromFiles" xml:space="preserve">
     <value>Kunne ikke lese fra en eller flere filer</value>
@@ -324,10 +324,10 @@ Generert:  {2}</value>
     <value>Periodeskille er skarpt og antallet journalposter i arkivstrukturen er ikke likt det i offentlig og løpende journal</value>
   </data>
   <data name="NumberOfPrecedentsInJournalpostsMessage_ForArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID) {0} - Antall presedenser i journalposter: {1}</value>
+    <value>Arkivdel (systemID, tittel) {0}, {1} - Antall presedenser i journalposter: {2}</value>
   </data>
   <data name="NumberOfPrecedentsInCaseFolderMessage_ForArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID) {0} - Antall presedenser i saksmapper: {1}</value>
+    <value>Arkivdel (systemID, tittel) {0}, {1} - Antall presedenser i saksmapper: {2}</value>
   </data>
   <data name="NumberOfPrecedentsInJournalpostsMessage" xml:space="preserve">
     <value>Antall presedenser i journalposter: {0}</value>
@@ -336,25 +336,25 @@ Generert:  {2}</value>
     <value>Antall merknader i {0}: {1}</value>
   </data>
   <data name="NumberOfDepreciationsMessage_ForArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID) {0} - {1}: {2}</value>
+    <value>Arkivdel (systemID, tittel) {0}, {1} - {2}: {3}</value>
   </data>
   <data name="NumberOfCrossReferencesToBasicRegistrationMessage" xml:space="preserve">
     <value>Antall kryssreferanser fra basisregistreringer: {0}</value>
   </data>
   <data name="NumberOfCrossReferencesToBasicRegistrationMessage_ForArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID): {0 } - Antall kryssreferanser fra basisregistreringer: {1}</value>
+    <value>Arkivdel (systemID, tittel): {0}, {1} - Antall kryssreferanser fra basisregistreringer: {2}</value>
   </data>
   <data name="NumberOfCrossReferencesToClassMessage" xml:space="preserve">
     <value>Antall kryssreferanser fra klasser: {0}</value>
   </data>
   <data name="NumberOfCrossReferencesToClassMessage_ForArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID): {0 } - Antall kryssreferanser fra klasser: {1}</value>
+    <value>Arkivdel (systemID, tittel): {0 }, {1} - Antall kryssreferanser fra klasser: {2}</value>
   </data>
   <data name="NumberOfCrossReferencesToFolderMessage" xml:space="preserve">
     <value>Antall kryssreferanser fra mapper: {0}</value>
   </data>
   <data name="NumberOfCrossReferencesToFolderMessage_ForArchivePart" xml:space="preserve">
-    <value>Arkivdel (systemID): {0 } - Antall kryssreferanser fra mapper: {1}</value>
+    <value>Arkivdel (systemID, tittel): {0}, {1} - Antall kryssreferanser fra mapper: {2}</value>
   </data>
   <data name="NumberOfClasses" xml:space="preserve">
     <value>Totalt antall klasser: {0}</value>
@@ -369,7 +369,7 @@ Generert:  {2}</value>
     <value>Sekundært</value>
   </data>
   <data name="NumberOfEmptyClassesInMainClassificationSystem" xml:space="preserve">
-    <value>Arkivdel (systemID) {0} - klassifikasjonssystem (systemID) {1}: {2}</value>
+    <value>Arkivdel (systemID, tittel) {0}, {1} - klassifikasjonssystem (systemID) {2}: {3}</value>
   </data>
   <data name="NumberOfTypeFolders" xml:space="preserve">
     <value>Mappetype: {0} - Antall: {1}</value>
@@ -399,7 +399,7 @@ Generert:  {2}</value>
     <value>Registreringstype: {0} - Antall: {1}</value>
   </data>
   <data name="NumberOfClassesTestResultMessage" xml:space="preserve">
-    <value>Arkivdel (systemID): {0} - {1} klassifikasjonssystem (systemID): {2} - </value>
+    <value>Arkivdel (systemID, tittel): {0}, {1} {2} klassifikasjonssystem (systemID): {3} - </value>
   </data>
   <data name="ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound" xml:space="preserve">
     <value>Det ble ikke funnet noen journaldatoer i arkivuttrekket</value>

@@ -8,8 +8,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     public class N5_16_NumberOfRegistrations : Noark5XmlReaderBaseTest
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 16);
-        private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private readonly List<N5_16_ArchivePart> _archiveParts = new List<N5_16_ArchivePart>();
+        private N5_16_ArchivePart _currentArchivePart = new N5_16_ArchivePart();
         private Stack<string> _registrationTypes = new Stack<string>();
 
         public override TestId GetId()
@@ -30,10 +30,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             bool hasMultipleArchiveParts = _archiveParts.Count > 1;
 
-            foreach (ArchivePart archivePart in _archiveParts)
+            foreach (N5_16_ArchivePart archivePart in _archiveParts)
             {
                 string archivePartMessagePrefix = hasMultipleArchiveParts
-                    ? string.Format(Noark5Messages.ArchivePartSystemId, archivePart.SystemId) + " - "
+                    ? string.Format(Noark5Messages.ArchivePartSystemId, archivePart.SystemId, archivePart.Name) + " - "
                     : string.Empty;
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                         Noark5Messages.TotalResultNumber, archivePart.TotalRegistrationsCount
                     )));
 
-                foreach(var registration in archivePart.Registrations)
+                foreach (var registration in archivePart.Registrations)
                 {
                     testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
                         archivePartMessagePrefix + string.Format(
@@ -90,21 +90,26 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 else
                     _currentArchivePart.Registrations.Add(registrationType, 1);
             }
+
+            if (eventArgs.NameEquals("arkivdel"))
+            {
+                _archiveParts.Add(_currentArchivePart);
+                _currentArchivePart = new N5_16_ArchivePart();
+        }
         }
 
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-            {
-                _currentArchivePart = new ArchivePart {SystemId = eventArgs.Value};
-                _archiveParts.Add(_currentArchivePart);
-            }
+                _currentArchivePart = new N5_16_ArchivePart { SystemId = eventArgs.Value };
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
         }
 
-        private class ArchivePart
+        private class N5_16_ArchivePart : ArchivePart
         {
-            public string SystemId { get; set; }
             public int TotalRegistrationsCount;
             public Dictionary<string, int> Registrations = new Dictionary<string, int>();
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.ExternalModels.Mets;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;
 
@@ -74,6 +75,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[1].note.Should().Contain(n => n.Equals("Road 1, 1000 City"));
             metsHdrAgents[1].note.Should().Contain(n => n.Equals("1-99999999"));
             metsHdrAgents[1].note.Should().Contain(n => n.Equals("post@entity-1.com"));
+            metsHdrAgents[1].note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
 
             // ARCHIVECREATOR 2: 
 
@@ -87,6 +89,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[3].note.Should().Contain(n => n.Equals("Road 2, 2000 City"));
             metsHdrAgents[3].note.Should().Contain(n => n.Equals("2-99999999"));
             metsHdrAgents[3].note.Should().Contain(n => n.Equals("post@entity-2.com"));
+            metsHdrAgents[3].note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
 
             // TRANSFERER:
 
@@ -102,6 +105,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[5].note.Should().Contain(n => n.Equals("Road 3, 3000 City"));
             metsHdrAgents[5].note.Should().Contain(n => n.Equals("3-99999999"));
             metsHdrAgents[5].note.Should().Contain(n => n.Equals("post@entity-3.com"));
+            metsHdrAgents[5].note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
 
             // PRODUCER:
 
@@ -117,6 +121,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[7].note.Should().Contain(n => n.Equals("Road 4, 4000 City"));
             metsHdrAgents[7].note.Should().Contain(n => n.Equals("4-99999999"));
             metsHdrAgents[7].note.Should().Contain(n => n.Equals("post@entity-4.com"));
+            metsHdrAgents[7].note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
 
             // OWNER 1:
 
@@ -143,6 +148,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[11].note.Should().Contain(n => n.Equals("Road 6, 6000 City"));
             metsHdrAgents[11].note.Should().Contain(n => n.Equals("6-99999999"));
             metsHdrAgents[11].note.Should().Contain(n => n.Equals("post@entity-6.com"));
+            metsHdrAgents[11].note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
 
             // CREATOR:
 
@@ -156,35 +162,47 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[13].note.Should().Contain(n => n.Equals("Road 7, 7000 City"));
             metsHdrAgents[13].note.Should().Contain(n => n.Equals("7-99999999"));
             metsHdrAgents[13].note.Should().Contain(n => n.Equals("post@entity-7.com"));
+            metsHdrAgents[13].note.Should().Contain(n => n.Equals("notescontent:Address,Telephone,Email"));
+
+            //  CREATOR SOFTWARE SYSTEM
+
+            metsHdrAgents[14].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
+            metsHdrAgents[14].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.CREATOR);
+            metsHdrAgents[14].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
+            metsHdrAgents[14].name.Should().Be("Arkade 5");
+            metsHdrAgents[14].note.Should().Contain(n => n.Equals($"{ArkadeVersion.Current}"));
+            metsHdrAgents[14].note.Should().Contain(n => n.Equals("notescontent:Version"));
 
             // RECIPIENT:
 
-            metsHdrAgents[14].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.ORGANIZATION);
-            metsHdrAgents[14].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.PRESERVATION);
-            metsHdrAgents[14].name.Should().Be("Some recipient");
+            metsHdrAgents[15].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.ORGANIZATION);
+            metsHdrAgents[15].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.PRESERVATION);
+            metsHdrAgents[15].name.Should().Be("Some recipient");
 
             // SYSTEM:
 
-            metsHdrAgents[15].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
-            metsHdrAgents[15].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
-            metsHdrAgents[15].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.ARCHIVIST);
-            metsHdrAgents[15].name.Should().Be("Some system name");
-            metsHdrAgents[15].note.Should().Contain(n => n.Equals("v1.0.0"));
-            metsHdrAgents[15].note.Should().Contain(n => n.Equals("Noark5"));
-            metsHdrAgents[15].note.Should().Contain(n => n.Equals("v3.1"));
+            metsHdrAgents[16].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
+            metsHdrAgents[16].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
+            metsHdrAgents[16].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.ARCHIVIST);
+            metsHdrAgents[16].name.Should().Be("Some system name");
+            metsHdrAgents[16].note.Should().Contain(n => n.Equals("v1.0.0"));
+            metsHdrAgents[16].note.Should().Contain(n => n.Equals("Noark5"));
+            metsHdrAgents[16].note.Should().Contain(n => n.Equals("v3.1"));
+            metsHdrAgents[16].note.Should().Contain(n => n.Equals("notescontent:Version,Type,TypeVersion"));
 
             // ARCHIVE SYSTEM:
 
-            metsHdrAgents[16].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
-            metsHdrAgents[16].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
-            metsHdrAgents[16].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
-            metsHdrAgents[16].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
-            metsHdrAgents[16].name.Should().Be("Some archive system name");
-            metsHdrAgents[16].note.Should().Contain(n => n.Equals("v2.0.0"));
-            metsHdrAgents[16].note.Should().Contain(n => n.Equals("Noark4"));
+            metsHdrAgents[17].TYPE.Should().Be(metsTypeMetsHdrAgentTYPE.OTHER);
+            metsHdrAgents[17].OTHERTYPE.Should().Be(metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
+            metsHdrAgents[17].ROLE.Should().Be(metsTypeMetsHdrAgentROLE.OTHER);
+            metsHdrAgents[17].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
+            metsHdrAgents[17].name.Should().Be("Some archive system name");
+            metsHdrAgents[17].note.Should().Contain(n => n.Equals("v2.0.0"));
+            metsHdrAgents[17].note.Should().Contain(n => n.Equals("Noark4"));
+            metsHdrAgents[17].note.Should().Contain(n => n.Equals("notescontent:Version,Type"));
 
             // Type-version applies to Noark5 only and is not expected amongst agents:
-            metsHdrAgents.Length.Should().Be(17);
+            metsHdrAgents.Length.Should().Be(18);
 
             // FILE DESCRIPTIONS:
 

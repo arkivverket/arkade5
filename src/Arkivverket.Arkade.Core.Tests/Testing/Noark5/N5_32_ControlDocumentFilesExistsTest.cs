@@ -54,6 +54,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -69,6 +70,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 .Add("referanseDokumentfil", "dokumenter/5000002.pdf"))))))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
+                        .Add("tittel", "someTitle_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -92,9 +94,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.Results.Count.Should().Be(2);
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID): someSystemId_1 - Filen dokumenter/5000002.pdf ble ikke funnet"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1 - Filen dokumenter/5000002.pdf ble ikke funnet"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID): someSystemId_2 - Filen dokumenter/5000002.pdf ble ikke funnet"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, someTitle_2 - Filen dokumenter/5000002.pdf ble ikke funnet"));
         }
     }
 }

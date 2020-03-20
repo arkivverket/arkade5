@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -59,6 +59,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -66,6 +67,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         .Add("dokumentbeskrivelse", string.Empty))))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
+                        .Add("tittel", "someTitle_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -75,7 +77,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new N5_21_NumberOfRegistrationsWithoutDocumentDescription());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_2: 2"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID - tittel) someSystemId_2 - someTitle_2: 2"));
         }
     }
 }

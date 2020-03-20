@@ -38,6 +38,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -46,6 +47,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("sakspartID", "Sakspart1")))))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
+                        .Add("tittel", "someTitle_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -53,6 +55,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         .Add("systemID", "journpost57d6608569ed33.70652483"))))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_3")
+                        .Add("tittel", "someTitle_3")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -64,8 +67,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new N5_35_NumberOfCaseParts(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_1: 1"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_3: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID - tittel) someSystemId_1 - someTitle_1: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID - tittel) someSystemId_3 - someTitle_3: 1"));
         }
 
         [Fact]
@@ -97,6 +100,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -105,6 +109,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("sakspartID", "Sakspart1")))))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
+                        .Add("tittel", "someTitle_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -112,6 +117,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         .Add("systemID", "journpost57d6608569ed33.70652483"))))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_3")
+                        .Add("tittel", "someTitle_3")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -123,8 +129,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new N5_35_NumberOfCaseParts(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_1: 1"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_3: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID - tittel) someSystemId_1 - someTitle_1: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID - tittel) someSystemId_3 - someTitle_3: 1"));
         }
     }
 }

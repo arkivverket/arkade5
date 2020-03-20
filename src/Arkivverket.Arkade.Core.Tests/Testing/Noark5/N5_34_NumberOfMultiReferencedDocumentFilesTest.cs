@@ -65,6 +65,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     .Add("arkivdel",
                         new XmlElementHelper()
                             .Add("systemID", "someArchivePartSystemId_1")
+                            .Add("tittel", "someArchivePartTitle_1")
                             .Add("klassifikasjonssystem",
                                 new XmlElementHelper().Add("klasse",
                                     new XmlElementHelper()
@@ -98,6 +99,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     .Add("arkivdel",
                         new XmlElementHelper()
                             .Add("systemID", "someArchivePartSystemId_2")
+                            .Add("tittel", "someArchivePartTitle_2")
                             .Add("klassifikasjonssystem",
                                 new XmlElementHelper().Add("klasse",
                                     new XmlElementHelper()
@@ -138,12 +140,12 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.Results.Should()
                 .Contain(r =>
                         r.Message.Equals(
-                            "Arkivdel (systemID): someArchivePartSystemId_1 - Referert dokumentfil: filename1.pdf - Antall referanser: 2")
+                            "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Referert dokumentfil: filename1.pdf - Antall referanser: 2")
                 );
             testRun.Results.Should()
                 .Contain(r =>
                         r.Message.Equals(
-                            "Arkivdel (systemID): someArchivePartSystemId_2 - Referert dokumentfil: filename3.pdf - Antall referanser: 2")
+                            "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Referert dokumentfil: filename3.pdf - Antall referanser: 2")
                 );
             testRun.Results.Count.Should().Be(3);
         }

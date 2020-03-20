@@ -80,12 +80,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper().Add("opprettetDato", "1863-10-18T00:00:00Z"))
                                 .Add("mappe", new XmlElementHelper().Add("opprettetDato", "1863-10-18T00:00:00Z")))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
+                        .Add("tittel", "someTitle_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("klasse", new XmlElementHelper()
@@ -95,9 +97,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_11_NumberOfFoldersPerYear());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_1 - 1863: 2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_2 - 1864: 1"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID) someSystemId_2 - 1865: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID, tittel) someSystemId_1, someTitle_1 - 1863: 2"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID, tittel) someSystemId_2, someTitle_2 - 1864: 1"));
+            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID, tittel) someSystemId_2, someTitle_2 - 1865: 1"));
         }
     }
 }

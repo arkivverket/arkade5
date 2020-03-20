@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 29);
 
-        private string _currentArchivePartSystemId;
+        private ArchivePart _currentArchivePart = new ArchivePart();
         private DocumentObject _currentDocumentObject;
         private readonly List<DocumentObject> _documentObjects = new List<DocumentObject>();
 
@@ -38,18 +38,20 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var documentObjectQuery = from documentObject in _documentObjects
                 group documentObject by new
                 {
-                    documentObject.ArchivePartSystemId,
+                    documentObject.ArchivePart.SystemId,
+                    documentObject.ArchivePart.Name,
                     documentObject.Format,
                 }
                 into grouped
                 select new
                 {
-                    grouped.Key.ArchivePartSystemId,
+                    grouped.Key.SystemId,
+                    grouped.Key.Name,
                     grouped.Key.Format,
                     Count = grouped.Count()
                 };
 
-            bool multipleArchiveParts = _documentObjects.GroupBy(j => j.ArchivePartSystemId).Count() > 1;
+            bool multipleArchiveParts = _documentObjects.GroupBy(j => j.ArchivePart.SystemId).Count() > 1;
 
             foreach (var item in documentObjectQuery)
             {
@@ -58,7 +60,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 if (multipleArchiveParts)
                     message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId) + " - ");
+                        string.Format(Noark5Messages.ArchivePartSystemId, item.SystemId, item.Name) + " - ");
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
             }
@@ -78,7 +80,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("dokumentobjekt", "dokumentbeskrivelse", "registrering"))
                 _currentDocumentObject = new DocumentObject
-                    {ArchivePartSystemId = _currentArchivePartSystemId};
+                    {ArchivePart = _currentArchivePart};
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
@@ -88,7 +90,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-                _currentArchivePartSystemId = eventArgs.Value;
+                _currentArchivePart.SystemId = eventArgs.Value;
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
 
             if (_currentDocumentObject == null)
                 return;
@@ -107,11 +112,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 _documentObjects.Add(_currentDocumentObject);
                 _currentDocumentObject = null;
             }
+
+            if(eventArgs.NameEquals("arkivdel"))
+                _currentArchivePart = new ArchivePart();
         }
 
         private class DocumentObject
         {
-            public string ArchivePartSystemId { get; set; }
+            public ArchivePart ArchivePart { get; set; }
             public string Format { get; set; }
             public string FileReference { get; set; }
 

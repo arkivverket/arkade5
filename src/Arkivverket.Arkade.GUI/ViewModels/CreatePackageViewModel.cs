@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Arkivverket.Arkade.GUI.Resources;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.WindowsAPICodePack.Taskbar;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
@@ -53,6 +54,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private GuiMetaDataModel _metaDataRecipient = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
         private GuiMetaDataModel _metaDataArchiveSystem = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, GuiObjectType.system);
+        private GuiMetaDataModel _metaDataCreatorSoftwareSystem = new GuiMetaDataModel(null, null, null, null, GuiObjectType.system);
         private GuiMetaDataModel _metaDataNoarkSection = new GuiMetaDataModel(null, null, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataExtractionDate = new GuiMetaDataModel(null);
 
@@ -62,6 +64,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             "Noark3", "Noark4", "Noark5", "Fagsystem"
         }; 
 
+        public string ArkadeNameAndCurrentVersion { get; } = $"Arkade 5 {ArkadeVersion.Current}";
 
         public DelegateCommand CreatePackageCommand { get; set; }
         public DelegateCommand NewProgramSessionCommand { get; set; }
@@ -166,6 +169,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             get { return _metaDataArchiveSystem; }
             set { SetProperty(ref _metaDataArchiveSystem, value); }
+        }
+
+        public GuiMetaDataModel MetaDataCreatorSoftwareSystem
+        {
+            get { return _metaDataCreatorSoftwareSystem; }
+            set { SetProperty(ref _metaDataCreatorSoftwareSystem, value); }
         }
 
         public GuiMetaDataModel MetaDataNoarkSection
@@ -331,6 +340,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             if (archiveMetadata.Label != null)
                 MetaDataNoarkSection.UserdefinedLabel = archiveMetadata.Label;
 
+            if (archiveMetadata.CreatorSoftwareSystem != null)
+                MetaDataCreatorSoftwareSystem = GuiMetadataMapper.MapToCreatorSoftwareSystem(archiveMetadata.CreatorSoftwareSystem);
+
             UserdefinedLabelIsSelected = true;
         }
 
@@ -341,6 +353,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
         }
 
         private void RunNavigateToLoadArchivePage()
@@ -444,6 +457,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _isRunningCreatePackage = true;
             CreatePackageCommand.RaiseCanExecuteChanged();
+            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Indeterminate);
 
             Task.Factory.StartNew(() => CreatePackageRunEngine(outputDirectory)).ContinueWith(t => OnCompletedCreatePackage());
         }
@@ -452,6 +466,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _isRunningCreatePackage = false;
             CreatePackageCommand.RaiseCanExecuteChanged();
+            TaskbarManager.Instance.SetProgressValue(1, 1);
         }
 
 

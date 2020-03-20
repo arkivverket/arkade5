@@ -49,6 +49,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 new XmlElementHelper().Add("arkiv",
                     new XmlElementHelper()
                         .Add("arkivdel", new XmlElementHelper().Add("systemID", "archivePartSystemId_1")
+                            .Add("tittel", "archivePartTitle_1")
                             .Add("klassifikasjonssystem", new XmlElementHelper()
                                 .Add("klasse", new XmlElementHelper()
                                     .Add("mappe", new XmlElementHelper()
@@ -67,6 +68,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                     .Add("sjekksum", "someNotMatchingCheckSum")
                                                     .Add("sjekksumAlgoritme", "SHA-256"))))))))
                         .Add("arkivdel", new XmlElementHelper().Add("systemID", "archivePartSystemId_2")
+                            .Add("tittel", "archivePartTitle_2")
                             .Add("klassifikasjonssystem", new XmlElementHelper()
                                 .Add("klasse", new XmlElementHelper()
                                     .Add("mappe", new XmlElementHelper()
@@ -83,17 +85,17 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.Results.Should().Contain(r =>
                 r.IsError() && r.Message.Equals(
-                    "Arkivdel (systemID) archivePartSystemId_1 - Filen dokumenter\\5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_1"
+                    "Arkivdel (systemID, tittel): archivePartSystemId_1, archivePartTitle_1 - Filen dokumenter\\5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_1"
                 ));
 
             testRun.Results.Should().Contain(r =>
                 r.IsError() && r.Message.Equals(
-                    "Arkivdel (systemID) archivePartSystemId_1 - Filen dokumenter/5000001.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_2"
+                    "Arkivdel (systemID, tittel): archivePartSystemId_1, archivePartTitle_1 - Filen dokumenter/5000001.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_2"
                 ));
 
             testRun.Results.Should().Contain(r =>
                 r.IsError() && r.Message.Equals(
-                    "Arkivdel (systemID) archivePartSystemId_2 - Filen dokumenter\\5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_3"
+                    "Arkivdel (systemID, tittel): archivePartSystemId_2, archivePartTitle_2 - Filen dokumenter\\5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_3"
                 ));
 
             testRun.Results.Count.Should().Be(3);

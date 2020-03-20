@@ -76,6 +76,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("arkivdel",
                             new XmlElementHelper()
                                 .Add("systemID", "someArchivePartSystemId_1")
+                                .Add("tittel", "someArchivePartTitle_1")
                                 .Add("gradering",
                                     new XmlElementHelper()
                                         .Add("gradering", "Strengt hemmelig"))
@@ -116,6 +117,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("arkivdel",
                             new XmlElementHelper()
                                 .Add("systemID", "someArchivePartSystemId_2")
+                                .Add("tittel", "someArchivePartTitle_2")
                                 .Add("gradering",
                                     new XmlElementHelper()
                                         .Add("gradering", "Strengt hemmelig"))
@@ -159,25 +161,25 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.Results.First().Message.Should().Be("Totalt: 14");
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Graderinger i arkivdel - Antall: 1"));
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Graderinger i arkivdel - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Graderinger i klasse - Antall: 1"));
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Graderinger i klasse - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Graderinger i mappe - Antall: 2"));
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Graderinger i mappe - Antall: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Graderinger i registrering - Antall: 1"));
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Graderinger i registrering - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Graderinger i dokumentbeskrivelse - Antall: 2"));
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Graderinger i dokumentbeskrivelse - Antall: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Graderinger i arkivdel - Antall: 1"));
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Graderinger i arkivdel - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Graderinger i klasse - Antall: 1"));
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Graderinger i klasse - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Graderinger i mappe - Antall: 2"));
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Graderinger i mappe - Antall: 2"));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Graderinger i registrering - Antall: 1"));
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Graderinger i registrering - Antall: 1"));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Graderinger i dokumentbeskrivelse - Antall: 2"));
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Graderinger i dokumentbeskrivelse - Antall: 2"));
             testRun.Results.Count.Should().Be(11);
         }
     }

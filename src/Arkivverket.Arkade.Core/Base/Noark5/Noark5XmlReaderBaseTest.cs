@@ -7,31 +7,31 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
     /// </summary>
     public abstract class Noark5XmlReaderBaseTest : Noark5BaseTest, INoark5Test
     {
-        public void OnReadStartElementEvent(object sender, ReadElementEventArgs e)
+        public void OnReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             Stopwatch.Start();
-            ReadStartElementEvent(sender, e);
+            ReadStartElementEvent(sender, eventArgs);
             Stopwatch.Stop();
         }
 
-        public void OnReadAttributeEvent(object sender, ReadElementEventArgs e)
+        public void OnReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
             Stopwatch.Start();
-            ReadAttributeEvent(sender, e);
+            ReadAttributeEvent(sender, eventArgs);
             Stopwatch.Stop();
         }
         
-        public void OnReadEndElementEvent(object sender, ReadElementEventArgs e)
+        public void OnReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             Stopwatch.Start();
-            ReadEndElementEvent(sender, e);
+            ReadEndElementEvent(sender, eventArgs);
             Stopwatch.Stop();
         }
 
-        public void OnReadElementValueEvent(object sender, ReadElementEventArgs e)
+        public void OnReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             Stopwatch.Start();
-            ReadElementValueEvent(sender, e);
+            ReadElementValueEvent(sender, eventArgs);
             Stopwatch.Stop();
         }
 

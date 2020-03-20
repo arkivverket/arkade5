@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 25);
 
-        private string _currentArchivePartSystemId;
+        private ArchivePart _currentArchivePart = new ArchivePart();
         private DocumentDescription _currentDocumentDescription;
         private readonly List<DocumentDescription> _documentDescriptions = new List<DocumentDescription>();
 
@@ -32,18 +32,20 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var documentDescriptionQuery = from documentDescription in _documentDescriptions
                 group documentDescription by new
                 {
-                    documentDescription.ArchivePartSystemId,
+                    documentDescription.ArchivePart.SystemId,
+                    documentDescription.ArchivePart.Name,
                     documentDescription.Status
                 }
                 into grouped
                 select new
                 {
-                    grouped.Key.ArchivePartSystemId,
+                    grouped.Key.SystemId,
+                    grouped.Key.Name,
                     grouped.Key.Status,
                     Count = grouped.Count()
                 };
 
-            bool multipleArchiveParts = _documentDescriptions.GroupBy(j => j.ArchivePartSystemId).Count() > 1;
+            bool multipleArchiveParts = _documentDescriptions.GroupBy(j => j.ArchivePart.SystemId).Count() > 1;
 
             foreach (var item in documentDescriptionQuery)
             {
@@ -52,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 if (multipleArchiveParts)
                     message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId) + " - ");
+                        string.Format(Noark5Messages.ArchivePartSystemId, item.SystemId, item.Name) + " - ");
 
                 ResultType resultType =
                     item.Status.Equals("Dokumentet er ferdigstilt")
@@ -69,7 +71,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("dokumentbeskrivelse", "registrering"))
                 _currentDocumentDescription = new DocumentDescription
-                    {ArchivePartSystemId = _currentArchivePartSystemId};
+                    {ArchivePart = _currentArchivePart};
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
@@ -79,7 +81,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-                _currentArchivePartSystemId = eventArgs.Value;
+                _currentArchivePart.SystemId = eventArgs.Value;
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
 
             if (eventArgs.Path.Matches("dokumentstatus", "dokumentbeskrivelse") && _currentDocumentDescription != null)
                 _currentDocumentDescription.Status = eventArgs.Value;
@@ -92,12 +97,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 _documentDescriptions.Add(_currentDocumentDescription);
                 _currentDocumentDescription = null;
             }
+
+            if(eventArgs.NameEquals("arkivdel"))
+                _currentArchivePart = new ArchivePart();
         }
 
         private class DocumentDescription
         {
-            public string ArchivePartSystemId { get; set; }
+            public ArchivePart ArchivePart { get; set; }
             public string Status { get; set; }
         }
+
     }
 }

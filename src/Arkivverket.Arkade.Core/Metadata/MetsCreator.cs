@@ -24,6 +24,8 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         public static mets Create(ArchiveMetadata metadata)
         {
+            MetadataCleaner.Clean(metadata);
+
             var mets = new mets();
 
             CreateMetsElementAttributes(mets, metadata);
@@ -145,7 +147,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                             ROLE = metsTypeMetsHdrAgentROLE.ARCHIVIST,
                             name = metadataArchiveCreator.ContactPerson,
-                            note = new[] { metadataArchiveCreator.Address, metadataArchiveCreator.Telephone, metadataArchiveCreator.Email }
+                            note = GetEntityInfoUnitNotes(metadataArchiveCreator)
                         });
                     }
                 }
@@ -176,7 +178,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         OTHERROLESpecified = true,
                         OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.SUBMITTER,
                         name = metadata.Transferer.ContactPerson,
-                        note = new[] { metadata.Transferer.Address, metadata.Transferer.Telephone, metadata.Transferer.Email }
+                        note = GetEntityInfoUnitNotes(metadata.Transferer)
                     });
                 }
             }
@@ -206,7 +208,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         OTHERROLESpecified = true,
                         OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
                         name = metadata.Producer.ContactPerson,
-                        note = new[] { metadata.Producer.Address, metadata.Producer.Telephone, metadata.Producer.Email }
+                        note = GetEntityInfoUnitNotes(metadata.Producer)
                     });
                 }
             }
@@ -234,7 +236,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                             TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                             ROLE = metsTypeMetsHdrAgentROLE.IPOWNER,
                             name = metadataOwner.ContactPerson,
-                            note = new[] { metadataOwner.Address, metadataOwner.Telephone, metadataOwner.Email }
+                            note = GetEntityInfoUnitNotes(metadataOwner)
                         });
                     }
                 }
@@ -261,10 +263,22 @@ namespace Arkivverket.Arkade.Core.Metadata
                         TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                         ROLE = metsTypeMetsHdrAgentROLE.CREATOR,
                         name = metadata.Creator.ContactPerson,
-                        note = new[] { metadata.Creator.Address, metadata.Creator.Telephone, metadata.Creator.Email }
+                        note = GetEntityInfoUnitNotes(metadata.Creator)
                     });
                 }
             }
+
+            // CREATOR SOFTWARE SYSTEM:
+
+            metsTypeMetsHdrAgents.Add(new metsTypeMetsHdrAgent
+            {
+                ROLE = metsTypeMetsHdrAgentROLE.CREATOR,
+                TYPE = metsTypeMetsHdrAgentTYPE.OTHER,
+                OTHERTYPESpecified = true,
+                OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
+                name = "Arkade 5",
+                note = new[] {$"{ArkadeVersion.Current}", "notescontent:Version"}
+            });
 
             // RECIPIENT:
 
@@ -295,7 +309,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         name = system.Name
                     };
 
-                    systemAgent.note = GetSystemPropertiesNotes(system);
+                    systemAgent.note = GetSystemInfoUnitNotes(system);
 
                     metsTypeMetsHdrAgents.Add(systemAgent);
                 }
@@ -320,7 +334,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         name = archiveSystem.Name
                     };
 
-                    archiveSystemAgent.note = GetSystemPropertiesNotes(archiveSystem);
+                    archiveSystemAgent.note = GetSystemInfoUnitNotes(archiveSystem);
 
                     metsTypeMetsHdrAgents.Add(archiveSystemAgent);
                 }
@@ -328,6 +342,38 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             if (metsTypeMetsHdrAgents.Any())
                 metsHdr.agent = metsTypeMetsHdrAgents.ToArray();
+        }
+
+        private static string[] GetEntityInfoUnitNotes(MetadataEntityInformationUnit entity)
+        {
+            var notesWriter = new HdrAgentNotesWriter();
+
+            if (!string.IsNullOrWhiteSpace(entity.Address))
+                notesWriter.AddAddress(entity.Address);
+
+            if (!string.IsNullOrWhiteSpace(entity.Telephone))
+                notesWriter.AddTelephone(entity.Telephone);
+
+            if (!string.IsNullOrWhiteSpace(entity.Email))
+                notesWriter.AddEmail(entity.Email);
+
+            return notesWriter.HasNotes() ? notesWriter.GetNotes() : null;
+        }
+
+        private static string[] GetSystemInfoUnitNotes(MetadataSystemInformationUnit system)
+        {
+            var notesWriter = new HdrAgentNotesWriter();
+
+            if (!string.IsNullOrWhiteSpace(system.Version))
+                notesWriter.AddVersion(system.Version);
+
+            if (!string.IsNullOrWhiteSpace(system.Type) && MetsTranslationHelper.IsValidSystemType(system.Type))
+                notesWriter.AddType(system.Type);
+
+            if (!string.IsNullOrWhiteSpace(system.TypeVersion) && MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
+                notesWriter.AddTypeVersion(system.TypeVersion);
+
+            return notesWriter.HasNotes() ? notesWriter.GetNotes() : null;
         }
 
         private static void CreateAmdSec(metsType mets, ArchiveMetadata metadata)
@@ -441,30 +487,6 @@ namespace Arkivverket.Arkade.Core.Metadata
                    !string.IsNullOrEmpty(entityInformationUnit.Address) ||
                    !string.IsNullOrEmpty(entityInformationUnit.Telephone) ||
                    !string.IsNullOrEmpty(entityInformationUnit.Email);
-        }
-
-        private static string[] GetSystemPropertiesNotes(MetadataSystemInformationUnit system)
-        {
-            var notes = new List<string>();
-
-            if (!string.IsNullOrEmpty(system.Version))
-            {
-                notes.Add(system.Version);
-            }
-
-            if (!string.IsNullOrEmpty(system.Type) &&
-                MetsTranslationHelper.IsValidSystemType(system.Type))
-            {
-                notes.Add(system.Type);
-            }
-
-            if (!string.IsNullOrEmpty(system.TypeVersion) &&
-                MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
-            {
-                notes.Add(system.TypeVersion);
-            }
-
-            return notes.Any() ? notes.ToArray() : null;
         }
     }
 }

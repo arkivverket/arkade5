@@ -10,8 +10,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 6);
 
-        private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
-        private ArchivePart _currentArchivePart;
+        private readonly List<N5_06_ArchivePart> _archiveParts = new List<N5_06_ArchivePart>();
+        private N5_06_ArchivePart _currentArchivePart = new N5_06_ArchivePart();
 
         public override TestId GetId()
         {
@@ -36,12 +36,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
             else
             {
-                foreach (ArchivePart archivePart in _archiveParts)
+                foreach (N5_06_ArchivePart archivePart in _archiveParts)
                 {
                     testResults.Add(
                         new TestResult(ResultType.Success, new Location(""), string.Format(
                             Noark5Messages.StatusOfArchivePartsMessage_ForArchivePart,
                             archivePart.SystemId,
+                            archivePart.Name,
                             archivePart.Status
                         )));
                 }
@@ -61,7 +62,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-                _currentArchivePart = new ArchivePart {SystemId = eventArgs.Value};
+                _currentArchivePart.SystemId = eventArgs.Value;
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
 
             if (eventArgs.Path.Matches("arkivdelstatus", "arkivdel"))
                 _currentArchivePart.Status = eventArgs.Value;
@@ -70,12 +74,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.NameEquals("arkivdel"))
+            {
                 _archiveParts.Add(_currentArchivePart);
+                _currentArchivePart = new N5_06_ArchivePart();
+            }
         }
 
-        private class ArchivePart
+        private class N5_06_ArchivePart : ArchivePart
         {
-            public string SystemId;
             public string Status;
         }
     }

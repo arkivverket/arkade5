@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
@@ -174,7 +175,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             string tarEntryName = packagePreparedFileName.Replace("\\", "/"); // UNIX-style directory-separators
 
-            tarEntry.Name = tarEntryName;
+            tarEntry.Name = Encoding.GetEncoding("ISO-8859-1").GetString(Encoding.UTF8.GetBytes(tarEntryName));
 
             tarArchive.WriteEntry(tarEntry, false);
         }

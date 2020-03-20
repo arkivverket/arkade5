@@ -14,6 +14,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -24,6 +25,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("opprettetDato", "1863-10-18T00:00:00Z")))))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
+                        .Add("tittel", "someTitle_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("klasse", new XmlElementHelper()
@@ -38,13 +40,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 4"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Første registrering: Opprettet 18.10.1863"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1 - Første registrering: Opprettet 18.10.1863"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someSystemId_1 - Siste registrering: Opprettet 18.10.1863"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1 - Siste registrering: Opprettet 18.10.1863"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someSystemId_2 - Første registrering: Opprettet 18.10.1864"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, someTitle_2 - Første registrering: Opprettet 18.10.1864"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID) someSystemId_2 - Siste registrering: Opprettet 18.10.1865"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, someTitle_2 - Siste registrering: Opprettet 18.10.1865"));
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Antall ugyldige datoer for registreringsopprettelse funnet: 1"));
             testRun.Results.Count.Should().Be(6);

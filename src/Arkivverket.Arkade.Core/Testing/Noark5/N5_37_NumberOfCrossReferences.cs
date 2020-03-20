@@ -10,8 +10,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 37);
 
-        private ArchivePart _currentArchivePart = new ArchivePart();
-        private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
+        private N5_37_ArchivePart _currentArchivePart;
+        private readonly List<N5_37_ArchivePart> _archiveParts = new List<N5_37_ArchivePart>();
 
         public override TestId GetId()
         {
@@ -47,13 +47,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             else
             {
-                foreach (ArchivePart archivePart in _archiveParts)
+                foreach (N5_37_ArchivePart archivePart in _archiveParts)
                 {
                     if (archivePart.ClassReferenceCount > 0)
                     {
                         testResults.Add(new TestResult(ResultType.Success, new Location(""),
                             string.Format(Noark5Messages.NumberOfCrossReferencesToClassMessage_ForArchivePart,
                                 archivePart.SystemId,
+                                archivePart.Name,
                                 archivePart.ClassReferenceCount)));
                     }
 
@@ -62,6 +63,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                         testResults.Add(new TestResult(ResultType.Success, new Location(""),
                             string.Format(Noark5Messages.NumberOfCrossReferencesToFolderMessage_ForArchivePart,
                                 archivePart.SystemId,
+                                archivePart.Name,
                                 archivePart.FolderReferenceCount)));
                     }
 
@@ -71,6 +73,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                             string.Format(
                                 Noark5Messages.NumberOfCrossReferencesToBasicRegistrationMessage_ForArchivePart,
                                 archivePart.SystemId,
+                                archivePart.Name,
                                 archivePart.BasicRegistrationReferenceCount)));
                     }
 
@@ -84,7 +87,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return testResults;
         }
 
-        private int CountTotalNumberOfCrossReferences(ArchivePart currentArchivePart)
+        private int CountTotalNumberOfCrossReferences(N5_37_ArchivePart currentArchivePart)
         {
             int totalNumberOfCrossReferencesResult = new[]
             {
@@ -116,9 +119,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
-                _currentArchivePart = new ArchivePart {SystemId = eventArgs.Value};
+                _currentArchivePart = new N5_37_ArchivePart { SystemId = eventArgs.Value };
                 _archiveParts.Add(_currentArchivePart);
             }
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -126,9 +132,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         }
 
 
-        private class ArchivePart
+        private class N5_37_ArchivePart : ArchivePart
         {
-            public string SystemId { get; set; }
             public int ClassReferenceCount;
             public int FolderReferenceCount;
             public int BasicRegistrationReferenceCount;

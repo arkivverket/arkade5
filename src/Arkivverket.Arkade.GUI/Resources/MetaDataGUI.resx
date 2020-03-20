@@ -351,4 +351,10 @@ Tidl. nevnt som avleverende myndighet</comment>
   <data name="UnsufficientDiskSpaceStatusMessage" xml:space="preserve">
     <value>Valgt destinasjon har ikke nok lagringsplass.</value>
   </data>
+  <data name="Creator_OriginalSystem" xml:space="preserve">
+    <value>Opprinnelig system:</value>
+  </data>
+  <data name="Creator_System" xml:space="preserve">
+    <value>System:</value>
+  </data>
 </root>

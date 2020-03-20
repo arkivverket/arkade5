@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -15,6 +15,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     .Add("arkivdel",
                         new XmlElementHelper()
                             .Add("systemID", "someArchivePartSystemId_1")
+                            .Add("tittel", "someArchivePartTitle_1")
                             .Add("klassifikasjonssystem",
                                 new XmlElementHelper().Add("klasse",
                                     new XmlElementHelper()
@@ -53,6 +54,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                     .Add("arkivdel",
                         new XmlElementHelper()
                             .Add("systemID", "someArchivePartSystemId_2")
+                            .Add("tittel", "someArchivePartTitle_2")
                             .Add("klassifikasjonssystem",
                                 new XmlElementHelper().Add("klasse",
                                     new XmlElementHelper()
@@ -87,22 +89,22 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Journalposttype: Inngående dokument - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Journalposttype: Inngående dokument - Antall: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Journalposttype: Utgående dokument - Antall: 2"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Journalposttype: Utgående dokument - Antall: 2"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_1 - Journalposttype: Saksframlegg - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Journalposttype: Saksframlegg - Antall: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Journalposttype: Organinternt dokument for oppfølging - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Journalposttype: Organinternt dokument for oppfølging - Antall: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Journalposttype: Organinternt dokument uten oppfølging - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Journalposttype: Organinternt dokument uten oppfølging - Antall: 1"
             ));
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID): someArchivePartSystemId_2 - Journalposttype: Saksframlegg - Antall: 1"
+                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Journalposttype: Saksframlegg - Antall: 1"
             ));
             testRun.Results.Count.Should().Be(6);
         }
@@ -279,6 +281,43 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
 
             testRun.Results.Count.Should().Be(5);
+        }
+
+        [Fact]
+        public void ShouldHandleEmptyOrAbsentJournalPostTypes()
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel",
+                        new XmlElementHelper()
+                            .Add("systemID", "someArchivePartSystemId_3")
+                            .Add("klassifikasjonssystem",
+                                new XmlElementHelper().Add("klasse",
+                                    new XmlElementHelper()
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering",
+                                                new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper()
+                                                    .Add("systemID", "someJournalPostSystemId_8")
+                                                    .Add("dokumentbeskrivelse",
+                                                        new XmlElementHelper()
+                                                            .Add("tilknyttetRegistreringSom", "Hoveddokument"))
+                                                    .Add("journalposttype", string.Empty))) // Type empty
+                                        .Add("mappe",
+                                            new XmlElementHelper().Add("registrering",
+                                                new[] {"xsi:type", "journalpost"},
+                                                new XmlElementHelper()
+                                                    .Add("systemID", "someJournalPostSystemId_9")
+                                                    .Add("dokumentbeskrivelse",
+                                                        new XmlElementHelper().Add("tilknyttetRegistreringSom",
+                                                            "Hoveddokument")))))))); // No type element
+
+
+            TestRun testRun = helper.RunEventsOnTest(new N5_17_NumberOfEachJournalPostType());
+
+            testRun.Results.Should().Contain(r => r.Message.Equals("Journalposttype:  - Antall: 1") && r.IsError());
+
+            testRun.Results.Count.Should().Be(1);
         }
     }
 }

@@ -10,8 +10,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 21);
 
         private bool _documentDescriptionIsFound;
-        private readonly Dictionary<string, int> _noDocumentDescriptionCountPerArchivepart = new Dictionary<string, int>();
-        private string _currentArchivePartSystemId;
+        private readonly Dictionary<ArchivePart, int> _noDocumentDescriptionCountPerArchivepart = new Dictionary<ArchivePart, int>();
+        private ArchivePart _currentArchivePart = new ArchivePart();
         private int _totalNumberOfMissingDocumentDescriptions;
 
         public override TestId GetId()
@@ -34,13 +34,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (_noDocumentDescriptionCountPerArchivepart.Count > 1)
             {
-                foreach (KeyValuePair<string, int> noDocumentDescriptionCount in _noDocumentDescriptionCountPerArchivepart)
+                foreach (KeyValuePair<ArchivePart, int> noDocumentDescriptionCount in _noDocumentDescriptionCountPerArchivepart)
                 {
                     if (noDocumentDescriptionCount.Value > 0)
                     {
                         var testResult = new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
                             Noark5Messages.NumberOf_PerArchivePart,
-                            noDocumentDescriptionCount.Key, noDocumentDescriptionCount.Value));
+                            noDocumentDescriptionCount.Key.SystemId, noDocumentDescriptionCount.Key.Name, noDocumentDescriptionCount.Value));
 
                         testResults.Add(testResult);
                     }
@@ -64,8 +64,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
-                _currentArchivePartSystemId = eventArgs.Value;
-                _noDocumentDescriptionCountPerArchivepart.Add(_currentArchivePartSystemId, 0);
+                _currentArchivePart.SystemId = eventArgs.Value;
+                _noDocumentDescriptionCountPerArchivepart.Add(_currentArchivePart, 0);
+            }
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+            {
+                _currentArchivePart.Name = eventArgs.Value;
             }
         }
 
@@ -77,11 +81,15 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 {
                     _totalNumberOfMissingDocumentDescriptions++;
 
-                    if (_noDocumentDescriptionCountPerArchivepart.ContainsKey(_currentArchivePartSystemId))
-                        _noDocumentDescriptionCountPerArchivepart[_currentArchivePartSystemId]++;
+                    if (_noDocumentDescriptionCountPerArchivepart.ContainsKey(_currentArchivePart))
+                        _noDocumentDescriptionCountPerArchivepart[_currentArchivePart]++;
                 }
                 _documentDescriptionIsFound = false;
             }
+
+            if(eventArgs.NameEquals("arkivdel"))
+                _currentArchivePart = new ArchivePart();
         }
+
     }
 }

@@ -10,8 +10,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 36);
 
-        private ArchivePart _currentArchivePart = new ArchivePart();
-        private readonly List<ArchivePart> _archiveParts = new List<ArchivePart>();
+        private N5_36_ArchivePart _currentArchivePart = new N5_36_ArchivePart();
+        private readonly List<N5_36_ArchivePart> _archiveParts = new List<N5_36_ArchivePart>();
         private readonly Dictionary<int, string> _lastSeenElementTypeByLevel = new Dictionary<int, string>();
 
         public override TestId GetId()
@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var testResults = new List<TestResult>();
             int totalNumberOfComments = 0;
 
-            foreach (ArchivePart archivePart in _archiveParts)
+            foreach (N5_36_ArchivePart archivePart in _archiveParts)
             {
                 foreach (KeyValuePair<string, int> commentsForElement in archivePart.NumberOfCommentsByElement)
                 {
@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                     if (_archiveParts.Count > 1)
                         message = message.Insert(0,
-                            string.Format(Noark5Messages.ArchivePartSystemId, archivePart.SystemId) + " - ");
+                            string.Format(Noark5Messages.ArchivePartSystemId, archivePart.SystemId, archivePart.Name) + " - ");
 
                     testResults.Add(new TestResult(ResultType.Success, new Location(""), message));
                 }
@@ -85,18 +85,22 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
-                _currentArchivePart = new ArchivePart {SystemId = eventArgs.Value};
+                _currentArchivePart = new N5_36_ArchivePart() {SystemId = eventArgs.Value};
                 _archiveParts.Add(_currentArchivePart);
             }
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if (eventArgs.NameEquals("arkivdel"))
+                _currentArchivePart = null;
         }
 
-        private class ArchivePart
+        private class N5_36_ArchivePart : ArchivePart 
         {
-            public string SystemId { get; set; }
             public Dictionary<string, int> NumberOfCommentsByElement { get; private set; }
                 = new Dictionary<string, int>();
 

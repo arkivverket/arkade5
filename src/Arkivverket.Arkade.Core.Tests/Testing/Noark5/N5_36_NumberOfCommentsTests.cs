@@ -55,12 +55,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new[] { "xsi:type", "saksmappe" }, new XmlElementHelper()
                                     .Add("merknad", new XmlElementHelper())))))
                     .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
+                        .Add("tittel", "someTitle_2")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new[] { "xsi:type", "saksmappe" }, new XmlElementHelper()
@@ -70,9 +72,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.Results.First().Message.Should().Be("Totalt: 2");
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID): someSystemId_1 - Antall merknader i saksmappe: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1 - Antall merknader i saksmappe: 1"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID): someSystemId_2 - Antall merknader i saksmappe: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, someTitle_2 - Antall merknader i saksmappe: 1"));
         }
 
         [Fact]
