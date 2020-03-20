@@ -346,60 +346,34 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static string[] GetEntityInfoUnitNotes(MetadataEntityInformationUnit entity)
         {
-            var notes = new List<string>();
-            var notesContent = new List<string>();
+            var notesWriter = new HdrAgentNotesWriter();
 
-            if (!string.IsNullOrEmpty(entity.Address))
-            {
-                notes.Add(entity.Address);
-                notesContent.Add("Address");
-            }
+            if (!string.IsNullOrWhiteSpace(entity.Address))
+                notesWriter.AddAddress(entity.Address);
 
-            if (!string.IsNullOrEmpty(entity.Telephone))
-            {
-                notes.Add(entity.Telephone);
-                notesContent.Add("Telephone");
-            }
+            if (!string.IsNullOrWhiteSpace(entity.Telephone))
+                notesWriter.AddTelephone(entity.Telephone);
 
-            if (!string.IsNullOrEmpty(entity.Email))
-            {
-                notes.Add(entity.Email);
-                notesContent.Add("Email");
-            }
+            if (!string.IsNullOrWhiteSpace(entity.Email))
+                notesWriter.AddEmail(entity.Email);
 
-            if (notes.Count > 0)
-                notes.Add("notescontent:" + string.Join(",", notesContent));
-
-            return notes.Any() ? notes.ToArray() : null;
+            return notesWriter.HasNotes() ? notesWriter.GetNotes() : null;
         }
 
         private static string[] GetSystemInfoUnitNotes(MetadataSystemInformationUnit system)
         {
-            var notes = new List<string>();
-            var notesContent = new List<string>();
+            var notesWriter = new HdrAgentNotesWriter();
 
-            if (!string.IsNullOrEmpty(system.Version))
-            {
-                notes.Add(system.Version);
-                notesContent.Add("Version");
-            }
+            if (!string.IsNullOrWhiteSpace(system.Version))
+                notesWriter.AddVersion(system.Version);
 
-            if (!string.IsNullOrEmpty(system.Type) && MetsTranslationHelper.IsValidSystemType(system.Type))
-            {
-                notes.Add(system.Type);
-                notesContent.Add("Type");
-            }
+            if (!string.IsNullOrWhiteSpace(system.Type) && MetsTranslationHelper.IsValidSystemType(system.Type))
+                notesWriter.AddType(system.Type);
 
-            if (!string.IsNullOrEmpty(system.TypeVersion) && MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
-            {
-                notes.Add(system.TypeVersion);
-                notesContent.Add("TypeVersion");
-            }
+            if (!string.IsNullOrWhiteSpace(system.TypeVersion) && MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
+                notesWriter.AddTypeVersion(system.TypeVersion);
 
-            if (notes.Count > 0)
-                notes.Add("notescontent:" + string.Join(",", notesContent));
-
-            return notes.ToArray();
+            return notesWriter.HasNotes() ? notesWriter.GetNotes() : null;
         }
 
         private static void CreateAmdSec(metsType mets, ArchiveMetadata metadata)
