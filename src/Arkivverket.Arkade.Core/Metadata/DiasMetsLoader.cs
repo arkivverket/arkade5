@@ -305,7 +305,7 @@ namespace Arkivverket.Arkade.Core.Metadata
         private static void LoadSystemProperties(MetadataSystemInformationUnit system,
             metsTypeMetsHdrAgent metsSystemAgent)
         {
-            if (metsSystemAgent.name != null && LooksLikeSystemName(metsSystemAgent.name))
+            if (metsSystemAgent.name != null)
                 system.Name = metsSystemAgent.name;
 
             string type = metsSystemAgent.note?.FirstOrDefault(LooksLikeSystemType);
@@ -343,13 +343,6 @@ namespace Arkivverket.Arkade.Core.Metadata
                 @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
                 RegexOptions.IgnoreCase
             );
-        }
-
-        private static bool LooksLikeSystemName(string possibleSystemName)
-        {
-            return !LooksLikeSystemVersion(possibleSystemName) &&
-                   !LooksLikeSystemType(possibleSystemName) &&
-                   !LooksLikeSystemTypeVersion(possibleSystemName);
         }
 
         private static bool LooksLikeSystemVersion(string possibleSystemVersion)
