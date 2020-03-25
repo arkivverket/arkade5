@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -23,6 +23,48 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new N5_39_NumberOfCorrespondenceParts());
 
             testRun.Results[0].Message.Should().Be("Totalt: 1");
+        }
+
+        [Fact]
+        public void NumberOfCorrespondencePartsIsTwoInSameJournalPost()
+        {
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                        new XmlElementHelper()
+                                            .Add("korrespondansepart", new XmlElementHelper())
+                                            .Add("korrespondansepart", new XmlElementHelper()
+                                            )))))));
+
+            TestRun testRun = helper.RunEventsOnTest(new N5_39_NumberOfCorrespondenceParts());
+
+            testRun.Results[0].Message.Should().Be("Totalt: 2");
+        }
+
+        [Fact]
+        public void NumberOfCorrespondencePartsIsTwoInTwoDifferentRegistrationTypes()
+        {
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("registrering", new[] {"xsi:type", "journalpost"},
+                                        new XmlElementHelper()
+                                            .Add("korrespondansepart", new XmlElementHelper())
+                                    ).Add("registrering", // No specific type
+                                        new XmlElementHelper()
+                                            .Add("korrespondansepart", new XmlElementHelper())
+                                    ))))));
+
+            TestRun testRun = helper.RunEventsOnTest(new N5_39_NumberOfCorrespondenceParts());
+
+            testRun.Results[0].Message.Should().Be("Totalt: 2");
         }
 
         [Fact]

@@ -12,7 +12,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private int _totalNumberOfCorrespondanceParts;
         private ArchivePart _currentArchivePart = new ArchivePart();
         private readonly Dictionary<ArchivePart, int> _correspondancePartsPerArchivePart = new Dictionary<ArchivePart, int>();
-        private bool _journalPostAttributeIsFound;
 
         public override TestId GetId()
         {
@@ -56,8 +55,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (Noark5TestHelper.IdentifiesJournalPostRegistration(eventArgs))
-                _journalPostAttributeIsFound = true;
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
@@ -79,18 +76,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (eventArgs.NameEquals("korrespondansepart"))
             {
-                if (_journalPostAttributeIsFound)
-                {
-                    _totalNumberOfCorrespondanceParts++;
+                _totalNumberOfCorrespondanceParts++;
 
-                    if (_correspondancePartsPerArchivePart.Count > 0)
-                    {
-                        if (_correspondancePartsPerArchivePart.ContainsKey(_currentArchivePart))
-                            _correspondancePartsPerArchivePart[_currentArchivePart]++;
-                    }
+                if (_correspondancePartsPerArchivePart.Count > 0)
+                {
+                    if (_correspondancePartsPerArchivePart.ContainsKey(_currentArchivePart))
+                        _correspondancePartsPerArchivePart[_currentArchivePart]++;
                 }
 
-                _journalPostAttributeIsFound = false;
             }
         }
 
