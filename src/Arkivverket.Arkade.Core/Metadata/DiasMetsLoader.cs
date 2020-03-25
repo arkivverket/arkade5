@@ -214,20 +214,23 @@ namespace Arkivverket.Arkade.Core.Metadata
                     if (!string.IsNullOrEmpty(metsEntityAgent.name))
                         entityInfoUnit.ContactPerson = metsEntityAgent.name;
 
-                    string address = HdrAgentNotesLoader.GetAddress(metsEntityAgent.note);
+                    if (metsEntityAgent.note != null)
+                    {
+                        string address = HdrAgentNotesLoader.GetAddress(metsEntityAgent.note);
 
-                    if (!string.IsNullOrEmpty(address))
-                        entityInfoUnit.Address = address;
+                        if (!string.IsNullOrEmpty(address))
+                            entityInfoUnit.Address = address;
 
-                    string phoneNumber = HdrAgentNotesLoader.GetTelephone(metsEntityAgent.note);
+                        string phoneNumber = HdrAgentNotesLoader.GetTelephone(metsEntityAgent.note);
 
-                    if (!string.IsNullOrEmpty(phoneNumber))
-                        entityInfoUnit.Telephone = phoneNumber;
+                        if (!string.IsNullOrEmpty(phoneNumber))
+                            entityInfoUnit.Telephone = phoneNumber;
 
-                    string emailAddress = HdrAgentNotesLoader.GetEmail(metsEntityAgent.note);
+                        string emailAddress = HdrAgentNotesLoader.GetEmail(metsEntityAgent.note);
 
-                    if (!string.IsNullOrEmpty(emailAddress))
-                        entityInfoUnit.Email = emailAddress;
+                        if (!string.IsNullOrEmpty(emailAddress))
+                            entityInfoUnit.Email = emailAddress;
+                    }
                 }
             }
         }
@@ -308,20 +311,23 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (metsSystemAgent.name != null)
                 system.Name = metsSystemAgent.name;
 
-            string type = HdrAgentNotesLoader.GetType(metsSystemAgent.note);
+            if (metsSystemAgent.note != null)
+            {
+                string type = HdrAgentNotesLoader.GetType(metsSystemAgent.note);
 
-            if (type != null)
-                system.Type = type;
+                if (type != null)
+                    system.Type = type;
 
-            string version = HdrAgentNotesLoader.GetVersion(metsSystemAgent.note);
+                string version = HdrAgentNotesLoader.GetVersion(metsSystemAgent.note);
 
-            if (version != null)
-                system.Version = version;
+                if (version != null)
+                    system.Version = version;
 
-            string typeVersion = HdrAgentNotesLoader.GetTypeVersion(metsSystemAgent.note);
+                string typeVersion = HdrAgentNotesLoader.GetTypeVersion(metsSystemAgent.note);
 
-            if (typeVersion != null && MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
-                system.TypeVersion = typeVersion;
+                if (typeVersion != null && MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
+                    system.TypeVersion = typeVersion;
+            }
         }
 
         private static bool HasData(object anObject)
