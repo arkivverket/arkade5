@@ -74,8 +74,7 @@ namespace Arkivverket.Arkade.Core.Report
         {
             _stream.WriteLine(@"    <div class=""test"">");
             _stream.WriteLine($@"       <h3 id=""{testRun.TestId}"">");
-            if (testRun.TestId.Number != 0)
-                _stream.WriteLine(@"        " + testRun.TestId + " &ndash; ");
+            _stream.WriteLine(@"        " + testRun.TestId + " &ndash; ");
             _stream.WriteLine(@"        " + testRun.TestName);
             _stream.WriteLine(@"        </h3>");
             _stream.WriteLine(@"        <p><b>Type:</b> " + GetTestTypeDisplayName(testRun.TestType) + "</p>");
