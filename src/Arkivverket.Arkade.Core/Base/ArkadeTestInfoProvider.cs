@@ -15,9 +15,11 @@ namespace Arkivverket.Arkade.Core.Base
                resourceDisplayNameKey = $"{resourceDisplayNameKey}v5_5";
             }
             
-            string resourceDisplayName = ArkadeTestDisplayNames.ResourceManager.GetString(resourceDisplayNameKey);
+            string resourceDisplayNameName = ArkadeTestDisplayNames.ResourceManager.GetString(resourceDisplayNameKey);
 
-            return resourceDisplayName ?? GetFallBackDisplayName(arkadeTest);
+            return resourceDisplayNameName != null
+                ? string.Format(ArkadeTestDisplayNames.DisplayNameFormat, arkadeTest.GetId(), resourceDisplayNameName)
+                : GetFallBackDisplayName(arkadeTest);
         }
 
         private static string GetFallBackDisplayName(IArkadeTest arkadeTest)

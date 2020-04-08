@@ -331,6 +331,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} – {1}.
+        /// </summary>
+        internal static string DisplayNameFormat {
+            get {
+                return ResourceManager.GetString("DisplayNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontroll av eksistens for XML-filene.
         /// </summary>
         internal static string N5_01 {
