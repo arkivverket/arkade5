@@ -102,7 +102,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
             List<IArkadeStructureTest> structureTests = _testProvider.GetStructureTests();
             foreach (var test in structureTests)
             {
-                string testName = ArkadeTestInfoProvider.GetDisplayName(test);
+                string testName = ArkadeTestNameProvider.GetDisplayName(test);
 
                 try
                 {
