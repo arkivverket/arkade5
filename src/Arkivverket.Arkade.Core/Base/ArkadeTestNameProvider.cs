@@ -1,4 +1,3 @@
-using Arkivverket.Arkade.Core.Base.Addml.Processes;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 
@@ -12,11 +11,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             string testName = GetTestName(testId);
 
-            string displayName = testName != null
-                ? string.Format(ArkadeTestDisplayNames.DisplayNameFormat, testId, testName)
-                : GetFallBackDisplayName(arkadeTest);
-
-            return displayName;
+            return string.Format(ArkadeTestDisplayNames.DisplayNameFormat, testId, testName);
         }
 
         private static string GetTestName(TestId testId)
@@ -27,18 +22,6 @@ namespace Arkivverket.Arkade.Core.Base
                 resourceDisplayNameKey = $"{resourceDisplayNameKey}v5_5";
 
             return ArkadeTestDisplayNames.ResourceManager.GetString(resourceDisplayNameKey);
-        }
-
-        private static string GetFallBackDisplayName(IArkadeTest arkadeTest)
-        {
-            try
-            {
-                return ((AddmlProcess) arkadeTest).GetName(); // Process name
-            }
-            catch
-            {
-                return arkadeTest.GetType().Name; // Class name
-            }
         }
     }
 }
