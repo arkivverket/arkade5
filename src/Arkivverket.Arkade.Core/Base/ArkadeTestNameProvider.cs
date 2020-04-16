@@ -10,16 +10,16 @@ namespace Arkivverket.Arkade.Core.Base
         {
             TestId testId = arkadeTest.GetId();
 
-            string namePart = GetNamePart(testId);
+            string testName = GetTestName(testId);
 
-            string displayName = namePart != null
-                ? string.Format(ArkadeTestDisplayNames.DisplayNameFormat, testId, namePart)
+            string displayName = testName != null
+                ? string.Format(ArkadeTestDisplayNames.DisplayNameFormat, testId, testName)
                 : GetFallBackDisplayName(arkadeTest);
 
             return displayName;
         }
 
-        private static string GetNamePart(TestId testId)
+        private static string GetTestName(TestId testId)
         {
             string resourceDisplayNameKey = testId.ToString().Replace('.', '_');
 
