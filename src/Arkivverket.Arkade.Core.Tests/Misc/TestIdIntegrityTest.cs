@@ -35,8 +35,10 @@ namespace Arkivverket.Arkade.Core.Tests.Misc
 
             Archive archive = TestUtil.CreateArchiveExtraction(Path.Combine("TestData", "Noark5", "Small"));
 
-            tests.AddRange(noark5TestProvider.GetStructureTests());
-            tests.AddRange(noark5TestProvider.GetContentTests(archive));
+            var testSession = new TestSession(archive);
+
+            tests.AddRange(noark5TestProvider.GetStructureTests(testSession));
+            tests.AddRange(noark5TestProvider.GetContentTests(testSession));
 
             return tests;
         }

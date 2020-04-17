@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using RestSharp.Extensions;
 using Serilog;
@@ -103,6 +104,13 @@ namespace Arkivverket.Arkade.CLI
             {
                 throw new ArgumentException("Invalid archive path: " + options.Archive);
             }
+
+            if (archiveType == ArchiveType.Noark5)
+            {
+                testSession.AvailableTests = Noark5TestProvider.GetAvailableTests();
+                testSession.TestsToRun = testSession.AvailableTests; // TODO: Implement user selectable tests
+            }
+
             return testSession;
         }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing;
@@ -224,6 +224,23 @@ namespace Arkivverket.Arkade.Core.Report
             _stream.WriteLine("                 </td>");
             _stream.WriteLine(@"            </tr>");
 
+
+            if (testSession.Archive.ArchiveType == ArchiveType.Noark5)
+            {
+                int numberOfExecutedTests = testSession.TestSuite.TestRuns.Count();
+                int numberOfAvailableTests = testSession.AvailableTests.Count;
+
+                _stream.WriteLine(@"            <tr>");
+                _stream.WriteLine(@"                <td>");
+                _stream.WriteLine(Resources.Report.LabelNumberOfTestsExecuted);
+                _stream.WriteLine("                 </td>");
+                _stream.WriteLine(@"                <td>");
+                _stream.WriteLine($"{numberOfExecutedTests} av {numberOfAvailableTests}");
+                if (numberOfExecutedTests < numberOfAvailableTests)
+                    _stream.Write($"<span>&#9888;</span> <i>({Resources.Report.WarningNotAllTestsExecuted})</i>");
+                _stream.WriteLine("                 </td>");
+                _stream.WriteLine(@"            </tr>");
+            }
 
             if (testSession.TestSummary != null)
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
+using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base
 {
@@ -12,6 +13,9 @@ namespace Arkivverket.Arkade.Core.Base
         public Archive Archive { get; }
 
         public ArchiveMetadata ArchiveMetadata { get; set; }
+
+        public List<TestId> TestsToRun { get; set; } = new List<TestId>();
+        public List<TestId> AvailableTests { get; set; } = new List<TestId>();
 
         public TestSuite TestSuite { get; set; }
 

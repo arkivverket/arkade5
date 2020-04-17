@@ -150,6 +150,7 @@
     <Compile Include="Models\ObservableCollectionEx.cs" />
     <Compile Include="Models\GuiMetaDataModel.cs" />
     <Compile Include="Models\OperationMessage.cs" />
+    <Compile Include="Models\SelectableTest.cs" />
     <Compile Include="ModuleAModule.cs" />
     <Compile Include="Resources\MetaDataGUI.Designer.cs">
       <AutoGen>True</AutoGen>

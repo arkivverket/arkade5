@@ -7,11 +7,12 @@ namespace Arkivverket.Arkade.Core.Base
     {
         public static string GetDisplayName(IArkadeTest arkadeTest)
         {
-            TestId testId = arkadeTest.GetId();
+            return GetDisplayName(arkadeTest.GetId());
+        }
 
-            string testName = GetTestName(testId);
-
-            return string.Format(ArkadeTestDisplayNames.DisplayNameFormat, testId, testName);
+        public static string GetDisplayName(TestId testId)
+        {
+            return string.Format(ArkadeTestDisplayNames.DisplayNameFormat, testId, GetTestName(testId));
         }
 
         private static string GetTestName(TestId testId)

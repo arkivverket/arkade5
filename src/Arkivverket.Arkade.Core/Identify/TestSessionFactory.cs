@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
 
@@ -69,7 +70,11 @@ namespace Arkivverket.Arkade.Core.Identify
             var testSession = new TestSession(archive);
 
             if (archiveType == ArchiveType.Noark5)
+            {
+                testSession.AvailableTests = Noark5TestProvider.GetAvailableTests();
+
                 return testSession;
+            }
 
             ArchiveXmlFile addmlFile = archive.AddmlXmlUnit.File;
 

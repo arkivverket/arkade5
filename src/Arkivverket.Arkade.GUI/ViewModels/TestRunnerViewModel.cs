@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private readonly ILogger _log = Log.ForContext<TestRunnerViewModel>();
 
         private ObservableCollection<OperationMessage> _operationMessages = new ObservableCollection<OperationMessage>();
+        private ObservableCollection<SelectableTest> _selectableTests = new ObservableCollection<SelectableTest>();
 
         private readonly ArkadeApi _arkadeApi;
         private readonly IRegionManager _regionManager;
@@ -44,6 +46,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool _testRunHasBeenExecuted;
         private bool _isRunningTests;
         private bool _testRunCompletedSuccessfully;
+        private bool _canSelectTests;
+        private bool _allTestsSelected;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
         private Visibility _addmlDataObjectStatusVisibilty = Visibility.Collapsed;
@@ -103,10 +107,33 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set { SetProperty(ref _numberOfProcessedRecords, value); }
         }
 
+        public bool AllTestsSelected
+        {
+            get { return _allTestsSelected; }
+            set
+            {
+                SetProperty(ref _allTestsSelected, value);
+                foreach (SelectableTest test in SelectableTests)
+                    test.IsSelected = value;
+            }
+        }
+
+        public bool CanSelectTests
+        {
+            get { return _canSelectTests;}
+            set { SetProperty(ref _canSelectTests, value); }
+        }
+
         public ObservableCollection<OperationMessage> OperationMessages
         {
             get { return _operationMessages; }
             set { SetProperty(ref _operationMessages, value); }
+        }
+
+        public ObservableCollection<SelectableTest> SelectableTests
+        {
+            get { return _selectableTests; }
+            set { SetProperty(ref _selectableTests, value); }
         }
 
         public ArchiveInformationStatus ArchiveInformationStatus
@@ -140,6 +167,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, CanCreatePackage);
             NewProgramSessionCommand = new DelegateCommand(ReturnToProgramStart, IsFinishedRunningTests);
             ShowReportCommand = new DelegateCommand(ShowHtmlReport, CanContinueOperationOnTestRun);
+            _allTestsSelected = true;
         }
 
         private void StartTesting()
@@ -208,6 +236,21 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 _testSession = Directory.Exists(_archiveFileName)
                     ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
                     : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
+
+                if (_testSession.Archive.ArchiveType == ArchiveType.Noark5)
+                {
+                    foreach (TestId testId in _testSession.AvailableTests)
+                    {
+                        _selectableTests.Add(new SelectableTest
+                        {
+                            TestId = testId,
+                            DisplayName = ArkadeTestNameProvider.GetDisplayName(testId),
+                            IsSelected = true
+                        });
+                    }
+
+                    CanSelectTests = true;
+                }
 
                 if (!_testSession.IsTestableArchive())
                 {
@@ -283,6 +326,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 NotifyStartRunningTests();
                 
+                _testSession.TestsToRun = GetSelectedTests();
+
                 _arkadeApi.RunTests(_testSession);
                 
                 _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords, _numberOfTestsFinished);
@@ -334,6 +379,18 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             }
         }
 
+        private List<TestId> GetSelectedTests()
+        {
+            var selectedTests = new List<TestId>();
+
+            foreach (SelectableTest selectableTest in SelectableTests)
+            {
+                if(selectableTest.IsSelected)
+                    selectedTests.Add(selectableTest.TestId);
+            }
+
+            return selectedTests;
+        }
 
         private void NotifyFinishedRunningTests()
         {
@@ -348,6 +405,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private void NotifyStartRunningTests()
         {
             _testRunHasBeenExecuted = true;
+            CanSelectTests = false;
             _isRunningTests = true;
             StartTestingCommand.RaiseCanExecuteChanged();
             ShowReportCommand.RaiseCanExecuteChanged();

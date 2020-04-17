@@ -5,8 +5,8 @@ namespace Arkivverket.Arkade.Core.Testing
 {
     public interface ITestProvider
     {
-        List<INoark5Test> GetContentTests(Archive archive);
+        List<INoark5Test> GetContentTests(TestSession testSession);
 
-        List<IArkadeStructureTest> GetStructureTests();
+        List<IArkadeStructureTest> GetStructureTests(TestSession testSession);
     }
 }
