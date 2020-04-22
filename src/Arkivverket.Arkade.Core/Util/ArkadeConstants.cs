@@ -50,5 +50,6 @@ namespace Arkivverket.Arkade.Core.Util
             { "dokumenter", "DOKUMENTER", "dokument", "DOKUMENT" };
 
         public const string MetadataStandardLabelPlaceholder = "[standard_label]";
+        public const string MetsHdrAgentMetaNoteKeyWord = "notescontent:";
     }
 }
