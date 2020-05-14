@@ -52,7 +52,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return contentTests;
         }
 
-        public static List<TestId> GetAvailableTests()
+        public static List<TestId> GetAllTestIds()
         {
             return new Noark5TestFactory().GetTestIds();
         }

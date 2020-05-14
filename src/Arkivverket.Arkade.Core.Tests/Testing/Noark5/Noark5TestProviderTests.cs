@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         private static Archive Archive =>
             TestUtil.CreateArchiveExtraction(Path.Combine("TestData", "Noark5", "Noark5Archive"));
 
-        private static readonly List<TestId> AllTestIds = Noark5TestProvider.GetAvailableTests();
+        private static readonly List<TestId> AllTestIds = Noark5TestProvider.GetAllTestIds();
 
         private static readonly List<TestId> StructureTestIds = new List<TestId>
         {

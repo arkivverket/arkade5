@@ -107,7 +107,7 @@ namespace Arkivverket.Arkade.CLI
 
             if (archiveType == ArchiveType.Noark5)
             {
-                testSession.AvailableTests = Noark5TestProvider.GetAvailableTests();
+                testSession.AvailableTests = Noark5TestProvider.GetAllTestIds();
                 testSession.TestsToRun = testSession.AvailableTests; // TODO: Implement user selectable tests
             }
 
