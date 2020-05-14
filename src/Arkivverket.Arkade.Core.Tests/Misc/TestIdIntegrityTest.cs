@@ -13,8 +13,7 @@ namespace Arkivverket.Arkade.Core.Tests.Misc
         [Fact]
         public void AllTestsAndProcessesHasAUniqueTestId()
         {
-            IEnumerable<TestId> allTestIds = Noark5TestProvider.GetAllTestIds()
-                .Concat(ProcessProvider.GetAllProcesses().Select(p => p.GetId()));
+            IEnumerable<TestId> allTestIds = Noark5TestProvider.GetAllTestIds().Concat(ProcessProvider.GetAllTestIds());
 
             allTestIds.Should().OnlyHaveUniqueItems();
         }
