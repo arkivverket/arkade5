@@ -5,6 +5,7 @@ using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Processes;
 using Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded;
 using Arkivverket.Arkade.Core.Base.Addml.Processes.Internal;
+using Arkivverket.Arkade.Core.Logging;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Base.Addml
@@ -14,12 +15,14 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         private static readonly ILogger Log = Serilog.Log.ForContext<ProcessManager>();
 
         private readonly AddmlDefinition _addmlDefinition;
+        private readonly IStatusEventHandler _statusEventHandler;
         private readonly Dictionary<string, IAddmlProcess> _processesByName;
         private readonly ProcessTypeMapping _processTypeMapping = new ProcessTypeMapping();
 
-        public ProcessManager(AddmlDefinition addmlDefinition)
+        public ProcessManager(AddmlDefinition addmlDefinition, IStatusEventHandler statusEventHandler)
         {
             _addmlDefinition = addmlDefinition;
+            _statusEventHandler = statusEventHandler;
             _processesByName = InstantiateProcesses();
         }
 
@@ -38,6 +41,12 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 else
                 {
                     Log.Warning($"No process with name {processName} in ProcessTypeMapping.");
+
+                    _statusEventHandler.RaiseEventOperationMessage(
+                        string.Format(Resources.AddmlMessages.UnknownAddmlProcess, processName),
+                        string.Format(Resources.AddmlMessages.CouldNotInstatiateUnsupportedAddmlProcess, processName),
+                        OperationMessageStatus.Warning
+                    );
                 }
             }
             return processes;

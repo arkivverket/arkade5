@@ -2,6 +2,7 @@ using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Processes;
 using Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded;
 using Arkivverket.Arkade.Core.Base.Addml.Processes.Internal;
+using Arkivverket.Arkade.Core.Logging;
 
 namespace Arkivverket.Arkade.Core.Base.Addml
 {
@@ -11,10 +12,16 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         private FileProcessRunner _fileProcessRunner;
         private ProcessManager _processManager;
         private RecordProcessRunner _recordProcessRunner;
+        private readonly IStatusEventHandler _statusEventHandler;
+
+        public AddmlProcessRunner(IStatusEventHandler statusEventHandler)
+        {
+            _statusEventHandler = statusEventHandler;
+        }
 
         public void Init(AddmlDefinition addmlDefinition)
         {
-            _processManager = new ProcessManager(addmlDefinition);
+            _processManager = new ProcessManager(addmlDefinition, _statusEventHandler);
             _fileProcessRunner = new FileProcessRunner(_processManager);
             _recordProcessRunner = new RecordProcessRunner(_processManager);
             _fieldProcessRunner = new FieldProcessRunner(_processManager);

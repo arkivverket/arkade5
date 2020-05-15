@@ -26,7 +26,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
             };
 
             List<IAddmlProcess> instantiatedProcesses = new ProcessManager(
-                new AddmlDefinition(flatFileDefinitions, null)
+                new AddmlDefinition(flatFileDefinitions, null),
+                new StatusEventHandler()
             ).GetAllProcesses();
 
             instantiatedProcesses.Should().Contain(p => p.GetName().Equals("Analyse_CountRecords"));
