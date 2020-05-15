@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Addml, 4);
 
-        public const string Name = "Analyse_CountRecordDefinitionOccurences";
+        public const string Name = "Analyse_CountRecordDefinitionOccurrences";
 
         private readonly Dictionary<RecordIndex, int> _numberOfRecords = new Dictionary<RecordIndex, int>();
         private readonly List<TestResult> _testResults = new List<TestResult>();
