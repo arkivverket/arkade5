@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
         private string _name = "FlatFile" + Random.Next();
 
         private int? _numberOfRecords = null;
-        private readonly List<string> _processes = null;
+        private List<string> _processes = null;
         private string _recordDefinitionFieldIdentifier;
 
         private string _recordSeparator = null;
@@ -77,6 +77,11 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
         public AddmlFlatFileDefinitionBuilder WithRecordDefinitionFieldIdentifier(string fieldIdentifier)
         {
             _recordDefinitionFieldIdentifier = fieldIdentifier;
+            return this;
+        }
+        public AddmlFlatFileDefinitionBuilder WithProcesses(List<string> processes)
+        {
+            _processes = processes;
             return this;
         }
     }
