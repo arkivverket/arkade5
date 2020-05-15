@@ -12,12 +12,12 @@ using Record = Arkivverket.Arkade.Core.Base.Addml.Record;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_04_AnalyseCountRecordDefinitionOccurencesTest
+    public class A_04_AnalyseCountRecordDefinitionOccurrencesTest
     {
         [Fact]
-        public void ShouldCountRecordDefinitionOccurences()
+        public void ShouldCountRecordDefinitionOccurrences()
         {
-            var process = new A_04_AnalyseCountRecordDefinitionOccurences();
+            var process = new A_04_AnalyseCountRecordDefinitionOccurrences();
             AddmlFlatFileDefinition addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder().Build();
             FlatFile flatFile = new FlatFile(addmlFlatFileDefinition);
 

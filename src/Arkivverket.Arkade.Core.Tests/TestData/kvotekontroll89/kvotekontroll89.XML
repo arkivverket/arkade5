@@ -42,7 +42,7 @@
           <property name="fileName">
             <value>AktivPassiv89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>22615</value>
           </property>
         </properties>
@@ -52,7 +52,7 @@
           <property name="fileName">
             <value>Fangst89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>54400</value>
           </property>
         </properties>
@@ -62,7 +62,7 @@
           <property name="fileName">
             <value>Farkost_reds89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>9221</value>
           </property>
         </properties>
@@ -72,7 +72,7 @@
           <property name="fileName">
             <value>Farkost89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>3488</value>
           </property>
         </properties>
@@ -82,7 +82,7 @@
           <property name="fileName">
             <value>Fiske89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>34106</value>
           </property>
         </properties>
@@ -92,7 +92,7 @@
           <property name="fileName">
             <value>Fiskesort_kode.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>100</value>
           </property>
         </properties>
@@ -102,7 +102,7 @@
           <property name="fileName">
             <value>Innlast89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>2501</value>
           </property>
         </properties>
@@ -112,7 +112,7 @@
         <property name="fileName">
           <value>Kontrollpunkt_kode.dat</value>
         </property>
-        <property name="numberOfOccurences">
+        <property name="numberOfOccurrences">
         </property>
       </properties>
     </flatFile>
@@ -121,7 +121,7 @@
         <property name="fileName">
           <value>Kontrollpunkt89.dat</value>
         </property>
-        <property name="numberOfOccurences">
+        <property name="numberOfOccurrences">
         </property>
       </properties>
     </flatFile>
@@ -131,7 +131,7 @@
           <property name="fileName">
             <value>Kvote89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>3310</value>
           </property>
         </properties>
@@ -141,7 +141,7 @@
         <property name="fileName">
           <value>Kvotekontroll89.dat</value>
         </property>
-        <property name="numberOfOccurences">
+        <property name="numberOfOccurrences">
         </property>
       </properties>
     </flatFile>
@@ -151,7 +151,7 @@
           <property name="fileName">
             <value>Land89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>312</value>
           </property>
         </properties>
@@ -161,7 +161,7 @@
           <property name="fileName">
             <value>Nasjon_kode.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>245</value>
           </property>
         </properties>
@@ -171,7 +171,7 @@
           <property name="fileName">
             <value>Noravtaler_kode.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>20</value>
           </property>
         </properties>
@@ -181,7 +181,7 @@
         <property name="fileName">
           <value>Overforing89.dat</value>
         </property>
-        <property name="numberOfOccurences">
+        <property name="numberOfOccurrences">
         </property>
       </properties>
     </flatFile>
@@ -191,7 +191,7 @@
           <property name="fileName">
             <value>Posisjon_kode.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>6611</value>
           </property>
         </properties>
@@ -201,7 +201,7 @@
         <property name="fileName">
           <value>Produksjon89.dat</value>
         </property>
-        <property name="numberOfOccurences">
+        <property name="numberOfOccurrences">
         </property>
       </properties>
     </flatFile>
@@ -211,7 +211,7 @@
           <property name="fileName">
             <value>Radio_kvantum89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>27980</value>
           </property>
         </properties>
@@ -221,7 +221,7 @@
           <property name="fileName">
             <value>Redskap_kode.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>13</value>
           </property>
         </properties>
@@ -231,7 +231,7 @@
           <property name="fileName">
             <value>Rute_kode.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>23</value>
           </property>
         </properties>
@@ -241,7 +241,7 @@
           <property name="fileName">
             <value>Rute89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>10044</value>
           </property>
         </properties>
@@ -251,7 +251,7 @@
         <property name="fileName">
           <value>Sort_kvantum89.dat</value>
         </property>
-        <property name="numberOfOccurences">
+        <property name="numberOfOccurrences">
         </property>
       </properties>
     </flatFile>
@@ -261,7 +261,7 @@
           <property name="fileName">
             <value>Subavt_reds89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>415</value>
           </property>
         </properties>
@@ -271,7 +271,7 @@
           <property name="fileName">
             <value>Subavt_rute89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>231</value>
           </property>
         </properties>
@@ -281,7 +281,7 @@
           <property name="fileName">
             <value>Subavt_sort89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>671</value>
           </property>
         </properties>
@@ -291,7 +291,7 @@
           <property name="fileName">
             <value>Subavtale_kode.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>137</value>
           </property>
         </properties>
@@ -301,7 +301,7 @@
           <property name="fileName">
             <value>Subavtale89.dat</value>
           </property>
-          <property name="numberOfOccurences">
+          <property name="numberOfOccurrences">
             <value>67</value>
           </property>
         </properties>

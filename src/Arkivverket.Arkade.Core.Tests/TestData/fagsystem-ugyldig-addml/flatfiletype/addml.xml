@@ -522,12 +522,12 @@
 				</processes>
 				<recordProcesses definitionReference="Eksterne_dokumenter">
 					<processes>
-						<process name="Analyse_CountRecordDefinitionOccurences"/>
+						<process name="Analyse_CountRecordDefinitionOccurrences"/>
 					</processes>
 				</recordProcesses>
 				<recordProcesses definitionReference="Interne_dokumenter">
 					<processes>
-						<process name="Analyse_CountRecordDefinitionOccurences"/>
+						<process name="Analyse_CountRecordDefinitionOccurrences"/>
 					</processes>
 				</recordProcesses>
 			</flatFileProcesses>

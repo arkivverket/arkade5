@@ -6,7 +6,7 @@ using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 {
-    public class A_04_AnalyseCountRecordDefinitionOccurences : AddmlProcess
+    public class A_04_AnalyseCountRecordDefinitionOccurrences : AddmlProcess
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Addml, 4);
 
@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         public override string GetDescription()
         {
-            return Messages.AnalyseCountRecordDefinitionOccurencesDescription;
+            return Messages.AnalyseCountRecordDefinitionOccurrencesDescription;
         }
 
         public override TestType GetTestType()
@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
             foreach (KeyValuePair<RecordIndex, int> item in _numberOfRecords)
             {
                 _testResults.Add(new TestResult(ResultType.Success, AddmlLocation.FromRecordIndex(item.Key),
-                    string.Format(Messages.AnalyseCountRecordDefinitionOccurencesMessage, item.Value)));
+                    string.Format(Messages.AnalyseCountRecordDefinitionOccurrencesMessage, item.Value)));
             }
             _numberOfRecords.Clear();
         }
