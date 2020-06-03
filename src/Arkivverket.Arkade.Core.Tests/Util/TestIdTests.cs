@@ -9,6 +9,15 @@ namespace Arkivverket.Arkade.Core.Tests.Util
     public class TestIdTests
     {
         [Fact]
+        public void CreateTest()
+        {
+            TestId testId = TestId.Create("N5.15");
+
+            testId.Kind.Should().Be(TestId.TestKind.Noark5);
+            testId.Number.Should().Be(15);
+        }
+
+        [Fact]
         public void ToStringTest()
         {
             var testId = new TestId(TestId.TestKind.Noark5, 15);
