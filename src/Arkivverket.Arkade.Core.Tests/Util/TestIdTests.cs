@@ -4,7 +4,7 @@ using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;
 
-namespace Arkivverket.Arkade.CoreTests.Util
+namespace Arkivverket.Arkade.Core.Tests.Util
 {
     public class TestIdTests
     {
