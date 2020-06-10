@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
@@ -14,14 +16,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
-        private readonly DirectoryInfo _workingDirectory;
+        private readonly ReadOnlyDictionary<string, FileInfo> _documentFiles;
 
         private readonly Dictionary<ArchivePart, List<string>> _missingFilesPerArchivepart = new Dictionary<ArchivePart, List<string>>();
         private ArchivePart _currentArchivePart = new ArchivePart(); 
 
         public N5_32_ControlDocumentFilesExists(Archive archive)
         {
-            _workingDirectory = archive.WorkingDirectory.Content().DirectoryInfo();
+            _documentFiles = archive.DocumentFiles;
         }
 
         public override TestId GetId()
@@ -81,7 +83,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 string documentFileName = eventArgs.Value;
 
-                if (!FileExists(documentFileName))
+                if (!_documentFiles.ContainsKey(documentFileName))
                 {
                     if (_missingFilesPerArchivepart.ContainsKey(_currentArchivePart))
                         _missingFilesPerArchivepart[_currentArchivePart].Add(documentFileName);
@@ -89,23 +91,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                         _missingFilesPerArchivepart.Add(_currentArchivePart, new List<string>{documentFileName});
                     
                 }
-            }
-        }
-
-        private bool FileExists(string documentFileName)
-        {
-            if (Path.DirectorySeparatorChar == '/')
-                documentFileName = documentFileName.Replace('\\', '/');
-
-            try
-            {
-                var documentFileInfo = new FileInfo(Path.Combine(_workingDirectory.FullName, documentFileName));
-
-                return documentFileInfo.Exists; // Logging of exists-check greatly affects performance
-            }
-            catch
-            {
-                return false; // File reference parse error means file doesn't exist with given filename
             }
         }
     }

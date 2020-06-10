@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using System.Linq;
+using Arkivverket.Arkade.Core.Util;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base
@@ -12,6 +14,8 @@ namespace Arkivverket.Arkade.Core.Base
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
+        private ReadOnlyDictionary<string, FileInfo> _documentFiles;
+        public ReadOnlyDictionary<string, FileInfo> DocumentFiles => _documentFiles ?? GetDocumentFiles();
         public ArchiveXmlUnit AddmlXmlUnit { get; }
         public ArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
@@ -109,6 +113,31 @@ namespace Arkivverket.Arkade.Core.Base
 
                 XmlUnits.Add(new ArchiveXmlUnit(archiveXmlFile, archiveXmlSchemas));
             }
+        }
+
+        private ReadOnlyDictionary<string, FileInfo> GetDocumentFiles()
+        {
+            var documentFiles = new Dictionary<string, FileInfo>();
+
+            DirectoryInfo documentsDirectory = GetDocumentsDirectory();
+
+            if (documentsDirectory.Exists)
+            {
+                FileInfo[] fileInfos = documentsDirectory.GetFiles("*", SearchOption.AllDirectories);
+
+                string documentsDirectoryParentFullPath = documentsDirectory.Parent?.FullName + '/';
+
+                documentFiles = fileInfos.ToDictionary(f =>
+                {
+                    string relativeName = f.FullName.Substring(documentsDirectoryParentFullPath.Length);
+                    return relativeName.Replace('\\', '/');
+                });
+            }
+
+            // Instantiate field for next access:
+            _documentFiles = new ReadOnlyDictionary<string, FileInfo>(documentFiles);
+
+            return _documentFiles;
         }
     }
 

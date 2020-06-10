@@ -35,11 +35,18 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
         {
             var actualFileCount = 0;
 
-            try
-            {
-                var documentsDirectory = archive.GetDocumentsDirectory();
+            var documentsDirectory = archive.GetDocumentsDirectory();
 
-                actualFileCount = GetActualFileCount(documentsDirectory);
+            if (!documentsDirectory.Exists)
+            {
+                string documentDirectoryParent = archive.WorkingDirectory.Content().DirectoryInfo().Name + "\\";
+
+                _testResults.Add(new TestResult(ResultType.Error, new Location(documentDirectoryParent),
+                    Noark5Messages.ValidateNumberOfDocumentfilesMessage_FilesDirectoryNotFound));
+            }
+            else
+            {
+                actualFileCount = archive.DocumentFiles.Count;
 
                 if (actualFileCount > 0)
                     _testResults.Add(new TestResult(ResultType.Success,
@@ -51,13 +58,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
                     _testResults.Add(new TestResult(ResultType.Error,
                         new Location(documentsDirectory.Name + "\\"),
                         Noark5Messages.ValidateNumberOfDocumentfilesMessage_NoFilesFound));
-            }
-            catch (DirectoryNotFoundException)
-            {
-                string documentDirectoryParent = archive.WorkingDirectory.Content().DirectoryInfo().Name + "\\";
-
-                _testResults.Add(new TestResult(ResultType.Error, new Location(documentDirectoryParent),
-                    Noark5Messages.ValidateNumberOfDocumentfilesMessage_FilesDirectoryNotFound));
             }
 
             try
@@ -81,11 +81,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
                 _testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
                     Noark5Messages.ValidateNumberOfDocumentfilesMessage_DocumentationNotFound));
             }
-        }
-
-        private static int GetActualFileCount(DirectoryInfo documentsDirectory)
-        {
-            return documentsDirectory.GetFiles(".", SearchOption.AllDirectories).Length;
         }
 
         private static int GetDocumentedFileCount(Archive archive)
