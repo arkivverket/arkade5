@@ -33,6 +33,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private readonly ArkadeApi _arkadeApi;
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private bool _isRunningCreatePackage;
+        private bool _generateDocumentFileInfoSelected;
         private bool _selectedPackageTypeAip;
         private bool _selectedPackageTypeSip = true;
         private bool _standardLabelIsSelected = true;
@@ -82,7 +83,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             }
         }
 
-
+        public bool GenerateDocumentFileInfoSelected
+        {
+            get { return _generateDocumentFileInfoSelected; }
+            set
+            {
+                SetProperty(ref _generateDocumentFileInfoSelected, value);
+            }
+        }
         public bool SelectedPackageTypeSip
         {
             get { return _selectedPackageTypeSip; }
@@ -454,6 +462,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 ExtractionDate = ArchiveMetadataMapper.MapToExtractionDate(_metaDataExtractionDate),
                 PackageType = ArchiveMetadataMapper.MapToPackageType(SelectedPackageTypeSip)
             };
+
+            _testSession.GenerateDocumentFileInfo = GenerateDocumentFileInfoSelected;
 
             _isRunningCreatePackage = true;
             CreatePackageCommand.RaiseCanExecuteChanged();

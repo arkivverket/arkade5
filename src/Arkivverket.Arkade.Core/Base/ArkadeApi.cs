@@ -74,13 +74,13 @@ namespace Arkivverket.Arkade.Core.Base
             if (testSession.ArchiveMetadata.PackageType == PackageType.SubmissionInformationPackage)
             {
                 packageFilePath = _informationPackageCreator.CreateSip(
-                    testSession.Archive, testSession.ArchiveMetadata, outputDirectory
+                    testSession.Archive, testSession.ArchiveMetadata, testSession.GenerateDocumentFileInfo, outputDirectory
                 );
             }
             else // ArchivalInformationPackage
             {
                 packageFilePath = _informationPackageCreator.CreateAip(
-                    testSession.Archive, testSession.ArchiveMetadata, outputDirectory
+                    testSession.Archive, testSession.ArchiveMetadata, testSession.GenerateDocumentFileInfo, outputDirectory
                 );
             }
 

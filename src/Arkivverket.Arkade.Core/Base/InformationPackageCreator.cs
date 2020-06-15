@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
@@ -31,9 +32,9 @@ namespace Arkivverket.Arkade.Core.Base
         /// Package- and metafile are written to the given output directory
         /// The full path of the created package is returned
         /// </summary>
-        public string CreateSip(Archive archive, ArchiveMetadata metadata, string outputDirectory)
+        public string CreateSip(Archive archive, ArchiveMetadata metadata, bool generateDocumentFileInfo, string outputDirectory)
         {
-            string packageFilePath = CreatePackage(PackageType.SubmissionInformationPackage, archive, metadata, outputDirectory);
+            string packageFilePath = CreatePackage(PackageType.SubmissionInformationPackage, archive, metadata, generateDocumentFileInfo, outputDirectory);
 
             return packageFilePath;
         }
@@ -43,15 +44,18 @@ namespace Arkivverket.Arkade.Core.Base
         /// Package- and metafile are written to the given output directory
         /// The full path of the created package is returned
         /// </summary>
-        public string CreateAip(Archive archive, ArchiveMetadata metadata, string outputDirectory)
+        public string CreateAip(Archive archive, ArchiveMetadata metadata, bool generateDocumentFileInfo, string outputDirectory)
         {
-            string packageFilePath = CreatePackage(PackageType.ArchivalInformationPackage, archive, metadata, outputDirectory);
+            string packageFilePath = CreatePackage(PackageType.ArchivalInformationPackage, archive, metadata, generateDocumentFileInfo, outputDirectory);
 
             return packageFilePath;
         }
 
-        private string CreatePackage(PackageType packageType, Archive archive, ArchiveMetadata metadata, string outputDirectory)
+        private string CreatePackage(PackageType packageType, Archive archive, ArchiveMetadata metadata, bool generateDocumentFileInfo, string outputDirectory)
         {
+            if(generateDocumentFileInfo)
+                DocumentFileListGenerator.Generate(archive.WorkingDirectory.AdministrativeMetadata().DirectoryInfo().FullName, archive);
+
             EnsureSufficientDiskSpace(archive, outputDirectory);
 
             string packageDirectory = CreatePackageDirectory(archive, outputDirectory);

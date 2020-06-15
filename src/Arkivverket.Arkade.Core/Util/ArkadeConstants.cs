@@ -49,6 +49,15 @@ namespace Arkivverket.Arkade.Core.Util
         public static readonly string[] DocumentDirectoryNames =
             { "dokumenter", "DOKUMENTER", "dokument", "DOKUMENT" };
 
+        public const string DocumentFileListFileName = "documentfile-formatinfo.csv";
+        public struct DocumentFileListHeaders
+        {
+            public const string FileName = "Filnavn";
+            public const string FormatId = "Format-ID";
+            public const string FormatName = "Formatnavn";
+            public const string FormatVersion = "Formatversjon";
+        }
+
         public const string MetadataStandardLabelPlaceholder = "[standard_label]";
         public const string MetsHdrAgentMetaNoteKeyWord = "notescontent:";
     }

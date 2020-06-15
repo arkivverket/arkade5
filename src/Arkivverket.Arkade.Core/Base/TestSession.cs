@@ -25,6 +25,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         public DateTime DateOfTesting { get; }
 
+        public bool GenerateDocumentFileInfo { get; set; }
+
         public TestSession(Archive archive)
         {
             Archive = archive;
