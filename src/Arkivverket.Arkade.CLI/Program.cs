@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
@@ -8,7 +7,7 @@ using Serilog;
 
 namespace Arkivverket.Arkade.CLI
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -16,55 +15,52 @@ namespace Arkivverket.Arkade.CLI
 
             ConfigureLogging(); // Configured with temporary log directory
 
-            Parser.Default.ParseArguments<CommandLineOptions>(args)
-                .WithParsed(RunOptionsAndReturnExitCode)
-                .WithNotParsed(HandleParseError);
+            ParseArguments(args)
+                .WithParsed<ProcessOptions>(RunProcessOptions)
+                .WithParsed<TestOptions>(RunTestOptions)
+                .WithParsed<PackOptions>(RunPackOptions)
+                .WithParsed<GenerateOptions>(RunGenerateOptions)
+                .WithNotParsed(LogParseErrors);
         }
 
-        private static void RunOptionsAndReturnExitCode(CommandLineOptions options)
+        public static ParserResult<object>ParseArguments(IEnumerable<string> args)
+        {
+            return Parser.Default.ParseArguments<TestOptions, PackOptions, ProcessOptions, GenerateOptions>(args);
+        }
+
+        private static void RunProcessOptions(ProcessOptions processOptions)
+        {
+            PrepareRun(processOptions);
+
+            CommandLineRunner.Run(processOptions);
+        }
+
+        private static void RunTestOptions(TestOptions testOptions)
+        {
+            PrepareRun(testOptions);
+            
+            CommandLineRunner.Run(testOptions);
+        }
+
+        private static void RunPackOptions(PackOptions packOptions)
+        {
+            PrepareRun(packOptions);
+
+            CommandLineRunner.Run(packOptions);
+        }
+
+        private static void RunGenerateOptions(GenerateOptions generateOptions)
+        {
+            PrepareRun(generateOptions);
+
+            new MetadataExampleGenerator().Generate(generateOptions.GenerateMetadataExample);
+        }
+
+        private static void PrepareRun(Options options)
         {
             ArkadeProcessingArea.Establish(options.ProcessingArea); // Removes temporary log directory
 
             ConfigureLogging(); // Re-configured with log directory within processing area
-
-            if (ValidArgumentsForMetadataCreation(options))
-            {
-                new MetadataExampleGenerator().Generate(options.GenerateMetadataExample);
-            }
-            else
-            {
-                if (ValidArgumentsForTesting(options))
-                {
-                    new CommandLineRunner().Run(options);
-                }
-                else
-                {
-                    Console.WriteLine(options.GetUsage());
-                }
-            }
-        }
-
-        private static void HandleParseError(IEnumerable<Error> errors)
-        {
-            foreach (Error error in errors)
-                Log.Error(error.ToString());
-        }
-
-        private static bool ValidArgumentsForMetadataCreation(CommandLineOptions options)
-        {
-            return !string.IsNullOrWhiteSpace(options.GenerateMetadataExample);
-        }
-
-        private static bool ValidArgumentsForTesting(CommandLineOptions options)
-        {
-            return !string.IsNullOrWhiteSpace(options.Archive)
-                   && !string.IsNullOrWhiteSpace(options.ArchiveType)
-                   && (
-                       !string.IsNullOrWhiteSpace(options.Skip) && options.Skip.Equals("packing")
-                       || !string.IsNullOrWhiteSpace(options.MetadataFile)
-                   )
-                   && !string.IsNullOrWhiteSpace(options.ProcessingArea)
-                   && !string.IsNullOrWhiteSpace(options.OutputDirectory);
         }
 
         private static void ConfigureLogging()
@@ -79,6 +75,15 @@ namespace Arkivverket.Arkade.CLI
                 .WriteTo.Console(outputTemplate: OutputStrings.SystemLogOutputTemplateForConsole)
                 .WriteTo.RollingFile(systemLogFilePath, outputTemplate: OutputStrings.SystemLogOutputTemplateForFile)
                 .CreateLogger();
+        }
+        
+        private static void LogParseErrors(IEnumerable<Error> errors)
+        {
+            foreach (Error error in errors)
+            {
+                if (error.Tag != ErrorType.HelpRequestedError && error.Tag != ErrorType.HelpVerbRequestedError)
+                    Log.Error(error.ToString());
+            }
         }
     }
 }
