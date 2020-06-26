@@ -49,6 +49,7 @@ namespace Arkivverket.Arkade.Core.Util
         public static readonly string[] DocumentDirectoryNames =
             { "dokumenter", "DOKUMENTER", "dokument", "DOKUMENT" };
 
+        public const string MetadataFileName = "arkade-ip-metadata.json";
         public const string DocumentFileListFileName = "documentfile-formatinfo.csv";
         public struct DocumentFileListHeaders
         {

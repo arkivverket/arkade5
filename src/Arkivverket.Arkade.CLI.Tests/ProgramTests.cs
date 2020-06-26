@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Util;
 using Xunit;
 using FluentAssertions;
 
@@ -11,45 +12,32 @@ namespace Arkivverket.Arkade.CLI.Tests
     {
         // Establish needed paths:
         private static readonly string workingDirectoryPath;
-        private static readonly string testDataDirectoryPath;
         private static readonly string metadataFilePath;
+        private static readonly string testDataDirectoryPath;
         private static readonly string archiveDirectoryPath;
         private static readonly string outputDirectoryPath;
 
         static ProgramTests()
         {
             workingDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
+            metadataFilePath = Path.Combine(workingDirectoryPath, ArkadeConstants.MetadataFileName);
             testDataDirectoryPath = Path.Combine(workingDirectoryPath, "TestData");
-            metadataFilePath = Path.Combine(testDataDirectoryPath, "metadata.json");
             archiveDirectoryPath = Path.Combine(testDataDirectoryPath, "N5-archive");
             outputDirectoryPath = Path.Combine(testDataDirectoryPath, "output");
-        }
 
-        public void Dispose()
-        {
-            if (File.Exists(metadataFilePath))
-                File.Delete(metadataFilePath);
-
-            if (Directory.Exists(outputDirectoryPath))
-                Directory.Delete(outputDirectoryPath, true);
-
-            ArkadeProcessingArea.Destroy();
+            ClearAllPaths();
         }
 
         [Fact]
         [Trait("Category", "Integration")]
         public void GenerateCommandTest()
         {
-            // Clear needed paths:
-
-            File.Delete(metadataFilePath);
-
             // Run commands and store results:
 
             Program.Main(new[]
             {
                 "generate",
-                "-m", metadataFilePath,
+                "-m",
                 "-p", testDataDirectoryPath
             });
 
@@ -64,10 +52,8 @@ namespace Arkivverket.Arkade.CLI.Tests
         [Trait("Category", "Integration")]
         public void TestCommandTest()
         {
-            // Clear needed paths:
+            // Prepare needed files and/or directories
 
-            if (Directory.Exists(outputDirectoryPath))
-                Directory.Delete(outputDirectoryPath, true);
             Directory.CreateDirectory(outputDirectoryPath);
 
             // Run commands and store results:
@@ -93,22 +79,12 @@ namespace Arkivverket.Arkade.CLI.Tests
         [Trait("Category", "Integration")]
         public void PackCommandTest()
         {
-            // Clear needed paths:
+            // Prepare needed files and/or directories
 
-            File.Delete(metadataFilePath);
-
-            if (Directory.Exists(outputDirectoryPath))
-                Directory.Delete(outputDirectoryPath, true);
+            new MetadataExampleGenerator().Generate(ArkadeConstants.MetadataFileName);
             Directory.CreateDirectory(outputDirectoryPath);
 
             // Run commands and store results:
-
-            Program.Main(new[]
-            {
-                "generate",
-                "-m", metadataFilePath,
-                "-p", testDataDirectoryPath
-            });
 
             Program.Main(new[]
             {
@@ -128,26 +104,16 @@ namespace Arkivverket.Arkade.CLI.Tests
             packageWasCreated.Should().BeTrue();
         }
 
-        [Fact(Skip = "I/O issues")]
+        [Fact(Skip = "IO-issues")]
         [Trait("Category", "Integration")]
         public void ProcessCommandTest()
         {
-            // Clear needed paths:
+            // Prepare needed files and/or directories
 
-            File.Delete(metadataFilePath);
-
-            if (Directory.Exists(outputDirectoryPath))
-                Directory.Delete(outputDirectoryPath, true);
+            new MetadataExampleGenerator().Generate(ArkadeConstants.MetadataFileName);
             Directory.CreateDirectory(outputDirectoryPath);
 
             // Run commands and store results:
-
-            Program.Main(new[]
-            {
-                "generate",
-                "-m", metadataFilePath,
-                "-p", testDataDirectoryPath
-            });
 
             Program.Main(new[]
             {
@@ -167,6 +133,22 @@ namespace Arkivverket.Arkade.CLI.Tests
 
             testReportWasCreated.Should().BeTrue();
             packageWasCreated.Should().BeTrue();
+        }
+
+        private static void ClearAllPaths()
+        {
+            if (File.Exists(metadataFilePath))
+                File.Delete(metadataFilePath);
+
+            if (Directory.Exists(outputDirectoryPath))
+                Directory.Delete(outputDirectoryPath, true);
+        }
+
+        public void Dispose()
+        {
+            ArkadeProcessingArea.Destroy();
+
+            ClearAllPaths();
         }
     }
 }

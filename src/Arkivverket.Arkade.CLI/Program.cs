@@ -53,7 +53,7 @@ namespace Arkivverket.Arkade.CLI
         {
             PrepareRun(generateOptions);
 
-            new MetadataExampleGenerator().Generate(generateOptions.GenerateMetadataExample);
+            new MetadataExampleGenerator().Generate(ArkadeConstants.MetadataFileName);
         }
 
         private static void PrepareRun(Options options)
