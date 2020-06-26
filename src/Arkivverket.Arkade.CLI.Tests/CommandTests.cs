@@ -33,7 +33,10 @@ namespace Arkivverket.Arkade.CLI.Tests
                 ("test -a archive -t type -o output-dir", ErrorType.MissingRequiredOptionError),
                 ("test -a archive -t type -p process-dir", ErrorType.MissingRequiredOptionError),
                 ("generate -m", ErrorType.MissingRequiredOptionError),
-                ("generate -p process-dir", ErrorType.MissingRequiredOptionError),
+                ("generate -l", ErrorType.MissingRequiredOptionError),
+
+                //MissingGroupOptionError
+                ("generate -p process-dir", ErrorType.MissingGroupOptionError),
 
                 // MissingValueOptionError
                 ("process --archive", ErrorType.MissingValueOptionError),

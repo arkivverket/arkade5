@@ -10,6 +10,9 @@ namespace Arkivverket.Arkade.CLI
         [Option('i', "information-package-type", HelpText = "Optional. Valid values: SIP, AIP.", Default = "SIP")]
         public string InformationPackageType { get; set; }
 
+        [Option('l', "noark5-test-list", HelpText = "Optional. List of noark5 tests to be run. Omit to run all tests.")]
+        public string TestListFile { get; set; }
+
         [Option('m', "metadata-file", HelpText = "File with metadata to include in package.", Required = true)]
         public string MetadataFile { get; set; }
 
@@ -37,6 +40,16 @@ namespace Arkivverket.Arkade.CLI
                         OutputDirectory = "outputDirectory",
                         MetadataFile = "metadata.json",
                         InformationPackageType = "AIP"
+                    });
+                yield return new Example("Process archive - run selected tests and pack to SIP",
+                    new ProcessOptions
+                    {
+                        Archive = "noark5ArchiveDirectory",
+                        ArchiveType = "noark5",
+                        ProcessingArea = "processDirectory",
+                        OutputDirectory = "outputDirectory",
+                        MetadataFile = "metadata.json",
+                        TestListFile = "noark5-testlist.txt"
                     });
             }
         }

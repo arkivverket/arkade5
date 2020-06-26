@@ -61,6 +61,25 @@ namespace Arkivverket.Arkade.CLI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oppgi test-ID (N5.XX) i starten av en egen linje for hver test som skal utføres
+        ///{0} Tester kan utelates ved å sette tegnet {0} først på linjen.
+        /// </summary>
+        internal static string Noark5TestListDescription {
+            get {
+                return ResourceManager.GetString("Noark5TestListDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NOARK5-TESTER SOM SKAL UTFØRES AV ARKADE.
+        /// </summary>
+        internal static string Noark5TestListHeading {
+            get {
+                return ResourceManager.GetString("Noark5TestListHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [{Level}] {Message}{NewLine}{Exception}.
         /// </summary>
         internal static string SystemLogOutputTemplateForConsole {

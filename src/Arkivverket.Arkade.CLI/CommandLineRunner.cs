@@ -36,7 +36,8 @@ namespace Arkivverket.Arkade.CLI
         {
             try
             {
-                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType);
+                TestSession testSession =
+                    CreateTestSession(options.Archive, options.ArchiveType, options.TestListFile);
 
                 Test(options.OutputDirectory, testSession);
 
@@ -52,7 +53,8 @@ namespace Arkivverket.Arkade.CLI
         {
             try
             {
-                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType);
+                TestSession testSession =
+                    CreateTestSession(options.Archive, options.ArchiveType, options.TestListFile);
 
                 Test(options.OutputDirectory, testSession);
             }
@@ -73,6 +75,23 @@ namespace Arkivverket.Arkade.CLI
             finally
             {
                 ArkadeProcessingArea.CleanUp();
+            }
+        }
+
+        public static void Run(GenerateOptions options)
+        {
+            if (options.GenerateMetadataExample)
+            {
+                const string metadataFileName = ArkadeConstants.MetadataFileName;
+                new MetadataExampleGenerator().Generate(metadataFileName);
+                Log.Information(metadataFileName + " was created");
+            }
+
+            if (options.GenerateNoark5TestList)
+            {
+                const string noark5TestListFileName = ArkadeConstants.Noark5TestListFileName;
+                Noark5TestListGenerator.Generate(noark5TestListFileName);
+                Log.Information(noark5TestListFileName + " was created");
             }
         }
 
@@ -112,7 +131,8 @@ namespace Arkivverket.Arkade.CLI
             return archiveType;
         }
 
-        private static TestSession CreateTestSession(string archive, string archiveTypeString)
+        private static TestSession CreateTestSession(string archive, string archiveTypeString,
+            string testListFilePath = null)
         {
             var fileInfo = new FileInfo(archive);
             Log.Information($"Processing archive: {fileInfo.FullName}");
@@ -137,8 +157,9 @@ namespace Arkivverket.Arkade.CLI
 
             if (archiveType == ArchiveType.Noark5)
             {
-                testSession.AvailableTests = Noark5TestProvider.GetAllTestIds();
-                testSession.TestsToRun = testSession.AvailableTests; // TODO: Implement user selectable tests
+                testSession.TestsToRun = File.Exists(testListFilePath)
+                    ? Noark5TestListReader.GetUserSelectedTestIds(testListFilePath)
+                    : Noark5TestProvider.GetAllTestIds();
             }
 
             return testSession;

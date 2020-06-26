@@ -7,7 +7,8 @@ namespace Arkivverket.Arkade.CLI
     [Verb("test", HelpText = "Test archive data in accordance with a specified standard. Run this command followed by '--help' for more detailed info.")]
     public class TestOptions : ArchiveProcessingOptions
     {
-        // All Options Inherited
+        [Option('l', "noark5-test-list", HelpText = "Optional. List of noark5 tests to be run. Omit to run all tests.")]
+        public string TestListFile { get; set; }
 
         [Usage(ApplicationAlias = "arkade")]
         public static IEnumerable<Example> Examples
