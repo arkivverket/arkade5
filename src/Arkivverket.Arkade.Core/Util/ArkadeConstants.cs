@@ -58,6 +58,7 @@ namespace Arkivverket.Arkade.Core.Util
             public const string FormatId = "Format-ID";
             public const string FormatName = "Formatnavn";
             public const string FormatVersion = "Formatversjon";
+            public const string FileScanError = "Feil";
         }
 
         public const string MetadataStandardLabelPlaceholder = "[standard_label]";

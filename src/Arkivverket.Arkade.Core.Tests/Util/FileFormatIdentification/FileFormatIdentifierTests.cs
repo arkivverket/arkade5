@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
@@ -12,44 +12,38 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         [Fact, Trait("Category", "Integration")]
         public void IdentifyTest()
         {
-            string testFilesDirectory = Path.Combine("TestData", "FileTypes");
-
-            var pdfFile = new FileInfo(Path.Combine(testFilesDirectory, "pdf-file.pdf")); // PDF
-            var pdfAFile = new FileInfo(Path.Combine(testFilesDirectory, "pdfa-file.pdf")); // PDF/A
-            var docXFile = new FileInfo(Path.Combine(testFilesDirectory, "docx-file.docx")); // DOCX
-
-            var files = new List<FileInfo> {pdfFile, pdfAFile, docXFile};
+            var directory = new DirectoryInfo(Path.Combine("TestData", "FileTypes")); // PDF, PDF/A, DOCX
 
             IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
 
-            Dictionary<FileInfo, FileFormat> filesWithFormat = formatIdentifier.IdentifyFormat(files);
+            List<SiegfriedFileInfo> filesWithFormat = formatIdentifier.IdentifyFormat(directory).ToList();
 
             // PDF
 
-            FileFormat pdfFileFormat = filesWithFormat.First(f => f.Key.Name.Equals("pdf-file.pdf")).Value;
+            SiegfriedFileInfo pdfSiegfriedFileInfo = filesWithFormat.First(f => f.FileName.EndsWith("pdf-file.pdf"));
 
-            pdfFileFormat.PuId.Should().Be("fmt/276");
-            pdfFileFormat.Name.Should().Be("Acrobat PDF 1.7 - Portable Document Format");
-            pdfFileFormat.Version.Should().Be("1.7");
-            pdfFileFormat.MimeType.Should().Be("application/pdf");
+            pdfSiegfriedFileInfo.Id.Should().Be("fmt/276");
+            pdfSiegfriedFileInfo.Format.Should().Be("Acrobat PDF 1.7 - Portable Document Format");
+            pdfSiegfriedFileInfo.Version.Should().Be("1.7");
+            pdfSiegfriedFileInfo.Errors.Should().BeEmpty();
 
             // PDF/A
 
-            FileFormat pdfAFileFormat = filesWithFormat.First(f => f.Key.Name.Equals("pdfa-file.pdf")).Value;
+            SiegfriedFileInfo pdfASiegfriedFileInfo = filesWithFormat.First(f => f.FileName.EndsWith("pdfa-file.pdf"));
 
-            pdfAFileFormat.PuId.Should().Be("fmt/479");
-            pdfAFileFormat.Name.Should().Be("Acrobat PDF/A - Portable Document Format");
-            pdfAFileFormat.Version.Should().Be("3a");
-            pdfAFileFormat.MimeType.Should().Be("application/pdf");
+            pdfASiegfriedFileInfo.Id.Should().Be("fmt/479");
+            pdfASiegfriedFileInfo.Format.Should().Be("Acrobat PDF/A - Portable Document Format");
+            pdfASiegfriedFileInfo.Version.Should().Be("3a");
+            pdfASiegfriedFileInfo.Errors.Should().BeEmpty();
 
             // DOCX
 
-            FileFormat docXFileFormat = filesWithFormat.First(f => f.Key.Name.Equals("docx-file.docx")).Value;
+            SiegfriedFileInfo docXSiegfriedFileInfo = filesWithFormat.First(f => f.FileName.EndsWith("docx-file.docx"));
 
-            docXFileFormat.PuId.Should().Be("fmt/412");
-            docXFileFormat.Name.Should().Be("Microsoft Word for Windows");
-            docXFileFormat.Version.Should().Be("2007 onwards");
-            docXFileFormat.MimeType.Should().Be("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            docXSiegfriedFileInfo.Id.Should().Be("fmt/412");
+            docXSiegfriedFileInfo.Format.Should().Be("Microsoft Word for Windows");
+            docXSiegfriedFileInfo.Version.Should().Be("2007 onwards");
+            docXSiegfriedFileInfo.Errors.Should().BeEmpty();
         }
     }
 }

@@ -13,46 +13,73 @@ namespace Arkivverket.Arkade.Core.Report
     {
         public static void Generate(string fileLocation, Archive archive)
         {
-            string filePath = Path.Combine(fileLocation, ArkadeConstants.DocumentFileListFileName);
-            
+            DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
+
+            IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(documentsDirectory);
+
+            string filePathStart = documentsDirectory.Parent?.FullName + Path.DirectorySeparatorChar;
+
+            IEnumerable<ListElement> listElements = GetListElements(siegfriedFileInfoSet, filePathStart);
+
+            WriteFileList(listElements, fileLocation);
+        }
+
+        private static IEnumerable<SiegfriedFileInfo> GetFormatInfoAllFiles(DirectoryInfo directory)
+        {
             var fileFormatIdentifier = new SiegfriedFileFormatIdentifier();
 
-            Dictionary<FileInfo, FileFormat> documentFilesAndFormats = fileFormatIdentifier.IdentifyFormat(archive.DocumentFiles.Values);
+            return fileFormatIdentifier.IdentifyFormat(directory);
+        }
 
-            string documentsDirectoryParentFullPath = archive.GetDocumentsDirectory().Parent?.FullName + Path.PathSeparator;
+        private static IEnumerable<ListElement> GetListElements(IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet,
+            string filePathStart)
+        {
+            var listElements = new List<ListElement>();
 
-            var documentFileListElements = new List<DocumentFileListElement>();
-
-            foreach (KeyValuePair<FileInfo, FileFormat> docFileAndFormat in documentFilesAndFormats)
+            foreach (SiegfriedFileInfo siegfriedFileInfo in siegfriedFileInfoSet)
             {
-                FileFormat fileFormat = docFileAndFormat.Value;
-                string relativeFilePath = docFileAndFormat.Key.FullName.Substring(documentsDirectoryParentFullPath.Length);
-                documentFileListElements.Add(new DocumentFileListElement
+                var documentFileListElement = new ListElement
                 {
-                    FileName = relativeFilePath,
-                    FileFormatPuId = fileFormat.PuId,
-                    FileFormatName = fileFormat.Name,
-                    FileFormatVersion = fileFormat.Version
-                });
+                    FileName = siegfriedFileInfo.FileName.Substring(filePathStart.Length),
+                    FileFormatPuId = siegfriedFileInfo.Id,
+                    FileFormatName = siegfriedFileInfo.Format,
+                    FileFormatVersion = siegfriedFileInfo.Version,
+                    FileScanError = siegfriedFileInfo.Errors
+                };
+
+                listElements.Add(documentFileListElement);
             }
 
-            using (var writer = new StreamWriter(filePath))
+            return listElements;
+        }
+
+        private static void WriteFileList(IEnumerable<ListElement> listElements, string fileLocation)
+        {
+            string fullFileName = Path.Combine(fileLocation, ArkadeConstants.DocumentFileListFileName);
+
+            using (var writer = new StreamWriter(fullFileName))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
-                csv.WriteRecords(documentFileListElements);
+                csv.WriteRecords(listElements);
             }
         }
 
-        private class DocumentFileListElement
+        private class ListElement
         {
             [Name(ArkadeConstants.DocumentFileListHeaders.FileName)]
             public string FileName { get; set; }
+
             [Name(ArkadeConstants.DocumentFileListHeaders.FormatId)]
             public string FileFormatPuId { get; set; }
+
             [Name(ArkadeConstants.DocumentFileListHeaders.FormatName)]
             public string FileFormatName { get; set; }
+
             [Name(ArkadeConstants.DocumentFileListHeaders.FormatVersion)]
             public string FileFormatVersion { get; set; }
+
+            [Name(ArkadeConstants.DocumentFileListHeaders.FileScanError)]
+            public string FileScanError { get; set; }
         }
     }
 }

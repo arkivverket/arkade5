@@ -1,67 +1,100 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json.Linq;
+using System.Text;
+using CsvHelper;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 {
     public class SiegfriedFileFormatIdentifier : IFileFormatIdentifier
     {
-        public Dictionary<FileInfo, FileFormat> IdentifyFormat(IEnumerable<FileInfo> files)
+        public IEnumerable<SiegfriedFileInfo> IdentifyFormat(DirectoryInfo directory)
         {
-            string siegfriedFormatInfo = AskSiegfried(files);
+            Process siegfriedProcess = SetupSiegfriedProcess();
 
-            JObject json = JObject.Parse(siegfriedFormatInfo);
+            IEnumerable<string> siegfriedResult = RunProcessOnDirectory(siegfriedProcess, directory);
 
-            var filesWithFormat = new Dictionary<FileInfo, FileFormat>();
-
-            foreach (JToken file in json["files"])
-            {
-                JToken firstMatch = file["matches"][0];
-
-                var puId = (string) firstMatch["id"];
-                var name = (string) firstMatch["format"];
-                var version = (string) firstMatch["version"];
-                var mimeType = (string) firstMatch["mime"];
-
-                var fileInfo = new FileInfo((string) file["filename"]);
-                var fileFormat = new FileFormat(puId: puId, name: name, version: version, mimeType: mimeType);
-
-                filesWithFormat.Add(fileInfo, fileFormat);
-            }
-
-            return filesWithFormat;
+            return GetSiegfriedFileInfoObjects(siegfriedResult);
         }
 
-        private static string AskSiegfried(IEnumerable<FileInfo> files)
+        private static Process SetupSiegfriedProcess()
         {
-            string[] fullFileNames = files.Select(f => f.FullName).ToArray();
-
-            string fileNameArguments = string.Join(" ", fullFileNames);
-
-            string siegfriedDirectory = Path.Combine("Bundled", "Siegfried");
+            string bundleDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Bundled");
+            string siegfriedDirectory = Path.Combine(bundleDirectory, "Siegfried");
             string siegfriedExecutable = Path.Combine(siegfriedDirectory, "siegfried.exe");
+            string argumentsExceptInputDirectory = $"-home {siegfriedDirectory} -multi 256 -csv -log e,w -coe ";
 
             var process = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = siegfriedExecutable,
-                    Arguments = $"-home {siegfriedDirectory} -json {fileNameArguments}",
+                    Arguments = argumentsExceptInputDirectory,
+                    StandardOutputEncoding = Encoding.UTF8,
                     RedirectStandardOutput = true,
+                    RedirectStandardError = true,
                     UseShellExecute = false,
                     CreateNoWindow = true,
                 }
             };
+            return process;
+        }
+
+        private static IEnumerable<string> RunProcessOnDirectory(Process process, FileSystemInfo directory)
+        {
+            process.StartInfo.Arguments += $"\"{directory.FullName}\"";
+
+            var results = new List<string>();
+            var errors = new List<string>();
+
+            process.OutputDataReceived += (sender, args) => results.Add(args.Data);
+            process.ErrorDataReceived += (sender, args) => errors.Add(args.Data);
 
             process.Start();
 
-            string result = process.StandardOutput.ReadToEnd();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
 
             process.WaitForExit();
 
-            return result;
+            if (errors.Any())
+                errors.ForEach(Log.Error);
+
+            return results;
+        }
+
+        private static IEnumerable<SiegfriedFileInfo> GetSiegfriedFileInfoObjects(IEnumerable<string> formatInfoSet)
+        {
+            var siegfriedFileInfoObjects = new List<SiegfriedFileInfo>();
+
+            foreach (string siegfriedFormatResult in formatInfoSet.Skip(1))
+            {
+                if (siegfriedFormatResult == null)
+                    continue;
+
+                using (var stringReader = new StringReader(siegfriedFormatResult))
+                using (var csvParser = new CsvParser(stringReader, CultureInfo.InvariantCulture))
+                {
+                    string[] record = csvParser.Read();
+
+                    var documentFileListElement = new SiegfriedFileInfo
+                    (
+                        fileName: record[0],
+                        errors: record[3],
+                        id: record[5],
+                        format: record[6],
+                        version: record[7]
+                    );
+
+                    siegfriedFileInfoObjects.Add(documentFileListElement);
+                }
+            }
+
+            return siegfriedFileInfoObjects;
         }
     }
 }
