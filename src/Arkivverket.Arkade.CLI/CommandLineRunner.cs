@@ -37,7 +37,8 @@ namespace Arkivverket.Arkade.CLI
             try
             {
                 TestSession testSession =
-                    CreateTestSession(options.Archive, options.ArchiveType, options.TestListFile);
+                    CreateTestSession(options.Archive, options.ArchiveType, options.TestListFile,
+                        options.DocumentFileFormatCheck);
 
                 Test(options.OutputDirectory, testSession);
 
@@ -68,7 +69,8 @@ namespace Arkivverket.Arkade.CLI
         {
             try
             {
-                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType);
+                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType,
+                    checkDocumentFileFormat: options.DocumentFileFormatCheck);
 
                 Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
             }
@@ -100,7 +102,7 @@ namespace Arkivverket.Arkade.CLI
             Arkade.RunTests(testSession);
             SaveTestReport(testSession, outputDirectory);
         }
-        
+
         private static void Pack(string metadataFile, string packageType, string outputDirectory,
             TestSession testSession)
         {
@@ -132,7 +134,7 @@ namespace Arkivverket.Arkade.CLI
         }
 
         private static TestSession CreateTestSession(string archive, string archiveTypeString,
-            string testListFilePath = null)
+            string testListFilePath = null, bool checkDocumentFileFormat = false)
         {
             var fileInfo = new FileInfo(archive);
             Log.Information($"Processing archive: {fileInfo.FullName}");
@@ -161,6 +163,8 @@ namespace Arkivverket.Arkade.CLI
                     ? Noark5TestListReader.GetUserSelectedTestIds(testListFilePath)
                     : Noark5TestProvider.GetAllTestIds();
             }
+
+            testSession.GenerateDocumentFileInfo = checkDocumentFileFormat;
 
             return testSession;
         }
