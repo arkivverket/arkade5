@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             string bundleDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Bundled");
             string siegfriedDirectory = Path.Combine(bundleDirectory, "Siegfried");
             string siegfriedExecutable = Path.Combine(siegfriedDirectory, "siegfried.exe");
-            string argumentsExceptInputDirectory = $"-home {siegfriedDirectory} -multi 256 -csv -log e,w -coe ";
+            string argumentsExceptInputDirectory = $"-home \"{siegfriedDirectory}\" -multi 256 -csv -log e,w -coe ";
 
             var process = new Process
             {
