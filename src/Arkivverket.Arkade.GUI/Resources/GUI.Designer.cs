@@ -403,11 +403,11 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Brukerveiledning.
+        ///   Looks up a localized string similar to Hjemmeside.
         /// </summary>
-        public static string ShowUserGuideButtonText {
+        public static string ShowWebPageButtonText {
             get {
-                return ResourceManager.GetString("ShowUserGuideButtonText", resourceCulture);
+                return ResourceManager.GetString("ShowWebPageButtonText", resourceCulture);
             }
         }
         

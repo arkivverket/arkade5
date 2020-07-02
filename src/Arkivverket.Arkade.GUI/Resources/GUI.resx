@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -221,8 +221,8 @@
   <data name="SerilogFormatConfig" xml:space="preserve">
     <value>{Timestamp:yyyy-MM-ddTHH:mm:ss.fff} [{Level}] {SourceContext} {Message}{NewLine}{Exception}</value>
   </data>
-  <data name="ShowUserGuideButtonText" xml:space="preserve">
-    <value>Brukerveiledning</value>
+  <data name="ShowWebPageButtonText" xml:space="preserve">
+    <value>Hjemmeside</value>
   </data>
   <data name="TestName_CheckWellFormedXml" xml:space="preserve">
     <value>Valider gyldig xml</value>

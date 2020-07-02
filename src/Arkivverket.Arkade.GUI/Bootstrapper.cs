@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Arkivverket.Arkade.GUI.Views;
 using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.GUI.ViewModels;
 using Autofac;
 using Prism.Autofac;
 using Prism.Modularity;
@@ -32,6 +33,14 @@ namespace Arkivverket.Arkade.GUI
 
         protected override void InitializeShell()
         {
+            if (Properties.Settings.Default.DarkModeEnabled)
+            {
+                SettingsViewModel.ApplyDarkMode();
+            }
+            else
+            {
+                SettingsViewModel.ApplyLightMode();
+            }
             Application.Current.MainWindow.Show();
         }
     }

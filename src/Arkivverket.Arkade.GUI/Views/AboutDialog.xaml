@@ -7,13 +7,13 @@
         xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
         mc:Ignorable="d"
         Title="{x:Static resources:AboutGUI.AboutDialogWindowName}" Height ="270"  Width="500"
-        Icon="../Arkade5.ico"
+        Icon="../Arkade5_2.0.ico"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}">
     <Grid>
         <StackPanel Margin="10">
             <WrapPanel Margin="10,20">
-                <Image Source="../Arkade5.ico" Height="64" Width="64" />
+                <Image Source="../Arkade5_2.0.ico" Height="64" Width="64" />
                 <TextBlock Text="{x:Static resources:AboutGUI.AboutDialogHeaderText}"
                            FontSize="32"
                            Margin="15,10,0,10" />

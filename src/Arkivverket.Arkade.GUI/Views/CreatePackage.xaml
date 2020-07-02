@@ -823,8 +823,7 @@
                 <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 10" Orientation="Horizontal">
                     <CheckBox
                 Content="{x:Static resources:MetaDataGUI.CreateDocumentFileInfoText}"
-                IsChecked="{Binding GenerateDocumentFileInfoSelected, Mode=TwoWay}"
-                Style="{StaticResource MaterialDesignAccentCheckBox}"/>
+                IsChecked="{Binding GenerateDocumentFileInfoSelected, Mode=TwoWay}" />
 
                     <Label 
                 ToolTip="{x:Static resources:MetaDataGUI.CreateDocumentFileInfoToolTip}" Margin="5 0" Padding="0">

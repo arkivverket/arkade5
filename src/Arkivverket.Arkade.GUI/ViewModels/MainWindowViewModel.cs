@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private readonly IRegionManager _regionManager;
         public DelegateCommand<string> NavigateCommandMain { get; set; }
-        public DelegateCommand ShowUserGuideCommand { get; set; }
+        public DelegateCommand ShowWebPageCommand { get; set; }
         public static DelegateCommand ShowSettingsCommand { get; set; }
         public DelegateCommand ShowAboutDialogCommand { get; set; }
         public DelegateCommand ShowInvalidProcessingAreaLocationDialogCommand { get; }
@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _regionManager = regionManager;
             NavigateCommandMain = new DelegateCommand<string>(Navigate);
-            ShowUserGuideCommand = new DelegateCommand(ShowUserGuide);
+            ShowWebPageCommand = new DelegateCommand(ShowWebPage);
             ShowSettingsCommand = new DelegateCommand(ShowSettings);
             ShowAboutDialogCommand = new DelegateCommand(ShowAboutDialog);
             ShowInvalidProcessingAreaLocationDialogCommand =
@@ -50,9 +50,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _regionManager.RequestNavigate("MainContentRegion", uri);
         }
 
-        private void ShowUserGuide()
+        private static void ShowWebPage()
         {
-            System.Diagnostics.Process.Start("http://arkade.arkivverket.no/no/latest/Brukerveiledning.html");
+            Process.Start("http://arkade.arkivverket.no/");
         }
 
         private static void ShowSettings()
