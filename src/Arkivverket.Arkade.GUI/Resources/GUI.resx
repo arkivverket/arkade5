@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -291,5 +291,8 @@ Du kan fortsatt lage en pakke av uttrekket.</value>
   </data>
   <data name="LoadArchiveNoark4OptionDisabledTooltip" xml:space="preserve">
     <value>Arkade støtter inntil videre ikke arkivuttrekk av typen Noark 4</value>
+  </data>
+  <data name="ShowAboutDialogButtonText" xml:space="preserve">
+    <value>Om Arkade 5</value>
   </data>
 </root>

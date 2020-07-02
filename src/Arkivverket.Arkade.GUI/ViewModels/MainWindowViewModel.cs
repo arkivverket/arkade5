@@ -23,6 +23,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand<string> NavigateCommandMain { get; set; }
         public DelegateCommand ShowUserGuideCommand { get; set; }
         public static DelegateCommand ShowSettingsCommand { get; set; }
+        public DelegateCommand ShowAboutDialogCommand { get; set; }
         public DelegateCommand ShowInvalidProcessingAreaLocationDialogCommand { get; }
         public string CurrentVersion { get; }
         public string VersionStatusMessage { get; }
@@ -35,6 +36,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             NavigateCommandMain = new DelegateCommand<string>(Navigate);
             ShowUserGuideCommand = new DelegateCommand(ShowUserGuide);
             ShowSettingsCommand = new DelegateCommand(ShowSettings);
+            ShowAboutDialogCommand = new DelegateCommand(ShowAboutDialog);
             ShowInvalidProcessingAreaLocationDialogCommand =
                 new DelegateCommand(ShowInvalidProcessingAreaLocationDialog);
             CurrentVersion = "Versjon " + ArkadeVersion.Current;
@@ -61,6 +63,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 ShowInvalidProcessingAreaLocationDialog();
             
             RestartArkadeIfNeededAndWanted();
+        }
+
+        private static void ShowAboutDialog()
+        {
+            new AboutDialog().ShowDialog();
         }
 
         private static void ShowInvalidProcessingAreaLocationDialog()

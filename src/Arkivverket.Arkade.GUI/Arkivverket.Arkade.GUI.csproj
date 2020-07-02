@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -161,6 +161,11 @@
     <Compile Include="Models\OperationMessage.cs" />
     <Compile Include="Models\SelectableTest.cs" />
     <Compile Include="ModuleAModule.cs" />
+    <Compile Include="Resources\AboutGUI.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AboutGUI.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\MetaDataGUI.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -178,11 +183,15 @@
     <Compile Include="Util\Extensions.cs" />
     <Compile Include="Util\GuiMetadataMapper.cs" />
     <Compile Include="Util\LogConfiguration.cs" />
+    <Compile Include="ViewModels\AboutDialogViewModel.cs" />
     <Compile Include="ViewModels\CreatePackageViewModel.cs" />
     <Compile Include="ViewModels\LoadArchiveExtractionViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TestRunnerViewModel.cs" />
+    <Compile Include="Views\AboutDialog.xaml.cs">
+      <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreatePackage.xaml.cs">
       <DependentUpon>CreatePackage.xaml</DependentUpon>
     </Compile>
@@ -198,6 +207,10 @@
     <Compile Include="Views\TestRunner.xaml.cs">
       <DependentUpon>TestRunner.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CreatePackage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -237,6 +250,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Resources\AboutGUI.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AboutGUI.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\MetaDataGUI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MetaDataGUI.Designer.cs</LastGenOutput>
