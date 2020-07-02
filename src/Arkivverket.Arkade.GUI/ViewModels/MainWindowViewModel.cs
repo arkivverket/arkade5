@@ -104,7 +104,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private static void DownloadNewVersion()
         {
-            Process.Start("https://github.com/arkivverket/arkade5/releases/latest");
+            Process.Start("http://arkade.arkivverket.no/");
         }
     }
 }
