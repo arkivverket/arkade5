@@ -17,7 +17,8 @@ namespace Arkivverket.Arkade.Core.Report
 
             IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(documentsDirectory);
 
-            string filePathStart = documentsDirectory.Parent?.FullName + Path.DirectorySeparatorChar;
+            string filePathStart = archive.WorkingDirectory.Content().DirectoryInfo().Parent?.FullName +
+                                   Path.DirectorySeparatorChar;
 
             IEnumerable<ListElement> listElements = GetListElements(siegfriedFileInfoSet, filePathStart);
 
