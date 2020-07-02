@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Testing.Noark5;
@@ -18,7 +19,12 @@ namespace Arkivverket.Arkade.CLI
         {
             Arkade = new Core.Base.Arkade();
 
-            Log.Information($"ARKADE 5 v{ArkadeVersion.Current} \n--------------------------------\n");
+            Log.Information($"\n" +
+                            $"*******************\n" +
+                            $"* ARKADE 5 v{ArkadeVersion.Current} *\n" +
+                            $"*******************\n");
+
+            Log.Information(GetBundledSoftwareInfo());
 
             if (Arkade.Version().UpdateIsAvailable())
             {
@@ -30,6 +36,21 @@ namespace Arkivverket.Arkade.CLI
                 "Download the latest Arkade 5 version from: https://github.com/arkivverket/arkade5/releases/latest");
             Log.Information(
                 "See version history and release notes at: https://github.com/arkivverket/arkade5/releases \n");
+        }
+
+        private static string GetBundledSoftwareInfo()
+        {
+            var info = new StringBuilder();
+
+            info.AppendLine("\n-----------------------BUNDLED SOFTWARE-----------------------\n");
+            info.AppendLine("-- Siegfried --");
+            info.AppendLine("PURPOSE: identify document file format.");
+            info.AppendLine("Copyright © 2019 Richard Lehane");
+            info.AppendLine("Available from: https://www.itforarchivists.com/siegfried/");
+            info.AppendLine("Licensed under the Apache License, Version 2.0");
+            info.AppendLine("\n--------------------------------------------------------------\n");
+
+            return info.ToString();
         }
 
         public static void Run(ProcessOptions options)
