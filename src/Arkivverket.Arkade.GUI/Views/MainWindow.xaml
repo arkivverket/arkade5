@@ -59,9 +59,7 @@
 
         <DockPanel Grid.Row="2" VerticalAlignment="Bottom" Background="#ededed">
             <TextBlock Padding="2" FontSize="10" FontStyle="Italic">
-                <Hyperlink Command="{Binding VersionHistoryCommand}">
-                    <TextBlock  Text="{Binding CurrentVersion}"/>
-                </Hyperlink>
+                <TextBlock  Text="{Binding CurrentVersion}"/>
             </TextBlock>
             <TextBlock Padding="2" FontSize="10" FontStyle="Italic">
                 <Hyperlink Command="{Binding DownloadNewVersionCommand}">
