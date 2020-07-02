@@ -34,9 +34,9 @@ namespace Arkivverket.Arkade.Core.Base
         /// Package- and metafile are written to the given output directory
         /// The full path of the created package is returned
         /// </summary>
-        public string CreateSip(Archive archive, ArchiveMetadata metadata, bool generateDocumentFileInfo, string outputDirectory)
+        public string CreateSip(Archive archive, ArchiveMetadata metadata, string outputDirectory)
         {
-            string packageFilePath = CreatePackage(PackageType.SubmissionInformationPackage, archive, metadata, generateDocumentFileInfo, outputDirectory);
+            string packageFilePath = CreatePackage(PackageType.SubmissionInformationPackage, archive, metadata, outputDirectory);
 
             return packageFilePath;
         }
@@ -46,18 +46,15 @@ namespace Arkivverket.Arkade.Core.Base
         /// Package- and metafile are written to the given output directory
         /// The full path of the created package is returned
         /// </summary>
-        public string CreateAip(Archive archive, ArchiveMetadata metadata, bool generateDocumentFileInfo, string outputDirectory)
+        public string CreateAip(Archive archive, ArchiveMetadata metadata, string outputDirectory)
         {
-            string packageFilePath = CreatePackage(PackageType.ArchivalInformationPackage, archive, metadata, generateDocumentFileInfo, outputDirectory);
+            string packageFilePath = CreatePackage(PackageType.ArchivalInformationPackage, archive, metadata, outputDirectory);
 
             return packageFilePath;
         }
 
-        private string CreatePackage(PackageType packageType, Archive archive, ArchiveMetadata metadata, bool generateDocumentFileInfo, string outputDirectory)
+        private string CreatePackage(PackageType packageType, Archive archive, ArchiveMetadata metadata, string outputDirectory)
         {
-            if(generateDocumentFileInfo)
-                DocumentFileListGenerator.Generate(archive.WorkingDirectory.AdministrativeMetadata().DirectoryInfo().FullName, archive);
-
             EnsureSufficientDiskSpace(archive, outputDirectory);
 
             string packageDirectory = CreatePackageDirectory(archive, outputDirectory);

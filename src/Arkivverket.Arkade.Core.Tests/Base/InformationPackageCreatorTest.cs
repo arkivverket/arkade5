@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         {
             Archive archive = new ArchiveBuilder().WithUuid(_uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
 
-            string packageFilePath = new InformationPackageCreator().CreateSip(archive, _archiveMetadata, false, _outputDirectory);
+            string packageFilePath = new InformationPackageCreator().CreateSip(archive, _archiveMetadata, _outputDirectory);
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             Uuid uuid = Uuid.Random();
             Archive archive = new ArchiveBuilder().WithUuid(uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
 
-            string packageFilePath = new InformationPackageCreator().CreateAip(archive, _archiveMetadata, false, _outputDirectory);
+            string packageFilePath = new InformationPackageCreator().CreateAip(archive, _archiveMetadata, _outputDirectory);
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 

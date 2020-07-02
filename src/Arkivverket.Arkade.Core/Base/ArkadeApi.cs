@@ -4,7 +4,6 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
-using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base
 {
@@ -67,20 +66,20 @@ namespace Arkivverket.Arkade.Core.Base
 
         public string CreatePackage(TestSession testSession, string outputDirectory)
         {
-            _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata);
+            _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata, testSession.GenerateDocumentFileInfo);
 
             string packageFilePath;
 
             if (testSession.ArchiveMetadata.PackageType == PackageType.SubmissionInformationPackage)
             {
                 packageFilePath = _informationPackageCreator.CreateSip(
-                    testSession.Archive, testSession.ArchiveMetadata, testSession.GenerateDocumentFileInfo, outputDirectory
+                    testSession.Archive, testSession.ArchiveMetadata, outputDirectory
                 );
             }
             else // ArchivalInformationPackage
             {
                 packageFilePath = _informationPackageCreator.CreateAip(
-                    testSession.Archive, testSession.ArchiveMetadata, testSession.GenerateDocumentFileInfo, outputDirectory
+                    testSession.Archive, testSession.ArchiveMetadata, outputDirectory
                 );
             }
 
