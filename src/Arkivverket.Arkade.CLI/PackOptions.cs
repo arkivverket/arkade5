@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.CLI
         [Option('i', "information-package-type", HelpText = "Optional. Valid values: SIP, AIP.", Default = "SIP")]
         public string InformationPackageType { get; set; }
 
-        [Option('f', "document-file-format-check", HelpText = "Optional. Report document file PRONOM format information.", Default = false)]
+        [Option('f', "document-file-format-check", HelpText = "Optional. Report document file PRONOM format information. (Windows only)")]
         public bool DocumentFileFormatCheck { get; set; }
 
         [Option('m', "metadata-file", HelpText = "File with metadata to include in package.", Required = true)]
