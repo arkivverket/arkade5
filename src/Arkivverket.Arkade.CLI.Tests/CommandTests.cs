@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.CLI.Tests
                 ("generate -l", ErrorType.MissingRequiredOptionError),
 
                 //MissingGroupOptionError
-                ("generate -p process-dir", ErrorType.MissingGroupOptionError),
+                ("generate -o output-dir", ErrorType.MissingGroupOptionError),
 
                 // MissingValueOptionError
                 ("process --archive", ErrorType.MissingValueOptionError),
@@ -55,7 +55,7 @@ namespace Arkivverket.Arkade.CLI.Tests
                 ("test --type", ErrorType.MissingValueOptionError),
                 ("test --processing-area", ErrorType.MissingValueOptionError),
                 ("test --output-directory", ErrorType.MissingValueOptionError),
-                ("generate --processing-area", ErrorType.MissingValueOptionError),
+                ("generate --output-directory", ErrorType.MissingValueOptionError),
 
                 // UnknownOptionError
                 ("process --metadata-example", ErrorType.UnknownOptionError),
@@ -66,7 +66,7 @@ namespace Arkivverket.Arkade.CLI.Tests
                 ("generate --archive", ErrorType.UnknownOptionError),
                 ("generate --type", ErrorType.UnknownOptionError),
                 ("generate --metadata-file", ErrorType.UnknownOptionError),
-                ("generate --output-directory", ErrorType.UnknownOptionError),
+                ("generate --processing-area", ErrorType.UnknownOptionError),
                 ("generate --information-package-type", ErrorType.UnknownOptionError),
                 ("generate --archive", ErrorType.UnknownOptionError),
 

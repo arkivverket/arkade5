@@ -4,7 +4,7 @@ namespace Arkivverket.Arkade.CLI
 {
     public abstract class Options
     {
-        [Option('p', "processing-area", HelpText = "Directory to place temporary files and logs.", Required = true)]
-        public string ProcessingArea { get; set; }
+        [Option('o', "output-directory", HelpText = "Directory to place processing results.", Required = true)]
+        public string OutputDirectory { get; set; }
     }
 }

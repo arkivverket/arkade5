@@ -8,11 +8,11 @@ namespace Arkivverket.Arkade.CLI
     public class GenerateOptions : Options
     {
         [Option('m', "metadata-example", Group = "file-type", 
-            HelpText = "Generate json file with example metadata. Argument is output file name.")]
+            HelpText = "Generate json file with example metadata.")]
         public bool GenerateMetadataExample { get; set; }
 
         [Option('l', "noark5-test-list", Group = "file-type",
-            HelpText = "Generate text file with list of noark5 tests. Argument is output file name.")]
+            HelpText = "Generate text file with list of noark5 tests.")]
         public bool GenerateNoark5TestList { get; set; }
 
         [Usage(ApplicationAlias = "arkade")]
@@ -23,19 +23,19 @@ namespace Arkivverket.Arkade.CLI
                 yield return new Example("Generate json file with metadata example",
                     new GenerateOptions
                     {
-                        ProcessingArea = "processDirectory",
+                        OutputDirectory = "outputDirectory",
                         GenerateMetadataExample = true
                     });
                 yield return new Example("Generate text file with list of noark5-test",
                     new GenerateOptions
                     {
-                        ProcessingArea = "processDirectory",
+                        OutputDirectory = "outputDirectory",
                         GenerateNoark5TestList = true
                     });
                 yield return new Example("Generate both files",
                     new GenerateOptions
                     {
-                        ProcessingArea = "processDirectory",
+                        OutputDirectory = "outputDirectory",
                         GenerateMetadataExample = true,
                         GenerateNoark5TestList = true
                     });

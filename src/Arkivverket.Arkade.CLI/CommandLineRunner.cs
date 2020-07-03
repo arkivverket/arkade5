@@ -105,14 +105,14 @@ namespace Arkivverket.Arkade.CLI
         {
             if (options.GenerateMetadataExample)
             {
-                const string metadataFileName = ArkadeConstants.MetadataFileName;
+                string metadataFileName = Path.Combine(options.OutputDirectory, ArkadeConstants.MetadataFileName);
                 new MetadataExampleGenerator().Generate(metadataFileName);
                 Log.Information(metadataFileName + " was created");
             }
 
             if (options.GenerateNoark5TestList)
             {
-                const string noark5TestListFileName = ArkadeConstants.Noark5TestListFileName;
+                string noark5TestListFileName = Path.Combine(options.OutputDirectory, ArkadeConstants.Noark5TestListFileName);
                 Noark5TestListGenerator.Generate(noark5TestListFileName);
                 Log.Information(noark5TestListFileName + " was created");
             }

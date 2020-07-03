@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.CLI
         [Option('t', "type", HelpText = "Archive type, valid values: noark3, noark5 or fagsystem", Required = true)]
         public string ArchiveType { get; set; }
 
-        [Option('o', "output-directory", HelpText = "Directory to place processing results.", Required = true)]
-        public string OutputDirectory { get; set; }
+        [Option('p', "processing-area", HelpText = "Directory to place temporary files and logs.", Required = true)]
+        public string ProcessingArea { get; set; }
     }
 }
