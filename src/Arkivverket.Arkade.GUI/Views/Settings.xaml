@@ -6,11 +6,14 @@
         xmlns:local="clr-namespace:Arkivverket.Arkade.GUI.Views"
         xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
         mc:Ignorable="d"
-        Title="Settings" Height="330" Width="500">
+        Title="Settings" Height="380" Width="500"
+        Icon="../Arkade5_2.0.ico"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}">
     <Grid>
         <StackPanel Margin="10">
             <TextBlock Text="{x:Static resources:SettingsGUI.ArkadeProcessingAreaLocation_Header}"
-                       FontSize="18"
+                       FontSize="18" FontWeight="Bold"
                        Margin="0,0,0,10" />
             <TextBlock Text="{x:Static resources:SettingsGUI.ArkadeProcessingAreaLocation_Info}"
                        TextWrapping="Wrap" />
@@ -30,6 +33,15 @@
             <TextBlock Text="{x:Static resources:SettingsGUI.ArkadeProcessingAreaLocation_Warning}"
                        TextWrapping="Wrap"
                        FontStyle="Italic" />
+            <WrapPanel>
+                <TextBlock Text="{x:Static resources:SettingsGUI.SelectDarkModeText}"
+                           FontSize="18" FontWeight="Bold"
+                           Margin="0,15,20,15"/>
+                <CheckBox IsChecked="{Binding DarkModeSelected, Mode=TwoWay}"
+                          HorizontalAlignment="Left"
+                          Style="{StaticResource MaterialDesignActionCheckBox}"/>
+            </WrapPanel>
+            
         </StackPanel>
         <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
             <Button Click="ApplyChangesAndClose"

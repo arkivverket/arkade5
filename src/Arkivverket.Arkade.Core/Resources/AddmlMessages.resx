@@ -132,6 +132,9 @@
   <data name="AssertNotNullOrEmpty" xml:space="preserve">
     <value>Finner ikke {0}. Denne må både være definert og satt til en verdi.</value>
   </data>
+  <data name="CouldNotInstatiateUnsupportedAddmlProcess" xml:space="preserve">
+    <value>Arkade har ikke støtte for den oppgitte ADDML-prosessen {0}</value>
+  </data>
   <data name="Dataset" xml:space="preserve">
     <value>ADDML element dataset</value>
   </data>
@@ -149,5 +152,8 @@
   </data>
   <data name="UnexpectedNumberOfFields" xml:space="preserve">
     <value>Uventet felt-antall (funnet/forventet)</value>
+  </data>
+  <data name="UnknownAddmlProcess" xml:space="preserve">
+    <value>Ukjent ADDML-prosess: {0}</value>
   </data>
 </root>

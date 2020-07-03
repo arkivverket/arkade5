@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 ﻿using System;
+using System.Linq;
 
 namespace Arkivverket.Arkade.Core.Util
 {
@@ -24,6 +25,15 @@ namespace Arkivverket.Arkade.Core.Util
             Kind = testKind;
             Number = number;
             Version = version;
+        }
+
+        public static TestId Create(string testId)
+        {
+            string[] testIdParts = testId.Split('.');
+            TestKind testKind = KindPrefix.First(k => k.Value == testIdParts[0]).Key;
+            uint number = Convert.ToUInt16(testIdParts[1]);
+
+            return new TestId(testKind, number);
         }
 
         public override string ToString()

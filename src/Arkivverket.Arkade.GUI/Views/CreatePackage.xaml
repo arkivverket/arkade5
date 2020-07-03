@@ -33,6 +33,13 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="ToolTipService.InitialShowDelay" Value="10"/>
+                <Setter Property="ToolTipService.ShowDuration" Value="30000"/>
+            </Style>
+        </Grid.Resources>
+
         <TextBlock Grid.Row="0"
                    Grid.ColumnSpan="6"
                    Text="{x:Static resources:GUI.CreatePackageWindowTitle}"
@@ -814,6 +821,17 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 10" Orientation="Horizontal">
+                    <CheckBox
+                Content="{x:Static resources:MetaDataGUI.CreateDocumentFileInfoText}"
+                IsChecked="{Binding GenerateDocumentFileInfoSelected, Mode=TwoWay}" />
+
+                    <Label 
+                ToolTip="{x:Static resources:MetaDataGUI.CreateDocumentFileInfoToolTip}" Margin="5 0" Padding="0">
+                        <materialDesign:PackIcon Kind="AlertOctagonOutline" Foreground="Orange"  Height="22" Width="30" Margin="0" /> 
+                    </Label>
+                </StackPanel>
+
+                <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 10" Orientation="Horizontal">
                     <Button
                 Command="{Binding CreatePackageCommand}"
                 Content="{x:Static resources:GUI.CreatePackageButtonText}" HorizontalAlignment="Left" Width="130"
@@ -824,7 +842,7 @@
                 Content="{x:Static resources:GUI.NewProgramSessionButton}" HorizontalAlignment="Left" Width="130"
                 Height="30" Margin="5,0,0,0" />
                 </StackPanel>
-                <StackPanel Grid.Row="8"  Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Orientation="Horizontal">
+                <StackPanel Grid.Row="9"  Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Orientation="Horizontal">
                     <ProgressBar Visibility="{Binding ProgressBarVisibility}" Style="{StaticResource MaterialDesignCircularProgressBar}"                     
                                  Value="0"
                                  IsIndeterminate="True"
@@ -832,7 +850,7 @@
                     <TextBlock Visibility="{Binding ProgressBarVisibility}"  Text="{x:Static resources:MetaDataGUI.PackageCreationOngoing}" TextWrapping="Wrap"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="5" Margin="10" Orientation="Vertical">
+                <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="5" Margin="10" Orientation="Vertical">
                     <TextBlock Text="{Binding StatusMessageText, Mode=OneWay}" TextWrapping="Wrap" />
                     <TextBox Background="Transparent" BorderThickness="0" Text="{Binding StatusMessagePath}" IsReadOnly="True"
                      TextWrapping="Wrap" />

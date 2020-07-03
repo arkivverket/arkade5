@@ -6,6 +6,7 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
+using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Autofac;
 
 namespace Arkivverket.Arkade.Core.Util
@@ -37,6 +38,7 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<TestSessionXmlGenerator>().AsSelf();
             builder.RegisterType<ArkadeVersion>().AsSelf();
             builder.RegisterType<GitHubReleaseInfoReader>().As<IReleaseInfoReader>();
+            builder.RegisterType<SiegfriedFileFormatIdentifier>().As<IFileFormatIdentifier>();
         }
     }
 }

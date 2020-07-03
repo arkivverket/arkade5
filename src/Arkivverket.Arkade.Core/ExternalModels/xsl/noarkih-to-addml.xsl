@@ -71,7 +71,7 @@
                         </processes>
                         <recordProcesses definitionReference="NOARKSAK">
                             <processes>
-                                <process name="Analyse_CountRecordDefinitionOccurences"/>
+                                <process name="Analyse_CountRecordDefinitionOccurrences"/>
                                 <process name="Control_Key"/>
                                 <process name="Control_ForeignKey"/>
                             </processes>

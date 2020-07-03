@@ -1,5 +1,7 @@
-﻿using Arkivverket.Arkade.Core.Base;
+using System;
+using Arkivverket.Arkade.Core.Base;
 ﻿using System.Windows;
+using Arkivverket.Arkade.GUI.Properties;
 using Arkivverket.Arkade.GUI.Util;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Prism.Commands;
@@ -12,8 +14,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
     {
         private readonly ILogger _log = Log.ForContext<SettingsViewModel>();
         private string _arkadeProcessingAreaLocationSetting;
+        private bool _darkModeSelected;
         public string CurrentArkadeProcessingAreaLocation { get; }
         public string DirectoryNameArkadeProcessingAreaRoot { get; }
+
+        public bool DarkModeSelected
+        {
+            get => _darkModeSelected;
+            set => SetProperty(ref _darkModeSelected, value);
+        }
 
         public string ArkadeProcessingAreaLocationSetting
         {
@@ -32,6 +41,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             ChangeArkadeProcessingAreaLocationCommand = new DelegateCommand(ChangeArkadeProcessingAreaLocation);
             ApplyChangesCommand = new DelegateCommand(ApplyChanges);
+
+            DarkModeSelected = Settings.Default.DarkModeEnabled;
         }
 
         private void ChangeArkadeProcessingAreaLocation()
@@ -66,8 +77,35 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             else _log.Information("User action: Abort choose Arkade processing area location");
         }
 
+        private void ApplySelectedMode()
+        {
+            Settings.Default.DarkModeEnabled = DarkModeSelected;
+
+            if (DarkModeSelected)
+            {
+                ApplyDarkMode();
+            }
+            else
+            {
+                ApplyLightMode();
+            }
+        }
+
+        public static void ApplyDarkMode()
+        {
+            App.Current.Resources.MergedDictionaries[0].Source = new Uri(
+                @"pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.dark.xaml");
+        }
+        
+        public static void ApplyLightMode()
+        {
+            App.Current.Resources.MergedDictionaries[0].Source = new Uri(
+                @"pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.light.xaml");
+        }
+
         private void ApplyChanges()
         {
+            ApplySelectedMode();
             Util.ArkadeProcessingAreaLocationSetting.Set(ArkadeProcessingAreaLocationSetting);
         }
     }

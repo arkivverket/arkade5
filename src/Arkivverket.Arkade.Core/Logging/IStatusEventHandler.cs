@@ -1,14 +1,9 @@
 ﻿using System;
-using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Testing;
 
 namespace Arkivverket.Arkade.Core.Logging
 {
     public interface IStatusEventHandler
     {
-        void RaiseEventTestStarted(INoark5Test noark5Test);
-        void RaiseEventTestFinished(TestRun testRun);
-
         void RaiseEventOperationMessage(string identifier, string message, OperationMessageStatus status);
 
         void RaiseEventFileProcessingStarted(FileProcessingStatusEventArgs fileProcessingStatusEventArgs);

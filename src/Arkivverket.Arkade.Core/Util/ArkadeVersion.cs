@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Util
             _releaseInfoReader = releaseInfoReader;
         }
 
-        public static string Current => GetCurrent().ToString();
+        public static string Current => GetCurrent().ToString(3);
 
         public static Version GetCurrent()
         {

@@ -28,9 +28,9 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
 
         public TestSuite RunTestsOnArchive(TestSession testSession)
         {
-            List<IArkadeStructureTest> structureTests = RunStructureTests(testSession.Archive);
+            List<IArkadeStructureTest> structureTests = RunStructureTests(testSession);
 
-            List<INoark5Test> contentTests = RunContentTests(testSession.Archive);
+            List<INoark5Test> contentTests = RunContentTests(testSession);
 
             var testSuite = new TestSuite();
             AddTestToTestSuite(contentTests, testSuite);
@@ -44,13 +44,13 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
                 testSuite.AddTestRun(test.GetTestRun());
         }
 
-        private List<INoark5Test> RunContentTests(Archive archive)
+        private List<INoark5Test> RunContentTests(TestSession testSession)
         {
-            List<INoark5Test> contentTests = _testProvider.GetContentTests(archive);
+            List<INoark5Test> contentTests = _testProvider.GetContentTests(testSession);
 
             SubscribeTestsToReadElementEvent(contentTests);
 
-            ArchiveXmlFile archiveStructureFile = archive.GetArchiveXmlFile(ArkadeConstants.ArkivstrukturXmlFileName);
+            ArchiveXmlFile archiveStructureFile = testSession.Archive.GetArchiveXmlFile(ArkadeConstants.ArkivstrukturXmlFileName);
 
             using (var reader = XmlReader.Create(archiveStructureFile.AsStream()))
             {
@@ -97,17 +97,17 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
             return reader.MoveToNextAttribute() || reader.Read();
         }
 
-        private List<IArkadeStructureTest> RunStructureTests(Archive archive)
+        private List<IArkadeStructureTest> RunStructureTests(TestSession testSession)
         {
-            List<IArkadeStructureTest> structureTests = _testProvider.GetStructureTests();
+            List<IArkadeStructureTest> structureTests = _testProvider.GetStructureTests(testSession);
             foreach (var test in structureTests)
             {
-                string testName = ArkadeTestInfoProvider.GetDisplayName(test);
+                string testName = ArkadeTestNameProvider.GetDisplayName(test);
 
                 try
                 {
                     _statusEventHandler.RaiseEventOperationMessage(testName, "", OperationMessageStatus.Started);
-                    test.Test(archive);
+                    test.Test(testSession.Archive);
 
                     var errorTestResults = test.GetTestRun().Results.Where(r => r.IsError());
                     if (errorTestResults.Any())

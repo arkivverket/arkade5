@@ -357,4 +357,10 @@ Tidl. nevnt som avleverende myndighet</comment>
   <data name="Creator_System" xml:space="preserve">
     <value>System:</value>
   </data>
+  <data name="CreateDocumentFileInfoText" xml:space="preserve">
+    <value>Inkluder formatinformasjon for dokumentfiler</value>
+  </data>
+  <data name="CreateDocumentFileInfoToolTip" xml:space="preserve">
+    <value>NB! Tidkrevende ved stort antall dokumentfiler.</value>
+  </data>
 </root>

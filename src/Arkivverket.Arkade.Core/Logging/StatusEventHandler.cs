@@ -6,16 +6,6 @@ namespace Arkivverket.Arkade.Core.Logging
 {
     public class StatusEventHandler : IStatusEventHandler
     {
-        public void RaiseEventTestStarted(INoark5Test noark5Test)
-        {
-            OnTestStartedEvent(new OperationMessageEventArgs(ArkadeTestInfoProvider.GetDisplayName(noark5Test), DateTime.Now, OperationMessageStatus.Started, string.Empty));
-        }
-       
-        public void RaiseEventTestFinished(TestRun testRun)
-        {
-            OnTestFinishedEvent(new OperationMessageEventArgs(testRun.TestName, DateTime.Now, OperationMessageStatus.Ok, testRun.ToString()));
-        }
-
         public void RaiseEventOperationMessage(string identifier, string message, OperationMessageStatus status)
         {
             OnOperationMessageEvent(new OperationMessageEventArgs(identifier, DateTime.Now, status, message));

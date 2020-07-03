@@ -2,14 +2,13 @@ using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Metadata;
-using Arkivverket.Arkade.Core.Util;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Serilog;
 
 namespace Arkivverket.Arkade.CLI
 {
-    internal class MetadataExampleGenerator
+    public class MetadataExampleGenerator
     {
         public void Generate(string outputFileName)
         {

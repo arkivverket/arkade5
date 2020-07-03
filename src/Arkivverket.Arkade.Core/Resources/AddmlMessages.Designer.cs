@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AddmlMessages {
@@ -106,6 +106,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkade har ikke støtte for den oppgitte ADDML-prosessen {0}.
+        /// </summary>
+        internal static string CouldNotInstatiateUnsupportedAddmlProcess {
+            get {
+                return ResourceManager.GetString("CouldNotInstatiateUnsupportedAddmlProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADDML element dataset.
         /// </summary>
         internal static string Dataset {
@@ -156,6 +165,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         internal static string UnexpectedNumberOfFields {
             get {
                 return ResourceManager.GetString("UnexpectedNumberOfFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ukjent ADDML-prosess: {0}.
+        /// </summary>
+        internal static string UnknownAddmlProcess {
+            get {
+                return ResourceManager.GetString("UnknownAddmlProcess", resourceCulture);
             }
         }
     }

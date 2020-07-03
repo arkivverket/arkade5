@@ -21,26 +21,26 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private readonly IRegionManager _regionManager;
         public DelegateCommand<string> NavigateCommandMain { get; set; }
-        public DelegateCommand ShowUserGuideCommand { get; set; }
+        public DelegateCommand ShowWebPageCommand { get; set; }
         public static DelegateCommand ShowSettingsCommand { get; set; }
+        public DelegateCommand ShowAboutDialogCommand { get; set; }
         public DelegateCommand ShowInvalidProcessingAreaLocationDialogCommand { get; }
         public string CurrentVersion { get; }
         public string VersionStatusMessage { get; }
         public DelegateCommand DownloadNewVersionCommand { get; }
-        public DelegateCommand VersionHistoryCommand { get; }
 
         public MainWindowViewModel(IRegionManager regionManager, ArkadeVersion arkadeVersion)
         {
             _regionManager = regionManager;
             NavigateCommandMain = new DelegateCommand<string>(Navigate);
-            ShowUserGuideCommand = new DelegateCommand(ShowUserGuide);
+            ShowWebPageCommand = new DelegateCommand(ShowWebPage);
             ShowSettingsCommand = new DelegateCommand(ShowSettings);
+            ShowAboutDialogCommand = new DelegateCommand(ShowAboutDialog);
             ShowInvalidProcessingAreaLocationDialogCommand =
                 new DelegateCommand(ShowInvalidProcessingAreaLocationDialog);
             CurrentVersion = "Versjon " + ArkadeVersion.Current;
             VersionStatusMessage = arkadeVersion.UpdateIsAvailable() ? Resources.GUI.NewVersionMessage : null;
             DownloadNewVersionCommand = new DelegateCommand(DownloadNewVersion);
-            VersionHistoryCommand = new DelegateCommand(VersionHistory);
         }
 
         private void Navigate(string uri)
@@ -48,9 +48,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _regionManager.RequestNavigate("MainContentRegion", uri);
         }
 
-        private void ShowUserGuide()
+        private static void ShowWebPage()
         {
-            System.Diagnostics.Process.Start("http://arkade.arkivverket.no/no/latest/Brukerveiledning.html");
+            Process.Start("http://arkade.arkivverket.no/");
         }
 
         private static void ShowSettings()
@@ -61,6 +61,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 ShowInvalidProcessingAreaLocationDialog();
             
             RestartArkadeIfNeededAndWanted();
+        }
+
+        private static void ShowAboutDialog()
+        {
+            new AboutDialog().ShowDialog();
         }
 
         private static void ShowInvalidProcessingAreaLocationDialog()
@@ -99,12 +104,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private static void DownloadNewVersion()
         {
-            Process.Start("https://github.com/arkivverket/arkade5/releases/latest");
-        }
-
-        private static void VersionHistory()
-        {
-            Process.Start("https://github.com/arkivverket/arkade5/releases");
+            Process.Start("http://arkade.arkivverket.no/");
         }
     }
 }

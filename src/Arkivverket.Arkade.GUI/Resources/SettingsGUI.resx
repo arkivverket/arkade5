@@ -138,6 +138,9 @@
   <data name="OtherInstancesRunningOnProcessingAreaChangeMessage" xml:space="preserve">
     <value>Vennligst avslutt andre instanser av Arkade før du endrer plassering av prosesseringområdet.</value>
   </data>
+  <data name="SelectDarkModeText" xml:space="preserve">
+    <value>Bruk mørk modus</value>
+  </data>
   <data name="UndefinedArkadeProcessingAreaLocationDialogMessage" xml:space="preserve">
     <value>Vennligst velg et prosesseringsområde som er tilgjengelig for Arkade</value>
   </data>

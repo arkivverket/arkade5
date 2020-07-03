@@ -60,7 +60,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util
         private bool HasExpectedValue(string versionNumber)
         {
             return !string.IsNullOrEmpty(versionNumber) &&
-                   Regex.IsMatch(versionNumber, "[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");
+                   Regex.IsMatch(versionNumber, "[0-9]+\\.[0-9]+\\.[0-9]+");
         }
     }
 }

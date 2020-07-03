@@ -117,18 +117,18 @@ namespace Arkivverket.Arkade.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Teller opp antall poster for hver posttype.
         /// </summary>
-        internal static string AnalyseCountRecordDefinitionOccurencesDescription {
+        internal static string AnalyseCountRecordDefinitionOccurrencesDescription {
             get {
-                return ResourceManager.GetString("AnalyseCountRecordDefinitionOccurencesDescription", resourceCulture);
+                return ResourceManager.GetString("AnalyseCountRecordDefinitionOccurrencesDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0} poster.
         /// </summary>
-        internal static string AnalyseCountRecordDefinitionOccurencesMessage {
+        internal static string AnalyseCountRecordDefinitionOccurrencesMessage {
             get {
-                return ResourceManager.GetString("AnalyseCountRecordDefinitionOccurencesMessage", resourceCulture);
+                return ResourceManager.GetString("AnalyseCountRecordDefinitionOccurrencesMessage", resourceCulture);
             }
         }
         

@@ -6,7 +6,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>43b24e21-8dc8-474e-88d3-47153856d35d</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Setup</OutputName>
+    <OutputName>Arkade5</OutputName>
     <OutputType>Package</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -31,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Arkade5.ico" />
+    <Content Include="Arkade5_2.0.ico" />
     <Content Include="License.rtf" />
     <Content Include="Transform.xslt" />
   </ItemGroup>

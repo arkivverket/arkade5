@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing;
@@ -74,8 +74,6 @@ namespace Arkivverket.Arkade.Core.Report
         {
             _stream.WriteLine(@"    <div class=""test"">");
             _stream.WriteLine($@"       <h3 id=""{testRun.TestId}"">");
-            if (testRun.TestId.Number != 0)
-                _stream.WriteLine(@"        " + testRun.TestId + " &ndash; ");
             _stream.WriteLine(@"        " + testRun.TestName);
             _stream.WriteLine(@"        </h3>");
             _stream.WriteLine(@"        <p><b>Type:</b> " + GetTestTypeDisplayName(testRun.TestType) + "</p>");
@@ -227,6 +225,23 @@ namespace Arkivverket.Arkade.Core.Report
             _stream.WriteLine(@"            </tr>");
 
 
+            if (testSession.Archive.ArchiveType == ArchiveType.Noark5)
+            {
+                int numberOfExecutedTests = testSession.TestSuite.TestRuns.Count();
+                int numberOfAvailableTests = testSession.AvailableTests.Count;
+
+                _stream.WriteLine(@"            <tr>");
+                _stream.WriteLine(@"                <td>");
+                _stream.WriteLine(Resources.Report.LabelNumberOfTestsExecuted);
+                _stream.WriteLine("                 </td>");
+                _stream.WriteLine(@"                <td>");
+                _stream.WriteLine($"{numberOfExecutedTests} av {numberOfAvailableTests}");
+                if (numberOfExecutedTests < numberOfAvailableTests)
+                    _stream.Write($"<span>&#9888;</span> <i>({Resources.Report.WarningNotAllTestsExecuted})</i>");
+                _stream.WriteLine("                 </td>");
+                _stream.WriteLine(@"            </tr>");
+            }
+
             if (testSession.TestSummary != null)
             {
                 _stream.WriteLine(@"            <tr>");
@@ -281,7 +296,7 @@ namespace Arkivverket.Arkade.Core.Report
                 {
                     _stream.WriteLine(@"            <tr>");
                     _stream.WriteLine(@"                <td>");
-                    _stream.WriteLine(@"<a href=""#" + testRun.TestId + @""">" + testRun.TestId + @" &ndash; " + testRun.TestName + @"</a>");
+                    _stream.WriteLine(@"<a href=""#" + testRun.TestId + @""">" + testRun.TestName + @"</a>");
                     _stream.WriteLine(@"                </td>");
                     _stream.WriteLine(@"                <td>");
                     _stream.WriteLine(testRun.FindNumberOfErrors());

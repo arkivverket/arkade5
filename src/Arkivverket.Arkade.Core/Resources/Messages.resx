@@ -135,10 +135,10 @@
   <data name="AnalyseCountNullMessage" xml:space="preserve">
     <value>{0} forekomster av null</value>
   </data>
-  <data name="AnalyseCountRecordDefinitionOccurencesDescription" xml:space="preserve">
+  <data name="AnalyseCountRecordDefinitionOccurrencesDescription" xml:space="preserve">
     <value>Teller opp antall poster for hver posttype</value>
   </data>
-  <data name="AnalyseCountRecordDefinitionOccurencesMessage" xml:space="preserve">
+  <data name="AnalyseCountRecordDefinitionOccurrencesMessage" xml:space="preserve">
     <value>{0} poster</value>
   </data>
   <data name="AnalyseCountRecordsDescription" xml:space="preserve">

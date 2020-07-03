@@ -216,17 +216,19 @@ namespace Arkivverket.Arkade.Core.Metadata
 
                     if (metsEntityAgent.note != null)
                     {
-                        string address = HdrAgentNotesLoader.GetAddress(metsEntityAgent.note);
+                        var notesLoader = new HdrAgentNotesLoader(metsEntityAgent.note);
+
+                        string address = notesLoader.LoadAddress();
 
                         if (!string.IsNullOrEmpty(address))
                             entityInfoUnit.Address = address;
 
-                        string phoneNumber = HdrAgentNotesLoader.GetTelephone(metsEntityAgent.note);
+                        string phoneNumber = notesLoader.LoadTelephone();
 
                         if (!string.IsNullOrEmpty(phoneNumber))
                             entityInfoUnit.Telephone = phoneNumber;
 
-                        string emailAddress = HdrAgentNotesLoader.GetEmail(metsEntityAgent.note);
+                        string emailAddress = notesLoader.LoadEmail();
 
                         if (!string.IsNullOrEmpty(emailAddress))
                             entityInfoUnit.Email = emailAddress;
@@ -313,17 +315,19 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             if (metsSystemAgent.note != null)
             {
-                string type = HdrAgentNotesLoader.GetType(metsSystemAgent.note);
+                var notesLoader = new HdrAgentNotesLoader(metsSystemAgent.note);
+
+                string type = notesLoader.LoadType();
 
                 if (type != null)
                     system.Type = type;
 
-                string version = HdrAgentNotesLoader.GetVersion(metsSystemAgent.note);
+                string version = notesLoader.LoadVersion();
 
                 if (version != null)
                     system.Version = version;
 
-                string typeVersion = HdrAgentNotesLoader.GetTypeVersion(metsSystemAgent.note);
+                string typeVersion = notesLoader.LoadTypeVersion();
 
                 if (typeVersion != null && MetsTranslationHelper.IsSystemTypeNoark5(system.Type))
                     system.TypeVersion = typeVersion;

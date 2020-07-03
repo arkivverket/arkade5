@@ -1,5 +1,7 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
@@ -16,12 +18,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private string _currentDocumentDescriptionSystemId;
         private DocumentObject _currentDocumentObject;
         private readonly List<TestResult> _testResults;
-        private readonly DirectoryInfo _contentDirectory;
+        private readonly ReadOnlyDictionary<string, FileInfo> _documentFiles;
 
 
         public N5_30_DocumentFilesChecksumControl(Archive archive)
         {
-            _contentDirectory = archive.WorkingDirectory.Content().DirectoryInfo();
+            _documentFiles = archive.DocumentFiles;
 
             _testResults = new List<TestResult>();
         }
@@ -111,11 +113,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private bool ActualAndDocumentedFileChecksumsMatch(DocumentObject documentObject)
         {
-            string documentFileName = Path.DirectorySeparatorChar == '/'
-                ? documentObject.DocumentFileReference.Replace('\\', '/')
-                : documentObject.DocumentFileReference;
+            string documentFileName = documentObject.DocumentFileReference.Replace('\\', '/');
 
-            var filePath = Path.Combine(_contentDirectory.FullName, documentFileName);
+            var filePath = _documentFiles[documentFileName]?.FullName;
             
             var actualFileCheckSum = GenerateChecksumForFile(filePath, documentObject.ChecksumAlgorithm);
             return ChecksumsMatch(documentObject.Checksum, actualFileCheckSum);

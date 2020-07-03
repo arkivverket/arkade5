@@ -207,6 +207,10 @@
   <data name="A_36" xml:space="preserve">
     <value>Kontroll av boolsk verdi i felt</value>
   </data>
+  <data name="DisplayNameFormat" xml:space="preserve">
+    <value>{0} – {1}</value>
+    <comment>ID – name</comment>
+  </data>
   <data name="N5_01" xml:space="preserve">
     <value>Kontroll av eksistens for XML-filene</value>
   </data>

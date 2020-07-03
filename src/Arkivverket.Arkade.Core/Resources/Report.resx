@@ -192,4 +192,10 @@
   <data name="LabelSystemType" xml:space="preserve">
     <value>Systemtype</value>
   </data>
+  <data name="LabelNumberOfTestsExecuted" xml:space="preserve">
+    <value>Antall tester utført</value>
+  </data>
+  <data name="WarningNotAllTestsExecuted" xml:space="preserve">
+    <value>Ikke alle tester er utført</value>
+  </data>
 </root>

@@ -169,6 +169,24 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inkluder formatinformasjon for dokumentfiler.
+        /// </summary>
+        public static string CreateDocumentFileInfoText {
+            get {
+                return ResourceManager.GetString("CreateDocumentFileInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NB! Tidkrevende ved stort antall dokumentfiler..
+        /// </summary>
+        public static string CreateDocumentFileInfoToolTip {
+            get {
+                return ResourceManager.GetString("CreateDocumentFileInfoToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Skaper av informasjonspakke.
         /// </summary>
         public static string Creator {

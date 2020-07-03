@@ -1,49 +1,139 @@
-﻿using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Arkivverket.Arkade.Core.Util;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Metadata
 {
-    public static class HdrAgentNotesLoader
+    public class HdrAgentNotesLoader
     {
-        public static string GetAddress(IEnumerable<string> notes)
+        private readonly string[] _contentNotes;
+        private readonly string[] _validMetaNoteFields;
+
+        private enum HdrAgentNoteField
         {
-            return notes.FirstOrDefault(LooksLikeAddress);
+            Address,
+            Telephone,
+            Email,
+            Version,
+            Type,
+            TypeVersion
         }
 
-        public static string GetTelephone(IEnumerable<string> notes)
+        private readonly ILogger _logger = Log.ForContext<HdrAgentNotesLoader>();
+
+        public HdrAgentNotesLoader(string[] notes)
         {
-            return notes.FirstOrDefault(LooksLikePhoneNumber);
+            string metaNote = notes.FirstOrDefault(n => n.StartsWith(ArkadeConstants.MetsHdrAgentMetaNoteKeyWord));
+
+            if (metaNote != null)
+            {
+                _contentNotes = notes.Where(n => n != metaNote).ToArray();
+
+                _validMetaNoteFields = GetValidMetaNoteFields(metaNote);
+            }
+            else
+            {
+                _contentNotes = notes;
+            }
         }
 
-        public static string GetEmail(IEnumerable<string> notes)
+        public string LoadAddress()
         {
-            return notes.FirstOrDefault(LooksLikeEmailAddress);
+            return Load(HdrAgentNoteField.Address);
         }
 
-        public static string GetVersion(IEnumerable<string> notes)
+        public string LoadTelephone()
         {
-            notes = notes.ToList();
-
-            string type = GetType(notes);
-
-            // Find first occurrence of a version number defined before Type. That's probably the version ...
-            return notes.TakeWhile(n => !n.Equals(type)).ToArray().FirstOrDefault(LooksLikeSystemVersion);
+            return Load(HdrAgentNoteField.Telephone);
         }
 
-        public static string GetType(IEnumerable<string> notes)
+        public string LoadEmail()
         {
-            return notes.FirstOrDefault(LooksLikeSystemType);
+            return Load(HdrAgentNoteField.Email);
         }
 
-        public static string GetTypeVersion(IEnumerable<string> notes)
+        public string LoadVersion()
         {
-            notes = notes.ToList();
+            return Load(HdrAgentNoteField.Version);
+        }
 
-            string type = GetType(notes);
+        public string LoadType()
+        {
+            return Load(HdrAgentNoteField.Type);
+        }
 
-            // Find first occurrence of a version number defined after Type. That's probably the type-version ...
-            return notes.SkipWhile(n => !n.Equals(type)).ToArray().FirstOrDefault(LooksLikeSystemTypeVersion);
+        public string LoadTypeVersion()
+        {
+            return Load(HdrAgentNoteField.TypeVersion);
+        }
+
+        private string Load(HdrAgentNoteField field)
+        {
+            if (_validMetaNoteFields != null)
+            {
+                return LoadByMetaNote(field);
+            }
+
+            _logger.Warning("No valid meta-note was found. Arkade will try to find something that looks"
+                            + " like " + field + "amongst the notes for the current mets hdrAgent");
+
+            return LoadByContentExamination(field);
+        }
+
+        private string[] GetValidMetaNoteFields(string metaNote)
+        {
+            string[] metaNoteFields = metaNote.Substring(ArkadeConstants.MetsHdrAgentMetaNoteKeyWord.Length).Split(',');
+
+            if (metaNoteFields.Any(field => !Enum.IsDefined(typeof(HdrAgentNoteField), field)))
+            {
+                _logger.Error($"Meta-note \"{metaNote}\" contains unrecognized fields. Meta-note will be ignored.");
+
+                return null;
+            }
+
+            if (metaNoteFields.Length != _contentNotes.Length)
+            {
+                _logger.Error($"Number of fields in meta-note \"{metaNote}\" doesn't match the number"
+                              + "of notes for the metsHdr agent. Meta-note will be ignored.");
+
+                return null;
+            }
+
+            return metaNoteFields;
+        }
+
+        private string LoadByMetaNote(HdrAgentNoteField field)
+        {
+            int fieldPosition = Array.IndexOf(_validMetaNoteFields, field.ToString());
+
+            return _contentNotes.ElementAtOrDefault(fieldPosition);
+        }
+
+        private string LoadByContentExamination(HdrAgentNoteField field)
+        {
+            string type = _contentNotes.FirstOrDefault(LooksLikeSystemType);
+
+            switch (field)
+            {
+                case HdrAgentNoteField.Address:
+                    return _contentNotes.FirstOrDefault(LooksLikeAddress);
+                case HdrAgentNoteField.Telephone:
+                    return _contentNotes.FirstOrDefault(LooksLikePhoneNumber);
+                case HdrAgentNoteField.Email:
+                    return _contentNotes.FirstOrDefault(LooksLikeEmailAddress);
+                case HdrAgentNoteField.Version:
+                    string[] notesDefinedBeforeType = _contentNotes.TakeWhile(n => !n.Equals(type)).ToArray();
+                    return notesDefinedBeforeType.FirstOrDefault(LooksLikeSystemVersion);
+                case HdrAgentNoteField.Type:
+                    return _contentNotes.FirstOrDefault(LooksLikeSystemType);
+                case HdrAgentNoteField.TypeVersion:
+                    string[] notesDefinedAfterType = _contentNotes.SkipWhile(n => !n.Equals(type)).ToArray();
+                    return notesDefinedAfterType.FirstOrDefault(LooksLikeSystemTypeVersion);
+                default:
+                    return null;
+            }
         }
 
         private static bool LooksLikeAddress(string possibleAddress)

@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Report;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
@@ -193,6 +196,17 @@ namespace Arkivverket.Arkade.Core.Base
             return packageType.HasValue
                    && (packageType == PackageType.SubmissionInformationPackage)
                    && FilesToSkipForSipPackages.Contains(file.Name);
+        }
+
+        public static PackageType ParsePackageType(string packageType)
+        {
+            if (packageType.Equals("SIP", StringComparison.OrdinalIgnoreCase))
+                return PackageType.SubmissionInformationPackage;
+
+            if (packageType.Equals("AIP", StringComparison.OrdinalIgnoreCase))
+                return PackageType.SubmissionInformationPackage;
+
+            throw new ArgumentException(string.Format(ExceptionMessages.UnknownPackageType, packageType));
         }
     }
 

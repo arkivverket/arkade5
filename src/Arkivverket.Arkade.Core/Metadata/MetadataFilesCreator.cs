@@ -1,5 +1,6 @@
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Metadata
@@ -22,7 +23,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             _eacCpfCreator = eacCpfCreator;
         }
 
-        public void Create(Archive archive, ArchiveMetadata metadata)
+        public void Create(Archive archive, ArchiveMetadata metadata, bool generateDocumentFileInfo)
         {
             _diasPremisCreator.CreateAndSaveFile(archive, metadata);
             _logCreator.CreateAndSaveFile(archive, metadata);
@@ -33,6 +34,12 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             CopyXsdFiles(archive.WorkingDirectory);
             
+            if (generateDocumentFileInfo)
+            {
+                string fileLocation = archive.WorkingDirectory.AdministrativeMetadata().DirectoryInfo().FullName;
+                DocumentFileListGenerator.Generate(fileLocation, archive);
+            }
+
             // Generate mets-file last for it to describe all other package content
             _diasMetsCreator.CreateAndSaveFile(archive, metadata);
         }

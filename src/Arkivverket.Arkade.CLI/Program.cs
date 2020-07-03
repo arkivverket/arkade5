@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
@@ -8,7 +7,7 @@ using Serilog;
 
 namespace Arkivverket.Arkade.CLI
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -16,55 +15,103 @@ namespace Arkivverket.Arkade.CLI
 
             ConfigureLogging(); // Configured with temporary log directory
 
-            Parser.Default.ParseArguments<CommandLineOptions>(args)
-                .WithParsed(RunOptionsAndReturnExitCode)
-                .WithNotParsed(HandleParseError);
+            ParseArguments(args)
+                .WithParsed<ProcessOptions>(RunProcessOptions)
+                .WithParsed<TestOptions>(RunTestOptions)
+                .WithParsed<PackOptions>(RunPackOptions)
+                .WithParsed<GenerateOptions>(RunGenerateOptions)
+                .WithNotParsed(LogParseErrors);
         }
 
-        private static void RunOptionsAndReturnExitCode(CommandLineOptions options)
+        public static ParserResult<object> ParseArguments(IEnumerable<string> args)
         {
-            ArkadeProcessingArea.Establish(options.ProcessingArea); // Removes temporary log directory
+            return Parser.Default.ParseArguments<TestOptions, PackOptions, ProcessOptions, GenerateOptions>(args);
+        }
+
+        private static void RunProcessOptions(ProcessOptions processOptions)
+        {
+            if (!ReadyToRun(processOptions.OutputDirectory, processOptions.ProcessingArea, processOptions.MetadataFile,
+                processOptions.TestListFile))
+                return;
+
+            CommandLineRunner.Run(processOptions);
+        }
+
+        private static void RunTestOptions(TestOptions testOptions)
+        {
+            if (!ReadyToRun(testOptions.OutputDirectory, testOptions.ProcessingArea,
+                testListFilePath: testOptions.TestListFile))
+                return;
+
+            CommandLineRunner.Run(testOptions);
+        }
+
+        private static void RunPackOptions(PackOptions packOptions)
+        {
+            if (!ReadyToRun(packOptions.OutputDirectory, packOptions.ProcessingArea, packOptions.MetadataFile))
+                return;
+
+            CommandLineRunner.Run(packOptions);
+        }
+
+        private static void RunGenerateOptions(GenerateOptions generateOptions)
+        {
+            if (!ReadyToRun(generateOptions))
+                return;
+
+            CommandLineRunner.Run(generateOptions);
+        }
+
+        private static bool ReadyToRun(Options options)
+        {
+            return DirectoryArgsExists(options.OutputDirectory);
+        }
+
+        private static bool ReadyToRun(string outputDirectoryPath, string processingAreaPath,
+            string metadataFilePath = null, string testListFilePath = null)
+        {
+            if (!(DirectoryArgsExists(outputDirectoryPath, processingAreaPath) && FileArgsExists(metadataFilePath, testListFilePath)))
+                return false;
+
+            ArkadeProcessingArea.Establish(processingAreaPath); // Removes temporary log directory
 
             ConfigureLogging(); // Re-configured with log directory within processing area
 
-            if (ValidArgumentsForMetadataCreation(options))
+            return true;
+        }
+
+        private static bool DirectoryArgsExists(string outputDirectoryPath, string processingAreaPath = null)
+        {
+            if (!Directory.Exists(outputDirectoryPath))
             {
-                new MetadataExampleGenerator().Generate(options.GenerateMetadataExample);
+                Log.Error(new DirectoryNotFoundException(), $"Could not find output directory: '{outputDirectoryPath}'.");
+                return false;
             }
-            else
+
+            if (processingAreaPath != null && !Directory.Exists(processingAreaPath))
             {
-                if (ValidArgumentsForTesting(options))
-                {
-                    new CommandLineRunner().Run(options);
-                }
-                else
-                {
-                    Console.WriteLine(options.GetUsage());
-                }
+                Log.Error(new DirectoryNotFoundException(), $"Could not find processing area: '{processingAreaPath}'.");
+                return false;
             }
+
+            return true;
         }
 
-        private static void HandleParseError(IEnumerable<Error> errors)
+        private static bool FileArgsExists(string metadataFilePath = null, string testListFilePath = null)
         {
-            foreach (Error error in errors)
-                Log.Error(error.ToString());
-        }
+            if (metadataFilePath != null && !File.Exists(metadataFilePath))
+            {
+                Log.Error(new FileNotFoundException(), $"Could not find metadata file: '{metadataFilePath}'.");
+                return false;
+            }
 
-        private static bool ValidArgumentsForMetadataCreation(CommandLineOptions options)
-        {
-            return !string.IsNullOrWhiteSpace(options.GenerateMetadataExample);
-        }
+            if (testListFilePath != null && !File.Exists(testListFilePath))
+            {
+                Log.Error(new FileNotFoundException(), $"Could not find test list file: '{testListFilePath}'.");
+                return false;
+            }
 
-        private static bool ValidArgumentsForTesting(CommandLineOptions options)
-        {
-            return !string.IsNullOrWhiteSpace(options.Archive)
-                   && !string.IsNullOrWhiteSpace(options.ArchiveType)
-                   && (
-                       !string.IsNullOrWhiteSpace(options.Skip) && options.Skip.Equals("packing")
-                       || !string.IsNullOrWhiteSpace(options.MetadataFile)
-                   )
-                   && !string.IsNullOrWhiteSpace(options.ProcessingArea)
-                   && !string.IsNullOrWhiteSpace(options.OutputDirectory);
+            return true;
         }
 
         private static void ConfigureLogging()
@@ -79,6 +126,15 @@ namespace Arkivverket.Arkade.CLI
                 .WriteTo.Console(outputTemplate: OutputStrings.SystemLogOutputTemplateForConsole)
                 .WriteTo.RollingFile(systemLogFilePath, outputTemplate: OutputStrings.SystemLogOutputTemplateForFile)
                 .CreateLogger();
+        }
+
+        private static void LogParseErrors(IEnumerable<Error> errors)
+        {
+            foreach (Error error in errors)
+            {
+                if (error.Tag != ErrorType.HelpRequestedError && error.Tag != ErrorType.HelpVerbRequestedError)
+                    Log.Error(error.ToString());
+            }
         }
     }
 }
