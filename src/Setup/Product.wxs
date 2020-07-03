@@ -15,8 +15,8 @@
 
 
     <MediaTemplate EmbedCab="yes" />
-    <Icon Id="Arkade5.ico" SourceFile=".\Arkade5.ico" />
-    <Property Id="ARPPRODUCTICON" Value="Arkade5.ico.ico" />
+    <Icon Id="Arkade5_2.0.ico" SourceFile=".\Arkade5_2.0.ico" />
+    <Property Id="ARPPRODUCTICON" Value="Arkade5_2.0.ico" />
     
     <Feature Id="ProductFeature" Title="MySetup" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
