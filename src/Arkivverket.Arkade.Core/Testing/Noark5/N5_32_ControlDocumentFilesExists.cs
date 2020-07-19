@@ -83,7 +83,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 string documentFileName = eventArgs.Value;
 
-                if (!_documentFiles.ContainsKey(documentFileName))
+                if (!DocumentFileExists(documentFileName))
                 {
                     if (_missingFilesPerArchivepart.ContainsKey(_currentArchivePart))
                         _missingFilesPerArchivepart[_currentArchivePart].Add(documentFileName);
@@ -92,6 +92,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     
                 }
             }
+        }
+
+        private bool DocumentFileExists(string documentFileName)
+        {
+            return _documentFiles.ContainsKey(documentFileName.Replace('\\', '/'));
         }
     }
 }
