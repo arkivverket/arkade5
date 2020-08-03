@@ -132,7 +132,7 @@ namespace Arkivverket.Arkade.CLI
         {
             foreach (Error error in errors)
             {
-                if (error.Tag != ErrorType.HelpRequestedError && error.Tag != ErrorType.HelpVerbRequestedError)
+                if (error.Tag != ErrorType.HelpRequestedError && error.Tag != ErrorType.HelpVerbRequestedError && error.Tag != ErrorType.VersionRequestedError)
                     Log.Error(error.ToString());
             }
         }
