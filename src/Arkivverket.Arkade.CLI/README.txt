@@ -13,8 +13,8 @@ Download and install the runtime for your platform:
 macOS: https://www.microsoft.com/net/download/macos/run
 Linux: https://www.microsoft.com/net/download/linux/run
 
-Make the script arkade.sh executable (chmod +x arkade.sh).
+Make the script arkade executable (chmod +x arkade).
 
-Arkade CLI is run with arkade.sh and parameters.
+Arkade CLI is run with ./arkade and parameters.
 
-Run arkade.sh --help for usage.
+Run ./arkade --help for usage.

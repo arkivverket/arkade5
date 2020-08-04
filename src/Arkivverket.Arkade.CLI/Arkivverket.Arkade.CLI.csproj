@@ -22,12 +22,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="arkade.sh" />
+    <None Remove="arkade.bat" />
+    <None Remove="arkade" />
     <None Remove="README.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="arkade.sh">
+    <Content Include="arkade.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="arkade">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="README.txt">
