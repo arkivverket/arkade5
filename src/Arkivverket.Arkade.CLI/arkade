@@ -1,9 +1,0 @@
-#!/bin/bash
-
-cd `dirname $0`
-SCRIPTDIR=`pwd`
-cd -
-
-dotnet $SCRIPTDIR/Arkivverket.Arkade.CLI.dll $@
-
-# See README.txt for info about running Arkade CLI

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <None Remove="arkade.bat" />
-    <None Remove="arkade" />
+    <None Remove="arkade.sh" />
     <None Remove="README.txt" />
   </ItemGroup>
 
@@ -31,7 +31,7 @@
     <Content Include="arkade.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="arkade">
+    <Content Include="arkade.sh">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="README.txt">
