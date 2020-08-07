@@ -729,6 +729,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Det er angitt at arkivstrukturen skal innholde {0} registreringer, men {1} ble funnet.
+        /// </summary>
+        internal static string NumberOfRegistrations_DocumentedAndActualMismatch {
+            get {
+                return ResourceManager.GetString("NumberOfRegistrations_DocumentedAndActualMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Klasser uten registreringer (og uten underklasser) - Antall: {0}.
         /// </summary>
         internal static string NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations {

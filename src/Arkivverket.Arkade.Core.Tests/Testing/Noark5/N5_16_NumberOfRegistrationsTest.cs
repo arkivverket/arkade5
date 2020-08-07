@@ -1,3 +1,4 @@
+using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
@@ -45,7 +46,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                             ""
                                                         ))))));
 
-            TestRun testRun = helper.RunEventsOnTest(new N5_16_NumberOfRegistrations());
+            Archive testArchive = TestUtil.CreateArchiveExtraction(
+                Path.Combine("TestData", "Noark5", "RegistrationControl", "FiveRegistrations")
+            ); 
+            TestRun testRun = helper.RunEventsOnTest(new N5_16_NumberOfRegistrations(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Totalt: 5"
@@ -128,7 +132,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                            new[] { "xsi:type", "journalpost" },
                                                            ""
                                                        ))))));
-            TestRun testRun = helper.RunEventsOnTest(new N5_16_NumberOfRegistrations());
+            Archive testArchive = TestUtil.CreateArchiveExtraction(
+                Path.Combine("TestData", "Noark5", "RegistrationControl", "NineRegistrations")
+            );
+            TestRun testRun = helper.RunEventsOnTest(new N5_16_NumberOfRegistrations(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Totalt: 9"
@@ -138,6 +145,31 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.Results.Should().Contain(r => r.Message.Equals(
                 "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTittel_2 - Totalt: 5"));
             testRun.Results.Count.Should().Be(7);
+        }
+
+        [Fact]
+        public void DocumentedAndFoundNumberOfRegistrationsMismatchShouldTriggerWarning()
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("mappe",
+                                new XmlElementHelper()
+                                    .Add("registrering",
+                                        new [] {"xsi:type", "journalpost"},
+                                        ""
+                                        )))));
+
+            Archive testArchive = TestUtil.CreateArchiveExtraction(
+                Path.Combine("TestData", "Noark5", "RegistrationControl", "FiveRegistrations")
+            );
+            TestRun testRun = helper.RunEventsOnTest(new N5_16_NumberOfRegistrations(testArchive));
+
+            testRun.Results.Should().Contain(r => r.Message.Equals(
+                "Det er angitt at arkivstrukturen skal innholde 5 registreringer, men 1 ble funnet"
+            ));
         }
     }
 }
