@@ -64,6 +64,8 @@ namespace Arkivverket.Arkade.CLI
                 Test(options.OutputDirectory, testSession);
 
                 Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
+
+                LogFinishedStatus(options.GetType().Name);
             }
             finally
             {
@@ -79,6 +81,8 @@ namespace Arkivverket.Arkade.CLI
                     CreateTestSession(options.Archive, options.ArchiveType, options.TestListFile);
 
                 Test(options.OutputDirectory, testSession);
+
+                LogFinishedStatus(options.GetType().Name);
             }
             finally
             {
@@ -94,6 +98,8 @@ namespace Arkivverket.Arkade.CLI
                     checkDocumentFileFormat: options.DocumentFileFormatCheck);
 
                 Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
+
+                LogFinishedStatus(options.GetType().Name);
             }
             finally
             {
@@ -116,6 +122,8 @@ namespace Arkivverket.Arkade.CLI
                 Noark5TestListGenerator.Generate(noark5TestListFileName);
                 Log.Information(noark5TestListFileName + " was created");
             }
+
+            LogFinishedStatus(options.GetType().Name);
         }
 
         private static void Test(string outputDirectory, TestSession testSession)
@@ -201,6 +209,15 @@ namespace Arkivverket.Arkade.CLI
                 outputDirectory, string.Format(OutputStrings.TestReportFileName, testSession.Archive.Uuid)
             ));
             Arkade.SaveReport(testSession, standaloneTestReport);
+        }
+
+        private static void LogFinishedStatus(string optionType)
+        {
+            int optionsStartIndex = optionType.Length - "options".Length;
+            string command = optionType.Remove(optionsStartIndex).ToLower();
+
+            Console.WriteLine("");
+            Log.Information($"Arkade 5 CLI {ArkadeVersion.Current} {{{command}}} successfully finished\n");
         }
     }
 }
