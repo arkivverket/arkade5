@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             FileInfo targetFileName = archive.WorkingDirectory.DescriptiveMetadata().WithFile(ArkadeConstants.EadXmlFileName);
             SerializeUtil.SerializeToFile(ead, targetFileName, namespaces);
 
-            Log.Information($"Created {ArkadeConstants.EadXmlFileName}");
+            Log.Debug($"Created {ArkadeConstants.EadXmlFileName}");
         }
     }
 }

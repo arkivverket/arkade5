@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             SerializeUtil.SerializeToFile(mets, targetFileName, namespaces);
 
-            Log.Information($"Created {ArkadeConstants.DiasMetsXmlFileName}");
+            Log.Debug($"Created {ArkadeConstants.DiasMetsXmlFileName}");
         }
     }
 }

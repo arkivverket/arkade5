@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using CsvHelper;
 using Serilog;
@@ -12,11 +13,17 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 {
     public class SiegfriedFileFormatIdentifier : IFileFormatIdentifier
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
+
         public IEnumerable<SiegfriedFileInfo> IdentifyFormat(DirectoryInfo directory)
         {
+            Log.Information($"Starting document file format checking.");
+
             Process siegfriedProcess = SetupSiegfriedProcess();
 
             IEnumerable<string> siegfriedResult = RunProcessOnDirectory(siegfriedProcess, directory);
+
+            Log.Information($"Document file format checking completed.");
 
             return GetSiegfriedFileInfoObjects(siegfriedResult);
         }

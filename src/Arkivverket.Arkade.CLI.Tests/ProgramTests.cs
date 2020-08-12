@@ -53,7 +53,7 @@ namespace Arkivverket.Arkade.CLI.Tests
             noark5TestListGenerated.Should().BeTrue();
         }
 
-        [Fact]
+        [Fact(Skip = "IO-issues")]
         [Trait("Category", "Integration")]
         public void TestCommandTest()
         {

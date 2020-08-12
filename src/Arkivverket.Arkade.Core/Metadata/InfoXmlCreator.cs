@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             SerializeUtil.SerializeToFile(infoXml, targetFileObject, namespaces);
 
-            Log.Information($"Created {targetFileObject}");
+            Log.Debug($"Created {targetFileObject}");
         }
 
         private static void PrepareForPackageDescription(ArchiveMetadata metadata, FileInfo packageFile)

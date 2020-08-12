@@ -3,13 +3,17 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using System.Linq;
+using System.Reflection;
 using Arkivverket.Arkade.Core.Util;
+using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base
 {
     public class Archive
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+
         public Uuid Uuid { get; }
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
@@ -117,6 +121,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         private ReadOnlyDictionary<string, FileInfo> GetDocumentFiles()
         {
+            Log.Information("Registering document files.");
+
             var documentFiles = new Dictionary<string, FileInfo>();
 
             DirectoryInfo documentsDirectory = GetDocumentsDirectory();
@@ -136,6 +142,8 @@ namespace Arkivverket.Arkade.Core.Base
 
             // Instantiate field for next access:
             _documentFiles = new ReadOnlyDictionary<string, FileInfo>(documentFiles);
+
+            Log.Information($"{documentFiles.Count} document files registered.");
 
             return _documentFiles;
         }

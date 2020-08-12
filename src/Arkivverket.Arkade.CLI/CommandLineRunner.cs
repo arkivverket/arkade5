@@ -57,15 +57,20 @@ namespace Arkivverket.Arkade.CLI
         {
             try
             {
-                TestSession testSession =
-                    CreateTestSession(options.Archive, options.ArchiveType, options.TestListFile,
-                        options.DocumentFileFormatCheck);
+                string command = GetRunningCommand(options.GetType().Name);
+
+                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
+                    options.TestListFile, options.DocumentFileFormatCheck);
 
                 Test(options.OutputDirectory, testSession);
 
                 Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
 
-                LogFinishedStatus(options.GetType().Name);
+                LogFinishedStatus(command);
+            }
+            catch (ArgumentException e)
+            {
+                Log.Error(e.Message);
             }
             finally
             {
@@ -77,12 +82,18 @@ namespace Arkivverket.Arkade.CLI
         {
             try
             {
-                TestSession testSession =
-                    CreateTestSession(options.Archive, options.ArchiveType, options.TestListFile);
+                string command = GetRunningCommand(options.GetType().Name);
+
+                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
+                    options.TestListFile);
 
                 Test(options.OutputDirectory, testSession);
 
-                LogFinishedStatus(options.GetType().Name);
+                LogFinishedStatus(command);
+            }
+            catch (ArgumentException e)
+            {
+                Log.Error(e.Message);
             }
             finally
             {
@@ -94,12 +105,14 @@ namespace Arkivverket.Arkade.CLI
         {
             try
             {
-                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType,
+                string command = GetRunningCommand(options.GetType().Name);
+
+                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
                     checkDocumentFileFormat: options.DocumentFileFormatCheck);
 
                 Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
 
-                LogFinishedStatus(options.GetType().Name);
+                LogFinishedStatus(command);
             }
             finally
             {
@@ -109,6 +122,8 @@ namespace Arkivverket.Arkade.CLI
 
         public static void Run(GenerateOptions options)
         {
+            string command = GetRunningCommand(options.GetType().Name);
+
             if (options.GenerateMetadataExample)
             {
                 string metadataFileName = Path.Combine(options.OutputDirectory, ArkadeConstants.MetadataFileName);
@@ -123,7 +138,7 @@ namespace Arkivverket.Arkade.CLI
                 Log.Information(noark5TestListFileName + " was created");
             }
 
-            LogFinishedStatus(options.GetType().Name);
+            LogFinishedStatus(command);
         }
 
         private static void Test(string outputDirectory, TestSession testSession)
@@ -163,10 +178,10 @@ namespace Arkivverket.Arkade.CLI
         }
 
         private static TestSession CreateTestSession(string archive, string archiveTypeString,
-            string testListFilePath = null, bool checkDocumentFileFormat = false)
+            string command, string testListFilePath = null, bool checkDocumentFileFormat = false)
         {
             var fileInfo = new FileInfo(archive);
-            Log.Information($"Processing archive: {fileInfo.FullName}");
+            Log.Information($"{{{command}ing}} archive: {fileInfo.FullName}");
 
             ArchiveType archiveType = GetArchiveType(archiveTypeString);
 
@@ -191,6 +206,9 @@ namespace Arkivverket.Arkade.CLI
                 testSession.TestsToRun = File.Exists(testListFilePath)
                     ? Noark5TestListReader.GetUserSelectedTestIds(testListFilePath)
                     : Noark5TestProvider.GetAllTestIds();
+
+                if (testSession.TestsToRun.Count == 0)
+                    throw new ArgumentException($"No tests selected in {testListFilePath}");
             }
 
             testSession.GenerateDocumentFileInfo = checkDocumentFileFormat;
@@ -209,15 +227,18 @@ namespace Arkivverket.Arkade.CLI
                 outputDirectory, string.Format(OutputStrings.TestReportFileName, testSession.Archive.Uuid)
             ));
             Arkade.SaveReport(testSession, standaloneTestReport);
+            Log.Information($"Test report generated at: {standaloneTestReport.FullName}");
         }
 
-        private static void LogFinishedStatus(string optionType)
+        private static void LogFinishedStatus(string command)
+        {
+            Log.Information($"Arkade 5 CLI {ArkadeVersion.Current} {{{command}}} successfully finished.");
+        }
+
+        private static string GetRunningCommand(string optionType)
         {
             int optionsStartIndex = optionType.Length - "options".Length;
-            string command = optionType.Remove(optionsStartIndex).ToLower();
-
-            Console.WriteLine("");
-            Log.Information($"Arkade 5 CLI {ArkadeVersion.Current} {{{command}}} successfully finished\n");
+            return optionType.Remove(optionsStartIndex).ToLower();
         }
     }
 }

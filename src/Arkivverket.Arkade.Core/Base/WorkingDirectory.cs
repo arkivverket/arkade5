@@ -112,7 +112,7 @@ namespace Arkivverket.Arkade.Core.Base
                 FileInfo contentAddml = Content().WithFile(ArkadeConstants.AddmlXmlFileName);
                 if (contentAddml.Exists)
                 {
-                    Log.Information($"Copying ADDML file {contentAddml.FullName} to administrative_metadata.");
+                    Log.Debug($"Copying ADDML file {contentAddml.FullName} to administrative_metadata.");
                     contentAddml.CopyTo(targetAddmlFile.FullName);
                 }
                 else
@@ -120,7 +120,7 @@ namespace Arkivverket.Arkade.Core.Base
                     FileInfo arkivuttrekkAddml = Content().WithFile(ArkadeConstants.ArkivuttrekkXmlFileName);
                     if (arkivuttrekkAddml.Exists)
                     {
-                        Log.Information($"Copying ADDML file {arkivuttrekkAddml.FullName} to administrative_metadata.");
+                        Log.Debug($"Copying ADDML file {arkivuttrekkAddml.FullName} to administrative_metadata.");
                         arkivuttrekkAddml.CopyTo(targetAddmlFile.FullName);
                     }
                 }
