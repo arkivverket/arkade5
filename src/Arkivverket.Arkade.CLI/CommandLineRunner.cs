@@ -33,9 +33,9 @@ namespace Arkivverket.Arkade.CLI
             }
 
             Log.Information(
-                "Download the latest Arkade 5 version from: https://github.com/arkivverket/arkade5/releases/latest");
+                "Download the latest Arkade 5 CLI version from: https://arkade.arkivverket.no/");
             Log.Information(
-                "See version history and release notes at: https://github.com/arkivverket/arkade5/releases \n");
+                "See version history and release notes at: https://arkade.arkivverket.no/ \n");
         }
 
         private static string GetBundledSoftwareInfo()
@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.CLI
             info.AppendLine("\n-----------------------BUNDLED SOFTWARE-----------------------\n");
             info.AppendLine("-- Siegfried --");
             info.AppendLine("PURPOSE: identify document file format.");
-            info.AppendLine("Copyright © 2019 Richard Lehane");
+            info.AppendLine("Copyright ï¿½ 2019 Richard Lehane");
             info.AppendLine("Available from: https://www.itforarchivists.com/siegfried/");
             info.AppendLine("Licensed under the Apache License, Version 2.0");
             info.AppendLine("\n--------------------------------------------------------------\n");
