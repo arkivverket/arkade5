@@ -20,16 +20,16 @@ namespace Arkivverket.Arkade.CLI
             Arkade = new Core.Base.Arkade();
 
             Log.Information($"\n" +
-                            $"*******************\n" +
-                            $"* ARKADE 5 v{ArkadeVersion.Current} *\n" +
-                            $"*******************\n");
+                            $"***********************\n" +
+                            $"* ARKADE 5 CLI v{ArkadeVersion.Current} *\n" +
+                            $"***********************\n");
 
             Log.Information(GetBundledSoftwareInfo());
 
             if (Arkade.Version().UpdateIsAvailable())
             {
-                Log.Warning("    The current Arkade 5 version is outdated!");
-                Log.Information($"Arkade 5 v{Arkade.Version().GetLatest()} is available.");
+                Log.Warning("    The current Arkade 5 CLI version is outdated!");
+                Log.Information($"Arkade 5 CLI v{Arkade.Version().GetLatest().ToString(3)} is available.");
             }
 
             Log.Information(
@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.CLI
             info.AppendLine("\n-----------------------BUNDLED SOFTWARE-----------------------\n");
             info.AppendLine("-- Siegfried --");
             info.AppendLine("PURPOSE: identify document file format.");
-            info.AppendLine("Copyright ï¿½ 2019 Richard Lehane");
+            info.AppendLine("Copyright © 2019 Richard Lehane");
             info.AppendLine("Available from: https://www.itforarchivists.com/siegfried/");
             info.AppendLine("Licensed under the Apache License, Version 2.0");
             info.AppendLine("\n--------------------------------------------------------------\n");
