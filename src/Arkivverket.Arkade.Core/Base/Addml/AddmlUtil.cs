@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         public static AddmlInfo ReadFromBaseDirectory(string fileName)
         {
-            return ReadFromFile(AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + fileName);
+            return ReadFromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName));
         }
 
         private static void Validate(addml addml)

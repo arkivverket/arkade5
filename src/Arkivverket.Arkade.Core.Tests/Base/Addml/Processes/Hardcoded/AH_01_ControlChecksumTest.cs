@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
 
             AddmlFlatFileDefinition flatFileDefinition = new AddmlFlatFileDefinitionBuilder()
                 .WithChecksum(new Checksum("SHA-256", expectedSha256Hash))
-                .WithFileInfo(new FileInfo(TestUtil.TestDataDirectory + "checksum.txt"))
+                .WithFileInfo(new FileInfo(Path.Combine(TestUtil.TestDataDirectory, "checksum.txt")))
                 .Build();
 
             FlatFile flatFile = new FlatFile(flatFileDefinition);
@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
 
             AddmlFlatFileDefinition flatFileDefinition = new AddmlFlatFileDefinitionBuilder()
                 .WithChecksum(new Checksum("SHA-256", "invalid"))
-                .WithFileInfo(new FileInfo(TestUtil.TestDataDirectory + "checksum.txt"))
+                .WithFileInfo(new FileInfo(Path.Combine(TestUtil.TestDataDirectory, "checksum.txt")))
                 .Build();
 
             FlatFile flatFile = new FlatFile(flatFileDefinition);
@@ -65,7 +65,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
 
             AddmlFlatFileDefinition flatFileDefinition = new AddmlFlatFileDefinitionBuilder()
                 .WithChecksum(new Checksum("invalid hash", expectedSha256Hash))
-                .WithFileInfo(new FileInfo(TestUtil.TestDataDirectory + "checksum.txt"))
+                .WithFileInfo(new FileInfo(Path.Combine(TestUtil.TestDataDirectory, "checksum.txt")))
                 .Build();
 
             FlatFile flatFile = new FlatFile(flatFileDefinition);

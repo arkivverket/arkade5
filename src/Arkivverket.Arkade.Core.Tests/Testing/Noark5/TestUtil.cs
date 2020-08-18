@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
     public class TestUtil
     {
-        public static string TestDataDirectory =  AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + "TestData" + Path.DirectorySeparatorChar;
+        public static string TestDataDirectory =  Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData");
 
         public static Archive CreateArchiveExtraction(string testdataDirectory)
         {
@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
         public static string ReadFromFileInTestDataDir(string fileName)
         {
-            return File.ReadAllText(TestDataDirectory + fileName);
+            return File.ReadAllText(Path.Combine(TestDataDirectory, fileName));
         }
 
     }

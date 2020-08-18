@@ -16,15 +16,15 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
         [Fact]
         public void ShouldReportWhenFileInArchiveIsNotReferencedInAddml()
         {
-            WorkingDirectory workingDirectory = new WorkingDirectory(null, new DirectoryInfo(TestUtil.TestDataDirectory + "noark3"));
+            WorkingDirectory workingDirectory = new WorkingDirectory(null, new DirectoryInfo(Path.Combine(TestUtil.TestDataDirectory, "noark3")));
 
             AddmlFlatFileDefinition flatFileDefinition1 = new AddmlFlatFileDefinitionBuilder()
-                .WithFileInfo(new FileInfo(workingDirectory.Content().DirectoryInfo().FullName + Path.DirectorySeparatorChar + "nosuchfile.txt"))
+                .WithFileInfo(new FileInfo(Path.Combine(workingDirectory.Content().DirectoryInfo().FullName, "nosuchfile.txt")))
                 .WithFileName("nosuchfile.txt")
                 .Build();
 
             AddmlFlatFileDefinition flatFileDefinition2 = new AddmlFlatFileDefinitionBuilder()
-                .WithFileInfo(new FileInfo(workingDirectory.Content().DirectoryInfo().FullName + Path.DirectorySeparatorChar + "ARKIV.DAT"))
+                .WithFileInfo(new FileInfo(Path.Combine(workingDirectory.Content().DirectoryInfo().FullName, "ARKIV.DAT")))
                 .WithFileName("ARKIV.DAT")
                 .Build();
 
@@ -59,12 +59,11 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
         [Fact(Skip = "Initialization of Archive expects addml-file in workingdirectory")]
         public void ShouldNotReportExtraFilesWhenDefinedInDokversXml()
         {
-            WorkingDirectory workingDirectory = new WorkingDirectory(null, new DirectoryInfo(TestUtil.TestDataDirectory + "noark4-extrafiles"));
+            WorkingDirectory workingDirectory = new WorkingDirectory(null, new DirectoryInfo(Path.Combine(TestUtil.TestDataDirectory, "noark4-extrafiles")));
 
             AddmlFlatFileDefinition flatFileDefinition2 = new AddmlFlatFileDefinitionBuilder()
                 .WithFileInfo(new FileInfo(
-                    workingDirectory.Content().DirectoryInfo().FullName 
-                    + Path.DirectorySeparatorChar + "DOKVERS.XML"))
+                    Path.Combine(workingDirectory.Content().DirectoryInfo().FullName, "DOKVERS.XML")))
                 .WithFileName("DATA\\DOKVERS.XML")
                 .Build();
 
