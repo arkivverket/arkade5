@@ -131,11 +131,9 @@ namespace Arkivverket.Arkade.Core.Base
             {
                 FileInfo[] fileInfos = documentsDirectory.GetFiles("*", SearchOption.AllDirectories);
 
-                string documentsDirectoryParentFullPath = documentsDirectory.Parent?.FullName + '/';
-
                 documentFiles = fileInfos.ToDictionary(f =>
                 {
-                    string relativeName = f.FullName.Substring(documentsDirectoryParentFullPath.Length);
+                    string relativeName = PathUtil.GetRelativePath(f, documentsDirectory.Parent);
                     return relativeName.Replace('\\', '/');
                 });
             }

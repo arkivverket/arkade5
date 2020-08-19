@@ -436,18 +436,9 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         protected static FileDescription GetFileDescription(FileInfo file, DirectoryInfo pathRoot)
         {
-            string fileName = file.FullName;
-
-            if (pathRoot != null)
-            {
-                // Makes fileName contain path from pathRoot only:
-                string excludedPath = pathRoot.FullName + Path.DirectorySeparatorChar;
-                fileName = file.FullName.Replace(excludedPath, string.Empty);
-            }
-
             return new FileDescription
             {
-                Name = fileName,
+                Name = pathRoot != null ? PathUtil.GetRelativePath(file, pathRoot) : file.FullName,
                 Extension = file.Extension.Replace(".", string.Empty),
                 Sha256Checksum = GetSha256Checksum(file),
                 Size = file.Length,

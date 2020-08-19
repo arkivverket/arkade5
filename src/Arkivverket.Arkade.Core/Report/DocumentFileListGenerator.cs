@@ -17,10 +17,9 @@ namespace Arkivverket.Arkade.Core.Report
 
             IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(documentsDirectory);
 
-            string filePathStart = archive.WorkingDirectory.Content().DirectoryInfo().Parent?.FullName +
-                                   Path.DirectorySeparatorChar;
-
-            IEnumerable<ListElement> listElements = GetListElements(siegfriedFileInfoSet, filePathStart);
+            IEnumerable<ListElement> listElements = GetListElements(
+                siegfriedFileInfoSet, documentsDirectory.Parent.Parent
+            );
 
             WriteFileList(listElements, fileLocation);
         }
@@ -33,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Report
         }
 
         private static IEnumerable<ListElement> GetListElements(IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet,
-            string filePathStart)
+            DirectoryInfo startDirectory)
         {
             var listElements = new List<ListElement>();
 
@@ -41,7 +40,7 @@ namespace Arkivverket.Arkade.Core.Report
             {
                 var documentFileListElement = new ListElement
                 {
-                    FileName = siegfriedFileInfo.FileName.Substring(filePathStart.Length),
+                    FileName = PathUtil.GetRelativePath(new FileInfo(siegfriedFileInfo.FileName), startDirectory),
                     FileFormatPuId = siegfriedFileInfo.Id,
                     FileFormatName = siegfriedFileInfo.Format,
                     FileFormatVersion = siegfriedFileInfo.Version,
