@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
@@ -16,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
-        private readonly ReadOnlyDictionary<string, FileInfo> _documentFiles;
+        private readonly ReadOnlyDictionary<string, DocumentFile> _documentFiles;
 
         private readonly Dictionary<ArchivePart, List<string>> _missingFilesPerArchivepart = new Dictionary<ArchivePart, List<string>>();
         private ArchivePart _currentArchivePart = new ArchivePart(); 

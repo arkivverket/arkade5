@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
@@ -18,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private string _currentDocumentDescriptionSystemId;
         private DocumentObject _currentDocumentObject;
         private readonly List<TestResult> _testResults;
-        private readonly ReadOnlyDictionary<string, FileInfo> _documentFiles;
+        private readonly ReadOnlyDictionary<string, DocumentFile> _documentFiles;
 
 
         public N5_30_DocumentFilesChecksumControl(Archive archive)
@@ -113,18 +111,30 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private bool ActualAndDocumentedFileChecksumsMatch(DocumentObject documentObject)
         {
-            string documentFileName = documentObject.DocumentFileReference.Replace('\\', '/');
+            string documentFileRelativePath = documentObject.DocumentFileReference.Replace('\\', '/');
 
-            var filePath = _documentFiles[documentFileName]?.FullName;
-            
-            var actualFileCheckSum = GenerateChecksumForFile(filePath, documentObject.ChecksumAlgorithm);
+            var actualFileCheckSum = GetDocumentFileChecksum(documentFileRelativePath, documentObject.ChecksumAlgorithm);
+
             return ChecksumsMatch(documentObject.Checksum, actualFileCheckSum);
         }
 
-        private static string GenerateChecksumForFile(string filename, string checksumAlgorithm)
+        private string GetDocumentFileChecksum(string documentFileRelativePath, string checksumAlgorithm)
         {
+            return _documentFiles[documentFileRelativePath]?.CheckSum != null
+                ? _documentFiles[documentFileRelativePath].CheckSum
+                : GenerateChecksumForFile(documentFileRelativePath, checksumAlgorithm);
+        }
+
+        private string GenerateChecksumForFile(string documentFileRelativePath, string checksumAlgorithm)
+        {
+            var documentFileFullName = _documentFiles[documentFileRelativePath]?.FileInfo?.FullName;
+
             var generator = new ChecksumGeneratorFactory().GetGenerator(checksumAlgorithm);
-            return generator.GenerateChecksum(filename);
+            string checkSum = generator.GenerateChecksum(documentFileFullName);
+
+            _documentFiles[documentFileRelativePath].CheckSum = checkSum;
+
+            return checkSum;
         }
 
         private static bool ChecksumsMatch(string checksumA, string checkSumB)
