@@ -1,12 +1,18 @@
+using System;
 using System.IO;
+using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Metadata
 {
     public class MetadataFilesCreator
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
+
         private readonly DiasMetsCreator _diasMetsCreator;
         private readonly DiasPremisCreator _diasPremisCreator;
         private readonly LogCreator _logCreator;
@@ -37,7 +43,19 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (generateDocumentFileInfo)
             {
                 string fileLocation = archive.WorkingDirectory.AdministrativeMetadata().DirectoryInfo().FullName;
-                DocumentFileListGenerator.Generate(fileLocation, archive);
+                try
+                {
+                    DocumentFileListGenerator.Generate(fileLocation, archive);
+                }
+                catch (SiegfriedFileFormatIdentifierException siegfriedException)
+                {
+                    Log.Error(siegfriedException.Message);
+                }
+                catch (Exception e)
+                {
+                    Log.Debug(e.ToString());
+                    Log.Error("An unforeseen error related to document file format checking has occured. As a result, document file format checking was aborted. Please see /arkade-tmp/logs for details.");
+                }
             }
 
             // Generate mets-file last for it to describe all other package content
