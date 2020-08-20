@@ -6,12 +6,12 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageLicenseUrl>https://github.com/arkivverket/arkade5/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>http://arkade.arkivverket.no</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/arkivverket/arkade5/master/src/Setup/Arkade5.ico</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/arkivverket/arkade5/master/src/Setup/Arkade5_2.0.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>https://github.com/arkivverket/arkade5/tags</PackageTags>
     <PackageReleaseNotes>https://github.com/arkivverket/arkade5/releases</PackageReleaseNotes>
-    <ApplicationIcon>Arkade5.ico</ApplicationIcon>
+    <ApplicationIcon>Arkade5_2.0.ico</ApplicationIcon>
     <Authors>Arkitektum AS for Arkivverket</Authors>
     <PackageId>Arkade 5 CLI</PackageId>
   </PropertyGroup>

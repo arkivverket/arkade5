@@ -286,9 +286,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Arkade5.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Arkade5_2.0.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
