@@ -57,9 +57,17 @@ namespace Arkivverket.Arkade.Core.Base
         {
             EnsureSufficientDiskSpace(archive, outputDirectory);
 
-            string packageDirectory = CreatePackageDirectory(archive, outputDirectory);
+            string resultDirectory = CreateResultDirectory(archive, outputDirectory);
 
-            string packageFilePath = Path.Combine(packageDirectory, archive.GetInformationPackageFileName());
+            if (packageType == PackageType.SubmissionInformationPackage)
+                CopyTestReportToResultsFolder
+                (
+                    archive.WorkingDirectory.RepositoryOperations().DirectoryInfo(),
+                    archive.Uuid.GetValue(),
+                    resultDirectory
+                );
+
+            string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
 
             Stream outStream = File.Create(packageFilePath);
             TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
@@ -93,6 +101,17 @@ namespace Arkivverket.Arkade.Core.Base
             return packageFilePath;
         }
 
+        private static void CopyTestReportToResultsFolder(FileSystemInfo repositoryOperations, string uuid, string resultDirectory)
+        {
+            string testReportFullFileName =
+                Path.Combine(repositoryOperations.FullName, "report.html");
+
+            if (File.Exists(testReportFullFileName))
+                File.Copy(testReportFullFileName,
+                    Path.Combine(resultDirectory, $"Arkaderapport-{uuid}.html")
+                );
+        }
+
         private static void EnsureSufficientDiskSpace(Archive archive, string outputDirectory)
         {
             long driveSpace = SystemInfo.GetAvailableDiskSpaceInBytes(outputDirectory);
@@ -110,15 +129,15 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
         
-        private string CreatePackageDirectory(Archive archive, string outputDirectory)
+        private string CreateResultDirectory(Archive archive, string outputDirectory)
         {
-            var packageDirectory = new DirectoryInfo(
-                Path.Combine(outputDirectory, $"{ArkadeConstants.DirectoryNamePackageOutputContainer}-{archive.Uuid}")
+            var resultDirectory = new DirectoryInfo(
+                Path.Combine(outputDirectory, $"{ArkadeConstants.DirectoryNameResultOutputContainer}-{archive.Uuid}")
             );
 
-            packageDirectory.Create();
+            resultDirectory.Create();
 
-            return packageDirectory.FullName;
+            return resultDirectory.FullName;
         }
 
         private void AddFilesInDirectory(Archive archive, DirectoryInfo rootDirectory, PackageType? packageType, TarArchive tarArchive,
