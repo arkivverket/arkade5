@@ -223,7 +223,7 @@ namespace Arkivverket.Arkade.Core.Base
                 return PackageType.SubmissionInformationPackage;
 
             if (packageType.Equals("AIP", StringComparison.OrdinalIgnoreCase))
-                return PackageType.SubmissionInformationPackage;
+                return PackageType.ArchivalInformationPackage;
 
             throw new ArgumentException(string.Format(ExceptionMessages.UnknownPackageType, packageType));
         }
