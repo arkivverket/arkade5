@@ -58,7 +58,7 @@
                             HorizontalContentAlignment="Stretch" VerticalAlignment="Top"/>
 
         <DockPanel Grid.Row="2" VerticalAlignment="Bottom" Background="#ededed">
-            <TextBlock Padding="2" FontSize="10" FontStyle="Italic">
+            <TextBlock Padding="2" FontSize="10" FontStyle="Italic" Foreground="Black">
                 <TextBlock  Text="{Binding CurrentVersion}"/>
             </TextBlock>
             <TextBlock Padding="2" FontSize="10" FontStyle="Italic">
