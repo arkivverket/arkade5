@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Util
             }
             catch(Exception e)
             {
-                Log.Error("Could not get latest version: " + e.Message);
+                Log.Warning("Could not get information about latest version: " + e.Message);
 
                 return null;
             }
