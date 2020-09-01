@@ -94,7 +94,13 @@ namespace Arkivverket.Arkade.Core.Base
 
             tarArchive.Close();
 
-            new InfoXmlCreator().CreateAndSaveFile(metadata, packageFilePath, archive.GetInfoXmlFileName());
+            var diasMetsFilePath = Path.Combine(
+                archive.WorkingDirectory.Root().DirectoryInfo().FullName,
+                ArkadeConstants.DiasMetsXmlFileName
+            );
+
+            new InfoXmlCreator().CreateAndSaveFile(metadata, packageFilePath, diasMetsFilePath,
+                archive.GetInfoXmlFileName());
 
             HasRun = true;
 
