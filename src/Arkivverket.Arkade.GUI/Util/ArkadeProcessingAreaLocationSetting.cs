@@ -45,6 +45,9 @@ namespace Arkivverket.Arkade.GUI.Util
 
         private static bool DirectoryIsWritable(string directory)
         {
+            if (string.IsNullOrWhiteSpace(directory))
+                return false;
+
             string tmpFile = Path.Combine(directory, Path.GetRandomFileName());
 
             try
