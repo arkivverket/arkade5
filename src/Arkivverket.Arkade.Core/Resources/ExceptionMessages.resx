@@ -141,4 +141,7 @@
   <data name="UnknownPackageType" xml:space="preserve">
     <value>Unknown package type: {0}</value>
   </data>
+  <data name="ArkadeProcessAreaNotSet" xml:space="preserve">
+    <value>Prosessområde er ikke satt.</value>
+  </data>
 </root>

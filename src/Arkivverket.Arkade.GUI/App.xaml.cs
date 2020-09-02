@@ -21,7 +21,9 @@ namespace Arkivverket.Arkade.GUI
             }
             catch (Exception e)
             {
-                Trace.WriteLine("Exception while establishing arkade processing area: " + e.Message);
+                LogConfiguration.ConfigureSeriLog();
+                _log = Log.ForContext<App>();
+                _log.Error("Exception while establishing arkade processing area: " + e.Message);
             }
 
             LogConfiguration.ConfigureSeriLog();

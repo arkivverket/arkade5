@@ -40,6 +40,9 @@ namespace Arkivverket.Arkade.Core.Base
         /// <returns></returns>
         internal static WorkingDirectory FromUuid(Uuid uuid, DirectoryInfo externalContentDirectory)
         {
+            if (ArkadeProcessingArea.WorkDirectory == null)
+                throw new IOException(Resources.ExceptionMessages.ArkadeProcessAreaNotSet);
+
             string dateString = DateTime.Now.ToString("yyyyMMddHHmmss");
             var rootDirectory = new DirectoryInfo(
                 Path.Combine(ArkadeProcessingArea.WorkDirectory.FullName, dateString + "-" + uuid.GetValue())
