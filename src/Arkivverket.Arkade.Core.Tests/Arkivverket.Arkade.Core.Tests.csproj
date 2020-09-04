@@ -21,6 +21,13 @@
     <PathMap>$(AppOutputBase)=(..)\Arkivverket.Arkade.Core.Tests\</PathMap>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
+    <PathMap>$(AppOutputBase)=(..).Core.Tests\</PathMap>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="TestData\FileTypes\docx-file.docx" />
     <None Remove="TestData\FileTypes\pdf-file.pdf" />
