@@ -64,7 +64,7 @@ namespace Arkivverket.Arkade.CLI
 
                 Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
 
-                LogFinishedStatus(command);
+                LogFinishedStatus(command, RanWithoutErrors(testSession));
             }
             catch (ArgumentException e)
             {
@@ -87,7 +87,7 @@ namespace Arkivverket.Arkade.CLI
 
                 Test(options.OutputDirectory, testSession);
 
-                LogFinishedStatus(command);
+                LogFinishedStatus(command, RanWithoutErrors(testSession));
             }
             catch (ArgumentException e)
             {
@@ -141,6 +141,11 @@ namespace Arkivverket.Arkade.CLI
 
         private static void Test(string outputDirectory, TestSession testSession)
         {
+            if (!testSession.IsTestableArchive())
+            {
+                Log.Error("Archive is not testable: Valid specification file not found");
+                return;
+            }
             Arkade.RunTests(testSession);
             SaveTestReport(testSession, outputDirectory);
         }
@@ -228,15 +233,25 @@ namespace Arkivverket.Arkade.CLI
             Log.Information($"Test report generated at: {standaloneTestReport.FullName}");
         }
 
-        private static void LogFinishedStatus(string command)
+        private static void LogFinishedStatus(string command, bool withoutErrors = true)
         {
-            Log.Information($"Arkade 5 CLI {ArkadeVersion.Current} {{{command}}} successfully finished.");
+            if (withoutErrors)
+                Log.Information($"Arkade 5 CLI {ArkadeVersion.Current} {{{command}}} successfully finished.");
+            else
+                Log.Warning($"Arkade 5 CLI {ArkadeVersion.Current} {{{command}}} finished with errors.");
         }
 
         private static string GetRunningCommand(string optionType)
         {
             int optionsStartIndex = optionType.Length - "options".Length;
             return optionType.Remove(optionsStartIndex).ToLower();
+        }
+
+        private static bool RanWithoutErrors(TestSession testSession)
+        {
+            if (!testSession.IsTestableArchive())
+                return false;
+            return true;
         }
     }
 }
