@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.CLI
         [Option('l', "noark5-test-list", HelpText = "Optional. List of noark5 tests to be run. Omit to run all tests.")]
         public string TestListFile { get; set; }
 
-        [Option('f', "document-file-format-check", HelpText = "Optional. Report document file PRONOM format information. (Windows only)")]
+        [Option('f', "document-file-format-check", HelpText = "Optional. Report document file PRONOM format information.")]
         public bool DocumentFileFormatCheck { get; set; }
 
         [Option('m', "metadata-file", HelpText = "File with metadata to include in package.", Required = true)]

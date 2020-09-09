@@ -27,15 +27,20 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
+    <PathMap>$(AppOutputBase)=(..).GUI\</PathMap>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
+    <PathMap>$(AppOutputBase)=(..)\Arkivverket.Arkade.GUI\</PathMap>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Arkade5_2.0.ico</ApplicationIcon>
@@ -284,9 +289,6 @@
       <Project>{d4008c3c-61ef-48a4-b333-793476b7104d}</Project>
       <Name>Arkivverket.Arkade.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Arkade5.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Arkade5_2.0.ico" />

@@ -70,6 +70,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prosessområde er ikke satt..
+        /// </summary>
+        internal static string ArkadeProcessAreaNotSet {
+            get {
+                return ResourceManager.GetString("ArkadeProcessAreaNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkade klarte ikke å finne informasjon om {0} i {1}.
         /// </summary>
         internal static string FileDescriptionParseError {

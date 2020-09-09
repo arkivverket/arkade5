@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using CsvHelper;
 using Serilog;
@@ -12,20 +14,28 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 {
     public class SiegfriedFileFormatIdentifier : IFileFormatIdentifier
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
+
         public IEnumerable<SiegfriedFileInfo> IdentifyFormat(DirectoryInfo directory)
         {
             Process siegfriedProcess = SetupSiegfriedProcess();
 
+            Log.Information($"Starting document file format checking.");
+
             IEnumerable<string> siegfriedResult = RunProcessOnDirectory(siegfriedProcess, directory);
+
+            Log.Information($"Document file format checking completed.");
 
             return GetSiegfriedFileInfoObjects(siegfriedResult);
         }
 
         private static Process SetupSiegfriedProcess()
         {
+            string executableFileName = GetOSSpecificExecutableFileName();
+
             string bundleDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Bundled");
             string siegfriedDirectory = Path.Combine(bundleDirectory, "Siegfried");
-            string siegfriedExecutable = Path.Combine(siegfriedDirectory, "siegfried.exe");
+            string siegfriedExecutable = Path.Combine(siegfriedDirectory, executableFileName);
             string argumentsExceptInputDirectory = $"-home \"{siegfriedDirectory}\" -multi 256 -csv -log e,w -coe ";
 
             var process = new Process
@@ -54,7 +64,15 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             process.OutputDataReceived += (sender, args) => results.Add(args.Data);
             process.ErrorDataReceived += (sender, args) => errors.Add(args.Data);
 
-            process.Start();
+            try
+            {
+                process.Start();
+            }
+            catch (Exception e)
+            {
+                Log.Debug(e.ToString());
+                throw new SystemException("Document file format check could not to be executed, process is skipped. Details can be found in arkade-tmp/logs/");
+            }
 
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
@@ -95,6 +113,38 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             }
 
             return siegfriedFileInfoObjects;
+        }
+
+        private static string GetOSSpecificExecutableFileName()
+        {
+            string fileName;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                fileName = ArkadeConstants.SiegfriedWindowsExecutable;
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                fileName = ArkadeConstants.SiegfriedLinuxExecutable;
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                fileName = ArkadeConstants.SiegfriedMacOSXExecutable;
+            else
+                throw new SiegfriedFileFormatIdentifierException("Arkade could not identify your OS, format checking will be skipped");
+
+            return fileName;
+        }
+    }
+
+    public class SiegfriedFileFormatIdentifierException : Exception
+    {
+        public SiegfriedFileFormatIdentifierException()
+        {
+        }
+
+        public SiegfriedFileFormatIdentifierException(string message)
+            : base(message)
+        {
+        }
+
+        public SiegfriedFileFormatIdentifierException(string message, Exception innerException)
+            : base(message, innerException)
+        {
         }
     }
 }

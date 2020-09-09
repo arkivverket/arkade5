@@ -1,0 +1,1 @@
+dotnet %~dp0\Arkivverket.Arkade.CLI.dll %*

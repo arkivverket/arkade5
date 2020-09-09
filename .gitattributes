@@ -6,8 +6,8 @@
 ###############################################################################
 # Enforce UNIX line endings for specific files
 ###############################################################################
-src/Arkivverket.Arkade.Cli/arkade.sh text eol=lf
-src/Arkivverket.Arkade.Cli/README.txt text eol=lf
+src/Arkivverket.Arkade.CLI/arkade.sh text eol=lf
+src/Arkivverket.Arkade.CLI/README.txt text eol=lf
 
 ###############################################################################
 # Set default behavior for command prompt diff.

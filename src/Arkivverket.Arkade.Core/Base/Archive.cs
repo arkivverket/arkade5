@@ -3,19 +3,23 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using System.Linq;
+using System.Reflection;
 using Arkivverket.Arkade.Core.Util;
+using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base
 {
     public class Archive
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+
         public Uuid Uuid { get; }
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
-        private ReadOnlyDictionary<string, FileInfo> _documentFiles;
-        public ReadOnlyDictionary<string, FileInfo> DocumentFiles => _documentFiles ?? GetDocumentFiles();
+        private ReadOnlyDictionary<string, DocumentFile> _documentFiles;
+        public ReadOnlyDictionary<string, DocumentFile> DocumentFiles => _documentFiles ?? GetDocumentFiles();
         public ArchiveXmlUnit AddmlXmlUnit { get; }
         public ArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
@@ -115,27 +119,29 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        private ReadOnlyDictionary<string, FileInfo> GetDocumentFiles()
+        private ReadOnlyDictionary<string, DocumentFile> GetDocumentFiles()
         {
-            var documentFiles = new Dictionary<string, FileInfo>();
+            Log.Information("Registering document files.");
+
+            var documentFiles = new Dictionary<string, DocumentFile>();
 
             DirectoryInfo documentsDirectory = GetDocumentsDirectory();
 
             if (documentsDirectory.Exists)
             {
-                FileInfo[] fileInfos = documentsDirectory.GetFiles("*", SearchOption.AllDirectories);
-
-                string documentsDirectoryParentFullPath = documentsDirectory.Parent?.FullName + '/';
-
-                documentFiles = fileInfos.ToDictionary(f =>
+                foreach (FileInfo documentFileInfo in documentsDirectory.GetFiles("*", SearchOption.AllDirectories))
                 {
-                    string relativeName = f.FullName.Substring(documentsDirectoryParentFullPath.Length);
-                    return relativeName.Replace('\\', '/');
-                });
+                    documentFiles.Add(
+                        PathUtil.GetRelativePath(documentFileInfo, documentsDirectory.Parent).Replace('\\', '/'),
+                        new DocumentFile(documentFileInfo)
+                    );
+                }
             }
 
             // Instantiate field for next access:
-            _documentFiles = new ReadOnlyDictionary<string, FileInfo>(documentFiles);
+            _documentFiles = new ReadOnlyDictionary<string, DocumentFile>(documentFiles);
+
+            Log.Information($"{documentFiles.Count} document files registered.");
 
             return _documentFiles;
         }

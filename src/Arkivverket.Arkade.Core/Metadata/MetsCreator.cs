@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -424,35 +425,40 @@ namespace Arkivverket.Arkade.Core.Metadata
         }
 
         protected static List<FileDescription> GetFileDescriptions(DirectoryInfo directory,
-            DirectoryInfo pathRoot, string[] filesToSkip = null)
+            DirectoryInfo pathRoot, ReadOnlyDictionary<string, DocumentFile> documentFiles,
+            string[] filesToSkip = null)
         {
             var fileDescriptions = new List<FileDescription>();
 
             foreach (FileInfo file in GetFilesToDescribe(directory, filesToSkip))
-                fileDescriptions.Add(GetFileDescription(file, pathRoot));
+                fileDescriptions.Add(GetFileDescription(file, pathRoot, documentFiles));
 
             return fileDescriptions;
         }
 
-        protected static FileDescription GetFileDescription(FileInfo file, DirectoryInfo pathRoot)
+        protected static FileDescription GetFileDescription(FileInfo file, DirectoryInfo pathRoot,
+            ReadOnlyDictionary<string, DocumentFile> documentFiles = null)
         {
-            string fileName = file.FullName;
-
-            if (pathRoot != null)
-            {
-                // Makes fileName contain path from pathRoot only:
-                string excludedPath = pathRoot.FullName + Path.DirectorySeparatorChar;
-                fileName = file.FullName.Replace(excludedPath, string.Empty);
-            }
+            string name = pathRoot != null ? PathUtil.GetRelativePath(file, pathRoot) : file.FullName;
 
             return new FileDescription
             {
-                Name = fileName,
+                Name = name,
                 Extension = file.Extension.Replace(".", string.Empty),
-                Sha256Checksum = GetSha256Checksum(file),
+                Sha256Checksum = GetCheckSum(file, documentFiles, name),
                 Size = file.Length,
                 CreationTime = file.CreationTime
             };
+        }
+
+        private static string GetCheckSum(FileInfo file, IReadOnlyDictionary<string, DocumentFile> documentFiles,
+            string relativeFilePath)
+        {
+            return documentFiles != null &&
+                   documentFiles.TryGetValue(relativeFilePath.Replace("\\", "/"), out DocumentFile documentFile) &&
+                   documentFile.CheckSum != null
+                ? documentFile.CheckSum
+                : GetSha256Checksum(file);
         }
 
         private static IEnumerable<FileInfo> GetFilesToDescribe(DirectoryInfo directory, string[] filesToSkip)

@@ -43,12 +43,15 @@ namespace Arkivverket.Arkade.Core.Util
         public const string DirectoryNameTemporaryLogsLocation = ".arkade-tmplogs";
         public const string DirectoryNameRepositoryOperations = "repository_operations";
         public const string DirectoryNameContent = "content";
-        public const string DirectoryNamePackageOutputContainer = "Arkadepakke";
+        public const string DirectoryNameResultOutputContainer = "Arkaderesultater";
         public const string DirectoryNameAppDataArkadeSubFolder = "Arkivverket";
         
         public static readonly string[] DocumentDirectoryNames =
             { "dokumenter", "DOKUMENTER", "dokument", "DOKUMENT" };
 
+        public const string SiegfriedLinuxExecutable = "siegfried_linux";
+        public const string SiegfriedMacOSXExecutable = "siegfried_mac";
+        public const string SiegfriedWindowsExecutable = "siegfried.exe";
         public const string Noark5TestListFileName = "noark5-testlist.txt";
         public const string MetadataFileName = "arkade-ip-metadata.json";
         public const string DocumentFileListFileName = "documentfile-formatinfo.csv";

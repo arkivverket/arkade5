@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Identify
             ReadingArchiveStartedEvent();
 
             ArchiveType archiveType = archiveDirectory.ArchiveType;
-            _log.Information(
+            _log.Debug(
                 $"Building new TestSession from directory [archiveType: {archiveType}] [directory: {archiveDirectory.Directory.FullName}]");
 
             Uuid uuid = Uuid.Random();
@@ -43,7 +43,7 @@ namespace Arkivverket.Arkade.Core.Identify
         public TestSession NewSession(ArchiveFile archiveFile)
         {
             ReadingArchiveStartedEvent();
-            _log.Information(
+            _log.Debug(
                 $"Building new TestSession from file [archiveType: {archiveFile.ArchiveType}] [directory: {archiveFile.File.FullName}]");
             Uuid uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFile.File.Name));
             ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, uuid);
@@ -89,7 +89,7 @@ namespace Arkivverket.Arkade.Core.Identify
             catch (Exception exception)
             {
                 var message = "Reading file " + addmlFile.Name + " failed: " + exception.Message;
-                _log.Warning(exception, message);
+                _log.Warning(message);//exception, message);
                 _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
             }
 

@@ -30,8 +30,9 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Arkade5.ico" />
+    <Content Include="Arkade5_2.0_banner.bmp" />
     <Content Include="Arkade5_2.0.ico" />
+    <Content Include="Arkade5_2.0_dialog.bmp" />
     <Content Include="License.rtf" />
     <Content Include="Transform.xslt" />
   </ItemGroup>

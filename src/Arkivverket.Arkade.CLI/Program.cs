@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Util;
 using CommandLine;
 using Serilog;
+using Serilog.Events;
 
 namespace Arkivverket.Arkade.CLI
 {
@@ -122,8 +123,8 @@ namespace Arkivverket.Arkade.CLI
             );
 
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.Console(outputTemplate: OutputStrings.SystemLogOutputTemplateForConsole)
+                .MinimumLevel.Debug()
+                .WriteTo.Console(outputTemplate: OutputStrings.SystemLogOutputTemplateForConsole, restrictedToMinimumLevel:LogEventLevel.Information)
                 .WriteTo.RollingFile(systemLogFilePath, outputTemplate: OutputStrings.SystemLogOutputTemplateForFile)
                 .CreateLogger();
         }
@@ -132,7 +133,7 @@ namespace Arkivverket.Arkade.CLI
         {
             foreach (Error error in errors)
             {
-                if (error.Tag != ErrorType.HelpRequestedError && error.Tag != ErrorType.HelpVerbRequestedError)
+                if (error.Tag != ErrorType.HelpRequestedError && error.Tag != ErrorType.HelpVerbRequestedError && error.Tag != ErrorType.VersionRequestedError)
                     Log.Error(error.ToString());
             }
         }

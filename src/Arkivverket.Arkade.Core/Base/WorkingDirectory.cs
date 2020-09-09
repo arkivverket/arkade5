@@ -40,10 +40,13 @@ namespace Arkivverket.Arkade.Core.Base
         /// <returns></returns>
         internal static WorkingDirectory FromUuid(Uuid uuid, DirectoryInfo externalContentDirectory)
         {
+            if (ArkadeProcessingArea.WorkDirectory == null)
+                throw new IOException(Resources.ExceptionMessages.ArkadeProcessAreaNotSet);
+
             string dateString = DateTime.Now.ToString("yyyyMMddHHmmss");
             var rootDirectory = new DirectoryInfo(
-                ArkadeProcessingArea.WorkDirectory.FullName +
-                Path.DirectorySeparatorChar + dateString + "-" + uuid.GetValue());
+                Path.Combine(ArkadeProcessingArea.WorkDirectory.FullName, dateString + "-" + uuid.GetValue())
+            );
 
             var workingDirectory = new WorkingDirectory(rootDirectory, externalContentDirectory);
             workingDirectory.CreateAllFolders();
@@ -112,7 +115,7 @@ namespace Arkivverket.Arkade.Core.Base
                 FileInfo contentAddml = Content().WithFile(ArkadeConstants.AddmlXmlFileName);
                 if (contentAddml.Exists)
                 {
-                    Log.Information($"Copying ADDML file {contentAddml.FullName} to administrative_metadata.");
+                    Log.Debug($"Copying ADDML file {contentAddml.FullName} to administrative_metadata.");
                     contentAddml.CopyTo(targetAddmlFile.FullName);
                 }
                 else
@@ -120,7 +123,7 @@ namespace Arkivverket.Arkade.Core.Base
                     FileInfo arkivuttrekkAddml = Content().WithFile(ArkadeConstants.ArkivuttrekkXmlFileName);
                     if (arkivuttrekkAddml.Exists)
                     {
-                        Log.Information($"Copying ADDML file {arkivuttrekkAddml.FullName} to administrative_metadata.");
+                        Log.Debug($"Copying ADDML file {arkivuttrekkAddml.FullName} to administrative_metadata.");
                         arkivuttrekkAddml.CopyTo(targetAddmlFile.FullName);
                     }
                 }

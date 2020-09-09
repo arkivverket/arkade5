@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.Util;
 using System.Xml.Schema;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Base.Addml
 {
@@ -31,7 +32,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             }
             catch (FileNotFoundException e)
             {
-                throw new ArkadeException(string.Format(Resources.ExceptionMessages.FileNotFound, fileName), e);
+                Log.Logger.Debug(e.ToString());
+                throw new ArkadeException(string.Format(Resources.ExceptionMessages.FileNotFound, fileName));
             }
             catch (Exception e)
             {
@@ -52,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         public static AddmlInfo ReadFromBaseDirectory(string fileName)
         {
-            return ReadFromFile(AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + fileName);
+            return ReadFromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName));
         }
 
         private static void Validate(addml addml)

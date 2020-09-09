@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
                     : null;
 
-                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip);
+                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, archive.DocumentFiles, filesToSkip);
             }
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())
@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
                 if (externalContentDirectory.Exists)
                 {
-                    var fileDescriptions = GetFileDescriptions(externalContentDirectory, externalContentDirectory);
+                    var fileDescriptions = GetFileDescriptions(externalContentDirectory, externalContentDirectory, archive.DocumentFiles);
 
                     foreach (FileDescription fileDescription in fileDescriptions)
                         fileDescription.Name = Path.Combine("content", fileDescription.Name);
@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             SerializeUtil.SerializeToFile(mets, targetFileName, namespaces);
 
-            Log.Information($"Created {ArkadeConstants.DiasMetsXmlFileName}");
+            Log.Debug($"Created {ArkadeConstants.DiasMetsXmlFileName}");
         }
     }
 }

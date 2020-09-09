@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Product Id="*"
-           Name="Arkade"
+           Name="Arkade 5"
            Language="1033"
            Version="!(bind.FileVersion.filBC02C298FE69F20A0EDF74E1F73A270E)"
            Manufacturer="Arkivverket"
@@ -15,8 +15,8 @@
 
 
     <MediaTemplate EmbedCab="yes" />
-    <Icon Id="Arkade5_2.0.ico" SourceFile=".\Arkade5_2.0.ico" />
-    <Property Id="ARPPRODUCTICON" Value="Arkade5_2.0.ico" />
+    <Icon Id="Arkade5_2.0_icon.exe" SourceFile=".\Arkade5_2.0.ico" />
+    <Property Id="ARPPRODUCTICON" Value="Arkade5_2.0_icon.exe" />
     
     <Feature Id="ProductFeature" Title="MySetup" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
@@ -28,6 +28,9 @@
 
     <UIRef Id="WixUI_InstallDir" />
     <UIRef Id="WixUI_ErrorProgressText" />
+
+    <WixVariable Id="WixUIBannerBmp" Value=".\Arkade5_2.0_banner.bmp"/>
+    <WixVariable Id="WixUIDialogBmp" Value=".\Arkade5_2.0_dialog.bmp"/>
 
 <!--
     <DirectoryRef Id="ApplicationProgramsFolder">

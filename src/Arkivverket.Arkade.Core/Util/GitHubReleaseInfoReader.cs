@@ -10,34 +10,31 @@ namespace Arkivverket.Arkade.Core.Util
     public class GitHubReleaseInfoReader : IReleaseInfoReader
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly RestClient _restClient;
-        private readonly GitHubReleaseInfo _latestReleaseInfo;
+        private GitHubReleaseInfo _latestReleaseInfo;
 
         public GitHubReleaseInfoReader()
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-            _restClient = new RestClient("https://api.github.com/");
-
-            _latestReleaseInfo = ReadGitHubLatestReleaseInfo();
         }
 
-        private GitHubReleaseInfo ReadGitHubLatestReleaseInfo()
+        private static GitHubReleaseInfo ReadGitHubLatestReleaseInfo()
         {
+            var restClient = new RestClient("https://api.github.com/");
+
             var request = new RestRequest("repos/arkivverket/arkade5/releases/latest");
 
             request.AddCookie("logged_in", "no");
 
-            IRestResponse<GitHubReleaseInfo> gitHubResponse = _restClient.Execute<GitHubReleaseInfo>(request);
-
-            if (gitHubResponse.Data == null)
-                Log.Error("Unable to retrieve necessary data from GitHub. Please check your internet connection.");
+            IRestResponse<GitHubReleaseInfo> gitHubResponse = restClient.Execute<GitHubReleaseInfo>(request);
 
             return gitHubResponse.Data;
         }
 
         public Version GetLatestVersion()
         {
+            if (_latestReleaseInfo == null)
+                _latestReleaseInfo = ReadGitHubLatestReleaseInfo();
+
             if (_latestReleaseInfo?.TagName == null)
                 throw new Exception("Missing or unexpected data from GitHub");
 

@@ -57,9 +57,17 @@ namespace Arkivverket.Arkade.Core.Base
         {
             EnsureSufficientDiskSpace(archive, outputDirectory);
 
-            string packageDirectory = CreatePackageDirectory(archive, outputDirectory);
+            string resultDirectory = CreateResultDirectory(archive, outputDirectory);
 
-            string packageFilePath = Path.Combine(packageDirectory, archive.GetInformationPackageFileName());
+            if (packageType == PackageType.SubmissionInformationPackage)
+                CopyTestReportToResultsFolder
+                (
+                    archive.WorkingDirectory.RepositoryOperations().DirectoryInfo(),
+                    archive.Uuid.GetValue(),
+                    resultDirectory
+                );
+
+            string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
 
             Stream outStream = File.Create(packageFilePath);
             TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
@@ -86,11 +94,28 @@ namespace Arkivverket.Arkade.Core.Base
 
             tarArchive.Close();
 
-            new InfoXmlCreator().CreateAndSaveFile(metadata, packageFilePath, archive.GetInfoXmlFileName());
+            var diasMetsFilePath = Path.Combine(
+                archive.WorkingDirectory.Root().DirectoryInfo().FullName,
+                ArkadeConstants.DiasMetsXmlFileName
+            );
+
+            new InfoXmlCreator().CreateAndSaveFile(metadata, packageFilePath, diasMetsFilePath,
+                archive.GetInfoXmlFileName());
 
             HasRun = true;
 
             return packageFilePath;
+        }
+
+        private static void CopyTestReportToResultsFolder(FileSystemInfo repositoryOperations, string uuid, string resultDirectory)
+        {
+            string testReportFullFileName =
+                Path.Combine(repositoryOperations.FullName, "report.html");
+
+            if (File.Exists(testReportFullFileName))
+                File.Copy(testReportFullFileName,
+                    Path.Combine(resultDirectory, $"Arkaderapport-{uuid}.html")
+                );
         }
 
         private static void EnsureSufficientDiskSpace(Archive archive, string outputDirectory)
@@ -110,15 +135,15 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
         
-        private string CreatePackageDirectory(Archive archive, string outputDirectory)
+        private string CreateResultDirectory(Archive archive, string outputDirectory)
         {
-            var packageDirectory = new DirectoryInfo(
-                Path.Combine(outputDirectory, $"{ArkadeConstants.DirectoryNamePackageOutputContainer}-{archive.Uuid}")
+            var resultDirectory = new DirectoryInfo(
+                Path.Combine(outputDirectory, $"{ArkadeConstants.DirectoryNameResultOutputContainer}-{archive.Uuid}")
             );
 
-            packageDirectory.Create();
+            resultDirectory.Create();
 
-            return packageDirectory.FullName;
+            return resultDirectory.FullName;
         }
 
         private void AddFilesInDirectory(Archive archive, DirectoryInfo rootDirectory, PackageType? packageType, TarArchive tarArchive,
@@ -204,7 +229,7 @@ namespace Arkivverket.Arkade.Core.Base
                 return PackageType.SubmissionInformationPackage;
 
             if (packageType.Equals("AIP", StringComparison.OrdinalIgnoreCase))
-                return PackageType.SubmissionInformationPackage;
+                return PackageType.ArchivalInformationPackage;
 
             throw new ArgumentException(string.Format(ExceptionMessages.UnknownPackageType, packageType));
         }

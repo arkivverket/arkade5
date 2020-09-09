@@ -404,4 +404,7 @@ Generert:  {2}</value>
   <data name="ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound" xml:space="preserve">
     <value>Det ble ikke funnet noen journaldatoer i arkivuttrekket</value>
   </data>
+  <data name="NumberOfRegistrations_DocumentedAndActualMismatch" xml:space="preserve">
+    <value>Det er angitt at arkivstrukturen skal innholde {0} registreringer, men {1} ble funnet</value>
+  </data>
 </root>

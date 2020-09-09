@@ -20,22 +20,20 @@ namespace Arkivverket.Arkade.CLI
             Arkade = new Core.Base.Arkade();
 
             Log.Information($"\n" +
-                            $"*******************\n" +
-                            $"* ARKADE 5 v{ArkadeVersion.Current} *\n" +
-                            $"*******************\n");
+                            $"***********************\n" +
+                            $"* ARKADE 5 CLI v{ArkadeVersion.Current} *\n" +
+                            $"***********************\n");
 
             Log.Information(GetBundledSoftwareInfo());
 
             if (Arkade.Version().UpdateIsAvailable())
             {
-                Log.Warning("    The current Arkade 5 version is outdated!");
-                Log.Information($"Arkade 5 v{Arkade.Version().GetLatest()} is available.");
+                Log.Warning("    The current Arkade 5 CLI version is outdated!");
+                Log.Information($"Arkade 5 CLI v{Arkade.Version().GetLatest().ToString(3)} is available.");
             }
 
             Log.Information(
-                "Download the latest Arkade 5 version from: https://github.com/arkivverket/arkade5/releases/latest");
-            Log.Information(
-                "See version history and release notes at: https://github.com/arkivverket/arkade5/releases \n");
+                "Download new releases, see release notes and version history at: https://arkade.arkivverket.no/ \n");
         }
 
         private static string GetBundledSoftwareInfo()
@@ -45,7 +43,7 @@ namespace Arkivverket.Arkade.CLI
             info.AppendLine("\n-----------------------BUNDLED SOFTWARE-----------------------\n");
             info.AppendLine("-- Siegfried --");
             info.AppendLine("PURPOSE: identify document file format.");
-            info.AppendLine("Copyright © 2019 Richard Lehane");
+            info.AppendLine("Copyright Â© 2019 Richard Lehane");
             info.AppendLine("Available from: https://www.itforarchivists.com/siegfried/");
             info.AppendLine("Licensed under the Apache License, Version 2.0");
             info.AppendLine("\n--------------------------------------------------------------\n");
@@ -57,13 +55,20 @@ namespace Arkivverket.Arkade.CLI
         {
             try
             {
-                TestSession testSession =
-                    CreateTestSession(options.Archive, options.ArchiveType, options.TestListFile,
-                        options.DocumentFileFormatCheck);
+                string command = GetRunningCommand(options.GetType().Name);
+
+                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
+                    options.TestListFile, options.DocumentFileFormatCheck);
 
                 Test(options.OutputDirectory, testSession);
 
                 Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
+
+                LogFinishedStatus(command, RanWithoutErrors(testSession));
+            }
+            catch (ArgumentException e)
+            {
+                Log.Error(e.Message);
             }
             finally
             {
@@ -75,10 +80,18 @@ namespace Arkivverket.Arkade.CLI
         {
             try
             {
-                TestSession testSession =
-                    CreateTestSession(options.Archive, options.ArchiveType, options.TestListFile);
+                string command = GetRunningCommand(options.GetType().Name);
+
+                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
+                    options.TestListFile);
 
                 Test(options.OutputDirectory, testSession);
+
+                LogFinishedStatus(command, RanWithoutErrors(testSession));
+            }
+            catch (ArgumentException e)
+            {
+                Log.Error(e.Message);
             }
             finally
             {
@@ -90,10 +103,14 @@ namespace Arkivverket.Arkade.CLI
         {
             try
             {
-                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType,
+                string command = GetRunningCommand(options.GetType().Name);
+
+                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
                     checkDocumentFileFormat: options.DocumentFileFormatCheck);
 
                 Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
+
+                LogFinishedStatus(command);
             }
             finally
             {
@@ -103,6 +120,8 @@ namespace Arkivverket.Arkade.CLI
 
         public static void Run(GenerateOptions options)
         {
+            string command = GetRunningCommand(options.GetType().Name);
+
             if (options.GenerateMetadataExample)
             {
                 string metadataFileName = Path.Combine(options.OutputDirectory, ArkadeConstants.MetadataFileName);
@@ -116,10 +135,17 @@ namespace Arkivverket.Arkade.CLI
                 Noark5TestListGenerator.Generate(noark5TestListFileName);
                 Log.Information(noark5TestListFileName + " was created");
             }
+
+            LogFinishedStatus(command);
         }
 
         private static void Test(string outputDirectory, TestSession testSession)
         {
+            if (!testSession.IsTestableArchive())
+            {
+                Log.Error("Archive is not testable: Valid specification file not found");
+                return;
+            }
             Arkade.RunTests(testSession);
             SaveTestReport(testSession, outputDirectory);
         }
@@ -155,10 +181,10 @@ namespace Arkivverket.Arkade.CLI
         }
 
         private static TestSession CreateTestSession(string archive, string archiveTypeString,
-            string testListFilePath = null, bool checkDocumentFileFormat = false)
+            string command, string testListFilePath = null, bool checkDocumentFileFormat = false)
         {
             var fileInfo = new FileInfo(archive);
-            Log.Information($"Processing archive: {fileInfo.FullName}");
+            Log.Information($"{{{command}ing}} archive: {fileInfo.FullName}");
 
             ArchiveType archiveType = GetArchiveType(archiveTypeString);
 
@@ -183,6 +209,9 @@ namespace Arkivverket.Arkade.CLI
                 testSession.TestsToRun = File.Exists(testListFilePath)
                     ? Noark5TestListReader.GetUserSelectedTestIds(testListFilePath)
                     : Noark5TestProvider.GetAllTestIds();
+
+                if (testSession.TestsToRun.Count == 0)
+                    throw new ArgumentException($"No tests selected in {testListFilePath}");
             }
 
             testSession.GenerateDocumentFileInfo = checkDocumentFileFormat;
@@ -201,6 +230,28 @@ namespace Arkivverket.Arkade.CLI
                 outputDirectory, string.Format(OutputStrings.TestReportFileName, testSession.Archive.Uuid)
             ));
             Arkade.SaveReport(testSession, standaloneTestReport);
+            Log.Information($"Test report generated at: {standaloneTestReport.FullName}");
+        }
+
+        private static void LogFinishedStatus(string command, bool withoutErrors = true)
+        {
+            if (withoutErrors)
+                Log.Information($"Arkade 5 CLI {ArkadeVersion.Current} {{{command}}} successfully finished.");
+            else
+                Log.Warning($"Arkade 5 CLI {ArkadeVersion.Current} {{{command}}} finished with errors.");
+        }
+
+        private static string GetRunningCommand(string optionType)
+        {
+            int optionsStartIndex = optionType.Length - "options".Length;
+            return optionType.Remove(optionsStartIndex).ToLower();
+        }
+
+        private static bool RanWithoutErrors(TestSession testSession)
+        {
+            if (!testSession.IsTestableArchive())
+                return false;
+            return true;
         }
     }
 }

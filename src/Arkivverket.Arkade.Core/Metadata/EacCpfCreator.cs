@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             FileInfo targetFileName = archive.WorkingDirectory.DescriptiveMetadata().WithFile(ArkadeConstants.EacCpfXmlFileName);
             SerializeUtil.SerializeToFile(eaccpf, targetFileName, namespaces);
 
-            Log.Information($"Created {ArkadeConstants.EacCpfXmlFileName}");
+            Log.Debug($"Created {ArkadeConstants.EacCpfXmlFileName}");
         }
     }
 }

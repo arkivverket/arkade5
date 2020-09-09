@@ -1,9 +1,11 @@
 using System.IO;
+using System.Reflection;
 using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Base
 {
@@ -13,6 +15,8 @@ namespace Arkivverket.Arkade.Core.Base
     /// </summary>
     public class ArkadeApi
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
+
         private readonly TestSessionFactory _testSessionFactory;
         private readonly TestEngineFactory _testEngineFactory;
         private readonly MetadataFilesCreator _metadataFilesCreator;
@@ -56,16 +60,24 @@ namespace Arkivverket.Arkade.Core.Base
         {
             testSession.AddLogEntry(Messages.LogMessageStartTesting);
 
+            Log.Information("Starting testing of archive.");
+
             ITestEngine testEngine = _testEngineFactory.GetTestEngine(testSession);
             testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
 
             testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
+            Log.Information("Testing of archive finished.");
 
             _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession);
         }
 
         public string CreatePackage(TestSession testSession, string outputDirectory)
         {
+            string packageType = testSession.ArchiveMetadata.PackageType.Equals(PackageType.SubmissionInformationPackage)
+                ? "SIP"
+                : "AIP";
+            Log.Information($"Creating {packageType}.");
+
             _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata, testSession.GenerateDocumentFileInfo);
 
             string packageFilePath;
@@ -82,6 +94,8 @@ namespace Arkivverket.Arkade.Core.Base
                     testSession.Archive, testSession.ArchiveMetadata, outputDirectory
                 );
             }
+
+            Log.Information($"{packageType} created at: {packageFilePath}");
 
             return packageFilePath;
         }

@@ -63,7 +63,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             FileInfo targetFileName = archive.WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.DiasPremisXmlFileName);
             SerializeUtil.SerializeToFile(premis, targetFileName, namespaces);
 
-            Log.Information($"Created {ArkadeConstants.DiasPremisXmlFileName}");
+            Log.Debug($"Created {ArkadeConstants.DiasPremisXmlFileName}");
         }
     }
 }

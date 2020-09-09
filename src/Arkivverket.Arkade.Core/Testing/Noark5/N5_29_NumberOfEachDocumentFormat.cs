@@ -66,7 +66,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
 
             foreach (var item in documentObjectsWithFormatMismatch)
-                testResults.Add(new TestResult(ResultType.Error, new Location(""),
+                testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivstrukturXmlFileName),
                     string.Format(
                         Noark5Messages.NumberOfEachDocumentFormatMessage_FormatMismatch,
                         item.Format,
@@ -126,7 +126,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public bool HasFormatMismatch()
             {
                 var fileExtension = Path.GetExtension(FileReference);
-                return fileExtension != null && !fileExtension.ToLower().Equals($".{Format.ToLower()}");
+                return Format != null && fileExtension != null && !fileExtension.ToLower().Equals($".{Format.ToLower()}");
             }
         }
     }

@@ -13,11 +13,13 @@ namespace Arkivverket.Arkade.Core.Metadata
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public void CreateAndSaveFile(ArchiveMetadata metadata, string packageFileName, string infoXmlFileName)
+        public void CreateAndSaveFile(ArchiveMetadata metadata, string packageFileName, string diasMetsFileName,
+            string infoXmlFileName)
         {
             var packageFile = new FileInfo(packageFileName);
+            var diasMetsFile = new FileInfo(diasMetsFileName);
 
-            PrepareForPackageDescription(metadata, packageFile);
+            PrepareForPackageDescription(metadata, packageFile, diasMetsFile);
 
             mets infoXml = Create(metadata);
 
@@ -29,14 +31,15 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             SerializeUtil.SerializeToFile(infoXml, targetFileObject, namespaces);
 
-            Log.Information($"Created {targetFileObject}");
+            Log.Debug($"Created {targetFileObject}");
         }
 
-        private static void PrepareForPackageDescription(ArchiveMetadata metadata, FileInfo packageFile)
+        private static void PrepareForPackageDescription(ArchiveMetadata metadata, FileInfo packageFile,
+            FileInfo diasMetsFile)
         {
             metadata.FileDescriptions = null; // Removes any existing file-descriptions
-            
-            if (packageFile.Exists)
+
+            if (packageFile.Exists && diasMetsFile.Exists)
             {
                 FileDescription informationPackageFileDescription = GetFileDescription
                 (
@@ -44,11 +47,23 @@ namespace Arkivverket.Arkade.Core.Metadata
                     packageFile.Directory
                 );
 
+                FileDescription metsFileDescription = GetFileDescription
+                (
+                    diasMetsFile,
+                    diasMetsFile.Directory
+                );
+
                 informationPackageFileDescription.Id = 0;
+                metsFileDescription.Id = 1;
+                metsFileDescription.Name = Path.Combine(
+                    diasMetsFile.Directory.Name.Substring("YYYYMMDDhhmmss-".Length),
+                    diasMetsFile.Name
+                );
 
                 metadata.FileDescriptions = new List<FileDescription>
                 {
-                    informationPackageFileDescription
+                    informationPackageFileDescription,
+                    metsFileDescription
                 };
             }
         }

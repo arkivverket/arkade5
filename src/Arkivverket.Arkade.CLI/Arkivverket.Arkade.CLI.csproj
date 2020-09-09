@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,27 +6,40 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageLicenseUrl>https://github.com/arkivverket/arkade5/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>http://arkade.arkivverket.no</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/arkivverket/arkade5/master/src/Setup/Arkade5.ico</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/arkivverket/arkade5/master/src/Setup/Arkade5_2.0.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>https://github.com/arkivverket/arkade5/tags</PackageTags>
     <PackageReleaseNotes>https://github.com/arkivverket/arkade5/releases</PackageReleaseNotes>
-    <ApplicationIcon>Arkade5.ico</ApplicationIcon>
+    <ApplicationIcon>Arkade5_2.0.ico</ApplicationIcon>
     <Authors>Arkitektum AS for Arkivverket</Authors>
     <PackageId>Arkade 5 CLI</PackageId>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
+    <PathMap>$(AppOutputBase)=(..)\Arkivverket.Arkade.CLI\</PathMap>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
+    <PathMap>$(AppOutputBase)=(..).CLI\</PathMap>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="arkade.bat" />
     <None Remove="arkade.sh" />
     <None Remove="README.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="arkade.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="arkade.sh">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

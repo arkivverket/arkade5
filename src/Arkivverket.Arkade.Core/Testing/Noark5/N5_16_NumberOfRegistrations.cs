@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
+using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 
@@ -7,10 +10,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 {
     public class N5_16_NumberOfRegistrations : Noark5XmlReaderBaseTest
     {
+        private readonly Archive _archive;
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 16);
         private readonly List<N5_16_ArchivePart> _archiveParts = new List<N5_16_ArchivePart>();
         private N5_16_ArchivePart _currentArchivePart = new N5_16_ArchivePart();
         private Stack<string> _registrationTypes = new Stack<string>();
+
+        public N5_16_NumberOfRegistrations(Archive archive)
+        {
+            _archive = archive;
+        }
 
         public override TestId GetId()
         {
@@ -51,6 +60,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 totalNumberOfRegistrations += archivePart.TotalRegistrationsCount;
             }
+
+            int documentedNumberOfRegistrations = GetDocumentedNumberOfRegistrations();
+
+            if (totalNumberOfRegistrations != documentedNumberOfRegistrations)
+                testResults.Add(new TestResult(ResultType.Error, new Location("arkivuttrekk.xml"), string.Format(
+                    Noark5Messages.NumberOfRegistrations_DocumentedAndActualMismatch, documentedNumberOfRegistrations, totalNumberOfRegistrations)));
 
             if (hasMultipleArchiveParts)
             {
@@ -106,6 +121,21 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (eventArgs.Path.Matches("tittel", "arkivdel"))
                 _currentArchivePart.Name = eventArgs.Value;
+        }
+
+        private int GetDocumentedNumberOfRegistrations()
+        {
+            var addml = SerializeUtil.DeserializeFromFile<addml>(_archive.AddmlXmlUnit.File);
+
+            string numberOfRegistrations = addml.dataset[0].dataObjects.dataObject[0]
+                .dataObjects.dataObject[0].properties.FirstOrDefault(
+                    p => p.name == "info").properties.Where(
+                    p => p.name == "numberOfOccurrences").FirstOrDefault(
+                    p => p.value.Equals("registrering")).properties.FirstOrDefault(
+                    p => p.name.Equals("value"))
+                .value;
+
+            return int.Parse(numberOfRegistrations);
         }
 
         private class N5_16_ArchivePart : ArchivePart

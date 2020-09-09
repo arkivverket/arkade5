@@ -16,9 +16,10 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Metadata\\InfoXmlCreator";
 
             var packageFileName = Path.Combine(workingDirectory, "package.tar");
+            var diasMetsFileName = Path.Combine(workingDirectory, "dias-mets.xml");
             var infoXmlFileName = Path.Combine(workingDirectory, "UUID.xml");
 
-            new InfoXmlCreator().CreateAndSaveFile(ArchiveMetadata, packageFileName, infoXmlFileName);
+            new InfoXmlCreator().CreateAndSaveFile(ArchiveMetadata, packageFileName, diasMetsFileName, infoXmlFileName);
 
             string infoXmlFilePath = Path.Combine(workingDirectory, infoXmlFileName);
 
