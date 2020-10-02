@@ -403,6 +403,24 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Om Arkade 5.
+        /// </summary>
+        public static string ShowAboutDialogButtonText {
+            get {
+                return ResourceManager.GetString("ShowAboutDialogButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verktøy.
+        /// </summary>
+        public static string ShowToolsDialogButtonText {
+            get {
+                return ResourceManager.GetString("ShowToolsDialogButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hjemmeside.
         /// </summary>
         public static string ShowWebPageButtonText {
@@ -411,17 +429,6 @@ namespace Arkivverket.Arkade.GUI.Resources {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Om Arkade 5.
-        /// </summary>
-        public static string ShowAboutDialogButtonText
-        {
-            get
-            {
-                return ResourceManager.GetString("ShowAboutDialogButtonText", resourceCulture);
-            }
-        }
-
         /// <summary>
         ///   Looks up a localized string similar to Valider gyldig xml.
         /// </summary>

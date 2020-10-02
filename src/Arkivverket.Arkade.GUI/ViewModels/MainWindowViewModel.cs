@@ -21,6 +21,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private readonly IRegionManager _regionManager;
         public DelegateCommand<string> NavigateCommandMain { get; set; }
+        public DelegateCommand ShowToolsDialogCommand { get; set; }
         public DelegateCommand ShowWebPageCommand { get; set; }
         public static DelegateCommand ShowSettingsCommand { get; set; }
         public DelegateCommand ShowAboutDialogCommand { get; set; }
@@ -33,6 +34,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _regionManager = regionManager;
             NavigateCommandMain = new DelegateCommand<string>(Navigate);
+            ShowToolsDialogCommand = new DelegateCommand(ShowToolsDialog);
             ShowWebPageCommand = new DelegateCommand(ShowWebPage);
             ShowSettingsCommand = new DelegateCommand(ShowSettings);
             ShowAboutDialogCommand = new DelegateCommand(ShowAboutDialog);
@@ -46,6 +48,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private void Navigate(string uri)
         {
             _regionManager.RequestNavigate("MainContentRegion", uri);
+        }
+
+        private static void ShowToolsDialog()
+        {
+            new ToolsDialog().ShowDialog();
         }
 
         private static void ShowWebPage()

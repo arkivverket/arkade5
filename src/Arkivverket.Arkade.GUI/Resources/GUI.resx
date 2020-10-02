@@ -295,4 +295,7 @@ Du kan fortsatt lage en pakke av uttrekket.</value>
   <data name="ShowAboutDialogButtonText" xml:space="preserve">
     <value>Om Arkade 5</value>
   </data>
+  <data name="ShowToolsDialogButtonText" xml:space="preserve">
+    <value>Verktøy</value>
+  </data>
 </root>

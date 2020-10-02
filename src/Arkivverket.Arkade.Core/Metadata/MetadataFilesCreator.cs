@@ -42,10 +42,10 @@ namespace Arkivverket.Arkade.Core.Metadata
             
             if (generateDocumentFileInfo)
             {
-                string fileLocation = archive.WorkingDirectory.AdministrativeMetadata().DirectoryInfo().FullName;
+                string resultFileDirectoryPath = archive.WorkingDirectory.AdministrativeMetadata().DirectoryInfo().FullName;
                 try
                 {
-                    DocumentFileListGenerator.Generate(fileLocation, archive);
+                    DocumentFileListGenerator.Generate(archive.GetDocumentsDirectory(), resultFileDirectoryPath);
                 }
                 catch (SiegfriedFileFormatIdentifierException siegfriedException)
                 {
@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                 catch (Exception e)
                 {
                     Log.Debug(e.ToString());
-                    Log.Error("An unforeseen error related to document file format checking has occured. As a result, document file format checking was aborted. Please see /arkade-tmp/logs for details.");
+                    Log.Error("An unforeseen error related to document file format analysis has occured. As a result, document file format analysis was aborted. Please see /arkade-tmp/logs for details.");
                 }
             }
 

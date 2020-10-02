@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
@@ -135,6 +136,16 @@ namespace Arkivverket.Arkade.CLI
                 Noark5TestListGenerator.Generate(noark5TestListFileName);
                 Log.Information(noark5TestListFileName + " was created");
             }
+
+            LogFinishedStatus(command);
+        }
+
+        public static void Run(AnalyseOptions options)
+        {
+            string command = GetRunningCommand(options.GetType().Name);
+
+            Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {options.FormatCheckTarget}");
+            DocumentFileListGenerator.Generate(new DirectoryInfo(options.FormatCheckTarget), options.OutputDirectory);
 
             LogFinishedStatus(command);
         }

@@ -6,6 +6,9 @@ namespace Arkivverket.Arkade.Core.Util
     {
         public static string GetRelativePath(FileSystemInfo file, FileSystemInfo startDirectory)
         {
+            if (startDirectory == null)
+                return file.FullName;
+            
             string startDirectoryFullName = startDirectory.FullName;
 
             if (!startDirectoryFullName.EndsWith(Path.DirectorySeparatorChar.ToString()))

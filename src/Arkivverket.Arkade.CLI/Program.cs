@@ -21,18 +21,20 @@ namespace Arkivverket.Arkade.CLI
                 .WithParsed<TestOptions>(RunTestOptions)
                 .WithParsed<PackOptions>(RunPackOptions)
                 .WithParsed<GenerateOptions>(RunGenerateOptions)
+                .WithParsed<AnalyseOptions>(RunAnalyseOptions)
                 .WithNotParsed(LogParseErrors);
         }
 
         public static ParserResult<object> ParseArguments(IEnumerable<string> args)
         {
-            return Parser.Default.ParseArguments<TestOptions, PackOptions, ProcessOptions, GenerateOptions>(args);
+            return Parser.Default.ParseArguments<TestOptions, PackOptions, ProcessOptions, GenerateOptions, AnalyseOptions>(args);
         }
 
         private static void RunProcessOptions(ProcessOptions processOptions)
         {
-            if (!ReadyToRun(processOptions.OutputDirectory, processOptions.ProcessingArea, processOptions.MetadataFile,
-                processOptions.TestListFile))
+            if (!ReadyToRun(processOptions.OutputDirectory, processOptions.ProcessingArea,
+                metadataFilePath: processOptions.MetadataFile,
+                testListFilePath: processOptions.TestListFile))
                 return;
 
             CommandLineRunner.Run(processOptions);
@@ -49,7 +51,8 @@ namespace Arkivverket.Arkade.CLI
 
         private static void RunPackOptions(PackOptions packOptions)
         {
-            if (!ReadyToRun(packOptions.OutputDirectory, packOptions.ProcessingArea, packOptions.MetadataFile))
+            if (!ReadyToRun(packOptions.OutputDirectory, packOptions.ProcessingArea,
+                metadataFilePath: packOptions.MetadataFile))
                 return;
 
             CommandLineRunner.Run(packOptions);
@@ -63,15 +66,29 @@ namespace Arkivverket.Arkade.CLI
             CommandLineRunner.Run(generateOptions);
         }
 
+        private static void RunAnalyseOptions(AnalyseOptions analyseOptions)
+        {
+            if (!ReadyToRun(analyseOptions))
+                return;
+
+            CommandLineRunner.Run(analyseOptions);
+        }
+
         private static bool ReadyToRun(Options options)
         {
             return DirectoryArgsExists(options.OutputDirectory);
         }
 
-        private static bool ReadyToRun(string outputDirectoryPath, string processingAreaPath,
-            string metadataFilePath = null, string testListFilePath = null)
+        private static bool ReadyToRun(AnalyseOptions analyseOptions)
         {
-            if (!(DirectoryArgsExists(outputDirectoryPath, processingAreaPath) && FileArgsExists(metadataFilePath, testListFilePath)))
+            return DirectoryArgsExists(analyseOptions.OutputDirectory,
+                documentFileDirectoryPath: analyseOptions.FormatCheckTarget);
+        }
+
+        private static bool ReadyToRun(string outputDirectoryPath, string processingAreaPath = null,
+            string documentFileDirectoryPath = null, string metadataFilePath = null, string testListFilePath = null)
+        {
+            if (!(DirectoryArgsExists(outputDirectoryPath, processingAreaPath, documentFileDirectoryPath) && FileArgsExists(metadataFilePath, testListFilePath)))
                 return false;
 
             ArkadeProcessingArea.Establish(processingAreaPath); // Removes temporary log directory
@@ -81,7 +98,7 @@ namespace Arkivverket.Arkade.CLI
             return true;
         }
 
-        private static bool DirectoryArgsExists(string outputDirectoryPath, string processingAreaPath = null)
+        private static bool DirectoryArgsExists(string outputDirectoryPath, string processingAreaPath = null, string documentFileDirectoryPath = null)
         {
             if (!Directory.Exists(outputDirectoryPath))
             {
@@ -95,6 +112,11 @@ namespace Arkivverket.Arkade.CLI
                 return false;
             }
 
+            if (documentFileDirectoryPath != null && !Directory.Exists(documentFileDirectoryPath))
+            {
+                Log.Error(new DirectoryNotFoundException(), $"Could not find document file directory: '{processingAreaPath}'.");
+                return false;
+            }
             return true;
         }
 

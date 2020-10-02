@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using CsvHelper;
@@ -11,17 +10,15 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public static class DocumentFileListGenerator
     {
-        public static void Generate(string fileLocation, Archive archive)
+        public static void Generate(DirectoryInfo filesDirectory, string resultFileDirectoryPath)
         {
-            DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
-
-            IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(documentsDirectory);
+            IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(filesDirectory);
 
             IEnumerable<ListElement> listElements = GetListElements(
-                siegfriedFileInfoSet, documentsDirectory.Parent.Parent
+                siegfriedFileInfoSet, filesDirectory.Parent?.Parent
             );
 
-            WriteFileList(listElements, fileLocation);
+            WriteFileList(listElements, resultFileDirectoryPath);
         }
 
         private static IEnumerable<SiegfriedFileInfo> GetFormatInfoAllFiles(DirectoryInfo directory)

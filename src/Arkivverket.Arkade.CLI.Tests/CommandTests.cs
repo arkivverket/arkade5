@@ -34,6 +34,8 @@ namespace Arkivverket.Arkade.CLI.Tests
                 ("test -a archive -t type -p process-dir", ErrorType.MissingRequiredOptionError),
                 ("generate -m", ErrorType.MissingRequiredOptionError),
                 ("generate -l", ErrorType.MissingRequiredOptionError),
+                ("analyse -f document-file-dir", ErrorType.MissingRequiredOptionError),
+                ("analyse -o output-dir", ErrorType.MissingRequiredOptionError),
 
                 //MissingGroupOptionError
                 ("generate -o output-dir", ErrorType.MissingGroupOptionError),
@@ -56,6 +58,8 @@ namespace Arkivverket.Arkade.CLI.Tests
                 ("test --processing-area", ErrorType.MissingValueOptionError),
                 ("test --output-directory", ErrorType.MissingValueOptionError),
                 ("generate --output-directory", ErrorType.MissingValueOptionError),
+                ("analyse --output-directory", ErrorType.MissingValueOptionError),
+                ("analyse --format-check", ErrorType.MissingValueOptionError),
 
                 // UnknownOptionError
                 ("process --metadata-example", ErrorType.UnknownOptionError),
@@ -68,13 +72,18 @@ namespace Arkivverket.Arkade.CLI.Tests
                 ("generate --metadata-file", ErrorType.UnknownOptionError),
                 ("generate --processing-area", ErrorType.UnknownOptionError),
                 ("generate --information-package-type", ErrorType.UnknownOptionError),
-                ("generate --archive", ErrorType.UnknownOptionError),
+                ("analyse --archive", ErrorType.UnknownOptionError),
+                ("analyse --type", ErrorType.UnknownOptionError),
+                ("analyse --metadata-file", ErrorType.UnknownOptionError),
+                ("analyse --processing-area", ErrorType.UnknownOptionError),
+                ("analyse --information-package-type", ErrorType.UnknownOptionError),
 
                 // RepeatedOptionError
                 ("process -a archive -a archive", ErrorType.RepeatedOptionError),
                 ("pack -a archive -a archive", ErrorType.RepeatedOptionError),
                 ("test -a archive -a archive", ErrorType.RepeatedOptionError),
                 ("generate -m metadata -m metadata", ErrorType.RepeatedOptionError),
+                ("analyse -f document-file-dir -f document-file-dir", ErrorType.RepeatedOptionError),
             };
 
             foreach ((string command, ErrorType expectedError) in argsWithExpectedError)

@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             if (File.Exists(testFilePath))
                 File.Delete(testFilePath);
 
-            DocumentFileListGenerator.Generate(workingDirectoryPath, testArchive);
+            DocumentFileListGenerator.Generate(testArchive.GetDocumentsDirectory(), workingDirectoryPath);
 
             File.Exists(testFilePath).Should().BeTrue();
 

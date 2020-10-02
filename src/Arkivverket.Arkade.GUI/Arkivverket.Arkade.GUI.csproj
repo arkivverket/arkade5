@@ -181,6 +181,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SettingsGUI.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ToolsGUI.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ToolsGUI.resx</DependentUpon>
+    </Compile>
     <Compile Include="Util\ArchiveMetadataMapper.cs" />
     <Compile Include="Util\ArkadeInstance.cs" />
     <Compile Include="Util\ArkadeProcessingAreaLocationSetting.cs" />
@@ -193,7 +198,11 @@
     <Compile Include="ViewModels\LoadArchiveExtractionViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\ToolsDialogViewModel.cs" />
     <Compile Include="ViewModels\TestRunnerViewModel.cs" />
+    <Compile Include="Views\ToolsDialog.xaml.cs">
+      <DependentUpon>ToolsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
@@ -212,6 +221,10 @@
     <Compile Include="Views\TestRunner.xaml.cs">
       <DependentUpon>TestRunner.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ToolsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\AboutDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -273,6 +286,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GUI.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ToolsGUI.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ToolsGUI.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
