@@ -82,7 +82,7 @@ namespace Arkivverket.Arkade.CLI.Tests
             testReportWasCreated.Should().BeTrue();
         }
 
-        [Fact]
+        [Fact(Skip = "IO-issues")]
         [Trait("Category", "Integration")]
         public void PackCommandTest()
         {

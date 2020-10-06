@@ -59,7 +59,7 @@ namespace Arkivverket.Arkade.CLI.Tests
                 ("test --output-directory", ErrorType.MissingValueOptionError),
                 ("generate --output-directory", ErrorType.MissingValueOptionError),
                 ("analyse --output-directory", ErrorType.MissingValueOptionError),
-                ("analyse --format-check", ErrorType.MissingValueOptionError),
+                ("analyse --format-analysis", ErrorType.MissingValueOptionError),
 
                 // UnknownOptionError
                 ("process --metadata-example", ErrorType.UnknownOptionError),
