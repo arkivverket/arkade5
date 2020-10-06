@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Xml.Serialization;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
@@ -81,14 +82,22 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         public static bool TryParseArchiveDate(string dateStringFromArchive, out DateTime dateTime)
         {
-            var acceptedFormats = new[]
+            try
             {
-                "yyyy-MM-dd", // date only
-                "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", // date + time [+ milliseconds] [+ timezone]
-            };
-
-            return DateTime.TryParseExact(dateStringFromArchive, acceptedFormats,
-                CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dateTime);
+                dateTime = SerializeUtil.DeserializeFromString<DateField>(
+                        $"<?xml version=\"1.0\"?>\r\n" +
+                        $"<dateTime>\r\n" +
+                        $"\t<journaldato>{dateStringFromArchive}</journaldato>\r\n" +
+                        $"</dateTime>")
+                    .Date;
+                return true;
+            }
+            catch
+            {
+                //If parsing is not successful, value is not valid. Hence the error is caught in N5.03.
+                dateTime = default;
+                return false;
+            }
         }
 
         public static string StripNamespace(string value)
@@ -100,5 +109,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
             return value;
         }
+    }
+
+    [XmlType("dateTime")]
+    public class DateField
+    {
+        [XmlElement("journaldato")]
+        public DateTime Date { get; set; }
     }
 }

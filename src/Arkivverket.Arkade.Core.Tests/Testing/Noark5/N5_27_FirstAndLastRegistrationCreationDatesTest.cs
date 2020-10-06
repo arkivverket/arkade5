@@ -34,13 +34,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("opprettetDato", "1864-10-18T00:00:00Z")))
                                     .Add("mappe", new XmlElementHelper()
                                         .Add("registrering", new XmlElementHelper()
-                                            .Add("opprettetDato", "1865-10-18T00:00:00Z"))))))));
+                                            .Add("opprettetDato", "1865-10-18+01:00"))))))));
 
             TestRun testRun = helper.RunEventsOnTest(new N5_27_FirstAndLastRegistrationCreationDates());
 
             testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 4"));
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1 - Første registrering: Opprettet 18.10.1863"));
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1 - Siste registrering: Opprettet 18.10.1863"));
             testRun.Results.Should().Contain(r =>
@@ -76,7 +74,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         new XmlElementHelper()
                                             .Add("mappe",
                                                 new XmlElementHelper().Add("registrering",
-                                                    new XmlElementHelper().Add("opprettetDato", "1864")))
+                                                    new XmlElementHelper().Add("opprettetDato", "1864-10-09+1:00")))
                                             .Add("mappe",
                                                 new XmlElementHelper().Add("registrering",
                                                     new XmlElementHelper().Add("opprettetDato", "10 18"))))))));

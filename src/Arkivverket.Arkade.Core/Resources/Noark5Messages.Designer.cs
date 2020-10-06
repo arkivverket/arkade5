@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det ble ikke funnet noen journaldatoer i arkivuttrekket.
+        ///   Looks up a localized string similar to Det ble ikke funnet noen gyldige journaldatoer i arkivuttrekket.
         /// </summary>
         internal static string ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound {
             get {
