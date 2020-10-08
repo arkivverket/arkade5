@@ -35,9 +35,13 @@ namespace Arkivverket.Arkade.Core.Report
 
             foreach (SiegfriedFileInfo siegfriedFileInfo in siegfriedFileInfoSet)
             {
+                string fileName = startDirectory != null
+                    ? Path.GetRelativePath(startDirectory.FullName, siegfriedFileInfo.FileName)
+                    : siegfriedFileInfo.FileName;
+
                 var documentFileListElement = new ListElement
                 {
-                    FileName = PathUtil.GetRelativePath(new FileInfo(siegfriedFileInfo.FileName), startDirectory),
+                    FileName = fileName,
                     FileFormatPuId = siegfriedFileInfo.Id,
                     FileFormatName = siegfriedFileInfo.Format,
                     FileFormatVersion = siegfriedFileInfo.Version,

@@ -439,7 +439,7 @@ namespace Arkivverket.Arkade.Core.Metadata
         protected static FileDescription GetFileDescription(FileInfo file, DirectoryInfo pathRoot,
             ReadOnlyDictionary<string, DocumentFile> documentFiles = null)
         {
-            string name = pathRoot != null ? PathUtil.GetRelativePath(file, pathRoot) : file.FullName;
+            string name = pathRoot != null ? Path.GetRelativePath(pathRoot.FullName, file.FullName) : file.FullName;
 
             return new FileDescription
             {

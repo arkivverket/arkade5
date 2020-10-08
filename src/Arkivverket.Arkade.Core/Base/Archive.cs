@@ -4,7 +4,6 @@ using System.IO;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using System.Linq;
 using System.Reflection;
-using Arkivverket.Arkade.Core.Util;
 using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
@@ -131,10 +130,11 @@ namespace Arkivverket.Arkade.Core.Base
             {
                 foreach (FileInfo documentFileInfo in documentsDirectory.GetFiles("*", SearchOption.AllDirectories))
                 {
-                    documentFiles.Add(
-                        PathUtil.GetRelativePath(documentFileInfo, documentsDirectory.Parent).Replace('\\', '/'),
-                        new DocumentFile(documentFileInfo)
-                    );
+                    string relativePath = documentsDirectory.Parent != null
+                        ? Path.GetRelativePath(documentsDirectory.Parent.FullName, documentFileInfo.FullName)
+                        : documentFileInfo.FullName;
+
+                    documentFiles.Add(relativePath.Replace('\\', '/'), new DocumentFile(documentFileInfo));
                 }
             }
 
