@@ -63,8 +63,8 @@
     <EmbeddedResource Include="Resources\bootstrap.min.css" />
   </ItemGroup>
 
-  <ItemGroup> 
-    <PackageReference Include="Autofac" Version="4.9.4" />
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.0.0" />
     <PackageReference Include="CsvHelper" Version="15.0.5" />
     <PackageReference Include="ICSharpCode.SharpZipLib.Patched" Version="0.86.5.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
