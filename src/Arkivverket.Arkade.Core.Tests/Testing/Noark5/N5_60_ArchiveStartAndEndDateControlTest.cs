@@ -110,7 +110,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_60_ArchiveStartAndEndDateControl(testArchive));
 
             testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Det ble ikke funnet noen journaldatoer i arkivuttrekket"));
+                "Det ble ikke funnet noen gyldige journaldatoer i arkivuttrekket"));
             testRun.Results.Count.Should().Be(1);
         }
 
