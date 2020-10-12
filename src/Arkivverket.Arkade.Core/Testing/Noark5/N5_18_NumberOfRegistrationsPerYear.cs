@@ -66,7 +66,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 int year;
 
-                if (Noark5TestHelper.TryParseArchiveDate(eventArgs.Value, out DateTime registrationCreatedTime))
+                if (Noark5TestHelper.TryParseValidXmlDate(eventArgs.Value, out DateTime registrationCreatedTime))
                     year = registrationCreatedTime.Year;
                 else
                     return;

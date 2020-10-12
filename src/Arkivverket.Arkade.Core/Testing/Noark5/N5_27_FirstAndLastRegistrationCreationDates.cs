@@ -78,7 +78,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (!eventArgs.Path.Matches("opprettetDato", "registrering"))
                 return;
 
-            if (Noark5TestHelper.TryParseArchiveDate(eventArgs.Value, out DateTime registrationCreatedTime))
+            if (Noark5TestHelper.TryParseValidXmlDate(eventArgs.Value, out DateTime registrationCreatedTime))
                 _currentArchivePart.RegistrationCreationDates.Add(registrationCreatedTime);
             else
                 _invalidRegistrationCreationDateCount++;

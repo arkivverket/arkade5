@@ -80,14 +80,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return inboundSeparationIsSharp && outboundSeparationIsSharp;
         }
 
-        public static bool TryParseArchiveDate(string dateStringFromArchive, out DateTime dateTime)
+        public static bool TryParseValidXmlDate(string dateStringFromArchive, out DateTime dateTime)
         {
             try
             {
                 dateTime = SerializeUtil.DeserializeFromString<DateField>(
                         $"<?xml version=\"1.0\"?>\r\n" +
                         $"<dateTime>\r\n" +
-                        $"\t<journaldato>{dateStringFromArchive}</journaldato>\r\n" +
+                        $"\t<date>{dateStringFromArchive}</date>\r\n" +
                         $"</dateTime>")
                     .Date;
                 return true;
@@ -114,7 +114,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     [XmlType("dateTime")]
     public class DateField
     {
-        [XmlElement("journaldato")]
+        [XmlElement("date")]
         public DateTime Date { get; set; }
     }
 }
