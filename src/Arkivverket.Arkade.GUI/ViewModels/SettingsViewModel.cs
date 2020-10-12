@@ -26,8 +26,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public string ArkadeProcessingAreaLocationSetting
         {
-            get { return _arkadeProcessingAreaLocationSetting; }
-            set { SetProperty(ref _arkadeProcessingAreaLocationSetting, value); }
+            get => _arkadeProcessingAreaLocationSetting;
+            set => SetProperty(ref _arkadeProcessingAreaLocationSetting, value);
         }
 
         public DelegateCommand ChangeArkadeProcessingAreaLocationCommand { get; }

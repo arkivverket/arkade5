@@ -9,7 +9,8 @@
         Title="Settings" Height="380" Width="500"
         Icon="../Arkade5_2.0.ico"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}">
+        Background="{DynamicResource MaterialDesignPaper}"
+        d:DataContext="{d:DesignData SettingsViewModel}">
     <Grid>
         <StackPanel Margin="10">
             <TextBlock Text="{x:Static resources:SettingsGUI.ArkadeProcessingAreaLocation_Header}"

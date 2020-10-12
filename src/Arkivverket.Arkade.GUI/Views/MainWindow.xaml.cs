@@ -1,10 +1,9 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.ViewModels;
-using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.GUI.Views
 {

@@ -7,7 +7,8 @@
              xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1000">
+             d:DesignHeight="600" d:DesignWidth="1000"
+             d:DataContext="{d:DesignData LoadArchiveExtractionViewModel}">
     <Grid Height="350" Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

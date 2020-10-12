@@ -27,7 +27,7 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
-    <PathMap>$(AppOutputBase)=(..).CLI\</PathMap>
+    <PathMap>$(AppOutputBase)=(..)CLI\</PathMap>
   </PropertyGroup>
 
   <ItemGroup>

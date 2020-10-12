@@ -1,7 +1,5 @@
-using System;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Navigation;
 using Arkivverket.Arkade.GUI.Resources;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;

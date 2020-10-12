@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.GUI.Models;
 
 namespace Arkivverket.Arkade.GUI.Util

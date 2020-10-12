@@ -8,14 +8,11 @@ namespace Arkivverket.Arkade.GUI.Views
     /// </summary>
     public partial class ToolsDialog
     {
-        private readonly ToolsDialogViewModel _toolsDialog;
         public ToolsDialog()
         {
             InitializeComponent();
 
-            _toolsDialog = new ToolsDialogViewModel();
-
-            DataContext = _toolsDialog;
+            DataContext = new ToolsDialogViewModel();
 
             Owner = Application.Current.MainWindow;
 

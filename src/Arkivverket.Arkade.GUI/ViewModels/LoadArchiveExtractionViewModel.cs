@@ -1,14 +1,11 @@
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Util;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.Win32;
-using System;
-using System.Windows;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
@@ -24,7 +21,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public string ArchiveFileName
         {
-            get { return _archiveFileName; }
+            get => _archiveFileName;
             set
             {
                 SetProperty(ref _archiveFileName, value);
@@ -34,7 +31,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public string ArchiveFileNameGuiRepresentation
         {
-            get { return _archiveFileNameGuiRepresentation; }
+            get => _archiveFileNameGuiRepresentation;
             set
             {
                 SetProperty(ref _archiveFileNameGuiRepresentation, value);
@@ -45,7 +42,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public ArchiveType ArchiveType
         {
-            get { return _archiveType; }
+            get => _archiveType;
             set
             {
                 SetProperty(ref _archiveType, value);

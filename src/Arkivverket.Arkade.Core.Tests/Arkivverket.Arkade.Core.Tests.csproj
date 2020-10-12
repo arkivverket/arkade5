@@ -25,7 +25,7 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
-    <PathMap>$(AppOutputBase)=(..).Core.Tests\</PathMap>
+    <PathMap>$(AppOutputBase)=(..)Core.Tests\</PathMap>
   </PropertyGroup>
 
   <ItemGroup>

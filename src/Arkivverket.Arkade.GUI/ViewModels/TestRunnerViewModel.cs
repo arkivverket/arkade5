@@ -61,55 +61,55 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public Visibility AddmlDataObjectStatusVisibility
         {
-            get { return _addmlDataObjectStatusVisibilty; }
-            set { SetProperty(ref _addmlDataObjectStatusVisibilty, value); }
+            get => _addmlDataObjectStatusVisibilty;
+            set => SetProperty(ref _addmlDataObjectStatusVisibilty, value);
         }
 
         public Visibility AddmlFlatFileStatusVisibility
         {
-            get { return _addmlFlatFileStatusVisibilty; }
-            set { SetProperty(ref _addmlFlatFileStatusVisibilty, value); }
+            get => _addmlFlatFileStatusVisibilty;
+            set => SetProperty(ref _addmlFlatFileStatusVisibilty, value);
         }
 
         public string CurrentlyRunningTest
         {
-            get { return _currentlyRunningTest; }
-            set { SetProperty(ref _currentlyRunningTest, value); }
+            get => _currentlyRunningTest;
+            set => SetProperty(ref _currentlyRunningTest, value);
         }
 
         public int NumberOfTestsFinished
         {
-            get { return _numberOfTestsFinished; }
-            set { SetProperty(ref _numberOfTestsFinished, value); }
+            get => _numberOfTestsFinished;
+            set => SetProperty(ref _numberOfTestsFinished, value);
         }
 
         public string CurrentActivityMessage
         {
-            get { return _currentActivityMessage; }
-            set { SetProperty(ref _currentActivityMessage, value); }
+            get => _currentActivityMessage;
+            set => SetProperty(ref _currentActivityMessage, value);
         }
 
         public string CurrentlyProcessingFile
         {
-            get { return _currentlyProcessingFile; }
-            set { SetProperty(ref _currentlyProcessingFile, value); }
+            get => _currentlyProcessingFile;
+            set => SetProperty(ref _currentlyProcessingFile, value);
         }
 
         public int NumberOfProcessedFiles
         {
-            get { return _numberOfProcessedFiles; }
-            set { SetProperty(ref _numberOfProcessedFiles, value); }
+            get => _numberOfProcessedFiles;
+            set => SetProperty(ref _numberOfProcessedFiles, value);
         }
 
         public int NumberOfProcessedRecords
         {
-            get { return _numberOfProcessedRecords; }
-            set { SetProperty(ref _numberOfProcessedRecords, value); }
+            get => _numberOfProcessedRecords;
+            set => SetProperty(ref _numberOfProcessedRecords, value);
         }
 
         public bool AllTestsSelected
         {
-            get { return _allTestsSelected; }
+            get => _allTestsSelected;
             set
             {
                 SetProperty(ref _allTestsSelected, value);
@@ -120,32 +120,32 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public bool CanSelectTests
         {
-            get { return _canSelectTests;}
-            set { SetProperty(ref _canSelectTests, value); }
+            get => _canSelectTests;
+            set => SetProperty(ref _canSelectTests, value);
         }
 
         public ObservableCollection<OperationMessage> OperationMessages
         {
-            get { return _operationMessages; }
-            set { SetProperty(ref _operationMessages, value); }
+            get => _operationMessages;
+            set => SetProperty(ref _operationMessages, value);
         }
 
         public ObservableCollection<SelectableTest> SelectableTests
         {
-            get { return _selectableTests; }
-            set { SetProperty(ref _selectableTests, value); }
+            get => _selectableTests;
+            set => SetProperty(ref _selectableTests, value);
         }
 
         public ArchiveInformationStatus ArchiveInformationStatus
         {
-            get { return _archiveInformationStatus; }
-            set { SetProperty(ref _archiveInformationStatus, value); }
+            get => _archiveInformationStatus;
+            set => SetProperty(ref _archiveInformationStatus, value);
         }
 
         public Visibility ArchiveCurrentProcessing
         {
-            get { return _archiveCurrentProcessing; }
-            set { SetProperty(ref _archiveCurrentProcessing, value); }
+            get => _archiveCurrentProcessing;
+            set => SetProperty(ref _archiveCurrentProcessing, value);
         }
 
         public TestRunnerViewModel(ArkadeApi arkadeApi, IRegionManager regionManager,  IStatusEventHandler statusEventHandler)

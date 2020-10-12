@@ -33,39 +33,39 @@ namespace Arkivverket.Arkade.GUI.Models
 
         public string Message
         {
-            get { return _message; }
-            set { SetProperty(ref _message, value); }
+            get => _message;
+            set => SetProperty(ref _message, value);
         }
 
         public Visibility ProgressBarVisibility
         {
-            get { return _progressBarVisibility; }
-            set { SetProperty(ref _progressBarVisibility, value); }
+            get => _progressBarVisibility;
+            set => SetProperty(ref _progressBarVisibility, value);
         }
 
         public Visibility StatusVisibility
         {
-            get { return _statusVisibility; }
-            set { SetProperty(ref _statusVisibility, value); }
+            get => _statusVisibility;
+            set => SetProperty(ref _statusVisibility, value);
         }
 
 
         public string Icon
         {
-            get { return _icon; }
-            set { SetProperty(ref _icon, value); }
+            get => _icon;
+            set => SetProperty(ref _icon, value);
         }
 
         public string Label
         {
-            get { return _label; }
-            set { SetProperty(ref _label, value); }
+            get => _label;
+            set => SetProperty(ref _label, value);
         }
 
         public SolidColorBrush Color
         {
-            get { return _color; }
-            set { SetProperty(ref _color, value); }
+            get => _color;
+            set => SetProperty(ref _color, value);
         }
 
         public OperationMessage(OperationMessageEventArgs operationMessageEventArgs)

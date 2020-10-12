@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
-    <PathMap>$(AppOutputBase)=(..).Core\</PathMap>
+    <PathMap>$(AppOutputBase)=(..)Core\</PathMap>
   </PropertyGroup>
 
   <ItemGroup>

@@ -20,6 +20,7 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Closing="WindowClosing"
+        d:DataContext="{d:DesignData MainWindowViewModel}"
         >
 
     <!-- MAIN Window GRID layout-->

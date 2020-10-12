@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Arkivverket.Arkade.GUI.Views"
         xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignData AboutDialogViewModel}"
         Title="{x:Static resources:AboutGUI.AboutDialogWindowName}" Height ="270"  Width="500"
         Icon="../Arkade5_2.0.ico"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
