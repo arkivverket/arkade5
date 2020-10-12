@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
-using System.Net;
-using System.Windows.Forms;
+using System.Windows;
 using System.Windows.Navigation;
 using Arkivverket.Arkade.GUI.Resources;
 using Arkivverket.Arkade.GUI.Util;
@@ -11,7 +10,6 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
@@ -77,17 +75,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private static void ShowInvalidProcessingAreaLocationDialog()
         {
-            DialogResult dialogResult = MessageBox.Show(
+            MessageBoxResult dialogResult = MessageBox.Show(
                 SettingsGUI.UndefinedArkadeProcessingAreaLocationDialogMessage,
                 SettingsGUI.UndefinedArkadeProcessingAreaLocationDialogTitle,
-                MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Exclamation
+                MessageBoxButton.OKCancel,
+                MessageBoxImage.Exclamation
             );
 
-            if (dialogResult == DialogResult.OK)
+            if (dialogResult == MessageBoxResult.OK)
                 ShowSettingsCommand.Execute();
             else
-                System.Windows.Application.Current.Shutdown();
+                Application.Current.Shutdown();
         }
 
         private static void RestartArkadeIfNeededAndWanted()
@@ -99,12 +97,23 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 bool restartIsWanted = MessageBox.Show(
                                            Resources.GUI.RestartArkadeForChangesToTakeEffectPrompt,
                                            Resources.GUI.RestartArkadeDialogTitle,
-                                           MessageBoxButtons.YesNo) == DialogResult.Yes;
+                                           MessageBoxButton.YesNo) == MessageBoxResult.Yes;
 
                 if (restartIsWanted)
                 {
-                    System.Windows.Forms.Application.Restart();
-                    System.Windows.Application.Current.Shutdown();
+                    string mainModuleFileName = Process.GetCurrentProcess().MainModule?.FileName;
+
+                    if (mainModuleFileName != null)
+                    {
+                        Process.Start(mainModuleFileName);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Could not restart Arkade\nPlease manually start Arkade after shutdown",
+                            "Automatic restart failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    Application.Current.Shutdown();
                 }
             }
         }

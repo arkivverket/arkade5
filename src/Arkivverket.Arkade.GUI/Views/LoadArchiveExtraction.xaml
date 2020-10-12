@@ -26,7 +26,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="0 6 0 8" Text="{x:StaticExtension resources:GUI.LoadArchiveViewHeadingText}"/>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0 6 0 8" Text="{x:StaticExtension resources:GUI.LoadArchiveViewHeadingText}"/>
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button Margin="5" Content="{x:StaticExtension resources:GUI.LoadArchiveChooseFolderButtonText}" HorizontalAlignment="Center" Width="140" Height="31" Command="{Binding OpenArchiveFolderCommand}"/>
             <Button Margin="5" Content="{x:StaticExtension resources:GUI.LoadArchiveChooseTarFileButtonText}" HorizontalAlignment="Center" Width="140" Height="31" Command="{Binding OpenArchiveFileCommand}"/>

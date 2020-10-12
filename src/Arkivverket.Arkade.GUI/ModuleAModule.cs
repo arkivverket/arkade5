@@ -1,4 +1,5 @@
 ﻿using Arkivverket.Arkade.GUI.Views;
+using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 
@@ -6,16 +7,15 @@ namespace Arkivverket.Arkade.GUI
 {
     public class ModuleAModule : IModule
     {
-        private readonly IRegionManager _regionManager;
-
-        public ModuleAModule(IRegionManager regionManager)
+        public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            _regionManager = regionManager;
+            //nothing here
         }
 
-        public void Initialize()
+        public void OnInitialized(IContainerProvider containerProvider)
         {
-            _regionManager.RegisterViewWithRegion("MainContentRegion", typeof(LoadArchiveExtraction));
+            var regionManager = containerProvider.Resolve<IRegionManager>();
+            regionManager.RegisterViewWithRegion("MainContentRegion", typeof(LoadArchiveExtraction));
         }
     }
 }

@@ -20,11 +20,9 @@ using Prism.Regions;
 using Serilog;
 using System.Windows.Controls;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Arkivverket.Arkade.GUI.Resources;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.WindowsAPICodePack.Taskbar;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
@@ -413,7 +411,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 {
                     MessageBox.Show(
                         string.Format(MetaDataGUI.MetadataLoadError, metadataFile.FullName),
-                        null, MessageBoxButtons.OK, MessageBoxIcon.Exclamation
+                        null, MessageBoxButton.OK, MessageBoxImage.Exclamation
                     );
                 }
             );

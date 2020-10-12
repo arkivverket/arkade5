@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.GUI.Util
                 .MinimumLevel.Debug()
                 .Enrich.With(new ThreadIdEnricher())
                 .WriteTo.RollingFile(systemLogFilePath, outputTemplate: $"{Resources.GUI.SerilogFormatConfig}")
-                .WriteTo.ColoredConsole(outputTemplate: $"{Resources.GUI.SerilogFormatConfig}")
+                .WriteTo.Console(outputTemplate: $"{Resources.GUI.SerilogFormatConfig}")
                 .CreateLogger();
         }
     }

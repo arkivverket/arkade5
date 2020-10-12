@@ -23,7 +23,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         
-        <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10">Testing av uttrekk</TextBlock>
+        <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="10">Testing av uttrekk</TextBlock>
 
         <Grid Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>

@@ -1,12 +1,10 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.ViewModels;
 using Arkivverket.Arkade.Core.Util;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Arkivverket.Arkade.GUI.Views
 {
@@ -37,10 +35,10 @@ namespace Arkivverket.Arkade.GUI.Views
         {
             if (TestsIsRunningOrHasRun && !InformationPackageCreator.HasRun)
             {
-                DialogResult dialogResult = MessageBox.Show(GUI.Resources.GUI.UnsavedTestResultsOnExitWarning,
-                    "NB!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                MessageBoxResult dialogResult = MessageBox.Show(GUI.Resources.GUI.UnsavedTestResultsOnExitWarning,
+                    "NB!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
 
-                if(dialogResult == System.Windows.Forms.DialogResult.No)
+                if(dialogResult == MessageBoxResult.No)
                         e.Cancel = true;
             }
         }

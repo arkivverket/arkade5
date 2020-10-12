@@ -437,7 +437,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void OpenFile(FileInfo file)
         {
-            System.Diagnostics.Process.Start(file.FullName);
+            var process = new System.Diagnostics.Process();
+            process.StartInfo = new System.Diagnostics.ProcessStartInfo(file.FullName)
+            {
+                UseShellExecute = true,
+            };
+            process.Start();
         }
 
         private void SaveHtmlReport()

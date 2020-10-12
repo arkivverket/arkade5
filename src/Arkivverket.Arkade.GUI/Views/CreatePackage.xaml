@@ -43,7 +43,7 @@
         <TextBlock Grid.Row="0"
                    Grid.ColumnSpan="6"
                    Text="{x:Static resources:GUI.CreatePackageWindowTitle}"
-                   Style="{StaticResource MaterialDesignTitleTextBlock}"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                    Margin="10" />
 
         
@@ -51,7 +51,7 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="6"
                    Margin="10"
-                   Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                    Text="{x:Static resources:MetaDataGUI.MetadataRequiredFieldsInfo}" />
         
         <Button Grid.Row="1" Grid.Column="5" Height="24" Width="190"
