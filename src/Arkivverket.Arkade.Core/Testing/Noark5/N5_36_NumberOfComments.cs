@@ -61,8 +61,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 if (_lastSeenElementTypeByLevel.TryGetValue(parentElementLevel, out string parentElementType))
                 {
                     _currentArchivePart.RegisterCommentForElement(parentElementType);
-
-                    _lastSeenElementTypeByLevel.Remove(parentElementLevel);
                 }
                 else
                 {
@@ -95,6 +93,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            int currentElementLevel = eventArgs.Path.Length();
+
+            if (_lastSeenElementTypeByLevel.ContainsKey(currentElementLevel))
+                _lastSeenElementTypeByLevel.Remove(currentElementLevel);
+
             if (eventArgs.NameEquals("arkivdel"))
                 _currentArchivePart = null;
         }
