@@ -42,6 +42,7 @@ namespace Arkivverket.Arkade.Core.Report
                 var documentFileListElement = new ListElement
                 {
                     FileName = fileName,
+                    FileExtension = siegfriedFileInfo.FileExtension,
                     FileFormatPuId = siegfriedFileInfo.Id,
                     FileFormatName = siegfriedFileInfo.Format,
                     FileFormatVersion = siegfriedFileInfo.Version,
@@ -69,6 +70,9 @@ namespace Arkivverket.Arkade.Core.Report
         {
             [Name(ArkadeConstants.DocumentFileListHeaders.FileName)]
             public string FileName { get; set; }
+
+            [Name(ArkadeConstants.DocumentFileListHeaders.FileExtension)]
+            public string FileExtension { get; set; }
 
             [Name(ArkadeConstants.DocumentFileListHeaders.FormatId)]
             public string FileFormatPuId { get; set; }
