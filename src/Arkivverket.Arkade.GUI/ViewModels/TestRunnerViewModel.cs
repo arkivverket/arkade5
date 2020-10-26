@@ -16,7 +16,6 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
 using Arkivverket.Arkade.Core.Util;
-using Microsoft.WindowsAPICodePack.Taskbar;
 using Application = System.Windows.Application;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
@@ -278,7 +277,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
+            MainWindow.ProgressBarWorker.ReportProgress(0, "reset");
         }
 
 
@@ -399,7 +398,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
             NewProgramSessionCommand.RaiseCanExecuteChanged();
             
-            TaskbarManager.Instance.SetProgressValue(1, 1);
+            MainWindow.ProgressBarWorker.ReportProgress(100);
         }
 
         private void NotifyStartRunningTests()
@@ -414,7 +413,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             MainWindow.TestsIsRunningOrHasRun = true;
 
-            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Indeterminate);
+            MainWindow.ProgressBarWorker.ReportProgress(0);
         }
 
         private void UpdateOperationMessageList(OperationMessageEventArgs operationMessageEventArgs)

@@ -73,4 +73,7 @@
         </DockPanel>
         
     </Grid>
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo x:Name="taskbarItemInfo" />
+    </Window.TaskbarItemInfo>
 </Window>

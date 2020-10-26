@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Util;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Prism.Commands;
 using Prism.Mvvm;
 using Serilog;
@@ -122,17 +122,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _log.Information($"User action: Open choose directory for {action} dialog");
 
-            var selectDirectoryDialog = new CommonOpenFileDialog
-            {
-                IsFolderPicker = true,
-            };
+            var selectDirectoryDialog = new FolderBrowserDialog();
 
             if (title != null)
-                selectDirectoryDialog.Title = title;
+                selectDirectoryDialog.Description = title;
 
-            if (selectDirectoryDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            if (selectDirectoryDialog.ShowDialog() == DialogResult.OK)
             {
-                directory = selectDirectoryDialog.FileName;
+                directory = selectDirectoryDialog.SelectedPath;
 
                 _log.Information($"User action: Chose directory for {action}: {directory}");
             }

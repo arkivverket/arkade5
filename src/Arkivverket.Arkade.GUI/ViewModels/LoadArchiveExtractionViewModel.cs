@@ -1,11 +1,10 @@
 using System.IO;
+using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using Microsoft.Win32;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
@@ -126,31 +125,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private string OpenFolderDialog()
         {
-            string selected = null;
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog
-            {
-                IsFolderPicker = true,
-                Multiselect = false
-                //Title = ""
-            };
-            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-            {
-                selected = dialog.FileName;
-            }
+            var dialog = new FolderBrowserDialog();
 
-            return selected;
+            return dialog.ShowDialog() == DialogResult.OK ? dialog.SelectedPath : null;
         }
 
         private string OpenFileDialog()
         {
-            string selectedFileName = null;
             var dialog = new OpenFileDialog();
-            var result = dialog.ShowDialog();
-            if (result.HasValue && result == true)
-            {
-                selectedFileName = dialog.FileName;
-            }
-            return selectedFileName;
+
+            return dialog.ShowDialog() == DialogResult.OK ? dialog.FileName : null;
         }
 
         private void PresentChosenArchiveInGui(string archiveFileName, bool isDirectory)

@@ -1,12 +1,13 @@
 using System;
 using Arkivverket.Arkade.Core.Base;
-﻿using System.Windows;
+using System.Windows;
+using System.Windows.Forms;
 using Arkivverket.Arkade.GUI.Properties;
 using Arkivverket.Arkade.GUI.Util;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Prism.Commands;
 using Prism.Mvvm;
 using Serilog;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
@@ -59,15 +60,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _log.Information("User action: Open choose Arkade processing area location dialog");
 
-            var selectDirectoryDialog = new CommonOpenFileDialog
-            {
-                IsFolderPicker = true,
-                InitialDirectory = ArkadeProcessingAreaLocationSetting
-            };
+            var selectDirectoryDialog = new FolderBrowserDialog();
 
-            if (selectDirectoryDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            if (selectDirectoryDialog.ShowDialog() == DialogResult.OK)
             {
-                ArkadeProcessingAreaLocationSetting = selectDirectoryDialog.FileName;
+                ArkadeProcessingAreaLocationSetting = selectDirectoryDialog.SelectedPath;
 
                 _log.Information(
                     "User action: Choose Arkade processing area location {ArkadeDirectoryLocationSetting}",

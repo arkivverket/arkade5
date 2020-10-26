@@ -16,9 +16,10 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Arkivverket.Arkade.GUI.Resources;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using Microsoft.WindowsAPICodePack.Taskbar;
+using Arkivverket.Arkade.GUI.Views;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
@@ -346,7 +347,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
+            MainWindow.ProgressBarWorker.ReportProgress(0, "reset");
         }
 
         private void RunNavigateToLoadArchivePage()
@@ -377,7 +378,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             string suggestedMetadataFileDirectory = new FileInfo(_archiveFileName).DirectoryName;
 
-            var selectMetadataFileDialog = new CommonOpenFileDialog
+            var selectMetadataFileDialog = new OpenFileDialog
             {
                 Title = MetaDataGUI.SelectMetadataFile,
                 InitialDirectory = suggestedMetadataFileDirectory,
@@ -385,7 +386,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             string metadataFileName;
 
-            if (selectMetadataFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            if (selectMetadataFileDialog.ShowDialog() == DialogResult.OK)
                 metadataFileName = selectMetadataFileDialog.FileName;
             else return;
 
@@ -408,20 +409,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             Log.Information("User action: Create package");
 
-            string suggestedOutputDirectory = new FileInfo(_archiveFileName).DirectoryName;
-
-            var selectOutputDirectoryDialog = new CommonOpenFileDialog
+            var selectOutputDirectoryDialog = new FolderBrowserDialog
             {
-                Title = MetaDataGUI.SelectOutputDirectoryMessage,
-                IsFolderPicker = true,
-                InitialDirectory = suggestedOutputDirectory,
-                DefaultFileName = suggestedOutputDirectory,
+                Description = MetaDataGUI.SelectOutputDirectoryMessage,
+                UseDescriptionForTitle = true,
             };
             
             string outputDirectory;
 
-            if (selectOutputDirectoryDialog.ShowDialog() == CommonFileDialogResult.Ok)
-                outputDirectory = selectOutputDirectoryDialog.FileName;
+            if (selectOutputDirectoryDialog.ShowDialog() == DialogResult.OK)
+                outputDirectory = selectOutputDirectoryDialog.SelectedPath;
             else return;
             
             ProgressBarVisibility = Visibility.Visible;
@@ -452,7 +449,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _isRunningCreatePackage = true;
             CreatePackageCommand.RaiseCanExecuteChanged();
-            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Indeterminate);
+            MainWindow.ProgressBarWorker.ReportProgress(0);
 
             Task.Factory.StartNew(() => CreatePackageRunEngine(outputDirectory)).ContinueWith(t => OnCompletedCreatePackage());
         }
@@ -461,7 +458,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _isRunningCreatePackage = false;
             CreatePackageCommand.RaiseCanExecuteChanged();
-            TaskbarManager.Instance.SetProgressValue(1, 1);
+            MainWindow.ProgressBarWorker.ReportProgress(100);
         }
 
 
