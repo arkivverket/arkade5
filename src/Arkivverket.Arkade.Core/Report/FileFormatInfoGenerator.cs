@@ -47,7 +47,8 @@ namespace Arkivverket.Arkade.Core.Report
                     FileFormatPuId = siegfriedFileInfo.Id,
                     FileFormatName = siegfriedFileInfo.Format,
                     FileFormatVersion = siegfriedFileInfo.Version,
-                    FileScanError = siegfriedFileInfo.Errors
+                    FileMimeType = siegfriedFileInfo.MimeType,
+                    FileScanError = siegfriedFileInfo.Errors,
                 };
 
                 ListElements.Add(documentFileListElement);
@@ -110,6 +111,9 @@ namespace Arkivverket.Arkade.Core.Report
 
             [Name(ArkadeConstants.FileFormatInfoHeaders.FormatVersion)]
             public string FileFormatVersion { get; set; }
+
+            [Name(ArkadeConstants.FileFormatInfoHeaders.MimeType)]
+            public string FileMimeType { get; set; }
 
             [Name(ArkadeConstants.FileFormatInfoHeaders.FileScanError)]
             public string FileScanError { get; set; }

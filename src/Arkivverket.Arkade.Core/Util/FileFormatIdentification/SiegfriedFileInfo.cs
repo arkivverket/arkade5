@@ -11,8 +11,9 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         public string Id { get; }
         public string Format { get; }
         public string Version { get; }
+        public string MimeType { get; }
 
-        public SiegfriedFileInfo(string fileName, string errors, string id, string format, string version)
+        public SiegfriedFileInfo(string fileName, string errors, string id, string format, string version, string mimeType)
         {
             FileName = fileName;
             FileExtension = Path.GetExtension(fileName);
@@ -20,6 +21,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             Id = id;
             Format = format;
             Version = version;
+            MimeType = mimeType;
         }
 
         public bool Equals(SiegfriedFileInfo other)

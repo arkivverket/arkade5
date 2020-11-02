@@ -105,7 +105,8 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                         errors: record[3],
                         id: record[5],
                         format: record[6],
-                        version: record[7]
+                        version: record[7],
+                        mimeType: record[8]
                     );
 
                     siegfriedFileInfoObjects.Add(documentFileListElement);
