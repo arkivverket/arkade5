@@ -4,12 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:util="clr-namespace:Arkivverket.Arkade.GUI.Util"
+             xmlns:coreBase="clr-namespace:Arkivverket.Arkade.Core.Base;assembly=Arkivverket.Arkade.Core"
              xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000"
              d:DataContext="{d:DesignData LoadArchiveExtractionViewModel}">
     <Grid Height="350" Margin="15">
+        <Grid.Resources>
+            <ObjectDataProvider x:Key="GetArchiveTypes" MethodName="GetValues" ObjectType="coreBase:ArchiveType">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="coreBase:ArchiveType"></x:Type>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -37,9 +46,8 @@
 
         <TextBlock Grid.Row="5" Grid.Column="1" Margin="5 20" Text="{x:StaticExtension resources:GUI.LoadArchiveChooseArchiveTypeHeadingText}" Grid.RowSpan="2" />
         <StackPanel Grid.Row="5" Grid.Column="2" Margin="5 20" Grid.RowSpan="2">
-            <RadioButton Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 4" VerticalAlignment="Center" Content="{x:StaticExtension resources:GUI.LoadArchiveTypeFagsystem}" Command="{Binding SetArchiveTypeCommand}" CommandParameter="{x:StaticExtension resources:GUI.LoadArchiveTypeFagsystem}"/>
-            <RadioButton Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 4" VerticalAlignment="Center" Content="{x:StaticExtension resources:GUI.LoadArchiveTypeNoark3}"    Command="{Binding SetArchiveTypeCommand}" CommandParameter="{x:StaticExtension resources:GUI.LoadArchiveTypeNoark3}"/>
-            <RadioButton Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 4" VerticalAlignment="Center" Content="{x:StaticExtension resources:GUI.LoadArchiveTypeNoark5}"    Command="{Binding SetArchiveTypeCommand}" CommandParameter="{x:StaticExtension resources:GUI.LoadArchiveTypeNoark5}"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource GetArchiveTypes}}"
+                      SelectedItem="{Binding Path=ArchiveType}" Cursor="Hand"> </ComboBox>
         </StackPanel>
 
         <Button Grid.Row="7" Grid.Column="2" Margin="0,20,5,20" Content="{x:StaticExtension resources:GUI.LoadArchiveLoadArchiveButtonText}" HorizontalAlignment="Right" Width="140" Command="{Binding NavigateCommand}" Height="31"/>

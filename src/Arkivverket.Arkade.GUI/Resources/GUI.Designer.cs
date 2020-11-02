@@ -268,6 +268,15 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valgt arkivtype:.
+        /// </summary>
+        public static string LoadArchiveChosenArchiveTypeHeadingText {
+            get {
+                return ResourceManager.GetString("LoadArchiveChosenArchiveTypeHeadingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last inn uttrekk.
         /// </summary>
         public static string LoadArchiveLoadArchiveButtonText {
@@ -318,6 +327,15 @@ namespace Arkivverket.Arkade.GUI.Resources {
         public static string LoadArchiveTypeNoark5 {
             get {
                 return ResourceManager.GetString("LoadArchiveTypeNoark5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkade klarte ikke å identifisere arkivtypen. Vennligst velg type manuelt..
+        /// </summary>
+        public static string LoadArchiveTypeUndetected {
+            get {
+                return ResourceManager.GetString("LoadArchiveTypeUndetected", resourceCulture);
             }
         }
         

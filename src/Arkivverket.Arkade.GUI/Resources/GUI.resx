@@ -292,4 +292,10 @@ Du kan fortsatt lage en pakke av uttrekket.</value>
   <data name="ShowToolsDialogButtonText" xml:space="preserve">
     <value>Verktøy</value>
   </data>
+  <data name="LoadArchiveChosenArchiveTypeHeadingText" xml:space="preserve">
+    <value>Valgt arkivtype:</value>
+  </data>
+  <data name="LoadArchiveTypeUndetected" xml:space="preserve">
+    <value>Arkade klarte ikke å identifisere arkivtypen. Vennligst velg type manuelt.</value>
+  </data>
 </root>

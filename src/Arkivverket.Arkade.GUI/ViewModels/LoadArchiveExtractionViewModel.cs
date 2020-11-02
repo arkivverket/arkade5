@@ -1,6 +1,7 @@
 using System.IO;
 using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Identify;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -15,8 +16,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private readonly IRegionManager _regionManager;
         private string _archiveFileName;
         private string _archiveFileNameGuiRepresentation;
-        private ArchiveType _archiveType;
+        private ArchiveType? _archiveType;
         private bool _isArchiveTypeSelected;
+        private IArchiveTypeIdentifier _archiveTypeIdentifier;
 
         public string ArchiveFileName
         {
@@ -39,12 +41,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
 
-        public ArchiveType ArchiveType
+        public ArchiveType? ArchiveType
         {
             get => _archiveType;
             set
             {
                 SetProperty(ref _archiveType, value);
+                _isArchiveTypeSelected = value != null;
                 NavigateCommand.RaiseCanExecuteChanged();
             }
         }
@@ -53,29 +56,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand NavigateCommand { get; set; }
         public DelegateCommand OpenArchiveFileCommand { get; set; }
         public DelegateCommand OpenArchiveFolderCommand { get; set; }
-        public DelegateCommand<string> SetArchiveTypeCommand { get; set; } // Would be better to user ArchiveType enum as arg, but could not get to work with Prism
 
-        public LoadArchiveExtractionViewModel(IRegionManager regionManager)
+        public LoadArchiveExtractionViewModel(IRegionManager regionManager, IArchiveTypeIdentifier archiveTypeIdentifier)
         {
             _regionManager = regionManager;
+            _archiveTypeIdentifier = archiveTypeIdentifier;
             OpenArchiveFileCommand = new DelegateCommand(OpenArchiveFileDialog);
             OpenArchiveFolderCommand = new DelegateCommand(OpenArchiveFolderDialog);
-            SetArchiveTypeCommand = new DelegateCommand<string>(SetArchiveTypeUserInput); 
 
             NavigateCommand = new DelegateCommand(Navigate, CanRunTests);
             _isArchiveTypeSelected = false;
-        }
-
-        private void SetArchiveTypeUserInput(string archiveTypeSelected)
-        {
-            _log.Information($"User action: Select archive type {archiveTypeSelected}");
-
-            ArchiveType tempArchiveType;
-            if (ArchiveType.TryParse(archiveTypeSelected, true, out tempArchiveType))
-            {
-                _isArchiveTypeSelected = true;
-                ArchiveType = tempArchiveType;
-            }
         }
 
         private void Navigate()
@@ -106,6 +96,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _log.Information("User action: Choose archive file {ArchiveFileName}", ArchiveFileName);
 
             PresentChosenArchiveInGui(ArchiveFileName, false);
+
+            IdentifyTypeOfChosenArchive(ArchiveFileName, false);
         }
 
         private void OpenArchiveFolderDialog()
@@ -120,6 +112,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _log.Information("User action: Choose archive folder {ArchiveFileName}", ArchiveFileName);
 
             PresentChosenArchiveInGui(ArchiveFileName, true);
+
+            IdentifyTypeOfChosenArchive(ArchiveFileName, true);
         }
 
 
@@ -151,7 +145,23 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             }
         }
 
+        private void IdentifyTypeOfChosenArchive(string archiveFileName, bool isDirectory)
+        {
+            ArchiveType = isDirectory
+                ? _archiveTypeIdentifier.IdentifyTypeOfChosenArchiveDirectory(archiveFileName)
+                : _archiveTypeIdentifier.IdentifyTypeOfChosenArchiveFile(archiveFileName);
 
+            if (ArchiveType == null)
+            {
+                _log.Information("Arkade archive type detection failed.");
+                _isArchiveTypeSelected = false;
+            }
+            else
+            {
+                _log.Information($"Arkade determined selected archive to be of type {ArchiveType}");
+                _isArchiveTypeSelected = true;
+            }
+        }
 
 
         public void OnNavigatedTo(NavigationContext navigationContext)

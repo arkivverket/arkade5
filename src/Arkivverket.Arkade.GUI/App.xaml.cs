@@ -83,7 +83,7 @@ namespace Arkivverket.Arkade.GUI
 
             containerRegistry.Register<AddmlDatasetTestEngine>();
             containerRegistry.Register<AddmlProcessRunner>();
-            containerRegistry.Register<IArchiveIdentifier, ArchiveIdentifier>();
+            containerRegistry.Register<IArchiveTypeIdentifier, ArchiveTypeIdentifier>();
             containerRegistry.Register<FlatFileReaderFactory>();
             containerRegistry.Register<Noark5TestEngine>();
             containerRegistry.Register<Noark5TestProvider>();
