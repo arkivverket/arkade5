@@ -145,7 +145,7 @@ namespace Arkivverket.Arkade.CLI
             string command = GetRunningCommand(options.GetType().Name);
 
             Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {options.FormatCheckTarget}");
-            DocumentFileListGenerator.Generate(new DirectoryInfo(options.FormatCheckTarget), options.OutputDirectory);
+            FileFormatInfoGenerator.Generate(new DirectoryInfo(options.FormatCheckTarget), options.OutputDirectory);
 
             LogFinishedStatus(command);
         }

@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                 string resultFileDirectoryPath = archive.WorkingDirectory.AdministrativeMetadata().DirectoryInfo().FullName;
                 try
                 {
-                    DocumentFileListGenerator.Generate(archive.GetDocumentsDirectory(), resultFileDirectoryPath);
+                    FileFormatInfoGenerator.Generate(archive.GetDocumentsDirectory(), resultFileDirectoryPath);
                 }
                 catch (SiegfriedFileFormatIdentifierException siegfriedException)
                 {

@@ -103,13 +103,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     CloseButtonIsEnabled = false;
                     ProgressBarVisibility = Visibility.Visible;
 
-                    DocumentFileListGenerator.Generate(new DirectoryInfo(DirectoryForFormatCheck), DirectoryToSaveFormatCheckResult);
+                    FileFormatInfoGenerator.Generate(new DirectoryInfo(DirectoryForFormatCheck), DirectoryToSaveFormatCheckResult);
                 });
 
             CloseButtonIsEnabled = true;
             ProgressBarVisibility = Visibility.Hidden;
 
-            string filePath = $"{Path.Combine(DirectoryToSaveFormatCheckResult, ArkadeConstants.DocumentFileListFileName)}";
+            string filePath = $"{Path.Combine(DirectoryToSaveFormatCheckResult, ArkadeConstants.FileFormatInfoFileName)}";
 
             FormatCheckStatus = $"{Resources.ToolsGUI.FormatCheckCompletedMessage}\n" +
                                 $"{filePath}";
