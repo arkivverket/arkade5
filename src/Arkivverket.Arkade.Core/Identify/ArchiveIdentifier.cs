@@ -21,10 +21,6 @@ namespace Arkivverket.Arkade.Core.Identify
             {
                 return ArchiveType.Noark5;
             }
-            if (utrekkType == type.Noark4)
-            {
-                return ArchiveType.Noark4;
-            }
             if (utrekkType == type.Noark3)
             {
                 return ArchiveType.Noark3;

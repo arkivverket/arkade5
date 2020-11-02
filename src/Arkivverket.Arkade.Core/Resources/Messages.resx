@@ -326,9 +326,6 @@ Aktuell sjekksum: {1}</value>
   <data name="LogMessageStartTesting" xml:space="preserve">
     <value>Starter testing av arkivet.</value>
   </data>
-  <data name="Noark4ConvertNoarkihFileError" xml:space="preserve">
-    <value>Noark4 - Feil ved konvertering av {0} til {1}</value>
-  </data>
   <data name="NumberOfRecordsWithFieldDelimiterErrorDescription" xml:space="preserve">
     <value>Oppsummering av antall poster som har feil tilknyttet feltseparator og/eller postseparator.</value>
   </data>

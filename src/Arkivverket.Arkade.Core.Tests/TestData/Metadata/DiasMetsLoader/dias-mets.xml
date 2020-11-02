@@ -76,7 +76,7 @@
     <mets:agent ROLE="OTHER" OTHERROLE="PRODUCER" TYPE="OTHER" OTHERTYPE="SOFTWARE">
       <mets:name>Some archive system name</mets:name>
       <mets:note>v2.0.0</mets:note>
-      <mets:note>Noark4</mets:note>
+      <mets:note>Noark5</mets:note>
     </mets:agent>
     <mets:altRecordID TYPE="DELIVERYSPECIFICATION">Some archive description</mets:altRecordID>
     <mets:altRecordID TYPE="SUBMISSIONAGREEMENT">XX 00-0000/0000; 0000-00-00</mets:altRecordID>

@@ -28,13 +28,6 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
             reader.GetType().Should().Be(typeof(FixedFileFormatReader));
         }
 
-        [Fact(Skip = "flatFile == null wont work!")]
-        public void ShouldReturnNoark4FileReaderForNoark4()
-        {
-            var reader = new FlatFileReaderFactory().GetRecordEnumerator(CreateArchive(ArchiveType.Noark4), null);
-            reader.GetType().Should().Be(typeof(Noark4FileReader));
-        }
-
         [Fact(Skip = "Initialization of Archive expects addml-file in workingdirectory")]
         public void ShouldThrowExceptionForNoark5()
         {

@@ -203,9 +203,6 @@
   <data name="LoadArchiveTypeNoark3" xml:space="preserve">
     <value>Noark3</value>
   </data>
-  <data name="LoadArchiveTypeNoark4" xml:space="preserve">
-    <value>Noark4</value>
-  </data>
   <data name="LoadArchiveTypeNoark5" xml:space="preserve">
     <value>Noark5</value>
   </data>
@@ -288,9 +285,6 @@ Du kan fortsatt lage en pakke av uttrekket.</value>
   </data>
   <data name="TestrunnerArchiveTestability" xml:space="preserve">
     <value>Testbarhet</value>
-  </data>
-  <data name="LoadArchiveNoark4OptionDisabledTooltip" xml:space="preserve">
-    <value>Arkade støtter inntil videre ikke arkivuttrekk av typen Noark 4</value>
   </data>
   <data name="ShowAboutDialogButtonText" xml:space="preserve">
     <value>Om Arkade 5</value>

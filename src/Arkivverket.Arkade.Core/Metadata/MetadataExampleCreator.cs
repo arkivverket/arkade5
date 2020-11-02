@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                 {
                     Name = "Some archive system name",
                     Version = "v2.0.0",
-                    Type = "Noark4",
+                    Type = "Noark3",
                     TypeVersion = "N/A" // To be ignored by MetsCreator
                 },
                 CreatorSoftwareSystem = new MetadataSystemInformationUnit

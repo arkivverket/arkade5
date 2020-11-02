@@ -198,7 +198,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsHdrAgents[17].OTHERROLE.Should().Be(metsTypeMetsHdrAgentOTHERROLE.PRODUCER);
             metsHdrAgents[17].name.Should().Be("Some archive system name");
             metsHdrAgents[17].note.Should().Contain(n => n.Equals("v2.0.0"));
-            metsHdrAgents[17].note.Should().Contain(n => n.Equals("Noark4"));
+            metsHdrAgents[17].note.Should().Contain(n => n.Equals("Noark3"));
             metsHdrAgents[17].note.Should().Contain(n => n.Equals("notescontent:Version,Type"));
 
             // Type-version applies to Noark5 only and is not expected amongst agents:

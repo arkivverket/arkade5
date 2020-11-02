@@ -15,12 +15,6 @@ namespace Arkivverket.Arkade.Core.Tests.Identify
         }
 
         [Fact]
-        public void ShouldIdentifyNoark4()
-        {
-            FindArchiveType("noark4-info.xml").Should().Be(ArchiveType.Noark4);
-        }
-
-        [Fact]
         public void ShouldIdentifyNoark5()
         {
             FindArchiveType("noark5-info.xml").Should().Be(ArchiveType.Noark5);

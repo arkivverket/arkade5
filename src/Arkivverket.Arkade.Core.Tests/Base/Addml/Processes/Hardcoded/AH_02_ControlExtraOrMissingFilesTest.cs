@@ -55,35 +55,5 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
             testRun.Results[3].Location.ToString().Should().Contain("nosuchfile.txt");
             testRun.Results[3].Message.Should().Be("Finnes i ADDML, men ikke i arkiv");
         }
-
-        [Fact(Skip = "Initialization of Archive expects addml-file in workingdirectory")]
-        public void ShouldNotReportExtraFilesWhenDefinedInDokversXml()
-        {
-            WorkingDirectory workingDirectory = new WorkingDirectory(null, new DirectoryInfo(Path.Combine(TestUtil.TestDataDirectory, "noark4-extrafiles")));
-
-            AddmlFlatFileDefinition flatFileDefinition2 = new AddmlFlatFileDefinitionBuilder()
-                .WithFileInfo(new FileInfo(
-                    Path.Combine(workingDirectory.Content().DirectoryInfo().FullName, "DOKVERS.XML")))
-                .WithFileName("DATA\\DOKVERS.XML")
-                .Build();
-
-            AddmlDefinition addmlDefinition = new AddmlDefinitionBuilder()
-                .WithAddmlFlatFileDefinitions(
-                    new List<AddmlFlatFileDefinition> {
-                        flatFileDefinition2
-                },
-                    new List<AddmlFlatFileDefinition> {
-                        flatFileDefinition2
-                    })
-                .Build();
-
-            Archive archive = new Archive(ArchiveType.Noark4, Uuid.Random(), workingDirectory);
-            
-            AH_02_ControlExtraOrMissingFiles test = new AH_02_ControlExtraOrMissingFiles(addmlDefinition, archive);
-
-            TestRun testRun = test.GetTestRun();
-            testRun.IsSuccess().Should().BeTrue();
-        }
-
     }
 }

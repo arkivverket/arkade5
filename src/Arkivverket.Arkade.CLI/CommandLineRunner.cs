@@ -182,12 +182,6 @@ namespace Arkivverket.Arkade.CLI
                 throw new ArgumentException("unknown archive type");
             }
 
-            if (archiveType == ArchiveType.Noark4)
-            {
-                Log.Error("Archive type Noark 4 is currently not supported");
-                throw new ArgumentException("unsupported archive type");
-            }
-
             return archiveType;
         }
 

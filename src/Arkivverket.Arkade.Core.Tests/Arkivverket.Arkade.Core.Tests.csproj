@@ -132,29 +132,8 @@
     <None Update="TestData\noark3\SAK.DAT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\noark4-extrafiles\DATA\Dokumenter001\extra1.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\noark4-extrafiles\DATA\Dokumenter001\extra2.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\noark4-extrafiles\DATA\DOKVERS.XML">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\noark4-extrafiles\NOARKIH.XML">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\noark4-info.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\noark4\addml.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="TestData\Noark5\DocumentfilesControl\FilesToBeReferenced\content\DOKUMENT\underkatalog\d.PDF">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\noark4\NOARKIH.XML">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\noark5-info.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

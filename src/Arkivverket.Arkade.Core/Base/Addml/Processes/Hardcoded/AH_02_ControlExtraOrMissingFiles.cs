@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using System.IO;
 using System.Linq;
-using System.Xml;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
@@ -55,11 +53,6 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
             HashSet<string> filesInWorkingDirectoryNotInAddml = new HashSet<string>(allFilesInWorkingDirectory.Except(allFilesInAddml));
 
             IEnumerable<string> filesInAddmlNotInWorkingDirectory = allFilesInAddml.Except(allFilesInWorkingDirectory);
-
-            if (_archive.ArchiveType.Equals(ArchiveType.Noark4))
-            {
-                FilterNoark4DokversReferences(filesInWorkingDirectoryNotInAddml);
-            }
             
             List<TestResult> testResults = new List<TestResult>();
             foreach (string s in filesInWorkingDirectoryNotInAddml)
@@ -90,52 +83,6 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
 
         protected override void DoEndOfFile()
         {
-        }
-
-        private void FilterNoark4DokversReferences(HashSet<string> unfiltered)
-        {
-            if (unfiltered == null || !unfiltered.Any())
-                return;
-
-            var pathToDokvers = _archive.WorkingDirectory.Content().WithSubDirectory("DATA").WithFile("DOKVERS.XML").FullName;
-
-            // potential spot for using stream reader instead. 
-            var xmlDoc = new XmlDocument();
-            xmlDoc.XmlResolver = null; // skip resolving of DTD
-            xmlDoc.Load(File.OpenRead(pathToDokvers));
-
-            bool usesForwardSlashAsSeparator = HasForwardSlashInFilename(unfiltered);
-            
-            foreach (XmlNode row in xmlDoc.SelectNodes("//VE.FILREF"))
-            {
-                string dokversReference = row.InnerText;
-
-                if (dokversReference.Contains("/") && usesForwardSlashAsSeparator == false)
-                    dokversReference = dokversReference.Replace("/", "\\");
-                else if (dokversReference.Contains("\\") && usesForwardSlashAsSeparator)
-                    dokversReference = dokversReference.Replace("\\", "/");
-
-                var fileReference = "DATA";
-                if (!dokversReference.StartsWith("\\"))
-                    fileReference = fileReference + "\\";
-                fileReference = fileReference + dokversReference;
-
-                unfiltered.Remove(fileReference);
-            }
-        }
-
-        private bool HasForwardSlashInFilename(HashSet<string> unfiltered)
-        {
-            int counter = 0;
-            foreach(string item in unfiltered)
-            {
-                if (item.IndexOf("/", StringComparison.Ordinal) != -1)
-                    return true;
-
-                if (counter++ == 10) // only check the first 10 entries
-                    break;
-            }
-            return false;
         }
 
         public AH_02_ControlExtraOrMissingFiles(AddmlDefinition addmlDefinition, Archive archive)

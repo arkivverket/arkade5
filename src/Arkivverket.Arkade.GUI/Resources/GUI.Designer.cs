@@ -277,15 +277,6 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkade støtter inntil videre ikke arkivuttrekk av typen Noark 4.
-        /// </summary>
-        public static string LoadArchiveNoark4OptionDisabledTooltip {
-            get {
-                return ResourceManager.GetString("LoadArchiveNoark4OptionDisabledTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Valgt fil.
         /// </summary>
         public static string LoadArchiveSelectedFileText {
@@ -318,15 +309,6 @@ namespace Arkivverket.Arkade.GUI.Resources {
         public static string LoadArchiveTypeNoark3 {
             get {
                 return ResourceManager.GetString("LoadArchiveTypeNoark3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Noark4.
-        /// </summary>
-        public static string LoadArchiveTypeNoark4 {
-            get {
-                return ResourceManager.GetString("LoadArchiveTypeNoark4", resourceCulture);
             }
         }
         
