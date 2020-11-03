@@ -59,7 +59,7 @@ namespace Arkivverket.Arkade.Core.Util
         public struct FileFormatInfoHeaders
         {
             public const string FileName = "Filnavn";
-            public const string FileExtension = "Filutvidelse";
+            public const string FileExtension = "Filendelse";
             public const string FormatId = "Format-ID";
             public const string FormatName = "Formatnavn";
             public const string FormatVersion = "Formatversjon";
