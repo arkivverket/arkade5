@@ -232,6 +232,15 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkivtype.
+        /// </summary>
+        public static string LoadArchiveArchiveTypeHeadingText {
+            get {
+                return ResourceManager.GetString("LoadArchiveArchiveTypeHeadingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkivuttrekk.
         /// </summary>
         public static string LoadArchiveChooseArchiveHeadingText {
@@ -241,11 +250,11 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg arkivtype.
+        ///   Looks up a localized string similar to Vennligst velg et arkivuttrekk.
         /// </summary>
-        public static string LoadArchiveChooseArchiveTypeHeadingText {
+        public static string LoadArchiveChooseArchiveLabelText {
             get {
-                return ResourceManager.GetString("LoadArchiveChooseArchiveTypeHeadingText", resourceCulture);
+                return ResourceManager.GetString("LoadArchiveChooseArchiveLabelText", resourceCulture);
             }
         }
         

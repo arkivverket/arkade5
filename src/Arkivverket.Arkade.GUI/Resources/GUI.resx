@@ -179,8 +179,8 @@
   <data name="LoadArchiveChooseArchiveHeadingText" xml:space="preserve">
     <value>Arkivuttrekk</value>
   </data>
-  <data name="LoadArchiveChooseArchiveTypeHeadingText" xml:space="preserve">
-    <value>Velg arkivtype</value>
+  <data name="LoadArchiveArchiveTypeHeadingText" xml:space="preserve">
+    <value>Arkivtype</value>
   </data>
   <data name="LoadArchiveChooseFolderButtonText" xml:space="preserve">
     <value>Velg katalog</value>
@@ -297,5 +297,8 @@ Du kan fortsatt lage en pakke av uttrekket.</value>
   </data>
   <data name="LoadArchiveTypeUndetected" xml:space="preserve">
     <value>Arkade klarte ikke å identifisere arkivtypen. Vennligst velg type manuelt.</value>
+  </data>
+  <data name="LoadArchiveChooseArchiveLabelText" xml:space="preserve">
+    <value>Vennligst velg et arkivuttrekk</value>
   </data>
 </root>

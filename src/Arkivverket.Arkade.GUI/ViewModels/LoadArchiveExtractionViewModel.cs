@@ -15,7 +15,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private readonly IRegionManager _regionManager;
         private string _archiveFileName;
-        private string _archiveFileNameGuiRepresentation;
+        private string _archiveFileNameGuiRepresentation = Resources.GUI.LoadArchiveChooseArchiveLabelText;
+        private bool _isArchiveFileNameSelected;
         private ArchiveType? _archiveType;
         private bool _isArchiveTypeSelected;
         private IArchiveTypeIdentifier _archiveTypeIdentifier;
@@ -37,7 +38,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 SetProperty(ref _archiveFileNameGuiRepresentation, value);
                 NavigateCommand.RaiseCanExecuteChanged();
+                IsArchiveFileNameSelected = !string.IsNullOrWhiteSpace(value);
             }
+        }
+
+        public bool IsArchiveFileNameSelected
+        {
+            get => _isArchiveFileNameSelected;
+            set => SetProperty(ref _isArchiveFileNameSelected, value);
         }
 
 
@@ -88,10 +96,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _log.Information("User action: Open archive file dialog");
 
-            ArchiveFileName = OpenFileDialog();
-
-            if (ArchiveFileName == null)
+            if (!OpenFileDialog(out string archiveFileName))
                 return;
+
+            ArchiveFileName = archiveFileName;
 
             _log.Information("User action: Choose archive file {ArchiveFileName}", ArchiveFileName);
 
@@ -104,10 +112,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _log.Information("User action: Open archive folder dialog");
 
-            ArchiveFileName = OpenFolderDialog();
-
-            if (ArchiveFileName == null)
+            if (!OpenFolderDialog(out string archiveFolderName))
                 return;
+
+            ArchiveFileName = archiveFolderName;
 
             _log.Information("User action: Choose archive folder {ArchiveFileName}", ArchiveFileName);
 
@@ -117,32 +125,41 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
 
-        private string OpenFolderDialog()
+        private bool OpenFolderDialog(out string fullFolderPath)
         {
             var dialog = new FolderBrowserDialog();
+            DialogResult dialogResult = dialog.ShowDialog();
 
-            return dialog.ShowDialog() == DialogResult.OK ? dialog.SelectedPath : null;
+            if (dialogResult == DialogResult.OK)
+            {
+                fullFolderPath = dialog.SelectedPath;
+                return true;
+            }
+
+            fullFolderPath = null;
+            return false;
         }
 
-        private string OpenFileDialog()
+        private bool OpenFileDialog(out string fullFilePath)
         {
             var dialog = new OpenFileDialog();
+            DialogResult dialogResult = dialog.ShowDialog();
 
-            return dialog.ShowDialog() == DialogResult.OK ? dialog.FileName : null;
+            if (dialogResult == DialogResult.OK)
+            {
+                fullFilePath = dialog.FileName;
+                return true;
+            }
+
+            fullFilePath = null;
+            return false;
         }
 
         private void PresentChosenArchiveInGui(string archiveFileName, bool isDirectory)
         {
-            if (isDirectory)
-            {
-                ArchiveFileNameGuiRepresentation =
-                    $"{Resources.GUI.LoadArchiveSelectedFolderText}: {new DirectoryInfo(archiveFileName).FullName}";
-            }
-            else
-            {
-                ArchiveFileNameGuiRepresentation =
-                    $"{Resources.GUI.LoadArchiveSelectedFileText}: {Path.GetFullPath(archiveFileName)}";
-            }
+            ArchiveFileNameGuiRepresentation = isDirectory
+                ? new DirectoryInfo(archiveFileName).FullName
+                : Path.GetFullPath(archiveFileName);
         }
 
         private void IdentifyTypeOfChosenArchive(string archiveFileName, bool isDirectory)
