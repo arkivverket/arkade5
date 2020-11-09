@@ -40,11 +40,10 @@
             </Style>
         </Grid.Resources>
 
-        <TextBlock Grid.Row="0"
-                   Grid.ColumnSpan="6"
-                   Text="{x:Static resources:GUI.CreatePackageWindowTitle}"
-                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                   Margin="10" />
+        <Label Grid.Row="0" FontSize="24"
+               Grid.ColumnSpan="6"
+               Content="{x:Static resources:GUI.CreatePackageWindowTitle}"
+               Margin="5" />
 
         
         <TextBlock Grid.Row="1"
