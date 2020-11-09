@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Testing.Noark5;
@@ -15,6 +16,7 @@ namespace Arkivverket.Arkade.CLI
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
         private static readonly Core.Base.Arkade Arkade;
+        private static readonly IArchiveTypeIdentifier ArchiveTypeIdentifier = new ArchiveTypeIdentifier();
 
         static CommandLineRunner()
         {
@@ -174,15 +176,32 @@ namespace Arkivverket.Arkade.CLI
             Arkade.CreatePackage(testSession, outputDirectory);
         }
 
-        private static ArchiveType GetArchiveType(string archiveTypeString)
+        private static ArchiveType GetArchiveType(string archiveTypeString, string archive)
         {
-            if (!Enum.TryParse(archiveTypeString, true, out ArchiveType archiveType))
+            if (string.IsNullOrWhiteSpace(archiveTypeString))
+            {
+                bool isDirectory = !Path.HasExtension(archive);
+                ArchiveType? detectedArchiveType = isDirectory
+                    ? ArchiveTypeIdentifier.IdentifyTypeOfChosenArchiveDirectory(archive)
+                    : ArchiveTypeIdentifier.IdentifyTypeOfChosenArchiveFile(archive);
+                if (detectedArchiveType == null)
+                {
+                    string errorMessage =
+                        $"Arkade could not detect archive type of {archive}. " +
+                        "Please check the structure- or info-file. To attempt a forced run, explicitly specify type with parameter \"-t\"";
+                    throw new ArgumentException(errorMessage);
+                }
+                Log.Information($"Arkade determined {archive} to be of type {detectedArchiveType}");
+                return (ArchiveType) detectedArchiveType;
+            }
+
+            if (!Enum.TryParse(archiveTypeString, true, out ArchiveType selectedArchiveType))
             {
                 Log.Error("Unknown archive type");
                 throw new ArgumentException("unknown archive type");
             }
 
-            return archiveType;
+            return selectedArchiveType;
         }
 
         private static TestSession CreateTestSession(string archive, string archiveTypeString,
@@ -191,7 +210,7 @@ namespace Arkivverket.Arkade.CLI
             var fileInfo = new FileInfo(archive);
             Log.Information($"{{{command}ing}} archive: {fileInfo.FullName}");
 
-            ArchiveType archiveType = GetArchiveType(archiveTypeString);
+            ArchiveType archiveType = GetArchiveType(archiveTypeString, archive);
 
             TestSession testSession;
             if (File.Exists(archive))
