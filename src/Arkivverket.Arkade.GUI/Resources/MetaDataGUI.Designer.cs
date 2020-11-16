@@ -252,9 +252,9 @@ namespace Arkivverket.Arkade.GUI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sluttdato.
         /// </summary>
-        public static string EndData {
+        public static string EndDate {
             get {
-                return ResourceManager.GetString("EndData", resourceCulture);
+                return ResourceManager.GetString("EndDate", resourceCulture);
             }
         }
         

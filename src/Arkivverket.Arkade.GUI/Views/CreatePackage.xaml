@@ -714,7 +714,7 @@
                                     GotFocus="UpdateStandardLabel" SelectedDateChanged="UpdateStandardLabel"
                                     Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
                                     Language="no"
-                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.EndData}" 
+                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.EndDate}" 
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
                                     SelectedDate="{Binding MetaDataNoarkSection.EndDate, Mode=TwoWay}" CalendarOpened="DatePicker_CalendarOpened"/>
 
