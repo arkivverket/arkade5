@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arkivverket.Arkade.GUI.Views"
         xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         Title="{x:Static resources:ToolsGUI.ToolsDialogTitle}" Height ="300"  Width="750"
         Icon="../Arkade5_2.0.ico"

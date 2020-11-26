@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Arkivverket.Arkade.GUI.ViewModels;
 
 namespace Arkivverket.Arkade.GUI.Views
 {
@@ -11,8 +10,6 @@ namespace Arkivverket.Arkade.GUI.Views
         public ToolsDialog()
         {
             InitializeComponent();
-
-            DataContext = new ToolsDialogViewModel();
 
             Owner = Application.Current.MainWindow;
 

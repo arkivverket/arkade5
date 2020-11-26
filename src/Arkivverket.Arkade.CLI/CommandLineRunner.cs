@@ -5,7 +5,6 @@ using System.Text;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Metadata;
-using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
@@ -147,7 +146,7 @@ namespace Arkivverket.Arkade.CLI
             string command = GetRunningCommand(options.GetType().Name);
 
             Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {options.FormatCheckTarget}");
-            FileFormatInfoGenerator.Generate(new DirectoryInfo(options.FormatCheckTarget), options.OutputDirectory);
+            Arkade.GenerateFileFormatInfoFiles(new DirectoryInfo(options.FormatCheckTarget), options.OutputDirectory);
 
             LogFinishedStatus(command);
         }

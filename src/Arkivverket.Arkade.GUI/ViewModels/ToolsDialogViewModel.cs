@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using Arkivverket.Arkade.Core.Report;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Util;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -12,6 +12,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 {
     class ToolsDialogViewModel : BindableBase
     {
+        private ArkadeApi _arkadeApi;
+
         private string _directoryForFormatCheck;
         public string DirectoryForFormatCheck
         {
@@ -58,8 +60,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand ChooseDirectoryForFormatCheckCommand { get; }
         public DelegateCommand RunFormatCheckCommand { get; }
 
-        public ToolsDialogViewModel()
+        public ToolsDialogViewModel(ArkadeApi arkadeApi)
         {
+            _arkadeApi = arkadeApi;
+
             ChooseDirectoryForFormatCheckCommand = new DelegateCommand(ChooseDirectoryForFormatCheck);
             RunFormatCheckCommand = new DelegateCommand(RunFormatCheck);
 
@@ -103,7 +107,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     CloseButtonIsEnabled = false;
                     ProgressBarVisibility = Visibility.Visible;
 
-                    FileFormatInfoGenerator.Generate(new DirectoryInfo(DirectoryForFormatCheck), DirectoryToSaveFormatCheckResult);
+                    _arkadeApi.GenerateFileFormatInfoFiles(new DirectoryInfo(DirectoryForFormatCheck), DirectoryToSaveFormatCheckResult);
                 });
 
             CloseButtonIsEnabled = true;

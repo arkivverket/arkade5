@@ -112,5 +112,9 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
+        public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath)
+        {
+            FileFormatInfoGenerator.Generate(filesDirectory, resultFileDirectoryPath);
+        }
     }
 }
