@@ -53,7 +53,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private static void ShowWebPage()
         {
-            Process.Start("http://arkade.arkivverket.no/");
+            LaunchArkadeWebSite();
         }
 
         private static void ShowSettings()
@@ -118,7 +118,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private static void DownloadNewVersion()
         {
-            Process.Start("http://arkade.arkivverket.no/");
+            LaunchArkadeWebSite();
+        }
+
+        private static void LaunchArkadeWebSite()
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "http://arkade.arkivverket.no/",
+                UseShellExecute = true
+            });
         }
     }
 }
