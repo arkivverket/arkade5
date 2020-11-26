@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageLicenseUrl>https://github.com/arkivverket/arkade5/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>http://arkade.arkivverket.no</PackageProjectUrl>
+    <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/arkivverket/arkade5/master/src/Setup/Arkade5_2.0.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
