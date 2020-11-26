@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
@@ -15,7 +14,6 @@ namespace Arkivverket.Arkade.CLI
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
         private static readonly Core.Base.Arkade Arkade;
-        private static readonly IArchiveTypeIdentifier ArchiveTypeIdentifier = new ArchiveTypeIdentifier();
 
         static CommandLineRunner()
         {
@@ -179,10 +177,8 @@ namespace Arkivverket.Arkade.CLI
         {
             if (string.IsNullOrWhiteSpace(archiveTypeString))
             {
-                bool isDirectory = !Path.HasExtension(archive);
-                ArchiveType? detectedArchiveType = isDirectory
-                    ? ArchiveTypeIdentifier.IdentifyTypeOfChosenArchiveDirectory(archive)
-                    : ArchiveTypeIdentifier.IdentifyTypeOfChosenArchiveFile(archive);
+                ArchiveType? detectedArchiveType = Arkade.DetectArchiveType(archive);
+
                 if (detectedArchiveType == null)
                 {
                     string errorMessage =
