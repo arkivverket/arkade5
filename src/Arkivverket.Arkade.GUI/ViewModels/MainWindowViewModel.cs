@@ -125,7 +125,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             Process.Start(new ProcessStartInfo
             {
-                FileName = "https://arkade.arkivverket.no/",
+                FileName = ArkadeConstants.ArkadeWebSiteUrl,
                 UseShellExecute = true
             });
         }

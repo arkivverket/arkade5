@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.CLI
             }
 
             Log.Information(
-                "Download new releases, see release notes and version history at: https://arkade.arkivverket.no/ \n");
+                "Download new releases, see release notes and version history at: " + ArkadeConstants.ArkadeWebSiteUrl + "\n");
         }
 
         private static string GetBundledSoftwareInfo()
