@@ -21,10 +21,22 @@
     </xsl:copy>
   </xsl:template>
 -->
+
+  <!-- Fix path issues -->
+  <xsl:template match="wix:File[contains(@Source, '\net5.0-windows')]">
+    <xsl:variable name="fileName" select="substring-after(@*[name()='Source'],'\net5.0-windows\')" />
+    <xsl:copy>
+      <xsl:attribute name="Source">$(var.Arkivverket.Arkade.GUI.TargetDir)<xsl:value-of select="$fileName"/></xsl:attribute>
+      <xsl:apply-templates select="@*[name()!='Source'] | node()" />
+    </xsl:copy>
+  </xsl:template>
   
   <xsl:template match="wix:File[contains(@Source, 'Arkade.GUI.exe') and not(contains(@Source, '.config'))]">
+    <xsl:variable name="fileName" select="substring-after(@*[name()='Source'],'\net5.0-windows\')" />
     <xsl:copy>
-      <xsl:apply-templates select="@* | node()" />
+      <xsl:attribute name="Source">$(var.Arkivverket.Arkade.GUI.TargetDir)<xsl:value-of select="$fileName"/></xsl:attribute>
+      <xsl:attribute name="Id">ApplicationExe</xsl:attribute>
+      <xsl:apply-templates select="@*[name()!='Source' and name()!='Id'] | node()" />
       <wix:Shortcut Id="ApplicationStartMenuShortcut"
               Advertise="yes"
               Directory="ProgramMenuFolder"

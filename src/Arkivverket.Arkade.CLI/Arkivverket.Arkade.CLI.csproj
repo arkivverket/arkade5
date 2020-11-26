@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net5.0</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageLicenseUrl>https://github.com/arkivverket/arkade5/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
