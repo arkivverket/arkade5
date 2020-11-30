@@ -7,10 +7,10 @@
              xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:models="clr-namespace:Arkivverket.Arkade.GUI.Models"
-             xmlns:validation="clr-namespace:Arkivverket.Arkade.GUI.Util"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d"
-             d:DesignHeight="600" Width="1000">
+             d:DesignHeight="600" Width="1000"
+             d:DataContext="{d:DesignData CreatePackageViewModel}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -40,18 +40,17 @@
             </Style>
         </Grid.Resources>
 
-        <TextBlock Grid.Row="0"
-                   Grid.ColumnSpan="6"
-                   Text="{x:Static resources:GUI.CreatePackageWindowTitle}"
-                   Style="{StaticResource MaterialDesignTitleTextBlock}"
-                   Margin="10" />
+        <Label Grid.Row="0" FontSize="24"
+               Grid.ColumnSpan="6"
+               Content="{x:Static resources:GUI.CreatePackageWindowTitle}"
+               Margin="5" />
 
         
         <TextBlock Grid.Row="1"
                    Grid.Column="0"
                    Grid.ColumnSpan="6"
                    Margin="10"
-                   Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                    Text="{x:Static resources:MetaDataGUI.MetadataRequiredFieldsInfo}" />
         
         <Button Grid.Row="1" Grid.Column="5" Height="24" Width="190"
@@ -112,7 +111,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
-                                Command="{Binding AddMetadataAchiveCreatorEntry}">
+                                Command="{Binding AddMetadataArchiveCreatorEntry}">
                             <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
                         </Button>
                     </StackPanel>
@@ -133,6 +132,7 @@
                                     Visibility="{Binding VisibilityItem}">
                                 <Grid Margin="5">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
@@ -192,20 +192,14 @@
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
-                    <StackPanel Orientation="Horizontal">
-                        <!--<Button Style="{DynamicResource MaterialDesignToolButton}"
-                                Height="32" Width="32"
-                                Command="{Binding AddMetadataAchiveTransfererEntry}">
-                            <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
-                        </Button> -->
-
-                    </StackPanel>
                 </GroupBox>
 
                 <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
-                        Visibility="{Binding MetaDataTransferer.ItemVisibility}" Width="269" HorizontalAlignment="Left">
+                        Visibility="{Binding MetaDataTransferer.VisibilityItem}"
+                        Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -276,9 +270,11 @@
 
 
                 <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
-                        Visibility="{Binding ItemVisibility}" Width="269" HorizontalAlignment="Left">
+                        Visibility="{Binding MetaDataProducer.VisibilityItem}"
+                        Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -340,7 +336,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
-                                Command="{Binding AddMetadataAchiveOwnerEntry}">
+                                Command="{Binding AddMetadataArchiveOwnerEntry}">
                             <materialDesign:PackIcon Kind="PlusCircleOutline" Opacity=".85" />
                         </Button>
 
@@ -362,6 +358,7 @@
                                     Visibility="{Binding VisibilityItem}">
                                 <Grid Margin="5">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
@@ -499,7 +496,7 @@
                           materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderThickness="0" Margin="0,20,0,0" />
 
                 <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
-                        Visibility="{Binding MetaDataRecipient.ItemVisibility}" Width="269" HorizontalAlignment="Left">
+                        Visibility="{Binding MetaDataRecipient.VisibilityItem}" Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -511,7 +508,7 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Row="0" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Recepient}"
+                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Recipient}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataRecipient.Entity" Mode="TwoWay">
@@ -529,7 +526,8 @@
                           BorderThickness="0" Margin="0,20,0,0"/>
 
                 <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
-                        Visibility="{Binding MetaDataSystem.ItemVisibility}" Width="269" HorizontalAlignment="Left">
+                        Visibility="{Binding MetaDataSystem.VisibilityItem}"
+                        Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -610,8 +608,8 @@
                 </GroupBox>
 
                 <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
-                        Visibility="{Binding MetaDataArchiveSystem.VisibilityItem}" Width="269"
-                        HorizontalAlignment="Left">
+                        Visibility="{Binding MetaDataArchiveSystem.VisibilityItem}"
+                        Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -635,7 +633,7 @@
                                  Text="{Binding MetaDataArchiveSystem.SystemVersion, Mode=TwoWay}" />
 
 
-                        <ComboBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                        <ComboBox Grid.Row="2" 
                                   materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.SystemType}" 
                                   MinWidth="72"
                                   ItemsSource="{Binding SystemTypeList}"
@@ -659,8 +657,8 @@
 
                         <Button Grid.Row="4"
                                 Style="{DynamicResource MaterialDesignToolButton}" HorizontalAlignment="Right"
-                                Height="24" Width="24" Command="{Binding  MetaDataArchiveSystem.CommandDeleteItem}">
-                            <materialDesign:PackIcon Kind="{Binding  MetaDataArchiveSystem.IconDelete}" Opacity=".56" />
+                                Height="24" Width="24" Command="{Binding MetaDataArchiveSystem.CommandDeleteItem}">
+                            <materialDesign:PackIcon Kind="{Binding MetaDataArchiveSystem.IconDelete}" Opacity=".56" />
                         </Button>
                     </Grid>
                 </Border>
@@ -686,7 +684,8 @@
 
 
                 <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
-                        Visibility="{Binding MetaDataNoarkSection.VisibilityItem}" Width="269" HorizontalAlignment="Left">
+                        Visibility="{Binding MetaDataNoarkSection.VisibilityItem}"
+                        Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -715,7 +714,7 @@
                                     GotFocus="UpdateStandardLabel" SelectedDateChanged="UpdateStandardLabel"
                                     Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
                                     Language="no"
-                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.EndData}" 
+                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.EndDate}" 
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
                                     SelectedDate="{Binding MetaDataNoarkSection.EndDate, Mode=TwoWay}" CalendarOpened="DatePicker_CalendarOpened"/>
 
@@ -741,7 +740,8 @@
 
 
                 <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
-                        Visibility="{Binding MetaDataExtractionDate.VisibilityItem}" Width="269" HorizontalAlignment="Left">
+                        Visibility="{Binding MetaDataExtractionDate.VisibilityItem}"
+                        Width="269" HorizontalAlignment="Left">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -809,9 +809,9 @@
                 <Border Margin="0,16" BorderThickness="0 2 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" />
 
                 <!-- Create SIP/AIP package  -->
-                <TextBlock Grid.Row="6" Grid.Column="0" Text="{x:Static resources:GUI.CreatePackageSelectTypeLabel}" Margin="10" />
+                <TextBlock Text="{x:Static resources:GUI.CreatePackageSelectTypeLabel}" Margin="10" />
 
-                <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Orientation="Horizontal">
+                <StackPanel Margin="10" Orientation="Horizontal">
                     <RadioButton Content="{x:Static resources:GUI.CreatePackageTypeSIP}"
                          IsChecked="{Binding SelectedPackageTypeSip, Mode=TwoWay}"
                          Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 8" VerticalAlignment="Center" />
@@ -820,7 +820,7 @@
                          Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 8" VerticalAlignment="Center" />
                 </StackPanel>
 
-                <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 10" Orientation="Horizontal">
+                <StackPanel Margin="10 10" Orientation="Horizontal">
                     <CheckBox
                 Content="{x:Static resources:MetaDataGUI.CreateDocumentFileInfoText}"
                 IsChecked="{Binding GenerateDocumentFileInfoSelected, Mode=TwoWay}" />
@@ -831,7 +831,7 @@
                     </Label>
                 </StackPanel>
 
-                <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 10" Orientation="Horizontal">
+                <StackPanel Margin="10 10" Orientation="Horizontal">
                     <Button
                 Command="{Binding CreatePackageCommand}"
                 Content="{x:Static resources:GUI.CreatePackageButtonText}" HorizontalAlignment="Left" Width="130"
@@ -842,15 +842,15 @@
                 Content="{x:Static resources:GUI.NewProgramSessionButton}" HorizontalAlignment="Left" Width="130"
                 Height="30" Margin="5,0,0,0" />
                 </StackPanel>
-                <StackPanel Grid.Row="9"  Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Orientation="Horizontal">
+                <StackPanel Margin="10" Orientation="Horizontal">
                     <ProgressBar Visibility="{Binding ProgressBarVisibility}" Style="{StaticResource MaterialDesignCircularProgressBar}"                     
                                  Value="0"
                                  IsIndeterminate="True"
-                                 Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12 12 12 12" Width="19"/>
-                    <TextBlock Visibility="{Binding ProgressBarVisibility}"  Text="{x:Static resources:MetaDataGUI.PackageCreationOngoing}" TextWrapping="Wrap"/>
+                                 VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12 12 12 12" Width="19" />
+                    <TextBlock Visibility="{Binding ProgressBarVisibility}"  Text="{x:Static resources:MetaDataGUI.PackageCreationOngoing}" TextWrapping="Wrap" />
                 </StackPanel>
 
-                <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="5" Margin="10" Orientation="Vertical">
+                <StackPanel Margin="10" Orientation="Vertical">
                     <TextBlock Text="{Binding StatusMessageText, Mode=OneWay}" TextWrapping="Wrap" />
                     <TextBox Background="Transparent" BorderThickness="0" Text="{Binding StatusMessagePath}" IsReadOnly="True"
                      TextWrapping="Wrap" />

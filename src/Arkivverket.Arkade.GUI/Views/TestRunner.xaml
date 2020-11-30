@@ -9,7 +9,8 @@
              xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="700">
+             d:DesignHeight="400" d:DesignWidth="700"
+             d:DataContext="{d:DesignData TestRunnerViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -23,7 +24,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         
-        <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10">Testing av uttrekk</TextBlock>
+        <Label Grid.Row="0" Margin="6" FontSize="24">Testing av uttrekk </Label>
 
         <Grid Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>

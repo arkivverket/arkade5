@@ -65,8 +65,6 @@ namespace Arkivverket.Arkade.Core.Identify
 
             workingDirectory.CopyAddmlFileToAdministrativeMetadata();
 
-            ConvertNoarkihToAddmlIfNoark4(archive);
-
             var testSession = new TestSession(archive);
 
             if (archiveType == ArchiveType.Noark5)
@@ -125,56 +123,5 @@ namespace Arkivverket.Arkade.Core.Identify
                 string.Format(Resources.Messages.TarExtractionMessageFinished, workingDirectory.ContentWorkDirectory().DirectoryInfo().FullName),
                 OperationMessageStatus.Ok);
         }
-
-        private void ConvertNoarkihToAddmlIfNoark4(Archive archive)
-        {
-            if (archive.ArchiveType != ArchiveType.Noark4)
-            {
-                return;
-            }
-
-            FileInfo addmlFileInContentFolder = archive.WorkingDirectory.Content().WithFile(ArkadeConstants.AddmlXmlFileName);
-
-            if (addmlFileInContentFolder.Exists)
-            {
-                _log.Information("{0} already exists. XSLT transformation of {1} skipped.",
-                    ArkadeConstants.AddmlXmlFileName, ArkadeConstants.NoarkihXmlFileName);
-                return;
-            }
-
-            FileInfo noarkihFile = archive.WorkingDirectory.Content().WithFile(ArkadeConstants.NoarkihXmlFileName);
-
-            if (!noarkihFile.Exists)
-            {
-                Log.Warning("Expected file not found: " + noarkihFile.FullName);
-
-                return;
-            }
-
-            string noarkihString = File.ReadAllText(noarkihFile.FullName);
-            try
-            {
-                // TODO: Use stream instead of strings
-                string addmlString = NoarkihToAddmlTransformer.Transform(noarkihString);
-
-                // Verify correct ADDML file
-                AddmlUtil.ReadFromString(addmlString);
-
-                FileInfo addmlFileToWrite = archive.WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName);
-
-                File.WriteAllText(addmlFileToWrite.FullName, addmlString);
-                _log.Information("Successfully transformed {0} to {1}.", ArkadeConstants.NoarkihXmlFileName,
-                    ArkadeConstants.AddmlXmlFileName);
-            }
-            catch (Exception e)
-            {
-                string message = string.Format(Resources.Messages.Noark4ConvertNoarkihFileError, 
-                    ArkadeConstants.NoarkihXmlFileName,
-                    ArkadeConstants.AddmlXmlFileName);
-
-                throw new ArkadeException(message,e);
-            }
-        }
-
     }
 }

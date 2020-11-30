@@ -179,8 +179,8 @@
   <data name="LoadArchiveChooseArchiveHeadingText" xml:space="preserve">
     <value>Arkivuttrekk</value>
   </data>
-  <data name="LoadArchiveChooseArchiveTypeHeadingText" xml:space="preserve">
-    <value>Velg arkivtype</value>
+  <data name="LoadArchiveArchiveTypeHeadingText" xml:space="preserve">
+    <value>Arkivtype</value>
   </data>
   <data name="LoadArchiveChooseFolderButtonText" xml:space="preserve">
     <value>Velg katalog</value>
@@ -202,9 +202,6 @@
   </data>
   <data name="LoadArchiveTypeNoark3" xml:space="preserve">
     <value>Noark3</value>
-  </data>
-  <data name="LoadArchiveTypeNoark4" xml:space="preserve">
-    <value>Noark4</value>
   </data>
   <data name="LoadArchiveTypeNoark5" xml:space="preserve">
     <value>Noark5</value>
@@ -289,10 +286,19 @@ Du kan fortsatt lage en pakke av uttrekket.</value>
   <data name="TestrunnerArchiveTestability" xml:space="preserve">
     <value>Testbarhet</value>
   </data>
-  <data name="LoadArchiveNoark4OptionDisabledTooltip" xml:space="preserve">
-    <value>Arkade støtter inntil videre ikke arkivuttrekk av typen Noark 4</value>
-  </data>
   <data name="ShowAboutDialogButtonText" xml:space="preserve">
     <value>Om Arkade 5</value>
+  </data>
+  <data name="ShowToolsDialogButtonText" xml:space="preserve">
+    <value>Verktøy</value>
+  </data>
+  <data name="LoadArchiveChosenArchiveTypeHeadingText" xml:space="preserve">
+    <value>Valgt arkivtype:</value>
+  </data>
+  <data name="LoadArchiveTypeUndetected" xml:space="preserve">
+    <value>Arkade klarte ikke å identifisere arkivtypen. Vennligst velg type manuelt.</value>
+  </data>
+  <data name="LoadArchiveChooseArchiveLabelText" xml:space="preserve">
+    <value>Vennligst velg et arkivuttrekk</value>
   </data>
 </root>

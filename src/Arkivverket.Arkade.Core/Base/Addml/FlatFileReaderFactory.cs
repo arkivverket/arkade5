@@ -39,10 +39,6 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                                 throw new ArkadeException("Unkown AddmlFlatFileFormat: " + format);
                         }
                     }
-                case ArchiveType.Noark4:
-                    {
-                        return new Noark4FileReader(flatFile);
-                    }
                 default:
                     {
                         throw new ArgumentException("No such enum: " + archive.ArchiveType);

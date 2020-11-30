@@ -8,13 +8,13 @@ using FluentAssertions;
 
 namespace Arkivverket.Arkade.Core.Tests.Report
 {
-    public class DocumentFileListGeneratorTests
+    public class FileFormatInfoGeneratorTests
     {
         [Fact]
         public void GenerateTest()
         {
             string workingDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData", "Report", "FilesToBeListed");
-            string testFilePath = Path.Combine(workingDirectoryPath, ArkadeConstants.DocumentFileListFileName);
+            string testFilePath = Path.Combine(workingDirectoryPath, ArkadeConstants.FileFormatInfoFileName);
 
             var testArchive = new Archive(ArchiveType.Noark5, null,
                 new WorkingDirectory(new DirectoryInfo(workingDirectoryPath)));
@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             if (File.Exists(testFilePath))
                 File.Delete(testFilePath);
 
-            DocumentFileListGenerator.Generate(workingDirectoryPath, testArchive);
+            FileFormatInfoGenerator.Generate(testArchive.GetDocumentsDirectory(), workingDirectoryPath);
 
             File.Exists(testFilePath).Should().BeTrue();
 

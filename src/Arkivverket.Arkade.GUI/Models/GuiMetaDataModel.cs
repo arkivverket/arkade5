@@ -1,13 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using Arkivverket.Arkade.Core.ExternalModels.Ead;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -32,39 +25,39 @@ namespace Arkivverket.Arkade.GUI.Models
 
         public string IconAdd
         {
-            get { return _iconAdd; }
-            set { SetProperty(ref _iconAdd, value); }
+            get => _iconAdd;
+            set => SetProperty(ref _iconAdd, value);
         }
 
         public string IconDelete
         {
-            get { return _iconDelete; }
-            set { SetProperty(ref _iconDelete, value); }
+            get => _iconDelete;
+            set => SetProperty(ref _iconDelete, value);
         }
 
         public string IconNameList
         {
-            get { return _iconNameList; }
-            set { SetProperty(ref _iconNameList, value); }
+            get => _iconNameList;
+            set => SetProperty(ref _iconNameList, value);
         }
 
         public Visibility VisibilityItem
         {
-            get { return _visibilityItem; }
-            set { SetProperty(ref _visibilityItem, value); }
+            get => _visibilityItem;
+            set => SetProperty(ref _visibilityItem, value);
         }
 
         public Visibility VisibilityAddItem
         {
-            get { return _visibilityAddItem; }
-            set { SetProperty(ref _visibilityAddItem, value); }
+            get => _visibilityAddItem;
+            set => SetProperty(ref _visibilityAddItem, value);
         }
 
 
         public Visibility DeleteButtonVisibility
         {
-            get { return _deleteButtonVisibility; }
-            set { SetProperty(ref _deleteButtonVisibility, value); }
+            get => _deleteButtonVisibility;
+            set => SetProperty(ref _deleteButtonVisibility, value);
         }
 
 
@@ -79,32 +72,32 @@ namespace Arkivverket.Arkade.GUI.Models
 
         public string Email
         {
-            get { return _email; }
-            set { SetProperty(ref _email, value); }
+            get => _email;
+            set => SetProperty(ref _email, value);
         }
 
         public string Address
         {
-            get { return _address; }
-            set { SetProperty(ref _address, value); }
+            get => _address;
+            set => SetProperty(ref _address, value);
         }
 
         public string Telephone
         {
-            get { return _telephone; }
-            set { SetProperty(ref _telephone, value); }
+            get => _telephone;
+            set => SetProperty(ref _telephone, value);
         }
 
         public string ContactPerson
         {
-            get { return _contactPerson; }
-            set { SetProperty(ref _contactPerson, value); }
+            get => _contactPerson;
+            set => SetProperty(ref _contactPerson, value);
         }
 
         public string Entity
         {
-            get { return _entity; }
-            set { SetProperty(ref _entity, value); }
+            get => _entity;
+            set => SetProperty(ref _entity, value);
         }
 
         private string _systemName;
@@ -114,39 +107,39 @@ namespace Arkivverket.Arkade.GUI.Models
 
         public string SystemName
         {
-            get { return _systemName; }
-            set { SetProperty(ref _systemName, value); }
+            get => _systemName;
+            set => SetProperty(ref _systemName, value);
         }
 
         public string SystemVersion
         {
-            get { return _systemVersion; }
-            set { SetProperty(ref _systemVersion, value); }
+            get => _systemVersion;
+            set => SetProperty(ref _systemVersion, value);
         }
 
         public string SystemType
         {
-            get { return _systemType; }
-            set { SetProperty(ref _systemType, value); }
+            get => _systemType;
+            set => SetProperty(ref _systemType, value);
         }
 
         public string SystemTypeVersion
         {
-            get { return _systemTypeVersion; }
-            set { SetProperty(ref _systemTypeVersion, value); }
+            get => _systemTypeVersion;
+            set => SetProperty(ref _systemTypeVersion, value);
         }
 
 
         public string ArchiveDescription
         {
-            get { return _archiveDescription; }
-            set { SetProperty(ref _archiveDescription, value); }
+            get => _archiveDescription;
+            set => SetProperty(ref _archiveDescription, value);
         }
 
         public string AgreementNumber
         {
-            get { return _agreementNumber; }
-            set { SetProperty(ref _agreementNumber, value); }
+            get => _agreementNumber;
+            set => SetProperty(ref _agreementNumber, value);
         }
 
 
@@ -161,33 +154,33 @@ namespace Arkivverket.Arkade.GUI.Models
 
         public DateTime? StartDate
         {
-            get { return _startDate; }
-            set { SetProperty(ref _startDate, value); }
+            get => _startDate;
+            set => SetProperty(ref _startDate, value);
         }
 
 
         public DateTime? EndDate
         {
-            get { return _endDate; }
-            set { SetProperty(ref _endDate, value); }
+            get => _endDate;
+            set => SetProperty(ref _endDate, value);
         }
 
         public DateTime? ExtractionDate
         {
-            get { return _extractionDate; }
-            set { SetProperty(ref _extractionDate, value); }
+            get => _extractionDate;
+            set => SetProperty(ref _extractionDate, value);
         }
 
         public string StandardLabel
         {
-            get { return _standardLabel; }
-            set { SetProperty(ref _standardLabel, value); }
+            get => _standardLabel;
+            set => SetProperty(ref _standardLabel, value);
         }
 
         public string UserdefinedLabel
         {
-            get { return _userdefinedLabel; }
-            set { SetProperty(ref _userdefinedLabel, value); }
+            get => _userdefinedLabel;
+            set => SetProperty(ref _userdefinedLabel, value);
         }
 
         public GuiMetaDataModel(string archiveDescription, string agreementNumber)

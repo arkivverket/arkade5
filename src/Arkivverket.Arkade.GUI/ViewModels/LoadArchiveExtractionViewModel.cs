@@ -1,14 +1,11 @@
 using System.IO;
+using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Core.Identify;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using Microsoft.Win32;
-using System;
-using System.Windows;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
@@ -18,13 +15,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private readonly IRegionManager _regionManager;
         private string _archiveFileName;
-        private string _archiveFileNameGuiRepresentation;
-        private ArchiveType _archiveType;
+        private string _archiveFileNameGuiRepresentation = Resources.GUI.LoadArchiveChooseArchiveLabelText;
+        private bool _isArchiveFileNameSelected;
+        private ArchiveType? _archiveType;
         private bool _isArchiveTypeSelected;
+        private IArchiveTypeIdentifier _archiveTypeIdentifier;
 
         public string ArchiveFileName
         {
-            get { return _archiveFileName; }
+            get => _archiveFileName;
             set
             {
                 SetProperty(ref _archiveFileName, value);
@@ -34,21 +33,29 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public string ArchiveFileNameGuiRepresentation
         {
-            get { return _archiveFileNameGuiRepresentation; }
+            get => _archiveFileNameGuiRepresentation;
             set
             {
                 SetProperty(ref _archiveFileNameGuiRepresentation, value);
                 NavigateCommand.RaiseCanExecuteChanged();
+                IsArchiveFileNameSelected = !string.IsNullOrWhiteSpace(value);
             }
         }
 
-
-        public ArchiveType ArchiveType
+        public bool IsArchiveFileNameSelected
         {
-            get { return _archiveType; }
+            get => _isArchiveFileNameSelected;
+            set => SetProperty(ref _isArchiveFileNameSelected, value);
+        }
+
+
+        public ArchiveType? ArchiveType
+        {
+            get => _archiveType;
             set
             {
                 SetProperty(ref _archiveType, value);
+                _isArchiveTypeSelected = value != null;
                 NavigateCommand.RaiseCanExecuteChanged();
             }
         }
@@ -57,29 +64,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand NavigateCommand { get; set; }
         public DelegateCommand OpenArchiveFileCommand { get; set; }
         public DelegateCommand OpenArchiveFolderCommand { get; set; }
-        public DelegateCommand<string> SetArchiveTypeCommand { get; set; } // Would be better to user ArchiveType enum as arg, but could not get to work with Prism
 
-        public LoadArchiveExtractionViewModel(IRegionManager regionManager)
+        public LoadArchiveExtractionViewModel(IRegionManager regionManager, IArchiveTypeIdentifier archiveTypeIdentifier)
         {
             _regionManager = regionManager;
+            _archiveTypeIdentifier = archiveTypeIdentifier;
             OpenArchiveFileCommand = new DelegateCommand(OpenArchiveFileDialog);
             OpenArchiveFolderCommand = new DelegateCommand(OpenArchiveFolderDialog);
-            SetArchiveTypeCommand = new DelegateCommand<string>(SetArchiveTypeUserInput); 
 
             NavigateCommand = new DelegateCommand(Navigate, CanRunTests);
             _isArchiveTypeSelected = false;
-        }
-
-        private void SetArchiveTypeUserInput(string archiveTypeSelected)
-        {
-            _log.Information($"User action: Select archive type {archiveTypeSelected}");
-
-            ArchiveType tempArchiveType;
-            if (ArchiveType.TryParse(archiveTypeSelected, true, out tempArchiveType))
-            {
-                _isArchiveTypeSelected = true;
-                ArchiveType = tempArchiveType;
-            }
         }
 
         private void Navigate()
@@ -102,75 +96,89 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _log.Information("User action: Open archive file dialog");
 
-            ArchiveFileName = OpenFileDialog();
-
-            if (ArchiveFileName == null)
+            if (!OpenFileDialog(out string archiveFileName))
                 return;
+
+            ArchiveFileName = archiveFileName;
 
             _log.Information("User action: Choose archive file {ArchiveFileName}", ArchiveFileName);
 
             PresentChosenArchiveInGui(ArchiveFileName, false);
+
+            IdentifyTypeOfChosenArchive(ArchiveFileName, false);
         }
 
         private void OpenArchiveFolderDialog()
         {
             _log.Information("User action: Open archive folder dialog");
 
-            ArchiveFileName = OpenFolderDialog();
-
-            if (ArchiveFileName == null)
+            if (!OpenFolderDialog(out string archiveFolderName))
                 return;
+
+            ArchiveFileName = archiveFolderName;
 
             _log.Information("User action: Choose archive folder {ArchiveFileName}", ArchiveFileName);
 
             PresentChosenArchiveInGui(ArchiveFileName, true);
+
+            IdentifyTypeOfChosenArchive(ArchiveFileName, true);
         }
 
 
-        private string OpenFolderDialog()
+        private bool OpenFolderDialog(out string fullFolderPath)
         {
-            string selected = null;
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog
+            var dialog = new FolderBrowserDialog();
+            DialogResult dialogResult = dialog.ShowDialog();
+
+            if (dialogResult == DialogResult.OK)
             {
-                IsFolderPicker = true,
-                Multiselect = false
-                //Title = ""
-            };
-            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-            {
-                selected = dialog.FileName;
+                fullFolderPath = dialog.SelectedPath;
+                return true;
             }
 
-            return selected;
+            fullFolderPath = null;
+            return false;
         }
 
-        private string OpenFileDialog()
+        private bool OpenFileDialog(out string fullFilePath)
         {
-            string selectedFileName = null;
             var dialog = new OpenFileDialog();
-            var result = dialog.ShowDialog();
-            if (result.HasValue && result == true)
+            DialogResult dialogResult = dialog.ShowDialog();
+
+            if (dialogResult == DialogResult.OK)
             {
-                selectedFileName = dialog.FileName;
+                fullFilePath = dialog.FileName;
+                return true;
             }
-            return selectedFileName;
+
+            fullFilePath = null;
+            return false;
         }
 
         private void PresentChosenArchiveInGui(string archiveFileName, bool isDirectory)
         {
-            if (isDirectory)
+            ArchiveFileNameGuiRepresentation = isDirectory
+                ? new DirectoryInfo(archiveFileName).FullName
+                : Path.GetFullPath(archiveFileName);
+        }
+
+        private void IdentifyTypeOfChosenArchive(string archiveFileName, bool isDirectory)
+        {
+            ArchiveType = isDirectory
+                ? _archiveTypeIdentifier.IdentifyTypeOfChosenArchiveDirectory(archiveFileName)
+                : _archiveTypeIdentifier.IdentifyTypeOfChosenArchiveFile(archiveFileName);
+
+            if (ArchiveType == null)
             {
-                ArchiveFileNameGuiRepresentation =
-                    $"{Resources.GUI.LoadArchiveSelectedFolderText}: {new DirectoryInfo(archiveFileName).FullName}";
+                _log.Information("Arkade archive type detection failed.");
+                _isArchiveTypeSelected = false;
             }
             else
             {
-                ArchiveFileNameGuiRepresentation =
-                    $"{Resources.GUI.LoadArchiveSelectedFileText}: {Path.GetFullPath(archiveFileName)}";
+                _log.Information($"Arkade determined selected archive to be of type {ArchiveType}");
+                _isArchiveTypeSelected = true;
             }
         }
-
-
 
 
         public void OnNavigatedTo(NavigationContext navigationContext)

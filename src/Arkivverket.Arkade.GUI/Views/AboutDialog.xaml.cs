@@ -8,14 +8,11 @@ namespace Arkivverket.Arkade.GUI.Views
     /// </summary>
     public partial class AboutDialog
     {
-        private readonly AboutDialogViewModel _aboutDialogViewModel;
         public AboutDialog()
         {
             InitializeComponent();
 
-            _aboutDialogViewModel = new AboutDialogViewModel();
-
-            DataContext = _aboutDialogViewModel;
+            DataContext = new AboutDialogViewModel();
 
             Owner = Application.Current.MainWindow;
 

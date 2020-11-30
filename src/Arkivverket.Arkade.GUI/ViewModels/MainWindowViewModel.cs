@@ -1,8 +1,5 @@
-using System;
 using System.Diagnostics;
-using System.Net;
-using System.Windows.Forms;
-using System.Windows.Navigation;
+using System.Windows;
 using Arkivverket.Arkade.GUI.Resources;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
@@ -11,7 +8,6 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
@@ -21,6 +17,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private readonly IRegionManager _regionManager;
         public DelegateCommand<string> NavigateCommandMain { get; set; }
+        public DelegateCommand ShowToolsDialogCommand { get; set; }
         public DelegateCommand ShowWebPageCommand { get; set; }
         public static DelegateCommand ShowSettingsCommand { get; set; }
         public DelegateCommand ShowAboutDialogCommand { get; set; }
@@ -33,6 +30,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _regionManager = regionManager;
             NavigateCommandMain = new DelegateCommand<string>(Navigate);
+            ShowToolsDialogCommand = new DelegateCommand(ShowToolsDialog);
             ShowWebPageCommand = new DelegateCommand(ShowWebPage);
             ShowSettingsCommand = new DelegateCommand(ShowSettings);
             ShowAboutDialogCommand = new DelegateCommand(ShowAboutDialog);
@@ -48,9 +46,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _regionManager.RequestNavigate("MainContentRegion", uri);
         }
 
+        private static void ShowToolsDialog()
+        {
+            new ToolsDialog().ShowDialog();
+        }
+
         private static void ShowWebPage()
         {
-            Process.Start("http://arkade.arkivverket.no/");
+            LaunchArkadeWebSite();
         }
 
         private static void ShowSettings()
@@ -70,17 +73,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private static void ShowInvalidProcessingAreaLocationDialog()
         {
-            DialogResult dialogResult = MessageBox.Show(
+            MessageBoxResult dialogResult = MessageBox.Show(
                 SettingsGUI.UndefinedArkadeProcessingAreaLocationDialogMessage,
                 SettingsGUI.UndefinedArkadeProcessingAreaLocationDialogTitle,
-                MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Exclamation
+                MessageBoxButton.OKCancel,
+                MessageBoxImage.Exclamation
             );
 
-            if (dialogResult == DialogResult.OK)
+            if (dialogResult == MessageBoxResult.OK)
                 ShowSettingsCommand.Execute();
             else
-                System.Windows.Application.Current.Shutdown();
+                Application.Current.Shutdown();
         }
 
         private static void RestartArkadeIfNeededAndWanted()
@@ -92,19 +95,39 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 bool restartIsWanted = MessageBox.Show(
                                            Resources.GUI.RestartArkadeForChangesToTakeEffectPrompt,
                                            Resources.GUI.RestartArkadeDialogTitle,
-                                           MessageBoxButtons.YesNo) == DialogResult.Yes;
+                                           MessageBoxButton.YesNo) == MessageBoxResult.Yes;
 
                 if (restartIsWanted)
                 {
-                    System.Windows.Forms.Application.Restart();
-                    System.Windows.Application.Current.Shutdown();
+                    string mainModuleFileName = Process.GetCurrentProcess().MainModule?.FileName;
+
+                    if (mainModuleFileName != null)
+                    {
+                        Process.Start(mainModuleFileName);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Could not restart Arkade\nPlease manually start Arkade after shutdown",
+                            "Automatic restart failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    Application.Current.Shutdown();
                 }
             }
         }
 
         private static void DownloadNewVersion()
         {
-            Process.Start("http://arkade.arkivverket.no/");
+            LaunchArkadeWebSite();
+        }
+
+        private static void LaunchArkadeWebSite()
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = ArkadeConstants.ArkadeWebSiteUrl,
+                UseShellExecute = true
+            });
         }
     }
 }

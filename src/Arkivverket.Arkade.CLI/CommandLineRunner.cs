@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.CLI
             }
 
             Log.Information(
-                "Download new releases, see release notes and version history at: https://arkade.arkivverket.no/ \n");
+                "Download new releases, see release notes and version history at: " + ArkadeConstants.ArkadeWebSiteUrl + "\n");
         }
 
         private static string GetBundledSoftwareInfo()
@@ -139,6 +139,16 @@ namespace Arkivverket.Arkade.CLI
             LogFinishedStatus(command);
         }
 
+        public static void Run(AnalyseOptions options)
+        {
+            string command = GetRunningCommand(options.GetType().Name);
+
+            Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {options.FormatCheckTarget}");
+            Arkade.GenerateFileFormatInfoFiles(new DirectoryInfo(options.FormatCheckTarget), options.OutputDirectory);
+
+            LogFinishedStatus(command);
+        }
+
         private static void Test(string outputDirectory, TestSession testSession)
         {
             if (!testSession.IsTestableArchive())
@@ -163,21 +173,30 @@ namespace Arkivverket.Arkade.CLI
             Arkade.CreatePackage(testSession, outputDirectory);
         }
 
-        private static ArchiveType GetArchiveType(string archiveTypeString)
+        private static ArchiveType GetArchiveType(string archiveTypeString, string archive)
         {
-            if (!Enum.TryParse(archiveTypeString, true, out ArchiveType archiveType))
+            if (string.IsNullOrWhiteSpace(archiveTypeString))
+            {
+                ArchiveType? detectedArchiveType = Arkade.DetectArchiveType(archive);
+
+                if (detectedArchiveType == null)
+                {
+                    string errorMessage =
+                        $"Arkade could not detect archive type of {archive}. " +
+                        "Please check the structure- or info-file. To attempt a forced run, explicitly specify type with parameter \"-t\"";
+                    throw new ArgumentException(errorMessage);
+                }
+                Log.Information($"Arkade determined {archive} to be of type {detectedArchiveType}");
+                return (ArchiveType) detectedArchiveType;
+            }
+
+            if (!Enum.TryParse(archiveTypeString, true, out ArchiveType selectedArchiveType))
             {
                 Log.Error("Unknown archive type");
                 throw new ArgumentException("unknown archive type");
             }
 
-            if (archiveType == ArchiveType.Noark4)
-            {
-                Log.Error("Archive type Noark 4 is currently not supported");
-                throw new ArgumentException("unsupported archive type");
-            }
-
-            return archiveType;
+            return selectedArchiveType;
         }
 
         private static TestSession CreateTestSession(string archive, string archiveTypeString,
@@ -186,7 +205,7 @@ namespace Arkivverket.Arkade.CLI
             var fileInfo = new FileInfo(archive);
             Log.Information($"{{{command}ing}} archive: {fileInfo.FullName}");
 
-            ArchiveType archiveType = GetArchiveType(archiveTypeString);
+            ArchiveType archiveType = GetArchiveType(archiveTypeString, archive);
 
             TestSession testSession;
             if (File.Exists(archive))

@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Input;
-using System.Xml;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.GUI.Models;
@@ -18,13 +15,11 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
-using System.Windows.Controls;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Arkivverket.Arkade.GUI.Resources;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using Microsoft.WindowsAPICodePack.Taskbar;
-using MessageBox = System.Windows.Forms.MessageBox;
+using Arkivverket.Arkade.GUI.Views;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
@@ -62,38 +57,32 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private IList<String> _systemTypeList  = new List<string>()
         {
-            "Noark3", "Noark4", "Noark5", "Fagsystem"
+            "Noark3", "Noark5", "Fagsystem"
         }; 
 
         public string ArkadeNameAndCurrentVersion { get; } = $"Arkade 5 {ArkadeVersion.Current}";
 
         public DelegateCommand CreatePackageCommand { get; set; }
         public DelegateCommand NewProgramSessionCommand { get; set; }
-        public DelegateCommand AddMetadataAchiveCreatorEntry { get; set; }
-        public DelegateCommand AddMetadataAchiveOwnerEntry { get; set; }
+        public DelegateCommand AddMetadataArchiveCreatorEntry { get; set; }
+        public DelegateCommand AddMetadataArchiveOwnerEntry { get; set; }
         public DelegateCommand LoadExternalMetadataCommand { get; set; }
 
         //---------------------------------------------------------------------------
         public Visibility ProgressBarVisibility
         {
-            get { return _progressBarVisibility; }
-            set
-            {
-                SetProperty(ref _progressBarVisibility, value);
-            }
+            get => _progressBarVisibility;
+            set => SetProperty(ref _progressBarVisibility, value);
         }
 
         public bool GenerateDocumentFileInfoSelected
         {
-            get { return _generateDocumentFileInfoSelected; }
-            set
-            {
-                SetProperty(ref _generateDocumentFileInfoSelected, value);
-            }
+            get => _generateDocumentFileInfoSelected;
+            set => SetProperty(ref _generateDocumentFileInfoSelected, value);
         }
         public bool SelectedPackageTypeSip
         {
-            get { return _selectedPackageTypeSip; }
+            get => _selectedPackageTypeSip;
             set
             {
                 SetProperty(ref _selectedPackageTypeSip, value);
@@ -103,7 +92,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public bool SelectedPackageTypeAip
         {
-            get { return _selectedPackageTypeAip; }
+            get => _selectedPackageTypeAip;
             set
             {
                 SetProperty(ref _selectedPackageTypeAip, value);
@@ -113,94 +102,91 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public bool StandardLabelIsSelected
         {
-            get { return _standardLabelIsSelected; }
-            set { SetProperty(ref _standardLabelIsSelected, value); }
+            get => _standardLabelIsSelected;
+            set => SetProperty(ref _standardLabelIsSelected, value);
         }
 
         public bool UserdefinedLabelIsSelected
         {
-            get { return _userdefinedLabelIsSelected; }
-            set { SetProperty(ref _userdefinedLabelIsSelected, value); }
+            get => _userdefinedLabelIsSelected;
+            set => SetProperty(ref _userdefinedLabelIsSelected, value);
         }
 
         public GuiMetaDataModel MetaDataModelArchiveDescription
         {
-            get { return _metaDataArchiveDescription; }
-            set { SetProperty(ref _metaDataArchiveDescription, value); }
+            get => _metaDataArchiveDescription;
+            set => SetProperty(ref _metaDataArchiveDescription, value);
         }
-
 
         public ObservableCollection<GuiMetaDataModel> MetaDataArchiveCreators
         {
-            get {return _metaDataArchiveCreators; }
-            set {SetProperty(ref _metaDataArchiveCreators, value); }
+            get => _metaDataArchiveCreators;
+            set => SetProperty(ref _metaDataArchiveCreators, value);
         }
-
-
 
         public GuiMetaDataModel MetaDataTransferer
         {
-            get { return _metaDataTransferer; }
-            set { SetProperty(ref _metaDataTransferer, value); }
+            get => _metaDataTransferer;
+            set => SetProperty(ref _metaDataTransferer, value);
         }
 
         public GuiMetaDataModel MetaDataProducer
         {
-            get { return _metaDataProducer; }
-            set { SetProperty(ref _metaDataProducer, value); }
+            get => _metaDataProducer;
+            set => SetProperty(ref _metaDataProducer, value);
         }
 
         public ObservableCollection<GuiMetaDataModel> MetaDataOwners
         {
-            get { return _metaDataOwners; }
-            set { SetProperty(ref _metaDataOwners, value); }
+            get => _metaDataOwners;
+            set => SetProperty(ref _metaDataOwners, value);
         }
 
         public GuiMetaDataModel MetaDataCreator
         {
-            get { return _metaDataCreator; }
-            set { SetProperty(ref _metaDataCreator, value); }
+            get => _metaDataCreator;
+            set => SetProperty(ref _metaDataCreator, value);
         }
 
         public GuiMetaDataModel MetaDataRecipient
         {
-            get { return _metaDataRecipient; }
-            set { SetProperty(ref _metaDataRecipient, value); }
+            get => _metaDataRecipient;
+            set => SetProperty(ref _metaDataRecipient, value);
         }
         public GuiMetaDataModel MetaDataSystem
         {
-            get { return _metaDataSystem; }
-            set { SetProperty(ref _metaDataSystem, value); }
+            get => _metaDataSystem;
+            set => SetProperty(ref _metaDataSystem, value);
         }
 
         public GuiMetaDataModel MetaDataArchiveSystem
         {
-            get { return _metaDataArchiveSystem; }
-            set { SetProperty(ref _metaDataArchiveSystem, value); }
+            get => _metaDataArchiveSystem;
+            set => SetProperty(ref _metaDataArchiveSystem, value);
         }
 
         public GuiMetaDataModel MetaDataCreatorSoftwareSystem
         {
-            get { return _metaDataCreatorSoftwareSystem; }
-            set { SetProperty(ref _metaDataCreatorSoftwareSystem, value); }
+            get => _metaDataCreatorSoftwareSystem;
+            set => SetProperty(ref _metaDataCreatorSoftwareSystem, value);
         }
 
         public GuiMetaDataModel MetaDataNoarkSection
         {
-            get { return _metaDataNoarkSection; }
-            set { SetProperty(ref _metaDataNoarkSection, value); }
+            get => _metaDataNoarkSection;
+            set => SetProperty(ref _metaDataNoarkSection, value);
         }
 
         public GuiMetaDataModel MetaDataExtractionDate
         {
-            get { return _metaDataExtractionDate; }
-            set { SetProperty(ref _metaDataExtractionDate, value); }
+            get => _metaDataExtractionDate;
+            set => SetProperty(ref _metaDataExtractionDate, value);
         }
 
         public IList<String> SystemTypeList
         {
-            get { return _systemTypeList; }
-            set { SetProperty(ref _systemTypeList, value); }
+            get => _systemTypeList;
+            set => SetProperty(ref _systemTypeList, value);
         }
 
 
@@ -209,14 +195,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public string StatusMessageText
         {
-            get { return _statusMessageText; }
-            set { SetProperty(ref _statusMessageText, value); }
+            get => _statusMessageText;
+            set => SetProperty(ref _statusMessageText, value);
         }
 
         public string StatusMessagePath
         {
-            get { return _statusMessagePath; }
-            set { SetProperty(ref _statusMessagePath, value); }
+            get => _statusMessagePath;
+            set => SetProperty(ref _statusMessagePath, value);
         }
 
 
@@ -228,36 +214,36 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             LoadExternalMetadataCommand = new DelegateCommand(RunLoadExternalMetadata, CanLoadMetadata);
             CreatePackageCommand = new DelegateCommand(RunCreatePackage, CanExecuteCreatePackage);
             NewProgramSessionCommand = new DelegateCommand(RunNavigateToLoadArchivePage, CanLeaveCreatePackageView);
-            AddMetadataAchiveCreatorEntry = new DelegateCommand(RunAddMetadataAchiveCreatorEntry);
-            AddMetadataAchiveOwnerEntry = new DelegateCommand(RunAddMetadataAchiveOwnerEntry);
+            AddMetadataArchiveCreatorEntry = new DelegateCommand(RunAddMetadataArchiveCreatorEntry);
+            AddMetadataArchiveOwnerEntry = new DelegateCommand(RunAddMetadataArchiveOwnerEntry);
 
-           ((INotifyPropertyChanged)MetaDataArchiveCreators).PropertyChanged += (x, y) => OnMetaDataArchiveCreatorsDataElementChaneChange();
-           ((INotifyPropertyChanged)MetaDataOwners).PropertyChanged += (x, y) => OnMetaDataOwnersDataElementChaneChange();
+           ((INotifyPropertyChanged)MetaDataArchiveCreators).PropertyChanged += (x, y) => OnMetaDataArchiveCreatorsDataElementChange();
+           ((INotifyPropertyChanged)MetaDataOwners).PropertyChanged += (x, y) => OnMetaDataOwnersDataElementChange();
 
         }
 
-        public void OnMetaDataArchiveCreatorsDataElementChaneChange()
+        public void OnMetaDataArchiveCreatorsDataElementChange()
         {
             // Fires when any change is carried out in the MetaDataArchiveCreators ObservableCollection
-            // Calls function to aminister GUI based as needed
+            // Calls function to administer GUI based as needed
             _SetDeleteButtonToHiddenIfCollectionOnlyContainsOneElements(MetaDataArchiveCreators);
         }
 
-        public void OnMetaDataOwnersDataElementChaneChange()
+        public void OnMetaDataOwnersDataElementChange()
         {
             // Fires when any change is carried out in the MetaDataArchiveCreators ObservableCollection
-            // Calls function to aminister GUI based as needed
+            // Calls function to administer GUI based as needed
             _SetDeleteButtonToHiddenIfCollectionOnlyContainsOneElements(MetaDataOwners);
         }
 
 
 
-        public void RunAddMetadataAchiveCreatorEntry()
+        public void RunAddMetadataArchiveCreatorEntry()
         {
             MetaDataArchiveCreators.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty));
         }
 
-        public void RunAddMetadataAchiveOwnerEntry()
+        public void RunAddMetadataArchiveOwnerEntry()
         {
             MetaDataOwners.Add(new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty));
         }
@@ -278,8 +264,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 );
 
                 // Pre populate metadata objects that require at least one entry
-                RunAddMetadataAchiveCreatorEntry();
-                RunAddMetadataAchiveOwnerEntry();
+                RunAddMetadataArchiveCreatorEntry();
+                RunAddMetadataArchiveOwnerEntry();
             }
             catch (Exception e)
             {
@@ -361,7 +347,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
+            MainWindow.ProgressBarWorker.ReportProgress(0, "reset");
         }
 
         private void RunNavigateToLoadArchivePage()
@@ -392,7 +378,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             string suggestedMetadataFileDirectory = new FileInfo(_archiveFileName).DirectoryName;
 
-            var selectMetadataFileDialog = new CommonOpenFileDialog
+            var selectMetadataFileDialog = new OpenFileDialog
             {
                 Title = MetaDataGUI.SelectMetadataFile,
                 InitialDirectory = suggestedMetadataFileDirectory,
@@ -400,7 +386,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             string metadataFileName;
 
-            if (selectMetadataFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            if (selectMetadataFileDialog.ShowDialog() == DialogResult.OK)
                 metadataFileName = selectMetadataFileDialog.FileName;
             else return;
 
@@ -413,7 +399,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 {
                     MessageBox.Show(
                         string.Format(MetaDataGUI.MetadataLoadError, metadataFile.FullName),
-                        null, MessageBoxButtons.OK, MessageBoxIcon.Exclamation
+                        null, MessageBoxButton.OK, MessageBoxImage.Exclamation
                     );
                 }
             );
@@ -423,20 +409,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             Log.Information("User action: Create package");
 
-            string suggestedOutputDirectory = new FileInfo(_archiveFileName).DirectoryName;
-
-            var selectOutputDirectoryDialog = new CommonOpenFileDialog
+            var selectOutputDirectoryDialog = new FolderBrowserDialog
             {
-                Title = Resources.MetaDataGUI.SelectOutputDirectoryMessage,
-                IsFolderPicker = true,
-                InitialDirectory = suggestedOutputDirectory,
-                DefaultFileName = suggestedOutputDirectory,
+                Description = MetaDataGUI.SelectOutputDirectoryMessage,
+                UseDescriptionForTitle = true,
             };
             
             string outputDirectory;
 
-            if (selectOutputDirectoryDialog.ShowDialog() == CommonFileDialogResult.Ok)
-                outputDirectory = selectOutputDirectoryDialog.FileName;
+            if (selectOutputDirectoryDialog.ShowDialog() == DialogResult.OK)
+                outputDirectory = selectOutputDirectoryDialog.SelectedPath;
             else return;
             
             ProgressBarVisibility = Visibility.Visible;
@@ -467,7 +449,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _isRunningCreatePackage = true;
             CreatePackageCommand.RaiseCanExecuteChanged();
-            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Indeterminate);
+            MainWindow.ProgressBarWorker.ReportProgress(0);
 
             Task.Factory.StartNew(() => CreatePackageRunEngine(outputDirectory)).ContinueWith(t => OnCompletedCreatePackage());
         }
@@ -476,7 +458,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _isRunningCreatePackage = false;
             CreatePackageCommand.RaiseCanExecuteChanged();
-            TaskbarManager.Instance.SetProgressValue(1, 1);
+            MainWindow.ProgressBarWorker.ReportProgress(100);
         }
 
 
@@ -500,8 +482,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 if (exception is IOException)
                 {
-                    StatusMessageText = Resources.MetaDataGUI.PackageCreationErrorStatusMessage;
-                    Log.Debug(Resources.MetaDataGUI.PackageCreationErrorLogMessage);
+                    StatusMessageText = MetaDataGUI.PackageCreationErrorStatusMessage;
+                    Log.Debug(MetaDataGUI.PackageCreationErrorLogMessage);
                 }
 
                 if (exception is InsufficientDiskSpaceException)

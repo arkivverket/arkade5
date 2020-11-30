@@ -163,7 +163,7 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="ArchiveSystem" xml:space="preserve">
     <value>Uttrekkssystem</value>
   </data>
-  <data name="EndData" xml:space="preserve">
+  <data name="EndDate" xml:space="preserve">
     <value>Sluttdato</value>
     <comment>Obligatorisk for Noark (addml)</comment>
   </data>
@@ -249,7 +249,7 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="Producer_Telephone" xml:space="preserve">
     <value>Telefon (Kontakt, Produsent)</value>
   </data>
-  <data name="Recepient" xml:space="preserve">
+  <data name="Recipient" xml:space="preserve">
     <value>Mottaker*</value>
     <comment>Institusjonsnavn</comment>
   </data>

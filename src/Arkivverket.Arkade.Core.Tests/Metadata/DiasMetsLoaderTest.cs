@@ -81,7 +81,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
 
             archiveMetadata.ArchiveSystem.Name.Should().Be("Some archive system name");
             archiveMetadata.ArchiveSystem.Version.Should().Be("v2.0.0");
-            archiveMetadata.ArchiveSystem.Type.Should().Be("Noark4");
+            archiveMetadata.ArchiveSystem.Type.Should().Be("Noark5");
             archiveMetadata.ArchiveSystem.TypeVersion.Should().BeNull(); // Applies to Noark5 only
 
             archiveMetadata.StartDate.Should().Be(new DateTime(2017, 01, 01));

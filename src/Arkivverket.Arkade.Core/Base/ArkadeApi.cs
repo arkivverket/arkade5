@@ -22,14 +22,16 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly MetadataFilesCreator _metadataFilesCreator;
         private readonly InformationPackageCreator _informationPackageCreator;
         private readonly TestSessionXmlGenerator _testSessionXmlGenerator;
+        private readonly IArchiveTypeIdentifier _archiveTypeIdentifier;
 
-        public ArkadeApi(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory, MetadataFilesCreator metadataFilesCreator, InformationPackageCreator informationPackageCreator, TestSessionXmlGenerator testSessionXmlGenerator)
+        public ArkadeApi(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory, MetadataFilesCreator metadataFilesCreator, InformationPackageCreator informationPackageCreator, TestSessionXmlGenerator testSessionXmlGenerator, IArchiveTypeIdentifier archiveTypeIdentifier)
         {
             _testSessionFactory = testSessionFactory;
             _testEngineFactory = testEngineFactory;
             _metadataFilesCreator = metadataFilesCreator;
             _informationPackageCreator = informationPackageCreator;
             _testSessionXmlGenerator = testSessionXmlGenerator;
+            _archiveTypeIdentifier = archiveTypeIdentifier;
         }
 
         public TestSession RunTests(ArchiveDirectory archiveDirectory)
@@ -112,5 +114,16 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
+        public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath)
+        {
+            FileFormatInfoGenerator.Generate(filesDirectory, resultFileDirectoryPath);
+        }
+
+        public ArchiveType? DetectArchiveType(string archiveFileName)
+        {
+            return !Path.HasExtension(archiveFileName)
+                ? _archiveTypeIdentifier.IdentifyTypeOfChosenArchiveDirectory(archiveFileName)
+                : _archiveTypeIdentifier.IdentifyTypeOfChosenArchiveFile(archiveFileName);
+        }
     }
 }

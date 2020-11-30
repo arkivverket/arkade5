@@ -25,8 +25,8 @@ namespace Arkivverket.Arkade.Core.Tests.Identify
             extractorMock.Setup(e => e.ExtractFolderFromArchive(It.IsAny<FileInfo>(), It.IsAny<DirectoryInfo>()));
 
             var archiveType = ArchiveType.Noark5;
-            var identifierMock = new Mock<IArchiveIdentifier>();
-            identifierMock.Setup(i => i.Identify(It.IsAny<string>())).Returns(archiveType);
+            var identifierMock = new Mock<IArchiveTypeIdentifier>();
+            identifierMock.Setup(i => i.IdentifyTypeOfChosenArchiveFile(It.IsAny<string>())).Returns(archiveType);
 
             var statusEventHandler = new StatusEventHandler();
 

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net472</TargetFrameworks>
+    <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
     <OutputType>Library</OutputType>
@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
-    <PathMap>$(AppOutputBase)=(..).CLI\</PathMap>
+    <PathMap>$(AppOutputBase)=(..)CLI.Tests\</PathMap>
   </PropertyGroup>
 
   <ItemGroup>

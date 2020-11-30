@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
@@ -20,6 +20,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper()
+                                    .Add("merknad", string.Empty)
+                                    .Add("merknad", string.Empty))
+                                .Add("mappe", new XmlElementHelper()
                                     .Add("merknad", string.Empty)))
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new[] {"xsi:type", "saksmappe"}, new XmlElementHelper()
@@ -36,10 +39,12 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_36_NumberOfComments());
 
-            testRun.Results.First().Message.Should().Be("Totalt: 5");
+            testRun.Results.First().Message.Should().Be("Totalt: 7");
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Antall merknader i saksmappe: 2"));
+                r.Message.Equals("Antall merknader i mappe: 1"));
+            testRun.Results.Should().Contain(r =>
+                r.Message.Equals("Antall merknader i saksmappe: 3"));
             testRun.Results.Should().Contain(r =>
                 r.Message.Equals("Antall merknader i basisregistrering: 1"));
             testRun.Results.Should().Contain(r =>

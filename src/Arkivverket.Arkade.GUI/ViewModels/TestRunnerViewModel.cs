@@ -16,7 +16,6 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
 using Arkivverket.Arkade.Core.Util;
-using Microsoft.WindowsAPICodePack.Taskbar;
 using Application = System.Windows.Application;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
@@ -61,55 +60,55 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public Visibility AddmlDataObjectStatusVisibility
         {
-            get { return _addmlDataObjectStatusVisibilty; }
-            set { SetProperty(ref _addmlDataObjectStatusVisibilty, value); }
+            get => _addmlDataObjectStatusVisibilty;
+            set => SetProperty(ref _addmlDataObjectStatusVisibilty, value);
         }
 
         public Visibility AddmlFlatFileStatusVisibility
         {
-            get { return _addmlFlatFileStatusVisibilty; }
-            set { SetProperty(ref _addmlFlatFileStatusVisibilty, value); }
+            get => _addmlFlatFileStatusVisibilty;
+            set => SetProperty(ref _addmlFlatFileStatusVisibilty, value);
         }
 
         public string CurrentlyRunningTest
         {
-            get { return _currentlyRunningTest; }
-            set { SetProperty(ref _currentlyRunningTest, value); }
+            get => _currentlyRunningTest;
+            set => SetProperty(ref _currentlyRunningTest, value);
         }
 
         public int NumberOfTestsFinished
         {
-            get { return _numberOfTestsFinished; }
-            set { SetProperty(ref _numberOfTestsFinished, value); }
+            get => _numberOfTestsFinished;
+            set => SetProperty(ref _numberOfTestsFinished, value);
         }
 
         public string CurrentActivityMessage
         {
-            get { return _currentActivityMessage; }
-            set { SetProperty(ref _currentActivityMessage, value); }
+            get => _currentActivityMessage;
+            set => SetProperty(ref _currentActivityMessage, value);
         }
 
         public string CurrentlyProcessingFile
         {
-            get { return _currentlyProcessingFile; }
-            set { SetProperty(ref _currentlyProcessingFile, value); }
+            get => _currentlyProcessingFile;
+            set => SetProperty(ref _currentlyProcessingFile, value);
         }
 
         public int NumberOfProcessedFiles
         {
-            get { return _numberOfProcessedFiles; }
-            set { SetProperty(ref _numberOfProcessedFiles, value); }
+            get => _numberOfProcessedFiles;
+            set => SetProperty(ref _numberOfProcessedFiles, value);
         }
 
         public int NumberOfProcessedRecords
         {
-            get { return _numberOfProcessedRecords; }
-            set { SetProperty(ref _numberOfProcessedRecords, value); }
+            get => _numberOfProcessedRecords;
+            set => SetProperty(ref _numberOfProcessedRecords, value);
         }
 
         public bool AllTestsSelected
         {
-            get { return _allTestsSelected; }
+            get => _allTestsSelected;
             set
             {
                 SetProperty(ref _allTestsSelected, value);
@@ -120,32 +119,32 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public bool CanSelectTests
         {
-            get { return _canSelectTests;}
-            set { SetProperty(ref _canSelectTests, value); }
+            get => _canSelectTests;
+            set => SetProperty(ref _canSelectTests, value);
         }
 
         public ObservableCollection<OperationMessage> OperationMessages
         {
-            get { return _operationMessages; }
-            set { SetProperty(ref _operationMessages, value); }
+            get => _operationMessages;
+            set => SetProperty(ref _operationMessages, value);
         }
 
         public ObservableCollection<SelectableTest> SelectableTests
         {
-            get { return _selectableTests; }
-            set { SetProperty(ref _selectableTests, value); }
+            get => _selectableTests;
+            set => SetProperty(ref _selectableTests, value);
         }
 
         public ArchiveInformationStatus ArchiveInformationStatus
         {
-            get { return _archiveInformationStatus; }
-            set { SetProperty(ref _archiveInformationStatus, value); }
+            get => _archiveInformationStatus;
+            set => SetProperty(ref _archiveInformationStatus, value);
         }
 
         public Visibility ArchiveCurrentProcessing
         {
-            get { return _archiveCurrentProcessing; }
-            set { SetProperty(ref _archiveCurrentProcessing, value); }
+            get => _archiveCurrentProcessing;
+            set => SetProperty(ref _archiveCurrentProcessing, value);
         }
 
         public TestRunnerViewModel(ArkadeApi arkadeApi, IRegionManager regionManager,  IStatusEventHandler statusEventHandler)
@@ -278,7 +277,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
+            MainWindow.ProgressBarWorker.ReportProgress(0, "reset");
         }
 
 
@@ -399,7 +398,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
             NewProgramSessionCommand.RaiseCanExecuteChanged();
             
-            TaskbarManager.Instance.SetProgressValue(1, 1);
+            MainWindow.ProgressBarWorker.ReportProgress(100);
         }
 
         private void NotifyStartRunningTests()
@@ -414,7 +413,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             MainWindow.TestsIsRunningOrHasRun = true;
 
-            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Indeterminate);
+            MainWindow.ProgressBarWorker.ReportProgress(0);
         }
 
         private void UpdateOperationMessageList(OperationMessageEventArgs operationMessageEventArgs)
@@ -437,7 +436,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void OpenFile(FileInfo file)
         {
-            System.Diagnostics.Process.Start(file.FullName);
+            var process = new System.Diagnostics.Process();
+            process.StartInfo = new System.Diagnostics.ProcessStartInfo(file.FullName)
+            {
+                UseShellExecute = true,
+            };
+            process.Start();
         }
 
         private void SaveHtmlReport()

@@ -3,7 +3,7 @@
   <Product Id="*"
            Name="Arkade 5"
            Language="1033"
-           Version="!(bind.FileVersion.filBC02C298FE69F20A0EDF74E1F73A270E)"
+           Version="!(bind.FileVersion.ApplicationExe)"
            Manufacturer="Arkivverket"
            UpgradeCode="029ba52f-9fd9-483c-9f7b-b83febc9d9d6">
     <Package InstallerVersion="200"

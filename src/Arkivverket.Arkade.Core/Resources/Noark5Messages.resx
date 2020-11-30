@@ -402,7 +402,7 @@ Generert:  {2}</value>
     <value>Arkivdel (systemID, tittel): {0}, {1} {2} klassifikasjonssystem (systemID): {3} - </value>
   </data>
   <data name="ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound" xml:space="preserve">
-    <value>Det ble ikke funnet noen journaldatoer i arkivuttrekket</value>
+    <value>Det ble ikke funnet noen gyldige journaldatoer i arkivuttrekket</value>
   </data>
   <data name="NumberOfRegistrations_DocumentedAndActualMismatch" xml:space="preserve">
     <value>Det er angitt at arkivstrukturen skal innholde {0} registreringer, men {1} ble funnet</value>

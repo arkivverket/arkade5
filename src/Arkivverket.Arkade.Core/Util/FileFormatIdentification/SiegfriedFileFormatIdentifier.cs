@@ -20,11 +20,11 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         {
             Process siegfriedProcess = SetupSiegfriedProcess();
 
-            Log.Information($"Starting document file format checking.");
+            Log.Information($"Starting document file format analysis.");
 
             IEnumerable<string> siegfriedResult = RunProcessOnDirectory(siegfriedProcess, directory);
 
-            Log.Information($"Document file format checking completed.");
+            Log.Information($"Document file format analysis completed.");
 
             return GetSiegfriedFileInfoObjects(siegfriedResult);
         }
@@ -71,7 +71,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             catch (Exception e)
             {
                 Log.Debug(e.ToString());
-                throw new SystemException("Document file format check could not to be executed, process is skipped. Details can be found in arkade-tmp/logs/");
+                throw new SystemException("Document file format analysis could not to be executed, process is skipped. Details can be found in arkade-tmp/logs/");
             }
 
             process.BeginOutputReadLine();
@@ -80,7 +80,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             process.WaitForExit();
 
             if (errors.Any())
-                errors.ForEach(Log.Error);
+                errors.ForEach(Log.Debug);
 
             return results;
         }
@@ -105,7 +105,8 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                         errors: record[3],
                         id: record[5],
                         format: record[6],
-                        version: record[7]
+                        version: record[7],
+                        mimeType: record[8]
                     );
 
                     siegfriedFileInfoObjects.Add(documentFileListElement);
@@ -125,7 +126,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 fileName = ArkadeConstants.SiegfriedMacOSXExecutable;
             else
-                throw new SiegfriedFileFormatIdentifierException("Arkade could not identify your OS, format checking will be skipped");
+                throw new SiegfriedFileFormatIdentifierException("Arkade could not identify your OS, format analysis will be skipped");
 
             return fileName;
         }
