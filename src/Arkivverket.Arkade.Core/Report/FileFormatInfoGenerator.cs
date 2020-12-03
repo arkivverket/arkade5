@@ -43,7 +43,7 @@ namespace Arkivverket.Arkade.Core.Report
 
                 var documentFileListElement = new ListElement
                 {
-                    FileName = fileName,
+                    FileName = fileName.Replace('\\','/'),
                     FileExtension = siegfriedFileInfo.FileExtension,
                     FileFormatPuId = siegfriedFileInfo.Id,
                     FileFormatName = siegfriedFileInfo.Format,
