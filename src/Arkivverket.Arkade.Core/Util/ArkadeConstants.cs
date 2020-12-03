@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Util
         public const string SiegfriedWindowsExecutable = "siegfried.exe";
         public const string Noark5TestListFileName = "noark5-testlist.txt";
         public const string MetadataFileName = "arkade-ip-metadata.json";
-        public const string FileFormatInfoFileName = "fileformatinfo.csv";
+        public const string FileFormatInfoFileName = "{0}-fileformatinfo.csv";
         public const string FileFormatInfoStatisticsFileName = "{0}-statistics.csv";
         public struct FileFormatInfoHeaders
         {

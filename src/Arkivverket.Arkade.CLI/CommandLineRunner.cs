@@ -144,9 +144,12 @@ namespace Arkivverket.Arkade.CLI
             string command = GetRunningCommand(options.GetType().Name);
 
             Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {options.FormatCheckTarget}");
-            options.OutputFileName ??= ArkadeConstants.FileFormatInfoFileName;
+            string outputFileName = options.OutputFileName ?? string.Format(
+                ArkadeConstants.FileFormatInfoFileName,
+                Path.GetFileName(options.FormatCheckTarget)
+            );
             Arkade.GenerateFileFormatInfoFiles(
-                new DirectoryInfo(options.FormatCheckTarget), options.OutputDirectory, options.OutputFileName
+                new DirectoryInfo(options.FormatCheckTarget), options.OutputDirectory, outputFileName
             );
 
             LogFinishedStatus(command);

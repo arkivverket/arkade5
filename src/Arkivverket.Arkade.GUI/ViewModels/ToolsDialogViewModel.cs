@@ -100,7 +100,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 DefaultExt = "csv",
                 AddExtension = true,
                 Filter = Resources.ToolsGUI.SaveFormatFileExtensionFilter,
-                FileName = ArkadeConstants.FileFormatInfoFileName,
+                FileName = string.Format(
+                    ArkadeConstants.FileFormatInfoFileName,
+                    Path.GetFileName(DirectoryForFormatCheck)
+                )
             };
 
             if (saveFileDialog.ShowDialog() != DialogResult.OK)
