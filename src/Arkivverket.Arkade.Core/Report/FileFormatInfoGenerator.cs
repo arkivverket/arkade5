@@ -11,15 +11,16 @@ namespace Arkivverket.Arkade.Core.Report
     public static class FileFormatInfoGenerator
     {
         private static readonly List<FileTypeStatisticsElement> AmountOfFilesPerFileType = new List<FileTypeStatisticsElement>();
-        private static readonly List<ListElement> ListElements = new List<ListElement>();
 
         public static void Generate(DirectoryInfo filesDirectory, string resultFileDirectoryPath)
         {
+            var listElements = new List<ListElement>();
+
             IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(filesDirectory);
 
-            ArrangeFileFormatStatistics(siegfriedFileInfoSet, filesDirectory.Parent?.Parent);
+            ArrangeFileFormatStatistics(siegfriedFileInfoSet, filesDirectory.Parent?.Parent, listElements);
 
-            WriteFileList(resultFileDirectoryPath);
+            WriteFileList(resultFileDirectoryPath, listElements);
 
             WriteFileTypeStatisticsFile(resultFileDirectoryPath);
         }
@@ -32,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Report
         }
 
         private static void ArrangeFileFormatStatistics(IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet,
-            DirectoryInfo startDirectory)
+            DirectoryInfo startDirectory, List<ListElement> listElements)
         {
             foreach (SiegfriedFileInfo siegfriedFileInfo in siegfriedFileInfoSet)
             {
@@ -51,7 +52,7 @@ namespace Arkivverket.Arkade.Core.Report
                     FileScanError = siegfriedFileInfo.Errors,
                 };
 
-                ListElements.Add(documentFileListElement);
+                listElements.Add(documentFileListElement);
 
                 string key = documentFileListElement.FileFormatPuId + " - " + documentFileListElement.FileFormatName;
 
@@ -71,14 +72,14 @@ namespace Arkivverket.Arkade.Core.Report
             }
         }
 
-        private static void WriteFileList(string fileLocation)
+        private static void WriteFileList(string fileLocation, List<ListElement> listElements)
         {
             string fullFileName = Path.Combine(fileLocation, ArkadeConstants.FileFormatInfoFileName);
 
             using (var writer = new StreamWriter(fullFileName))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
-                csv.WriteRecords(ListElements);
+                csv.WriteRecords(listElements);
             }
         }
 
