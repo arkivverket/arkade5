@@ -43,9 +43,11 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (generateDocumentFileInfo)
             {
                 string resultFileDirectoryPath = archive.WorkingDirectory.AdministrativeMetadata().DirectoryInfo().FullName;
+                string resultFileFullName = Path.Combine(resultFileDirectoryPath, ArkadeConstants.FileFormatInfoFileName);
+                
                 try
                 {
-                    FileFormatInfoGenerator.Generate(archive.GetDocumentsDirectory(), resultFileDirectoryPath);
+                    FileFormatInfoGenerator.Generate(archive.GetDocumentsDirectory(), resultFileFullName);
                 }
                 catch (SiegfriedFileFormatIdentifierException siegfriedException)
                 {

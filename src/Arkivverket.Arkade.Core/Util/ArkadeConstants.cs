@@ -55,7 +55,7 @@ namespace Arkivverket.Arkade.Core.Util
         public const string Noark5TestListFileName = "noark5-testlist.txt";
         public const string MetadataFileName = "arkade-ip-metadata.json";
         public const string FileFormatInfoFileName = "fileformatinfo.csv";
-        public const string FileFormatInfoStatisticsFileName = "fileformatinfo-statistics.csv";
+        public const string FileFormatInfoStatisticsFileName = "{0}-statistics.csv";
         public struct FileFormatInfoHeaders
         {
             public const string FileName = "Filnavn";
