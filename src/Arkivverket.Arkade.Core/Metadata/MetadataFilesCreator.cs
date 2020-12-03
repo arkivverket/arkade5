@@ -47,7 +47,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                 
                 try
                 {
-                    FileFormatInfoGenerator.Generate(archive.GetDocumentsDirectory(), resultFileFullName);
+                    FileFormatInfoGenerator.Generate(archive.GetDocumentsDirectory(), resultFileFullName, true);
                 }
                 catch (SiegfriedFileFormatIdentifierException siegfriedException)
                 {

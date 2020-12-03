@@ -12,13 +12,17 @@ namespace Arkivverket.Arkade.Core.Report
     {
         private static readonly List<FileTypeStatisticsElement> AmountOfFilesPerFileType = new List<FileTypeStatisticsElement>();
 
-        public static void Generate(DirectoryInfo filesDirectory, string resultFileFullPath)
+        public static void Generate(DirectoryInfo filesDirectory, string resultFileFullPath, bool filesAreReferencedFromFilesDirectoryParent = false)
         {
             var listElements = new List<ListElement>();
 
             IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(filesDirectory);
 
-            ArrangeFileFormatStatistics(siegfriedFileInfoSet, filesDirectory.Parent?.Parent, listElements);
+            DirectoryInfo startDirectory = filesAreReferencedFromFilesDirectoryParent
+                ? filesDirectory.Parent
+                : filesDirectory;
+
+            ArrangeFileFormatStatistics(siegfriedFileInfoSet, startDirectory, listElements);
 
             WriteFileList(resultFileFullPath, listElements);
 
@@ -37,8 +41,8 @@ namespace Arkivverket.Arkade.Core.Report
         {
             foreach (SiegfriedFileInfo siegfriedFileInfo in siegfriedFileInfoSet)
             {
-                string fileName = startDirectory != null
-                    ? Path.GetRelativePath(startDirectory.FullName, siegfriedFileInfo.FileName)
+                string fileName = startDirectory?.Parent != null
+                    ? Path.GetRelativePath(startDirectory.Parent.FullName, siegfriedFileInfo.FileName)
                     : siegfriedFileInfo.FileName;
 
                 var documentFileListElement = new ListElement
