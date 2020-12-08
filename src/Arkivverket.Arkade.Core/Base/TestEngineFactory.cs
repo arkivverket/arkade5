@@ -1,4 +1,3 @@
-using System;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Serilog;

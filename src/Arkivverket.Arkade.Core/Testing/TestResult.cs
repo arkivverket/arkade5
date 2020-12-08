@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Testing

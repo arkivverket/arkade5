@@ -1,5 +1,4 @@
-﻿using System;
-using Arkivverket.Arkade.Core.Base;
+﻿using Arkivverket.Arkade.Core.Base;
 
 namespace Arkivverket.Arkade.Core.Util
 {

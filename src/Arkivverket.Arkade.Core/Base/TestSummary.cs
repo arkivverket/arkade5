@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace Arkivverket.Arkade.Core.Base
+﻿namespace Arkivverket.Arkade.Core.Base
 {
     public class TestSummary
     {

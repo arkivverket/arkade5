@@ -4,7 +4,6 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Metadata;
-using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
