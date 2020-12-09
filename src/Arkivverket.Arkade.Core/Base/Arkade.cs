@@ -67,9 +67,9 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeApi.SaveReport(testSession, file);
         }
 
-        public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath)
+        public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName)
         {
-            _arkadeApi.GenerateFileFormatInfoFiles(filesDirectory, resultFileDirectoryPath);
+            _arkadeApi.GenerateFileFormatInfoFiles(filesDirectory, resultFileDirectoryPath, resultFileName);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)

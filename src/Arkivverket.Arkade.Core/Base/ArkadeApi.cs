@@ -114,9 +114,11 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath)
+        public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName)
         {
-            FileFormatInfoGenerator.Generate(filesDirectory, resultFileDirectoryPath);
+            string resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
+
+            FileFormatInfoGenerator.Generate(filesDirectory, resultFileFullName);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)

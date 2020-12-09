@@ -61,6 +61,15 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Velg katalog hvis innhold skal analyseres.
+        /// </summary>
+        public static string ChooseDirectoryToAnalyse {
+            get {
+                return ResourceManager.GetString("ChooseDirectoryToAnalyse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lukk.
         /// </summary>
         public static string CloseDialogButtonText {
@@ -139,6 +148,15 @@ namespace Arkivverket.Arkade.GUI.Resources {
         public static string FormatCheckRunButtonText {
             get {
                 return ResourceManager.GetString("FormatCheckRunButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CSV (Semikolondelt) (*.csv)|*.csv.
+        /// </summary>
+        public static string SaveFormatFileExtensionFilter {
+            get {
+                return ResourceManager.GetString("SaveFormatFileExtensionFilter", resourceCulture);
             }
         }
         

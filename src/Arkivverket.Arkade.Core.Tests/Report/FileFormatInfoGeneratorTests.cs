@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
         public void GenerateTest()
         {
             string workingDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData", "Report", "FilesToBeListed");
-            string testFilePath = Path.Combine(workingDirectoryPath, ArkadeConstants.FileFormatInfoFileName);
+            string testFilePath = Path.Combine(workingDirectoryPath, string.Format(ArkadeConstants.FileFormatInfoFileName, "FilesToBeListed"));
 
             var testArchive = new Archive(ArchiveType.Noark5, null,
                 new WorkingDirectory(new DirectoryInfo(workingDirectoryPath)));
@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             if (File.Exists(testFilePath))
                 File.Delete(testFilePath);
 
-            FileFormatInfoGenerator.Generate(testArchive.GetDocumentsDirectory(), workingDirectoryPath);
+            FileFormatInfoGenerator.Generate(testArchive.GetDocumentsDirectory(), testFilePath, true);
 
             File.Exists(testFilePath).Should().BeTrue();
 
