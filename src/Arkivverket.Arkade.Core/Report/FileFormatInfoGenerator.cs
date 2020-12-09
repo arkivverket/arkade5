@@ -11,17 +11,22 @@ namespace Arkivverket.Arkade.Core.Report
     public static class FileFormatInfoGenerator
     {
         private static readonly List<FileTypeStatisticsElement> AmountOfFilesPerFileType = new List<FileTypeStatisticsElement>();
-        private static readonly List<ListElement> ListElements = new List<ListElement>();
 
-        public static void Generate(DirectoryInfo filesDirectory, string resultFileDirectoryPath)
+        public static void Generate(DirectoryInfo filesDirectory, string resultFileFullPath, bool filesAreReferencedFromFilesDirectoryParent = false)
         {
+            var listElements = new List<ListElement>();
+
             IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(filesDirectory);
 
-            ArrangeFileFormatStatistics(siegfriedFileInfoSet, filesDirectory.Parent?.Parent);
+            DirectoryInfo startDirectory = filesAreReferencedFromFilesDirectoryParent
+                ? filesDirectory.Parent
+                : filesDirectory;
 
-            WriteFileList(resultFileDirectoryPath);
+            ArrangeFileFormatStatistics(siegfriedFileInfoSet, startDirectory, listElements);
 
-            WriteFileTypeStatisticsFile(resultFileDirectoryPath);
+            WriteFileList(resultFileFullPath, listElements);
+
+            WriteFileTypeStatisticsFile(resultFileFullPath);
         }
 
         private static IEnumerable<SiegfriedFileInfo> GetFormatInfoAllFiles(DirectoryInfo directory)
@@ -32,17 +37,17 @@ namespace Arkivverket.Arkade.Core.Report
         }
 
         private static void ArrangeFileFormatStatistics(IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet,
-            DirectoryInfo startDirectory)
+            DirectoryInfo startDirectory, List<ListElement> listElements)
         {
             foreach (SiegfriedFileInfo siegfriedFileInfo in siegfriedFileInfoSet)
             {
-                string fileName = startDirectory != null
-                    ? Path.GetRelativePath(startDirectory.FullName, siegfriedFileInfo.FileName)
+                string fileName = startDirectory?.Parent != null
+                    ? Path.GetRelativePath(startDirectory.Parent.FullName, siegfriedFileInfo.FileName)
                     : siegfriedFileInfo.FileName;
 
                 var documentFileListElement = new ListElement
                 {
-                    FileName = fileName,
+                    FileName = fileName.Replace('\\','/'),
                     FileExtension = siegfriedFileInfo.FileExtension,
                     FileFormatPuId = siegfriedFileInfo.Id,
                     FileFormatName = siegfriedFileInfo.Format,
@@ -51,7 +56,7 @@ namespace Arkivverket.Arkade.Core.Report
                     FileScanError = siegfriedFileInfo.Errors,
                 };
 
-                ListElements.Add(documentFileListElement);
+                listElements.Add(documentFileListElement);
 
                 string key = documentFileListElement.FileFormatPuId + " - " + documentFileListElement.FileFormatName;
 
@@ -71,20 +76,20 @@ namespace Arkivverket.Arkade.Core.Report
             }
         }
 
-        private static void WriteFileList(string fileLocation)
+        private static void WriteFileList(string fullFileName, List<ListElement> listElements)
         {
-            string fullFileName = Path.Combine(fileLocation, ArkadeConstants.FileFormatInfoFileName);
-
             using (var writer = new StreamWriter(fullFileName))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
-                csv.WriteRecords(ListElements);
+                csv.WriteRecords(listElements);
             }
         }
 
-        private static void WriteFileTypeStatisticsFile(string fileLocation)
+        private static void WriteFileTypeStatisticsFile(string fileFormatInfoFileName)
         {
-            string fullFileName = Path.Combine(fileLocation, ArkadeConstants.FileFormatInfoStatisticsFileName);
+            string fullFileName = Path.Combine(Path.GetDirectoryName(fileFormatInfoFileName),
+                string.Format(ArkadeConstants.FileFormatInfoStatisticsFileName,
+                    Path.GetFileNameWithoutExtension(fileFormatInfoFileName)));
 
             using (var writer = new StreamWriter(fullFileName))
             {

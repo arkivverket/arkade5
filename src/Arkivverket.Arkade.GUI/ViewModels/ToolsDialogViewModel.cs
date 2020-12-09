@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -77,7 +77,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             FormatCheckStatus = string.Empty;
 
             DirectoryPicker(Resources.ToolsGUI.FormatCheckActionChooseTargetDirectory,
-                null,
+                Resources.ToolsGUI.ChooseDirectoryToAnalyse,
                 out string directoryForFormatCheck
             );
 
@@ -90,15 +90,33 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private async void RunFormatCheck()
         {
-            DirectoryPicker(Resources.ToolsGUI.FormatCheckActionChooseOutputDirectory,
-                Resources.ToolsGUI.FormatCheckOutputDirectoryPickerTitle,
-                out string directoryToSaveFormatCheckResults
-            );
+            string action = Resources.ToolsGUI.FormatCheckActionChooseOutputDirectory;
 
-            if (directoryToSaveFormatCheckResults == null)
+            _log.Information($"User action: Open choose directory for {action} dialog");
+
+            var saveFileDialog = new SaveFileDialog
+            {
+                Title = Resources.ToolsGUI.FormatCheckOutputDirectoryPickerTitle,
+                DefaultExt = "csv",
+                AddExtension = true,
+                Filter = Resources.ToolsGUI.SaveFormatFileExtensionFilter,
+                FileName = string.Format(
+                    ArkadeConstants.FileFormatInfoFileName,
+                    Path.GetFileName(DirectoryForFormatCheck)
+                )
+            };
+
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            {
+                _log.Information($"User action: Abort choose directory for {action}");
                 return;
-                
-            DirectoryToSaveFormatCheckResult = directoryToSaveFormatCheckResults;
+            }
+
+            string filePath = saveFileDialog.FileName;
+
+            _log.Information($"User action: Chose directory for {action}: {filePath}");
+
+            DirectoryToSaveFormatCheckResult = Path.GetDirectoryName(filePath);
 
             await Task.Run(
                 () =>
@@ -107,13 +125,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     CloseButtonIsEnabled = false;
                     ProgressBarVisibility = Visibility.Visible;
 
-                    _arkadeApi.GenerateFileFormatInfoFiles(new DirectoryInfo(DirectoryForFormatCheck), DirectoryToSaveFormatCheckResult);
+                    _arkadeApi.GenerateFileFormatInfoFiles(new DirectoryInfo(DirectoryForFormatCheck),
+                        DirectoryToSaveFormatCheckResult, Path.GetFileName(filePath));
                 });
 
             CloseButtonIsEnabled = true;
             ProgressBarVisibility = Visibility.Hidden;
-
-            string filePath = $"{Path.Combine(DirectoryToSaveFormatCheckResult, ArkadeConstants.FileFormatInfoFileName)}";
 
             FormatCheckStatus = $"{Resources.ToolsGUI.FormatCheckCompletedMessage}\n" +
                                 $"{filePath}";
@@ -126,10 +143,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _log.Information($"User action: Open choose directory for {action} dialog");
 
-            var selectDirectoryDialog = new FolderBrowserDialog();
+            var selectDirectoryDialog = new FolderBrowserDialog
+            {
+                Description = title,
+                UseDescriptionForTitle = true,
+            };
 
-            if (title != null)
-                selectDirectoryDialog.Description = title;
 
             if (selectDirectoryDialog.ShowDialog() == DialogResult.OK)
             {
