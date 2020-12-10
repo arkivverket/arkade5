@@ -143,13 +143,15 @@ namespace Arkivverket.Arkade.CLI
         {
             string command = GetRunningCommand(options.GetType().Name);
 
-            Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {options.FormatCheckTarget}");
+            var analysisDirectory = new DirectoryInfo(options.FormatCheckTarget);
+
+            Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {analysisDirectory}");
             string outputFileName = options.OutputFileName ?? string.Format(
                 ArkadeConstants.FileFormatInfoFileName,
-                Path.GetFileName(options.FormatCheckTarget)
+                analysisDirectory.Name
             );
             Arkade.GenerateFileFormatInfoFiles(
-                new DirectoryInfo(options.FormatCheckTarget), options.OutputDirectory, outputFileName
+                analysisDirectory, options.OutputDirectory, outputFileName
             );
 
             LogFinishedStatus(command);
