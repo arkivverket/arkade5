@@ -26,17 +26,29 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ShowLicenseWebPage()
         {
-            Process.Start(Resources.AboutGUI.GnuGpl3_0Uri);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Resources.AboutGUI.GnuGpl3_0Uri,
+                UseShellExecute = true
+            });
         }
 
         private void ShowSiegfriedWebPage()
         {
-            Process.Start(Resources.AboutGUI.SiegfriedUri);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Resources.AboutGUI.SiegfriedUri,
+                UseShellExecute = true
+            });
         }
 
         private void ShowApacheLicenseWebPage()
         {
-            Process.Start(Resources.AboutGUI.ApacheV2_0Uri);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Resources.AboutGUI.ApacheV2_0Uri,
+                UseShellExecute = true
+            });
         }
     }
 }
