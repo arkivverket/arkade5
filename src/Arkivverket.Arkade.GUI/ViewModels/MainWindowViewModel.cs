@@ -123,11 +123,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private static void LaunchArkadeWebSite()
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = ArkadeConstants.ArkadeWebSiteUrl,
-                UseShellExecute = true
-            });
+            ArkadeConstants.ArkadeWebSiteUrl.LaunchUrl();
         }
     }
 }

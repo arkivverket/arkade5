@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.GUI.Util;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -26,29 +26,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ShowLicenseWebPage()
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = Resources.AboutGUI.GnuGpl3_0Uri,
-                UseShellExecute = true
-            });
+            Resources.AboutGUI.GnuGpl3_0Uri.LaunchUrl();
         }
 
         private void ShowSiegfriedWebPage()
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = Resources.AboutGUI.SiegfriedUri,
-                UseShellExecute = true
-            });
+            Resources.AboutGUI.SiegfriedUri.LaunchUrl();
         }
 
         private void ShowApacheLicenseWebPage()
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = Resources.AboutGUI.ApacheV2_0Uri,
-                UseShellExecute = true
-            });
+            Resources.AboutGUI.ApacheV2_0Uri.LaunchUrl();
         }
     }
 }
