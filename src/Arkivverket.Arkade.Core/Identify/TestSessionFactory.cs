@@ -45,14 +45,24 @@ namespace Arkivverket.Arkade.Core.Identify
             ReadingArchiveStartedEvent();
             _log.Debug(
                 $"Building new TestSession from file [archiveType: {archiveFile.ArchiveType}] [directory: {archiveFile.File.FullName}]");
-            Uuid uuid = Uuid.Of(Path.GetFileNameWithoutExtension(archiveFile.File.Name));
+            Uuid uuid = archiveFile.File.Extension.Equals(".siard")
+                ? Uuid.Random()
+                : Uuid.Of(Path.GetFileNameWithoutExtension(archiveFile.File.Name));
             ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, uuid);
 
             WorkingDirectory workingDirectory = WorkingDirectory.FromUuid(uuid);
 
-            TarExtractionStartedEvent();
-            _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo());
-            TarExtractionFinishedEvent(workingDirectory);
+            if (archiveFile.ArchiveType == ArchiveType.Siard && archiveFile.File.Extension.Equals(".siard"))
+            {
+                File.Copy(archiveFile.File.FullName,
+                    Path.Combine(workingDirectory.Content().ToString(), archiveFile.File.Name));
+            }
+            else
+            {
+                TarExtractionStartedEvent();
+                _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo());
+                TarExtractionFinishedEvent(workingDirectory);
+            }
 
             TestSession testSession = NewSession(workingDirectory, archiveFile.ArchiveType, uuid);
 
@@ -71,6 +81,11 @@ namespace Arkivverket.Arkade.Core.Identify
             {
                 testSession.AvailableTests = Noark5TestProvider.GetAllTestIds();
 
+                return testSession;
+            }
+
+            if (archiveType == ArchiveType.Siard)
+            {
                 return testSession;
             }
 

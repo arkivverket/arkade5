@@ -3,6 +3,7 @@ using System.Windows;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Noark5;
+using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
@@ -105,6 +106,8 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<IReleaseInfoReader, GitHubReleaseInfoReader>();
             containerRegistry.Register<ArkadeVersion>();
             containerRegistry.Register<IFileFormatIdentifier, SiegfriedFileFormatIdentifier>();
+            containerRegistry.Register<ISiardArchiveReader, SiardArchiveReader>();
+            containerRegistry.Register<ISiardXmlTableReader, SiardXmlTableReader>();
         }
 
         public static void MyHandler(object sender, UnhandledExceptionEventArgs args)

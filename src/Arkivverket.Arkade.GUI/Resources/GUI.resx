@@ -186,7 +186,7 @@
     <value>Velg katalog</value>
   </data>
   <data name="LoadArchiveChooseTarFileButtonText" xml:space="preserve">
-    <value>Velg SIP/AIP fil</value>
+    <value>Velg arkivfil</value>
   </data>
   <data name="LoadArchiveLoadArchiveButtonText" xml:space="preserve">
     <value>Last inn uttrekk</value>
@@ -299,6 +299,15 @@ Du kan fortsatt lage en pakke av uttrekket.</value>
     <value>Arkade klarte ikke å identifisere arkivtypen. Vennligst velg type manuelt.</value>
   </data>
   <data name="LoadArchiveChooseArchiveLabelText" xml:space="preserve">
-    <value>Vennligst velg et arkivuttrekk</value>
+    <value>Vennligst velg en katalog eller arkivfil</value>
+  </data>
+  <data name="LoadArchiveAnalyseSiardLobsButtonText" xml:space="preserve">
+    <value>Analyser LOBer</value>
+  </data>
+  <data name="LoadArchiveChooseArchiveFileDialogFilter" xml:space="preserve">
+    <value>Arkivfiler|*.tar;*.siard</value>
+  </data>
+  <data name="TestrunnerTestingNotImplemented" xml:space="preserve">
+    <value>Testing er ikke implementert for uttrekk av typen {0}</value>
   </data>
 </root>

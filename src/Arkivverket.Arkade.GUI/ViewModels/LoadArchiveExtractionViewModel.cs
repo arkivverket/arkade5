@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set
             {
                 SetProperty(ref _archiveFileName, value);
-                NavigateCommand.RaiseCanExecuteChanged();
+                NavigateToTestRunnerCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set
             {
                 SetProperty(ref _archiveFileNameGuiRepresentation, value);
-                NavigateCommand.RaiseCanExecuteChanged();
+                NavigateToTestRunnerCommand.RaiseCanExecuteChanged();
                 IsArchiveFileNameSelected = !string.IsNullOrWhiteSpace(value);
             }
         }
@@ -48,7 +48,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _isArchiveFileNameSelected, value);
         }
 
-
         public ArchiveType? ArchiveType
         {
             get => _archiveType;
@@ -56,12 +55,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 SetProperty(ref _archiveType, value);
                 _isArchiveTypeSelected = value != null;
-                NavigateCommand.RaiseCanExecuteChanged();
+                NavigateToTestRunnerCommand.RaiseCanExecuteChanged();
             }
         }
 
-
-        public DelegateCommand NavigateCommand { get; set; }
+        public DelegateCommand NavigateToTestRunnerCommand { get; set; }
         public DelegateCommand OpenArchiveFileCommand { get; set; }
         public DelegateCommand OpenArchiveFolderCommand { get; set; }
 
@@ -72,11 +70,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             OpenArchiveFileCommand = new DelegateCommand(OpenArchiveFileDialog);
             OpenArchiveFolderCommand = new DelegateCommand(OpenArchiveFolderDialog);
 
-            NavigateCommand = new DelegateCommand(Navigate, CanRunTests);
+            NavigateToTestRunnerCommand = new DelegateCommand(NavigateToTestRunner, CanRunTests);
             _isArchiveTypeSelected = false;
         }
 
-        private void Navigate()
+        private void NavigateToTestRunner()
         {
             _log.Information("User action: Navigate to test runner window with archive file {ArchiveFile} and archive type {ArchiveType}", ArchiveFileName, ArchiveType);
 
@@ -143,6 +141,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool OpenFileDialog(out string fullFilePath)
         {
             var dialog = new OpenFileDialog();
+            dialog.Filter = Resources.GUI.LoadArchiveChooseArchiveFileDialogFilter;
             DialogResult dialogResult = dialog.ShowDialog();
 
             if (dialogResult == DialogResult.OK)

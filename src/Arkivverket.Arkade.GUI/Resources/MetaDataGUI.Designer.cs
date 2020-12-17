@@ -178,11 +178,20 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NB! Tidkrevende ved stort antall dokumentfiler..
+        ///   Looks up a localized string similar to NB! Tidkrevende ved stort antall filer..
         /// </summary>
         public static string CreateDocumentFileInfoToolTip {
             get {
                 return ResourceManager.GetString("CreateDocumentFileInfoToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inkluder formatinformasjon for LOBs.
+        /// </summary>
+        public static string CreateLobFormatInfoFileText {
+            get {
+                return ResourceManager.GetString("CreateLobFormatInfoFileText", resourceCulture);
             }
         }
         

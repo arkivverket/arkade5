@@ -25,10 +25,6 @@ namespace Arkivverket.Arkade.Core.Base
             {
                 throw new ArkadeException("No such file: " + archiveFile.FullName);
             }
-            if (archiveFile.Extension != ".tar")
-            {
-                throw new ArkadeException("A file with extension .tar must be selected");
-            }
 
             return new ArchiveFile(archiveFile, archiveType);
         }

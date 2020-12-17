@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private readonly ArkadeApi _arkadeApi;
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private bool _isRunningCreatePackage;
-        private bool _generateDocumentFileInfoSelected;
+        private bool _generateFileFormatInfoSelected;
         private bool _selectedPackageTypeAip;
         private bool _selectedPackageTypeSip = true;
         private bool _standardLabelIsSelected = true;
@@ -36,6 +36,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private Visibility _progressBarVisibility = Visibility.Hidden;
         private string _statusMessageText;
         private string _statusMessagePath;
+        private string _includeFormatInfoFile;
         private TestSession _testSession;
         private string _archiveFileName;
         private readonly IRegionManager _regionManager;
@@ -57,7 +58,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private IList<String> _systemTypeList  = new List<string>()
         {
-            "Noark3", "Noark5", "Fagsystem"
+            "Noark3", "Noark5", "Fagsystem", "Siard"
         }; 
 
         public string ArkadeNameAndCurrentVersion { get; } = $"Arkade 5 {ArkadeVersion.Current}";
@@ -75,10 +76,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _progressBarVisibility, value);
         }
 
-        public bool GenerateDocumentFileInfoSelected
+        public bool GenerateFileFormatInfoSelected
         {
-            get => _generateDocumentFileInfoSelected;
-            set => SetProperty(ref _generateDocumentFileInfoSelected, value);
+            get => _generateFileFormatInfoSelected;
+            set => SetProperty(ref _generateFileFormatInfoSelected, value);
         }
         public bool SelectedPackageTypeSip
         {
@@ -205,6 +206,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _statusMessagePath, value);
         }
 
+        public string IncludeFormatInfoFile
+        {
+            get => _includeFormatInfoFile;
+            set => SetProperty(ref _includeFormatInfoFile, value);
+        }
+
 
         public CreatePackageViewModel(ArkadeApi arkadeApi, IRegionManager regionManager)
         {
@@ -255,6 +262,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 _testSession = (TestSession) context.Parameters["TestSession"];
                 _archiveFileName = (string) context.Parameters["archiveFileName"];
+
+                if (_testSession.Archive.ArchiveType == ArchiveType.Siard)
+                    IncludeFormatInfoFile = MetaDataGUI.CreateLobFormatInfoFileText;
+                else
+                    IncludeFormatInfoFile = MetaDataGUI.CreateDocumentFileInfoText;
 
                 FileInfo includedMetadataFile =
                     _testSession.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
@@ -445,7 +457,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 PackageType = ArchiveMetadataMapper.MapToPackageType(SelectedPackageTypeSip)
             };
 
-            _testSession.GenerateDocumentFileInfo = GenerateDocumentFileInfoSelected;
+            _testSession.GenerateFileFormatInfo = GenerateFileFormatInfoSelected;
 
             _isRunningCreatePackage = true;
             CreatePackageCommand.RaiseCanExecuteChanged();

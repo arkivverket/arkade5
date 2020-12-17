@@ -24,7 +24,9 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly TestSessionXmlGenerator _testSessionXmlGenerator;
         private readonly IArchiveTypeIdentifier _archiveTypeIdentifier;
 
-        public ArkadeApi(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory, MetadataFilesCreator metadataFilesCreator, InformationPackageCreator informationPackageCreator, TestSessionXmlGenerator testSessionXmlGenerator, IArchiveTypeIdentifier archiveTypeIdentifier)
+        public ArkadeApi(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory,
+            MetadataFilesCreator metadataFilesCreator, InformationPackageCreator informationPackageCreator,
+            TestSessionXmlGenerator testSessionXmlGenerator, IArchiveTypeIdentifier archiveTypeIdentifier)
         {
             _testSessionFactory = testSessionFactory;
             _testEngineFactory = testEngineFactory;
@@ -80,7 +82,7 @@ namespace Arkivverket.Arkade.Core.Base
                 : "AIP";
             Log.Information($"Creating {packageType}.");
 
-            _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata, testSession.GenerateDocumentFileInfo);
+            _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata, testSession.GenerateFileFormatInfo);
 
             string packageFilePath;
 

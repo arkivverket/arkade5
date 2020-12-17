@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -32,6 +32,7 @@
     <None Remove="ExternalModels\xsd\endringslogg.xsd" />
     <None Remove="ExternalModels\xsd\info.xsd" />
     <None Remove="ExternalModels\xsd\loependeJournal.xsd" />
+    <None Remove="ExternalModels\xsd\metadata.xsd" />
     <None Remove="ExternalModels\xsd\metadatakatalog.xsd" />
     <None Remove="ExternalModels\xsd\mets.xsd" />
     <None Remove="ExternalModels\xsd\offentligJournal.xsd" />
@@ -52,6 +53,7 @@
     <EmbeddedResource Include="ExternalModels\xsd\endringslogg.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\info.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\loependeJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\metadata.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\metadatakatalog.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\mets.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\offentligJournal.xsd" />
@@ -72,6 +74,7 @@
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
+    <PackageReference Include="XPath2" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>

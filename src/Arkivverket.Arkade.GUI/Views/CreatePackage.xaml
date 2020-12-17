@@ -822,8 +822,8 @@
 
                 <StackPanel Margin="10 10" Orientation="Horizontal">
                     <CheckBox
-                Content="{x:Static resources:MetaDataGUI.CreateDocumentFileInfoText}"
-                IsChecked="{Binding GenerateDocumentFileInfoSelected, Mode=TwoWay}" />
+                Content="{Binding IncludeFormatInfoFile, Mode=OneWay}"
+                IsChecked="{Binding GenerateFileFormatInfoSelected, Mode=TwoWay}" />
 
                     <Label 
                 ToolTip="{x:Static resources:MetaDataGUI.CreateDocumentFileInfoToolTip}" Margin="5 0" Padding="0">

@@ -5,6 +5,10 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 {
     public interface IFileFormatIdentifier
     {
-        IEnumerable<SiegfriedFileInfo> IdentifyFormat(DirectoryInfo directory);
+        IEnumerable<IFileFormatInfo> IdentifyFormat(DirectoryInfo directory);
+
+        IFileFormatInfo IdentifyFormat(FileInfo file);
+
+        IFileFormatInfo IdentifyFormat(KeyValuePair<string, Stream> filePathAndStream);
     }
 }

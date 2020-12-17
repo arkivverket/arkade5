@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.CLI
                 string command = GetRunningCommand(options.GetType().Name);
 
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
-                    options.TestListFile, options.DocumentFileFormatCheck);
+                    options.TestListFile, options.PerformFileFormatAnalysis);
 
                 Test(options.OutputDirectory, testSession);
 
@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.CLI
                 string command = GetRunningCommand(options.GetType().Name);
 
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
-                    checkDocumentFileFormat: options.DocumentFileFormatCheck);
+                    performFileFormatAnalysis: options.PerformFileFormatAnalysis);
 
                 Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
 
@@ -150,15 +150,18 @@ namespace Arkivverket.Arkade.CLI
                 ArkadeConstants.FileFormatInfoFileName,
                 analysisDirectory.Name
             );
-            Arkade.GenerateFileFormatInfoFiles(
-                analysisDirectory, options.OutputDirectory, outputFileName
-            );
-
+            Arkade.GenerateFileFormatInfoFiles(analysisDirectory, options.OutputDirectory, outputFileName);
+            
             LogFinishedStatus(command);
         }
 
         private static void Test(string outputDirectory, TestSession testSession)
         {
+            if (testSession.Archive.ArchiveType == ArchiveType.Siard)
+            {
+                Log.Error("Testing of Siard archive has not yet been implemented.");
+                return;
+            }
             if (!testSession.IsTestableArchive())
             {
                 Log.Error("Archive is not testable: Valid specification file not found");
@@ -208,7 +211,7 @@ namespace Arkivverket.Arkade.CLI
         }
 
         private static TestSession CreateTestSession(string archive, string archiveTypeString,
-            string command, string testListFilePath = null, bool checkDocumentFileFormat = false)
+            string command, string testListFilePath = null, bool performFileFormatAnalysis = false)
         {
             var fileInfo = new FileInfo(archive);
             Log.Information($"{{{command}ing}} archive: {fileInfo.FullName}");
@@ -241,7 +244,7 @@ namespace Arkivverket.Arkade.CLI
                     throw new ArgumentException($"No tests selected in {testListFilePath}");
             }
 
-            testSession.GenerateDocumentFileInfo = checkDocumentFileFormat;
+            testSession.GenerateFileFormatInfo = performFileFormatAnalysis;
 
             return testSession;
         }

@@ -15,6 +15,8 @@ CALL :GenerateClass DiasPremis.cs, DiasPremis, DIAS_PREMIS.xsd, xlink.xsd
 CALL :GenerateClass Ead.cs, Ead, ead3.xsd
 CALL :GenerateClass Info.cs, Info, info.xsd
 CALL :GenerateClass Mets.cs, Mets, mets.xsd, xlink.xsd
+CALL :GenerateClass Metadata.cs, Metadata, metadata.xsd
+CALL :GenerateClass Siard1metadata.cs, Siard1Metadata, siard1metadata.xsd
 CALL :GenerateClass TestSessionLog.cs, TestSessionLog, testSessionLog.xsd
 
 ECHO. && PAUSE

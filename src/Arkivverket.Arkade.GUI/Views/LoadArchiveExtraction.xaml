@@ -67,7 +67,7 @@
         <Button Grid.Row="3" Grid.Column="3" Margin="5 30 0 0" Width="140" Height="31"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Content="{x:StaticExtension resources:GUI.LoadArchiveLoadArchiveButtonText}"
-                Command="{Binding NavigateCommand}" />
+                Command="{Binding NavigateToTestRunnerCommand}" />
 
     </Grid>
 </UserControl>

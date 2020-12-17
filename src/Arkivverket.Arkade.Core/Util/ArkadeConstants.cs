@@ -19,12 +19,17 @@ namespace Arkivverket.Arkade.Core.Util
         public const string DiasMetsXsdFileName = "dias-mets.xsd";
         public const string LogXmlFileName = "log.xml";
         public const string ArkivuttrekkXmlFileName = "arkivuttrekk.xml";
+        public const string MetadataXmlFileName = "metadata.xml";
         public const string PublicJournalXmlFileName = "offentligJournal.xml";
         public const string PublicJournalXsdFileName = "offentligJournal.xsd";
         public const string RunningJournalXmlFileName = "loependeJournal.xml";
         public const string RunningJournalXsdFileName = "loependeJournal.xsd";
         public const string ChangeLogXmlFileName = "endringslogg.xml";
         public const string ChangeLogXsdFileName = "endringslogg.xsd";
+
+        public const string SiardHeaderDirectoryName = "header";
+        public const string SiardMetadataXmlFileName = "metadata.xml";
+        public const string SiardMetadataXsdFileName = "metadata.xsd";
 
         public const string AddmlXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.addml.xsd";
         public const string ArkivstrukturXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.arkivstruktur.xsd";

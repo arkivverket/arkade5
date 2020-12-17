@@ -151,5 +151,6 @@ namespace Arkivverket.Arkade.Core.Base
         Noark3,
         Noark5,
         Fagsystem,
+        Siard,
     }
 }

@@ -16,27 +16,53 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-        public IEnumerable<SiegfriedFileInfo> IdentifyFormat(DirectoryInfo directory)
+        public IEnumerable<IFileFormatInfo> IdentifyFormat(DirectoryInfo directory)
         {
-            Process siegfriedProcess = SetupSiegfriedProcess();
+            const SiegfriedScanMode scanMode = SiegfriedScanMode.Directory;
 
-            Log.Information($"Starting document file format analysis.");
+            Process siegfriedProcess = SetupSiegfriedProcess(scanMode);
 
             IEnumerable<string> siegfriedResult = RunProcessOnDirectory(siegfriedProcess, directory);
 
-            Log.Information($"Document file format analysis completed.");
+            siegfriedProcess.Close();
 
             return GetSiegfriedFileInfoObjects(siegfriedResult);
         }
 
-        private static Process SetupSiegfriedProcess()
+        public IFileFormatInfo IdentifyFormat(FileInfo file)
+        {
+            const SiegfriedScanMode scanMode = SiegfriedScanMode.File;
+
+            Process siegfriedProcess = SetupSiegfriedProcess(scanMode);
+
+            string siegfriedResult = RunProcessOnFile(siegfriedProcess, file);
+
+            siegfriedProcess.Close();
+
+            return GetSiegfriedFileInfoObject(siegfriedResult);
+        }
+
+        public IFileFormatInfo IdentifyFormat(KeyValuePair<string, Stream> filePathAndStream)
+        {
+            const SiegfriedScanMode scanMode = SiegfriedScanMode.Stream;
+
+            Process siegfriedProcess = SetupSiegfriedProcess(scanMode);
+
+            string siegfriedResult = RunProcessOnStream(siegfriedProcess, filePathAndStream);
+
+            siegfriedProcess.Close();
+
+            return GetSiegfriedFileInfoObject(siegfriedResult);
+        }
+
+        private static Process SetupSiegfriedProcess(SiegfriedScanMode scanMode)
         {
             string executableFileName = GetOSSpecificExecutableFileName();
 
             string bundleDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Bundled");
             string siegfriedDirectory = Path.Combine(bundleDirectory, "Siegfried");
             string siegfriedExecutable = Path.Combine(siegfriedDirectory, executableFileName);
-            string argumentsExceptInputDirectory = $"-home \"{siegfriedDirectory}\" -multi 256 -csv -log e,w -coe ";
+            string argumentsExceptInputDirectory = $"-home \"{siegfriedDirectory}\" -csv -log e,w -coe " + BuildSiegfriedArgument(scanMode);
 
             var process = new Process
             {
@@ -56,8 +82,6 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
         private static IEnumerable<string> RunProcessOnDirectory(Process process, FileSystemInfo directory)
         {
-            process.StartInfo.Arguments += $"\"{directory.FullName}\"";
-
             var results = new List<string>();
             var errors = new List<string>();
 
@@ -66,12 +90,14 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             try
             {
+                process.StartInfo.Arguments += $"\"{directory.FullName}\"";
+
                 process.Start();
             }
             catch (Exception e)
             {
                 Log.Debug(e.ToString());
-                throw new SystemException("Document file format analysis could not to be executed, process is skipped. Details can be found in arkade-tmp/logs/");
+                throw new SiegfriedFileFormatIdentifierException("Document file format analysis could not to be executed, process is skipped. Details can be found in arkade-tmp/logs/");
             }
 
             process.BeginOutputReadLine();
@@ -85,35 +111,74 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             return results;
         }
 
-        private static IEnumerable<SiegfriedFileInfo> GetSiegfriedFileInfoObjects(IEnumerable<string> formatInfoSet)
+        private static string RunProcessOnFile(Process process, FileSystemInfo file)
         {
-            var siegfriedFileInfoObjects = new List<SiegfriedFileInfo>();
+            return RunProcessOnDirectory(process, file).Skip(1).First();
+        }
 
-            foreach (string siegfriedFormatResult in formatInfoSet.Skip(1))
+        private static string RunProcessOnStream(Process process, KeyValuePair<string, Stream> filePathAndStream)
+        {
+            var results = new List<string>();
+            var errors = new List<string>();
+
+            process.OutputDataReceived += (sender, args) => results.Add(args.Data);
+            process.ErrorDataReceived += (sender, args) => errors.Add(args.Data);
+
+            try
             {
-                if (siegfriedFormatResult == null)
-                    continue;
+                process.StartInfo.RedirectStandardInput = true;
 
-                using (var stringReader = new StringReader(siegfriedFormatResult))
-                using (var csvParser = new CsvParser(stringReader, CultureInfo.InvariantCulture))
-                {
-                    string[] record = csvParser.Read();
+                process.Start();
+                StreamWriter streamWriter = process.StandardInput;
 
-                    var documentFileListElement = new SiegfriedFileInfo
-                    (
-                        fileName: record[0],
-                        errors: record[3],
-                        id: record[5],
-                        format: record[6],
-                        version: record[7],
-                        mimeType: record[8]
-                    );
-
-                    siegfriedFileInfoObjects.Add(documentFileListElement);
-                }
+                filePathAndStream.Value.CopyTo(streamWriter.BaseStream);
+                streamWriter.Close();
+                filePathAndStream.Value.Close();
+            }
+            catch (Exception e)
+            {
+                Log.Debug(e.ToString());
+                throw new SiegfriedFileFormatIdentifierException("Document file format analysis could not to be executed, process is skipped. Details can be found in arkade-tmp/logs/");
             }
 
-            return siegfriedFileInfoObjects;
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+
+            process.WaitForExit();
+
+            if (errors.Any())
+                errors.ForEach(Log.Debug);
+
+            string result = filePathAndStream.Key + results.Skip(1).First();
+
+            return result;
+        }
+
+        private static IEnumerable<SiegfriedFileInfo> GetSiegfriedFileInfoObjects(IEnumerable<string> formatInfoSet)
+        {
+            return formatInfoSet.Skip(1).Select(GetSiegfriedFileInfoObject).ToList();
+        }
+
+        private static SiegfriedFileInfo GetSiegfriedFileInfoObject(string siegfriedFormatResult)
+        {
+            if (siegfriedFormatResult == null)
+                return null;
+
+            using (var stringReader = new StringReader(siegfriedFormatResult))
+            using (var csvParser = new CsvParser(stringReader, CultureInfo.InvariantCulture))
+            {
+                string[] record = csvParser.Read();
+
+                return new SiegfriedFileInfo
+                (
+                    fileName: record[0],
+                    errors: record[3],
+                    id: record[5],
+                    format: record[6],
+                    version: record[7],
+                    mimeType: record[8]
+                );
+            }
         }
 
         private static string GetOSSpecificExecutableFileName()
@@ -130,6 +195,25 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             return fileName;
         }
+
+        private static string BuildSiegfriedArgument(SiegfriedScanMode scanMode)
+        {
+            return scanMode switch
+            {
+                SiegfriedScanMode.Directory => "-multi 256 ",
+                SiegfriedScanMode.File => "",
+                SiegfriedScanMode.Stream => "-",
+                _ => throw new SiegfriedFileFormatIdentifierException(
+                    $"Siegfried scan mode {{{nameof(scanMode)}}} is not implemented")
+            };
+        }
+    }
+
+    internal enum SiegfriedScanMode
+    {
+        Directory,
+        File,
+        Stream
     }
 
     public class SiegfriedFileFormatIdentifierException : Exception

@@ -5,6 +5,7 @@ using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using CsvHelper;
 using CsvHelper.Configuration.Attributes;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Report
 {
@@ -12,37 +13,54 @@ namespace Arkivverket.Arkade.Core.Report
     {
         private static readonly List<FileTypeStatisticsElement> AmountOfFilesPerFileType = new List<FileTypeStatisticsElement>();
 
-        public static void Generate(DirectoryInfo filesDirectory, string resultFileFullPath, bool filesAreReferencedFromFilesDirectoryParent = false)
+        public static void Generate(DirectoryInfo filesDirectory, string resultFileFullPath,
+            bool filesAreReferencedFromFilesDirectoryParent = false)
         {
-            var listElements = new List<ListElement>();
+            Log.Information($"Starting file format analysis.");
 
-            IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(filesDirectory);
+            IEnumerable<IFileFormatInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(filesDirectory);
 
             DirectoryInfo startDirectory = filesAreReferencedFromFilesDirectoryParent
                 ? filesDirectory.Parent
                 : filesDirectory;
 
-            ArrangeFileFormatStatistics(siegfriedFileInfoSet, startDirectory, listElements);
+            List<ListElement> listElements = ArrangeFileFormatStatistics(siegfriedFileInfoSet, startDirectory);
+
+            WriteFileList(resultFileFullPath, listElements);
+
+            WriteFileTypeStatisticsFile(resultFileFullPath);
+
+            Log.Information($"File format analysis completed.");
+        }
+
+        public static void Generate(IEnumerable<IFileFormatInfo> siegfriedFileInfoSet, string siardFolder, string resultFileFullPath)
+        {
+            List<ListElement> listElements = ArrangeFileFormatStatistics(siegfriedFileInfoSet, new DirectoryInfo(siardFolder));
 
             WriteFileList(resultFileFullPath, listElements);
 
             WriteFileTypeStatisticsFile(resultFileFullPath);
         }
 
-        private static IEnumerable<SiegfriedFileInfo> GetFormatInfoAllFiles(DirectoryInfo directory)
+        private static IEnumerable<IFileFormatInfo> GetFormatInfoAllFiles(DirectoryInfo directory)
         {
             var fileFormatIdentifier = new SiegfriedFileFormatIdentifier();
 
             return fileFormatIdentifier.IdentifyFormat(directory);
         }
 
-        private static void ArrangeFileFormatStatistics(IEnumerable<SiegfriedFileInfo> siegfriedFileInfoSet,
-            DirectoryInfo startDirectory, List<ListElement> listElements)
+        private static List<ListElement> ArrangeFileFormatStatistics(IEnumerable<IFileFormatInfo> siegfriedFileInfoSet,
+            DirectoryInfo startDirectory)
         {
-            foreach (SiegfriedFileInfo siegfriedFileInfo in siegfriedFileInfoSet)
+            var listElements = new List<ListElement>();
+
+            foreach (IFileFormatInfo siegfriedFileInfo in siegfriedFileInfoSet)
             {
-                string fileName = startDirectory?.Parent != null
-                    ? Path.GetRelativePath(startDirectory.Parent.FullName, siegfriedFileInfo.FileName)
+                if (siegfriedFileInfo == null)
+                    continue;
+
+                string fileName = Path.IsPathFullyQualified(siegfriedFileInfo.FileName)
+                    ? Path.GetRelativePath(startDirectory.FullName, siegfriedFileInfo.FileName)
                     : siegfriedFileInfo.FileName;
 
                 var documentFileListElement = new ListElement
@@ -72,8 +90,9 @@ namespace Arkivverket.Arkade.Core.Report
                     AmountOfFilesPerFileType.Add(fileTypeStatistic);
                 else
                     existingStat.Amount++;
-
             }
+
+            return listElements;
         }
 
         private static void WriteFileList(string fullFileName, List<ListElement> listElements)

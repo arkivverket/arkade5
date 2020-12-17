@@ -232,11 +232,29 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Analyser LOBer.
+        /// </summary>
+        public static string LoadArchiveAnalyseSiardLobsButtonText {
+            get {
+                return ResourceManager.GetString("LoadArchiveAnalyseSiardLobsButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkivtype.
         /// </summary>
         public static string LoadArchiveArchiveTypeHeadingText {
             get {
                 return ResourceManager.GetString("LoadArchiveArchiveTypeHeadingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkivfiler|*.tar;*.siard.
+        /// </summary>
+        public static string LoadArchiveChooseArchiveFileDialogFilter {
+            get {
+                return ResourceManager.GetString("LoadArchiveChooseArchiveFileDialogFilter", resourceCulture);
             }
         }
         
@@ -250,7 +268,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vennligst velg et arkivuttrekk.
+        ///   Looks up a localized string similar to Vennligst velg en katalog eller arkivfil.
         /// </summary>
         public static string LoadArchiveChooseArchiveLabelText {
             get {
@@ -268,7 +286,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg SIP/AIP fil.
+        ///   Looks up a localized string similar to Velg arkivfil.
         /// </summary>
         public static string LoadArchiveChooseTarFileButtonText {
             get {
@@ -590,6 +608,15 @@ namespace Arkivverket.Arkade.GUI.Resources {
         public static string TestrunnerMessageLabelWarning {
             get {
                 return ResourceManager.GetString("TestrunnerMessageLabelWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Testing er ikke implementert for uttrekk av typen {0}.
+        /// </summary>
+        public static string TestrunnerTestingNotImplemented {
+            get {
+                return ResourceManager.GetString("TestrunnerTestingNotImplemented", resourceCulture);
             }
         }
         
