@@ -52,13 +52,12 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             if (generateFileFormatInfo)
             {
-                string resultFileDirectoryPath = archive.WorkingDirectory.AdministrativeMetadata().DirectoryInfo().FullName;
-                DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
-                string resultFileName = string.Format(ArkadeConstants.FileFormatInfoFileName, documentsDirectory.Name);
-                string resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
-                
                 try
                 {
+                    string resultFileDirectoryPath = archive.WorkingDirectory.AdministrativeMetadata().DirectoryInfo().FullName;
+                    string resultFileName;
+                    string resultFileFullName;
+                    
                     if (archive.ArchiveType == ArchiveType.Siard)
                     {
                         string headerDirectoryPath = Path.Combine(
@@ -70,11 +69,19 @@ namespace Arkivverket.Arkade.Core.Metadata
                             ? archive.WorkingDirectory.Content().DirectoryInfo().FullName
                             : archive.WorkingDirectory.Content().DirectoryInfo().GetFiles("*.siard")[0].FullName;
 
+                        string archiveFileName = Path.GetFileName(archivePath);
+
+                        resultFileName = string.Format(ArkadeConstants.FileFormatInfoFileName, archiveFileName);
+                        resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
+
                         List<IFileFormatInfo> formatAnalysedLobs = _siardXmlTableReader.GetFormatAnalysedLobs(archivePath);
                         FileFormatInfoGenerator.Generate(formatAnalysedLobs, archivePath, resultFileFullName);
                     }
                     else
                     {
+                        DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
+                        resultFileName = string.Format(ArkadeConstants.FileFormatInfoFileName, documentsDirectory.Name);
+                        resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
                         FileFormatInfoGenerator.Generate(archive.GetDocumentsDirectory(), resultFileFullName);
                     }
                 }

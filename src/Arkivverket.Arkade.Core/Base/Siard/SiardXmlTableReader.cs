@@ -49,7 +49,7 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 
                     foreach (XElement lobXmlElement in lobXmlElements)
                     {
-                        formatAnalysedLobs.Add(GetLob(lobXmlElement, siardFileName, lobFolderPath, siardZipArchive));
+                        formatAnalysedLobs.Add(GetFormatAnalysedLob(lobXmlElement, siardZipArchive, lobFolderPath));
                     }
                 }
             }
@@ -84,7 +84,7 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             return Path.Combine(archiveFolderPath, lobFolderPathElements[0], lobFolderPathElements[1], lobFolderPathElements[1] + ".xml");
         }
 
-        private IFileFormatInfo GetLob(XElement lobXmlElement, string archiveFileName, string lobFolderPath, ZipArchive siardZipArchive)
+        private IFileFormatInfo GetFormatAnalysedLob(XElement lobXmlElement, ZipArchive siardZipArchive, string lobFolderPath)
         {
             string lobFilePathFromTableXml = lobXmlElement.Attributes().FirstOrDefault(a => a.Name.LocalName.Equals("file"))?.Value;
 
@@ -95,13 +95,11 @@ namespace Arkivverket.Arkade.Core.Base.Siard
                 return _fileFormatIdentifier.IdentifyFormat(stream, SiegfriedScanMode.Stream);*/
             }
 
-            using var siardFileStream = new FileStream(archiveFileName, FileMode.Open, FileAccess.Read);
-
             IFileFormatInfo lobFormatInfo = _fileFormatIdentifier.IdentifyFormat
             (
                 new KeyValuePair<string, Stream>
                 (
-                    GetLobFileRelativePath(lobFilePathFromTableXml, lobFolderPath, archiveFileName),
+                    GetLobFileRelativePath(lobFilePathFromTableXml, lobFolderPath),
                     _siardArchiveReader.GetNamedEntryStreamFromSiardZipArchive(siardZipArchive, lobFilePathFromTableXml)
                 )
             );
@@ -109,30 +107,12 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             return lobFormatInfo;
         }
         
-        private static string GetLobFileRelativePath(string lobFilePathFromTableXml, string lobFolderPath,
-            string archiveFileName)
+        private static string GetLobFileRelativePath(string lobFilePathFromTableXml, string lobFolderPath)
         {
-            string lobFileFullPath = GetLobFileFullPath(lobFilePathFromTableXml, lobFolderPath, archiveFileName);
 
-            string archiveRootPath = new FileInfo(archiveFileName).Directory?.Parent?.FullName;
-
-            string relativePathFromSiardFile = lobFilePathFromTableXml.Contains(lobFolderPath)
+            return lobFilePathFromTableXml.Contains(lobFolderPath)
                 ? "content/" + lobFilePathFromTableXml
                 : "content/" + lobFolderPath + lobFilePathFromTableXml;
-
-            return archiveRootPath == null
-                ? relativePathFromSiardFile
-                : Path.GetRelativePath(archiveRootPath, lobFileFullPath);
-        }
-
-        private static string GetLobFileFullPath(string lobFilePathFromTableXml, string lobFolderPath,
-            string archiveFileName)
-        {
-            if (lobFilePathFromTableXml.Contains(lobFolderPath))
-                return Path.Combine(archiveFileName, lobFilePathFromTableXml);
-
-            return Path.Combine(archiveFileName, ArkadeConstants.DirectoryNameContent,
-                lobFolderPath + "/" + lobFilePathFromTableXml);
         }
     }
 }
