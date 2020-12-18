@@ -11,8 +11,6 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public static class FileFormatInfoGenerator
     {
-        private static readonly List<FileTypeStatisticsElement> AmountOfFilesPerFileType = new List<FileTypeStatisticsElement>();
-
         public static void Generate(DirectoryInfo filesDirectory, string resultFileFullPath,
             bool filesAreReferencedFromFilesDirectoryParent = false)
         {
@@ -24,22 +22,24 @@ namespace Arkivverket.Arkade.Core.Report
                 ? filesDirectory.Parent
                 : filesDirectory;
 
-            List<ListElement> listElements = ArrangeFileFormatStatistics(siegfriedFileInfoSet, startDirectory);
+            (List<ListElement> listElements, List<FileTypeStatisticsElement> fileTypeStatisticsElements) =
+                ArrangeFileFormatStatistics(siegfriedFileInfoSet, startDirectory);
 
             WriteFileList(resultFileFullPath, listElements);
 
-            WriteFileTypeStatisticsFile(resultFileFullPath);
+            WriteFileTypeStatisticsFile(resultFileFullPath, fileTypeStatisticsElements);
 
             Log.Information($"File format analysis completed.");
         }
 
         public static void Generate(IEnumerable<IFileFormatInfo> siegfriedFileInfoSet, string siardFolder, string resultFileFullPath)
         {
-            List<ListElement> listElements = ArrangeFileFormatStatistics(siegfriedFileInfoSet, new DirectoryInfo(siardFolder));
+            (List<ListElement> listElements, List<FileTypeStatisticsElement> fileTypeStatisticsElements) =
+                ArrangeFileFormatStatistics(siegfriedFileInfoSet, new DirectoryInfo(siardFolder));
 
             WriteFileList(resultFileFullPath, listElements);
 
-            WriteFileTypeStatisticsFile(resultFileFullPath);
+            WriteFileTypeStatisticsFile(resultFileFullPath, fileTypeStatisticsElements);
         }
 
         private static IEnumerable<IFileFormatInfo> GetFormatInfoAllFiles(DirectoryInfo directory)
@@ -49,10 +49,11 @@ namespace Arkivverket.Arkade.Core.Report
             return fileFormatIdentifier.IdentifyFormat(directory);
         }
 
-        private static List<ListElement> ArrangeFileFormatStatistics(IEnumerable<IFileFormatInfo> siegfriedFileInfoSet,
-            DirectoryInfo startDirectory)
+        private static (List<ListElement>, List<FileTypeStatisticsElement>) ArrangeFileFormatStatistics(
+            IEnumerable<IFileFormatInfo> siegfriedFileInfoSet, DirectoryInfo startDirectory)
         {
             var listElements = new List<ListElement>();
+            var fileTypeStatisticsElements = new List<FileTypeStatisticsElement>();
 
             foreach (IFileFormatInfo siegfriedFileInfo in siegfriedFileInfoSet)
             {
@@ -78,21 +79,21 @@ namespace Arkivverket.Arkade.Core.Report
 
                 string key = documentFileListElement.FileFormatPuId + " - " + documentFileListElement.FileFormatName;
 
-                var fileTypeStatistic = new FileTypeStatisticsElement
+                var fileTypeStatisticElement = new FileTypeStatisticsElement
                 {
                     FileType = key,
                     Amount = 1,
                 };
 
-                FileTypeStatisticsElement existingStat = AmountOfFilesPerFileType.Find(t => t.FileType.Equals(key));
+                FileTypeStatisticsElement existingStat = fileTypeStatisticsElements.Find(t => t.FileType.Equals(key));
 
                 if (existingStat == null)
-                    AmountOfFilesPerFileType.Add(fileTypeStatistic);
+                    fileTypeStatisticsElements.Add(fileTypeStatisticElement);
                 else
                     existingStat.Amount++;
             }
 
-            return listElements;
+            return (listElements, fileTypeStatisticsElements);
         }
 
         private static void WriteFileList(string fullFileName, List<ListElement> listElements)
@@ -104,7 +105,8 @@ namespace Arkivverket.Arkade.Core.Report
             }
         }
 
-        private static void WriteFileTypeStatisticsFile(string fileFormatInfoFileName)
+        private static void WriteFileTypeStatisticsFile(string fileFormatInfoFileName,
+            List<FileTypeStatisticsElement> fileTypeStatisticsElements)
         {
             string fullFileName = Path.Combine(Path.GetDirectoryName(fileFormatInfoFileName),
                 string.Format(ArkadeConstants.FileFormatInfoStatisticsFileName,
@@ -114,7 +116,7 @@ namespace Arkivverket.Arkade.Core.Report
             {
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
-                    csv.WriteRecords(AmountOfFilesPerFileType);
+                    csv.WriteRecords(fileTypeStatisticsElements);
                 }
             }
         }
