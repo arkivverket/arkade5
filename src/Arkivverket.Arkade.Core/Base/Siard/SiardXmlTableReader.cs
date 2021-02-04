@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
@@ -12,6 +13,8 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 {
     public class SiardXmlTableReader : ISiardXmlTableReader
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly ISiardArchiveReader _siardArchiveReader;
         private readonly IFileFormatIdentifier _fileFormatIdentifier;
 
@@ -50,6 +53,12 @@ namespace Arkivverket.Arkade.Core.Base.Siard
                     foreach (XElement lobXmlElement in lobXmlElements)
                     {
                         formatAnalysedLobs.Add(GetFormatAnalysedLob(lobXmlElement, siardZipArchive, lobFolderPath));
+                    }
+
+                    if (formatAnalysedLobs.Any(f => f == null))
+                    {
+                        Log.Error(formatAnalysedLobs.Count(f => f == null) +
+                                  " BLOBs/CLOBs were not analysed. Look for previous error messages in logfile for details.");
                     }
                 }
             }
@@ -93,6 +102,9 @@ namespace Arkivverket.Arkade.Core.Base.Siard
                 //TODO: 
                 /*var stream = new MemoryStream(Convert.FromBase64String(lobXmlElement.Value));
                 return _fileFormatIdentifier.IdentifyFormat(stream, SiegfriedScanMode.Stream);*/
+
+                Log.Error($"Attribute \"file\" not found on element \"{lobXmlElement.Name.LocalName}\"");
+                return null;
             }
 
             IFileFormatInfo lobFormatInfo = _fileFormatIdentifier.IdentifyFormat
