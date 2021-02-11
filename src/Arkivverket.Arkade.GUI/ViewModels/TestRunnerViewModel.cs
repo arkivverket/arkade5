@@ -253,19 +253,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                 if (!_testSession.IsTestableArchive())
                 {
-                    if (_archiveType == ArchiveType.Siard)
-                        _statusEventHandler.RaiseEventOperationMessage(
-                            Resources.GUI.TestrunnerArchiveTestability,
-                            Resources.GUI.TestrunnerSiardSupportInfo,
-                            OperationMessageStatus.Info
-                        );
-                    else
-                        _statusEventHandler.RaiseEventOperationMessage(
-                            Resources.GUI.TestrunnerArchiveTestability,
-                            string.Format(Resources.GUI.TestrunnerArchiveNotTestable,
-                                ArkadeProcessingArea.LogsDirectory),
-                            OperationMessageStatus.Info
-                        );
+                    string notTestableArchiveMessage = _archiveType == ArchiveType.Siard
+                        ? Resources.GUI.TestrunnerSiardSupportInfo
+                        : string.Format(Resources.GUI.TestrunnerArchiveNotTestable, ArkadeProcessingArea.LogsDirectory);
+
+                    _statusEventHandler.RaiseEventOperationMessage(
+                        Resources.GUI.TestrunnerArchiveTestability,
+                        notTestableArchiveMessage,
+                        OperationMessageStatus.Info
+                    );
                 }
 
                 StartTestingCommand.RaiseCanExecuteChanged(); // testSession has been updated, reevaluate command

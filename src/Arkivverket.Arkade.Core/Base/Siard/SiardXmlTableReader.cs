@@ -121,10 +121,9 @@ namespace Arkivverket.Arkade.Core.Base.Siard
         
         private static string GetLobFileRelativePath(string lobFilePathFromTableXml, string lobFolderPath)
         {
-
-            return lobFilePathFromTableXml.Contains(lobFolderPath)
-                ? "content/" + lobFilePathFromTableXml
-                : "content/" + lobFolderPath + lobFilePathFromTableXml;
+            return "content/" + (lobFilePathFromTableXml.Contains(lobFolderPath)
+                       ? lobFilePathFromTableXml
+                       : lobFolderPath + lobFilePathFromTableXml);
         }
     }
 }
