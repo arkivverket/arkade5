@@ -257,14 +257,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                         _statusEventHandler.RaiseEventOperationMessage(
                             Resources.GUI.TestrunnerArchiveTestability,
                             string.Format(Resources.GUI.TestrunnerTestingNotImplemented,_archiveType),
-                            OperationMessageStatus.Warning
+                            OperationMessageStatus.Info
                         );
                     else
                         _statusEventHandler.RaiseEventOperationMessage(
                             Resources.GUI.TestrunnerArchiveTestability,
                             string.Format(Resources.GUI.TestrunnerArchiveNotTestable,
                                 ArkadeProcessingArea.LogsDirectory),
-                            OperationMessageStatus.Warning
+                            OperationMessageStatus.Info
                         );
                 }
 
