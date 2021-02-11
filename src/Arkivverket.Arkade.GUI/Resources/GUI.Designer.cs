@@ -594,6 +594,15 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NB!.
+        /// </summary>
+        public static string TestrunnerMessageLabelInfo {
+            get {
+                return ResourceManager.GetString("TestrunnerMessageLabelInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         public static string TestrunnerMessageLabelSuccess {

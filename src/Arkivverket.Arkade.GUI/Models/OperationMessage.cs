@@ -10,9 +10,11 @@ namespace Arkivverket.Arkade.GUI.Models
     {
         private static readonly SolidColorBrush ColorError = new SolidColorBrush(System.Windows.Media.Color.FromRgb(244, 67, 54));
         private static readonly SolidColorBrush ColorWarning = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 191, 0));
+        private static readonly SolidColorBrush ColorInfo = new SolidColorBrush(System.Windows.Media.Color.FromRgb(33, 150, 243));
         private static readonly SolidColorBrush ColorSuccess = new SolidColorBrush(System.Windows.Media.Color.FromRgb(76, 175, 80));
         private const string IconError = "Alert";
         private const string IconWarning = "InformationOutline";
+        private const string IconInfo = "InformationOutline";
         private const string IconSuccess = "Check";
 
         private string _message;
@@ -96,6 +98,10 @@ namespace Arkivverket.Arkade.GUI.Models
                 {
                     ShowOperationAsWarning();
                 }
+                else if (status == OperationMessageStatus.Info)
+                {
+                    ShowOperationAsInfo();
+                }
                 else
                 {
                     ShowOperationAsSuccess();
@@ -122,6 +128,13 @@ namespace Arkivverket.Arkade.GUI.Models
             Color = ColorWarning;
             Label = Resources.GUI.TestrunnerMessageLabelWarning;
             Icon = IconWarning;
+        }
+
+        private void ShowOperationAsInfo()
+        {
+            Color = ColorInfo;
+            Label = Resources.GUI.TestrunnerMessageLabelInfo;
+            Icon = IconInfo;
         }
 
         private void ShowProgressBar()
