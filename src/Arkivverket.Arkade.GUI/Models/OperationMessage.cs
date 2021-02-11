@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows;
 using System.Windows.Media;
 using Arkivverket.Arkade.Core.Logging;
@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.GUI.Models
     public class OperationMessage : BindableBase, IComparable
     {
         private static readonly SolidColorBrush ColorError = new SolidColorBrush(System.Windows.Media.Color.FromRgb(244, 67, 54));
-        private static readonly SolidColorBrush ColorWarning = new SolidColorBrush(System.Windows.Media.Color.FromRgb(33, 150, 243));
+        private static readonly SolidColorBrush ColorWarning = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 191, 0));
         private static readonly SolidColorBrush ColorSuccess = new SolidColorBrush(System.Windows.Media.Color.FromRgb(76, 175, 80));
         private const string IconError = "Alert";
         private const string IconWarning = "InformationOutline";
