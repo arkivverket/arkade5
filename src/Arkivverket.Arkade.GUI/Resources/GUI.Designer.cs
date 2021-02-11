@@ -621,11 +621,11 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Testing er ikke implementert for uttrekk av typen {0}.
+        ///   Looks up a localized string similar to Gyldighetstesting av Siard-uttrekk er ikke støttet. Format-analyse av BLOB-er/CLOB-er i uttrekket er tilgjengelig ved opprettelse av pakke..
         /// </summary>
-        public static string TestrunnerTestingNotImplemented {
+        public static string TestrunnerSiardSupportInfo {
             get {
-                return ResourceManager.GetString("TestrunnerTestingNotImplemented", resourceCulture);
+                return ResourceManager.GetString("TestrunnerSiardSupportInfo", resourceCulture);
             }
         }
         

@@ -256,7 +256,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     if (_archiveType == ArchiveType.Siard)
                         _statusEventHandler.RaiseEventOperationMessage(
                             Resources.GUI.TestrunnerArchiveTestability,
-                            string.Format(Resources.GUI.TestrunnerTestingNotImplemented,_archiveType),
+                            Resources.GUI.TestrunnerSiardSupportInfo,
                             OperationMessageStatus.Info
                         );
                     else

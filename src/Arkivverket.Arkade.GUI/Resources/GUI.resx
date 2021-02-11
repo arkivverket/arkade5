@@ -307,10 +307,10 @@ Du kan fortsatt lage en pakke av uttrekket.</value>
   <data name="LoadArchiveChooseArchiveFileDialogFilter" xml:space="preserve">
     <value>Arkivfiler|*.tar;*.siard</value>
   </data>
-  <data name="TestrunnerTestingNotImplemented" xml:space="preserve">
-    <value>Testing er ikke implementert for uttrekk av typen {0}</value>
-  </data>
   <data name="TestrunnerMessageLabelInfo" xml:space="preserve">
     <value>NB!</value>
+  </data>
+  <data name="TestrunnerSiardSupportInfo" xml:space="preserve">
+    <value>Gyldighetstesting av Siard-uttrekk er ikke støttet. Format-analyse av BLOB-er/CLOB-er i uttrekket er tilgjengelig ved opprettelse av pakke.</value>
   </data>
 </root>
