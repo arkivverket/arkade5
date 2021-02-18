@@ -227,9 +227,6 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="Owner_Telephone" xml:space="preserve">
     <value>Telefon (Kontakt, Eier)</value>
   </data>
-  <data name="PackageCreationErrorLogMessage" xml:space="preserve">
-    <value>Error: Could not create/overwrite package.</value>
-  </data>
   <data name="PackageCreationErrorStatusMessage" xml:space="preserve">
     <value>Klarte ikke opprette/overskrive pakke. Sjekk om pakkedestinasjonen er opptatt.</value>
   </data>
@@ -344,9 +341,6 @@ Tidl. nevnt som avleverende myndighet</comment>
   </data>
   <data name="PackageCreationOngoing" xml:space="preserve">
     <value>Oppretter pakke...</value>
-  </data>
-  <data name="UnsufficientDiskSpaceLogMessage" xml:space="preserve">
-    <value>Not enough diskspace on target location.</value>
   </data>
   <data name="UnsufficientDiskSpaceStatusMessage" xml:space="preserve">
     <value>Valgt destinasjon har ikke nok lagringsplass.</value>

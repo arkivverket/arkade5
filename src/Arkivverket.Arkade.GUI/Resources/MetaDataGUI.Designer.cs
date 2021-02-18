@@ -511,15 +511,6 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: Could not create/overwrite package..
-        /// </summary>
-        public static string PackageCreationErrorLogMessage {
-            get {
-                return ResourceManager.GetString("PackageCreationErrorLogMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Klarte ikke opprette/overskrive pakke. Sjekk om pakkedestinasjonen er opptatt..
         /// </summary>
         public static string PackageCreationErrorStatusMessage {
@@ -714,15 +705,6 @@ namespace Arkivverket.Arkade.GUI.Resources {
         public static string Transferer_Telephone {
             get {
                 return ResourceManager.GetString("Transferer_Telephone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Not enough diskspace on target location..
-        /// </summary>
-        public static string UnsufficientDiskSpaceLogMessage {
-            get {
-                return ResourceManager.GetString("UnsufficientDiskSpaceLogMessage", resourceCulture);
             }
         }
         

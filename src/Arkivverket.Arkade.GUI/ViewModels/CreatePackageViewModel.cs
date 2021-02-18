@@ -495,13 +495,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 if (exception is IOException)
                 {
                     StatusMessageText = MetaDataGUI.PackageCreationErrorStatusMessage;
-                    Log.Debug(MetaDataGUI.PackageCreationErrorLogMessage);
+                    Log.Debug("Error: Could not create/overwrite package");
                 }
 
                 if (exception is InsufficientDiskSpaceException)
                 {
                     StatusMessageText = MetaDataGUI.UnsufficientDiskSpaceStatusMessage;
-                    Log.Debug(MetaDataGUI.UnsufficientDiskSpaceLogMessage);
+                    Log.Debug("Not enough disk space on target location");
                 }
 
                 string fileName = new DetailedExceptionMessage(exception).WriteToFile();
