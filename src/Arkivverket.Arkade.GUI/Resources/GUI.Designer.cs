@@ -421,6 +421,25 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kunne ikke starte Arkade på nytt.
+        ///Vennligst start Arkade manuelt etter avslutning..
+        /// </summary>
+        public static string RestartFailedMessageBoxText {
+            get {
+                return ResourceManager.GetString("RestartFailedMessageBoxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatisk omstart feilet.
+        /// </summary>
+        public static string RestartFailedMessageBoxTitle {
+            get {
+                return ResourceManager.GetString("RestartFailedMessageBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {Timestamp:yyyy-MM-ddTHH:mm:ss.fff} [{Level}] {SourceContext} {Message}{NewLine}{Exception}.
         /// </summary>
         public static string SerilogFormatConfig {

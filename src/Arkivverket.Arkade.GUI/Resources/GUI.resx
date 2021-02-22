@@ -313,4 +313,11 @@ Du kan fortsatt lage en pakke av uttrekket.</value>
   <data name="TestrunnerSiardSupportInfo" xml:space="preserve">
     <value>Gyldighetstesting av Siard-uttrekk er ikke støttet. Format-analyse av BLOB-er/CLOB-er i uttrekket er tilgjengelig ved opprettelse av pakke.</value>
   </data>
+  <data name="RestartFailedMessageBoxText" xml:space="preserve">
+    <value>Kunne ikke starte Arkade på nytt.
+Vennligst start Arkade manuelt etter avslutning.</value>
+  </data>
+  <data name="RestartFailedMessageBoxTitle" xml:space="preserve">
+    <value>Automatisk omstart feilet</value>
+  </data>
 </root>

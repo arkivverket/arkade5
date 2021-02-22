@@ -107,8 +107,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     }
                     else
                     {
-                        MessageBox.Show("Could not restart Arkade\nPlease manually start Arkade after shutdown",
-                            "Automatic restart failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Resources.GUI.RestartFailedMessageBoxText,
+                            Resources.GUI.RestartFailedMessageBoxTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
                     Application.Current.Shutdown();
