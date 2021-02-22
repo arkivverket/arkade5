@@ -76,7 +76,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             FormatCheckStatus = string.Empty;
 
-            DirectoryPicker(Resources.ToolsGUI.FormatCheckActionChooseTargetDirectory,
+            DirectoryPicker("format analysis",
                 Resources.ToolsGUI.ChooseDirectoryToAnalyse,
                 out string directoryForFormatCheck
             );
@@ -90,7 +90,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private async void RunFormatCheck()
         {
-            string action = Resources.ToolsGUI.FormatCheckActionChooseOutputDirectory;
+            const string action = "save format analysis result";
 
             _log.Information($"User action: Open choose directory for {action} dialog");
 

@@ -123,12 +123,6 @@
   <data name="CloseDialogButtonText" xml:space="preserve">
     <value>Lukk</value>
   </data>
-  <data name="FormatCheckActionChooseOutputDirectory" xml:space="preserve">
-    <value>save format analysis result</value>
-  </data>
-  <data name="FormatCheckActionChooseTargetDirectory" xml:space="preserve">
-    <value>format analysis</value>
-  </data>
   <data name="FormatCheckChooseTargetDirectoryButtonText" xml:space="preserve">
     <value>Velg katalog ...</value>
   </data>
