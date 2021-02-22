@@ -79,7 +79,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Endre ....
+        ///   Looks up a localized string similar to Velg ....
         /// </summary>
         public static string ArkadeProcessingAreaLocation_EditButtonText {
             get {
