@@ -142,6 +142,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Algoritme brukt til sjekksum-validering: {0}.
+        /// </summary>
+        internal static string ChecksumAlgorithmMessage {
+            get {
+                return ResourceManager.GetString("ChecksumAlgorithmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Referanse fra mappe (systemID) {0} til klasse (systemID) {1} er ikke gyldig.
         /// </summary>
         internal static string ClassReferenceControlMessage {

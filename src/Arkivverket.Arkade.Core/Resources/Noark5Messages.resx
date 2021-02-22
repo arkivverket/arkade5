@@ -407,4 +407,7 @@ Generert:  {2}</value>
   <data name="NumberOfRegistrations_DocumentedAndActualMismatch" xml:space="preserve">
     <value>Det er angitt at arkivstrukturen skal innholde {0} registreringer, men {1} ble funnet</value>
   </data>
+  <data name="ChecksumAlgorithmMessage" xml:space="preserve">
+    <value>Algoritme brukt til sjekksum-validering: {0}</value>
+  </data>
 </root>
