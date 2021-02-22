@@ -190,7 +190,7 @@
     <value>Kontroll av unike verdier i felt</value>
   </data>
   <data name="A_22" xml:space="preserve">
-    <value>Koder som benyttes i felt</value>
+    <value>Kontroll av kode-verdier som benyttes i felt</value>
   </data>
   <data name="A_32" xml:space="preserve">
     <value>Kontroll av fødselsnummer i felt</value>

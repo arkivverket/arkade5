@@ -241,7 +241,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Koder som benyttes i felt.
+        ///   Looks up a localized string similar to Kontroll av kode-verdier som benyttes i felt.
         /// </summary>
         internal static string A_22 {
             get {
