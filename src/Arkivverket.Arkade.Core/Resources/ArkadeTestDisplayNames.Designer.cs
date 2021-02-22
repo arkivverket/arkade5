@@ -151,7 +151,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall og kontroll av antall poster.
+        ///   Looks up a localized string similar to Kontroll av antall poster.
         /// </summary>
         internal static string A_12 {
             get {
