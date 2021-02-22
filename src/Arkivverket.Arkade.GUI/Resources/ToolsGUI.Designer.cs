@@ -134,7 +134,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CSV (Semikolondelt) (*.csv)|*.csv.
+        ///   Looks up a localized string similar to CSV (Kommadelte verdier) (*.csv)|*.csv.
         /// </summary>
         public static string SaveFormatFileExtensionFilter {
             get {

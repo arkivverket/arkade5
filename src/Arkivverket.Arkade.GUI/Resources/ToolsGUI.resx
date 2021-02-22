@@ -143,7 +143,7 @@ Resultat lagret i:</value>
     <value>Kjør</value>
   </data>
   <data name="SaveFormatFileExtensionFilter" xml:space="preserve">
-    <value>CSV (Semikolondelt) (*.csv)|*.csv</value>
+    <value>CSV (Kommadelte verdier) (*.csv)|*.csv</value>
   </data>
   <data name="ToolsDialogTitle" xml:space="preserve">
     <value>Verktøy</value>
