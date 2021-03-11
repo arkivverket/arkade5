@@ -111,10 +111,10 @@ namespace Arkivverket.Arkade.Core.Base
             string testReportFullFileName =
                 Path.Combine(repositoryOperations.FullName, "report.html");
 
-            if (File.Exists(testReportFullFileName))
-                File.Copy(testReportFullFileName,
-                    Path.Combine(resultDirectory, $"Arkaderapport-{uuid}.html")
-                );
+            string destinationFileName = Path.Combine(resultDirectory, $"Arkaderapport-{uuid}.html");
+
+            if (File.Exists(testReportFullFileName) && !File.Exists(destinationFileName))
+                File.Copy(testReportFullFileName, destinationFileName);
         }
 
         private static void EnsureSufficientDiskSpace(Archive archive, string outputDirectory)
