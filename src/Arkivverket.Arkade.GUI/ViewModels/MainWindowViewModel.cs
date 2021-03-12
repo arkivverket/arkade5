@@ -4,6 +4,7 @@ using Arkivverket.Arkade.GUI.Resources;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
 using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.GUI.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -32,13 +33,18 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             NavigateCommandMain = new DelegateCommand<string>(Navigate);
             ShowToolsDialogCommand = new DelegateCommand(ShowToolsDialog);
             ShowWebPageCommand = new DelegateCommand(ShowWebPage);
-            ShowSettingsCommand = new DelegateCommand(ShowSettings);
+            ShowSettingsCommand = new DelegateCommand(ShowSettings, CanChangeSettings);
             ShowAboutDialogCommand = new DelegateCommand(ShowAboutDialog);
             ShowInvalidProcessingAreaLocationDialogCommand =
                 new DelegateCommand(ShowInvalidProcessingAreaLocationDialog);
             CurrentVersion = "Versjon " + ArkadeVersion.Current;
             VersionStatusMessage = arkadeVersion.UpdateIsAvailable() ? Resources.GUI.NewVersionMessage : null;
             DownloadNewVersionCommand = new DelegateCommand(DownloadNewVersion);
+        }
+
+        private static bool CanChangeSettings()
+        {
+            return !ArkadeProcessingState.TestingIsStarted && !ArkadeProcessingState.PackingIsStarted;
         }
 
         private void Navigate(string uri)

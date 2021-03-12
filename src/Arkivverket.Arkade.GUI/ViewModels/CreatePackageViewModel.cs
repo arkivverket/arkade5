@@ -463,6 +463,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _testSession.GenerateFileFormatInfo = GenerateFileFormatInfoSelected;
 
             ArkadeProcessingState.PackingIsStarted = true;
+            MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
+            
             CreatePackageCommand.RaiseCanExecuteChanged();
             MainWindow.ProgressBarWorker.ReportProgress(0);
 

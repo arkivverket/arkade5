@@ -184,6 +184,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             ArkadeProcessingState.Reset();
+            MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
