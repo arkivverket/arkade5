@@ -415,7 +415,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
             NewProgramSessionCommand.RaiseCanExecuteChanged();
 
-            MainWindow.TestsIsRunningOrHasRun = true;
+            ArkadeProcessingState.TestingIsStarted = true;
 
             MainWindow.ProgressBarWorker.ReportProgress(0);
         }

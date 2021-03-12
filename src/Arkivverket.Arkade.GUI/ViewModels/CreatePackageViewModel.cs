@@ -27,7 +27,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
     {
         private readonly ArkadeApi _arkadeApi;
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
-        private bool _isRunningCreatePackage;
         private bool _generateFileFormatInfoSelected;
         private bool _selectedPackageTypeAip;
         private bool _selectedPackageTypeSip = true;
@@ -55,6 +54,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private GuiMetaDataModel _metaDataNoarkSection = new GuiMetaDataModel(null, null, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataExtractionDate = new GuiMetaDataModel(null);
 
+        private bool IsRunningCreatePackage()
+        {
+            return ArkadeProcessingState.PackingIsStarted && !ArkadeProcessingState.PackingIsFinished;
+        }
 
         private IList<String> _systemTypeList  = new List<string>()
         {
@@ -371,17 +374,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private bool CanLeaveCreatePackageView()
         {
-            return !_isRunningCreatePackage;
+            return !IsRunningCreatePackage();
         }
 
         private bool CanExecuteCreatePackage()
         {
-            return !_isRunningCreatePackage && (SelectedPackageTypeSip || SelectedPackageTypeAip);
+            return !IsRunningCreatePackage() && (SelectedPackageTypeSip || SelectedPackageTypeAip);
         }
 
         private bool CanLoadMetadata()
         {
-            return !_isRunningCreatePackage;
+            return !IsRunningCreatePackage();
         }
 
         private void RunLoadExternalMetadata()
@@ -459,7 +462,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _testSession.GenerateFileFormatInfo = GenerateFileFormatInfoSelected;
 
-            _isRunningCreatePackage = true;
+            ArkadeProcessingState.PackingIsStarted = true;
             CreatePackageCommand.RaiseCanExecuteChanged();
             MainWindow.ProgressBarWorker.ReportProgress(0);
 
@@ -468,7 +471,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void OnCompletedCreatePackage()
         {
-            _isRunningCreatePackage = false;
+            ArkadeProcessingState.PackingIsFinished = true;
             CreatePackageCommand.RaiseCanExecuteChanged();
             MainWindow.ProgressBarWorker.ReportProgress(100);
         }
@@ -509,7 +512,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 if (!string.IsNullOrEmpty(fileName))
                     StatusMessagePath = string.Format(Resources.GUI.DetailedErrorMessageInfo, fileName);
 
-                _isRunningCreatePackage = false;
+                ArkadeProcessingState.PackingIsFinished = true;
             }
             ProgressBarVisibility = Visibility.Hidden;
         }
