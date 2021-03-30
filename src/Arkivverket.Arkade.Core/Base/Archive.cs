@@ -41,6 +41,17 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
+        public FileInfo GetTestReportFile()
+        {
+            string testReportFileName = string.Format(TestReportFileName, Uuid);
+
+            string testReportDirectoryPath = WorkingDirectory.RepositoryOperations().DirectoryInfo().FullName;
+            
+            string testReportFullFileName = Path.Combine(testReportDirectoryPath, testReportFileName);
+            
+            return new FileInfo(testReportFullFileName);
+        }
+
         public string GetInformationPackageFileName()
         {
             return Uuid + ".tar";

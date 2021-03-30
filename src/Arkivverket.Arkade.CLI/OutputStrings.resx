@@ -131,8 +131,4 @@
   <data name="SystemLogOutputTemplateForFile" xml:space="preserve">
     <value>{Timestamp:yyyy-MM-ddTHH:mm:ss.fff} [{Level}] {SourceContext} {Message}{NewLine}{Exception}</value>
   </data>
-  <data name="TestReportFileName" xml:space="preserve">
-    <value>Arkaderapport-{0}.html</value>
-    <comment>{0} = Archive.Uuid</comment>
-  </data>
 </root>

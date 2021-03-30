@@ -96,14 +96,5 @@ namespace Arkivverket.Arkade.CLI {
                 return ResourceManager.GetString("SystemLogOutputTemplateForFile", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Arkaderapport-{0}.html.
-        /// </summary>
-        internal static string TestReportFileName {
-            get {
-                return ResourceManager.GetString("TestReportFileName", resourceCulture);
-            }
-        }
     }
 }

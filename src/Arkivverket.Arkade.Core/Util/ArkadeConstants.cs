@@ -61,6 +61,7 @@ namespace Arkivverket.Arkade.Core.Util
         public const string MetadataFileName = "arkade-ip-metadata.json";
         public const string FileFormatInfoFileName = "{0}-fileformatinfo.csv";
         public const string FileFormatInfoStatisticsFileName = "{0}-statistics.csv";
+        public const string TestReportFileName = "Arkade-rapport_{0}.html";
         public struct FileFormatInfoHeaders
         {
             public const string FileName = "Filnavn";

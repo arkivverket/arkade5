@@ -337,7 +337,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                 _testSession.AddLogEntry("Test run completed.");
                 
-                SaveHtmlReport();
+                SaveHtmlReport(_testSession.Archive.GetTestReportFile());
 
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(Resources.GUI.TestrunnerFinishedOperationMessage, null, OperationMessageStatus.Ok);
@@ -449,23 +449,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             process.Start();
         }
 
-        private void SaveHtmlReport()
-        {
-            FileInfo file = GetHtmlFile();
-            SaveHtmlReport(file);
-        }
-
-        private FileInfo GetHtmlFile()
-        {
-            DirectoryInfo directoryName = _testSession.GetReportDirectory();
-            return new FileInfo(Path.Combine(directoryName.FullName, "report.html"));
-        }
-
         private void ShowHtmlReport()
         {
             _log.Information("User action: Show HTML report");
             
-            OpenFile(GetHtmlFile());
+            OpenFile(_testSession.Archive.GetTestReportFile());
         }
 
         private void SaveHtmlReport(FileInfo htmlFile)
