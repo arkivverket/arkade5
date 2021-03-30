@@ -64,7 +64,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             int documentedNumberOfRegistrations = GetDocumentedNumberOfRegistrations();
 
             if (totalNumberOfRegistrations != documentedNumberOfRegistrations)
-                testResults.Add(new TestResult(ResultType.Error, new Location("arkivuttrekk.xml"), string.Format(
+                testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName), string.Format(
                     Noark5Messages.NumberOfRegistrations_DocumentedAndActualMismatch, documentedNumberOfRegistrations, totalNumberOfRegistrations)));
 
             if (hasMultipleArchiveParts)
