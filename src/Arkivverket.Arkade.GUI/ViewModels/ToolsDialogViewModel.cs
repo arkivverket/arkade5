@@ -1,9 +1,12 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.GUI.Languages;
 using Prism.Commands;
 using Prism.Mvvm;
 using Serilog;
@@ -77,7 +80,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             FormatCheckStatus = string.Empty;
 
             DirectoryPicker("format analysis",
-                Resources.ToolsGUI.ChooseDirectoryToAnalyse,
+                ToolsGUI.ChooseDirectoryToAnalyse,
                 out string directoryForFormatCheck
             );
 
@@ -96,12 +99,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             var saveFileDialog = new SaveFileDialog
             {
-                Title = Resources.ToolsGUI.FormatCheckOutputDirectoryPickerTitle,
+                Title = ToolsGUI.FormatCheckOutputDirectoryPickerTitle,
                 DefaultExt = "csv",
                 AddExtension = true,
-                Filter = Resources.ToolsGUI.SaveFormatFileExtensionFilter,
+                Filter = ToolsGUI.SaveFormatFileExtensionFilter,
                 FileName = string.Format(
-                    ArkadeConstants.FileFormatInfoFileName,
+                    OutputFileNames.FileFormatInfoFile,
                     Path.GetFileName(DirectoryForFormatCheck)
                 )
             };
@@ -125,14 +128,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     CloseButtonIsEnabled = false;
                     ProgressBarVisibility = Visibility.Visible;
 
+                    var language = Enum.Parse<SupportedLanguage>(Properties.Settings.Default.SelectedOutputLanguage);
+
                     _arkadeApi.GenerateFileFormatInfoFiles(new DirectoryInfo(DirectoryForFormatCheck),
-                        DirectoryToSaveFormatCheckResult, Path.GetFileName(filePath));
+                        DirectoryToSaveFormatCheckResult, Path.GetFileName(filePath), language);
                 });
 
             CloseButtonIsEnabled = true;
             ProgressBarVisibility = Visibility.Hidden;
 
-            FormatCheckStatus = $"{Resources.ToolsGUI.FormatCheckCompletedMessage}\n" +
+            FormatCheckStatus = $"{ToolsGUI.FormatCheckCompletedMessage}\n" +
                                 $"{filePath}";
 
             string argument = "/select, \"" + filePath + "\"";

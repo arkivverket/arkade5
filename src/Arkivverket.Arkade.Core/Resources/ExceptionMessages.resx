@@ -121,27 +121,27 @@
     <value>TestRun for the test {0} with ID {1} was not added to test suite. Probable cause: Another test has already been added with the same ID</value>
   </data>
   <data name="FileDescriptionParseError" xml:space="preserve">
-    <value>Arkade klarte ikke å finne informasjon om {0} i {1}</value>
+    <value>Arkade could not find any information about {0} from {1}</value>
   </data>
   <data name="FileNotFound" xml:space="preserve">
-    <value>Finner ikke filen: {0}</value>
+    <value>Cannot find the file: {0}</value>
   </data>
   <data name="FileNotRead" xml:space="preserve">
-    <value>Kunne ikke lese inn filen: {0}</value>
+    <value>Could not read the file: {0}</value>
   </data>
   <data name="PathCombine" xml:space="preserve">
-    <value>Kunne ikke kombinere {0} og {1}</value>
+    <value>Could not combine {0} and {1}</value>
   </data>
   <data name="PeriodSeparationParseError" xml:space="preserve">
-    <value>Arkade klarte ikke å tolke informasjon om periodeskille i {0}</value>
+    <value>Arkade did not manage to interpret information about period separator from {0}</value>
   </data>
   <data name="XmlValidationErrorMessage" xml:space="preserve">
-    <value>Linje {0}: {1}</value>
+    <value>Line {0}: {1}</value>
   </data>
   <data name="UnknownPackageType" xml:space="preserve">
     <value>Unknown package type: {0}</value>
   </data>
   <data name="ArkadeProcessAreaNotSet" xml:space="preserve">
-    <value>Prosessområde er ikke satt.</value>
+    <value>Processing area is not set.</value>
   </data>
 </root>

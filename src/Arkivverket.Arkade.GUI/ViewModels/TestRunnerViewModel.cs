@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,14 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
 using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.GUI.Languages;
 using Application = System.Windows.Application;
+using Settings = Arkivverket.Arkade.GUI.Properties.Settings;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
@@ -238,12 +243,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                 if (_testSession.Archive.ArchiveType == ArchiveType.Noark5)
                 {
+                    SupportedLanguage uiLanguage = LanguageSettingHelper.GetUILanguage();
+
                     foreach (TestId testId in _testSession.AvailableTests)
                     {
                         _selectableTests.Add(new SelectableTest
                         {
                             TestId = testId,
-                            DisplayName = ArkadeTestNameProvider.GetDisplayName(testId),
+                            DisplayName = ArkadeTestNameProvider.GetDisplayName(testId, uiLanguage),
                             IsSelected = true
                         });
                     }
@@ -254,11 +261,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 if (!_testSession.IsTestableArchive())
                 {
                     string notTestableArchiveMessage = _archiveType == ArchiveType.Siard
-                        ? Resources.GUI.TestrunnerSiardSupportInfo
-                        : string.Format(Resources.GUI.TestrunnerArchiveNotTestable, ArkadeProcessingArea.LogsDirectory);
+                        ? TestRunnerGUI.SiardSupportInfo
+                        : string.Format(TestRunnerGUI.ArchiveNotTestable, ArkadeProcessingArea.LogsDirectory);
 
                     _statusEventHandler.RaiseEventOperationMessage(
-                        Resources.GUI.TestrunnerArchiveTestability,
+                        TestRunnerGUI.ArchiveTestability,
                         notTestableArchiveMessage,
                         OperationMessageStatus.Info
                     );
@@ -268,7 +275,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             }
             catch (Exception e)
             {
-                string message = string.Format(Resources.GUI.ErrorReadingArchive, e.Message);
+                string message = string.Format(TestRunnerGUI.ErrorReadingArchive, e.Message);
                 Log.Error(e, message);
                 _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
             }
@@ -331,6 +338,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 
                 _testSession.TestsToRun = GetSelectedTests();
 
+                Enum.TryParse(Settings.Default.SelectedOutputLanguage, out SupportedLanguage outputLanguage);
+                _testSession.OutputLanguage = outputLanguage;
+
                 _arkadeApi.RunTests(_testSession);
                 
                 _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords, _numberOfTestsFinished);
@@ -340,14 +350,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 SaveHtmlReport(_testSession.Archive.GetTestReportFile());
 
                 _testRunCompletedSuccessfully = true;
-                _statusEventHandler.RaiseEventOperationMessage(Resources.GUI.TestrunnerFinishedOperationMessage, null, OperationMessageStatus.Ok);
+                _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedOperation, null, OperationMessageStatus.Ok);
                 NotifyFinishedRunningTests();
             }
             catch (ArkadeException e)
             {
                 _testSession?.AddLogEntry("Test run failed: " + e.Message);
                 _log.Error(e.Message, e);
-                _statusEventHandler.RaiseEventOperationMessage(Resources.GUI.TestrunnerFinishedWithError, e.Message, OperationMessageStatus.Error);
+                _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedWithError, e.Message, OperationMessageStatus.Error);
                 NotifyFinishedRunningTests();
             }
             catch (Exception e)
@@ -360,7 +370,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 if (e.GetType() == typeof(FileNotFoundException))
                 {
                     string nameOfMissingFile = new FileInfo(((FileNotFoundException) e).FileName).Name;
-                    operationMessageBuilder.Append(string.Format(Resources.GUI.FileNotFoundMessage, nameOfMissingFile));
+                    operationMessageBuilder.Append(string.Format(TestRunnerGUI.FileNotFoundMessage, nameOfMissingFile));
                 }
                 else
                 {
@@ -370,12 +380,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 string fileName = new DetailedExceptionMessage(e).WriteToFile();
 
                 if (!string.IsNullOrEmpty(fileName))
-                    operationMessageBuilder.AppendLine("\n" + string.Format(Resources.GUI.DetailedErrorMessageInfo, fileName));
+                    operationMessageBuilder.AppendLine("\n" + string.Format(TestRunnerGUI.DetailedErrorMessageInfo, fileName));
 
                 string operationMessage = operationMessageBuilder.ToString();
 
                 _statusEventHandler.RaiseEventOperationMessage(
-                    Resources.GUI.TestrunnerFinishedWithError, operationMessage, OperationMessageStatus.Error
+                    TestRunnerGUI.EventIdFinishedWithError, operationMessage, OperationMessageStatus.Error
                 );
 
                 NotifyFinishedRunningTests();
@@ -458,12 +468,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void SaveHtmlReport(FileInfo htmlFile)
         {
-            string eventId = "Lager rapport";
+            string eventId = TestRunnerGUI.EventIdCreatingReport;
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
 
             _arkadeApi.SaveReport(_testSession, htmlFile);
 
-            var message = "Rapport lagret " + htmlFile.FullName;
+            var message = string.Format(TestRunnerGUI.TestReportIsSavedMessage, htmlFile.FullName);
             _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);
         }
 

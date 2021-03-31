@@ -17,7 +17,7 @@ using Prism.Regions;
 using Serilog;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Arkivverket.Arkade.GUI.Resources;
+using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Views;
 using MessageBox = System.Windows.MessageBox;
 
@@ -285,7 +285,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             catch (Exception e)
             {
                 
-                string message = string.Format(Resources.GUI.ErrorGeneral, e.Message);
+                string message = string.Format(Languages.GUI.ErrorGeneral, e.Message);
                 StatusMessageText = message;
                 
                 Log.Error(e, message);
@@ -490,9 +490,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 string argument = "/select, \"" + packageOutputContainer + "\"";
                 System.Diagnostics.Process.Start("explorer.exe", argument);
 
-                StatusMessageText = "IP og metadata lagret i ";
+                StatusMessageText = CreatePackageGUI.IPandMetadataSuccessfullyCreatedStatusMessage;
                 StatusMessagePath = packageOutputContainer;
-                Log.Debug("Package created in " + packageOutputContainer);
+                Log.Debug("Package created at " + packageOutputContainer);
 
             }
             catch (Exception exception)
@@ -512,7 +512,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 string fileName = new DetailedExceptionMessage(exception).WriteToFile();
 
                 if (!string.IsNullOrEmpty(fileName))
-                    StatusMessagePath = string.Format(Resources.GUI.DetailedErrorMessageInfo, fileName);
+                    StatusMessagePath = string.Format(Languages.GUI.DetailedErrorMessageInfo, fileName);
 
                 ArkadeProcessingState.PackingIsFinished = true;
             }

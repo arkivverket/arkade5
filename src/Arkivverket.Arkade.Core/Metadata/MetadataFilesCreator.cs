@@ -5,6 +5,7 @@ using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Report;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Serilog;
@@ -71,7 +72,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
                         string archiveFileName = Path.GetFileName(archivePath);
 
-                        resultFileName = string.Format(ArkadeConstants.FileFormatInfoFileName, archiveFileName);
+                        resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, archiveFileName);
                         resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
 
                         List<IFileFormatInfo> formatAnalysedLobs = _siardXmlTableReader.GetFormatAnalysedLobs(archivePath);
@@ -80,7 +81,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     else
                     {
                         DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
-                        resultFileName = string.Format(ArkadeConstants.FileFormatInfoFileName, documentsDirectory.Name);
+                        resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, documentsDirectory.Name);
                         resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
                         FileFormatInfoGenerator.Generate(archive.GetDocumentsDirectory(), resultFileFullName);
                     }

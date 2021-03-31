@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_42_NumberOfRestrictionsTest
+    public class N5_42_NumberOfRestrictionsTest : LanguageDependentTest
     {
         [Fact]
         public void HasSeverealRestrictionsOnSingleArchivePart()

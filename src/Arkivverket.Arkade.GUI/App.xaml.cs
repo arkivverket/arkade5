@@ -1,10 +1,13 @@
-﻿using System;
+using System;
+using System.Globalization;
+using System.Threading;
 using System.Windows;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Identify;
+using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Testing;
@@ -14,6 +17,7 @@ using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Arkivverket.Arkade.GUI.ViewModels;
 using Arkivverket.Arkade.GUI.Views;
+using Arkivverket.Arkade.GUI.Languages;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -28,6 +32,8 @@ namespace Arkivverket.Arkade.GUI
 
         public App()
         {
+            SetUILanguage();
+            
             try
             {
                 ArkadeProcessingArea.Establish(Settings.Default.ArkadeProcessingAreaLocation);
@@ -52,10 +58,7 @@ namespace Arkivverket.Arkade.GUI
 
         protected override void OnInitialized()
         {
-            if (Settings.Default.DarkModeEnabled)
-                SettingsViewModel.ApplyDarkMode();
-            else
-                SettingsViewModel.ApplyLightMode();
+            ApplyUserSettings();
 
             RegionManager.SetRegionManager(MainWindow, Container.Resolve<IRegionManager>());
             RegionManager.UpdateRegions();
@@ -128,6 +131,30 @@ namespace Arkivverket.Arkade.GUI
                 ArkadeProcessingArea.CleanUp();
 
             base.OnExit(e);
+        }
+
+        private static void ApplyUserSettings()
+        {
+            if (Settings.Default.DarkModeEnabled)
+                SettingsViewModel.ApplyDarkMode();
+            else
+                SettingsViewModel.ApplyLightMode();
+        }
+
+        private static void SetUILanguage()
+        {
+            SupportedLanguage uiLanguage = LanguageSettingHelper.GetUILanguage();
+
+            var cultureInfo = CultureInfo.CreateSpecificCulture(uiLanguage.ToString());
+
+            AboutGUI.Culture = cultureInfo;
+            CreatePackageGUI.Culture = cultureInfo;
+            Languages.GUI.Culture = cultureInfo;
+            LoadArchiveExtractionGUI.Culture = cultureInfo;
+            MetaDataGUI.Culture = cultureInfo;
+            SettingsGUI.Culture = cultureInfo;
+            TestRunnerGUI.Culture = cultureInfo;
+            ToolsGUI.Culture = cultureInfo;
         }
     }
 }

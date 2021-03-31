@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_33_ControlOrganizationNumberTest
+    public class A_33_ControlOrganizationNumberTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReportErrorWhenInvalidOrganizationNumbersAreFound()

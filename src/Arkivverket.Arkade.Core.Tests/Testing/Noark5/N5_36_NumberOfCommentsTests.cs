@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_36_NumberOfCommentsTests
+    public class N5_36_NumberOfCommentsTests : LanguageDependentTest
     {
 
 

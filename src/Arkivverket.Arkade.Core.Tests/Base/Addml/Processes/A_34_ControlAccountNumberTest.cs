@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_34_ControlAccountNumberTest
+    public class A_34_ControlAccountNumberTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReportErrorWhenInvalidAccountNumbersAreFound()

@@ -4,9 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://prismlibrary.com/"
-        xmlns:util="clr-namespace:Arkivverket.Arkade.GUI.Util"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
+        xmlns:lang="clr-namespace:Arkivverket.Arkade.GUI.Languages"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         Title="TitleLoadedInCodeBehind" 
@@ -35,22 +34,22 @@
         <DockPanel>
             <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid" DockPanel.Dock="Top">
                 <DockPanel>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40">Arkade 5</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Text="{x:Static lang:GUI.ApplicationName}"/>
                 </DockPanel>
             </materialDesign:ColorZone>
         </DockPanel>
 
         <WrapPanel Grid.Row="0" HorizontalAlignment="Right">
-            <Button Command="{Binding ShowToolsDialogCommand}" ToolTip="{x:Static resources:GUI.ShowToolsDialogButtonText}" Margin="2" Padding="0">
+            <Button Command="{Binding ShowToolsDialogCommand}" ToolTip="{x:Static lang:GUI.ShowToolsDialogButtonText}" Margin="2" Padding="0">
                 <materialDesign:PackIcon Kind="Toolbox" Height="22" Width="30" Margin="0"></materialDesign:PackIcon>
             </Button>
-            <Button Command="{Binding ShowWebPageCommand}" ToolTip="{x:Static resources:GUI.ShowWebPageButtonText}" Margin="2" Padding="0">
+            <Button Command="{Binding ShowWebPageCommand}" ToolTip="{x:Static lang:GUI.ShowWebPageButtonText}" Margin="2" Padding="0">
                 <materialDesign:PackIcon Kind="Web" Height="22" Width="30" Margin="0"></materialDesign:PackIcon>
             </Button>
-            <Button Command="{Binding ShowSettingsCommand}" ToolTip="Endre innstillinger" Margin="2" Padding="0">
+            <Button Command="{Binding ShowSettingsCommand}" ToolTip="{x:Static lang:GUI.ShowSettingsDialogButtonText}" Margin="2" Padding="0">
                 <materialDesign:PackIcon Kind="Settings" Height="22" Width="30" Margin="0"></materialDesign:PackIcon>
             </Button>
-            <Button Command="{Binding ShowAboutDialogCommand}" ToolTip="{x:Static resources:GUI.ShowAboutDialogButtonText}" Margin="2" Padding="0">
+            <Button Command="{Binding ShowAboutDialogCommand}" ToolTip="{x:Static lang:GUI.ShowAboutDialogButtonText}" Margin="2" Padding="0">
                 <materialDesign:PackIcon Kind="About" Height="22" Width="30" Margin="0"/>
             </Button>
         </WrapPanel>
@@ -69,6 +68,12 @@
                 <Hyperlink Command="{Binding DownloadNewVersionCommand}">
                     <TextBlock Text="{Binding VersionStatusMessage}" />
                 </Hyperlink>
+            </TextBlock>
+
+            <TextBlock Padding="2" FontSize="10" FontStyle="Italic" Foreground="Black"
+                       HorizontalAlignment="Right" TextAlignment="Left" TextWrapping="NoWrap"
+                       Visibility="{Binding UiAndOutputLanguagesIsDifferentWarningMessageVisibility}"
+                       Text="{Binding UiAndOutputLanguagesIsDifferentWarningMessage}">
             </TextBlock>
         </DockPanel>
         

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_46_NumberOfConversionsTest
+    public class N5_46_NumberOfConversionsTest : LanguageDependentTest
     {
         [Fact]
         public void HasConvertionsInSingleArchivePart()

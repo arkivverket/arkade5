@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Messages {
+    public class Messages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.Core.Resources.Messages", typeof(Messages).Assembly);
@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,514 +61,514 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Utfører en frekvensanalyse for samtlige felt hvor det er definert et kodesett.
+        ///   Looks up a localized string similar to Performs a frequency analysis on all fields with a defined codeset.
         /// </summary>
-        internal static string AnalyseAllFrequenceListDescription {
+        public static string AnalyseAllFrequenceListDescription {
             get {
                 return ResourceManager.GetString("AnalyseAllFrequenceListDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} forekomster av {1}.
+        ///   Looks up a localized string similar to {0} occurrences of {1}.
         /// </summary>
-        internal static string AnalyseAllFrequenceListMessage {
+        public static string AnalyseAllFrequenceListMessage {
             get {
                 return ResourceManager.GetString("AnalyseAllFrequenceListMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teller opp antall tegn i en fil.
+        ///   Looks up a localized string similar to Counts the number of characters in a file.
         /// </summary>
-        internal static string AnalyseCountCharsDescription {
+        public static string AnalyseCountCharsDescription {
             get {
                 return ResourceManager.GetString("AnalyseCountCharsDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} tegn.
+        ///   Looks up a localized string similar to {0} characters.
         /// </summary>
-        internal static string AnalyseCountCharsMessage {
+        public static string AnalyseCountCharsMessage {
             get {
                 return ResourceManager.GetString("AnalyseCountCharsMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teller opp antall forekomster av verdien null i feltet.
+        ///   Looks up a localized string similar to Counts the number of occurrences of null in the field.
         /// </summary>
-        internal static string AnalyseCountNullDescription {
+        public static string AnalyseCountNullDescription {
             get {
                 return ResourceManager.GetString("AnalyseCountNullDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} forekomster av null.
+        ///   Looks up a localized string similar to {0} occurrences of null.
         /// </summary>
-        internal static string AnalyseCountNullMessage {
+        public static string AnalyseCountNullMessage {
             get {
                 return ResourceManager.GetString("AnalyseCountNullMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teller opp antall poster for hver posttype.
+        ///   Looks up a localized string similar to Counts the number of records for each record type.
         /// </summary>
-        internal static string AnalyseCountRecordDefinitionOccurrencesDescription {
+        public static string AnalyseCountRecordDefinitionOccurrencesDescription {
             get {
                 return ResourceManager.GetString("AnalyseCountRecordDefinitionOccurrencesDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} poster.
+        ///   Looks up a localized string similar to {0} records.
         /// </summary>
-        internal static string AnalyseCountRecordDefinitionOccurrencesMessage {
+        public static string AnalyseCountRecordDefinitionOccurrencesMessage {
             get {
                 return ResourceManager.GetString("AnalyseCountRecordDefinitionOccurrencesMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teller opp antall poster i en fil.
+        ///   Looks up a localized string similar to Counts the number of records in a file.
         /// </summary>
-        internal static string AnalyseCountRecordsDescription {
+        public static string AnalyseCountRecordsDescription {
             get {
                 return ResourceManager.GetString("AnalyseCountRecordsDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Totalt: {0} poster.
+        ///   Looks up a localized string similar to Total: {0} records.
         /// </summary>
-        internal static string AnalyseCountRecordsMessage {
+        public static string AnalyseCountRecordsMessage {
             get {
                 return ResourceManager.GetString("AnalyseCountRecordsMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finner lengste og korteste post for hver posttype.
+        ///   Looks up a localized string similar to Finds the longest and shortest record for each record type.
         /// </summary>
-        internal static string AnalyseFindExtremeRecordsDescription {
+        public static string AnalyseFindExtremeRecordsDescription {
             get {
                 return ResourceManager.GetString("AnalyseFindExtremeRecordsDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengste/korteste post: {0}/{1}.
+        ///   Looks up a localized string similar to Longest/shortest record: {0}/{1}.
         /// </summary>
-        internal static string AnalyseFindExtremeRecordsMessage {
+        public static string AnalyseFindExtremeRecordsMessage {
             get {
                 return ResourceManager.GetString("AnalyseFindExtremeRecordsMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finner lengste og korteste verdi i feltet.
+        ///   Looks up a localized string similar to Finds the longest and shortest value in the field.
         /// </summary>
-        internal static string AnalyseFindExtremeValuesDescription {
+        public static string AnalyseFindExtremeValuesDescription {
             get {
                 return ResourceManager.GetString("AnalyseFindExtremeValuesDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengste/korteste verdi: {0}/{1}.
+        ///   Looks up a localized string similar to Longest/shortest value: {0}/{1}.
         /// </summary>
-        internal static string AnalyseFindExtremeValuesMessage {
+        public static string AnalyseFindExtremeValuesMessage {
             get {
                 return ResourceManager.GetString("AnalyseFindExtremeValuesMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finner laveste og høyeste verdi i feltet.
+        ///   Looks up a localized string similar to Finds the lowest and highest value in the field.
         /// </summary>
-        internal static string AnalyseFindMinMaxValuesDescription {
+        public static string AnalyseFindMinMaxValuesDescription {
             get {
                 return ResourceManager.GetString("AnalyseFindMinMaxValuesDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Laveste/høyeste verdi: {0}/{1}.
+        ///   Looks up a localized string similar to Lowest/highest value: {0}/{1}.
         /// </summary>
-        internal static string AnalyseFindMinMaxValuesMessage {
+        public static string AnalyseFindMinMaxValuesMessage {
             get {
                 return ResourceManager.GetString("AnalyseFindMinMaxValuesMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teller opp antall forekomster for hver verdi i feltet.
+        ///   Looks up a localized string similar to Counts the number of occurrences of each value in the field.
         /// </summary>
-        internal static string AnalyseFrequenceListDescription {
+        public static string AnalyseFrequenceListDescription {
             get {
                 return ResourceManager.GetString("AnalyseFrequenceListDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} forekomster av {1}.
+        ///   Looks up a localized string similar to {0} occurrences of {1}.
         /// </summary>
-        internal static string AnalyseFrequenceListMessage {
+        public static string AnalyseFrequenceListMessage {
             get {
                 return ResourceManager.GetString("AnalyseFrequenceListMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av kontrollsifferne i et kontonummer.
+        ///   Looks up a localized string similar to Control of control digits in an account number.
         /// </summary>
-        internal static string ControlAccountNumberDescription {
+        public static string ControlAccountNumberDescription {
             get {
                 return ResourceManager.GetString("ControlAccountNumberDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ugyldig kontonummer: {0}.
+        ///   Looks up a localized string similar to Invalid account number: {0}.
         /// </summary>
-        internal static string ControlAccountNumberMessage {
+        public static string ControlAccountNumberMessage {
             get {
                 return ResourceManager.GetString("ControlAccountNumberMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer at oppgitt postlengde på samtlige posttyper er korrekt (kun fast format).
+        ///   Looks up a localized string similar to Validates given record lengths for all record types (fixed format only).
         /// </summary>
-        internal static string ControlAllFixedLengthDescription {
+        public static string ControlAllFixedLengthDescription {
             get {
                 return ResourceManager.GetString("ControlAllFixedLengthDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oppgitt postlengde ({0}) er ulik faktisk ({1}).
+        ///   Looks up a localized string similar to Mismatch between given record length ({0}) and actual record length ({1}).
         /// </summary>
-        internal static string ControlAllFixedLengthMessage {
+        public static string ControlAllFixedLengthMessage {
             get {
                 return ResourceManager.GetString("ControlAllFixedLengthMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av kontrollsifferne i et fødselsnummer.
+        ///   Looks up a localized string similar to Validation of the control digits in a birth number.
         /// </summary>
-        internal static string ControlBirthNumberDescription {
+        public static string ControlBirthNumberDescription {
             get {
                 return ResourceManager.GetString("ControlBirthNumberDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ugyldig fødselsnummer: {0}.
+        ///   Looks up a localized string similar to Invalid birth number: {0}.
         /// </summary>
-        internal static string ControlBirthNumberMessage {
+        public static string ControlBirthNumberMessage {
             get {
                 return ResourceManager.GetString("ControlBirthNumberMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av verdiene i et boolsk felt.
+        ///   Looks up a localized string similar to Validates values in a boolean field.
         /// </summary>
-        internal static string ControlBooleanValueDescription {
+        public static string ControlBooleanValueDescription {
             get {
                 return ResourceManager.GetString("ControlBooleanValueDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Følgende ikke-boolske verdier finnes: {0}.
+        ///   Looks up a localized string similar to Found non-boolean values: {0}.
         /// </summary>
-        internal static string ControlBooleanValueMessage {
+        public static string ControlBooleanValueMessage {
             get {
                 return ResourceManager.GetString("ControlBooleanValueMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av sjekksummer.
+        ///   Looks up a localized string similar to Checksum validation.
         /// </summary>
-        internal static string ControlChecksumDescription {
+        public static string ControlChecksumDescription {
             get {
                 return ResourceManager.GetString("ControlChecksumDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forventet sjekksum: {0}
-        ///Aktuell sjekksum: {1}.
+        ///   Looks up a localized string similar to Expected checksum: {0}
+        ///Actual checksum: {1}.
         /// </summary>
-        internal static string ControlChecksumMessage_ChecksumMismatch {
+        public static string ControlChecksumMessage_ChecksumMismatch {
             get {
                 return ResourceManager.GetString("ControlChecksumMessage_ChecksumMismatch", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ingen sjekksum funnet i ADDML-filen.
+        ///   Looks up a localized string similar to No checksum found in the ADDML file.
         /// </summary>
-        internal static string ControlChecksumMessage_ChecksumMissing {
+        public static string ControlChecksumMessage_ChecksumMissing {
             get {
                 return ResourceManager.GetString("ControlChecksumMessage_ChecksumMissing", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ukjent sjekksum-algoritme: {0}.
+        ///   Looks up a localized string similar to Unknown checksum algorithm: {0}.
         /// </summary>
-        internal static string ControlChecksumMessage_UnknownChecksumAlgorithm {
+        public static string ControlChecksumMessage_UnknownChecksumAlgorithm {
             get {
                 return ResourceManager.GetString("ControlChecksumMessage_UnknownChecksumAlgorithm", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer om definerte koder benyttes og om det benyttes koder som ikke er definert i kodelisten.
+        ///   Looks up a localized string similar to Validates that defined codes are used, and that used codes are defined in the codelist.
         /// </summary>
-        internal static string ControlCodesDescription {
+        public static string ControlCodesDescription {
             get {
                 return ResourceManager.GetString("ControlCodesDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ikke i kodelisten: {0}.
+        ///   Looks up a localized string similar to Used codes not present in the codelist: {0}.
         /// </summary>
-        internal static string ControlCodesMessage {
+        public static string ControlCodesMessage {
             get {
                 return ResourceManager.GetString("ControlCodesMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer om oppgitt dataformat er korrekt.
+        ///   Looks up a localized string similar to Validates given data format.
         /// </summary>
-        internal static string ControlDataFormatDescription {
+        public static string ControlDataFormatDescription {
             get {
                 return ResourceManager.GetString("ControlDataFormatDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ugyldig dataformat: {0}.
+        ///   Looks up a localized string similar to Invalid data format: {0}.
         /// </summary>
-        internal static string ControlDataFormatMessage {
+        public static string ControlDataFormatMessage {
             get {
                 return ResourceManager.GetString("ControlDataFormatMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  + {0} flere.
+        ///   Looks up a localized string similar to  + {0} more.
         /// </summary>
-        internal static string ControlDataFormatMessageExtension {
+        public static string ControlDataFormatMessageExtension {
             get {
                 return ResourceManager.GetString("ControlDataFormatMessageExtension", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av verdiene i et dato-felt.
+        ///   Looks up a localized string similar to Validation of date-field values.
         /// </summary>
-        internal static string ControlDateValueDescription {
+        public static string ControlDateValueDescription {
             get {
                 return ResourceManager.GetString("ControlDateValueDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verdier som ikke er dato: {0}.
+        ///   Looks up a localized string similar to Values not validated as date: {0}.
         /// </summary>
-        internal static string ControlDateValueMessage {
+        public static string ControlDateValueMessage {
             get {
                 return ResourceManager.GetString("ControlDateValueMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer om det finnes filer som ikke er definert i ADDML og omvendt.
+        ///   Looks up a localized string similar to Checks that existing files are defined in ADDML, and that files defined in ADDML are existing.
         /// </summary>
-        internal static string ControlExtraOrMissingFilesDescription {
+        public static string ControlExtraOrMissingFilesDescription {
             get {
                 return ResourceManager.GetString("ControlExtraOrMissingFilesDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finnes i ADDML, men ikke i arkiv.
+        ///   Looks up a localized string similar to Present in ADDML but missing from archive.
         /// </summary>
-        internal static string ControlExtraOrMissingFilesMessage1 {
+        public static string ControlExtraOrMissingFilesMessage1 {
             get {
                 return ResourceManager.GetString("ControlExtraOrMissingFilesMessage1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finnes i arkiv, men ikke i ADDML.
+        ///   Looks up a localized string similar to Present in archive but missing from ADDML.
         /// </summary>
-        internal static string ControlExtraOrMissingFilesMessage2 {
+        public static string ControlExtraOrMissingFilesMessage2 {
             get {
                 return ResourceManager.GetString("ControlExtraOrMissingFilesMessage2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer om oppgitt postlengde er korrekt (kun for fast format).
+        ///   Looks up a localized string similar to Validates given record length (fixed format only).
         /// </summary>
-        internal static string ControlFixedLengthDescription {
+        public static string ControlFixedLengthDescription {
             get {
                 return ResourceManager.GetString("ControlFixedLengthDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oppgitt postlengde ({0}) er ulik faktisk ({1}).
+        ///   Looks up a localized string similar to Mismatch between given record length ({0}) and actual record length ({1}).
         /// </summary>
-        internal static string ControlFixedLengthMessage {
+        public static string ControlFixedLengthMessage {
             get {
                 return ResourceManager.GetString("ControlFixedLengthMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst.
+        ///   Looks up a localized string similar to Validates foreign keys.
         /// </summary>
-        internal static string ControlForeignKeyDescription {
+        public static string ControlForeignKeyDescription {
             get {
                 return ResourceManager.GetString("ControlForeignKeyDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ugyldig fremmednøkkel: Verdien [{0}] finnes ikke i det refererte feltet {1}.
+        ///   Looks up a localized string similar to Invalid foreign key: The value [{0}] does not exist in the referred field {1}.
         /// </summary>
-        internal static string ControlForeignKeyMessage1 {
+        public static string ControlForeignKeyMessage1 {
             get {
                 return ResourceManager.GetString("ControlForeignKeyMessage1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ugyldig fremmednøkkel: Verdiene [{0}] finnes ikke i de refererte feltene {1}.
+        ///   Looks up a localized string similar to Invalid foreign key: The values [{0}] does not exist in the referred fields {1}.
         /// </summary>
-        internal static string ControlForeignKeyMessage1Combined {
+        public static string ControlForeignKeyMessage1Combined {
             get {
                 return ResourceManager.GetString("ControlForeignKeyMessage1Combined", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ugyldig fremmednøkkel: Finner ingen verdier for feltet {0}.
+        ///   Looks up a localized string similar to Invalid foreign key: Can not find any values for the field {0}.
         /// </summary>
-        internal static string ControlForeignKeyMessage2 {
+        public static string ControlForeignKeyMessage2 {
             get {
                 return ResourceManager.GetString("ControlForeignKeyMessage2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer at nøkkelen (primary eller alternate) er unik.
+        ///   Looks up a localized string similar to Validates uniqueness of the key (primary eller alternate).
         /// </summary>
-        internal static string ControlKeyDescription {
+        public static string ControlKeyDescription {
             get {
                 return ResourceManager.GetString("ControlKeyDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Følgende primærnøkkelverdier er ikke unike: {0}.
+        ///   Looks up a localized string similar to The following primary key values are not unique: {0}.
         /// </summary>
-        internal static string ControlKeyMessage {
+        public static string ControlKeyMessage {
             get {
                 return ResourceManager.GetString("ControlKeyMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer om oppgitt største lengde faktisk er største lengde i feltet.
+        ///   Looks up a localized string similar to Checks whether the stated maximum length is actually the largest length in the field.
         /// </summary>
-        internal static string ControlMaxLengthDescription {
+        public static string ControlMaxLengthDescription {
             get {
                 return ResourceManager.GetString("ControlMaxLengthDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verdier lengre enn maksimumlengde: {0}.
+        ///   Looks up a localized string similar to Values longer than the maximum length: {0}.
         /// </summary>
-        internal static string ControlMaxLengthMessage {
+        public static string ControlMaxLengthMessage {
             get {
                 return ResourceManager.GetString("ControlMaxLengthMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer om oppgitt minste lengde faktisk er minste lengde i feltet.
+        ///   Looks up a localized string similar to Checks whether the stated minimum length is actually the smallest length in the field.
         /// </summary>
-        internal static string ControlMinLengthDescription {
+        public static string ControlMinLengthDescription {
             get {
                 return ResourceManager.GetString("ControlMinLengthDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verdier kortere enn minstelengde: {0}.
+        ///   Looks up a localized string similar to Values smaller than the minimum length: {0}.
         /// </summary>
-        internal static string ControlMinLengthMessage {
+        public static string ControlMinLengthMessage {
             get {
                 return ResourceManager.GetString("ControlMinLengthMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer om det fines null-verdier i feltet.
+        ///   Looks up a localized string similar to Checks the field for null-values.
         /// </summary>
-        internal static string ControlNotNullDescription {
+        public static string ControlNotNullDescription {
             get {
                 return ResourceManager.GetString("ControlNotNullDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NULL-verdier finnes.
+        ///   Looks up a localized string similar to NULL values exists.
         /// </summary>
-        internal static string ControlNotNullMessage {
+        public static string ControlNotNullMessage {
             get {
                 return ResourceManager.GetString("ControlNotNullMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer om denne posttypen benyttes i datasettet.
+        ///   Looks up a localized string similar to Checks if this record type is used in the dataset.
         /// </summary>
-        internal static string ControlNotUsedRecordDefDescription {
+        public static string ControlNotUsedRecordDefDescription {
             get {
                 return ResourceManager.GetString("ControlNotUsedRecordDefDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Posttypen er ikke i bruk.
+        ///   Looks up a localized string similar to The record type is not in use.
         /// </summary>
-        internal static string ControlNotUsedRecordDefMessage {
+        public static string ControlNotUsedRecordDefMessage {
             get {
                 return ResourceManager.GetString("ControlNotUsedRecordDefMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teller opp og kontrollerer at antall poster i filen er lik antallet som er oppgitt i egenskapen numberOfRecords i flatFile.
+        ///   Looks up a localized string similar to Counts and checks that the number of records in the file is equal to the number specified in the numberOfRecords property in flatFile.
         /// </summary>
-        internal static string ControlNumberOfRecordsDescription {
+        public static string ControlNumberOfRecordsDescription {
             get {
                 return ResourceManager.GetString("ControlNumberOfRecordsDescription", resourceCulture);
             }
@@ -577,7 +577,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Expected number of records not specified. Unable to control number of records.
         /// </summary>
-        internal static string ControlNumberOfRecordsMessage1 {
+        public static string ControlNumberOfRecordsMessage1 {
             get {
                 return ResourceManager.GetString("ControlNumberOfRecordsMessage1", resourceCulture);
             }
@@ -586,7 +586,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Number of records ({0}) matched.
         /// </summary>
-        internal static string ControlNumberOfRecordsMessage2 {
+        public static string ControlNumberOfRecordsMessage2 {
             get {
                 return ResourceManager.GetString("ControlNumberOfRecordsMessage2", resourceCulture);
             }
@@ -595,152 +595,152 @@ namespace Arkivverket.Arkade.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Number of records did not match. Expected {0}, found {1}.
         /// </summary>
-        internal static string ControlNumberOfRecordsMessage3 {
+        public static string ControlNumberOfRecordsMessage3 {
             get {
                 return ResourceManager.GetString("ControlNumberOfRecordsMessage3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av kontrollsifferne i et organisasjonsnummer.
+        ///   Looks up a localized string similar to Validation of the control digits in an organisation number.
         /// </summary>
-        internal static string ControlOrganizationNumberDescription {
+        public static string ControlOrganizationNumberDescription {
             get {
                 return ResourceManager.GetString("ControlOrganizationNumberDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ugyldig organisasjonsnummer: {0}.
+        ///   Looks up a localized string similar to Invalid organisation number: {0}.
         /// </summary>
-        internal static string ControlOrganizationNumberMessage {
+        public static string ControlOrganizationNumberMessage {
             get {
                 return ResourceManager.GetString("ControlOrganizationNumberMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrollerer om verdiene i feltet er unike.
+        ///   Looks up a localized string similar to Validates uniqueness of the values in the field.
         /// </summary>
-        internal static string ControlUniquenessDescription {
+        public static string ControlUniquenessDescription {
             get {
                 return ResourceManager.GetString("ControlUniquenessDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle verdier er unike.
+        ///   Looks up a localized string similar to All values are unique.
         /// </summary>
-        internal static string ControlUniquenessMessage1 {
+        public static string ControlUniquenessMessage1 {
             get {
                 return ResourceManager.GetString("ControlUniquenessMessage1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verdiene er ikke unike.
+        ///   Looks up a localized string similar to Not all values are unique.
         /// </summary>
-        internal static string ControlUniquenessMessage2 {
+        public static string ControlUniquenessMessage2 {
             get {
                 return ResourceManager.GetString("ControlUniquenessMessage2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: Antall tegn i FixedLength-feltet [{1}] stemmer ikke med antall tegn summert for postdefinisjonen [{2}]..
+        ///   Looks up a localized string similar to {0}: The number of characters in the FixedLength field [{1}] does not match the number of characters summed for the record definition [{2}]..
         /// </summary>
-        internal static string ExceptionFixedLengthSumIsNotCorrect {
+        public static string ExceptionFixedLengthSumIsNotCorrect {
             get {
                 return ResourceManager.GetString("ExceptionFixedLengthSumIsNotCorrect", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feil ved innlesing av ADDML.
+        ///   Looks up a localized string similar to Error while loading ADDML.
         ///{0}.
         /// </summary>
-        internal static string ExceptionReadingAddmlFile {
+        public static string ExceptionReadingAddmlFile {
             get {
                 return ResourceManager.GetString("ExceptionReadingAddmlFile", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Testing av arkivet er fullført..
+        ///   Looks up a localized string similar to Testing of archive completed..
         /// </summary>
-        internal static string LogMessageFinishedTesting {
+        public static string LogMessageFinishedTesting {
             get {
                 return ResourceManager.GetString("LogMessageFinishedTesting", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Starter testing av arkivet..
+        ///   Looks up a localized string similar to Starting testing of archive..
         /// </summary>
-        internal static string LogMessageStartTesting {
+        public static string LogMessageStartTesting {
             get {
                 return ResourceManager.GetString("LogMessageStartTesting", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oppsummering av antall poster som har feil tilknyttet feltseparator og/eller postseparator..
+        ///   Looks up a localized string similar to Summary of the number of records with errors associated with field separator and/or record separator..
         /// </summary>
-        internal static string NumberOfRecordsWithFieldDelimiterErrorDescription {
+        public static string NumberOfRecordsWithFieldDelimiterErrorDescription {
             get {
                 return ResourceManager.GetString("NumberOfRecordsWithFieldDelimiterErrorDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Innlesing av arkiv.
+        ///   Looks up a localized string similar to Reading archive.
         /// </summary>
-        internal static string ReadingArchiveEvent {
+        public static string ReadingArchiveEvent {
             get {
                 return ResourceManager.GetString("ReadingArchiveEvent", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivet er lest inn..
+        ///   Looks up a localized string similar to Archive is loaded..
         /// </summary>
-        internal static string ReadingArchiveEventFinishedMessage {
+        public static string ReadingArchiveEventFinishedMessage {
             get {
                 return ResourceManager.GetString("ReadingArchiveEventFinishedMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ADDML-prosesser på filen: {0}.
+        ///   Looks up a localized string similar to ADDML processes on the file: {0}.
         /// </summary>
-        internal static string RunningAddmlProcessesOnFile {
+        public static string RunningAddmlProcessesOnFile {
             get {
                 return ResourceManager.GetString("RunningAddmlProcessesOnFile", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Utpakking av arkiv.
+        ///   Looks up a localized string similar to Archive extraction.
         /// </summary>
-        internal static string TarExtractionEvent {
+        public static string TarExtractionEvent {
             get {
                 return ResourceManager.GetString("TarExtractionEvent", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivet er pakket ut til {0}.
+        ///   Looks up a localized string similar to Archive is extracted to {0}.
         /// </summary>
-        internal static string TarExtractionMessageFinished {
+        public static string TarExtractionMessageFinished {
             get {
                 return ResourceManager.GetString("TarExtractionMessageFinished", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Starter utpakking..
+        ///   Looks up a localized string similar to Starting extraction..
         /// </summary>
-        internal static string TarExtractionMessageStarted {
+        public static string TarExtractionMessageStarted {
             get {
                 return ResourceManager.GetString("TarExtractionMessageStarted", resourceCulture);
             }

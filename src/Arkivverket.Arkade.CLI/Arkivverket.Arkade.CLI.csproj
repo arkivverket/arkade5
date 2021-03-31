@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -65,8 +65,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="OutputStrings.nb-NO.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="OutputStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>OutputStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

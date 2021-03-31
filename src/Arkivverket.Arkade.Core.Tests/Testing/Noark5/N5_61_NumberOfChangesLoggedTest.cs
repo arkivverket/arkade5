@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_61_NumberOfChangesLoggedTest
+    public class N5_61_NumberOfChangesLoggedTest : LanguageDependentTest
     {
         [Fact]
         public void FindsLogEntries()

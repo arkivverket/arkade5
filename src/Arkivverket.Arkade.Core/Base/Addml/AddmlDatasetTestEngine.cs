@@ -67,19 +67,20 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                         {
                             _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error,
                                 new AddmlLocation(file.GetName(), exception.RecordName, ""),
-                                exception.Message + " Felttekst: " + exception.RecordData)
+                                string.Format(AddmlMessages.FailedRecordErrorMessage, exception.Message, exception.RecordData))
                             );
 
                             _statusEventHandler.RaiseEventOperationMessage(
-                                $"{AddmlMessages.RecordLengthErrorTestName} i fil {file.GetName()}, post nummer {recordIdx}, feil nummer {numberOfRecordsWithFieldDelimiterError}",
-                                exception.Message + " Felttekst: " + exception.RecordData, OperationMessageStatus.Error
+                                string.Format(AddmlMessages.FailedRecordErrorIdentifier, file.GetName(), recordIdx, numberOfRecordsWithFieldDelimiterError),
+                                string.Format(AddmlMessages.FailedRecordErrorMessage, exception.Message, exception.RecordData),
+                                OperationMessageStatus.Error
                             );
                         }
                         else
                         {
                             _statusEventHandler.RaiseEventOperationMessage(
-                                $"ADDML-poster med feil antall felt i filen {file.GetName()}",
-                                $"Totalt antall: {numberOfRecordsWithFieldDelimiterError}",
+                                string.Format(AddmlMessages.NumberOfRecordsWithFieldDelimiterErrorIdentifier, file.GetName()),
+                                string.Format(AddmlMessages.TotalAmountText, numberOfRecordsWithFieldDelimiterError),
                                 OperationMessageStatus.Error
                             );
                         }
@@ -95,7 +96,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 if (numberOfRecordsWithFieldDelimiterError > 0)
                 {
                     _testResultsFailedRecordsList.Add(new TestResult(ResultType.ErrorGroup, new Location(file.GetName()),
-                        $"Filens totale antall poster med feil antall felt: {numberOfRecordsWithFieldDelimiterError}",
+                        string.Format(AddmlMessages.TotalAmountOfRecordsWithFieldDelimiterErrorResultText, numberOfRecordsWithFieldDelimiterError),
                         numberOfRecordsWithFieldDelimiterError)
                     );
                 }

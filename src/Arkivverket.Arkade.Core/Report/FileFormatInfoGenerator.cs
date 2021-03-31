@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using CsvHelper;
-using CsvHelper.Configuration.Attributes;
+using CsvHelper.Configuration;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Report
@@ -101,6 +101,7 @@ namespace Arkivverket.Arkade.Core.Report
             using (var writer = new StreamWriter(fullFileName))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
+                csv.Configuration.RegisterClassMap<ListElementMap>();
                 csv.WriteRecords(listElements);
             }
         }
@@ -109,48 +110,56 @@ namespace Arkivverket.Arkade.Core.Report
             List<FileTypeStatisticsElement> fileTypeStatisticsElements)
         {
             string fullFileName = Path.Combine(Path.GetDirectoryName(fileFormatInfoFileName),
-                string.Format(ArkadeConstants.FileFormatInfoStatisticsFileName,
+                string.Format(OutputFileNames.FileFormatInfoStatisticsFile,
                     Path.GetFileNameWithoutExtension(fileFormatInfoFileName)));
 
             using (var writer = new StreamWriter(fullFileName))
             {
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
+                    csv.Configuration.RegisterClassMap<FileTypeStatisticsElementMap>();
                     csv.WriteRecords(fileTypeStatisticsElements);
                 }
             }
         }
 
+        private sealed class ListElementMap : ClassMap<ListElement>
+        {
+            public ListElementMap()
+            {
+                Map(m => m.FileName).Name(FormatAnalysisResultFileContent.HeaderFileName);
+                Map(m => m.FileExtension).Name(FormatAnalysisResultFileContent.HeaderFileExtension);
+                Map(m => m.FileFormatPuId).Name(FormatAnalysisResultFileContent.HeaderFormatId);
+                Map(m => m.FileFormatName).Name(FormatAnalysisResultFileContent.HeaderFormatName);
+                Map(m => m.FileFormatVersion).Name(FormatAnalysisResultFileContent.HeaderFormatVersion);
+                Map(m => m.FileMimeType).Name(FormatAnalysisResultFileContent.HeaderMimeType);
+                Map(m => m.FileScanError).Name(FormatAnalysisResultFileContent.HeaderErrors);
+            }
+        }
+
+        private sealed class FileTypeStatisticsElementMap : ClassMap<FileTypeStatisticsElement>
+        {
+            public FileTypeStatisticsElementMap()
+            {
+                Map(m => m.FileType).Name(FormatAnalysisResultFileContent.StatisticsHeaderFileType);
+                Map(m => m.Amount).Name(FormatAnalysisResultFileContent.StatisticsHeaderAmount);
+            }
+        }
+
         private class ListElement
         {
-            [Name(ArkadeConstants.FileFormatInfoHeaders.FileName)]
             public string FileName { get; set; }
-
-            [Name(ArkadeConstants.FileFormatInfoHeaders.FileExtension)]
             public string FileExtension { get; set; }
-
-            [Name(ArkadeConstants.FileFormatInfoHeaders.FormatId)]
             public string FileFormatPuId { get; set; }
-
-            [Name(ArkadeConstants.FileFormatInfoHeaders.FormatName)]
             public string FileFormatName { get; set; }
-
-            [Name(ArkadeConstants.FileFormatInfoHeaders.FormatVersion)]
             public string FileFormatVersion { get; set; }
-
-            [Name(ArkadeConstants.FileFormatInfoHeaders.MimeType)]
             public string FileMimeType { get; set; }
-
-            [Name(ArkadeConstants.FileFormatInfoHeaders.FileScanError)]
             public string FileScanError { get; set; }
         }
 
         private class FileTypeStatisticsElement
         {
-            [Name(ArkadeConstants.FileFormatInfoStatisticsHeaders.FileType)]
             public string FileType { get; set; }
-
-            [Name(ArkadeConstants.FileFormatInfoStatisticsHeaders.Amount)]
             public int Amount { get; set; }
         }
     }

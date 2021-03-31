@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,34 +118,34 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChooseDirectoryToAnalyse" xml:space="preserve">
-    <value>Velg katalog hvis innhold skal analyseres</value>
+    <value>Choose directory with the content to be analysed</value>
   </data>
   <data name="CloseDialogButtonText" xml:space="preserve">
-    <value>Lukk</value>
+    <value>Close</value>
   </data>
   <data name="FormatCheckChooseTargetDirectoryButtonText" xml:space="preserve">
-    <value>Velg katalog ...</value>
+    <value>Choose directory ...</value>
   </data>
   <data name="FormatCheckCompletedMessage" xml:space="preserve">
-    <value>Formatanalyse er utført!
-Resultat lagret i:</value>
+    <value>Format analysis completed!
+Result saved at:</value>
   </data>
   <data name="FormatCheckHeading" xml:space="preserve">
-    <value>PRONOM filformat-analyse</value>
+    <value>PRONOM file format analysis</value>
   </data>
   <data name="FormatCheckOngoing" xml:space="preserve">
-    <value>Utfører formatanalyse ...</value>
+    <value>Performing format analysis ...</value>
   </data>
   <data name="FormatCheckOutputDirectoryPickerTitle" xml:space="preserve">
-    <value>Velg plassering for lagring av resultat</value>
+    <value>Choose location for results</value>
   </data>
   <data name="FormatCheckRunButtonText" xml:space="preserve">
-    <value>Kjør</value>
+    <value>Run</value>
   </data>
   <data name="SaveFormatFileExtensionFilter" xml:space="preserve">
-    <value>CSV (Kommadelte verdier) (*.csv)|*.csv</value>
+    <value>CSV (Comma separated values) (*.csv)|*.csv</value>
   </data>
   <data name="ToolsDialogTitle" xml:space="preserve">
-    <value>Verktøy</value>
+    <value>Tools</value>
   </data>
 </root>

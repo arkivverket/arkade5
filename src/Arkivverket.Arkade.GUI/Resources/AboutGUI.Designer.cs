@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Arkivverket.Arkade.GUI.Resources {
+namespace Arkivverket.Arkade.GUI.Languages {
     using System;
     
     
@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lukk.
+        ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string AboutDialogCloseButtonText {
             get {
@@ -79,7 +79,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Om Arkade 5.
+        ///   Looks up a localized string similar to About Arkade 5.
         /// </summary>
         public static string AboutDialogWindowName {
             get {
@@ -97,7 +97,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opphavsrett © {0} Arkivverket. Lisensiert under.
+        ///   Looks up a localized string similar to Copyright © {0} Arkivverket. Licensed under.
         /// </summary>
         public static string ArkadeCopyrightInformationText {
             get {
@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkade 5 bruker.
+        ///   Looks up a localized string similar to Arkade 5 uses.
         /// </summary>
         public static string BundledSoftwareInformation_1 {
             get {
@@ -124,7 +124,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (Copyright © 2019 Richard Lehane), lisensiert under.
+        ///   Looks up a localized string similar to (Copyright © 2019 Richard Lehane), licensed under.
         /// </summary>
         public static string BundledSoftwareInformation_3 {
             get {
@@ -133,7 +133,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to for å utføre formatsjekking..
+        ///   Looks up a localized string similar to to perform format analysis..
         /// </summary>
         public static string BundledSoftwareInformation_5 {
             get {
@@ -174,6 +174,15 @@ namespace Arkivverket.Arkade.GUI.Resources {
         public static string SiegfriedUri {
             get {
                 return ResourceManager.GetString("SiegfriedUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version: .
+        /// </summary>
+        public static string VersionText {
+            get {
+                return ResourceManager.GetString("VersionText", resourceCulture);
             }
         }
     }

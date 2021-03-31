@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_43_NumberOfClassificationsTest
+    public class N5_43_NumberOfClassificationsTest : LanguageDependentTest
     {
         [Fact]
         public void HasSeverealClassificationsOnSingleArchivePart()

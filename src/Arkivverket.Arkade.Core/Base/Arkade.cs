@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Util;
 using Autofac;
 
@@ -67,9 +68,9 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeApi.SaveReport(testSession, file);
         }
 
-        public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName)
+        public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName, SupportedLanguage language)
         {
-            _arkadeApi.GenerateFileFormatInfoFiles(filesDirectory, resultFileDirectoryPath, resultFileName);
+            _arkadeApi.GenerateFileFormatInfoFiles(filesDirectory, resultFileDirectoryPath, resultFileName, language);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)

@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AnalyseAllFrequenceListDescription" xml:space="preserve">
+    <value>Utfører en frekvensanalyse for samtlige felt hvor det er definert et kodesett</value>
+  </data>
+  <data name="AnalyseAllFrequenceListMessage" xml:space="preserve">
+    <value>{0} forekomster av {1}</value>
+  </data>
+  <data name="AnalyseCountCharsDescription" xml:space="preserve">
+    <value>Teller opp antall tegn i en fil</value>
+  </data>
+  <data name="AnalyseCountCharsMessage" xml:space="preserve">
+    <value>{0} tegn</value>
+  </data>
+  <data name="AnalyseCountNullDescription" xml:space="preserve">
+    <value>Teller opp antall forekomster av verdien null i feltet</value>
+  </data>
+  <data name="AnalyseCountNullMessage" xml:space="preserve">
+    <value>{0} forekomster av null</value>
+  </data>
+  <data name="AnalyseCountRecordDefinitionOccurrencesDescription" xml:space="preserve">
+    <value>Teller opp antall poster for hver posttype</value>
+  </data>
+  <data name="AnalyseCountRecordDefinitionOccurrencesMessage" xml:space="preserve">
+    <value>{0} poster</value>
+  </data>
+  <data name="AnalyseCountRecordsDescription" xml:space="preserve">
+    <value>Teller opp antall poster i en fil</value>
+  </data>
+  <data name="AnalyseCountRecordsMessage" xml:space="preserve">
+    <value>Totalt: {0} poster</value>
+  </data>
+  <data name="AnalyseFindExtremeRecordsDescription" xml:space="preserve">
+    <value>Finner lengste og korteste post for hver posttype</value>
+  </data>
+  <data name="AnalyseFindExtremeRecordsMessage" xml:space="preserve">
+    <value>Lengste/korteste post: {0}/{1}</value>
+  </data>
+  <data name="AnalyseFindExtremeValuesDescription" xml:space="preserve">
+    <value>Finner lengste og korteste verdi i feltet</value>
+  </data>
+  <data name="AnalyseFindExtremeValuesMessage" xml:space="preserve">
+    <value>Lengste/korteste verdi: {0}/{1}</value>
+  </data>
+  <data name="AnalyseFindMinMaxValuesDescription" xml:space="preserve">
+    <value>Finner laveste og høyeste verdi i feltet</value>
+  </data>
+  <data name="AnalyseFindMinMaxValuesMessage" xml:space="preserve">
+    <value>Laveste/høyeste verdi: {0}/{1}</value>
+  </data>
+  <data name="AnalyseFrequenceListDescription" xml:space="preserve">
+    <value>Teller opp antall forekomster for hver verdi i feltet</value>
+  </data>
+  <data name="AnalyseFrequenceListMessage" xml:space="preserve">
+    <value>{0} forekomster av {1}</value>
+  </data>
+  <data name="ControlAccountNumberDescription" xml:space="preserve">
+    <value>Kontroll av kontrollsifferne i et kontonummer</value>
+  </data>
+  <data name="ControlAccountNumberMessage" xml:space="preserve">
+    <value>Ugyldig kontonummer: {0}</value>
+  </data>
+  <data name="ControlAllFixedLengthDescription" xml:space="preserve">
+    <value>Kontrollerer at oppgitt postlengde på samtlige posttyper er korrekt (kun fast format)</value>
+  </data>
+  <data name="ControlAllFixedLengthMessage" xml:space="preserve">
+    <value>Oppgitt postlengde ({0}) er ulik faktisk ({1})</value>
+  </data>
+  <data name="ControlBirthNumberDescription" xml:space="preserve">
+    <value>Kontroll av kontrollsifferne i et fødselsnummer</value>
+  </data>
+  <data name="ControlBirthNumberMessage" xml:space="preserve">
+    <value>Ugyldig fødselsnummer: {0}</value>
+  </data>
+  <data name="ControlBooleanValueDescription" xml:space="preserve">
+    <value>Kontroll av verdiene i et boolsk felt</value>
+  </data>
+  <data name="ControlBooleanValueMessage" xml:space="preserve">
+    <value>Følgende ikke-boolske verdier finnes: {0}</value>
+  </data>
+  <data name="ControlChecksumDescription" xml:space="preserve">
+    <value>Kontroll av sjekksummer</value>
+  </data>
+  <data name="ControlChecksumMessage_ChecksumMismatch" xml:space="preserve">
+    <value>Forventet sjekksum: {0}
+Aktuell sjekksum: {1}</value>
+  </data>
+  <data name="ControlChecksumMessage_ChecksumMissing" xml:space="preserve">
+    <value>Ingen sjekksum funnet i ADDML-filen</value>
+  </data>
+  <data name="ControlChecksumMessage_UnknownChecksumAlgorithm" xml:space="preserve">
+    <value>Ukjent sjekksum-algoritme: {0}</value>
+  </data>
+  <data name="ControlCodesDescription" xml:space="preserve">
+    <value>Kontrollerer om definerte koder benyttes og om det benyttes koder som ikke er definert i kodelisten</value>
+  </data>
+  <data name="ControlCodesMessage" xml:space="preserve">
+    <value>Ikke i kodelisten: {0}</value>
+  </data>
+  <data name="ControlDataFormatDescription" xml:space="preserve">
+    <value>Kontrollerer om oppgitt dataformat er korrekt</value>
+  </data>
+  <data name="ControlDataFormatMessage" xml:space="preserve">
+    <value>Ugyldig dataformat: {0}</value>
+  </data>
+  <data name="ControlDataFormatMessageExtension" xml:space="preserve">
+    <value> + {0} flere</value>
+  </data>
+  <data name="ControlDateValueDescription" xml:space="preserve">
+    <value>Kontroll av verdiene i et dato-felt</value>
+  </data>
+  <data name="ControlDateValueMessage" xml:space="preserve">
+    <value>Verdier som ikke er dato: {0}</value>
+  </data>
+  <data name="ControlExtraOrMissingFilesDescription" xml:space="preserve">
+    <value>Kontrollerer om det finnes filer som ikke er definert i ADDML og omvendt</value>
+  </data>
+  <data name="ControlExtraOrMissingFilesMessage1" xml:space="preserve">
+    <value>Finnes i ADDML, men ikke i arkiv</value>
+  </data>
+  <data name="ControlExtraOrMissingFilesMessage2" xml:space="preserve">
+    <value>Finnes i arkiv, men ikke i ADDML</value>
+  </data>
+  <data name="ControlFixedLengthDescription" xml:space="preserve">
+    <value>Kontrollerer om oppgitt postlengde er korrekt (kun for fast format)</value>
+  </data>
+  <data name="ControlFixedLengthMessage" xml:space="preserve">
+    <value>Oppgitt postlengde ({0}) er ulik faktisk ({1})</value>
+  </data>
+  <data name="ControlForeignKeyDescription" xml:space="preserve">
+    <value>Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst</value>
+  </data>
+  <data name="ControlForeignKeyMessage1" xml:space="preserve">
+    <value>Ugyldig fremmednøkkel: Verdien [{0}] finnes ikke i det refererte feltet {1}</value>
+  </data>
+  <data name="ControlForeignKeyMessage1Combined" xml:space="preserve">
+    <value>Ugyldig fremmednøkkel: Verdiene [{0}] finnes ikke i de refererte feltene {1}</value>
+  </data>
+  <data name="ControlForeignKeyMessage2" xml:space="preserve">
+    <value>Ugyldig fremmednøkkel: Finner ingen verdier for feltet {0}</value>
+  </data>
+  <data name="ControlKeyDescription" xml:space="preserve">
+    <value>Kontrollerer at nøkkelen (primary eller alternate) er unik</value>
+  </data>
+  <data name="ControlKeyMessage" xml:space="preserve">
+    <value>Følgende primærnøkkelverdier er ikke unike: {0}</value>
+  </data>
+  <data name="ControlMaxLengthDescription" xml:space="preserve">
+    <value>Kontrollerer om oppgitt største lengde faktisk er største lengde i feltet</value>
+  </data>
+  <data name="ControlMaxLengthMessage" xml:space="preserve">
+    <value>Verdier lengre enn maksimumlengde: {0}</value>
+  </data>
+  <data name="ControlMinLengthDescription" xml:space="preserve">
+    <value>Kontrollerer om oppgitt minste lengde faktisk er minste lengde i feltet</value>
+  </data>
+  <data name="ControlMinLengthMessage" xml:space="preserve">
+    <value>Verdier kortere enn minstelengde: {0}</value>
+  </data>
+  <data name="ControlNotNullDescription" xml:space="preserve">
+    <value>Kontrollerer om det fines null-verdier i feltet</value>
+  </data>
+  <data name="ControlNotNullMessage" xml:space="preserve">
+    <value>NULL-verdier finnes</value>
+  </data>
+  <data name="ControlNotUsedRecordDefDescription" xml:space="preserve">
+    <value>Kontrollerer om denne posttypen benyttes i datasettet</value>
+  </data>
+  <data name="ControlNotUsedRecordDefMessage" xml:space="preserve">
+    <value>Posttypen er ikke i bruk</value>
+  </data>
+  <data name="ControlNumberOfRecordsDescription" xml:space="preserve">
+    <value>Teller opp og kontrollerer at antall poster i filen er lik antallet som er oppgitt i egenskapen numberOfRecords i flatFile</value>
+  </data>
+  <data name="ControlNumberOfRecordsMessage1" xml:space="preserve">
+    <value>Expected number of records not specified. Unable to control number of records</value>
+  </data>
+  <data name="ControlNumberOfRecordsMessage2" xml:space="preserve">
+    <value>Number of records ({0}) matched</value>
+  </data>
+  <data name="ControlNumberOfRecordsMessage3" xml:space="preserve">
+    <value>Number of records did not match. Expected {0}, found {1}</value>
+  </data>
+  <data name="ControlOrganizationNumberDescription" xml:space="preserve">
+    <value>Kontroll av kontrollsifferne i et organisasjonsnummer</value>
+  </data>
+  <data name="ControlOrganizationNumberMessage" xml:space="preserve">
+    <value>Ugyldig organisasjonsnummer: {0}</value>
+  </data>
+  <data name="ControlUniquenessDescription" xml:space="preserve">
+    <value>Kontrollerer om verdiene i feltet er unike</value>
+  </data>
+  <data name="ControlUniquenessMessage1" xml:space="preserve">
+    <value>Alle verdier er unike</value>
+  </data>
+  <data name="ControlUniquenessMessage2" xml:space="preserve">
+    <value>Verdiene er ikke unike</value>
+  </data>
+  <data name="ExceptionFixedLengthSumIsNotCorrect" xml:space="preserve">
+    <value>{0}: Antall tegn i FixedLength-feltet [{1}] stemmer ikke med antall tegn summert for postdefinisjonen [{2}].</value>
+  </data>
+  <data name="ExceptionReadingAddmlFile" xml:space="preserve">
+    <value>Feil ved innlesing av ADDML.
+{0}</value>
+  </data>
+  <data name="LogMessageFinishedTesting" xml:space="preserve">
+    <value>Testing av arkivet er fullført.</value>
+  </data>
+  <data name="LogMessageStartTesting" xml:space="preserve">
+    <value>Starter testing av arkivet.</value>
+  </data>
+  <data name="NumberOfRecordsWithFieldDelimiterErrorDescription" xml:space="preserve">
+    <value>Oppsummering av antall poster som har feil tilknyttet feltseparator og/eller postseparator.</value>
+  </data>
+  <data name="ReadingArchiveEvent" xml:space="preserve">
+    <value>Innlesing av arkiv</value>
+  </data>
+  <data name="ReadingArchiveEventFinishedMessage" xml:space="preserve">
+    <value>Arkivet er lest inn.</value>
+  </data>
+  <data name="RunningAddmlProcessesOnFile" xml:space="preserve">
+    <value>ADDML-prosesser på filen: {0}</value>
+  </data>
+  <data name="TarExtractionEvent" xml:space="preserve">
+    <value>Utpakking av arkiv</value>
+  </data>
+  <data name="TarExtractionMessageFinished" xml:space="preserve">
+    <value>Arkivet er pakket ut til {0}</value>
+  </data>
+  <data name="TarExtractionMessageStarted" xml:space="preserve">
+    <value>Starter utpakking.</value>
+  </data>
+</root>

@@ -285,7 +285,7 @@ namespace Arkivverket.Arkade.Core.Report
         {
             _stream.WriteLine(@"    <div class=""summary"">");
             _stream.WriteLine(@"    <div class=""jumbotron"">");
-            _stream.WriteLine(@"        <h2>Avvik</h2>");
+            _stream.WriteLine(@"        <h2>" + Resources.Report.HeadingDeviations + "</h2>");
             _stream.WriteLine(@"");
             _stream.WriteLine(@"        <table class=""table"">");
             _stream.WriteLine(@"            <tbody>");

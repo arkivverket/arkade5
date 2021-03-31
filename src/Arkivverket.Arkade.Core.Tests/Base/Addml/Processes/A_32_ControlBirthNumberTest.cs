@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_32_ControlBirthNumberTest
+    public class A_32_ControlBirthNumberTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReportErrorWhenInvalidBirthNumbersAreFound()

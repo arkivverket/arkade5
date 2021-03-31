@@ -48,7 +48,6 @@ namespace Arkivverket.Arkade.Core.Util
         public const string DirectoryNameTemporaryLogsLocation = ".arkade-tmplogs";
         public const string DirectoryNameRepositoryOperations = "repository_operations";
         public const string DirectoryNameContent = "content";
-        public const string DirectoryNameResultOutputContainer = "Arkade-resultater_{0}";
         public const string DirectoryNameAppDataArkadeSubFolder = "Arkivverket";
         
         public static readonly string[] DocumentDirectoryNames =
@@ -57,26 +56,6 @@ namespace Arkivverket.Arkade.Core.Util
         public const string SiegfriedLinuxExecutable = "siegfried_linux";
         public const string SiegfriedMacOSXExecutable = "siegfried_mac";
         public const string SiegfriedWindowsExecutable = "siegfried.exe";
-        public const string Noark5TestListFileName = "noark5-testlist.txt";
-        public const string MetadataFileName = "arkade-ip-metadata.json";
-        public const string FileFormatInfoFileName = "{0}-fileformatinfo.csv";
-        public const string FileFormatInfoStatisticsFileName = "{0}-statistics.csv";
-        public const string TestReportFileName = "Arkade-rapport_{0}.html";
-        public struct FileFormatInfoHeaders
-        {
-            public const string FileName = "Filnavn";
-            public const string FileExtension = "Filendelse";
-            public const string FormatId = "Format-ID";
-            public const string FormatName = "Formatnavn";
-            public const string FormatVersion = "Formatversjon";
-            public const string MimeType = "MIME-type";
-            public const string FileScanError = "Feil";
-        }
-        public struct FileFormatInfoStatisticsHeaders
-        {
-            public const string FileType = "Filtype";
-            public const string Amount = "Antall";
-        }
 
         public const string MetadataStandardLabelPlaceholder = "[standard_label]";
         public const string MetsHdrAgentMetaNoteKeyWord = "notescontent:";

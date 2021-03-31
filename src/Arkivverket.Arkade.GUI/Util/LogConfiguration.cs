@@ -20,8 +20,8 @@ namespace Arkivverket.Arkade.GUI.Util
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .Enrich.With(new ThreadIdEnricher())
-                .WriteTo.RollingFile(systemLogFilePath, outputTemplate: $"{Resources.GUI.SerilogFormatConfig}")
-                .WriteTo.Console(outputTemplate: $"{Resources.GUI.SerilogFormatConfig}")
+                .WriteTo.RollingFile(systemLogFilePath, outputTemplate: $"{Languages.GUI.SerilogFormatConfig}")
+                .WriteTo.Console(outputTemplate: $"{Languages.GUI.SerilogFormatConfig}")
                 .CreateLogger();
         }
     }

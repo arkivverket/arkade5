@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_18_ControlMaxLengthTest
+    public class A_18_ControlMaxLengthTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReportValuesShorterThanMinLength()

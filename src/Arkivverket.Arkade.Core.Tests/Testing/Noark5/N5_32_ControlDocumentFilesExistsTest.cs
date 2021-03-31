@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_32_ControlDocumentFilesExistsTest
+    public class N5_32_ControlDocumentFilesExistsTest : LanguageDependentTest
     {
         [Fact]
         public void ReferencedFilesExists()

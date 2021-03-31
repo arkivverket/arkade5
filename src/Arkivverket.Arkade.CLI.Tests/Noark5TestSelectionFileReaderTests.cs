@@ -5,14 +5,14 @@ using FluentAssertions;
 
 namespace Arkivverket.Arkade.CLI.Tests
 {
-    public class Noark5TestListReaderTests
+    public class Noark5TestSelectionFileReaderTests
     {
         [Fact]
         public void ParseFileContentTest()
         {
             var content = new[] {"N5.13", "#N5.27", "N5.63", "N5.ab", "A.15"};
 
-            List<TestId> testIds = Noark5TestListReader.ParseFileContent(content);
+            List<TestId> testIds = Noark5TestSelectionFileReader.ParseFileContent(content);
 
             testIds.Should().Contain(TestId.Create("N5.13"));
             testIds.Should().Contain(TestId.Create("N5.63"));

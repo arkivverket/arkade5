@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_36_ControlBooleanValueTest
+    public class A_36_ControlBooleanValueTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReportNonBooleanValues()

@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Media;
 using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.GUI.Languages;
 using Prism.Mvvm;
 
 namespace Arkivverket.Arkade.GUI.Models
@@ -112,28 +113,28 @@ namespace Arkivverket.Arkade.GUI.Models
         private void ShowOperationAsSuccess()
         {
             Color = ColorSuccess;
-            Label = Resources.GUI.TestrunnerMessageLabelSuccess;
+            Label = TestRunnerGUI.MessageLabelSuccess;
             Icon = IconSuccess;
         }
 
         private void ShowOperationAsError()
         {
             Color = ColorError;
-            Label = Resources.GUI.TestrunnerMessageLabelError;
+            Label = TestRunnerGUI.MessageLabelError;
             Icon = IconError;
         }
 
         private void ShowOperationAsWarning()
         {
             Color = ColorWarning;
-            Label = Resources.GUI.TestrunnerMessageLabelWarning;
+            Label = TestRunnerGUI.MessageLabelWarning;
             Icon = IconWarning;
         }
 
         private void ShowOperationAsInfo()
         {
             Color = ColorInfo;
-            Label = Resources.GUI.TestrunnerMessageLabelInfo;
+            Label = TestRunnerGUI.MessageLabelInfo;
             Icon = IconInfo;
         }
 

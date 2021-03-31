@@ -53,10 +53,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AboutGUI.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\CreatePackageGUI.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CreatePackageGUI.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\GUI.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>GUI.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\LoadArchiveExtractionGUI.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LoadArchiveExtractionGUI.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\MetaDataGUI.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -68,6 +78,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SettingsGUI.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\TestRunnerGUI.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TestRunnerGUI.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\ToolsGUI.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -76,25 +91,79 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\AboutGUI.nb-NO.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\AboutGUI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AboutGUI.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CreatePackageGUI.nb-NO.resx">
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CreatePackageGUI.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreatePackageGUI.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\GUI.nb-NO.resx">
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+      <LastGenOutput>GUI.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\GUI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GUI.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\LoadArchiveExtractionGUI.nb-NO.resx">
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+      <LastGenOutput>LoadArchiveExtractionGUI.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\LoadArchiveExtractionGUI.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoadArchiveExtractionGUI.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\MetaDataGUI.nb-NO.resx">
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\MetaDataGUI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MetaDataGUI.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\SettingsGUI.nb-NO.resx">
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\SettingsGUI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SettingsGUI.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\TestRunnerGUI.nb-NO.resx">
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\TestRunnerGUI.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TestRunnerGUI.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ToolsGUI.nb-NO.resx">
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ToolsGUI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ToolsGUI.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 

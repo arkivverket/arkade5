@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_11_NumberOfFoldersPerYearTest
+    public class N5_11_NumberOfFoldersPerYearTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReturnNumberOfFoldersForSingleYear()

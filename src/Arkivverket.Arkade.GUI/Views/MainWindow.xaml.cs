@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.GUI.Views
             try
             {
                 InitializeComponent();
-                Title = GUI.Resources.GUI.General_WindowTitle;
+                Title = Languages.GUI.General_WindowTitle;
                 Loaded += (sender, e) =>
                 {
                     if (!ArkadeProcessingAreaLocationSetting.IsValid())
@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.GUI.Views
         {
             if (ArkadeProcessingState.TestingIsStarted && !ArkadeProcessingState.PackingIsFinished)
             {
-                MessageBoxResult dialogResult = MessageBox.Show(GUI.Resources.GUI.UnsavedTestResultsOnExitWarning,
+                MessageBoxResult dialogResult = MessageBox.Show(Languages.GUI.UnsavedTestResultsOnExitWarning,
                     "NB!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
 
                 if(dialogResult == MessageBoxResult.No)

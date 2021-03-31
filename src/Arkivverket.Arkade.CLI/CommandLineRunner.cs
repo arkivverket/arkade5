@@ -1,9 +1,13 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
@@ -58,7 +62,7 @@ namespace Arkivverket.Arkade.CLI
                 string command = GetRunningCommand(options.GetType().Name);
 
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
-                    options.TestListFile, options.PerformFileFormatAnalysis);
+                    options.OutputLanguage, options.TestSelectionFile, options.PerformFileFormatAnalysis);
 
                 Test(options.OutputDirectory, testSession, createStandAloneTestReport: false);
 
@@ -83,7 +87,7 @@ namespace Arkivverket.Arkade.CLI
                 string command = GetRunningCommand(options.GetType().Name);
 
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
-                    options.TestListFile);
+                    options.OutputLanguage, options.TestSelectionFile);
 
                 Test(options.OutputDirectory, testSession);
 
@@ -106,7 +110,7 @@ namespace Arkivverket.Arkade.CLI
                 string command = GetRunningCommand(options.GetType().Name);
 
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
-                    performFileFormatAnalysis: options.PerformFileFormatAnalysis);
+                    options.OutputLanguage, performFileFormatAnalysis: options.PerformFileFormatAnalysis);
 
                 Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
 
@@ -124,16 +128,17 @@ namespace Arkivverket.Arkade.CLI
 
             if (options.GenerateMetadataExample)
             {
-                string metadataFileName = Path.Combine(options.OutputDirectory, ArkadeConstants.MetadataFileName);
+                string metadataFileName = Path.Combine(options.OutputDirectory, OutputFileNames.MetadataFile);
                 new MetadataExampleGenerator().Generate(metadataFileName);
                 Log.Information(metadataFileName + " was created");
             }
 
-            if (options.GenerateNoark5TestList)
+            if (options.GenerateNoark5TestSelectionFile)
             {
-                string noark5TestListFileName = Path.Combine(options.OutputDirectory, ArkadeConstants.Noark5TestListFileName);
-                Noark5TestListGenerator.Generate(noark5TestListFileName);
-                Log.Information(noark5TestListFileName + " was created");
+                string noark5TestSelectionFileName = Path.Combine(options.OutputDirectory, OutputFileNames.Noark5TestSelectionFile);
+                SupportedLanguage language = GetSupportedLanguage(options.OutputLanguage);
+                Noark5TestSelectionFileGenerator.Generate(noark5TestSelectionFileName, language);
+                Log.Information(noark5TestSelectionFileName + " was created");
             }
 
             LogFinishedStatus(command);
@@ -147,10 +152,13 @@ namespace Arkivverket.Arkade.CLI
 
             Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {analysisDirectory}");
             string outputFileName = options.OutputFileName ?? string.Format(
-                ArkadeConstants.FileFormatInfoFileName,
+                OutputFileNames.FileFormatInfoFile,
                 analysisDirectory.Name
             );
-            Arkade.GenerateFileFormatInfoFiles(analysisDirectory, options.OutputDirectory, outputFileName);
+
+            SupportedLanguage language = GetSupportedLanguage(options.OutputLanguage);
+
+            Arkade.GenerateFileFormatInfoFiles(analysisDirectory, options.OutputDirectory, outputFileName, language);
             
             LogFinishedStatus(command);
         }
@@ -210,8 +218,17 @@ namespace Arkivverket.Arkade.CLI
             return selectedArchiveType;
         }
 
+        private static SupportedLanguage GetSupportedLanguage(string chosenLanguage)
+        {
+            if (!Enum.TryParse(chosenLanguage, out SupportedLanguage language))
+                throw new ArgumentException("Language \"" + chosenLanguage + "\" is not supported");
+         
+            return language;
+        }
+
         private static TestSession CreateTestSession(string archive, string archiveTypeString,
-            string command, string testListFilePath = null, bool performFileFormatAnalysis = false)
+            string command, string selectedOutputLanguage, string testSelectionFilePath = null,
+            bool performFileFormatAnalysis = false)
         {
             var fileInfo = new FileInfo(archive);
             Log.Information($"{{{command}ing}} archive: {fileInfo.FullName}");
@@ -236,13 +253,18 @@ namespace Arkivverket.Arkade.CLI
 
             if (archiveType == ArchiveType.Noark5)
             {
-                testSession.TestsToRun = File.Exists(testListFilePath)
-                    ? Noark5TestListReader.GetUserSelectedTestIds(testListFilePath)
+                testSession.TestsToRun = File.Exists(testSelectionFilePath)
+                    ? Noark5TestSelectionFileReader.GetUserSelectedTestIds(testSelectionFilePath)
                     : Noark5TestProvider.GetAllTestIds();
 
                 if (testSession.TestsToRun.Count == 0)
-                    throw new ArgumentException($"No tests selected in {testListFilePath}");
+                    throw new ArgumentException($"No tests selected in {testSelectionFilePath}");
             }
+
+            selectedOutputLanguage ??= Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+            if (!Enum.TryParse(selectedOutputLanguage, out SupportedLanguage outputLanguage))
+                outputLanguage = SupportedLanguage.en;
+            testSession.OutputLanguage = outputLanguage;
 
             testSession.GenerateFileFormatInfo = performFileFormatAnalysis;
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
+using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base
@@ -26,6 +27,8 @@ namespace Arkivverket.Arkade.Core.Base
         public DateTime DateOfTesting { get; }
 
         public bool GenerateFileFormatInfo { get; set; }
+
+        public SupportedLanguage OutputLanguage { get; set; }
 
         public TestSession(Archive archive)
         {

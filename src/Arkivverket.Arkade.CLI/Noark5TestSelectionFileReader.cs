@@ -5,7 +5,7 @@ using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.CLI
 {
-    public static class Noark5TestListReader
+    public static class Noark5TestSelectionFileReader
     {
         public static List<TestId> GetUserSelectedTestIds(string filePath)
         {

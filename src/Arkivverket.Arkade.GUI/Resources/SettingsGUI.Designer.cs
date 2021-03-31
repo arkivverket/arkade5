@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Arkivverket.Arkade.GUI.Resources {
+namespace Arkivverket.Arkade.GUI.Languages {
     using System;
     
     
@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lagre.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string ArkadeProcessingAreaLocation_ApplyButtonText {
             get {
@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Avbryt.
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string ArkadeProcessingAreaLocation_CancelButtonText {
             get {
@@ -79,7 +79,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg ....
+        ///   Looks up a localized string similar to Select ....
         /// </summary>
         public static string ArkadeProcessingAreaLocation_EditButtonText {
             get {
@@ -88,7 +88,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkades prosesseringsområde.
+        ///   Looks up a localized string similar to Arkade processing area.
         /// </summary>
         public static string ArkadeProcessingAreaLocation_Header {
             get {
@@ -97,7 +97,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkades prosesseringsområde er en katalog &quot;arkade-tmp&quot; der midlertidige filer blir plassert under prosessering av arkivutrekk og der hvor system- og feillogger lagres. Du må velge en egnet plassering for denne katalogen..
+        ///   Looks up a localized string similar to Arkade processing area is a directory, &quot;arkade-tmp&quot;, where temporary files are placed during processing of the archive extract, and where system- and error logs are saved. A location with writing rights must be chosen..
         /// </summary>
         public static string ArkadeProcessingAreaLocation_Info {
             get {
@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NB! Prosesseringsområdet vil potensielt inneholde sensitive data og store datamengder..
+        ///   Looks up a localized string similar to NB! The processing area might contain sensitive data and/or large amounts of data..
         /// </summary>
         public static string ArkadeProcessingAreaLocation_Warning {
             get {
@@ -115,7 +115,16 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vennligst avslutt andre instanser av Arkade før du endrer plassering av prosesseringområdet..
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string DialogTitle {
+            get {
+                return ResourceManager.GetString("DialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please close other instances of Arkade before changing the location of Arkade processing area..
         /// </summary>
         public static string OtherInstancesRunningOnProcessingAreaChangeMessage {
             get {
@@ -124,7 +133,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bruk mørk modus.
+        ///   Looks up a localized string similar to Use dark mode.
         /// </summary>
         public static string SelectDarkModeText {
             get {
@@ -133,7 +142,25 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vennligst velg et prosesseringsområde som er tilgjengelig for Arkade.
+        ///   Looks up a localized string similar to Language for produced files:.
+        /// </summary>
+        public static string SelectOutputLanguageText {
+            get {
+                return ResourceManager.GetString("SelectOutputLanguageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language for user interface:.
+        /// </summary>
+        public static string SelectUILanguageText {
+            get {
+                return ResourceManager.GetString("SelectUILanguageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose a processing area available to Arkade.
         /// </summary>
         public static string UndefinedArkadeProcessingAreaLocationDialogMessage {
             get {
@@ -142,7 +169,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gyldig prosesseringsområde mangler.
+        ///   Looks up a localized string similar to Missing valid processing area.
         /// </summary>
         public static string UndefinedArkadeProcessingAreaLocationDialogTitle {
             get {

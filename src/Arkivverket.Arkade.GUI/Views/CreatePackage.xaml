@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:prism="http://prismlibrary.com/"
-             xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
+             xmlns:lang="clr-namespace:Arkivverket.Arkade.GUI.Languages"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:models="clr-namespace:Arkivverket.Arkade.GUI.Models"
              prism:ViewModelLocator.AutoWireViewModel="True"
@@ -42,7 +42,7 @@
 
         <Label Grid.Row="0" FontSize="24"
                Grid.ColumnSpan="6"
-               Content="{x:Static resources:GUI.CreatePackageWindowTitle}"
+               Content="{x:Static lang:CreatePackageGUI.WindowTitle}"
                Margin="5" />
 
         
@@ -51,11 +51,11 @@
                    Grid.ColumnSpan="6"
                    Margin="10"
                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                   Text="{x:Static resources:MetaDataGUI.MetadataRequiredFieldsInfo}" />
+                   Text="{x:Static lang:MetaDataGUI.MetadataRequiredFieldsInfo}" />
         
         <Button Grid.Row="1" Grid.Column="5" Height="24" Width="190"
-                Content="{x:StaticExtension resources:MetaDataGUI.LoadExternalMetadataButtonText}"
-                ToolTip="{x:StaticExtension resources:MetaDataGUI.LoadExternalMetadataInfoText}"
+                Content="{x:StaticExtension lang:MetaDataGUI.LoadExternalMetadataButtonText}"
+                ToolTip="{x:StaticExtension lang:MetaDataGUI.LoadExternalMetadataInfoText}"
                 Command="{Binding LoadExternalMetadataCommand}" />
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~ METADATA ~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -65,7 +65,7 @@
             <StackPanel>
 
                 <!-- Arkivbeskrivelse -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_ArchiveMain}"
+                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_ArchiveMain}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderThickness="0">
                 </GroupBox>
@@ -84,14 +84,14 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Row="0" Grid.Column="0"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.ArchiveDescription}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.ArchiveDescription}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataModelArchiveDescription.ArchiveDescription, Mode=TwoWay}"
                                  TextWrapping="Wrap" />
 
 
                         <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.AgreementNumber}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.AgreementNumber}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataModelArchiveDescription.AgreementNumber" Mode="TwoWay">
@@ -104,7 +104,7 @@
 
 
                 <!-- Arkivskaper -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_ArchiveCreator}"
+                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_ArchiveCreator}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
@@ -144,7 +144,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,0,15"
-                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.ArchiveCreator}"
+                                             materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.ArchiveCreator}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                                         <TextBox.Text>
                                             <Binding Path="Entity" Mode="TwoWay">
@@ -153,22 +153,22 @@
                                     </TextBox>
 
                                     <TextBox Grid.Row="1" Grid.Column="0"
-                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.ArchiveCreator_ContactPerson}"
+                                             materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.ArchiveCreator_ContactPerson}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding ContactPerson, Mode=TwoWay}" />
 
                                     <TextBox Grid.Row="2" Grid.Column="0"
-                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.ArchiveCreator_Address}"
+                                             materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.ArchiveCreator_Address}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Address, Mode=TwoWay}" />
                                     
                                     <TextBox Grid.Row="3" Grid.Column="0"
-                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.ArchiveCreator_Telephone}"
+                                             materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.ArchiveCreator_Telephone}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Telephone, Mode=TwoWay}" />
 
                                     <TextBox Grid.Row="4" Grid.Column="0"
-                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.ArchiveCreator_Email}"
+                                             materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.ArchiveCreator_Email}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Email, Mode=TwoWay}" />
 
@@ -188,7 +188,7 @@
 
 
                 <!-- Overforer -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_Transferer}"
+                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_Transferer}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
@@ -211,7 +211,7 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Transferer}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Transferer}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataTransferer.Entity" Mode="TwoWay">
@@ -220,7 +220,7 @@
                         </TextBox>
 
                         <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Transferer_ContractPerson}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Transferer_ContractPerson}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataTransferer.ContactPerson" Mode="TwoWay">
@@ -230,17 +230,17 @@
 
 
                         <TextBox Grid.Row="2" Grid.Column="0"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Transferer_Address}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Transferer_Address}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataTransferer.Address, Mode=TwoWay}" />
                         
                         <TextBox Grid.Row="3" Grid.Column="0"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Transferer_Telephone}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Transferer_Telephone}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataTransferer.Telephone, Mode=TwoWay}" />
 
                         <TextBox Grid.Row="4" Grid.Column="0"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Transferer_Email}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Transferer_Email}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataTransferer.Email, Mode=TwoWay}" />
 
@@ -254,7 +254,7 @@
 
 
                 <!-- Produsent -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_Producer}"
+                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_Producer}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
@@ -286,7 +286,7 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Row="0" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Producer}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Producer}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataProducer.Entity" Mode="TwoWay">
@@ -296,7 +296,7 @@
 
 
                         <TextBox Grid.Row="1" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Producer_ContactPerson}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Producer_ContactPerson}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataProducer.ContactPerson" Mode="TwoWay">
@@ -305,17 +305,17 @@
                         </TextBox>
 
                         <TextBox Grid.Row="2"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Producer_Address}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Producer_Address}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataProducer.Address, Mode=TwoWay}" />
 
                         <TextBox Grid.Row="3"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Producer_Telephone}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Producer_Telephone}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataProducer.Telephone, Mode=TwoWay}" />
 
                         <TextBox Grid.Row="4"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Producer_Email}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Producer_Email}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataProducer.Email, Mode=TwoWay}" />
 
@@ -329,7 +329,7 @@
 
 
                 <!-- Eier -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_Owner}"
+                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_Owner}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
@@ -370,7 +370,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,0,15"
-                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Owner}"
+                                             materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Owner}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                                         <TextBox.Text>
                                             <Binding Path="Entity" Mode="TwoWay">
@@ -379,22 +379,22 @@
                                     </TextBox>
 
                                     <TextBox Grid.Row="1" Grid.Column="0"
-                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Owner_ContactPerson}"
+                                             materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Owner_ContactPerson}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding ContactPerson, Mode=TwoWay}" />
 
                                     <TextBox Grid.Row="2" Grid.Column="0"
-                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Owner_Address}"
+                                             materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Owner_Address}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Address, Mode=TwoWay}" />
 
                                     <TextBox Grid.Row="3" Grid.Column="0"
-                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Owner_Telephone}"
+                                             materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Owner_Telephone}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Telephone, Mode=TwoWay}" />
 
                                     <TextBox Grid.Row="4" Grid.Column="0"
-                                             materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Owner_Email}"
+                                             materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Owner_Email}"
                                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                              Text="{Binding Email, Mode=TwoWay}" />
 
@@ -411,7 +411,7 @@
                 </ItemsControl>
 
                 <!-- Pakkeskaper -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_Creator}"
+                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_Creator}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
@@ -433,7 +433,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Creator}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                                     <TextBox.Text>
                                         <Binding Path="MetaDataCreator.Entity" Mode="TwoWay">
@@ -442,7 +442,7 @@
                                 </TextBox>
 
                                 <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator_ContactPerson}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Creator_ContactPerson}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                                     <TextBox.Text>
                                         <Binding Path="MetaDataCreator.ContactPerson" Mode="TwoWay">
@@ -451,17 +451,17 @@
                                 </TextBox>
 
                                 <TextBox Grid.Row="2" Grid.Column="0"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator_Address}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Creator_Address}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataCreator.Address, Mode=TwoWay}" />
 
                                 <TextBox Grid.Row="3" Grid.Column="0"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator_Telephone}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Creator_Telephone}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataCreator.Telephone, Mode=TwoWay}" />
 
                                 <TextBox Grid.Row="4" Grid.Column="0"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Creator_Email}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Creator_Email}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataCreator.Email, Mode=TwoWay}" />
                             </Grid>
@@ -476,12 +476,12 @@
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Grid.Row="0" Margin="5">
-                                    <TextBlock Text="{x:Static resources:MetaDataGUI.Creator_System}" FontSize="12" Margin="0, 5" /><LineBreak />
+                                    <TextBlock Text="{x:Static lang:MetaDataGUI.Creator_System}" FontSize="12" Margin="0, 5" /><LineBreak />
                                     <TextBlock Text="{Binding Path=ArkadeNameAndCurrentVersion}" />
                                 </TextBlock>
 
                                 <TextBlock Grid.Row="1" Margin="5" Visibility="{Binding Path=MetaDataCreatorSoftwareSystem.SystemName, TargetNullValue=Collapsed}">
-                                    <TextBlock Text="{x:Static resources:MetaDataGUI.Creator_OriginalSystem}" FontSize="12" Margin="0, 5" /><LineBreak />
+                                    <TextBlock Text="{x:Static lang:MetaDataGUI.Creator_OriginalSystem}" FontSize="12" Margin="0, 5" /><LineBreak />
                                     <TextBlock Text="{Binding MetaDataCreatorSoftwareSystem.SystemName}" />
                                     <TextBlock Text="{Binding MetaDataCreatorSoftwareSystem.SystemVersion}" />
                                 </TextBlock>
@@ -491,7 +491,7 @@
                 </GroupBox>
 
                 <!-- Mottaker -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_Recipient}"
+                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_Recipient}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderThickness="0" Margin="0,20,0,0" />
 
@@ -508,7 +508,7 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Row="0" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Recipient}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Recipient}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataRecipient.Entity" Mode="TwoWay">
@@ -520,7 +520,7 @@
 
 
                 <!-- System -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_System}"
+                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_System}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0"/>
@@ -544,7 +544,7 @@
                         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,15"
                                  Name="MetaDataSystemName"
                                  GotFocus="UpdateStandardLabel" TextChanged="UpdateStandardLabel"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.SystemName}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.SystemName}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataSystem.SystemName" Mode="TwoWay">
@@ -554,7 +554,7 @@
 
 
                         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,15"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.SystemVersion}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.SystemVersion}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="MetaDataSystem.SystemVersion" Mode="TwoWay">
@@ -564,7 +564,7 @@
 
 
                         <ComboBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
-                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.SystemType}" 
+                                  materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.SystemType}" 
                                   MinWidth="72"
                                   ItemsSource="{Binding SystemTypeList}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
@@ -581,7 +581,7 @@
 
 
                         <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.SystemTypeVersion}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.SystemTypeVersion}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataSystem.SystemTypeVersion, Mode=TwoWay}" />
 
@@ -593,7 +593,7 @@
 
 
                 <!-- Uttrekkssystem -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_ArchiveSystem}"
+                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_ArchiveSystem}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
@@ -623,18 +623,18 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Row="0"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.ArchiveSystem}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.ArchiveSystem}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataArchiveSystem.SystemName, Mode=TwoWay}" />
 
                         <TextBox Grid.Row="1"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.SystemVersion}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.SystemVersion}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataArchiveSystem.SystemVersion, Mode=TwoWay}" />
 
 
                         <ComboBox Grid.Row="2" 
-                                  materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.SystemType}" 
+                                  materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.SystemType}" 
                                   MinWidth="72"
                                   ItemsSource="{Binding SystemTypeList}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
@@ -651,7 +651,7 @@
 
 
                         <TextBox Grid.Row="3"
-                                 materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.SystemTypeVersion}"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.SystemTypeVersion}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataArchiveSystem.SystemTypeVersion, Mode=TwoWay}" />
 
@@ -668,7 +668,7 @@
 
 
                 <!-- Noark section (start/end/inncomming/outgoing seps) -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_NoarkParameters}"
+                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_NoarkParameters}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
@@ -705,7 +705,7 @@
                                     GotFocus="UpdateStandardLabel" SelectedDateChanged="UpdateStandardLabel"
                                     Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
                                     Language="no"
-                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.StartDate}" 
+                                    materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.StartDate}" 
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
                                     SelectedDate="{Binding MetaDataNoarkSection.StartDate, Mode=TwoWay}" CalendarOpened="DatePicker_CalendarOpened"/>
 
@@ -714,7 +714,7 @@
                                     GotFocus="UpdateStandardLabel" SelectedDateChanged="UpdateStandardLabel"
                                     Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
                                     Language="no"
-                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.EndDate}" 
+                                    materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.EndDate}" 
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
                                     SelectedDate="{Binding MetaDataNoarkSection.EndDate, Mode=TwoWay}" CalendarOpened="DatePicker_CalendarOpened"/>
 
@@ -730,7 +730,7 @@
 
 
                 <!-- Uttrekksdato -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.GuiSubsection_ExtractionDate}"
+                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_ExtractionDate}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
@@ -754,24 +754,24 @@
                         <DatePicker Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
                                     Width="250" HorizontalAlignment="Left" Margin="0 16 0 0" 
                                     Language="no"
-                                    materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.ExtractionDate}" 
+                                    materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.ExtractionDate}" 
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
                                     SelectedDate="{Binding MetaDataExtractionDate.ExtractionDate, Mode=TwoWay}" CalendarOpened="DatePicker_CalendarOpened"/>
                     </Grid>
                 </Border>
 
                 <!-- Label -->
-                <GroupBox Header="{x:Static resources:MetaDataGUI.Label}"
+                <GroupBox Header="{x:Static lang:MetaDataGUI.Label}"
                           Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
                 </GroupBox>
 
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
-                    <RadioButton Content="{x:Static resources:MetaDataGUI.Label_OptionTextStandardLabel}"
+                    <RadioButton Content="{x:Static lang:MetaDataGUI.Label_OptionTextStandardLabel}"
                                  IsChecked="{Binding StandardLabelIsSelected}"
                                  Style="{StaticResource MaterialDesignRadioButton}"/>
-                    <RadioButton Content="{x:Static resources:MetaDataGUI.Label_OptionTextUserdefinedLabel}"
+                    <RadioButton Content="{x:Static lang:MetaDataGUI.Label_OptionTextUserdefinedLabel}"
                                  IsChecked="{Binding UserdefinedLabelIsSelected}"
                                  Style="{StaticResource MaterialDesignRadioButton}"
                                  Margin="205 0 0 0" />
@@ -784,7 +784,7 @@
                         <Grid Margin="5">
                             <TextBox Margin="0,0,0,5" Width="260" TextWrapping="Wrap"
                                      Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                     materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Label_HintTextStandardLabel}"
+                                     materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Label_HintTextStandardLabel}"
                                      Text="{Binding MetaDataNoarkSection.StandardLabel}"
                                      IsEnabled="{Binding StandardLabelIsSelected}"
                                      IsReadOnly="True" />
@@ -796,7 +796,7 @@
                         <Grid Margin="5">
                             <TextBox Margin="0,0,0,5" Width="260" TextWrapping="Wrap"
                                      Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                     materialDesign:HintAssist.Hint="{x:Static resources:MetaDataGUI.Label_HintTextUserdefinedLabel}"
+                                     materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Label_HintTextUserdefinedLabel}"
                                      Text="{Binding MetaDataNoarkSection.UserdefinedLabel, Mode=TwoWay}"
                                      IsEnabled="{Binding UserdefinedLabelIsSelected}" />
                         </Grid>
@@ -809,24 +809,24 @@
                 <Border Margin="0,16" BorderThickness="0 2 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" />
 
                 <!-- Create SIP/AIP package  -->
-                <TextBlock Text="{x:Static resources:GUI.CreatePackageSelectTypeLabel}" Margin="10" />
+                <TextBlock Text="{x:Static lang:CreatePackageGUI.SelectTypeLabel}" Margin="10" />
 
                 <StackPanel Margin="10" Orientation="Horizontal">
-                    <RadioButton Content="{x:Static resources:GUI.CreatePackageTypeSIP}"
+                    <RadioButton Content="{x:Static lang:CreatePackageGUI.PackageTypeSIP}"
                          IsChecked="{Binding SelectedPackageTypeSip, Mode=TwoWay}"
                          Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 8" VerticalAlignment="Center" />
-                    <RadioButton Content="{x:Static resources:GUI.CreatePackageTypeAIP}"
+                    <RadioButton Content="{x:Static lang:CreatePackageGUI.PackageTypeAIP}"
                          IsChecked="{Binding SelectedPackageTypeAip, Mode=TwoWay}"
                          Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 8" VerticalAlignment="Center" />
                 </StackPanel>
 
                 <StackPanel Margin="10 10" Orientation="Horizontal">
                     <CheckBox
-                Content="{Binding IncludeFormatInfoFile, Mode=OneWay}"
+                Content="{Binding IncludeFormatInfoFile}"
                 IsChecked="{Binding GenerateFileFormatInfoSelected, Mode=TwoWay}" />
 
                     <Label 
-                ToolTip="{x:Static resources:MetaDataGUI.CreateDocumentFileInfoToolTip}" Margin="5 0" Padding="0">
+                ToolTip="{x:Static lang:MetaDataGUI.CreateDocumentFileInfoToolTip}" Margin="5 0" Padding="0">
                         <materialDesign:PackIcon Kind="AlertOctagonOutline" Foreground="Orange"  Height="22" Width="30" Margin="0" /> 
                     </Label>
                 </StackPanel>
@@ -834,12 +834,12 @@
                 <StackPanel Margin="10 10" Orientation="Horizontal">
                     <Button
                 Command="{Binding CreatePackageCommand}"
-                Content="{x:Static resources:GUI.CreatePackageButtonText}" HorizontalAlignment="Left" Width="130"
+                Content="{x:Static lang:CreatePackageGUI.CreatePackageButtonText}" HorizontalAlignment="Left" Width="130"
                 Height="30" />
 
                     <Button
                 Command="{Binding NewProgramSessionCommand}"
-                Content="{x:Static resources:GUI.NewProgramSessionButton}" HorizontalAlignment="Left" Width="130"
+                Content="{x:Static lang:GUI.NewProgramSessionButton}" HorizontalAlignment="Left" Width="130"
                 Height="30" Margin="5,0,0,0" />
                 </StackPanel>
                 <StackPanel Margin="10" Orientation="Horizontal">
@@ -847,7 +847,7 @@
                                  Value="0"
                                  IsIndeterminate="True"
                                  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12 12 12 12" Width="19" />
-                    <TextBlock Visibility="{Binding ProgressBarVisibility}"  Text="{x:Static resources:MetaDataGUI.PackageCreationOngoing}" TextWrapping="Wrap" />
+                    <TextBlock Visibility="{Binding ProgressBarVisibility}"  Text="{x:Static lang:MetaDataGUI.PackageCreationOngoing}" TextWrapping="Wrap" />
                 </StackPanel>
 
                 <StackPanel Margin="10" Orientation="Vertical">

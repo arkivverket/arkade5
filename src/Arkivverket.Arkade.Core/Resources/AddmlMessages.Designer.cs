@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AddmlMessages {
+    public class AddmlMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.Core.Resources.AddmlMessages", typeof(AddmlMessages).Assembly);
@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,54 +61,54 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to nødvending ADDML data.
+        ///   Looks up a localized string similar to required ADDML data.
         /// </summary>
-        internal static string Addml {
+        public static string Addml {
             get {
                 return ResourceManager.GetString("Addml", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to nødvending ADDML fil.
+        ///   Looks up a localized string similar to required ADDML file.
         /// </summary>
-        internal static string AddmlFile {
+        public static string AddmlFile {
             get {
                 return ResourceManager.GetString("AddmlFile", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to nødvending ADDML informasjon.
+        ///   Looks up a localized string similar to required ADDML information.
         /// </summary>
-        internal static string AddmlInfo {
+        public static string AddmlInfo {
             get {
                 return ResourceManager.GetString("AddmlInfo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finner ingen referanse til {0}. Dette må være definert..
+        ///   Looks up a localized string similar to No reference to {0} found. This must be defined..
         /// </summary>
-        internal static string AssertNotNull {
+        public static string AssertNotNull {
             get {
                 return ResourceManager.GetString("AssertNotNull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finner ikke {0}. Denne må både være definert og satt til en verdi..
+        ///   Looks up a localized string similar to Cannot find {0}. This must be both defined and set to a value..
         /// </summary>
-        internal static string AssertNotNullOrEmpty {
+        public static string AssertNotNullOrEmpty {
             get {
                 return ResourceManager.GetString("AssertNotNullOrEmpty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkade har ikke støtte for den oppgitte ADDML-prosessen {0}.
+        ///   Looks up a localized string similar to Arkade does not support the specified ADDML process {0}.
         /// </summary>
-        internal static string CouldNotInstatiateUnsupportedAddmlProcess {
+        public static string CouldNotInstatiateUnsupportedAddmlProcess {
             get {
                 return ResourceManager.GetString("CouldNotInstatiateUnsupportedAddmlProcess", resourceCulture);
             }
@@ -117,16 +117,34 @@ namespace Arkivverket.Arkade.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to ADDML element dataset.
         /// </summary>
-        internal static string Dataset {
+        public static string Dataset {
             get {
                 return ResourceManager.GetString("Dataset", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ADDML record with incorrect number of fields in file {0}, record number {1}, error number {2}.
+        /// </summary>
+        public static string FailedRecordErrorIdentifier {
+            get {
+                return ResourceManager.GetString("FailedRecordErrorIdentifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Field text: {1}.
+        /// </summary>
+        public static string FailedRecordErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedRecordErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADDML element flatFileDefinitions.
         /// </summary>
-        internal static string FlatFileDefinitions {
+        public static string FlatFileDefinitions {
             get {
                 return ResourceManager.GetString("FlatFileDefinitions", resourceCulture);
             }
@@ -135,43 +153,70 @@ namespace Arkivverket.Arkade.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to ADDML element flatFiles.
         /// </summary>
-        internal static string FlatFiles {
+        public static string FlatFiles {
             get {
                 return ResourceManager.GetString("FlatFiles", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ADDML records with incorrect number of fields in file {0}.
+        /// </summary>
+        public static string NumberOfRecordsWithFieldDelimiterErrorIdentifier {
+            get {
+                return ResourceManager.GetString("NumberOfRecordsWithFieldDelimiterErrorIdentifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADDML element recordDefinitions.
         /// </summary>
-        internal static string RecordDefinitions {
+        public static string RecordDefinitions {
             get {
                 return ResourceManager.GetString("RecordDefinitions", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ADDML-post med feil antall felt.
+        ///   Looks up a localized string similar to ADDML record with incorrect number of fields.
         /// </summary>
-        internal static string RecordLengthErrorTestName {
+        public static string RecordLengthErrorTestName {
             get {
                 return ResourceManager.GetString("RecordLengthErrorTestName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uventet felt-antall (funnet/forventet).
+        ///   Looks up a localized string similar to The file&apos;s total number of records with incorrect number of fields: {0}.
         /// </summary>
-        internal static string UnexpectedNumberOfFields {
+        public static string TotalAmountOfRecordsWithFieldDelimiterErrorResultText {
+            get {
+                return ResourceManager.GetString("TotalAmountOfRecordsWithFieldDelimiterErrorResultText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total amount: {0}.
+        /// </summary>
+        public static string TotalAmountText {
+            get {
+                return ResourceManager.GetString("TotalAmountText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected field quantity (found/expected).
+        /// </summary>
+        public static string UnexpectedNumberOfFields {
             get {
                 return ResourceManager.GetString("UnexpectedNumberOfFields", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ukjent ADDML-prosess: {0}.
+        ///   Looks up a localized string similar to Unknown ADDML process: {0}.
         /// </summary>
-        internal static string UnknownAddmlProcess {
+        public static string UnknownAddmlProcess {
             get {
                 return ResourceManager.GetString("UnknownAddmlProcess", resourceCulture);
             }

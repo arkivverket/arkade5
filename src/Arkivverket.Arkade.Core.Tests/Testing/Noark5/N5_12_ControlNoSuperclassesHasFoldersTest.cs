@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_12_ControlNoSuperclassesHasFoldersTest
+    public class N5_12_ControlNoSuperclassesHasFoldersTest : LanguageDependentTest
     {
         [Fact]
         public void SomeClassesHasBothSubclassesAndFolders()
