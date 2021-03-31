@@ -52,7 +52,14 @@ namespace Arkivverket.Arkade.Core.Base
 
         private string CreatePackage(PackageType packageType, Archive archive, ArchiveMetadata metadata, string outputDirectory)
         {
-            EnsureSufficientDiskSpace(archive, outputDirectory);
+            try
+            {
+                EnsureSufficientDiskSpace(archive, outputDirectory);
+            }
+            catch
+            {
+                Log.Warning("Could not ensure sufficient disk space for package destination");
+            }
 
             string resultDirectory = CreateResultDirectory(archive, outputDirectory);
 
