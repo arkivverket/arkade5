@@ -17,7 +17,7 @@ using Prism.Regions;
 using Serilog;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Arkivverket.Arkade.GUI.Resources;
+using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Views;
 using MessageBox = System.Windows.MessageBox;
 
@@ -27,8 +27,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
     {
         private readonly ArkadeApi _arkadeApi;
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
-        private bool _isRunningCreatePackage;
-        private bool _generateDocumentFileInfoSelected;
+        private bool _generateFileFormatInfoSelected;
         private bool _selectedPackageTypeAip;
         private bool _selectedPackageTypeSip = true;
         private bool _standardLabelIsSelected = true;
@@ -36,6 +35,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private Visibility _progressBarVisibility = Visibility.Hidden;
         private string _statusMessageText;
         private string _statusMessagePath;
+        private string _includeFormatInfoFile;
         private TestSession _testSession;
         private string _archiveFileName;
         private readonly IRegionManager _regionManager;
@@ -54,10 +54,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private GuiMetaDataModel _metaDataNoarkSection = new GuiMetaDataModel(null, null, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataExtractionDate = new GuiMetaDataModel(null);
 
+        private bool IsRunningCreatePackage()
+        {
+            return ArkadeProcessingState.PackingIsStarted && !ArkadeProcessingState.PackingIsFinished;
+        }
 
         private IList<String> _systemTypeList  = new List<string>()
         {
-            "Noark3", "Noark5", "Fagsystem"
+            "Noark3", "Noark5", "Fagsystem", "Siard"
         }; 
 
         public string ArkadeNameAndCurrentVersion { get; } = $"Arkade 5 {ArkadeVersion.Current}";
@@ -75,10 +79,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _progressBarVisibility, value);
         }
 
-        public bool GenerateDocumentFileInfoSelected
+        public bool GenerateFileFormatInfoSelected
         {
-            get => _generateDocumentFileInfoSelected;
-            set => SetProperty(ref _generateDocumentFileInfoSelected, value);
+            get => _generateFileFormatInfoSelected;
+            set => SetProperty(ref _generateFileFormatInfoSelected, value);
         }
         public bool SelectedPackageTypeSip
         {
@@ -205,6 +209,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _statusMessagePath, value);
         }
 
+        public string IncludeFormatInfoFile
+        {
+            get => _includeFormatInfoFile;
+            set => SetProperty(ref _includeFormatInfoFile, value);
+        }
+
 
         public CreatePackageViewModel(ArkadeApi arkadeApi, IRegionManager regionManager)
         {
@@ -256,6 +266,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 _testSession = (TestSession) context.Parameters["TestSession"];
                 _archiveFileName = (string) context.Parameters["archiveFileName"];
 
+                if (_testSession.Archive.ArchiveType == ArchiveType.Siard)
+                    IncludeFormatInfoFile = MetaDataGUI.CreateLobFormatInfoFileText;
+                else
+                    IncludeFormatInfoFile = MetaDataGUI.CreateDocumentFileInfoText;
+
                 FileInfo includedMetadataFile =
                     _testSession.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
 
@@ -270,7 +285,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             catch (Exception e)
             {
                 
-                string message = string.Format(Resources.GUI.ErrorGeneral, e.Message);
+                string message = string.Format(Languages.GUI.ErrorGeneral, e.Message);
                 StatusMessageText = message;
                 
                 Log.Error(e, message);
@@ -359,17 +374,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private bool CanLeaveCreatePackageView()
         {
-            return !_isRunningCreatePackage;
+            return !IsRunningCreatePackage();
         }
 
         private bool CanExecuteCreatePackage()
         {
-            return !_isRunningCreatePackage && (SelectedPackageTypeSip || SelectedPackageTypeAip);
+            return !IsRunningCreatePackage() && (SelectedPackageTypeSip || SelectedPackageTypeAip);
         }
 
         private bool CanLoadMetadata()
         {
-            return !_isRunningCreatePackage;
+            return !IsRunningCreatePackage();
         }
 
         private void RunLoadExternalMetadata()
@@ -445,9 +460,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 PackageType = ArchiveMetadataMapper.MapToPackageType(SelectedPackageTypeSip)
             };
 
-            _testSession.GenerateDocumentFileInfo = GenerateDocumentFileInfoSelected;
+            _testSession.GenerateFileFormatInfo = GenerateFileFormatInfoSelected;
 
-            _isRunningCreatePackage = true;
+            ArkadeProcessingState.PackingIsStarted = true;
+            MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
+            
             CreatePackageCommand.RaiseCanExecuteChanged();
             MainWindow.ProgressBarWorker.ReportProgress(0);
 
@@ -456,7 +473,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void OnCompletedCreatePackage()
         {
-            _isRunningCreatePackage = false;
+            ArkadeProcessingState.PackingIsFinished = true;
             CreatePackageCommand.RaiseCanExecuteChanged();
             MainWindow.ProgressBarWorker.ReportProgress(100);
         }
@@ -473,9 +490,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 string argument = "/select, \"" + packageOutputContainer + "\"";
                 System.Diagnostics.Process.Start("explorer.exe", argument);
 
-                StatusMessageText = "IP og metadata lagret i ";
+                StatusMessageText = CreatePackageGUI.IPandMetadataSuccessfullyCreatedStatusMessage;
                 StatusMessagePath = packageOutputContainer;
-                Log.Debug("Package created in " + packageOutputContainer);
+                Log.Debug("Package created at " + packageOutputContainer);
 
             }
             catch (Exception exception)
@@ -483,21 +500,21 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 if (exception is IOException)
                 {
                     StatusMessageText = MetaDataGUI.PackageCreationErrorStatusMessage;
-                    Log.Debug(MetaDataGUI.PackageCreationErrorLogMessage);
+                    Log.Debug("Error: Could not create/overwrite package");
                 }
 
                 if (exception is InsufficientDiskSpaceException)
                 {
                     StatusMessageText = MetaDataGUI.UnsufficientDiskSpaceStatusMessage;
-                    Log.Debug(MetaDataGUI.UnsufficientDiskSpaceLogMessage);
+                    Log.Debug("Not enough disk space on target location");
                 }
 
                 string fileName = new DetailedExceptionMessage(exception).WriteToFile();
 
                 if (!string.IsNullOrEmpty(fileName))
-                    StatusMessagePath = string.Format(Resources.GUI.DetailedErrorMessageInfo, fileName);
+                    StatusMessagePath = string.Format(Languages.GUI.DetailedErrorMessageInfo, fileName);
 
-                _isRunningCreatePackage = false;
+                ArkadeProcessingState.PackingIsFinished = true;
             }
             ProgressBarVisibility = Visibility.Hidden;
         }

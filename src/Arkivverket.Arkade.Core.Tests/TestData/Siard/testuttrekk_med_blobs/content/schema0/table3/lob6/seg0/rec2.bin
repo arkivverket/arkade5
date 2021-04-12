@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<!DOCTYPE addmml SYSTEM 'addmml.dtd'>
+
+<addmml version="7.3">
+  <reference>
+    <archives ar_id="test.kommune.no">
+      <ar_name>Test kommune</ar_name>
+    </archives>
+    <system sy_id="TST2014-001">
+      <sy_name>Sak/-arkivsystem og elektroniske postjournaler</sy_name>
+      <startdate>1986</startdate>
+      <enddate>2000</enddate>
+    </system>
+  </reference>
+  <structure>
+    <dataset ds_id="test.kommune.no/TST2014-001">
+      <ds_descr>Inneholder også tabell for møter knyttet til utvalgsbehandling av saker.</ds_descr>
+      <charset>ISO-8859-1</charset>
+      <format>XML</format>
+      <recsep>NO</recsep>
+      <nu_files>1</nu_files>
+      <file name="dgmabh" path="dgmabh.xml">
+        <fi_descr>UTVALGSBEHANDLING - REGISTER OVER MØTER KNYTTET TIL UTVALGSBEHANDLING</fi_descr>
+        <nu_rectypes>1</nu_rectypes>
+        <rectype name="MØTE">
+          <primkey>REFAAR+REFNR</primkey>
+          <forkey>
+            <fields>JOURAARNR</fields>
+            <reffilerec>dgsmsa:SAK</reffilerec>
+            <reffields>JOURAARNR</reffields>
+            <reltype>1:1</reltype>
+          </forkey>
+          <nu_fields>5</nu_fields>
+          <fieldtype name="MOTEDATO">
+            <ft_descr>Møtedato</ft_descr>
+            <datatype>DATE</datatype>
+            <mask>YYYY-MM-DD</mask>
+          </fieldtype>
+          <fieldtype name="VEDTAK">
+            <ft_descr>Vedtak</ft_descr>
+            <datatype>STRING</datatype>
+          </fieldtype>
+          <fieldtype name="SAKSNR">
+            <ft_descr>Saksnummer - nummer</ft_descr>
+            <datatype>STRING</datatype>
+          </fieldtype>
+          <fieldtype name="SAKSAAR">
+            <ft_descr>Saksnummer - år</ft_descr>
+            <datatype>INTEGER</datatype>
+          </fieldtype>
+          <fieldtype name="RESULTAT">
+            <ft_descr>Resultat</ft_descr>
+            <datatype>STRING</datatype>
+          </fieldtype>
+        </rectype>
+      </file>
+    </dataset>
+  </structure>
+</addmml>

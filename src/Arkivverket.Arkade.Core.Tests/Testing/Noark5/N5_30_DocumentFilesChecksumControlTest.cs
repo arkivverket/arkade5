@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_30_DocumentFilesChecksumControlTest
+    public class N5_30_DocumentFilesChecksumControlTest : LanguageDependentTest
     {
         [Fact]
         public void ActualAndDocumentedChecksumsDoMatch()

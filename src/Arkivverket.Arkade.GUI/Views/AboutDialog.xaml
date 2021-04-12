@@ -3,11 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Arkivverket.Arkade.GUI.Views"
-        xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
+        xmlns:lang="clr-namespace:Arkivverket.Arkade.GUI.Languages"
         mc:Ignorable="d"
         d:DataContext="{d:DesignData AboutDialogViewModel}"
-        Title="{x:Static resources:AboutGUI.AboutDialogWindowName}" Height ="270"  Width="500"
+        Title="{x:Static lang:AboutGUI.AboutDialogWindowName}" Height ="270"  Width="500"
         Icon="../Arkade5_2.0.ico"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}">
@@ -15,7 +14,7 @@
         <StackPanel Margin="10">
             <WrapPanel Margin="10,20">
                 <Image Source="../Arkade5_2.0.ico" Height="64" Width="64" />
-                <TextBlock Text="{x:Static resources:AboutGUI.AboutDialogHeaderText}"
+                <TextBlock Text="{x:Static lang:AboutGUI.AboutDialogHeaderText}"
                            FontSize="32"
                            Margin="15,10,0,10" />
             </WrapPanel>
@@ -26,24 +25,24 @@
                 <TextBlock>
                     <Run Text="{Binding CopyrightInfoString, Mode=OneWay}"/>
                     <Hyperlink Command="{Binding ShowLicenseWebPageCommand}">
-                        <TextBlock Text="{x:Static resources:AboutGUI.LicenseGNU}" ToolTip="{x:Static resources:AboutGUI.GnuGpl3_0Uri}"/>
+                        <TextBlock Text="{x:Static lang:AboutGUI.LicenseGNU}" ToolTip="{x:Static lang:AboutGUI.GnuGpl3_0Uri}"/>
                     </Hyperlink>
                 </TextBlock>
             </WrapPanel>
             <TextBlock Margin ="20,0,0,0" TextWrapping="Wrap">
-                <TextBlock Text="{x:Static resources:AboutGUI.BundledSoftwareInformation_1}"/>
+                <TextBlock Text="{x:Static lang:AboutGUI.BundledSoftwareInformation_1}"/>
                 <Hyperlink Command="{Binding ShowSiegfriedWebPageCommand}">
-                    <TextBlock Text="{x:Static resources:AboutGUI.BundledSoftwareInformation_2}" ToolTip="{x:Static resources:AboutGUI.SiegfriedUri}"/>
+                    <TextBlock Text="{x:Static lang:AboutGUI.BundledSoftwareInformation_2}" ToolTip="{x:Static lang:AboutGUI.SiegfriedUri}"/>
                 </Hyperlink>
-                <TextBlock Text="{x:Static resources:AboutGUI.BundledSoftwareInformation_3}"/>
+                <TextBlock Text="{x:Static lang:AboutGUI.BundledSoftwareInformation_3}"/>
                 <Hyperlink Command="{Binding ShowApacheLicenseWebPageCommand}">
-                    <TextBlock Text="{x:Static resources:AboutGUI.LicenseApache2_0}" ToolTip="{x:Static resources:AboutGUI.ApacheV2_0Uri}"/>
+                    <TextBlock Text="{x:Static lang:AboutGUI.LicenseApache2_0}" ToolTip="{x:Static lang:AboutGUI.ApacheV2_0Uri}"/>
                 </Hyperlink>
-                <TextBlock Text="{x:Static resources:AboutGUI.BundledSoftwareInformation_5}"/>
+                <TextBlock Text="{x:Static lang:AboutGUI.BundledSoftwareInformation_5}"/>
             </TextBlock>
         </StackPanel>
         <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15"
                 IsCancel="True"
-                Content="{x:Static resources:AboutGUI.AboutDialogCloseButtonText}" />
+                Content="{x:Static lang:AboutGUI.AboutDialogCloseButtonText}" />
     </Grid>
 </Window>

@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.CLI
         public string InformationPackageType { get; set; }
 
         [Option('f', "document-file-format-check", HelpText = "Optional. Report document file PRONOM format information.")]
-        public bool DocumentFileFormatCheck { get; set; }
+        public bool PerformFileFormatAnalysis { get; set; }
 
         [Option('m', "metadata-file", HelpText = "File with metadata to include in package.", Required = true)]
         public string MetadataFile { get; set; }

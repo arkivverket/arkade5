@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_23_NumberOfDocumentDescriptionsTest
+    public class N5_23_NumberOfDocumentDescriptionsTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReturnNumberOfDocumentDescriptions()

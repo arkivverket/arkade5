@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_08_AnalyseFindExtremeValuesTest
+    public class A_08_AnalyseFindExtremeValuesTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldFindExtremeValues()

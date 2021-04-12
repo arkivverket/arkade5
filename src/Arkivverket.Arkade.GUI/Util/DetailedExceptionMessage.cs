@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.GUI.Util
 
             string fileName = Path.Combine(
                 ArkadeProcessingArea.LogsDirectory.FullName,
-                string.Format(Resources.GUI.DetailedErrorMessageFileName, timeStamp)
+                string.Format(Languages.GUI.DetailedErrorMessageFileName, timeStamp)
             );
 
             try

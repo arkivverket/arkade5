@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_09_NumberOfClassesInMainClassificationSystemWithoutSubClassesOrFoldersTest
+    public class N5_09_NumberOfClassesInMainClassificationSystemWithoutSubClassesOrFoldersTest : LanguageDependentTest
     {
         [Fact]
         public void NumberOfEmptyClassesIsZero()

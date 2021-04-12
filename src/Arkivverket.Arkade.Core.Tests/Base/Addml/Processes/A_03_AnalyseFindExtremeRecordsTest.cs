@@ -10,7 +10,7 @@ using Record = Arkivverket.Arkade.Core.Base.Addml.Record;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_03_AnalyseFindExtremeRecordsTest
+    public class A_03_AnalyseFindExtremeRecordsTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldFindMaxAndMinLengthRecord()

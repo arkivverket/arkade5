@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Report
         {
             _stream.WriteLine(@"<!DOCTYPE html>");
             _stream.WriteLine(@"<html lang=""no"">");
-            Head();
+            Head(testSession.Archive.GetTestReportFile().Name);
             Body(testSession);
             _stream.WriteLine(@"</html>");
             _stream.Flush();
@@ -285,7 +285,7 @@ namespace Arkivverket.Arkade.Core.Report
         {
             _stream.WriteLine(@"    <div class=""summary"">");
             _stream.WriteLine(@"    <div class=""jumbotron"">");
-            _stream.WriteLine(@"        <h2>Avvik</h2>");
+            _stream.WriteLine(@"        <h2>" + Resources.Report.HeadingDeviations + "</h2>");
             _stream.WriteLine(@"");
             _stream.WriteLine(@"        <table class=""table"">");
             _stream.WriteLine(@"            <tbody>");
@@ -310,13 +310,13 @@ namespace Arkivverket.Arkade.Core.Report
             _stream.WriteLine(@"    </div>");
         }
 
-        private void Head()
+        private void Head(string title)
         {
             _stream.WriteLine(@"<head>");
             _stream.WriteLine(@"    <meta charset=""utf-8"" />");
             _stream.WriteLine(@"    <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"" />");
             _stream.WriteLine(@"    <meta name=""viewport"" content=""width=device-width, initial-scale=1"" />");
-            _stream.WriteLine(@"    <title>" + Resources.Report.HeadingTestReport + "</title>");
+            _stream.WriteLine(@"    <title>" + title + "</title>");
             _stream.WriteLine(@"");
             BootstrapCss();
             ArkadeCss();

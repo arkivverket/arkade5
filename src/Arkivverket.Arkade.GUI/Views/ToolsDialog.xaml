@@ -3,12 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Arkivverket.Arkade.GUI.Views"
-        xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
+        xmlns:lang="clr-namespace:Arkivverket.Arkade.GUI.Languages"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
-        Title="{x:Static resources:ToolsGUI.ToolsDialogTitle}" Height ="300"  Width="750"
+        Title="{x:Static lang:ToolsGUI.ToolsDialogTitle}" Height ="300"  Width="750"
         Icon="../Arkade5_2.0.ico"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -17,24 +16,24 @@
         <StackPanel Margin="10">
             <StackPanel Margin="5,0,0,0">
                 <Label FontSize="20" FontWeight="DemiBold"
-                       Content="{x:Static resources:ToolsGUI.FormatCheckHeading}"/>
+                       Content="{x:Static lang:ToolsGUI.FormatCheckHeading}"/>
                 <Button VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" Height="25"
                         Command="{Binding ChooseDirectoryForFormatCheckCommand}"
-                        Content="{x:Static resources:ToolsGUI.FormatCheckChooseTargetDirectoryButtonText}"/>
+                        Content="{x:Static lang:ToolsGUI.FormatCheckChooseTargetDirectoryButtonText}"/>
                 <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" Margin="10,5,0,10">
                     <Run Text="{Binding DirectoryForFormatCheck}"
                          Background="Beige" Foreground="Black"/>
                 </TextBlock>
                 <Button VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Height="25"
                         Command="{Binding RunFormatCheckCommand}"
-                        Content="{x:Static resources:ToolsGUI.FormatCheckRunButtonText}"
+                        Content="{x:Static lang:ToolsGUI.FormatCheckRunButtonText}"
                         IsEnabled="{Binding RunButtonIsEnabled}"/>
                 <StackPanel Margin="10" Orientation="Horizontal">
                     <ProgressBar Visibility="{Binding ProgressBarVisibility}" Style="{StaticResource MaterialDesignCircularProgressBar}"                     
                                  Value="0"
                                  IsIndeterminate="True"
                                  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12" Width="19"/>
-                    <TextBlock VerticalAlignment="Center" Visibility="{Binding ProgressBarVisibility}"  Text="{x:Static resources:ToolsGUI.FormatCheckOngoing}" TextWrapping="Wrap"/>
+                    <TextBlock VerticalAlignment="Center" Visibility="{Binding ProgressBarVisibility}"  Text="{x:Static lang:ToolsGUI.FormatCheckOngoing}" TextWrapping="Wrap"/>
                 </StackPanel>
                 <TextBox Margin="10,5,0,10" BorderThickness="0" Background="Transparent" IsReadOnly="True"
                          TextWrapping="Wrap"
@@ -43,7 +42,7 @@
         </StackPanel>
         <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15"
                 IsCancel="True"
-                Content="{x:Static resources:ToolsGUI.CloseDialogButtonText}"
+                Content="{x:Static lang:ToolsGUI.CloseDialogButtonText}"
                 IsEnabled="{Binding CloseButtonIsEnabled, Mode=OneWay}"/>
     </Grid>
 </Window>

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Arkivverket.Arkade.Core.Testing
+﻿namespace Arkivverket.Arkade.Core.Testing
 {
     public class Location : ILocation
     {

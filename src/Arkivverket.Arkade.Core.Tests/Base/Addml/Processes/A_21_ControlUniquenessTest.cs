@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_21_ControlUniquenessTest
+    public class A_21_ControlUniquenessTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReportUniquenessIfAllFieldsAreUniqe()

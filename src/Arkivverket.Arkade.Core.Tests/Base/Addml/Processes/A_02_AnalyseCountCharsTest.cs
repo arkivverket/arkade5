@@ -9,7 +9,7 @@ using Record = Arkivverket.Arkade.Core.Base.Addml.Record;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_02_AnalyseCountCharsTest
+    public class A_02_AnalyseCountCharsTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldCountNumberOfCharsInFields()

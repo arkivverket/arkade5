@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_16_NumberOfRegistrationsTest
+    public class N5_16_NumberOfRegistrationsTest : LanguageDependentTest
     {
         [Fact]
         public void HasSeveralRegistrationsOnSingleArchivePart()

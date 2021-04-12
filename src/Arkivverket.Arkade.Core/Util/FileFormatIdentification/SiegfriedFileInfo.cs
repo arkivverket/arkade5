@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 {
-    public class SiegfriedFileInfo : IEquatable<SiegfriedFileInfo>
+    public class SiegfriedFileInfo : IFileFormatInfo, IEquatable<SiegfriedFileInfo>
     {
         public string FileName { get; }
         public string FileExtension { get; }

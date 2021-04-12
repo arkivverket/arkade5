@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_35_ControlDateValueTest
+    public class A_35_ControlDateValueTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReportNonDateValues()

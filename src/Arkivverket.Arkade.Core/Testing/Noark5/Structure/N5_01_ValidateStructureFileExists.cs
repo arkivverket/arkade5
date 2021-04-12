@@ -2,7 +2,6 @@
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
-using System;
 using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure

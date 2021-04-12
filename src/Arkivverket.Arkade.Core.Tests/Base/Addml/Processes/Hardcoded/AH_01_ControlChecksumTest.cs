@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
 {
-    public class AH_01_ControlChecksumTest
+    public class AH_01_ControlChecksumTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReportNotReportCorrectChecksumValue()

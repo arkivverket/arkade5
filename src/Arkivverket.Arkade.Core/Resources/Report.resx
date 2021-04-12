@@ -121,81 +121,84 @@
     <value>dd. MMMM yyyy</value>
   </data>
   <data name="HeadingTestReport" xml:space="preserve">
-    <value>Testrapport</value>
+    <value>Test report</value>
   </data>
   <data name="HeadingTestResults" xml:space="preserve">
-    <value>Resultater</value>
+    <value>Results</value>
   </data>
   <data name="HeadingTests" xml:space="preserve">
-    <value>Analyser og kontroller</value>
+    <value>Analyses and controls</value>
   </data>
   <data name="HeadingTestSummary" xml:space="preserve">
-    <value>Testsammendrag</value>
+    <value>Test summary</value>
   </data>
   <data name="LabelArchiveType" xml:space="preserve">
-    <value>Arkivtype</value>
+    <value>Archive type</value>
   </data>
   <data name="LabelDateOfTesting" xml:space="preserve">
-    <value>Tidspunkt for testing</value>
+    <value>Time of testing</value>
   </data>
   <data name="LabelNumberOfErrors" xml:space="preserve">
-    <value>Antall avvik funnet</value>
+    <value>Number of deviations found</value>
   </data>
   <data name="LabelNumberOfFilesProcessed" xml:space="preserve">
-    <value>Antall filer som er prosessert</value>
+    <value>Number of processed files</value>
   </data>
   <data name="LabelNumberOfRecordsProcessed" xml:space="preserve">
-    <value>Antall poster som er prosessert</value>
+    <value>Number of processed records</value>
   </data>
   <data name="LabelNumberOfTestsRun" xml:space="preserve">
-    <value>Antall tester som er kjørt</value>
+    <value>Number of tests run</value>
   </data>
   <data name="LabelUuid" xml:space="preserve">
     <value>Uuid</value>
   </data>
   <data name="TestLocation" xml:space="preserve">
-    <value>Lokasjon</value>
+    <value>Location</value>
   </data>
   <data name="TestMessage" xml:space="preserve">
-    <value>Melding</value>
+    <value>Message</value>
   </data>
   <data name="TestMoreResultsOfSameKind" xml:space="preserve">
-    <value>{0} flere resultater av samme type.</value>
+    <value>{0} more results of same kind.</value>
   </data>
   <data name="TestNoErrorsFound" xml:space="preserve">
-    <value>Ingen avvik funnet.</value>
+    <value>No deviations found.</value>
   </data>
   <data name="FooterArkadeVersion" xml:space="preserve">
-    <value>Arkade 5 versjon: {0}</value>
+    <value>Arkade 5 version: {0}</value>
   </data>
   <data name="TestTypeContentAnalysisDisplayName" xml:space="preserve">
-    <value>Innholdsanalyse</value>
+    <value>Content analysis</value>
   </data>
   <data name="TestTypeContentControlDisplayName" xml:space="preserve">
-    <value>Innholdskontroll</value>
+    <value>Content control</value>
   </data>
   <data name="TestTypeStructureControlDisplayName" xml:space="preserve">
-    <value>Strukturkontroll</value>
+    <value>Structural control</value>
   </data>
   <data name="TestTypeStructureAnalysisDisplayName" xml:space="preserve">
-    <value>Strukturanalyse</value>
+    <value>Structural analysis</value>
   </data>
   <data name="LabelArchiveCreators" xml:space="preserve">
-    <value>Arkivskaper</value>
+    <value>Archive creator</value>
   </data>
   <data name="LabelArchivePeriod" xml:space="preserve">
-    <value>Arkivperiode</value>
+    <value>Archive period</value>
   </data>
   <data name="LabelSystemName" xml:space="preserve">
-    <value>Systemnavn</value>
+    <value>System name</value>
   </data>
   <data name="LabelSystemType" xml:space="preserve">
-    <value>Systemtype</value>
+    <value>System type</value>
   </data>
   <data name="LabelNumberOfTestsExecuted" xml:space="preserve">
-    <value>Antall tester utført</value>
+    <value>Number of tests executed</value>
   </data>
   <data name="WarningNotAllTestsExecuted" xml:space="preserve">
-    <value>Ikke alle tester er utført</value>
+    <value>Not all tests are executed</value>
+  </data>
+  <data name="HeadingDeviations" xml:space="preserve">
+    <value>Deviations</value>
   </data>
 </root>

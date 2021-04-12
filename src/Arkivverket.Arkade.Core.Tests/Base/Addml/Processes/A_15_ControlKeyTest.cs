@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_15_ControlKeyTest
+    public class A_15_ControlKeyTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReportIfKeyIsNotUnique()

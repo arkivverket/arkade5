@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<table xmlns="http://www.admin.ch/xmlns/siard/1.0/schema0/table0.xsd" xsi:schemaLocation="http://www.admin.ch/xmlns/siard/1.0/schema0/table0.xsd table0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <row>
+        <c1>1999/041976-1</c1>
+        <c2>1999-05-03T22:00:00.000000000</c2>
+        <c3>HJG</c3>
+        <c4>201003</c4>
+        <c5>41</c5>
+        <c6>346.5</c6>
+        <c7 file="content/schema0/table0/lob7/record0.bin" length="20637" />
+        <c8>20637</c8>
+        <c9>FE446FF8318BC73428547E26A4C66EFB</c9>
+    </row>
+    <row>
+        <c1>2000/041111-1</c1>
+        <c2>2000-01-13T23:00:00.000000000</c2>
+        <c3>HJG</c3>
+        <c4>201003</c4>
+        <c5>41</c5>
+        <c6>346.5</c6>
+        <c7 file="content/schema0/table0/lob7/record1.bin" length="18432" />
+        <c8>18432</c8>
+        <c9>88818818ACDB30936B87C94F3F3E09BC</c9>
+    </row>
+    <row>
+        <c1>2000/04112-1</c1>
+        <c2>2000-01-04T23:00:00.000000000</c2>
+        <c3>REG</c3>
+        <c4>201003</c4>
+        <c5>41</c5>
+        <c6>346.5</c6>
+        <c7 file="content/schema0/table0/lob7/record2.bin" length="20637" />
+        <c8>20637</c8>
+        <c9>150050517093536BE0976D6353417F3A</c9>
+    </row>
+    <row>
+        <c1>2000/041127-1</c1>
+        <c2>2000-01-17T23:00:00.000000000</c2>
+        <c3>HJG</c3>
+        <c4>201003</c4>
+        <c5>41</c5>
+        <c6>346.5</c6>
+        <c7 file="content/schema0/table0/lob7/record3.bin" length="18432" />
+        <c8>18432</c8>
+        <c9>30D3762DF299CF417E18EE58D8A48CAB</c9>
+    </row>
+    <row>
+        <c1>2000/041142-1</c1>
+        <c2>2000-01-19T23:00:00.000000000</c2>
+        <c3>HJF</c3>
+        <c4>201003</c4>
+        <c5>41</c5>
+        <c6>346.5</c6>
+        <c7 file="content/schema0/table0/lob7/record4.bin" length="20637" />
+        <c8>20637</c8>
+        <c9>54685A9B2B2A458AB740982EB848C526</c9>
+    </row>
+    <row>
+        <c1>2000/041145-1</c1>
+        <c2>2000-01-19T23:00:00.000000000</c2>
+        <c3>HJG</c3>
+        <c4>201003</c4>
+        <c5>41</c5>
+        <c6>346.5</c6>
+        <c7 file="content/schema0/table0/lob7/record5.bin" length="18432" />
+        <c8>18432</c8>
+        <c9>F9A9934FEEF26510783C21D03EEC3E76</c9>
+    </row>
+    <row>
+        <c1>2000/041158-1</c1>
+        <c2>2000-01-19T23:00:00.000000000</c2>
+        <c3>HJG</c3>
+        <c4>201003</c4>
+        <c5>41</c5>
+        <c6>346.5</c6>
+        <c7 file="content/schema0/table0/lob7/record6.bin" length="20637" />
+        <c8>20637</c8>
+        <c9>70DEBEA924E6E48AD659058DD78488B3</c9>
+    </row>
+    <row>
+        <c1>2000/041159-1</c1>
+        <c2>2000-01-20T23:00:00.000000000</c2>
+        <c3>HJG</c3>
+        <c4>201003</c4>
+        <c5>41</c5>
+        <c6>346.5</c6>
+        <c7 file="content/schema0/table0/lob7/record7.bin" length="18432" />
+        <c8>18432</c8>
+        <c9>9BEF3AB740457DA5736B686C3BB43865</c9>
+    </row>
+    <row>
+        <c1>2000/041162-1</c1>
+        <c2>2000-01-20T23:00:00.000000000</c2>
+        <c3>GRE, MOB</c3>
+        <c4>201003</c4>
+        <c5>41</c5>
+        <c6>346.5</c6>
+        <c7 file="content/schema0/table0/lob7/record8.bin" length="20637" />
+        <c8>20637</c8>
+        <c9>2F1FD89940B649C32A1501B4BDDC28F5</c9>
+    </row>
+    <row>
+        <c1>2000/041164-1</c1>
+        <c2>2000-01-20T23:00:00.000000000</c2>
+        <c3>REG</c3>
+        <c4>201003</c4>
+        <c5>41</c5>
+        <c6>346.5</c6>
+        <c7 file="content/schema0/table0/lob7/record9.bin" length="18432" />
+        <c8>18432</c8>
+        <c9>46D4F37E52379F81C9752E17DFF672AB</c9>
+    </row>
+</table>

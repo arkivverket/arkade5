@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_22_ControlCodesTest
+    public class A_22_ControlCodesTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldVerifyThatOnlyCodesAreUsed()

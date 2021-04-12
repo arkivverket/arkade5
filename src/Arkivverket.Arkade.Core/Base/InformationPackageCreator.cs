@@ -4,7 +4,6 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Metadata;
-using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
@@ -26,8 +25,6 @@ namespace Arkivverket.Arkade.Core.Base
         {
             ArkadeConstants.DirectoryNameRepositoryOperations
         };
-
-        public static bool HasRun { get; private set; }
 
         /// <summary>
         /// Create SIP (Submission Information Package). 
@@ -55,17 +52,24 @@ namespace Arkivverket.Arkade.Core.Base
 
         private string CreatePackage(PackageType packageType, Archive archive, ArchiveMetadata metadata, string outputDirectory)
         {
-            EnsureSufficientDiskSpace(archive, outputDirectory);
+            try
+            {
+                EnsureSufficientDiskSpace(archive, outputDirectory);
+            }
+            catch
+            {
+                Log.Warning("Could not ensure sufficient disk space for package destination");
+            }
 
             string resultDirectory = CreateResultDirectory(archive, outputDirectory);
 
             if (packageType == PackageType.SubmissionInformationPackage)
-                CopyTestReportToResultsFolder
-                (
-                    archive.WorkingDirectory.RepositoryOperations().DirectoryInfo(),
-                    archive.Uuid.GetValue(),
-                    resultDirectory
-                );
+            {
+                FileInfo testReportFile = archive.GetTestReportFile();
+
+                if (testReportFile.Exists)
+                    testReportFile.CopyTo(Path.Combine(resultDirectory, testReportFile.Name), overwrite: true);
+            }
 
             string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
 
@@ -102,20 +106,7 @@ namespace Arkivverket.Arkade.Core.Base
             new InfoXmlCreator().CreateAndSaveFile(metadata, packageFilePath, diasMetsFilePath,
                 archive.GetInfoXmlFileName());
 
-            HasRun = true;
-
             return packageFilePath;
-        }
-
-        private static void CopyTestReportToResultsFolder(FileSystemInfo repositoryOperations, string uuid, string resultDirectory)
-        {
-            string testReportFullFileName =
-                Path.Combine(repositoryOperations.FullName, "report.html");
-
-            if (File.Exists(testReportFullFileName))
-                File.Copy(testReportFullFileName,
-                    Path.Combine(resultDirectory, $"Arkaderapport-{uuid}.html")
-                );
         }
 
         private static void EnsureSufficientDiskSpace(Archive archive, string outputDirectory)
@@ -138,7 +129,7 @@ namespace Arkivverket.Arkade.Core.Base
         private string CreateResultDirectory(Archive archive, string outputDirectory)
         {
             var resultDirectory = new DirectoryInfo(
-                Path.Combine(outputDirectory, $"{ArkadeConstants.DirectoryNameResultOutputContainer}-{archive.Uuid}")
+                Path.Combine(outputDirectory, string.Format(OutputFileNames.ResultOutputDirectory, archive.Uuid))
             );
 
             resultDirectory.Create();

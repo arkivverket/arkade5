@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_29_NumberOfEachDocumentFormatTest
+    public class N5_29_NumberOfEachDocumentFormatTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldFindSeveralDocumentFormatsInSingleArchivePart()

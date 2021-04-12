@@ -1,7 +1,10 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Xunit;
 using FluentAssertions;
@@ -10,19 +13,24 @@ namespace Arkivverket.Arkade.CLI.Tests
 {
     public class ProgramTests : IDisposable
     {
+        // Setup language
+        private const SupportedLanguage Language = SupportedLanguage.en;
+
         // Establish needed paths:
         private static readonly string workingDirectoryPath;
         private static readonly string metadataFilePath;
-        private static readonly string noark5TestListPath;
+        private static readonly string noark5TestSelectionFilePath;
         private static readonly string testDataDirectoryPath;
         private static readonly string archiveDirectoryPath;
         private static readonly string outputDirectoryPath;
 
         static ProgramTests()
         {
+            OutputFileNames.Culture = new CultureInfo(Language.ToString());
+
             workingDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
-            metadataFilePath = Path.Combine(workingDirectoryPath, ArkadeConstants.MetadataFileName);
-            noark5TestListPath = Path.Combine(workingDirectoryPath, ArkadeConstants.Noark5TestListFileName);
+            metadataFilePath = Path.Combine(workingDirectoryPath, OutputFileNames.MetadataFile);
+            noark5TestSelectionFilePath = Path.Combine(workingDirectoryPath, OutputFileNames.Noark5TestSelectionFile);
             testDataDirectoryPath = Path.Combine(workingDirectoryPath, "TestData");
             archiveDirectoryPath = Path.Combine(testDataDirectoryPath, "N5-archive");
             outputDirectoryPath = Path.Combine(testDataDirectoryPath, "output");
@@ -40,17 +48,17 @@ namespace Arkivverket.Arkade.CLI.Tests
             {
                 "generate",
                 "-m",
-                "-l",
+                "-s",
                 "-o", workingDirectoryPath
             });
 
             bool metadataWasGenerated = File.Exists(metadataFilePath);
-            bool noark5TestListGenerated = File.Exists(noark5TestListPath);
+            bool noark5TestSelectionFileGenerated = File.Exists(noark5TestSelectionFilePath);
 
             // Control result:
 
             metadataWasGenerated.Should().BeTrue();
-            noark5TestListGenerated.Should().BeTrue();
+            noark5TestSelectionFileGenerated.Should().BeTrue();
         }
 
         [Fact(Skip = "IO-issues")]
@@ -59,7 +67,7 @@ namespace Arkivverket.Arkade.CLI.Tests
         {
             // Prepare needed files and/or directories
 
-            Noark5TestListGenerator.Generate(ArkadeConstants.Noark5TestListFileName);
+            Noark5TestSelectionFileGenerator.Generate(OutputFileNames.Noark5TestSelectionFile, Language);
             Directory.CreateDirectory(outputDirectoryPath);
 
             // Run commands and store results:
@@ -71,11 +79,11 @@ namespace Arkivverket.Arkade.CLI.Tests
                 "-t", "noark5",
                 "-p", testDataDirectoryPath,
                 "-o", outputDirectoryPath,
-                "-l", noark5TestListPath
+                "-s", noark5TestSelectionFilePath
             });
 
             FileSystemInfo[] outputDirectoryItems = new DirectoryInfo(outputDirectoryPath).GetFileSystemInfos();
-            bool testReportWasCreated = outputDirectoryItems.Any(item => item.Name.StartsWith("Arkaderapport"));
+            bool testReportWasCreated = outputDirectoryItems.Any(item => item.Name.StartsWith("Arkade-report"));
 
             // Control result:
 
@@ -88,7 +96,7 @@ namespace Arkivverket.Arkade.CLI.Tests
         {
             // Prepare needed files and/or directories
 
-            new MetadataExampleGenerator().Generate(ArkadeConstants.MetadataFileName);
+            new MetadataExampleGenerator().Generate(OutputFileNames.MetadataFile);
             Directory.CreateDirectory(outputDirectoryPath);
 
             // Run commands and store results:
@@ -105,7 +113,7 @@ namespace Arkivverket.Arkade.CLI.Tests
 
             FileSystemInfo[] outputDirectoryItems = new DirectoryInfo(outputDirectoryPath).GetFileSystemInfos();
             bool packageWasCreated = outputDirectoryItems.Any(item =>
-                item.Name.StartsWith(ArkadeConstants.DirectoryNameResultOutputContainer));
+                item.Name.StartsWith(OutputFileNames.ResultOutputDirectory));
 
             // Control result:
 
@@ -118,8 +126,8 @@ namespace Arkivverket.Arkade.CLI.Tests
         {
             // Prepare needed files and/or directories
 
-            new MetadataExampleGenerator().Generate(ArkadeConstants.MetadataFileName);
-            Noark5TestListGenerator.Generate(ArkadeConstants.Noark5TestListFileName);
+            new MetadataExampleGenerator().Generate(OutputFileNames.MetadataFile);
+            Noark5TestSelectionFileGenerator.Generate(OutputFileNames.Noark5TestSelectionFile, Language);
             Directory.CreateDirectory(outputDirectoryPath);
 
             // Run commands and store results:
@@ -132,13 +140,14 @@ namespace Arkivverket.Arkade.CLI.Tests
                 "-m", metadataFilePath,
                 "-p", testDataDirectoryPath,
                 "-o", outputDirectoryPath,
-                "-l", noark5TestListPath
+                "-s", noark5TestSelectionFilePath,
+                "-l", "nb"
             });
 
             FileSystemInfo[] outputDirectoryItems = new DirectoryInfo(outputDirectoryPath).GetFileSystemInfos();
-            bool testReportWasCreated = outputDirectoryItems.Any(item => item.Name.StartsWith("Arkaderapport"));
+            bool testReportWasCreated = outputDirectoryItems.Any(item => item.Name.StartsWith("Arkade-rapport"));
             bool packageWasCreated = outputDirectoryItems.Any(item =>
-                item.Name.StartsWith(ArkadeConstants.DirectoryNameResultOutputContainer));
+                item.Name.StartsWith(OutputFileNames.ResultOutputDirectory));
 
             // Control results:
 
@@ -148,8 +157,8 @@ namespace Arkivverket.Arkade.CLI.Tests
 
         private static void ClearAllPaths()
         {
-            if (File.Exists(noark5TestListPath))
-                File.Delete(noark5TestListPath);
+            if (File.Exists(noark5TestSelectionFilePath))
+                File.Delete(noark5TestSelectionFilePath);
 
             if (File.Exists(metadataFilePath))
                 File.Delete(metadataFilePath);

@@ -118,176 +118,176 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AnalyseAllFrequenceListDescription" xml:space="preserve">
-    <value>Utfører en frekvensanalyse for samtlige felt hvor det er definert et kodesett</value>
+    <value>Performs a frequency analysis on all fields with a defined codeset</value>
   </data>
   <data name="AnalyseAllFrequenceListMessage" xml:space="preserve">
-    <value>{0} forekomster av {1}</value>
+    <value>{0} occurrences of {1}</value>
   </data>
   <data name="AnalyseCountCharsDescription" xml:space="preserve">
-    <value>Teller opp antall tegn i en fil</value>
+    <value>Counts the number of characters in a file</value>
   </data>
   <data name="AnalyseCountCharsMessage" xml:space="preserve">
-    <value>{0} tegn</value>
+    <value>{0} characters</value>
   </data>
   <data name="AnalyseCountNullDescription" xml:space="preserve">
-    <value>Teller opp antall forekomster av verdien null i feltet</value>
+    <value>Counts the number of occurrences of null in the field</value>
   </data>
   <data name="AnalyseCountNullMessage" xml:space="preserve">
-    <value>{0} forekomster av null</value>
+    <value>{0} occurrences of null</value>
   </data>
   <data name="AnalyseCountRecordDefinitionOccurrencesDescription" xml:space="preserve">
-    <value>Teller opp antall poster for hver posttype</value>
+    <value>Counts the number of records for each record type</value>
   </data>
   <data name="AnalyseCountRecordDefinitionOccurrencesMessage" xml:space="preserve">
-    <value>{0} poster</value>
+    <value>{0} records</value>
   </data>
   <data name="AnalyseCountRecordsDescription" xml:space="preserve">
-    <value>Teller opp antall poster i en fil</value>
+    <value>Counts the number of records in a file</value>
   </data>
   <data name="AnalyseCountRecordsMessage" xml:space="preserve">
-    <value>Totalt: {0} poster</value>
+    <value>Total: {0} records</value>
   </data>
   <data name="AnalyseFindExtremeRecordsDescription" xml:space="preserve">
-    <value>Finner lengste og korteste post for hver posttype</value>
+    <value>Finds the longest and shortest record for each record type</value>
   </data>
   <data name="AnalyseFindExtremeRecordsMessage" xml:space="preserve">
-    <value>Lengste/korteste post: {0}/{1}</value>
+    <value>Longest/shortest record: {0}/{1}</value>
   </data>
   <data name="AnalyseFindExtremeValuesDescription" xml:space="preserve">
-    <value>Finner lengste og korteste verdi i feltet</value>
+    <value>Finds the longest and shortest value in the field</value>
   </data>
   <data name="AnalyseFindExtremeValuesMessage" xml:space="preserve">
-    <value>Lengste/korteste verdi: {0}/{1}</value>
+    <value>Longest/shortest value: {0}/{1}</value>
   </data>
   <data name="AnalyseFindMinMaxValuesDescription" xml:space="preserve">
-    <value>Finner laveste og høyeste verdi i feltet</value>
+    <value>Finds the lowest and highest value in the field</value>
   </data>
   <data name="AnalyseFindMinMaxValuesMessage" xml:space="preserve">
-    <value>Laveste/høyeste verdi: {0}/{1}</value>
+    <value>Lowest/highest value: {0}/{1}</value>
   </data>
   <data name="AnalyseFrequenceListDescription" xml:space="preserve">
-    <value>Teller opp antall forekomster for hver verdi i feltet</value>
+    <value>Counts the number of occurrences of each value in the field</value>
   </data>
   <data name="AnalyseFrequenceListMessage" xml:space="preserve">
-    <value>{0} forekomster av {1}</value>
+    <value>{0} occurrences of {1}</value>
   </data>
   <data name="ControlAccountNumberDescription" xml:space="preserve">
-    <value>Kontroll av kontrollsifferne i et kontonummer</value>
+    <value>Control of control digits in an account number</value>
   </data>
   <data name="ControlAccountNumberMessage" xml:space="preserve">
-    <value>Ugyldig kontonummer: {0}</value>
+    <value>Invalid account number: {0}</value>
   </data>
   <data name="ControlAllFixedLengthDescription" xml:space="preserve">
-    <value>Kontrollerer at oppgitt postlengde på samtlige posttyper er korrekt (kun fast format)</value>
+    <value>Validates given record lengths for all record types (fixed format only)</value>
   </data>
   <data name="ControlAllFixedLengthMessage" xml:space="preserve">
-    <value>Oppgitt postlengde ({0}) er ulik faktisk ({1})</value>
+    <value>Mismatch between given record length ({0}) and actual record length ({1})</value>
   </data>
   <data name="ControlBirthNumberDescription" xml:space="preserve">
-    <value>Kontroll av kontrollsifferne i et fødselsnummer</value>
+    <value>Validation of the control digits in a birth number</value>
   </data>
   <data name="ControlBirthNumberMessage" xml:space="preserve">
-    <value>Ugyldig fødselsnummer: {0}</value>
+    <value>Invalid birth number: {0}</value>
   </data>
   <data name="ControlBooleanValueDescription" xml:space="preserve">
-    <value>Kontroll av verdiene i et boolsk felt</value>
+    <value>Validates values in a boolean field</value>
   </data>
   <data name="ControlBooleanValueMessage" xml:space="preserve">
-    <value>Følgende ikke-boolske verdier finnes: {0}</value>
+    <value>Found non-boolean values: {0}</value>
   </data>
   <data name="ControlChecksumDescription" xml:space="preserve">
-    <value>Kontroll av sjekksummer</value>
+    <value>Checksum validation</value>
   </data>
   <data name="ControlChecksumMessage_ChecksumMismatch" xml:space="preserve">
-    <value>Forventet sjekksum: {0}
-Aktuell sjekksum: {1}</value>
+    <value>Expected checksum: {0}
+Actual checksum: {1}</value>
   </data>
   <data name="ControlChecksumMessage_ChecksumMissing" xml:space="preserve">
-    <value>Ingen sjekksum funnet i ADDML-filen</value>
+    <value>No checksum found in the ADDML file</value>
   </data>
   <data name="ControlChecksumMessage_UnknownChecksumAlgorithm" xml:space="preserve">
-    <value>Ukjent sjekksum-algoritme: {0}</value>
+    <value>Unknown checksum algorithm: {0}</value>
   </data>
   <data name="ControlCodesDescription" xml:space="preserve">
-    <value>Kontrollerer om definerte koder benyttes og om det benyttes koder som ikke er definert i kodelisten</value>
+    <value>Validates that defined codes are used, and that used codes are defined in the codelist</value>
   </data>
   <data name="ControlCodesMessage" xml:space="preserve">
-    <value>Ikke i kodelisten: {0}</value>
+    <value>Used codes not present in the codelist: {0}</value>
   </data>
   <data name="ControlDataFormatDescription" xml:space="preserve">
-    <value>Kontrollerer om oppgitt dataformat er korrekt</value>
+    <value>Validates given data format</value>
   </data>
   <data name="ControlDataFormatMessage" xml:space="preserve">
-    <value>Ugyldig dataformat: {0}</value>
+    <value>Invalid data format: {0}</value>
   </data>
   <data name="ControlDataFormatMessageExtension" xml:space="preserve">
-    <value> + {0} flere</value>
+    <value> + {0} more</value>
   </data>
   <data name="ControlDateValueDescription" xml:space="preserve">
-    <value>Kontroll av verdiene i et dato-felt</value>
+    <value>Validation of date-field values</value>
   </data>
   <data name="ControlDateValueMessage" xml:space="preserve">
-    <value>Verdier som ikke er dato: {0}</value>
+    <value>Values not validated as date: {0}</value>
   </data>
   <data name="ControlExtraOrMissingFilesDescription" xml:space="preserve">
-    <value>Kontrollerer om det finnes filer som ikke er definert i ADDML og omvendt</value>
+    <value>Checks that existing files are defined in ADDML, and that files defined in ADDML are existing</value>
   </data>
   <data name="ControlExtraOrMissingFilesMessage1" xml:space="preserve">
-    <value>Finnes i ADDML, men ikke i arkiv</value>
+    <value>Present in ADDML but missing from archive</value>
   </data>
   <data name="ControlExtraOrMissingFilesMessage2" xml:space="preserve">
-    <value>Finnes i arkiv, men ikke i ADDML</value>
+    <value>Present in archive but missing from ADDML</value>
   </data>
   <data name="ControlFixedLengthDescription" xml:space="preserve">
-    <value>Kontrollerer om oppgitt postlengde er korrekt (kun for fast format)</value>
+    <value>Validates given record length (fixed format only)</value>
   </data>
   <data name="ControlFixedLengthMessage" xml:space="preserve">
-    <value>Oppgitt postlengde ({0}) er ulik faktisk ({1})</value>
+    <value>Mismatch between given record length ({0}) and actual record length ({1})</value>
   </data>
   <data name="ControlForeignKeyDescription" xml:space="preserve">
-    <value>Kontrollerer fremmednøkler for å sjekke at de går til en faktisk forekomst</value>
+    <value>Validates foreign keys</value>
   </data>
   <data name="ControlForeignKeyMessage1" xml:space="preserve">
-    <value>Ugyldig fremmednøkkel: Verdien [{0}] finnes ikke i det refererte feltet {1}</value>
+    <value>Invalid foreign key: The value [{0}] does not exist in the referred field {1}</value>
   </data>
   <data name="ControlForeignKeyMessage1Combined" xml:space="preserve">
-    <value>Ugyldig fremmednøkkel: Verdiene [{0}] finnes ikke i de refererte feltene {1}</value>
+    <value>Invalid foreign key: The values [{0}] does not exist in the referred fields {1}</value>
   </data>
   <data name="ControlForeignKeyMessage2" xml:space="preserve">
-    <value>Ugyldig fremmednøkkel: Finner ingen verdier for feltet {0}</value>
+    <value>Invalid foreign key: Can not find any values for the field {0}</value>
   </data>
   <data name="ControlKeyDescription" xml:space="preserve">
-    <value>Kontrollerer at nøkkelen (primary eller alternate) er unik</value>
+    <value>Validates uniqueness of the key (primary eller alternate)</value>
   </data>
   <data name="ControlKeyMessage" xml:space="preserve">
-    <value>Følgende primærnøkkelverdier er ikke unike: {0}</value>
+    <value>The following primary key values are not unique: {0}</value>
   </data>
   <data name="ControlMaxLengthDescription" xml:space="preserve">
-    <value>Kontrollerer om oppgitt største lengde faktisk er største lengde i feltet</value>
+    <value>Checks whether the stated maximum length is actually the largest length in the field</value>
   </data>
   <data name="ControlMaxLengthMessage" xml:space="preserve">
-    <value>Verdier lengre enn maksimumlengde: {0}</value>
+    <value>Values longer than the maximum length: {0}</value>
   </data>
   <data name="ControlMinLengthDescription" xml:space="preserve">
-    <value>Kontrollerer om oppgitt minste lengde faktisk er minste lengde i feltet</value>
+    <value>Checks whether the stated minimum length is actually the smallest length in the field</value>
   </data>
   <data name="ControlMinLengthMessage" xml:space="preserve">
-    <value>Verdier kortere enn minstelengde: {0}</value>
+    <value>Values smaller than the minimum length: {0}</value>
   </data>
   <data name="ControlNotNullDescription" xml:space="preserve">
-    <value>Kontrollerer om det fines null-verdier i feltet</value>
+    <value>Checks the field for null-values</value>
   </data>
   <data name="ControlNotNullMessage" xml:space="preserve">
-    <value>NULL-verdier finnes</value>
+    <value>NULL values exists</value>
   </data>
   <data name="ControlNotUsedRecordDefDescription" xml:space="preserve">
-    <value>Kontrollerer om denne posttypen benyttes i datasettet</value>
+    <value>Checks if this record type is used in the dataset</value>
   </data>
   <data name="ControlNotUsedRecordDefMessage" xml:space="preserve">
-    <value>Posttypen er ikke i bruk</value>
+    <value>The record type is not in use</value>
   </data>
   <data name="ControlNumberOfRecordsDescription" xml:space="preserve">
-    <value>Teller opp og kontrollerer at antall poster i filen er lik antallet som er oppgitt i egenskapen numberOfRecords i flatFile</value>
+    <value>Counts and checks that the number of records in the file is equal to the number specified in the numberOfRecords property in flatFile</value>
   </data>
   <data name="ControlNumberOfRecordsMessage1" xml:space="preserve">
     <value>Expected number of records not specified. Unable to control number of records</value>
@@ -299,54 +299,54 @@ Aktuell sjekksum: {1}</value>
     <value>Number of records did not match. Expected {0}, found {1}</value>
   </data>
   <data name="ControlOrganizationNumberDescription" xml:space="preserve">
-    <value>Kontroll av kontrollsifferne i et organisasjonsnummer</value>
+    <value>Validation of the control digits in an organisation number</value>
   </data>
   <data name="ControlOrganizationNumberMessage" xml:space="preserve">
-    <value>Ugyldig organisasjonsnummer: {0}</value>
+    <value>Invalid organisation number: {0}</value>
   </data>
   <data name="ControlUniquenessDescription" xml:space="preserve">
-    <value>Kontrollerer om verdiene i feltet er unike</value>
+    <value>Validates uniqueness of the values in the field</value>
   </data>
   <data name="ControlUniquenessMessage1" xml:space="preserve">
-    <value>Alle verdier er unike</value>
+    <value>All values are unique</value>
   </data>
   <data name="ControlUniquenessMessage2" xml:space="preserve">
-    <value>Verdiene er ikke unike</value>
+    <value>Not all values are unique</value>
   </data>
   <data name="ExceptionFixedLengthSumIsNotCorrect" xml:space="preserve">
-    <value>{0}: Antall tegn i FixedLength-feltet [{1}] stemmer ikke med antall tegn summert for postdefinisjonen [{2}].</value>
+    <value>{0}: The number of characters in the FixedLength field [{1}] does not match the number of characters summed for the record definition [{2}].</value>
   </data>
   <data name="ExceptionReadingAddmlFile" xml:space="preserve">
-    <value>Feil ved innlesing av ADDML.
+    <value>Error while loading ADDML.
 {0}</value>
   </data>
   <data name="LogMessageFinishedTesting" xml:space="preserve">
-    <value>Testing av arkivet er fullført.</value>
+    <value>Testing of archive completed.</value>
   </data>
   <data name="LogMessageStartTesting" xml:space="preserve">
-    <value>Starter testing av arkivet.</value>
+    <value>Starting testing of archive.</value>
   </data>
   <data name="NumberOfRecordsWithFieldDelimiterErrorDescription" xml:space="preserve">
-    <value>Oppsummering av antall poster som har feil tilknyttet feltseparator og/eller postseparator.</value>
+    <value>Summary of the number of records with errors associated with field separator and/or record separator.</value>
   </data>
   <data name="ReadingArchiveEvent" xml:space="preserve">
-    <value>Innlesing av arkiv</value>
+    <value>Reading archive</value>
   </data>
   <data name="ReadingArchiveEventFinishedMessage" xml:space="preserve">
-    <value>Arkivet er lest inn.</value>
+    <value>Archive is loaded.</value>
   </data>
   <data name="RunningAddmlProcessesOnFile" xml:space="preserve">
-    <value>ADDML-prosesser på filen: {0}</value>
+    <value>ADDML processes on the file: {0}</value>
     <comment>{0} angir filnavn på filen som blir testet.</comment>
   </data>
   <data name="TarExtractionEvent" xml:space="preserve">
-    <value>Utpakking av arkiv</value>
+    <value>Archive extraction</value>
   </data>
   <data name="TarExtractionMessageFinished" xml:space="preserve">
-    <value>Arkivet er pakket ut til {0}</value>
+    <value>Archive is extracted to {0}</value>
     <comment>{0} angir filsti til utpakket arkiv.</comment>
   </data>
   <data name="TarExtractionMessageStarted" xml:space="preserve">
-    <value>Starter utpakking.</value>
+    <value>Starting extraction.</value>
   </data>
 </root>

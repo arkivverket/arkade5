@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
 {
-    public class AH_02_ControlExtraOrMissingFilesTest
+    public class AH_02_ControlExtraOrMissingFilesTest : LanguageDependentTest
     {
 
         [Fact]

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,33 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArkadeProcessingAreaLocation_ApplyButtonText" xml:space="preserve">
-    <value>Lagre</value>
+    <value>Save</value>
   </data>
   <data name="ArkadeProcessingAreaLocation_CancelButtonText" xml:space="preserve">
-    <value>Avbryt</value>
+    <value>Cancel</value>
   </data>
   <data name="ArkadeProcessingAreaLocation_EditButtonText" xml:space="preserve">
-    <value>Endre ...</value>
+    <value>Select ...</value>
   </data>
   <data name="ArkadeProcessingAreaLocation_Header" xml:space="preserve">
-    <value>Arkades prosesseringsområde</value>
+    <value>Arkade processing area</value>
   </data>
   <data name="ArkadeProcessingAreaLocation_Info" xml:space="preserve">
-    <value>Arkades prosesseringsområde er en katalog "arkade-tmp" der midlertidige filer blir plassert under prosessering av arkivutrekk og der hvor system- og feillogger lagres. Du må velge en egnet plassering for denne katalogen.</value>
+    <value>Arkade processing area is a directory, "arkade-tmp", where temporary files are placed during processing of the archive extract, and where system- and error logs are saved. A location with writing rights must be chosen.</value>
   </data>
   <data name="ArkadeProcessingAreaLocation_Warning" xml:space="preserve">
-    <value>NB! Prosesseringsområdet vil potensielt inneholde sensitive data og store datamengder.</value>
+    <value>NB! The processing area might contain sensitive data and/or large amounts of data.</value>
   </data>
   <data name="OtherInstancesRunningOnProcessingAreaChangeMessage" xml:space="preserve">
-    <value>Vennligst avslutt andre instanser av Arkade før du endrer plassering av prosesseringområdet.</value>
+    <value>Please close other instances of Arkade before changing the location of Arkade processing area.</value>
   </data>
   <data name="SelectDarkModeText" xml:space="preserve">
-    <value>Bruk mørk modus</value>
+    <value>Use dark mode</value>
   </data>
   <data name="UndefinedArkadeProcessingAreaLocationDialogMessage" xml:space="preserve">
-    <value>Vennligst velg et prosesseringsområde som er tilgjengelig for Arkade</value>
+    <value>Please choose a processing area available to Arkade</value>
   </data>
   <data name="UndefinedArkadeProcessingAreaLocationDialogTitle" xml:space="preserve">
-    <value>Gyldig prosesseringsområde mangler</value>
+    <value>Missing valid processing area</value>
+  </data>
+  <data name="SelectUILanguageText" xml:space="preserve">
+    <value>Language for user interface:</value>
+  </data>
+  <data name="DialogTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SelectOutputLanguageText" xml:space="preserve">
+    <value>Language for produced files:</value>
   </data>
 </root>

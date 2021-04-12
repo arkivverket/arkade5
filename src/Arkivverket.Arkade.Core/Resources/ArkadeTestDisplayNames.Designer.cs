@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ArkadeTestDisplayNames {
+    public class ArkadeTestDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.Core.Resources.ArkadeTestDisplayNames", typeof(ArkadeTestDisplayNames).Assembly);
@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,270 +61,270 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall poster.
+        ///   Looks up a localized string similar to Number of records.
         /// </summary>
-        internal static string A_01 {
+        public static string A_01 {
             get {
                 return ResourceManager.GetString("A_01", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall tegn.
+        ///   Looks up a localized string similar to Number of characters.
         /// </summary>
-        internal static string A_02 {
+        public static string A_02 {
             get {
                 return ResourceManager.GetString("A_02", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengste og korteste post.
+        ///   Looks up a localized string similar to Longest and shortest record.
         /// </summary>
-        internal static string A_03 {
+        public static string A_03 {
             get {
                 return ResourceManager.GetString("A_03", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall poster for posttype.
+        ///   Looks up a localized string similar to Occurrences of record definitions.
         /// </summary>
-        internal static string A_04 {
+        public static string A_04 {
             get {
                 return ResourceManager.GetString("A_04", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Koder brukt i datasettet.
+        ///   Looks up a localized string similar to Frequency of codes in dataset.
         /// </summary>
-        internal static string A_05 {
+        public static string A_05 {
             get {
                 return ResourceManager.GetString("A_05", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall null-verdi for felt.
+        ///   Looks up a localized string similar to Number of null values in fields.
         /// </summary>
-        internal static string A_07 {
+        public static string A_07 {
             get {
                 return ResourceManager.GetString("A_07", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengste og korteste verdi for felt.
+        ///   Looks up a localized string similar to Longest and shortest field value.
         /// </summary>
-        internal static string A_08 {
+        public static string A_08 {
             get {
                 return ResourceManager.GetString("A_08", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Laveste og høyeste verdi for felt.
+        ///   Looks up a localized string similar to Lowest and highest field value.
         /// </summary>
-        internal static string A_09 {
+        public static string A_09 {
             get {
                 return ResourceManager.GetString("A_09", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall forekomster av verdier for felt.
+        ///   Looks up a localized string similar to Occurrences of field value.
         /// </summary>
-        internal static string A_10 {
+        public static string A_10 {
             get {
                 return ResourceManager.GetString("A_10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av oppgitt lengde for alle posttyper.
+        ///   Looks up a localized string similar to Control of specified length for all record types.
         /// </summary>
-        internal static string A_11 {
+        public static string A_11 {
             get {
                 return ResourceManager.GetString("A_11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall og kontroll av antall poster.
+        ///   Looks up a localized string similar to Control of number of records.
         /// </summary>
-        internal static string A_12 {
+        public static string A_12 {
             get {
                 return ResourceManager.GetString("A_12", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av oppgitt lengde for posttype.
+        ///   Looks up a localized string similar to Control of specified length for record type.
         /// </summary>
-        internal static string A_13 {
+        public static string A_13 {
             get {
                 return ResourceManager.GetString("A_13", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll om posttype benyttes.
+        ///   Looks up a localized string similar to Control for record type being in use.
         /// </summary>
-        internal static string A_14 {
+        public static string A_14 {
             get {
                 return ResourceManager.GetString("A_14", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av unik nøkkel.
+        ///   Looks up a localized string similar to Control of uniqueness of key.
         /// </summary>
-        internal static string A_15 {
+        public static string A_15 {
             get {
                 return ResourceManager.GetString("A_15", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av fremmednøkkel.
+        ///   Looks up a localized string similar to Control of foreign key.
         /// </summary>
-        internal static string A_16 {
+        public static string A_16 {
             get {
                 return ResourceManager.GetString("A_16", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av oppgitt minste lengde.
+        ///   Looks up a localized string similar to Control of specified minimum length.
         /// </summary>
-        internal static string A_17 {
+        public static string A_17 {
             get {
                 return ResourceManager.GetString("A_17", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av oppgitt største lengde.
+        ///   Looks up a localized string similar to Control of specified maximum length.
         /// </summary>
-        internal static string A_18 {
+        public static string A_18 {
             get {
                 return ResourceManager.GetString("A_18", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av oppgitt dataformat for felt.
+        ///   Looks up a localized string similar to Control of field specified data format.
         /// </summary>
-        internal static string A_19 {
+        public static string A_19 {
             get {
                 return ResourceManager.GetString("A_19", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av null-verdier i felt.
+        ///   Looks up a localized string similar to Control for null values in field.
         /// </summary>
-        internal static string A_20 {
+        public static string A_20 {
             get {
                 return ResourceManager.GetString("A_20", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av unike verdier i felt.
+        ///   Looks up a localized string similar to Control of field value uniqeness.
         /// </summary>
-        internal static string A_21 {
+        public static string A_21 {
             get {
                 return ResourceManager.GetString("A_21", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Koder som benyttes i felt.
+        ///   Looks up a localized string similar to Codes used in fields.
         /// </summary>
-        internal static string A_22 {
+        public static string A_22 {
             get {
                 return ResourceManager.GetString("A_22", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av fødselsnummer i felt.
+        ///   Looks up a localized string similar to Control of field birth number.
         /// </summary>
-        internal static string A_32 {
+        public static string A_32 {
             get {
                 return ResourceManager.GetString("A_32", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av organisasjonsnummer i felt.
+        ///   Looks up a localized string similar to Control of field organisation number.
         /// </summary>
-        internal static string A_33 {
+        public static string A_33 {
             get {
                 return ResourceManager.GetString("A_33", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av kontonummer i felt.
+        ///   Looks up a localized string similar to Control of field account number.
         /// </summary>
-        internal static string A_34 {
+        public static string A_34 {
             get {
                 return ResourceManager.GetString("A_34", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av dato i felt.
+        ///   Looks up a localized string similar to Control of field date value.
         /// </summary>
-        internal static string A_35 {
+        public static string A_35 {
             get {
                 return ResourceManager.GetString("A_35", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av boolsk verdi i felt.
+        ///   Looks up a localized string similar to Control of field boolean value.
         /// </summary>
-        internal static string A_36 {
+        public static string A_36 {
             get {
                 return ResourceManager.GetString("A_36", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av sjekksummer.
+        ///   Looks up a localized string similar to Control of checksums.
         /// </summary>
-        internal static string AH_01 {
+        public static string AH_01 {
             get {
                 return ResourceManager.GetString("AH_01", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av ekstra / manglende filer.
+        ///   Looks up a localized string similar to Control for extra/missing files.
         /// </summary>
-        internal static string AH_02 {
+        public static string AH_02 {
             get {
                 return ResourceManager.GetString("AH_02", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av ugyldig postskille eller feil antall felter.
+        ///   Looks up a localized string similar to Control for invalid record delimiter or incorrect number of fields.
         /// </summary>
-        internal static string AH_03 {
+        public static string AH_03 {
             get {
                 return ResourceManager.GetString("AH_03", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av unik nøkkel for post.
+        ///   Looks up a localized string similar to Control of uniqueness of record key.
         /// </summary>
-        internal static string AI_01 {
+        public static string AI_01 {
             get {
                 return ResourceManager.GetString("AI_01", resourceCulture);
             }
@@ -333,493 +333,493 @@ namespace Arkivverket.Arkade.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0} - {1}.
         /// </summary>
-        internal static string DisplayNameFormat {
+        public static string DisplayNameFormat {
             get {
                 return ResourceManager.GetString("DisplayNameFormat", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontroll av eksistens for XML-filene.
+        ///   Looks up a localized string similar to Control of existence of XML files.
         /// </summary>
-        internal static string N5_01 {
+        public static string N5_01 {
             get {
                 return ResourceManager.GetString("N5_01", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validering av sjekksummer.
+        ///   Looks up a localized string similar to Validation of checksums.
         /// </summary>
-        internal static string N5_02 {
+        public static string N5_02 {
             get {
                 return ResourceManager.GetString("N5_02", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validering av XML i henhold til skjema.
+        ///   Looks up a localized string similar to Validation of XML according to schema.
         /// </summary>
-        internal static string N5_03 {
+        public static string N5_03 {
             get {
                 return ResourceManager.GetString("N5_03", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall arkiv.
+        ///   Looks up a localized string similar to Number of archives.
         /// </summary>
-        internal static string N5_04 {
+        public static string N5_04 {
             get {
                 return ResourceManager.GetString("N5_04", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall arkivdeler.
+        ///   Looks up a localized string similar to Number of archive parts.
         /// </summary>
-        internal static string N5_05 {
+        public static string N5_05 {
             get {
                 return ResourceManager.GetString("N5_05", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status på arkivdeler.
+        ///   Looks up a localized string similar to Status for archive parts.
         /// </summary>
-        internal static string N5_06 {
+        public static string N5_06 {
             get {
                 return ResourceManager.GetString("N5_06", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall klassifikasjonssystem.
+        ///   Looks up a localized string similar to Number of classification systems.
         /// </summary>
-        internal static string N5_07 {
+        public static string N5_07 {
             get {
                 return ResourceManager.GetString("N5_07", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall klasser.
+        ///   Looks up a localized string similar to Number of classes.
         /// </summary>
-        internal static string N5_08 {
+        public static string N5_08 {
             get {
                 return ResourceManager.GetString("N5_08", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall klasser i det primære klassifikasjonssystemet uten underklasser, mapper eller registreringer.
+        ///   Looks up a localized string similar to Number of classes in main classification system without subclasses, folders or registrations.
         /// </summary>
-        internal static string N5_09 {
+        public static string N5_09 {
             get {
                 return ResourceManager.GetString("N5_09", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall mapper.
+        ///   Looks up a localized string similar to Number of folders.
         /// </summary>
-        internal static string N5_10 {
+        public static string N5_10 {
             get {
                 return ResourceManager.GetString("N5_10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall mapper for hvert år.
+        ///   Looks up a localized string similar to Number of folders for each year.
         /// </summary>
-        internal static string N5_11 {
+        public static string N5_11 {
             get {
                 return ResourceManager.GetString("N5_11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klasser med både underklasse(r) og mappe(r).
+        ///   Looks up a localized string similar to Classes with both subclass(es) and folder(s).
         /// </summary>
-        internal static string N5_12 {
+        public static string N5_12 {
             get {
                 return ResourceManager.GetString("N5_12", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall mapper for hver klasse.
+        ///   Looks up a localized string similar to Number of folders for each class.
         /// </summary>
-        internal static string N5_13 {
+        public static string N5_13 {
             get {
                 return ResourceManager.GetString("N5_13", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall mapper uten registreringer eller undermapper.
+        ///   Looks up a localized string similar to Number of folders without registrations or subfolders.
         /// </summary>
-        internal static string N5_14 {
+        public static string N5_14 {
             get {
                 return ResourceManager.GetString("N5_14", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall av ulike saksmappestatuser.
+        ///   Looks up a localized string similar to Number of each different case folder status.
         /// </summary>
-        internal static string N5_15 {
+        public static string N5_15 {
             get {
                 return ResourceManager.GetString("N5_15", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall registreringer.
+        ///   Looks up a localized string similar to Number of registrations.
         /// </summary>
-        internal static string N5_16 {
+        public static string N5_16 {
             get {
                 return ResourceManager.GetString("N5_16", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall av ulike journalposttyper.
+        ///   Looks up a localized string similar to Number of each different journal record type.
         /// </summary>
-        internal static string N5_17 {
+        public static string N5_17 {
             get {
                 return ResourceManager.GetString("N5_17", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall registreringer for hvert år.
+        ///   Looks up a localized string similar to Number of registrations for each year.
         /// </summary>
-        internal static string N5_18 {
+        public static string N5_18 {
             get {
                 return ResourceManager.GetString("N5_18", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klasser med både underklasse(r) og registrering(er).
+        ///   Looks up a localized string similar to Classes with both subclass(es) and registration(s).
         /// </summary>
-        internal static string N5_19 {
+        public static string N5_19 {
             get {
                 return ResourceManager.GetString("N5_19", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall registreringer for hver klasse (ikke medregnet registreringer under mappe).
+        ///   Looks up a localized string similar to Number of registrations for each class (not included registrations under folder).
         /// </summary>
-        internal static string N5_20 {
+        public static string N5_20 {
             get {
                 return ResourceManager.GetString("N5_20", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall registreringer uten dokumentbeskrivelse.
+        ///   Looks up a localized string similar to Number of registrations without document description.
         /// </summary>
-        internal static string N5_21 {
+        public static string N5_21 {
             get {
                 return ResourceManager.GetString("N5_21", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall av ulike journalstatuser.
+        ///   Looks up a localized string similar to Number of each different journal status.
         /// </summary>
-        internal static string N5_22 {
+        public static string N5_22 {
             get {
                 return ResourceManager.GetString("N5_22", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentbeskrivelser.
+        ///   Looks up a localized string similar to Number of document descriptions.
         /// </summary>
-        internal static string N5_23 {
+        public static string N5_23 {
             get {
                 return ResourceManager.GetString("N5_23", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentbeskrivelser uten dokumentobjekt.
+        ///   Looks up a localized string similar to Number of document descriptions without document object.
         /// </summary>
-        internal static string N5_24 {
+        public static string N5_24 {
             get {
                 return ResourceManager.GetString("N5_24", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall av ulike dokumentstatuser.
+        ///   Looks up a localized string similar to Number of each different document status.
         /// </summary>
-        internal static string N5_25 {
+        public static string N5_25 {
             get {
                 return ResourceManager.GetString("N5_25", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentobjekter.
+        ///   Looks up a localized string similar to Number of document objects.
         /// </summary>
-        internal static string N5_26 {
+        public static string N5_26 {
             get {
                 return ResourceManager.GetString("N5_26", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opprettelsesdatoer for første og siste registrering.
+        ///   Looks up a localized string similar to Creation dates for the first and the last registration.
         /// </summary>
-        internal static string N5_27 {
+        public static string N5_27 {
             get {
                 return ResourceManager.GetString("N5_27", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validering av antall dokumentfiler.
+        ///   Looks up a localized string similar to Control of number of document files.
         /// </summary>
-        internal static string N5_28 {
+        public static string N5_28 {
             get {
                 return ResourceManager.GetString("N5_28", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall av ulike dokumentformater.
+        ///   Looks up a localized string similar to Number of each different document format.
         /// </summary>
-        internal static string N5_29 {
+        public static string N5_29 {
             get {
                 return ResourceManager.GetString("N5_29", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dokumentfilers sjekksummer.
+        ///   Looks up a localized string similar to Control of document files&apos; checksums.
         /// </summary>
-        internal static string N5_30 {
+        public static string N5_30 {
             get {
                 return ResourceManager.GetString("N5_30", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Refererte dokumenters eksistens.
+        ///   Looks up a localized string similar to Control of existence of referenced documents.
         /// </summary>
-        internal static string N5_32 {
+        public static string N5_32 {
             get {
                 return ResourceManager.GetString("N5_32", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dokumentfiler som mangler referanse.
+        ///   Looks up a localized string similar to Document files missing reference.
         /// </summary>
-        internal static string N5_33 {
+        public static string N5_33 {
             get {
                 return ResourceManager.GetString("N5_33", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dokumentfiler med referanse fra mer enn ett dokumentobjekt.
+        ///   Looks up a localized string similar to Document files referenced from more than one document object.
         /// </summary>
-        internal static string N5_34 {
+        public static string N5_34 {
             get {
                 return ResourceManager.GetString("N5_34", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall saksparter.
+        ///   Looks up a localized string similar to Number of case parties.
         /// </summary>
-        internal static string N5_35 {
+        public static string N5_35 {
             get {
                 return ResourceManager.GetString("N5_35", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall parter.
+        ///   Looks up a localized string similar to Number of parties.
         /// </summary>
-        internal static string N5_35v5_5 {
+        public static string N5_35v5_5 {
             get {
                 return ResourceManager.GetString("N5_35v5_5", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall merknader.
+        ///   Looks up a localized string similar to Number of remarks.
         /// </summary>
-        internal static string N5_36 {
+        public static string N5_36 {
             get {
                 return ResourceManager.GetString("N5_36", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall kryssreferanser.
+        ///   Looks up a localized string similar to Number of cross references.
         /// </summary>
-        internal static string N5_37 {
+        public static string N5_37 {
             get {
                 return ResourceManager.GetString("N5_37", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall presedenser.
+        ///   Looks up a localized string similar to Number of precedents.
         /// </summary>
-        internal static string N5_38 {
+        public static string N5_38 {
             get {
                 return ResourceManager.GetString("N5_38", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall korrespondanseparter.
+        ///   Looks up a localized string similar to Number of correspondance parties.
         /// </summary>
-        internal static string N5_39 {
+        public static string N5_39 {
             get {
                 return ResourceManager.GetString("N5_39", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall avskrivninger.
+        ///   Looks up a localized string similar to Number of depreciations.
         /// </summary>
-        internal static string N5_40 {
+        public static string N5_40 {
             get {
                 return ResourceManager.GetString("N5_40", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentflyter.
+        ///   Looks up a localized string similar to Number of document flows.
         /// </summary>
-        internal static string N5_41 {
+        public static string N5_41 {
             get {
                 return ResourceManager.GetString("N5_41", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall skjerminger.
+        ///   Looks up a localized string similar to Number of restricted entries.
         /// </summary>
-        internal static string N5_42 {
+        public static string N5_42 {
             get {
                 return ResourceManager.GetString("N5_42", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall graderinger.
+        ///   Looks up a localized string similar to Number of security classifications.
         /// </summary>
-        internal static string N5_43 {
+        public static string N5_43 {
             get {
                 return ResourceManager.GetString("N5_43", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall kassasjonsvedtak.
+        ///   Looks up a localized string similar to Number of disposal resolutions.
         /// </summary>
-        internal static string N5_44 {
+        public static string N5_44 {
             get {
                 return ResourceManager.GetString("N5_44", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall utførte kassasjoner.
+        ///   Looks up a localized string similar to Number of performed disposals.
         /// </summary>
-        internal static string N5_45 {
+        public static string N5_45 {
             get {
                 return ResourceManager.GetString("N5_45", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall konverterte dokumenter.
+        ///   Looks up a localized string similar to Number of converted documents.
         /// </summary>
-        internal static string N5_46 {
+        public static string N5_46 {
             get {
                 return ResourceManager.GetString("N5_46", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Systemidentifikasjoner.
+        ///   Looks up a localized string similar to System identifications.
         /// </summary>
-        internal static string N5_47 {
+        public static string N5_47 {
             get {
                 return ResourceManager.GetString("N5_47", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdelreferanser.
+        ///   Looks up a localized string similar to Archive part references.
         /// </summary>
-        internal static string N5_48 {
+        public static string N5_48 {
             get {
                 return ResourceManager.GetString("N5_48", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klassereferanser.
+        ///   Looks up a localized string similar to Class references.
         /// </summary>
-        internal static string N5_51 {
+        public static string N5_51 {
             get {
                 return ResourceManager.GetString("N5_51", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall journalposter.
+        ///   Looks up a localized string similar to Number of journal records.
         /// </summary>
-        internal static string N5_59 {
+        public static string N5_59 {
             get {
                 return ResourceManager.GetString("N5_59", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start- og sluttdatoer.
+        ///   Looks up a localized string similar to Start and end dates.
         /// </summary>
-        internal static string N5_60 {
+        public static string N5_60 {
             get {
                 return ResourceManager.GetString("N5_60", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall loggførte endringer.
+        ///   Looks up a localized string similar to Number of logged changes.
         /// </summary>
-        internal static string N5_61 {
+        public static string N5_61 {
             get {
                 return ResourceManager.GetString("N5_61", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Endringslogg-referanser til arkivstrukturen.
+        ///   Looks up a localized string similar to Changelog references to archive structure.
         /// </summary>
-        internal static string N5_62 {
+        public static string N5_62 {
             get {
                 return ResourceManager.GetString("N5_62", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Elementer som mangler innhold.
+        ///   Looks up a localized string similar to Elements without content.
         /// </summary>
-        internal static string N5_63 {
+        public static string N5_63 {
             get {
                 return ResourceManager.GetString("N5_63", resourceCulture);
             }

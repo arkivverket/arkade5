@@ -6,7 +6,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:models="clr-namespace:Arkivverket.Arkade.GUI.Models"
-             xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
+             xmlns:lang="clr-namespace:Arkivverket.Arkade.GUI.Languages"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="700"
@@ -24,11 +24,11 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         
-        <Label Grid.Row="0" Margin="6" FontSize="24">Testing av uttrekk </Label>
+        <Label Grid.Row="0" Margin="6" FontSize="24" Content="{x:Static lang:TestRunnerGUI.Title}"/>
 
         <Grid Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="240" />
                 <ColumnDefinition Width="400" />
                 <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
@@ -44,24 +44,24 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,5" FontWeight="Bold">Filsti:</TextBlock>
-            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,5" FontWeight="Bold">UUID:</TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,5" FontWeight="Bold">Arkivtype:</TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,5" FontWeight="Bold">Fil som blir prosessert nå:</TextBlock>
-            <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,5" FontWeight="Bold" Visibility="{Binding AddmlFlatFileStatusVisibility}">Antall filer prosessert:</TextBlock>
-            <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5" FontWeight="Bold" Visibility="{Binding AddmlFlatFileStatusVisibility}">Antall poster prosessert:</TextBlock>
-            <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5" FontWeight="Bold" Visibility="{Binding AddmlDataObjectStatusVisibility}">Antall XML-elementer prosessert:</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderFilePath}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderUUID}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderArchiveType}"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderProcessingFile}"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderNumberOfProcessedFiles}" Visibility="{Binding AddmlFlatFileStatusVisibility}"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderNumberofProcessedPosts}" Visibility="{Binding AddmlFlatFileStatusVisibility}"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderNumberOfProcessedXmlElements}" Visibility="{Binding AddmlDataObjectStatusVisibility}"></TextBlock>
 
-            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan ="2" Margin="5" TextWrapping="Wrap" Text="{Binding ArchiveInformationStatus.ArchiveFileName}"></TextBlock>
-            <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding ArchiveInformationStatus.Uuid}"></TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding ArchiveInformationStatus.ArchiveType}"></TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding CurrentlyProcessingFile}"></TextBlock>
-            <TextBlock Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedFiles}" Visibility="{Binding AddmlFlatFileStatusVisibility}"></TextBlock>
-            <TextBlock Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedRecords}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan ="2" Margin="5" TextWrapping="Wrap" Text="{Binding ArchiveInformationStatus.ArchiveFileName}"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding ArchiveInformationStatus.Uuid}"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding ArchiveInformationStatus.ArchiveType}"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding CurrentlyProcessingFile}"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedFiles}" Visibility="{Binding AddmlFlatFileStatusVisibility}"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedRecords}"/>
 
-            <Expander Header="Testpunkter (ekspander for utvalg)" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5" Visibility="{Binding AddmlDataObjectStatusVisibility}">
+            <Expander Header="{x:Static lang:TestRunnerGUI.TestSelectionHeader}" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5" Visibility="{Binding AddmlDataObjectStatusVisibility}">
                 <StackPanel Orientation="Vertical" >
-                    <CheckBox IsChecked="{Binding AllTestsSelected}" Content="Velg alle/ingen" IsEnabled="{Binding CanSelectTests}"/>
+                    <CheckBox IsChecked="{Binding AllTestsSelected}" Content="{x:Static lang:TestRunnerGUI.TestSelectionChooseAllOrNoneCheckBoxText}" IsEnabled="{Binding CanSelectTests}"/>
                     <ScrollViewer Height="150">
                         <ListBox ItemsSource="{Binding Path=SelectableTests}" IsEnabled="{Binding CanSelectTests}">
                             <ListBox.Template>
@@ -81,15 +81,15 @@
                 </StackPanel>
             </Expander>
             <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
-                <Button Margin="20" HorizontalAlignment="Left" Content="Start testing"  Width="130" Height="30" Command="{Binding StartTestingCommand}"/>
-                <Button Margin="20" HorizontalAlignment="Left" Content="Vis rapport"  Width="130" Height="30" Command="{Binding ShowReportCommand}"/>
-                <Button Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:GUI.CreatePackageButtonText}"  Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}"/>
-                <Button Margin="20" HorizontalAlignment="Left" Content="{x:Static resources:GUI.NewProgramSessionButton}"  Width="130" Height="30" Command="{Binding NewProgramSessionCommand}"/>
+                <Button Margin="20" HorizontalAlignment="Left" Content="{x:Static lang:TestRunnerGUI.StartTestingButtonText}" Width="130" Height="30" Command="{Binding StartTestingCommand}"/>
+                <Button Margin="20" HorizontalAlignment="Left" Content="{x:Static lang:TestRunnerGUI.ShowTestReportButtonText}" Width="130" Height="30" Command="{Binding ShowReportCommand}"/>
+                <Button Margin="20" HorizontalAlignment="Left" Content="{x:Static lang:TestRunnerGUI.CreatePackageButtonText}" Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}"/>
+                <Button Margin="20" HorizontalAlignment="Left" Content="{x:Static lang:TestRunnerGUI.NewProgramSessionButtonText}" Width="130" Height="30" Command="{Binding NewProgramSessionCommand}"/>
             </StackPanel>
             
         </Grid>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="Bold" Margin="10">Meldinger:</TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="Bold" Margin="10" Text="{x:Static lang:TestRunnerGUI.TestMessagesHeading}"/>
         <ScrollViewer Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="10">
             
             <ItemsControl ItemsSource="{Binding OperationMessages}">

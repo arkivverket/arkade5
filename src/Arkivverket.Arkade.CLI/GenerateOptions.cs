@@ -11,9 +11,9 @@ namespace Arkivverket.Arkade.CLI
             HelpText = "Generate json file with example metadata.")]
         public bool GenerateMetadataExample { get; set; }
 
-        [Option('l', "noark5-test-list", Group = "file-type",
+        [Option('s', "noark5-test-selection", Group = "file-type",
             HelpText = "Generate text file with list of noark5 tests.")]
-        public bool GenerateNoark5TestList { get; set; }
+        public bool GenerateNoark5TestSelectionFile { get; set; }
 
         [Usage(ApplicationAlias = "arkade")]
         public static IEnumerable<Example> Examples
@@ -30,14 +30,14 @@ namespace Arkivverket.Arkade.CLI
                     new GenerateOptions
                     {
                         OutputDirectory = "outputDirectory",
-                        GenerateNoark5TestList = true
+                        GenerateNoark5TestSelectionFile = true
                     });
                 yield return new Example("Generate both files",
                     new GenerateOptions
                     {
                         OutputDirectory = "outputDirectory",
                         GenerateMetadataExample = true,
-                        GenerateNoark5TestList = true
+                        GenerateNoark5TestSelectionFile = true
                     });
             }
         }

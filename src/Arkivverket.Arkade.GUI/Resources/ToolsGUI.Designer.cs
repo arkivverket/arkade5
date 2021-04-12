@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Arkivverket.Arkade.GUI.Resources {
+namespace Arkivverket.Arkade.GUI.Languages {
     using System;
     
     
@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg katalog hvis innhold skal analyseres.
+        ///   Looks up a localized string similar to Choose directory with the content to be analysed.
         /// </summary>
         public static string ChooseDirectoryToAnalyse {
             get {
@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lukk.
+        ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string CloseDialogButtonText {
             get {
@@ -79,25 +79,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to save format analysis result.
-        /// </summary>
-        public static string FormatCheckActionChooseOutputDirectory {
-            get {
-                return ResourceManager.GetString("FormatCheckActionChooseOutputDirectory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to format analysis.
-        /// </summary>
-        public static string FormatCheckActionChooseTargetDirectory {
-            get {
-                return ResourceManager.GetString("FormatCheckActionChooseTargetDirectory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Velg katalog ....
+        ///   Looks up a localized string similar to Choose directory ....
         /// </summary>
         public static string FormatCheckChooseTargetDirectoryButtonText {
             get {
@@ -106,8 +88,8 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Formatanalyse er utført!
-        ///Resultat lagret i:.
+        ///   Looks up a localized string similar to Format analysis completed!
+        ///Result saved at:.
         /// </summary>
         public static string FormatCheckCompletedMessage {
             get {
@@ -116,7 +98,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PRONOM filformat-analyse.
+        ///   Looks up a localized string similar to PRONOM file format analysis.
         /// </summary>
         public static string FormatCheckHeading {
             get {
@@ -125,7 +107,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Utfører formatanalyse ....
+        ///   Looks up a localized string similar to Performing format analysis ....
         /// </summary>
         public static string FormatCheckOngoing {
             get {
@@ -134,7 +116,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg plassering for lagring av resultat.
+        ///   Looks up a localized string similar to Choose location for results.
         /// </summary>
         public static string FormatCheckOutputDirectoryPickerTitle {
             get {
@@ -143,7 +125,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kjør.
+        ///   Looks up a localized string similar to Run.
         /// </summary>
         public static string FormatCheckRunButtonText {
             get {
@@ -152,7 +134,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CSV (Semikolondelt) (*.csv)|*.csv.
+        ///   Looks up a localized string similar to CSV (Comma separated values) (*.csv)|*.csv.
         /// </summary>
         public static string SaveFormatFileExtensionFilter {
             get {
@@ -161,7 +143,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verktøy.
+        ///   Looks up a localized string similar to Tools.
         /// </summary>
         public static string ToolsDialogTitle {
             get {

@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_20_NumberOfRegistrationsPerClassTest
+    public class N5_20_NumberOfRegistrationsPerClassTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldFindRegistrationsForSomeClassesOnSingleArchivePart()

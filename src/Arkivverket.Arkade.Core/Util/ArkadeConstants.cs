@@ -19,12 +19,17 @@ namespace Arkivverket.Arkade.Core.Util
         public const string DiasMetsXsdFileName = "dias-mets.xsd";
         public const string LogXmlFileName = "log.xml";
         public const string ArkivuttrekkXmlFileName = "arkivuttrekk.xml";
+        public const string MetadataXmlFileName = "metadata.xml";
         public const string PublicJournalXmlFileName = "offentligJournal.xml";
         public const string PublicJournalXsdFileName = "offentligJournal.xsd";
         public const string RunningJournalXmlFileName = "loependeJournal.xml";
         public const string RunningJournalXsdFileName = "loependeJournal.xsd";
         public const string ChangeLogXmlFileName = "endringslogg.xml";
         public const string ChangeLogXsdFileName = "endringslogg.xsd";
+
+        public const string SiardHeaderDirectoryName = "header";
+        public const string SiardMetadataXmlFileName = "metadata.xml";
+        public const string SiardMetadataXsdFileName = "metadata.xsd";
 
         public const string AddmlXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.addml.xsd";
         public const string ArkivstrukturXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.arkivstruktur.xsd";
@@ -43,7 +48,6 @@ namespace Arkivverket.Arkade.Core.Util
         public const string DirectoryNameTemporaryLogsLocation = ".arkade-tmplogs";
         public const string DirectoryNameRepositoryOperations = "repository_operations";
         public const string DirectoryNameContent = "content";
-        public const string DirectoryNameResultOutputContainer = "Arkaderesultater";
         public const string DirectoryNameAppDataArkadeSubFolder = "Arkivverket";
         
         public static readonly string[] DocumentDirectoryNames =
@@ -52,25 +56,6 @@ namespace Arkivverket.Arkade.Core.Util
         public const string SiegfriedLinuxExecutable = "siegfried_linux";
         public const string SiegfriedMacOSXExecutable = "siegfried_mac";
         public const string SiegfriedWindowsExecutable = "siegfried.exe";
-        public const string Noark5TestListFileName = "noark5-testlist.txt";
-        public const string MetadataFileName = "arkade-ip-metadata.json";
-        public const string FileFormatInfoFileName = "{0}-fileformatinfo.csv";
-        public const string FileFormatInfoStatisticsFileName = "{0}-statistics.csv";
-        public struct FileFormatInfoHeaders
-        {
-            public const string FileName = "Filnavn";
-            public const string FileExtension = "Filendelse";
-            public const string FormatId = "Format-ID";
-            public const string FormatName = "Formatnavn";
-            public const string FormatVersion = "Formatversjon";
-            public const string MimeType = "MIME-type";
-            public const string FileScanError = "Feil";
-        }
-        public struct FileFormatInfoStatisticsHeaders
-        {
-            public const string FileType = "Filtype";
-            public const string Amount = "Antall";
-        }
 
         public const string MetadataStandardLabelPlaceholder = "[standard_label]";
         public const string MetsHdrAgentMetaNoteKeyWord = "notescontent:";

@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Util;
 using CommandLine;
 using Serilog;
@@ -34,7 +36,8 @@ namespace Arkivverket.Arkade.CLI
         {
             if (!ReadyToRun(processOptions.OutputDirectory, processOptions.ProcessingArea,
                 metadataFilePath: processOptions.MetadataFile,
-                testListFilePath: processOptions.TestListFile))
+                testSelectionFilePath: processOptions.TestSelectionFile,
+                languageForOutputFiles: processOptions.OutputLanguage))
                 return;
 
             CommandLineRunner.Run(processOptions);
@@ -43,7 +46,8 @@ namespace Arkivverket.Arkade.CLI
         private static void RunTestOptions(TestOptions testOptions)
         {
             if (!ReadyToRun(testOptions.OutputDirectory, testOptions.ProcessingArea,
-                testListFilePath: testOptions.TestListFile))
+                testSelectionFilePath: testOptions.TestSelectionFile,
+                languageForOutputFiles: testOptions.OutputLanguage))
                 return;
 
             CommandLineRunner.Run(testOptions);
@@ -52,7 +56,8 @@ namespace Arkivverket.Arkade.CLI
         private static void RunPackOptions(PackOptions packOptions)
         {
             if (!ReadyToRun(packOptions.OutputDirectory, packOptions.ProcessingArea,
-                metadataFilePath: packOptions.MetadataFile))
+                metadataFilePath: packOptions.MetadataFile,
+                languageForOutputFiles: packOptions.OutputLanguage))
                 return;
 
             CommandLineRunner.Run(packOptions);
@@ -76,19 +81,24 @@ namespace Arkivverket.Arkade.CLI
 
         private static bool ReadyToRun(Options options)
         {
-            return DirectoryArgsExists(options.OutputDirectory);
+            return DirectoryArgsExists(options.OutputDirectory) &&
+                SelectedOutputLanguageIsValid(options.OutputLanguage);
         }
 
         private static bool ReadyToRun(AnalyseOptions analyseOptions)
         {
             return DirectoryArgsExists(analyseOptions.OutputDirectory,
-                documentFileDirectoryPath: analyseOptions.FormatCheckTarget);
+                documentFileDirectoryPath: analyseOptions.FormatCheckTarget) &&
+                SelectedOutputLanguageIsValid(analyseOptions.OutputLanguage);
         }
 
         private static bool ReadyToRun(string outputDirectoryPath, string processingAreaPath = null,
-            string documentFileDirectoryPath = null, string metadataFilePath = null, string testListFilePath = null)
+            string documentFileDirectoryPath = null, string metadataFilePath = null, string testSelectionFilePath = null,
+            string languageForOutputFiles = null)
         {
-            if (!(DirectoryArgsExists(outputDirectoryPath, processingAreaPath, documentFileDirectoryPath) && FileArgsExists(metadataFilePath, testListFilePath)))
+            if (!(DirectoryArgsExists(outputDirectoryPath, processingAreaPath, documentFileDirectoryPath) &&
+                  FileArgsExists(metadataFilePath, testSelectionFilePath) &&
+                  SelectedOutputLanguageIsValid(languageForOutputFiles)))
                 return false;
 
             ArkadeProcessingArea.Establish(processingAreaPath); // Removes temporary log directory
@@ -120,7 +130,7 @@ namespace Arkivverket.Arkade.CLI
             return true;
         }
 
-        private static bool FileArgsExists(string metadataFilePath = null, string testListFilePath = null)
+        private static bool FileArgsExists(string metadataFilePath = null, string testSelectionFilePath = null)
         {
             if (metadataFilePath != null && !File.Exists(metadataFilePath))
             {
@@ -128,13 +138,21 @@ namespace Arkivverket.Arkade.CLI
                 return false;
             }
 
-            if (testListFilePath != null && !File.Exists(testListFilePath))
+            if (testSelectionFilePath != null && !File.Exists(testSelectionFilePath))
             {
-                Log.Error(new FileNotFoundException(), $"Could not find test list file: '{testListFilePath}'.");
+                Log.Error(new FileNotFoundException(), $"Could not find test selection file: '{testSelectionFilePath}'.");
                 return false;
             }
 
             return true;
+        }
+
+        private static bool SelectedOutputLanguageIsValid(string selectedLanguageForOutputFiles)
+        {
+            if (selectedLanguageForOutputFiles == null || Enum.TryParse(selectedLanguageForOutputFiles, out SupportedLanguage _))
+                return true;
+            Log.Error(new ArgumentOutOfRangeException(), $"'{selectedLanguageForOutputFiles}' is not a valid value for output language.");
+            return false;
         }
 
         private static void ConfigureLogging()

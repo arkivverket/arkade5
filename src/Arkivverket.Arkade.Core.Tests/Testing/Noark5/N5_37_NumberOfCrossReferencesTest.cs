@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_37_NumberOfCrossReferencesTest
+    public class N5_37_NumberOfCrossReferencesTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReturnNumberOfCrossReferences()

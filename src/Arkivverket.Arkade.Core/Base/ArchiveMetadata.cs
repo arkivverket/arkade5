@@ -1,5 +1,4 @@
-﻿using Arkivverket.Arkade.Core.ExternalModels.Mets;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Base

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="metadata.xsl"?><siardArchive xmlns="http://www.bar.admin.ch/xmlns/siard/1.0/metadata.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://www.bar.admin.ch/xmlns/siard/1.0/metadata.xsd metadata.xsd">
+  <dbname>testdb</dbname>
+  <dataOwner>(...)</dataOwner>
+  <dataOriginTimespan>(...)</dataOriginTimespan>
+  <producerApplication>Program to store database content in a .siard file</producerApplication>
+  <archivalDate>2020-12-16</archivalDate>
+  <messageDigest>MD55959037B64A4323B8FEC41654703C7BE</messageDigest>
+  <clientMachine>NAME.space</clientMachine>
+  <databaseProduct>
+    Brand Database Edition Release version -
+    \u002064bit Production\u000A
+    Options
+  </databaseProduct>
+  <connection>sum:tin:hir:@255.255.255.255:9999:test</connection>
+  <databaseUser>RA</databaseUser>
+  <schemas>
+    <schema>
+      <name>NN_KVITT</name>
+      <folder>schema0</folder>
+      <tables>
+        <table>
+          <name>NNNNN</name>
+          <folder>table0</folder>
+          <description/>
+          <columns>
+            <column>
+              <name>DOC_DOCNO</name>
+              <type>CHARACTER VARYING(100)</type>
+              <typeOriginal>VARCHAR2(100)</typeOriginal>
+              <nullable>true</nullable>
+            </column>
+            <column>
+              <name>DOC_DOCDATE</name>
+              <type>TIMESTAMP(0)</type>
+              <typeOriginal>DATE</typeOriginal>
+              <nullable>true</nullable>
+            </column>
+            <column>
+              <name>CA_DESC</name>
+              <type>CHARACTER VARYING(254)</type>
+              <typeOriginal>VARCHAR2(254)</typeOriginal>
+              <nullable>false</nullable>
+            </column>
+            <column>
+              <name>CA2_NAD_RECNO</name>
+              <type>DECIMAL(22)</type>
+              <typeOriginal>INTEGER</typeOriginal>
+              <nullable>true</nullable>
+            </column>
+            <column>
+              <name>NJE_CODE</name>
+              <type>CHARACTER VARYING(40)</type>
+              <typeOriginal>VARCHAR2(40)</typeOriginal>
+              <nullable>true</nullable>
+            </column>
+            <column>
+              <name>NKL_VALUE</name>
+              <type>CHARACTER(5)</type>
+              <typeOriginal>CHAR(5)</typeOriginal>
+              <nullable>true</nullable>
+            </column>
+            <column>
+              <name>DFVD_FILEDATA</name>
+              <folder>lob7</folder>
+              <type>BINARY LARGE OBJECT</type>
+              <typeOriginal>BLOB</typeOriginal>
+              <nullable>true</nullable>
+            </column>
+            <column>
+              <name>LENGDE</name>
+              <type>DECIMAL(22)</type>
+              <typeOriginal>INTEGER</typeOriginal>
+              <nullable>true</nullable>
+            </column>
+            <column>
+              <name>MD5SUM</name>
+              <type>BIT VARYING(16000)</type>
+              <typeOriginal>RAW(2000)</typeOriginal>
+              <nullable>true</nullable>
+            </column>
+          </columns>
+          <rows>10</rows>
+        </table>
+      </tables>
+    </schema>
+  </schemas>
+  <users>
+    <user>
+      <name>NN</name>
+    </user>
+  </users>
+  <roles>
+    <role>
+      <name>CONNECT</name>
+      <admin/>
+    </role>
+  </roles>
+  <privileges>
+    <privilege>
+      <type>SELECT</type>
+      <object>TABLE NN</object>
+      <grantor>NN_NN</grantor>
+      <grantee>NN</grantee>
+    </privilege>
+  </privileges>
+</siardArchive>

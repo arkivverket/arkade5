@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_21_NumberOfRegistrationsWithoutDocumentDescriptionTest
+    public class N5_21_NumberOfRegistrationsWithoutDocumentDescriptionTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldFindNoRegistrationsWithoutDocumentDescription()

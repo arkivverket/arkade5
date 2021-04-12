@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table xsi:schemaLocation="http://www.bar.admin.ch/xmlns/siard/2/table.xsd table0.xsd" version="2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.bar.admin.ch/xmlns/siard/2/table.xsd">
+	<row>
+		<c1>1</c1>
+		<c2>1</c2>
+		<c3>NNAM</c3>
+		<c4>K-10001.0</c4>
+		<c5>A kommune. Formannskapet/kommunestyret</c5>
+	</row>
+	<row>
+		<c1>2</c1>
+		<c2>2</c2>
+		<c3>NNAM</c3>
+		<c4>K-10002.0</c4>
+		<c5>B kommune. Kommuneingeniøren</c5>
+	</row>
+</table>

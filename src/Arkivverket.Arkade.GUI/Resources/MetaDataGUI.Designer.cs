@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Arkivverket.Arkade.GUI.Resources {
+namespace Arkivverket.Arkade.GUI.Languages {
     using System;
     
     
@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Avtalenr*.
+        ///   Looks up a localized string similar to Agreement Number*.
         /// </summary>
         public static string AgreementNumber {
             get {
@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivskaper*.
+        ///   Looks up a localized string similar to Archive Creator*.
         /// </summary>
         public static string ArchiveCreator {
             get {
@@ -79,7 +79,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adresse (Kontakt, Arkivskaper).
+        ///   Looks up a localized string similar to Address (Contact, Archive Creator).
         /// </summary>
         public static string ArchiveCreator_Address {
             get {
@@ -88,7 +88,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontaktperson (Arkivskaper).
+        ///   Looks up a localized string similar to Contact Person (Archive Creator).
         /// </summary>
         public static string ArchiveCreator_ContactPerson {
             get {
@@ -97,7 +97,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E-post (Kontakt, Arkivskaper).
+        ///   Looks up a localized string similar to E-mail (Contact, Archive Creator).
         /// </summary>
         public static string ArchiveCreator_Email {
             get {
@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Telefon (Kontakt, Arkivskaper).
+        ///   Looks up a localized string similar to Telephone (Contact, Archive Creator).
         /// </summary>
         public static string ArchiveCreator_Telephone {
             get {
@@ -115,7 +115,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivbeskrivelse.
+        ///   Looks up a localized string similar to Archive Description.
         /// </summary>
         public static string ArchiveDescription {
             get {
@@ -124,7 +124,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uttrekkssystem.
+        ///   Looks up a localized string similar to Archive Extraction System.
         /// </summary>
         public static string ArchiveExtractionSystem {
             get {
@@ -133,7 +133,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type (Uttrekk).
+        ///   Looks up a localized string similar to Type (Extract).
         /// </summary>
         public static string ArchiveExtractionType {
             get {
@@ -142,7 +142,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Typeversjon (Uttrekk).
+        ///   Looks up a localized string similar to Type Version (Extract).
         /// </summary>
         public static string ArchiveExtractionTypeVersion {
             get {
@@ -151,7 +151,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Versjon (Uttrekk).
+        ///   Looks up a localized string similar to Version (Extract).
         /// </summary>
         public static string ArchiveExtractionVersion {
             get {
@@ -160,7 +160,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uttrekkssystem.
+        ///   Looks up a localized string similar to Extraction System.
         /// </summary>
         public static string ArchiveSystem {
             get {
@@ -169,7 +169,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inkluder formatinformasjon for dokumentfiler.
+        ///   Looks up a localized string similar to Include format information for document files.
         /// </summary>
         public static string CreateDocumentFileInfoText {
             get {
@@ -178,7 +178,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NB! Tidkrevende ved stort antall dokumentfiler..
+        ///   Looks up a localized string similar to NB! Time consuming when many document files..
         /// </summary>
         public static string CreateDocumentFileInfoToolTip {
             get {
@@ -187,7 +187,16 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skaper av informasjonspakke.
+        ///   Looks up a localized string similar to Include format information for LOBs.
+        /// </summary>
+        public static string CreateLobFormatInfoFileText {
+            get {
+                return ResourceManager.GetString("CreateLobFormatInfoFileText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator of information package.
         /// </summary>
         public static string Creator {
             get {
@@ -196,7 +205,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adresse (Kontakt, Pakkeskaper).
+        ///   Looks up a localized string similar to Address (Contact, Package Creator).
         /// </summary>
         public static string Creator_Address {
             get {
@@ -205,7 +214,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontaktperson (Pakkeskaper).
+        ///   Looks up a localized string similar to Contact Person (Package Creator).
         /// </summary>
         public static string Creator_ContactPerson {
             get {
@@ -214,7 +223,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E-post (Kontakt, Pakkeskaper).
+        ///   Looks up a localized string similar to E-mail (Contact, Package Creator).
         /// </summary>
         public static string Creator_Email {
             get {
@@ -223,7 +232,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opprinnelig system:.
+        ///   Looks up a localized string similar to Original System:.
         /// </summary>
         public static string Creator_OriginalSystem {
             get {
@@ -241,7 +250,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Telefon (Kontakt, Pakkeskaper).
+        ///   Looks up a localized string similar to Telephone (Contact, Archive Creator).
         /// </summary>
         public static string Creator_Telephone {
             get {
@@ -250,7 +259,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sluttdato.
+        ///   Looks up a localized string similar to End Date.
         /// </summary>
         public static string EndDate {
             get {
@@ -259,7 +268,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uttrekksdato.
+        ///   Looks up a localized string similar to Extraction Date.
         /// </summary>
         public static string ExtractionDate {
             get {
@@ -268,7 +277,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivskaper.
+        ///   Looks up a localized string similar to Archive Creator.
         /// </summary>
         public static string GuiSubsection_ArchiveCreator {
             get {
@@ -277,7 +286,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Beskrivelse av arkiv.
+        ///   Looks up a localized string similar to Description of archive.
         /// </summary>
         public static string GuiSubsection_ArchiveMain {
             get {
@@ -286,7 +295,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uttrekkssystem.
+        ///   Looks up a localized string similar to Extraction System.
         /// </summary>
         public static string GuiSubsection_ArchiveSystem {
             get {
@@ -295,7 +304,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skaper av informasjonspakke.
+        ///   Looks up a localized string similar to Creator of information package.
         /// </summary>
         public static string GuiSubsection_Creator {
             get {
@@ -304,7 +313,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uttrekksdato.
+        ///   Looks up a localized string similar to Extraction Date.
         /// </summary>
         public static string GuiSubsection_ExtractionDate {
             get {
@@ -313,7 +322,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Noark felter.
+        ///   Looks up a localized string similar to Noark fields.
         /// </summary>
         public static string GuiSubsection_NoarkParameters {
             get {
@@ -322,7 +331,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eier.
+        ///   Looks up a localized string similar to Owner.
         /// </summary>
         public static string GuiSubsection_Owner {
             get {
@@ -331,7 +340,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Produsent.
+        ///   Looks up a localized string similar to Producer.
         /// </summary>
         public static string GuiSubsection_Producer {
             get {
@@ -340,7 +349,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mottaker.
+        ///   Looks up a localized string similar to Recipient.
         /// </summary>
         public static string GuiSubsection_Recipient {
             get {
@@ -358,7 +367,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overfører.
+        ///   Looks up a localized string similar to Transferer.
         /// </summary>
         public static string GuiSubsection_Transferer {
             get {
@@ -367,7 +376,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Merkelapp.
+        ///   Looks up a localized string similar to Label.
         /// </summary>
         public static string Label {
             get {
@@ -376,7 +385,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gjeldende systemnavn, startår og sluttår.
+        ///   Looks up a localized string similar to Current system name, start year and end year.
         /// </summary>
         public static string Label_HintTextStandardLabel {
             get {
@@ -385,7 +394,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Innlastet eller oppgitt verdi.
+        ///   Looks up a localized string similar to Loaded or given value.
         /// </summary>
         public static string Label_HintTextUserdefinedLabel {
             get {
@@ -403,7 +412,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Egendefinert.
+        ///   Looks up a localized string similar to Custom.
         /// </summary>
         public static string Label_OptionTextUserdefinedLabel {
             get {
@@ -412,7 +421,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hent eksterne metadata.
+        ///   Looks up a localized string similar to Fetch external metadata.
         /// </summary>
         public static string LoadExternalMetadataButtonText {
             get {
@@ -421,7 +430,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fyll ut skjemaet med metadata fra en ekstern METS-fil, f.eks. info.xml vedlagt en tidligere opprettet pakke..
+        ///   Looks up a localized string similar to Fill out the form with metadata from an external METS-file, e.g. info.xml from a previously created package..
         /// </summary>
         public static string LoadExternalMetadataInfoText {
             get {
@@ -430,7 +439,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to no.
+        ///   Looks up a localized string similar to en.
         /// </summary>
         public static string MetadataGuiLocale {
             get {
@@ -439,7 +448,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klarte ikke å hente inn metadata fra {0}.
+        ///   Looks up a localized string similar to Was not able to fetch metadata from {0}.
         /// </summary>
         public static string MetadataLoadError {
             get {
@@ -448,7 +457,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to * = Feltet er påkrevet for å skape en gyldig arkivpakke.
+        ///   Looks up a localized string similar to * = Required field for creating a valid archive package.
         /// </summary>
         public static string MetadataRequiredFieldsInfo {
             get {
@@ -457,7 +466,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eier*.
+        ///   Looks up a localized string similar to Owner*.
         /// </summary>
         public static string Owner {
             get {
@@ -466,7 +475,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adresse (Kontakt, Eier).
+        ///   Looks up a localized string similar to Address (Contact, Owner).
         /// </summary>
         public static string Owner_Address {
             get {
@@ -475,7 +484,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontaktperson (Eier).
+        ///   Looks up a localized string similar to Contact Person (Owner).
         /// </summary>
         public static string Owner_ContactPerson {
             get {
@@ -484,7 +493,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E-post (Kontakt, Eier).
+        ///   Looks up a localized string similar to E-mail (Contact, Owner).
         /// </summary>
         public static string Owner_Email {
             get {
@@ -493,7 +502,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Telefon (Kontakt, Eier).
+        ///   Looks up a localized string similar to Telephone (Contact, Owner).
         /// </summary>
         public static string Owner_Telephone {
             get {
@@ -502,16 +511,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: Could not create/overwrite package..
-        /// </summary>
-        public static string PackageCreationErrorLogMessage {
-            get {
-                return ResourceManager.GetString("PackageCreationErrorLogMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Klarte ikke opprette/overskrive pakke. Sjekk om pakkedestinasjonen er opptatt..
+        ///   Looks up a localized string similar to Could not create/overwite package. Please make sure the package location is not busy..
         /// </summary>
         public static string PackageCreationErrorStatusMessage {
             get {
@@ -520,7 +520,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oppretter pakke....
+        ///   Looks up a localized string similar to Creating package....
         /// </summary>
         public static string PackageCreationOngoing {
             get {
@@ -529,7 +529,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Produsent*.
+        ///   Looks up a localized string similar to Producer*.
         /// </summary>
         public static string Producer {
             get {
@@ -538,7 +538,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adresse (Kontakt, Produsent).
+        ///   Looks up a localized string similar to Address (Contact, Producer).
         /// </summary>
         public static string Producer_Address {
             get {
@@ -547,7 +547,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontaktperson (Produsent).
+        ///   Looks up a localized string similar to Contact Person (Producer).
         /// </summary>
         public static string Producer_ContactPerson {
             get {
@@ -556,7 +556,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E-post (Kontakt, Produsent).
+        ///   Looks up a localized string similar to E-mail  (Contact, Producer).
         /// </summary>
         public static string Producer_Email {
             get {
@@ -565,7 +565,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Telefon (Kontakt, Produsent).
+        ///   Looks up a localized string similar to Telephone  (Contact, Producer).
         /// </summary>
         public static string Producer_Telephone {
             get {
@@ -574,7 +574,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mottaker*.
+        ///   Looks up a localized string similar to Recipient*.
         /// </summary>
         public static string Recipient {
             get {
@@ -583,7 +583,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg METS-fil for å laste inn metadata.
+        ///   Looks up a localized string similar to Choose METS-file to load metadata.
         /// </summary>
         public static string SelectMetadataFile {
             get {
@@ -592,7 +592,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg plassering for pakke.
+        ///   Looks up a localized string similar to Choose package location.
         /// </summary>
         public static string SelectOutputDirectoryMessage {
             get {
@@ -601,7 +601,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Startdato.
+        ///   Looks up a localized string similar to Start Date.
         /// </summary>
         public static string StartDate {
             get {
@@ -610,7 +610,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Systemnavn*.
+        ///   Looks up a localized string similar to System Name*.
         /// </summary>
         public static string SystemName {
             get {
@@ -628,7 +628,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Typeversjon (System).
+        ///   Looks up a localized string similar to Type Version (System).
         /// </summary>
         public static string SystemTypeVersion {
             get {
@@ -637,7 +637,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Versjon (System)*.
+        ///   Looks up a localized string similar to Version (System)*.
         /// </summary>
         public static string SystemVersion {
             get {
@@ -664,7 +664,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overfører*.
+        ///   Looks up a localized string similar to Transferer*.
         /// </summary>
         public static string Transferer {
             get {
@@ -673,7 +673,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adresse (Kontakt, Overfører).
+        ///   Looks up a localized string similar to Address (Contact, Transferer).
         /// </summary>
         public static string Transferer_Address {
             get {
@@ -682,7 +682,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontaktperson (Overfører)*.
+        ///   Looks up a localized string similar to Contact Person (Transferer)*.
         /// </summary>
         public static string Transferer_ContractPerson {
             get {
@@ -691,7 +691,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E-post (Kontakt, Overfører).
+        ///   Looks up a localized string similar to E-mail (Contact, Transferer).
         /// </summary>
         public static string Transferer_Email {
             get {
@@ -700,7 +700,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Telefon (Kontakt, Overfører).
+        ///   Looks up a localized string similar to Telephone (Contact, Transferer).
         /// </summary>
         public static string Transferer_Telephone {
             get {
@@ -709,16 +709,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not enough diskspace on target location..
-        /// </summary>
-        public static string UnsufficientDiskSpaceLogMessage {
-            get {
-                return ResourceManager.GetString("UnsufficientDiskSpaceLogMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valgt destinasjon har ikke nok lagringsplass..
+        ///   Looks up a localized string similar to Not enough disk space on target location..
         /// </summary>
         public static string UnsufficientDiskSpaceStatusMessage {
             get {

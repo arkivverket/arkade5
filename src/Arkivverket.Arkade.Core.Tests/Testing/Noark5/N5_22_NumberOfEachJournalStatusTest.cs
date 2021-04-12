@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_22_NumberOfEachJournalStatusTest
+    public class N5_22_NumberOfEachJournalStatusTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldFindSeveralJournalStatusesInSingleArchivePart()

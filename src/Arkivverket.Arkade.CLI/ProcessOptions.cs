@@ -10,11 +10,11 @@ namespace Arkivverket.Arkade.CLI
         [Option('i', "information-package-type", HelpText = "Optional. Valid values: SIP, AIP.", Default = "SIP")]
         public string InformationPackageType { get; set; }
 
-        [Option('l', "noark5-test-list", HelpText = "Optional. List of noark5 tests to be run. Omit to run all tests.")]
-        public string TestListFile { get; set; }
+        [Option('s', "noark5-test-selection", HelpText = "Optional. Selection of Noark 5 tests to be run. Omit to run all tests.")]
+        public string TestSelectionFile { get; set; }
 
         [Option('f', "document-file-format-check", HelpText = "Optional. Report document file PRONOM format information.")]
-        public bool DocumentFileFormatCheck { get; set; }
+        public bool PerformFileFormatAnalysis { get; set; }
 
         [Option('m', "metadata-file", HelpText = "File with metadata to include in package.", Required = true)]
         public string MetadataFile { get; set; }
@@ -52,7 +52,7 @@ namespace Arkivverket.Arkade.CLI
                         ProcessingArea = "processDirectory",
                         OutputDirectory = "outputDirectory",
                         MetadataFile = "metadata.json",
-                        TestListFile = "noark5-testlist.txt"
+                        TestSelectionFile = "noark5-testselection.txt"
                     });
             }
         }

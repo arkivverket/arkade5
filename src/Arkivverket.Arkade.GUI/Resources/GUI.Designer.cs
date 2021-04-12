@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Arkivverket.Arkade.GUI.Resources {
+namespace Arkivverket.Arkade.GUI.Languages {
     using System;
     
     
@@ -61,7 +61,16 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arbeidsområde - {0}.
+        ///   Looks up a localized string similar to Arkade 5.
+        /// </summary>
+        public static string ApplicationName {
+            get {
+                return ResourceManager.GetString("ApplicationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working area - {0}.
         /// </summary>
         public static string ArkadeDirectoryPathInfo {
             get {
@@ -70,56 +79,11 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lukk.
+        ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string CloseButtonText {
             get {
                 return ResourceManager.GetString("CloseButtonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opprett pakke.
-        /// </summary>
-        public static string CreatePackageButtonText {
-            get {
-                return ResourceManager.GetString("CreatePackageButtonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Velg pakketype.
-        /// </summary>
-        public static string CreatePackageSelectTypeLabel {
-            get {
-                return ResourceManager.GetString("CreatePackageSelectTypeLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AIP.
-        /// </summary>
-        public static string CreatePackageTypeAIP {
-            get {
-                return ResourceManager.GetString("CreatePackageTypeAIP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SIP.
-        /// </summary>
-        public static string CreatePackageTypeSIP {
-            get {
-                return ResourceManager.GetString("CreatePackageTypeSIP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registrer metadata og opprett pakke.
-        /// </summary>
-        public static string CreatePackageWindowTitle {
-            get {
-                return ResourceManager.GetString("CreatePackageWindowTitle", resourceCulture);
             }
         }
         
@@ -133,7 +97,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Detaljer er skrevet til {0}.
+        ///   Looks up a localized string similar to Details are written to {0}.
         /// </summary>
         public static string DetailedErrorMessageInfo {
             get {
@@ -142,7 +106,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to En feil har oppstått: {0}.
+        ///   Looks up a localized string similar to An error has occurred: {0}.
         /// </summary>
         public static string ErrorGeneral {
             get {
@@ -151,7 +115,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feil ved innlesing av arkiv: {0}.
+        ///   Looks up a localized string similar to Error when loading archive: {0}.
         /// </summary>
         public static string ErrorReadingArchive {
             get {
@@ -160,7 +124,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det oppstod en feil med den valgte filen.
+        ///   Looks up a localized string similar to An error occurred with the chosen file.
         /// </summary>
         public static string FileException_ErrorWithChosenFile {
             get {
@@ -169,7 +133,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det oppstod en generell feil med filvalget.
+        ///   Looks up a localized string similar to A general error occurred when choosing a file.
         /// </summary>
         public static string FileException_GeneralError {
             get {
@@ -178,7 +142,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ingen fil ble valgt.
+        ///   Looks up a localized string similar to No file was chosen.
         /// </summary>
         public static string FileException_NoFileChosen {
             get {
@@ -187,7 +151,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fil ikke funnet: {0}.
+        ///   Looks up a localized string similar to File not found: {0}.
         /// </summary>
         public static string FileNotFoundMessage {
             get {
@@ -196,25 +160,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .tar.
-        /// </summary>
-        public static string FileSelectionDefaultTar {
-            get {
-                return ResourceManager.GetString("FileSelectionDefaultTar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to TAR Files (*.tar)|*.tar|All Files (*.*)|*.*.
-        /// </summary>
-        public static string FileSelectionFilterTar {
-            get {
-                return ResourceManager.GetString("FileSelectionFilterTar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Velg en arkiv fil.
+        ///   Looks up a localized string similar to Choose an archive file.
         /// </summary>
         public static string FileSelectionWindowNameArchive {
             get {
@@ -232,133 +178,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivtype.
-        /// </summary>
-        public static string LoadArchiveArchiveTypeHeadingText {
-            get {
-                return ResourceManager.GetString("LoadArchiveArchiveTypeHeadingText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Arkivuttrekk.
-        /// </summary>
-        public static string LoadArchiveChooseArchiveHeadingText {
-            get {
-                return ResourceManager.GetString("LoadArchiveChooseArchiveHeadingText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vennligst velg et arkivuttrekk.
-        /// </summary>
-        public static string LoadArchiveChooseArchiveLabelText {
-            get {
-                return ResourceManager.GetString("LoadArchiveChooseArchiveLabelText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Velg katalog.
-        /// </summary>
-        public static string LoadArchiveChooseFolderButtonText {
-            get {
-                return ResourceManager.GetString("LoadArchiveChooseFolderButtonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Velg SIP/AIP fil.
-        /// </summary>
-        public static string LoadArchiveChooseTarFileButtonText {
-            get {
-                return ResourceManager.GetString("LoadArchiveChooseTarFileButtonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valgt arkivtype:.
-        /// </summary>
-        public static string LoadArchiveChosenArchiveTypeHeadingText {
-            get {
-                return ResourceManager.GetString("LoadArchiveChosenArchiveTypeHeadingText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last inn uttrekk.
-        /// </summary>
-        public static string LoadArchiveLoadArchiveButtonText {
-            get {
-                return ResourceManager.GetString("LoadArchiveLoadArchiveButtonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valgt fil.
-        /// </summary>
-        public static string LoadArchiveSelectedFileText {
-            get {
-                return ResourceManager.GetString("LoadArchiveSelectedFileText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valgt katalog.
-        /// </summary>
-        public static string LoadArchiveSelectedFolderText {
-            get {
-                return ResourceManager.GetString("LoadArchiveSelectedFolderText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fagsystem.
-        /// </summary>
-        public static string LoadArchiveTypeFagsystem {
-            get {
-                return ResourceManager.GetString("LoadArchiveTypeFagsystem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Noark3.
-        /// </summary>
-        public static string LoadArchiveTypeNoark3 {
-            get {
-                return ResourceManager.GetString("LoadArchiveTypeNoark3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Noark5.
-        /// </summary>
-        public static string LoadArchiveTypeNoark5 {
-            get {
-                return ResourceManager.GetString("LoadArchiveTypeNoark5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Arkade klarte ikke å identifisere arkivtypen. Vennligst velg type manuelt..
-        /// </summary>
-        public static string LoadArchiveTypeUndetected {
-            get {
-                return ResourceManager.GetString("LoadArchiveTypeUndetected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last inn arkivuttrekk.
-        /// </summary>
-        public static string LoadArchiveViewHeadingText {
-            get {
-                return ResourceManager.GetString("LoadArchiveViewHeadingText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ny kjøring.
+        ///   Looks up a localized string similar to New session.
         /// </summary>
         public static string NewProgramSessionButton {
             get {
@@ -367,7 +187,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ny versjon tilgjengelig.
+        ///   Looks up a localized string similar to New version available.
         /// </summary>
         public static string NewVersionMessage {
             get {
@@ -376,7 +196,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start Arkade på nytt.
+        ///   Looks up a localized string similar to Restart Arkade.
         /// </summary>
         public static string RestartArkadeButtonText {
             get {
@@ -385,7 +205,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Omstart av Arkade.
+        ///   Looks up a localized string similar to Restarting of Arkade.
         /// </summary>
         public static string RestartArkadeDialogTitle {
             get {
@@ -394,11 +214,30 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkade må startes på nytt for at endringene skal tre i kraft. Vil du starte Arkade på nytt nå?.
+        ///   Looks up a localized string similar to Arkade needs to be restarted for the changes to be applied. Do you want to do the restart now?.
         /// </summary>
         public static string RestartArkadeForChangesToTakeEffectPrompt {
             get {
                 return ResourceManager.GetString("RestartArkadeForChangesToTakeEffectPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not restart Arkade.
+        ///Please manually start Arkade after shutdown..
+        /// </summary>
+        public static string RestartFailedMessageBoxText {
+            get {
+                return ResourceManager.GetString("RestartFailedMessageBoxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic restart failed.
+        /// </summary>
+        public static string RestartFailedMessageBoxTitle {
+            get {
+                return ResourceManager.GetString("RestartFailedMessageBoxTitle", resourceCulture);
             }
         }
         
@@ -421,7 +260,16 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verktøy.
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string ShowSettingsDialogButtonText {
+            get {
+                return ResourceManager.GetString("ShowSettingsDialogButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tools.
         /// </summary>
         public static string ShowToolsDialogButtonText {
             get {
@@ -430,7 +278,7 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hjemmeside.
+        ///   Looks up a localized string similar to Web page.
         /// </summary>
         public static string ShowWebPageButtonText {
             get {
@@ -439,166 +287,29 @@ namespace Arkivverket.Arkade.GUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valider gyldig xml.
+        ///   Looks up a localized string similar to Output language: {0}.
         /// </summary>
-        public static string TestName_CheckWellFormedXml {
+        public static string UiAndOutputLanguagesIsDifferentWarningMessage {
             get {
-                return ResourceManager.GetString("TestName_CheckWellFormedXml", resourceCulture);
+                return ResourceManager.GetString("UiAndOutputLanguagesIsDifferentWarningMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finn antall arkivdeler.
-        /// </summary>
-        public static string TestName_NumberOfArchiveParts {
-            get {
-                return ResourceManager.GetString("TestName_NumberOfArchiveParts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finn antall arkiv.
-        /// </summary>
-        public static string TestName_NumberOfArchives {
-            get {
-                return ResourceManager.GetString("TestName_NumberOfArchives", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finn antall klasser.
-        /// </summary>
-        public static string TestName_NumberOfClasses {
-            get {
-                return ResourceManager.GetString("TestName_NumberOfClasses", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finn antall klasser i pri klassifikasjonssytem uten under klasser/mapper.
-        /// </summary>
-        public static string TestName_NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders {
-            get {
-                return ResourceManager.GetString("TestName_NumberOfClassesInMainClassificationSystemWithoutSubClassesorFolders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finn antall klassifikasjonssystem.
-        /// </summary>
-        public static string TestName_NumberOfClassificationSystems {
-            get {
-                return ResourceManager.GetString("TestName_NumberOfClassificationSystems", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finn antall mapper.
-        /// </summary>
-        public static string TestName_NumberOfFolders {
-            get {
-                return ResourceManager.GetString("TestName_NumberOfFolders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finn status på arkivdeler.
-        /// </summary>
-        public static string TestName_StatusOfArchiveParts {
-            get {
-                return ResourceManager.GetString("TestName_StatusOfArchiveParts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valider gyldig sjekksummer.
-        /// </summary>
-        public static string TestName_ValidateAddmlDataobjectsChecksums {
-            get {
-                return ResourceManager.GetString("TestName_ValidateAddmlDataobjectsChecksums", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valider xml i henhold til skjema.
-        /// </summary>
-        public static string TestName_ValidateXmlWithSchema {
-            get {
-                return ResourceManager.GetString("TestName_ValidateXmlWithSchema", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Arkivuttrekket kan ikke testes: Det ble ikke funnet en gyldig spesifikasjonsfil for uttrekket.
-        ///(Se logg for detaljer {0}).
-        ///Du kan fortsatt lage en pakke av uttrekket..
-        /// </summary>
-        public static string TestrunnerArchiveNotTestable {
-            get {
-                return ResourceManager.GetString("TestrunnerArchiveNotTestable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Testbarhet.
-        /// </summary>
-        public static string TestrunnerArchiveTestability {
-            get {
-                return ResourceManager.GetString("TestrunnerArchiveTestability", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Testingen er fullført.
-        /// </summary>
-        public static string TestrunnerFinishedOperationMessage {
-            get {
-                return ResourceManager.GetString("TestrunnerFinishedOperationMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Feil under testkjøring.
-        /// </summary>
-        public static string TestrunnerFinishedWithError {
-            get {
-                return ResourceManager.GetString("TestrunnerFinishedWithError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Feil.
-        /// </summary>
-        public static string TestrunnerMessageLabelError {
-            get {
-                return ResourceManager.GetString("TestrunnerMessageLabelError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ok.
-        /// </summary>
-        public static string TestrunnerMessageLabelSuccess {
-            get {
-                return ResourceManager.GetString("TestrunnerMessageLabelSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Advarsel.
-        /// </summary>
-        public static string TestrunnerMessageLabelWarning {
-            get {
-                return ResourceManager.GetString("TestrunnerMessageLabelWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hvis du avslutter nå vil resultater fra testkjøringen gå tapt. Ønsker du likevel å avslutte?.
+        ///   Looks up a localized string similar to If the application is closed now, the current test results will be lost. Do you still want to close?.
         /// </summary>
         public static string UnsavedTestResultsOnExitWarning {
             get {
                 return ResourceManager.GetString("UnsavedTestResultsOnExitWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version .
+        /// </summary>
+        public static string VersionText {
+            get {
+                return ResourceManager.GetString("VersionText", resourceCulture);
             }
         }
     }

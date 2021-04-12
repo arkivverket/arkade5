@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_13_ControlFixedLengthTest
+    public class A_13_ControlFixedLengthTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReportIfRecordLengthIsDifferentFromSpecified()

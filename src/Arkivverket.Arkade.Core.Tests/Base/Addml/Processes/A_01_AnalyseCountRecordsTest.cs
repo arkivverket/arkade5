@@ -9,7 +9,7 @@ using Record = Arkivverket.Arkade.Core.Base.Addml.Record;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_01_AnalyseCountRecordsTest
+    public class A_01_AnalyseCountRecordsTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReportSuccessIfRecordCountIsCorrect()

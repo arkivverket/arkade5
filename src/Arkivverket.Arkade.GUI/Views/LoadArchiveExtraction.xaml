@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:coreBase="clr-namespace:Arkivverket.Arkade.Core.Base;assembly=Arkivverket.Arkade.Core"
-             xmlns:resources="clr-namespace:Arkivverket.Arkade.GUI.Resources"
+             xmlns:lang="clr-namespace:Arkivverket.Arkade.GUI.Languages"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000"
@@ -36,20 +36,20 @@
 
         <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="0" 
                    FontSize="24"
-                   Content="{x:StaticExtension resources:GUI.LoadArchiveViewHeadingText}"/>
+                   Content="{x:StaticExtension lang:LoadArchiveExtractionGUI.ViewHeadingText}"/>
         
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
             <Button Margin="5" Width="130" Height="31" HorizontalAlignment="Center"
-                    Content="{x:StaticExtension resources:GUI.LoadArchiveChooseFolderButtonText}"
+                    Content="{x:StaticExtension lang:LoadArchiveExtractionGUI.ChooseFolderButtonText}"
                     Command="{Binding OpenArchiveFolderCommand}"/>
             <Button Margin="5" Width="130" Height="31" HorizontalAlignment="Center"
-                    Content="{x:StaticExtension resources:GUI.LoadArchiveChooseTarFileButtonText}"
+                    Content="{x:StaticExtension lang:LoadArchiveExtractionGUI.ChooseTarFileButtonText}"
                     Command="{Binding OpenArchiveFileCommand}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="1">
             <Label Margin="10 0 0 10" HorizontalAlignment="Left" FontSize="17"
-                   Content="{x:StaticExtension resources:GUI.LoadArchiveChooseArchiveHeadingText}" />
+                   Content="{x:StaticExtension lang:LoadArchiveExtractionGUI.ChooseArchiveHeadingText}" />
             <Label Margin="10 0 0 0" Height="40" VerticalAlignment="Center"
                    IsEnabled="{Binding IsArchiveFileNameSelected}"
                    Content="{Binding ArchiveFileNameGuiRepresentation}" />
@@ -57,7 +57,7 @@
 
         <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Vertical" VerticalAlignment="Top">
             <Label Margin="25 0 0 2" HorizontalAlignment="Left" FontSize="17"
-                   Content="{x:StaticExtension resources:GUI.LoadArchiveArchiveTypeHeadingText}" />
+                   Content="{x:StaticExtension lang:LoadArchiveExtractionGUI.ArchiveTypeHeadingText}" />
             <ComboBox Margin="25 0" Width="90" HorizontalAlignment="Center"
                       ItemsSource="{Binding Source={StaticResource GetArchiveTypes}}"
                       SelectedItem="{Binding ArchiveType}" Cursor="Hand" 
@@ -66,8 +66,8 @@
 
         <Button Grid.Row="3" Grid.Column="3" Margin="5 30 0 0" Width="140" Height="31"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
-                Content="{x:StaticExtension resources:GUI.LoadArchiveLoadArchiveButtonText}"
-                Command="{Binding NavigateCommand}" />
+                Content="{x:StaticExtension lang:LoadArchiveExtractionGUI.LoadArchiveButtonText}"
+                Command="{Binding NavigateToTestRunnerCommand}" />
 
     </Grid>
 </UserControl>

@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_39_NumberOfCorrespondencePartsTest
+    public class N5_39_NumberOfCorrespondencePartsTest : LanguageDependentTest
     {
         [Fact]
         public void NumberOfCorrespondencePartsIsOne()

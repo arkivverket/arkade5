@@ -1,6 +1,7 @@
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Noark5;
+using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
@@ -39,6 +40,9 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<ArkadeVersion>().AsSelf();
             builder.RegisterType<GitHubReleaseInfoReader>().As<IReleaseInfoReader>();
             builder.RegisterType<SiegfriedFileFormatIdentifier>().As<IFileFormatIdentifier>();
+            builder.RegisterType<SiegfriedFileInfo>().As<IFileFormatInfo>();
+            builder.RegisterType<SiardArchiveReader>().As<ISiardArchiveReader>();
+            builder.RegisterType<SiardXmlTableReader>().As<ISiardXmlTableReader>();
         }
     }
 }

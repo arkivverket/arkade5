@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_63_ControlElementsHasContentTest
+    public class N5_63_ControlElementsHasContentTest : LanguageDependentTest
     {
         [Fact]
         public void ElementsWithoutContentAreReported()

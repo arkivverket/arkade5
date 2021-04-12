@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_07_NumberOfClassificationSystemsTest
+    public class N5_07_NumberOfClassificationSystemsTest : LanguageDependentTest
     {
         [Fact]
         public void NumberOfClassificationSystemsIsOne()

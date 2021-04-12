@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_14_NumberOfFoldersWithoutRegistrationsOrSubfoldersTest
+    public class N5_14_NumberOfFoldersWithoutRegistrationsOrSubfoldersTest : LanguageDependentTest
     {
         [Fact]
         public void ResultIsNoFoldersWithoutRegistrationsOrSubfolders()

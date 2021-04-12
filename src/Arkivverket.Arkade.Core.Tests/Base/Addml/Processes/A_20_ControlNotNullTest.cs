@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_20_ControlNotNullTest
+    public class A_20_ControlNotNullTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldReportNullValues()

@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Noark5Messages {
+    public class Noark5Messages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.Core.Resources.Noark5Messages", typeof(Noark5Messages).Assembly);
@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,866 +61,875 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Referanse fra {0} (systemID) {1} til arkivdel (systemID) {2} er ikke gyldig.
+        ///   Looks up a localized string similar to Reference from {0} (systemID) {1} to archive part (systemID) {2} is not valid.
         /// </summary>
-        internal static string ArchivepartReferenceControlMessage {
+        public static string ArchivepartReferenceControlMessage {
             get {
                 return ResourceManager.GetString("ArchivepartReferenceControlMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel): {0}, {1}.
+        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1}.
         /// </summary>
-        internal static string ArchivePartSystemId {
+        public static string ArchivePartSystemId {
             get {
                 return ResourceManager.GetString("ArchivePartSystemId", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start- og sluttdato i arkivstrukturen: {0} - {1}.
+        ///   Looks up a localized string similar to Start and end date in the archive structure: {0} - {1}.
         /// </summary>
-        internal static string ArchiveStartAndEndDateControlMessage_DatesArchive {
+        public static string ArchiveStartAndEndDateControlMessage_DatesArchive {
             get {
                 return ResourceManager.GetString("ArchiveStartAndEndDateControlMessage_DatesArchive", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start- og sluttdato i offentlig journal: {0} - {1}.
+        ///   Looks up a localized string similar to Public journal start and end date: {0} - {1}.
         /// </summary>
-        internal static string ArchiveStartAndEndDateControlMessage_DatesPublicJournal {
+        public static string ArchiveStartAndEndDateControlMessage_DatesPublicJournal {
             get {
                 return ResourceManager.GetString("ArchiveStartAndEndDateControlMessage_DatesPublicJournal", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start- og sluttdato i løpende journal: {0} - {1}.
+        ///   Looks up a localized string similar to Start and end date in running journal: {0} - {1}.
         /// </summary>
-        internal static string ArchiveStartAndEndDateControlMessage_DatesRunningJournal {
+        public static string ArchiveStartAndEndDateControlMessage_DatesRunningJournal {
             get {
                 return ResourceManager.GetString("ArchiveStartAndEndDateControlMessage_DatesRunningJournal", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det ble ikke funnet noen gyldige journaldatoer i arkivuttrekket.
+        ///   Looks up a localized string similar to No valid journal dates were found in the archive extract.
         /// </summary>
-        internal static string ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound {
+        public static string ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound {
             get {
                 return ResourceManager.GetString("ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Periodeskille er skarpt og datoer i arkivstrukturen er ikke like de i offentlig og løpende journal.
+        ///   Looks up a localized string similar to Period separation is sharp and dates in the archive structure are not similar to those in public and rolling journal.
         /// </summary>
-        internal static string ArchiveStartAndEndDateControlMessage_UnEqualJournalAndArchiveDates {
+        public static string ArchiveStartAndEndDateControlMessage_UnEqualJournalAndArchiveDates {
             get {
                 return ResourceManager.GetString("ArchiveStartAndEndDateControlMessage_UnEqualJournalAndArchiveDates", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Datoer i offentlig og løpende journal er ikke like.
+        ///   Looks up a localized string similar to Dates in public and rolling journals are not equal.
         /// </summary>
-        internal static string ArchiveStartAndEndDateControlMessage_UnEqualJournalDates {
+        public static string ArchiveStartAndEndDateControlMessage_UnEqualJournalDates {
             get {
                 return ResourceManager.GetString("ArchiveStartAndEndDateControlMessage_UnEqualJournalDates", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Referanse til arkivenhet er ikke gyldig: (systemID) {0}.
+        ///   Looks up a localized string similar to Reference to archive unit is not valid: (systemID) {0}.
         /// </summary>
-        internal static string ChangeLogArchiveReferenceControlMessage {
+        public static string ChangeLogArchiveReferenceControlMessage {
             get {
                 return ResourceManager.GetString("ChangeLogArchiveReferenceControlMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Referanse fra mappe (systemID) {0} til klasse (systemID) {1} er ikke gyldig.
+        ///   Looks up a localized string similar to Algorithm used for checksum validation: {0}.
         /// </summary>
-        internal static string ClassReferenceControlMessage {
+        public static string ChecksumAlgorithmMessage {
+            get {
+                return ResourceManager.GetString("ChecksumAlgorithmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder reference (systemID) {0} to class (systemID) {1} is not valid.
+        /// </summary>
+        public static string ClassReferenceControlMessage {
             get {
                 return ResourceManager.GetString("ClassReferenceControlMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Etter systemID {0}.
+        ///   Looks up a localized string similar to After systemID {0}.
         /// </summary>
-        internal static string ControlElementHasContent_AfterSystemId {
+        public static string ControlElementHasContent_AfterSystemId {
             get {
                 return ResourceManager.GetString("ControlElementHasContent_AfterSystemId", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Elementet {0} mangler innhold.
+        ///   Looks up a localized string similar to The element {0} has no content.
         /// </summary>
-        internal static string ControlElementHasContent_ElementHasNoContent {
+        public static string ControlElementHasContent_ElementHasNoContent {
             get {
                 return ResourceManager.GetString("ControlElementHasContent_ElementHasNoContent", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klasse med systemID {0}.
+        ///   Looks up a localized string similar to Class with systemID {0}.
         /// </summary>
-        internal static string ControlNoSuperclassesHasFoldersMessage {
+        public static string ControlNoSuperclassesHasFoldersMessage {
             get {
                 return ResourceManager.GetString("ControlNoSuperclassesHasFoldersMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klasse med systemID {0}.
+        ///   Looks up a localized string similar to Class with systemID {0}.
         /// </summary>
-        internal static string ControlNoSuperclassesHasRegistrationsMessage {
+        public static string ControlNoSuperclassesHasRegistrationsMessage {
             get {
                 return ResourceManager.GetString("ControlNoSuperclassesHasRegistrationsMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kunne ikke lese fra en eller flere filer.
+        ///   Looks up a localized string similar to Could not read from one or more files.
         /// </summary>
-        internal static string CouldNotReadFromFiles {
+        public static string CouldNotReadFromFiles {
             get {
                 return ResourceManager.GetString("CouldNotReadFromFiles", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Første registrering: Opprettet {0}.
+        ///   Looks up a localized string similar to First registration: Created {0}.
         /// </summary>
-        internal static string DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration {
+        public static string DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration {
             get {
                 return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel): {0}, {1} - Første registrering: Opprettet {2}.
+        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1} - First registration: Created {2}.
         /// </summary>
-        internal static string DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart {
+        public static string DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart {
             get {
                 return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Siste registrering: Opprettet {0}.
+        ///   Looks up a localized string similar to Last registration: Created {0}.
         /// </summary>
-        internal static string DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration {
+        public static string DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration {
             get {
                 return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel): {0}, {1} - Siste registrering: Opprettet {2}.
+        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1} - Last registration: Created {2}.
         /// </summary>
-        internal static string DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart {
+        public static string DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart {
             get {
                 return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ingen gyldige datoer for registreringsopprettelse funnet.
+        ///   Looks up a localized string similar to No valid registration creation dates found.
         /// </summary>
-        internal static string DatesFirstAndLastRegistrationMessage_NoValidRegistrationCreationDates {
+        public static string DatesFirstAndLastRegistrationMessage_NoValidRegistrationCreationDates {
             get {
                 return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_NoValidRegistrationCreationDates", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall ugyldige datoer for registreringsopprettelse funnet: {0}.
+        ///   Looks up a localized string similar to Number of invalid registration creation dates found: {0}.
         /// </summary>
-        internal static string DatesFirstAndLastRegistrationMessage_NumberOfInvalidRegistrationCreationDates {
+        public static string DatesFirstAndLastRegistrationMessage_NumberOfInvalidRegistrationCreationDates {
             get {
                 return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_NumberOfInvalidRegistrationCreationDates", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Totalt: {0}.
+        ///   Looks up a localized string similar to Total: {0}.
         /// </summary>
-        internal static string DatesFirstAndLastRegistrationMessage_NumberOfRegistrations {
+        public static string DatesFirstAndLastRegistrationMessage_NumberOfRegistrations {
             get {
                 return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_NumberOfRegistrations", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel): {0}, {1} - Filen {2} har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) {3}.
+        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1} - The file {2} does not have the same checksum as specified in document description (systemID) {3}.
         /// </summary>
-        internal static string DocumentFilesChecksumControlMessage {
+        public static string DocumentFilesChecksumControlMessage {
             get {
                 return ResourceManager.GetString("DocumentFilesChecksumControlMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ikke-referert fil funnet: {0}.
+        ///   Looks up a localized string similar to Non-referenced file found: {0}.
         /// </summary>
-        internal static string DocumentfilesReferenceControlMessage {
+        public static string DocumentfilesReferenceControlMessage {
             get {
                 return ResourceManager.GetString("DocumentfilesReferenceControlMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det oppsto et problem under validering av {0}: {1}.
+        ///   Looks up a localized string similar to There was a problem while validating {0}: {1}.
         /// </summary>
-        internal static string ExceptionDuringXmlValidation {
+        public static string ExceptionDuringXmlValidation {
             get {
                 return ResourceManager.GetString("ExceptionDuringXmlValidation", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sjekksummen stemmer ikke for filen: {0}
-        ///Forventet: {1}
-        ///Generert:  {2}.
+        ///   Looks up a localized string similar to Unexpected checksum for file: {0}
+        ///Expected: {1}
+        ///Generated: {2}.
         /// </summary>
-        internal static string ExceptionInvalidChecksum {
+        public static string ExceptionInvalidChecksum {
             get {
                 return ResourceManager.GetString("ExceptionInvalidChecksum", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filen {0} ble ikke funnet.
+        ///   Looks up a localized string similar to The file {0} was not found.
         /// </summary>
-        internal static string FileNotFound {
+        public static string FileNotFound {
             get {
                 return ResourceManager.GetString("FileNotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skjemafil {0} ble ikke funnet i uttrekket. Validering gjøres ihht. en versjon av {0} som er innebygget i Arkade.
+        ///   Looks up a localized string similar to Schema file {0} could not be found in the extract. Validation is done according to a version of {0} built into Arkade.
         /// </summary>
-        internal static string InternalSchemaFileIsUsed {
+        public static string InternalSchemaFileIsUsed {
             get {
                 return ResourceManager.GetString("InternalSchemaFileIsUsed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Journalpostregistreringer: {0}.
+        ///   Looks up a localized string similar to Journal entry registrations: {0}.
         /// </summary>
-        internal static string JournalPostRegistrationCount {
+        public static string JournalPostRegistrationCount {
             get {
                 return ResourceManager.GetString("JournalPostRegistrationCount", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Møteregistreringer: {0}.
+        ///   Looks up a localized string similar to Meeting registrations: {0}.
         /// </summary>
-        internal static string MeetingRegistrationCount {
+        public static string MeetingRegistrationCount {
             get {
                 return ResourceManager.GetString("MeetingRegistrationCount", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID - tittel) {0} - {1}: {2}.
+        ///   Looks up a localized string similar to Archive part (systemID - title) {0} - {1}: {2}.
         /// </summary>
-        internal static string NumberOf_PerArchivePart {
+        public static string NumberOf_PerArchivePart {
             get {
                 return ResourceManager.GetString("NumberOf_PerArchivePart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall arkivdeler i arkiv (systemID) {0}: {1}.
+        ///   Looks up a localized string similar to Number of archive parts in archive (systemID) {0}: {1}.
         /// </summary>
-        internal static string NumberOfArchivePartsMessage_ArchivepartsInArchive {
+        public static string NumberOfArchivePartsMessage_ArchivepartsInArchive {
             get {
                 return ResourceManager.GetString("NumberOfArchivePartsMessage_ArchivepartsInArchive", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall arkiv på nivå {0}: {1}.
+        ///   Looks up a localized string similar to Number of archives at level {0}: {1}.
         /// </summary>
-        internal static string NumberOfArchivesMessage_ArchivesAtLevel {
+        public static string NumberOfArchivesMessage_ArchivesAtLevel {
             get {
                 return ResourceManager.GetString("NumberOfArchivesMessage_ArchivesAtLevel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Totalt antall klasser: {0}.
+        ///   Looks up a localized string similar to Total classes: {0}.
         /// </summary>
-        internal static string NumberOfClasses {
+        public static string NumberOfClasses {
             get {
                 return ResourceManager.GetString("NumberOfClasses", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klasser på nivå {0}: {1}.
+        ///   Looks up a localized string similar to Classes at level {0}: {1}.
         /// </summary>
-        internal static string NumberOfClassesPerLevel {
+        public static string NumberOfClassesPerLevel {
             get {
                 return ResourceManager.GetString("NumberOfClassesPerLevel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel): {0}, {1} {2} klassifikasjonssystem (systemID): {3} - .
+        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1} {2} classification system (systemID): {3} - .
         /// </summary>
-        internal static string NumberOfClassesTestResultMessage {
+        public static string NumberOfClassesTestResultMessage {
             get {
                 return ResourceManager.GetString("NumberOfClassesTestResultMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Graderinger i {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Security classifications in {0} - Number: {1}.
         /// </summary>
-        internal static string NumberOfClassificationsMessage {
+        public static string NumberOfClassificationsMessage {
             get {
                 return ResourceManager.GetString("NumberOfClassificationsMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall klassifikasjonssystemer i arkivdel (systemID, tittel) {0}, {1}: {2}.
+        ///   Looks up a localized string similar to Number of classification systems in archive part (systemID, title) {0}, {1}: {2}.
         /// </summary>
-        internal static string NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart {
+        public static string NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart {
             get {
                 return ResourceManager.GetString("NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall merknader i {0}: {1}.
+        ///   Looks up a localized string similar to Number of comments in {0}: {1}.
         /// </summary>
-        internal static string NumberOfCommentsMessage {
+        public static string NumberOfCommentsMessage {
             get {
                 return ResourceManager.GetString("NumberOfCommentsMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall kryssreferanser fra basisregistreringer: {0}.
+        ///   Looks up a localized string similar to Number of cross-references from base registrations: {0}.
         /// </summary>
-        internal static string NumberOfCrossReferencesToBasicRegistrationMessage {
+        public static string NumberOfCrossReferencesToBasicRegistrationMessage {
             get {
                 return ResourceManager.GetString("NumberOfCrossReferencesToBasicRegistrationMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel): {0}, {1} - Antall kryssreferanser fra basisregistreringer: {2}.
+        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1} - Number of cross-references from base registrations: {2}.
         /// </summary>
-        internal static string NumberOfCrossReferencesToBasicRegistrationMessage_ForArchivePart {
+        public static string NumberOfCrossReferencesToBasicRegistrationMessage_ForArchivePart {
             get {
                 return ResourceManager.GetString("NumberOfCrossReferencesToBasicRegistrationMessage_ForArchivePart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall kryssreferanser fra klasser: {0}.
+        ///   Looks up a localized string similar to Number of cross-references from classes: {0}.
         /// </summary>
-        internal static string NumberOfCrossReferencesToClassMessage {
+        public static string NumberOfCrossReferencesToClassMessage {
             get {
                 return ResourceManager.GetString("NumberOfCrossReferencesToClassMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel): {0 }, {1} - Antall kryssreferanser fra klasser: {2}.
+        ///   Looks up a localized string similar to Archive part (systemID, title): {0 }, {1} - Number of cross-references from classes: {2}.
         /// </summary>
-        internal static string NumberOfCrossReferencesToClassMessage_ForArchivePart {
+        public static string NumberOfCrossReferencesToClassMessage_ForArchivePart {
             get {
                 return ResourceManager.GetString("NumberOfCrossReferencesToClassMessage_ForArchivePart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall kryssreferanser fra mapper: {0}.
+        ///   Looks up a localized string similar to Number of cross-references from folders: {0}.
         /// </summary>
-        internal static string NumberOfCrossReferencesToFolderMessage {
+        public static string NumberOfCrossReferencesToFolderMessage {
             get {
                 return ResourceManager.GetString("NumberOfCrossReferencesToFolderMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel): {0}, {1} - Antall kryssreferanser fra mapper: {2}.
+        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1} - Number of cross-references from folders: {2}.
         /// </summary>
-        internal static string NumberOfCrossReferencesToFolderMessage_ForArchivePart {
+        public static string NumberOfCrossReferencesToFolderMessage_ForArchivePart {
             get {
                 return ResourceManager.GetString("NumberOfCrossReferencesToFolderMessage_ForArchivePart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel) {0}, {1} - {2}: {3}.
+        ///   Looks up a localized string similar to Archive part (systemID, title) {0}, {1} - {2}: {3}.
         /// </summary>
-        internal static string NumberOfDepreciationsMessage_ForArchivePart {
+        public static string NumberOfDepreciationsMessage_ForArchivePart {
             get {
                 return ResourceManager.GetString("NumberOfDepreciationsMessage_ForArchivePart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kassasjonsvedtak i {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Disposal resolutions in {0} - Number: {1}.
         /// </summary>
-        internal static string NumberOfDisposalResolutionsMessage {
+        public static string NumberOfDisposalResolutionsMessage {
             get {
                 return ResourceManager.GetString("NumberOfDisposalResolutionsMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det er angitt at uttrekket ikke skal inneholde kassasjonsvedtak, men kassasjonsvedtak ble funnet.
+        ///   Looks up a localized string similar to The archive extract is specified with no disposal resolutions, but disposal resolutions were found.
         /// </summary>
-        internal static string NumberOfDisposalResolutionsMessage_DocFalseActualTrue {
+        public static string NumberOfDisposalResolutionsMessage_DocFalseActualTrue {
             get {
                 return ResourceManager.GetString("NumberOfDisposalResolutionsMessage_DocFalseActualTrue", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det er angitt at uttrekket skal inneholde kassasjonsvedtak, men ingen kassasjonsvedtak ble funnet.
+        ///   Looks up a localized string similar to The archive extract is specified with disposal resolutions, but no disposal resolutions were found.
         /// </summary>
-        internal static string NumberOfDisposalResolutionsMessage_DocTrueActualFalse {
+        public static string NumberOfDisposalResolutionsMessage_DocTrueActualFalse {
             get {
                 return ResourceManager.GetString("NumberOfDisposalResolutionsMessage_DocTrueActualFalse", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det er dokumentert at uttrekket ikke skal omfatte utførte kassasjoner, men utførte kassasjoner ble funnet.
+        ///   Looks up a localized string similar to It is documented that the archive extract shall not include performed disposals, but performed disposals were found.
         /// </summary>
-        internal static string NumberOfDisposalsExecutedMessage_DocFalseActualTrue {
+        public static string NumberOfDisposalsExecutedMessage_DocFalseActualTrue {
             get {
                 return ResourceManager.GetString("NumberOfDisposalsExecutedMessage_DocFalseActualTrue", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det er dokumentert at uttrekket skal omfatte utførte kassasjoner, men ingen utførte kassasjoner ble funnet.
+        ///   Looks up a localized string similar to It is documented that the archive extract shall include performed disposals, but no performed disposals were found.
         /// </summary>
-        internal static string NumberOfDisposalsExecutedMessage_DocTrueActualFalse {
+        public static string NumberOfDisposalsExecutedMessage_DocTrueActualFalse {
             get {
                 return ResourceManager.GetString("NumberOfDisposalsExecutedMessage_DocTrueActualFalse", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saksmappestatus: {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Case folder status: {0} - Number: {1}.
         /// </summary>
-        internal static string NumberOfEachCaseFolderStatusMessage {
+        public static string NumberOfEachCaseFolderStatusMessage {
             get {
                 return ResourceManager.GetString("NumberOfEachCaseFolderStatusMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dokumentformat: {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Document format: {0} - Number: {1}.
         /// </summary>
-        internal static string NumberOfEachDocumentFormatMessage {
+        public static string NumberOfEachDocumentFormatMessage {
             get {
                 return ResourceManager.GetString("NumberOfEachDocumentFormatMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Format-misforhold: Dokumentformat: {0} - Dokumentfilreferanse: {1}.
+        ///   Looks up a localized string similar to Format mismatch: Document format: {0} - Document file reference: {1}.
         /// </summary>
-        internal static string NumberOfEachDocumentFormatMessage_FormatMismatch {
+        public static string NumberOfEachDocumentFormatMessage_FormatMismatch {
             get {
                 return ResourceManager.GetString("NumberOfEachDocumentFormatMessage_FormatMismatch", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dokumentstatus: {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Document status: {0} - Number: {1}.
         /// </summary>
-        internal static string NumberOfEachDocumentStatusMessage {
+        public static string NumberOfEachDocumentStatusMessage {
             get {
                 return ResourceManager.GetString("NumberOfEachDocumentStatusMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Journalpost med systemID {0} mangler hoveddokument.
+        ///   Looks up a localized string similar to Journal entry with systemID {0} is missing main document.
         /// </summary>
-        internal static string NumberOfEachJournalPostTypeMessage_MissingMainDocument {
+        public static string NumberOfEachJournalPostTypeMessage_MissingMainDocument {
             get {
                 return ResourceManager.GetString("NumberOfEachJournalPostTypeMessage_MissingMainDocument", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Journalposttype: {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Journal entry type: {0} - Quantity: {1}.
         /// </summary>
-        internal static string NumberOfEachJournalPostTypeMessage_TypeAndCount {
+        public static string NumberOfEachJournalPostTypeMessage_TypeAndCount {
             get {
                 return ResourceManager.GetString("NumberOfEachJournalPostTypeMessage_TypeAndCount", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Journalstatus: {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Journal status: {0} - Number: {1}.
         /// </summary>
-        internal static string NumberOfEachJournalStatusMessage {
+        public static string NumberOfEachJournalStatusMessage {
             get {
                 return ResourceManager.GetString("NumberOfEachJournalStatusMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel) {0}, {1} - klassifikasjonssystem (systemID) {2}: {3}.
+        ///   Looks up a localized string similar to Archive part (systemID, title) {0}, {1} - classification system (systemID) {2}: {3}.
         /// </summary>
-        internal static string NumberOfEmptyClassesInMainClassificationSystem {
+        public static string NumberOfEmptyClassesInMainClassificationSystem {
             get {
                 return ResourceManager.GetString("NumberOfEmptyClassesInMainClassificationSystem", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det er angitt at arkivstrukturen skal innholde {0} mapper men {1} ble funnet.
+        ///   Looks up a localized string similar to The archive structure is specified with {0} folders but {1} was found.
         /// </summary>
-        internal static string NumberOfFolders_DocumentedAndActualMismatch {
+        public static string NumberOfFolders_DocumentedAndActualMismatch {
             get {
                 return ResourceManager.GetString("NumberOfFolders_DocumentedAndActualMismatch", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klasser uten mapper (og uten underklasser) - Antall: {0}.
+        ///   Looks up a localized string similar to Classes without folders (and without subclasses) - Number: {0}.
         /// </summary>
-        internal static string NumberOfFoldersPerClassMessage_NumberOfClassesWithoutFolders {
+        public static string NumberOfFoldersPerClassMessage_NumberOfClassesWithoutFolders {
             get {
                 return ResourceManager.GetString("NumberOfFoldersPerClassMessage_NumberOfClassesWithoutFolders", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klasse (systemID): {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Class (systemID): {0} - Number: {1}.
         /// </summary>
-        internal static string NumberOfFoldersPerClassMessage_NumberOfFolders {
+        public static string NumberOfFoldersPerClassMessage_NumberOfFolders {
             get {
                 return ResourceManager.GetString("NumberOfFoldersPerClassMessage_NumberOfFolders", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel) {0}, {1} - {2}: {3}.
+        ///   Looks up a localized string similar to Archive part (systemID, title) {0}, {1} - {2}: {3}.
         /// </summary>
-        internal static string NumberOfFoldersPerYear_ForArchivePart {
+        public static string NumberOfFoldersPerYear_ForArchivePart {
             get {
                 return ResourceManager.GetString("NumberOfFoldersPerYear_ForArchivePart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kunne ikke lese fra en eller flere journalfiler.
+        ///   Looks up a localized string similar to Could not read from one or more journal files.
         /// </summary>
-        internal static string NumberOfJournalPostsMessage_CouldNotReadFromJournals {
+        public static string NumberOfJournalPostsMessage_CouldNotReadFromJournals {
             get {
                 return ResourceManager.GetString("NumberOfJournalPostsMessage_CouldNotReadFromJournals", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall journalposter funnet i arkivstrukturen: {0}.
+        ///   Looks up a localized string similar to Number of journal entries found in the archive structure: {0}.
         /// </summary>
-        internal static string NumberOfJournalPostsMessage_NumberOfJournalPostsFound {
+        public static string NumberOfJournalPostsMessage_NumberOfJournalPostsFound {
             get {
                 return ResourceManager.GetString("NumberOfJournalPostsMessage_NumberOfJournalPostsFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall journalposter dokumentert i offentlig journal: {0}.
+        ///   Looks up a localized string similar to Number of journal entries documented in public journal: {0}.
         /// </summary>
-        internal static string NumberOfJournalPostsMessage_NumberOfJournalPostsInPublicJournal {
+        public static string NumberOfJournalPostsMessage_NumberOfJournalPostsInPublicJournal {
             get {
                 return ResourceManager.GetString("NumberOfJournalPostsMessage_NumberOfJournalPostsInPublicJournal", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall journalposter dokumentert i løpende journal: {0}.
+        ///   Looks up a localized string similar to Number of journal entries documented in rolling journal: {0}.
         /// </summary>
-        internal static string NumberOfJournalPostsMessage_NumberOfJournalPostsInRunningJournal {
+        public static string NumberOfJournalPostsMessage_NumberOfJournalPostsInRunningJournal {
             get {
                 return ResourceManager.GetString("NumberOfJournalPostsMessage_NumberOfJournalPostsInRunningJournal", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Periodeskille er skarpt og antallet journalposter i arkivstrukturen er ikke likt det i offentlig og løpende journal.
+        ///   Looks up a localized string similar to Period separator is sharp and the number of journal entries in the archive structure is not equal to that in public and rolling journal.
         /// </summary>
-        internal static string NumberOfJournalPostsMessage_UnEqualJournalAndArchiveNumbers {
+        public static string NumberOfJournalPostsMessage_UnEqualJournalAndArchiveNumbers {
             get {
                 return ResourceManager.GetString("NumberOfJournalPostsMessage_UnEqualJournalAndArchiveNumbers", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antallet journalposter i offentlig og løpende journal er ulikt.
+        ///   Looks up a localized string similar to The number of journal entries in public and rolling journals are different.
         /// </summary>
-        internal static string NumberOfJournalPostsMessage_UnEqualJournalNumbers {
+        public static string NumberOfJournalPostsMessage_UnEqualJournalNumbers {
             get {
                 return ResourceManager.GetString("NumberOfJournalPostsMessage_UnEqualJournalNumbers", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Referert dokumentfil: {0} - Antall referanser: {1}.
+        ///   Looks up a localized string similar to Referenced document file: {0} - Number of References: {1}.
         /// </summary>
-        internal static string NumberOfMultiReferencedDocumentFilesMessage {
+        public static string NumberOfMultiReferencedDocumentFilesMessage {
             get {
                 return ResourceManager.GetString("NumberOfMultiReferencedDocumentFilesMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall presedenser i saksmapper: {0}.
+        ///   Looks up a localized string similar to Number of precedents in case folders: {0}.
         /// </summary>
-        internal static string NumberOfPrecedentsInCaseFolderMessage {
+        public static string NumberOfPrecedentsInCaseFolderMessage {
             get {
                 return ResourceManager.GetString("NumberOfPrecedentsInCaseFolderMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel) {0}, {1} - Antall presedenser i saksmapper: {2}.
+        ///   Looks up a localized string similar to Archive part (systemID, title) {0}, {1} - Number of precedents in case folders: {2}.
         /// </summary>
-        internal static string NumberOfPrecedentsInCaseFolderMessage_ForArchivePart {
+        public static string NumberOfPrecedentsInCaseFolderMessage_ForArchivePart {
             get {
                 return ResourceManager.GetString("NumberOfPrecedentsInCaseFolderMessage_ForArchivePart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall presedenser i journalposter: {0}.
+        ///   Looks up a localized string similar to Number of precedents in journal entries: {0}.
         /// </summary>
-        internal static string NumberOfPrecedentsInJournalpostsMessage {
+        public static string NumberOfPrecedentsInJournalpostsMessage {
             get {
                 return ResourceManager.GetString("NumberOfPrecedentsInJournalpostsMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdel (systemID, tittel) {0}, {1} - Antall presedenser i journalposter: {2}.
+        ///   Looks up a localized string similar to Archive part (systemID, title) {0}, {1} - Number of precedents in journal entries: {2}.
         /// </summary>
-        internal static string NumberOfPrecedentsInJournalpostsMessage_ForArchivePart {
+        public static string NumberOfPrecedentsInJournalpostsMessage_ForArchivePart {
             get {
                 return ResourceManager.GetString("NumberOfPrecedentsInJournalpostsMessage_ForArchivePart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det er angitt at arkivstrukturen skal innholde {0} registreringer, men {1} ble funnet.
+        ///   Looks up a localized string similar to The archive structure is specified with {0} registrations, but {1} was found.
         /// </summary>
-        internal static string NumberOfRegistrations_DocumentedAndActualMismatch {
+        public static string NumberOfRegistrations_DocumentedAndActualMismatch {
             get {
                 return ResourceManager.GetString("NumberOfRegistrations_DocumentedAndActualMismatch", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klasser uten registreringer (og uten underklasser) - Antall: {0}.
+        ///   Looks up a localized string similar to Classes without registrations (and without subclasses) - Number: {0}.
         /// </summary>
-        internal static string NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations {
+        public static string NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations {
             get {
                 return ResourceManager.GetString("NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klasse (systemID): {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Class (systemID): {0} - Number: {1}.
         /// </summary>
-        internal static string NumberOfRegistrationsPerClassMessage_NumberOfRegistrations {
+        public static string NumberOfRegistrationsPerClassMessage_NumberOfRegistrations {
             get {
                 return ResourceManager.GetString("NumberOfRegistrationsPerClassMessage_NumberOfRegistrations", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skjerminger i {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Restrictions in {0} - Number: {1}.
         /// </summary>
-        internal static string NumberOfRestrictionsMessage {
+        public static string NumberOfRestrictionsMessage {
             get {
                 return ResourceManager.GetString("NumberOfRestrictionsMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det er angitt at uttrekket ikke skal inneholde skjerminger, men skjerminger ble funnet.
+        ///   Looks up a localized string similar to The archive extract is specified with no restricted entries, but restricted entries were found.
         /// </summary>
-        internal static string NumberOfRestrictionsMessage_DocFalseActualTrue {
+        public static string NumberOfRestrictionsMessage_DocFalseActualTrue {
             get {
                 return ResourceManager.GetString("NumberOfRestrictionsMessage_DocFalseActualTrue", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det er angitt at uttrekket skal inneholde skjerminger, men ingen skjerminger ble funnet.
+        ///   Looks up a localized string similar to The archive extract is specified with restricted entries, but no restricted entries were found.
         /// </summary>
-        internal static string NumberOfRestrictionsMessage_DocTrueActualFalse {
+        public static string NumberOfRestrictionsMessage_DocTrueActualFalse {
             get {
                 return ResourceManager.GetString("NumberOfRestrictionsMessage_DocTrueActualFalse", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mappetype: {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Folder type: {0} - Number: {1}.
         /// </summary>
-        internal static string NumberOfTypeFolders {
+        public static string NumberOfTypeFolders {
             get {
                 return ResourceManager.GetString("NumberOfTypeFolders", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mappetype: {0} - Antall på nivå {1}: {2}.
+        ///   Looks up a localized string similar to Folder type: {0} - Number at level {1}: {2}.
         /// </summary>
-        internal static string NumberOfTypeFoldersAtLevel {
+        public static string NumberOfTypeFoldersAtLevel {
             get {
                 return ResourceManager.GetString("NumberOfTypeFoldersAtLevel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registreringstype: {0} - Antall: {1}.
+        ///   Looks up a localized string similar to Registration type: {0} - Number: {1}.
         /// </summary>
-        internal static string NumberOfTypeRegistrations {
+        public static string NumberOfTypeRegistrations {
             get {
                 return ResourceManager.GetString("NumberOfTypeRegistrations", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Primært.
+        ///   Looks up a localized string similar to Primary.
         /// </summary>
-        internal static string Primary {
+        public static string Primary {
             get {
                 return ResourceManager.GetString("Primary", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sekundært.
+        ///   Looks up a localized string similar to Secondary.
         /// </summary>
-        internal static string Secondary {
+        public static string Secondary {
             get {
                 return ResourceManager.GetString("Secondary", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkivdelstatus: {0}.
+        ///   Looks up a localized string similar to Archive part status: {0}.
         /// </summary>
-        internal static string StatusOfArchivePartsMessage {
+        public static string StatusOfArchivePartsMessage {
             get {
                 return ResourceManager.GetString("StatusOfArchivePartsMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status for arkivdel (systemID, tittel) {0}, {1}: {2}.
+        ///   Looks up a localized string similar to Status for archive part (systemID, title) {0}, {1}: {2}.
         /// </summary>
-        internal static string StatusOfArchivePartsMessage_ForArchivePart {
+        public static string StatusOfArchivePartsMessage_ForArchivePart {
             get {
                 return ResourceManager.GetString("StatusOfArchivePartsMessage_ForArchivePart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ikke-unik ID: Systemidentifikasjonen (systemID) {0} forekommer {1} ganger.
+        ///   Looks up a localized string similar to Non-unique ID: System identification (systemID) {0} occurs {1} times.
         /// </summary>
-        internal static string SystemIdUniqueControlMessage {
+        public static string SystemIdUniqueControlMessage {
             get {
                 return ResourceManager.GetString("SystemIdUniqueControlMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Totalt: {0}.
+        ///   Looks up a localized string similar to Total: {0}.
         /// </summary>
-        internal static string TotalResultNumber {
+        public static string TotalResultNumber {
             get {
                 return ResourceManager.GetString("TotalResultNumber", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentfiler ble ikke funnet oppgitt.
+        ///   Looks up a localized string similar to Number of document files were not found specified.
         /// </summary>
-        internal static string ValidateNumberOfDocumentfilesMessage_DocumentationNotFound {
+        public static string ValidateNumberOfDocumentfilesMessage_DocumentationNotFound {
             get {
                 return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_DocumentationNotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det er ikke samsvar mellom oppgitt antall og faktisk antall dokumentfiler.
+        ///   Looks up a localized string similar to Mismatch between the specified and the actual number of document files.
         /// </summary>
-        internal static string ValidateNumberOfDocumentfilesMessage_FileAndDocumentationMismatch {
+        public static string ValidateNumberOfDocumentfilesMessage_FileAndDocumentationMismatch {
             get {
                 return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_FileAndDocumentationMismatch", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ingen dokumentfilkatalog funnet.
+        ///   Looks up a localized string similar to No document file directory found.
         /// </summary>
-        internal static string ValidateNumberOfDocumentfilesMessage_FilesDirectoryNotFound {
+        public static string ValidateNumberOfDocumentfilesMessage_FilesDirectoryNotFound {
             get {
                 return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_FilesDirectoryNotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ingen dokumentfiler funnet.
+        ///   Looks up a localized string similar to No document files found.
         /// </summary>
-        internal static string ValidateNumberOfDocumentfilesMessage_NoFilesFound {
+        public static string ValidateNumberOfDocumentfilesMessage_NoFilesFound {
             get {
                 return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_NoFilesFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oppgitt antall dokumentfiler: {0}.
+        ///   Looks up a localized string similar to Specified number of document files: {0}.
         /// </summary>
-        internal static string ValidateNumberOfDocumentfilesMessage_NumberOfFilesDocumented {
+        public static string ValidateNumberOfDocumentfilesMessage_NumberOfFilesDocumented {
             get {
                 return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_NumberOfFilesDocumented", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Antall dokumentfiler funnet: {0}.
+        ///   Looks up a localized string similar to Number of document files found: {0}.
         /// </summary>
-        internal static string ValidateNumberOfDocumentfilesMessage_NumberOfFilesFound {
+        public static string ValidateNumberOfDocumentfilesMessage_NumberOfFilesFound {
             get {
                 return ResourceManager.GetString("ValidateNumberOfDocumentfilesMessage_NumberOfFilesFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filen {0} er listet opp i arkivuttrekket, men mangler i pakke.
+        ///   Looks up a localized string similar to The file {0} is listed in the archive extract, but is missing in the package.
         /// </summary>
-        internal static string ValidateStructureFileExists_FileMissing {
+        public static string ValidateStructureFileExists_FileMissing {
             get {
                 return ResourceManager.GetString("ValidateStructureFileExists_FileMissing", resourceCulture);
             }

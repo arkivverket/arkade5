@@ -1,6 +1,4 @@
 ﻿using System;
-using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Testing;
 
 namespace Arkivverket.Arkade.Core.Logging
 {

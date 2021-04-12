@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base
 {
@@ -25,10 +24,6 @@ namespace Arkivverket.Arkade.Core.Base
             if (!archiveFile.Exists)
             {
                 throw new ArkadeException("No such file: " + archiveFile.FullName);
-            }
-            if (archiveFile.Extension != ".tar")
-            {
-                throw new ArkadeException("A file with extension .tar must be selected");
             }
 
             return new ArchiveFile(archiveFile, archiveType);

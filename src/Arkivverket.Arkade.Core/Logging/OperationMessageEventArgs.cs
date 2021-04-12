@@ -24,6 +24,7 @@ namespace Arkivverket.Arkade.Core.Logging
         Started,
         Ok,
         Error,
-        Warning
+        Warning,
+        Info
     }
 }

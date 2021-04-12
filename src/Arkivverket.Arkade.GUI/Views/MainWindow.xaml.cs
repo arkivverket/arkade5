@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Shell;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.GUI.Models;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.ViewModels;
 
@@ -10,8 +11,6 @@ namespace Arkivverket.Arkade.GUI.Views
 {
     public partial class MainWindow : Window
     {
-        public static bool TestsIsRunningOrHasRun { get; set; }
-
         public static readonly BackgroundWorker ProgressBarWorker = new BackgroundWorker();
 
         public MainWindow()
@@ -19,7 +18,7 @@ namespace Arkivverket.Arkade.GUI.Views
             try
             {
                 InitializeComponent();
-                Title = GUI.Resources.GUI.General_WindowTitle;
+                Title = Languages.GUI.General_WindowTitle;
                 Loaded += (sender, e) =>
                 {
                     if (!ArkadeProcessingAreaLocationSetting.IsValid())
@@ -37,9 +36,9 @@ namespace Arkivverket.Arkade.GUI.Views
 
         private void WindowClosing(object sender, CancelEventArgs e)
         {
-            if (TestsIsRunningOrHasRun && !InformationPackageCreator.HasRun)
+            if (ArkadeProcessingState.TestingIsStarted && !ArkadeProcessingState.PackingIsFinished)
             {
-                MessageBoxResult dialogResult = MessageBox.Show(GUI.Resources.GUI.UnsavedTestResultsOnExitWarning,
+                MessageBoxResult dialogResult = MessageBox.Show(Languages.GUI.UnsavedTestResultsOnExitWarning,
                     "NB!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
 
                 if(dialogResult == MessageBoxResult.No)

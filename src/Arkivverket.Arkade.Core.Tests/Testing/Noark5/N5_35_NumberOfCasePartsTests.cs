@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_35_NumberOfCasePartsTests
+    public class N5_35_NumberOfCasePartsTests : LanguageDependentTest
     {
         const string TestDataDirectory = "TestData\\Noark5\\Small";
         const string TestDataDirectoryV5_5 = "TestData\\Noark5\\Version5_5";

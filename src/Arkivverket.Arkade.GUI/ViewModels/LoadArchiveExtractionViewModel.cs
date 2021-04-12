@@ -2,6 +2,8 @@ using System.IO;
 using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Identify;
+using Arkivverket.Arkade.GUI.Languages;
+using Arkivverket.Arkade.GUI.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -15,7 +17,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private readonly IRegionManager _regionManager;
         private string _archiveFileName;
-        private string _archiveFileNameGuiRepresentation = Resources.GUI.LoadArchiveChooseArchiveLabelText;
+        private string _archiveFileNameGuiRepresentation = LoadArchiveExtractionGUI.ChooseArchiveLabelText;
         private bool _isArchiveFileNameSelected;
         private ArchiveType? _archiveType;
         private bool _isArchiveTypeSelected;
@@ -27,7 +29,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set
             {
                 SetProperty(ref _archiveFileName, value);
-                NavigateCommand.RaiseCanExecuteChanged();
+                NavigateToTestRunnerCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -37,7 +39,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set
             {
                 SetProperty(ref _archiveFileNameGuiRepresentation, value);
-                NavigateCommand.RaiseCanExecuteChanged();
+                NavigateToTestRunnerCommand.RaiseCanExecuteChanged();
                 IsArchiveFileNameSelected = !string.IsNullOrWhiteSpace(value);
             }
         }
@@ -48,7 +50,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _isArchiveFileNameSelected, value);
         }
 
-
         public ArchiveType? ArchiveType
         {
             get => _archiveType;
@@ -56,12 +57,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 SetProperty(ref _archiveType, value);
                 _isArchiveTypeSelected = value != null;
-                NavigateCommand.RaiseCanExecuteChanged();
+                NavigateToTestRunnerCommand.RaiseCanExecuteChanged();
             }
         }
 
-
-        public DelegateCommand NavigateCommand { get; set; }
+        public DelegateCommand NavigateToTestRunnerCommand { get; set; }
         public DelegateCommand OpenArchiveFileCommand { get; set; }
         public DelegateCommand OpenArchiveFolderCommand { get; set; }
 
@@ -72,11 +72,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             OpenArchiveFileCommand = new DelegateCommand(OpenArchiveFileDialog);
             OpenArchiveFolderCommand = new DelegateCommand(OpenArchiveFolderDialog);
 
-            NavigateCommand = new DelegateCommand(Navigate, CanRunTests);
+            NavigateToTestRunnerCommand = new DelegateCommand(NavigateToTestRunner, CanRunTests);
             _isArchiveTypeSelected = false;
         }
 
-        private void Navigate()
+        private void NavigateToTestRunner()
         {
             _log.Information("User action: Navigate to test runner window with archive file {ArchiveFile} and archive type {ArchiveType}", ArchiveFileName, ArchiveType);
 
@@ -143,6 +143,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool OpenFileDialog(out string fullFilePath)
         {
             var dialog = new OpenFileDialog();
+            dialog.Filter = LoadArchiveExtractionGUI.ChooseArchiveFileDialogFilter;
             DialogResult dialogResult = dialog.ShowDialog();
 
             if (dialogResult == DialogResult.OK)
@@ -183,6 +184,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+            ArkadeProcessingState.Reset();
+            MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

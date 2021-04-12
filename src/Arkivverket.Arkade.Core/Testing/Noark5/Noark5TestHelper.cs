@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Core.Base;

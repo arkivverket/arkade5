@@ -633,6 +633,123 @@
     <None Update="TestData\Report\report.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\Siard\metadata.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs.siard">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\content\schema0\table0\lob7\record0.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\content\schema0\table0\lob7\record1.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\content\schema0\table0\lob7\record2.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\content\schema0\table0\lob7\record3.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\content\schema0\table0\lob7\record4.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\content\schema0\table0\lob7\record5.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\content\schema0\table0\lob7\record6.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\content\schema0\table0\lob7\record7.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\content\schema0\table0\lob7\record8.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\content\schema0\table0\lob7\record9.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\content\schema0\table0\table0.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\content\schema0\table0\table0.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\header\metadata.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\header\metadata.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\siard1_med_blobs\header\metadata.xsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs.siard">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table0\table0.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table0\table0.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table2\table2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table2\table2.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table3\lob6\seg0\rec1.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table3\lob6\seg0\rec2.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table3\lob6\seg0\rec3.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table3\lob6\seg0\rec4.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table3\lob6\seg0\rec5.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table3\lob6\seg0\rec6.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table3\lob6\seg0\rec7.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table3\lob6\seg0\rec8.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table3\lob6\seg0\rec9.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table3\table3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table3\table3.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table4\table4.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table4\table4.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table5\table5.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\content\schema0\table5\table5.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\header\metadata.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Siard\testuttrekk_med_blobs\header\metadata.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\tar\fagsystem-eksempel\fs-guid.tar">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

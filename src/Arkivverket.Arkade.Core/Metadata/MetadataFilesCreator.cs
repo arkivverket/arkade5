@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Report;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Serilog;
@@ -18,18 +21,23 @@ namespace Arkivverket.Arkade.Core.Metadata
         private readonly LogCreator _logCreator;
         private readonly EacCpfCreator _eacCpfCreator;
         private readonly EadCreator _eadCreator;
+        private readonly ISiardXmlTableReader _siardXmlTableReader;
+        private readonly ISiardArchiveReader _siardArchiveReader;
 
-        public MetadataFilesCreator(DiasMetsCreator diasMetsCreator, DiasPremisCreator diasPremisCreator, EadCreator eadCreator,
-            EacCpfCreator eacCpfCreator, LogCreator logCreator)
+        public MetadataFilesCreator(DiasMetsCreator diasMetsCreator, DiasPremisCreator diasPremisCreator,
+            EadCreator eadCreator, EacCpfCreator eacCpfCreator, LogCreator logCreator, ISiardXmlTableReader siardXmlTableReader,
+            ISiardArchiveReader siardArchiveReader)
         {
             _diasMetsCreator = diasMetsCreator;
             _diasPremisCreator = diasPremisCreator;
             _logCreator = logCreator;
             _eadCreator = eadCreator;
             _eacCpfCreator = eacCpfCreator;
+            _siardXmlTableReader = siardXmlTableReader;
+            _siardArchiveReader = siardArchiveReader;
         }
 
-        public void Create(Archive archive, ArchiveMetadata metadata, bool generateDocumentFileInfo)
+        public void Create(Archive archive, ArchiveMetadata metadata, bool generateFileFormatInfo)
         {
             _diasPremisCreator.CreateAndSaveFile(archive, metadata);
             _logCreator.CreateAndSaveFile(archive, metadata);
@@ -39,17 +47,44 @@ namespace Arkivverket.Arkade.Core.Metadata
             _eacCpfCreator.CreateAndSaveFile(archive, metadata);
 
             CopyXsdFiles(archive.WorkingDirectory);
-            
-            if (generateDocumentFileInfo)
+
+            if (archive.ArchiveType == ArchiveType.Siard)
+                ExtractSiardMetadataFiles(archive);
+
+            if (generateFileFormatInfo)
             {
-                string resultFileDirectoryPath = archive.WorkingDirectory.AdministrativeMetadata().DirectoryInfo().FullName;
-                DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
-                string resultFileName = string.Format(ArkadeConstants.FileFormatInfoFileName, documentsDirectory.Name);
-                string resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
-                
                 try
                 {
-                    FileFormatInfoGenerator.Generate(documentsDirectory, resultFileFullName, true);
+                    string resultFileDirectoryPath = archive.WorkingDirectory.AdministrativeMetadata().DirectoryInfo().FullName;
+                    string resultFileName;
+                    string resultFileFullName;
+                    
+                    if (archive.ArchiveType == ArchiveType.Siard)
+                    {
+                        string headerDirectoryPath = Path.Combine(
+                            archive.WorkingDirectory.Content().DirectoryInfo().FullName, 
+                            ArkadeConstants.SiardHeaderDirectoryName);
+
+                        string archivePath = archive.WorkingDirectory.HasExternalContentDirectory() &&
+                                             Directory.Exists(headerDirectoryPath)
+                            ? archive.WorkingDirectory.Content().DirectoryInfo().FullName
+                            : archive.WorkingDirectory.Content().DirectoryInfo().GetFiles("*.siard")[0].FullName;
+
+                        string archiveFileName = Path.GetFileName(archivePath);
+
+                        resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, archiveFileName);
+                        resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
+
+                        List<IFileFormatInfo> formatAnalysedLobs = _siardXmlTableReader.GetFormatAnalysedLobs(archivePath);
+                        FileFormatInfoGenerator.Generate(formatAnalysedLobs, archivePath, resultFileFullName);
+                    }
+                    else
+                    {
+                        DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
+                        resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, documentsDirectory.Name);
+                        resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
+                        FileFormatInfoGenerator.Generate(archive.GetDocumentsDirectory(), resultFileFullName);
+                    }
                 }
                 catch (SiegfriedFileFormatIdentifierException siegfriedException)
                 {
@@ -98,6 +133,50 @@ namespace Arkivverket.Arkade.Core.Metadata
                     xsdResourceStream.CopyTo(targetXsdFileStream);
                 }
             }
+        }
+
+        private void ExtractSiardMetadataFiles(Archive archive)
+        {
+            var administrativeMetadataPath = archive.WorkingDirectory.AdministrativeMetadata().ToString();
+            string sourceDirectory = Path.Combine(
+                archive.WorkingDirectory.Content().DirectoryInfo().FullName,
+                ArkadeConstants.SiardHeaderDirectoryName
+            );
+            if (archive.WorkingDirectory.HasExternalContentDirectory() && Directory.Exists(sourceDirectory))
+            {
+                CopySiardMetadataFile(
+                    ArkadeConstants.SiardMetadataXmlFileName, sourceDirectory, administrativeMetadataPath
+                );
+                CopySiardMetadataFile(
+                    ArkadeConstants.SiardMetadataXsdFileName, sourceDirectory, administrativeMetadataPath
+                );
+            }
+            else
+            {
+                string archiveFilePath =
+                    archive.WorkingDirectory.Content().DirectoryInfo().GetFiles("*.siard")[0].FullName;
+                ExtractSiardMetadataFile(ArkadeConstants.SiardMetadataXmlFileName, administrativeMetadataPath,
+                    archiveFilePath);
+                ExtractSiardMetadataFile(ArkadeConstants.SiardMetadataXsdFileName, administrativeMetadataPath,
+                    archiveFilePath);
+            }
+        }
+
+        private static void CopySiardMetadataFile(string fileName, string sourceDirectory, string targetDirectory)
+        {
+            string sourceFileName = Path.Combine(sourceDirectory, fileName);
+            string targetFileName = Path.Combine(targetDirectory, fileName);
+            File.Copy(sourceFileName, targetFileName);
+        }
+
+        private void ExtractSiardMetadataFile(string fileName, string targetDirectory, string archiveFilePath)
+        {
+            string targetFileName = Path.Combine(targetDirectory, fileName);
+            using var siardFileStream = new FileStream(archiveFilePath, FileMode.Open, FileAccess.Read);
+            string fileContent = _siardArchiveReader.GetNamedEntryFromSiardFileStream(siardFileStream, fileName);
+            using FileStream targetFileStream = File.Create(targetFileName);
+            using var streamWriter = new StreamWriter(targetFileStream, Encodings.UTF8);
+            streamWriter.Write(fileContent);
         }
     }
 }
