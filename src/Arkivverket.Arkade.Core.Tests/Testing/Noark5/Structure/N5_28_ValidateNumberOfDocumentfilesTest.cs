@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
 {
-    public class N5_28_ValidateNumberOfDocumentfilesTest
+    public class N5_28_ValidateNumberOfDocumentfilesTest : LanguageDependentTest
     {
         [Fact]
         public void DocumentedAndActualFileCountMatch()

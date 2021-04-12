@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_05_NumberOfArchivePartsTests
+    public class N5_05_NumberOfArchivePartsTests : LanguageDependentTest
     {
         [Fact]
         public void ShouldFindTwoArchiveparts()

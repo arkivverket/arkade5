@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_44_NumberOfDisposalResolutionsTest
+    public class N5_44_NumberOfDisposalResolutionsTest : LanguageDependentTest
     {
         [Fact]
         public void HasSeverealDisposalResolutionsOnSingleArchivePart()

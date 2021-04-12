@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_15_NumberOfEachCaseFolderStatusTest
+    public class N5_15_NumberOfEachCaseFolderStatusTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldFindSeveralCaseFolderStatusesInSingleArchivePart()

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_19_ControlNoSuperclassesHasRegistrationsTest
+    public class N5_19_ControlNoSuperclassesHasRegistrationsTest : LanguageDependentTest
     {
         [Fact]
         public void SomeClassesHasBothSubclassesAndRegistrations()

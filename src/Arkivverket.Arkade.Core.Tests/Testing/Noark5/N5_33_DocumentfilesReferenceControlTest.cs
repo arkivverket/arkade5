@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_33_DocumentfilesReferenceControlTest
+    public class N5_33_DocumentfilesReferenceControlTest : LanguageDependentTest
     {
         [Fact]
         public void AllFilesAreReferenced()
