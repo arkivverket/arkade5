@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_26_NumberOfDocumentObjectsTests
+    public class N5_26_NumberOfDocumentObjectsTests : LanguageDependentTest
     {
         [Fact]
         public void ShouldFindTwoDocumentObjects()

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_06_StatusOfArchivePartsTest
+    public class N5_06_StatusOfArchivePartsTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldFindStatusOfSingleArchivePart()

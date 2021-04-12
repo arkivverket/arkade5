@@ -7,6 +7,7 @@ using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.GUI.Languages;
+using Arkivverket.Arkade.GUI.Util;
 using Prism.Commands;
 using Prism.Mvvm;
 using Serilog;
@@ -128,7 +129,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     CloseButtonIsEnabled = false;
                     ProgressBarVisibility = Visibility.Visible;
 
-                    var language = Enum.Parse<SupportedLanguage>(Properties.Settings.Default.SelectedOutputLanguage);
+                    SupportedLanguage language = LanguageSettingHelper.GetOutputLanguage();
 
                     _arkadeApi.GenerateFileFormatInfoFiles(new DirectoryInfo(DirectoryForFormatCheck),
                         DirectoryToSaveFormatCheckResult, Path.GetFileName(filePath), language);

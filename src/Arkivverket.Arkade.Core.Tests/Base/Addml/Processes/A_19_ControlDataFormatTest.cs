@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_19_ControlDataFormatTest
+    public class A_19_ControlDataFormatTest : LanguageDependentTest
     {
 
         [Fact]

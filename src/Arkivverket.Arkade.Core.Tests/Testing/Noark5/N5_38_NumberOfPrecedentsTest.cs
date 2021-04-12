@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_38_NumberOfPrecedentsTest
+    public class N5_38_NumberOfPrecedentsTest : LanguageDependentTest
     {
         [Fact]
         public void NumberOfPrecedentsIsZero()

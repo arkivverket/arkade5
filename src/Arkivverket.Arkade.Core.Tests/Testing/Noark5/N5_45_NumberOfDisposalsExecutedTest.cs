@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_45_NumberOfDisposalsExecutedTest
+    public class N5_45_NumberOfDisposalsExecutedTest : LanguageDependentTest
     {
         [Fact]
         public void HasSeverealDisposalsExecutedWithinSingleArchivePart()

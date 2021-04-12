@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_47_SystemIdUniqueControlTest
+    public class N5_47_SystemIdUniqueControlTest : LanguageDependentTest
     {
         [Fact]
         public void EverySystemIdIsUnique()

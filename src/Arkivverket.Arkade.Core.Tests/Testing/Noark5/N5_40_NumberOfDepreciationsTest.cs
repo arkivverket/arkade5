@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_40_NumberOfDepreciationsTest
+    public class N5_40_NumberOfDepreciationsTest : LanguageDependentTest
     {
         [Fact]
         public void NumberOfDepreciationsIsTwo()

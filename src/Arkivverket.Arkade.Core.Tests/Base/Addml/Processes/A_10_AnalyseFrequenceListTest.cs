@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 {
-    public class A_10_AnalyseFrequenceListTest
+    public class A_10_AnalyseFrequenceListTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldCreateFrequencyList()

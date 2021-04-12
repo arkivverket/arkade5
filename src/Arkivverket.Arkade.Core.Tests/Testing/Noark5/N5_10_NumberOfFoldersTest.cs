@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_10_NumberOfFoldersTest
+    public class N5_10_NumberOfFoldersTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldFindOneCaseFolderAndOneMeetingfolder()

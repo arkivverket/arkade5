@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Util
 {
-    public class AssertTest
+    public class AssertTest : LanguageDependentTest
     {
 
         [Fact]

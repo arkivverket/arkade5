@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_34_NumberOfMultiReferencedDocumentFilesTest
+    public class N5_34_NumberOfMultiReferencedDocumentFilesTest : LanguageDependentTest
     {
         [Fact]
         public void ShouldFindMultiReferencedDocumentFilesInSingleArchivePart()
