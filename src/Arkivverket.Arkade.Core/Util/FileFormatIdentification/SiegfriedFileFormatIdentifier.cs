@@ -90,7 +90,13 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             try
             {
-                process.StartInfo.Arguments += $"\"{directory.FullName}\"";
+                process.StartInfo.Arguments +=
+                    "\"" +
+                    directory.FullName +
+                    (directory.FullName.Equals(Path.GetPathRoot(directory.FullName))
+                        ? Path.DirectorySeparatorChar.ToString()
+                        : string.Empty) +
+                    "\"";
 
                 process.Start();
             }

@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 Filter = ToolsGUI.SaveFormatFileExtensionFilter,
                 FileName = string.Format(
                     OutputFileNames.FileFormatInfoFile,
-                    Path.GetFileName(DirectoryForFormatCheck)
+                    Path.GetFileName(DirectoryForFormatCheck.TrimEnd(Path.GetInvalidFileNameChars()))
                 )
             };
 

@@ -153,7 +153,7 @@ namespace Arkivverket.Arkade.CLI
             Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {analysisDirectory}");
             string outputFileName = options.OutputFileName ?? string.Format(
                 OutputFileNames.FileFormatInfoFile,
-                analysisDirectory.Name
+                analysisDirectory.Name.TrimEnd(Path.GetInvalidFileNameChars())
             );
 
             SupportedLanguage language = GetSupportedLanguage(options.OutputLanguage);
