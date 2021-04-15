@@ -315,7 +315,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schema file {0} could not be found in the extract. Validation is done according to a version of {0} built into Arkade.
+        ///   Looks up a localized string similar to Schema file {0} is not correctly documented in the extract. Validation is done according to a version of {0} built into Arkade.
         /// </summary>
         public static string InternalSchemaFileIsUsed {
             get {

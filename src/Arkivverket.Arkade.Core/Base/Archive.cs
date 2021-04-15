@@ -106,24 +106,17 @@ namespace Arkivverket.Arkade.Core.Base
         {
             XmlUnits = new List<ArchiveXmlUnit>();
 
-            foreach (KeyValuePair<string, IEnumerable<string>> documentedXmlUnit in Details.DocumentedXmlUnits)
+            foreach ((string documentedXmlFileName, IEnumerable<string> documentedXmlSchemas) in Details.DocumentedXmlUnits)
             {
-                string xmlFileName = documentedXmlUnit.Key;
+                IEnumerable<ArchiveXmlSchema> userProvidedSchemas =
+                    documentedXmlSchemas.Select(s => ArchiveXmlSchema.Create(WorkingDirectory.Content().WithFile(s)));
 
-                IEnumerable<string> xmlSchemaNames = documentedXmlUnit.Value;
+                IEnumerable<ArchiveXmlSchema> arkadeSuppliedSchemas = Details.StandardXmlUnits[documentedXmlFileName]
+                    .Except(documentedXmlSchemas).Select(ArchiveXmlSchema.Create);
 
-                var archiveXmlFile = new ArchiveXmlFile(WorkingDirectory.Content().WithFile(xmlFileName));
+                var archiveXmlSchemas = new List<ArchiveXmlSchema>(userProvidedSchemas.Concat(arkadeSuppliedSchemas));
 
-                var archiveXmlSchemas = new List<ArchiveXmlSchema>();
-
-                foreach (string xmlSchemaName in xmlSchemaNames)
-                {
-                    FileInfo xmlSchemaFile = WorkingDirectory.Content().WithFile(xmlSchemaName);
-
-                    ArchiveXmlSchema archiveXmlSchema = ArchiveXmlSchema.Create(xmlSchemaFile);
-
-                    archiveXmlSchemas.Add(archiveXmlSchema);
-                }
+                var archiveXmlFile = new ArchiveXmlFile(WorkingDirectory.Content().WithFile(documentedXmlFileName));
 
                 XmlUnits.Add(new ArchiveXmlUnit(archiveXmlFile, archiveXmlSchemas));
             }

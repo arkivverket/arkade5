@@ -14,6 +14,7 @@ namespace Arkivverket.Arkade.Core.Base
         public string SystemType => GetSystemType();
         public virtual string ArchiveStandard => GetArchiveStandardVersion();
         public Dictionary<string, IEnumerable<string>> DocumentedXmlUnits => GetDocumentedXmlUnits();
+        public Dictionary<string, IEnumerable<string>> StandardXmlUnits => GetStandardXmlUnits();
 
         private readonly addml _addml;
 
@@ -150,6 +151,54 @@ namespace Arkivverket.Arkade.Core.Base
             }
 
             return documentedXmlUnits;
+        }
+
+        private static Dictionary<string, IEnumerable<string>> GetStandardXmlUnits()
+        {
+            var standardXmlUnits = new Dictionary<string, IEnumerable<string>>
+            {
+                {
+                    ArkadeConstants.ArkivuttrekkXmlFileName, 
+                    new[]
+                    {
+                        ArkadeConstants.AddmlXsdFileName,
+                    }
+                },
+                {
+                    ArkadeConstants.ArkivstrukturXmlFileName,
+                    new[]
+                    {
+                        ArkadeConstants.ArkivstrukturXsdFileName,
+                        ArkadeConstants.MetadatakatalogXsdFileName,
+                    }
+                },
+                {
+                    ArkadeConstants.ChangeLogXmlFileName,
+                    new[]
+                    {
+                        ArkadeConstants.ChangeLogXsdFileName,
+                        ArkadeConstants.MetadatakatalogXsdFileName,
+                    }
+                },
+                {
+                    ArkadeConstants.RunningJournalXmlFileName,
+                    new[]
+                    {
+                        ArkadeConstants.RunningJournalXsdFileName,
+                        ArkadeConstants.MetadatakatalogXsdFileName,
+                    }
+                },
+                {
+                    ArkadeConstants.PublicJournalXmlFileName,
+                    new[]
+                    {
+                        ArkadeConstants.PublicJournalXsdFileName,
+                        ArkadeConstants.MetadatakatalogXsdFileName,
+                    }
+                },
+            };
+
+            return standardXmlUnits;
         }
 
         private additionalElements GetContentAdditionalElementsRoot()

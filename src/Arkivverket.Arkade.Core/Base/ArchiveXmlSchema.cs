@@ -1,17 +1,25 @@
 using System.IO;
+using System.Reflection;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Base
 {
     public abstract class ArchiveXmlSchema
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+
         public string FileName => GetFileName();
         
         public static ArchiveXmlSchema Create(FileInfo xmlSchemaFile)
         {
-            if (xmlSchemaFile.Exists)
-                return new UserProvidedXmlSchema(xmlSchemaFile);
+            return new UserProvidedXmlSchema(xmlSchemaFile);
+        }
 
-            return new ArkadeBuiltInXmlSchema(xmlSchemaFile.Name);
+        public static ArchiveXmlSchema Create(string xmlSchemaFileName)
+        {
+            Log.Warning(string.Format(Resources.Noark5Messages.InternalSchemaFileIsUsed, xmlSchemaFileName));
+            
+            return new ArkadeBuiltInXmlSchema(xmlSchemaFileName);
         }
 
         public bool IsUserProvided()
