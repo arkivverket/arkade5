@@ -618,6 +618,9 @@
     <None Update="TestData\package-creation\descriptive_metadata\ead.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\Report\FilesToBeListed\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\Report\FilesToBeListed\content\dokumenter\a.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

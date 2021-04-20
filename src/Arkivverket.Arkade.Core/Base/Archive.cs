@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Arkivverket.Arkade.Core.Base.Addml;
+using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Resources;
 using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
@@ -20,6 +22,7 @@ namespace Arkivverket.Arkade.Core.Base
         private ReadOnlyDictionary<string, DocumentFile> _documentFiles;
         public ReadOnlyDictionary<string, DocumentFile> DocumentFiles => _documentFiles ?? GetDocumentFiles();
         public AddmlXmlUnit AddmlXmlUnit { get; }
+        public AddmlInfo AddmlInfo { get; }
         public ArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
@@ -31,19 +34,21 @@ namespace Arkivverket.Arkade.Core.Base
 
             WorkingDirectory = workingDirectory;
 
+            if (archiveType == ArchiveType.Siard)
+                return;
+            
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
-            if (AddmlXmlUnit.File.Exists)
-            {
-                Details = new ArchiveDetails(this);
+            AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName);
 
-                if (archiveType == ArchiveType.Noark5)
-                {
-                    if (AddmlXmlUnit.HasNoDefinedSchema())
-                        AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
-                    
-                    SetupArchiveXmlUnits();
-                }
+            Details = new ArchiveDetails(AddmlInfo.Addml);
+
+            if (archiveType == ArchiveType.Noark5)
+            {
+                if (AddmlXmlUnit.HasNoDefinedSchema())
+                    AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
+                
+                SetupArchiveXmlUnits();
             }
         }
 

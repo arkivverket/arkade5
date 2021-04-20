@@ -18,16 +18,9 @@ namespace Arkivverket.Arkade.Core.Base
 
         private readonly addml _addml;
 
-        public ArchiveDetails(Archive archive)
+        public ArchiveDetails(addml addml)
         {
-            try
-            {
-                _addml = SerializeUtil.DeserializeFromFile<addml>(archive.AddmlXmlUnit.File);
-            }
-            catch (Exception exception)
-            {
-                throw new ArkadeException($"Error reading addml xml: {exception.Message}");
-            }
+            _addml = addml;
         }
 
         private string GetArchiveCreators()

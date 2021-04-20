@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Testing.Noark5;
@@ -89,19 +88,17 @@ namespace Arkivverket.Arkade.Core.Identify
                 return testSession;
             }
 
-            ArchiveXmlFile addmlFile = archive.AddmlXmlUnit.File;
+            AddmlInfo addml = archive.AddmlInfo;
 
             try
             {
-                AddmlInfo addml = AddmlUtil.ReadFromFile(addmlFile.FullName);
-
                 var addmlDefinitionParser = new AddmlDefinitionParser(addml, workingDirectory, _statusEventHandler);
 
                 testSession.AddmlDefinition = addmlDefinitionParser.GetAddmlDefinition();
             }
             catch (Exception exception)
             {
-                var message = "Reading file " + addmlFile.Name + " failed: " + exception.Message;
+                var message = "Reading file " + addml.AddmlFile.Name + " failed: " + exception.Message;
                 _log.Warning(message);//exception, message);
                 _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
             }

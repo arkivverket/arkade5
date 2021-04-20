@@ -241,6 +241,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
                     : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
 
+                if (!_testSession.IsTestableArchive())
+                    LogNotTestableArchiveOperationMessage();
+
                 if (_testSession.Archive.ArchiveType == ArchiveType.Noark5)
                 {
                     SupportedLanguage uiLanguage = LanguageSettingHelper.GetUILanguage();
@@ -267,18 +270,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     CanSelectTests = true;
                 }
 
-                if (!_testSession.IsTestableArchive())
-                {
-                    string notTestableArchiveMessage = _archiveType == ArchiveType.Siard
-                        ? TestRunnerGUI.SiardSupportInfo
-                        : string.Format(TestRunnerGUI.ArchiveNotTestable, ArkadeProcessingArea.LogsDirectory);
-
-                    _statusEventHandler.RaiseEventOperationMessage(
-                        TestRunnerGUI.ArchiveTestability,
-                        notTestableArchiveMessage,
-                        OperationMessageStatus.Info
-                    );
-                }
 
                 StartTestingCommand.RaiseCanExecuteChanged(); // testSession has been updated, reevaluate command
             }
@@ -287,7 +278,22 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 string message = string.Format(TestRunnerGUI.ErrorReadingArchive, e.Message);
                 Log.Error(e, message);
                 _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
+                if (e is ArkadeException)
+                    LogNotTestableArchiveOperationMessage();
             }
+        }
+
+        private void LogNotTestableArchiveOperationMessage()
+        {
+            string notTestableArchiveMessage = _archiveType == ArchiveType.Siard
+                ? TestRunnerGUI.SiardSupportInfo
+                : string.Format(TestRunnerGUI.ArchiveNotTestable, ArkadeProcessingArea.LogsDirectory);
+
+            _statusEventHandler.RaiseEventOperationMessage(
+                TestRunnerGUI.ArchiveTestability,
+                notTestableArchiveMessage,
+                OperationMessageStatus.Info
+            );
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
