@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.arkivverket.no/standarder/noark5/endringslogg"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:n5mdk="http://www.arkivverket.no/standarder/noark5/metadatakatalog"
+  targetNamespace="http://www.arkivverket.no/standarder/noark5/endringslogg"
+  elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.0">
+
+  <!-- 
+    Noark 5
+    XML Schema for arkivuttrekk fra Noark 5-løsninger
+    Skjema for endringslogg 
+  
+    2013-02-14 - Endringer fra versjon 3.0 til versjon 3.1:
+    1. Endret version-attributtet i xs:schema fra 3.0 til 3.1.
+    
+    2016-12-01 - Endringer fra versjon 3.1 til versjon 4.0:
+    1. Endret version-attributtet i xs:schema fra 3.1 til 4.0.
+    
+    2019-05-02 - Endringer fra versjon 4.0 til versjon 5.0:
+    1. Endret version-attributtet i xs:schema fra 4.0 til 5.0.
+-->
+
+
+  <xs:annotation>
+    <xs:documentation xml:lang="no">Noark 5</xs:documentation>
+    <xs:documentation xml:lang="no">XML Schema for arkivuttrekk fra Noark 5-løsninger</xs:documentation>
+    <xs:documentation xml:lang="no">Skjema for endringslogg</xs:documentation>
+  </xs:annotation>
+
+  <xs:import namespace="http://www.arkivverket.no/standarder/noark5/metadatakatalog"
+	  schemaLocation="metadatakatalog.xsd"/>
+
+  <!-- Rotelementet -->
+  <xs:element name="endringslogg" type="endringslogg"/>
+
+
+  <xs:complexType name="endringslogg">
+    <xs:sequence>
+      <xs:element name="endring" type="endring" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="endring">
+    <xs:sequence>
+      <xs:element name="referanseArkivenhet" type="n5mdk:referanseArkivenhet"/>
+      <xs:element name="referanseMetadata" type="n5mdk:referanseMetadata"/>
+      <xs:element name="endretDato" type="n5mdk:endretDato"/>
+      <xs:element name="endretAv" type="n5mdk:endretAv"/>
+      <xs:element name="tidligereVerdi" type="n5mdk:tidligereVerdi"/>
+      <xs:element name="nyVerdi" type="n5mdk:nyVerdi"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

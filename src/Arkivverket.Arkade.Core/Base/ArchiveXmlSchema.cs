@@ -15,11 +15,11 @@ namespace Arkivverket.Arkade.Core.Base
             return new(xmlSchemaFile);
         }
 
-        public static ArkadeBuiltInXmlSchema Create(string xmlSchemaFileName)
+        public static ArkadeBuiltInXmlSchema Create(string xmlSchemaFileName, string archiveTypeVersion)
         {
-            Log.Warning(string.Format(Resources.Noark5Messages.InternalSchemaFileIsUsed, xmlSchemaFileName));
+            Log.Warning(string.Format(Resources.Noark5Messages.InternalSchemaFileIsUsed, xmlSchemaFileName, archiveTypeVersion));
             
-            return new ArkadeBuiltInXmlSchema(xmlSchemaFileName);
+            return new ArkadeBuiltInXmlSchema(xmlSchemaFileName, archiveTypeVersion);
         }
 
         public bool IsUserProvided()

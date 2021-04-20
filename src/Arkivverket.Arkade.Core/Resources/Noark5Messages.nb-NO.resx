@@ -201,7 +201,7 @@ Generert:  {2}</value>
     <value>Filen {0} ble ikke funnet</value>
   </data>
   <data name="InternalSchemaFileIsUsed" xml:space="preserve">
-    <value>Skjemafil {0} er ikke korrekt dokumentert i uttrekket. Validering utføres ihht. en versjon av {0} som er innebygget i Arkade</value>
+    <value>Skjemafil {0} er ikke korrekt dokumentert i uttrekket. Arkade bruker derfor innebygd versjon {1} av {0}.</value>
   </data>
   <data name="JournalPostRegistrationCount" xml:space="preserve">
     <value>Journalpostregistreringer: {0}</value>
@@ -409,5 +409,8 @@ Generert:  {2}</value>
   </data>
   <data name="ChecksumAlgorithmMessage" xml:space="preserve">
     <value>Algoritme brukt til sjekksum-validering: {0}</value>
+  </data>
+  <data name="Noark5VersionNotSupportedForBuiltInSchemas" xml:space="preserve">
+    <value>Arkade støtter ikke innebygde skjema for Noark5 versjon {0}</value>
   </data>
 </root>

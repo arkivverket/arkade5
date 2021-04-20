@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -24,6 +24,21 @@
 
   <ItemGroup>
     <None Remove="Bundled\siegfried.exe" />
+    <None Remove="ExternalModels\Noark5\v3_1\arkivstruktur.xsd" />
+    <None Remove="ExternalModels\Noark5\v3_1\endringslogg.xsd" />
+    <None Remove="ExternalModels\Noark5\v3_1\loependeJournal.xsd" />
+    <None Remove="ExternalModels\Noark5\v3_1\metadatakatalog.xsd" />
+    <None Remove="ExternalModels\Noark5\v3_1\offentligJournal.xsd" />
+    <None Remove="ExternalModels\Noark5\v4_0\arkivstruktur.xsd" />
+    <None Remove="ExternalModels\Noark5\v4_0\endringslogg.xsd" />
+    <None Remove="ExternalModels\Noark5\v4_0\loependeJournal.xsd" />
+    <None Remove="ExternalModels\Noark5\v4_0\metadatakatalog.xsd" />
+    <None Remove="ExternalModels\Noark5\v4_0\offentligJournal.xsd" />
+    <None Remove="ExternalModels\Noark5\v5_0\arkivstruktur.xsd" />
+    <None Remove="ExternalModels\Noark5\v5_0\endringslogg.xsd" />
+    <None Remove="ExternalModels\Noark5\v5_0\loependeJournal.xsd" />
+    <None Remove="ExternalModels\Noark5\v5_0\metadatakatalog.xsd" />
+    <None Remove="ExternalModels\Noark5\v5_0\offentligJournal.xsd" />
     <None Remove="ExternalModels\xsd\addml.xsd" />
     <None Remove="ExternalModels\xsd\arkivstruktur.xsd" />
     <None Remove="ExternalModels\xsd\cpf.xsd" />
@@ -45,6 +60,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="ExternalModels\Noark5\v3_1\arkivstruktur.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v3_1\endringslogg.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v3_1\loependeJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v3_1\metadatakatalog.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v3_1\offentligJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v4_0\arkivstruktur.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v4_0\endringslogg.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v4_0\loependeJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v4_0\metadatakatalog.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v4_0\offentligJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v5_0\arkivstruktur.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v5_0\endringslogg.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v5_0\loependeJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v5_0\metadatakatalog.xsd" />
+    <EmbeddedResource Include="ExternalModels\Noark5\v5_0\offentligJournal.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\addml.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\arkivstruktur.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\cpf.xsd" />

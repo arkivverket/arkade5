@@ -279,7 +279,7 @@ Generated: {2}</value>
     <value>There was a problem while validating {0}: {1}</value>
   </data>
   <data name="InternalSchemaFileIsUsed" xml:space="preserve">
-    <value>Schema file {0} is not correctly documented in the extract. Validation is done according to a version of {0} built into Arkade</value>
+    <value>Schema file {0} is not correctly documented in the extract. Arkade will be using the built-in version {1} of {0}.</value>
   </data>
   <data name="NumberOfFoldersPerClassMessage_NumberOfClassesWithoutFolders" xml:space="preserve">
     <value>Classes without folders (and without subclasses) - Number: {0}</value>
@@ -409,5 +409,8 @@ Generated: {2}</value>
   </data>
   <data name="ChecksumAlgorithmMessage" xml:space="preserve">
     <value>Algorithm used for checksum validation: {0}</value>
+  </data>
+  <data name="Noark5VersionNotSupportedForBuiltInSchemas" xml:space="preserve">
+    <value>Arkade does not support built-in schemas for Noark5 version {0}</value>
   </data>
 </root>

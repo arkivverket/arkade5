@@ -38,7 +38,12 @@ namespace Arkivverket.Arkade.Core.Base
                 Details = new ArchiveDetails(this);
 
                 if (archiveType == ArchiveType.Noark5)
+                {
+                    if (AddmlXmlUnit.HasNoDefinedSchema())
+                        AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
+                    
                     SetupArchiveXmlUnits();
+                }
             }
         }
 
@@ -101,7 +106,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             ArchiveXmlSchema addmlSchema = addmlXsdFileInfo.Exists
                 ? ArchiveXmlSchema.Create(addmlXsdFileInfo)
-                : ArchiveXmlSchema.Create(AddmlXsdFileName);
+                : null;
 
             return new AddmlXmlUnit(addmlXmlFile, addmlSchema);
         }
@@ -116,7 +121,8 @@ namespace Arkivverket.Arkade.Core.Base
                     documentedXmlSchemas.Select(s => ArchiveXmlSchema.Create(WorkingDirectory.Content().WithFile(s)));
 
                 IEnumerable<ArchiveXmlSchema> arkadeSuppliedSchemas = Details.StandardXmlUnits[documentedXmlFileName]
-                    .Except(documentedXmlSchemas).Select(ArchiveXmlSchema.Create);
+                    .Except(documentedXmlSchemas).Select(s => ArchiveXmlSchema
+                        .Create(s, AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version));
 
                 var archiveXmlSchemas = new List<ArchiveXmlSchema>(userProvidedSchemas.Concat(arkadeSuppliedSchemas));
 
@@ -152,6 +158,15 @@ namespace Arkivverket.Arkade.Core.Base
             Log.Information($"{documentFiles.Count} document files registered.");
 
             return _documentFiles;
+        }
+
+        private bool AddmlVersionIsSupported()
+        {
+            if (SupportedNoark5Versions.Contains(Details.ArchiveStandard))
+                return true;
+
+            Log.Warning(string.Format(Noark5Messages.Noark5VersionNotSupportedForBuiltInSchemas, Details.ArchiveStandard));
+            return false;
         }
     }
 

@@ -1,4 +1,4 @@
-﻿namespace Arkivverket.Arkade.Core.Base
+namespace Arkivverket.Arkade.Core.Base
 {
     public class AddmlXmlUnit : ArchiveXmlUnit
     {
@@ -11,6 +11,11 @@
         public AddmlXmlUnit(ArchiveXmlFile archiveXmlFile, ArchiveXmlSchema archiveXmlSchema)
         : base(archiveXmlFile, archiveXmlSchema)
         {
+        }
+
+        internal bool HasNoDefinedSchema()
+        {
+            return Schema == null;
         }
     }
 }

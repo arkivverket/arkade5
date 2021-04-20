@@ -315,7 +315,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schema file {0} is not correctly documented in the extract. Validation is done according to a version of {0} built into Arkade.
+        ///   Looks up a localized string similar to Schema file {0} is not correctly documented in the extract. Arkade will be using the built-in version {1} of {0}..
         /// </summary>
         public static string InternalSchemaFileIsUsed {
             get {
@@ -338,6 +338,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string MeetingRegistrationCount {
             get {
                 return ResourceManager.GetString("MeetingRegistrationCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkade does not support built-in schemas for Noark5 version {0}.
+        /// </summary>
+        public static string Noark5VersionNotSupportedForBuiltInSchemas {
+            get {
+                return ResourceManager.GetString("Noark5VersionNotSupportedForBuiltInSchemas", resourceCulture);
             }
         }
         
