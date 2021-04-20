@@ -209,4 +209,10 @@ It can still be created a package from the extract.</value>
   <data name="SiardSupportInfo" xml:space="preserve">
     <value>Compliance testing for Siard extracts is not supported. Format analysis for BLOBs/CLOBs in the extract is available upon creation of package.</value>
   </data>
+  <data name="UsingBuiltInAddmlSchemaFile" xml:space="preserve">
+    <value>Could not find "addml.xsd" in the extract. Built in version ({0}) will be used.</value>
+  </data>
+  <data name="MissingAddmlSchema" xml:space="preserve">
+    <value>Missing "addml.xsd"</value>
+  </data>
 </root>

@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Base
         private DirectoryInfo DocumentsDirectory { get; set; }
         private ReadOnlyDictionary<string, DocumentFile> _documentFiles;
         public ReadOnlyDictionary<string, DocumentFile> DocumentFiles => _documentFiles ?? GetDocumentFiles();
-        public ArchiveXmlUnit AddmlXmlUnit { get; }
+        public AddmlXmlUnit AddmlXmlUnit { get; }
         public ArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
@@ -88,18 +88,22 @@ namespace Arkivverket.Arkade.Core.Base
             ).DirectoryInfo();
         }
 
-        private ArchiveXmlUnit SetupAddmlXmlUnit()
+        private AddmlXmlUnit SetupAddmlXmlUnit()
         {
             FileInfo addmlFileInfo = WorkingDirectory.Content().WithFile(AddmlXmlFileName);
 
             if (!addmlFileInfo.Exists && ArchiveType == ArchiveType.Noark5)
                 addmlFileInfo = WorkingDirectory.Content().WithFile(ArkivuttrekkXmlFileName);
 
-            var archiveXmlFile = new ArchiveXmlFile(addmlFileInfo);
+            var addmlXmlFile = new ArchiveXmlFile(addmlFileInfo);
 
             FileInfo addmlXsdFileInfo = WorkingDirectory.Content().WithFile(AddmlXsdFileName);
 
-            return new ArchiveXmlUnit(archiveXmlFile, new UserProvidedXmlSchema(addmlXsdFileInfo));
+            ArchiveXmlSchema addmlSchema = addmlXsdFileInfo.Exists
+                ? ArchiveXmlSchema.Create(addmlXsdFileInfo)
+                : ArchiveXmlSchema.Create(AddmlXsdFileName);
+
+            return new AddmlXmlUnit(addmlXmlFile, addmlSchema);
         }
 
         private void SetupArchiveXmlUnits()

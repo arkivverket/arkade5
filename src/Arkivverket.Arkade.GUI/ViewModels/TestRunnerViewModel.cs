@@ -245,6 +245,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 {
                     SupportedLanguage uiLanguage = LanguageSettingHelper.GetUILanguage();
 
+                    if (_testSession.Archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())
+                    {
+                        _statusEventHandler.RaiseEventOperationMessage(
+                            TestRunnerGUI.MissingAddmlSchema,
+                            string.Format(TestRunnerGUI.UsingBuiltInAddmlSchemaFile, ArkadeConstants.BuiltInAddmlSchemaVersion),
+                            OperationMessageStatus.Warning
+                        );
+                    }
+
                     foreach (TestId testId in _testSession.AvailableTests)
                     {
                         _selectableTests.Add(new SelectableTest

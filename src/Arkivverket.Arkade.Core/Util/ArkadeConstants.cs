@@ -42,6 +42,8 @@ namespace Arkivverket.Arkade.Core.Util
 
         public const string DirectoryPathBuiltInXsdResources = "Arkivverket.Arkade.Core.ExternalModels.xsd";
 
+        public const string BuiltInAddmlSchemaVersion = "8.2";
+
         public const string DirectoryNameArkadeProcessingAreaRoot = "arkade-tmp";
         public const string DirectoryNameArkadeProcessingAreaWork = "work";
         public const string DirectoryNameArkadeProcessingAreaLogs = "logs";

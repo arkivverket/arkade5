@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Core.Base
             Schemas = schemas;
         }
 
-        public ArchiveXmlUnit(ArchiveXmlFile file, ArchiveXmlSchema schema)
+        protected ArchiveXmlUnit(ArchiveXmlFile file, ArchiveXmlSchema schema)
             : this(file, new List<ArchiveXmlSchema> {schema})
         {
         }

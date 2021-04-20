@@ -10,12 +10,12 @@ namespace Arkivverket.Arkade.Core.Base
 
         public string FileName => GetFileName();
         
-        public static ArchiveXmlSchema Create(FileInfo xmlSchemaFile)
+        public static UserProvidedXmlSchema Create(FileInfo xmlSchemaFile)
         {
-            return new UserProvidedXmlSchema(xmlSchemaFile);
+            return new(xmlSchemaFile);
         }
 
-        public static ArchiveXmlSchema Create(string xmlSchemaFileName)
+        public static ArkadeBuiltInXmlSchema Create(string xmlSchemaFileName)
         {
             Log.Warning(string.Format(Resources.Noark5Messages.InternalSchemaFileIsUsed, xmlSchemaFileName));
             
