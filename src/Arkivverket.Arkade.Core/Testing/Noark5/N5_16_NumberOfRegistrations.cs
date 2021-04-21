@@ -125,7 +125,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private int GetDocumentedNumberOfRegistrations()
         {
-            var addml = SerializeUtil.DeserializeFromFile<addml>(_archive.AddmlXmlUnit.File);
+            addml addml = _archive.AddmlInfo.Addml;
 
             string numberOfRegistrations = addml.dataset[0].dataObjects.dataObject[0]
                 .dataObjects.dataObject[0].properties.FirstOrDefault(
