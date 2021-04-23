@@ -183,7 +183,7 @@ namespace Arkivverket.Arkade.CLI
 
         private static void OnProcessExit(object sender, EventArgs e)
         {
-            ExternalProcessManager.TerminateAllProcesses();
+            ExternalProcessManager.TerminateAll();
         }
 
         private static void OnProcessCanceled(object sender, EventArgs e)

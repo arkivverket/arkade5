@@ -10,20 +10,20 @@ namespace Arkivverket.Arkade.Core.Util
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
         private static readonly Dictionary<int, Process> Processes = new();
 
-        public static void StartProcess(Process process)
+        public static void Start(Process process)
         {
             process.Start();
             Processes.Add(process.Id, process);
         }
 
-        public static void CloseProcess(Process process)
+        public static void Close(Process process)
         {
             int processId = process.Id;
             process.Close();
             Processes.Remove(processId);
         }
 
-        public static void TerminateAllProcesses()
+        public static void TerminateAll()
         {
             if (Processes.Count == 0)
                 return;
