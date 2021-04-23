@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             IEnumerable<string> siegfriedResult = RunProcessOnDirectory(siegfriedProcess, directory);
 
-            siegfriedProcess.Close();
+            ExternalProcessManager.CloseProcess(siegfriedProcess);
 
             return GetSiegfriedFileInfoObjects(siegfriedResult);
         }
@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             string siegfriedResult = RunProcessOnFile(siegfriedProcess, file);
 
-            siegfriedProcess.Close();
+            ExternalProcessManager.CloseProcess(siegfriedProcess);
 
             return GetSiegfriedFileInfoObject(siegfriedResult);
         }
@@ -50,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             string siegfriedResult = RunProcessOnStream(siegfriedProcess, filePathAndStream);
 
-            siegfriedProcess.Close();
+            ExternalProcessManager.CloseProcess(siegfriedProcess);
 
             return GetSiegfriedFileInfoObject(siegfriedResult);
         }
@@ -99,6 +99,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                     "\"";
 
                 process.Start();
+                ExternalProcessManager.AddProcess(process);
             }
             catch (Exception e)
             {
@@ -135,6 +136,8 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                 process.StartInfo.RedirectStandardInput = true;
 
                 process.Start();
+                ExternalProcessManager.AddProcess(process);
+
                 StreamWriter streamWriter = process.StandardInput;
 
                 filePathAndStream.Value.CopyTo(streamWriter.BaseStream);
