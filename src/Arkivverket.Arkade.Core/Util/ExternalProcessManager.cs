@@ -10,8 +10,9 @@ namespace Arkivverket.Arkade.Core.Util
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
         private static readonly Dictionary<int, Process> Processes = new();
 
-        public static void AddProcess(Process process)
+        public static void StartProcess(Process process)
         {
+            process.Start();
             Processes.Add(process.Id, process);
         }
 

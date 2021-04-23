@@ -98,8 +98,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                         : string.Empty) +
                     "\"";
 
-                process.Start();
-                ExternalProcessManager.AddProcess(process);
+                ExternalProcessManager.StartProcess(process);
             }
             catch (Exception e)
             {
@@ -135,8 +134,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             {
                 process.StartInfo.RedirectStandardInput = true;
 
-                process.Start();
-                ExternalProcessManager.AddProcess(process);
+                ExternalProcessManager.StartProcess(process);
 
                 StreamWriter streamWriter = process.StandardInput;
 
