@@ -130,6 +130,8 @@ namespace Arkivverket.Arkade.GUI
             else if (ArkadeInstance.IsOnlyInstance)
                 ArkadeProcessingArea.CleanUp();
 
+            ExternalProcessManager.TerminateAllProcesses();
+
             base.OnExit(e);
         }
 
