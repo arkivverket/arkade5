@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Arkivverket.Arkade.Core.Base;
+﻿using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;

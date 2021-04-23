@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Util;

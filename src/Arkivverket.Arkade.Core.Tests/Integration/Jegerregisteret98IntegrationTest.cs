@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-﻿using System;
+﻿﻿using System;
 using System.IO;
-using System.Linq;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Base.Addml.Processes;
 using FluentAssertions;
 using Xunit;
 

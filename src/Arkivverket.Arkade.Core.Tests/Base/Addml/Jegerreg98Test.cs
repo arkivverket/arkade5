@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes;
 using Arkivverket.Arkade.Core.Logging;
-using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;
 

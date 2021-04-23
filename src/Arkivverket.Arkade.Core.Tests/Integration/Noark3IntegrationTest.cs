@@ -2,9 +2,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Base.Addml.Processes;
 using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;

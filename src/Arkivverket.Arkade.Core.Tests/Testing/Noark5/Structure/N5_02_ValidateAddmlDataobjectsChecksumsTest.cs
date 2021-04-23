@@ -1,9 +1,5 @@
 using System;
-using System.IO;
-using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Testing;
-using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Testing.Noark5.Structure;
 using FluentAssertions;
 using Xunit;

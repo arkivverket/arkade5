@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Arkivverket.Arkade.Core.Base;
+﻿using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Processes;

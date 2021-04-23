@@ -1,13 +1,9 @@
 using System;
-using System.IO;
-using System.Text;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Tests;
 using Arkivverket.Arkade.Core.Testing.Noark5.Structure;
 using Arkivverket.Arkade.Core.Tests.Base;
 using FluentAssertions;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
 {

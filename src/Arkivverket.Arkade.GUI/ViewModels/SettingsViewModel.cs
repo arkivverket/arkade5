@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using Arkivverket.Arkade.Core.Base;
 using System.Windows;
 using System.Windows.Forms;

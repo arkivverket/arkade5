@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Tests.Identify
             archive.WorkingDirectory.Root().DirectoryInfo().FullName.Should().MatchRegex(pathToExtractedFilesRegex);
             archive.ArchiveType.Should().Be(archiveType);
 
-            System.IO.Directory.Delete(archive.WorkingDirectory.Root().DirectoryInfo().FullName, true);
+            Directory.Delete(archive.WorkingDirectory.Root().DirectoryInfo().FullName, true);
         }
     }
 }

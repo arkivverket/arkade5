@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Metadata;

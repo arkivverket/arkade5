@@ -1,6 +1,5 @@
 using System;
 using System.Globalization;
-using System.Threading;
 using System.Windows;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
