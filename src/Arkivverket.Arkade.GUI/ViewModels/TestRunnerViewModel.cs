@@ -487,7 +487,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             string eventId = TestRunnerGUI.EventIdCreatingReport;
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
 
-            ArkadeApi.SaveReport(_testSession, testReportDirectory);
+            _arkadeApi.SaveReport(_testSession, testReportDirectory);
 
             var message = string.Format(TestRunnerGUI.TestReportIsSavedMessage, testReportDirectory.FullName);
             _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);

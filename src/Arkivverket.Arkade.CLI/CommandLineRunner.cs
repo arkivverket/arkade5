@@ -276,13 +276,13 @@ namespace Arkivverket.Arkade.CLI
         {
             DirectoryInfo packageTestReportDirectory = testSession.Archive.GetTestReportDirectory();
 
-            Core.Base.Arkade.SaveReport(testSession, packageTestReportDirectory);
+            Arkade.SaveReport(testSession, packageTestReportDirectory);
 
             if(createStandAloneTestReport)
             {
                 var standaloneTestReportsDirectory =
                     new DirectoryInfo(Path.Combine(outputDirectory, packageTestReportDirectory.Name));
-                Core.Base.Arkade.SaveReport(testSession, standaloneTestReportsDirectory);
+                Arkade.SaveReport(testSession, standaloneTestReportsDirectory);
                 Log.Information($"Test reports generated at: {standaloneTestReportsDirectory.FullName}");
             }
         }
