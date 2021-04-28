@@ -72,6 +72,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             {
                 ReportType.Html => new HtmlReportGenerator(),
                 ReportType.Json => new JsonReportGenerator(),
+                ReportType.Xml => new XmlReportGenerator(),
                 _ => null
             };
         }
@@ -104,10 +105,41 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             json.Contains("\"Test result 3\"").Should().BeTrue();
         }
 
+        [Fact]
+        public void ShouldGenerateXmlStringWithExpectedInformation()
+        {
+            TestSession testSession = CreateTestSessionWithTwoTestRuns();
+
+            string xml = GenerateReport(testSession, ReportType.Xml);
+
+            xml.Contains("<Summary>").Should().BeTrue();
+            xml.Contains("<ArchiveCreators>").Should().BeTrue();
+            xml.Contains("<ArchivalPeriod>").Should().BeTrue();
+            xml.Contains("<SystemName>").Should().BeTrue();
+            xml.Contains("<SystemType>").Should().BeTrue();
+            xml.Contains("<ArchiveType>").Should().BeTrue();
+            xml.Contains("<DateOfTesting>").Should().BeTrue();
+            xml.Contains("<NumberOfTestsRun>").Should().BeTrue();
+            xml.Contains("<NumberOfProcessedFiles>").Should().BeTrue();
+            xml.Contains("<NumberOfProcessedRecords>").Should().BeTrue();
+            xml.Contains("<NumberOfErrors>").Should().BeTrue();
+            xml.Contains("<TestResults>").Should().BeTrue();
+            xml.Contains("<ExecutedTest>").Should().BeTrue();
+            xml.Contains("<TestId>U.01").Should().BeTrue();
+            xml.Contains("<TestType>ContentAnalysis").Should().BeTrue();
+            xml.Contains("<TestDescription>Test description 1").Should().BeTrue();
+            xml.Contains("<TestResults>").Should().BeTrue();
+            xml.Contains("<Result>").Should().BeTrue();
+            xml.Contains("<ResultType>Error").Should().BeTrue();
+            xml.Contains("<Location>location").Should().BeTrue();
+            xml.Contains("<Message>Test result 1").Should().BeTrue();
+        }
+
         private enum ReportType
         {
             Html,
             Json,
+            Xml,
         }
     }
 }

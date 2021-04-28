@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
 
@@ -28,6 +28,7 @@ namespace Arkivverket.Arkade.Core.Report
             {
                 TestReportFormat.html => new HtmlReportGenerator(),
                 TestReportFormat.json => new JsonReportGenerator(),
+                TestReportFormat.xml => new XmlReportGenerator(),
                 _ => null
             };
         }
@@ -36,6 +37,7 @@ namespace Arkivverket.Arkade.Core.Report
         {
             html,
             json,
+            xml,
         }
     }
 }
