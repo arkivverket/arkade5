@@ -201,4 +201,7 @@
   <data name="DateFormat" xml:space="preserve">
     <value>dd. MMMM yyyy</value>
   </data>
+  <data name="ValueNumberOfTestsExecuted" xml:space="preserve">
+    <value>{0} av {1}</value>
+  </data>
 </root>

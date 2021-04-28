@@ -304,6 +304,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} of {1}.
+        /// </summary>
+        public static string ValueNumberOfTestsExecuted {
+            get {
+                return ResourceManager.GetString("ValueNumberOfTestsExecuted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not all tests are executed.
         /// </summary>
         public static string WarningNotAllTestsExecuted {
