@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
@@ -48,8 +47,8 @@ namespace Arkivverket.Arkade.Core.Tests.Report
         {
             var ms = new MemoryStream();
             var sw = new StreamWriter(ms);
-            var htmlReportGenerator = new HtmlReportGenerator(sw);
-            htmlReportGenerator.Generate(testSession);
+            TestReport testReport = TestReportFactory.Create(testSession);
+            new HtmlReportGenerator().Generate(testReport, sw);
             return Encoding.UTF8.GetString(ms.ToArray());
         }
 

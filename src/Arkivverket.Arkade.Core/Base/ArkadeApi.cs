@@ -115,8 +115,8 @@ namespace Arkivverket.Arkade.Core.Base
             {
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
-                    IReportGenerator reportGenerator = new HtmlReportGenerator(sw);
-                    reportGenerator.Generate(testSession);
+                    TestReport testReport = TestReportFactory.Create(testSession);
+                    new HtmlReportGenerator().Generate(testReport, sw);
                 }
             }
         }
