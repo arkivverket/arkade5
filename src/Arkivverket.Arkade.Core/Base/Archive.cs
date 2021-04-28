@@ -54,7 +54,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         public FileInfo GetTestReportFile()
         {
-            string testReportFileName = string.Format(OutputFileNames.TestReportFile, Uuid);
+            //TODO: consider dynamical setting of file extension
+            string testReportFileName = string.Format(OutputFileNames.TestReportFile, Uuid, "html");
 
             string testReportDirectoryPath = WorkingDirectory.RepositoryOperations().DirectoryInfo().FullName;
             
