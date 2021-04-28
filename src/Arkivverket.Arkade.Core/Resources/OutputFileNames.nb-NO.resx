@@ -135,4 +135,7 @@
   <data name="TestReportFile" xml:space="preserve">
     <value>Arkade-rapport_{0}.{1}</value>
   </data>
+  <data name="TestReportDirectory" xml:space="preserve">
+    <value>Arkade-testrapporter</value>
+  </data>
 </root>

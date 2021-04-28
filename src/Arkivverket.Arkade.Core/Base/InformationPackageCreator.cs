@@ -65,10 +65,13 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (packageType == PackageType.SubmissionInformationPackage)
             {
-                FileInfo testReportFile = archive.GetTestReportFile();
+                DirectoryInfo testReportDirectory = archive.GetTestReportDirectory();
 
-                if (testReportFile.Exists)
-                    testReportFile.CopyTo(Path.Combine(resultDirectory, testReportFile.Name), overwrite: true);
+                if (testReportDirectory.Exists)
+                    foreach (FileInfo file in testReportDirectory.GetFiles())
+                    {
+                        file.CopyTo(Path.Combine(resultDirectory, testReportDirectory.Name), overwrite: true);
+                    }
             }
 
             string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());

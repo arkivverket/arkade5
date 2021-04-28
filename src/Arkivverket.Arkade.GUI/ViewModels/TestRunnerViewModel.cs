@@ -362,7 +362,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                 _testSession.AddLogEntry("Test run completed.");
                 
-                SaveHtmlReport(_testSession.Archive.GetTestReportFile());
+                SaveHtmlReport(_testSession.Archive.GetTestReportDirectory());
 
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedOperation, null, OperationMessageStatus.Ok);
@@ -476,19 +476,20 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ShowHtmlReport()
         {
+            //TODO: Show folder with all reports?
             _log.Information("User action: Show HTML report");
             
-            OpenFile(_testSession.Archive.GetTestReportFile());
+            OpenFile(_testSession.Archive.GetTestReportDirectory().GetFiles().First(f => f.Extension.Equals(".html")));
         }
 
-        private void SaveHtmlReport(FileInfo htmlFile)
+        private void SaveHtmlReport(DirectoryInfo testReportDirectory)
         {
             string eventId = TestRunnerGUI.EventIdCreatingReport;
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
 
-            _arkadeApi.SaveReport(_testSession, htmlFile);
+            ArkadeApi.SaveReport(_testSession, testReportDirectory);
 
-            var message = string.Format(TestRunnerGUI.TestReportIsSavedMessage, htmlFile.FullName);
+            var message = string.Format(TestRunnerGUI.TestReportIsSavedMessage, testReportDirectory.FullName);
             _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);
         }
 
