@@ -1,0 +1,113 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Report;
+using Arkivverket.Arkade.Core.Testing;
+using Arkivverket.Arkade.Core.Tests.Base;
+using Arkivverket.Arkade.Core.Util;
+using FluentAssertions;
+using Xunit;
+
+namespace Arkivverket.Arkade.Core.Tests.Report
+{
+    public class ReportGeneratorTests
+    {
+        private readonly string _workingDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\Report\\FilesToBeListed";
+
+        private TestSession CreateTestSessionWithTwoTestRuns()
+        {
+            TestRun testRun1 = new TestRunBuilder()
+                .WithTestId(new TestId(TestId.TestKind.Unidentified, 1))
+                .WithTestName("Test 1")
+                .WithTestDescription("Test description 1")
+                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
+                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
+                .WithDurationMillis(100L)
+                .Build();
+
+            TestRun testRun2 = new TestRunBuilder()
+                .WithTestId(new TestId(TestId.TestKind.Unidentified, 2))
+                .WithTestName("Test 2")
+                .WithTestDescription("Test description 2")
+                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 1"))
+                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 2"))
+                .WithTestResult(new TestResult(ResultType.Error, new Location("location"), "Test result 3"))
+                .WithDurationMillis(100L)
+                .Build();
+
+            var testRuns = new List<TestRun> { testRun1, testRun2 };
+
+            Archive archive = new ArchiveBuilder()
+                .WithWorkingDirectoryRoot(_workingDirectory)
+                .WithArchiveDetails("5.5")
+                .WithArchiveType(ArchiveType.Noark5)
+                .WithUuid(Uuid.Random())
+                .Build();
+            
+            TestSession testSession = new TestSessionBuilder()
+                .WithArchive(archive)
+                .WithLogEntry("log entry")
+                .WithTestRuns(testRuns)
+                .WithTestSummary(new TestSummary(0, 0, 0))
+                .Build();
+
+            return testSession;
+        }
+
+        private static string GenerateReport(TestSession testSession, ReportType reportType)
+        {
+            var ms = new MemoryStream();
+            var sw = new StreamWriter(ms);
+            TestReport testReport = TestReportFactory.Create(testSession);
+            IReportGenerator reportGenerator = SelectReportGenerator(reportType);
+            reportGenerator.Generate(testReport, sw);
+            return Encoding.UTF8.GetString(ms.ToArray());
+        }
+
+        private static IReportGenerator SelectReportGenerator(ReportType reportType)
+        {
+            return reportType switch
+            {
+                ReportType.Html => new HtmlReportGenerator(),
+                ReportType.Json => new JsonReportGenerator(),
+                _ => null
+            };
+        }
+
+        [Fact]
+        public void ShouldGenerateJsonStringWithExpectedInformation()
+        {
+            TestSession testSession = CreateTestSessionWithTwoTestRuns();
+
+            string json = GenerateReport(testSession, ReportType.Json);
+
+            json.Contains("\"Summary\"").Should().BeTrue();
+            json.Contains("\"ArchiveCreators\"").Should().BeTrue();
+            json.Contains("\"ArchivalPeriod\"").Should().BeTrue();
+            json.Contains("\"SystemName\"").Should().BeTrue();
+            json.Contains("\"SystemType\"").Should().BeTrue();
+            json.Contains("\"ArchiveType\"").Should().BeTrue();
+            json.Contains("\"DateOfTesting\"").Should().BeTrue();
+            json.Contains("\"NumberOfTestsRun\"").Should().BeTrue(); 
+            json.Contains("\"NumberOfProcessedFiles\"").Should().BeTrue();
+            json.Contains("\"NumberOfProcessedRecords\"").Should().BeTrue();
+            json.Contains("\"NumberOfErrors\"").Should().BeTrue();
+            json.Contains("\"U.01\"").Should().BeTrue();
+            json.Contains("\"ContentAnalysis\"").Should().BeTrue();
+            json.Contains("\"Test description 1\"").Should().BeTrue();
+            json.Contains("\"Error\"").Should().BeTrue();
+            json.Contains("\"Test result 1\"").Should().BeTrue();
+            json.Contains("\"Test result 2\"").Should().BeTrue();
+            json.Contains("\"U.02\"").Should().BeTrue();
+            json.Contains("\"Test result 3\"").Should().BeTrue();
+        }
+
+        private enum ReportType
+        {
+            Html,
+            Json,
+        }
+    }
+}

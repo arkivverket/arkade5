@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
 
@@ -27,6 +27,7 @@ namespace Arkivverket.Arkade.Core.Report
             return testReportFormat switch
             {
                 TestReportFormat.html => new HtmlReportGenerator(),
+                TestReportFormat.json => new JsonReportGenerator(),
                 _ => null
             };
         }
@@ -34,6 +35,7 @@ namespace Arkivverket.Arkade.Core.Report
         private enum TestReportFormat
         {
             html,
+            json,
         }
     }
 }
