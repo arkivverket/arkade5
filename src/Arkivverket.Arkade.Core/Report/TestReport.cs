@@ -6,7 +6,6 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public class TestReport
     {
-        public string FileName { get; set; }
         public TestReportSummary Summary { get; init; }
         public List<ExecutedTest> TestsResults { get; init; }
     }

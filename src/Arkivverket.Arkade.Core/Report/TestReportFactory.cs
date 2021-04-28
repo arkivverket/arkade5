@@ -11,7 +11,6 @@ namespace Arkivverket.Arkade.Core.Report
         {
             var testReport = new TestReport
             {
-                FileName = testSession.Archive.GetTestReportFile().ToString(),
                 Summary = CreateTestReportSummary(testSession),
                 TestsResults = GetTestReportResults(testSession),
             };
