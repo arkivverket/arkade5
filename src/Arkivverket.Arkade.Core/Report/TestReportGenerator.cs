@@ -17,8 +17,7 @@ namespace Arkivverket.Arkade.Core.Report
                 var reportFile = new FileInfo(string.Format(testReportFileName, testReportFormat.ToString()));
                 IReportGenerator reportGenerator = GetReportGenerator(testReportFormat);
                 using FileStream fileStream = reportFile.OpenWrite();
-                using var streamWriter = new StreamWriter(fileStream);
-                reportGenerator.Generate(testReport, streamWriter);
+                reportGenerator.Generate(testReport, fileStream);
             }
         }
 
@@ -29,15 +28,16 @@ namespace Arkivverket.Arkade.Core.Report
                 TestReportFormat.html => new HtmlReportGenerator(),
                 TestReportFormat.json => new JsonReportGenerator(),
                 TestReportFormat.xml => new XmlReportGenerator(),
+                TestReportFormat.pdf => new PdfReportGenerator(),
                 _ => null
             };
         }
-
-        private enum TestReportFormat
-        {
-            html,
-            json,
-            xml,
-        }
+    }
+    public enum TestReportFormat
+    {
+        html,
+        json,
+        xml,
+        pdf,
     }
 }

@@ -46,9 +46,8 @@ namespace Arkivverket.Arkade.Core.Tests.Report
         private static string GenerateReport(TestSession testSession)
         {
             var ms = new MemoryStream();
-            var sw = new StreamWriter(ms);
             TestReport testReport = TestReportFactory.Create(testSession);
-            new HtmlReportGenerator().Generate(testReport, sw);
+            new HtmlReportGenerator().Generate(testReport, ms);
             return Encoding.UTF8.GetString(ms.ToArray());
         }
 

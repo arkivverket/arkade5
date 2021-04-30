@@ -11,14 +11,15 @@ namespace Arkivverket.Arkade.Core.Report
     {
         private const int NumberOfResultsToDisplay = 100;
 
-        public void Generate(TestReport testReport, StreamWriter stream)
+        public void Generate(TestReport testReport, Stream stream)
         {
-            stream.WriteLine(@"<!DOCTYPE html>");
-            stream.WriteLine(@"<html lang=""no"">");
-            Head(testReport.Summary.Uuid, stream);
-            Body(testReport, stream);
-            stream.WriteLine(@"</html>");
-            stream.Flush();
+            var streamWriter = new StreamWriter(stream);
+            streamWriter.WriteLine(@"<!DOCTYPE html>");
+            streamWriter.WriteLine(@"<html lang=""no"">");
+            Head(testReport.Summary.Uuid, streamWriter);
+            Body(testReport, streamWriter);
+            streamWriter.WriteLine(@"</html>");
+            streamWriter.Flush();
         }
 
         private static void Body(TestReport testReport, StreamWriter stream)

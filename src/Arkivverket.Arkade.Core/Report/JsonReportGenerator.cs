@@ -8,8 +8,9 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public class JsonReportGenerator : IReportGenerator
     {
-        public void Generate(TestReport testReport, StreamWriter stream)
+        public void Generate(TestReport testReport, Stream stream)
         {
+            using var streamWriter = new StreamWriter(stream);
             var jsonSerializerOptions = new JsonSerializerOptions
             {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement),
@@ -23,8 +24,8 @@ namespace Arkivverket.Arkade.Core.Report
 
             string jsonReport = JsonSerializer.Serialize(testReport, jsonSerializerOptions);
 
-            stream.Write(jsonReport);
-            stream.Flush();
+            streamWriter.Write(jsonReport);
+            streamWriter.Flush();
         }
     }
 }

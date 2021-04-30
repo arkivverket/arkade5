@@ -4,6 +4,6 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public interface IReportGenerator
     {
-        void Generate(TestReport testReport, StreamWriter stream);
+        void Generate(TestReport testReport, Stream stream);
     }
 }
