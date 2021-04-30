@@ -64,7 +64,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
             string rootDir = uuid.GetValue() + "/";
 
-            fileList.Count.Should().Be(14);
+            fileList.Count.Should().Be(15);
             fileList.Contains(rootDir).Should().BeTrue();
             fileList.Contains(rootDir + "content/").Should().BeTrue();
             fileList.Contains(rootDir + "content/arkivstruktur.xml").Should().BeTrue();
@@ -77,6 +77,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
             // additional files for aip
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/").Should().BeTrue();
+            fileList.Contains(rootDir + "administrative_metadata/repository_operations/" + Resources.OutputFileNames.TestReportDirectory + "/").Should().BeTrue();
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/arkade-log.xml").Should().BeTrue();
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/report.html").Should().BeTrue();
             fileList.Contains(rootDir + "descriptive_metadata/ead.xml").Should().BeTrue();
