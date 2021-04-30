@@ -477,7 +477,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ShowHtmlReport()
         {
-            //TODO: Show folder with all reports?
             _log.Information("User action: Show HTML report");
             
             OpenFile(_testSession.Archive.GetTestReportDirectory().GetFiles()
