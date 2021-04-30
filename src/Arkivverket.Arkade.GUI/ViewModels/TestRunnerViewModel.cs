@@ -363,7 +363,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                 _testSession.AddLogEntry("Test run completed.");
                 
-                SaveHtmlReport(_testSession.Archive.GetTestReportDirectory());
+                SaveTestReports(_testSession.Archive.GetTestReportDirectory());
 
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedOperation, null, OperationMessageStatus.Ok);
@@ -484,7 +484,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 .First(f => f.Extension.Contains(TestReportFormat.html.ToString())));
         }
 
-        private void SaveHtmlReport(DirectoryInfo testReportDirectory)
+        private void SaveTestReports(DirectoryInfo testReportDirectory)
         {
             string eventId = TestRunnerGUI.EventIdCreatingReport;
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
