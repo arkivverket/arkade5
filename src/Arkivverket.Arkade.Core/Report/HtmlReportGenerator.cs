@@ -12,333 +12,322 @@ namespace Arkivverket.Arkade.Core.Report
     {
         private const int NumberOfResultsToDisplay = 100;
 
-        private readonly StreamWriter _stream;
-        private readonly CultureInfo _norwegianCulture;
-
-        public HtmlReportGenerator(StreamWriter stream)
+        public void Generate(TestReport testReport, Stream stream)
         {
-            _stream = stream;
-            _norwegianCulture = CultureInfo.CreateSpecificCulture("nb-NO");
+            var streamWriter = new StreamWriter(stream);
+            streamWriter.WriteLine(@"<!DOCTYPE html>");
+            streamWriter.WriteLine(@"<html lang=""no"">");
+            Head(testReport.Summary.Uuid, streamWriter);
+            Body(testReport, streamWriter);
+            streamWriter.WriteLine(@"</html>");
+            streamWriter.Flush();
         }
 
-        public void Generate(TestSession testSession)
+        private static void Body(TestReport testReport, StreamWriter stream)
         {
-            _stream.WriteLine(@"<!DOCTYPE html>");
-            _stream.WriteLine(@"<html lang=""no"">");
-            Head(testSession.Archive.GetTestReportFile().Name);
-            Body(testSession);
-            _stream.WriteLine(@"</html>");
-            _stream.Flush();
-        }
-
-        private void Body(TestSession testSession)
-        {
-            _stream.WriteLine(@"<body>");
-            _stream.WriteLine(@"");
-            _stream.WriteLine(@"<div class=""container"">");
-            _stream.WriteLine(@"");
-            ArkivverketImage();
-            _stream.WriteLine(@"    <h1>" + Resources.Report.HeadingTestReport + "</h1>");
-            Summary(testSession);
-            SummaryOfErrors(testSession);
-            _stream.WriteLine(@"    <h2>" + Resources.Report.HeadingTests + "</h2>");
-            foreach (TestRun testRun in testSession.TestSuite.TestRuns)
+            stream.WriteLine(@"<body>");
+            stream.WriteLine(@"");
+            stream.WriteLine(@"<div class=""container"">");
+            stream.WriteLine(@"");
+            ArkivverketImage(stream);
+            stream.WriteLine(@"    <h1>" + Resources.Report.HeadingTestReport + "</h1>");
+            Summary(testReport, stream);
+            SummaryOfErrors(testReport, stream);
+            stream.WriteLine(@"    <h2>" + Resources.Report.HeadingTests + "</h2>");
+            foreach (ExecutedTest test in testReport.TestsResults)
             {
-                Test(testRun);
+                Test(test, stream);
             }
 
-            _stream.WriteLine(@"<hr/>");
-            VersionNumber();
-            _stream.WriteLine(@"</div>");
-            _stream.WriteLine(@"</body>");
+            stream.WriteLine(@"<hr/>");
+            VersionNumber(stream);
+            stream.WriteLine(@"</div>");
+            stream.WriteLine(@"</body>");
         }
 
-        private void VersionNumber()
+        private static void VersionNumber(StreamWriter stream)
         {
-            _stream.WriteLine(@"<p class=""text-right"">");
-            _stream.WriteLine(Resources.Report.FooterArkadeVersion, ArkadeVersion.Current);
-            _stream.WriteLine("</p>");
+            stream.WriteLine(@"<p class=""text-right"">");
+            stream.WriteLine(Resources.Report.FooterArkadeVersion, ArkadeVersion.Current);
+            stream.WriteLine("</p>");
         }
 
-        private void ArkivverketImage()
+        private static void ArkivverketImage(StreamWriter stream)
         {
             byte[] imageBytes = ResourceUtil.ReadResourceBytes("Arkivverket.Arkade.Core.Resources.arkivverket.gif");
             string imageBase64 = Convert.ToBase64String(imageBytes, Base64FormattingOptions.None);
 
-            _stream.WriteLine(@"<img src=""data:image/gif;base64,");
-            _stream.WriteLine(imageBase64);
-            _stream.WriteLine(@""" class=""img-responsive"" alt=""Arkivverket"" width=""481"" height=""82"" />");
+            stream.WriteLine(@"<img src=""data:image/gif;base64,");
+            stream.WriteLine(imageBase64);
+            stream.WriteLine(@""" class=""img-responsive"" alt=""Arkivverket"" width=""481"" height=""82"" />");
         }
 
-        private void Test(TestRun testRun)
+        private static void Test(ExecutedTest test, StreamWriter stream)
         {
-            _stream.WriteLine(@"    <div class=""test"">");
-            _stream.WriteLine($@"       <h3 id=""{testRun.TestId}"">");
-            _stream.WriteLine(@"        " + testRun.TestName);
-            _stream.WriteLine(@"        </h3>");
-            _stream.WriteLine(@"        <p><b>Type:</b> " + GetTestTypeDisplayName(testRun.TestType) + "</p>");
-            _stream.WriteLine(@"");
-            _stream.WriteLine(@"        <p class=""test-description"">");
-            _stream.WriteLine(@"            " + testRun.TestDescription);
-            _stream.WriteLine(@"        </p>");
-            _stream.WriteLine(@"");
-            _stream.WriteLine(@"        <h4>" + Resources.Report.HeadingTestResults + "</h4>");
+            stream.WriteLine(@"    <div class=""test"">");
+            stream.WriteLine($@"       <h3 id=""{test.TestId}"">");
+            stream.WriteLine(@"        " + test.TestName);
+            stream.WriteLine(@"        </h3>");
+            stream.WriteLine(@"        <p><b>Type:</b> " + GetTestTypeDisplayName(test.TestType) + "</p>");
+            stream.WriteLine(@"");
+            stream.WriteLine(@"        <p class=""test-description"">");
+            stream.WriteLine(@"            " + test.TestDescription);
+            stream.WriteLine(@"        </p>");
+            stream.WriteLine(@"");
+            stream.WriteLine(@"        <h4>" + Resources.Report.HeadingTestResults + "</h4>");
 
-            if (TestTypeIsControl(testRun) && testRun.IsSuccess())
+            if (TestTypeIsControl(test) && test.TestResults.TrueForAll(r => r.ResultType != ResultType.Error))
             {
-                _stream.WriteLine("<p>" + Resources.Report.TestNoErrorsFound + "</p>");
+                stream.WriteLine("<p>" + Resources.Report.TestNoErrorsFound + "</p>");
             }
             else
             {
-                _stream.WriteLine(@"        <table class=""table"">");
-                _stream.WriteLine(@"            <thead>");
-                _stream.WriteLine(@"            <tr>");
-                _stream.WriteLine(@"                <th>" + Resources.Report.TestLocation + "</th>");
-                _stream.WriteLine(@"                <th>" + Resources.Report.TestMessage + "</th>");
-                _stream.WriteLine(@"            </tr>");
-                _stream.WriteLine(@"            </thead>");
-                _stream.WriteLine(@"            <tbody>");
+                stream.WriteLine(@"        <table class=""table"">");
+                stream.WriteLine(@"            <thead>");
+                stream.WriteLine(@"            <tr>");
+                stream.WriteLine(@"                <th>" + Resources.Report.TestLocation + "</th>");
+                stream.WriteLine(@"                <th>" + Resources.Report.TestMessage + "</th>");
+                stream.WriteLine(@"            </tr>");
+                stream.WriteLine(@"            </thead>");
+                stream.WriteLine(@"            <tbody>");
 
-                foreach (TestResult testResult in testRun.Results.Take(NumberOfResultsToDisplay))
+                foreach (Result result in test.TestResults.Take(NumberOfResultsToDisplay))
                 {
-                    _stream.WriteLine(@"            <tr>");
-                    _stream.WriteLine(@"                <td>");
-                    _stream.WriteLine(@"                " + testResult.Location);
-                    _stream.WriteLine(@"                </td>");
-                    _stream.WriteLine(@"                <td>");
-                    _stream.WriteLine(@"                " + SubstitueLineBreaksWithHtmlBreak(testResult.Message));
-                    _stream.WriteLine(@"                </td>");
-                    _stream.WriteLine(@"            </tr>");
+                    stream.WriteLine(@"            <tr>");
+                    stream.WriteLine(@"                <td>");
+                    stream.WriteLine(@"                " + result.Location);
+                    stream.WriteLine(@"                </td>");
+                    stream.WriteLine(@"                <td>");
+                    stream.WriteLine(@"                " + SubstituteLineBreaksWithHtmlBreak(result.Message));
+                    stream.WriteLine(@"                </td>");
+                    stream.WriteLine(@"            </tr>");
                 }
 
-                if (testRun.Results.Count > NumberOfResultsToDisplay)
+                if (test.TestResults.Count > NumberOfResultsToDisplay)
                 {
                     string moreResultsMessage = string.Format(
-                        Resources.Report.TestMoreResultsOfSameKind, testRun.Results.Count - NumberOfResultsToDisplay
+                        Resources.Report.TestMoreResultsOfSameKind, test.TestResults.Count - NumberOfResultsToDisplay
                     );
 
-                    _stream.WriteLine(@"            <tr>");
-                    _stream.WriteLine(@"                <td></td>");
-                    _stream.WriteLine(@"                <td>" + moreResultsMessage + "</td>");
-                    _stream.WriteLine(@"            </tr>");
+                    stream.WriteLine(@"            <tr>");
+                    stream.WriteLine(@"                <td></td>");
+                    stream.WriteLine(@"                <td>" + moreResultsMessage + "</td>");
+                    stream.WriteLine(@"            </tr>");
                 }
 
-                _stream.WriteLine(@"            </tbody>");
-                _stream.WriteLine(@"        </table>");
+                stream.WriteLine(@"            </tbody>");
+                stream.WriteLine(@"        </table>");
             }
 
-            _stream.WriteLine(@"    </div>");
+            stream.WriteLine(@"    </div>");
         }
 
-        private static bool TestTypeIsControl(TestRun testRun)
+        private static bool TestTypeIsControl(ExecutedTest test)
         {
-            return (testRun.TestType == TestType.ContentControl || testRun.TestType == TestType.StructureControl);
+            return (test.TestType is TestType.ContentControl or TestType.StructureControl);
         }
 
         private static string GetTestTypeDisplayName(TestType testType)
         {
-            switch (testType)
+            return testType switch
             {
-                case TestType.ContentAnalysis: return Resources.Report.TestTypeContentAnalysisDisplayName;
-                case TestType.ContentControl: return Resources.Report.TestTypeContentControlDisplayName;
-                case TestType.StructureAnalysis: return Resources.Report.TestTypeStructureAnalysisDisplayName;
-                case TestType.StructureControl: return Resources.Report.TestTypeStructureControlDisplayName;
-                default: return testType.ToString();
-            }
+                TestType.ContentAnalysis => Resources.Report.TestTypeContentAnalysisDisplayName,
+                TestType.ContentControl => Resources.Report.TestTypeContentControlDisplayName,
+                TestType.StructureAnalysis => Resources.Report.TestTypeStructureAnalysisDisplayName,
+                TestType.StructureControl => Resources.Report.TestTypeStructureControlDisplayName,
+                _ => testType.ToString()
+            };
         }
 
-        private string SubstitueLineBreaksWithHtmlBreak(string input)
+        private static string SubstituteLineBreaksWithHtmlBreak(string input)
         {
             return input.Replace("\n", "<br/>");
         }
 
-        private void Summary(TestSession testSession)
+        private static void Summary(TestReport testReport, StreamWriter stream)
         {
-            _stream.WriteLine(@"    <div class=""summary"">");
-            _stream.WriteLine(@"    <div class=""jumbotron"">");
-            _stream.WriteLine(@"        <h2>" + Resources.Report.HeadingTestSummary + "</h2>");
-            _stream.WriteLine(@"");
-            _stream.WriteLine(@"        <table class=""table"">");
-            _stream.WriteLine(@"            <tbody>");
+            ArchiveType archiveType = testReport.Summary.ArchiveType;
 
-            _stream.WriteLine(@"            <tr>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(Resources.Report.LabelUuid);
-            _stream.WriteLine("                </td>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(testSession.Archive.Uuid);
-            _stream.WriteLine("                </td>");
-            _stream.WriteLine(@"            </tr>");
+            stream.WriteLine(@"    <div class=""summary"">");
+            stream.WriteLine(@"    <div class=""jumbotron"">");
+            stream.WriteLine(@"        <h2>" + Resources.Report.HeadingTestSummary + "</h2>");
+            stream.WriteLine(@"");
+            stream.WriteLine(@"        <table class=""table"">");
+            stream.WriteLine(@"            <tbody>");
 
-            _stream.WriteLine(@"            <tr>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(Resources.Report.LabelArchiveCreators);
-            _stream.WriteLine("                </td>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(testSession.Archive.Details.ArchiveCreators);
-            _stream.WriteLine("                </td>");
-            _stream.WriteLine(@"            </tr>");
+            stream.WriteLine(@"            <tr>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(Resources.Report.LabelUuid);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(testReport.Summary.Uuid);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"            </tr>");
+            
+            stream.WriteLine(@"            <tr>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(Resources.Report.LabelArchiveCreators);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(testReport.Summary.ArchiveCreators);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"            </tr>");
 
-            _stream.WriteLine(@"            <tr>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(Resources.Report.LabelArchivePeriod);
-            _stream.WriteLine("                </td>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(testSession.Archive.Details.ArchivalPeriod);
-            _stream.WriteLine("                </td>");
-            _stream.WriteLine(@"            </tr>");
+            stream.WriteLine(@"            <tr>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(Resources.Report.LabelArchivePeriod);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(testReport.Summary.ArchivalPeriod);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"            </tr>");
 
-            _stream.WriteLine(@"            <tr>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(Resources.Report.LabelSystemName);
-            _stream.WriteLine("                </td>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(testSession.Archive.Details.SystemName);
-            _stream.WriteLine("                </td>");
-            _stream.WriteLine(@"            </tr>");
+            stream.WriteLine(@"            <tr>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(Resources.Report.LabelSystemName);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(testReport.Summary.SystemName);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"            </tr>");
 
-            _stream.WriteLine(@"            <tr>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(Resources.Report.LabelSystemType);
-            _stream.WriteLine("                </td>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(testSession.Archive.Details.SystemType);
-            _stream.WriteLine("                </td>");
-            _stream.WriteLine(@"            </tr>");
+            stream.WriteLine(@"            <tr>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(Resources.Report.LabelSystemType);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(testReport.Summary.SystemType);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"            </tr>");
 
-            _stream.WriteLine(@"            <tr>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(Resources.Report.LabelArchiveType);
-            _stream.WriteLine("                 </td>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(testSession.Archive.ArchiveType);
-            _stream.WriteLine("                 </td>");
-            _stream.WriteLine(@"            </tr>");
+            stream.WriteLine(@"            <tr>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(Resources.Report.LabelArchiveType);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(testReport.Summary.ArchiveType.ToString());
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"            </tr>");
 
-            _stream.WriteLine(@"            <tr>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(Resources.Report.LabelDateOfTesting);
-            _stream.WriteLine("                 </td>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(testSession.DateOfTesting.ToString(Resources.Report.DateFormat, _norwegianCulture));
-            _stream.WriteLine("                 </td>");
-            _stream.WriteLine(@"            </tr>");
+            stream.WriteLine(@"            <tr>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(Resources.Report.LabelDateOfTesting);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(testReport.Summary.DateOfTesting);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"            </tr>");
 
-
-            if (testSession.Archive.ArchiveType == ArchiveType.Noark5)
+            if (archiveType == ArchiveType.Noark5)
             {
-                int numberOfExecutedTests = testSession.TestSuite.TestRuns.Count();
-                int numberOfAvailableTests = testSession.AvailableTests.Count;
-
-                _stream.WriteLine(@"            <tr>");
-                _stream.WriteLine(@"                <td>");
-                _stream.WriteLine(Resources.Report.LabelNumberOfTestsExecuted);
-                _stream.WriteLine("                 </td>");
-                _stream.WriteLine(@"                <td>");
-                _stream.WriteLine($"{numberOfExecutedTests} av {numberOfAvailableTests}");
-                if (numberOfExecutedTests < numberOfAvailableTests)
-                    _stream.Write($"<span>&#9888;</span> <i>({Resources.Report.WarningNotAllTestsExecuted})</i>");
-                _stream.WriteLine("                 </td>");
-                _stream.WriteLine(@"            </tr>");
+                stream.WriteLine(@"            <tr>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(Resources.Report.LabelNumberOfTestsExecuted);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(testReport.Summary.NumberOfTestsRun);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"            </tr>");
             }
 
-            if (testSession.TestSummary != null)
+            if (testReport.Summary.NumberOfProcessedFiles != default)
             {
-                _stream.WriteLine(@"            <tr>");
-                _stream.WriteLine(@"                <td>");
-                _stream.WriteLine(Resources.Report.LabelNumberOfFilesProcessed);
-                _stream.WriteLine("                 </td>");
-                _stream.WriteLine(@"                <td>");
-                _stream.WriteLine(testSession.TestSummary.NumberOfProcessedFiles);
-                _stream.WriteLine("                 </td>");
-                _stream.WriteLine(@"            </tr>");
+                stream.WriteLine(@"            <tr>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(Resources.Report.LabelNumberOfFilesProcessed);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(testReport.Summary.NumberOfProcessedFiles);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"            </tr>");
+            }
+            
+            if (testReport.Summary.NumberOfProcessedRecords != default && archiveType != ArchiveType.Noark5)
+            {
+                stream.WriteLine(@"            <tr>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(Resources.Report.LabelNumberOfRecordsProcessed);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(testReport.Summary.NumberOfProcessedRecords);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"            </tr>");
+            }
 
-                if (testSession.Archive.ArchiveType != ArchiveType.Noark5)
+            stream.WriteLine(@"            <tr>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(Resources.Report.LabelNumberOfErrors);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(testReport.Summary.NumberOfErrors);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"            </tr>");
+
+            stream.WriteLine(@"            </tbody>");
+            stream.WriteLine(@"        </table>");
+            stream.WriteLine(@"    </div>");
+            stream.WriteLine(@"    </div>");
+        }
+
+        private static void SummaryOfErrors(TestReport testReport, StreamWriter stream)
+        {
+            stream.WriteLine(@"    <div class=""summary"">");
+            stream.WriteLine(@"    <div class=""jumbotron"">");
+            stream.WriteLine(@"        <h2>" + Resources.Report.HeadingDeviations + "</h2>");
+            stream.WriteLine(@"");
+            stream.WriteLine(@"        <table class=""table"">");
+            stream.WriteLine(@"            <tbody>");
+
+            foreach (ExecutedTest test in testReport.TestsResults)
+            {
+                if (test.TestResults.Any(tr => tr.ResultType != ResultType.Success))
                 {
-                    _stream.WriteLine(@"            <tr>");
-                    _stream.WriteLine(@"                <td>");
-                    _stream.WriteLine(Resources.Report.LabelNumberOfRecordsProcessed);
-                    _stream.WriteLine("                 </td>");
-                    _stream.WriteLine(@"                <td>");
-                    _stream.WriteLine(testSession.TestSummary.NumberOfProcessedRecords);
-                    _stream.WriteLine("                 </td>");
-                    _stream.WriteLine(@"            </tr>");
+                    var errors = 0;
+                    stream.WriteLine(@"            <tr>");
+                    stream.WriteLine(@"                <td>");
+                    stream.WriteLine(@"<a href=""#" + test.TestId + @""">" + test.TestName + @"</a>");
+                    stream.WriteLine(@"                </td>");
+                    stream.WriteLine(@"                <td>");
+                    stream.WriteLine(test.TestResults.Aggregate(0, (_, result) => result.ResultType != ResultType.Success ? errors++ : errors));
+                    stream.WriteLine(@"                </td>");
+                    stream.WriteLine(@"            </tr>");
                 }
             }
-
-            _stream.WriteLine(@"            <tr>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(Resources.Report.LabelNumberOfErrors);
-            _stream.WriteLine("                 </td>");
-            _stream.WriteLine(@"                <td>");
-            _stream.WriteLine(testSession.TestSuite.FindNumberOfErrors());
-            _stream.WriteLine("                 </td>");
-            _stream.WriteLine(@"            </tr>");
-
-            _stream.WriteLine(@"            </tbody>");
-            _stream.WriteLine(@"        </table>");
-            _stream.WriteLine(@"    </div>");
-            _stream.WriteLine(@"    </div>");
+            stream.WriteLine(@"            </tbody>");
+            stream.WriteLine(@"        </table>");
+            stream.WriteLine(@"    </div>");
+            stream.WriteLine(@"    </div>");
         }
 
-        private void SummaryOfErrors(TestSession testSession)
+        private static void Head(string title, StreamWriter stream)
         {
-            _stream.WriteLine(@"    <div class=""summary"">");
-            _stream.WriteLine(@"    <div class=""jumbotron"">");
-            _stream.WriteLine(@"        <h2>" + Resources.Report.HeadingDeviations + "</h2>");
-            _stream.WriteLine(@"");
-            _stream.WriteLine(@"        <table class=""table"">");
-            _stream.WriteLine(@"            <tbody>");
-
-            foreach (TestRun testRun in testSession.TestSuite.TestRuns)
-            {
-                if (!testRun.IsSuccess())
-                {
-                    _stream.WriteLine(@"            <tr>");
-                    _stream.WriteLine(@"                <td>");
-                    _stream.WriteLine(@"<a href=""#" + testRun.TestId + @""">" + testRun.TestName + @"</a>");
-                    _stream.WriteLine(@"                </td>");
-                    _stream.WriteLine(@"                <td>");
-                    _stream.WriteLine(testRun.FindNumberOfErrors());
-                    _stream.WriteLine(@"                </td>");
-                    _stream.WriteLine(@"            </tr>");
-                }
-            }
-            _stream.WriteLine(@"            </tbody>");
-            _stream.WriteLine(@"        </table>");
-            _stream.WriteLine(@"    </div>");
-            _stream.WriteLine(@"    </div>");
+            stream.WriteLine(@"<head>");
+            stream.WriteLine(@"    <meta charset=""utf-8"" />");
+            stream.WriteLine(@"    <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"" />");
+            stream.WriteLine(@"    <meta name=""viewport"" content=""width=device-width, initial-scale=1"" />");
+            stream.WriteLine(@"    <title>" + title + "</title>");
+            stream.WriteLine(@"");
+            BootstrapCss(stream);
+            ArkadeCss(stream);
+            stream.WriteLine(@"</head>");
         }
 
-        private void Head(string title)
-        {
-            _stream.WriteLine(@"<head>");
-            _stream.WriteLine(@"    <meta charset=""utf-8"" />");
-            _stream.WriteLine(@"    <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"" />");
-            _stream.WriteLine(@"    <meta name=""viewport"" content=""width=device-width, initial-scale=1"" />");
-            _stream.WriteLine(@"    <title>" + title + "</title>");
-            _stream.WriteLine(@"");
-            BootstrapCss();
-            ArkadeCss();
-            _stream.WriteLine(@"</head>");
-        }
-
-        private void ArkadeCss()
+        private static void ArkadeCss(StreamWriter stream)
         {
             string css = ResourceUtil.ReadResource("Arkivverket.Arkade.Core.Resources.arkade.css");
 
-            _stream.WriteLine(@"<style>");
-            _stream.WriteLine(css);
-            _stream.WriteLine(@"</style>");
+            stream.WriteLine(@"<style>");
+            stream.WriteLine(css);
+            stream.WriteLine(@"</style>");
         }
 
-        private void BootstrapCss()
+        private static void BootstrapCss(StreamWriter stream)
         {
             string css = ResourceUtil.ReadResource("Arkivverket.Arkade.Core.Resources.bootstrap.min.css");
 
-            _stream.WriteLine(@"<style>");
-            _stream.WriteLine(css);
-            _stream.WriteLine(@"</style>");
+            stream.WriteLine(@"<style>");
+            stream.WriteLine(css);
+            stream.WriteLine(@"</style>");
         }
     }
 }

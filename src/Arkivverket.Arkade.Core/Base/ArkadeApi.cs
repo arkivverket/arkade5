@@ -111,14 +111,10 @@ namespace Arkivverket.Arkade.Core.Base
 
         public void SaveReport(TestSession testSession, FileInfo file)
         {
-            using (FileStream fs = file.OpenWrite())
-            {
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    IReportGenerator reportGenerator = new HtmlReportGenerator(sw);
-                    reportGenerator.Generate(testSession);
-                }
-            }
+            using FileStream fs = file.OpenWrite();
+            TestReport testReport = TestReportFactory.Create(testSession);
+            IReportGenerator reportGenerator = new HtmlReportGenerator();
+            reportGenerator.Generate(testReport, fs);
         }
 
         public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName, SupportedLanguage language)
