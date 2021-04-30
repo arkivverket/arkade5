@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -72,6 +72,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
                 ReportType.Html => new HtmlReportGenerator(),
                 ReportType.Json => new JsonReportGenerator(),
                 ReportType.Xml => new XmlReportGenerator(),
+                ReportType.Pdf => new PdfReportGenerator(),
                 _ => null
             };
         }
@@ -134,11 +135,22 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             xml.Contains("<Message>Test result 1").Should().BeTrue();
         }
 
+        [Fact]
+        public void ShouldGeneratePdfReport()
+        {
+            TestSession testSession = CreateTestSessionWithTwoTestRuns();
+
+            string pdf = GenerateReport(testSession, ReportType.Pdf);
+
+            pdf.Contains("PDF").Should().BeTrue();
+        }
+
         private enum ReportType
         {
             Html,
             Json,
             Xml,
+            Pdf,
         }
     }
 }

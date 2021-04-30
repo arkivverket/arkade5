@@ -15,6 +15,7 @@ using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
@@ -479,7 +480,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             //TODO: Show folder with all reports?
             _log.Information("User action: Show HTML report");
             
-            OpenFile(_testSession.Archive.GetTestReportDirectory().GetFiles().First(f => f.Extension.Equals(".html")));
+            OpenFile(_testSession.Archive.GetTestReportDirectory().GetFiles()
+                .First(f => f.Extension.Contains(TestReportFormat.html.ToString())));
         }
 
         private void SaveHtmlReport(DirectoryInfo testReportDirectory)
