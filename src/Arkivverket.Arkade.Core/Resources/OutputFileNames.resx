@@ -136,7 +136,10 @@
     <value>noark5-testselection.txt</value>
   </data>
   <data name="TestReportFile" xml:space="preserve">
-    <value>Arkade-report_{0}.html</value>
-    <comment>{0} = Archive UUID</comment>
+    <value>Arkade-report_{0}.{1}</value>
+    <comment>{0} = Archive UUID, {1} = file type</comment>
+  </data>
+  <data name="TestReportDirectory" xml:space="preserve">
+    <value>Arkade-testreports</value>
   </data>
 </root>

@@ -109,12 +109,9 @@ namespace Arkivverket.Arkade.Core.Base
             return packageFilePath;
         }
 
-        public void SaveReport(TestSession testSession, FileInfo file)
+        public void SaveReport(TestSession testSession, DirectoryInfo testReportDirectory)
         {
-            using FileStream fs = file.OpenWrite();
-            TestReport testReport = TestReportFactory.Create(testSession);
-            IReportGenerator reportGenerator = new HtmlReportGenerator();
-            reportGenerator.Generate(testReport, fs);
+            TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory);
         }
 
         public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName, SupportedLanguage language)

@@ -166,13 +166,5 @@ namespace Arkivverket.Arkade.Core.Tests.Report
 
             pdf.Contains("PDF").Should().BeTrue();
         }
-
-        private enum TestReportFormat
-        {
-            html,
-            xml,
-            json,
-            pdf,
-        }
     }
 }

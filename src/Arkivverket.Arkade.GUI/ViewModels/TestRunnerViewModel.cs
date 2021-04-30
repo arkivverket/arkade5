@@ -15,6 +15,7 @@ using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
@@ -362,7 +363,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                 _testSession.AddLogEntry("Test run completed.");
                 
-                SaveHtmlReport(_testSession.Archive.GetTestReportFile());
+                SaveTestReports(_testSession.Archive.GetTestReportDirectory());
 
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedOperation, null, OperationMessageStatus.Ok);
@@ -478,17 +479,18 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _log.Information("User action: Show HTML report");
             
-            OpenFile(_testSession.Archive.GetTestReportFile());
+            OpenFile(_testSession.Archive.GetTestReportDirectory().GetFiles()
+                .First(f => f.Extension.Contains(TestReportFormat.html.ToString())));
         }
 
-        private void SaveHtmlReport(FileInfo htmlFile)
+        private void SaveTestReports(DirectoryInfo testReportDirectory)
         {
             string eventId = TestRunnerGUI.EventIdCreatingReport;
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
 
-            _arkadeApi.SaveReport(_testSession, htmlFile);
+            _arkadeApi.SaveReport(_testSession, testReportDirectory);
 
-            var message = string.Format(TestRunnerGUI.TestReportIsSavedMessage, htmlFile.FullName);
+            var message = string.Format(TestRunnerGUI.TestReportIsSavedMessage, testReportDirectory.FullName);
             _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);
         }
 

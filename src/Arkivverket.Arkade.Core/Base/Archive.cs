@@ -52,15 +52,15 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        public FileInfo GetTestReportFile()
+        public DirectoryInfo GetTestReportDirectory()
         {
-            string testReportFileName = string.Format(OutputFileNames.TestReportFile, Uuid);
+            DirectoryInfo testReportDirectory = WorkingDirectory.RepositoryOperations()
+                .WithSubDirectory(OutputFileNames.TestReportDirectory).DirectoryInfo();
 
-            string testReportDirectoryPath = WorkingDirectory.RepositoryOperations().DirectoryInfo().FullName;
-            
-            string testReportFullFileName = Path.Combine(testReportDirectoryPath, testReportFileName);
-            
-            return new FileInfo(testReportFullFileName);
+            if (!testReportDirectory.Exists)
+                testReportDirectory.Create();
+
+            return testReportDirectory;
         }
 
         public string GetInformationPackageFileName()
