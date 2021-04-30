@@ -71,6 +71,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             {
                 TestReportFormat.html => new HtmlReportGenerator(),
                 TestReportFormat.xml => new XmlReportGenerator(),
+                TestReportFormat.json => new JsonReportGenerator(),
                 _ => null
             };
         }
@@ -127,10 +128,39 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             xml.Contains("<Message>Test result 1").Should().BeTrue();
         }
 
+        [Fact]
+        public void ShouldGenerateJsonStringWithExpectedInformation()
+        {
+            TestSession testSession = CreateTestSessionWithTwoTestRuns();
+
+            string json = GenerateReport(testSession, TestReportFormat.json);
+
+            json.Contains("\"Summary\"").Should().BeTrue();
+            json.Contains("\"ArchiveCreators\"").Should().BeTrue();
+            json.Contains("\"ArchivalPeriod\"").Should().BeTrue();
+            json.Contains("\"SystemName\"").Should().BeTrue();
+            json.Contains("\"SystemType\"").Should().BeTrue();
+            json.Contains("\"ArchiveType\"").Should().BeTrue();
+            json.Contains("\"DateOfTesting\"").Should().BeTrue();
+            json.Contains("\"NumberOfTestsRun\"").Should().BeTrue(); 
+            json.Contains("\"NumberOfProcessedFiles\"").Should().BeTrue();
+            json.Contains("\"NumberOfProcessedRecords\"").Should().BeTrue();
+            json.Contains("\"NumberOfErrors\"").Should().BeTrue();
+            json.Contains("\"U.01\"").Should().BeTrue();
+            json.Contains("\"ContentAnalysis\"").Should().BeTrue();
+            json.Contains("\"Test description 1\"").Should().BeTrue();
+            json.Contains("\"Error\"").Should().BeTrue();
+            json.Contains("\"Test result 1\"").Should().BeTrue();
+            json.Contains("\"Test result 2\"").Should().BeTrue();
+            json.Contains("\"U.02\"").Should().BeTrue();
+            json.Contains("\"Test result 3\"").Should().BeTrue();
+        }
+
         private enum TestReportFormat
         {
             html,
             xml,
+            json,
         }
     }
 }
