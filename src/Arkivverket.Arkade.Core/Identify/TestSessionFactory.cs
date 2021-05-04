@@ -98,7 +98,7 @@ namespace Arkivverket.Arkade.Core.Identify
             }
             catch (Exception exception)
             {
-                var message = "Reading file " + addml.AddmlFile.Name + " failed: " + exception.Message;
+                var message = "Reading file " + archive.AddmlXmlUnit.File.Name + " failed: " + exception.Message;
                 _log.Warning(message);//exception, message);
                 _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
             }

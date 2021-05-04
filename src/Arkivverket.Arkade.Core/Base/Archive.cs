@@ -39,6 +39,9 @@ namespace Arkivverket.Arkade.Core.Base
             
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
+            if (!AddmlXmlUnit.File.Exists)
+                return;
+            
             AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName);
 
             Details = new ArchiveDetails(AddmlInfo.Addml);
