@@ -3,6 +3,7 @@ using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
@@ -98,7 +99,7 @@ namespace Arkivverket.Arkade.Core.Identify
             }
             catch (Exception exception)
             {
-                var message = "Reading file " + archive.AddmlXmlUnit.File.Name + " failed: " + exception.Message;
+                var message = string.Format(ExceptionMessages.FileNotRead, archive.AddmlXmlUnit.File.Name) + " " + exception.Message;
                 _log.Warning(message);//exception, message);
                 _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
             }
