@@ -281,6 +281,9 @@ namespace Arkivverket.Arkade.CLI
             {
                 var standaloneTestReportsDirectory =
                     new DirectoryInfo(Path.Combine(outputDirectory, packageTestReportDirectory.Name));
+
+                standaloneTestReportsDirectory.Create();
+
                 Arkade.SaveReport(testSession, standaloneTestReportsDirectory);
                 Log.Information($"Test reports generated at: {standaloneTestReportsDirectory.FullName}");
             }
