@@ -34,10 +34,14 @@ namespace Arkivverket.Arkade.Core.Report
                 ArchiveType = testSession.Archive.ArchiveType,
                 DateOfTesting = testSession.DateOfTesting.ToString(Resources.Report.DateFormat, norwegianCulture),
                 NumberOfTestsRun = string.Format(Resources.Report.ValueNumberOfTestsExecuted, numberOfExecutedTests, numberOfAvailableTests),
-                NumberOfProcessedFiles = testSession.TestSummary.NumberOfProcessedFiles,
-                NumberOfProcessedRecords = testSession.TestSummary.NumberOfProcessedRecords,
                 NumberOfErrors = testSession.TestSuite.FindNumberOfErrors().ToString(),
             };
+
+            if (testSession.TestSummary != null)
+            {
+                summary.NumberOfProcessedFiles = testSession.TestSummary.NumberOfProcessedFiles;
+                summary.NumberOfProcessedRecords = testSession.TestSummary.NumberOfProcessedRecords;
+            }
 
             return summary;
         }
