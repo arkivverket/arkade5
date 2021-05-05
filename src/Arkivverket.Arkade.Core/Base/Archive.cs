@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.Core.Base
         public DirectoryInfo GetTestReportDirectory()
         {
             DirectoryInfo testReportDirectory = WorkingDirectory.RepositoryOperations()
-                .WithSubDirectory(OutputFileNames.TestReportDirectory).DirectoryInfo();
+                .WithSubDirectory(string.Format(OutputFileNames.TestReportDirectory, Uuid)).DirectoryInfo();
 
             if (!testReportDirectory.Exists)
                 testReportDirectory.Create();

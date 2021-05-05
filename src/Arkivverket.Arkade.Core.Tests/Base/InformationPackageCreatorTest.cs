@@ -15,21 +15,24 @@ namespace Arkivverket.Arkade.Core.Tests.Base
     public class InformationPackageCreatorTest
     {
         private readonly string _workingDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\package-creation";
-        private readonly Uuid _uuid = Uuid.Random();
+        private static readonly Uuid Uuid = Uuid.Random();
         private readonly ArchiveMetadata _archiveMetadata = MetadataExampleCreator.Create(MetadataExamplePurpose.InternalTesting);
         private readonly string _outputDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        private static bool _test01HasRun = false;
 
         [Fact]
         [Trait("Category", "Integration")]
         public void Test01_ShouldCreateSip() // TODO: Remove the created packages
         {
-            Archive archive = new ArchiveBuilder().WithUuid(_uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
+            DeleteOldTestDirectories();
+
+            Archive archive = new ArchiveBuilder().WithUuid(Uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
 
             string packageFilePath = new InformationPackageCreator().CreateSip(archive, _archiveMetadata, _outputDirectory);
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
-            string rootDir = _uuid.GetValue() + "/";
+            string rootDir = Uuid.GetValue() + "/";
 
             fileList.Count.Should().Be(9);
             fileList.Contains(rootDir).Should().BeTrue();
@@ -48,20 +51,22 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/report.html").Should().BeFalse();
             fileList.Contains(rootDir + "descriptive_metadata/ead.xml").Should().BeFalse();
             fileList.Contains(rootDir + "descriptive_metadata/eac-cpf.xml").Should().BeFalse();
+
+            _test01HasRun = true;
         }
 
         [Fact]
         [Trait("Category", "Integration")]
         public void Test02_ShouldCreateAip() // TODO: Remove the created packages
         {
-            Uuid uuid = Uuid.Random();
-            Archive archive = new ArchiveBuilder().WithUuid(uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
+            Archive archive = new ArchiveBuilder().WithUuid(Uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
 
             string packageFilePath = new InformationPackageCreator().CreateAip(archive, _archiveMetadata, _outputDirectory);
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
-            string rootDir = uuid.GetValue() + "/";
+            string rootDir = Uuid.GetValue() + "/";
+            string testReportDirectoryName = archive.GetTestReportDirectory().Name;
 
             fileList.Count.Should().Be(15);
             fileList.Contains(rootDir).Should().BeTrue();
@@ -76,7 +81,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
             // additional files for aip
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/").Should().BeTrue();
-            fileList.Contains(rootDir + "administrative_metadata/repository_operations/" + Resources.OutputFileNames.TestReportDirectory + "/").Should().BeTrue();
+            if (_test01HasRun)
+                fileList.Contains(rootDir + "administrative_metadata/repository_operations/" + testReportDirectoryName +"/").Should().BeTrue();
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/arkade-log.xml").Should().BeTrue();
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/report.html").Should().BeTrue();
             fileList.Contains(rootDir + "descriptive_metadata/ead.xml").Should().BeTrue();
@@ -96,6 +102,16 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             };
             tarArchive.ListContents();
             return fileList;
+        }
+
+        private void DeleteOldTestDirectories()
+        {
+            string repositoryOperationsDirectory =
+                Path.Combine(_workingDirectory, "administrative_metadata", "repository_operations");
+
+            foreach (string directory in Directory.EnumerateDirectories(repositoryOperationsDirectory))
+                Directory.Delete(directory);
+            
         }
     }
 }

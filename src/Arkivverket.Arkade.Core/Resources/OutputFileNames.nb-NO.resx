@@ -136,6 +136,6 @@
     <value>Arkade-rapport_{0}.{1}</value>
   </data>
   <data name="TestReportDirectory" xml:space="preserve">
-    <value>Arkade-testrapporter</value>
+    <value>Arkade-testrapporter_{0}</value>
   </data>
 </root>

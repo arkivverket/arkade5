@@ -140,6 +140,7 @@
     <comment>{0} = Archive UUID, {1} = file type</comment>
   </data>
   <data name="TestReportDirectory" xml:space="preserve">
-    <value>Arkade-testreports</value>
+    <value>Arkade-testreports_{0}</value>
+    <comment>{0} = Archive UUID</comment>
   </data>
 </root>
