@@ -30,11 +30,6 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
                 return new AddmlInfo(addml, new FileInfo(fileName));
             }
-            catch (FileNotFoundException e)
-            {
-                Log.Logger.Debug(e.ToString());
-                throw new ArkadeException(string.Format(Resources.ExceptionMessages.FileNotFound, fileName));
-            }
             catch (Exception e)
             {
                 throw new ArkadeException(string.Format(Resources.Messages.ExceptionReadingAddmlFile, e.Message), e);
@@ -51,16 +46,5 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 throw new ArkadeException(e.Message);
             }
         }
-
-        public static AddmlInfo ReadFromBaseDirectory(string fileName)
-        {
-            return ReadFromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName));
-        }
-
-        private static void Validate(addml addml)
-        {
-
-        }
-
     }
 }
