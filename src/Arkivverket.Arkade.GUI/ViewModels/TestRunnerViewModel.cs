@@ -247,7 +247,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 {
                     SupportedLanguage uiLanguage = LanguageSettingHelper.GetUILanguage();
 
-                    if (_testSession.Archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())
+                    if (_testSession.Archive.AddmlXmlUnit.Schema != null &&
+                        _testSession.Archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())
                     {
                         _statusEventHandler.RaiseEventOperationMessage(
                             TestRunnerGUI.MissingAddmlSchema,
