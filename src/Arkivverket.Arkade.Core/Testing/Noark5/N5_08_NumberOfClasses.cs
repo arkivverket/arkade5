@@ -29,17 +29,26 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var testResults = new List<TestResult>();
             int totalNumberOfClasses = 0;
 
+            bool multipleArchiveParts = _classificationSystems.GroupBy(c => c.ArchivePart.SystemId).Count() > 1;
+            bool multipleClassificationSystems = _classificationSystems.Count > 1;
 
             foreach (ClassificationSystem classificationSystem in _classificationSystems)
             {
                 string primaryOrSecondary =
                     classificationSystem.Primary ? Noark5Messages.Primary : Noark5Messages.Secondary;
 
-                string message = string.Format(Noark5Messages.NumberOfClassesTestResultMessage,
-                    classificationSystem.ArchivePart.SystemId,
-                    classificationSystem.ArchivePart.Name,
+                string message = "";
+
+                if (multipleClassificationSystems)
+                    message = string.Format(Noark5Messages.NumberOfClassesTestResultMessage,
                     primaryOrSecondary,
                     classificationSystem.ClassificationSystemId);
+
+                if (multipleArchiveParts)
+                    message = message.Insert(0,
+                        string.Format(Noark5Messages.ArchivePartSystemId,
+                            classificationSystem.ArchivePart.SystemId,
+                            classificationSystem.ArchivePart.Name) + " - ");
 
                 testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
                     string.Format(message + string.Format(Noark5Messages.NumberOfClasses,
@@ -56,9 +65,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 totalNumberOfClasses += classificationSystem.ClassesPerLevel.Values.Sum();
             }
 
-            testResults.Insert(0, new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
-                Noark5Messages.TotalResultNumber,
-                totalNumberOfClasses)));
+            if (multipleClassificationSystems)
+                testResults.Insert(0, new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
+                    Noark5Messages.TotalResultNumber,
+                    totalNumberOfClasses)));
 
             return testResults;
         }
@@ -133,6 +143,5 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 ClassesPerLevel = new Dictionary<int, int>();
             }
         }
-
     }
 }
