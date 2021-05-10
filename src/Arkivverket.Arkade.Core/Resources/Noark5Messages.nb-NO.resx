@@ -225,7 +225,7 @@ Generert:  {2}</value>
     <value>Klasser på nivå {0}: {1}</value>
   </data>
   <data name="NumberOfClassesTestResultMessage" xml:space="preserve">
-    <value>Arkivdel (systemID, tittel): {0}, {1} {2} klassifikasjonssystem (systemID): {3} - </value>
+    <value>{0} klassifikasjonssystem (systemID): {1} - </value>
   </data>
   <data name="NumberOfClassificationsMessage" xml:space="preserve">
     <value>Graderinger i {0} - Antall: {1}</value>
@@ -412,5 +412,11 @@ Generert:  {2}</value>
   </data>
   <data name="Noark5VersionNotSupportedForBuiltInSchemas" xml:space="preserve">
     <value>Arkade støtter ikke innebygde skjema for Noark5 versjon {0}</value>
+  </data>
+  <data name="MissingAddmlSchema" xml:space="preserve">
+    <value>Mangler "addml.xsd"</value>
+  </data>
+  <data name="UsingBuiltInAddmlSchemaFile" xml:space="preserve">
+    <value>Kunne ikke finne "addml.xsd" i uttrekket. Innebygd versjon ({0}) brukes.</value>
   </data>
 </root>

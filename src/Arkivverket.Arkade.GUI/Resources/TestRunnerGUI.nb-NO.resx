@@ -209,10 +209,4 @@ Det kan fortsatt lages en pakke av uttrekket.</value>
   <data name="MessageLabelInfo" xml:space="preserve">
     <value>NB!</value>
   </data>
-  <data name="UsingBuiltInAddmlSchemaFile" xml:space="preserve">
-    <value>Kunne ikke finne "addml.xsd" i uttrekket. Innebygd versjon ({0}) brukes.</value>
-  </data>
-  <data name="MissingAddmlSchema" xml:space="preserve">
-    <value>Mangler "addml.xsd"</value>
-  </data>
 </root>

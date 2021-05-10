@@ -7,6 +7,7 @@ using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
+using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Identify
 {
@@ -72,6 +73,16 @@ namespace Arkivverket.Arkade.Core.Identify
         private TestSession NewSession(WorkingDirectory workingDirectory, ArchiveType archiveType, Uuid uuid)
         {
             Archive archive = new Archive(archiveType, uuid, workingDirectory);
+
+            if (archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())
+            {
+                _statusEventHandler?.RaiseEventOperationMessage(
+                    Noark5Messages.MissingAddmlSchema,
+                    string.Format(Noark5Messages.UsingBuiltInAddmlSchemaFile, BuiltInAddmlSchemaVersion),
+                    OperationMessageStatus.Warning);
+                Log.Warning(string.Format(Noark5Messages.InternalSchemaFileIsUsed,
+                    AddmlXsdFileName, BuiltInAddmlSchemaVersion));
+            }
 
             workingDirectory.CopyAddmlFileToAdministrativeMetadata();
 

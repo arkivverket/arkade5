@@ -243,15 +243,6 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Missing &quot;addml.xsd&quot;.
-        /// </summary>
-        public static string MissingAddmlSchema {
-            get {
-                return ResourceManager.GetString("MissingAddmlSchema", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to New session.
         /// </summary>
         public static string NewProgramSessionButtonText {
@@ -338,15 +329,6 @@ namespace Arkivverket.Arkade.GUI.Languages {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Could not find &quot;addml.xsd&quot; in the extract. Built in version ({0}) will be used..
-        /// </summary>
-        public static string UsingBuiltInAddmlSchemaFile {
-            get {
-                return ResourceManager.GetString("UsingBuiltInAddmlSchemaFile", resourceCulture);
             }
         }
     }

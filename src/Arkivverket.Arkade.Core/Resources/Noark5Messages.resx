@@ -399,7 +399,7 @@ Generated: {2}</value>
     <value>Registration type: {0} - Number: {1}</value>
   </data>
   <data name="NumberOfClassesTestResultMessage" xml:space="preserve">
-    <value>Archive part (systemID, title): {0}, {1} {2} classification system (systemID): {3} - </value>
+    <value>{0} classification system (systemID): {1} - </value>
   </data>
   <data name="ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound" xml:space="preserve">
     <value>No valid journal dates were found in the archive extract</value>
@@ -412,5 +412,11 @@ Generated: {2}</value>
   </data>
   <data name="Noark5VersionNotSupportedForBuiltInSchemas" xml:space="preserve">
     <value>Arkade does not support built-in schemas for Noark5 version {0}</value>
+  </data>
+  <data name="MissingAddmlSchema" xml:space="preserve">
+    <value>Missing "addml.xsd"</value>
+  </data>
+  <data name="UsingBuiltInAddmlSchemaFile" xml:space="preserve">
+    <value>Could not find "addml.xsd" in the extract. Built in version ({0}) will be used.</value>
   </data>
 </root>

@@ -342,6 +342,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing &quot;addml.xsd&quot;.
+        /// </summary>
+        public static string MissingAddmlSchema {
+            get {
+                return ResourceManager.GetString("MissingAddmlSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkade does not support built-in schemas for Noark5 version {0}.
         /// </summary>
         public static string Noark5VersionNotSupportedForBuiltInSchemas {
@@ -396,7 +405,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1} {2} classification system (systemID): {3} - .
+        ///   Looks up a localized string similar to {0} classification system (systemID): {1} - .
         /// </summary>
         public static string NumberOfClassesTestResultMessage {
             get {
@@ -878,6 +887,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string TotalResultNumber {
             get {
                 return ResourceManager.GetString("TotalResultNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find &quot;addml.xsd&quot; in the extract. Built in version ({0}) will be used..
+        /// </summary>
+        public static string UsingBuiltInAddmlSchemaFile {
+            get {
+                return ResourceManager.GetString("UsingBuiltInAddmlSchemaFile", resourceCulture);
             }
         }
         
