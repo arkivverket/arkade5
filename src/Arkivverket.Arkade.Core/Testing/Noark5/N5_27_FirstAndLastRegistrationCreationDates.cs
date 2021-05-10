@@ -34,22 +34,39 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 string.Format(Noark5Messages.DatesFirstAndLastRegistrationMessage_NumberOfRegistrations,
                     _registrationCount)));
 
-            foreach (N5_27_ArchivePart archivePart in _archiveParts)
+            const string dateFormat = "dd.MM.yyyy";
+
+            if (_archiveParts.Count == 1)
             {
-                if (archivePart.RegistrationCreationDates.Any())
+                if (_currentArchivePart.RegistrationCreationDates.Any())
                 {
                     testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                        string.Format(
-                            Noark5Messages
-                                .DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart,
-                            archivePart.SystemId, archivePart.Name,
-                            archivePart.RegistrationCreationDates.First().ToString("dd.MM.yyyy"))));
+                        string.Format(Noark5Messages.DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration,
+                            _currentArchivePart.RegistrationCreationDates.First().ToString(dateFormat))));
                     testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                        string.Format(
-                            Noark5Messages
-                                .DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart,
-                            archivePart.SystemId, archivePart.Name,
-                            archivePart.RegistrationCreationDates.Last().ToString("dd.MM.yyyy"))));
+                        string.Format(Noark5Messages.DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration,
+                            _currentArchivePart.RegistrationCreationDates.Last().ToString(dateFormat))));
+                }
+            }
+            else
+            {
+                foreach (N5_27_ArchivePart archivePart in _archiveParts)
+                {
+                    if (archivePart.RegistrationCreationDates.Any())
+                    {
+                        testResults.Add(new TestResult(ResultType.Success, new Location(""),
+                            string.Format(
+                                Noark5Messages
+                                    .DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart,
+                                archivePart.SystemId, archivePart.Name,
+                                archivePart.RegistrationCreationDates.First().ToString(dateFormat))));
+                        testResults.Add(new TestResult(ResultType.Success, new Location(""),
+                            string.Format(
+                                Noark5Messages
+                                    .DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart,
+                                archivePart.SystemId, archivePart.Name,
+                                archivePart.RegistrationCreationDates.Last().ToString(dateFormat))));
+                    }
                 }
             }
 
@@ -95,8 +112,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if(eventArgs.NameEquals("arkivdel"))
-                _currentArchivePart = new N5_27_ArchivePart();
         }
 
         private class N5_27_ArchivePart : ArchivePart
