@@ -2,7 +2,6 @@ using System;
 using Arkivverket.Arkade.Core.Testing;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base
@@ -24,28 +23,9 @@ namespace Arkivverket.Arkade.Core.Base
             Results = new List<TestResult>();
         }
 
-        public void Add(TestResult result)
-        {
-            Results.Add(result);
-        }
-
         public bool IsSuccess()
         {
             return Results.TrueForAll(r => !r.IsError());
-        }
-
-        public override string ToString()
-        {
-            var builder = new StringBuilder();
-
-            builder.Append("Test: ").AppendLine(TestName);
-            builder.Append("Test type: ").AppendLine(TestType.ToString());
-            builder.Append("IsSuccess: ").AppendLine(IsSuccess().ToString());
-            builder.AppendLine("Results: ");
-            foreach (TestResult result in Results)
-                builder.AppendLine(result.ToString());
-
-            return builder.ToString();
         }
 
         public int FindNumberOfErrors()
