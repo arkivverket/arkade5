@@ -27,6 +27,11 @@ namespace Arkivverket.Arkade.Core.Util
             return GetDirectoryDriveInfo(directory).TotalSize;
         }
 
+        public static DriveType GetDiskType(string directory)
+        {
+            return GetDirectoryDriveInfo(directory).DriveType;
+        }
+
         public static string GetDotNetClrVersion()
         {
             return Environment.Version.ToString();
