@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private readonly List<string> _classSystemIds = new List<string>();
         private readonly Stack<Folder> _folders = new Stack<Folder>();
-        private readonly List<Folder> _classReferringDossiers = new List<Folder>();
+        private readonly List<Folder> _classReferingDossiers = new List<Folder>();
 
         public override TestId GetId()
         {
@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             var testResults = new List<TestResult>();
 
-            foreach (Folder classRefferingDossier in _classReferringDossiers)
+            foreach (Folder classRefferingDossier in _classReferingDossiers)
             {
                 if (HasInvalidReference(classRefferingDossier))
                     testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
@@ -72,7 +72,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 Folder examinedFolder = _folders.Pop();
 
                 if (examinedFolder.IsDossier && examinedFolder.ClassReference != null)
-                    _classReferringDossiers.Add(examinedFolder);
+                    _classReferingDossiers.Add(examinedFolder);
             }
         }
 
