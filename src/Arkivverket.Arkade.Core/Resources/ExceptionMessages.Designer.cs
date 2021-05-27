@@ -124,6 +124,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enum {0} does not have an associated schema generator..
+        /// </summary>
+        public static string SchemaGeneratorIsNotImplementedMessage {
+            get {
+                return ResourceManager.GetString("SchemaGeneratorIsNotImplementedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown package type: {0}.
         /// </summary>
         public static string UnknownPackageType {

@@ -144,4 +144,7 @@
   <data name="AddTestRunToTestSuite" xml:space="preserve">
     <value>TestRun for test {0} med ID {1} ble ikke lagt til i testkjøringen. Sannsynlig årsak: Det eksisterer allerede en test med samme ID</value>
   </data>
+  <data name="SchemaGeneratorIsNotImplementedMessage" xml:space="preserve">
+    <value>Generator for skjema av typen {0} er ikke implementert.</value>
+  </data>
 </root>

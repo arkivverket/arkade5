@@ -144,4 +144,7 @@
   <data name="ArkadeProcessAreaNotSet" xml:space="preserve">
     <value>Processing area is not set.</value>
   </data>
+  <data name="SchemaGeneratorIsNotImplementedMessage" xml:space="preserve">
+    <value>Enum {0} does not have an associated schema generator.</value>
+  </data>
 </root>
