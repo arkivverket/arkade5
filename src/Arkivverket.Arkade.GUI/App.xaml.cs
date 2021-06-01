@@ -123,13 +123,13 @@ namespace Arkivverket.Arkade.GUI
         {
             _log.Information("Arkade " + ArkadeVersion.Current + " stopping");
 
+            ExternalProcessManager.TerminateAll();
+
             if (!ArkadeProcessingAreaLocationSetting.IsApplied())
                 ArkadeProcessingArea.Destroy();
 
             else if (ArkadeInstance.IsOnlyInstance)
                 ArkadeProcessingArea.CleanUp();
-
-            ExternalProcessManager.TerminateAll();
 
             base.OnExit(e);
         }
