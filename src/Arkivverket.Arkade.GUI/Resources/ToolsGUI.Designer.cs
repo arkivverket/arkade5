@@ -150,5 +150,14 @@ namespace Arkivverket.Arkade.GUI.Languages {
                 return ResourceManager.GetString("ToolsDialogTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the Tools dialog is closed now,  results from the running tool will be lost. Do you still want to close?.
+        /// </summary>
+        public static string UnsavedResultsOnExitWarning {
+            get {
+                return ResourceManager.GetString("UnsavedResultsOnExitWarning", resourceCulture);
+            }
+        }
     }
 }

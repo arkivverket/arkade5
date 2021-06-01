@@ -24,9 +24,13 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             IEnumerable<string> siegfriedResult = RunProcessOnDirectory(siegfriedProcess, directory);
 
-            ExternalProcessManager.Close(siegfriedProcess);
-
-            return GetSiegfriedFileInfoObjects(siegfriedResult);
+            int siegfriedCloseStatus = ExternalProcessManager.Close(siegfriedProcess.Id);
+            return siegfriedCloseStatus switch
+            {
+                -1 => throw new SiegfriedFileFormatIdentifierException("Process does not exist"),
+                1 => throw new SiegfriedFileFormatIdentifierException("Process was terminated"),
+                _ => GetSiegfriedFileInfoObjects(siegfriedResult)
+            };
         }
 
         public IFileFormatInfo IdentifyFormat(FileInfo file)

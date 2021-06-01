@@ -148,4 +148,7 @@ Result saved at:</value>
   <data name="ToolsDialogTitle" xml:space="preserve">
     <value>Tools</value>
   </data>
+  <data name="UnsavedResultsOnExitWarning" xml:space="preserve">
+    <value>If the Tools dialog is closed now,  results from the running tool will be lost. Do you still want to close?</value>
+  </data>
 </root>
