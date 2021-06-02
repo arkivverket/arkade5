@@ -52,32 +52,32 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.Results.First().Message.Should().Be("Totalt: 12");
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, arkivdelTittel1 Primært klassifikasjonssystem (systemID): klassSys_1 - Totalt antall klasser: 3"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, arkivdelTittel1 - Primært klassifikasjonssystem (systemID): klassSys_1 - Totalt antall klasser: 3"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, arkivdelTittel1 Primært klassifikasjonssystem (systemID): klassSys_1 - Klasser på nivå 1: 2"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, arkivdelTittel1 - Primært klassifikasjonssystem (systemID): klassSys_1 - Klasser på nivå 1: 2"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, arkivdelTittel1 Primært klassifikasjonssystem (systemID): klassSys_1 - Klasser på nivå 2: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, arkivdelTittel1 - Primært klassifikasjonssystem (systemID): klassSys_1 - Klasser på nivå 2: 1"));
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, arkivdelTittel1 Sekundært klassifikasjonssystem (systemID): klassSys_2 - Totalt antall klasser: 3"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, arkivdelTittel1 - Sekundært klassifikasjonssystem (systemID): klassSys_2 - Totalt antall klasser: 3"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, arkivdelTittel1 Sekundært klassifikasjonssystem (systemID): klassSys_2 - Klasser på nivå 1: 2"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, arkivdelTittel1 - Sekundært klassifikasjonssystem (systemID): klassSys_2 - Klasser på nivå 1: 2"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, arkivdelTittel1 Sekundært klassifikasjonssystem (systemID): klassSys_2 - Klasser på nivå 2: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, arkivdelTittel1 - Sekundært klassifikasjonssystem (systemID): klassSys_2 - Klasser på nivå 2: 1"));
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, arkivdelTittel2 Primært klassifikasjonssystem (systemID): klassSys_1 - Totalt antall klasser: 3"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, arkivdelTittel2 - Primært klassifikasjonssystem (systemID): klassSys_1 - Totalt antall klasser: 3"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, arkivdelTittel2 Primært klassifikasjonssystem (systemID): klassSys_1 - Klasser på nivå 1: 2"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, arkivdelTittel2 - Primært klassifikasjonssystem (systemID): klassSys_1 - Klasser på nivå 1: 2"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, arkivdelTittel2 Primært klassifikasjonssystem (systemID): klassSys_1 - Klasser på nivå 2: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, arkivdelTittel2 - Primært klassifikasjonssystem (systemID): klassSys_1 - Klasser på nivå 2: 1"));
 
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, arkivdelTittel2 Sekundært klassifikasjonssystem (systemID): klassSys_2 - Totalt antall klasser: 3"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, arkivdelTittel2 - Sekundært klassifikasjonssystem (systemID): klassSys_2 - Totalt antall klasser: 3"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, arkivdelTittel2 Sekundært klassifikasjonssystem (systemID): klassSys_2 - Klasser på nivå 1: 2"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, arkivdelTittel2 - Sekundært klassifikasjonssystem (systemID): klassSys_2 - Klasser på nivå 1: 2"));
             testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, arkivdelTittel2 Sekundært klassifikasjonssystem (systemID): klassSys_2 - Klasser på nivå 2: 1"));
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, arkivdelTittel2 - Sekundært klassifikasjonssystem (systemID): klassSys_2 - Klasser på nivå 2: 1"));
         }
 
         [Fact]
