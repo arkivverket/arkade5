@@ -19,10 +19,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         private static string GetDisplayName(TestId testId, CultureInfo culture)
         {
-            string resourceDisplayNameKey = testId.ToString().Replace('.', '_');
-
-            if (testId.Version.Equals("5.5"))
-                resourceDisplayNameKey = $"{resourceDisplayNameKey}v5_5";
+            string resourceDisplayNameKey = $"{testId}{testId.Version}".Replace('.', '_');
 
             string testName = ArkadeTestDisplayNames.ResourceManager.GetString(resourceDisplayNameKey, culture);
 
