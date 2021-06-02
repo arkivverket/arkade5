@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Resources;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Tar;
 using Xunit;
@@ -24,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         [Trait("Category", "Integration")]
         public void Test01_ShouldCreateSip() // TODO: Remove the created packages
         {
-            DeleteOldTestDirectories();
+            DeleteOldUnitTestResultsBeforeNewRun();
 
             Archive archive = new ArchiveBuilder().WithUuid(Uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
 
@@ -94,14 +96,20 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         {
             List<string> fileList = new List<string>();
 
-            Stream inStream = File.OpenRead(targetFileName);
-            TarArchive tarArchive = TarArchive.CreateInputTarArchive(inStream);
+            using Stream inStream = File.OpenRead(targetFileName);
+            using TarArchive tarArchive = TarArchive.CreateInputTarArchive(inStream);
             tarArchive.ProgressMessageEvent += delegate(TarArchive archive1, TarEntry entry, string message)
             {
                 fileList.Add(entry.Name);
             };
             tarArchive.ListContents();
             return fileList;
+        }
+
+        private void DeleteOldUnitTestResultsBeforeNewRun()
+        {
+            DeleteOldTestDirectories();
+            DeletePreviouslyCreatedTestPackages();
         }
 
         private void DeleteOldTestDirectories()
@@ -111,7 +119,13 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
             foreach (string directory in Directory.EnumerateDirectories(repositoryOperationsDirectory))
                 Directory.Delete(directory);
-            
+        }
+
+        private void DeletePreviouslyCreatedTestPackages()
+        {
+            foreach (string directory in Directory.EnumerateDirectories(_outputDirectory)
+                .Where(d => d.Contains(string.Format(OutputFileNames.ResultOutputDirectory, string.Empty))))
+                Directory.Delete(directory, true);
         }
     }
 }
