@@ -28,13 +28,13 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeTrue();
-            testRun.Results.Count.Should().Be(3);
-            testRun.Results[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("2 forekomster av A");
-            testRun.Results[1].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
-            testRun.Results[1].Message.Should().Be("3 forekomster av B");
-            testRun.Results[2].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
-            testRun.Results[2].Message.Should().Be("1 forekomster av C");
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Message.Should().Be("2 forekomster av A");
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[1].Message.Should().Be("3 forekomster av B");
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[2].Message.Should().Be("1 forekomster av C");
         }
     }
 }

@@ -8,10 +8,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 {
     public class N5_35_NumberOfCaseParts : Noark5XmlReaderBaseTest
     {
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private ArchivePart _currentArchivePart = new();
         private int _totalNumberOfCaseParts;
         private Archive archive;
-        private readonly Dictionary<ArchivePart, int> _casePartsPerArchivePart = new Dictionary<ArchivePart, int>();
+        private readonly Dictionary<ArchivePart, int> _casePartsPerArchivePart = new();
         private readonly TestId _id;
 
         private string GetTestVersion()
@@ -35,30 +35,27 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>
+            bool multipleArchiveParts = _casePartsPerArchivePart.Count > 1;
+
+            var testResultSet = new TestResultSet
             {
-                new TestResult(ResultType.Success, new Location(string.Empty),
-                    string.Format(Noark5Messages.TotalResultNumber, _totalNumberOfCaseParts.ToString()))
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, _totalNumberOfCaseParts))
+                }
             };
 
-            if (_casePartsPerArchivePart.Count > 1)
-            {
-                foreach (KeyValuePair<ArchivePart, int> casePartCount in _casePartsPerArchivePart)
-                {
-                    if (casePartCount.Value > 0)
-                    {
-                        var testResult = new TestResult(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.NumberOf_PerArchivePart, casePartCount.Key.SystemId, casePartCount.Key.Name,
-                                casePartCount.Value, ""));
+            if (_totalNumberOfCaseParts == 0 || !multipleArchiveParts)
+                return testResultSet;
 
-                        testResults.Add(testResult);
-                    }
-                }
-            }
+            foreach ((ArchivePart archivePart, int casePartCount) in _casePartsPerArchivePart)
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.NumberOfXPerY, archivePart, casePartCount)));
 
-            return testResults;
+            return testResultSet;
         }
 
 

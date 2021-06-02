@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -11,8 +11,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 43);
 
-        private readonly List<Classification> _classifications = new List<Classification>();
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private readonly Dictionary<ArchivePart, Dictionary<string, int>>
+            _numberOfClassificationsPerElementPerArchivePart = new();
+        private ArchivePart _currentArchivePart = new();
 
         public override TestId GetId()
         {
@@ -24,59 +25,75 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
-            int totalNumberOfClassifications = 0;
+            bool multipleArchiveParts = _numberOfClassificationsPerElementPerArchivePart.Count > 1;
 
-            // Group classifications by parent element name and by archive part:
-            var classificationQuery = from classification in _classifications
-                group classification by new
-                {
-                    classification.ArchivePart.SystemId,
-                    classification.ArchivePart.Name,
-                    classification.ParentElementName
-                }
-                into grouped
-                select new
-                {
-                    grouped.Key.SystemId,
-                    grouped.Key.Name,
-                    grouped.Key.ParentElementName,
-                    Count = grouped.Count()
-                };
+            int totalNumberOfClassifications =
+                _numberOfClassificationsPerElementPerArchivePart.Sum(a => a.Value.Sum(c => c.Value));
 
-            bool multipleArchiveParts = _classifications.GroupBy(c => c.ArchivePart.SystemId).Count() > 1;
-
-            foreach (var item in classificationQuery)
+            var testResultSet = new TestResultSet
             {
-                var message = new StringBuilder(
-                    string.Format(Noark5Messages.NumberOfClassificationsMessage, item.ParentElementName, item.Count));
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, totalNumberOfClassifications))
+                }
+            };
+
+            if (totalNumberOfClassifications == 0)
+                return testResultSet;
+
+            foreach ((ArchivePart archivePart, Dictionary<string, int> classificationsPerElement) in
+                _numberOfClassificationsPerElementPerArchivePart)
+            {
+                var testResults = new List<TestResult>();
+
+                foreach ((string parentElementName, int numberOfClassifications) in classificationsPerElement)
+                    testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                        string.Format(Noark5Messages.NumberOfClassificationsMessage, parentElementName,
+                            numberOfClassifications)));
 
                 if (multipleArchiveParts)
-                    message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, item.SystemId, item.Name) + " - ");
+                {
+                    testResults.Insert(0, new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOf, classificationsPerElement.Values.Sum())));
 
-                testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
-
-                totalNumberOfClassifications += item.Count;
+                    testResultSet.TestResultSets.Add(new TestResultSet
+                    {
+                        Name = archivePart.ToString(),
+                        TestsResults = testResults,
+                    });
+                }
+                else
+                    testResultSet.TestsResults.AddRange(testResults);
             }
 
-            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""), 
-                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfClassifications.ToString())));
-
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.NameEquals("gradering") && eventArgs.Path.GetParent() != "gradering")
             {
-                _classifications.Add(new Classification
+                string parentElementName = eventArgs.Path.GetParent();
+
+                if (_numberOfClassificationsPerElementPerArchivePart.ContainsKey(_currentArchivePart))
                 {
-                    ArchivePart = _currentArchivePart,
-                    ParentElementName = eventArgs.Path.GetParent()
-                });
+                    if (_numberOfClassificationsPerElementPerArchivePart[_currentArchivePart].ContainsKey(parentElementName))
+                        _numberOfClassificationsPerElementPerArchivePart[_currentArchivePart][parentElementName]++;
+                    else
+                        _numberOfClassificationsPerElementPerArchivePart[_currentArchivePart].Add(parentElementName, 1);
+                }
+                else
+                {
+                    _numberOfClassificationsPerElementPerArchivePart.Add(
+                        _currentArchivePart, new Dictionary<string, int>
+                        {
+                            {parentElementName, 1}
+                        }
+                    );
+                }
             }
         }
 
@@ -98,12 +115,5 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("tittel", "arkivdel"))
                 _currentArchivePart.Name = eventArgs.Value;
         }
-
-        private class Classification
-        {
-            public ArchivePart ArchivePart { get; set; }
-            public string ParentElementName { get; set; }
-        }
-
     }
 }

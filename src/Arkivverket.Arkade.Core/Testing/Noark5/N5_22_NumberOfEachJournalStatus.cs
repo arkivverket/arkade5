@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -11,9 +10,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 22);
 
-        private ArchivePart _currentArchivePart = new ArchivePart();
-        private JournalPost _currentJournalPost;
-        private readonly List<JournalPost> _journalPosts = new List<JournalPost>();
+        private readonly List<N5_22_ArchivePart> _archiveParts = new();
+        private N5_22_ArchivePart _currentArchivePart = new();
 
         public override TestId GetId()
         {
@@ -25,46 +23,36 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            bool multipleArchiveParts = _archiveParts.Count > 1;
 
-            var journalPostQuery = from journalPost in _journalPosts
-                where journalPost.Status != null
-                group journalPost by new
-                {
-                    journalPost.ArchivePart.SystemId,
-                    journalPost.ArchivePart.Name,
-                    journalPost.Status
-                }
-                into grouped
-                select new
-                {
-                    grouped.Key.SystemId,
-                    grouped.Key.Name,
-                    grouped.Key.Status,
-                    Count = grouped.Count()
-                };
+            var testResultSet = new TestResultSet();
 
-            bool multipleArchiveParts = _journalPosts.GroupBy(j => j.ArchivePart.SystemId).Count() > 1;
-
-            foreach (var item in journalPostQuery)
+            foreach (N5_22_ArchivePart archivePart in _archiveParts)
             {
-                var message = new StringBuilder(
-                    string.Format(Noark5Messages.NumberOfEachJournalStatusMessage, item.Status, item.Count));
+                var testResults = new List<TestResult>();
+
+                foreach ((string status, int count) in archivePart.NumberOfJournalPostStatuses)
+                    testResults.Add(new TestResult(
+                        status.Equals("Arkivert") || status.Equals("Utgår")
+                            ? ResultType.Success
+                            : ResultType.Error,
+                        new Location(string.Empty),
+                        string.Format(Noark5Messages.NumberOfEachJournalStatusMessage, status, count)
+                    ));
 
                 if (multipleArchiveParts)
-                    message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, item.SystemId, item.Name) + " - ");
-
-                ResultType resultType = item.Status.Equals("Arkivert") || item.Status.Equals("Utgår")
-                    ? ResultType.Success
-                    : ResultType.Error;
-
-                testResults.Add(new TestResult(resultType, new Location(""), message.ToString()));
+                    testResultSet.TestResultSets.Add(new TestResultSet
+                    {
+                        Name = archivePart.ToString(),
+                        TestsResults = testResults,
+                    });
+                else
+                    testResultSet.TestsResults = testResults;
             }
 
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -73,8 +61,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (Noark5TestHelper.IdentifiesJournalPostRegistration(eventArgs))
-                _currentJournalPost = new JournalPost {ArchivePart = _currentArchivePart};
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
@@ -85,25 +71,29 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("tittel", "arkivdel"))
                 _currentArchivePart.Name = eventArgs.Value;
 
-            if (eventArgs.Path.Matches("journalstatus", "registrering") && _currentJournalPost != null)
-                _currentJournalPost.Status = eventArgs.Value;
+            if (eventArgs.Path.Matches("journalstatus", "registrering"))
+            {
+                string status = eventArgs.Value;
+
+                if (_currentArchivePart.NumberOfJournalPostStatuses.ContainsKey(status))
+                    _currentArchivePart.NumberOfJournalPostStatuses[status]++;
+                else
+                    _currentArchivePart.NumberOfJournalPostStatuses.Add(status, 1);
+            }
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.NameEquals("registrering") && _currentJournalPost != null)
-            {
-                _journalPosts.Add(_currentJournalPost);
-                _currentJournalPost = null;
-            }
             if(eventArgs.NameEquals("arkivdel"))
-                _currentArchivePart = new ArchivePart();
+            {
+                _archiveParts.Add(_currentArchivePart);
+                _currentArchivePart = new N5_22_ArchivePart();
+            }
         }
 
-        private class JournalPost
+        private class N5_22_ArchivePart : ArchivePart
         {
-            public ArchivePart ArchivePart { get; set; }
-            public string Status { get; set; }
+            public readonly Dictionary<string, int> NumberOfJournalPostStatuses = new();
         }
     }
 }

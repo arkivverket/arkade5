@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Resources;
@@ -31,17 +30,17 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
         public TestRun GetTestRun()
         {
             Stopwatch.Start();
-            List<TestResult> testResults = GetTestResults();
+            TestResultSet testResults = GetTestResults();
             Stopwatch.Stop();
 
             return new TestRun(this)
             {
-                Results = testResults,
+                TestResults = testResults,
                 TestDuration = Stopwatch.ElapsedMilliseconds
             };
         }
 
-        protected abstract List<TestResult> GetTestResults();
+        protected abstract TestResultSet GetTestResults();
 
         public int CompareTo(object obj)
         {

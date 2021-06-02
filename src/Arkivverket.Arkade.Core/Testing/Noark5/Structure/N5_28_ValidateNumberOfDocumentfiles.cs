@@ -25,9 +25,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             return TestType.StructureAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            return _testResults;
+            return new()
+            {
+                TestsResults = _testResults
+            };
         }
 
         public override void Test(Archive archive)

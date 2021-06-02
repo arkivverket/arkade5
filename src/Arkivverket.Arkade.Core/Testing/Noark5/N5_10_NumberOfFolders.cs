@@ -13,9 +13,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 10);
 
         private readonly Archive _archive;
-        private Stack<string> _currentFolderType = new Stack<string>();
-        private readonly List<N5_10_ArchivePart> _archiveParts = new List<N5_10_ArchivePart>();
-        private N5_10_ArchivePart _currentArchivePart = new N5_10_ArchivePart();
+        private readonly Stack<string> _currentFolderType = new();
+        private readonly List<N5_10_ArchivePart> _archiveParts = new();
+        private N5_10_ArchivePart _currentArchivePart = new();
 
         public N5_10_NumberOfFolders(Archive archive)
         {
@@ -32,49 +32,80 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            int totalNumberOfFolders = _archiveParts.Sum(a => a.FoldersPerLevel.Sum(f => f.Value.Values.Sum()));
+            int documentedNumberOfFolders = GetDocumentedNumberOfFolders();
+            bool multipleArchiveParts = _archiveParts.Count > 1;
 
-            var totalNumberOfFolders = 0;
-            var message = "";
+            var testResultSet = new TestResultSet
+            {
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(""), string.Format(
+                        Noark5Messages.TotalResultNumber, totalNumberOfFolders))
+                }
+            };
+
+            if (totalNumberOfFolders != documentedNumberOfFolders)
+                testResultSet.TestsResults.Add(
+                    new TestResult(ResultType.Error, new Location(""), string.Format(
+                        Noark5Messages.NumberOfFolders_DocumentedAndActualMismatch,
+                        documentedNumberOfFolders, totalNumberOfFolders
+                    )));
+
+            if (totalNumberOfFolders == 0)
+                return testResultSet;
 
             foreach (N5_10_ArchivePart archivePart in _archiveParts)
             {
-                if (_archiveParts.Count > 1)
-                    message = string.Format(Noark5Messages.ArchivePartSystemId, archivePart.SystemId, archivePart.Name) + " - ";
+                int numberOfFolders = archivePart.FoldersPerLevel.Sum(f => f.Value.Values.Sum());
 
-                foreach (var foldersPerLevel in archivePart.FoldersPerLevel)
-                { 
-                    totalNumberOfFolders += foldersPerLevel.Value.Values.Sum();
-
-                    string folderType = Noark5TestHelper.StripNamespace(foldersPerLevel.Key);
-
-                    testResults.Add(new TestResult(ResultType.Success, new Location(""), string.Format(
-                        message + Noark5Messages.NumberOfTypeFolders, folderType, foldersPerLevel.Value.Values.Sum())));
-
-                    if (foldersPerLevel.Value.Count > 1)
+                var archivePartResultSet = new TestResultSet
+                {
+                    Name = archivePart.ToString(),
+                    TestsResults = new List<TestResult>
                     {
-                        foreach (var foldersAtLevel in foldersPerLevel.Value)
-                        {
-                            testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                                message + string.Format(Noark5Messages.NumberOfTypeFoldersAtLevel, folderType,
-                                    foldersAtLevel.Key, foldersAtLevel.Value)));
-                        }
+                        new(ResultType.Success, new Location(string.Empty), string.Format(
+                            Noark5Messages.NumberOf, numberOfFolders))
                     }
+                };
+
+                if (multipleArchiveParts)
+                    testResultSet.TestResultSets.Add(archivePartResultSet);
+
+                if (numberOfFolders == 0)
+                    continue;
+
+                foreach ((string folderName, Dictionary<int, int> numberOfFoldersPerLevel) in archivePart.FoldersPerLevel)
+                {
+                    string folderType = Noark5TestHelper.StripNamespace(folderName);
+
+                    var folderTypeResultSet = new TestResultSet
+                    {
+                        Name = string.Format(Noark5Messages.FolderType, folderType),
+                        TestsResults = new List<TestResult>
+                        {
+                            new(ResultType.Success, new Location(string.Empty), string.Format(
+                                Noark5Messages.NumberOf, numberOfFoldersPerLevel.Values.Sum()))
+                        }
+                    };
+
+                    foreach ((int level, int number) in numberOfFoldersPerLevel)
+                    {
+                        folderTypeResultSet.TestsResults.Add(new TestResult(ResultType.Success,
+                            new Location(string.Empty), string.Format(
+                                Noark5Messages.NumberOfTypeFoldersAtLevel, level, number)));
+                    }
+
+                    if (multipleArchiveParts)
+                        archivePartResultSet.TestResultSets.Add(folderTypeResultSet);
+                    else
+                        testResultSet.TestResultSets.Add(folderTypeResultSet);
                 }
             }
 
-            int documentedNumberOfFolders = GetDocumentedNumberOfFolders();
-
-            if (totalNumberOfFolders != documentedNumberOfFolders)
-                testResults.Add(new TestResult(ResultType.Error, new Location(""), string.Format(
-                    Noark5Messages.NumberOfFolders_DocumentedAndActualMismatch, documentedNumberOfFolders, totalNumberOfFolders)));
-
-            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
-                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfFolders.ToString())));
-
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -133,27 +164,19 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
         }
 
-        private void AddFolderOnLevel(Dictionary<int, int> foldersPerLevel, string value, int level)
-        {
-            if (foldersPerLevel.ContainsKey(level))
-                foldersPerLevel[level]++;
-
-            else foldersPerLevel.Add(level, 1);
-        }
-
         private int GetDocumentedNumberOfFolders()
         {
             addml addml = _archive.AddmlInfo.Addml;
 
             string numberOfFolders = addml.dataset[0].dataObjects.dataObject[0]
                 .dataObjects.dataObject[0].properties.FirstOrDefault(
-                    p => p.name == "info").properties.Where(
+                    p => p.name == "info")?.properties.Where(
                     p => p.name == "numberOfOccurrences").FirstOrDefault(
-                    p => p.value.Equals("mappe")).properties.FirstOrDefault(
-                    p => p.name.Equals("value"))
+                    p => p.value.Equals("mappe"))?.properties.FirstOrDefault(
+                    p => p.name.Equals("value"))?
                 .value;
-
-            return int.Parse(numberOfFolders);
+            
+            return numberOfFolders == null ? 0 : int.Parse(numberOfFolders);
         }
 
         private class N5_10_ArchivePart : ArchivePart

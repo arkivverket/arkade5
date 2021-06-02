@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         {
             var testSuite = new TestSuite();
             TestRun testRun = new ArkadeTestMock("test with error", TestType.ContentAnalysis).GetTestRun();
-            testRun.Results.Add(new TestResult(ResultType.Error, new Location(""), "feil"));
+            testRun.Add(new TestResult(ResultType.Error, new Location(""), "feil"));
             testSuite.AddTestRun(testRun);
 
             testSuite.FindNumberOfErrors().Should().Be(1);
@@ -53,7 +53,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             {
                 foreach (var testResult in testResults)
                 {
-                    testRun.Results.Add(testResult);
+                    testRun.Add(testResult);
                 }
             }
             testSuite.AddTestRun(testRun);

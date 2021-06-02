@@ -1,4 +1,6 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Tests.Base;
 using FluentAssertions;
@@ -13,8 +15,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         {
             XmlElementHelper xmlElementHelper =
                 new XmlElementHelper().Add("arkiv",
-                    new XmlElementHelper().Add("arkivdel",
-                        new XmlElementHelper().Add("klassifikasjonssystem",
+                    new XmlElementHelper().Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "archivePartSystemId_1")
+                        .Add("tittel", "archivePartTitle_1")
+                        .Add("klassifikasjonssystem",
                             new XmlElementHelper().Add("klasse",
                                 new XmlElementHelper().Add("mappe",
                                     new XmlElementHelper()
@@ -39,7 +43,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = CreateTestRun(xmlElementHelper);
 
-            testRun.Results.Count.Should().Be(0);
+            testRun.TestResults.GetNumberOfResults().Should().Be(0);
         }
 
         [Fact]
@@ -48,7 +52,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             XmlElementHelper xmlElementHelper =
                 new XmlElementHelper().Add("arkiv",
                     new XmlElementHelper()
-                        .Add("arkivdel", new XmlElementHelper().Add("systemID", "archivePartSystemId_1")
+                        .Add("arkivdel", new XmlElementHelper()
+                            .Add("systemID", "archivePartSystemId_1")
                             .Add("tittel", "archivePartTitle_1")
                             .Add("klassifikasjonssystem", new XmlElementHelper()
                                 .Add("klasse", new XmlElementHelper()
@@ -83,22 +88,67 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = CreateTestRun(xmlElementHelper);
 
-            testRun.Results.Should().Contain(r =>
+            List<TestResult> arkivdel1Results = testRun.TestResults.TestResultSets[0].TestsResults;
+            arkivdel1Results.Should().Contain(r =>
                 r.IsError() && r.Message.Equals(
-                    "Arkivdel (systemID, tittel): archivePartSystemId_1, archivePartTitle_1 - Filen dokumenter\\5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_1"
+                    "Filen dokumenter\\5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_1"
+                ));
+            arkivdel1Results.Should().Contain(r =>
+                r.IsError() && r.Message.Equals(
+                    "Filen dokumenter/5000001.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_2"
                 ));
 
-            testRun.Results.Should().Contain(r =>
+            List<TestResult> arkivdel2Results = testRun.TestResults.TestResultSets[1].TestsResults;
+            arkivdel2Results.Should().Contain(r =>
                 r.IsError() && r.Message.Equals(
-                    "Arkivdel (systemID, tittel): archivePartSystemId_1, archivePartTitle_1 - Filen dokumenter/5000001.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_2"
+                    "Filen dokumenter\\5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_3"
                 ));
 
-            testRun.Results.Should().Contain(r =>
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
+        }
+
+        [Fact]
+        public void ActualAndDocumentedChecksumsDoNotMatchInArchiveWithOneArchivePart()
+        {
+            XmlElementHelper xmlElementHelper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "archivePartSystemId_1")
+                        .Add("tittel", "archivePartTitle_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("registrering", new XmlElementHelper()
+                                        .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                            .Add("systemID", "someSystemId_1")
+                                            .Add("dokumentobjekt", new XmlElementHelper()
+                                                // "/" is supported:
+                                                .Add("referanseDokumentfil", "dokumenter/5000000.pdf")
+                                                .Add("sjekksum", "someNotMatchingCheckSum")
+                                                .Add("sjekksumAlgoritme", "SHA-256"))))
+                                    .Add("registrering", new XmlElementHelper()
+                                        .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                            .Add("systemID", "someSystemId_2")
+                                            .Add("dokumentobjekt", new XmlElementHelper()
+                                                // "\" is supported:
+                                                .Add("referanseDokumentfil", "dokumenter\\5000001.pdf")
+                                                .Add("sjekksum", "someNotMatchingCheckSum")
+                                                .Add("sjekksumAlgoritme", "SHA-256")))))))));
+
+
+            TestRun testRun = CreateTestRun(xmlElementHelper);
+
+            List<TestResult> testResults = testRun.TestResults.TestsResults;
+            testResults.Should().Contain(r =>
                 r.IsError() && r.Message.Equals(
-                    "Arkivdel (systemID, tittel): archivePartSystemId_2, archivePartTitle_2 - Filen dokumenter\\5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_3"
+                    "Filen dokumenter/5000000.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_1"
+                ));
+            testResults.Should().Contain(r =>
+                r.IsError() && r.Message.Equals(
+                    "Filen dokumenter\\5000001.pdf har ikke samme sjekksum som oppgitt i dokumentbeskrivelse (systemID) someSystemId_2"
                 ));
 
-            testRun.Results.Count.Should().Be(3);
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
         }
 
         private static TestRun CreateTestRun(XmlElementHelper xmlElementHelper)

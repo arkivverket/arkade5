@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Xml;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
@@ -29,11 +28,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            int numberOfChangesLogged = 0;
+            var numberOfChangesLogged = 0;
 
-            var testResults = new List<TestResult>();
+            var testResultSet = new TestResultSet();
 
             string changelogFullFilename = _archive.WorkingDirectory.Content()
                 .WithFile(ArkadeConstants.ChangeLogXmlFileName).FullName;
@@ -48,16 +47,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 xmlTextReader.Close();
 
-                testResults.Add(new TestResult(ResultType.Success, new Location(ArkadeConstants.ChangeLogXmlFileName),
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(ArkadeConstants.ChangeLogXmlFileName),
                     string.Format(Noark5Messages.TotalResultNumber, numberOfChangesLogged)));
             }
             catch (Exception)
             {
-                testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
                     string.Format(Noark5Messages.FileNotFound, ArkadeConstants.ChangeLogXmlFileName)));
             }
 
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

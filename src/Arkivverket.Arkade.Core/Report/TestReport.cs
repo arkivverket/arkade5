@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing;
 
@@ -31,7 +31,16 @@ namespace Arkivverket.Arkade.Core.Report
         public string TestName { get; set; }
         public TestType TestType { get; set; }
         public string TestDescription { get; set; }
-        public List<Result> TestResults { get; set; }
+        public ResultSet ResultSet { get; set; }
+        public bool HasResults { get; set; }
+        public string NumberOfErrors { get; set; }
+    }
+
+    public class ResultSet
+    {
+        public string Name { get; set; }
+        public List<ResultSet> ResultSets { get; set; }
+        public List<Result> Results { get; set; }
     }
 
     public class Result

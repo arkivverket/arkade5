@@ -24,9 +24,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_63_ControlElementsHasContent());
 
-            testRun.Results.Count.Should().Be(1);
-            testRun.Results.Should().Contain(r => r.Location.ToString().Equals("Etter systemID someSystemId_2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Elementet tittel mangler innhold"));
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
+            testRun.TestResults.TestsResults.Should()
+                .Contain(r => r.Location.ToString().Equals("Etter systemID someSystemId_2"));
+            testRun.TestResults.TestsResults.Should()
+                .Contain(r => r.Message.Equals("Elementet tittel mangler innhold"));
         }
 
         [Fact]
@@ -46,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_63_ControlElementsHasContent());
 
-            testRun.Results.Count.Should().Be(0);
+            testRun.TestResults.GetNumberOfResults().Should().Be(0);
         }
     }
 }

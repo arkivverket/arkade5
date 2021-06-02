@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -11,8 +11,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 20);
 
-        private readonly List<Class> _classes = new List<Class>();
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private readonly Dictionary<ArchivePart, List<Class>> _classesPerArchivePart = new();
+        private ArchivePart _currentArchivePart = new();
         private Class _currentClass;
 
         public override TestId GetId()
@@ -25,42 +25,51 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            bool multipleArchiveParts = _classesPerArchivePart.Count > 1;
 
-            bool multipleArchiveParts = _classes.GroupBy(j => j.ArchivePart.SystemId).Count() > 1;
+            int totalNumberOfClassesWithoutRegistrations =
+                _classesPerArchivePart.Sum(a => a.Value.Count(c => c.NumberOfRegistrations == 0));
 
-            foreach (Class @class in _classes.Where(c => c.NumberOfRegistrations > 0))
+            var testResultSet = new TestResultSet
             {
-                var message = new StringBuilder(
-                    string.Format(Noark5Messages.NumberOfRegistrationsPerClassMessage_NumberOfRegistrations,
-                        @class.SystemId, @class.NumberOfRegistrations)
-                );
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations,
+                        totalNumberOfClassesWithoutRegistrations))
+                }
+            };
+
+            foreach ((ArchivePart archivePart, List<Class> classes) in _classesPerArchivePart)
+            {
+                var archivePartResultSet = new TestResultSet
+                {
+                    Name = archivePart.ToString(),
+                };
+
+                List<TestResult> testResults = classes.Where(c => c.NumberOfRegistrations > 0)
+                    .Select(@class => new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOfXPerY, string.Format(Noark5Messages.ClassSystemId, @class.SystemId),
+                        @class.NumberOfRegistrations))).ToList();
 
                 if (multipleArchiveParts)
-                    message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, @class.ArchivePart.SystemId, @class.ArchivePart.Name) + " - ");
+                    archivePartResultSet.TestsResults = testResults;
+                else
+                    testResultSet.TestsResults.AddRange(testResults);
 
-                testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
+                if (archivePartResultSet.GetNumberOfResults() > 0)
+                    testResultSet.TestResultSets.Add(archivePartResultSet);
             }
 
-            int numberOfClassesWithoutRegistrations = _classes.Count(c => c.NumberOfRegistrations == 0);
-
-            if (numberOfClassesWithoutRegistrations > 0)
-                testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                    string.Format(
-                        Noark5Messages.NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations,
-                        numberOfClassesWithoutRegistrations)
-                ));
-
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.NameEquals("klasse"))
-                _currentClass = new Class {ArchivePart = _currentArchivePart};
+                _currentClass = new Class();
 
             if (eventArgs.Path.Matches("registrering", "klasse"))
                 _currentClass.NumberOfRegistrations++;
@@ -82,7 +91,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.NameEquals("klasse") && _currentClass != null)
             {
-                _classes.Add(_currentClass);
+                if (_classesPerArchivePart.ContainsKey(_currentArchivePart))
+                    _classesPerArchivePart[_currentArchivePart].Add(_currentClass);
+                else
+                    _classesPerArchivePart.Add(_currentArchivePart, new List<Class>
+                    {
+                        _currentClass
+                    });
+
                 _currentClass = null;
             }
             if (eventArgs.NameEquals("arkivdel"))
@@ -98,7 +114,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private class Class
         {
             public string SystemId { get; set; }
-            public ArchivePart ArchivePart { get; set; }
             public int NumberOfRegistrations { get; set; }
         }
 

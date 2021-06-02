@@ -117,12 +117,13 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             xml.Contains("<NumberOfProcessedFiles>").Should().BeTrue();
             xml.Contains("<NumberOfProcessedRecords>").Should().BeTrue();
             xml.Contains("<NumberOfErrors>").Should().BeTrue();
-            xml.Contains("<TestResults>").Should().BeTrue();
+            xml.Contains("<TestsResults>").Should().BeTrue();
             xml.Contains("<ExecutedTest>").Should().BeTrue();
             xml.Contains("<TestId>U.01").Should().BeTrue();
             xml.Contains("<TestType>ContentAnalysis").Should().BeTrue();
             xml.Contains("<TestDescription>Test description 1").Should().BeTrue();
-            xml.Contains("<TestResults>").Should().BeTrue();
+            xml.Contains("<ResultSet>").Should().BeTrue();
+            xml.Contains("<Results>").Should().BeTrue();
             xml.Contains("<Result>").Should().BeTrue();
             xml.Contains("<ResultType>Error").Should().BeTrue();
             xml.Contains("<Location>location").Should().BeTrue();

@@ -1,7 +1,5 @@
 using System;
 using Arkivverket.Arkade.Core.Testing;
-using System.Collections.Generic;
-using System.Linq;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base
@@ -13,24 +11,33 @@ namespace Arkivverket.Arkade.Core.Base
         public string TestName => ArkadeTestNameProvider.GetDisplayName(_test);
         public TestType TestType => _test.GetTestType();
         public string TestDescription => _test.GetDescription();
-        public List<TestResult> Results { get; set; }
+        public TestResultSet TestResults { get; set; }
         public long TestDuration { get; set; }
 
         public TestRun(IArkadeTest test)
         {
             _test = test;
 
-            Results = new List<TestResult>();
+            TestResults = new TestResultSet();
+        }
+
+        public void Add(TestResult testResult, string testResultSetName="")
+        {
+            if (testResultSetName == "")
+                TestResults.TestsResults.Add(testResult);
+            else
+                TestResults.FindFirst(testResultSetName).TestsResults.Add(testResult);
+            
         }
 
         public bool IsSuccess()
         {
-            return Results.TrueForAll(r => !r.IsError());
+            return TestResults.IsSuccess();
         }
 
         public int FindNumberOfErrors()
         {
-            return Results.Count(r => r.IsError()) + Results.Where(r => r.IsErrorGroup()).Sum(r => r.GroupErrors);
+            return TestResults.FindNumberOfErrors();
         }
 
         public int CompareTo(object obj)

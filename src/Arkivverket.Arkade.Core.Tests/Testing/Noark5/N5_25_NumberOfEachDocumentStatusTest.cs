@@ -1,4 +1,6 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -43,16 +45,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_25_NumberOfEachDocumentStatus());
 
-            testRun.Results.Should()
-                .Contain(r =>
-                            r.Message.Equals("Dokumentstatus: Dokumentet er ferdigstilt - Antall: 2")
-                );
-            testRun.Results.Should()
-                .Contain(r =>
-                        r.Message.Equals("Dokumentstatus: Dokumentet er under redigering - Antall: 1") &&
-                        r.IsError() // Only "Dokumentet er ferdigstilt" on regular deposits
-                );
-            testRun.Results.Count.Should().Be(2);
+            List<TestResult> testResults = testRun.TestResults.TestsResults;
+            testResults.Should().Contain(r => 
+                r.Message.Equals("Dokumentstatus: Dokumentet er ferdigstilt - Antall: 2"));
+            testResults.Should().Contain(r =>
+                r.Message.Equals("Dokumentstatus: Dokumentet er under redigering - Antall: 1")
+                && r.IsError()); // Only "Dokumentet er ferdigstilt" on regular deposits
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
         }
 
         [Fact]
@@ -120,25 +120,22 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_25_NumberOfEachDocumentStatus());
 
-            testRun.Results.Should().Contain(r =>
-                    r.Message.Equals(
-                        "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Dokumentstatus: Dokumentet er ferdigstilt - Antall: 2")
-            );
-            testRun.Results.Should().Contain(r =>
-                    r.Message.Equals(
-                        "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Dokumentstatus: Dokumentet er under redigering - Antall: 1") &&
-                    r.IsError() // Only "Dokumentet er ferdigstilt" on regular deposits
-            );
-            testRun.Results.Should().Contain(r =>
-                    r.Message.Equals(
-                        "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Dokumentstatus: Dokumentet er ferdigstilt - Antall: 2")
-            );
-            testRun.Results.Should().Contain(r =>
-                    r.Message.Equals(
-                        "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Dokumentstatus: Dokumentet er under redigering - Antall: 1") &&
-                    r.IsError() // Only "Dokumentet er ferdigstilt" on regular deposits
-            );
-            testRun.Results.Count.Should().Be(4);
+
+            List<TestResult> arkivdel1Results = testRun.TestResults.TestResultSets[0].TestsResults;
+            arkivdel1Results.Should().Contain(r => 
+                r.Message.Equals("Dokumentstatus: Dokumentet er ferdigstilt - Antall: 2"));
+            arkivdel1Results.Should().Contain(r =>
+                r.Message.Equals("Dokumentstatus: Dokumentet er under redigering - Antall: 1")
+                && r.IsError());
+
+            List<TestResult> arkivdel2Results = testRun.TestResults.TestResultSets[1].TestsResults;
+            arkivdel2Results.Should().Contain(r =>
+                r.Message.Equals("Dokumentstatus: Dokumentet er ferdigstilt - Antall: 2"));
+            arkivdel2Results.Should().Contain(r =>
+                r.Message.Equals("Dokumentstatus: Dokumentet er under redigering - Antall: 1")
+                && r.IsError());
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(4);
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -29,24 +31,15 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_15_NumberOfEachCaseFolderStatus());
 
-            testRun.Results.First().Message.Should().Be("Totalt: 3");
+            List<TestResult> testResults = testRun.TestResults.TestsResults;
+            testResults.First().Message.Should().Be("Totalt: 3");
+            testResults.Should().Contain(r => r.Message.Equals("Saksmappestatus: Avsluttet - Antall: 2"));
+            testResults.Should().Contain(r => r.Message.Equals("Saksmappestatus: Utgår - Antall: 1"));
+            testResults.Should().Contain(r =>
+                r.Message.Equals("Saksmappestatus: Under behandling - Antall: 1") &&
+                r.IsError()); // Only "Avsluttet" or "Utgår" on regular deposits
 
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals(
-                    "Saksmappestatus: Avsluttet - Antall: 2"
-                ));
-
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals(
-                    "Saksmappestatus: Utgår - Antall: 1"
-                ));
-
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals(
-                    "Saksmappestatus: Under behandling - Antall: 1"
-                ) && r.IsError()); // Only "Avsluttet" or "Utgår" on regular deposits
-
-            testRun.Results.Count.Should().Be(4);
+            testRun.TestResults.GetNumberOfResults().Should().Be(4);
         }
 
         [Fact]
@@ -72,19 +65,32 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_15_NumberOfEachCaseFolderStatus());
 
-            testRun.Results.First().Message.Should().Be("Totalt: 1");
+            List<TestResult> arkivdel1Results = testRun.TestResults.TestResultSets[0].TestsResults;
+            arkivdel1Results.First().Message.Should().Be("Antall: 1");
+            arkivdel1Results.Should().Contain(r => r.Message.Equals("Saksmappestatus: Avsluttet - Antall: 1"));
 
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals(
-                    "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Saksmappestatus: Avsluttet - Antall: 1"
-                ));
+            List<TestResult> arkivdel2Results = testRun.TestResults.TestResultSets[1].TestsResults;
+            arkivdel2Results.First().Message.Should().Be("Antall: 1");
+            arkivdel2Results.Should().Contain(r => r.Message.Equals("Saksmappestatus: Avsluttet - Antall: 1"));
 
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals(
-                    "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Saksmappestatus: Avsluttet - Antall: 1"
-                ));
+            testRun.TestResults.GetNumberOfResults().Should().Be(4);
+        }
 
-            testRun.Results.Count.Should().Be(3);
+        [Fact]
+        public void ShouldFindNoCaseFolderStatusesInSingleArchivePart()
+        {
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someArchivePartSystemId_1")
+                        .Add("tittel", "someArchivePartTitle_1")));
+
+
+            TestRun testRun = helper.RunEventsOnTest(new N5_15_NumberOfEachCaseFolderStatus());
+
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 0");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
     }
 }

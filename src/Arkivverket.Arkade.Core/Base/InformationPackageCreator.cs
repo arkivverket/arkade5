@@ -79,8 +79,8 @@ namespace Arkivverket.Arkade.Core.Base
 
             string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
 
-            Stream outStream = File.Create(packageFilePath);
-            TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
+            using Stream outStream = File.Create(packageFilePath);
+            using TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
 
             string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
             CreateEntry(packageRootDirectory, false, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);

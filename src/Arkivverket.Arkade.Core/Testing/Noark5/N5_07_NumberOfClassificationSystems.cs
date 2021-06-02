@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -10,8 +11,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 7);
 
-        private readonly Dictionary<ArchivePart, int> _classificationSystemsPerArchivePart = new Dictionary<ArchivePart, int>();
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private readonly Dictionary<ArchivePart, int> _classificationSystemsPerArchivePart = new();
+        private ArchivePart _currentArchivePart = new();
 
         public override TestId GetId()
         {
@@ -23,29 +24,31 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>
+            int totalNumberOfClassificationSystems = _classificationSystemsPerArchivePart.Values.Sum();
+
+            bool multipleArchiveParts = _classificationSystemsPerArchivePart.Count > 1;
+
+            var testResultSet = new TestResultSet
             {
-                new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
-                    Noark5Messages.TotalResultNumber,
-                    _classificationSystemsPerArchivePart.Values.Sum()))
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, totalNumberOfClassificationSystems))
+                }
             };
 
-            if (_classificationSystemsPerArchivePart.Count > 1)
-            {
-                foreach (KeyValuePair<ArchivePart, int> classificationCountAtLevel in _classificationSystemsPerArchivePart)
-                {
-                    var testResult = new TestResult(ResultType.Success, new Location(string.Empty),
-                        string.Format(
-                            Noark5Messages.NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart,
-                            classificationCountAtLevel.Key.SystemId, classificationCountAtLevel.Key.Name, classificationCountAtLevel.Value));
+            if (!multipleArchiveParts)
+                return testResultSet;
 
-                    testResults.Add(testResult);
-                }
-            }
+            foreach ((ArchivePart archivePart, int classificationSystemsCount) in _classificationSystemsPerArchivePart)
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(string.Format(
+                        Noark5Messages.NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart,
+                        archivePart, classificationSystemsCount), classificationSystemsCount)));
 
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

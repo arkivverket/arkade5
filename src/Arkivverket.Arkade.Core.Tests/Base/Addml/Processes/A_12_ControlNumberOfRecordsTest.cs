@@ -29,8 +29,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
-            testRun.Results.Count.Should().Be(1);
-            testRun.Results[0].Message.Should().Be("Number of records (4) matched");
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Number of records (4) matched");
         }
     }
 }

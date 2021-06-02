@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         private string _testDescription = "testDescription";
         private TestId _testId = new TestId(TestId.TestKind.Unidentified, 0);
         private string _testName = "test1";
-        private List<TestResult> _testResults = new List<TestResult>();
+        private List<TestResult> _testResults = new();
         private readonly TestType _testType = TestType.ContentAnalysis;
 
 
@@ -24,7 +24,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             {
                 _testResults.Add(new TestResult(ResultType.Success, new Location("location"), "message"));
             }
-            testRun.Results = _testResults;
+
+            testRun.TestResults ??= new TestResultSet();
+            testRun.TestResults.TestsResults = _testResults;
 
             return testRun;
         }

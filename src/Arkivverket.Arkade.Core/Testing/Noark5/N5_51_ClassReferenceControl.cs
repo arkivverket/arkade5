@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -9,9 +11,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 51);
 
-        private readonly List<string> _classSystemIds = new List<string>();
-        private readonly Stack<Folder> _folders = new Stack<Folder>();
-        private readonly List<Folder> _classReferingDossiers = new List<Folder>();
+        private ArchivePart _currentArchivePart = new();
+        private readonly Dictionary<ArchivePart, List<Folder>> _classReferringDossiersPerArchivePart = new();
+        private readonly List<string> _classSystemIds = new();
+        private readonly Stack<Folder> _folders = new();
 
         public override TestId GetId()
         {
@@ -23,19 +26,50 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentControl;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            bool multipleArchiveParts = _classReferringDossiersPerArchivePart.Count > 1;
 
-            foreach (Folder classRefferingDossier in _classReferingDossiers)
+            var testResultSet = new TestResultSet();
+
+            var totalNumberOfInvalidClassReferences = 0;
+
+            foreach ((ArchivePart archivePart, List<Folder> classReferringDossiers) in _classReferringDossiersPerArchivePart)
             {
-                if (HasInvalidReference(classRefferingDossier))
-                    testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                int numberOfInvalidClassReferences = classReferringDossiers.Count(HasInvalidReference);
+                var testResults = new List<TestResult>();
+
+                testResults.AddRange
+                (classReferringDossiers.Where(HasInvalidReference).Select
+                    (dossierWithInvalidReference => new TestResult(ResultType.Error, new Location(string.Empty),
                         string.Format(Noark5Messages.ClassReferenceControlMessage,
-                            classRefferingDossier.SystemId ?? "?", classRefferingDossier.ClassReference)));
+                            dossierWithInvalidReference.SystemId ?? "?", dossierWithInvalidReference.ClassReference))
+                    )
+                );
+
+                totalNumberOfInvalidClassReferences += numberOfInvalidClassReferences;
+
+                if (multipleArchiveParts)
+                {
+                    if (numberOfInvalidClassReferences > 0)
+                        testResults.Insert(0, new TestResult(ResultType.Error, new Location(string.Empty),
+                            string.Format(Noark5Messages.NumberOf, numberOfInvalidClassReferences)));
+
+                    testResultSet.TestResultSets.Add(new TestResultSet
+                    {
+                        Name = archivePart.ToString(),
+                        TestsResults = testResults,
+                    });
+                }
+                else
+                    testResultSet.TestsResults.AddRange(testResults);
             }
 
-            return testResults;
+            if (totalNumberOfInvalidClassReferences > 0)
+                testResultSet.TestsResults.Insert(0, new TestResult(ResultType.Error, new Location(string.Empty),
+                    string.Format(Noark5Messages.TotalResultNumber, totalNumberOfInvalidClassReferences)));
+
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -52,6 +86,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
+
             if (eventArgs.Path.Matches("systemID"))
             {
                 if (eventArgs.Path.GetParent().Equals("klasse"))
@@ -59,6 +96,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 if (eventArgs.Path.GetParent().Equals("mappe"))
                     _folders.Peek().SystemId = eventArgs.Value;
+
+                if (eventArgs.Path.GetParent().Equals("arkivdel"))
+                    _currentArchivePart.SystemId = eventArgs.Value;
             }
 
             if (eventArgs.Path.Matches("referanseSekundaerKlassifikasjon") && eventArgs.Path.GetParent().Equals("mappe"))
@@ -72,8 +112,19 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 Folder examinedFolder = _folders.Pop();
 
                 if (examinedFolder.IsDossier && examinedFolder.ClassReference != null)
-                    _classReferingDossiers.Add(examinedFolder);
+                {
+                    if (_classReferringDossiersPerArchivePart.ContainsKey(_currentArchivePart))
+                        _classReferringDossiersPerArchivePart[_currentArchivePart].Add(examinedFolder);
+                    else
+                        _classReferringDossiersPerArchivePart.Add(_currentArchivePart, new List<Folder>
+                        {
+                            examinedFolder
+                        });
+                }
             }
+
+            if (eventArgs.Name.Equals("arkivdel"))
+                _currentArchivePart = new ArchivePart();
         }
 
         private bool HasInvalidReference(Folder folder)

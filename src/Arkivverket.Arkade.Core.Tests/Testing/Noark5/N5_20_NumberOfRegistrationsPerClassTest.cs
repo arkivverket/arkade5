@@ -1,4 +1,6 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -37,16 +39,15 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_20_NumberOfRegistrationsPerClass());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Klasse (systemID): someClassSystemId_1 - Antall: 2"
-            ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Klasse (systemID): someClassSystemId_3 - Antall: 1"
-            ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            List<TestResult> testResults = testRun.TestResults.TestsResults;
+            testResults.Should().Contain(r => r.Message.Equals("Klasse (SystemID) someClassSystemId_1: 2"));
+            testResults.Should().Contain(r => r.Message.Equals("Klasse (SystemID) someClassSystemId_3: 1"));
+
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Klasser uten registreringer (og uten underklasser) - Antall: 1"
             ));
-            testRun.Results.Count.Should().Be(3);
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
 
         [Fact]
@@ -105,22 +106,19 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_20_NumberOfRegistrationsPerClass());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Klasse (systemID): someClassSystemId_1 - Antall: 2"
-            ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Klasse (systemID): someClassSystemId_3 - Antall: 1"
-            ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Klasse (systemID): someClassSystemId_6 - Antall: 2"
-            ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Klasse (systemID): someClassSystemId_8 - Antall: 1"
-            ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+
+            List<TestResult> arkivdel1Results = testRun.TestResults.TestResultSets[0].TestsResults;
+            arkivdel1Results.Should().Contain(r => r.Message.Equals("Klasse (SystemID) someClassSystemId_1: 2"));
+            arkivdel1Results.Should().Contain(r => r.Message.Equals("Klasse (SystemID) someClassSystemId_3: 1"));
+
+            List<TestResult> arkivdel2Results = testRun.TestResults.TestResultSets[1].TestsResults;
+            arkivdel2Results.Should().Contain(r => r.Message.Equals("Klasse (SystemID) someClassSystemId_6: 2"));
+            arkivdel2Results.Should().Contain(r => r.Message.Equals("Klasse (SystemID) someClassSystemId_8: 1"));
+
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Klasser uten registreringer (og uten underklasser) - Antall: 2"
             ));
-            testRun.Results.Count.Should().Be(5);
+            testRun.TestResults.GetNumberOfResults().Should().Be(5);
         }
     }
 }

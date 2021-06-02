@@ -75,13 +75,14 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(@"");
             stream.WriteLine(@"        <h4>" + Resources.Report.HeadingTestResults + "</h4>");
 
-            if (TestTypeIsControl(test) && test.TestResults.TrueForAll(r => r.ResultType != ResultType.Error))
+            if (TestTypeIsControl(test) && !test.HasResults)
             {
                 stream.WriteLine("<p>" + Resources.Report.TestNoErrorsFound + "</p>");
             }
             else
             {
-                stream.WriteLine(@"        <table class=""table"">");
+                stream.WriteLine(@"        <table class=""table"" style=""width: 100%"">");
+                SetTableColumnsWidth(stream);
                 stream.WriteLine(@"            <thead>");
                 stream.WriteLine(@"            <tr>");
                 stream.WriteLine(@"                <th>" + Resources.Report.TestLocation + "</th>");
@@ -90,35 +91,73 @@ namespace Arkivverket.Arkade.Core.Report
                 stream.WriteLine(@"            </thead>");
                 stream.WriteLine(@"            <tbody>");
 
-                foreach (Result result in test.TestResults.Take(NumberOfResultsToDisplay))
-                {
-                    stream.WriteLine(@"            <tr>");
-                    stream.WriteLine(@"                <td>");
-                    stream.WriteLine(@"                " + result.Location);
-                    stream.WriteLine(@"                </td>");
-                    stream.WriteLine(@"                <td>");
-                    stream.WriteLine(@"                " + SubstituteLineBreaksWithHtmlBreak(result.Message));
-                    stream.WriteLine(@"                </td>");
-                    stream.WriteLine(@"            </tr>");
-                }
-
-                if (test.TestResults.Count > NumberOfResultsToDisplay)
-                {
-                    string moreResultsMessage = string.Format(
-                        Resources.Report.TestMoreResultsOfSameKind, test.TestResults.Count - NumberOfResultsToDisplay
-                    );
-
-                    stream.WriteLine(@"            <tr>");
-                    stream.WriteLine(@"                <td></td>");
-                    stream.WriteLine(@"                <td>" + moreResultsMessage + "</td>");
-                    stream.WriteLine(@"            </tr>");
-                }
+                WriteResults(test.ResultSet, stream);
 
                 stream.WriteLine(@"            </tbody>");
                 stream.WriteLine(@"        </table>");
             }
 
             stream.WriteLine(@"    </div>");
+        }
+
+        private static void SetTableColumnsWidth(StreamWriter stream)
+        {
+            stream.WriteLine(@"            <colgroup>");
+            stream.WriteLine(@"                <col span=""1"" style=""width: 20%;"">");
+            stream.WriteLine(@"                <col span=""1"" style=""width: 80%;"">");
+            stream.WriteLine(@"            </colgroup>");
+        }
+
+        private static void WriteResults(ResultSet resultSet, TextWriter stream, int level = 0)
+        {
+            switch (level)
+            {
+                case 0:
+                    break;
+                case 1:
+                    stream.WriteLine(@"            <tr>");
+                    stream.WriteLine(@"                <td colspan='2'><b><i>" + resultSet.Name + "</i></b></td>");
+                    stream.WriteLine(@"            </tr>");
+                    break;
+                default:
+                    stream.WriteLine(@"            <tr>");
+                    stream.WriteLine(@"                <td colspan='2'>");
+                    stream.WriteLine(@"                    <p style='margin-left: 40px'>");
+                    stream.WriteLine(@"                        <b><i>" + resultSet.Name + "</i></b>");
+                    stream.WriteLine(@"                    </p>");
+                    stream.WriteLine(@"                </td>");
+                    stream.WriteLine(@"            </tr>");
+                    break;
+            }
+
+            foreach (Result result in resultSet.Results.Take(NumberOfResultsToDisplay))
+            {
+                stream.WriteLine(@"            <tr>");
+                stream.WriteLine(@"                <td>" + result.Location + "</td>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(@"                " + SubstituteLineBreaksWithHtmlBreak(result.Message));
+                stream.WriteLine(@"                </td>");
+                stream.WriteLine(@"            </tr>");
+            }
+
+            if (resultSet.Results.Count > NumberOfResultsToDisplay)
+            {
+                string moreResultsMessage = string.Format(
+                    Resources.Report.TestMoreResultsOfSameKind,
+                    resultSet.Results.Count - NumberOfResultsToDisplay
+                );
+
+                stream.WriteLine(@"            <tr>");
+                stream.WriteLine(@"                <td></td>");
+                stream.WriteLine(@"                <td>" + moreResultsMessage + "</td>");
+                stream.WriteLine(@"            </tr>");
+            }
+
+            level++;
+            foreach (ResultSet subResultSet in resultSet.ResultSets)
+            {
+                WriteResults(subResultSet, stream, level);
+            }
         }
 
         private static bool TestTypeIsControl(ExecutedTest test)
@@ -279,15 +318,14 @@ namespace Arkivverket.Arkade.Core.Report
 
             foreach (ExecutedTest test in testReport.TestsResults)
             {
-                if (test.TestResults.Any(tr => tr.ResultType != ResultType.Success))
+                if (int.Parse(test.NumberOfErrors) > 0)
                 {
-                    var errors = 0;
                     stream.WriteLine(@"            <tr>");
                     stream.WriteLine(@"                <td>");
                     stream.WriteLine(@"<a href=""#" + test.TestId + @""">" + test.TestName + @"</a>");
                     stream.WriteLine(@"                </td>");
                     stream.WriteLine(@"                <td>");
-                    stream.WriteLine(test.TestResults.Aggregate(0, (_, result) => result.ResultType != ResultType.Success ? errors++ : errors));
+                    stream.WriteLine(test.NumberOfErrors);
                     stream.WriteLine(@"                </td>");
                     stream.WriteLine(@"            </tr>");
                 }

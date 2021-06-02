@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -11,10 +12,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 9);
 
-        private readonly Stack<Class> _classes = new Stack<Class>();
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private readonly Stack<Class> _classes = new();
+
+        private readonly Dictionary<ArchivePart, List<ClassificationSystem>>
+            _primaryClassificationSystemsPerArchivePart = new();
+
+        private ArchivePart _currentArchivePart = new();
         private ClassificationSystem _currentClassificationSystem;
-        private readonly List<ClassificationSystem> _primaryClassificationSystems = new List<ClassificationSystem>();
 
         public override TestId GetId()
         {
@@ -26,37 +30,57 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
-            int numberOfEmptyClassesCount = 0;
+            int totalNumberOfEmptyClassesInMainClassificationSystem =
+                _primaryClassificationSystemsPerArchivePart.Sum(a => a.Value.Sum(c => c.NumberOfEmptyClasses));
+            bool multipleArchiveParts = _primaryClassificationSystemsPerArchivePart.Count > 1;
 
-            if (_primaryClassificationSystems.Count == 1)
+            var testResultSet = new TestResultSet
             {
-                testResults.Add(new TestResult(ResultType.Success, Location.Archive,
-                    string.Format(Noark5Messages.TotalResultNumber,
-                        _primaryClassificationSystems[0].NumberOfEmptyClasses.ToString())));
-            }
-            else
-            {
-                foreach (ClassificationSystem classificationSystem in _primaryClassificationSystems)
+                TestsResults = new List<TestResult>
                 {
-                    testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
-                        Noark5Messages.NumberOfEmptyClassesInMainClassificationSystem,
-                        classificationSystem.Archivepart.SystemId,
-                        classificationSystem.Archivepart.Name,
-                        classificationSystem.ClassificationSystemId,
-                        classificationSystem.NumberOfEmptyClasses)));
+                    new(ResultType.Success, Location.Archive, string.Format(Noark5Messages.TotalResultNumber,
+                        totalNumberOfEmptyClassesInMainClassificationSystem))
+                }
+            };
 
-                    numberOfEmptyClassesCount += classificationSystem.NumberOfEmptyClasses;
+            if (totalNumberOfEmptyClassesInMainClassificationSystem == 0)
+                return testResultSet;
+
+            foreach ((ArchivePart archivePart, List<ClassificationSystem> primaryClassificationSystems) in
+                _primaryClassificationSystemsPerArchivePart)
+            {
+                int numberOfEmptyClassesInMainClassificationSystem =
+                    primaryClassificationSystems.Sum(c => c.NumberOfEmptyClasses);
+
+                var testResults = new List<TestResult>();
+
+                bool multiplePrimaryClassificationSystems = primaryClassificationSystems.Count > 1;
+
+                if (multiplePrimaryClassificationSystems)
+                    testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOf, numberOfEmptyClassesInMainClassificationSystem)));
+
+                foreach (ClassificationSystem classificationSystem in primaryClassificationSystems)
+                {
+                    testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                        string.Format(Noark5Messages.NumberOfEmptyClassesInMainClassificationSystem,
+                            classificationSystem.ClassificationSystemId, classificationSystem.NumberOfEmptyClasses)));
                 }
 
-                testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
-                    string.Format(Noark5Messages.TotalResultNumber,
-                        numberOfEmptyClassesCount.ToString())));
+                if (multipleArchiveParts)
+                    testResultSet.TestResultSets.Add(new TestResultSet
+                    {
+                        Name = archivePart.ToString(),
+                        TestsResults = testResults,
+                    });
+                else if (multiplePrimaryClassificationSystems)
+                    testResultSet.TestsResults = testResults;
+
             }
 
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -81,7 +105,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "klassifikasjonssystem"))
-                _currentClassificationSystem = new ClassificationSystem(_currentArchivePart, eventArgs.Value);
+                _currentClassificationSystem = new ClassificationSystem(eventArgs.Value);
 
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
                 _currentArchivePart.SystemId = eventArgs.Value;
@@ -101,7 +125,15 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
 
             if (eventArgs.NameEquals("klassifikasjonssystem") && _currentClassificationSystem.IsPrimary && _currentClassificationSystem.NumberOfEmptyClasses > 0)
-                _primaryClassificationSystems.Add(_currentClassificationSystem);
+            {
+                if (_primaryClassificationSystemsPerArchivePart.ContainsKey(_currentArchivePart))
+                    _primaryClassificationSystemsPerArchivePart[_currentArchivePart].Add(_currentClassificationSystem);
+                else
+                    _primaryClassificationSystemsPerArchivePart.Add(_currentArchivePart, new List<ClassificationSystem>
+                    {
+                        _currentClassificationSystem
+                    });
+            }
             if(eventArgs.NameEquals("arkivdel"))
                 _currentArchivePart = new ArchivePart();
         }
@@ -120,14 +152,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private class ClassificationSystem
         {
-            public ArchivePart Archivepart { get; }
             public string ClassificationSystemId { get; }
             public int NumberOfEmptyClasses { get; set; }
             public bool IsPrimary { get; set; }
 
-            public ClassificationSystem(ArchivePart archivePart, string classificationSystemId)
+            public ClassificationSystem(string classificationSystemId)
             {
-                Archivepart = archivePart;
                 ClassificationSystemId = classificationSystemId;
             }
         }

@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_47_SystemIdUniqueControl());
 
-            testRun.Results.Count.Should().Be(0);
+            testRun.TestResults.GetNumberOfResults().Should().Be(0);
         }
 
         [Fact]
@@ -72,13 +72,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_47_SystemIdUniqueControl());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Ikke-unik ID: Systemidentifikasjonen (systemID) someSystemId_4 forekommer 2 ganger"
             ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Ikke-unik ID: Systemidentifikasjonen (systemID) someSystemId_5 forekommer 3 ganger"
             ));
-            testRun.Results.Count.Should().Be(2);
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
         }
     }
 }

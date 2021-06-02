@@ -27,13 +27,13 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.Results.Count.Should().Be(3);
-            testRun.Results[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("Ugyldig organisasjonsnummer: 914994781");
-            testRun.Results[1].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
-            testRun.Results[1].Message.Should().Be("Ugyldig organisasjonsnummer: 91499478");
-            testRun.Results[2].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
-            testRun.Results[2].Message.Should().Be("Ugyldig organisasjonsnummer: 91499478A");
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig organisasjonsnummer: 914994781");
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig organisasjonsnummer: 91499478");
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig organisasjonsnummer: 91499478A");
         }
     }
 }

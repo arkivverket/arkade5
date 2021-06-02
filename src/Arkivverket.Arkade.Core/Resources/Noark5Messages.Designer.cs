@@ -151,11 +151,29 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} classification system (systemID): {1}.
+        /// </summary>
+        public static string ClassificationSystemTypeAndId {
+            get {
+                return ResourceManager.GetString("ClassificationSystemTypeAndId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Folder reference (systemID) {0} to class (systemID) {1} is not valid.
         /// </summary>
         public static string ClassReferenceControlMessage {
             get {
                 return ResourceManager.GetString("ClassReferenceControlMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class (SystemID) {0}.
+        /// </summary>
+        public static string ClassSystemId {
+            get {
+                return ResourceManager.GetString("ClassSystemId", resourceCulture);
             }
         }
         
@@ -214,29 +232,11 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1} - First registration: Created {2}.
-        /// </summary>
-        public static string DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart {
-            get {
-                return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Last registration: Created {0}.
         /// </summary>
         public static string DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration {
             get {
                 return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1} - Last registration: Created {2}.
-        /// </summary>
-        public static string DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart {
-            get {
-                return ResourceManager.GetString("DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart", resourceCulture);
             }
         }
         
@@ -268,7 +268,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1} - The file {2} does not have the same checksum as specified in document description (systemID) {3}.
+        ///   Looks up a localized string similar to The file {0} does not have the same checksum as specified in document description (systemID) {1}.
         /// </summary>
         public static string DocumentFilesChecksumControlMessage {
             get {
@@ -282,6 +282,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string DocumentfilesReferenceControlMessage {
             get {
                 return ResourceManager.GetString("DocumentfilesReferenceControlMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document format: {0}.
+        /// </summary>
+        public static string DocumentFormatMessage {
+            get {
+                return ResourceManager.GetString("DocumentFormatMessage", resourceCulture);
             }
         }
         
@@ -311,6 +320,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string FileNotFound {
             get {
                 return ResourceManager.GetString("FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder type: {0}.
+        /// </summary>
+        public static string FolderType {
+            get {
+                return ResourceManager.GetString("FolderType", resourceCulture);
             }
         }
         
@@ -360,6 +378,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number: {0}.
+        /// </summary>
+        public static string NumberOf {
+            get {
+                return ResourceManager.GetString("NumberOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Archive part (systemID - title) {0} - {1}: {2}.
         /// </summary>
         public static string NumberOf_PerArchivePart {
@@ -387,7 +414,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total classes: {0}.
+        ///   Looks up a localized string similar to Number of classes: {0}.
         /// </summary>
         public static string NumberOfClasses {
             get {
@@ -405,15 +432,6 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} classification system (systemID): {1} - .
-        /// </summary>
-        public static string NumberOfClassesTestResultMessage {
-            get {
-                return ResourceManager.GetString("NumberOfClassesTestResultMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Security classifications in {0} - Number: {1}.
         /// </summary>
         public static string NumberOfClassificationsMessage {
@@ -423,7 +441,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of classification systems in archive part (systemID, title) {0}, {1}: {2}.
+        ///   Looks up a localized string similar to Number of classification systems in {0}: {1}.
         /// </summary>
         public static string NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart {
             get {
@@ -450,15 +468,6 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1} - Number of cross-references from base registrations: {2}.
-        /// </summary>
-        public static string NumberOfCrossReferencesToBasicRegistrationMessage_ForArchivePart {
-            get {
-                return ResourceManager.GetString("NumberOfCrossReferencesToBasicRegistrationMessage_ForArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Number of cross-references from classes: {0}.
         /// </summary>
         public static string NumberOfCrossReferencesToClassMessage {
@@ -468,38 +477,11 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title): {0 }, {1} - Number of cross-references from classes: {2}.
-        /// </summary>
-        public static string NumberOfCrossReferencesToClassMessage_ForArchivePart {
-            get {
-                return ResourceManager.GetString("NumberOfCrossReferencesToClassMessage_ForArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Number of cross-references from folders: {0}.
         /// </summary>
         public static string NumberOfCrossReferencesToFolderMessage {
             get {
                 return ResourceManager.GetString("NumberOfCrossReferencesToFolderMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1} - Number of cross-references from folders: {2}.
-        /// </summary>
-        public static string NumberOfCrossReferencesToFolderMessage_ForArchivePart {
-            get {
-                return ResourceManager.GetString("NumberOfCrossReferencesToFolderMessage_ForArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title) {0}, {1} - {2}: {3}.
-        /// </summary>
-        public static string NumberOfDepreciationsMessage_ForArchivePart {
-            get {
-                return ResourceManager.GetString("NumberOfDepreciationsMessage_ForArchivePart", resourceCulture);
             }
         }
         
@@ -549,6 +531,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of documents with format mismatch: {0}.
+        /// </summary>
+        public static string NumberOfDocumentsWithFormatMismatch {
+            get {
+                return ResourceManager.GetString("NumberOfDocumentsWithFormatMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Case folder status: {0} - Number: {1}.
         /// </summary>
         public static string NumberOfEachCaseFolderStatusMessage {
@@ -558,16 +549,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Document format: {0} - Number: {1}.
-        /// </summary>
-        public static string NumberOfEachDocumentFormatMessage {
-            get {
-                return ResourceManager.GetString("NumberOfEachDocumentFormatMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Format mismatch: Document format: {0} - Document file reference: {1}.
+        ///   Looks up a localized string similar to Format mismatch: Document file reference: {0}.
         /// </summary>
         public static string NumberOfEachDocumentFormatMessage_FormatMismatch {
             get {
@@ -612,7 +594,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title) {0}, {1} - classification system (systemID) {2}: {3}.
+        ///   Looks up a localized string similar to Classification system (systemID) {0}: {1}.
         /// </summary>
         public static string NumberOfEmptyClassesInMainClassificationSystem {
             get {
@@ -639,7 +621,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Class (systemID): {0} - Number: {1}.
+        ///   Looks up a localized string similar to Class (systemID) {0} - Number: {1}.
         /// </summary>
         public static string NumberOfFoldersPerClassMessage_NumberOfFolders {
             get {
@@ -648,11 +630,11 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title) {0}, {1} - {2}: {3}.
+        ///   Looks up a localized string similar to {0}: {1}.
         /// </summary>
-        public static string NumberOfFoldersPerYear_ForArchivePart {
+        public static string NumberOfFoldersPerYear {
             get {
-                return ResourceManager.GetString("NumberOfFoldersPerYear_ForArchivePart", resourceCulture);
+                return ResourceManager.GetString("NumberOfFoldersPerYear", resourceCulture);
             }
         }
         
@@ -729,29 +711,11 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title) {0}, {1} - Number of precedents in case folders: {2}.
-        /// </summary>
-        public static string NumberOfPrecedentsInCaseFolderMessage_ForArchivePart {
-            get {
-                return ResourceManager.GetString("NumberOfPrecedentsInCaseFolderMessage_ForArchivePart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Number of precedents in journal entries: {0}.
         /// </summary>
         public static string NumberOfPrecedentsInJournalpostsMessage {
             get {
                 return ResourceManager.GetString("NumberOfPrecedentsInJournalpostsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title) {0}, {1} - Number of precedents in journal entries: {2}.
-        /// </summary>
-        public static string NumberOfPrecedentsInJournalpostsMessage_ForArchivePart {
-            get {
-                return ResourceManager.GetString("NumberOfPrecedentsInJournalpostsMessage_ForArchivePart", resourceCulture);
             }
         }
         
@@ -770,15 +734,6 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations {
             get {
                 return ResourceManager.GetString("NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Class (systemID): {0} - Number: {1}.
-        /// </summary>
-        public static string NumberOfRegistrationsPerClassMessage_NumberOfRegistrations {
-            get {
-                return ResourceManager.GetString("NumberOfRegistrationsPerClassMessage_NumberOfRegistrations", resourceCulture);
             }
         }
         
@@ -810,16 +765,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Folder type: {0} - Number: {1}.
-        /// </summary>
-        public static string NumberOfTypeFolders {
-            get {
-                return ResourceManager.GetString("NumberOfTypeFolders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Folder type: {0} - Number at level {1}: {2}.
+        ///   Looks up a localized string similar to Number at level {0}: {1}.
         /// </summary>
         public static string NumberOfTypeFoldersAtLevel {
             get {
@@ -833,6 +779,24 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string NumberOfTypeRegistrations {
             get {
                 return ResourceManager.GetString("NumberOfTypeRegistrations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total number of unique formats: {0}.
+        /// </summary>
+        public static string NumberOfUniqueDocumentFormats {
+            get {
+                return ResourceManager.GetString("NumberOfUniqueDocumentFormats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: {1}.
+        /// </summary>
+        public static string NumberOfXPerY {
+            get {
+                return ResourceManager.GetString("NumberOfXPerY", resourceCulture);
             }
         }
         
@@ -855,7 +819,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive part status: {0}.
+        ///   Looks up a localized string similar to Status of archive part: {0}.
         /// </summary>
         public static string StatusOfArchivePartsMessage {
             get {
@@ -864,7 +828,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status for archive part (systemID, title) {0}, {1}: {2}.
+        ///   Looks up a localized string similar to Status of {0}: {1}.
         /// </summary>
         public static string StatusOfArchivePartsMessage_ForArchivePart {
             get {

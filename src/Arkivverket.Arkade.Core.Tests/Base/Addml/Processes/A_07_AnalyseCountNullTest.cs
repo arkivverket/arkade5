@@ -32,9 +32,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeTrue();
-            testRun.Results.Count.Should().Be(1);
-            testRun.Results[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("2 forekomster av null");
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Message.Should().Be("2 forekomster av null");
         }
     }
 }

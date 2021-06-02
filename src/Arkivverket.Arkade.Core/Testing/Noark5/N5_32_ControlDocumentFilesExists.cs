@@ -11,12 +11,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 32);
 
-        private readonly List<TestResult> _testResults = new List<TestResult>();
-
         private readonly ReadOnlyDictionary<string, DocumentFile> _documentFiles;
 
-        private readonly Dictionary<ArchivePart, List<string>> _missingFilesPerArchivepart = new Dictionary<ArchivePart, List<string>>();
-        private ArchivePart _currentArchivePart = new ArchivePart(); 
+        private readonly Dictionary<ArchivePart, List<string>> _missingFilesPerArchivePart = new();
+        private ArchivePart _currentArchivePart = new(); 
 
         public N5_32_ControlDocumentFilesExists(Archive archive)
         {
@@ -33,25 +31,33 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentControl;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            foreach (KeyValuePair<ArchivePart, List<string>> missingFilesAtArchivepart in _missingFilesPerArchivepart)
+            bool multipleArchiveParts = _missingFilesPerArchivePart.Count > 1;
+
+            var testResultSet = new TestResultSet();
+
+            foreach ((ArchivePart archivePart, List<string> missingFiles) in _missingFilesPerArchivePart)
             {
-                var message = "";
+                var testResults = new List<TestResult>();
 
-                if (_missingFilesPerArchivepart.Keys.Count > 1)
+                foreach (string missingFile in missingFiles)
                 {
-                    message = string.Format(Noark5Messages.ArchivePartSystemId, missingFilesAtArchivepart.Key.SystemId, missingFilesAtArchivepart.Key.Name) + " - ";
+                    testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                            string.Format(Noark5Messages.FileNotFound, missingFile)));
                 }
 
-                foreach (string missingFile in missingFilesAtArchivepart.Value)
-                {
-                    _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
-                        message + string.Format(Noark5Messages.FileNotFound, missingFile)));
-                }
+                if (multipleArchiveParts)
+                    testResultSet.TestResultSets.Add(new TestResultSet
+                    {
+                        Name = archivePart.ToString(),
+                        TestsResults = testResults,
+                    });
+                else
+                    testResultSet.TestsResults = testResults;
             }
             
-            return _testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -82,10 +88,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 if (!DocumentFileExists(documentFileName))
                 {
-                    if (_missingFilesPerArchivepart.ContainsKey(_currentArchivePart))
-                        _missingFilesPerArchivepart[_currentArchivePart].Add(documentFileName);
+                    if (_missingFilesPerArchivePart.ContainsKey(_currentArchivePart))
+                        _missingFilesPerArchivePart[_currentArchivePart].Add(documentFileName);
                     else
-                        _missingFilesPerArchivepart.Add(_currentArchivePart, new List<string>{documentFileName});
+                        _missingFilesPerArchivePart.Add(_currentArchivePart, new List<string>{documentFileName});
                     
                 }
             }

@@ -18,13 +18,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_60_ArchiveStartAndEndDateControl(testArchive));
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i arkivstrukturen: 09.09.2011 - 10.10.2012"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i offentlig journal: 09.09.2011 - 10.10.2012"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i løpende journal: 09.09.2011 - 10.10.2012"));
-            testRun.Results.Count.Should().Be(3);
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
 
         [Fact]
@@ -39,15 +39,15 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_60_ArchiveStartAndEndDateControl(testArchive));
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i arkivstrukturen: 09.09.2011 - 10.10.2012"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i offentlig journal: 09.09.2011 - 10.10.2012"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i løpende journal: 09.09.2010 - 10.10.2013")); // Different
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Datoer i offentlig og løpende journal er ikke like") && r.IsError());
-            testRun.Results.Count.Should().Be(4);
+            testRun.TestResults.GetNumberOfResults().Should().Be(4);
         }
 
         [Fact]
@@ -61,13 +61,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_60_ArchiveStartAndEndDateControl(testArchive));
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i arkivstrukturen: 09.09.2011 - 10.10.2012")); // Different
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i offentlig journal: 09.09.2010 - 10.10.2013"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i løpende journal: 09.09.2010 - 10.10.2013"));
-            testRun.Results.Count.Should().Be(3);
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
 
         [Fact]
@@ -81,15 +81,15 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_60_ArchiveStartAndEndDateControl(testArchive));
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i arkivstrukturen: 09.09.2011 - 10.10.2013")); // Different
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i offentlig journal: 09.09.2011 - 10.10.2012"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Start- og sluttdato i løpende journal: 09.09.2011 - 10.10.2012"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Periodeskille er skarpt og datoer i arkivstrukturen er ikke like de i offentlig og løpende journal") && r.IsError());
-            testRun.Results.Count.Should().Be(4);
+            testRun.TestResults.GetNumberOfResults().Should().Be(4);
         }
 
         [Fact]
@@ -109,9 +109,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_60_ArchiveStartAndEndDateControl(testArchive));
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Det ble ikke funnet noen gyldige journaldatoer i arkivuttrekket"));
-            testRun.Results.Count.Should().Be(1);
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
 
         private static XmlElementHelper MockUp4JournalPostRegistrations(string lastDate = "2012-10-10")

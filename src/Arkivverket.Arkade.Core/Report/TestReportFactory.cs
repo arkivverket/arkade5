@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Testing;
 
 namespace Arkivverket.Arkade.Core.Report
 {
@@ -48,33 +49,47 @@ namespace Arkivverket.Arkade.Core.Report
 
         private static List<ExecutedTest> GetTestReportResults(TestSession testSession)
         {
-            var results = new List<ExecutedTest>();
-
-            foreach (TestRun testRun in testSession.TestSuite.TestRuns)
-            {
-                var test = new ExecutedTest
+            return testSession.TestSuite.TestRuns.Select(testRun => new ExecutedTest
                 {
                     TestId = testRun.TestId.ToString(),
                     TestName = testRun.TestName,
                     TestType = testRun.TestType,
                     TestDescription = testRun.TestDescription,
-                    TestResults = new List<Result>(),
-                };
+                    ResultSet = GetResultSet(testRun.TestResults),
+                    HasResults = testRun.TestResults.GetNumberOfResults() > 0,
+                    NumberOfErrors = testRun.TestResults.GetErrorResults().Count.ToString(),
+                })
+                .ToList();
+        }
 
-                foreach (Result result in testRun.Results.Select(testRunResult =>
-                    new Result
-                    {
-                        ResultType = testRunResult.Result,
-                        Location = testRunResult.Location.ToString(),
-                        Message = testRunResult.Message,
-                    }))
-                {
-                    test.TestResults.Add(result);
-                }
-                results.Add(test);
-            }
+        private static ResultSet GetResultSet(TestResultSet testResultSet)
+        {
+            return new ResultSet
+            {
+                Name = testResultSet.Name,
+                Results = GetResults(testResultSet.TestsResults),
+                ResultSets = GetResultSets(testResultSet.TestResultSets),
+            };
+        }
 
-            return results;
+        private static List<ResultSet> GetResultSets(List<TestResultSet> testResultSets)
+        {
+            return testResultSets.Select(testResultSet => new ResultSet
+            {
+                Name = testResultSet.Name,
+                Results = GetResults(testResultSet.TestsResults),
+                ResultSets = GetResultSets(testResultSet.TestResultSets),
+            }).ToList();
+        }
+
+        private static List<Result> GetResults(IEnumerable<TestResult> testResults)
+        {
+            return testResults.Select(testResult => new Result
+            {
+                ResultType = testResult.Result,
+                Location = testResult.Location.ToString(),
+                Message = testResult.Message,
+            }).ToList();
         }
     }
 }

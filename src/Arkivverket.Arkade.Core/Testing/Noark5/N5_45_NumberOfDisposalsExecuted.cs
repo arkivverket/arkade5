@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
@@ -33,43 +32,46 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
-            int totalNumberOfDisposalsExecuted = 0;
+            bool multipleArchiveParts = _numberOfDisposalsExecutedPerArchivePart.Count > 1;
 
-            foreach (var archivePartDisposalsCount in _numberOfDisposalsExecutedPerArchivePart)
+            int totalNumberOfDisposalsExecuted = _numberOfDisposalsExecutedPerArchivePart.Sum(a => a.Value);
+
+            var testResultSet = new TestResultSet
             {
-                if (archivePartDisposalsCount.Value == 0)
-                    continue;
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, totalNumberOfDisposalsExecuted))
+                }
+            };
 
-                var message = new StringBuilder(
-                    string.Format(Noark5Messages.TotalResultNumber, archivePartDisposalsCount.Value)
-                );
-
-                if (_numberOfDisposalsExecutedPerArchivePart.Keys.Count > 1) // Multiple archiveparts
-                    message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, archivePartDisposalsCount.Key.SystemId, archivePartDisposalsCount.Key.Name) + " - ");
-
-                testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
-
-                totalNumberOfDisposalsExecuted += archivePartDisposalsCount.Value;
+            switch (_disposalsAreDocumented)
+            {
+                // Error message if disposals are documented but not found:
+                case true when !_numberOfDisposalsExecutedPerArchivePart.Any(a => a.Value > 0):
+                    testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
+                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                        Noark5Messages.NumberOfDisposalsExecutedMessage_DocTrueActualFalse));
+                    break;
+                // Error message if disposals are found but not documented:
+                case false when _numberOfDisposalsExecutedPerArchivePart.Any(a => a.Value > 0):
+                    testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
+                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                        Noark5Messages.NumberOfDisposalsExecutedMessage_DocFalseActualTrue));
+                    break;
             }
 
-            // Error message if disposals are documented but not found:
-            if (_disposalsAreDocumented && !_numberOfDisposalsExecutedPerArchivePart.Any(a => a.Value > 0))
-                testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
-                    Noark5Messages.NumberOfDisposalsExecutedMessage_DocTrueActualFalse));
+            if (!multipleArchiveParts)
+                return testResultSet;
 
-            // Error message if disposals are found but not documented:
-            if (!_disposalsAreDocumented && _numberOfDisposalsExecutedPerArchivePart.Any(a => a.Value > 0))
-                testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
-                    Noark5Messages.NumberOfDisposalsExecutedMessage_DocFalseActualTrue));
+            foreach ((ArchivePart archivePart, int archivePartDisposalsCount)
+                in _numberOfDisposalsExecutedPerArchivePart)
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.NumberOfXPerY, archivePart, archivePartDisposalsCount)));
 
-            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
-                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfDisposalsExecuted)));
-
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

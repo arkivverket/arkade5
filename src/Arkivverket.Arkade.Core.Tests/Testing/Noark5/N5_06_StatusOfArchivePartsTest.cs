@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_06_StatusOfArchiveParts());
 
-            testRun.Results.First().Message.Should().Be("Arkivdelstatus: someStatus_1");
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Arkivdelstatus: someStatus_1");
         }
 
         [Fact]
@@ -41,10 +41,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_06_StatusOfArchiveParts());
 
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Status for arkivdel (systemID, tittel) someSystemId_1, someTitle_1: someStatus_1"));
-            testRun.Results.Should().Contain(r =>
-                r.Message.Equals("Status for arkivdel (systemID, tittel) someSystemId_2, someTitle_2: someStatus_2"));
+            testRun.TestResults.TestsResults.Should().Contain(r =>
+                r.Message.Equals("Status for Arkivdel (systemID, tittel): someSystemId_1, someTitle_1: someStatus_1"));
+            testRun.TestResults.TestsResults.Should().Contain(r =>
+                r.Message.Equals("Status for Arkivdel (systemID, tittel): someSystemId_2, someTitle_2: someStatus_2"));
         }
     }
 }

@@ -44,16 +44,16 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.Results.Count.Should().Be(4);
+            testRun.TestResults.GetNumberOfResults().Should().Be(4);
             string errorMessage = "Finnes i arkiv, men ikke i ADDML";
-            testRun.Results[0].Location.ToString().Should().Contain("DOK.DAT");
-            testRun.Results[0].Message.Should().Be(errorMessage);
-            testRun.Results[1].Location.ToString().Should().Contain("noark_3_arkivuttrekk_med_prosesser.xml");
-            testRun.Results[1].Message.Should().Be(errorMessage);
-            testRun.Results[2].Location.ToString().Should().Contain("SAK.DAT");
-            testRun.Results[2].Message.Should().Be(errorMessage);
-            testRun.Results[3].Location.ToString().Should().Contain("nosuchfile.txt");
-            testRun.Results[3].Message.Should().Be("Finnes i ADDML, men ikke i arkiv");
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Contain("DOK.DAT");
+            testRun.TestResults.TestsResults[0].Message.Should().Be(errorMessage);
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Contain("noark_3_arkivuttrekk_med_prosesser.xml");
+            testRun.TestResults.TestsResults[1].Message.Should().Be(errorMessage);
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Contain("SAK.DAT");
+            testRun.TestResults.TestsResults[2].Message.Should().Be(errorMessage);
+            testRun.TestResults.TestsResults[3].Location.ToString().Should().Contain("nosuchfile.txt");
+            testRun.TestResults.TestsResults[3].Message.Should().Be("Finnes i ADDML, men ikke i arkiv");
         }
     }
 }

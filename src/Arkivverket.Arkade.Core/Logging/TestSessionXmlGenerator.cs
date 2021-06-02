@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.Core.Logging
                 testResult.durationMillis = testRun.TestDuration.ToString();
                 testResult.testDescription = testRun.TestDescription;
                 testResult.status = testRun.IsSuccess() ? "SUCCESS" : "ERROR";
-                testResult.message = ConcatMessages(testRun.Results);
+                testResult.message = ConcatMessages(testRun.TestResults.GetAllResults());
                 xmlTestResults.Add(testResult);
             }
             return xmlTestResults.Count == 0 ? null : xmlTestResults.ToArray();

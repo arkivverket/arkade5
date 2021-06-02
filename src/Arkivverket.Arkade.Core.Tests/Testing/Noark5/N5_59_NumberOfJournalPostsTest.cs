@@ -18,13 +18,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_59_NumberOfJournalPosts(testArchive));
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter funnet i arkivstrukturen: 4"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter dokumentert i løpende journal: 4"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter dokumentert i offentlig journal: 4"));
-            testRun.Results.Count.Should().Be(3);
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
 
         [Fact]
@@ -38,15 +38,15 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_59_NumberOfJournalPosts(testArchive));
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antallet journalposter i offentlig og løpende journal er ulikt"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter funnet i arkivstrukturen: 4"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter dokumentert i løpende journal: 3"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter dokumentert i offentlig journal: 4"));
-            testRun.Results.Count.Should().Be(4);
+            testRun.TestResults.GetNumberOfResults().Should().Be(4);
         }
 
         [Fact]
@@ -73,15 +73,15 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_59_NumberOfJournalPosts(testArchive));
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Periodeskille er skarpt og antallet journalposter i arkivstrukturen er ikke likt det i offentlig og løpende journal"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter funnet i arkivstrukturen: 3"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter dokumentert i løpende journal: 4"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter dokumentert i offentlig journal: 4"));
-            testRun.Results.Count.Should().Be(4);
+            testRun.TestResults.GetNumberOfResults().Should().Be(4);
         }
 
         [Fact]
@@ -108,13 +108,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_59_NumberOfJournalPosts(testArchive));
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter funnet i arkivstrukturen: 3"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter dokumentert i løpende journal: 4"));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Antall journalposter dokumentert i offentlig journal: 4"));
-            testRun.Results.Count.Should().Be(3);
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
 
         private static XmlElementHelper MockUp4JournalPostRegistrations()

@@ -9,11 +9,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
     public class N5_01_ValidateStructureFileExists : Noark5StructureBaseTest
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 1);
-
         private readonly List<TestResult> _testResults = new List<TestResult>();
-
-
-        private List<string> FilesMissing { get; set; } = new List<string>();
 
         public override TestId GetId()
         {
@@ -25,9 +21,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             return TestType.StructureControl;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            return _testResults;
+            return new()
+            {
+                TestsResults = _testResults
+            };
         }
 
         public override void Test(Archive archive)

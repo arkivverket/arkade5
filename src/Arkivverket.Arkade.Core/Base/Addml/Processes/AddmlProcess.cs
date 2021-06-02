@@ -24,10 +24,12 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
             List<TestResult> testRunResults = GetTestResults();
             _stopwatch.Stop();
 
+            var testResultSet = new TestResultSet {TestsResults = testRunResults};
+
             return new TestRun(this)
             {
                 TestDuration = _stopwatch.ElapsedMilliseconds,
-                Results = testRunResults
+                TestResults = testResultSet
             };
         }
 

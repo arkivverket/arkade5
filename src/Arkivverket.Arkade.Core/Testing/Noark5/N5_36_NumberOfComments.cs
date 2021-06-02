@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -10,9 +11,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 36);
 
-        private N5_36_ArchivePart _currentArchivePart = new N5_36_ArchivePart();
-        private readonly List<N5_36_ArchivePart> _archiveParts = new List<N5_36_ArchivePart>();
-        private readonly Dictionary<int, string> _lastSeenElementTypeByLevel = new Dictionary<int, string>();
+        private N5_36_ArchivePart _currentArchivePart = new();
+        private readonly List<N5_36_ArchivePart> _archiveParts = new();
+        private readonly Dictionary<int, string> _lastSeenElementTypeByLevel = new();
 
         public override TestId GetId()
         {
@@ -24,32 +25,54 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
-            int totalNumberOfComments = 0;
+            bool multipleArchiveParts = _archiveParts.Count > 1;
+
+            int totalNumberOfComments = _archiveParts.Sum(a => a.NumberOfCommentsByElement.Values.Sum());
+
+            var testResultSets = new TestResultSet
+            {
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, totalNumberOfComments))
+                }
+            };
+
+            if (totalNumberOfComments == 0)
+                return testResultSets;
 
             foreach (N5_36_ArchivePart archivePart in _archiveParts)
             {
-                foreach (KeyValuePair<string, int> commentsForElement in archivePart.NumberOfCommentsByElement)
+                var numberOfCommentsPerArchivePart = 0;
+                var testResults = new List<TestResult>();
+
+                foreach ((string element, int numberOfComments) in archivePart.NumberOfCommentsByElement)
                 {
-                    string message = string.Format(
-                        Noark5Messages.NumberOfCommentsMessage, commentsForElement.Key, commentsForElement.Value);
+                    testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                        string.Format(Noark5Messages.NumberOfCommentsMessage, element, numberOfComments)));
 
-                    if (_archiveParts.Count > 1)
-                        message = message.Insert(0,
-                            string.Format(Noark5Messages.ArchivePartSystemId, archivePart.SystemId, archivePart.Name) + " - ");
-
-                    testResults.Add(new TestResult(ResultType.Success, new Location(""), message));
+                    numberOfCommentsPerArchivePart += numberOfComments;
                 }
 
-                totalNumberOfComments += archivePart.NumberOfCommentsByElement.Sum(e => e.Value);
+                if (multipleArchiveParts)
+                {
+                    testResults.Insert(0, new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOf, numberOfCommentsPerArchivePart)));
+
+                    testResultSets.TestResultSets.Add(new TestResultSet
+                    {
+                        Name = archivePart.ToString(),
+                        TestsResults = testResults,
+                    });
+                }
+                else
+                    testResultSets.TestsResults.AddRange(testResults);
+                
             }
 
-            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
-                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfComments.ToString())));
-
-            return testResults;
+            return testResultSets;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -104,8 +127,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private class N5_36_ArchivePart : ArchivePart 
         {
-            public Dictionary<string, int> NumberOfCommentsByElement { get; private set; }
-                = new Dictionary<string, int>();
+            public Dictionary<string, int> NumberOfCommentsByElement { get; private set; } = new();
 
             public void RegisterCommentForElement(string element)
             {

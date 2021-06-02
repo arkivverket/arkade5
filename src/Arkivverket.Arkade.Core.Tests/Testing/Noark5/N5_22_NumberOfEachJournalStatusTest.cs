@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -34,11 +36,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_22_NumberOfEachJournalStatus());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("Journalstatus: Arkivert - Antall: 2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Journalstatus: Utgår - Antall: 1"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Journalstatus: JournalFørt - Antall: 1") &&
-                                                  r.IsError()); // Only "Arkivert" or "Utgår" on regular deposits
-            testRun.Results.Count.Should().Be(3);
+            List<TestResult> testResults = testRun.TestResults.TestsResults;
+            testResults.Should().Contain(r => r.Message.Equals("Journalstatus: Arkivert - Antall: 2"));
+            testResults.Should().Contain(r => r.Message.Equals("Journalstatus: Utgår - Antall: 1"));
+            testResults.Should().Contain(r => r.Message.Equals("Journalstatus: JournalFørt - Antall: 1")
+                                              && r.IsError()); // Only "Arkivert" or "Utgår" on regular deposits
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
 
         [Fact]
@@ -88,33 +92,19 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_22_NumberOfEachJournalStatus());
 
-            testRun.Results.Should().Contain(r =>
-                    r.Message.Equals(
-                        "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Journalstatus: Arkivert - Antall: 2")
-            );
-            testRun.Results.Should().Contain(r =>
-                    r.Message.Equals(
-                        "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Journalstatus: Utgår - Antall: 1")
-            );
-            testRun.Results.Should().Contain(r =>
-                    r.Message.Equals(
-                        "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Journalstatus: JournalFørt - Antall: 1") &&
-                    r.IsError() // Only "Arkivert" or "Utgår" on regular deposits
-            );
-            testRun.Results.Should().Contain(r =>
-                    r.Message.Equals(
-                        "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Journalstatus: Arkivert - Antall: 2")
-            );
-            testRun.Results.Should().Contain(r =>
-                    r.Message.Equals(
-                        "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Journalstatus: Utgår - Antall: 1")
-            );
-            testRun.Results.Should().Contain(r =>
-                    r.Message.Equals(
-                        "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Journalstatus: JournalFørt - Antall: 1") &&
-                    r.IsError() // Only "Arkivert" or "Utgår" on regular deposits
-            );
-            testRun.Results.Count.Should().Be(6);
+            List<TestResult> arkivdel1Results = testRun.TestResults.TestResultSets[0].TestsResults;
+            arkivdel1Results.Should().Contain(r => r.Message.Equals("Journalstatus: Arkivert - Antall: 2"));
+            arkivdel1Results.Should().Contain(r => r.Message.Equals("Journalstatus: Utgår - Antall: 1"));
+            arkivdel1Results.Should().Contain(r => r.Message.Equals("Journalstatus: JournalFørt - Antall: 1")
+                                                   && r.IsError());
+
+            List<TestResult> arkivdel2Results = testRun.TestResults.TestResultSets[1].TestsResults;
+            arkivdel2Results.Should().Contain(r => r.Message.Equals("Journalstatus: Arkivert - Antall: 2"));
+            arkivdel2Results.Should().Contain(r => r.Message.Equals("Journalstatus: Utgår - Antall: 1"));
+            arkivdel2Results.Should().Contain(r => r.Message.Equals("Journalstatus: JournalFørt - Antall: 1")
+                                                   && r.IsError());
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(6);
         }
 
         [Fact]
@@ -140,9 +130,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_22_NumberOfEachJournalStatus());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("Journalstatus:  - Antall: 1") && r.IsError());
+            testRun.TestResults.TestResultSets.Find(s => s.Name.Equals("Journalstatus: "))
+                ?.TestsResults.Should().Contain(r => r.Message.Equals("Antall: 1") && r.IsError());
 
-            testRun.Results.Count.Should().Be(1);
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
     }
 }

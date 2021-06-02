@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_05_NumberOfArchiveParts());
 
-            testRun.Results.First().Message.Should().Be("Totalt: 2");
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 2");
         }
 
         [Fact]
@@ -37,11 +37,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_05_NumberOfArchiveParts());
 
-            testRun.Results.Should().Contain(r =>
+            testRun.TestResults.TestsResults.Should().Contain(r =>
                 r.Message.Equals("Totalt: 3"));
-            testRun.Results.Should().Contain(r =>
+            testRun.TestResults.TestsResults.Should().Contain(r =>
                 r.Message.Equals("Antall arkivdeler i arkiv (systemID) someArchiveSystemId_1: 2"));
-            testRun.Results.Should().Contain(r =>
+            testRun.TestResults.TestsResults.Should().Contain(r =>
                 r.Message.Equals("Antall arkivdeler i arkiv (systemID) someArchiveSystemId_2: 1"));
         }
     }

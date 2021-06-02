@@ -34,12 +34,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_12_ControlNoSuperclassesHasFolders());
 
-            testRun.Results.First().Message.Should().Be("Totalt: 1");
-            testRun.Results[1].Message.Should().Be(
-                "Klasse med systemID someClassSystemId_2"
-            );
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 1");
+            testRun.TestResults.TestsResults[1].Message.Should()
+                .Be("Klasse med systemID someClassSystemId_2");
        
-            testRun.Results.Count.Should().Be(2);
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
         }
 
         [Fact]
@@ -86,13 +85,17 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_12_ControlNoSuperclassesHasFolders());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someTitle_1 - Klasse med systemID someClassSystemId_2"
-            ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someTitle_2 - Klasse med systemID someClassSystemId_5"
-            ));
-            testRun.Results.Count.Should().Be(3);
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 2");
+
+            TestResultSet arkivdel1 = testRun.TestResults.TestResultSets[0];
+            arkivdel1.TestsResults.First().Message.Should().Be("Antall: 1");
+            arkivdel1.TestsResults.Should().Contain(r => r.Message.Equals("Klasse med systemID someClassSystemId_2"));
+
+            TestResultSet arkivdel2 = testRun.TestResults.TestResultSets[1];
+            arkivdel2.TestsResults.First().Message.Should().Be("Antall: 1");
+            arkivdel2.TestsResults.Should().Contain(r => r.Message.Equals("Klasse med systemID someClassSystemId_5"));
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(5);
         }
     }
 }

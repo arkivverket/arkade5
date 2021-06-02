@@ -30,10 +30,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
             var validateAddmlDataobjectsChecksums = new N5_02_ValidateAddmlDataobjectsChecksums();
             validateAddmlDataobjectsChecksums.Test(archive);
             var testRun = validateAddmlDataobjectsChecksums.GetTestRun();
-            testRun.Results.Count.Should().Be(9);
+            testRun.TestResults.GetNumberOfResults().Should().Be(9);
             testRun.IsSuccess().Should().BeTrue();
 
-            foreach (var testResult in testRun.Results)
+            foreach (var testResult in testRun.TestResults.TestsResults)
             {
                 _output.WriteLine(testResult.Location + ": " + testResult.Message);
             }
@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
             var validateAddmlDataobjectsChecksums = new N5_02_ValidateAddmlDataobjectsChecksums();
             validateAddmlDataobjectsChecksums.Test(archive);
             var testRun = validateAddmlDataobjectsChecksums.GetTestRun();
-            testRun.Results.Count.Should().Be(1);
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
             testRun.IsSuccess().Should().BeFalse();
         }
     }

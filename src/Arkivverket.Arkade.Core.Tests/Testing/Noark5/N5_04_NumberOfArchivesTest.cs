@@ -17,9 +17,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_04_NumberOfArchives());
 
-            testRun.Results.First().Message.Should().Be("Totalt: 2");
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 2");
 
-            testRun.Results.Count.Should().Be(1);
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
 
         [Fact]
@@ -34,12 +34,12 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_04_NumberOfArchives());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 5"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Antall arkiv på nivå 1: 2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Antall arkiv på nivå 2: 2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Antall arkiv på nivå 3: 1"));
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals("Totalt: 5"));
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals("Antall arkiv på nivå 1: 2"));
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals("Antall arkiv på nivå 2: 2"));
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals("Antall arkiv på nivå 3: 1"));
 
-            testRun.Results.Count.Should().Be(4);
+            testRun.TestResults.GetNumberOfResults().Should().Be(4);
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -12,9 +13,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 29);
 
+        private readonly Dictionary<string, int> _numberOfUniqueDocumentFormats = new();
+        private readonly Dictionary<ArchivePart, List<DocumentObject>> _documentObjectsPerArchivePart = new();
         private ArchivePart _currentArchivePart = new ArchivePart();
         private DocumentObject _currentDocumentObject;
-        private readonly List<DocumentObject> _documentObjects = new List<DocumentObject>();
 
         public override TestId GetId()
         {
@@ -26,61 +28,116 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            bool multipleArchiveParts = _documentObjectsPerArchivePart.Count > 1;
+            int totalNumberOfUniqueDocumentFormats = _numberOfUniqueDocumentFormats.Count;
 
-            // Separate format-mismatching document objects from the rest:
-            var documentObjectsWithFormatMismatch = _documentObjects.FindAll(d => d.HasFormatMismatch());
-            _documentObjects.RemoveAll(d => d.HasFormatMismatch());
-
-            // Group document objects by format and by archive part:
-            var documentObjectQuery = from documentObject in _documentObjects
-                group documentObject by new
+            var testResultSet = new TestResultSet
+            {
+                TestsResults = new List<TestResult>
                 {
-                    documentObject.ArchivePart.SystemId,
-                    documentObject.ArchivePart.Name,
-                    documentObject.Format,
+                    new (ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOfUniqueDocumentFormats, totalNumberOfUniqueDocumentFormats))
                 }
-                into grouped
-                select new
+            };
+
+            if (totalNumberOfUniqueDocumentFormats == 0)
+                return testResultSet;
+
+            var totalNumberOfFoldersWithFormatMismatch = 0;
+
+            foreach ((ArchivePart archivePart, List<DocumentObject> documentObjects) in _documentObjectsPerArchivePart)
+            {
+                if (documentObjects.Count(d => d.Format != default && d.FileReference != default) == 0)
                 {
-                    grouped.Key.SystemId,
-                    grouped.Key.Name,
-                    grouped.Key.Format,
-                    Count = grouped.Count()
+                    testResultSet.TestResultSets.Add(new TestResultSet
+                    {
+                        Name = archivePart.ToString(),
+                        TestsResults = new List<TestResult>
+                        {
+                            new(ResultType.Success, new Location(string.Empty), string.Format(
+                                Noark5Messages.TotalResultNumber, 0))
+                        }
+                    });
+                    continue;
+                }
+                var numberOfDocumentsWithFormatMismatch = 0;
+
+                var archivePartResultSet = new TestResultSet
+                {
+                    Name = archivePart.ToString(),
                 };
 
-            bool multipleArchiveParts = _documentObjects.GroupBy(j => j.ArchivePart.SystemId).Count() > 1;
+                foreach (IGrouping<string, DocumentObject> group in documentObjects.GroupBy(d => d.Format,
+                    StringComparer.OrdinalIgnoreCase))
+                {
+                    var numberOfFormatMismatches = 0;
+                    var testResults = new List<TestResult>
+                    {
+                        new(ResultType.Success, new Location(string.Empty), string.Format(
+                            Noark5Messages.NumberOf, group.Count()))
+                    };
 
-            foreach (var item in documentObjectQuery)
-            {
-                var message = new StringBuilder(
-                    string.Format(Noark5Messages.NumberOfEachDocumentFormatMessage, item.Format, item.Count));
+                    var errorResults = new List<TestResult>();
+
+                    foreach (DocumentObject documentObject in group.Where(d => d.HasFormatMismatch()))
+                    {
+                        errorResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                            string.Format(Noark5Messages.NumberOfEachDocumentFormatMessage_FormatMismatch,
+                                documentObject.FileReference)));
+
+                        numberOfFormatMismatches++;
+                    }
+
+                    if (numberOfFormatMismatches > 0)
+                    {
+                        testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                            string.Format(Noark5Messages.NumberOfDocumentsWithFormatMismatch,
+                                numberOfFormatMismatches)));
+                        testResults.AddRange(errorResults);
+                    }
+
+                    var documentFormatResultSet = new TestResultSet
+                    {
+                        Name = string.Format(Noark5Messages.DocumentFormatMessage, @group.Key),
+                        TestsResults = testResults
+                    };
+
+                    if (multipleArchiveParts)
+                        archivePartResultSet.TestResultSets.Add(documentFormatResultSet);
+                    else
+                        testResultSet.TestResultSets.Add(documentFormatResultSet);
+
+                    numberOfDocumentsWithFormatMismatch += numberOfFormatMismatches;
+                }
 
                 if (multipleArchiveParts)
-                    message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, item.SystemId, item.Name) + " - ");
+                {
+                    if (numberOfDocumentsWithFormatMismatch > 0)
+                        archivePartResultSet.TestsResults.Add(new TestResult(ResultType.Error,
+                            new Location(string.Empty),
+                            string.Format(Noark5Messages.NumberOfDocumentsWithFormatMismatch,
+                                numberOfDocumentsWithFormatMismatch)));
 
-                testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
+                    testResultSet.TestResultSets.Add(archivePartResultSet);
+                }
+
+                totalNumberOfFoldersWithFormatMismatch += numberOfDocumentsWithFormatMismatch;
             }
 
-            foreach (var item in documentObjectsWithFormatMismatch)
-                testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivstrukturXmlFileName),
-                    string.Format(
-                        Noark5Messages.NumberOfEachDocumentFormatMessage_FormatMismatch,
-                        item.Format,
-                        item.FileReference
-                    )));
+            if (totalNumberOfFoldersWithFormatMismatch > 0)
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                    string.Format(Noark5Messages.NumberOfDocumentsWithFormatMismatch,
+                        totalNumberOfFoldersWithFormatMismatch)));
 
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("dokumentobjekt", "dokumentbeskrivelse", "registrering"))
-                _currentDocumentObject = new DocumentObject
-                    {ArchivePart = _currentArchivePart};
+                _currentDocumentObject = new DocumentObject();
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
@@ -99,7 +156,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 return;
 
             if (eventArgs.Path.Matches("format", "dokumentobjekt"))
-                _currentDocumentObject.Format = eventArgs.Value;
+            {
+                string format = eventArgs.Value.ToLower();
+                
+                if (_numberOfUniqueDocumentFormats.ContainsKey(format))
+                    _numberOfUniqueDocumentFormats[format]++;
+                else
+                    _numberOfUniqueDocumentFormats.Add(format, 1);
+
+                _currentDocumentObject.Format = format;
+            }
 
             if (eventArgs.Path.Matches("referanseDokumentfil", "dokumentobjekt"))
                 _currentDocumentObject.FileReference = eventArgs.Value;
@@ -109,7 +175,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.NameEquals("dokumentobjekt") && _currentDocumentObject != null)
             {
-                _documentObjects.Add(_currentDocumentObject);
+                if (_documentObjectsPerArchivePart.ContainsKey(_currentArchivePart))
+                    _documentObjectsPerArchivePart[_currentArchivePart].Add(_currentDocumentObject);
+                else
+                    _documentObjectsPerArchivePart.Add(_currentArchivePart, new List<DocumentObject>
+                    {
+                        _currentDocumentObject
+                    });
+
                 _currentDocumentObject = null;
             }
 
@@ -119,14 +192,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private class DocumentObject
         {
-            public ArchivePart ArchivePart { get; set; }
             public string Format { get; set; }
             public string FileReference { get; set; }
 
             public bool HasFormatMismatch()
             {
-                var fileExtension = Path.GetExtension(FileReference);
-                return Format != null && fileExtension != null && !fileExtension.ToLower().Equals($".{Format.ToLower()}");
+                var fileExtension = Path.GetExtension(FileReference)?.ToLower();
+                return Format != null && fileExtension != null && !fileExtension.Equals($".{Format}");
             }
         }
     }

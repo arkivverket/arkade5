@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
@@ -13,14 +12,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 42);
 
-        private ArchivePart _currentArchivePart = new ArchivePart();
-        private List<ArchivePart> archiveParts = new List<ArchivePart>();
-        private readonly List<Restriction> _restrictions;
+        private readonly Dictionary<ArchivePart, Dictionary<string, int>>
+            _numberOfRestrictionsPerElementPerArchivePart = new();
+        private ArchivePart _currentArchivePart = new();
         private readonly bool _documentationStatesRestrictions;
 
         public N5_42_NumberOfRestrictions(Archive testArchive)
         {
-            _restrictions = new List<Restriction>();
             _documentationStatesRestrictions = DocumentationStatesRestrictions(testArchive);
         }
 
@@ -34,67 +32,86 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
-            int totalNumberOfRestrictions = 0;
+            bool multipleArchiveParts = _numberOfRestrictionsPerElementPerArchivePart.Count > 1;
 
-            // Group restrictions by parent element name and by archive part:
-            var restrictionQuery = from restriction in _restrictions
-                group restriction by new
-                {
-                    restriction.ArchivePart.SystemId,
-                    restriction.ArchivePart.Name,
-                    restriction.ParentElementName
-                }
-                into grouped
-                select new
-                {
-                    grouped.Key.SystemId,
-                    grouped.Key.Name,
-                    grouped.Key.ParentElementName,
-                    Count = grouped.Count()
-                };
+            int totalNumberOfRestrictions =
+                _numberOfRestrictionsPerElementPerArchivePart.Sum(a => a.Value.Values.Sum());
 
-            foreach (var item in restrictionQuery)
+            var testResultSet = new TestResultSet
             {
-                var message = new StringBuilder(
-                    string.Format(Noark5Messages.NumberOfRestrictionsMessage, item.ParentElementName, item.Count));
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, totalNumberOfRestrictions))
+                }
+            };
 
-                if (archiveParts.Count > 1)
-                    message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, item.SystemId, item.Name) + " - ");
-
-                totalNumberOfRestrictions += item.Count;
-
-                testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
+            switch (_documentationStatesRestrictions)
+            {
+                // Error message if documentation states instances of restrictions but none are found:
+                case true when totalNumberOfRestrictions == 0:
+                    testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
+                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                        Noark5Messages.NumberOfRestrictionsMessage_DocTrueActualFalse));
+                    break;
+                // Error message if documentation states no instances of restrictions but some are found:
+                case false when totalNumberOfRestrictions > 0:
+                    testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
+                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                        Noark5Messages.NumberOfRestrictionsMessage_DocFalseActualTrue));
+                    break;
             }
 
-            // Error message if documentation states instances of restrictions but none are found:
-            if (_documentationStatesRestrictions && !_restrictions.Any())
-                testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
-                    Noark5Messages.NumberOfRestrictionsMessage_DocTrueActualFalse));
+            if (totalNumberOfRestrictions == 0)
+                return testResultSet;
 
-            // Error message if documentation states no instances of restrictions but some are found:
-            if (!_documentationStatesRestrictions && _restrictions.Any())
-                testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
-                    Noark5Messages.NumberOfRestrictionsMessage_DocFalseActualTrue));
+            foreach ((ArchivePart archivePart, Dictionary<string, int> restrictionsPerElement) in
+                _numberOfRestrictionsPerElementPerArchivePart)
+            {
+                var testResults = new List<TestResult>();
 
-            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""), 
-                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfRestrictions.ToString())));
+                foreach ((string parentElementName, int numberOfRestrictions) in restrictionsPerElement)
+                    testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOfRestrictionsMessage, parentElementName, numberOfRestrictions)));
 
-            return testResults;
+                if (multipleArchiveParts)
+                {
+                    testResults.Insert(0, new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOf, restrictionsPerElement.Values.Sum())));
+
+                    testResultSet.TestResultSets.Add(new TestResultSet
+                    {
+                        Name = archivePart.ToString(),
+                        TestsResults = testResults,
+                    });
+                }
+                else
+                    testResultSet.TestsResults.AddRange(testResults);
+            }
+
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.NameEquals("skjerming"))
             {
-                _restrictions.Add(new Restriction
+                string parentElementName = eventArgs.Path.GetParent();
+
+                if (_numberOfRestrictionsPerElementPerArchivePart.ContainsKey(_currentArchivePart))
                 {
-                    ArchivePart = _currentArchivePart,
-                    ParentElementName = eventArgs.Path.GetParent()
-                });
+                    if (_numberOfRestrictionsPerElementPerArchivePart[_currentArchivePart].ContainsKey(parentElementName))
+                        _numberOfRestrictionsPerElementPerArchivePart[_currentArchivePart][parentElementName]++;
+                    else
+                        _numberOfRestrictionsPerElementPerArchivePart[_currentArchivePart].Add(parentElementName, 1);
+                }
+                else
+                {
+                    _numberOfRestrictionsPerElementPerArchivePart.Add(_currentArchivePart,
+                        new Dictionary<string, int> {{parentElementName, 1}});
+                }
             }
         }
 
@@ -111,10 +128,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-            {
                 _currentArchivePart.SystemId = eventArgs.Value;
-                archiveParts.Add(_currentArchivePart);
-            }
 
             if (eventArgs.Path.Matches("tittel", "arkivdel"))
                 _currentArchivePart.Name = eventArgs.Value;
@@ -132,12 +146,5 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             return documentCountProperty != null && bool.Parse(documentCountProperty.value);
         }
-
-        private class Restriction
-        {
-            public ArchivePart ArchivePart { get; set; }
-            public string ParentElementName { get; set; }
-        }
-
     }
 }

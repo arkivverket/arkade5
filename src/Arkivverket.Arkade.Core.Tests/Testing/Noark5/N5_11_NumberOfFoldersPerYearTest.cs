@@ -21,7 +21,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_11_NumberOfFoldersPerYear());
 
-            testRun.Results[0].Message.Should().Contain("1863: 1");
+            testRun.TestResults.TestsResults[0].Message.Should().Contain("1863: 1");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
 
         [Fact]
@@ -51,9 +53,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_11_NumberOfFoldersPerYear());
 
-            testRun.Results[0].Message.Should().Contain("1863: 2");
-            testRun.Results[1].Message.Should().Contain("1864: 1");
-            testRun.Results[2].Message.Should().Contain("1865: 1");
+            testRun.TestResults.TestResultSets[0].TestsResults[0].Message.Should().Contain("1863: 2");
+            testRun.TestResults.TestResultSets[1].TestsResults[0].Message.Should().Contain("1864: 1");
+            testRun.TestResults.TestResultSets[1].TestsResults[1].Message.Should().Contain("1865: 1");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
 
         [Fact]
@@ -70,7 +74,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_11_NumberOfFoldersPerYear());
 
-            testRun.Results.Count.Should().Be(0);
+            testRun.TestResults.GetNumberOfResults().Should().Be(0);
         }
 
         [Fact]
@@ -97,9 +101,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_11_NumberOfFoldersPerYear());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID, tittel) someSystemId_1, someTitle_1 - 1863: 2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID, tittel) someSystemId_2, someTitle_2 - 1864: 1"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID, tittel) someSystemId_2, someTitle_2 - 1865: 1"));
+            testRun.TestResults.TestResultSets[0].TestsResults.Should().Contain(r => r.Message.Equals("1863: 2"));
+            testRun.TestResults.TestResultSets[1].TestsResults.Should().Contain(r => r.Message.Equals("1864: 1"));
+            testRun.TestResults.TestResultSets[1].TestsResults.Should().Contain(r => r.Message.Equals("1865: 1"));
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
     }
 }

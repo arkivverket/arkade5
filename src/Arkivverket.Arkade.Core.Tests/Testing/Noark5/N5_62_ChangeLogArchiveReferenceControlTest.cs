@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_62_ChangeLogArchiveReferenceControl(testArchive));
 
-            testRun.Results.Count.Should().Be(0);
+            testRun.TestResults.GetNumberOfResults().Should().Be(0);
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_62_ChangeLogArchiveReferenceControl(testArchive));
 
-            testRun.Results.First().Message.Should().Be(
+            testRun.TestResults.TestsResults.First().Message.Should().Be(
                 "Referanse til arkivenhet er ikke gyldig: (systemID) 214e27a2-5e7f-484b-b2c2-dea4e50524a3"
             );
         }

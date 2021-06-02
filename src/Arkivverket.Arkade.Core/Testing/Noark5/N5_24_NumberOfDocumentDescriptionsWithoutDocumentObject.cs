@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -11,8 +12,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private bool _documentObjectIsFound;
         private int _totalNumberOfMissingDocumentObjects;
-        private ArchivePart _currentArchivePart = new ArchivePart();
-        private readonly Dictionary<ArchivePart, int> _noDocumentObjectCountPerArchivePart = new Dictionary<ArchivePart, int>();
+        private ArchivePart _currentArchivePart = new();
+        private readonly Dictionary<ArchivePart, int> _noDocumentObjectCountPerArchivePart = new();
 
         public override TestId GetId()
         {
@@ -24,30 +25,27 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>
+            bool multipleArchiveParts = _noDocumentObjectCountPerArchivePart.Count > 1;
+
+            var testResultSet = new TestResultSet
             {
-                new TestResult(ResultType.Success, new Location(string.Empty),
-                    string.Format(Noark5Messages.TotalResultNumber, _totalNumberOfMissingDocumentObjects.ToString()))
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, _totalNumberOfMissingDocumentObjects))
+                }
             };
 
-            if (_noDocumentObjectCountPerArchivePart.Count > 1)
-            {
-                foreach (KeyValuePair<ArchivePart, int> noDocumentObjectCount in _noDocumentObjectCountPerArchivePart)
-                {
-                    if (noDocumentObjectCount.Value > 0)
-                    {
-                        var testResult = new TestResult(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.NumberOf_PerArchivePart,
-                                noDocumentObjectCount.Key.SystemId, noDocumentObjectCount.Key.Name, noDocumentObjectCount.Value));
+            if (!multipleArchiveParts || _totalNumberOfMissingDocumentObjects == 0)
+                return testResultSet;
 
-                        testResults.Add(testResult);
-                    }
-                }
-            }
+            foreach ((ArchivePart archivePart, int noDocumentObjectCount) in _noDocumentObjectCountPerArchivePart)
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
+                            Noark5Messages.NumberOfXPerY, archivePart, noDocumentObjectCount)));
 
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

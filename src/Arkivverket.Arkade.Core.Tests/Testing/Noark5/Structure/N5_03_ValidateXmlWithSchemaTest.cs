@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
 
             TestRun testRun = CreateTestRun(workingDirectory);
 
-            testRun.Results.Should().Contain(r => r.IsError());
+            testRun.TestResults.TestsResults.Should().Contain(r => r.IsError());
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
 
             TestRun testRun = CreateTestRun(workingDirectory);
 
-            testRun.Results.Should().Contain(r => r.IsError());
+            testRun.TestResults.TestsResults.Should().Contain(r => r.IsError());
         }
 
         private static TestRun CreateTestRun(string workingDirectory)

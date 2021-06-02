@@ -13,8 +13,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         {
             XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
                 new XmlElementHelper()
-                    .Add("arkivdel",
-                        new XmlElementHelper().Add("klassifikasjonssystem",
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemId", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
+                        .Add("klassifikasjonssystem",
                             new XmlElementHelper().Add("klasse",
                                 new XmlElementHelper()
                                     .Add("mappe",
@@ -28,7 +30,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_14_NumberOfFoldersWithoutRegistrationsOrSubfolders());
 
-            testRun.Results.First().Message.Should().Be("Totalt: 0");
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 0");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
 
         [Fact]
@@ -37,6 +41,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
                 new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemId", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
@@ -48,7 +54,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_14_NumberOfFoldersWithoutRegistrationsOrSubfolders());
 
-            testRun.Results.First().Message.Should().Be("Totalt: 1");
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 1");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
 
         [Fact]
@@ -56,8 +64,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         {
             XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
                 new XmlElementHelper()
-                    .Add("arkivdel",
-                        new XmlElementHelper().Add("klassifikasjonssystem",
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemId", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
+                        .Add("klassifikasjonssystem",
                             new XmlElementHelper().Add("klasse",
                                 new XmlElementHelper()
                                     .Add("mappe", // Folder has neither registration or subfolder
@@ -67,7 +77,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_14_NumberOfFoldersWithoutRegistrationsOrSubfolders());
 
-            testRun.Results.First().Message.Should().Be("Totalt: 2");
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 2");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
 
         [Fact]
@@ -98,8 +110,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_14_NumberOfFoldersWithoutRegistrationsOrSubfolders());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals("Totalt: 2"));
-            testRun.Results.Should().Contain(r => r.Message.Equals("Arkivdel (systemID - tittel) someSystemId_1 - someTitle_1: 2"));
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals("Totalt: 2"));
+            testRun.TestResults.TestsResults.Should().Contain(r =>
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1: 2"));
+            testRun.TestResults.TestsResults.Should().Contain(r =>
+                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, someTitle_2: 0"));
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
     }
 }
