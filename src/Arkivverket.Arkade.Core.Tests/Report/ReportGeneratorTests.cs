@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
 
             Archive archive = new ArchiveBuilder()
                 .WithWorkingDirectoryRoot(_workingDirectory)
-                .WithArchiveDetails("5.5")
+                .WithArchiveDetails("5.0")
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithUuid(Uuid.Random())
                 .Build();
