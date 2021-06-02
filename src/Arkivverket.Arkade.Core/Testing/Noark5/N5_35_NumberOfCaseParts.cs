@@ -16,14 +16,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private string GetTestVersion()
         {
-            string standardVersion = archive.Details.ArchiveStandard;
-
-            if (standardVersion.Equals("5.5"))
-            {
-                return "5.5";
-            }
-
-            return standardVersion;
+            return archive.Details.ArchiveStandard;
         }
 
         public N5_35_NumberOfCaseParts(Archive archive)
@@ -91,7 +84,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (archive.Details.ArchiveStandard.Equals("5.5"))
+            if (archive.Details.ArchiveStandard.Equals("5.0"))
             {
                 CountPartsForVersion5_5(eventArgs);
             }

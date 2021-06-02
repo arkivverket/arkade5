@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             return new Base.ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryExternalContent(workingDirectory)
-                .WithArchiveDetails("5.5")
+                .WithArchiveDetails("5.0")
                 .Build();
         }
 

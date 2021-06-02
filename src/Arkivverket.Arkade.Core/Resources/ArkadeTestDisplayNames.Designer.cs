@@ -648,9 +648,9 @@ namespace Arkivverket.Arkade.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Number of parties.
         /// </summary>
-        public static string N5_35v5_5 {
+        public static string N5_35v5_0 {
             get {
-                return ResourceManager.GetString("N5_35v5_5", resourceCulture);
+                return ResourceManager.GetString("N5_35v5_0", resourceCulture);
             }
         }
         

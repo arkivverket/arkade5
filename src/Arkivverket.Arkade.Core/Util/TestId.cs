@@ -20,11 +20,11 @@ namespace Arkivverket.Arkade.Core.Util
                 { TestKind.Unidentified, "U" },
             };
 
-        public TestId(TestKind testKind, uint number, string version = "5.0")
+        public TestId(TestKind testKind, uint number, string version = default)
         {
             Kind = testKind;
             Number = number;
-            Version = version;
+            Version = $"v{version}";
         }
 
         public static TestId Create(string testId)
