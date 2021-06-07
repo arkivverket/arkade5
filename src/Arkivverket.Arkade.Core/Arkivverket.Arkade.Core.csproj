@@ -6,6 +6,15 @@
     <AssemblyName>Arkivverket.Arkade.Core</AssemblyName>
     <RootNamespace>Arkivverket.Arkade.Core</RootNamespace>
     <OutputType>Library</OutputType>
+    <Authors>Arkitektum AS for Arkivverket</Authors>
+    <PackageLicenseExpression>GNU GPL</PackageLicenseExpression>
+    <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
+    <PackageIcon>Arkade5_2.0.ico</PackageIcon>
+    <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>https://github.com/arkivverket/arkade5/tags</PackageTags>
+    <PackageReleaseNotes>https://github.com/arkivverket/arkade5/releases</PackageReleaseNotes>
+    <PackageId>Arkivverket.Arkade.Core</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -57,6 +66,10 @@
     <None Remove="Resources\arkade.css" />
     <None Remove="Resources\arkivverket.gif" />
     <None Remove="Resources\bootstrap.min.css" />
+    <None Include="..\Setup\Arkade5_2.0.ico">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

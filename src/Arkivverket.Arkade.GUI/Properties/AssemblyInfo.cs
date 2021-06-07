@@ -6,14 +6,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Arkade 5")]
-[assembly: AssemblyDescription("Testverktøy for arkivuttrekk")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyTitle("Arkivverket.Arkade.GUI")]
+[assembly: AssemblyDescription("Test and package tool for archive data")]
 [assembly: AssemblyCompany("Arkivverket")]
 [assembly: AssemblyProduct("Arkade 5")]
-[assembly: AssemblyCopyright("Copyright ©  2016-2020")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+[assembly: AssemblyCopyright("Copyright © 2016-2021")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -47,5 +44,5 @@ using System.Windows;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.0.0.0")]
+[assembly: AssemblyFileVersion("0.0.0.0")]
