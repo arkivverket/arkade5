@@ -465,8 +465,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _arkadeApi.SaveReport(_testSession, testReportDirectory);
 
-            var message = string.Format(TestRunnerGUI.TestReportIsSavedMessage, testReportDirectory.FullName);
-            _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);
+            _statusEventHandler.RaiseEventOperationMessage(eventId, TestRunnerGUI.TestReportIsSavedMessage, OperationMessageStatus.Ok);
         }
 
     }

@@ -297,7 +297,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report saved {0}.
+        ///   Looks up a localized string similar to Report created.
         /// </summary>
         public static string TestReportIsSavedMessage {
             get {

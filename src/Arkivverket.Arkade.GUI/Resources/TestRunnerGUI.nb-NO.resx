@@ -195,7 +195,7 @@ Det kan fortsatt lages en pakke av uttrekket.</value>
     <value>Meldinger:</value>
   </data>
   <data name="TestReportIsSavedMessage" xml:space="preserve">
-    <value>Rapport lagret {0}</value>
+    <value>Rapport opprettet</value>
   </data>
   <data name="EventIdCreatingReport" xml:space="preserve">
     <value>Lager rapport</value>
