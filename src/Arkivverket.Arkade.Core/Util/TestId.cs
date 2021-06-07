@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Util
         {
             Kind = testKind;
             Number = number;
-            Version = version == default ? default : $"v{version}";
+            Version = version;
         }
 
         public static TestId Create(string testId)
