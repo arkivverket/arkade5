@@ -156,6 +156,7 @@ namespace Arkivverket.Arkade.GUI
             SettingsGUI.Culture = cultureInfo;
             TestRunnerGUI.Culture = cultureInfo;
             ToolsGUI.Culture = cultureInfo;
+            TestReportGUI.Culture = cultureInfo;
         }
     }
 }

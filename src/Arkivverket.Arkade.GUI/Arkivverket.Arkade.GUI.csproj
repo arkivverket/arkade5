@@ -78,6 +78,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SettingsGUI.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\TestReportGUI.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TestReportGUI.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\TestRunnerGUI.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -147,6 +152,10 @@
       <LastGenOutput>SettingsGUI.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\TestReportGUI.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TestReportGUI.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\TestRunnerGUI.nb-NO.resx">
       <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -172,6 +181,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\TestReportDialog.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
 
 </Project>

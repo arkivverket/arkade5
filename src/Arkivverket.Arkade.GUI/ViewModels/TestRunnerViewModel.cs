@@ -14,7 +14,6 @@ using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Languages;
-using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
 using Arkivverket.Arkade.Core.Util;
@@ -169,7 +168,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             RunTestEngineCommand = new DelegateCommand(async () => await Task.Run(() => RunTests()));
             NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, CanCreatePackage);
             NewProgramSessionCommand = new DelegateCommand(ReturnToProgramStart, IsFinishedRunningTests);
-            ShowReportCommand = new DelegateCommand(ShowHtmlReport, CanContinueOperationOnTestRun);
+            ShowReportCommand = new DelegateCommand(ShowTestReportDialog, CanContinueOperationOnTestRun);
             _allTestsSelected = true;
         }
 
@@ -454,22 +453,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             });
         }
 
-        private void OpenFile(FileInfo file)
+        private void ShowTestReportDialog()
         {
-            var process = new System.Diagnostics.Process();
-            process.StartInfo = new System.Diagnostics.ProcessStartInfo(file.FullName)
-            {
-                UseShellExecute = true,
-            };
-            process.Start();
-        }
-
-        private void ShowHtmlReport()
-        {
-            _log.Information("User action: Show HTML report");
-            
-            OpenFile(_testSession.Archive.GetTestReportDirectory().GetFiles()
-                .First(f => f.Extension.Contains(TestReportFormat.html.ToString())));
+            new TestReportDialog(_testSession.Archive.GetTestReportDirectory()).ShowDialog();
         }
 
         private void SaveTestReports(DirectoryInfo testReportDirectory)
