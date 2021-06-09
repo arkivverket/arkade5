@@ -111,6 +111,11 @@ namespace Arkivverket.Arkade.Core.Base
 
         public void SaveReport(TestSession testSession, DirectoryInfo testReportDirectory)
         {
+            if(testReportDirectory.Exists)
+                testReportDirectory.Delete(recursive: true);
+            
+            testReportDirectory.Create();
+            
             TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory);
         }
 
