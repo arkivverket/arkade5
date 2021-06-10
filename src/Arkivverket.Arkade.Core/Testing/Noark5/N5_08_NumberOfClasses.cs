@@ -136,6 +136,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.NameEquals("klassifikasjonssystem"))
             {
+                _currentClassificationSystem.ClassificationGrade ??= Noark5Messages.Secondary;
+
                 if (_classificationSystemsPerArchivePart.ContainsKey(_currentArchivePart))
                     _classificationSystemsPerArchivePart[_currentArchivePart].Add(_currentClassificationSystem);
                 else
