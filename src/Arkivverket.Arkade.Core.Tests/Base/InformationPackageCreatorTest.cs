@@ -20,7 +20,6 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         private static readonly Uuid Uuid = Uuid.Random();
         private readonly ArchiveMetadata _archiveMetadata = MetadataExampleCreator.Create(MetadataExamplePurpose.InternalTesting);
         private readonly string _outputDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        private static bool _test01HasRun = false;
 
         [Fact]
         [Trait("Category", "Integration")]
@@ -53,8 +52,6 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/report.html").Should().BeFalse();
             fileList.Contains(rootDir + "descriptive_metadata/ead.xml").Should().BeFalse();
             fileList.Contains(rootDir + "descriptive_metadata/eac-cpf.xml").Should().BeFalse();
-
-            _test01HasRun = true;
         }
 
         [Fact]
@@ -68,9 +65,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
             string rootDir = Uuid.GetValue() + "/";
-            string testReportDirectoryName = archive.GetTestReportDirectory().Name;
 
-            fileList.Count.Should().Be(15);
+            fileList.Count.Should().Be(14);
             fileList.Contains(rootDir).Should().BeTrue();
             fileList.Contains(rootDir + "content/").Should().BeTrue();
             fileList.Contains(rootDir + "content/arkivstruktur.xml").Should().BeTrue();
@@ -83,13 +79,10 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
             // additional files for aip
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/").Should().BeTrue();
-            if (_test01HasRun)
-                fileList.Contains(rootDir + "administrative_metadata/repository_operations/" + testReportDirectoryName +"/").Should().BeTrue();
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/arkade-log.xml").Should().BeTrue();
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/report.html").Should().BeTrue();
             fileList.Contains(rootDir + "descriptive_metadata/ead.xml").Should().BeTrue();
             fileList.Contains(rootDir + "descriptive_metadata/eac-cpf.xml").Should().BeTrue();
-
         }
 
         private static List<string> GetFileListFromArchive(string targetFileName)
