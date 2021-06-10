@@ -74,7 +74,7 @@ namespace Arkivverket.Arkade.Core.Identify
         {
             Archive archive = new Archive(archiveType, uuid, workingDirectory);
 
-            if (archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())
+            if (archive.ArchiveType == ArchiveType.Noark5 && archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())
             {
                 _statusEventHandler?.RaiseEventOperationMessage(
                     Noark5Messages.MissingAddmlSchema,
