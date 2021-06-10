@@ -341,9 +341,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 NotifyStartRunningTests();
                 
                 _testSession.TestsToRun = GetSelectedTests();
-
-                Enum.TryParse(Settings.Default.SelectedOutputLanguage, out SupportedLanguage outputLanguage);
-                _testSession.OutputLanguage = outputLanguage;
+                
+                _testSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
 
                 _arkadeApi.RunTests(_testSession);
                 
