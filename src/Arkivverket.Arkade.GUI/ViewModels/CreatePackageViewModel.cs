@@ -483,6 +483,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             try
             {
+                _testSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
+
                 string packageFilePath = _arkadeApi.CreatePackage(_testSession, outputDirectory);
 
                 string packageOutputContainer = new FileInfo(packageFilePath).DirectoryName;
