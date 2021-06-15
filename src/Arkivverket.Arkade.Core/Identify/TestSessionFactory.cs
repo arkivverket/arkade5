@@ -74,14 +74,20 @@ namespace Arkivverket.Arkade.Core.Identify
         {
             Archive archive = new Archive(archiveType, uuid, workingDirectory);
 
-            if (archive.ArchiveType == ArchiveType.Noark5 && archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())
+            if (archive.ArchiveType == ArchiveType.Noark5)
             {
-                _statusEventHandler?.RaiseEventOperationMessage(
-                    Noark5Messages.MissingAddmlSchema,
-                    string.Format(Noark5Messages.UsingBuiltInAddmlSchemaFile, BuiltInAddmlSchemaVersion),
-                    OperationMessageStatus.Warning);
-                Log.Warning(string.Format(Noark5Messages.InternalSchemaFileIsUsed,
-                    AddmlXsdFileName, BuiltInAddmlSchemaVersion));
+                if (!archive.AddmlXmlUnit.File.Exists)
+                    throw new ArkadeException(string.Format(ExceptionMessages.FileNotFound, ArkivuttrekkXmlFileName));
+
+                if (archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())
+                {
+                    _statusEventHandler?.RaiseEventOperationMessage(
+                        Noark5Messages.MissingAddmlSchema,
+                        string.Format(Noark5Messages.UsingBuiltInAddmlSchemaFile, BuiltInAddmlSchemaVersion),
+                        OperationMessageStatus.Warning);
+                    Log.Warning(string.Format(Noark5Messages.InternalSchemaFileIsUsed,
+                        AddmlXsdFileName, BuiltInAddmlSchemaVersion));
+                }
             }
 
             workingDirectory.CopyAddmlFileToAdministrativeMetadata();
