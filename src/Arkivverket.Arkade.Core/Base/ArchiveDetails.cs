@@ -8,11 +8,13 @@ namespace Arkivverket.Arkade.Core.Base
 {
     public class ArchiveDetails
     {
+        private string _archiveStandard;
+
         public string ArchiveCreators => GetArchiveCreators();
         public string ArchivalPeriod => GetArchivalPeriod();
         public string SystemName => GetSystemName();
         public string SystemType => GetSystemType();
-        public virtual string ArchiveStandard => GetArchiveStandardVersion();
+        public virtual string ArchiveStandard => _archiveStandard?? GetArchiveStandardVersion();
         public Dictionary<string, IEnumerable<string>> DocumentedXmlUnits => GetDocumentedXmlUnits();
         public Dictionary<string, IEnumerable<string>> StandardXmlUnits => GetStandardXmlUnits();
 
@@ -93,7 +95,8 @@ namespace Arkivverket.Arkade.Core.Base
                     .FirstOrDefault(property => property.name == "type")?.properties
                     .FirstOrDefault(property => property.name == "version")?.value;
 
-                return $"{archiveExtractionTypeVersion}";
+                _archiveStandard = archiveExtractionTypeVersion;
+                return archiveExtractionTypeVersion;
             }
             catch (Exception)
             {
