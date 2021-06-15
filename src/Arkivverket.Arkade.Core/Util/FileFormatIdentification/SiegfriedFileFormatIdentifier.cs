@@ -178,16 +178,16 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             using (var stringReader = new StringReader(siegfriedFormatResult))
             using (var csvParser = new CsvParser(stringReader, CultureInfo.InvariantCulture))
             {
-                string[] record = csvParser.Read();
+                csvParser.Read();
 
                 return new SiegfriedFileInfo
                 (
-                    fileName: record[0],
-                    errors: record[3],
-                    id: record[5],
-                    format: record[6],
-                    version: record[7],
-                    mimeType: record[8]
+                    fileName: csvParser.Record[0],
+                    errors: csvParser.Record[3],
+                    id: csvParser.Record[5],
+                    format: csvParser.Record[6],
+                    version: csvParser.Record[7],
+                    mimeType: csvParser.Record[8]
                 );
             }
         }
