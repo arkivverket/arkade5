@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -153,7 +152,7 @@ namespace Arkivverket.Arkade.CLI
             Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {analysisDirectory}");
             string outputFileName = options.OutputFileName ?? string.Format(
                 OutputFileNames.FileFormatInfoFile,
-                analysisDirectory.Name
+                analysisDirectory.Name.TrimEnd(Path.GetInvalidFileNameChars())
             );
 
             SupportedLanguage language = GetSupportedLanguage(options.OutputLanguage);
@@ -274,15 +273,19 @@ namespace Arkivverket.Arkade.CLI
         private static void SaveTestReport(TestSession testSession, string outputDirectory,
             bool createStandAloneTestReport)
         {
-            var packageTestReport = testSession.Archive.GetTestReportFile();
+            DirectoryInfo packageTestReportDirectory = testSession.Archive.GetTestReportDirectory();
 
-            Arkade.SaveReport(testSession, packageTestReport);
+            Arkade.SaveReport(testSession, packageTestReportDirectory);
 
             if(createStandAloneTestReport)
             {
-                var standaloneTestReport = new FileInfo(Path.Combine(outputDirectory, packageTestReport.Name));
-                Arkade.SaveReport(testSession, standaloneTestReport);
-                Log.Information($"Test report generated at: {standaloneTestReport.FullName}");
+                var standaloneTestReportsDirectory =
+                    new DirectoryInfo(Path.Combine(outputDirectory, packageTestReportDirectory.Name));
+
+                standaloneTestReportsDirectory.Create();
+
+                Arkade.SaveReport(testSession, standaloneTestReportsDirectory);
+                Log.Information($"Test reports generated at: {standaloneTestReportsDirectory.FullName}");
             }
         }
 

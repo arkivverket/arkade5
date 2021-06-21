@@ -12,10 +12,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 30);
 
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private ArchivePart _currentArchivePart = new();
         private string _currentDocumentDescriptionSystemId;
         private DocumentObject _currentDocumentObject;
-        private readonly List<TestResult> _testResults;
+        private readonly TestResultSet _testResultSet;
         private readonly ReadOnlyDictionary<string, DocumentFile> _documentFiles;
 
 
@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             _documentFiles = archive.DocumentFiles;
 
-            _testResults = new List<TestResult>();
+            _testResultSet = new TestResultSet();
         }
 
         public override TestId GetId()
@@ -36,9 +36,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentControl;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            return _testResults;
+            if (_testResultSet.TestResultSets.Count != 1)
+                return _testResultSet;
+
+            _testResultSet.TestsResults = _testResultSet.TestResultSets[0].TestsResults;
+            _testResultSet.TestResultSets = new List<TestResultSet>();
+            return _testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -47,7 +52,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 _currentDocumentObject = new DocumentObject
                 {
-                    ArchivePart = _currentArchivePart,
                     DocumentDescriptionSystemId = _currentDocumentDescriptionSystemId
                 };
             }
@@ -82,23 +86,42 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.NameEquals("dokumentobjekt"))
             {
+                TestResultSet archivePartResultSet =
+                    _testResultSet.TestResultSets.Find(s => s.Name.Contains(_currentArchivePart.SystemId));
+
+                TestResult testResult = null;
+
                 try
                 {
                     if (!ActualAndDocumentedFileChecksumsMatch(_currentDocumentObject))
                     {
-                        _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                        testResult = new TestResult(ResultType.Error, new Location(string.Empty),
                             string.Format(Noark5Messages.DocumentFilesChecksumControlMessage,
-                                _currentArchivePart.SystemId,
-                                _currentArchivePart.Name,
                                 _currentDocumentObject.DocumentFileReference,
                                 _currentDocumentObject.DocumentDescriptionSystemId
-                            )));
+                            ));
                     }
                 }
                 catch (Exception)
                 {
-                    _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
-                        string.Format(Noark5Messages.FileNotFound, _currentDocumentObject.DocumentFileReference)));
+                    testResult = new TestResult(ResultType.Error, new Location(string.Empty), string.Format(
+                        Noark5Messages.FileNotFound, _currentDocumentObject.DocumentFileReference));
+                }
+
+                if (testResult != null)
+                {
+                    if (archivePartResultSet != null)
+                        archivePartResultSet.TestsResults.Add(testResult);
+
+                    else
+                        _testResultSet.TestResultSets.Add(new TestResultSet
+                        {
+                            Name = _currentArchivePart.ToString(),
+                            TestsResults = new List<TestResult>
+                            {
+                                testResult
+                            }
+                        });
                 }
 
                 _currentDocumentObject = null;
@@ -144,7 +167,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private class DocumentObject
         {
-            public ArchivePart ArchivePart { get; set; }
             public string DocumentDescriptionSystemId { get; set; }
             public string DocumentFileReference { get; set; }
             public string Checksum { get; set; }

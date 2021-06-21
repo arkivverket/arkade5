@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -11,8 +11,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 13);
 
-        private readonly List<Class> _classes = new List<Class>();
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private ArchivePart _currentArchivePart = new();
+        private readonly Dictionary<ArchivePart, List<Class>> _classesPerArchivePart = new();
         private Class _currentClass;
 
         public override TestId GetId()
@@ -25,42 +25,58 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            var testResultSet = new TestResultSet();
 
-            bool multipleArchiveParts = _classes.GroupBy(j => j.ArchivePart.SystemId).Count() > 1;
+            bool multipleArchiveParts = _classesPerArchivePart.Count > 1;
 
-            foreach (Class @class in _classes.Where(c => c.NumberOfFolders > 0))
+            var totalNumberOfClassesWithoutFolders = 0;
+
+            foreach ((ArchivePart archivePart, List<Class> classes) in _classesPerArchivePart)
             {
-                var message = new StringBuilder(
-                    string.Format(Noark5Messages.NumberOfFoldersPerClassMessage_NumberOfFolders,
-                        @class.SystemId, @class.NumberOfFolders)
-                );
+                int numberOfClassesWithoutFolders = classes.Count(c => c.NumberOfFolders == 0);
+
+                var archivePartResultSet = new TestResultSet
+                {
+                    Name = archivePart.ToString(),
+                };
+
+                List<TestResult> testResults = classes.Where(c => c.NumberOfFolders > 0)
+                    .Select(@class => new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOfFoldersPerClassMessage_NumberOfFolders, @class.SystemId,
+                        @class.NumberOfFolders)))
+                    .ToList();
+
+                if (numberOfClassesWithoutFolders > 0 && multipleArchiveParts)
+                    testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                        string.Format(Noark5Messages.NumberOfFoldersPerClassMessage_NumberOfClassesWithoutFolders,
+                            numberOfClassesWithoutFolders)));
 
                 if (multipleArchiveParts)
-                    message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, @class.ArchivePart.SystemId, @class.ArchivePart.Name) + " - ");
+                {
+                    archivePartResultSet.TestsResults = testResults;
+                    testResultSet.TestResultSets.Add(archivePartResultSet);
+                }
+                else
+                {
+                    testResultSet.TestsResults = testResults;
+                }
 
-                testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
+                totalNumberOfClassesWithoutFolders += numberOfClassesWithoutFolders;
             }
 
-            int numberOfClassesWithoutFolders = _classes.Count(c => c.NumberOfFolders == 0);
+            testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                string.Format(Noark5Messages.NumberOfFoldersPerClassMessage_NumberOfClassesWithoutFolders,
+                    totalNumberOfClassesWithoutFolders)));
 
-            if (numberOfClassesWithoutFolders > 0)
-                testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                    string.Format(
-                        Noark5Messages.NumberOfFoldersPerClassMessage_NumberOfClassesWithoutFolders,
-                        numberOfClassesWithoutFolders)
-                ));
-
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.NameEquals("klasse"))
-                _currentClass = new Class {ArchivePart = _currentArchivePart};
+                _currentClass = new Class();
 
             if (eventArgs.Path.Matches("mappe", "klasse") && _currentClass != null)
                 _currentClass.NumberOfFolders++;
@@ -73,6 +89,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (eventArgs.Path.Matches("tittel", "arkivdel"))
                 _currentArchivePart.Name = eventArgs.Value;
+            
 
             if (eventArgs.Path.Matches("systemID", "klasse"))
                 _currentClass.SystemId = eventArgs.Value;
@@ -82,7 +99,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.NameEquals("klasse") && _currentClass != null)
             {
-                _classes.Add(_currentClass);
+                if (_classesPerArchivePart.ContainsKey(_currentArchivePart))
+                    _classesPerArchivePart[_currentArchivePart].Add(_currentClass);
+                else
+                    _classesPerArchivePart.Add(_currentArchivePart, new List<Class> {_currentClass});
+
                 _currentClass = null;
             }
 
@@ -97,7 +118,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private class Class
         {
             public string SystemId { get; set; }
-            public ArchivePart ArchivePart { get; set; }
             public int NumberOfFolders { get; set; }
         }
 

@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
         public ArchiveBuilder WithArchiveDetails(string standardVersion)
         {
-            var mock = new Mock<ArchiveDetails>(Build());
+            var mock = new Mock<ArchiveDetails>(Build().AddmlInfo.Addml);
             mock.Setup(x => x.ArchiveStandard).Returns(standardVersion);
             _archiveDetails = mock.Object;
             return this;

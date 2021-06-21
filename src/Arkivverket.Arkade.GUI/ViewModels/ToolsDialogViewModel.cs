@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -6,11 +7,13 @@ using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Util;
 using Prism.Commands;
 using Prism.Mvvm;
 using Serilog;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
@@ -76,6 +79,22 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _progressBarVisibility = Visibility.Hidden;
         }
 
+        public void OnClose(object sender, CancelEventArgs e)
+        {
+            const string processName = "siegfried";
+
+            if (ExternalProcessManager.HasActiveProcess(processName))
+            {
+                MessageBoxResult dialogResult = MessageBox.Show(ToolsGUI.UnsavedResultsOnExitWarning,
+                    "NB!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+
+                if (dialogResult == MessageBoxResult.No)
+                    e.Cancel = true;
+                else
+                    ExternalProcessManager.Terminate(processName);
+            }
+        }
+
         private void ChooseDirectoryForFormatCheck()
         {
             FormatCheckStatus = string.Empty;
@@ -106,7 +125,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 Filter = ToolsGUI.SaveFormatFileExtensionFilter,
                 FileName = string.Format(
                     OutputFileNames.FileFormatInfoFile,
-                    Path.GetFileName(DirectoryForFormatCheck)
+                    Path.GetFileName(DirectoryForFormatCheck.TrimEnd(Path.GetInvalidFileNameChars()))
                 )
             };
 
@@ -122,21 +141,34 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             DirectoryToSaveFormatCheckResult = Path.GetDirectoryName(filePath);
 
-            await Task.Run(
-                () =>
-                {
-                    RunButtonIsEnabled = false;
-                    CloseButtonIsEnabled = false;
-                    ProgressBarVisibility = Visibility.Visible;
+            var successfulRun = true;
 
-                    SupportedLanguage language = LanguageSettingHelper.GetOutputLanguage();
+            try
+            {
+                await Task.Run(
+                    () =>
+                    {
+                        RunButtonIsEnabled = false;
+                        CloseButtonIsEnabled = false;
+                        ProgressBarVisibility = Visibility.Visible;
 
-                    _arkadeApi.GenerateFileFormatInfoFiles(new DirectoryInfo(DirectoryForFormatCheck),
-                        DirectoryToSaveFormatCheckResult, Path.GetFileName(filePath), language);
-                });
+                        SupportedLanguage language = LanguageSettingHelper.GetOutputLanguage();
+
+                        _arkadeApi.GenerateFileFormatInfoFiles(new DirectoryInfo(DirectoryForFormatCheck),
+                            DirectoryToSaveFormatCheckResult, Path.GetFileName(filePath), language);
+                    });
+            }
+            catch (Exception e)
+            {
+                _log.Information("Format analysis failed: " + e.Message);
+                successfulRun = false;
+            }
 
             CloseButtonIsEnabled = true;
             ProgressBarVisibility = Visibility.Hidden;
+
+            if (!successfulRun)
+                return;
 
             FormatCheckStatus = $"{ToolsGUI.FormatCheckCompletedMessage}\n" +
                                 $"{filePath}";

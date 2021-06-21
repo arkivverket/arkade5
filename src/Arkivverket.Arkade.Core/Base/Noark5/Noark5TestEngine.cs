@@ -109,7 +109,8 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
                     _statusEventHandler.RaiseEventOperationMessage(testName, "", OperationMessageStatus.Started);
                     test.Test(testSession.Archive);
 
-                    var errorTestResults = test.GetTestRun().Results.Where(r => r.IsError());
+                    List<TestResult> errorTestResults = test.GetTestRun().TestResults.GetErrorResults();
+
                     if (errorTestResults.Any())
                     {
                         var message = new StringBuilder();

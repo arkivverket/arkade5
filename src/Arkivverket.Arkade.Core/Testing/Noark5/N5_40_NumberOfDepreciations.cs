@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -24,39 +26,46 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            bool multipleArchiveParts = _archiveParts.Count > 1;
 
-            testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                string.Format(Noark5Messages.TotalResultNumber, _totalNumberOfDeprecations.ToString())));
+            var testResultSet = new TestResultSet
+            {
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(""), string.Format(
+                        Noark5Messages.TotalResultNumber, _totalNumberOfDeprecations))
+                }
+            };
+
+            if (_totalNumberOfDeprecations == 0)
+                return testResultSet;
 
             foreach (N5_40_ArchivePart archivePart in _archiveParts)
             {
-                foreach (KeyValuePair<string, int> pair in archivePart.TypeOfDepreciation)
+                var testResults = new List<TestResult>();
+
+                foreach ((string type, int numberOf) in archivePart.TypeOfDepreciation)
+                    testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                        string.Format(Noark5Messages.NumberOfXPerY, type, numberOf)));
+
+                if (multipleArchiveParts)
                 {
-                    var numberOf = pair.Value;
-                    var type = pair.Key;
+                    testResults.Insert(0, new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOf, archivePart.TypeOfDepreciation.Values.Sum())));
 
-                    if (_archiveParts.Count == 1)
+                    testResultSet.TestResultSets.Add(new TestResultSet
                     {
-                        testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                            $"{type}: {numberOf}"));
-
-                    }
-                    else
-                    {
-                        var testresult = new TestResult(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.NumberOfDepreciationsMessage_ForArchivePart,
-                                archivePart.SystemId, archivePart.Name,
-                                type,
-                                numberOf));
-
-                        testResults.Add(testresult);
-                    }
+                        Name = archivePart.ToString(),
+                        TestsResults = testResults,
+                    });
                 }
+                else
+                    testResultSet.TestsResults.AddRange(testResults);
             }
-            return testResults;
+
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

@@ -101,7 +101,7 @@ namespace Arkivverket.Arkade.Core.Report
             using (var writer = new StreamWriter(fullFileName))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
-                csv.Configuration.RegisterClassMap<ListElementMap>();
+                csv.Context.RegisterClassMap<ListElementMap>();
                 csv.WriteRecords(listElements);
             }
         }
@@ -117,7 +117,7 @@ namespace Arkivverket.Arkade.Core.Report
             {
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
-                    csv.Configuration.RegisterClassMap<FileTypeStatisticsElementMap>();
+                    csv.Context.RegisterClassMap<FileTypeStatisticsElementMap>();
                     csv.WriteRecords(fileTypeStatisticsElements);
                 }
             }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -10,9 +11,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 41);
 
         private int _totalNumberOfDocumentFlows;
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private ArchivePart _currentArchivePart = new();
         private bool _journalPostAttributeIsFound;
-        private readonly Dictionary<ArchivePart, int> _documentFlowsPerArchivePart = new Dictionary<ArchivePart, int>();
+        private readonly Dictionary<ArchivePart, int> _documentFlowsPerArchivePart = new();
 
         public override TestId GetId()
         {
@@ -24,29 +25,27 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>
+            bool multipleArchiveParts = _documentFlowsPerArchivePart.Count > 1;
+
+            var testResultSet = new TestResultSet
             {
-                new TestResult(ResultType.Success, new Location(string.Empty),
-                    string.Format(Noark5Messages.TotalResultNumber, _totalNumberOfDocumentFlows.ToString()))
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, _totalNumberOfDocumentFlows))
+                }
             };
 
-            if (_documentFlowsPerArchivePart.Count > 1)
-            {
-                foreach (KeyValuePair<ArchivePart, int> correspondancePartCount in _documentFlowsPerArchivePart)
-                {
-                    if (correspondancePartCount.Value > 0)
-                    {
-                        var testResult = new TestResult(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.NumberOf_PerArchivePart, correspondancePartCount.Key.SystemId, correspondancePartCount.Key.Name,
-                                correspondancePartCount.Value, ""));
+            if (_totalNumberOfDocumentFlows == 0 || !multipleArchiveParts)
+                return testResultSet;
 
-                        testResults.Add(testResult);
-                    }
-                }
-            }
-            return testResults;
+            foreach ((ArchivePart archivePart, int correspondencePartCount) in _documentFlowsPerArchivePart)
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.NumberOfXPerY, archivePart, correspondencePartCount)));
+
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

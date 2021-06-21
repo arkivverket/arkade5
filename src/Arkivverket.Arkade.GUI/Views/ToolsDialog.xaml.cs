@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Arkivverket.Arkade.GUI.ViewModels;
 
 namespace Arkivverket.Arkade.GUI.Views
 {
@@ -14,6 +15,8 @@ namespace Arkivverket.Arkade.GUI.Views
             Owner = Application.Current.MainWindow;
 
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+            Closing += (DataContext as ToolsDialogViewModel).OnClose;
         }
     }
 }

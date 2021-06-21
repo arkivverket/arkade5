@@ -1,8 +1,3 @@
-using System.IO;
-using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Util;
-using Xunit;
-
 namespace Arkivverket.Arkade.Core.Tests.Util
 {
     public class InformationPackageCreatorTest

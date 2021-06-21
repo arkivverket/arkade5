@@ -63,9 +63,9 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeApi.CreatePackage(testSession, outputDirectory);
         }
 
-        public void SaveReport(TestSession testSession, FileInfo file)
+        public void SaveReport(TestSession testSession, DirectoryInfo directory)
         {
-            _arkadeApi.SaveReport(testSession, file);
+            _arkadeApi.SaveReport(testSession, directory);
         }
 
         public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName, SupportedLanguage language)

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.arkivverket.no/standarder/noark5/offentligJournal"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:n5mdk="http://www.arkivverket.no/standarder/noark5/metadatakatalog"
+  targetNamespace="http://www.arkivverket.no/standarder/noark5/offentligJournal"
+  elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.0">
+
+  <!-- 
+    Noark 5
+    XML Schema for arkivuttrekk fra Noark 5-løsninger
+    Skjema for offentlig journal 
+  
+    2013-02-14 - Endringer fra versjon 3.0 til versjon 3.1:
+    1. Endret version-attributtet i xs:schema fra 3.0 til 3.1.
+    
+    2016-12-01 - Endringer fra versjon 3.1 til versjon 4.0:
+    1. Endret version-attributtet i xs:schema fra 3.1 til 4.0.
+
+    2019-05-03 - Endringer fra versjon 4.0 til versjon 5.0:
+    1. Endret version-attributtet i xs:schema fra 4.0 til 5.0.
+    2. M506 - Endret navn fra gradering til grad for element under gradering, for å unngå misforståelser mot foreldre-element
+-->
+
+  <xs:annotation>
+    <xs:documentation xml:lang="no">Noark 5</xs:documentation>
+    <xs:documentation xml:lang="no">XML Schema for arkivuttrekk fra Noark 5-løsninger</xs:documentation>
+    <xs:documentation xml:lang="no">Skjema for offentlig journal</xs:documentation>
+  </xs:annotation>
+
+  <xs:import namespace="http://www.arkivverket.no/standarder/noark5/metadatakatalog"
+    schemaLocation="metadatakatalog.xsd"/>
+
+  <!-- Rotelementet -->
+  <xs:element name="offentligJournal" type="offentligJournal"/>
+
+
+  <xs:complexType name="offentligJournal">
+    <xs:sequence>
+      <xs:element name="journalhode" type="journalhode"/>
+      <xs:element name="journalregistrering" type="journalregistrering" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="journalhode">
+    <xs:sequence>
+      <xs:element name="journalStartDato" type="n5mdk:journalStartDato"/>
+      <xs:element name="journalSluttDato" type="n5mdk:journalSluttDato"/>
+      <xs:element name="seleksjon" type="n5mdk:seleksjon" minOccurs="0"/>
+      <xs:element name="antallJournalposter" type="n5mdk:antallJournalposter"/>
+
+      <xs:element name="arkivskaper" type="arkivskaper" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="arkivskaper">
+    <xs:sequence>
+      <xs:element name="arkivskaperID" type="n5mdk:arkivskaperID"/>
+      <xs:element name="arkivskaperNavn" type="n5mdk:arkivskaperNavn"/>
+      <xs:element name="beskrivelse" type="n5mdk:beskrivelse" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="journalregistrering">
+    <xs:sequence>
+      <xs:element name="klasse" type="klasse" minOccurs="0"/>
+      <xs:element name="saksmappe" type="saksmappe"/>
+      <xs:element name="journalpost" type="journalpost"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="klasse">
+    <xs:sequence>
+      <xs:element name="klasseID" type="n5mdk:klasseID"/>
+      <xs:element name="tittel" type="n5mdk:tittel"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="saksmappe">
+    <xs:sequence>
+      <xs:element name="saksaar" type="n5mdk:saksaar"/>
+      <xs:element name="sakssekvensnummer" type="n5mdk:sakssekvensnummer"/>
+      <xs:element name="offentligTittel" type="n5mdk:offentligTittel" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="journalpost">
+    <xs:sequence>
+      <xs:element name="systemID" type="n5mdk:systemID"/>
+      <xs:element name="journalaar" type="n5mdk:journalaar"/>
+      <xs:element name="journalsekvensnummer" type="n5mdk:journalsekvensnummer"/>
+      <xs:element name="journalpostnummer" type="n5mdk:journalpostnummer"/>
+      <xs:element name="offentligTittel" type="n5mdk:offentligTittel" minOccurs="0"/>
+      <xs:element name="skjermingMetadata" type="n5mdk:skjermingMetadata" minOccurs="0"/>
+      <xs:element name="journaldato" type="n5mdk:journaldato"/>
+      <xs:element name="dokumentetsDato" type="n5mdk:dokumentetsDato" minOccurs="0"/>
+      <xs:element name="avskrivningsdato" type="n5mdk:avskrivningsdato" minOccurs="0"/>
+      <xs:element name="avskrivningsmaate" type="n5mdk:avskrivningsmaate" minOccurs="0"/>
+      <xs:element name="referanseAvskrivesAvJournalpost" type="n5mdk:referanseAvskrivesAvJournalpost" minOccurs="0"/>
+      <xs:element name="tilgangsrestriksjon" type="n5mdk:tilgangsrestriksjon" minOccurs="0"/>
+      <xs:element name="grad" type="n5mdk:grad" minOccurs="0"/>
+      <xs:element name="skjermingshjemmel" type="n5mdk:skjermingshjemmel" minOccurs="0"/>
+
+      <xs:element name="korrespondansepart" type="korrespondansepart" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="korrespondansepart">
+    <xs:sequence>
+      <xs:element name="korrespondanseparttype" type="n5mdk:korrespondanseparttype"/>
+      <xs:element name="korrespondansepartNavn" type="n5mdk:korrespondansepartNavn"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

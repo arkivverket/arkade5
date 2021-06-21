@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -9,9 +10,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 26);
 
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private ArchivePart _currentArchivePart = new();
         private int _totalNumberOfDocumentObjects;
-        private readonly Dictionary<ArchivePart, int> _documentObjectsPerArchivePart = new Dictionary<ArchivePart, int>();
+        private readonly Dictionary<ArchivePart, int> _documentObjectsPerArchivePart = new();
 
         public override TestId GetId()
         {
@@ -23,31 +24,27 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>
+            bool multipleArchiveParts = _documentObjectsPerArchivePart.Count > 1;
+
+            var testResultSets = new TestResultSet
             {
-                new TestResult(ResultType.Success, new Location(string.Empty),
-                    string.Format(Noark5Messages.TotalResultNumber, _totalNumberOfDocumentObjects.ToString()))
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, _totalNumberOfDocumentObjects))
+                }
             };
 
-            if (_documentObjectsPerArchivePart.Count > 1)
-            {
-                foreach (KeyValuePair<ArchivePart, int> documentObjectsCount in _documentObjectsPerArchivePart)
-                {
-                    if (documentObjectsCount.Value > 0)
-                    {
-                        var testresult = new TestResult(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.NumberOf_PerArchivePart, documentObjectsCount.Key.SystemId, documentObjectsCount.Key.Name,
-                                documentObjectsCount.Value));
+            if (!multipleArchiveParts)
+                return testResultSets;
 
-                        testResults.Add(testresult);
-                    }
-                }
-            }
+            foreach ((ArchivePart archivePart, int documentObjectsCount) in _documentObjectsPerArchivePart)
+                testResultSets.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.NumberOfXPerY, archivePart, documentObjectsCount)));
 
-
-            return testResults;
+            return testResultSets;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -61,11 +58,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-            {
                 _currentArchivePart.SystemId = eventArgs.Value;
-                _documentObjectsPerArchivePart.Add(_currentArchivePart, 0);
-            }
-
+            
             if (eventArgs.Path.Matches("tittel", "arkivdel"))
                 _currentArchivePart.Name = eventArgs.Value;
         }
@@ -76,15 +70,18 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 _totalNumberOfDocumentObjects++;
 
-                if (_documentObjectsPerArchivePart.Count > 0)
-                {
-                    if (_documentObjectsPerArchivePart.ContainsKey(_currentArchivePart))
-                        _documentObjectsPerArchivePart[_currentArchivePart]++;
-                }
+                if (_documentObjectsPerArchivePart.ContainsKey(_currentArchivePart))
+                    _documentObjectsPerArchivePart[_currentArchivePart]++;
+                else
+                    _documentObjectsPerArchivePart.Add(_currentArchivePart, 1);
             }
 
             if(eventArgs.NameEquals("arkivdel"))
+            {
+                if (!_documentObjectsPerArchivePart.ContainsKey(_currentArchivePart))
+                    _documentObjectsPerArchivePart.Add(_currentArchivePart, 0);
                 _currentArchivePart = new ArchivePart();
+            }
         }
 
     }

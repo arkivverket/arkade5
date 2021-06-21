@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -23,28 +24,30 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>
+            var testResultSet = new List<TestResult>
             {
-                new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
+                new(ResultType.Success, new Location(string.Empty), string.Format(
                     Noark5Messages.TotalResultNumber, _archiveCountByLevel.Values.Sum()
                 ))
             };
 
             if (_archiveCountByLevel.Count > 1)
             {
-                foreach (KeyValuePair<int, int> archivesCountAtLevel in _archiveCountByLevel)
+                foreach ((int level, int numberOfArchives) in _archiveCountByLevel)
                 {
                     var testResult = new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
-                        Noark5Messages.NumberOfArchivesMessage_ArchivesAtLevel,
-                        archivesCountAtLevel.Key, archivesCountAtLevel.Value));
+                        Noark5Messages.NumberOfArchivesMessage_ArchivesAtLevel, level, numberOfArchives));
 
-                    testResults.Add(testResult);
+                    testResultSet.Add(testResult);
                 }
             }
 
-            return testResults;
+            return new TestResultSet()
+            {
+                TestsResults = testResultSet
+            };
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

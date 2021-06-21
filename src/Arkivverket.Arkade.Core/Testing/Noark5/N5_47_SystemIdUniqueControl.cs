@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -9,7 +10,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 47);
 
-        private readonly SortedDictionary<string, int> _systemIdInstances = new SortedDictionary<string, int>();
+        private readonly SortedDictionary<string, int> _systemIdInstances = new();
 
         public override TestId GetId()
         {
@@ -21,18 +22,18 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentControl;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            var testResultSet = new TestResultSet();
 
-            foreach (var systemIdInstance in _systemIdInstances)
+            foreach ((string systemId, int instances) in _systemIdInstances)
             {
-                if (systemIdInstance.Value > 1)
-                    testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
-                        string.Format(Noark5Messages.SystemIdUniqueControlMessage, systemIdInstance.Key, systemIdInstance.Value)));
+                if (instances > 1)
+                    testResultSet.TestsResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                        string.Format(Noark5Messages.SystemIdUniqueControlMessage, systemId, instances)));
             }
 
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)

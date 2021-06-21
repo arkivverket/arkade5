@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -9,7 +10,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 63);
 
-        private readonly List<TestResult> _testResults = new List<TestResult>();
+        private readonly List<TestResult> _testResults = new();
         private bool _elementHasContent;
         private string _lastStartElement;
         private string _lastSystemId;
@@ -24,9 +25,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentControl;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            return _testResults;
+            return new() {TestsResults = _testResults};
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

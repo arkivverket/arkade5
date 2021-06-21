@@ -7,6 +7,14 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Arkade5_2.0.ico</ApplicationIcon>
+    <Authors>Arkitektum AS for Arkivverket</Authors>
+    <PackageLicenseExpression>GNU GPL</PackageLicenseExpression>
+    <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
+    <PackageIcon>Arkade5_2.0.ico</PackageIcon>
+    <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>https://github.com/arkivverket/arkade5/tags</PackageTags>
+    <PackageReleaseNotes>https://github.com/arkivverket/arkade5/releases</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -25,13 +33,16 @@
 
   <ItemGroup>
     <None Remove="Arkade5_2.0.ico" />
+    <None Include="..\Setup\Arkade5_2.0.ico">
+      <Pack>True</Pack>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignThemes" Version="3.2.0" />
-    <PackageReference Include="Prism.Core" Version="7.2.0.1422" />
-    <PackageReference Include="Prism.Unity" Version="7.2.0.1422" />
-    <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
+    <PackageReference Include="Prism.Unity" Version="8.1.97" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,6 +88,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>SettingsGUI.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\TestReportGUI.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TestReportGUI.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\TestRunnerGUI.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -147,6 +163,10 @@
       <LastGenOutput>SettingsGUI.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\TestReportGUI.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TestReportGUI.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\TestRunnerGUI.nb-NO.resx">
       <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -172,6 +192,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\TestReportDialog.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
 
 </Project>

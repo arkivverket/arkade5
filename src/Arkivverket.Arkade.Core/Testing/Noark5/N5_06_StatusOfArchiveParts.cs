@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -10,8 +10,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 6);
 
-        private readonly List<N5_06_ArchivePart> _archiveParts = new List<N5_06_ArchivePart>();
-        private N5_06_ArchivePart _currentArchivePart = new N5_06_ArchivePart();
+        private readonly Dictionary<ArchivePart, string> _statusPerArchivePart = new();
+        private ArchivePart _currentArchivePart = new();
 
         public override TestId GetId()
         {
@@ -23,32 +23,23 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            var testResultSet = new TestResultSet();
 
-            if (_archiveParts.Count == 1)
-            {
-                string archivePartStatus = _archiveParts.FirstOrDefault()?.Status;
+            bool multipleArchiveParts = _statusPerArchivePart.Count > 1;
 
-                testResults.Add(new TestResult(ResultType.Success, new Location(""),
-                    string.Format(Noark5Messages.StatusOfArchivePartsMessage, archivePartStatus)));
-            }
-            else
+            foreach ((ArchivePart archivePart, string status) in _statusPerArchivePart)
             {
-                foreach (N5_06_ArchivePart archivePart in _archiveParts)
-                {
-                    testResults.Add(
-                        new TestResult(ResultType.Success, new Location(""), string.Format(
-                            Noark5Messages.StatusOfArchivePartsMessage_ForArchivePart,
-                            archivePart.SystemId,
-                            archivePart.Name,
-                            archivePart.Status
-                        )));
-                }
+                string resultMessage = multipleArchiveParts
+                    ? string.Format(Noark5Messages.StatusOfArchivePartsMessage_ForArchivePart, archivePart, status)
+                    : string.Format(Noark5Messages.StatusOfArchivePartsMessage, status);
+
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(resultMessage)));
             }
 
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -68,21 +59,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 _currentArchivePart.Name = eventArgs.Value;
 
             if (eventArgs.Path.Matches("arkivdelstatus", "arkivdel"))
-                _currentArchivePart.Status = eventArgs.Value;
+                _statusPerArchivePart.Add(_currentArchivePart, eventArgs.Value);
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.NameEquals("arkivdel"))
-            {
-                _archiveParts.Add(_currentArchivePart);
-                _currentArchivePart = new N5_06_ArchivePart();
-            }
-        }
-
-        private class N5_06_ArchivePart : ArchivePart
-        {
-            public string Status;
+                _currentArchivePart = new ArchivePart();
         }
     }
 }

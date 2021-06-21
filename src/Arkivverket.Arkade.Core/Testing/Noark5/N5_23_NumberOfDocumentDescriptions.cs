@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -9,9 +10,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 23);
 
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private readonly Dictionary<ArchivePart, int> _documentDescriptionsPerArchivePart = new();
+        private ArchivePart _currentArchivePart = new();
         private int _totalNumberOfDocumentDescriptions;
-        private readonly Dictionary<ArchivePart, int> _documentDescriptionsPerArchivePart = new Dictionary<ArchivePart, int>();
 
         public override TestId GetId()
         {
@@ -23,27 +24,27 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>
+            bool multipleArchiveParts = _documentDescriptionsPerArchivePart.Count > 1;
+
+            var testResultSet = new TestResultSet
             {
-                new TestResult(ResultType.Success, new Location(string.Empty),
-                   string.Format(Noark5Messages.TotalResultNumber, _totalNumberOfDocumentDescriptions.ToString()))
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, _totalNumberOfDocumentDescriptions))
+                }
             };
 
-            if (_documentDescriptionsPerArchivePart.Count > 1)
-            {
-                foreach (KeyValuePair<ArchivePart, int> documentDescriptionCount in _documentDescriptionsPerArchivePart)
-                {
-                    var testResult = new TestResult(ResultType.Success, new Location(string.Empty),
-                        string.Format(Noark5Messages.NumberOf_PerArchivePart,
-                            documentDescriptionCount.Key.SystemId, documentDescriptionCount.Key.Name, documentDescriptionCount.Value));
+            if (!multipleArchiveParts)
+                return testResultSet;
 
-                    testResults.Add(testResult);
-                }
-            }
+            foreach ((ArchivePart archivePart, int documentDescriptionCount) in _documentDescriptionsPerArchivePart)
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.NumberOfXPerY, archivePart, documentDescriptionCount)));
 
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -73,7 +74,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 _totalNumberOfDocumentDescriptions++;
 
-                if (_documentDescriptionsPerArchivePart.Count >0)
+                if (_documentDescriptionsPerArchivePart.Count > 0)
                 {
                     if (_documentDescriptionsPerArchivePart.ContainsKey(_currentArchivePart))
                         _documentDescriptionsPerArchivePart[_currentArchivePart]++;

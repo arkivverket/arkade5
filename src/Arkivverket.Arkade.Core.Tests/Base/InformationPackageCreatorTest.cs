@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Resources;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Tar;
 using Xunit;
@@ -16,21 +17,23 @@ namespace Arkivverket.Arkade.Core.Tests.Base
     public class InformationPackageCreatorTest
     {
         private readonly string _workingDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\package-creation";
-        private readonly Uuid _uuid = Uuid.Random();
+        private static readonly Uuid Uuid = Uuid.Random();
         private readonly ArchiveMetadata _archiveMetadata = MetadataExampleCreator.Create(MetadataExamplePurpose.InternalTesting);
         private readonly string _outputDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
         [Fact]
         [Trait("Category", "Integration")]
-        public void ShouldCreateSip() // TODO: Remove the created packages
+        public void Test01_ShouldCreateSip() // TODO: Remove the created packages
         {
-            Archive archive = new ArchiveBuilder().WithUuid(_uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
+            DeleteOldUnitTestResultsBeforeNewRun();
+
+            Archive archive = new ArchiveBuilder().WithUuid(Uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
 
             string packageFilePath = new InformationPackageCreator().CreateSip(archive, _archiveMetadata, _outputDirectory);
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
-            string rootDir = _uuid.GetValue() + "/";
+            string rootDir = Uuid.GetValue() + "/";
 
             fileList.Count.Should().Be(9);
             fileList.Contains(rootDir).Should().BeTrue();
@@ -53,16 +56,15 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
         [Fact]
         [Trait("Category", "Integration")]
-        public void ShouldCreateAip() // TODO: Remove the created packages
+        public void Test02_ShouldCreateAip() // TODO: Remove the created packages
         {
-            Uuid uuid = Uuid.Random();
-            Archive archive = new ArchiveBuilder().WithUuid(uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
+            Archive archive = new ArchiveBuilder().WithUuid(Uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
 
             string packageFilePath = new InformationPackageCreator().CreateAip(archive, _archiveMetadata, _outputDirectory);
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
-            string rootDir = uuid.GetValue() + "/";
+            string rootDir = Uuid.GetValue() + "/";
 
             fileList.Count.Should().Be(14);
             fileList.Contains(rootDir).Should().BeTrue();
@@ -81,21 +83,42 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/report.html").Should().BeTrue();
             fileList.Contains(rootDir + "descriptive_metadata/ead.xml").Should().BeTrue();
             fileList.Contains(rootDir + "descriptive_metadata/eac-cpf.xml").Should().BeTrue();
-
         }
 
         private static List<string> GetFileListFromArchive(string targetFileName)
         {
             List<string> fileList = new List<string>();
 
-            Stream inStream = File.OpenRead(targetFileName);
-            TarArchive tarArchive = TarArchive.CreateInputTarArchive(inStream);
+            using Stream inStream = File.OpenRead(targetFileName);
+            using TarArchive tarArchive = TarArchive.CreateInputTarArchive(inStream);
             tarArchive.ProgressMessageEvent += delegate(TarArchive archive1, TarEntry entry, string message)
             {
                 fileList.Add(entry.Name);
             };
             tarArchive.ListContents();
             return fileList;
+        }
+
+        private void DeleteOldUnitTestResultsBeforeNewRun()
+        {
+            DeleteOldTestDirectories();
+            DeletePreviouslyCreatedTestPackages();
+        }
+
+        private void DeleteOldTestDirectories()
+        {
+            string repositoryOperationsDirectory =
+                Path.Combine(_workingDirectory, "administrative_metadata", "repository_operations");
+
+            foreach (string directory in Directory.EnumerateDirectories(repositoryOperationsDirectory))
+                Directory.Delete(directory);
+        }
+
+        private void DeletePreviouslyCreatedTestPackages()
+        {
+            foreach (string directory in Directory.EnumerateDirectories(_outputDirectory)
+                .Where(d => d.Contains(string.Format(OutputFileNames.ResultOutputDirectory, string.Empty))))
+                Directory.Delete(directory, true);
         }
     }
 }

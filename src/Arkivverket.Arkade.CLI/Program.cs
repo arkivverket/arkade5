@@ -14,6 +14,9 @@ namespace Arkivverket.Arkade.CLI
     {
         public static void Main(string[] args)
         {
+            Console.CancelKeyPress += OnProcessCanceled;
+            AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
+
             ArkadeProcessingArea.SetupTemporaryLogsDirectory();
 
             ConfigureLogging(); // Configured with temporary log directory
@@ -176,6 +179,17 @@ namespace Arkivverket.Arkade.CLI
                 if (error.Tag != ErrorType.HelpRequestedError && error.Tag != ErrorType.HelpVerbRequestedError && error.Tag != ErrorType.VersionRequestedError)
                     Log.Error(error.ToString());
             }
+        }
+
+        private static void OnProcessExit(object sender, EventArgs e)
+        {
+            ExternalProcessManager.TerminateAll();
+        }
+
+        private static void OnProcessCanceled(object sender, EventArgs e)
+        {
+            Log.Logger.Information("Exiting Arkade due to external CTRL-C or CTRL-BREAK");
+            Environment.Exit(0);
         }
     }
 }

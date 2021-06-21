@@ -185,9 +185,6 @@ Generated: {2}</value>
   <data name="NumberOfEachJournalPostTypeMessage_TypeAndCount" xml:space="preserve">
     <value>Journal entry type: {0} - Quantity: {1}</value>
   </data>
-  <data name="NumberOfRegistrationsPerClassMessage_NumberOfRegistrations" xml:space="preserve">
-    <value>Class (systemID): {0} - Number: {1}</value>
-  </data>
   <data name="NumberOfRegistrationsPerClassMessage_NumberOfClassesWithoutRegistrations" xml:space="preserve">
     <value>Classes without registrations (and without subclasses) - Number: {0}</value>
   </data>
@@ -197,11 +194,11 @@ Generated: {2}</value>
   <data name="NumberOfEachDocumentStatusMessage" xml:space="preserve">
     <value>Document status: {0} - Number: {1}</value>
   </data>
-  <data name="NumberOfEachDocumentFormatMessage" xml:space="preserve">
-    <value>Document format: {0} - Number: {1}</value>
+  <data name="DocumentFormatMessage" xml:space="preserve">
+    <value>Document format: {0}</value>
   </data>
   <data name="NumberOfEachDocumentFormatMessage_FormatMismatch" xml:space="preserve">
-    <value>Format mismatch: Document format: {0} - Document file reference: {1}</value>
+    <value>Format mismatch: Document file reference: {0}</value>
   </data>
   <data name="NumberOfMultiReferencedDocumentFilesMessage" xml:space="preserve">
     <value>Referenced document file: {0} - Number of References: {1}</value>
@@ -273,19 +270,19 @@ Generated: {2}</value>
     <value>Folder reference (systemID) {0} to class (systemID) {1} is not valid</value>
   </data>
   <data name="DocumentFilesChecksumControlMessage" xml:space="preserve">
-    <value>Archive part (systemID, title): {0}, {1} - The file {2} does not have the same checksum as specified in document description (systemID) {3}</value>
+    <value>The file {0} does not have the same checksum as specified in document description (systemID) {1}</value>
   </data>
   <data name="ExceptionDuringXmlValidation" xml:space="preserve">
     <value>There was a problem while validating {0}: {1}</value>
   </data>
   <data name="InternalSchemaFileIsUsed" xml:space="preserve">
-    <value>Schema file {0} could not be found in the extract. Validation is done according to a version of {0} built into Arkade</value>
+    <value>Schema file {0} is not correctly documented in the extract. Arkade will be using the built-in version {1} of {0}.</value>
   </data>
   <data name="NumberOfFoldersPerClassMessage_NumberOfClassesWithoutFolders" xml:space="preserve">
     <value>Classes without folders (and without subclasses) - Number: {0}</value>
   </data>
   <data name="NumberOfFoldersPerClassMessage_NumberOfFolders" xml:space="preserve">
-    <value>Class (systemID): {0} - Number: {1}</value>
+    <value>Class (systemID) {0} - Number: {1}</value>
   </data>
   <data name="NumberOfEachCaseFolderStatusMessage" xml:space="preserve">
     <value>Case folder status: {0} - Number: {1}</value>
@@ -297,25 +294,17 @@ Generated: {2}</value>
     <value>Number of archive parts in archive (systemID) {0}: {1}</value>
   </data>
   <data name="StatusOfArchivePartsMessage" xml:space="preserve">
-    <value>Archive part status: {0}</value>
+    <value>Status of archive part: {0}</value>
   </data>
   <data name="StatusOfArchivePartsMessage_ForArchivePart" xml:space="preserve">
-    <value>Status for archive part (systemID, title) {0}, {1}: {2}</value>
+    <value>Status of {0}: {1}</value>
+    <comment>{0}: ArchivePartSystemId, {1}: status</comment>
   </data>
   <data name="NumberOfClassificationSystemsMessage_ClassificationSystemInArchivePart" xml:space="preserve">
-    <value>Number of classification systems in archive part (systemID, title) {0}, {1}: {2}</value>
+    <value>Number of classification systems in {0}: {1}</value>
   </data>
   <data name="NumberOf_PerArchivePart" xml:space="preserve">
     <value>Archive part (systemID - title) {0} - {1}: {2}</value>
-  </data>
-  <data name="NumberOfFoldersPerYear_ForArchivePart" xml:space="preserve">
-    <value>Archive part (systemID, title) {0}, {1} - {2}: {3}</value>
-  </data>
-  <data name="DatesFirstAndLastRegistrationMessage_CreationDateFirstRegistration_InArchivePart" xml:space="preserve">
-    <value>Archive part (systemID, title): {0}, {1} - First registration: Created {2}</value>
-  </data>
-  <data name="DatesFirstAndLastRegistrationMessage_CreationDateLastRegistration_InArchivePart" xml:space="preserve">
-    <value>Archive part (systemID, title): {0}, {1} - Last registration: Created {2}</value>
   </data>
   <data name="CouldNotReadFromFiles" xml:space="preserve">
     <value>Could not read from one or more files</value>
@@ -323,41 +312,23 @@ Generated: {2}</value>
   <data name="NumberOfJournalPostsMessage_UnEqualJournalAndArchiveNumbers" xml:space="preserve">
     <value>Period separator is sharp and the number of journal entries in the archive structure is not equal to that in public and rolling journal</value>
   </data>
-  <data name="NumberOfPrecedentsInJournalpostsMessage_ForArchivePart" xml:space="preserve">
-    <value>Archive part (systemID, title) {0}, {1} - Number of precedents in journal entries: {2}</value>
-  </data>
-  <data name="NumberOfPrecedentsInCaseFolderMessage_ForArchivePart" xml:space="preserve">
-    <value>Archive part (systemID, title) {0}, {1} - Number of precedents in case folders: {2}</value>
-  </data>
   <data name="NumberOfPrecedentsInJournalpostsMessage" xml:space="preserve">
     <value>Number of precedents in journal entries: {0}</value>
   </data>
   <data name="NumberOfCommentsMessage" xml:space="preserve">
     <value>Number of comments in {0}: {1}</value>
   </data>
-  <data name="NumberOfDepreciationsMessage_ForArchivePart" xml:space="preserve">
-    <value>Archive part (systemID, title) {0}, {1} - {2}: {3}</value>
-  </data>
   <data name="NumberOfCrossReferencesToBasicRegistrationMessage" xml:space="preserve">
     <value>Number of cross-references from base registrations: {0}</value>
-  </data>
-  <data name="NumberOfCrossReferencesToBasicRegistrationMessage_ForArchivePart" xml:space="preserve">
-    <value>Archive part (systemID, title): {0}, {1} - Number of cross-references from base registrations: {2}</value>
   </data>
   <data name="NumberOfCrossReferencesToClassMessage" xml:space="preserve">
     <value>Number of cross-references from classes: {0}</value>
   </data>
-  <data name="NumberOfCrossReferencesToClassMessage_ForArchivePart" xml:space="preserve">
-    <value>Archive part (systemID, title): {0 }, {1} - Number of cross-references from classes: {2}</value>
-  </data>
   <data name="NumberOfCrossReferencesToFolderMessage" xml:space="preserve">
     <value>Number of cross-references from folders: {0}</value>
   </data>
-  <data name="NumberOfCrossReferencesToFolderMessage_ForArchivePart" xml:space="preserve">
-    <value>Archive part (systemID, title): {0}, {1} - Number of cross-references from folders: {2}</value>
-  </data>
   <data name="NumberOfClasses" xml:space="preserve">
-    <value>Total classes: {0}</value>
+    <value>Number of classes: {0}</value>
   </data>
   <data name="NumberOfClassesPerLevel" xml:space="preserve">
     <value>Classes at level {0}: {1}</value>
@@ -369,13 +340,13 @@ Generated: {2}</value>
     <value>Secondary</value>
   </data>
   <data name="NumberOfEmptyClassesInMainClassificationSystem" xml:space="preserve">
-    <value>Archive part (systemID, title) {0}, {1} - classification system (systemID) {2}: {3}</value>
+    <value>Classification system (systemID) {0}: {1}</value>
   </data>
-  <data name="NumberOfTypeFolders" xml:space="preserve">
-    <value>Folder type: {0} - Number: {1}</value>
+  <data name="FolderType" xml:space="preserve">
+    <value>Folder type: {0}</value>
   </data>
   <data name="NumberOfTypeFoldersAtLevel" xml:space="preserve">
-    <value>Folder type: {0} - Number at level {1}: {2}</value>
+    <value>Number at level {0}: {1}</value>
   </data>
   <data name="NumberOfFolders_DocumentedAndActualMismatch" xml:space="preserve">
     <value>The archive structure is specified with {0} folders but {1} was found</value>
@@ -398,9 +369,6 @@ Generated: {2}</value>
   <data name="NumberOfTypeRegistrations" xml:space="preserve">
     <value>Registration type: {0} - Number: {1}</value>
   </data>
-  <data name="NumberOfClassesTestResultMessage" xml:space="preserve">
-    <value>Archive part (systemID, title): {0}, {1} {2} classification system (systemID): {3} - </value>
-  </data>
   <data name="ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound" xml:space="preserve">
     <value>No valid journal dates were found in the archive extract</value>
   </data>
@@ -409,5 +377,37 @@ Generated: {2}</value>
   </data>
   <data name="ChecksumAlgorithmMessage" xml:space="preserve">
     <value>Algorithm used for checksum validation: {0}</value>
+  </data>
+  <data name="Noark5VersionNotSupportedForBuiltInSchemas" xml:space="preserve">
+    <value>Arkade does not support built-in schemas for Noark5 version {0}</value>
+  </data>
+  <data name="MissingAddmlSchema" xml:space="preserve">
+    <value>Missing "addml.xsd"</value>
+  </data>
+  <data name="UsingBuiltInAddmlSchemaFile" xml:space="preserve">
+    <value>Could not find "addml.xsd" in the extract. Built in version ({0}) will be used.</value>
+  </data>
+  <data name="NumberOfFoldersPerYear" xml:space="preserve">
+    <value>{0}: {1}</value>
+    <comment>{0}: year, {1}: number of folders</comment>
+  </data>
+  <data name="NumberOfXPerY" xml:space="preserve">
+    <value>{0}: {1}</value>
+    <comment>{0}: Y, {1}: number of X</comment>
+  </data>
+  <data name="NumberOf" xml:space="preserve">
+    <value>Number: {0}</value>
+  </data>
+  <data name="NumberOfDocumentsWithFormatMismatch" xml:space="preserve">
+    <value>Number of documents with format mismatch: {0}</value>
+  </data>
+  <data name="NumberOfUniqueDocumentFormats" xml:space="preserve">
+    <value>Total number of unique formats: {0}</value>
+  </data>
+  <data name="ClassSystemId" xml:space="preserve">
+    <value>Class (SystemID) {0}</value>
+  </data>
+  <data name="ClassificationSystemTypeAndId" xml:space="preserve">
+    <value>{0} classification system (systemID): {1}</value>
   </data>
 </root>

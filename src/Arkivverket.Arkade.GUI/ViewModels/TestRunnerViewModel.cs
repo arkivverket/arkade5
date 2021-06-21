@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,7 +14,6 @@ using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Languages;
-using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
 using Arkivverket.Arkade.Core.Util;
@@ -170,7 +168,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             RunTestEngineCommand = new DelegateCommand(async () => await Task.Run(() => RunTests()));
             NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, CanCreatePackage);
             NewProgramSessionCommand = new DelegateCommand(ReturnToProgramStart, IsFinishedRunningTests);
-            ShowReportCommand = new DelegateCommand(ShowHtmlReport, CanContinueOperationOnTestRun);
+            ShowReportCommand = new DelegateCommand(ShowTestReportDialog, CanContinueOperationOnTestRun);
             _allTestsSelected = true;
         }
 
@@ -241,6 +239,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
                     : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
 
+                if (!_testSession.IsTestableArchive())
+                    LogNotTestableArchiveOperationMessage();
+
                 if (_testSession.Archive.ArchiveType == ArchiveType.Noark5)
                 {
                     SupportedLanguage uiLanguage = LanguageSettingHelper.GetUILanguage();
@@ -258,18 +259,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     CanSelectTests = true;
                 }
 
-                if (!_testSession.IsTestableArchive())
-                {
-                    string notTestableArchiveMessage = _archiveType == ArchiveType.Siard
-                        ? TestRunnerGUI.SiardSupportInfo
-                        : string.Format(TestRunnerGUI.ArchiveNotTestable, ArkadeProcessingArea.LogsDirectory);
-
-                    _statusEventHandler.RaiseEventOperationMessage(
-                        TestRunnerGUI.ArchiveTestability,
-                        notTestableArchiveMessage,
-                        OperationMessageStatus.Info
-                    );
-                }
 
                 StartTestingCommand.RaiseCanExecuteChanged(); // testSession has been updated, reevaluate command
             }
@@ -278,7 +267,22 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 string message = string.Format(TestRunnerGUI.ErrorReadingArchive, e.Message);
                 Log.Error(e, message);
                 _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
+                if (e is ArkadeException)
+                    LogNotTestableArchiveOperationMessage();
             }
+        }
+
+        private void LogNotTestableArchiveOperationMessage()
+        {
+            string notTestableArchiveMessage = _archiveType == ArchiveType.Siard
+                ? TestRunnerGUI.SiardSupportInfo
+                : string.Format(TestRunnerGUI.ArchiveNotTestable, ArkadeProcessingArea.LogsDirectory);
+
+            _statusEventHandler.RaiseEventOperationMessage(
+                TestRunnerGUI.ArchiveTestability,
+                notTestableArchiveMessage,
+                OperationMessageStatus.Info
+            );
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -337,9 +341,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 NotifyStartRunningTests();
                 
                 _testSession.TestsToRun = GetSelectedTests();
-
-                Enum.TryParse(Settings.Default.SelectedOutputLanguage, out SupportedLanguage outputLanguage);
-                _testSession.OutputLanguage = outputLanguage;
+                
+                _testSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
 
                 _arkadeApi.RunTests(_testSession);
                 
@@ -347,7 +350,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                 _testSession.AddLogEntry("Test run completed.");
                 
-                SaveHtmlReport(_testSession.Archive.GetTestReportFile());
+                SaveTestReports(_testSession.Archive.GetTestReportDirectory());
 
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedOperation, null, OperationMessageStatus.Ok);
@@ -449,32 +452,19 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             });
         }
 
-        private void OpenFile(FileInfo file)
+        private void ShowTestReportDialog()
         {
-            var process = new System.Diagnostics.Process();
-            process.StartInfo = new System.Diagnostics.ProcessStartInfo(file.FullName)
-            {
-                UseShellExecute = true,
-            };
-            process.Start();
+            new TestReportDialog(_testSession.Archive.GetTestReportDirectory()).ShowDialog();
         }
 
-        private void ShowHtmlReport()
-        {
-            _log.Information("User action: Show HTML report");
-            
-            OpenFile(_testSession.Archive.GetTestReportFile());
-        }
-
-        private void SaveHtmlReport(FileInfo htmlFile)
+        private void SaveTestReports(DirectoryInfo testReportDirectory)
         {
             string eventId = TestRunnerGUI.EventIdCreatingReport;
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
 
-            _arkadeApi.SaveReport(_testSession, htmlFile);
+            _arkadeApi.SaveReport(_testSession, testReportDirectory);
 
-            var message = string.Format(TestRunnerGUI.TestReportIsSavedMessage, htmlFile.FullName);
-            _statusEventHandler.RaiseEventOperationMessage(eventId, message, OperationMessageStatus.Ok);
+            _statusEventHandler.RaiseEventOperationMessage(eventId, TestRunnerGUI.TestReportIsSavedMessage, OperationMessageStatus.Ok);
         }
 
     }

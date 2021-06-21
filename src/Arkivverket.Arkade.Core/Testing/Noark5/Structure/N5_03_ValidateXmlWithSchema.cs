@@ -23,9 +23,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             return TestType.StructureControl;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            return _testResults;
+            return new()
+            {
+                TestsResults = _testResults
+            };
         }
 
         public override void Test(Archive archive)
@@ -69,7 +72,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
                 if (schema.IsArkadeBuiltIn())
                     _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
                         // TODO: Consider implementing and using ResultType.Warning
-                        string.Format(Noark5Messages.InternalSchemaFileIsUsed, schema.FileName)));
+                        string.Format(Noark5Messages.InternalSchemaFileIsUsed, schema.FileName,
+                            (schema as ArkadeBuiltInXmlSchema).GetArchiveTypeVersion())));
         }
 
         private static string GetFileNameForReport(ArchiveXmlUnit archiveXmlUnit)

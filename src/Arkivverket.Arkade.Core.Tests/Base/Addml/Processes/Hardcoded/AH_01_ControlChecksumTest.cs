@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeTrue();
-            testRun.Results.Count.Should().Be(0);
+            testRun.TestResults.GetNumberOfResults().Should().Be(0);
         }
 
         [Fact]
@@ -51,9 +51,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.Results.Count.Should().Be(1);
-            testRun.Results[0].Location.ToString().Should().Be(flatFileDefinition.GetIndex().ToString());
-            testRun.Results[0].Message.Should()
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(flatFileDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Message.Should()
                 .Contain("Forventet sjekksum: invalid").And
                 .Contain("Aktuell sjekksum: " + expectedSha256Hash);
         }
@@ -76,9 +76,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.Results.Count.Should().Be(1);
-            testRun.Results[0].Location.ToString().Should().Be(flatFileDefinition.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("Ukjent sjekksum-algoritme: invalid hash");
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(flatFileDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Ukjent sjekksum-algoritme: invalid hash");
         }
     }
 }

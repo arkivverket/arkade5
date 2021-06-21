@@ -44,11 +44,11 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.Results.Count.Should().Be(2);
-            testRun.Results[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("Følgende ikke-boolske verdier finnes: C D");
-            testRun.Results[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
-            testRun.Results[1].Message.Should().Be("Følgende ikke-boolske verdier finnes: Y J");
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Følgende ikke-boolske verdier finnes: C D");
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
+            testRun.TestResults.TestsResults[1].Message.Should().Be("Følgende ikke-boolske verdier finnes: Y J");
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Tests.Base;
 using FluentAssertions;
@@ -10,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
     public class N5_45_NumberOfDisposalsExecutedTest : LanguageDependentTest
     {
         [Fact]
-        public void HasSeverealDisposalsExecutedWithinSingleArchivePart()
+        public void HasSeveralDisposalsExecutedWithinSingleArchivePart()
         {
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv",
@@ -38,15 +40,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_45_NumberOfDisposalsExecuted(testArchive));
 
-            testRun.Results.First().Message.Should().Be("Totalt: 2");
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Totalt: 2"
-            ));
-            testRun.Results.Count.Should().Be(2);
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 2");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
 
         [Fact]
-        public void HasSeverealDisposalsExecutedWithinSeveralArchiveParts()
+        public void HasSeveralDisposalsExecutedWithinSeveralArchiveParts()
         {
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv",
@@ -89,14 +89,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_45_NumberOfDisposalsExecuted(testArchive));
 
-            testRun.Results.First().Message.Should().Be("Totalt: 3");
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1 - Totalt: 2"
-            ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2 - Totalt: 1"
-            ));
-            testRun.Results.Count.Should().Be(3);
+            List<TestResult> testResults = testRun.TestResults.TestsResults;
+            testResults.First().Message.Should().Be("Totalt: 3");
+            testResults.Should().Contain(r =>
+                r.Message.Equals("Arkivdel (systemID, tittel): someArchivePartSystemId_1, someArchivePartTitle_1: 2"));
+            testResults.Should().Contain(r =>
+                r.Message.Equals("Arkivdel (systemID, tittel): someArchivePartSystemId_2, someArchivePartTitle_2: 1"));
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
 
         [Fact]
@@ -127,14 +127,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_45_NumberOfDisposalsExecuted(testArchive));
 
-            testRun.Results.First().Message.Should().Be("Totalt: 1");
-            testRun.Results.Should().Contain(r => r.Message.Equals(
-                "Totalt: 1"
-            ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            List<TestResult> testResults = testRun.TestResults.TestsResults;
+            testResults.First().Message.Should().Be("Totalt: 1");
+            testResults.Should().Contain(r => r.Message.Equals(
                 "Det er dokumentert at uttrekket ikke skal omfatte utførte kassasjoner, men utførte kassasjoner ble funnet"
             ));
-            testRun.Results.Count.Should().Be(3);
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
         }
 
         [Fact]
@@ -163,11 +162,45 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_45_NumberOfDisposalsExecuted(testArchive));
 
-            testRun.Results.First().Message.Should().Be("Totalt: 0");
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            List<TestResult> testResults = testRun.TestResults.TestsResults;
+            testResults.First().Message.Should().Be("Totalt: 0");
+            testResults.Should().Contain(r => r.Message.Equals(
                 "Det er dokumentert at uttrekket skal omfatte utførte kassasjoner, men ingen utførte kassasjoner ble funnet"
             ));
-            testRun.Results.Count.Should().Be(2);
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
+        }
+
+        [Fact]
+        public void HasNoDisposalsExecuted()
+        {
+            XmlElementHelper helper = new XmlElementHelper()
+                .Add("arkiv",
+                    new XmlElementHelper()
+                        .Add("arkivdel",
+                            new XmlElementHelper()
+                                .Add("systemID", "someArchivePartSystemId_1")
+                                .Add("klassifikasjonssystem",
+                                    new XmlElementHelper()
+                                        .Add("klasse",
+                                            new XmlElementHelper()
+                                                .Add("mappe",
+                                                    new XmlElementHelper()
+                                                        .Add("registrering",
+                                                            new XmlElementHelper()
+                                                                .Add("dokumentbeskrivelse",
+                                                                    new XmlElementHelper())))))));
+
+
+            // Creating a test archive stating that it should not contain any executed disposals
+            var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
+                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansFalse").Build();
+
+            TestRun testRun = helper.RunEventsOnTest(new N5_45_NumberOfDisposalsExecuted(testArchive));
+
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 0");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
     }
 }

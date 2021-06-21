@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -11,9 +11,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 34);
 
-        private readonly List<DocumentObject> _documentObjects = new List<DocumentObject>();
-        private ArchivePart _currentArchivePart = new ArchivePart();
-        private DocumentObject _currentDocumentObject;
+        private readonly Dictionary<ArchivePart, Dictionary<string, int>>
+            _numberOfReferencesPerDocumentFilePerArchivePart = new();
+        private ArchivePart _currentArchivePart = new();
 
         public override TestId GetId()
         {
@@ -25,63 +25,61 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
-            int multiReferencedDocumentFilesCount = 0;
+            bool multipleArchiveParts = _numberOfReferencesPerDocumentFilePerArchivePart.Count > 1;
 
-            // Group document objects by file reference and by archive part:
-            var documentObjectQuery = from documentObject in _documentObjects
-                                      group documentObject by new
-                                      {
-                                          documentObject.ArchivePart.SystemId,
-                                          documentObject.ArchivePart.Name,
-                                          documentObject.FileReference
-                                      }
-                into grouped
-                                      select new
-                                      {
-                                          grouped.Key.SystemId,
-                                          grouped.Key.Name,
-                                          grouped.Key.FileReference,
-                                          Count = grouped.Count()
-                                      };
+            var testResultSet = new TestResultSet();
 
-            bool multipleArchiveParts = _documentObjects.GroupBy(j => j.ArchivePart.SystemId).Count() > 1;
+            var totalNumberOfMultiReferencedDocumentFiles = 0;
 
-            foreach (var item in documentObjectQuery)
+            foreach ((ArchivePart archivePart, Dictionary<string, int> referencesPerDocumentFile) in
+                _numberOfReferencesPerDocumentFilePerArchivePart)
             {
-                if (item.Count == 1)
-                    continue;
+                var testResults = new List<TestResult>();
 
-                var message = new StringBuilder(
-                    string.Format(
-                        Noark5Messages.NumberOfMultiReferencedDocumentFilesMessage,
-                        item.FileReference,
-                        item.Count
-                    ));
+                var numberOfMultiReferencedDocumentFiles = 0;
 
-                multiReferencedDocumentFilesCount++;
+                foreach ((string reference, int count) in referencesPerDocumentFile.Where(r => r.Value > 1))
+                {
+                    testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOfMultiReferencedDocumentFilesMessage, reference, count)));
+                    numberOfMultiReferencedDocumentFiles++;
+                }
 
-                if (multipleArchiveParts)
-                    message.Insert(0,
-                        string.Format(
-                            Noark5Messages.ArchivePartSystemId, item.SystemId, item.Name) + " - ");
+                if (numberOfMultiReferencedDocumentFiles > 0)
+                {
+                    if (multipleArchiveParts)
+                    {
+                        testResults.Insert(0, new TestResult(ResultType.Error, new Location(string.Empty), 
+                            string.Format(Noark5Messages.NumberOf, numberOfMultiReferencedDocumentFiles)));
+                        testResultSet.TestResultSets.Add(new TestResultSet
+                        {
+                            Name = archivePart.ToString(),
+                            TestsResults = testResults,
+                        });
+                    }
+                    else
+                    {
+                        testResultSet.TestsResults = testResults;
+                    }
+                }
 
-                testResults.Add(new TestResult(ResultType.Success, new Location(""), message.ToString()));
+                totalNumberOfMultiReferencedDocumentFiles += numberOfMultiReferencedDocumentFiles;
             }
 
-            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
-                string.Format(Noark5Messages.TotalResultNumber, multiReferencedDocumentFilesCount.ToString())));
+            ResultType resultType = totalNumberOfMultiReferencedDocumentFiles == 0
+                ? ResultType.Success
+                : ResultType.Error;
 
-            return testResults;
+            testResultSet.TestsResults.Insert(0, new TestResult(resultType, new Location(string.Empty),
+                string.Format(Noark5Messages.TotalResultNumber, totalNumberOfMultiReferencedDocumentFiles)));
+
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.Path.Matches("dokumentobjekt", "dokumentbeskrivelse", "registrering"))
-                _currentDocumentObject = new DocumentObject
-                { ArchivePart = _currentArchivePart };
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
@@ -96,27 +94,30 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("tittel", "arkivdel"))
                 _currentArchivePart.Name = eventArgs.Value;
 
-            if (eventArgs.Path.Matches("referanseDokumentfil", "dokumentobjekt") && _currentDocumentObject != null)
-                _currentDocumentObject.FileReference = eventArgs.Value;
+            if (eventArgs.Path.Matches("referanseDokumentfil", "dokumentobjekt"))
+            {
+                string reference = eventArgs.Value;
+                if (_numberOfReferencesPerDocumentFilePerArchivePart.ContainsKey(_currentArchivePart))
+                {
+                    if (_numberOfReferencesPerDocumentFilePerArchivePart[_currentArchivePart].ContainsKey(reference))
+                        _numberOfReferencesPerDocumentFilePerArchivePart[_currentArchivePart][reference]++;
+                    else
+                        _numberOfReferencesPerDocumentFilePerArchivePart[_currentArchivePart].Add(reference, 1);
+                }
+                else
+                {
+                    _numberOfReferencesPerDocumentFilePerArchivePart.Add(_currentArchivePart, new Dictionary<string, int>
+                    {
+                        {reference, 1}
+                    });
+                }
+            }
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.NameEquals("dokumentobjekt") && _currentDocumentObject != null)
-            {
-                _documentObjects.Add(_currentDocumentObject);
-                _currentDocumentObject = null;
-            }
-
             if(eventArgs.NameEquals("arkivdel"))
                 _currentArchivePart = new ArchivePart();
         }
-
-        private class DocumentObject
-        {
-            public ArchivePart ArchivePart { get; set; }
-            public string FileReference { get; set; }
-        }
-
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -9,9 +11,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 48);
 
-        private readonly List<string> _archivepartSystemIds = new List<string>();
-        private readonly Stack<Referrer> _possibleReferrers = new Stack<Referrer>();
-        private readonly List<Referrer> _archivepartReferrers = new List<Referrer>();
+        private ArchivePart _currentArchivePart = new();
+        private readonly List<ArchivePart> _archiveParts = new();
+        private readonly Dictionary<ArchivePart, List<Referrer>> _archivePartReferrersPerArchivePart = new();
+        private readonly Stack<Referrer> _possibleReferrers = new();
 
         public override TestId GetId()
         {
@@ -23,24 +26,58 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentControl;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            bool multipleArchiveParts = _archivePartReferrersPerArchivePart.Count > 1;
 
-            foreach (Referrer referrer in _archivepartReferrers)
+            var testResultSet = new TestResultSet();
+            var totalNumberOfInvalidReferences = 0;
+            
+            foreach ((ArchivePart archivePart, List<Referrer> archivePartReferrers) in
+                _archivePartReferrersPerArchivePart)
             {
-                if (HasInvalidReference(referrer))
-                    testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
-                        string.Format(Noark5Messages.ArchivepartReferenceControlMessage,
-                            referrer.Element, referrer.SystemId ?? "?", referrer.Reference)));
+                int numberOfInvalidReferences = archivePartReferrers.Count(HasInvalidReference);
+
+                var testResults = new List<TestResult>();
+
+                testResults.AddRange
+                (archivePartReferrers.Where(HasInvalidReference).Select
+                    (referrer => new TestResult
+                        (ResultType.Error, new Location(string.Empty), string.Format(
+                            Noark5Messages.ArchivepartReferenceControlMessage,
+                            referrer.Element, referrer.SystemId ?? "?", referrer.Reference)
+                        )
+                    )
+                );
+
+                totalNumberOfInvalidReferences += numberOfInvalidReferences;
+
+                if (multipleArchiveParts)
+                {
+                    if (numberOfInvalidReferences > 0)
+                        testResults.Insert(0, new TestResult(ResultType.Error, new Location(string.Empty),
+                            string.Format(Noark5Messages.NumberOf, numberOfInvalidReferences)));
+
+                    testResultSet.TestResultSets.Add(new TestResultSet
+                    {
+                        Name = archivePart.ToString(),
+                        TestsResults = testResults
+                    });
+                }
+                else
+                    testResultSet.TestsResults.AddRange(testResults);
             }
 
-            return testResults;
+            if (totalNumberOfInvalidReferences > 0)
+                testResultSet.TestsResults.Insert(0, new TestResult(ResultType.Error, new Location(string.Empty),
+                    string.Format(Noark5Messages.TotalResultNumber, totalNumberOfInvalidReferences)));
+
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (IsPossibleRefferer(eventArgs.Name))
+            if (IsPossibleReferrer(eventArgs.Name))
                 _possibleReferrers.Push(new Referrer { Element = eventArgs.Name });
         }
 
@@ -56,36 +93,50 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 var systemId = eventArgs.Value;
 
                 if (elementWithSystemId.Equals("arkivdel"))
-                    _archivepartSystemIds.Add(systemId);
+                    _currentArchivePart.SystemId = eventArgs.Value;
 
-                if (IsPossibleRefferer(elementWithSystemId))
+                if (IsPossibleReferrer(elementWithSystemId))
                     _possibleReferrers.Peek().SystemId = systemId;
             }
+
+            if (eventArgs.Path.Matches("tittel", "arkivdel"))
+                _currentArchivePart.Name = eventArgs.Value;
 
             if (eventArgs.Path.Matches("referanseArkivdel"))
             {
                 var elementWithReference = eventArgs.Path.GetParent();
 
-                if (IsPossibleRefferer(elementWithReference))
-                {
-                    var reference = eventArgs.Value;
-                    _possibleReferrers.Peek().Reference = reference;
-                }
+                if (IsPossibleReferrer(elementWithReference))
+                    _possibleReferrers.Peek().Reference = eventArgs.Value;
             }
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (IsPossibleRefferer(eventArgs.Name))
+            if (IsPossibleReferrer(eventArgs.Name))
             {
                 Referrer examinedReferrer = _possibleReferrers.Pop();
 
                 if (examinedReferrer.Reference != null)
-                    _archivepartReferrers.Add(examinedReferrer);
+                {
+                    if (_archivePartReferrersPerArchivePart.ContainsKey(_currentArchivePart))
+                        _archivePartReferrersPerArchivePart[_currentArchivePart].Add(examinedReferrer);
+                    else
+                        _archivePartReferrersPerArchivePart.Add(_currentArchivePart, new List<Referrer>
+                        {
+                            examinedReferrer
+                        });
+                }
+            }
+
+            if (eventArgs.NameEquals("arkivdel"))
+            {
+                _archiveParts.Add(_currentArchivePart);
+                _currentArchivePart = new ArchivePart();
             }
         }
 
-        private static bool IsPossibleRefferer(string elementName)
+        private static bool IsPossibleReferrer(string elementName)
         {
             return elementName.Equals("mappe") ||
                    elementName.Equals("registrering") ||
@@ -94,7 +145,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private bool HasInvalidReference(Referrer archivepartReferrer)
         {
-            return !_archivepartSystemIds.Contains(archivepartReferrer.Reference);
+            ArchivePart archivePart = _archiveParts.Find(a => a.SystemId.Equals(archivepartReferrer.Reference));
+            return archivePart == null || !_archivePartReferrersPerArchivePart.ContainsKey(archivePart);
         }
 
         private class Referrer

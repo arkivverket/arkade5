@@ -41,10 +41,10 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             process.EndOfFile();
             TestRun testRun = process.GetTestRun();
 
-            testRun.Results.Count.Should().Be(2);
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
 
-            TestResult resultDef1 = testRun.Results.FirstOrDefault(r => r.Location.ToString().Contains("recordDef1"));
-            TestResult resultDef2 = testRun.Results.FirstOrDefault(r => r.Location.ToString().Contains("recordDef2"));
+            TestResult resultDef1 = testRun.TestResults.TestsResults.FirstOrDefault(r => r.Location.ToString().Contains("recordDef1"));
+            TestResult resultDef2 = testRun.TestResults.TestsResults.FirstOrDefault(r => r.Location.ToString().Contains("recordDef2"));
             resultDef1.Should().NotBeNull();
             resultDef2.Should().NotBeNull();
 

@@ -53,7 +53,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = CreateTestRun(xmlElementHelper);
 
-            testRun.Results.First().Message.Should().Be("Totalt: 0");
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 0");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
 
         [Fact]
@@ -88,12 +90,12 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = CreateTestRun(xmlElementHelper);
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
                 "Ikke-referert fil funnet: DOKUMENT/underkatalog/d.PDF")
             );
 
-            testRun.Results.First().Message.Should().Be("Totalt: 1");
-            testRun.Results.Count.Should().Be(2);
+            testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 1");
+            testRun.TestResults.TestsResults.Count.Should().Be(2);
         }
 
         private static TestRun CreateTestRun(XmlElementHelper xmlElementHelper)

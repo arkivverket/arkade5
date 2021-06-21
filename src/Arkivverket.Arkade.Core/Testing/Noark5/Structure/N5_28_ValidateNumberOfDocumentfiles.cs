@@ -25,9 +25,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             return TestType.StructureAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            return _testResults;
+            return new()
+            {
+                TestsResults = _testResults
+            };
         }
 
         public override void Test(Archive archive)
@@ -84,7 +87,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
 
         private static int GetDocumentedFileCount(Archive archive)
         {
-            var archiveExtractionXml = SerializeUtil.DeserializeFromFile<addml>(archive.AddmlXmlUnit.File);
+            addml archiveExtractionXml = archive.AddmlInfo.Addml;
 
             dataObject archiveExtractionElement = archiveExtractionXml.dataset[0].dataObjects.dataObject[0];
             property infoElement = archiveExtractionElement.properties[0];

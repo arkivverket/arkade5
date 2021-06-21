@@ -148,4 +148,7 @@ Resultat lagret i:</value>
   <data name="SaveFormatFileExtensionFilter" xml:space="preserve">
     <value>CSV (Semikolondelt) (*.csv)|*.csv</value>
   </data>
+  <data name="UnsavedResultsOnExitWarning" xml:space="preserve">
+    <value>Hvis Verktøy-dialogen lukkes nå vil resultater fra det kjørende verktøyet gå tapt. Ønker du likevel å lukke?</value>
+  </data>
 </root>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -9,8 +10,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     public class N5_46_NumberOfConversions : Noark5XmlReaderBaseTest
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 46);
-        private ArchivePart _currentArchivePart = new ArchivePart();
-        private readonly Dictionary<ArchivePart, int> _numberOfConvertionsPerArchivePart = new Dictionary<ArchivePart, int>();
+
+        private ArchivePart _currentArchivePart = new();
+        private readonly Dictionary<ArchivePart, int> _numberOfConversionsPerArchivePart = new();
 
         public override TestId GetId()
         {
@@ -22,36 +24,34 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
-            int totalNumberOfConversions = 0;
+            bool multipleArchiveParts = _numberOfConversionsPerArchivePart.Count > 1;
 
-            foreach (var archivePartConvertionsCount in _numberOfConvertionsPerArchivePart)
+            int totalNumberOfConversions = _numberOfConversionsPerArchivePart.Sum(a => a.Value);
+            var testResultSet = new TestResultSet
             {
-                if (archivePartConvertionsCount.Value == 0)
-                    continue;
-
-                totalNumberOfConversions += archivePartConvertionsCount.Value;
-
-                if (_numberOfConvertionsPerArchivePart.Keys.Count > 1) // Multiple archiveparts
+                TestsResults = new List<TestResult>
                 {
-                    testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
-                        string.Format(Noark5Messages.ArchivePartSystemId, archivePartConvertionsCount.Key.SystemId, archivePartConvertionsCount.Key.Name) +
-                        " - " + string.Format(Noark5Messages.TotalResultNumber, archivePartConvertionsCount.Value)));
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, totalNumberOfConversions))
                 }
-            }
+            };
 
-            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""),
-                    string.Format(Noark5Messages.TotalResultNumber, totalNumberOfConversions)));
+            if (!multipleArchiveParts)
+                return testResultSet;
 
-            return testResults;
+            foreach ((ArchivePart archivePart, int numberOfConversions) in _numberOfConversionsPerArchivePart)
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.NumberOfXPerY, archivePart, numberOfConversions)));
+
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("konvertering", "dokumentobjekt"))
-                _numberOfConvertionsPerArchivePart[_numberOfConvertionsPerArchivePart.Keys.Last()]++;
+                _numberOfConversionsPerArchivePart[_numberOfConversionsPerArchivePart.Keys.Last()]++;
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
@@ -59,7 +59,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
                 _currentArchivePart.SystemId = eventArgs.Value;
-                _numberOfConvertionsPerArchivePart.Add(_currentArchivePart, 0);
+                _numberOfConversionsPerArchivePart.Add(_currentArchivePart, 0);
             }
                 
             if (eventArgs.Path.Matches("tittel", "arkivdel"))

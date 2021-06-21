@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Arkivverket.Arkade.Core.Base.Addml;
+using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Resources;
 using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
@@ -19,7 +21,8 @@ namespace Arkivverket.Arkade.Core.Base
         private DirectoryInfo DocumentsDirectory { get; set; }
         private ReadOnlyDictionary<string, DocumentFile> _documentFiles;
         public ReadOnlyDictionary<string, DocumentFile> DocumentFiles => _documentFiles ?? GetDocumentFiles();
-        public ArchiveXmlUnit AddmlXmlUnit { get; }
+        public AddmlXmlUnit AddmlXmlUnit { get; }
+        public AddmlInfo AddmlInfo { get; }
         public ArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
@@ -31,26 +34,32 @@ namespace Arkivverket.Arkade.Core.Base
 
             WorkingDirectory = workingDirectory;
 
+            if (archiveType == ArchiveType.Siard)
+                return;
+            
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
-            if (AddmlXmlUnit.File.Exists)
-            {
-                Details = new ArchiveDetails(this);
+            if (!AddmlXmlUnit.File.Exists)
+                return;
+            
+            AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName);
 
-                if (archiveType == ArchiveType.Noark5)
-                    SetupArchiveXmlUnits();
+            Details = new ArchiveDetails(AddmlInfo.Addml);
+
+            if (archiveType == ArchiveType.Noark5)
+            {
+                if (AddmlXmlUnit.HasNoDefinedSchema())
+                    AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
+                
+                SetupArchiveXmlUnits();
             }
         }
 
-        public FileInfo GetTestReportFile()
+        public DirectoryInfo GetTestReportDirectory()
         {
-            string testReportFileName = string.Format(OutputFileNames.TestReportFile, Uuid);
-
-            string testReportDirectoryPath = WorkingDirectory.RepositoryOperations().DirectoryInfo().FullName;
-            
-            string testReportFullFileName = Path.Combine(testReportDirectoryPath, testReportFileName);
-            
-            return new FileInfo(testReportFullFileName);
+            return WorkingDirectory.RepositoryOperations().WithSubDirectory(
+                string.Format(OutputFileNames.TestReportDirectory, Uuid)
+            ).DirectoryInfo();
         }
 
         public string GetInformationPackageFileName()
@@ -88,42 +97,40 @@ namespace Arkivverket.Arkade.Core.Base
             ).DirectoryInfo();
         }
 
-        private ArchiveXmlUnit SetupAddmlXmlUnit()
+        private AddmlXmlUnit SetupAddmlXmlUnit()
         {
             FileInfo addmlFileInfo = WorkingDirectory.Content().WithFile(AddmlXmlFileName);
 
             if (!addmlFileInfo.Exists && ArchiveType == ArchiveType.Noark5)
                 addmlFileInfo = WorkingDirectory.Content().WithFile(ArkivuttrekkXmlFileName);
 
-            var archiveXmlFile = new ArchiveXmlFile(addmlFileInfo);
+            var addmlXmlFile = new ArchiveXmlFile(addmlFileInfo);
 
             FileInfo addmlXsdFileInfo = WorkingDirectory.Content().WithFile(AddmlXsdFileName);
 
-            return new ArchiveXmlUnit(archiveXmlFile, new UserProvidedXmlSchema(addmlXsdFileInfo));
+            ArchiveXmlSchema addmlSchema = addmlXsdFileInfo.Exists
+                ? ArchiveXmlSchema.Create(addmlXsdFileInfo)
+                : null;
+
+            return new AddmlXmlUnit(addmlXmlFile, addmlSchema);
         }
 
         private void SetupArchiveXmlUnits()
         {
             XmlUnits = new List<ArchiveXmlUnit>();
 
-            foreach (KeyValuePair<string, IEnumerable<string>> documentedXmlUnit in Details.DocumentedXmlUnits)
+            foreach ((string documentedXmlFileName, IEnumerable<string> documentedXmlSchemas) in Details.DocumentedXmlUnits)
             {
-                string xmlFileName = documentedXmlUnit.Key;
+                IEnumerable<ArchiveXmlSchema> userProvidedSchemas =
+                    documentedXmlSchemas.Select(s => ArchiveXmlSchema.Create(WorkingDirectory.Content().WithFile(s)));
 
-                IEnumerable<string> xmlSchemaNames = documentedXmlUnit.Value;
+                IEnumerable<ArchiveXmlSchema> arkadeSuppliedSchemas = Details.StandardXmlUnits[documentedXmlFileName]
+                    .Except(documentedXmlSchemas).Select(s => ArchiveXmlSchema
+                        .Create(s, AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version));
 
-                var archiveXmlFile = new ArchiveXmlFile(WorkingDirectory.Content().WithFile(xmlFileName));
+                var archiveXmlSchemas = new List<ArchiveXmlSchema>(userProvidedSchemas.Concat(arkadeSuppliedSchemas));
 
-                var archiveXmlSchemas = new List<ArchiveXmlSchema>();
-
-                foreach (string xmlSchemaName in xmlSchemaNames)
-                {
-                    FileInfo xmlSchemaFile = WorkingDirectory.Content().WithFile(xmlSchemaName);
-
-                    ArchiveXmlSchema archiveXmlSchema = ArchiveXmlSchema.Create(xmlSchemaFile);
-
-                    archiveXmlSchemas.Add(archiveXmlSchema);
-                }
+                var archiveXmlFile = new ArchiveXmlFile(WorkingDirectory.Content().WithFile(documentedXmlFileName));
 
                 XmlUnits.Add(new ArchiveXmlUnit(archiveXmlFile, archiveXmlSchemas));
             }
@@ -155,6 +162,15 @@ namespace Arkivverket.Arkade.Core.Base
             Log.Information($"{documentFiles.Count} document files registered.");
 
             return _documentFiles;
+        }
+
+        private bool AddmlVersionIsSupported()
+        {
+            if (SupportedNoark5Versions.Contains(Details.ArchiveStandard))
+                return true;
+
+            Log.Warning(string.Format(Noark5Messages.Noark5VersionNotSupportedForBuiltInSchemas, Details.ArchiveStandard));
+            return false;
         }
     }
 

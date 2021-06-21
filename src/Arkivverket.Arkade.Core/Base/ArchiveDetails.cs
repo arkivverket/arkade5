@@ -8,25 +8,21 @@ namespace Arkivverket.Arkade.Core.Base
 {
     public class ArchiveDetails
     {
+        private string _archiveStandard;
+
         public string ArchiveCreators => GetArchiveCreators();
         public string ArchivalPeriod => GetArchivalPeriod();
         public string SystemName => GetSystemName();
         public string SystemType => GetSystemType();
-        public virtual string ArchiveStandard => GetArchiveStandardVersion();
+        public virtual string ArchiveStandard => _archiveStandard?? GetArchiveStandardVersion();
         public Dictionary<string, IEnumerable<string>> DocumentedXmlUnits => GetDocumentedXmlUnits();
+        public Dictionary<string, IEnumerable<string>> StandardXmlUnits => GetStandardXmlUnits();
 
         private readonly addml _addml;
 
-        public ArchiveDetails(Archive archive)
+        public ArchiveDetails(addml addml)
         {
-            try
-            {
-                _addml = SerializeUtil.DeserializeFromFile<addml>(archive.AddmlXmlUnit.File);
-            }
-            catch (Exception exception)
-            {
-                throw new ArkadeException($"Error reading addml xml: {exception.Message}");
-            }
+            _addml = addml;
         }
 
         private string GetArchiveCreators()
@@ -99,7 +95,8 @@ namespace Arkivverket.Arkade.Core.Base
                     .FirstOrDefault(property => property.name == "type")?.properties
                     .FirstOrDefault(property => property.name == "version")?.value;
 
-                return $"{archiveExtractionTypeVersion}";
+                _archiveStandard = archiveExtractionTypeVersion;
+                return archiveExtractionTypeVersion;
             }
             catch (Exception)
             {
@@ -150,6 +147,54 @@ namespace Arkivverket.Arkade.Core.Base
             }
 
             return documentedXmlUnits;
+        }
+
+        private static Dictionary<string, IEnumerable<string>> GetStandardXmlUnits()
+        {
+            var standardXmlUnits = new Dictionary<string, IEnumerable<string>>
+            {
+                {
+                    ArkadeConstants.ArkivuttrekkXmlFileName, 
+                    new[]
+                    {
+                        ArkadeConstants.AddmlXsdFileName,
+                    }
+                },
+                {
+                    ArkadeConstants.ArkivstrukturXmlFileName,
+                    new[]
+                    {
+                        ArkadeConstants.ArkivstrukturXsdFileName,
+                        ArkadeConstants.MetadatakatalogXsdFileName,
+                    }
+                },
+                {
+                    ArkadeConstants.ChangeLogXmlFileName,
+                    new[]
+                    {
+                        ArkadeConstants.ChangeLogXsdFileName,
+                        ArkadeConstants.MetadatakatalogXsdFileName,
+                    }
+                },
+                {
+                    ArkadeConstants.RunningJournalXmlFileName,
+                    new[]
+                    {
+                        ArkadeConstants.RunningJournalXsdFileName,
+                        ArkadeConstants.MetadatakatalogXsdFileName,
+                    }
+                },
+                {
+                    ArkadeConstants.PublicJournalXmlFileName,
+                    new[]
+                    {
+                        ArkadeConstants.PublicJournalXsdFileName,
+                        ArkadeConstants.MetadatakatalogXsdFileName,
+                    }
+                },
+            };
+
+            return standardXmlUnits;
         }
 
         private additionalElements GetContentAdditionalElementsRoot()

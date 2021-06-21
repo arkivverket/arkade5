@@ -1,12 +1,13 @@
 using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
+using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Identify
 {
@@ -73,6 +74,17 @@ namespace Arkivverket.Arkade.Core.Identify
         {
             Archive archive = new Archive(archiveType, uuid, workingDirectory);
 
+            if (archive.ArchiveType == ArchiveType.Noark5 && archive.AddmlXmlUnit.File.Exists &&
+                archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())
+            {
+                _statusEventHandler?.RaiseEventOperationMessage(
+                    Noark5Messages.MissingAddmlSchema,
+                    string.Format(Noark5Messages.UsingBuiltInAddmlSchemaFile, BuiltInAddmlSchemaVersion),
+                    OperationMessageStatus.Warning);
+                Log.Warning(string.Format(Noark5Messages.InternalSchemaFileIsUsed,
+                    AddmlXsdFileName, BuiltInAddmlSchemaVersion));
+            }
+
             workingDirectory.CopyAddmlFileToAdministrativeMetadata();
 
             var testSession = new TestSession(archive);
@@ -89,19 +101,17 @@ namespace Arkivverket.Arkade.Core.Identify
                 return testSession;
             }
 
-            ArchiveXmlFile addmlFile = archive.AddmlXmlUnit.File;
+            AddmlInfo addml = archive.AddmlInfo;
 
             try
             {
-                AddmlInfo addml = AddmlUtil.ReadFromFile(addmlFile.FullName);
-
                 var addmlDefinitionParser = new AddmlDefinitionParser(addml, workingDirectory, _statusEventHandler);
 
                 testSession.AddmlDefinition = addmlDefinitionParser.GetAddmlDefinition();
             }
             catch (Exception exception)
             {
-                var message = "Reading file " + addmlFile.Name + " failed: " + exception.Message;
+                var message = string.Format(ExceptionMessages.FileNotRead, archive.AddmlXmlUnit.File.Name) + " " + exception.Message;
                 _log.Warning(message);//exception, message);
                 _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
             }

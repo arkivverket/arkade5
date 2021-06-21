@@ -35,9 +35,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.Results.Count.Should().Be(1);
-            testRun.Results[0].Location.ToString().Should().Be(recordDefiniton.GetIndex().ToString());
-            testRun.Results[0].Message.Should().Be("Oppgitt postlengde (10) er ulik faktisk (6)");
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(recordDefiniton.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Oppgitt postlengde (10) er ulik faktisk (6)");
         }
     }
 }

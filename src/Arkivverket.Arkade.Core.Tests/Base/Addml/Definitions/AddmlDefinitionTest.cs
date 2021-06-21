@@ -3,7 +3,6 @@ using System.Linq;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Processes;
 using Arkivverket.Arkade.Core.Base.Addml.Processes.Internal;
-using Arkivverket.Arkade.Core.ExternalModels.Cpf;
 using Arkivverket.Arkade.Core.Tests.Base.Addml.Builders;
 using FluentAssertions;
 using Xunit;

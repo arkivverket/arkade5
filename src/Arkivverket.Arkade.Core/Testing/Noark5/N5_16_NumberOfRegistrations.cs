@@ -12,9 +12,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly Archive _archive;
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 16);
-        private readonly List<N5_16_ArchivePart> _archiveParts = new List<N5_16_ArchivePart>();
-        private N5_16_ArchivePart _currentArchivePart = new N5_16_ArchivePart();
-        private Stack<string> _registrationTypes = new Stack<string>();
+        private readonly List<N5_16_ArchivePart> _archiveParts = new();
+        private N5_16_ArchivePart _currentArchivePart = new();
+        private Stack<string> _registrationTypes = new();
 
         public N5_16_NumberOfRegistrations(Archive archive)
         {
@@ -31,49 +31,57 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            bool multipleArchiveParts = _archiveParts.Count > 1;
 
-            var totalNumberOfRegistrations = 0;
+            int totalNumberOfRegistrations = _archiveParts.Sum(a => a.TotalRegistrationsCount);
 
-            bool hasMultipleArchiveParts = _archiveParts.Count > 1;
-
-            foreach (N5_16_ArchivePart archivePart in _archiveParts)
+            var testResultSet = new TestResultSet
             {
-                string archivePartMessagePrefix = hasMultipleArchiveParts
-                    ? string.Format(Noark5Messages.ArchivePartSystemId, archivePart.SystemId, archivePart.Name) + " - "
-                    : string.Empty;
-
-                testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
-                    archivePartMessagePrefix + string.Format(
-                        Noark5Messages.TotalResultNumber, archivePart.TotalRegistrationsCount
-                    )));
-
-                foreach (var registration in archivePart.Registrations)
+                TestsResults = new List<TestResult>
                 {
-                    testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
-                        archivePartMessagePrefix + string.Format(
-                            Noark5Messages.NumberOfTypeRegistrations, Noark5TestHelper.StripNamespace(registration.Key), registration.Value
-                        )));
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, totalNumberOfRegistrations))
                 }
-
-                totalNumberOfRegistrations += archivePart.TotalRegistrationsCount;
-            }
+            };
 
             int documentedNumberOfRegistrations = GetDocumentedNumberOfRegistrations();
 
             if (totalNumberOfRegistrations != documentedNumberOfRegistrations)
-                testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName), string.Format(
-                    Noark5Messages.NumberOfRegistrations_DocumentedAndActualMismatch, documentedNumberOfRegistrations, totalNumberOfRegistrations)));
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
+                    new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                    string.Format(Noark5Messages.NumberOfRegistrations_DocumentedAndActualMismatch,
+                        documentedNumberOfRegistrations, totalNumberOfRegistrations)));
 
-            if (hasMultipleArchiveParts)
+            if (totalNumberOfRegistrations == 0)
+                return testResultSet;
+
+            foreach (N5_16_ArchivePart archivePart in _archiveParts)
             {
-                testResults.Insert(0, new TestResult(ResultType.Success, new Location(string.Empty),
-                    string.Format(Noark5Messages.TotalResultNumber, totalNumberOfRegistrations)));
+                var testResults = new List<TestResult>();
+
+                if (multipleArchiveParts)
+                    testResults.Add(new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOf, archivePart.TotalRegistrationsCount)));
+
+                foreach ((string registrationType, int numberOfRegistrations) in archivePart.Registrations)
+                    testResults.Add(new TestResult(
+                        ResultType.Success, new Location(string.Empty), string.Format(
+                            Noark5Messages.NumberOfTypeRegistrations,
+                            Noark5TestHelper.StripNamespace(registrationType), numberOfRegistrations)));
+
+                if (multipleArchiveParts)
+                    testResultSet.TestResultSets.Add(new TestResultSet
+                    {
+                        Name = archivePart.ToString(),
+                        TestsResults = testResults,
+                    });
+                else
+                    testResultSet.TestsResults.AddRange(testResults);
             }
 
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -110,14 +118,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 _archiveParts.Add(_currentArchivePart);
                 _currentArchivePart = new N5_16_ArchivePart();
-        }
+            }
         }
 
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-                _currentArchivePart = new N5_16_ArchivePart { SystemId = eventArgs.Value };
+                _currentArchivePart = new N5_16_ArchivePart {SystemId = eventArgs.Value};
 
             if (eventArgs.Path.Matches("tittel", "arkivdel"))
                 _currentArchivePart.Name = eventArgs.Value;
@@ -125,7 +133,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private int GetDocumentedNumberOfRegistrations()
         {
-            var addml = SerializeUtil.DeserializeFromFile<addml>(_archive.AddmlXmlUnit.File);
+            addml addml = _archive.AddmlInfo.Addml;
 
             string numberOfRegistrations = addml.dataset[0].dataObjects.dataObject[0]
                 .dataObjects.dataObject[0].properties.FirstOrDefault(

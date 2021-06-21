@@ -1,6 +1,5 @@
 using System;
 using System.Globalization;
-using System.Threading;
 using System.Windows;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
@@ -124,6 +123,8 @@ namespace Arkivverket.Arkade.GUI
         {
             _log.Information("Arkade " + ArkadeVersion.Current + " stopping");
 
+            ExternalProcessManager.TerminateAll();
+
             if (!ArkadeProcessingAreaLocationSetting.IsApplied())
                 ArkadeProcessingArea.Destroy();
 
@@ -155,6 +156,7 @@ namespace Arkivverket.Arkade.GUI
             SettingsGUI.Culture = cultureInfo;
             TestRunnerGUI.Culture = cultureInfo;
             ToolsGUI.Culture = cultureInfo;
+            TestReportGUI.Culture = cultureInfo;
         }
     }
 }

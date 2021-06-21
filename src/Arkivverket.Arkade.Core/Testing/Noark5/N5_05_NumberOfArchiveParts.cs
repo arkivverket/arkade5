@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -24,30 +25,27 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>
+            var testResultSet = new TestResultSet
             {
-                new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
-                    Noark5Messages.TotalResultNumber, _archivepartsPerArchive.Values.Sum()
-                ))
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                    Noark5Messages.TotalResultNumber, _archivepartsPerArchive.Values.Sum()))
+                }
             };
 
-            if (_archivepartsPerArchive.Count > 1)
+            foreach ((string systemId, int numberOfArchiveParts) in _archivepartsPerArchive)
             {
-                foreach (KeyValuePair<string, int> archivesCountAtLevel in _archivepartsPerArchive)
-                {
-                    var testResult = new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
-                        Noark5Messages.NumberOfArchivePartsMessage_ArchivepartsInArchive,
-                        archivesCountAtLevel.Key, archivesCountAtLevel.Value));
-
-                    testResults.Add(testResult);
-                }
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.NumberOfArchivePartsMessage_ArchivepartsInArchive, systemId,
+                        numberOfArchiveParts))
+                );
             }
 
-            return testResults;
+            return testResultSet;
         }
-
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {

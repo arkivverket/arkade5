@@ -33,9 +33,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            var testResultSet = new TestResultSet();
 
             JournalHead headPublicJournal;
             JournalHead headRunningJournal;
@@ -50,19 +50,19 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
             catch
             {
-                testResults.Add(new TestResult(
+                testResultSet.TestsResults.Add(new TestResult(
                     ResultType.Error, new Location(string.Empty), Noark5Messages.CouldNotReadFromFiles)
                 );
 
-                return testResults;
+                return testResultSet;
             }
 
             if (!_registrationCreationDates.Any())
             {
-                testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
                     Noark5Messages.ArchiveStartAndEndDateControlMessage_NoArchiveDatesFound));
 
-                return testResults;
+                return testResultSet;
             }
 
             var archiveDates = new StartAndEndDate(
@@ -78,7 +78,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 headRunningJournal.JournalEndDate
             );
 
-            testResults.AddRange(new[]
+            testResultSet.TestsResults.AddRange(new[]
             {
                 new TestResult(ResultType.Success, new Location(""), string.Format(
                     Noark5Messages.ArchiveStartAndEndDateControlMessage_DatesArchive,
@@ -95,15 +95,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             });
 
             if (!StartAndEndDate.Equals(publicJournalDates, runningJournalDates))
-                testResults.Add(new TestResult(ResultType.Error, new Location(""),
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Error, new Location(""),
                     Noark5Messages.ArchiveStartAndEndDateControlMessage_UnEqualJournalDates));
 
-            
             if (_periodSeparationIsSharp && !StartAndEndDate.Equals(archiveDates, publicJournalDates, runningJournalDates))
-                testResults.Add(new TestResult(ResultType.Error, new Location(""),
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Error, new Location(""),
                     Noark5Messages.ArchiveStartAndEndDateControlMessage_UnEqualJournalAndArchiveDates));
 
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

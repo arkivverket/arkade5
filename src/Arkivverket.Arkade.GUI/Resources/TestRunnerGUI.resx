@@ -195,7 +195,7 @@ It can still be created a package from the extract.</value>
     <value>Messages:</value>
   </data>
   <data name="TestReportIsSavedMessage" xml:space="preserve">
-    <value>Report saved {0}</value>
+    <value>Report created</value>
   </data>
   <data name="EventIdCreatingReport" xml:space="preserve">
     <value>Creating report</value>

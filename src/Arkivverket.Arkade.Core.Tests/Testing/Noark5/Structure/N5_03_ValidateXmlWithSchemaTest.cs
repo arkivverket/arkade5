@@ -1,13 +1,9 @@
 using System;
-using System.IO;
-using System.Text;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Tests;
 using Arkivverket.Arkade.Core.Testing.Noark5.Structure;
 using Arkivverket.Arkade.Core.Tests.Base;
 using FluentAssertions;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
 {
@@ -32,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
 
             TestRun testRun = CreateTestRun(workingDirectory);
 
-            testRun.Results.Should().Contain(r => r.IsError());
+            testRun.TestResults.TestsResults.Should().Contain(r => r.IsError());
         }
 
         [Fact]
@@ -54,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
 
             TestRun testRun = CreateTestRun(workingDirectory);
 
-            testRun.Results.Should().Contain(r => r.IsError());
+            testRun.TestResults.TestsResults.Should().Contain(r => r.IsError());
         }
 
         private static TestRun CreateTestRun(string workingDirectory)

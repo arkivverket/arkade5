@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -11,9 +10,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 17);
 
-        private readonly List<JournalPost> _journalPosts = new List<JournalPost>();
-        private readonly List<TestResult> _testResults = new List<TestResult>();
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private readonly Dictionary<ArchivePart, Dictionary<string, int>> _numberOfJournalPostTypesPerArchivePart =
+            new();
+        private ArchivePart _currentArchivePart = new();
         private string _currentJournalPostSystemId;
         private bool _journalPostAttributeIsFound;
 
@@ -27,46 +26,45 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var journalPostQuery = from journalPost in _journalPosts
-                where journalPost.JournalpostType != null
-                group journalPost by new
-                {
-                                       ArchivePartSystemId = journalPost.ArchivePart.SystemId,
-                                       ArchivePartName = journalPost.ArchivePart.Name,
-                                       journalPost.JournalpostType
-                                   }
-                into grouped
-                select new
-                {
-                    grouped.Key.ArchivePartSystemId,
-                                       grouped.Key.ArchivePartName,
-                    grouped.Key.JournalpostType,
-                    Count = grouped.Count()
-                };
+            bool multipleArchiveParts = _numberOfJournalPostTypesPerArchivePart.Count > 1;
 
+            var testResultSet = new TestResultSet();
 
-            bool multipleArchiveParts = _journalPosts.GroupBy(j => j.ArchivePart.SystemId).Count() > 1;
-
-            foreach (var item in journalPostQuery)
+            if (_numberOfJournalPostTypesPerArchivePart.Count == 0)
             {
-                var message = new StringBuilder(
-                    string.Format(Noark5Messages.NumberOfEachJournalPostTypeMessage_TypeAndCount,
-                        item.JournalpostType, item.Count
-                    )
-                );
-
-                if (multipleArchiveParts)
-                    message.Insert(0,
-                        string.Format(Noark5Messages.ArchivePartSystemId, item.ArchivePartSystemId, item.ArchivePartName) + " - ");
-
-                ResultType resultType = item.JournalpostType == string.Empty ? ResultType.Error : ResultType.Success;
-
-                _testResults.Add(new TestResult(resultType, new Location(""), message.ToString()));
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.TotalResultNumber, 0)));
+                return testResultSet;
             }
 
-            return _testResults;
+            foreach ((ArchivePart archivePart, Dictionary<string, int> numberOfJournalPostTypes) in
+                _numberOfJournalPostTypesPerArchivePart)
+            {
+                var testResults = new List<TestResult>();
+
+                foreach ((string journalPostType, int count) in numberOfJournalPostTypes)
+                {
+                    ResultType resultType = journalPostType.Equals(string.Empty) 
+                        ? ResultType.Error 
+                        : ResultType.Success;
+
+                    testResults.Add(new TestResult(resultType, new Location(string.Empty), string.Format(
+                        Noark5Messages.NumberOfEachJournalPostTypeMessage_TypeAndCount, journalPostType, count)));
+                }
+
+                if (multipleArchiveParts)
+                    testResultSet.TestResultSets.Add(new TestResultSet
+                    {
+                        Name = archivePart.ToString(),
+                        TestsResults = testResults,
+                    });
+                else
+                    testResultSet.TestsResults = testResults;
+            }
+
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -91,7 +89,23 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 _currentJournalPostSystemId = eventArgs.Value;
 
             if (eventArgs.Path.Matches("journalposttype", "registrering") && _journalPostAttributeIsFound)
-                _journalPosts.Add(new JournalPost(eventArgs.Value, _currentArchivePart));
+            {
+                string journalPostType = eventArgs.Value;
+                if (_numberOfJournalPostTypesPerArchivePart.ContainsKey(_currentArchivePart))
+                {
+                    if (_numberOfJournalPostTypesPerArchivePart[_currentArchivePart].ContainsKey(journalPostType))
+                        _numberOfJournalPostTypesPerArchivePart[_currentArchivePart][journalPostType]++;
+                    else
+                        _numberOfJournalPostTypesPerArchivePart[_currentArchivePart].Add(journalPostType, 1);
+                }
+                else
+                {
+                    _numberOfJournalPostTypesPerArchivePart.Add(_currentArchivePart, new Dictionary<string, int>
+                    {
+                        {journalPostType, 1}
+                    });
+                }
+            }
 
         }
 
@@ -107,18 +121,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             _journalPostAttributeIsFound = false; // reset
             _currentJournalPostSystemId = ""; // reset
-        }
-
-        internal class JournalPost
-        {
-            public ArchivePart ArchivePart { get; }
-            public string JournalpostType { get; }
-
-            public JournalPost(string journalpostType, ArchivePart archivePart)
-            {
-                JournalpostType = journalpostType;
-                ArchivePart = archivePart;
-            }
         }
     }
 }

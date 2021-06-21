@@ -1,4 +1,7 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -40,7 +43,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_48_ArchivepartReferenceControl());
 
-            testRun.Results.Count.Should().Be(0);
+            testRun.TestResults.GetNumberOfResults().Should().Be(0);
         }
 
         [Fact]
@@ -68,16 +71,18 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_48_ArchivepartReferenceControl());
 
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            List<TestResult> testResults = testRun.TestResults.TestsResults;
+            testResults.First().Message.Should().Be("Totalt: 3");
+            testResults.Should().Contain(r => r.Message.Equals(
                 "Referanse fra mappe (systemID) someFolderSystemId til arkivdel (systemID) someMissingArchivePartSystemId er ikke gyldig"
             ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testResults.Should().Contain(r => r.Message.Equals(
                 "Referanse fra registrering (systemID) someRegistrationSystemId til arkivdel (systemID) someMissingArchivePartSystemId er ikke gyldig"
             ));
-            testRun.Results.Should().Contain(r => r.Message.Equals(
+            testResults.Should().Contain(r => r.Message.Equals(
                 "Referanse fra dokumentbeskrivelse (systemID) someDocumentDescriptionSystemId til arkivdel (systemID) someMissingArchivePartSystemId er ikke gyldig"
             ));
-            testRun.Results.Count.Should().Be(3);
+            testRun.TestResults.GetNumberOfResults().Should().Be(4);
         }
     }
 }

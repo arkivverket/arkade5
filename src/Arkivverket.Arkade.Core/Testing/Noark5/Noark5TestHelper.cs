@@ -53,7 +53,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             bool inboundSeparationIsSharp;
             bool outboundSeparationIsSharp;
 
-            addml archiveExtraction = SerializeUtil.DeserializeFromFile<addml>(archive.AddmlXmlUnit.File);
+            addml archiveExtraction = archive.AddmlInfo.Addml;
 
             try
             {

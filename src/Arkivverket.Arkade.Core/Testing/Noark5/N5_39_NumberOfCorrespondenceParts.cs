@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -9,9 +10,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 39);
 
-        private int _totalNumberOfCorrespondanceParts;
-        private ArchivePart _currentArchivePart = new ArchivePart();
-        private readonly Dictionary<ArchivePart, int> _correspondancePartsPerArchivePart = new Dictionary<ArchivePart, int>();
+        private int _totalNumberOfCorrespondenceParts;
+        private ArchivePart _currentArchivePart = new();
+        private readonly Dictionary<ArchivePart, int> _correspondencePartsPerArchivePart = new();
 
         public override TestId GetId()
         {
@@ -23,30 +24,29 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>
+            bool multipleArchiveParts = _correspondencePartsPerArchivePart.Count > 1;
+
+            var testResultSet = new TestResultSet
             {
-                new TestResult(ResultType.Success, new Location(string.Empty),
-                    string.Format(Noark5Messages.TotalResultNumber, _totalNumberOfCorrespondanceParts.ToString()))
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty),
+                        string.Format(Noark5Messages.TotalResultNumber, _totalNumberOfCorrespondenceParts))
+                }
             };
 
-            if (_correspondancePartsPerArchivePart.Count > 1)
-            {
-                foreach (KeyValuePair<ArchivePart, int> correspondancePartCount in _correspondancePartsPerArchivePart)
-                {
-                    if (correspondancePartCount.Value > 0)
-                    {
-                        var testResult = new TestResult(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.NumberOf_PerArchivePart, correspondancePartCount.Key.SystemId,
-                                correspondancePartCount.Key.Name,
-                                correspondancePartCount.Value, ""));
+            if (_totalNumberOfCorrespondenceParts == 0 || !multipleArchiveParts)
+                return testResultSet;
 
-                        testResults.Add(testResult);
-                    }
-                }
+            foreach ((ArchivePart archivePart, int correspondencePartsCount) in _correspondencePartsPerArchivePart)
+            {
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.NumberOfXPerY, archivePart, correspondencePartsCount)));
             }
-            return testResults;
+            
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -60,10 +60,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-            {
                 _currentArchivePart.SystemId = eventArgs.Value;
-                _correspondancePartsPerArchivePart.Add(_currentArchivePart, 0);
-            }
 
             if (eventArgs.Path.Matches("tittel", "arkivdel"))
                 _currentArchivePart.Name = eventArgs.Value;
@@ -76,14 +73,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (eventArgs.NameEquals("korrespondansepart"))
             {
-                _totalNumberOfCorrespondanceParts++;
+                _totalNumberOfCorrespondenceParts++;
 
-                if (_correspondancePartsPerArchivePart.Count > 0)
-                {
-                    if (_correspondancePartsPerArchivePart.ContainsKey(_currentArchivePart))
-                        _correspondancePartsPerArchivePart[_currentArchivePart]++;
-                }
-
+                if (_correspondencePartsPerArchivePart.ContainsKey(_currentArchivePart))
+                    _correspondencePartsPerArchivePart[_currentArchivePart]++;
+                else
+                    _correspondencePartsPerArchivePart.Add(_currentArchivePart, 1);
             }
         }
 

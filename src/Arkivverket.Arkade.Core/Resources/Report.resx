@@ -201,4 +201,7 @@
   <data name="HeadingDeviations" xml:space="preserve">
     <value>Deviations</value>
   </data>
+  <data name="ValueNumberOfTestsExecuted" xml:space="preserve">
+    <value>{0} of {1}</value>
+  </data>
 </root>

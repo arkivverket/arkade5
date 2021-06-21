@@ -46,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentControl;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
             if (!PublicAndRunningJournalNumbersMatch())
                 _testResults.Add(new TestResult(ResultType.Error, Location.Archive,
@@ -68,7 +68,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 string.Format(Noark5Messages.NumberOfJournalPostsMessage_NumberOfJournalPostsInRunningJournal,
                     _runningJournalNumberOfJournalPosts)));
 
-            return _testResults;
+            return new TestResultSet {TestsResults = _testResults};
         }
 
         private bool NumberOfJournalPostsInArchiveAndJournalsMatch()

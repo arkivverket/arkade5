@@ -24,9 +24,13 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             IEnumerable<string> siegfriedResult = RunProcessOnDirectory(siegfriedProcess, directory);
 
-            siegfriedProcess.Close();
-
-            return GetSiegfriedFileInfoObjects(siegfriedResult);
+            int siegfriedCloseStatus = ExternalProcessManager.Close(siegfriedProcess.Id);
+            return siegfriedCloseStatus switch
+            {
+                -1 => throw new SiegfriedFileFormatIdentifierException("Process does not exist"),
+                1 => throw new SiegfriedFileFormatIdentifierException("Process was terminated"),
+                _ => GetSiegfriedFileInfoObjects(siegfriedResult)
+            };
         }
 
         public IFileFormatInfo IdentifyFormat(FileInfo file)
@@ -37,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             string siegfriedResult = RunProcessOnFile(siegfriedProcess, file);
 
-            siegfriedProcess.Close();
+            ExternalProcessManager.Close(siegfriedProcess);
 
             return GetSiegfriedFileInfoObject(siegfriedResult);
         }
@@ -50,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             string siegfriedResult = RunProcessOnStream(siegfriedProcess, filePathAndStream);
 
-            siegfriedProcess.Close();
+            ExternalProcessManager.Close(siegfriedProcess);
 
             return GetSiegfriedFileInfoObject(siegfriedResult);
         }
@@ -90,9 +94,15 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             try
             {
-                process.StartInfo.Arguments += $"\"{directory.FullName}\"";
+                process.StartInfo.Arguments +=
+                    "\"" +
+                    directory.FullName +
+                    (directory.FullName.Equals(Path.GetPathRoot(directory.FullName))
+                        ? Path.DirectorySeparatorChar.ToString()
+                        : string.Empty) +
+                    "\"";
 
-                process.Start();
+                ExternalProcessManager.Start(process);
             }
             catch (Exception e)
             {
@@ -128,7 +138,8 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             {
                 process.StartInfo.RedirectStandardInput = true;
 
-                process.Start();
+                ExternalProcessManager.Start(process);
+
                 StreamWriter streamWriter = process.StandardInput;
 
                 filePathAndStream.Value.CopyTo(streamWriter.BaseStream);
@@ -167,16 +178,16 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             using (var stringReader = new StringReader(siegfriedFormatResult))
             using (var csvParser = new CsvParser(stringReader, CultureInfo.InvariantCulture))
             {
-                string[] record = csvParser.Read();
+                csvParser.Read();
 
                 return new SiegfriedFileInfo
                 (
-                    fileName: record[0],
-                    errors: record[3],
-                    id: record[5],
-                    format: record[6],
-                    version: record[7],
-                    mimeType: record[8]
+                    fileName: csvParser.Record[0],
+                    errors: csvParser.Record[3],
+                    id: csvParser.Record[5],
+                    format: csvParser.Record[6],
+                    version: csvParser.Record[7],
+                    mimeType: csvParser.Record[8]
                 );
             }
         }

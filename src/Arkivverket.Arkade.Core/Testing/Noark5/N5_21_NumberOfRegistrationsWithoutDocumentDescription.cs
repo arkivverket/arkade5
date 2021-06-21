@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -10,8 +11,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 21);
 
         private bool _documentDescriptionIsFound;
-        private readonly Dictionary<ArchivePart, int> _noDocumentDescriptionCountPerArchivepart = new Dictionary<ArchivePart, int>();
-        private ArchivePart _currentArchivePart = new ArchivePart();
+        private readonly Dictionary<ArchivePart, int> _noDocumentDescriptionCountPerArchivePart = new();
+        private ArchivePart _currentArchivePart = new();
         private int _totalNumberOfMissingDocumentDescriptions;
 
         public override TestId GetId()
@@ -24,30 +25,30 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>
+            bool multipleArchiveParts = _noDocumentDescriptionCountPerArchivePart.Count > 1;
+
+            var testResultSet = new TestResultSet
             {
-                new TestResult(ResultType.Success, new Location(string.Empty), string.Format(Noark5Messages.TotalResultNumber, 
-                    _totalNumberOfMissingDocumentDescriptions.ToString()))
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(Noark5Messages.TotalResultNumber,
+                        _totalNumberOfMissingDocumentDescriptions))
+                }
             };
 
-            if (_noDocumentDescriptionCountPerArchivepart.Count > 1)
-            {
-                foreach (KeyValuePair<ArchivePart, int> noDocumentDescriptionCount in _noDocumentDescriptionCountPerArchivepart)
-                {
-                    if (noDocumentDescriptionCount.Value > 0)
-                    {
-                        var testResult = new TestResult(ResultType.Success, new Location(string.Empty), string.Format(
-                            Noark5Messages.NumberOf_PerArchivePart,
-                            noDocumentDescriptionCount.Key.SystemId, noDocumentDescriptionCount.Key.Name, noDocumentDescriptionCount.Value));
+            if (!multipleArchiveParts || _totalNumberOfMissingDocumentDescriptions == 0)
+                return testResultSet;
 
-                        testResults.Add(testResult);
-                    }
-                }
+            foreach ((ArchivePart archivePart, int noDocumentDescriptionCount) in
+                _noDocumentDescriptionCountPerArchivePart)
+            {
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.NumberOfXPerY, archivePart, noDocumentDescriptionCount)));
             }
 
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -63,14 +64,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
-            {
                 _currentArchivePart.SystemId = eventArgs.Value;
-                _noDocumentDescriptionCountPerArchivepart.Add(_currentArchivePart, 0);
-            }
+            
             if (eventArgs.Path.Matches("tittel", "arkivdel"))
-            {
                 _currentArchivePart.Name = eventArgs.Value;
-            }
+            
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -81,14 +79,21 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 {
                     _totalNumberOfMissingDocumentDescriptions++;
 
-                    if (_noDocumentDescriptionCountPerArchivepart.ContainsKey(_currentArchivePart))
-                        _noDocumentDescriptionCountPerArchivepart[_currentArchivePart]++;
+                    if (_noDocumentDescriptionCountPerArchivePart.ContainsKey(_currentArchivePart))
+                        _noDocumentDescriptionCountPerArchivePart[_currentArchivePart]++;
+                    else
+                        _noDocumentDescriptionCountPerArchivePart.Add(_currentArchivePart, 1);
                 }
                 _documentDescriptionIsFound = false;
             }
 
             if(eventArgs.NameEquals("arkivdel"))
+            {
+                if (!_noDocumentDescriptionCountPerArchivePart.ContainsKey(_currentArchivePart))
+                    _noDocumentDescriptionCountPerArchivePart.Add(_currentArchivePart, 0);
+
                 _currentArchivePart = new ArchivePart();
+            }
         }
 
     }

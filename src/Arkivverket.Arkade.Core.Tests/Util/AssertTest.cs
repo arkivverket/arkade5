@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Authentication;
-using System.Text;
-using System.Threading.Tasks;
-using Arkivverket.Arkade.Core.Base;
+﻿using Arkivverket.Arkade.Core.Base;
 using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Util

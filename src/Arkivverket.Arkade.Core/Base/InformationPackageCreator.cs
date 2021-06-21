@@ -65,16 +65,25 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (packageType == PackageType.SubmissionInformationPackage)
             {
-                FileInfo testReportFile = archive.GetTestReportFile();
+                DirectoryInfo testReportDirectory = archive.GetTestReportDirectory();
+                
+                if (testReportDirectory.Exists)
+                {
+                    string testReportResultDirectory = Path.Combine(resultDirectory, testReportDirectory.Name);
+                    foreach (FileInfo file in testReportDirectory.GetFiles())
+                    {
+                        if (!Directory.Exists(testReportResultDirectory))
+                            Directory.CreateDirectory(testReportResultDirectory);
 
-                if (testReportFile.Exists)
-                    testReportFile.CopyTo(Path.Combine(resultDirectory, testReportFile.Name), overwrite: true);
+                        file.CopyTo(Path.Combine(resultDirectory, testReportDirectory.Name, file.Name), overwrite: true);
+                    }
+                }
             }
 
             string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
 
-            Stream outStream = File.Create(packageFilePath);
-            TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
+            using Stream outStream = File.Create(packageFilePath);
+            using TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
 
             string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
             CreateEntry(packageRootDirectory, false, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);

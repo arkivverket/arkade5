@@ -5,14 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Arkivverket.Arkade")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Arkivverket.Arkade")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+[assembly: AssemblyTitle("Arkivverket.Arkade.Core")]
+[assembly: AssemblyDescription("Test and package tool for archive data")]
+[assembly: AssemblyCompany("Arkivverket")]
+[assembly: AssemblyProduct("Arkade 5")]
+[assembly: AssemblyCopyright("Copyright © 2016-2021")]
 
 [assembly: InternalsVisibleTo("Arkivverket.Arkade.Core.Test")]
 

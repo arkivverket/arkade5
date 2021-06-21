@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -11,9 +11,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 12);
 
-        private ArchivePart _currentArchivePart = new ArchivePart();
-        private readonly Stack<Class> _classes = new Stack<Class>();
-        private readonly List<Class> _superClassesWithFolder = new List<Class>();
+        private readonly Dictionary<ArchivePart, List<Class>> _superClassesWithFolderPerArchivePart = new();
+        private ArchivePart _currentArchivePart = new();
+        private readonly Stack<Class> _classes = new();
 
         public override TestId GetId()
         {
@@ -25,29 +25,55 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
+            int totalNumberOfClassesWithFolders = _superClassesWithFolderPerArchivePart.Sum(a => a.Value.Count);
+            bool multipleArchiveParts = _superClassesWithFolderPerArchivePart.Count > 1;
 
-            bool multipleArchiveParts = _superClassesWithFolder.GroupBy(c => c.ArchivePart.SystemId).Count() > 1;
-
-            foreach (var superClassWithFolder in _superClassesWithFolder)
+            var testResultSet = new TestResultSet
             {
-                var message = new StringBuilder(string.Format(
-                    Noark5Messages.ControlNoSuperclassesHasFoldersMessage, superClassWithFolder.SystemId));
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Error, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, totalNumberOfClassesWithFolders))
+                }
+            };
+
+            if (totalNumberOfClassesWithFolders == 0)
+                return testResultSet;
+
+            foreach ((ArchivePart archivePart, List<Class> superClassesWithFolder) in
+                _superClassesWithFolderPerArchivePart)
+            {
+                
+
+                var testResults = new List<TestResult>();
+
+                foreach (Class @class in superClassesWithFolder)
+                {
+                    testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                        string.Format(Noark5Messages.ControlNoSuperclassesHasFoldersMessage, @class.SystemId)));
+                }
 
                 if (multipleArchiveParts)
-                    message.Insert(0,
-                        string.Format(
-                            Noark5Messages.ArchivePartSystemId, superClassWithFolder.ArchivePart.SystemId, superClassWithFolder.ArchivePart.Name) + " - ");
-
-                testResults.Add(new TestResult(ResultType.Error, new Location(""), message.ToString()));
+                {
+                    testResultSet.TestResultSets.Add(new TestResultSet
+                    {
+                        Name = archivePart.ToString(),
+                        TestsResults = new List<TestResult>
+                        {
+                            new(ResultType.Error, new Location(string.Empty), string.Format(
+                                Noark5Messages.NumberOf, superClassesWithFolder.Count))
+                        }.Concat(testResults).ToList()
+                    });
+                }
+                else
+                {
+                    testResultSet.TestsResults.AddRange(testResults);
+                }
             }
 
-            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""), 
-                string.Format(Noark5Messages.TotalResultNumber, _superClassesWithFolder.Count.ToString())));
-
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -57,7 +83,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 if (_classes.Any())
                     _classes.Peek().HasSubclass = true;
 
-                _classes.Push(new Class {ArchivePart = _currentArchivePart});
+                _classes.Push(new Class());
             }
 
             if (eventArgs.Path.Matches("mappe", "klasse"))
@@ -83,7 +109,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 Class examinedClass = _classes.Pop();
 
                 if (examinedClass.IsSuperClassWithFolder())
-                    _superClassesWithFolder.Add(examinedClass);
+                {
+                    if (_superClassesWithFolderPerArchivePart.ContainsKey(_currentArchivePart))
+                        _superClassesWithFolderPerArchivePart[_currentArchivePart].Add(examinedClass);
+                    else
+                        _superClassesWithFolderPerArchivePart.Add(_currentArchivePart, new List<Class>
+                        {
+                            examinedClass
+                        });
+                }
+
             }
 
             if (eventArgs.NameEquals("arkivdel"))
@@ -97,7 +132,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private class Class
         {
             public string SystemId { get; set; }
-            public ArchivePart ArchivePart { get; set; }
             public bool HasSubclass { get; set; }
             public bool HasFolder { get; set; }
 

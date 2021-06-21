@@ -30,24 +30,25 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return TestType.ContentAnalysis;
         }
 
-        protected override List<TestResult> GetTestResults()
+        protected override TestResultSet GetTestResults()
         {
-            var testResults = new List<TestResult>();
-            int documentWithoutReferenceCount = 0;
-
-            foreach (KeyValuePair<string, DocumentFile> fileNameEntry in _documentFileNames)
+            var testResultSet = new TestResultSet
             {
-                testResults.Add(new TestResult(ResultType.Error,
-                    new Location(_documentsDirectory.Name),
-                    string.Format(Noark5Messages.DocumentfilesReferenceControlMessage, fileNameEntry.Key)));
+                TestsResults = new List<TestResult>
+                {
+                    new(ResultType.Success, new Location(string.Empty), string.Format(
+                        Noark5Messages.TotalResultNumber, _documentFileNames.Count))
+                }
+            };
 
-                documentWithoutReferenceCount++;
+            foreach ((string fileName, DocumentFile _) in _documentFileNames)
+            {
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
+                    new Location(_documentsDirectory.Name),
+                    string.Format(Noark5Messages.DocumentfilesReferenceControlMessage, fileName)));
             }
 
-            testResults.Insert(0, new TestResult(ResultType.Success, new Location(""), string.Format(Noark5Messages.TotalResultNumber,
-                documentWithoutReferenceCount.ToString())));
-
-            return testResults;
+            return testResultSet;
         }
 
         protected override void ReadElementValueEvent(object sender, ReadElementEventArgs eventArgs)

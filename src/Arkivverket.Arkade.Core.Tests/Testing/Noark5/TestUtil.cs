@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5

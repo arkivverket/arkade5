@@ -41,6 +41,13 @@ namespace Arkivverket.Arkade.Core.Util
         public const string RunningJournalXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.loependeJournal.xsd";
 
         public const string DirectoryPathBuiltInXsdResources = "Arkivverket.Arkade.Core.ExternalModels.xsd";
+        public const string DirectoryPathNoark5XsdResources = "Arkivverket.Arkade.Core.ExternalModels.Noark5.{0}";
+
+        public const string LatestNoark5Version = "5.0";
+        public static readonly string[] SupportedNoark5Versions =
+            { "3.1", "4.0", "5.0"};
+
+        public const string BuiltInAddmlSchemaVersion = "8.2";
 
         public const string DirectoryNameArkadeProcessingAreaRoot = "arkade-tmp";
         public const string DirectoryNameArkadeProcessingAreaWork = "work";
