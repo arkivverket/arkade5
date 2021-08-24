@@ -28,10 +28,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _log.Information("User action: Show HTML test report");
 
-            FileInfo htmlTestReportFile = TestReportDirectory.GetFiles()
-                .First(f => f.Extension.Contains(TestReportFormat.html.ToString()));
+            FileInfo testReportFile = TestReportDirectory.GetFiles()
+                .FirstOrDefault(f => f.Extension.Contains(TestReportFormat.html.ToString()));
 
-            htmlTestReportFile.FullName.LaunchUrl();
+            if (testReportFile == default)
+                testReportFile = TestReportDirectory.GetFiles().First(f => f.Extension.Equals(".txt"));
+                
+            testReportFile.FullName.LaunchUrl();
         }
 
         private void ExportTestReport()

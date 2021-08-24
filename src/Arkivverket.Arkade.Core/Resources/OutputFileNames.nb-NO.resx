@@ -138,4 +138,7 @@
   <data name="TestReportDirectory" xml:space="preserve">
     <value>Arkade-testrapporter_{0}</value>
   </data>
+  <data name="SiardValidationReportFile" xml:space="preserve">
+    <value>siard-validation-report.txt</value>
+  </data>
 </root>

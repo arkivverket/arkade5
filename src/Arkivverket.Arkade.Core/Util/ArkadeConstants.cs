@@ -68,5 +68,8 @@ namespace Arkivverket.Arkade.Core.Util
         public const string MetsHdrAgentMetaNoteKeyWord = "notescontent:";
 
         public const string ArkadeWebSiteUrl = "https://arkade.arkivverket.no";
+
+        public const string SiardValidatorDownloadUrl =
+            "https://github.com/keeps/dbptk-developer/releases/download/v2.9.9/dbptk-app-2.9.9.jar";
     }
 }

@@ -164,11 +164,6 @@ namespace Arkivverket.Arkade.CLI
 
         private static void Test(string outputDirectory, TestSession testSession, bool createStandAloneTestReport = true)
         {
-            if (testSession.Archive.ArchiveType == ArchiveType.Siard)
-            {
-                Log.Error("Testing of Siard archive has not yet been implemented.");
-                return;
-            }
             if (!testSession.IsTestableArchive())
             {
                 Log.Error("Archive is not testable: Valid specification file not found");
@@ -275,9 +270,10 @@ namespace Arkivverket.Arkade.CLI
         {
             DirectoryInfo packageTestReportDirectory = testSession.Archive.GetTestReportDirectory();
 
-            Arkade.SaveReport(testSession, packageTestReportDirectory);
+            if (!createStandAloneTestReport)
+                Arkade.SaveReport(testSession, packageTestReportDirectory);
 
-            if(createStandAloneTestReport)
+            else
             {
                 var standaloneTestReportsDirectory =
                     new DirectoryInfo(Path.Combine(outputDirectory, packageTestReportDirectory.Name));

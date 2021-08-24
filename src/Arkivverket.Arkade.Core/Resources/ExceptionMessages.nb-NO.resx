@@ -144,4 +144,13 @@
   <data name="AddTestRunToTestSuite" xml:space="preserve">
     <value>TestRun for test {0} med ID {1} ble ikke lagt til i testkjøringen. Sannsynlig årsak: Det eksisterer allerede en test med samme ID</value>
   </data>
+  <data name="SiardValidatorError" xml:space="preserve">
+    <value>Noe gikk galt under validering av Siard-fil. Se arkade-tmp/logs/ for detaljer.</value>
+  </data>
+  <data name="SiardValidatorOpenError" xml:space="preserve">
+    <value>Klarte ikke starte validatoren. Vennligst forsikre deg om at Java Runtime er installert og tilgjengelig ved å skrive "java -version" i konsollen.</value>
+  </data>
+  <data name="SiardValidatorLibraryNotFound" xml:space="preserve">
+    <value>Klarte ikke finne validatorbiblioteket ({0}). Vennligst last ned fra {1}, og lagre filen i {2}.</value>
+  </data>
 </root>

@@ -143,4 +143,7 @@
     <value>Arkade-testreports_{0}</value>
     <comment>{0} = Archive UUID</comment>
   </data>
+  <data name="SiardValidationReportFile" xml:space="preserve">
+    <value>siard-validation-report.txt</value>
+  </data>
 </root>

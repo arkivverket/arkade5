@@ -106,6 +106,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to siard-validation-report.txt.
+        /// </summary>
+        public static string SiardValidationReportFile {
+            get {
+                return ResourceManager.GetString("SiardValidationReportFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkade-testreports_{0}.
         /// </summary>
         public static string TestReportDirectory {

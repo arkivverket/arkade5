@@ -115,8 +115,16 @@ namespace Arkivverket.Arkade.Core.Base
                 testReportDirectory.Delete(recursive: true);
             
             testReportDirectory.Create();
-            
-            TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory);
+
+            if (testSession.Archive.ArchiveType == ArchiveType.Siard)
+                File.Move(
+                    sourceFileName: Path.Combine(testSession.Archive.WorkingDirectory.RepositoryOperations().ToString(),
+                        OutputFileNames.SiardValidationReportFile),
+                    destFileName: Path.Combine(testReportDirectory.FullName, OutputFileNames.SiardValidationReportFile)
+                );
+
+            else
+                TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory);
         }
 
         public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName, SupportedLanguage language)

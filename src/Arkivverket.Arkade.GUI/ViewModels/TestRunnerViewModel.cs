@@ -274,9 +274,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void LogNotTestableArchiveOperationMessage()
         {
-            string notTestableArchiveMessage = _archiveType == ArchiveType.Siard
-                ? TestRunnerGUI.SiardSupportInfo
-                : string.Format(TestRunnerGUI.ArchiveNotTestable, ArkadeProcessingArea.LogsDirectory);
+            string notTestableArchiveMessage = string.Format(TestRunnerGUI.ArchiveNotTestable, ArkadeProcessingArea.LogsDirectory);
 
             _statusEventHandler.RaiseEventOperationMessage(
                 TestRunnerGUI.ArchiveTestability,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Util;
@@ -47,7 +48,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         public bool IsTestableArchive()
         {
-            return Archive.ArchiveType != ArchiveType.Siard &&
+            return Archive.ArchiveType == ArchiveType.Siard && Archive.WorkingDirectory.Content().DirectoryInfo()
+                       .GetFiles().FirstOrDefault(f => f.Extension.Equals(".siard")) != default ||
                    AddmlDefinition != null ||
                    Archive.ArchiveType == ArchiveType.Noark5 && Archive.AddmlXmlUnit.File.Exists;
         }

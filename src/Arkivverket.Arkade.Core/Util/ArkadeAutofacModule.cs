@@ -43,6 +43,7 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<SiegfriedFileInfo>().As<IFileFormatInfo>();
             builder.RegisterType<SiardArchiveReader>().As<ISiardArchiveReader>();
             builder.RegisterType<SiardXmlTableReader>().As<ISiardXmlTableReader>();
+            builder.RegisterType<SiardTestEngine>().AsSelf();
         }
     }
 }

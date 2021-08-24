@@ -1,5 +1,6 @@
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Noark5;
+using Arkivverket.Arkade.Core.Base.Siard;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Base
@@ -10,25 +11,25 @@ namespace Arkivverket.Arkade.Core.Base
 
         private readonly Noark5TestEngine _noark5TestEngine;
         private readonly AddmlDatasetTestEngine _addmlDatasetTestEngine;
+        private readonly SiardTestEngine _siardTestEngine;
 
-        public TestEngineFactory(Noark5TestEngine noark5TestEngine, AddmlDatasetTestEngine addmlDatasetTestEngine)
+        public TestEngineFactory(Noark5TestEngine noark5TestEngine, AddmlDatasetTestEngine addmlDatasetTestEngine, SiardTestEngine siardTestEngine)
         {
             _noark5TestEngine = noark5TestEngine;
             _addmlDatasetTestEngine = addmlDatasetTestEngine;
+            _siardTestEngine = siardTestEngine;
         }
 
         public ITestEngine GetTestEngine(TestSession testSession)
         {
             _log.Debug("Find test engine for archive {archiveType}", testSession.Archive.ArchiveType);
 
-            if (testSession.Archive.ArchiveType == ArchiveType.Noark5)
+            return testSession.Archive.ArchiveType switch
             {
-                return _noark5TestEngine;
-            }
-            else
-            {
-                return _addmlDatasetTestEngine;
-            }
+                ArchiveType.Siard => _siardTestEngine,
+                ArchiveType.Noark5 => _noark5TestEngine,
+                _ => _addmlDatasetTestEngine
+            };
         }
     }
 }
