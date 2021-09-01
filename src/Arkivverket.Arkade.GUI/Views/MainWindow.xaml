@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Title="TitleLoadedInCodeBehind" 
         Icon="../Arkade5_2.0.ico"
-        Height="Auto" Width="1024" 
+        Height="720" Width="1024" 
         WindowStartupLocation="CenterScreen" WindowState="Normal"
         ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
