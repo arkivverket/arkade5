@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Report
     {
         public string TestId { get; set; }
         public string TestName { get; set; }
-        public TestType TestType { get; set; }
+        public TestType? TestType { get; set; }
         public string TestDescription { get; set; }
         public ResultSet ResultSet { get; set; }
         public bool HasResults { get; set; }
@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Core.Report
 
     public class Result
     {
-        public ResultType ResultType { get; set; }
+        public ResultType? ResultType { get; set; }
         public string Location { get; set; }
         public string Message { get; set; }
     }

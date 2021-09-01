@@ -164,9 +164,9 @@ namespace Arkivverket.Arkade.CLI
 
         private static void Test(string outputDirectory, TestSession testSession, bool createStandAloneTestReport = true)
         {
-            if (!testSession.IsTestableArchive())
+            if (!testSession.IsTestableArchive(out string disqualifyingCause))
             {
-                Log.Error("Archive is not testable: Valid specification file not found");
+                Log.Error("Archive is not testable: " + disqualifyingCause);
                 return;
             }
             Arkade.RunTests(testSession);
@@ -301,7 +301,7 @@ namespace Arkivverket.Arkade.CLI
 
         private static bool RanWithoutErrors(TestSession testSession)
         {
-            if (!testSession.IsTestableArchive())
+            if (!testSession.IsTestableArchive(out _))
                 return false;
             return true;
         }

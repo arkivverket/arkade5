@@ -31,6 +31,36 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             return null;
         }
 
+        public object DeserializeMetadataXmlFromArchiveFile(string siardArchivePath)
+        {
+            using var siardFileStream = new FileStream(siardArchivePath, FileMode.Open, FileAccess.Read);
+            string metadataXmlStringContent = GetNamedEntryFromSiardFileStream(
+                siardFileStream, ArkadeConstants.SiardMetadataXmlFileName
+            );
+
+            object siardArchive;
+
+            try
+            {
+                siardArchive = SerializeUtil.DeserializeFromString<siardArchive2_1>(metadataXmlStringContent);
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    siardArchive = SerializeUtil.DeserializeFromString<siardArchive1_0>(metadataXmlStringContent);
+                }
+                catch (Exception e2)
+                {
+                    var message = $"Deserialisation of {ArkadeConstants.SiardMetadataXmlFileName} failed: {e.Message}\n{e2.Message}";
+                    Log.Error(message);
+                    return null;
+                }
+            }
+
+            return siardArchive;
+        }
+
         private Dictionary<string, List<int>> GetLobFolderPathsFromSiard2_1Archive(
             siardArchive2_1 siardArchive,
             Dictionary<string, List<int>> lobFolderPathsWithColumnIndexes,
@@ -116,36 +146,6 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             }
 
             return lobFolderPathsWithColumnIndexes;
-        }
-
-        private object DeserializeMetadataXmlFromArchiveFile(string siardArchivePath)
-        {
-            using var siardFileStream = new FileStream(siardArchivePath, FileMode.Open, FileAccess.Read);
-            string metadataXmlStringContent = GetNamedEntryFromSiardFileStream(
-                siardFileStream, ArkadeConstants.SiardMetadataXmlFileName
-            );
-
-            object siardArchive;
-
-            try
-            {
-                siardArchive = SerializeUtil.DeserializeFromString<siardArchive2_1>(metadataXmlStringContent);
-            }
-            catch (Exception e)
-            {
-                try
-                {
-                    siardArchive = SerializeUtil.DeserializeFromString<siardArchive1_0>(metadataXmlStringContent);
-                }
-                catch (Exception e2)
-                {
-                    var message = $"Deserialisation of {ArkadeConstants.SiardMetadataXmlFileName} failed: {e.Message}\n{e2.Message}";
-                    Log.Error(message);
-                    return null;
-                }
-            }
-
-            return siardArchive;
         }
 
         private bool TryGetLobFolderFromColumnElement(string lobFolder, ref string pathFromContentFolderToLobFolder)

@@ -123,8 +123,8 @@ namespace Arkivverket.Arkade.Core.Base
                     destFileName: Path.Combine(testReportDirectory.FullName, OutputFileNames.SiardValidationReportFile)
                 );
 
-            else
-                TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory);
+            
+            TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory);
         }
 
         public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName, SupportedLanguage language)

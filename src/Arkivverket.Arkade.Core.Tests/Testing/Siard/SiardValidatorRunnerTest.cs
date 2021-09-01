@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Testing.Siard;
 using FluentAssertions;
@@ -14,7 +15,26 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
             string inputFilePath = Path.Combine("TestData", "Siard", "dbptk_produced.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
-            SiardValidator.Validate(inputFilePath, reportFilePath);
+            List<string> results = SiardValidator.Validate(inputFilePath, reportFilePath);
+
+            File.Exists(reportFilePath).Should().BeTrue();
+            // clean up generated files
+            Directory.GetFiles(Path.Combine("TestData", "Siard")).Where(f => f.EndsWith(".txt")).ToList().ForEach(File.Delete);
+
+            File.Exists(reportFilePath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void ShouldReportUnsupportedSiardVersion()
+        {
+            string inputFilePath = Path.Combine("TestData", "Siard", "siard1_med_blobs.siard");
+            string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
+
+            List<string> results = SiardValidator.Validate(inputFilePath, reportFilePath);
+
+            results.Count.Should().Be(2);
+            results[0].Should().Be(Resources.SiardMessages.ErrorMessage);
+            results[1].Should().Be(Resources.SiardMessages.ValidatorDoesNotSupportVersionMessage);
 
             File.Exists(reportFilePath).Should().BeTrue();
             // clean up generated files

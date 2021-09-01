@@ -313,6 +313,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to version.
+        /// </summary>
+        public static string VersionText {
+            get {
+                return ResourceManager.GetString("VersionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not all tests are executed.
         /// </summary>
         public static string WarningNotAllTestsExecuted {

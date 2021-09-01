@@ -117,10 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SiardValidationMessageIdentifier" xml:space="preserve">
+  <data name="ValidationMessageIdentifier" xml:space="preserve">
     <value>Siard-validering</value>
   </data>
-  <data name="SiardValidationMessage" xml:space="preserve">
+  <data name="ValidationMessage" xml:space="preserve">
     <value>{0} blir validert med Database Preservation Toolkit Developer versjon 2.9.9</value>
+  </data>
+  <data name="ValidatorDoesNotSupportVersionMessage" xml:space="preserve">
+    <value>SIARD validatoren støtter kun versjon 2.1 av SIARD</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="ValidationResultTestName" xml:space="preserve">
+    <value>Resultater fra konformitetstest utført med {0}</value>
+  </data>
+  <data name="DbptkDeveloper" xml:space="preserve">
+    <value>Database Preservation Toolkit Developer versjon 2.9.9</value>
+  </data>
+  <data name="ValidationResultMessage" xml:space="preserve">
+    <value>Valideringsresultater</value>
+  </data>
+  <data name="CouldNotFindASiardFile" xml:space="preserve">
+    <value>Klarte ikke finne noen .siard-fil i uttrekket</value>
   </data>
 </root>

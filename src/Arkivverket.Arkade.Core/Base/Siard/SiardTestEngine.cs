@@ -23,8 +23,8 @@ namespace Arkivverket.Arkade.Core.Base.Siard
                 Resources.OutputFileNames.SiardValidationReportFile);
 
             _statusEventHandler.RaiseEventOperationMessage(
-                Resources.SiardMessages.SiardValidationMessageIdentifier,
-                string.Format(Resources.SiardMessages.SiardValidationMessage, siardFileInfo.Name),
+                Resources.SiardMessages.ValidationMessageIdentifier,
+                string.Format(Resources.SiardMessages.ValidationMessage, siardFileInfo.Name),
                 OperationMessageStatus.Info);
 
             SiardValidator.Validate(inputFilePath, reportFilePath);

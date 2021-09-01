@@ -8,7 +8,10 @@ namespace Arkivverket.Arkade.Core.Report
     {
         public static void RunAllGenerators(TestSession testSession, DirectoryInfo testReportDirectory)
         {
-            TestReport testReport = TestReportFactory.Create(testSession);
+            TestReport testReport = testSession.Archive.ArchiveType.Equals(ArchiveType.Siard)
+                ? TestReportFactory.CreateForSiard(testSession)
+                : TestReportFactory.Create(testSession);
+
             string testReportFileName = Path.Combine(testReportDirectory.FullName, 
                 string.Format(Resources.OutputFileNames.TestReportFile, testReport.Summary.Uuid, "{0}"));
 

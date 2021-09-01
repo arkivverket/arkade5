@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Languages;
@@ -46,12 +47,30 @@ namespace Arkivverket.Arkade.Core.Base
             return LogEntries;
         }
 
-        public bool IsTestableArchive()
+        public bool IsTestableArchive(out string disqualifyingCause)
         {
-            return Archive.ArchiveType == ArchiveType.Siard && Archive.WorkingDirectory.Content().DirectoryInfo()
-                       .GetFiles().FirstOrDefault(f => f.Extension.Equals(".siard")) != default ||
-                   AddmlDefinition != null ||
-                   Archive.ArchiveType == ArchiveType.Noark5 && Archive.AddmlXmlUnit.File.Exists;
+            disqualifyingCause = "";
+
+            if (Archive.ArchiveType == ArchiveType.Siard)
+            {
+                FileInfo[] fileInfos = Archive.WorkingDirectory.Content().DirectoryInfo().GetFiles("*.siard");
+                if (fileInfos.FirstOrDefault() == default)
+                    disqualifyingCause = Resources.SiardMessages.CouldNotFindASiardFile;
+                else if (Archive.Details == null)
+                    disqualifyingCause = Resources.SiardMessages.ValidatorDoesNotSupportVersionMessage;
+                else
+                    return true;
+
+                return false;
+            }
+
+            if (AddmlDefinition == null || Archive.ArchiveType == ArchiveType.Noark5 && !Archive.AddmlXmlUnit.File.Exists)
+            {
+                disqualifyingCause = Resources.Noark5Messages.CouldNotFindValidSpecificationFile;
+                return false;
+            }
+
+            return true;
         }
     }
 }

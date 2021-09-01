@@ -210,7 +210,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private bool CanStartTestRun()
         {
-            return _testSession != null && _testSession.IsTestableArchive() && !_testRunHasBeenExecuted;
+            return _testSession != null && _testSession.IsTestableArchive(out _) && !_testRunHasBeenExecuted;
         }
 
         private bool CanCreatePackage()
@@ -239,8 +239,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
                     : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
 
-                if (!_testSession.IsTestableArchive())
-                    LogNotTestableArchiveOperationMessage();
+                if (!_testSession.IsTestableArchive(out string disqualifyingCause))
+                    LogNotTestableArchiveOperationMessage(disqualifyingCause);
 
                 if (_testSession.Archive.ArchiveType == ArchiveType.Noark5)
                 {
@@ -268,13 +268,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 Log.Error(e, message);
                 _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
                 if (e is ArkadeException)
-                    LogNotTestableArchiveOperationMessage();
+                    LogNotTestableArchiveOperationMessage(TestRunnerGUI.ValidSpecificationFileNotFound);
             }
         }
 
-        private void LogNotTestableArchiveOperationMessage()
+        private void LogNotTestableArchiveOperationMessage(string disqualifyingCause)
         {
-            string notTestableArchiveMessage = string.Format(TestRunnerGUI.ArchiveNotTestable, ArkadeProcessingArea.LogsDirectory);
+            string notTestableArchiveMessage = string.Format(TestRunnerGUI.ArchiveNotTestable, disqualifyingCause, ArkadeProcessingArea.LogsDirectory);
 
             _statusEventHandler.RaiseEventOperationMessage(
                 TestRunnerGUI.ArchiveTestability,

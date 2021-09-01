@@ -55,8 +55,7 @@ namespace Arkivverket.Arkade.Core.Identify
 
             if (archiveFile.ArchiveType == ArchiveType.Siard && archiveFile.File.Extension.Equals(".siard"))
             {
-                File.Copy(archiveFile.File.FullName,
-                    Path.Combine(workingDirectory.Content().ToString(), archiveFile.File.Name));
+                CopySiardFilesToContentDirectory(archiveFile.File.Directory, workingDirectory.Content().ToString());
             }
             else
             {
@@ -147,6 +146,20 @@ namespace Arkivverket.Arkade.Core.Identify
             _statusEventHandler.RaiseEventOperationMessage(Resources.Messages.ReadingArchiveEvent,
                 string.Format(Resources.Messages.TarExtractionMessageFinished, workingDirectory.ContentWorkDirectory().DirectoryInfo().FullName),
                 OperationMessageStatus.Ok);
+        }
+
+        private static void CopySiardFilesToContentDirectory(DirectoryInfo archiveFileDirectory, string contentDirectoryPath)
+        {
+            foreach (FileInfo fileInfo in archiveFileDirectory.GetFiles())
+            {
+                File.Copy(fileInfo.FullName,
+                    Path.Combine(contentDirectoryPath, fileInfo.Name));
+            }
+
+            foreach (DirectoryInfo contentDirectory in archiveFileDirectory.GetDirectories())
+            {
+                contentDirectory.CopyTo(Path.Combine(contentDirectoryPath, contentDirectory.Name), true);
+            }
         }
     }
 }

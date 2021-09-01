@@ -97,10 +97,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SiardValidationMessageIdentifier" xml:space="preserve">
+  <data name="ValidationMessageIdentifier" xml:space="preserve">
     <value>Siard Validation</value>
   </data>
-  <data name="SiardValidationMessage" xml:space="preserve">
+  <data name="ValidationMessage" xml:space="preserve">
     <value>{0} is being validated with Database Preservation Toolkit Developer version 2.9.9</value>
+  </data>
+  <data name="ValidatorDoesNotSupportVersionMessage" xml:space="preserve">
+    <value>SIARD validator only supports SIARD 2.1 version</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="ValidationResultTestName" xml:space="preserve">
+    <value>Results of conformity test performed by {0}</value>
+    <comment>{0} tool used for validation</comment>
+  </data>
+  <data name="DbptkDeveloper" xml:space="preserve">
+    <value>Database Preservation Toolkit Developer version 2.9.9</value>
+  </data>
+  <data name="ValidationResultMessage" xml:space="preserve">
+    <value>Validation results</value>
+  </data>
+  <data name="CouldNotFindASiardFile" xml:space="preserve">
+    <value>Could not find a siard file in the extract</value>
   </data>
 </root>

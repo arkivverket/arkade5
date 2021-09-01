@@ -410,4 +410,7 @@ Generated: {2}</value>
   <data name="ClassificationSystemTypeAndId" xml:space="preserve">
     <value>{0} classification system (systemID): {1}</value>
   </data>
+  <data name="CouldNotFindValidSpecificationFile" xml:space="preserve">
+    <value>Could not find a valid specification file</value>
+  </data>
 </root>

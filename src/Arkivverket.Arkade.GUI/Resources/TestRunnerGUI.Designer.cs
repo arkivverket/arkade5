@@ -331,5 +331,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A valid specification file was not found..
+        /// </summary>
+        public static string ValidSpecificationFileNotFound
+        {
+            get {
+                return ResourceManager.GetString("ValidSpecificationFileNotFound", resourceCulture);
+            }
+        }
     }
 }

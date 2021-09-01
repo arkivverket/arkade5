@@ -61,20 +61,74 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not find a siard file in the extract.
+        /// </summary>
+        public static string CouldNotFindASiardFile {
+            get {
+                return ResourceManager.GetString("CouldNotFindASiardFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database Preservation Toolkit Developer version 2.9.9.
+        /// </summary>
+        public static string DbptkDeveloper {
+            get {
+                return ResourceManager.GetString("DbptkDeveloper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ERROR.
+        /// </summary>
+        public static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} is being validated with Database Preservation Toolkit Developer version 2.9.9.
         /// </summary>
-        public static string SiardValidationMessage {
+        public static string ValidationMessage {
             get {
-                return ResourceManager.GetString("SiardValidationMessage", resourceCulture);
+                return ResourceManager.GetString("ValidationMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Siard Validation.
         /// </summary>
-        public static string SiardValidationMessageIdentifier {
+        public static string ValidationMessageIdentifier {
             get {
-                return ResourceManager.GetString("SiardValidationMessageIdentifier", resourceCulture);
+                return ResourceManager.GetString("ValidationMessageIdentifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validation results.
+        /// </summary>
+        public static string ValidationResultMessage {
+            get {
+                return ResourceManager.GetString("ValidationResultMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results of conformity test performed by {0}.
+        /// </summary>
+        public static string ValidationResultTestName {
+            get {
+                return ResourceManager.GetString("ValidationResultTestName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIARD validator only supports SIARD 2.1 version.
+        /// </summary>
+        public static string ValidatorDoesNotSupportVersionMessage {
+            get {
+                return ResourceManager.GetString("ValidatorDoesNotSupportVersionMessage", resourceCulture);
             }
         }
     }

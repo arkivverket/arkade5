@@ -214,6 +214,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not find a valid specification file.
+        /// </summary>
+        public static string CouldNotFindValidSpecificationFile {
+            get {
+                return ResourceManager.GetString("CouldNotFindValidSpecificationFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not read from one or more files.
         /// </summary>
         public static string CouldNotReadFromFiles {

@@ -6,7 +6,7 @@ using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base
 {
-    public class ArchiveDetails
+    public class ArchiveDetails : IArchiveDetails
     {
         private string _archiveStandard;
 

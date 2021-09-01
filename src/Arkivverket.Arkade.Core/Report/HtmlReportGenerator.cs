@@ -10,9 +10,11 @@ namespace Arkivverket.Arkade.Core.Report
     public class HtmlReportGenerator : IReportGenerator
     {
         private const int NumberOfResultsToDisplay = 100;
+        private static ArchiveType _archiveType;
 
         public void Generate(TestReport testReport, Stream stream)
         {
+            _archiveType = testReport.Summary.ArchiveType;
             var streamWriter = new StreamWriter(stream);
             streamWriter.WriteLine(@"<!DOCTYPE html>");
             streamWriter.WriteLine(@"<html lang=""no"">");
@@ -31,13 +33,17 @@ namespace Arkivverket.Arkade.Core.Report
             ArkivverketImage(stream);
             stream.WriteLine(@"    <h1>" + Resources.Report.HeadingTestReport + "</h1>");
             Summary(testReport, stream);
-            SummaryOfErrors(testReport, stream);
-            stream.WriteLine(@"    <h2>" + Resources.Report.HeadingTests + "</h2>");
+
+            if (!_archiveType.Equals(ArchiveType.Siard))
+            {
+                SummaryOfErrors(testReport, stream);
+                stream.WriteLine(@"    <h2>" + Resources.Report.HeadingTests + "</h2>");
+            }
+
             foreach (ExecutedTest test in testReport.TestsResults)
             {
                 Test(test, stream);
             }
-
             stream.WriteLine(@"<hr/>");
             VersionNumber(stream);
             stream.WriteLine(@"</div>");
@@ -67,13 +73,16 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine($@"       <h3 id=""{test.TestId}"">");
             stream.WriteLine(@"        " + test.TestName);
             stream.WriteLine(@"        </h3>");
-            stream.WriteLine(@"        <p><b>Type:</b> " + GetTestTypeDisplayName(test.TestType) + "</p>");
-            stream.WriteLine(@"");
-            stream.WriteLine(@"        <p class=""test-description"">");
-            stream.WriteLine(@"            " + test.TestDescription);
-            stream.WriteLine(@"        </p>");
-            stream.WriteLine(@"");
-            stream.WriteLine(@"        <h4>" + Resources.Report.HeadingTestResults + "</h4>");
+            if (!_archiveType.Equals(ArchiveType.Siard))
+            {
+                stream.WriteLine(@"        <p><b>Type:</b> " + GetTestTypeDisplayName(test.TestType) + "</p>");
+                stream.WriteLine(@"");
+                stream.WriteLine(@"        <p class=""test-description"">");
+                stream.WriteLine(@"            " + test.TestDescription);
+                stream.WriteLine(@"        </p>");
+                stream.WriteLine(@"");
+                stream.WriteLine(@"        <h4>" + Resources.Report.HeadingTestResults + "</h4>");
+            }
 
             if (TestTypeIsControl(test) && !test.HasResults)
             {
@@ -133,7 +142,10 @@ namespace Arkivverket.Arkade.Core.Report
             foreach (Result result in resultSet.Results.Take(NumberOfResultsToDisplay))
             {
                 stream.WriteLine(@"            <tr>");
-                stream.WriteLine(@"                <td>" + result.Location + "</td>");
+                if (_archiveType.Equals(ArchiveType.Siard))
+                    stream.WriteLine(@"                <td><a href='" + result.Location + "'>" + result.Location + "</a></td>");
+                else
+                    stream.WriteLine(@"                <td>" + result.Location + "</td>");
                 stream.WriteLine(@"                <td>");
                 stream.WriteLine(@"                " + SubstituteLineBreaksWithHtmlBreak(result.Message));
                 stream.WriteLine(@"                </td>");
@@ -165,7 +177,7 @@ namespace Arkivverket.Arkade.Core.Report
             return (test.TestType is TestType.ContentControl or TestType.StructureControl);
         }
 
-        private static string GetTestTypeDisplayName(TestType testType)
+        private static string GetTestTypeDisplayName(TestType? testType)
         {
             return testType switch
             {
@@ -184,8 +196,6 @@ namespace Arkivverket.Arkade.Core.Report
 
         private static void Summary(TestReport testReport, StreamWriter stream)
         {
-            ArchiveType archiveType = testReport.Summary.ArchiveType;
-
             stream.WriteLine(@"    <div class=""summary"">");
             stream.WriteLine(@"    <div class=""jumbotron"">");
             stream.WriteLine(@"        <h2>" + Resources.Report.HeadingTestSummary + "</h2>");
@@ -256,50 +266,53 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine("                </td>");
             stream.WriteLine(@"            </tr>");
 
-            if (archiveType == ArchiveType.Noark5)
+            if (_archiveType != ArchiveType.Siard)
             {
-                stream.WriteLine(@"            <tr>");
-                stream.WriteLine(@"                <td>");
-                stream.WriteLine(Resources.Report.LabelNumberOfTestsExecuted);
-                stream.WriteLine("                </td>");
-                stream.WriteLine(@"                <td>");
-                stream.WriteLine(testReport.Summary.NumberOfTestsRun);
-                stream.WriteLine("                </td>");
-                stream.WriteLine(@"            </tr>");
-            }
+                if (_archiveType == ArchiveType.Noark5)
+                {
+                    stream.WriteLine(@"            <tr>");
+                    stream.WriteLine(@"                <td>");
+                    stream.WriteLine(Resources.Report.LabelNumberOfTestsExecuted);
+                    stream.WriteLine("                </td>");
+                    stream.WriteLine(@"                <td>");
+                    stream.WriteLine(testReport.Summary.NumberOfTestsRun);
+                    stream.WriteLine("                </td>");
+                    stream.WriteLine(@"            </tr>");
+                }
 
-            if (testReport.Summary.NumberOfProcessedFiles != default)
-            {
-                stream.WriteLine(@"            <tr>");
-                stream.WriteLine(@"                <td>");
-                stream.WriteLine(Resources.Report.LabelNumberOfFilesProcessed);
-                stream.WriteLine("                </td>");
-                stream.WriteLine(@"                <td>");
-                stream.WriteLine(testReport.Summary.NumberOfProcessedFiles);
-                stream.WriteLine("                </td>");
-                stream.WriteLine(@"            </tr>");
-            }
-            
-            if (testReport.Summary.NumberOfProcessedRecords != default && archiveType != ArchiveType.Noark5)
-            {
-                stream.WriteLine(@"            <tr>");
-                stream.WriteLine(@"                <td>");
-                stream.WriteLine(Resources.Report.LabelNumberOfRecordsProcessed);
-                stream.WriteLine("                </td>");
-                stream.WriteLine(@"                <td>");
-                stream.WriteLine(testReport.Summary.NumberOfProcessedRecords);
-                stream.WriteLine("                </td>");
-                stream.WriteLine(@"            </tr>");
-            }
+                if (testReport.Summary.NumberOfProcessedFiles != default)
+                {
+                    stream.WriteLine(@"            <tr>");
+                    stream.WriteLine(@"                <td>");
+                    stream.WriteLine(Resources.Report.LabelNumberOfFilesProcessed);
+                    stream.WriteLine("                </td>");
+                    stream.WriteLine(@"                <td>");
+                    stream.WriteLine(testReport.Summary.NumberOfProcessedFiles);
+                    stream.WriteLine("                </td>");
+                    stream.WriteLine(@"            </tr>");
+                }
 
-            stream.WriteLine(@"            <tr>");
-            stream.WriteLine(@"                <td>");
-            stream.WriteLine(Resources.Report.LabelNumberOfErrors);
-            stream.WriteLine("                </td>");
-            stream.WriteLine(@"                <td>");
-            stream.WriteLine(testReport.Summary.NumberOfErrors);
-            stream.WriteLine("                </td>");
-            stream.WriteLine(@"            </tr>");
+                if (testReport.Summary.NumberOfProcessedRecords != default && _archiveType != ArchiveType.Noark5)
+                {
+                    stream.WriteLine(@"            <tr>");
+                    stream.WriteLine(@"                <td>");
+                    stream.WriteLine(Resources.Report.LabelNumberOfRecordsProcessed);
+                    stream.WriteLine("                </td>");
+                    stream.WriteLine(@"                <td>");
+                    stream.WriteLine(testReport.Summary.NumberOfProcessedRecords);
+                    stream.WriteLine("                </td>");
+                    stream.WriteLine(@"            </tr>");
+                }
+
+                stream.WriteLine(@"            <tr>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(Resources.Report.LabelNumberOfErrors);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(testReport.Summary.NumberOfErrors);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"            </tr>");
+            }
 
             stream.WriteLine(@"            </tbody>");
             stream.WriteLine(@"        </table>");

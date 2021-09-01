@@ -17,6 +17,7 @@ namespace Arkivverket.Arkade.Core.Languages
             Resources.Noark5TestDescriptions.Culture = cultureInfo;
             Resources.OutputFileNames.Culture = cultureInfo;
             Resources.Report.Culture = cultureInfo;
+            Resources.SiardMessages.Culture = cultureInfo;
         }
 
         internal static void SetResourceLanguageForPackageCreation(SupportedLanguage language)
@@ -29,6 +30,7 @@ namespace Arkivverket.Arkade.Core.Languages
             Resources.FormatAnalysisResultFileContent.Culture = cultureInfo;
             Resources.Messages.Culture = cultureInfo;
             Resources.OutputFileNames.Culture = cultureInfo;
+            Resources.SiardMessages.Culture = cultureInfo;
         }
 
         internal static void SetResourceLanguageForStandalonePronomAnalysis(SupportedLanguage language)
