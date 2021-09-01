@@ -46,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
         [Fact]
         public void ShouldValidateExtractProducedBySiardGui()
         {
-            string inputFilePath = Path.Combine("TestData", "Siard", "siard2-1_med_eksterne_lobs", "siardGui", "siardGui.siard");
+            string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "siardGui", "external", "siardGui.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
             SiardValidator.Validate(inputFilePath, reportFilePath);
@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
         [Fact]
         public void ShouldValidateExtractProducedByDbptkDeveloper()
         {
-            string inputFilePath = Path.Combine("TestData", "Siard", "siard2-1_med_eksterne_lobs", "dbPtk", "dbptk.siard");
+            string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "dbPtk", "external", "dbptk.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
             SiardValidator.Validate(inputFilePath, reportFilePath);
@@ -76,7 +76,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
         [Fact]
         public void ShouldValidateExtractProducedBySpectralCoreFullConvert()
         {
-            string inputFilePath = Path.Combine("TestData", "Siard", "siard2-1_med_eksterne_lobs", "fullConvert", "scfc.siard");
+            string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "fullConvert", "external", "scfc.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
             SiardValidator.Validate(inputFilePath, reportFilePath);

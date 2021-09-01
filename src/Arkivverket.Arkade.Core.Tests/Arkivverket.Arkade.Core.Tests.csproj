@@ -689,7 +689,7 @@
     <None Update="TestData\Siard\siard1_med_blobs\header\metadata.xsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\Siard\siard2-1_med_eksterne_lobs\**">
+    <None Update="TestData\Siard\siard2\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Siard\testuttrekk_med_blobs.siard">

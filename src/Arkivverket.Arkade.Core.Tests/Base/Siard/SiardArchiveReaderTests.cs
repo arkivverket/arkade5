@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         {
             ISiardArchiveReader siardArchiveReader = new SiardArchiveReader();
 
-            string siardArchivePath = Path.Combine("TestData", "Siard", "siard2-1_med_eksterne_lobs", "siardGui", "siardGui.siard");
+            string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "siardGui", "external", "siardGui.siard");
 
             Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndex = siardArchiveReader.GetLobFolderPathsWithColumnIndexes(siardArchivePath);
 
@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         {
             ISiardArchiveReader siardArchiveReader = new SiardArchiveReader();
 
-            string siardArchivePath = Path.Combine("TestData", "Siard", "siard2-1_med_eksterne_lobs", "dbPtk", "dbptk.siard");
+            string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "dbPtk", "external", "dbptk.siard");
 
             Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndex = siardArchiveReader.GetLobFolderPathsWithColumnIndexes(siardArchivePath);
 
@@ -50,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         {
             ISiardArchiveReader siardArchiveReader = new SiardArchiveReader();
 
-            string siardArchivePath = Path.Combine("TestData", "Siard", "siard2-1_med_eksterne_lobs", "fullConvert", "scfc.siard");
+            string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "fullConvert", "external", "scfc.siard");
 
             Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndex = siardArchiveReader.GetLobFolderPathsWithColumnIndexes(siardArchivePath);
 
