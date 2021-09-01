@@ -122,4 +122,7 @@
   <data name="CouldNotFindASiardFile" xml:space="preserve">
     <value>Could not find a siard file in the extract</value>
   </data>
+  <data name="InlinedLobContentHasUnsupportedEncoding" xml:space="preserve">
+    <value>LOB is inlined in an unsupported format</value>
+  </data>
 </root>

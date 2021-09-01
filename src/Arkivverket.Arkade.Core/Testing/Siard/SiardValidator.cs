@@ -88,6 +88,13 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
             return results;
         }
 
+        [Conditional("DEBUG")]
+        private static void BeginReadFromProcessOutputForDebug(Process process)
+        {
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+        }
+
         private static string BuildDbptkLibraryPath()
         {
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dbptk-app-2.9.9.jar");

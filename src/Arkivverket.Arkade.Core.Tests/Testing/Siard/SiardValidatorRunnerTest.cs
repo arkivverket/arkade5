@@ -42,5 +42,50 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
 
             File.Exists(reportFilePath).Should().BeFalse();
         }
+        
+        [Fact]
+        public void ShouldValidateExtractProducedBySiardGui()
+        {
+            string inputFilePath = Path.Combine("TestData", "Siard", "siard2-1_med_eksterne_lobs", "siardGui", "siardGui.siard");
+            string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
+
+            SiardValidator.Validate(inputFilePath, reportFilePath);
+
+            File.Exists(reportFilePath).Should().BeTrue();
+            // clean up generated files
+            Directory.GetFiles(Path.Combine("TestData", "Siard")).Where(f => f.EndsWith(".txt")).ToList().ForEach(File.Delete);
+
+            File.Exists(reportFilePath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void ShouldValidateExtractProducedByDbptkDeveloper()
+        {
+            string inputFilePath = Path.Combine("TestData", "Siard", "siard2-1_med_eksterne_lobs", "dbPtk", "dbptk.siard");
+            string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
+
+            SiardValidator.Validate(inputFilePath, reportFilePath);
+
+            File.Exists(reportFilePath).Should().BeTrue();
+            // clean up generated files
+            Directory.GetFiles(Path.Combine("TestData", "Siard")).Where(f => f.EndsWith(".txt")).ToList().ForEach(File.Delete);
+
+            File.Exists(reportFilePath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void ShouldValidateExtractProducedBySpectralCoreFullConvert()
+        {
+            string inputFilePath = Path.Combine("TestData", "Siard", "siard2-1_med_eksterne_lobs", "fullConvert", "scfc.siard");
+            string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
+
+            SiardValidator.Validate(inputFilePath, reportFilePath);
+
+            File.Exists(reportFilePath).Should().BeTrue();
+            // clean up generated files
+            Directory.GetFiles(Path.Combine("TestData", "Siard")).Where(f => f.EndsWith(".txt")).ToList().ForEach(File.Delete);
+
+            File.Exists(reportFilePath).Should().BeFalse();
+        }
     }
 }

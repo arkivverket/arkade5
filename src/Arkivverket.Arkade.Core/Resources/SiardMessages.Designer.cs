@@ -88,6 +88,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOB is inlined in an unsupported format.
+        /// </summary>
+        public static string InlinedLobContentHasUnsupportedEncoding {
+            get {
+                return ResourceManager.GetString("InlinedLobContentHasUnsupportedEncoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} is being validated with Database Preservation Toolkit Developer version 2.9.9.
         /// </summary>
         public static string ValidationMessage {

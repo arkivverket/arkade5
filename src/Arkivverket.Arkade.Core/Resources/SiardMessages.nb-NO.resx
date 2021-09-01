@@ -141,4 +141,7 @@
   <data name="CouldNotFindASiardFile" xml:space="preserve">
     <value>Klarte ikke finne noen .siard-fil i uttrekket</value>
   </data>
+  <data name="InlinedLobContentHasUnsupportedEncoding" xml:space="preserve">
+    <value>LOBen er lagret direkte i databasen, og er lagret med et format som ikke støttes av Arkade</value>
+  </data>
 </root>

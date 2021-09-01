@@ -140,16 +140,25 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
                 ExternalProcessManager.Start(process);
 
-                StreamWriter streamWriter = process.StandardInput;
+                using StreamWriter streamWriter = process.StandardInput;
 
                 filePathAndStream.Value.CopyTo(streamWriter.BaseStream);
-                streamWriter.Close();
-                filePathAndStream.Value.Close();
             }
             catch (Exception e)
             {
-                Log.Debug(e.ToString());
-                throw new SiegfriedFileFormatIdentifierException("Document file format analysis could not to be executed, process is skipped. Details can be found in arkade-tmp/logs/");
+                ExternalProcessManager.Close(process);
+                try
+                {
+                    process.StartInfo.StandardInputEncoding = Encoding.UTF8;
+                    ExternalProcessManager.Start(process);
+                    using StreamWriter streamWriter = process.StandardInput;
+                    filePathAndStream.Value.CopyTo(streamWriter.BaseStream);
+                }
+                catch (Exception exception)
+                {
+                    Log.Debug(e.ToString());
+                    throw new SiegfriedFileFormatIdentifierException("Document file format analysis could not to be executed, process is skipped. Details can be found in arkade-tmp/logs/");
+                }
             }
 
             process.BeginOutputReadLine();

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -7,26 +7,28 @@ using Arkivverket.Arkade.Core.ExternalModels.Metadata;
 using Arkivverket.Arkade.Core.ExternalModels.Siard1Metadata;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
-using siardArchive2_1 = Arkivverket.Arkade.Core.ExternalModels.Metadata.siardArchive;
-using siardArchive1_0 = Arkivverket.Arkade.Core.ExternalModels.Siard1Metadata.siardArchive;
+using siard2ColumnType = Arkivverket.Arkade.Core.ExternalModels.Metadata.columnType;
+using siard1ColumnType = Arkivverket.Arkade.Core.ExternalModels.Siard1Metadata.columnType;
+using siard2Archive = Arkivverket.Arkade.Core.ExternalModels.Metadata.siardArchive;
+using siard1Archive = Arkivverket.Arkade.Core.ExternalModels.Siard1Metadata.siardArchive;
 
 namespace Arkivverket.Arkade.Core.Base.Siard
 {
     public class SiardArchiveReader : ISiardArchiveReader
     {
-        public Dictionary<string, List<int>> GetLobFolderPathsWithColumnIndexes(string siardArchivePath)
+        public Dictionary<string, List<SiardLobReference>> GetLobFolderPathsWithColumnIndexes(string siardArchivePath)
         {
             const int zeroIndexOffset = 1;
 
-            var lobTablePathsWithColumnIndexes = new Dictionary<string, List<int>>();
+            var lobTablePathsWithColumnIndexes = new Dictionary<string, List<SiardLobReference>>();
 
             var siardArchive = DeserializeMetadataXmlFromArchiveFile(siardArchivePath);
 
             if (siardArchive.GetType().FullName.Contains("ExternalModels.Metadata"))
-                return GetLobFolderPathsFromSiard2_1Archive(siardArchive as siardArchive2_1, lobTablePathsWithColumnIndexes, zeroIndexOffset);
+                return GetLobFolderPathsFromSiard2Archive(siardArchive as siard2Archive, lobTablePathsWithColumnIndexes, zeroIndexOffset);
 
             if (siardArchive.GetType().FullName.Contains("ExternalModels.Siard1Metadata"))
-                return GetLobFolderPathsFromSiard1_0Archive(siardArchive as siardArchive1_0, lobTablePathsWithColumnIndexes, zeroIndexOffset);
+                return GetLobFolderPathsFromSiard1Archive(siardArchive as siard1Archive, lobTablePathsWithColumnIndexes, zeroIndexOffset);
 
             return null;
         }
@@ -42,13 +44,13 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 
             try
             {
-                siardArchive = SerializeUtil.DeserializeFromString<siardArchive2_1>(metadataXmlStringContent);
+                siardArchive = SerializeUtil.DeserializeFromString<siard2Archive>(metadataXmlStringContent);
             }
             catch (Exception e)
             {
                 try
                 {
-                    siardArchive = SerializeUtil.DeserializeFromString<siardArchive1_0>(metadataXmlStringContent);
+                    siardArchive = SerializeUtil.DeserializeFromString<siard1Archive>(metadataXmlStringContent);
                 }
                 catch (Exception e2)
                 {
@@ -61,45 +63,40 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             return siardArchive;
         }
 
-        private Dictionary<string, List<int>> GetLobFolderPathsFromSiard2_1Archive(
-            siardArchive2_1 siardArchive,
-            Dictionary<string, List<int>> lobFolderPathsWithColumnIndexes,
-            int zeroIndexOffset)
+        private Dictionary<string, List<SiardLobReference>> GetLobFolderPathsFromSiard2Archive(siard2Archive siardArchive,
+            Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndexes, int zeroIndexOffset)
         {
+            bool hasExternalLobs = siardArchive.lobFolder != null && siardArchive.lobFolder.StartsWith("..");
             foreach (var schema in siardArchive.schemas)
             {
                 foreach (var table in schema.tables)
                 {
-                    string pathFromContentFolderToLobFolder = schema.folder + "/" + table.folder;
-
                     for (var columnIndex = 0; columnIndex < table.columns.Length; columnIndex++)
                     {
                         var column = table.columns[columnIndex];
                         for (var i = 0; i < column.Items.Length; i++)
                         {
-                            if (column.ItemsElementName[i] != ItemsChoiceType1.type)
+                            if (Siard2ColumnDoesNotHaveLobContent(column, i))
                                 continue;
 
-                            if (!column.Items[i].Contains("LOB", StringComparison.OrdinalIgnoreCase) &&
-                                !column.Items[i].Contains("LARGE OBJECT", StringComparison.OrdinalIgnoreCase))
-                                continue;
-
-                            if (!TryGetLobFolderFromColumnElement(column.lobFolder, ref pathFromContentFolderToLobFolder) &&
-                                siardArchive.lobFolder != null)
-                                pathFromContentFolderToLobFolder = siardArchive.lobFolder;
-
-                            try
+                            var siardTable = new SiardTable {Name = table.name, FolderName = table.folder,};
+                            var siardLobReference = new SiardLobReference
                             {
-                                if (!lobFolderPathsWithColumnIndexes.TryAdd(pathFromContentFolderToLobFolder,
-                                    new List<int> {columnIndex + zeroIndexOffset}))
-                                    lobFolderPathsWithColumnIndexes[pathFromContentFolderToLobFolder]
-                                        .Add(columnIndex + zeroIndexOffset);
-                            }
-                            catch (Exception e)
-                            {
-                                string message = $"Could not find a valid reference to {schema.name}/{table.name}/c{columnIndex} - {column.name}";
-                                Log.Error(message +"\n" + e.Message);
-                            }
+                                SchemaFolder = schema.folder,
+                                Table = siardTable,
+                                Column = new SiardColumn
+                                {
+                                    FolderName = column.lobFolder,
+                                    Index = columnIndex + zeroIndexOffset,
+                                },
+                                IsExternal = hasExternalLobs,
+                                LobFolderPath = Path.Combine(hasExternalLobs ? siardArchive.lobFolder : string.Empty,
+                                    GetLobFolderPath(schema.folder, siardTable, column.lobFolder, siardArchive.producerApplication)),
+                            };
+
+                            if (!lobFolderPathsWithColumnIndexes.TryAdd(siardLobReference.LobFolderPath,
+                                new List<SiardLobReference> {siardLobReference}))
+                                lobFolderPathsWithColumnIndexes[siardLobReference.LobFolderPath].Add(siardLobReference);
                         }
                     }
                 }
@@ -108,10 +105,34 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             return lobFolderPathsWithColumnIndexes;
         }
 
-        private Dictionary<string, List<int>> GetLobFolderPathsFromSiard1_0Archive(
-            siardArchive1_0 siardArchive,
-            Dictionary<string, List<int>> lobFolderPathsWithColumnIndexes,
-            int zeroIndexOffset)
+        private static string GetLobFolderPath(string schemaFolder, SiardTable table, string columnLobFolder,
+            string producerApplication)
+        {
+            if (producerApplication.ToLower().Contains("siardgui"))
+                return table.Name;
+            if (columnLobFolder.Contains(schemaFolder) && columnLobFolder.Contains(table.FolderName))
+                return columnLobFolder;
+
+            if (columnLobFolder.Contains(table.FolderName))
+                return Path.Combine(schemaFolder, columnLobFolder);
+
+            return Path.Combine(schemaFolder, table.FolderName, columnLobFolder);
+        }
+
+        private static bool Siard2ColumnDoesNotHaveLobContent(siard2ColumnType column, int i)
+        {
+            if (column.ItemsElementName[i] != ItemsChoiceType1.type)
+                return true;
+
+            if (!column.Items[i].Contains("LOB", StringComparison.OrdinalIgnoreCase) &&
+                !column.Items[i].Contains("LARGE OBJECT", StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            return false;
+        }
+
+        private Dictionary<string, List<SiardLobReference>> GetLobFolderPathsFromSiard1Archive(siard1Archive siardArchive,
+            Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndexes, int zeroIndexOffset)
         {
             foreach (var schema in siardArchive.schemas)
             {
@@ -123,24 +144,27 @@ namespace Arkivverket.Arkade.Core.Base.Siard
                     {
                         var column = table.columns[columnIndex];
 
-                        if (!column.typeOriginal.Contains("LOB", StringComparison.OrdinalIgnoreCase) &&
-                            !column.type.Contains("LARGE OBJECT", StringComparison.OrdinalIgnoreCase))
+                        if (Siard1ColumnDoesNotHaveLobContent(column))
                             continue;
-
-                        TryGetLobFolderFromColumnElement(column.folder, ref pathFromContentFolderToLobFolder);
-
-                        try
+                        
+                        pathFromContentFolderToLobFolder = PathUtil.Merge(column.folder, pathFromContentFolderToLobFolder);
+                    
+                        var siardTable = new SiardTable {Name = table.name, FolderName = table.folder}; 
+                        var siardLobReference = new SiardLobReference
                         {
-                            if (!lobFolderPathsWithColumnIndexes.TryAdd(pathFromContentFolderToLobFolder,
-                                new List<int> {columnIndex + zeroIndexOffset}))
-                                lobFolderPathsWithColumnIndexes[pathFromContentFolderToLobFolder]
-                                    .Add(columnIndex + zeroIndexOffset);
-                        }
-                        catch (Exception e)
-                        {
-                            var message = $"Could not find a valid reference to {schema.name}/{table.name}/c{columnIndex} - {column.name}";
-                            Log.Error(message + "\n" + e.Message);
-                        }
+                            SchemaFolder = schema.folder,
+                            Table = siardTable,
+                            Column = new SiardColumn
+                            {
+                                FolderName = column.folder,
+                                Index = columnIndex + zeroIndexOffset,
+                            },
+                            LobFolderPath = GetLobFolderPath(schema.folder, siardTable, column.folder, siardArchive.producerApplication),
+                        };
+
+                        if (!lobFolderPathsWithColumnIndexes.TryAdd(siardLobReference.LobFolderPath,
+                            new List<SiardLobReference> { siardLobReference }))
+                            lobFolderPathsWithColumnIndexes[siardLobReference.LobFolderPath].Add(siardLobReference);
                     }
                 }
             }
@@ -148,19 +172,10 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             return lobFolderPathsWithColumnIndexes;
         }
 
-        private bool TryGetLobFolderFromColumnElement(string lobFolder, ref string pathFromContentFolderToLobFolder)
+        private static bool Siard1ColumnDoesNotHaveLobContent(siard1ColumnType column)
         {
-            if (string.IsNullOrWhiteSpace(lobFolder))
-                return false;
-
-            if (lobFolder.Contains(pathFromContentFolderToLobFolder))
-            {
-                pathFromContentFolderToLobFolder = lobFolder;
-                return true;
-            }
-
-            pathFromContentFolderToLobFolder += "/" + lobFolder;
-            return true;
+            return !column.typeOriginal.Contains("LOB", StringComparison.OrdinalIgnoreCase) &&
+                   !column.type.Contains("LARGE OBJECT", StringComparison.OrdinalIgnoreCase);
         }
 
         public string GetNamedEntryFromSiardFileStream(Stream siardFileStream, string namedEntry)

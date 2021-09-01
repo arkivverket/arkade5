@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 {
     public interface ISiardArchiveReader
     {
-        Dictionary<string, List<int>> GetLobFolderPathsWithColumnIndexes(string siardArchivePath);
+        Dictionary<string, List<SiardLobReference>> GetLobFolderPathsWithColumnIndexes(string siardArchivePath);
 
         string GetNamedEntryFromSiardFileStream(Stream siardFileStream, string namedEntry);
 
