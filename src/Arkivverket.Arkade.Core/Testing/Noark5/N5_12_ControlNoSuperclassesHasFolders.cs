@@ -27,20 +27,29 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override TestResultSet GetTestResults()
         {
-            int totalNumberOfClassesWithFolders = _superClassesWithFolderPerArchivePart.Sum(a => a.Value.Count);
+            int totalNumberOfSuperClassesWithFolders = _superClassesWithFolderPerArchivePart.Sum(a => a.Value.Count);
             bool multipleArchiveParts = _superClassesWithFolderPerArchivePart.Count > 1;
+
+            if (totalNumberOfSuperClassesWithFolders == 0)
+            {
+                return new TestResultSet
+                {
+                    TestsResults = new List<TestResult>
+                    {
+                        new(ResultType.Success, new Location(string.Empty), string.Format(
+                            Noark5Messages.TotalResultNumber, totalNumberOfSuperClassesWithFolders))
+                    }
+                };
+            }
 
             var testResultSet = new TestResultSet
             {
                 TestsResults = new List<TestResult>
                 {
                     new(ResultType.Error, new Location(string.Empty), string.Format(
-                        Noark5Messages.TotalResultNumber, totalNumberOfClassesWithFolders))
+                        Noark5Messages.TotalResultNumber, totalNumberOfSuperClassesWithFolders))
                 }
             };
-
-            if (totalNumberOfClassesWithFolders == 0)
-                return testResultSet;
 
             foreach ((ArchivePart archivePart, List<Class> superClassesWithFolder) in
                 _superClassesWithFolderPerArchivePart)

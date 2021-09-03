@@ -1,5 +1,6 @@
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using Xunit;
@@ -96,6 +97,40 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             arkivdel2.TestsResults.Should().Contain(r => r.Message.Equals("Klasse med systemID someClassSystemId_5"));
 
             testRun.TestResults.GetNumberOfResults().Should().Be(5);
+        }
+
+        [Fact]
+        public void NoClassesHasBothSubclassesAndFolders()
+        {
+            XmlElementHelper helper =
+                new XmlElementHelper()
+                    .Add("arkiv",
+                        new XmlElementHelper()
+                            .Add("arkivdel",
+                                new XmlElementHelper()
+                                    .Add("systemID", "someArchivePartSystemId_1")
+                                    .Add("tittel", "someTitle_1")
+                                    .Add("klassifikasjonssystem",
+                                        new XmlElementHelper()
+                                            .Add("klasse", // Class has class only = ok
+                                                new XmlElementHelper()
+                                                    .Add("systemID", "someClassSystemId_1")
+                                                    .Add("klasse", // Class has folder = ok
+                                                        new XmlElementHelper()
+                                                            .Add("systemID", "someClassSystemId_2")
+                                                            .Add("klasse", // Class has folder only = ok
+                                                                new XmlElementHelper()
+                                                                    .Add("systemID", "someClassSystemId_3")
+                                                                    .Add("mappe", string.Empty)))))));
+
+            TestRun testRun = helper.RunEventsOnTest(new N5_12_ControlNoSuperclassesHasFolders());
+
+            testRun.TestResults.GetAllResults().Count.Should().Be(1);
+
+            TestResult testResult = testRun.TestResults.TestsResults.First();
+            testResult.Message.Should().Be("Totalt: 0");
+            testResult.Result.Should().Be(ResultType.Success);
+            
         }
     }
 }
