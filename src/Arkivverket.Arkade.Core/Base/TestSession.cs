@@ -51,23 +51,33 @@ namespace Arkivverket.Arkade.Core.Base
         {
             disqualifyingCause = "";
 
-            if (Archive.ArchiveType == ArchiveType.Siard)
+            switch (Archive.ArchiveType)
             {
-                FileInfo[] fileInfos = Archive.WorkingDirectory.Content().DirectoryInfo().GetFiles("*.siard");
-                if (fileInfos.FirstOrDefault() == default)
-                    disqualifyingCause = Resources.SiardMessages.CouldNotFindASiardFile;
-                else if (Archive.Details == null)
-                    disqualifyingCause = Resources.SiardMessages.ValidatorDoesNotSupportVersionMessage;
-                else
-                    return true;
+                case ArchiveType.Siard:
+                    FileInfo[] fileInfos = Archive.WorkingDirectory.Content().DirectoryInfo().GetFiles("*.siard");
+                    if (fileInfos.FirstOrDefault() == default)
+                        disqualifyingCause = Resources.SiardMessages.CouldNotFindASiardFile;
+                    else if (Archive.Details == null)
+                        disqualifyingCause = Resources.SiardMessages.ValidatorDoesNotSupportVersionMessage;
+                    else
+                        return true;
+                    return false;
 
-                return false;
-            }
+                case ArchiveType.Noark5:
+                    if (!Archive.AddmlXmlUnit.File.Exists)
+                    {
+                        disqualifyingCause = Resources.Noark5Messages.CouldNotFindValidSpecificationFile;
+                        return false;
+                    }
+                    break;
 
-            if (AddmlDefinition == null || Archive.ArchiveType == ArchiveType.Noark5 && !Archive.AddmlXmlUnit.File.Exists)
-            {
-                disqualifyingCause = Resources.Noark5Messages.CouldNotFindValidSpecificationFile;
-                return false;
+                default:
+                    if (AddmlDefinition == null)
+                    {
+                        disqualifyingCause = Resources.Noark5Messages.CouldNotFindValidSpecificationFile;
+                        return false;
+                    }
+                    break;
             }
 
             return true;
