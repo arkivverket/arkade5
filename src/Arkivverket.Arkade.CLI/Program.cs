@@ -14,6 +14,7 @@ namespace Arkivverket.Arkade.CLI
     {
         public static void Main(string[] args)
         {
+            Console.CursorVisible = false;
             Console.CancelKeyPress += OnProcessCanceled;
             AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
 
@@ -28,6 +29,8 @@ namespace Arkivverket.Arkade.CLI
                 .WithParsed<GenerateOptions>(RunGenerateOptions)
                 .WithParsed<AnalyseOptions>(RunAnalyseOptions)
                 .WithNotParsed(LogParseErrors);
+
+            Console.CursorVisible = true;
         }
 
         public static ParserResult<object> ParseArguments(IEnumerable<string> args)
