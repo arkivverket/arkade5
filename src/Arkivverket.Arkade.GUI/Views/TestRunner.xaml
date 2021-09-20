@@ -39,27 +39,31 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="24.165" />
+                <RowDefinition Height="1.795"/>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderFilePath}"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderUUID}"/>
-            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderArchiveType}"/>
-            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderProcessingFile}"/>
-            <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderNumberOfProcessedFiles}" Visibility="{Binding AddmlFlatFileStatusVisibility}"/>
-            <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderNumberofProcessedPosts}" Visibility="{Binding AddmlFlatFileStatusVisibility}"/>
-            <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderNumberOfProcessedXmlElements}" Visibility="{Binding AddmlDataObjectStatusVisibility}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,5,0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderFilePath}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,5,0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderUUID}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,5,0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderArchiveType}"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,5,0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderProcessingFile}"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,5,0,5" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderNumberOfProcessedFiles}" Visibility="{Binding AddmlFlatFileStatusVisibility}"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5,0,3" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderNumberofProcessedPosts}" Visibility="{Binding AddmlFlatFileStatusVisibility}"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,5,0,3" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.HeaderNumberOfProcessedXmlElements}" Visibility="{Binding AddmlDataObjectStatusVisibility}"></TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,5,0,3" FontWeight="Bold" Text="{x:Static lang:TestRunnerGUI.TestProgressPercentage}" Visibility="{Binding TestProgressPercentageVisibility}"/>
 
-            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan ="2" Margin="5" TextWrapping="Wrap" Text="{Binding ArchiveInformationStatus.ArchiveFileName}"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding ArchiveInformationStatus.Uuid}"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding ArchiveInformationStatus.ArchiveType}"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding CurrentlyProcessingFile}"/>
-            <TextBlock Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedFiles}" Visibility="{Binding AddmlFlatFileStatusVisibility}"/>
-            <TextBlock Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding NumberOfProcessedRecords}"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan ="2" Margin="5,5,5,5" TextWrapping="Wrap" Text="{Binding ArchiveInformationStatus.ArchiveFileName}"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="5,5,5,5" Text="{Binding ArchiveInformationStatus.Uuid}"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="5,5,5,5" Text="{Binding ArchiveInformationStatus.ArchiveType}"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Margin="5,5,5,5" Text="{Binding CurrentlyProcessingFile}"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="5,5,5,5" Text="{Binding NumberOfProcessedFiles}" Visibility="{Binding AddmlFlatFileStatusVisibility}"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Margin="5,5,5,3" Text="{Binding NumberOfProcessedRecords}"/>
+            <TextBlock Grid.Row="6" Grid.Column="1" Margin="5,5,5,3" Text="{Binding TestProgressPercentage}" Visibility="{Binding TestProgressPercentageVisibility}"/>
 
-            <Expander Header="{x:Static lang:TestRunnerGUI.TestSelectionHeader}" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5" Visibility="{Binding AddmlDataObjectStatusVisibility}">
+            <Expander Header="{x:Static lang:TestRunnerGUI.TestSelectionHeader}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5,0,5" Visibility="{Binding AddmlDataObjectStatusVisibility}">
                 <StackPanel Orientation="Vertical" >
                     <CheckBox IsChecked="{Binding AllTestsSelected}" Content="{x:Static lang:TestRunnerGUI.TestSelectionChooseAllOrNoneCheckBoxText}" IsEnabled="{Binding CanSelectTests}"/>
                     <ScrollViewer Height="150">
@@ -80,7 +84,7 @@
                     </ScrollViewer>
                 </StackPanel>
             </Expander>
-            <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
+            <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Grid.RowSpan="2">
                 <Button Margin="20" HorizontalAlignment="Left" Content="{x:Static lang:TestRunnerGUI.StartTestingButtonText}" Width="130" Height="30" Command="{Binding StartTestingCommand}"/>
                 <Button Margin="20" HorizontalAlignment="Left" Content="{x:Static lang:TestRunnerGUI.ShowTestReportButtonText}" Width="130" Height="30" Command="{Binding ShowReportCommand}"/>
                 <Button Margin="20" HorizontalAlignment="Left" Content="{x:Static lang:TestRunnerGUI.CreatePackageButtonText}" Width="130" Height="30" Command="{Binding NavigateToCreatePackageCommand}"/>

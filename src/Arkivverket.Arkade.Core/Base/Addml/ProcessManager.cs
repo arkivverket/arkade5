@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Processes;
 using Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded;
@@ -13,6 +14,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
     public class ProcessManager
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<ProcessManager>();
+
+        private static readonly Mutex Mutex = new(false, "ConsoleCursorPosition - 183f9057-3fd1-4d58-a69b-79ed60f43cfc");
 
         private readonly AddmlDefinition _addmlDefinition;
         private readonly IStatusEventHandler _statusEventHandler;
@@ -40,7 +43,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 }
                 else
                 {
+                    Mutex.WaitOne();
                     Log.Warning($"No process with name {processName} in ProcessTypeMapping.");
+                    Mutex.ReleaseMutex();
 
                     _statusEventHandler.RaiseEventOperationMessage(
                         string.Format(Resources.AddmlMessages.UnknownAddmlProcess, processName),
@@ -112,7 +117,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                     }
                     else
                     {
+                        Mutex.WaitOne();
                         Log.Warning($"Process [{processName}] is not supported. No class found in process mapping.");
+                        Mutex.ReleaseMutex();
                     }
                 }
                 processInstancesByGroup.Add(keyValuePair.Key, processesInstances);

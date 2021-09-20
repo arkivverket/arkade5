@@ -44,6 +44,8 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<SiardArchiveReader>().As<ISiardArchiveReader>();
             builder.RegisterType<SiardXmlTableReader>().As<ISiardXmlTableReader>();
             builder.RegisterType<SiardTestEngine>().AsSelf();
+            builder.RegisterType<CliTestProgressReporter>().As<ITestProgressReporter>().SingleInstance();
+            builder.RegisterType<CliBusyIndicator>().As<IBusyIndicator>().SingleInstance();
         }
     }
 }

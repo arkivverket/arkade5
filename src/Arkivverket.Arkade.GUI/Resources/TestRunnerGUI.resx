@@ -212,4 +212,7 @@ It can still be created a package from the extract.</value>
   <data name="ValidSpecificationFileNotFound" xml:space="preserve">
     <value>A valid specification file was not found.</value>
   </data>
+  <data name="TestProgressPercentage" xml:space="preserve">
+    <value>Progress:</value>
+  </data>
 </root>

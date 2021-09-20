@@ -34,6 +34,11 @@ namespace Arkivverket.Arkade.Core.Logging
             OnIssueOnNewArchiveInformation(archiveInformationEventArgArgs);
         }
 
+        public void RaiseEventTestProgressUpdated(string testProgressValueWithUnit)
+        {
+            OnTestProgressUpdatedEvent(new TestProgressEventArgs(testProgressValueWithUnit));
+        }
+
         public event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
 
         public event EventHandler<OperationMessageEventArgs> TestStartedEvent;
@@ -47,6 +52,7 @@ namespace Arkivverket.Arkade.Core.Logging
         public event EventHandler<EventArgs> RecordProcessingFinishedEvent;
 
         public event EventHandler<ArchiveInformationEventArgs> NewArchiveProcessEvent;
+        public event EventHandler<TestProgressEventArgs> TestProgressUpdatedEvent;
 
         private void OnTestStartedEvent(OperationMessageEventArgs eventArgs)
         {
@@ -95,7 +101,11 @@ namespace Arkivverket.Arkade.Core.Logging
             var handler = NewArchiveProcessEvent;
             handler?.Invoke(this, eventArgs);
         }
-
-
+        
+        protected virtual void OnTestProgressUpdatedEvent(TestProgressEventArgs eventArgs)
+        {
+            var handler = TestProgressUpdatedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
     }
 }

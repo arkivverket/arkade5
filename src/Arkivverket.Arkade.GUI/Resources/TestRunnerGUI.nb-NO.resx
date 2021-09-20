@@ -212,4 +212,7 @@ Det kan fortsatt lages en pakke av uttrekket.</value>
   <data name="ValidSpecificationFileNotFound" xml:space="preserve">
     <value>Klarte ikke finne en gyldig spesifikasjonsfil.</value>
   </data>
+  <data name="TestProgressPercentage" xml:space="preserve">
+    <value>Framdrift:</value>
+  </data>
 </root>

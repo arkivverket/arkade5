@@ -61,8 +61,8 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The archive is not testable: A valid specification file for the extract was not found.
-        ///(See log for details {0}).
+        ///   Looks up a localized string similar to The archive is not testable: {0}
+        ///(See log for details {1}).
         ///It can still be created a package from the extract..
         /// </summary>
         public static string ArchiveNotTestable {
@@ -297,6 +297,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Progress:.
+        /// </summary>
+        public static string TestProgressPercentage {
+            get {
+                return ResourceManager.GetString("TestProgressPercentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report created.
         /// </summary>
         public static string TestReportIsSavedMessage {
@@ -335,8 +344,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
         /// <summary>
         ///   Looks up a localized string similar to A valid specification file was not found..
         /// </summary>
-        public static string ValidSpecificationFileNotFound
-        {
+        public static string ValidSpecificationFileNotFound {
             get {
                 return ResourceManager.GetString("ValidSpecificationFileNotFound", resourceCulture);
             }

@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing;
+using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Addml
 {
@@ -14,23 +15,27 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         private readonly IStatusEventHandler _statusEventHandler;
         private readonly List<TestResult> _testResultsFailedRecordsList = new List<TestResult>();
         private const int MaxNumberOfSingleReportedFieldDelimiterErrors = 25;
+        private readonly ITestProgressReporter _testProgressReporter;
 
         public AddmlDatasetTestEngine(FlatFileReaderFactory flatFileReaderFactory, AddmlProcessRunner addmlProcessRunner,
-            IStatusEventHandler statusEventHandler)
+            IStatusEventHandler statusEventHandler, ITestProgressReporter testProgressReporter)
         {
             _flatFileReaderFactory = flatFileReaderFactory;
             _addmlProcessRunner = addmlProcessRunner;
             _statusEventHandler = statusEventHandler;
+            _testProgressReporter = testProgressReporter;
         }
 
-        public TestSuite RunTestsOnArchive(TestSession testSession)
+        public TestSuite RunTestsOnArchive(TestSession testSession, ApiClient? apiClient = null)
         {
+            _testProgressReporter.Begin(testSession.Archive.ArchiveType);
+
             AddmlDefinition addmlDefinition = testSession.AddmlDefinition;
 
             _addmlProcessRunner.Init(addmlDefinition);
 
             List<FlatFile> flatFiles = addmlDefinition.GetFlatFiles();
-
+            
             foreach (FlatFile file in flatFiles)
             {
                 string testName = string.Format(Messages.RunningAddmlProcessesOnFile, file.GetName());
@@ -112,6 +117,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, testSession.Archive).GetTestRun());
             testSuite.AddTestRun(new AH_03_ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
+
+            _testProgressReporter.Finish();
 
             return testSuite;
         }

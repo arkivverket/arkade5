@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
 using Autofac;
 
@@ -15,6 +16,9 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly ArkadeVersion _arkadeVersion;
         private readonly IContainer _container;
 
+        public readonly IStatusEventHandler StatusEventHandler;
+        public readonly ITestProgressReporter TestProgressReporter;
+
         public ArkadeVersion Version() => _arkadeVersion;
         
         public Arkade()
@@ -26,6 +30,8 @@ namespace Arkivverket.Arkade.Core.Base
             _container.BeginLifetimeScope();
             _arkadeApi = _container.Resolve<ArkadeApi>();
             _arkadeVersion = _container.Resolve<ArkadeVersion>();
+            StatusEventHandler = _container.Resolve<IStatusEventHandler>();
+            TestProgressReporter = _container.Resolve<ITestProgressReporter>();
         }
 
         public void Dispose()
@@ -53,9 +59,9 @@ namespace Arkivverket.Arkade.Core.Base
             return _arkadeApi.RunTests(archiveDirectory);
         }
 
-        public void RunTests(TestSession testSession)
+        public void RunTests(TestSession testSession, ApiClient apiClient)
         {
-            _arkadeApi.RunTests(testSession);
+            _arkadeApi.RunTests(testSession, apiClient);
         }
 
         public void CreatePackage(TestSession testSession, string outputDirectory)

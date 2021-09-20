@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing.Noark5;
@@ -17,10 +18,19 @@ namespace Arkivverket.Arkade.CLI
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
         private static readonly Core.Base.Arkade Arkade;
+        private static readonly ITestProgressReporter TestProgressReporter;
+
+        private static int _numberOfProcessedRecords;
 
         static CommandLineRunner()
         {
             Arkade = new Core.Base.Arkade();
+            IStatusEventHandler statusEventHandler = Arkade.StatusEventHandler;
+            TestProgressReporter = Arkade.TestProgressReporter;
+
+            statusEventHandler.TestProgressUpdatedEvent += OnTestProgressUpdatedEvent;
+            statusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
+            statusEventHandler.RecordProcessingFinishedEvent += OnRecordProcessingStoppedEvent;
 
             Log.Information($"\n" +
                             $"***********************\n" +
@@ -37,6 +47,21 @@ namespace Arkivverket.Arkade.CLI
 
             Log.Information(
                 "Download new releases, see release notes and version history at: " + ArkadeConstants.ArkadeWebSiteUrl + "\n");
+        }
+
+        private static void OnRecordProcessingStoppedEvent(object sender, EventArgs e)
+        {
+            TestProgressReporter.ReportTestProgress(_numberOfProcessedRecords++);
+        }
+
+        private static void OnTestProgressUpdatedEvent(object sender, TestProgressEventArgs eventArgs)
+        {
+            Console.WriteLine(eventArgs.TestProgressValueWithUnit);
+        }
+
+        private static void OnOperationMessageEvent(object sender, OperationMessageEventArgs e)
+        {
+            Log.Debug(e.Message);
         }
 
         private static string GetBundledSoftwareInfo()
@@ -169,7 +194,7 @@ namespace Arkivverket.Arkade.CLI
                 Log.Error("Archive is not testable: " + disqualifyingCause);
                 return;
             }
-            Arkade.RunTests(testSession);
+            Arkade.RunTests(testSession, ApiClient.ArkadeCli);
             SaveTestReport(testSession, outputDirectory, createStandAloneTestReport);
         }
 

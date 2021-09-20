@@ -111,6 +111,7 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<ISiardArchiveReader, SiardArchiveReader>();
             containerRegistry.Register<ISiardXmlTableReader, SiardXmlTableReader>();
             containerRegistry.Register<SiardTestEngine>();
+            containerRegistry.RegisterSingleton<ITestProgressReporter, GuiTestProgressReporter>();
         }
 
         public static void MyHandler(object sender, UnhandledExceptionEventArgs args)

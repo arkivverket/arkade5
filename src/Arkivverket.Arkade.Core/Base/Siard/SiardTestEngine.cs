@@ -2,20 +2,25 @@
 using System.Linq;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Testing.Siard;
+using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Siard
 {
     public class SiardTestEngine : ITestEngine
     {
         private readonly IStatusEventHandler _statusEventHandler;
+        private readonly ITestProgressReporter _testProgressReporter;
 
-        public SiardTestEngine(IStatusEventHandler statusEventHandler)
+        public SiardTestEngine(IStatusEventHandler statusEventHandler, ITestProgressReporter testProgressReporter)
         {
             _statusEventHandler = statusEventHandler;
+            _testProgressReporter = testProgressReporter;
         }
 
-        public TestSuite RunTestsOnArchive(TestSession testSession)
+        public TestSuite RunTestsOnArchive(TestSession testSession, ApiClient? apiClient)
         {
+            _testProgressReporter.Begin(ArchiveType.Siard);
+
             FileInfo siardFileInfo = testSession.Archive.WorkingDirectory.Content().DirectoryInfo().GetFiles()
                 .First(f => f.Extension.Equals(".siard"));
             string inputFilePath = siardFileInfo.FullName;
@@ -28,6 +33,8 @@ namespace Arkivverket.Arkade.Core.Base.Siard
                 OperationMessageStatus.Info);
 
             SiardValidator.Validate(inputFilePath, reportFilePath);
+
+            _testProgressReporter.Finish();
 
             return new TestSuite();
         }
