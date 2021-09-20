@@ -133,10 +133,10 @@
     <value>noark5-testutvalg.txt</value>
   </data>
   <data name="TestReportFile" xml:space="preserve">
-    <value>Arkade-rapport_{0}.{1}</value>
+    <value>testrapport_{0}.{1}</value>
   </data>
   <data name="TestReportDirectory" xml:space="preserve">
-    <value>Arkade-testrapporter_{0}</value>
+    <value>testrapporter</value>
   </data>
   <data name="SiardValidationReportFile" xml:space="preserve">
     <value>siard-validation-report.txt</value>

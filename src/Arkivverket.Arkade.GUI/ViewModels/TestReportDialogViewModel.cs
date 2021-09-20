@@ -1,6 +1,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Util;
@@ -16,6 +17,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand ShowTestReportCommand { get; }
         public DelegateCommand ExportTestReportFilesCommand { get; }
         public DirectoryInfo TestReportDirectory { get; set; }
+        public Uuid Uuid { get; set; }
 
         public TestReportDialogViewModel()
         {
@@ -57,7 +59,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _log.Information($"User action: Chose directory for {action}: {testReportExportDestination}");
 
             var testReportExportDirectory = new DirectoryInfo(
-                Path.Combine(testReportExportDestination, TestReportDirectory.Name)
+                Path.Combine(testReportExportDestination, $"Arkade-{TestReportDirectory.Name}_{Uuid}")
             );
 
             if (!testReportExportDirectory.Exists)

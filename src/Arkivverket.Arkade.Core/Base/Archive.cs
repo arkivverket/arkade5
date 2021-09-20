@@ -78,9 +78,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         public DirectoryInfo GetTestReportDirectory()
         {
-            return WorkingDirectory.RepositoryOperations().WithSubDirectory(
-                string.Format(OutputFileNames.TestReportDirectory, Uuid)
-            ).DirectoryInfo();
+            return WorkingDirectory.RepositoryOperations().WithSubDirectory(OutputFileNames.TestReportDirectory)
+                .DirectoryInfo();
         }
 
         public string GetInformationPackageFileName()

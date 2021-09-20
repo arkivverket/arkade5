@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Identify
 
             Uuid uuid = Uuid.Random();
             ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType, uuid);
-            WorkingDirectory workingDirectory = WorkingDirectory.FromUuid(uuid, archiveDirectory.Directory);
+            WorkingDirectory workingDirectory = WorkingDirectory.FromExternalDirectory(archiveDirectory.Directory);
             
             TestSession testSession = NewSession(workingDirectory, archiveType, uuid);
 
@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.Core.Identify
                 : Uuid.Of(Path.GetFileNameWithoutExtension(archiveFile.File.Name));
             ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, uuid);
 
-            WorkingDirectory workingDirectory = WorkingDirectory.FromUuid(uuid);
+            WorkingDirectory workingDirectory = WorkingDirectory.FromArchiveFile();
 
             if (archiveFile.ArchiveType == ArchiveType.Siard && archiveFile.File.Extension.Equals(".siard"))
             {

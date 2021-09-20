@@ -452,7 +452,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ShowTestReportDialog()
         {
-            new TestReportDialog(_testSession.Archive.GetTestReportDirectory()).ShowDialog();
+            new TestReportDialog(_testSession.Archive.GetTestReportDirectory(), _testSession.Archive.Uuid).ShowDialog();
         }
 
         private void SaveTestReports(DirectoryInfo testReportDirectory)

@@ -115,7 +115,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkade-testreports_{0}.
+        ///   Looks up a localized string similar to testreports.
         /// </summary>
         public static string TestReportDirectory {
             get {
@@ -124,7 +124,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkade-report_{0}.{1}.
+        ///   Looks up a localized string similar to testreport_{0}.{1}.
         /// </summary>
         public static string TestReportFile {
             get {

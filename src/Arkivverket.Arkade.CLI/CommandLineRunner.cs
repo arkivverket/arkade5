@@ -275,8 +275,9 @@ namespace Arkivverket.Arkade.CLI
 
             else
             {
+                var testReportDirectoryName = $"Arkade-{packageTestReportDirectory.Name}_{testSession.Archive.Uuid}";
                 var standaloneTestReportsDirectory =
-                    new DirectoryInfo(Path.Combine(outputDirectory, packageTestReportDirectory.Name));
+                    new DirectoryInfo(Path.Combine(outputDirectory, testReportDirectoryName));
 
                 standaloneTestReportsDirectory.Create();
 

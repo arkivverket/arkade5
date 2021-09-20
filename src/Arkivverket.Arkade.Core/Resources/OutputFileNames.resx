@@ -136,12 +136,12 @@
     <value>noark5-testselection.txt</value>
   </data>
   <data name="TestReportFile" xml:space="preserve">
-    <value>Arkade-report_{0}.{1}</value>
+    <value>testreport_{0}.{1}</value>
     <comment>{0} = Archive UUID, {1} = file type</comment>
   </data>
   <data name="TestReportDirectory" xml:space="preserve">
-    <value>Arkade-testreports_{0}</value>
-    <comment>{0} = Archive UUID</comment>
+    <value>testreports</value>
+    
   </data>
   <data name="SiardValidationReportFile" xml:space="preserve">
     <value>siard-validation-report.txt</value>
