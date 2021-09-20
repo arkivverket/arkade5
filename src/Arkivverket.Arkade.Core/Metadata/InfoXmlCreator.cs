@@ -53,12 +53,11 @@ namespace Arkivverket.Arkade.Core.Metadata
                     diasMetsFile.Directory
                 );
 
+                string metsFileDirectoryName = Path.GetFileNameWithoutExtension(packageFile.Name);
+
                 informationPackageFileDescription.Id = 0;
                 metsFileDescription.Id = 1;
-                metsFileDescription.Name = Path.Combine(
-                    diasMetsFile.Directory.Name.Substring("YYYYMMDDhhmmss-".Length),
-                    diasMetsFile.Name
-                );
+                metsFileDescription.Name = Path.Combine(metsFileDirectoryName, diasMetsFile.Name);
 
                 metadata.FileDescriptions = new List<FileDescription>
                 {
