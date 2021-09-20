@@ -215,4 +215,10 @@ Det kan fortsatt lages en pakke av uttrekket.</value>
   <data name="TestProgressPercentage" xml:space="preserve">
     <value>Framdrift:</value>
   </data>
+  <data name="SiardProgressMessage" xml:space="preserve">
+    <value>Validerer uttrekket...</value>
+  </data>
+  <data name="MessageCompleted" xml:space="preserve">
+    <value>Utført</value>
+  </data>
 </root>

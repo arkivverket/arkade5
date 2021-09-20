@@ -59,9 +59,9 @@ namespace Arkivverket.Arkade.Core.Base
             return _arkadeApi.RunTests(archiveDirectory);
         }
 
-        public void RunTests(TestSession testSession, ApiClient apiClient)
+        public void RunTests(TestSession testSession)
         {
-            _arkadeApi.RunTests(testSession, apiClient);
+            _arkadeApi.RunTests(testSession);
         }
 
         public void CreatePackage(TestSession testSession, string outputDirectory)

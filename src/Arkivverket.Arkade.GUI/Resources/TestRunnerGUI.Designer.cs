@@ -207,6 +207,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Completed.
+        /// </summary>
+        public static string MessageCompleted {
+            get {
+                return ResourceManager.GetString("MessageCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string MessageLabelError {
@@ -257,6 +266,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         public static string ShowTestReportButtonText {
             get {
                 return ResourceManager.GetString("ShowTestReportButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validating extract....
+        /// </summary>
+        public static string SiardProgressMessage {
+            get {
+                return ResourceManager.GetString("SiardProgressMessage", resourceCulture);
             }
         }
         

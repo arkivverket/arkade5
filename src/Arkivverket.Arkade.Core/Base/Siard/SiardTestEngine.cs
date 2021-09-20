@@ -2,7 +2,6 @@
 using System.Linq;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Testing.Siard;
-using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Siard
 {
@@ -17,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             _testProgressReporter = testProgressReporter;
         }
 
-        public TestSuite RunTestsOnArchive(TestSession testSession, ApiClient? apiClient)
+        public TestSuite RunTestsOnArchive(TestSession testSession)
         {
             _testProgressReporter.Begin(ArchiveType.Siard);
 

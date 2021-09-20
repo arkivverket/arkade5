@@ -18,19 +18,14 @@ namespace Arkivverket.Arkade.CLI
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
         private static readonly Core.Base.Arkade Arkade;
-        private static readonly ITestProgressReporter TestProgressReporter;
-
-        private static int _numberOfProcessedRecords;
 
         static CommandLineRunner()
         {
             Arkade = new Core.Base.Arkade();
             IStatusEventHandler statusEventHandler = Arkade.StatusEventHandler;
-            TestProgressReporter = Arkade.TestProgressReporter;
 
             statusEventHandler.TestProgressUpdatedEvent += OnTestProgressUpdatedEvent;
             statusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
-            statusEventHandler.RecordProcessingFinishedEvent += OnRecordProcessingStoppedEvent;
 
             Log.Information($"\n" +
                             $"***********************\n" +
@@ -47,11 +42,6 @@ namespace Arkivverket.Arkade.CLI
 
             Log.Information(
                 "Download new releases, see release notes and version history at: " + ArkadeConstants.ArkadeWebSiteUrl + "\n");
-        }
-
-        private static void OnRecordProcessingStoppedEvent(object sender, EventArgs e)
-        {
-            TestProgressReporter.ReportTestProgress(_numberOfProcessedRecords++);
         }
 
         private static void OnTestProgressUpdatedEvent(object sender, TestProgressEventArgs eventArgs)
@@ -194,7 +184,7 @@ namespace Arkivverket.Arkade.CLI
                 Log.Error("Archive is not testable: " + disqualifyingCause);
                 return;
             }
-            Arkade.RunTests(testSession, ApiClient.ArkadeCli);
+            Arkade.RunTests(testSession);
             SaveTestReport(testSession, outputDirectory, createStandAloneTestReport);
         }
 

@@ -52,9 +52,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool _allTestsSelected;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
+        private Visibility _numberOfProcessedRecordsVisibility = Visibility.Collapsed;
+        private Visibility _processingFileVisibility = Visibility.Collapsed;
         private Visibility _addmlDataObjectStatusVisibilty = Visibility.Collapsed;
         private Visibility _addmlFlatFileStatusVisibilty = Visibility.Collapsed;
-        private Visibility _testProgressPercentageVisibility = Visibility.Hidden;
         private int _numberOfProcessedRecords = 0;
         private int _numberOfProcessedFiles = 0;
         private string _currentlyProcessingFile;
@@ -62,6 +63,18 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private int _numberOfTestsFinished = 0;
         private string _currentlyRunningTest;
         private string _testProgressPercentage;
+
+        public Visibility NumberOfProcessedRecordsVisibility
+        {
+            get => _numberOfProcessedRecordsVisibility;
+            set => SetProperty(ref _numberOfProcessedRecordsVisibility, value);
+        }
+
+        public Visibility ProcessingFileVisibility
+        {
+            get => _processingFileVisibility;
+            set => SetProperty(ref _processingFileVisibility, value);
+        }
 
         public Visibility AddmlDataObjectStatusVisibility
         {
@@ -73,12 +86,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             get => _addmlFlatFileStatusVisibilty;
             set => SetProperty(ref _addmlFlatFileStatusVisibilty, value);
-        }
-
-        public Visibility TestProgressPercentageVisibility
-        {
-            get => _testProgressPercentageVisibility;
-            set => SetProperty(ref _testProgressPercentageVisibility, value);
         }
 
         public string CurrentlyRunningTest
@@ -342,14 +349,20 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ArchiveInformationStatus.Update(eventArgs);
             ArchiveCurrentProcessing = Visibility.Visible;
 
-            if (eventArgs.ArchiveType == ArchiveType.Noark5.ToString())
+            Enum.TryParse(eventArgs.ArchiveType, out ArchiveType archiveType);
+
+            switch (archiveType)
             {
-                AddmlDataObjectStatusVisibility = Visibility.Visible;
-                TestProgressPercentageVisibility = Visibility.Visible;
-            }
-            else
-            {
-                AddmlFlatFileStatusVisibility = Visibility.Visible;
+                case ArchiveType.Noark5:
+                    AddmlDataObjectStatusVisibility = Visibility.Visible;
+                    ProcessingFileVisibility = Visibility.Visible;
+                    NumberOfProcessedRecordsVisibility = Visibility.Visible;
+                    break;
+                case ArchiveType.Noark3 or ArchiveType.Fagsystem:
+                    AddmlFlatFileStatusVisibility = Visibility.Visible;
+                    ProcessingFileVisibility = Visibility.Visible;
+                    NumberOfProcessedRecordsVisibility = Visibility.Visible;
+                    break;
             }
         }
 
@@ -358,7 +371,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             try
             {
                 NotifyStartRunningTests();
-                
+
+                _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.SiardProgressMessage, null, OperationMessageStatus.Started);
+
                 _testSession.TestsToRun = GetSelectedTests();
                 
                 _testSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
@@ -368,7 +383,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords, _numberOfTestsFinished);
 
                 _testSession.AddLogEntry("Test run completed.");
-                
+
+                _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.SiardProgressMessage,
+                    TestRunnerGUI.MessageCompleted, OperationMessageStatus.Ok);
+
                 SaveTestReports(_testSession.Archive.GetTestReportDirectory());
 
                 _testRunCompletedSuccessfully = true;

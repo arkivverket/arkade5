@@ -215,4 +215,10 @@ It can still be created a package from the extract.</value>
   <data name="TestProgressPercentage" xml:space="preserve">
     <value>Progress:</value>
   </data>
+  <data name="SiardProgressMessage" xml:space="preserve">
+    <value>Validating extract...</value>
+  </data>
+  <data name="MessageCompleted" xml:space="preserve">
+    <value>Completed</value>
+  </data>
 </root>

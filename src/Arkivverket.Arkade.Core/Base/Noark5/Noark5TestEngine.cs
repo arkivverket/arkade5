@@ -30,11 +30,11 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
         public event EventHandler<ReadElementEventArgs> ReadEndElementEvent;
 
 
-        public TestSuite RunTestsOnArchive(TestSession testSession, ApiClient? apiClient)
+        public TestSuite RunTestsOnArchive(TestSession testSession)
         {
             List<IArkadeStructureTest> structureTests = RunStructureTests(testSession);
 
-            List<INoark5Test> contentTests = RunContentTests(testSession, apiClient);
+            List<INoark5Test> contentTests = RunContentTests(testSession);
 
             var testSuite = new TestSuite();
             AddTestToTestSuite(contentTests, testSuite);
@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
                 testSuite.AddTestRun(test.GetTestRun());
         }
 
-        private List<INoark5Test> RunContentTests(TestSession testSession, ApiClient? apiClient)
+        private List<INoark5Test> RunContentTests(TestSession testSession)
         {
             List<INoark5Test> contentTests = _testProvider.GetContentTests(testSession);
 

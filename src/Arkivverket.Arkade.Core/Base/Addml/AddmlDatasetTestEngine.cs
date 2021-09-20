@@ -4,7 +4,6 @@ using Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing;
-using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Addml
 {
@@ -26,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             _testProgressReporter = testProgressReporter;
         }
 
-        public TestSuite RunTestsOnArchive(TestSession testSession, ApiClient? apiClient = null)
+        public TestSuite RunTestsOnArchive(TestSession testSession)
         {
             _testProgressReporter.Begin(testSession.Archive.ArchiveType);
 
@@ -35,9 +34,26 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             _addmlProcessRunner.Init(addmlDefinition);
 
             List<FlatFile> flatFiles = addmlDefinition.GetFlatFiles();
-            
+
+            var useNumberOfRecords = true;
+            int? numberOfRecords = null;
+
             foreach (FlatFile file in flatFiles)
             {
+                if (file.Definition.NumberOfRecords == null)
+                {
+                    useNumberOfRecords = false;
+                    break;
+                }
+                numberOfRecords += file.Definition.NumberOfRecords;
+            }
+
+            double recordCounter = 0;
+            double fileCounter = 0;
+
+            foreach (FlatFile file in flatFiles)
+            {
+                fileCounter++;
                 string testName = string.Format(Messages.RunningAddmlProcessesOnFile, file.GetName());
 
                 var recordIdx = 1;
@@ -96,6 +112,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                     }
 
                     recordIdx++;
+                    recordCounter++;
+
+                    if (useNumberOfRecords)
+                        _testProgressReporter.ReportTestProgress((int)(recordCounter / numberOfRecords * 100));
                 }
 
                 if (numberOfRecordsWithFieldDelimiterError > 0)
@@ -111,6 +131,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 _statusEventHandler.RaiseEventFileProcessingFinished(
                     new FileProcessingStatusEventArgs(testName, file.GetName(), true)
                 );
+
+                if (!useNumberOfRecords)
+                    _testProgressReporter.ReportTestProgress((int)(fileCounter/ flatFiles.Count * 100));
             }
 
             TestSuite testSuite = _addmlProcessRunner.GetTestSuite();

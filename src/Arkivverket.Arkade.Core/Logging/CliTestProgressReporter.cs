@@ -18,8 +18,6 @@ namespace Arkivverket.Arkade.Core.Logging
         private int _progressPercentageConsoleCursorTopLocation;
         private int _previousTestProgressValue;
 
-        private string _testProgressUnit;
-
         public CliTestProgressReporter(IStatusEventHandler statusEventHandler, IBusyIndicator busyIndicator)
         {
             _statusEventHandler = statusEventHandler;
@@ -31,8 +29,6 @@ namespace Arkivverket.Arkade.Core.Logging
             Console.CursorVisible = false;
 
             _archiveType = archiveType;
-
-            _testProgressUnit = GetTestProgressUnit();
 
             var message = $"Running {archiveType}-validation: ";
             Log.Information(message);
@@ -47,32 +43,24 @@ namespace Arkivverket.Arkade.Core.Logging
             _progressPercentageConsoleCursorTopLocation = Console.CursorTop - 1;
             SetConsoleCursorToTestProgressWriteLocation();
 
-            _statusEventHandler.RaiseEventTestProgressUpdated($"0 {_testProgressUnit}");
+            _statusEventHandler.RaiseEventTestProgressUpdated("0 %");
             _previousTestProgressValue = 0;
         }
 
         public void ReportTestProgress(int testProgressValue)
         {
+            if (_archiveType == ArchiveType.Siard)
+                return;
+
             int cursorLeft = Console.CursorLeft;
             int cursorTop = Console.CursorTop;
 
             SetConsoleCursorToTestProgressWriteLocation();
 
-            switch (_archiveType)
+            if (_previousTestProgressValue != testProgressValue)
             {
-                case ArchiveType.Noark5:
-                {
-                    if (_previousTestProgressValue != testProgressValue)
-                    {
-                        _statusEventHandler.RaiseEventTestProgressUpdated($"{testProgressValue} {_testProgressUnit}");
-                        _previousTestProgressValue = testProgressValue;
-                    }
-                    break;
-
-                }
-                case ArchiveType.Noark3 or ArchiveType.Fagsystem:
-                    _statusEventHandler.RaiseEventTestProgressUpdated($"{testProgressValue} {_testProgressUnit}");
-                    break;
+                _statusEventHandler.RaiseEventTestProgressUpdated($"{testProgressValue} %");
+                _previousTestProgressValue = testProgressValue;
             }
 
             ResetCursorPositionToPreviousWriteLocation(cursorLeft, cursorTop);
@@ -80,7 +68,7 @@ namespace Arkivverket.Arkade.Core.Logging
 
         public void Finish()
         {
-            if (_archiveType != ArchiveType.Noark5)
+            if (_archiveType is ArchiveType.Siard)
             {
                 _busyIndicator.Stop();
                 return;
@@ -91,7 +79,7 @@ namespace Arkivverket.Arkade.Core.Logging
 
             SetConsoleCursorToTestProgressWriteLocation();
 
-            _statusEventHandler.RaiseEventTestProgressUpdated("Done!");
+            _statusEventHandler.RaiseEventTestProgressUpdated("100 %");
 
             ResetCursorPositionToPreviousWriteLocation(cursorLeft, cursorTop);
         }
@@ -104,17 +92,6 @@ namespace Arkivverket.Arkade.Core.Logging
         private static void ResetCursorPositionToPreviousWriteLocation(int cursorLeft, int cursorTop)
         {
             Console.SetCursorPosition(cursorLeft, cursorTop);
-        }
-
-        private static string GetTestProgressUnit()
-        {
-            return _archiveType switch
-            {
-                ArchiveType.Noark5 => "%",
-                ArchiveType.Fagsystem => "records processed",
-                ArchiveType.Noark3 => "records processed",
-                _ => ""
-            };
         }
     }
 }

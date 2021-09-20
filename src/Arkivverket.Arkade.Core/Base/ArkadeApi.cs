@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.Core.Base
             return _testSessionFactory.NewSession(archive);
         }
 
-        public void RunTests(TestSession testSession, ApiClient? apiClient = null)
+        public void RunTests(TestSession testSession)
         {
             testSession.AddLogEntry(Messages.LogMessageStartTesting);
 
@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.Core.Base
             LanguageManager.SetResourcesLanguageForTesting(testSession.OutputLanguage);
 
             ITestEngine testEngine = _testEngineFactory.GetTestEngine(testSession);
-            testSession.TestSuite = testEngine.RunTestsOnArchive(testSession, apiClient);
+            testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
 
             testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
             Log.Information("Testing of archive finished.");
@@ -142,10 +142,5 @@ namespace Arkivverket.Arkade.Core.Base
                 ? _archiveTypeIdentifier.IdentifyTypeOfChosenArchiveDirectory(archiveFileName)
                 : _archiveTypeIdentifier.IdentifyTypeOfChosenArchiveFile(archiveFileName);
         }
-    }
-
-    public enum ApiClient
-    {
-        ArkadeCli = 1,
     }
 }
