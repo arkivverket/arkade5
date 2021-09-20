@@ -171,7 +171,7 @@ namespace Arkivverket.Arkade.CLI
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console(outputTemplate: OutputStrings.SystemLogOutputTemplateForConsole, restrictedToMinimumLevel:LogEventLevel.Information)
-                .WriteTo.RollingFile(systemLogFilePath, outputTemplate: OutputStrings.SystemLogOutputTemplateForFile)
+                .WriteTo.File(systemLogFilePath, outputTemplate: OutputStrings.SystemLogOutputTemplateForFile)
                 .CreateLogger();
         }
 
