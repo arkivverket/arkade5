@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             List<FlatFile> flatFiles = addmlDefinition.GetFlatFiles();
 
             var useNumberOfRecords = true;
-            int? numberOfRecords = null;
+            int? numberOfRecords = 0;
 
             foreach (FlatFile file in flatFiles)
             {
