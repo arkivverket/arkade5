@@ -46,13 +46,16 @@ namespace Arkivverket.Arkade.Core.Report
                 ArchiveType = testSession.Archive.ArchiveType,
                 DateOfTesting = testSession.DateOfTesting.ToString(Resources.Report.DateFormat, norwegianCulture),
                 NumberOfTestsRun = string.Format(Resources.Report.ValueNumberOfTestsExecuted, numberOfExecutedTests, numberOfAvailableTests),
-                NumberOfErrors = testSession.TestSuite.FindNumberOfErrors().ToString(),
             };
 
             if (testSession.TestSummary != null)
             {
                 summary.NumberOfProcessedFiles = testSession.TestSummary.NumberOfProcessedFiles;
                 summary.NumberOfProcessedRecords = testSession.TestSummary.NumberOfProcessedRecords;
+                summary.NumberOfWarnings = testSession.TestSummary.NumberOfWarnings;
+                summary.NumberOfErrors = testSession.Archive.ArchiveType is ArchiveType.Siard
+                    ? testSession.TestSummary.NumberOfErrors
+                    : testSession.TestSuite.FindNumberOfErrors().ToString();
             }
 
             return summary;

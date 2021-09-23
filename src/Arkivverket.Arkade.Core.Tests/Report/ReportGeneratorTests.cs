@@ -50,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
                 .WithArchive(archive)
                 .WithLogEntry("log entry")
                 .WithTestRuns(testRuns)
-                .WithTestSummary(new TestSummary(0, 0, 0))
+                .WithTestSummary(new TestSummary(0, 0, 0, 0, 0))
                 .Build();
 
             return testSession;

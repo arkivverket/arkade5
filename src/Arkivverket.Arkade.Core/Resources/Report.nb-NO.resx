@@ -207,4 +207,7 @@
   <data name="VersionText" xml:space="preserve">
     <value>versjon</value>
   </data>
+  <data name="LabelNumberOfWarnings" xml:space="preserve">
+    <value>Antall advarsler</value>
+  </data>
 </root>

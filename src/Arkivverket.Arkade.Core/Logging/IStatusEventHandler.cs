@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Logging
 {
@@ -15,6 +16,8 @@ namespace Arkivverket.Arkade.Core.Logging
         void RaiseEventNewArchiveInformation(ArchiveInformationEventArgs archiveInformationEventArgArgs);
 
         void RaiseEventTestProgressUpdated(string testProgressValueWithUnit);
+
+        void RaiseEventSiardValidationFinished(List<string> errors, int numberOfErrors, int numberOfWarnings);
         
         event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
 
@@ -31,5 +34,7 @@ namespace Arkivverket.Arkade.Core.Logging
         event EventHandler<ArchiveInformationEventArgs> NewArchiveProcessEvent;
         
         event EventHandler<TestProgressEventArgs> TestProgressUpdatedEvent;
+
+        event EventHandler<SiardValidationEventArgs> SiardValidationFinishedEvent;
     }
 }

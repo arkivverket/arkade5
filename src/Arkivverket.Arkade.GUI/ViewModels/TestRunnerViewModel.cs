@@ -63,6 +63,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private int _numberOfTestsFinished = 0;
         private string _currentlyRunningTest;
         private string _testProgressPercentage;
+        private int _numberOfTestErrors;
+        private int _numberOfTestWarnings;
 
         public Visibility NumberOfProcessedRecordsVisibility
         {
@@ -185,7 +187,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _statusEventHandler.RecordProcessingStartedEvent += OnRecordProcessingStartedEvent;
             _statusEventHandler.RecordProcessingFinishedEvent += OnRecordProcessingFinishedEvent;
             _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveInformationEvent;
-            
+            _statusEventHandler.SiardValidationFinishedEvent += OnSiardValidationFinished;
+
             StartTestingCommand = new DelegateCommand(StartTesting, CanStartTestRun);
             RunTestEngineCommand = new DelegateCommand(async () => await Task.Run(() => RunTests()));
             NavigateToCreatePackageCommand = new DelegateCommand(NavigateToCreatePackage, CanCreatePackage);
@@ -315,6 +318,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             MainWindow.ProgressBarWorker.ReportProgress(0, "reset");
         }
 
+        private void OnSiardValidationFinished(object sender, SiardValidationEventArgs eventArgs)
+        {
+            List<string> errors = eventArgs.Errors;
+            
+            if (errors.Any())
+                errors.Where(errorMsg => errorMsg != null).ToList().ForEach(errorMsg =>
+                _statusEventHandler.RaiseEventOperationMessage(errorMsg, string.Empty, OperationMessageStatus.Error));
+
+            _numberOfTestErrors = eventArgs.NumberOfErrors;
+            _numberOfTestWarnings = eventArgs.NumberOfWarnings;
+        }
 
         private void OnOperationMessageEvent(object sender, OperationMessageEventArgs eventArgs)
         {
@@ -380,7 +394,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                 _arkadeApi.RunTests(_testSession);
                 
-                _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords, _numberOfTestsFinished);
+                _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords,
+                    _numberOfTestsFinished, _numberOfTestErrors, _numberOfTestWarnings);
 
                 _testSession.AddLogEntry("Test run completed.");
 

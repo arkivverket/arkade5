@@ -16,12 +16,14 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
 {
     internal static class SiardValidator
     {
-        public static List<string> Validate(string inputFilePath, string reportFilePath)
+        public static (List<string>, List<string>) Validate(string inputFilePath, string reportFilePath)
         {
-            if (!File.Exists(BuildDbptkLibraryPath()))
+            string dbptkLibraryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dbptk-app-2.9.9.jar");
+
+            if (!File.Exists(dbptkLibraryPath))
                 throw new ArkadeException(
                     string.Format(ExceptionMessages.SiardValidatorLibraryNotFound,
-                        Path.GetFileName(BuildDbptkLibraryPath()),
+                        Path.GetFileName(dbptkLibraryPath),
                         ArkadeConstants.SiardValidatorDownloadUrl,
                         AppDomain.CurrentDomain.BaseDirectory));
 
@@ -29,15 +31,15 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
 
             const string fileName = @"java";
             
-            var processArguments = $"-jar \"-Dfile.encoding=UTF-8\" \"{BuildDbptkLibraryPath()}\" validate -if \"{inputFilePath}\" -r \"{reportFilePath}\"";
+            var processArguments = $"-jar \"-Dfile.encoding=UTF-8\" \"{dbptkLibraryPath}\" validate -if \"{inputFilePath}\" -r \"{reportFilePath}\"";
 
             Process process = SetupSiardValidatorProcess(fileName, processArguments);
 
-            List<string> results = RunProcess(process);
+            (List<string> results, List<string> errors) = RunProcess(process);
 
             ExternalProcessManager.Close(process);
 
-            return results;
+            return (results, errors);
         }
 
         private static Process SetupSiardValidatorProcess(string fileName, string processArguments)
@@ -60,7 +62,7 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
             return siardValidatorProcess;
         }
 
-        private static List<string> RunProcess(Process process)
+        private static (List<string>, List<string>) RunProcess(Process process)
         {
             var results = new List<string>();
             var errors = new List<string>();
@@ -85,12 +87,7 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
             if (errors.Any())
                 HandleValidationErrors(errors, results);
 
-            return results;
-        }
-
-        private static string BuildDbptkLibraryPath()
-        {
-            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dbptk-app-2.9.9.jar");
+            return (results, errors);
         }
 
         private static string ResolveMessageForException(Exception e)

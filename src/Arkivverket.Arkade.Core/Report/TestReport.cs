@@ -23,6 +23,7 @@ namespace Arkivverket.Arkade.Core.Report
         public string NumberOfProcessedRecords { get; set; }
         public string NumberOfTestsRun { get; set; }
         public string NumberOfErrors { get; set; }
+        public string NumberOfWarnings { get; set; }
     }
 
     public class ExecutedTest

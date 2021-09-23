@@ -303,17 +303,28 @@ namespace Arkivverket.Arkade.Core.Report
                     stream.WriteLine("                </td>");
                     stream.WriteLine(@"            </tr>");
                 }
+            }
 
+            stream.WriteLine(@"            <tr>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(Resources.Report.LabelNumberOfErrors);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"                <td>");
+            stream.WriteLine(testReport.Summary.NumberOfErrors);
+            stream.WriteLine("                </td>");
+            stream.WriteLine(@"            </tr>");
+
+            if (_archiveType is ArchiveType.Siard)
+            {
                 stream.WriteLine(@"            <tr>");
                 stream.WriteLine(@"                <td>");
-                stream.WriteLine(Resources.Report.LabelNumberOfErrors);
+                stream.WriteLine(Resources.Report.LabelNumberOfWarnings);
                 stream.WriteLine("                </td>");
                 stream.WriteLine(@"                <td>");
-                stream.WriteLine(testReport.Summary.NumberOfErrors);
+                stream.WriteLine(testReport.Summary.NumberOfWarnings);
                 stream.WriteLine("                </td>");
                 stream.WriteLine(@"            </tr>");
             }
-
             stream.WriteLine(@"            </tbody>");
             stream.WriteLine(@"        </table>");
             stream.WriteLine(@"    </div>");

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Logging
 {
@@ -39,6 +40,11 @@ namespace Arkivverket.Arkade.Core.Logging
             OnTestProgressUpdatedEvent(new TestProgressEventArgs(testProgressValueWithUnit));
         }
 
+        public void RaiseEventSiardValidationFinished(List<string> errors, int numberOfErrors, int numberOfWarnings)
+        {
+            OnSiardValidationFinishedEvent(new SiardValidationEventArgs(errors, numberOfErrors, numberOfWarnings));
+        }
+
         public event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
 
         public event EventHandler<OperationMessageEventArgs> TestStartedEvent;
@@ -53,6 +59,8 @@ namespace Arkivverket.Arkade.Core.Logging
 
         public event EventHandler<ArchiveInformationEventArgs> NewArchiveProcessEvent;
         public event EventHandler<TestProgressEventArgs> TestProgressUpdatedEvent;
+
+        public event EventHandler<SiardValidationEventArgs> SiardValidationFinishedEvent;
 
         private void OnTestStartedEvent(OperationMessageEventArgs eventArgs)
         {
@@ -105,6 +113,12 @@ namespace Arkivverket.Arkade.Core.Logging
         protected virtual void OnTestProgressUpdatedEvent(TestProgressEventArgs eventArgs)
         {
             var handler = TestProgressUpdatedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
+
+        protected virtual void OnSiardValidationFinishedEvent(SiardValidationEventArgs eventArgs)
+        {
+            var handler = SiardValidationFinishedEvent;
             handler?.Invoke(this, eventArgs);
         }
     }

@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Testing.Siard;
 
@@ -20,6 +23,15 @@ namespace Arkivverket.Arkade.Core.Base.Siard
         {
             _testProgressReporter.Begin(ArchiveType.Siard);
 
+            RunSiardValidation(testSession);
+
+            _testProgressReporter.Finish();
+
+            return new TestSuite();
+        }
+
+        private void RunSiardValidation(TestSession testSession)
+        {
             FileInfo siardFileInfo = testSession.Archive.WorkingDirectory.Content().DirectoryInfo().GetFiles()
                 .First(f => f.Extension.Equals(".siard"));
             string inputFilePath = siardFileInfo.FullName;
@@ -31,11 +43,33 @@ namespace Arkivverket.Arkade.Core.Base.Siard
                 string.Format(Resources.SiardMessages.ValidationMessage, siardFileInfo.Name),
                 OperationMessageStatus.Info);
 
-            SiardValidator.Validate(inputFilePath, reportFilePath);
+            (List<string> results, List<string> errors) = SiardValidator.Validate(inputFilePath, reportFilePath);
 
-            _testProgressReporter.Finish();
+            List<string> summary = results.Where(r => r != null && r.Contains("number of", StringComparison.InvariantCultureIgnoreCase)).ToList();
 
-            return new TestSuite();
+            int numberOfValidationErrors;
+            int numberOfValidationWarnings;
+
+            if (!summary.Any())
+            {
+                numberOfValidationErrors = 0;
+                numberOfValidationWarnings = 0;
+            }
+            else
+            {
+                numberOfValidationErrors = GetNumberOfXFromSummary("errors", summary);
+                numberOfValidationWarnings = GetNumberOfXFromSummary("warnings", summary);
+            }
+
+            _statusEventHandler.RaiseEventSiardValidationFinished(errors, numberOfValidationErrors, numberOfValidationWarnings);
+        }
+
+        private int GetNumberOfXFromSummary(string x, List<string> summary)
+        {
+            var regex = new Regex(@"(?!\[)\d+(?=\])");
+            string match = regex.Match(summary.First(s => s.Contains(x, StringComparison.InvariantCultureIgnoreCase))).Value;
+
+            return int.Parse(match);
         }
     }
 }
