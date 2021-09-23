@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.Core.Logging
 
         void RaiseEventTestProgressUpdated(string testProgressValueWithUnit);
 
-        void RaiseEventSiardValidationFinished(List<string> errors, int numberOfErrors, int numberOfWarnings);
+        void RaiseEventSiardValidationFinished(List<string> errors);
         
         event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
 

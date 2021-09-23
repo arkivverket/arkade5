@@ -63,8 +63,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private int _numberOfTestsFinished = 0;
         private string _currentlyRunningTest;
         private string _testProgressPercentage;
-        private int _numberOfTestErrors;
-        private int _numberOfTestWarnings;
 
         public Visibility NumberOfProcessedRecordsVisibility
         {
@@ -325,9 +323,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             if (errors.Any())
                 errors.Where(errorMsg => errorMsg != null).ToList().ForEach(errorMsg =>
                 _statusEventHandler.RaiseEventOperationMessage(errorMsg, string.Empty, OperationMessageStatus.Error));
-
-            _numberOfTestErrors = eventArgs.NumberOfErrors;
-            _numberOfTestWarnings = eventArgs.NumberOfWarnings;
         }
 
         private void OnOperationMessageEvent(object sender, OperationMessageEventArgs eventArgs)
@@ -393,9 +388,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 _testSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
 
                 _arkadeApi.RunTests(_testSession);
-                
-                _testSession.TestSummary = new TestSummary(_numberOfProcessedFiles, _numberOfProcessedRecords,
-                    _numberOfTestsFinished, _numberOfTestErrors, _numberOfTestWarnings);
 
                 _testSession.AddLogEntry("Test run completed.");
 

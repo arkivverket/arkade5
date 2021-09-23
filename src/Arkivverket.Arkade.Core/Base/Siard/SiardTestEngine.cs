@@ -61,7 +61,9 @@ namespace Arkivverket.Arkade.Core.Base.Siard
                 numberOfValidationWarnings = GetNumberOfXFromSummary("warnings", summary);
             }
 
-            _statusEventHandler.RaiseEventSiardValidationFinished(errors, numberOfValidationErrors, numberOfValidationWarnings);
+            testSession.TestSummary = new TestSummary(0, 0, 0, numberOfValidationErrors, numberOfValidationWarnings);
+
+            _statusEventHandler.RaiseEventSiardValidationFinished(errors);
         }
 
         private int GetNumberOfXFromSummary(string x, List<string> summary)

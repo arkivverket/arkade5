@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded;
 using Arkivverket.Arkade.Core.Logging;
@@ -140,6 +141,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, testSession.Archive).GetTestRun());
             testSuite.AddTestRun(new AH_03_ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
+
+            testSession.TestSummary = new TestSummary((int) fileCounter, (int) recordCounter,
+                testSuite.TestRuns.Count(), testSuite.FindNumberOfErrors(), 0);
 
             _testProgressReporter.Finish();
 

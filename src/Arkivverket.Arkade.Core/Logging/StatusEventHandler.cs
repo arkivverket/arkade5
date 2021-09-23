@@ -40,9 +40,9 @@ namespace Arkivverket.Arkade.Core.Logging
             OnTestProgressUpdatedEvent(new TestProgressEventArgs(testProgressValueWithUnit));
         }
 
-        public void RaiseEventSiardValidationFinished(List<string> errors, int numberOfErrors, int numberOfWarnings)
+        public void RaiseEventSiardValidationFinished(List<string> errors)
         {
-            OnSiardValidationFinishedEvent(new SiardValidationEventArgs(errors, numberOfErrors, numberOfWarnings));
+            OnSiardValidationFinishedEvent(new SiardValidationEventArgs(errors));
         }
 
         public event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
