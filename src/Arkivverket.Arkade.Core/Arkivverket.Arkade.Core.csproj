@@ -66,6 +66,8 @@
     <None Remove="Resources\arkade.css" />
     <None Remove="Resources\arkivverket.gif" />
     <None Remove="Resources\bootstrap.min.css" />
+    <None Remove="Resources\FreeSans.ttf" />
+    <None Remove="Resources\sRGB_CS_profile.icm" />
     <None Include="..\Setup\Arkade5_2.0.ico">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -106,6 +108,8 @@
     <EmbeddedResource Include="Resources\arkade.css" />
     <EmbeddedResource Include="Resources\arkivverket.gif" />
     <EmbeddedResource Include="Resources\bootstrap.min.css" />
+    <EmbeddedResource Include="Resources\FreeSans.ttf" />
+    <EmbeddedResource Include="Resources\sRGB_CS_profile.icm" />
   </ItemGroup>
 
   <ItemGroup>
