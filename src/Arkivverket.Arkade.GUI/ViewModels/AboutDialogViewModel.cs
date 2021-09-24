@@ -14,6 +14,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand ShowLicenseWebPageCommand { get; set; }
         public DelegateCommand ShowSiegfriedWebPageCommand { get; set; }
         public DelegateCommand ShowApacheLicenseWebPageCommand { get; set; }
+        public DelegateCommand ShowITextWebPageCommand { get; set; }
 
         public AboutDialogViewModel()
         {
@@ -23,6 +24,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ShowLicenseWebPageCommand = new DelegateCommand(ShowLicenseWebPage);
             ShowSiegfriedWebPageCommand = new DelegateCommand(ShowSiegfriedWebPage);
             ShowApacheLicenseWebPageCommand = new DelegateCommand(ShowApacheLicenseWebPage);
+            ShowITextWebPageCommand= new DelegateCommand(ShowITextWebPage);
         }
 
         private void ShowLicenseWebPage()
@@ -38,6 +40,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private void ShowApacheLicenseWebPage()
         {
             AboutGUI.ApacheV2_0Uri.LaunchUrl();
+        }
+        
+        private void ShowITextWebPage()
+        {
+            AboutGUI.ITextUri.LaunchUrl();
         }
     }
 }

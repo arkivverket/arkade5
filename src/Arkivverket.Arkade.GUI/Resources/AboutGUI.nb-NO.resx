@@ -127,15 +127,15 @@
     <value>Opphavsrett © {0} Arkivverket. Lisensiert under</value>
     <comment>{0} - årstall</comment>
   </data>
-  <data name="BundledSoftwareInformation_1" xml:space="preserve">
+  <data name="ThirdPartySoftwareInformation_1" xml:space="preserve">
     <value>Arkade 5 bruker</value>
     <comment>Første del av bundleinfo - ren tekst</comment>
   </data>
-  <data name="BundledSoftwareInformation_3" xml:space="preserve">
+  <data name="ThirdPartySoftwareInformation_3" xml:space="preserve">
     <value>(Copyright © 2019 Richard Lehane), lisensiert under</value>
     <comment>tredje del - ren tekst</comment>
   </data>
-  <data name="BundledSoftwareInformation_5" xml:space="preserve">
+  <data name="ThirdPartySoftwareInformation_5" xml:space="preserve">
     <value>for å utføre formatanalyse.</value>
     <comment>femte del - ren tekst</comment>
   </data>
@@ -148,7 +148,7 @@
   <data name="ApacheV2_0Uri" xml:space="preserve">
     <value>http://www.apache.org/licenses/LICENSE-2.0</value>
   </data>
-  <data name="BundledSoftwareInformation_2" xml:space="preserve">
+  <data name="ThirdPartySoftwareInformation_2" xml:space="preserve">
     <value>Siegfried</value>
   </data>
   <data name="GnuGpl3_0Uri" xml:space="preserve">
@@ -162,5 +162,14 @@
   </data>
   <data name="SiegfriedUri" xml:space="preserve">
     <value>https://www.itforarchivists.com/siegfried/</value>
+  </data>
+  <data name="ITextDisplayName" xml:space="preserve">
+    <value>iText</value>
+  </data>
+  <data name="ITextInformation" xml:space="preserve">
+    <value>Arkade 5 genererer PDF-dokumenter med</value>
+  </data>
+  <data name="ITextUri" xml:space="preserve">
+    <value>https://itextpdf.com/</value>
   </data>
 </root>

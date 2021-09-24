@@ -106,47 +106,38 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkade 5 uses.
-        /// </summary>
-        public static string BundledSoftwareInformation_1 {
-            get {
-                return ResourceManager.GetString("BundledSoftwareInformation_1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Siegfried.
-        /// </summary>
-        public static string BundledSoftwareInformation_2 {
-            get {
-                return ResourceManager.GetString("BundledSoftwareInformation_2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to (Copyright © 2019 Richard Lehane), licensed under.
-        /// </summary>
-        public static string BundledSoftwareInformation_3 {
-            get {
-                return ResourceManager.GetString("BundledSoftwareInformation_3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to to perform format analysis..
-        /// </summary>
-        public static string BundledSoftwareInformation_5 {
-            get {
-                return ResourceManager.GetString("BundledSoftwareInformation_5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to https://www.gnu.org/licenses/gpl-3.0.en.html.
         /// </summary>
         public static string GnuGpl3_0Uri {
             get {
                 return ResourceManager.GetString("GnuGpl3_0Uri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to iText.
+        /// </summary>
+        public static string ITextDisplayName {
+            get {
+                return ResourceManager.GetString("ITextDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkade 5 generates PDF test reports using.
+        /// </summary>
+        public static string ITextInformation {
+            get {
+                return ResourceManager.GetString("ITextInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://itextpdf.com/.
+        /// </summary>
+        public static string ITextUri {
+            get {
+                return ResourceManager.GetString("ITextUri", resourceCulture);
             }
         }
         
@@ -174,6 +165,42 @@ namespace Arkivverket.Arkade.GUI.Languages {
         public static string SiegfriedUri {
             get {
                 return ResourceManager.GetString("SiegfriedUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkade 5 uses.
+        /// </summary>
+        public static string ThirdPartySoftwareInformation_1 {
+            get {
+                return ResourceManager.GetString("ThirdPartySoftwareInformation_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Siegfried.
+        /// </summary>
+        public static string ThirdPartySoftwareInformation_2 {
+            get {
+                return ResourceManager.GetString("ThirdPartySoftwareInformation_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Copyright © 2019 Richard Lehane), licensed under.
+        /// </summary>
+        public static string ThirdPartySoftwareInformation_3 {
+            get {
+                return ResourceManager.GetString("ThirdPartySoftwareInformation_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to perform format analysis..
+        /// </summary>
+        public static string ThirdPartySoftwareInformation_5 {
+            get {
+                return ResourceManager.GetString("ThirdPartySoftwareInformation_5", resourceCulture);
             }
         }
         

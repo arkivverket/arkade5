@@ -32,7 +32,7 @@ namespace Arkivverket.Arkade.CLI
                             $"* ARKADE 5 CLI v{ArkadeVersion.Current} *\n" +
                             $"***********************\n");
 
-            Log.Information(GetBundledSoftwareInfo());
+            Log.Information(GetThirdPartySoftwareInfo());
 
             if (Arkade.Version().UpdateIsAvailable())
             {
@@ -54,17 +54,23 @@ namespace Arkivverket.Arkade.CLI
             Log.Debug(e.Message);
         }
 
-        private static string GetBundledSoftwareInfo()
+        private static string GetThirdPartySoftwareInfo()
         {
             var info = new StringBuilder();
 
-            info.AppendLine("\n-----------------------BUNDLED SOFTWARE-----------------------\n");
+            info.AppendLine("\n---------------------- THIRD PARTY SOFTWARE ----------------------\n");
             info.AppendLine("-- Siegfried --");
             info.AppendLine("PURPOSE: identify document file format.");
             info.AppendLine("Copyright © 2019 Richard Lehane");
             info.AppendLine("Available from: https://www.itforarchivists.com/siegfried/");
             info.AppendLine("Licensed under the Apache License, Version 2.0");
-            info.AppendLine("\n--------------------------------------------------------------\n");
+            info.AppendLine();
+            info.AppendLine("-- iText 7 --");
+            info.AppendLine("PURPOSE: generate PDF documents");
+            info.AppendLine("Copyright © 2021 iText Group nv (HQ Belgium), Inc. All rights reserved.");
+            info.AppendLine("Available from: https://itextpdf.com/");
+            info.AppendLine("Licensed under the Affero General Public License (AGPL), Version 3.0");
+            info.AppendLine("\n------------------------------------------------------------------\n");
 
             return info.ToString();
         }
