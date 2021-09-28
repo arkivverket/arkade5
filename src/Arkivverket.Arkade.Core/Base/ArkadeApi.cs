@@ -109,7 +109,7 @@ namespace Arkivverket.Arkade.Core.Base
             return packageFilePath;
         }
 
-        public void SaveReport(TestSession testSession, DirectoryInfo testReportDirectory)
+        public void SaveReport(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone)
         {
             if(testReportDirectory.Exists)
                 testReportDirectory.Delete(recursive: true);
@@ -124,7 +124,7 @@ namespace Arkivverket.Arkade.Core.Base
                 );
 
             
-            TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory);
+            TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory, standalone);
         }
 
         public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName, SupportedLanguage language)

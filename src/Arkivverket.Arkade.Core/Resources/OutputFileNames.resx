@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ResultOutputDirectory" xml:space="preserve">
-    <value>Arkade-results_{0}</value>
+    <value>arkade-results_{0}</value>
     <comment>{0} = Archive UUID</comment>
   </data>
   <data name="FileFormatInfoFile" xml:space="preserve">
@@ -136,14 +136,22 @@
     <value>noark5-testselection.txt</value>
   </data>
   <data name="TestReportFile" xml:space="preserve">
-    <value>testreport_{0}.{1}</value>
-    <comment>{0} = Archive UUID, {1} = file type</comment>
+    <value>testreport.{0}</value>
+    <comment>{0} = file type</comment>
   </data>
   <data name="TestReportDirectory" xml:space="preserve">
     <value>testreports</value>
     
   </data>
   <data name="SiardValidationReportFile" xml:space="preserve">
-    <value>siard-validation-report.txt</value>
+    <value>siard-validationreport.txt</value>
+  </data>
+  <data name="StandaloneTestReportFile" xml:space="preserve">
+    <value>arkade-testreport_{0}.{1}</value>
+    <comment>{0} = Archive UUID, {1} = file type</comment>
+  </data>
+  <data name="StandaloneTestReportDirectory" xml:space="preserve">
+    <value>arkade-testreports_{0}</value>
+    <comment>{0} = Archive UUID</comment>
   </data>
 </root>

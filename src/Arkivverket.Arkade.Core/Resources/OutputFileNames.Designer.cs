@@ -97,7 +97,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkade-results_{0}.
+        ///   Looks up a localized string similar to arkade-results_{0}.
         /// </summary>
         public static string ResultOutputDirectory {
             get {
@@ -106,11 +106,29 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to siard-validation-report.txt.
+        ///   Looks up a localized string similar to siard-validationreport.txt.
         /// </summary>
         public static string SiardValidationReportFile {
             get {
                 return ResourceManager.GetString("SiardValidationReportFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to arkade-testreports_{0}.
+        /// </summary>
+        public static string StandaloneTestReportDirectory {
+            get {
+                return ResourceManager.GetString("StandaloneTestReportDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to arkade-testreport_{0}.{1}.
+        /// </summary>
+        public static string StandaloneTestReportFile {
+            get {
+                return ResourceManager.GetString("StandaloneTestReportFile", resourceCulture);
             }
         }
         
@@ -124,7 +142,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to testreport_{0}.{1}.
+        ///   Looks up a localized string similar to testreport.{0}.
         /// </summary>
         public static string TestReportFile {
             get {
