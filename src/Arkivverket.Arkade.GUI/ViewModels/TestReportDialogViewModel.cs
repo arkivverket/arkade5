@@ -58,9 +58,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _log.Information($"User action: Chose directory for {action}: {testReportExportDestination}");
 
-            var testReportExportDirectory = new DirectoryInfo(
-                Path.Combine(testReportExportDestination, $"Arkade-{TestReportDirectory.Name}_{Uuid}")
-            );
+            var testReportExportDirectory = new DirectoryInfo(Path.Combine(testReportExportDestination,
+                string.Format(Core.Resources.OutputFileNames.StandaloneTestReportDirectory, Uuid)));
 
             if (!testReportExportDirectory.Exists)
                 testReportExportDirectory.Create();
