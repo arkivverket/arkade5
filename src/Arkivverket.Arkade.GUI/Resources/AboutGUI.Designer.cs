@@ -106,11 +106,11 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://www.gnu.org/licenses/gpl-3.0.en.html.
+        ///   Looks up a localized string similar to https://www.gnu.org/licenses/agpl-3.0.en.html.
         /// </summary>
-        public static string GnuGpl3_0Uri {
+        public static string GnuAgpl3_0Uri {
             get {
-                return ResourceManager.GetString("GnuGpl3_0Uri", resourceCulture);
+                return ResourceManager.GetString("GnuAgpl3_0Uri", resourceCulture);
             }
         }
         
@@ -151,7 +151,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GNU GPL v3.0.
+        ///   Looks up a localized string similar to GNU AGPL v3.0.
         /// </summary>
         public static string LicenseGNU {
             get {

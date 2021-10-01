@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ShowLicenseWebPage()
         {
-            AboutGUI.GnuGpl3_0Uri.LaunchUrl();
+            AboutGUI.GnuAgpl3_0Uri.LaunchUrl();
         }
 
         private void ShowSiegfriedWebPage()

@@ -25,7 +25,7 @@
                 <TextBlock>
                     <Run Text="{Binding CopyrightInfoString, Mode=OneWay}"/>
                     <Hyperlink Command="{Binding ShowLicenseWebPageCommand}">
-                        <TextBlock Text="{x:Static lang:AboutGUI.LicenseGNU}" ToolTip="{x:Static lang:AboutGUI.GnuGpl3_0Uri}"/>
+                        <TextBlock Text="{x:Static lang:AboutGUI.LicenseGNU}" ToolTip="{x:Static lang:AboutGUI.GnuAgpl3_0Uri}"/>
                     </Hyperlink>
                 </TextBlock>
             </WrapPanel>

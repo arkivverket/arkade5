@@ -149,8 +149,8 @@
     <value>to perform format analysis.</value>
     <comment>5th part - plain text</comment>
   </data>
-  <data name="GnuGpl3_0Uri" xml:space="preserve">
-    <value>https://www.gnu.org/licenses/gpl-3.0.en.html</value>
+  <data name="GnuAgpl3_0Uri" xml:space="preserve">
+    <value>https://www.gnu.org/licenses/agpl-3.0.en.html</value>
   </data>
   <data name="ITextDisplayName" xml:space="preserve">
     <value>iText</value>
@@ -166,7 +166,7 @@
     <comment>4th part - hyperlink text</comment>
   </data>
   <data name="LicenseGNU" xml:space="preserve">
-    <value>GNU GPL v3.0</value>
+    <value>GNU AGPL v3.0</value>
   </data>
   <data name="SiegfriedUri" xml:space="preserve">
     <value>https://www.itforarchivists.com/siegfried/</value>

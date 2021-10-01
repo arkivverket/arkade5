@@ -151,14 +151,14 @@
   <data name="ThirdPartySoftwareInformation_2" xml:space="preserve">
     <value>Siegfried</value>
   </data>
-  <data name="GnuGpl3_0Uri" xml:space="preserve">
-    <value>https://www.gnu.org/licenses/gpl-3.0.en.html</value>
+  <data name="GnuAgpl3_0Uri" xml:space="preserve">
+    <value>https://www.gnu.org/licenses/agpl-3.0.en.html</value>
   </data>
   <data name="LicenseApache2_0" xml:space="preserve">
     <value>Apache License, Version 2.0</value>
   </data>
   <data name="LicenseGNU" xml:space="preserve">
-    <value>GNU GPL v3.0</value>
+    <value>GNU AGPL v3.0</value>
   </data>
   <data name="SiegfriedUri" xml:space="preserve">
     <value>https://www.itforarchivists.com/siegfried/</value>
