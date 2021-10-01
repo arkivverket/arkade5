@@ -67,7 +67,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             foreach (FileInfo testReportFile in TestReportDirectory.GetFiles())
             {
                 string destinationTestReportFileName = Path.Combine(
-                    testReportExportDirectory.FullName, testReportFile.Name
+                    testReportExportDirectory.FullName,
+                    string.Format(Core.Resources.OutputFileNames.StandaloneTestReportFile, Uuid,
+                        testReportFile.Extension.Trim('.'))
                 );
 
                 testReportFile.CopyTo(destinationTestReportFileName, overwrite: true);

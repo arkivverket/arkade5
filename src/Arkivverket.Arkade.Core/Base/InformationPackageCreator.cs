@@ -69,13 +69,19 @@ namespace Arkivverket.Arkade.Core.Base
                 
                 if (testReportDirectory.Exists)
                 {
-                    string testReportResultDirectory = Path.Combine(resultDirectory, testReportDirectory.Name);
+                    string testReportResultDirectory = Path.Combine(resultDirectory,
+                        string.Format(OutputFileNames.StandaloneTestReportDirectory, archive.Uuid));
                     foreach (FileInfo file in testReportDirectory.GetFiles())
                     {
                         if (!Directory.Exists(testReportResultDirectory))
                             Directory.CreateDirectory(testReportResultDirectory);
 
-                        file.CopyTo(Path.Combine(resultDirectory, testReportDirectory.Name, file.Name), overwrite: true);
+                        file.CopyTo(
+                            Path.Combine(testReportResultDirectory,
+                                string.Format(
+                                    OutputFileNames.StandaloneTestReportFile, archive.Uuid,
+                                    file.Extension.TrimStart('.'))),
+                            overwrite: true);
                     }
                 }
             }
