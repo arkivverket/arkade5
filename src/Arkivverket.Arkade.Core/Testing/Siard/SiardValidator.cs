@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,16 +16,24 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
 {
     internal static class SiardValidator
     {
+        private static readonly string DbptkLibraryDirectoryPath;
+
+        static SiardValidator()
+        {
+            DbptkLibraryDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                ArkadeConstants.DirectoryNameThirdPartySoftware, ArkadeConstants.DirectoryNameDbptk);
+        }
+
         public static (List<string>, List<string>) Validate(string inputFilePath, string reportFilePath)
         {
-            string dbptkLibraryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dbptk-app-2.9.9.jar");
+            string dbptkLibraryPath = Path.Combine(DbptkLibraryDirectoryPath, "dbptk-app-2.9.9.jar");
 
             if (!File.Exists(dbptkLibraryPath))
                 throw new ArkadeException(
                     string.Format(ExceptionMessages.SiardValidatorLibraryNotFound,
                         Path.GetFileName(dbptkLibraryPath),
                         ArkadeConstants.SiardValidatorDownloadUrl,
-                        AppDomain.CurrentDomain.BaseDirectory));
+                        DbptkLibraryDirectoryPath));
 
             Directory.CreateDirectory(Path.GetDirectoryName(reportFilePath));
 

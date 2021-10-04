@@ -56,7 +56,11 @@ namespace Arkivverket.Arkade.Core.Util
         public const string DirectoryNameRepositoryOperations = "repository_operations";
         public const string DirectoryNameContent = "content";
         public const string DirectoryNameAppDataArkadeSubFolder = "Arkivverket";
-        
+
+        public const string DirectoryNameThirdPartySoftware = "ThirdPartySoftware";
+        public const string DirectoryNameSiegfried = "Siegfried";
+        public const string DirectoryNameDbptk = "DBPTK";
+
         public static readonly string[] DocumentDirectoryNames =
             { "dokumenter", "DOKUMENTER", "dokument", "DOKUMENT" };
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -32,7 +32,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Bundled\siegfried.exe" />
     <None Remove="ExternalModels\Noark5\v3_1\arkivstruktur.xsd" />
     <None Remove="ExternalModels\Noark5\v3_1\endringslogg.xsd" />
     <None Remove="ExternalModels\Noark5\v3_1\loependeJournal.xsd" />
@@ -254,22 +253,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Bundled\Siegfried\default.sig">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Bundled\Siegfried\LICENSE.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Bundled\Siegfried\siegfried_linux">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Bundled\Siegfried\siegfried_mac">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Bundled\Siegfried\siegfried.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="ThirdPartySoftware\DBPTK\PLACE_DBPTK_JARFILE_HERE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ThirdPartySoftware\Siegfried\default.sig">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ThirdPartySoftware\Siegfried\LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ThirdPartySoftware\Siegfried\siegfried.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_linux">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_mac">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

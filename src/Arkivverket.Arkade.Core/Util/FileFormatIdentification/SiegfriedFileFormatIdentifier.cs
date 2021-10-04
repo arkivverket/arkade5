@@ -63,8 +63,9 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         {
             string executableFileName = GetOSSpecificExecutableFileName();
 
-            string bundleDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Bundled");
-            string siegfriedDirectory = Path.Combine(bundleDirectory, "Siegfried");
+            string thirdPartySoftwareDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                ArkadeConstants.DirectoryNameThirdPartySoftware);
+            string siegfriedDirectory = Path.Combine(thirdPartySoftwareDirectory, ArkadeConstants.DirectoryNameSiegfried);
             string siegfriedExecutable = Path.Combine(siegfriedDirectory, executableFileName);
             string argumentsExceptInputDirectory = $"-home \"{siegfriedDirectory}\" -csv -log e,w -coe " + BuildSiegfriedArgument(scanMode);
 
