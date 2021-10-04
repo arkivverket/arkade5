@@ -35,9 +35,9 @@ namespace Arkivverket.Arkade.Core.Logging
             OnIssueOnNewArchiveInformation(archiveInformationEventArgArgs);
         }
 
-        public void RaiseEventTestProgressUpdated(string testProgressValueWithUnit)
+        public void RaiseEventTestProgressUpdated(string testProgress, bool hasFailed, string failMessage)
         {
-            OnTestProgressUpdatedEvent(new TestProgressEventArgs(testProgressValueWithUnit));
+            OnTestProgressUpdatedEvent(new TestProgressEventArgs(testProgress, hasFailed, failMessage));
         }
 
         public void RaiseEventSiardValidationFinished(List<string> errors)

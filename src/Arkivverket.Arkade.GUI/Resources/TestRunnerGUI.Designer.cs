@@ -270,7 +270,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validating extract....
+        ///   Looks up a localized string similar to Validating extract.
         /// </summary>
         public static string SiardProgressMessage {
             get {

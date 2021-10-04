@@ -3,6 +3,6 @@
     public interface IBusyIndicator
     {
         void Start();
-        void Stop();
+        void Stop(bool hasFailed);
     }
 }

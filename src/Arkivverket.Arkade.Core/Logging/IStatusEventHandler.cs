@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Logging
 
         void RaiseEventNewArchiveInformation(ArchiveInformationEventArgs archiveInformationEventArgArgs);
 
-        void RaiseEventTestProgressUpdated(string testProgressValueWithUnit);
+        void RaiseEventTestProgressUpdated(string testProgress, bool hasFailed = false, string failMessage = null);
 
         void RaiseEventSiardValidationFinished(List<string> errors);
         

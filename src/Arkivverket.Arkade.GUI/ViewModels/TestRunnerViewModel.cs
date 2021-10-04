@@ -342,7 +342,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void OnTestProgressUpdatedEvent(object sender, TestProgressEventArgs eventArgs)
         {
-            TestProgressPercentage = eventArgs.TestProgressValueWithUnit;
+            if (eventArgs.HasFailed)
+                _statusEventHandler.RaiseEventOperationMessage(
+                    _archiveType == ArchiveType.Siard 
+                        ? TestRunnerGUI.SiardProgressMessage 
+                        : TestRunnerGUI.EventIdFinishedWithError,
+                    eventArgs.FailMessage, OperationMessageStatus.Error);
+            else
+                TestProgressPercentage = eventArgs.TestProgress;
         }
         
         private void OnRecordProcessingStartedEvent(object sender, EventArgs eventArgs)
@@ -404,7 +411,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 _testSession?.AddLogEntry("Test run failed: " + e.Message);
                 _log.Error(e.Message, e);
-                _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedWithError, e.Message, OperationMessageStatus.Error);
+                _statusEventHandler.RaiseEventTestProgressUpdated(string.Empty, true, e.Message);
                 NotifyFinishedRunningTests();
             }
             catch (Exception e)

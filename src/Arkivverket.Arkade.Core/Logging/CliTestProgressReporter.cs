@@ -18,15 +18,24 @@ namespace Arkivverket.Arkade.Core.Logging
         private int _progressPercentageConsoleCursorTopLocation;
         private int _previousTestProgressValue;
 
+        public bool IsRunning { get; private set; }
+
         public CliTestProgressReporter(IStatusEventHandler statusEventHandler, IBusyIndicator busyIndicator)
         {
             _statusEventHandler = statusEventHandler;
             _busyIndicator = busyIndicator;
+            IsRunning = false;
         }
 
         public void Begin(ArchiveType archiveType)
         {
-            Console.CursorVisible = false;
+            if (IsRunning)
+            {
+                Log.Debug("TestProgressReporter is already running, can not start again.");
+                return;
+            }
+
+            IsRunning = true;
 
             _archiveType = archiveType;
 
@@ -49,6 +58,12 @@ namespace Arkivverket.Arkade.Core.Logging
 
         public void ReportTestProgress(int testProgressValue)
         {
+            if (!IsRunning)
+            {
+                Log.Debug("Could not find an active TestProgressReporter");
+                return;
+            }
+
             if (_archiveType == ArchiveType.Siard)
                 return;
 
@@ -66,11 +81,17 @@ namespace Arkivverket.Arkade.Core.Logging
             ResetCursorPositionToPreviousWriteLocation(cursorLeft, cursorTop);
         }
 
-        public void Finish()
+        public void Finish(bool hasFailed)
         {
+            if (!IsRunning)
+            {
+                Log.Debug("Could not find an active TestProgressReporter");
+                return;
+            }
+
             if (_archiveType is ArchiveType.Siard)
             {
-                _busyIndicator.Stop();
+                _busyIndicator.Stop(hasFailed);
                 return;
             }
 
@@ -82,6 +103,8 @@ namespace Arkivverket.Arkade.Core.Logging
             _statusEventHandler.RaiseEventTestProgressUpdated("100 %");
 
             ResetCursorPositionToPreviousWriteLocation(cursorLeft, cursorTop);
+
+            IsRunning = true;
         }
 
         private void SetConsoleCursorToTestProgressWriteLocation()

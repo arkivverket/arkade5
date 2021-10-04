@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Threading;
 using Serilog;
@@ -29,22 +29,24 @@ namespace Arkivverket.Arkade.Core.Util
                 Log.Error("BusyIndicator is already running, cannot start again.");
         }
 
-        public void Stop()
+        public void Stop(bool hasFailed)
         {
             BusyIndicator.CancelAsync();
             while (BusyIndicator.IsBusy)
                 Thread.Sleep(50);
 
-            ClearBusyIndicatorLine();
+            ClearBusyIndicatorLine(hasFailed);
         }
 
-        private static void ClearBusyIndicatorLine()
+        private static void ClearBusyIndicatorLine(bool hasFailed)
         {
             Mutex.WaitOne();
             int cursorLeft = Console.CursorLeft;
             int cursorTop = Console.CursorTop;
             Console.SetCursorPosition(_busyIndicatorCursorLeftPosition, _busyIndicatorCursorTopPosition);
-            Console.WriteLine(@"|~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~  Done  ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~|");
+            Console.WriteLine(hasFailed
+                ? @"|~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~  Failed!  ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~|"
+                : @"|~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~  Done  ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~|");
             Console.SetCursorPosition(cursorLeft, cursorTop);
             Mutex.ReleaseMutex();
         }

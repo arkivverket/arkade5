@@ -19,13 +19,17 @@ namespace Arkivverket.Arkade.CLI
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
         private static readonly Core.Base.Arkade Arkade;
 
+        private static readonly IStatusEventHandler StatusEventHandler;
+        private static readonly ITestProgressReporter TestProgressReporter;
+
         static CommandLineRunner()
         {
             Arkade = new Core.Base.Arkade();
-            IStatusEventHandler statusEventHandler = Arkade.StatusEventHandler;
+            StatusEventHandler = Arkade.StatusEventHandler;
+            TestProgressReporter = Arkade.TestProgressReporter;
 
-            statusEventHandler.TestProgressUpdatedEvent += OnTestProgressUpdatedEvent;
-            statusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
+            StatusEventHandler.TestProgressUpdatedEvent += OnTestProgressUpdatedEvent;
+            StatusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
 
             Log.Information($"\n" +
                             $"********************************************************************************\n" +
@@ -48,7 +52,13 @@ namespace Arkivverket.Arkade.CLI
 
         private static void OnTestProgressUpdatedEvent(object sender, TestProgressEventArgs eventArgs)
         {
-            Console.WriteLine(eventArgs.TestProgressValueWithUnit);
+            if (eventArgs.HasFailed)
+            {
+                TestProgressReporter.Finish(true);
+                Log.Error(eventArgs.FailMessage);
+            }
+            else
+                Console.WriteLine(eventArgs.TestProgress);
         }
 
         private static void OnOperationMessageEvent(object sender, OperationMessageEventArgs e)
@@ -195,8 +205,7 @@ namespace Arkivverket.Arkade.CLI
             }
             catch (Exception e)
             {
-                Log.Error("Test run failed: " + e.Message);
-                Log.Debug(e.ToString());
+                StatusEventHandler.RaiseEventTestProgressUpdated("", true, e.Message);
                 return false;
             }
             

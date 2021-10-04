@@ -4,11 +4,15 @@ namespace Arkivverket.Arkade.Core.Logging
 {
     public class TestProgressEventArgs : EventArgs
     {
-        public string TestProgressValueWithUnit { get; }
+        public string TestProgress { get; }
+        public bool HasFailed { get; }
+        public string FailMessage { get; }
 
-        public TestProgressEventArgs(string testTestProgressValueAndUnit)
+        public TestProgressEventArgs(string testProgress, bool hasFailed, string failMessage)
         {
-            TestProgressValueWithUnit = testTestProgressValueAndUnit;
+            TestProgress = testProgress;
+            HasFailed = hasFailed;
+            FailMessage = failMessage;
         }
     }
 }
