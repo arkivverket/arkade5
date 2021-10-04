@@ -85,11 +85,11 @@ namespace Arkivverket.Arkade.CLI
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
                     options.OutputLanguage, options.TestSelectionFile, options.PerformFileFormatAnalysis);
 
-                Test(options.OutputDirectory, testSession, createStandAloneTestReport: false);
+                bool testStatus = Test(options.OutputDirectory, testSession, createStandAloneTestReport: false);
 
-                Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
+                bool packStatus = Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
 
-                LogFinishedStatus(command, RanWithoutErrors(testSession));
+                LogFinishedStatus(command, RanWithoutErrors(testSession) && testStatus && packStatus);
             }
             catch (ArgumentException e)
             {
@@ -110,9 +110,7 @@ namespace Arkivverket.Arkade.CLI
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
                     options.OutputLanguage, options.TestSelectionFile);
 
-                Test(options.OutputDirectory, testSession);
-
-                LogFinishedStatus(command, RanWithoutErrors(testSession));
+                LogFinishedStatus(command, RanWithoutErrors(testSession) && Test(options.OutputDirectory, testSession));
             }
             catch (ArgumentException e)
             {
@@ -133,9 +131,7 @@ namespace Arkivverket.Arkade.CLI
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
                     options.OutputLanguage, performFileFormatAnalysis: options.PerformFileFormatAnalysis);
 
-                Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
-
-                LogFinishedStatus(command);
+                LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession));
             }
             finally
             {
@@ -184,18 +180,30 @@ namespace Arkivverket.Arkade.CLI
             LogFinishedStatus(command);
         }
 
-        private static void Test(string outputDirectory, TestSession testSession, bool createStandAloneTestReport = true)
+        private static bool Test(string outputDirectory, TestSession testSession, bool createStandAloneTestReport = true)
         {
             if (!testSession.IsTestableArchive(out string disqualifyingCause))
             {
                 Log.Error("Archive is not testable: " + disqualifyingCause);
-                return;
+                return false;
             }
-            Arkade.RunTests(testSession);
+
+            try
+            {
+                Arkade.RunTests(testSession);
+            }
+            catch (Exception e)
+            {
+                Log.Error("Test run failed: " + e.Message);
+                Log.Debug(e.ToString());
+                return false;
+            }
+            
             SaveTestReport(testSession, outputDirectory, createStandAloneTestReport);
+            return true;
         }
 
-        private static void Pack(string metadataFile, string packageType, string outputDirectory,
+        private static bool Pack(string metadataFile, string packageType, string outputDirectory,
             TestSession testSession)
         {
             ArchiveMetadata archiveMetadata = MetadataLoader.Load(metadataFile);
@@ -206,6 +214,8 @@ namespace Arkivverket.Arkade.CLI
             testSession.ArchiveMetadata.Id = $"UUID:{testSession.Archive.Uuid}";
 
             Arkade.CreatePackage(testSession, outputDirectory);
+
+            return true;
         }
 
         private static ArchiveType GetArchiveType(string archiveTypeString, string archive)
