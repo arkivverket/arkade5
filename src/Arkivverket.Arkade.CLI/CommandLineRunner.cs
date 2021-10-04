@@ -28,10 +28,11 @@ namespace Arkivverket.Arkade.CLI
             statusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
 
             Log.Information($"\n" +
-                            $"************************************************************************\n" +
-                            $"* ARKADE 5 CLI v{ArkadeVersion.Current}                                                  *\n" +
-                            $"* Licensed under the Affero General Public License (AGPL), Version 3.0 *\n" +
-                            $"************************************************************************\n");
+                            $"********************************************************************************\n" +
+                            $"* ARKADE 5 CLI v{ArkadeVersion.Current}                                                          *\n" +
+                            $"* Copyright © 2017 Arkivverket                                                 *\n" +
+                            $"* Licensed under the GNU Affero General Public License (GNU AGPL), Version 3.0 *\n" +
+                            $"********************************************************************************\n");
 
             Log.Information(GetThirdPartySoftwareInfo());
 
@@ -59,7 +60,7 @@ namespace Arkivverket.Arkade.CLI
         {
             var info = new StringBuilder();
 
-            info.AppendLine("\n---------------------- THIRD PARTY SOFTWARE ----------------------\n");
+            info.AppendLine("\n----------------------------- THIRD PARTY SOFTWARE -----------------------------\n");
             info.AppendLine("-- Siegfried --");
             info.AppendLine("PURPOSE: identify document file format.");
             info.AppendLine("Copyright © 2019 Richard Lehane");
@@ -70,8 +71,8 @@ namespace Arkivverket.Arkade.CLI
             info.AppendLine("PURPOSE: generate PDF documents");
             info.AppendLine("Copyright © 2021 iText Group nv (HQ Belgium), Inc. All rights reserved.");
             info.AppendLine("Available from: https://itextpdf.com/");
-            info.AppendLine("Licensed under the Affero General Public License (AGPL), Version 3.0");
-            info.AppendLine("\n------------------------------------------------------------------\n");
+            info.AppendLine("Licensed under the GNU Affero General Public License (GNU AGPL), Version 3.0");
+            info.AppendLine("\n--------------------------------------------------------------------------------\n");
 
             return info.ToString();
         }

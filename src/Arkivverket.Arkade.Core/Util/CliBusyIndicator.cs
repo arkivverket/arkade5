@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Threading;
 using Serilog;
@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Util
 
         private static readonly Mutex Mutex = new(false, "ConsoleCursorPosition - 183f9057-3fd1-4d58-a69b-79ed60f43cfc");
 
-        private static string _busyIndicatorString = @"|~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ |";
+        private static string _busyIndicatorString = @"|~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~|";
         private static int _busyIndicatorCursorLeftPosition;
         private static int _busyIndicatorCursorTopPosition;
         private const int MillisecondsPerTick = 75;
@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Util
             int cursorLeft = Console.CursorLeft;
             int cursorTop = Console.CursorTop;
             Console.SetCursorPosition(_busyIndicatorCursorLeftPosition, _busyIndicatorCursorTopPosition);
-            Console.WriteLine(@"|~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ Done ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~|");
+            Console.WriteLine(@"|~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~  Done  ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~|");
             Console.SetCursorPosition(cursorLeft, cursorTop);
             Mutex.ReleaseMutex();
         }
