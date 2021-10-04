@@ -28,9 +28,10 @@ namespace Arkivverket.Arkade.CLI
             statusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
 
             Log.Information($"\n" +
-                            $"***********************\n" +
-                            $"* ARKADE 5 CLI v{ArkadeVersion.Current} *\n" +
-                            $"***********************\n");
+                            $"************************************************************************\n" +
+                            $"* ARKADE 5 CLI v{ArkadeVersion.Current}                                                  *\n" +
+                            $"* Licensed under the Affero General Public License (AGPL), Version 3.0 *\n" +
+                            $"************************************************************************\n");
 
             Log.Information(GetThirdPartySoftwareInfo());
 
