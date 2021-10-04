@@ -269,7 +269,7 @@
     <None Update="Bundled\Siegfried\siegfried.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Condition="'$(Configuration)'=='Debug'" Update="dbptk-app-2.9.9.jar">
+    <None Update="ThirdPartySoftware\DBPTK\PLACE_DBPTK_JARFILE_HERE">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
