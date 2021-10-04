@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
@@ -16,6 +17,7 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
 {
     internal static class SiardValidator
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
         private static readonly string DbptkLibraryDirectoryPath;
 
         static SiardValidator()
@@ -47,7 +49,21 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
 
             ExternalProcessManager.Close(process);
 
+            CleanUpDbptkLogFiles();
+
             return (results, errors);
+        }
+
+        private static void CleanUpDbptkLogFiles()
+        {
+            try
+            {
+                Directory.GetFiles(DbptkLibraryDirectoryPath, "*.txt").ToList().ForEach(File.Delete);
+            }
+            catch (Exception e)
+            {
+                Log.Debug("Arkade could not delete log-files from SIARD-validation:\n" + e);
+            }
         }
 
         private static Process SetupSiardValidatorProcess(string fileName, string processArguments)
