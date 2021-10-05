@@ -344,8 +344,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             if (eventArgs.HasFailed)
                 _statusEventHandler.RaiseEventOperationMessage(
-                    _archiveType == ArchiveType.Siard 
-                        ? TestRunnerGUI.SiardProgressMessage 
+                    _archiveType == ArchiveType.Siard
+                        ? TestRunnerGUI.SiardProgressMessage
                         : TestRunnerGUI.EventIdFinishedWithError,
                     eventArgs.FailMessage, OperationMessageStatus.Error);
             else
@@ -388,7 +388,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 NotifyStartRunningTests();
 
-                _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.SiardProgressMessage, null, OperationMessageStatus.Started);
+                if (_archiveType is ArchiveType.Siard)
+                    _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.SiardProgressMessage, null, OperationMessageStatus.Started);
 
                 _testSession.TestsToRun = GetSelectedTests();
                 
@@ -398,8 +399,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                 _testSession.AddLogEntry("Test run completed.");
 
-                _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.SiardProgressMessage,
-                    TestRunnerGUI.MessageCompleted, OperationMessageStatus.Ok);
+                if (_archiveType is ArchiveType.Siard)
+                    _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.SiardProgressMessage,
+                        TestRunnerGUI.MessageCompleted, OperationMessageStatus.Ok);
 
                 SaveTestReports(_testSession.Archive.GetTestReportDirectory());
 

@@ -62,7 +62,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         private static IArchiveDetails SetupSiardArchiveDetails(WorkingDirectory workingDirectory)
         {
-            FileInfo siardArchiveFile = workingDirectory.Content().DirectoryInfo().GetFiles("*.siard").First();
+            FileInfo siardArchiveFile = workingDirectory.Content().DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
             if (siardArchiveFile == null)
                 throw new ArkadeException("Siard file not found");
             if (!siardArchiveFile.Exists)
