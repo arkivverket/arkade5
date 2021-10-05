@@ -96,11 +96,11 @@ namespace Arkivverket.Arkade.CLI
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
                     options.OutputLanguage, options.TestSelectionFile, options.PerformFileFormatAnalysis);
 
-                bool testStatus = Test(options.OutputDirectory, testSession, createStandAloneTestReport: false);
+                bool testSuccess = Test(options.OutputDirectory, testSession, createStandAloneTestReport: false);
 
-                bool packStatus = Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
+                bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
 
-                LogFinishedStatus(command, RanWithoutErrors(testSession) && testStatus && packStatus);
+                LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess && packSuccess);
             }
             catch (ArgumentException e)
             {
@@ -121,7 +121,9 @@ namespace Arkivverket.Arkade.CLI
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
                     options.OutputLanguage, options.TestSelectionFile);
 
-                LogFinishedStatus(command, RanWithoutErrors(testSession) && Test(options.OutputDirectory, testSession));
+                bool testSuccess = Test(options.OutputDirectory, testSession);
+
+                LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess);
             }
             catch (ArgumentException e)
             {
@@ -193,11 +195,8 @@ namespace Arkivverket.Arkade.CLI
 
         private static bool Test(string outputDirectory, TestSession testSession, bool createStandAloneTestReport = true)
         {
-            if (!testSession.IsTestableArchive(out string disqualifyingCause))
-            {
-                Log.Error("Archive is not testable: " + disqualifyingCause);
+            if (!testSession.IsTestableArchive(out _))
                 return false;
-            }
 
             try
             {
@@ -341,8 +340,11 @@ namespace Arkivverket.Arkade.CLI
 
         private static bool RanWithoutErrors(TestSession testSession)
         {
-            if (!testSession.IsTestableArchive(out _))
+            if (!testSession.IsTestableArchive(out string disqualifyingCause))
+            {
+                Log.Error("Archive is not testable: " + disqualifyingCause);
                 return false;
+            }
             return true;
         }
     }
