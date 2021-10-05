@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_62_ChangeLogArchiveReferenceControlTest
+    public class N5_62_ChangeLogArchiveReferenceControlTest : LanguageDependentTest
     {
         [Fact]
         public void ReferencesIsValid()
