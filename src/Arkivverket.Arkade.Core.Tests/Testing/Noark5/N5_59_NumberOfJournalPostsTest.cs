@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_59_NumberOfJournalPostsTest
+    public class N5_59_NumberOfJournalPostsTest : LanguageDependentTest
     {
         [Fact]
         public void EqualNumbersInArchiveAndJournalsIsAlwaysOk()
