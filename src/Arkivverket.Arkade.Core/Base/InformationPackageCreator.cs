@@ -78,9 +78,10 @@ namespace Arkivverket.Arkade.Core.Base
 
                         file.CopyTo(
                             Path.Combine(testReportResultDirectory,
-                                string.Format(
-                                    OutputFileNames.StandaloneTestReportFile, archive.Uuid,
-                                    file.Extension.TrimStart('.'))),
+                                file.Name.Equals(OutputFileNames.SiardValidationReportFile)
+                                    ? file.Name
+                                    : string.Format(OutputFileNames.StandaloneTestReportFile, archive.Uuid,
+                                        file.Extension.TrimStart('.'))),
                             overwrite: true);
                     }
                 }

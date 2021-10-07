@@ -68,8 +68,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 string destinationTestReportFileName = Path.Combine(
                     testReportExportDirectory.FullName,
-                    string.Format(Core.Resources.OutputFileNames.StandaloneTestReportFile, Uuid,
-                        testReportFile.Extension.Trim('.'))
+                    testReportFile.Name.Equals(Core.Resources.OutputFileNames.SiardValidationReportFile)
+                        ? testReportFile.Name
+                        : string.Format(Core.Resources.OutputFileNames.StandaloneTestReportFile, Uuid,
+                            testReportFile.Extension.Trim('.'))
                 );
 
                 testReportFile.CopyTo(destinationTestReportFileName, overwrite: true);
