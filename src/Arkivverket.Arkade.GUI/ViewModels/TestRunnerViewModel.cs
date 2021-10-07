@@ -48,6 +48,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool _testRunHasBeenExecuted;
         private bool _isRunningTests;
         private bool _testRunCompletedSuccessfully;
+        private bool _testRunHasFailed;
         private bool _canSelectTests;
         private bool _allTestsSelected;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
@@ -343,11 +344,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private void OnTestProgressUpdatedEvent(object sender, TestProgressEventArgs eventArgs)
         {
             if (eventArgs.HasFailed)
+            {
                 _statusEventHandler.RaiseEventOperationMessage(
                     _archiveType == ArchiveType.Siard
                         ? TestRunnerGUI.SiardProgressMessage
                         : TestRunnerGUI.EventIdFinishedWithError,
                     eventArgs.FailMessage, OperationMessageStatus.Error);
+                _testRunHasFailed = true;
+            }
+            
             else
                 TestProgressPercentage = eventArgs.TestProgress;
         }
@@ -402,6 +407,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 if (_archiveType is ArchiveType.Siard)
                     _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.SiardProgressMessage,
                         TestRunnerGUI.MessageCompleted, OperationMessageStatus.Ok);
+                if (_testRunHasFailed)
+                {
+                    NotifyFinishedRunningTests();
+                    return;
+                }
 
                 SaveTestReports(_testSession.Archive.GetTestReportDirectory());
 

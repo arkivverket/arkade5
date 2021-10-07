@@ -22,6 +22,8 @@ namespace Arkivverket.Arkade.CLI
         private static readonly IStatusEventHandler StatusEventHandler;
         private static readonly ITestProgressReporter TestProgressReporter;
 
+        private static bool _testRunHasFailed;
+
         static CommandLineRunner()
         {
             Arkade = new Core.Base.Arkade();
@@ -56,6 +58,7 @@ namespace Arkivverket.Arkade.CLI
             {
                 TestProgressReporter.Finish(true);
                 Log.Error(eventArgs.FailMessage);
+                _testRunHasFailed = true;
             }
             else
                 Console.WriteLine(eventArgs.TestProgress);
@@ -208,6 +211,9 @@ namespace Arkivverket.Arkade.CLI
                 return false;
             }
             
+            if (_testRunHasFailed)
+                return false;
+
             SaveTestReport(testSession, outputDirectory, createStandAloneTestReport);
             return true;
         }
