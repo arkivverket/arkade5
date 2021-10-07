@@ -17,7 +17,6 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly IContainer _container;
 
         public readonly IStatusEventHandler StatusEventHandler;
-        public readonly ITestProgressReporter TestProgressReporter;
 
         public ArkadeVersion Version() => _arkadeVersion;
         
@@ -31,7 +30,6 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeApi = _container.Resolve<ArkadeApi>();
             _arkadeVersion = _container.Resolve<ArkadeVersion>();
             StatusEventHandler = _container.Resolve<IStatusEventHandler>();
-            TestProgressReporter = _container.Resolve<ITestProgressReporter>();
         }
 
         public void Dispose()

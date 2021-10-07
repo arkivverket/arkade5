@@ -21,7 +21,6 @@ namespace Arkivverket.Arkade.CLI
         private static readonly Core.Base.Arkade Arkade;
 
         private static readonly IStatusEventHandler StatusEventHandler;
-        private static readonly ITestProgressReporter TestProgressReporter;
 
         private static bool _testRunHasFailed;
 
@@ -29,7 +28,6 @@ namespace Arkivverket.Arkade.CLI
         {
             Arkade = new Core.Base.Arkade();
             StatusEventHandler = Arkade.StatusEventHandler;
-            TestProgressReporter = Arkade.TestProgressReporter;
 
             StatusEventHandler.TestProgressUpdatedEvent += OnTestProgressUpdatedEvent;
             StatusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
