@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -32,6 +33,7 @@ namespace Arkivverket.Arkade.CLI
 
             StatusEventHandler.TestProgressUpdatedEvent += OnTestProgressUpdatedEvent;
             StatusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
+            StatusEventHandler.SiardValidationFinishedEvent += OnSiardValidationFinishedEvent;
 
             Log.Information($"\n" +
                             $"********************************************************************************\n" +
@@ -67,6 +69,13 @@ namespace Arkivverket.Arkade.CLI
         private static void OnOperationMessageEvent(object sender, OperationMessageEventArgs e)
         {
             Log.Debug(e.Message);
+        }
+
+        private static void OnSiardValidationFinishedEvent(object sender, SiardValidationEventArgs eventArgs)
+        {
+            if (eventArgs.Errors.Any(e => e != null))
+                foreach (string errorMsg in eventArgs.Errors.Where(e => e != null))
+                    Log.Error(errorMsg);
         }
 
         private static string GetThirdPartySoftwareInfo()
