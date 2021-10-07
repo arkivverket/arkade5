@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
                 throw new ArkadeException(
                     string.Format(ExceptionMessages.SiardValidatorLibraryNotFound,
                         Path.GetFileName(dbptkLibraryPath),
-                        ArkadeConstants.SiardValidatorDownloadUrl,
+                        ArkadeConstants.DbptkLibraryDownloadUrl,
                         DbptkLibraryDirectoryPath));
 
             Directory.CreateDirectory(Path.GetDirectoryName(reportFilePath));

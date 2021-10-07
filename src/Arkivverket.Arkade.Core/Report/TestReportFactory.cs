@@ -132,7 +132,7 @@ namespace Arkivverket.Arkade.Core.Report
             {
                 new Result
                 {
-                    Location = Resources.OutputFileNames.SiardValidationReportFile,
+                    Location = Resources.OutputFileNames.DbptkValidationReportFile,
                     Message = Resources.SiardMessages.ValidationResultMessage,
                 }
             };

@@ -138,8 +138,8 @@
   <data name="TestReportDirectory" xml:space="preserve">
     <value>testrapporter</value>
   </data>
-  <data name="SiardValidationReportFile" xml:space="preserve">
-    <value>siard-valideringsrapport.txt</value>
+  <data name="DbptkValidationReportFile" xml:space="preserve">
+    <value>dbptk-valideringsrapport.txt</value>
   </data>
   <data name="StandaloneTestReportFile" xml:space="preserve">
     <value>arkade-testrapport_{0}.{1}</value>

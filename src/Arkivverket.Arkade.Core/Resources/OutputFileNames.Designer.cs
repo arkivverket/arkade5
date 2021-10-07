@@ -61,6 +61,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to dbptk-validationreport.txt.
+        /// </summary>
+        public static string DbptkValidationReportFile {
+            get {
+                return ResourceManager.GetString("DbptkValidationReportFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}-fileformatinfo.csv.
         /// </summary>
         public static string FileFormatInfoFile {
@@ -102,15 +111,6 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string ResultOutputDirectory {
             get {
                 return ResourceManager.GetString("ResultOutputDirectory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to siard-validationreport.txt.
-        /// </summary>
-        public static string SiardValidationReportFile {
-            get {
-                return ResourceManager.GetString("SiardValidationReportFile", resourceCulture);
             }
         }
         

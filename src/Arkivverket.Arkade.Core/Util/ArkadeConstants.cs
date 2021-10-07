@@ -73,7 +73,7 @@ namespace Arkivverket.Arkade.Core.Util
 
         public const string ArkadeWebSiteUrl = "https://arkade.arkivverket.no";
 
-        public const string SiardValidatorDownloadUrl =
+        public const string DbptkLibraryDownloadUrl =
             "https://github.com/keeps/dbptk-developer/releases/download/v2.9.9/dbptk-app-2.9.9.jar";
     }
 }

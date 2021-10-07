@@ -119,8 +119,8 @@ namespace Arkivverket.Arkade.Core.Base
             if (testSession.Archive.ArchiveType == ArchiveType.Siard)
                 File.Move(
                     sourceFileName: Path.Combine(testSession.Archive.WorkingDirectory.RepositoryOperations().ToString(),
-                        OutputFileNames.SiardValidationReportFile),
-                    destFileName: Path.Combine(testReportDirectory.FullName, OutputFileNames.SiardValidationReportFile)
+                        OutputFileNames.DbptkValidationReportFile),
+                    destFileName: Path.Combine(testReportDirectory.FullName, OutputFileNames.DbptkValidationReportFile)
                 );
 
             

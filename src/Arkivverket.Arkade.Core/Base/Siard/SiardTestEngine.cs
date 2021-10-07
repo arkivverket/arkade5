@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Base.Siard
                 .First(f => f.Extension.Equals(".siard"));
             string inputFilePath = siardFileInfo.FullName;
             string reportFilePath = Path.Combine(testSession.Archive.WorkingDirectory.RepositoryOperations().ToString(),
-                Resources.OutputFileNames.SiardValidationReportFile);
+                Resources.OutputFileNames.DbptkValidationReportFile);
 
             _statusEventHandler.RaiseEventOperationMessage(
                 Resources.SiardMessages.ValidationMessageIdentifier,

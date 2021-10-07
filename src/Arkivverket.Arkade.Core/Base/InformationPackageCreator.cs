@@ -82,7 +82,7 @@ namespace Arkivverket.Arkade.Core.Base
                         {
                             file.CopyTo(
                                 Path.Combine(testReportResultDirectory.FullName,
-                                    file.Name.Equals(OutputFileNames.SiardValidationReportFile)
+                                    file.Name.Equals(OutputFileNames.DbptkValidationReportFile)
                                         ? file.Name
                                         : string.Format(OutputFileNames.StandaloneTestReportFile, archive.Uuid,
                                             file.Extension.TrimStart('.'))),
