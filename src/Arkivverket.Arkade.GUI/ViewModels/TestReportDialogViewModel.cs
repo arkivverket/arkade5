@@ -14,13 +14,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
     public class TestReportDialogViewModel : BindableBase
     {
         private readonly ILogger _log = Log.ForContext<TestReportDialogViewModel>();
+        private readonly ArkadeApi _arkadeApi;
         public DelegateCommand ShowTestReportCommand { get; }
         public DelegateCommand ExportTestReportFilesCommand { get; }
-        public DirectoryInfo TestReportDirectory { get; set; }
-        public Uuid Uuid { get; set; }
+        public TestSession TestSession;
+        private DirectoryInfo TestReportDirectory => TestSession.Archive.GetTestReportDirectory();
+        private Uuid Uuid => TestSession.Archive.Uuid;
 
-        public TestReportDialogViewModel()
+        public TestReportDialogViewModel(ArkadeApi arkadeApi)
         {
+            _arkadeApi = arkadeApi;
+            
             ShowTestReportCommand = new DelegateCommand(ShowTestReport);
 
             ExportTestReportFilesCommand = new DelegateCommand(ExportTestReport);
@@ -59,23 +63,25 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _log.Information($"User action: Chose directory for {action}: {testReportExportDestination}");
 
             var testReportExportDirectory = new DirectoryInfo(Path.Combine(testReportExportDestination,
-                string.Format(Core.Resources.OutputFileNames.StandaloneTestReportDirectory, Uuid)));
+                string.Format(Core.Resources.OutputFileNames.StandaloneTestReportDirectory, TestSession.Archive.Uuid)));
 
             if (!testReportExportDirectory.Exists)
                 testReportExportDirectory.Create();
 
-            foreach (FileInfo testReportFile in TestReportDirectory.GetFiles())
-            {
-                string destinationTestReportFileName = Path.Combine(
-                    testReportExportDirectory.FullName,
-                    testReportFile.Name.Equals(Core.Resources.OutputFileNames.DbptkValidationReportFile)
-                        ? string.Format(Core.Resources.OutputFileNames.StandaloneDbptkValidationReportFile, Uuid)
-                        : string.Format(Core.Resources.OutputFileNames.StandaloneTestReportFile, Uuid,
-                            testReportFile.Extension.Trim('.'))
-                );
+            //foreach (FileInfo testReportFile in TestReportDirectory.GetFiles())
+            //{
+            //    string destinationTestReportFileName = Path.Combine(
+            //        testReportExportDirectory.FullName,
+            //        testReportFile.Name.Equals(Core.Resources.OutputFileNames.DbptkValidationReportFile)
+            //            ? string.Format(Core.Resources.OutputFileNames.StandaloneDbptkValidationReportFile, TestSession.Archive.Uuid)
+            //            : string.Format(Core.Resources.OutputFileNames.StandaloneTestReportFile, TestSession.Archive.Uuid,
+            //                testReportFile.Extension.Trim('.'))
+            //    );
 
-                testReportFile.CopyTo(destinationTestReportFileName, overwrite: true);
-            }
+            //    testReportFile.CopyTo(destinationTestReportFileName, overwrite: true);
+            //}
+
+            _arkadeApi.SaveReport(TestSession, testReportExportDirectory, standalone: true);
 
             string argument = "/select, \"" + testReportExportDirectory + "\"";
             System.Diagnostics.Process.Start("explorer.exe", argument);

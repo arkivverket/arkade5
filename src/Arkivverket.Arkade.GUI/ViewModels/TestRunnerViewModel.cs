@@ -412,7 +412,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     return;
                 }
 
-                SaveTestReports(_testSession.Archive.GetTestReportDirectory());
+               // SaveTestReports(_testSession.Archive.GetTestReportDirectory());
 
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedOperation, null, OperationMessageStatus.Ok);
@@ -516,7 +516,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ShowTestReportDialog()
         {
-            new TestReportDialog(_testSession.Archive.GetTestReportDirectory(), _testSession.Archive.Uuid).ShowDialog();
+            new TestReportDialog(_testSession).ShowDialog();
         }
 
         private void SaveTestReports(DirectoryInfo testReportDirectory)

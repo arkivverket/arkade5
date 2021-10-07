@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.GUI.Views
     /// </summary>
     public partial class TestReportDialog
     {
-        public TestReportDialog(DirectoryInfo testReportDirectory, Uuid uuid)
+        public TestReportDialog(TestSession testSession)
         {
             InitializeComponent();
 
@@ -19,8 +19,7 @@ namespace Arkivverket.Arkade.GUI.Views
 
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
-            ((TestReportDialogViewModel) DataContext).TestReportDirectory = testReportDirectory;
-            ((TestReportDialogViewModel) DataContext).Uuid = uuid;
+            ((TestReportDialogViewModel) DataContext).TestSession = testSession;
         }
     }
 }

@@ -93,15 +93,11 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (testSession.ArchiveMetadata.PackageType == PackageType.SubmissionInformationPackage)
             {
-                packageFilePath = _informationPackageCreator.CreateSip(
-                    testSession.Archive, testSession.ArchiveMetadata, outputDirectory
-                );
+                packageFilePath = _informationPackageCreator.CreateSip(testSession, outputDirectory);
             }
             else // ArchivalInformationPackage
             {
-                packageFilePath = _informationPackageCreator.CreateAip(
-                    testSession.Archive, testSession.ArchiveMetadata, outputDirectory
-                );
+                packageFilePath = _informationPackageCreator.CreateAip(testSession, outputDirectory);
             }
 
             Log.Information($"{packageType} created at: {packageFilePath}");
@@ -120,7 +116,7 @@ namespace Arkivverket.Arkade.Core.Base
                 File.Move(
                     sourceFileName: Path.Combine(testSession.Archive.WorkingDirectory.RepositoryOperations().ToString(),
                         OutputFileNames.DbptkValidationReportFile),
-                    destFileName: Path.Combine(testReportDirectory.FullName, OutputFileNames.DbptkValidationReportFile)
+                    destFileName: Path.Combine(testReportDirectory.FullName, string.Format(OutputFileNames.StandaloneDbptkValidationReportFile, testSession.Archive.Uuid))
                 );
 
             

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
@@ -32,9 +33,9 @@ namespace Arkivverket.Arkade.Core.Base
         /// Package- and metafile are written to the given output directory
         /// The full path of the created package is returned
         /// </summary>
-        public string CreateSip(Archive archive, ArchiveMetadata metadata, string outputDirectory)
+        public string CreateSip(TestSession testSession, string outputDirectory)
         {
-            string packageFilePath = CreatePackage(PackageType.SubmissionInformationPackage, archive, metadata, outputDirectory);
+            string packageFilePath = CreatePackage(PackageType.SubmissionInformationPackage, testSession, outputDirectory);
 
             return packageFilePath;
         }
@@ -44,88 +45,76 @@ namespace Arkivverket.Arkade.Core.Base
         /// Package- and metafile are written to the given output directory
         /// The full path of the created package is returned
         /// </summary>
-        public string CreateAip(Archive archive, ArchiveMetadata metadata, string outputDirectory)
+        public string CreateAip(TestSession testSession, string outputDirectory)
         {
-            string packageFilePath = CreatePackage(PackageType.ArchivalInformationPackage, archive, metadata, outputDirectory);
+            string packageFilePath = CreatePackage(PackageType.ArchivalInformationPackage, testSession, outputDirectory);
 
             return packageFilePath;
         }
 
-        private string CreatePackage(PackageType packageType, Archive archive, ArchiveMetadata metadata, string outputDirectory)
+        private string CreatePackage(PackageType packageType, TestSession testSession, string outputDirectory)
         {
             try
             {
-                EnsureSufficientDiskSpace(archive, outputDirectory);
+                EnsureSufficientDiskSpace(testSession.Archive, outputDirectory);
             }
             catch
             {
                 Log.Warning("Could not ensure sufficient disk space for package destination");
             }
 
-            string resultDirectory = CreateResultDirectory(archive, outputDirectory);
+            string resultDirectory = CreateResultDirectory(testSession.Archive, outputDirectory);
 
-            if (packageType == PackageType.SubmissionInformationPackage)
+            if (packageType == PackageType.SubmissionInformationPackage && testSession.TestSuite.TestRuns.Any())
             {
-                DirectoryInfo testReportDirectory = archive.GetTestReportDirectory();
+                DirectoryInfo testReportDirectory = Directory.CreateDirectory(Path.Combine(
+                    resultDirectory,
+                    string.Format(OutputFileNames.StandaloneTestReportDirectory, testSession.Archive.Uuid)
+                ));
 
-                if (testReportDirectory.Exists)
-                {
-                    FileInfo[] testReportFiles = testReportDirectory.GetFiles();
+                TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory, standalone: true);
+            }
+            else
+            {
+                DirectoryInfo testReportDirectory = Directory.CreateDirectory(testSession.Archive.GetTestReportDirectory().FullName);
 
-                    if (testReportFiles.Any())
-                    {
-                        DirectoryInfo testReportResultDirectory = Directory.CreateDirectory(Path.Combine(
-                            resultDirectory, string.Format(OutputFileNames.StandaloneTestReportDirectory, archive.Uuid)
-                        ));
-
-                        foreach (FileInfo file in testReportFiles)
-                        {
-                            file.CopyTo(
-                                Path.Combine(testReportResultDirectory.FullName,
-                                    file.Name.Equals(OutputFileNames.DbptkValidationReportFile)
-                                        ? string.Format(OutputFileNames.StandaloneDbptkValidationReportFile, archive.Uuid)
-                                        : string.Format(OutputFileNames.StandaloneTestReportFile, archive.Uuid,
-                                            file.Extension.TrimStart('.'))),
-                                overwrite: true);
-                        }
-                    }
-                }
+                TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory, standalone: false);
             }
 
-            string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
+            string packageFilePath = Path.Combine(resultDirectory, testSession.Archive.GetInformationPackageFileName());
 
             using Stream outStream = File.Create(packageFilePath);
             using TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
 
-            string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
+            string packageRootDirectory = testSession.Archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
             CreateEntry(packageRootDirectory, false, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
-                archive, archive.WorkingDirectory.Root().DirectoryInfo(), packageType, tarArchive, packageRootDirectory
+                testSession.Archive, testSession.Archive.WorkingDirectory.Root().DirectoryInfo(), packageType, tarArchive, packageRootDirectory
             );
 
-            if (archive.WorkingDirectory.HasExternalContentDirectory())
+            if (testSession.Archive.WorkingDirectory.HasExternalContentDirectory())
             {
-                Log.Debug($"Archive has external content directory, including files from {archive.WorkingDirectory.Content()}");
+                Log.Debug($"Archive has external content directory, including files from {testSession.Archive.WorkingDirectory.Content()}");
 
                 string contentDirectory = packageRootDirectory +
                                           ArkadeConstants.DirectoryNameContent +
                                           Path.DirectorySeparatorChar;
 
                 AddFilesInDirectory(
-                    archive, archive.WorkingDirectory.Content().DirectoryInfo(), null, tarArchive, contentDirectory
+                    testSession.Archive, testSession.Archive.WorkingDirectory.Content().DirectoryInfo(), null, tarArchive, contentDirectory
                 );
             }
 
             tarArchive.Close();
 
             var diasMetsFilePath = Path.Combine(
-                archive.WorkingDirectory.Root().DirectoryInfo().FullName,
+                testSession.Archive.WorkingDirectory.Root().DirectoryInfo().FullName,
                 ArkadeConstants.DiasMetsXmlFileName
             );
 
-            new InfoXmlCreator().CreateAndSaveFile(metadata, packageFilePath, diasMetsFilePath,
-                archive.GetInfoXmlFileName());
+            new InfoXmlCreator().CreateAndSaveFile(testSession.ArchiveMetadata, packageFilePath, diasMetsFilePath,
+                testSession.Archive.GetInfoXmlFileName());
 
             return packageFilePath;
         }
@@ -245,6 +234,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             throw new ArgumentException(string.Format(ExceptionMessages.UnknownPackageType, packageType));
         }
+
     }
 
     public enum PackageType
