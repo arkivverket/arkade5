@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Util;
@@ -104,7 +104,7 @@ namespace Arkivverket.Arkade.Core.Logging
 
             ResetCursorPositionToPreviousWriteLocation(cursorLeft, cursorTop);
 
-            IsRunning = true;
+            IsRunning = false;
         }
 
         private void SetConsoleCursorToTestProgressWriteLocation()
