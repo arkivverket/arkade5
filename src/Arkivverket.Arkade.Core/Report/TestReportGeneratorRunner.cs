@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Core.Report
         public static void RunAllGenerators(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone)
         {
             TestReport testReport = testSession.Archive.ArchiveType.Equals(ArchiveType.Siard)
-                ? TestReportFactory.CreateForSiard(testSession)
+                ? TestReportFactory.CreateForSiard(testSession, standalone)
                 : TestReportFactory.Create(testSession);
 
             foreach (TestReportFormat testReportFormat in Enum.GetValues<TestReportFormat>())

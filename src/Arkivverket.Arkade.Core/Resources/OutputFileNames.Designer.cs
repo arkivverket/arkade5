@@ -115,6 +115,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to dbptk-validationreport_{0}.txt.
+        /// </summary>
+        public static string StandaloneDbptkValidationReportFile {
+            get {
+                return ResourceManager.GetString("StandaloneDbptkValidationReportFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to arkade-testreports_{0}.
         /// </summary>
         public static string StandaloneTestReportDirectory {

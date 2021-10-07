@@ -19,12 +19,12 @@ namespace Arkivverket.Arkade.Core.Report
             return testReport;
         }
 
-        public static TestReport CreateForSiard(TestSession testSession)
+        public static TestReport CreateForSiard(TestSession testSession, bool standalone)
         {
             var testReport = new TestReport
             {
                 Summary = CreateTestReportSummary(testSession),
-                TestsResults = GetSiardTestReportResults(),
+                TestsResults = GetSiardTestReportResults(standalone ? testSession.Archive.Uuid : null),
             };
 
             return testReport;
@@ -102,7 +102,7 @@ namespace Arkivverket.Arkade.Core.Report
             }).ToList();
         }
 
-        private static List<ExecutedTest> GetSiardTestReportResults()
+        private static List<ExecutedTest> GetSiardTestReportResults(Uuid uuidForStandaloneReport)
         {
             return new()
             {
@@ -110,29 +110,31 @@ namespace Arkivverket.Arkade.Core.Report
                 {
                     TestId = "externalReport",
                     TestName = string.Format(Resources.SiardMessages.ValidationResultTestName, Resources.SiardMessages.DbptkDeveloper),
-                    ResultSet = GetSiardResultSet(),
+                    ResultSet = GetSiardResultSet(uuidForStandaloneReport),
                     HasResults = true,
                     TestType = null,
                 }
             };
         }
 
-        private static ResultSet GetSiardResultSet()
+        private static ResultSet GetSiardResultSet(Uuid uuidForStandaloneReport)
         {
             return new()
             {
-                Results = GetSiardResult(),
+                Results = GetSiardResult(uuidForStandaloneReport),
                 ResultSets = new List<ResultSet>(),
             };
         }
 
-        private static List<Result> GetSiardResult()
+        private static List<Result> GetSiardResult(Uuid uuidForStandaloneReport)
         {
             return new()
             {
                 new Result
                 {
-                    Location = Resources.OutputFileNames.DbptkValidationReportFile,
+                    Location = uuidForStandaloneReport != null
+                        ? string.Format(Resources.OutputFileNames.StandaloneDbptkValidationReportFile, uuidForStandaloneReport)
+                        : Resources.OutputFileNames.DbptkValidationReportFile,
                     Message = Resources.SiardMessages.ValidationResultMessage,
                 }
             };

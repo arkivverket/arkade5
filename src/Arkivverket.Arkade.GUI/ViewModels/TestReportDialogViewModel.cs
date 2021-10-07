@@ -69,7 +69,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 string destinationTestReportFileName = Path.Combine(
                     testReportExportDirectory.FullName,
                     testReportFile.Name.Equals(Core.Resources.OutputFileNames.DbptkValidationReportFile)
-                        ? testReportFile.Name
+                        ? string.Format(Core.Resources.OutputFileNames.StandaloneDbptkValidationReportFile, Uuid)
                         : string.Format(Core.Resources.OutputFileNames.StandaloneTestReportFile, Uuid,
                             testReportFile.Extension.Trim('.'))
                 );

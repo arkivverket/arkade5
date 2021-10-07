@@ -147,4 +147,7 @@
   <data name="StandaloneTestReportDirectory" xml:space="preserve">
     <value>arkade-testrapporter_{0}</value>
   </data>
+  <data name="StandaloneDbptkValidationReportFile" xml:space="preserve">
+    <value>dbptk-valideringsrapport_{0}.txt</value>
+  </data>
 </root>
