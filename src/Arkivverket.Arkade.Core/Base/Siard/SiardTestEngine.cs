@@ -66,7 +66,9 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 
             _statusEventHandler.RaiseEventSiardValidationFinished(errors);
 
-            return errors.Any(e => e != null);
+            bool validationRanWithoutRunErrors = errors.All(e => e == null);
+
+            return validationRanWithoutRunErrors;
         }
 
         private int GetNumberOfXFromSummary(string x, List<string> summary)
