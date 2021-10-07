@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Metadata;
@@ -66,23 +67,27 @@ namespace Arkivverket.Arkade.Core.Base
             if (packageType == PackageType.SubmissionInformationPackage)
             {
                 DirectoryInfo testReportDirectory = archive.GetTestReportDirectory();
-                
+
                 if (testReportDirectory.Exists)
                 {
-                    string testReportResultDirectory = Path.Combine(resultDirectory,
-                        string.Format(OutputFileNames.StandaloneTestReportDirectory, archive.Uuid));
-                    foreach (FileInfo file in testReportDirectory.GetFiles())
-                    {
-                        if (!Directory.Exists(testReportResultDirectory))
-                            Directory.CreateDirectory(testReportResultDirectory);
+                    FileInfo[] testReportFiles = testReportDirectory.GetFiles();
 
-                        file.CopyTo(
-                            Path.Combine(testReportResultDirectory,
-                                file.Name.Equals(OutputFileNames.SiardValidationReportFile)
-                                    ? file.Name
-                                    : string.Format(OutputFileNames.StandaloneTestReportFile, archive.Uuid,
-                                        file.Extension.TrimStart('.'))),
-                            overwrite: true);
+                    if (testReportFiles.Any())
+                    {
+                        DirectoryInfo testReportResultDirectory = Directory.CreateDirectory(Path.Combine(
+                            resultDirectory, string.Format(OutputFileNames.StandaloneTestReportDirectory, archive.Uuid)
+                        ));
+
+                        foreach (FileInfo file in testReportFiles)
+                        {
+                            file.CopyTo(
+                                Path.Combine(testReportResultDirectory.FullName,
+                                    file.Name.Equals(OutputFileNames.SiardValidationReportFile)
+                                        ? file.Name
+                                        : string.Format(OutputFileNames.StandaloneTestReportFile, archive.Uuid,
+                                            file.Extension.TrimStart('.'))),
+                                overwrite: true);
+                        }
                     }
                 }
             }
