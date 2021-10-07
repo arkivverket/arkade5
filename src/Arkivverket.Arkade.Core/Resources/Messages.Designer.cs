@@ -745,5 +745,14 @@ namespace Arkivverket.Arkade.Core.Resources {
                 return ResourceManager.GetString("TarExtractionMessageStarted", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validating extract.
+        /// </summary>
+        public static string ValidatingExtractMessage {
+            get {
+                return ResourceManager.GetString("ValidatingExtractMessage", resourceCulture);
+            }
+        }
     }
 }

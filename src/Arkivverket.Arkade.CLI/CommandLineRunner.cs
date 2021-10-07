@@ -58,7 +58,6 @@ namespace Arkivverket.Arkade.CLI
         {
             if (eventArgs.HasFailed)
             {
-                TestProgressReporter.Finish(true);
                 Log.Error(eventArgs.FailMessage);
                 _testRunHasFailed = true;
             }
@@ -219,7 +218,7 @@ namespace Arkivverket.Arkade.CLI
                 StatusEventHandler.RaiseEventTestProgressUpdated("", true, e.Message);
                 return false;
             }
-            
+
             if (_testRunHasFailed)
                 return false;
 

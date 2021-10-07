@@ -64,9 +64,10 @@ namespace Arkivverket.Arkade.GUI.Util
                 Log.Debug("Could not find an active TestProgressReporter");
                 return;
             }
-            _statusEventHandler.RaiseEventTestProgressUpdated(_archiveType is ArchiveType.Siard
-            ? TestRunnerGUI.MessageCompleted
-            : "100 %");
+
+            _statusEventHandler.RaiseEventTestProgressUpdated(
+                _archiveType is ArchiveType.Siard ? TestRunnerGUI.MessageCompleted : "100 %",
+                hasFailed);
 
             IsRunning = false;
         }

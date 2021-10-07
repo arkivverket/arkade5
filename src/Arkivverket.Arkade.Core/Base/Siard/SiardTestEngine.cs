@@ -21,16 +21,17 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 
         public TestSuite RunTestsOnArchive(TestSession testSession)
         {
+            _statusEventHandler.RaiseEventOperationMessage(Resources.Messages.ValidatingExtractMessage, null, OperationMessageStatus.Started);
             _testProgressReporter.Begin(ArchiveType.Siard);
 
-            RunSiardValidation(testSession);
+            bool validationHasCompleted = RunSiardValidation(testSession);
 
-            _testProgressReporter.Finish();
+            _testProgressReporter.Finish(!validationHasCompleted);
 
             return new TestSuite();
         }
 
-        private void RunSiardValidation(TestSession testSession)
+        private bool RunSiardValidation(TestSession testSession)
         {
             FileInfo siardFileInfo = testSession.Archive.WorkingDirectory.Content().DirectoryInfo().GetFiles()
                 .First(f => f.Extension.Equals(".siard"));
@@ -64,6 +65,8 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             testSession.TestSummary = new TestSummary(0, 0, 0, numberOfValidationErrors, numberOfValidationWarnings);
 
             _statusEventHandler.RaiseEventSiardValidationFinished(errors);
+
+            return errors.Any(e => e != null);
         }
 
         private int GetNumberOfXFromSummary(string x, List<string> summary)

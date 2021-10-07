@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Util;
@@ -92,6 +92,7 @@ namespace Arkivverket.Arkade.Core.Logging
             if (_archiveType is ArchiveType.Siard)
             {
                 _busyIndicator.Stop(hasFailed);
+                _statusEventHandler.RaiseEventTestProgressUpdated(string.Empty, hasFailed);
                 return;
             }
 
@@ -100,7 +101,7 @@ namespace Arkivverket.Arkade.Core.Logging
 
             SetConsoleCursorToTestProgressWriteLocation();
 
-            _statusEventHandler.RaiseEventTestProgressUpdated("100 %");
+            _statusEventHandler.RaiseEventTestProgressUpdated("100 %", hasFailed);
 
             ResetCursorPositionToPreviousWriteLocation(cursorLeft, cursorTop);
 

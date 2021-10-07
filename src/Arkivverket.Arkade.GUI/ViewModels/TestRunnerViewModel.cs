@@ -320,10 +320,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private void OnSiardValidationFinished(object sender, SiardValidationEventArgs eventArgs)
         {
             List<string> errors = eventArgs.Errors;
-            
-            if (errors.Any())
-                errors.Where(errorMsg => errorMsg != null).ToList().ForEach(errorMsg =>
-                _statusEventHandler.RaiseEventOperationMessage(errorMsg, string.Empty, OperationMessageStatus.Error));
+
+            if (errors.Any(e => e != null))
+                foreach (string errorMsg in errors.Where(e => e != null))
+                    _statusEventHandler.RaiseEventOperationMessage(errorMsg, string.Empty,
+                        OperationMessageStatus.Error);
+
+            else
+                _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.SiardProgressMessage,
+                    TestRunnerGUI.MessageCompleted, OperationMessageStatus.Ok);
         }
 
         private void OnOperationMessageEvent(object sender, OperationMessageEventArgs eventArgs)
@@ -393,9 +398,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 NotifyStartRunningTests();
 
-                if (_archiveType is ArchiveType.Siard)
-                    _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.SiardProgressMessage, null, OperationMessageStatus.Started);
-
                 _testSession.TestsToRun = GetSelectedTests();
                 
                 _testSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
@@ -404,9 +406,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                 _testSession.AddLogEntry("Test run completed.");
 
-                if (_archiveType is ArchiveType.Siard)
-                    _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.SiardProgressMessage,
-                        TestRunnerGUI.MessageCompleted, OperationMessageStatus.Ok);
                 if (_testRunHasFailed)
                 {
                     NotifyFinishedRunningTests();

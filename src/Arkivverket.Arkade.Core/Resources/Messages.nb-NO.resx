@@ -347,4 +347,7 @@ Aktuell sjekksum: {1}</value>
   <data name="TarExtractionMessageStarted" xml:space="preserve">
     <value>Starter utpakking.</value>
   </data>
+  <data name="ValidatingExtractMessage" xml:space="preserve">
+    <value>Validerer uttrekket</value>
+  </data>
 </root>
