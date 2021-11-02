@@ -280,7 +280,7 @@ namespace Arkivverket.Arkade.Core.Report
                     stream.WriteLine(@"            </tr>");
                 }
 
-                if (testReport.Summary.NumberOfProcessedFiles != default)
+                if (testReport.Summary.NumberOfProcessedFiles != default && _archiveType != ArchiveType.Noark5)
                 {
                     stream.WriteLine(@"            <tr>");
                     stream.WriteLine(@"                <td>");
