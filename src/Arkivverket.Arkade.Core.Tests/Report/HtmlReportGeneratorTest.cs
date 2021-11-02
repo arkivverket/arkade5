@@ -38,7 +38,6 @@ namespace Arkivverket.Arkade.Core.Tests.Report
 
             TestSession testSession = new TestSessionBuilder()
                 .WithTestRuns(testRuns)
-                .WithTestSummary(new TestSummary(0, 0, 0, 0, 0))
                 .Build();
             return testSession;
         }
@@ -80,11 +79,16 @@ namespace Arkivverket.Arkade.Core.Tests.Report
 
             TestSession testSession = new TestSessionBuilder()
                 .WithArchive(new Archive(ArchiveType.Noark3, null, null))
-                .WithTestSummary(new TestSummary(41, 42, 0, 0, 0))
+                .WithTestSummary(new TestSummary { NumberOfProcessedFiles = "42", NumberOfProcessedRecords = "42" })
                 .WithTestRuns(testRuns)
                 .Build();
 
-            testSession.TestSummary = new TestSummary(42, 43, 44, 0, 0);
+            testSession.TestSummary = new TestSummary
+            {
+                NumberOfProcessedFiles = "42",
+                NumberOfProcessedRecords = "43",
+                NumberOfTestsRun = "44"
+            };
 
             string html = GenerateReport(testSession);
 
@@ -109,7 +113,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
 
             TestSession testSession = new TestSessionBuilder()
                 .WithArchive(new Archive(ArchiveType.Noark5, null, null))
-                .WithTestSummary(new TestSummary(0, 0, 44, 0, 0))
+                .WithTestSummary(new TestSummary{NumberOfTestsRun = "44"})
                 .WithTestRuns(testRuns)
                 .Build();
 

@@ -292,7 +292,7 @@ namespace Arkivverket.Arkade.Core.Report
                     stream.WriteLine(@"            </tr>");
                 }
 
-                if (testReport.Summary.NumberOfProcessedRecords != default && _archiveType != ArchiveType.Noark5)
+                if (testReport.Summary.NumberOfProcessedRecords != default)
                 {
                     stream.WriteLine(@"            <tr>");
                     stream.WriteLine(@"                <td>");

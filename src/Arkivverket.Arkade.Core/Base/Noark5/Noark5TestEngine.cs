@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
             AddTestToTestSuite(contentTests, testSuite);
             AddTestToTestSuite(structureTests, testSuite);
 
-            testSession.TestSummary = new TestSummary(0, 0, testSuite.TestRuns.Count(), testSuite.FindNumberOfErrors(), 0);
+            testSession.TestSummary = new TestSummary{NumberOfTestsRun = testSuite.TestRuns.Count().ToString(), NumberOfErrors = testSuite.FindNumberOfErrors().ToString()};
 
             return testSuite;
         }

@@ -50,7 +50,6 @@ namespace Arkivverket.Arkade.Core.Tests.Report
                 .WithArchive(archive)
                 .WithLogEntry("log entry")
                 .WithTestRuns(testRuns)
-                .WithTestSummary(new TestSummary(0, 0, 0, 0, 0))
                 .Build();
 
             return testSession;
@@ -90,9 +89,11 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             html.Contains(Resources.Report.LabelSystemType).Should().BeTrue();
             html.Contains(Resources.Report.LabelArchiveType).Should().BeTrue();
             html.Contains(Resources.Report.LabelDateOfTesting).Should().BeTrue();
-            html.Contains(Resources.Report.LabelNumberOfTestsExecuted).Should().BeTrue();
-            html.Contains(Resources.Report.LabelNumberOfFilesProcessed).Should().BeTrue();
+            html.Contains(Resources.Report.LabelNumberOfTestsExecuted).Should().BeTrue(); // TODO: True if Noark5, false if not?
+            //html.Contains(Resources.Report.LabelNumberOfFilesProcessed).Should().BeTrue(); //TODO: True if Fagsystem, false if not?
+            //html.Contains(Resources.Report.LabelNumberOfRecordsProcessed).Should().BeTrue(); //TODO: True if Fagsystem, false if not?
             html.Contains(Resources.Report.LabelNumberOfErrors).Should().BeTrue();
+            //html.Contains(Resources.Report.LabelNumberOfWarnings).Should().BeTrue(); // TODO: True if Siard, false if not?
             html.Contains("id=\"U.01\"").Should().BeTrue();
             html.Contains(Resources.Report.TestTypeContentAnalysisDisplayName).Should().BeTrue();
             html.Contains("Test description 1").Should().BeTrue();
@@ -113,10 +114,11 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             xml.Contains("<SystemType>").Should().BeTrue();
             xml.Contains("<ArchiveType>").Should().BeTrue();
             xml.Contains("<DateOfTesting>").Should().BeTrue();
-            xml.Contains("<NumberOfTestsRun>").Should().BeTrue();
-            xml.Contains("<NumberOfProcessedFiles>").Should().BeTrue();
-            xml.Contains("<NumberOfProcessedRecords>").Should().BeTrue();
+            xml.Contains("<NumberOfTestsRun>").Should().BeTrue(); // TODO: True if Noark5, false if not?
+            //xml.Contains("<NumberOfProcessedFiles>").Should().BeTrue();  // TODO: True if Fagsystem, false if not?
+            //xml.Contains("<NumberOfProcessedRecords>").Should().BeTrue();  // TODO: True if Fagsystem, false if not?
             xml.Contains("<NumberOfErrors>").Should().BeTrue();
+            //xml.Contains("<NumberOfWarnings>").Should().BeTrue(); // TODO: True if Siard, false if not?
             xml.Contains("<TestsResults>").Should().BeTrue();
             xml.Contains("<ExecutedTest>").Should().BeTrue();
             xml.Contains("<TestId>U.01").Should().BeTrue();
@@ -144,10 +146,11 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             json.Contains("\"SystemType\"").Should().BeTrue();
             json.Contains("\"ArchiveType\"").Should().BeTrue();
             json.Contains("\"DateOfTesting\"").Should().BeTrue();
-            json.Contains("\"NumberOfTestsRun\"").Should().BeTrue(); 
-            json.Contains("\"NumberOfProcessedFiles\"").Should().BeTrue();
-            json.Contains("\"NumberOfProcessedRecords\"").Should().BeTrue();
+            json.Contains("\"NumberOfTestsRun\"").Should().BeTrue(); // TODO: True if Noark5, false if not?
+            //json.Contains("\"NumberOfProcessedFiles\"").Should().BeTrue(); // TODO: True if Fagsystem, false if not?
+            //json.Contains("\"NumberOfProcessedRecords\"").Should().BeTrue(); // TODO: True if Fagsystem, false if not?
             json.Contains("\"NumberOfErrors\"").Should().BeTrue();
+            //json.Contains("\"NumberOfWarnings\"").Should().BeTrue(); // TODO: True if Siard, false if not?
             json.Contains("\"U.01\"").Should().BeTrue();
             json.Contains("\"ContentAnalysis\"").Should().BeTrue();
             json.Contains("\"Test description 1\"").Should().BeTrue();

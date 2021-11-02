@@ -16,6 +16,7 @@ namespace Arkivverket.Arkade.Core.Report
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement),
                 WriteIndented = true,
                 IgnoreReadOnlyFields = true,
+                IgnoreNullValues = true,
                 Converters =
                 {
                     new JsonStringEnumConverter()

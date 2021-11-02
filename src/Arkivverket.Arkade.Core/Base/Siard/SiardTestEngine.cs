@@ -48,21 +48,14 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 
             List<string> summary = results.Where(r => r != null && r.Contains("number of", StringComparison.InvariantCultureIgnoreCase)).ToList();
 
-            int numberOfValidationErrors;
-            int numberOfValidationWarnings;
-
-            if (!summary.Any())
+            if (summary.Any())
             {
-                numberOfValidationErrors = 0;
-                numberOfValidationWarnings = 0;
+                testSession.TestSummary = new TestSummary
+                {
+                    NumberOfErrors = GetNumberOfXFromSummary("errors", summary),
+                    NumberOfWarnings = GetNumberOfXFromSummary("warnings", summary)
+                };
             }
-            else
-            {
-                numberOfValidationErrors = GetNumberOfXFromSummary("errors", summary);
-                numberOfValidationWarnings = GetNumberOfXFromSummary("warnings", summary);
-            }
-
-            testSession.TestSummary = new TestSummary(0, 0, 0, numberOfValidationErrors, numberOfValidationWarnings);
 
             _statusEventHandler.RaiseEventSiardValidationFinished(errors);
 
@@ -71,12 +64,11 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             return validationRanWithoutRunErrors;
         }
 
-        private int GetNumberOfXFromSummary(string x, List<string> summary)
+        private string GetNumberOfXFromSummary(string x, List<string> summary)
         {
             var regex = new Regex(@"(?!\[)\d+(?=\])");
-            string match = regex.Match(summary.First(s => s.Contains(x, StringComparison.InvariantCultureIgnoreCase))).Value;
 
-            return int.Parse(match);
+            return regex.Match(summary.First(s => s.Contains(x, StringComparison.InvariantCultureIgnoreCase))).Value;
         }
     }
 }

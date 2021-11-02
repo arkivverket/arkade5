@@ -68,9 +68,6 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             }
             testSession.TestSuite = testSuite;
 
-            if (_testSummary == null)
-                _testSummary = new TestSummary(0,0,0,0,0);
-
             testSession.TestSummary = _testSummary;
 
             return testSession;

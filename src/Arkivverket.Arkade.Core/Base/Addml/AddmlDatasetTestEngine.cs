@@ -142,8 +142,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, testSession.Archive).GetTestRun());
             testSuite.AddTestRun(new AH_03_ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
 
-            testSession.TestSummary = new TestSummary((int) fileCounter, (int) recordCounter,
-                testSuite.TestRuns.Count(), testSuite.FindNumberOfErrors(), 0);
+            testSession.TestSummary = new TestSummary{
+                NumberOfProcessedFiles = fileCounter.ToString() , NumberOfProcessedRecords = recordCounter.ToString(),
+                NumberOfTestsRun = testSuite.TestRuns.Count().ToString(), NumberOfErrors = testSuite.FindNumberOfErrors().ToString()};
 
             _testProgressReporter.Finish();
 
