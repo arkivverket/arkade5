@@ -91,7 +91,6 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             html.Contains(Resources.Report.LabelArchiveType).Should().BeTrue();
             html.Contains(Resources.Report.LabelDateOfTesting).Should().BeTrue();
             html.Contains(Resources.Report.LabelNumberOfTestsExecuted).Should().BeTrue();
-            html.Contains(Resources.Report.LabelNumberOfFilesProcessed).Should().BeTrue();
             html.Contains(Resources.Report.LabelNumberOfErrors).Should().BeTrue();
             html.Contains("id=\"U.01\"").Should().BeTrue();
             html.Contains(Resources.Report.TestTypeContentAnalysisDisplayName).Should().BeTrue();
