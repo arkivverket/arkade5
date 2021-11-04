@@ -407,4 +407,7 @@ Generert:  {2}</value>
   <data name="ClassificationSystemTypeAndId" xml:space="preserve">
     <value>{0} klassifikasjonssystem (systemID): {1}</value>
   </data>
+  <data name="CouldNotFindValidSpecificationFile" xml:space="preserve">
+    <value>Klarte ikke finne en gyldig spesifikasjonsfil</value>
+  </data>
 </root>

@@ -204,4 +204,10 @@
   <data name="ValueNumberOfTestsExecuted" xml:space="preserve">
     <value>{0} of {1}</value>
   </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>version</value>
+  </data>
+  <data name="LabelNumberOfWarnings" xml:space="preserve">
+    <value>Number of warnings</value>
+  </data>
 </root>

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
+using Arkivverket.Arkade.Core.Base.Siard;
+using Arkivverket.Arkade.Core.ExternalModels.Metadata;
 using Arkivverket.Arkade.Core.Resources;
 using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
@@ -23,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Base
         public ReadOnlyDictionary<string, DocumentFile> DocumentFiles => _documentFiles ?? GetDocumentFiles();
         public AddmlXmlUnit AddmlXmlUnit { get; }
         public AddmlInfo AddmlInfo { get; }
-        public ArchiveDetails Details { get; }
+        public IArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
         public Archive(ArchiveType archiveType, Uuid uuid, WorkingDirectory workingDirectory)
@@ -35,7 +37,10 @@ namespace Arkivverket.Arkade.Core.Base
             WorkingDirectory = workingDirectory;
 
             if (archiveType == ArchiveType.Siard)
+            {
+                Details = SetupSiardArchiveDetails(workingDirectory);
                 return;
+            }
             
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
@@ -55,11 +60,26 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
+        private static IArchiveDetails SetupSiardArchiveDetails(WorkingDirectory workingDirectory)
+        {
+            FileInfo siardArchiveFile = workingDirectory.Content().DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
+            if (siardArchiveFile == null)
+                throw new ArkadeException("Siard file not found");
+            if (!siardArchiveFile.Exists)
+                throw new ArkadeException(string.Format(ExceptionMessages.FileNotFound, siardArchiveFile.FullName));
+
+            object siardArchive = new SiardArchiveReader().DeserializeMetadataXmlFromArchiveFile(siardArchiveFile.FullName);
+
+            if (siardArchive is siardArchive siard2Archive)
+                return new SiardArchiveDetails(siard2Archive);
+
+            return null;
+        }
+
         public DirectoryInfo GetTestReportDirectory()
         {
-            return WorkingDirectory.RepositoryOperations().WithSubDirectory(
-                string.Format(OutputFileNames.TestReportDirectory, Uuid)
-            ).DirectoryInfo();
+            return WorkingDirectory.RepositoryOperations().WithSubDirectory(OutputFileNames.TestReportDirectory)
+                .DirectoryInfo();
         }
 
         public string GetInformationPackageFileName()

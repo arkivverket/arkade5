@@ -14,6 +14,7 @@ namespace Arkivverket.Arkade.CLI
     {
         public static void Main(string[] args)
         {
+            Console.CursorVisible = false;
             Console.CancelKeyPress += OnProcessCanceled;
             AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
 
@@ -28,6 +29,8 @@ namespace Arkivverket.Arkade.CLI
                 .WithParsed<GenerateOptions>(RunGenerateOptions)
                 .WithParsed<AnalyseOptions>(RunAnalyseOptions)
                 .WithNotParsed(LogParseErrors);
+
+            Console.CursorVisible = true;
         }
 
         public static ParserResult<object> ParseArguments(IEnumerable<string> args)
@@ -168,7 +171,8 @@ namespace Arkivverket.Arkade.CLI
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console(outputTemplate: OutputStrings.SystemLogOutputTemplateForConsole, restrictedToMinimumLevel:LogEventLevel.Information)
-                .WriteTo.RollingFile(systemLogFilePath, outputTemplate: OutputStrings.SystemLogOutputTemplateForFile)
+                .WriteTo.File(systemLogFilePath, rollingInterval: RollingInterval.Day,
+                    outputTemplate: OutputStrings.SystemLogOutputTemplateForFile)
                 .CreateLogger();
         }
 

@@ -1,10 +1,12 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing.Noark5;
@@ -18,16 +20,27 @@ namespace Arkivverket.Arkade.CLI
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
         private static readonly Core.Base.Arkade Arkade;
 
+        private static readonly IStatusEventHandler StatusEventHandler;
+
+        private static bool _testRunHasFailed;
+
         static CommandLineRunner()
         {
             Arkade = new Core.Base.Arkade();
+            StatusEventHandler = Arkade.StatusEventHandler;
+
+            StatusEventHandler.TestProgressUpdatedEvent += OnTestProgressUpdatedEvent;
+            StatusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
+            StatusEventHandler.SiardValidationFinishedEvent += OnSiardValidationFinishedEvent;
 
             Log.Information($"\n" +
-                            $"***********************\n" +
-                            $"* ARKADE 5 CLI v{ArkadeVersion.Current} *\n" +
-                            $"***********************\n");
+                            $"********************************************************************************\n" +
+                            $"* ARKADE 5 CLI v{ArkadeVersion.Current}                                                          *\n" +
+                            $"* Copyright © 2017 Arkivverket                                                 *\n" +
+                            $"* Licensed under the GNU Affero General Public License (GNU AGPL), Version 3.0 *\n" +
+                            $"********************************************************************************\n");
 
-            Log.Information(GetBundledSoftwareInfo());
+            Log.Information(GetThirdPartySoftwareInfo());
 
             if (Arkade.Version().UpdateIsAvailable())
             {
@@ -39,17 +52,46 @@ namespace Arkivverket.Arkade.CLI
                 "Download new releases, see release notes and version history at: " + ArkadeConstants.ArkadeWebSiteUrl + "\n");
         }
 
-        private static string GetBundledSoftwareInfo()
+        private static void OnTestProgressUpdatedEvent(object sender, TestProgressEventArgs eventArgs)
+        {
+            if (eventArgs.HasFailed)
+            {
+                Log.Error(eventArgs.FailMessage);
+                _testRunHasFailed = true;
+            }
+            else
+                Console.WriteLine(eventArgs.TestProgress);
+        }
+
+        private static void OnOperationMessageEvent(object sender, OperationMessageEventArgs e)
+        {
+            Log.Debug(e.Message);
+        }
+
+        private static void OnSiardValidationFinishedEvent(object sender, SiardValidationEventArgs eventArgs)
+        {
+            if (eventArgs.Errors.Any(e => e != null))
+                foreach (string errorMsg in eventArgs.Errors.Where(e => e != null))
+                    Log.Error(errorMsg);
+        }
+
+        private static string GetThirdPartySoftwareInfo()
         {
             var info = new StringBuilder();
 
-            info.AppendLine("\n-----------------------BUNDLED SOFTWARE-----------------------\n");
+            info.AppendLine("\n----------------------------- THIRD PARTY SOFTWARE -----------------------------\n");
             info.AppendLine("-- Siegfried --");
             info.AppendLine("PURPOSE: identify document file format.");
             info.AppendLine("Copyright © 2019 Richard Lehane");
             info.AppendLine("Available from: https://www.itforarchivists.com/siegfried/");
             info.AppendLine("Licensed under the Apache License, Version 2.0");
-            info.AppendLine("\n--------------------------------------------------------------\n");
+            info.AppendLine();
+            info.AppendLine("-- iText 7 --");
+            info.AppendLine("PURPOSE: generate PDF documents");
+            info.AppendLine("Copyright © 2021 iText Group nv (HQ Belgium), Inc. All rights reserved.");
+            info.AppendLine("Available from: https://itextpdf.com/");
+            info.AppendLine("Licensed under the GNU Affero General Public License (GNU AGPL), Version 3.0");
+            info.AppendLine("\n--------------------------------------------------------------------------------\n");
 
             return info.ToString();
         }
@@ -63,11 +105,11 @@ namespace Arkivverket.Arkade.CLI
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
                     options.OutputLanguage, options.TestSelectionFile, options.PerformFileFormatAnalysis);
 
-                Test(options.OutputDirectory, testSession, createStandAloneTestReport: false);
+                bool testSuccess = Test(options.OutputDirectory, testSession, createStandAloneTestReport: false);
 
-                Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
+                bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
 
-                LogFinishedStatus(command, RanWithoutErrors(testSession));
+                LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess && packSuccess);
             }
             catch (ArgumentException e)
             {
@@ -88,9 +130,9 @@ namespace Arkivverket.Arkade.CLI
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
                     options.OutputLanguage, options.TestSelectionFile);
 
-                Test(options.OutputDirectory, testSession);
+                bool testSuccess = Test(options.OutputDirectory, testSession);
 
-                LogFinishedStatus(command, RanWithoutErrors(testSession));
+                LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess);
             }
             catch (ArgumentException e)
             {
@@ -111,9 +153,7 @@ namespace Arkivverket.Arkade.CLI
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
                     options.OutputLanguage, performFileFormatAnalysis: options.PerformFileFormatAnalysis);
 
-                Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
-
-                LogFinishedStatus(command);
+                LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession));
             }
             finally
             {
@@ -162,23 +202,29 @@ namespace Arkivverket.Arkade.CLI
             LogFinishedStatus(command);
         }
 
-        private static void Test(string outputDirectory, TestSession testSession, bool createStandAloneTestReport = true)
+        private static bool Test(string outputDirectory, TestSession testSession, bool createStandAloneTestReport = true)
         {
-            if (testSession.Archive.ArchiveType == ArchiveType.Siard)
+            if (!testSession.IsTestableArchive(out _))
+                return false;
+
+            try
             {
-                Log.Error("Testing of Siard archive has not yet been implemented.");
-                return;
+                Arkade.RunTests(testSession);
             }
-            if (!testSession.IsTestableArchive())
+            catch (Exception e)
             {
-                Log.Error("Archive is not testable: Valid specification file not found");
-                return;
+                StatusEventHandler.RaiseEventTestProgressUpdated("", true, e.Message);
+                return false;
             }
-            Arkade.RunTests(testSession);
+
+            if (_testRunHasFailed)
+                return false;
+
             SaveTestReport(testSession, outputDirectory, createStandAloneTestReport);
+            return true;
         }
 
-        private static void Pack(string metadataFile, string packageType, string outputDirectory,
+        private static bool Pack(string metadataFile, string packageType, string outputDirectory,
             TestSession testSession)
         {
             ArchiveMetadata archiveMetadata = MetadataLoader.Load(metadataFile);
@@ -189,6 +235,8 @@ namespace Arkivverket.Arkade.CLI
             testSession.ArchiveMetadata.Id = $"UUID:{testSession.Archive.Uuid}";
 
             Arkade.CreatePackage(testSession, outputDirectory);
+
+            return true;
         }
 
         private static ArchiveType GetArchiveType(string archiveTypeString, string archive)
@@ -275,18 +323,17 @@ namespace Arkivverket.Arkade.CLI
         {
             DirectoryInfo packageTestReportDirectory = testSession.Archive.GetTestReportDirectory();
 
-            Arkade.SaveReport(testSession, packageTestReportDirectory);
-
-            if(createStandAloneTestReport)
+            if (createStandAloneTestReport)
             {
-                var standaloneTestReportsDirectory =
-                    new DirectoryInfo(Path.Combine(outputDirectory, packageTestReportDirectory.Name));
-
-                standaloneTestReportsDirectory.Create();
-
-                Arkade.SaveReport(testSession, standaloneTestReportsDirectory);
-                Log.Information($"Test reports generated at: {standaloneTestReportsDirectory.FullName}");
+                string testReportDirectoryName = string.Format(OutputFileNames.StandaloneTestReportDirectory, testSession.Archive.Uuid);
+                packageTestReportDirectory = new DirectoryInfo(Path.Combine(outputDirectory, testReportDirectoryName));
+                packageTestReportDirectory.Create();
             }
+
+            Arkade.SaveReport(testSession, packageTestReportDirectory, createStandAloneTestReport);
+
+            if (createStandAloneTestReport)
+                Log.Information($"Test reports generated at: {packageTestReportDirectory.FullName}");
         }
 
         private static void LogFinishedStatus(string command, bool withoutErrors = true)
@@ -305,8 +352,11 @@ namespace Arkivverket.Arkade.CLI
 
         private static bool RanWithoutErrors(TestSession testSession)
         {
-            if (!testSession.IsTestableArchive())
+            if (!testSession.IsTestableArchive(out string disqualifyingCause))
+            {
+                Log.Error("Archive is not testable: " + disqualifyingCause);
                 return false;
+            }
             return true;
         }
     }

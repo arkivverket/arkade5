@@ -6,17 +6,21 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public static class TestReportGeneratorRunner
     {
-        public static void RunAllGenerators(TestSession testSession, DirectoryInfo testReportDirectory)
+        public static void RunAllGenerators(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone)
         {
-            TestReport testReport = TestReportFactory.Create(testSession);
-            string testReportFileName = Path.Combine(testReportDirectory.FullName, 
-                string.Format(Resources.OutputFileNames.TestReportFile, testReport.Summary.Uuid, "{0}"));
+            TestReport testReport = testSession.Archive.ArchiveType.Equals(ArchiveType.Siard)
+                ? TestReportFactory.CreateForSiard(testSession)
+                : TestReportFactory.Create(testSession);
 
             foreach (TestReportFormat testReportFormat in Enum.GetValues<TestReportFormat>())
             {
-                var reportFile = new FileInfo(string.Format(testReportFileName, testReportFormat.ToString()));
+                string testReportFileName = Path.Combine(testReportDirectory.FullName, standalone
+                    ? string.Format(Resources.OutputFileNames.StandaloneTestReportFile, testReport.Summary.Uuid, testReportFormat.ToString())
+                    : string.Format(Resources.OutputFileNames.TestReportFile, testReportFormat.ToString()));
+
+                using FileStream fileStream = new FileInfo(testReportFileName).OpenWrite();
+                
                 IReportGenerator reportGenerator = GetReportGenerator(testReportFormat);
-                using FileStream fileStream = reportFile.OpenWrite();
                 reportGenerator.Generate(testReport, fileStream);
             }
         }

@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Identify
 
             Uuid uuid = Uuid.Random();
             ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType, uuid);
-            WorkingDirectory workingDirectory = WorkingDirectory.FromUuid(uuid, archiveDirectory.Directory);
+            WorkingDirectory workingDirectory = WorkingDirectory.FromExternalDirectory(archiveDirectory.Directory);
             
             TestSession testSession = NewSession(workingDirectory, archiveType, uuid);
 
@@ -51,12 +51,11 @@ namespace Arkivverket.Arkade.Core.Identify
                 : Uuid.Of(Path.GetFileNameWithoutExtension(archiveFile.File.Name));
             ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, uuid);
 
-            WorkingDirectory workingDirectory = WorkingDirectory.FromUuid(uuid);
+            WorkingDirectory workingDirectory = WorkingDirectory.FromArchiveFile();
 
             if (archiveFile.ArchiveType == ArchiveType.Siard && archiveFile.File.Extension.Equals(".siard"))
             {
-                File.Copy(archiveFile.File.FullName,
-                    Path.Combine(workingDirectory.Content().ToString(), archiveFile.File.Name));
+                CopySiardFilesToContentDirectory(archiveFile.File.Directory, workingDirectory.Content().ToString());
             }
             else
             {
@@ -147,6 +146,20 @@ namespace Arkivverket.Arkade.Core.Identify
             _statusEventHandler.RaiseEventOperationMessage(Resources.Messages.ReadingArchiveEvent,
                 string.Format(Resources.Messages.TarExtractionMessageFinished, workingDirectory.ContentWorkDirectory().DirectoryInfo().FullName),
                 OperationMessageStatus.Ok);
+        }
+
+        private static void CopySiardFilesToContentDirectory(DirectoryInfo archiveFileDirectory, string contentDirectoryPath)
+        {
+            foreach (FileInfo fileInfo in archiveFileDirectory.GetFiles())
+            {
+                File.Copy(fileInfo.FullName,
+                    Path.Combine(contentDirectoryPath, fileInfo.Name));
+            }
+
+            foreach (DirectoryInfo contentDirectory in archiveFileDirectory.GetDirectories())
+            {
+                contentDirectory.CopyTo(Path.Combine(contentDirectoryPath, contentDirectory.Name), true);
+            }
         }
     }
 }

@@ -144,4 +144,13 @@
   <data name="ArkadeProcessAreaNotSet" xml:space="preserve">
     <value>Processing area is not set.</value>
   </data>
+  <data name="SiardValidatorError" xml:space="preserve">
+    <value>Something went wrong while validating Siard file. Please see arkade-tmp/logs/ for details.</value>
+  </data>
+  <data name="SiardValidatorOpenError" xml:space="preserve">
+    <value>Could not start validator. Please make sure that Java Runtime is installed and available by entering "java -version" in a console.</value>
+  </data>
+  <data name="SiardValidatorLibraryNotFound" xml:space="preserve">
+    <value>Could not find the validator library ({0}). Please download the library from {1}, and save the file at {2}.</value>
+  </data>
 </root>

@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
-    public class N5_51_ClassReferenceControlTest
+    public class N5_51_ClassReferenceControlTest : LanguageDependentTest
     {
         [Fact]
         public void ReferencesAreValid()

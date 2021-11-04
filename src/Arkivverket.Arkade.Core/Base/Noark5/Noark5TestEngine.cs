@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -13,11 +14,14 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
     {
         private readonly ITestProvider _testProvider;
         private readonly IStatusEventHandler _statusEventHandler;
+        private readonly ITestProgressReporter _testProgressReporter;
 
-        public Noark5TestEngine(ITestProvider testProvider, IStatusEventHandler statusEventHandler)
+        public Noark5TestEngine(ITestProvider testProvider, IStatusEventHandler statusEventHandler,
+            ITestProgressReporter testProgressReporter)
         {
             _testProvider = testProvider;
             _statusEventHandler = statusEventHandler;
+            _testProgressReporter = testProgressReporter;
         }
 
         public event EventHandler<ReadElementEventArgs> ReadStartElementEvent;
@@ -35,6 +39,9 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
             var testSuite = new TestSuite();
             AddTestToTestSuite(contentTests, testSuite);
             AddTestToTestSuite(structureTests, testSuite);
+
+            testSession.TestSummary = new TestSummary(0, 0, testSuite.TestRuns.Count(), testSuite.FindNumberOfErrors(), 0);
+
             return testSuite;
         }
 
@@ -52,46 +59,57 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
 
             ArchiveXmlFile archiveStructureFile = testSession.Archive.GetArchiveXmlFile(ArkadeConstants.ArkivstrukturXmlFileName);
 
-            using (var reader = XmlReader.Create(archiveStructureFile.AsStream()))
+            using Stream stream = archiveStructureFile.AsStream();
+            using var reader = XmlReader.Create(stream);
+
+            var xmlReaderLineInfoUtil = new XmlReaderLineInfoUtil(reader, stream.Length);
+
+            RaiseEventStartParsingFile();
+
+            _testProgressReporter.Begin(testSession.Archive.ArchiveType);
+
+            var path = new Stack<string>();
+
+            while (ReadNextNode(reader))
             {
-                RaiseEventStartParsingFile();
+                _testProgressReporter.ReportTestProgress(xmlReaderLineInfoUtil.GetProgressPercentage());
 
-                var path = new Stack<string>();
+                xmlReaderLineInfoUtil.UpdatePosition();
 
-                while (ReadNextNode(reader))
+                if (reader.IsEmptyElement)
+                    continue;
+                
+                switch (reader.NodeType)
                 {
-                    if (reader.IsEmptyElement)
-                        continue;
-
-                    switch (reader.NodeType)
-                    {
-                        case XmlNodeType.Element:
-                            path.Push(reader.LocalName);
-                            RaiseReadStartElementEvent(CreateReadElementEventArgs(reader, path));
-                            break;
-                        case XmlNodeType.Attribute:
-                            RaiseReadAttributeEvent(CreateReadElementEventArgs(reader, path));
-                            break;
-                        case XmlNodeType.Text:
-                            RaiseReadElementValueEvent(CreateReadElementEventArgs(reader, path));
-                            break;
-                        case XmlNodeType.EndElement:
-                            RaiseReadEndElementEvent(CreateReadElementEventArgs(reader, path));
-                            path.Pop();
-                            _statusEventHandler.RaiseEventRecordProcessingStopped();
-                            break;
-                        case XmlNodeType.XmlDeclaration:
-                        case XmlNodeType.ProcessingInstruction:
-                        case XmlNodeType.Comment:
-                        case XmlNodeType.Whitespace:
-                            break;
-                    }
+                    case XmlNodeType.Element:
+                        path.Push(reader.LocalName);
+                        RaiseReadStartElementEvent(CreateReadElementEventArgs(reader, path));
+                        break;
+                    case XmlNodeType.Attribute:
+                        RaiseReadAttributeEvent(CreateReadElementEventArgs(reader, path));
+                        break;
+                    case XmlNodeType.Text:
+                        RaiseReadElementValueEvent(CreateReadElementEventArgs(reader, path));
+                        break;
+                    case XmlNodeType.EndElement:
+                        RaiseReadEndElementEvent(CreateReadElementEventArgs(reader, path));
+                        path.Pop();
+                        _statusEventHandler.RaiseEventRecordProcessingStopped();
+                        break;
+                    case XmlNodeType.XmlDeclaration:
+                    case XmlNodeType.ProcessingInstruction:
+                    case XmlNodeType.Comment:
+                    case XmlNodeType.Whitespace:
+                        break;
                 }
-                RaiseEventFinishedParsingFile();
             }
+
+            _testProgressReporter.Finish();
+
+            RaiseEventFinishedParsingFile();
             return contentTests;
         }
-
+        
         private static bool ReadNextNode(XmlReader reader)
         {
             return reader.MoveToNextAttribute() || reader.Read();

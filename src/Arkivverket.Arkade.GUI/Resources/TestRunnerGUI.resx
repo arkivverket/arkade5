@@ -118,8 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArchiveNotTestable" xml:space="preserve">
-    <value>The archive is not testable: A valid specification file for the extract was not found.
-(See log for details {0}).
+    <value>The archive is not testable: {0}
+(See log for details {1}).
 It can still be created a package from the extract.</value>
   </data>
   <data name="ArchiveTestability" xml:space="preserve">
@@ -208,5 +208,17 @@ It can still be created a package from the extract.</value>
   </data>
   <data name="SiardSupportInfo" xml:space="preserve">
     <value>Compliance testing for Siard extracts is not supported. Format analysis for BLOBs/CLOBs in the extract is available upon creation of package.</value>
+  </data>
+  <data name="ValidSpecificationFileNotFound" xml:space="preserve">
+    <value>A valid specification file was not found.</value>
+  </data>
+  <data name="TestProgressPercentage" xml:space="preserve">
+    <value>Progress:</value>
+  </data>
+  <data name="SiardProgressMessage" xml:space="preserve">
+    <value>Validating extract</value>
+  </data>
+  <data name="MessageCompleted" xml:space="preserve">
+    <value>Completed</value>
   </data>
 </root>

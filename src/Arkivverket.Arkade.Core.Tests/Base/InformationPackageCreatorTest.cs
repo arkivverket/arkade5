@@ -117,8 +117,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         private void DeletePreviouslyCreatedTestPackages()
         {
             foreach (string directory in Directory.EnumerateDirectories(_outputDirectory)
-                .Where(d => d.Contains(string.Format(OutputFileNames.ResultOutputDirectory, string.Empty))))
-                Directory.Delete(directory, true);
+                .Where(d => d.Contains(OutputFileNames.ResultOutputDirectory))) Directory.Delete(directory, true);
         }
     }
 }

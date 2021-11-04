@@ -1,6 +1,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Util;
@@ -16,6 +17,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand ShowTestReportCommand { get; }
         public DelegateCommand ExportTestReportFilesCommand { get; }
         public DirectoryInfo TestReportDirectory { get; set; }
+        public Uuid Uuid { get; set; }
 
         public TestReportDialogViewModel()
         {
@@ -28,10 +30,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _log.Information("User action: Show HTML test report");
 
-            FileInfo htmlTestReportFile = TestReportDirectory.GetFiles()
-                .First(f => f.Extension.Contains(TestReportFormat.html.ToString()));
+            FileInfo testReportFile = TestReportDirectory.GetFiles()
+                .FirstOrDefault(f => f.Extension.Contains(TestReportFormat.html.ToString()));
 
-            htmlTestReportFile.FullName.LaunchUrl();
+            if (testReportFile == default)
+                testReportFile = TestReportDirectory.GetFiles().First(f => f.Extension.Equals(".txt"));
+                
+            testReportFile.FullName.LaunchUrl();
         }
 
         private void ExportTestReport()
@@ -53,9 +58,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _log.Information($"User action: Chose directory for {action}: {testReportExportDestination}");
 
-            var testReportExportDirectory = new DirectoryInfo(
-                Path.Combine(testReportExportDestination, TestReportDirectory.Name)
-            );
+            var testReportExportDirectory = new DirectoryInfo(Path.Combine(testReportExportDestination,
+                string.Format(Core.Resources.OutputFileNames.StandaloneTestReportDirectory, Uuid)));
 
             if (!testReportExportDirectory.Exists)
                 testReportExportDirectory.Create();
@@ -63,7 +67,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             foreach (FileInfo testReportFile in TestReportDirectory.GetFiles())
             {
                 string destinationTestReportFileName = Path.Combine(
-                    testReportExportDirectory.FullName, testReportFile.Name
+                    testReportExportDirectory.FullName,
+                    testReportFile.Name.Equals(Core.Resources.OutputFileNames.DbptkValidationReportFile)
+                        ? testReportFile.Name
+                        : string.Format(Core.Resources.OutputFileNames.StandaloneTestReportFile, Uuid,
+                            testReportFile.Extension.Trim('.'))
                 );
 
                 testReportFile.CopyTo(destinationTestReportFileName, overwrite: true);

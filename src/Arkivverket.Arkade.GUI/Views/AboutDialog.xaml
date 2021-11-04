@@ -25,20 +25,26 @@
                 <TextBlock>
                     <Run Text="{Binding CopyrightInfoString, Mode=OneWay}"/>
                     <Hyperlink Command="{Binding ShowLicenseWebPageCommand}">
-                        <TextBlock Text="{x:Static lang:AboutGUI.LicenseGNU}" ToolTip="{x:Static lang:AboutGUI.GnuGpl3_0Uri}"/>
+                        <TextBlock Text="{x:Static lang:AboutGUI.LicenseGNU}" ToolTip="{x:Static lang:AboutGUI.GnuAgpl3_0Uri}"/>
                     </Hyperlink>
                 </TextBlock>
             </WrapPanel>
             <TextBlock Margin ="20,0,0,0" TextWrapping="Wrap">
-                <TextBlock Text="{x:Static lang:AboutGUI.BundledSoftwareInformation_1}"/>
+                <TextBlock Text="{x:Static lang:AboutGUI.ThirdPartySoftwareInformation_1}"/>
                 <Hyperlink Command="{Binding ShowSiegfriedWebPageCommand}">
-                    <TextBlock Text="{x:Static lang:AboutGUI.BundledSoftwareInformation_2}" ToolTip="{x:Static lang:AboutGUI.SiegfriedUri}"/>
+                    <TextBlock Text="{x:Static lang:AboutGUI.ThirdPartySoftwareInformation_2}" ToolTip="{x:Static lang:AboutGUI.SiegfriedUri}"/>
                 </Hyperlink>
-                <TextBlock Text="{x:Static lang:AboutGUI.BundledSoftwareInformation_3}"/>
+                <TextBlock Text="{x:Static lang:AboutGUI.ThirdPartySoftwareInformation_3}"/>
                 <Hyperlink Command="{Binding ShowApacheLicenseWebPageCommand}">
                     <TextBlock Text="{x:Static lang:AboutGUI.LicenseApache2_0}" ToolTip="{x:Static lang:AboutGUI.ApacheV2_0Uri}"/>
                 </Hyperlink>
-                <TextBlock Text="{x:Static lang:AboutGUI.BundledSoftwareInformation_5}"/>
+                <TextBlock Text="{x:Static lang:AboutGUI.ThirdPartySoftwareInformation_5}"/>
+            </TextBlock>
+            <TextBlock Margin ="20,10,0,0" TextWrapping="Wrap">
+                <TextBlock Text="{x:Static lang:AboutGUI.ITextInformation}"/>
+                <Hyperlink Command="{Binding ShowITextWebPageCommand}">
+                    <TextBlock Text="{x:Static lang:AboutGUI.ITextDisplayName}" ToolTip="{x:Static lang:AboutGUI.ITextUri}"/>
+                </Hyperlink>
             </TextBlock>
         </StackPanel>
         <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15"

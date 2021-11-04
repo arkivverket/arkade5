@@ -48,20 +48,22 @@ namespace Arkivverket.Arkade.GUI.Util
             if (string.IsNullOrWhiteSpace(directory))
                 return false;
 
-            string tmpFile = Path.Combine(directory, Path.GetRandomFileName());
+            string tmpDirectory = Path.Combine(directory, "arkade-writeaccess-test");
 
             try
             {
-                using (File.Create(tmpFile, 1, FileOptions.DeleteOnClose))
-                {
-                    // Attempt to write temporary file to the directory
-                }
+                Directory.CreateDirectory(tmpDirectory);
 
                 return true;
             }
             catch
             {
                 return false;
+            }
+            finally
+            {
+                if (Directory.Exists(tmpDirectory))
+                    Directory.Delete(tmpDirectory);
             }
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
 using Autofac;
 
@@ -15,6 +16,8 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly ArkadeVersion _arkadeVersion;
         private readonly IContainer _container;
 
+        public readonly IStatusEventHandler StatusEventHandler;
+
         public ArkadeVersion Version() => _arkadeVersion;
         
         public Arkade()
@@ -26,6 +29,7 @@ namespace Arkivverket.Arkade.Core.Base
             _container.BeginLifetimeScope();
             _arkadeApi = _container.Resolve<ArkadeApi>();
             _arkadeVersion = _container.Resolve<ArkadeVersion>();
+            StatusEventHandler = _container.Resolve<IStatusEventHandler>();
         }
 
         public void Dispose()
@@ -63,9 +67,9 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeApi.CreatePackage(testSession, outputDirectory);
         }
 
-        public void SaveReport(TestSession testSession, DirectoryInfo directory)
+        public void SaveReport(TestSession testSession, DirectoryInfo directory, bool standalone)
         {
-            _arkadeApi.SaveReport(testSession, directory);
+            _arkadeApi.SaveReport(testSession, directory, standalone);
         }
 
         public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName, SupportedLanguage language)

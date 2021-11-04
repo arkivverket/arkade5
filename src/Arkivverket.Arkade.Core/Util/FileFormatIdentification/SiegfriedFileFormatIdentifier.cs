@@ -63,8 +63,9 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         {
             string executableFileName = GetOSSpecificExecutableFileName();
 
-            string bundleDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Bundled");
-            string siegfriedDirectory = Path.Combine(bundleDirectory, "Siegfried");
+            string thirdPartySoftwareDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                ArkadeConstants.DirectoryNameThirdPartySoftware);
+            string siegfriedDirectory = Path.Combine(thirdPartySoftwareDirectory, ArkadeConstants.DirectoryNameSiegfried);
             string siegfriedExecutable = Path.Combine(siegfriedDirectory, executableFileName);
             string argumentsExceptInputDirectory = $"-home \"{siegfriedDirectory}\" -csv -log e,w -coe " + BuildSiegfriedArgument(scanMode);
 
@@ -140,16 +141,25 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
                 ExternalProcessManager.Start(process);
 
-                StreamWriter streamWriter = process.StandardInput;
+                using StreamWriter streamWriter = process.StandardInput;
 
                 filePathAndStream.Value.CopyTo(streamWriter.BaseStream);
-                streamWriter.Close();
-                filePathAndStream.Value.Close();
             }
             catch (Exception e)
             {
-                Log.Debug(e.ToString());
-                throw new SiegfriedFileFormatIdentifierException("Document file format analysis could not to be executed, process is skipped. Details can be found in arkade-tmp/logs/");
+                ExternalProcessManager.Close(process);
+                try
+                {
+                    process.StartInfo.StandardInputEncoding = Encoding.UTF8;
+                    ExternalProcessManager.Start(process);
+                    using StreamWriter streamWriter = process.StandardInput;
+                    filePathAndStream.Value.CopyTo(streamWriter.BaseStream);
+                }
+                catch (Exception exception)
+                {
+                    Log.Debug(e.ToString());
+                    throw new SiegfriedFileFormatIdentifierException("Document file format analysis could not to be executed, process is skipped. Details can be found in arkade-tmp/logs/");
+                }
             }
 
             process.BeginOutputReadLine();

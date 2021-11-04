@@ -349,4 +349,7 @@ Actual checksum: {1}</value>
   <data name="TarExtractionMessageStarted" xml:space="preserve">
     <value>Starting extraction.</value>
   </data>
+  <data name="ValidatingExtractMessage" xml:space="preserve">
+    <value>Validating extract</value>
+  </data>
 </root>

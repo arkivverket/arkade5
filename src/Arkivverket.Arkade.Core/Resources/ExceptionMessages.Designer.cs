@@ -124,6 +124,33 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something went wrong while validating Siard file. Please see arkade-tmp/logs/ for details..
+        /// </summary>
+        public static string SiardValidatorError {
+            get {
+                return ResourceManager.GetString("SiardValidatorError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find the validator library ({0}). Please download the library from {1}, and save the file at {2}..
+        /// </summary>
+        public static string SiardValidatorLibraryNotFound {
+            get {
+                return ResourceManager.GetString("SiardValidatorLibraryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not start validator. Please make sure that Java Runtime is installed and available by entering &quot;java -version&quot; in a console..
+        /// </summary>
+        public static string SiardValidatorOpenError {
+            get {
+                return ResourceManager.GetString("SiardValidatorOpenError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown package type: {0}.
         /// </summary>
         public static string UnknownPackageType {

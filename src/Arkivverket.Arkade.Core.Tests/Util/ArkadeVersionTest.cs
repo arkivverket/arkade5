@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util
 
             DateTime now = DateTime.Now;
 
-            lastCheckForUpdate.Should().BeCloseTo(now, 60000);
+            lastCheckForUpdate.Should().BeCloseTo(now, new TimeSpan(60000));
         }
 
         private bool HasExpectedValue(string versionNumber)

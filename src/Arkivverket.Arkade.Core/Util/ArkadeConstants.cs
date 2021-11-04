@@ -2,7 +2,7 @@ namespace Arkivverket.Arkade.Core.Util
 {
     public class ArkadeConstants
     {
-        public const string SystemLogFileNameFormat = "arkade-{Date}.log";
+        public const string SystemLogFileNameFormat = "arkade-.log";
 
         public const string NoarkihXmlFileName = "NOARKIH.XML";
         public const string AddmlXmlFileName = "addml.xml";
@@ -56,7 +56,11 @@ namespace Arkivverket.Arkade.Core.Util
         public const string DirectoryNameRepositoryOperations = "repository_operations";
         public const string DirectoryNameContent = "content";
         public const string DirectoryNameAppDataArkadeSubFolder = "Arkivverket";
-        
+
+        public const string DirectoryNameThirdPartySoftware = "ThirdPartySoftware";
+        public const string DirectoryNameSiegfried = "Siegfried";
+        public const string DirectoryNameDbptk = "DBPTK";
+
         public static readonly string[] DocumentDirectoryNames =
             { "dokumenter", "DOKUMENTER", "dokument", "DOKUMENT" };
 
@@ -68,5 +72,8 @@ namespace Arkivverket.Arkade.Core.Util
         public const string MetsHdrAgentMetaNoteKeyWord = "notescontent:";
 
         public const string ArkadeWebSiteUrl = "https://arkade.arkivverket.no";
+
+        public const string DbptkLibraryDownloadUrl =
+            "https://github.com/keeps/dbptk-developer/releases/download/v2.9.9/dbptk-app-2.9.9.jar";
     }
 }

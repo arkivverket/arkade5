@@ -205,6 +205,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of warnings.
+        /// </summary>
+        public static string LabelNumberOfWarnings {
+            get {
+                return ResourceManager.GetString("LabelNumberOfWarnings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to System name.
         /// </summary>
         public static string LabelSystemName {
@@ -309,6 +318,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string ValueNumberOfTestsExecuted {
             get {
                 return ResourceManager.GetString("ValueNumberOfTestsExecuted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to version.
+        /// </summary>
+        public static string VersionText {
+            get {
+                return ResourceManager.GetString("VersionText", resourceCulture);
             }
         }
         

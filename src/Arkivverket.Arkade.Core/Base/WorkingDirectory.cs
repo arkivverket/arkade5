@@ -27,25 +27,24 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        public static WorkingDirectory FromUuid(Uuid uuid)
+        public static WorkingDirectory FromArchiveFile()
         {
-            return FromUuid(uuid, null);
+            return FromExternalDirectory(null);
         }
 
         /// <summary>
-        /// Initializes a new working directory for this archive using the uuid and timestamp as the identifier. An empty folder structure is created on disk.
+        /// Initializes a new working directory for this archive using the timestamp as the identifier. An empty folder structure is created on disk.
         /// </summary>
-        /// <param name="uuid">the archive uuid</param>
         /// <param name="externalContentDirectory">optional external content directory</param>
         /// <returns></returns>
-        internal static WorkingDirectory FromUuid(Uuid uuid, DirectoryInfo externalContentDirectory)
+        internal static WorkingDirectory FromExternalDirectory(DirectoryInfo externalContentDirectory)
         {
             if (ArkadeProcessingArea.WorkDirectory == null)
                 throw new IOException(Resources.ExceptionMessages.ArkadeProcessAreaNotSet);
 
             string dateString = DateTime.Now.ToString("yyyyMMddHHmmss");
             var rootDirectory = new DirectoryInfo(
-                Path.Combine(ArkadeProcessingArea.WorkDirectory.FullName, dateString + "-" + uuid.GetValue())
+                Path.Combine(ArkadeProcessingArea.WorkDirectory.FullName, dateString)
             );
 
             var workingDirectory = new WorkingDirectory(rootDirectory, externalContentDirectory);

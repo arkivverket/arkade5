@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded;
 using Arkivverket.Arkade.Core.Logging;
@@ -14,25 +15,46 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         private readonly IStatusEventHandler _statusEventHandler;
         private readonly List<TestResult> _testResultsFailedRecordsList = new List<TestResult>();
         private const int MaxNumberOfSingleReportedFieldDelimiterErrors = 25;
+        private readonly ITestProgressReporter _testProgressReporter;
 
         public AddmlDatasetTestEngine(FlatFileReaderFactory flatFileReaderFactory, AddmlProcessRunner addmlProcessRunner,
-            IStatusEventHandler statusEventHandler)
+            IStatusEventHandler statusEventHandler, ITestProgressReporter testProgressReporter)
         {
             _flatFileReaderFactory = flatFileReaderFactory;
             _addmlProcessRunner = addmlProcessRunner;
             _statusEventHandler = statusEventHandler;
+            _testProgressReporter = testProgressReporter;
         }
 
         public TestSuite RunTestsOnArchive(TestSession testSession)
         {
+            _testProgressReporter.Begin(testSession.Archive.ArchiveType);
+
             AddmlDefinition addmlDefinition = testSession.AddmlDefinition;
 
             _addmlProcessRunner.Init(addmlDefinition);
 
             List<FlatFile> flatFiles = addmlDefinition.GetFlatFiles();
 
+            var useNumberOfRecords = true;
+            int? numberOfRecords = 0;
+
             foreach (FlatFile file in flatFiles)
             {
+                if (file.Definition.NumberOfRecords == null)
+                {
+                    useNumberOfRecords = false;
+                    break;
+                }
+                numberOfRecords += file.Definition.NumberOfRecords;
+            }
+
+            double recordCounter = 0;
+            double fileCounter = 0;
+
+            foreach (FlatFile file in flatFiles)
+            {
+                fileCounter++;
                 string testName = string.Format(Messages.RunningAddmlProcessesOnFile, file.GetName());
 
                 var recordIdx = 1;
@@ -91,6 +113,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                     }
 
                     recordIdx++;
+                    recordCounter++;
+
+                    if (useNumberOfRecords)
+                        _testProgressReporter.ReportTestProgress((int)(recordCounter / numberOfRecords * 100));
                 }
 
                 if (numberOfRecordsWithFieldDelimiterError > 0)
@@ -106,12 +132,20 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 _statusEventHandler.RaiseEventFileProcessingFinished(
                     new FileProcessingStatusEventArgs(testName, file.GetName(), true)
                 );
+
+                if (!useNumberOfRecords)
+                    _testProgressReporter.ReportTestProgress((int)(fileCounter/ flatFiles.Count * 100));
             }
 
             TestSuite testSuite = _addmlProcessRunner.GetTestSuite();
 
             testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, testSession.Archive).GetTestRun());
             testSuite.AddTestRun(new AH_03_ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
+
+            testSession.TestSummary = new TestSummary((int) fileCounter, (int) recordCounter,
+                testSuite.TestRuns.Count(), testSuite.FindNumberOfErrors(), 0);
+
+            _testProgressReporter.Finish();
 
             return testSuite;
         }

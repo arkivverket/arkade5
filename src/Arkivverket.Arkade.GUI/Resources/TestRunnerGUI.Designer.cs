@@ -61,8 +61,8 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The archive is not testable: A valid specification file for the extract was not found.
-        ///(See log for details {0}).
+        ///   Looks up a localized string similar to The archive is not testable: {0}
+        ///(See log for details {1}).
         ///It can still be created a package from the extract..
         /// </summary>
         public static string ArchiveNotTestable {
@@ -207,6 +207,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Completed.
+        /// </summary>
+        public static string MessageCompleted {
+            get {
+                return ResourceManager.GetString("MessageCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string MessageLabelError {
@@ -261,6 +270,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Validating extract.
+        /// </summary>
+        public static string SiardProgressMessage {
+            get {
+                return ResourceManager.GetString("SiardProgressMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compliance testing for Siard extracts is not supported. Format analysis for BLOBs/CLOBs in the extract is available upon creation of package..
         /// </summary>
         public static string SiardSupportInfo {
@@ -297,6 +315,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Progress:.
+        /// </summary>
+        public static string TestProgressPercentage {
+            get {
+                return ResourceManager.GetString("TestProgressPercentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report created.
         /// </summary>
         public static string TestReportIsSavedMessage {
@@ -329,6 +356,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A valid specification file was not found..
+        /// </summary>
+        public static string ValidSpecificationFileNotFound {
+            get {
+                return ResourceManager.GetString("ValidSpecificationFileNotFound", resourceCulture);
             }
         }
     }

@@ -61,6 +61,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to dbptk-validationreport.txt.
+        /// </summary>
+        public static string DbptkValidationReportFile {
+            get {
+                return ResourceManager.GetString("DbptkValidationReportFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}-fileformatinfo.csv.
         /// </summary>
         public static string FileFormatInfoFile {
@@ -97,7 +106,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkade-results_{0}.
+        ///   Looks up a localized string similar to arkade-results_{0}.
         /// </summary>
         public static string ResultOutputDirectory {
             get {
@@ -106,7 +115,25 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkade-testreports_{0}.
+        ///   Looks up a localized string similar to arkade-testreports_{0}.
+        /// </summary>
+        public static string StandaloneTestReportDirectory {
+            get {
+                return ResourceManager.GetString("StandaloneTestReportDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to arkade-testreport_{0}.{1}.
+        /// </summary>
+        public static string StandaloneTestReportFile {
+            get {
+                return ResourceManager.GetString("StandaloneTestReportFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to testreports.
         /// </summary>
         public static string TestReportDirectory {
             get {
@@ -115,7 +142,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arkade-report_{0}.{1}.
+        ///   Looks up a localized string similar to testreport.{0}.
         /// </summary>
         public static string TestReportFile {
             get {

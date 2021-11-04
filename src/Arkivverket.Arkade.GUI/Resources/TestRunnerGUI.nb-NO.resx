@@ -118,8 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArchiveNotTestable" xml:space="preserve">
-    <value>Arkivuttrekket kan ikke testes: Det ble ikke funnet en gyldig spesifikasjonsfil for uttrekket.
-(Se logg for detaljer {0}).
+    <value>Arkivuttrekket kan ikke testes: {0}
+(Se logg for detaljer {1}).
 Det kan fortsatt lages en pakke av uttrekket.</value>
   </data>
   <data name="ArchiveTestability" xml:space="preserve">
@@ -208,5 +208,17 @@ Det kan fortsatt lages en pakke av uttrekket.</value>
   </data>
   <data name="MessageLabelInfo" xml:space="preserve">
     <value>NB!</value>
+  </data>
+  <data name="ValidSpecificationFileNotFound" xml:space="preserve">
+    <value>Klarte ikke finne en gyldig spesifikasjonsfil.</value>
+  </data>
+  <data name="TestProgressPercentage" xml:space="preserve">
+    <value>Framdrift:</value>
+  </data>
+  <data name="SiardProgressMessage" xml:space="preserve">
+    <value>Validerer uttrekket</value>
+  </data>
+  <data name="MessageCompleted" xml:space="preserve">
+    <value>Utført</value>
   </data>
 </root>

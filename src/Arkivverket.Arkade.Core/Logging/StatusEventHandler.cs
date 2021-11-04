@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Logging
 {
@@ -34,6 +35,16 @@ namespace Arkivverket.Arkade.Core.Logging
             OnIssueOnNewArchiveInformation(archiveInformationEventArgArgs);
         }
 
+        public void RaiseEventTestProgressUpdated(string testProgress, bool hasFailed, string failMessage)
+        {
+            OnTestProgressUpdatedEvent(new TestProgressEventArgs(testProgress, hasFailed, failMessage));
+        }
+
+        public void RaiseEventSiardValidationFinished(List<string> errors)
+        {
+            OnSiardValidationFinishedEvent(new SiardValidationEventArgs(errors));
+        }
+
         public event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
 
         public event EventHandler<OperationMessageEventArgs> TestStartedEvent;
@@ -47,6 +58,9 @@ namespace Arkivverket.Arkade.Core.Logging
         public event EventHandler<EventArgs> RecordProcessingFinishedEvent;
 
         public event EventHandler<ArchiveInformationEventArgs> NewArchiveProcessEvent;
+        public event EventHandler<TestProgressEventArgs> TestProgressUpdatedEvent;
+
+        public event EventHandler<SiardValidationEventArgs> SiardValidationFinishedEvent;
 
         private void OnTestStartedEvent(OperationMessageEventArgs eventArgs)
         {
@@ -95,7 +109,17 @@ namespace Arkivverket.Arkade.Core.Logging
             var handler = NewArchiveProcessEvent;
             handler?.Invoke(this, eventArgs);
         }
+        
+        protected virtual void OnTestProgressUpdatedEvent(TestProgressEventArgs eventArgs)
+        {
+            var handler = TestProgressUpdatedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
 
-
+        protected virtual void OnSiardValidationFinishedEvent(SiardValidationEventArgs eventArgs)
+        {
+            var handler = SiardValidationFinishedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
     }
 }

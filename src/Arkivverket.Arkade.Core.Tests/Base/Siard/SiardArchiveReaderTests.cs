@@ -11,34 +11,88 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
     public class SiardArchiveReaderTests
     {
         [Fact]
-        public void GetLobTablePathsWithColumnIndexFromFromSiard2_1ArchiveFileTest()
+        [Trait("Category", "Integration")]
+        public void GetLobTablePathsWithColumnIndexFromSiard2_1ArchiveFileCreatedBySiardGuiTest()
+        {
+            ISiardArchiveReader siardArchiveReader = new SiardArchiveReader();
+
+            string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "siardGui", "external", "siardGui.siard");
+
+            Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndex = siardArchiveReader.GetLobFolderPathsWithColumnIndexes(siardArchivePath);
+
+            lobFolderPathsWithColumnIndex.Should().NotBeEmpty();
+            lobFolderPathsWithColumnIndex.Should().ContainKey("../lobs/blobs");
+            lobFolderPathsWithColumnIndex.Should().ContainKey("../lobs/clobs");
+            lobFolderPathsWithColumnIndex["../lobs/blobs"].Should().Contain(s => s.Column.Index == 9);
+            lobFolderPathsWithColumnIndex["../lobs/clobs"].Should().Contain(s => s.Column.Index == 9);
+        }
+
+        [Fact]
+        [Trait("Category", "Integration")]
+        public void GetLobTablePathsWithColumnIndexFromSiard2_1ArchiveFileCreatedByDatabasePreservationToolkitTest()
+        {
+            ISiardArchiveReader siardArchiveReader = new SiardArchiveReader();
+
+            string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "dbPtk", "external", "dbptk.siard");
+
+            Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndex = siardArchiveReader.GetLobFolderPathsWithColumnIndexes(siardArchivePath);
+
+            lobFolderPathsWithColumnIndex.Should().NotBeEmpty();
+            lobFolderPathsWithColumnIndex.Should().ContainKey("schema1\\table1\\lob9");
+            lobFolderPathsWithColumnIndex.Should().ContainKey("schema1\\table2\\lob9");
+            lobFolderPathsWithColumnIndex["schema1\\table1\\lob9"].Should().Contain(s => s.Column.Index == 9);
+            lobFolderPathsWithColumnIndex["schema1\\table2\\lob9"].Should().Contain(s => s.Column.Index == 9);
+        }
+
+        [Fact]
+        [Trait("Category", "Integration")]
+        public void GetLobTablePathsWithColumnIndexFromSiard2_1ArchiveFileCreatedByDatabaseSpectralCoreFullConvertTest()
+        {
+            ISiardArchiveReader siardArchiveReader = new SiardArchiveReader();
+
+            string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "fullConvert", "external", "scfc.siard");
+
+            Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndex = siardArchiveReader.GetLobFolderPathsWithColumnIndexes(siardArchivePath);
+
+            lobFolderPathsWithColumnIndex.Should().NotBeEmpty();
+            lobFolderPathsWithColumnIndex.Should().ContainKey("..\\t01bclob12_scfc1654_ext.siard_documents\\content\\schema0/table0/lob9");
+            lobFolderPathsWithColumnIndex.Should().ContainKey("..\\t01bclob12_scfc1654_ext.siard_documents\\content\\schema0/table1/lob9");
+            lobFolderPathsWithColumnIndex["..\\t01bclob12_scfc1654_ext.siard_documents\\content\\schema0/table0/lob9"].Should().Contain(s => s.Column.Index == 9);
+            lobFolderPathsWithColumnIndex["..\\t01bclob12_scfc1654_ext.siard_documents\\content\\schema0/table1/lob9"].Should().Contain(s => s.Column.Index == 9);
+        }
+
+        [Fact]
+        [Trait("Category", "Integration")]
+        public void GetLobTablePathsWithColumnIndexFromSiard2_1ArchiveFileTest()
         {
             ISiardArchiveReader siardArchiveReader = new SiardArchiveReader();
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "testuttrekk_med_blobs.siard");
 
-            Dictionary<string, List<int>> lobFolderPathsWithColumnIndex = siardArchiveReader.GetLobFolderPathsWithColumnIndexes(siardArchivePath);
+            Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndex = siardArchiveReader.GetLobFolderPathsWithColumnIndexes(siardArchivePath);
 
             lobFolderPathsWithColumnIndex.Should().NotBeEmpty();
             lobFolderPathsWithColumnIndex.Should().ContainKey("schema0/table3/lob6");
-            lobFolderPathsWithColumnIndex["schema0/table3/lob6"].Should().Contain(6);
+            lobFolderPathsWithColumnIndex["schema0/table3/lob6"].Should().Contain(s => s.Column.Index == 6);
         }
 
         [Fact]
-        public void GetLobTablePathsWithColumnIndexFromFromSiard1_0ArchiveFileTest()
+        [Trait("Category", "Integration")]
+        public void GetLobTablePathsWithColumnIndexFromSiard1_0ArchiveFileTest()
         {
             ISiardArchiveReader siardArchiveReader = new SiardArchiveReader();
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard1_med_blobs.siard");
 
-            Dictionary<string, List<int>> lobFolderPathsWithColumnIndex = siardArchiveReader.GetLobFolderPathsWithColumnIndexes(siardArchivePath);
+            Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndex = siardArchiveReader.GetLobFolderPathsWithColumnIndexes(siardArchivePath);
 
             lobFolderPathsWithColumnIndex.Should().NotBeEmpty();
-            lobFolderPathsWithColumnIndex.Should().ContainKey("schema0/table0/lob7");
-            lobFolderPathsWithColumnIndex["schema0/table0/lob7"].Should().Contain(7);
+            lobFolderPathsWithColumnIndex.Should().ContainKey("schema0\\table0\\lob7");
+            lobFolderPathsWithColumnIndex["schema0\\table0\\lob7"].Should().Contain(s => s.Column.Index == 7);
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void GetMetadataXmlFromSiard2_1ArchiveFileTest()
         {
             ISiardArchiveReader siardArchiveReader = new SiardArchiveReader();

@@ -19,6 +19,17 @@ namespace Arkivverket.Arkade.Core.Report
             return testReport;
         }
 
+        public static TestReport CreateForSiard(TestSession testSession)
+        {
+            var testReport = new TestReport
+            {
+                Summary = CreateTestReportSummary(testSession),
+                TestsResults = GetSiardTestReportResults(),
+            };
+
+            return testReport;
+        }
+
         private static TestReportSummary CreateTestReportSummary(TestSession testSession)
         {
             var norwegianCulture = new CultureInfo("nb-NO");
@@ -35,14 +46,13 @@ namespace Arkivverket.Arkade.Core.Report
                 ArchiveType = testSession.Archive.ArchiveType,
                 DateOfTesting = testSession.DateOfTesting.ToString(Resources.Report.DateFormat, norwegianCulture),
                 NumberOfTestsRun = string.Format(Resources.Report.ValueNumberOfTestsExecuted, numberOfExecutedTests, numberOfAvailableTests),
-                NumberOfErrors = testSession.TestSuite.FindNumberOfErrors().ToString(),
-            };
-
-            if (testSession.TestSummary != null)
-            {
-                summary.NumberOfProcessedFiles = testSession.TestSummary.NumberOfProcessedFiles;
-                summary.NumberOfProcessedRecords = testSession.TestSummary.NumberOfProcessedRecords;
-            }
+                NumberOfProcessedFiles = testSession.TestSummary.NumberOfProcessedFiles,
+                NumberOfProcessedRecords = testSession.TestSummary.NumberOfProcessedRecords,
+                NumberOfWarnings = testSession.TestSummary.NumberOfWarnings,
+                NumberOfErrors = testSession.Archive.ArchiveType is ArchiveType.Siard
+                    ? testSession.TestSummary.NumberOfErrors
+                    : testSession.TestSuite.FindNumberOfErrors().ToString(),
+        };
 
             return summary;
         }
@@ -90,6 +100,42 @@ namespace Arkivverket.Arkade.Core.Report
                 Location = testResult.Location.ToString(),
                 Message = testResult.Message,
             }).ToList();
+        }
+
+        private static List<ExecutedTest> GetSiardTestReportResults()
+        {
+            return new()
+            {
+                new ExecutedTest
+                {
+                    TestId = "externalReport",
+                    TestName = string.Format(Resources.SiardMessages.ValidationResultTestName, Resources.SiardMessages.DbptkDeveloper),
+                    ResultSet = GetSiardResultSet(),
+                    HasResults = true,
+                    TestType = null,
+                }
+            };
+        }
+
+        private static ResultSet GetSiardResultSet()
+        {
+            return new()
+            {
+                Results = GetSiardResult(),
+                ResultSets = new List<ResultSet>(),
+            };
+        }
+
+        private static List<Result> GetSiardResult()
+        {
+            return new()
+            {
+                new Result
+                {
+                    Location = Resources.OutputFileNames.DbptkValidationReportFile,
+                    Message = Resources.SiardMessages.ValidationResultMessage,
+                }
+            };
         }
     }
 }
