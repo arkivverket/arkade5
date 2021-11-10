@@ -29,6 +29,9 @@ namespace Arkivverket.Arkade.Core.Logging
 
         public void Begin(ArchiveType archiveType)
         {
+            if (Console.IsOutputRedirected)
+                return;
+
             if (IsRunning)
             {
                 Log.Debug("TestProgressReporter is already running, can not start again.");
@@ -58,6 +61,9 @@ namespace Arkivverket.Arkade.Core.Logging
 
         public void ReportTestProgress(int testProgressValue)
         {
+            if (Console.IsOutputRedirected)
+                return;
+
             if (!IsRunning)
             {
                 Log.Debug("Could not find an active TestProgressReporter");
@@ -83,6 +89,9 @@ namespace Arkivverket.Arkade.Core.Logging
 
         public void Finish(bool hasFailed)
         {
+            if (Console.IsOutputRedirected)
+                return;
+
             if (!IsRunning)
             {
                 Log.Debug("Could not find an active TestProgressReporter");
