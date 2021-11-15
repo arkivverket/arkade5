@@ -29,9 +29,22 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions.DataTypes
         }
 
         [Fact]
+        public void ShouldAcceptCommaAsThousandSeparator()
+        {
+            IntegerDataType dataType = new IntegerDataType("n,nnn", null);
+            dataType.GetThousandSeparator().Should().Be(",");
+        }
+
+        [Fact]
+        public void ShouldAcceptWhiteSpaceAsThousandSeparator()
+        {
+            IntegerDataType dataType = new IntegerDataType("n nnn", null);
+            dataType.GetThousandSeparator().Should().Be(" ");
+        }
+
+        [Fact]
         public void ShouldNotAcceptOtherCharactersAsThousandSeparator()
         {
-            Assert.Throws<ArgumentException>(() => new IntegerDataType("n,nnn", null));
             Assert.Throws<ArgumentException>(() => new IntegerDataType("n'nnn", null));
             Assert.Throws<ArgumentException>(() => new IntegerDataType("n#nnn", null));
             Assert.Throws<ArgumentException>(() => new IntegerDataType("n..nnn", null));
@@ -47,6 +60,10 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions.DataTypes
             Assert.Throws<ArgumentException>(() => new IntegerDataType("nnn.n", null));
             Assert.Throws<ArgumentException>(() => new IntegerDataType("n.nnn.nnn", null));
             Assert.Throws<ArgumentException>(() => new IntegerDataType("d.ddd", null));
+            Assert.Throws<ArgumentException>(() => new IntegerDataType("n,nnn.nnn", null));
+            Assert.Throws<ArgumentException>(() => new IntegerDataType("n nnn.nnn", null));
+            Assert.Throws<ArgumentException>(() => new IntegerDataType("n.nnn nnn", null));
+            Assert.Throws<ArgumentException>(() => new IntegerDataType("n,nnn nnn", null));
         }
 
         [Fact]
@@ -71,6 +88,30 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions.DataTypes
             new IntegerDataType("n.nnn", null).IsValid("222.111.000").Should().BeTrue();
             new IntegerDataType("n.nnn", null).IsValid("3.222.111.000").Should().BeTrue();
             new IntegerDataType("n.nnn", null).IsValid("-3.222.111.000").Should().BeTrue();
+
+            new IntegerDataType("n,nnn", null).IsValid("1").Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("12").Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("123").Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("4,000").Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("111,000").Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("1,111,000").Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("1,111,000").Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("22,111,000").Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("222,111,000").Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("3,222,111,000").Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("-3,222,111,000").Should().BeTrue();
+
+            new IntegerDataType("n nnn", null).IsValid("1").Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("12").Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("123").Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("4 000").Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("111 000").Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("1 111 000").Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("1 111 000").Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("22 111 000").Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("222 111 000").Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("3 222 111 000").Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("-3 222 111 000").Should().BeTrue();
         }
 
         [Fact]
@@ -84,6 +125,15 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions.DataTypes
             new IntegerDataType("n.nnn", null).IsValid("1.234.").Should().BeFalse();
             new IntegerDataType("n.nnn", null).IsValid("1.234.5").Should().BeFalse();
             new IntegerDataType("n.nnn", null).IsValid(".123.456").Should().BeFalse();
+
+            new IntegerDataType("n,nnn", null).IsValid(",1").Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid("1,2").Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid("1,23").Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid("1,23,").Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid("1,23,4").Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid("1,234,").Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid("1,234,5").Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid(",123,456").Should().BeFalse();
         }
 
         [Fact]
