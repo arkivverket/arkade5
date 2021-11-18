@@ -96,7 +96,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions
                 "Analyse_FindMinMaxLengths",
                 "Control_BirthNumber",
                 "Control_Codes",
-                "Analyse_FindMinMaxValues",
+                "Analyse_FindMinMaxValue",
                 "Analyse_FrequencyList"
             );
 

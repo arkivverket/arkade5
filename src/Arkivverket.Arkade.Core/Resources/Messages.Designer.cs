@@ -189,18 +189,18 @@ namespace Arkivverket.Arkade.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Finds the lowest and highest value in the field.
         /// </summary>
-        public static string AnalyseFindMinMaxValuesDescription {
+        public static string AnalyseFindMinMaxValueDescription {
             get {
-                return ResourceManager.GetString("AnalyseFindMinMaxValuesDescription", resourceCulture);
+                return ResourceManager.GetString("AnalyseFindMinMaxValueDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Lowest/highest value: {0}/{1}.
         /// </summary>
-        public static string AnalyseFindMinMaxValuesMessage {
+        public static string AnalyseFindMinMaxValueMessage {
             get {
-                return ResourceManager.GetString("AnalyseFindMinMaxValuesMessage", resourceCulture);
+                return ResourceManager.GetString("AnalyseFindMinMaxValueMessage", resourceCulture);
             }
         }
         
