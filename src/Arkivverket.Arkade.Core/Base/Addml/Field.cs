@@ -11,7 +11,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         public Field(AddmlFieldDefinition definition, string value)
         {
             Definition = definition;
-            Value = value;
+            Value = Definition is {AddmlRecordDefinition: {AddmlFlatFileDefinition: { }}}
+                ? value.Trim(Definition.AddmlRecordDefinition.AddmlFlatFileDefinition.QuotingChar)
+                : value;
         }
 
         public string GetName()
