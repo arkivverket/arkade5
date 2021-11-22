@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Arkivverket.Arkade.Core.Base.Addml;
+﻿using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Tests.Base.Addml.Builders;
 using FluentAssertions;
@@ -12,9 +11,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
         [Fact]
         public void ShouldTrimQuotingCharFromValues()
         {
-            var quotingChars = new[] {'"', '\'', '*', '^', '|', ',', '#', '\0'};
+            var quotingChars = new[] {'"'.ToString(), "'", "*", "^", "|", ",", "#", "asd1'"};
 
-            foreach (char quotingChar in quotingChars)
+            foreach (string quotingChar in quotingChars)
             {
                 AddmlFlatFileDefinition flatFileDefinition = new AddmlFlatFileDefinitionBuilder()
                     .WithQuotingChar(quotingChar)
@@ -40,9 +39,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
         [Fact]
         public void ShouldReturnCorrectValuesForUnquotedValues()
         {
-            var quotingChars = new[] {'"', '\'', '*', '^', '|', ',', '#', '\0'};
+            var quotingChars = new[] {'"'.ToString(), "'", "*", "^", "|", ",", "#", "asd2'"};
 
-            foreach (char quotingChar in quotingChars)
+            foreach (string quotingChar in quotingChars)
             {
                 AddmlFlatFileDefinition flatFileDefinition = new AddmlFlatFileDefinitionBuilder()
                     .WithQuotingChar(quotingChar)

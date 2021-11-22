@@ -9,6 +9,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
     public class DelimiterFileFormatReader : FileFormatReader
     {
         private readonly string _fieldDelimiter;
+        private readonly string _quotingChar;
+        private readonly string _escapedQuotingCharForRegex;
         private readonly IEnumerator<string> _lines;
 
         // Zero based position of field used to identify recordDefinition
@@ -24,6 +26,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         {
             string recordDelimiter = GetRecordDelimiter(flatFile);
             _fieldDelimiter = GetFieldDelimiter(flatFile);
+            _quotingChar = flatFile.Definition.QuotingChar;
+            _escapedQuotingCharForRegex = _quotingChar != null ? Regex.Escape(_quotingChar) : null;
             _recordIdentifierPosition = flatFile.GetRecordIdentifierPosition();
             _lines = new DelimiterFileRecordEnumerable(streamReader, recordDelimiter).GetEnumerator();
         }
@@ -52,7 +56,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             string currentLine = _lines.Current;
 
-            string[] strings = Regex.Split(currentLine, $@"{_fieldDelimiter}(?=(?:[^""]*""[^""]*"")*[^""]*$)");
+            string splitPattern = _quotingChar == null
+                ? $@"{_fieldDelimiter}"
+                : $@"{_fieldDelimiter}(?=(?:[^{_escapedQuotingCharForRegex}]*{_escapedQuotingCharForRegex}[^{_escapedQuotingCharForRegex}]*{_escapedQuotingCharForRegex})*[^{_escapedQuotingCharForRegex}]*$)";
+
+            string[] strings = Regex.Split(currentLine, splitPattern);
 
             string recordIdentifier = null;
             if (_recordIdentifierPosition.HasValue)

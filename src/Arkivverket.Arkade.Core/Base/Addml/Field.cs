@@ -11,9 +11,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         public Field(AddmlFieldDefinition definition, string value)
         {
             Definition = definition;
-            Value = Definition is {AddmlRecordDefinition: {AddmlFlatFileDefinition: { }}}
-                ? value.Trim(Definition.AddmlRecordDefinition.AddmlFlatFileDefinition.QuotingChar)
-                : value;
+            Value = GetValue(value);
         }
 
         public string GetName()
@@ -29,6 +27,22 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         public bool IsPartOfForeignKey(AddmlForeignKey foreignKey)
         {
             return foreignKey.ForeignKeys.Contains(Definition);
+        }
+
+        private string GetValue(string value)
+        {
+            if (Definition is not {AddmlRecordDefinition: {AddmlFlatFileDefinition: { QuotingChar: { }}}})
+                return value;
+
+            string quotingChar = Definition.AddmlRecordDefinition.AddmlFlatFileDefinition.QuotingChar;
+
+            if (value.StartsWith(quotingChar) && value.EndsWith(quotingChar))
+            {
+                value = value.Remove(0, quotingChar.Length);
+                value = value.Remove(value.Length - quotingChar.Length);
+            }
+
+            return value;
         }
     }
 }

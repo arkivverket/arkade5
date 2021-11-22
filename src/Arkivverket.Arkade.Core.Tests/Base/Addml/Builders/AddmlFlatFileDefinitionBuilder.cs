@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
 
         private string _recordSeparator = null;
         private string _fieldSeparator = null;
-        private char _quotingChar = default;
+        private string _quotingChar = null;
         private readonly AddmlFlatFileFormat _format = AddmlFlatFileFormat.Fixed;
 
         private Checksum _checksum = null;
@@ -62,7 +62,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
 
         }
 
-        public AddmlFlatFileDefinitionBuilder WithQuotingChar(char quotingChar)
+        public AddmlFlatFileDefinitionBuilder WithQuotingChar(string quotingChar)
         {
             _quotingChar = quotingChar;
             return this;

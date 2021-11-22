@@ -110,7 +110,10 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
         public void SemicolonsWithinQuotesAreNotInterpretedAsFieldDelimiters()
         {
             AddmlFlatFileDefinition addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder()
-                .WithRecordSeparator("CRLF").WithFieldSeparator(";").Build();
+                .WithRecordSeparator("CRLF")
+                .WithFieldSeparator(";")
+                .WithQuotingChar("\"")
+                .Build();
 
             AddmlRecordDefinition recordDefinition = new AddmlRecordDefinitionBuilder()
                 .WithAddmlFlatFileDefinition(addmlFlatFileDefinition).Build();
@@ -118,17 +121,53 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
             new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
             new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
             new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
+            new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
 
-            const string csvData = "AA;\"B;B\";CC";
+            const string csvData = "AA;\"B;B\";CC;\"DD\"";
 
             var streamReader = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(csvData)));
             var recordReader = new DelimiterFileFormatReader(new FlatFile(addmlFlatFileDefinition), streamReader);
             var actionOfGettingCurrent = (Action) (() => ((Func<object>) (() => recordReader.Current))());
 
-            recordReader.MoveNext(); // AA;"B;B";CC
+            recordReader.MoveNext(); // AA;"B;B";CC;"DD"
 
             actionOfGettingCurrent.Should().NotThrow<Exception>();
-            recordReader.Current?.Fields?.Count.Should().Be(3);
+            recordReader.Current?.Fields?.Count.Should().Be(4);
+        }
+
+        [Fact]
+        public void FieldDelimitersWithinQuotingCharsAreNotInterpretedAsFieldDelimiters()
+        {
+            string[] quotingStrings = {"\"", "\"\"\"", "|", ";", "*", "#", "|s", "as\\d5", "\\*+?|{[()^$.#"};
+
+            foreach (string quotingString in quotingStrings)
+            {
+                AddmlFlatFileDefinition addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder()
+                    .WithRecordSeparator("CRLF")
+                    .WithFieldSeparator(",")
+                    .WithQuotingChar(quotingString)
+                    .Build();
+
+                AddmlRecordDefinition recordDefinition = new AddmlRecordDefinitionBuilder()
+                    .WithAddmlFlatFileDefinition(addmlFlatFileDefinition).Build();
+
+                new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
+                new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
+                new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
+                new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
+
+                var csvData = $"AA,{quotingString}B,B{quotingString},CC,{quotingString}DD{quotingString}";
+
+                var streamReader = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(csvData)));
+                var recordReader = new DelimiterFileFormatReader(new FlatFile(addmlFlatFileDefinition), streamReader);
+                var actionOfGettingCurrent = (Action)(() => ((Func<object>)(() => recordReader.Current))());
+
+                recordReader.MoveNext();
+
+                actionOfGettingCurrent.Should().NotThrow<Exception>();
+                recordReader.Current?.Fields?.Count.Should().Be(4);
+            }
+            
         }
     }
 }

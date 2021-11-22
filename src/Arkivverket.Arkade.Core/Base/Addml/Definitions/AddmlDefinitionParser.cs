@@ -181,7 +181,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
                 string name = flatFileDefinition.name;
                 string recordSeparator = GetRecordSeparator(flatFileDefinition.typeReference);
                 string fieldSeparator = GetFieldSeparator(flatFileDefinition.typeReference);
-                char quotingChar = GetQuotingChar(flatFileDefinition.typeReference);
+                string quotingChar = GetQuotingChar(flatFileDefinition.typeReference);
                 string fileName = GetFileName(flatFileDefinition.name);
                 FileInfo fileInfo = _workingDirectory.Content().WithFile(fileName);
                 string charset = GetCharset(flatFileDefinition.typeReference);
@@ -526,12 +526,12 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             }
         }
 
-        private char GetQuotingChar(string flatFileTypeName)
+        private string GetQuotingChar(string flatFileTypeName)
         {
             flatFileType flatFileType = GetFlatFileType(flatFileTypeName);
             Type type = flatFileType.Item.GetType();
 
-            return type == typeof(delimFileFormat) ? char.Parse(((delimFileFormat) flatFileType.Item).quotingChar) : default;
+            return type == typeof(delimFileFormat) ? ((delimFileFormat) flatFileType.Item).quotingChar : null;
         }
 
 
