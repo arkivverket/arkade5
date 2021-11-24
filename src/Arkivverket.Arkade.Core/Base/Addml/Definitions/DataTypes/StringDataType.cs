@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         {
             if (!_acceptedFieldFormats.Contains(fieldFormat))
             {
-                string message = "Illegal field format '" + fieldFormat + "'. Accepted field formats are " + string.Join(", ", _acceptedFieldFormats);
+                string message = "Illegal field format '" + fieldFormat + "' for data type 'string'. Accepted field formats are " + string.Join(", ", _acceptedFieldFormats);
                 throw new ArgumentException(message);
             }
         }
