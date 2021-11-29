@@ -171,4 +171,7 @@
   <data name="TotalAmountOfRecordsWithFieldDelimiterErrorResultText" xml:space="preserve">
     <value>The file's total number of records with incorrect number of fields: {0}</value>
   </data>
+  <data name="FieldDelimiterAndQuotingCharCannotHaveSameValue" xml:space="preserve">
+    <value>QuotingChar ({0}) can not be equal to Field Delimiter ({1})</value>
+  </data>
 </root>

@@ -171,4 +171,7 @@
   <data name="TotalAmountOfRecordsWithFieldDelimiterErrorResultText" xml:space="preserve">
     <value>Filens totale antall poster med feil antall felt: {0}</value>
   </data>
+  <data name="FieldDelimiterAndQuotingCharCannotHaveSameValue" xml:space="preserve">
+    <value>Innkapslingstegn ({0}) kan ikke være lik feltseparator ({1})</value>
+  </data>
 </root>
