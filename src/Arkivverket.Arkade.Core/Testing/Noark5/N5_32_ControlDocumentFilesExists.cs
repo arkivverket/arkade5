@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private readonly ReadOnlyDictionary<string, DocumentFile> _documentFiles;
 
-        private readonly Dictionary<ArchivePart, List<string>> _missingFilesPerArchivePart = new();
+        private readonly Dictionary<ArchivePart, List<(string, int)>> _missingFilesPerArchivePart = new();
         private ArchivePart _currentArchivePart = new(); 
 
         public N5_32_ControlDocumentFilesExists(Archive archive)
@@ -37,14 +37,15 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             var testResultSet = new TestResultSet();
 
-            foreach ((ArchivePart archivePart, List<string> missingFiles) in _missingFilesPerArchivePart)
+            foreach ((ArchivePart archivePart, List<(string, int)> missingFiles) in _missingFilesPerArchivePart)
             {
                 var testResults = new List<TestResult>();
 
-                foreach (string missingFile in missingFiles)
+                foreach ((string missingFile, int xmlLineNumber) in missingFiles)
                 {
-                    testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
-                            string.Format(Noark5Messages.FileNotFound, missingFile)));
+                    testResults.Add(new TestResult(ResultType.Error, 
+                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName, xmlLineNumber),
+                        string.Format(Noark5Messages.FileNotFound, missingFile)));
                 }
 
                 if (multipleArchiveParts)
@@ -85,14 +86,15 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("referanseDokumentfil"))
             {
                 string documentFileName = eventArgs.Value;
+                int xmlLineNumber = eventArgs.LineNumber;
 
                 if (!DocumentFileExists(documentFileName))
                 {
                     if (_missingFilesPerArchivePart.ContainsKey(_currentArchivePart))
-                        _missingFilesPerArchivePart[_currentArchivePart].Add(documentFileName);
+                        _missingFilesPerArchivePart[_currentArchivePart].Add((documentFileName, xmlLineNumber));
                     else
-                        _missingFilesPerArchivePart.Add(_currentArchivePart, new List<string>{documentFileName});
-                    
+                        _missingFilesPerArchivePart.Add(_currentArchivePart,
+                            new List<(string, int)> {(documentFileName, xmlLineNumber)});
                 }
             }
         }

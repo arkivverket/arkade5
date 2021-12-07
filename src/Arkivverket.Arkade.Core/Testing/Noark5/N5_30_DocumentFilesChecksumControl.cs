@@ -73,10 +73,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 _currentDocumentDescriptionSystemId = eventArgs.Value;
 
             if (eventArgs.Path.Matches("referanseDokumentfil", "dokumentobjekt"))
+            {
                 _currentDocumentObject.DocumentFileReference = eventArgs.Value;
+                _currentDocumentObject.DocumentFileReferenceXmlLineNumber = eventArgs.LineNumber;
+            }
 
             if (eventArgs.Path.Matches("sjekksum", "dokumentobjekt"))
+            {
                 _currentDocumentObject.Checksum = eventArgs.Value;
+                _currentDocumentObject.ChecksumXmlLineNumber = eventArgs.LineNumber;
+            }
 
             if (eventArgs.Path.Matches("sjekksumAlgoritme", "dokumentobjekt"))
                 _currentDocumentObject.ChecksumAlgorithm = eventArgs.Value;
@@ -95,7 +101,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 {
                     if (!ActualAndDocumentedFileChecksumsMatch(_currentDocumentObject))
                     {
-                        testResult = new TestResult(ResultType.Error, new Location(string.Empty),
+                        testResult = new TestResult(ResultType.Error, new Location(
+                                ArkadeConstants.ArkivuttrekkXmlFileName, _currentDocumentObject.ChecksumXmlLineNumber),
                             string.Format(Noark5Messages.DocumentFilesChecksumControlMessage,
                                 _currentDocumentObject.DocumentFileReference,
                                 _currentDocumentObject.DocumentDescriptionSystemId
@@ -104,7 +111,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 }
                 catch (Exception)
                 {
-                    testResult = new TestResult(ResultType.Error, new Location(string.Empty), string.Format(
+                    testResult = new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName,
+                        _currentDocumentObject.DocumentFileReferenceXmlLineNumber), string.Format(
                         Noark5Messages.FileNotFound, _currentDocumentObject.DocumentFileReference));
                 }
 
@@ -171,6 +179,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public string DocumentFileReference { get; set; }
             public string Checksum { get; set; }
             public string ChecksumAlgorithm { get; set; }
+            public int DocumentFileReferenceXmlLineNumber { get; set; }
+            public int ChecksumXmlLineNumber { get; set; }
         }
 
     }

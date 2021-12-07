@@ -10,6 +10,9 @@ namespace Arkivverket.Arkade.Core.Testing
         private readonly string _record;
         private readonly string _field;
 
+        public string FileName => _file;
+        public IEnumerable<int> ErrorLocations { get; }
+
         public AddmlLocation(string file, string record, string field)
         {
             _file = file;

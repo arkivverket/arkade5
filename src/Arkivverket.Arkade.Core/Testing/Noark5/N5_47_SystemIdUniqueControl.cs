@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
@@ -10,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 47);
 
-        private readonly SortedDictionary<string, int> _systemIdInstances = new();
+        private readonly SortedDictionary<string, Instance> _systemIdInstances = new();
 
         public override TestId GetId()
         {
@@ -26,11 +27,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             var testResultSet = new TestResultSet();
 
-            foreach ((string systemId, int instances) in _systemIdInstances)
+            foreach ((string systemId, Instance instances) in _systemIdInstances)
             {
-                if (instances > 1)
-                    testResultSet.TestsResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
-                        string.Format(Noark5Messages.SystemIdUniqueControlMessage, systemId, instances)));
+                if (instances.Count > 1)
+                    testResultSet.TestsResults.Add(new TestResult(ResultType.Error, new Location(
+                            ArkadeConstants.ArkivuttrekkXmlFileName, instances.Locations),
+                        string.Format(Noark5Messages.SystemIdUniqueControlMessage, systemId, instances.Count)));
             }
 
             return testResultSet;
@@ -41,10 +43,15 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("systemID"))
             {
                 string systemId = eventArgs.Value;
+                int xmlLineNumber = eventArgs.LineNumber;
 
                 if (_systemIdInstances.ContainsKey(systemId))
-                    _systemIdInstances[systemId]++;
-                else _systemIdInstances[systemId] = 1;
+                {
+                    _systemIdInstances[systemId].Count++;
+                    _systemIdInstances[systemId].Locations.Add(xmlLineNumber);
+                }
+                else 
+                    _systemIdInstances[systemId] = new Instance(xmlLineNumber);
             }
         }
 
@@ -58,6 +65,18 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
+        }
+
+        private class Instance
+        {
+            public int Count { get; set; }
+            public List<int> Locations { get; }
+
+            public Instance(int xmlLineNumber)
+            {
+                Count = 1;
+                Locations = new List<int>{xmlLineNumber};
+            }
         }
     }
 }

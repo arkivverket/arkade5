@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
@@ -10,8 +11,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 22);
 
-        private readonly List<N5_22_ArchivePart> _archiveParts = new();
-        private N5_22_ArchivePart _currentArchivePart = new();
+        private readonly Dictionary<ArchivePart, Dictionary<string, JournalPostStatus>> _journalPostStatusesPerArchivePart = new();
+        private ArchivePart _currentArchivePart = new();
 
         public override TestId GetId()
         {
@@ -25,22 +26,28 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override TestResultSet GetTestResults()
         {
-            bool multipleArchiveParts = _archiveParts.Count > 1;
+            bool multipleArchiveParts = _journalPostStatusesPerArchivePart.Count > 1;
 
             var testResultSet = new TestResultSet();
 
-            foreach (N5_22_ArchivePart archivePart in _archiveParts)
+            foreach ((ArchivePart archivePart, Dictionary<string, JournalPostStatus> journalPostStatuses) in _journalPostStatusesPerArchivePart)
             {
                 var testResults = new List<TestResult>();
 
-                foreach ((string status, int count) in archivePart.NumberOfJournalPostStatuses)
-                    testResults.Add(new TestResult(
-                        status.Equals("Arkivert") || status.Equals("Utgår")
-                            ? ResultType.Success
-                            : ResultType.Error,
-                        new Location(string.Empty),
-                        string.Format(Noark5Messages.NumberOfEachJournalStatusMessage, status, count)
+                foreach ((string status, JournalPostStatus journalPostStatus) in journalPostStatuses)
+                {
+                    ResultType resultType = status.Equals("Arkivert") || status.Equals("Utgår")
+                        ? ResultType.Success
+                        : ResultType.Error;
+
+                    Location testResultLocation = resultType == ResultType.Success
+                        ? new Location(string.Empty)
+                        : new Location(ArkadeConstants.ArkivuttrekkXmlFileName, journalPostStatus.Locations);
+
+                    testResults.Add(new TestResult(resultType, testResultLocation,
+                        string.Format(Noark5Messages.NumberOfEachJournalStatusMessage, status, journalPostStatus.Count)
                     ));
+                }
 
                 if (multipleArchiveParts)
                     testResultSet.TestResultSets.Add(new TestResultSet
@@ -73,12 +80,26 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (eventArgs.Path.Matches("journalstatus", "registrering"))
             {
-                string status = eventArgs.Value;
+                string journalPostStatus = eventArgs.Value;
+                int xmlLineNumber = eventArgs.LineNumber;
 
-                if (_currentArchivePart.NumberOfJournalPostStatuses.ContainsKey(status))
-                    _currentArchivePart.NumberOfJournalPostStatuses[status]++;
+                if (_journalPostStatusesPerArchivePart.ContainsKey(_currentArchivePart))
+                {
+                    if (_journalPostStatusesPerArchivePart[_currentArchivePart].ContainsKey(journalPostStatus))
+                    {
+                        _journalPostStatusesPerArchivePart[_currentArchivePart][journalPostStatus].Count++;
+                        _journalPostStatusesPerArchivePart[_currentArchivePart][journalPostStatus].Locations.Add(xmlLineNumber);
+                    }
+                    else
+                        _journalPostStatusesPerArchivePart[_currentArchivePart].Add(journalPostStatus, new JournalPostStatus(xmlLineNumber));
+                }
                 else
-                    _currentArchivePart.NumberOfJournalPostStatuses.Add(status, 1);
+                {
+                    _journalPostStatusesPerArchivePart.Add(_currentArchivePart, new Dictionary<string, JournalPostStatus>
+                    {
+                        {journalPostStatus, new JournalPostStatus(xmlLineNumber)}
+                    });
+                }
             }
         }
 
@@ -86,14 +107,20 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if(eventArgs.NameEquals("arkivdel"))
             {
-                _archiveParts.Add(_currentArchivePart);
-                _currentArchivePart = new N5_22_ArchivePart();
+                _currentArchivePart = new ArchivePart();
             }
         }
 
-        private class N5_22_ArchivePart : ArchivePart
+        private class JournalPostStatus
         {
-            public readonly Dictionary<string, int> NumberOfJournalPostStatuses = new();
+            public int Count { get; set; }
+            public List<int> Locations { get; }
+
+            public JournalPostStatus(int xmlLineNumber)
+            {
+                Count = 1;
+                Locations = new List<int> { xmlLineNumber };
+            }
         }
     }
 }

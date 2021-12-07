@@ -97,8 +97,13 @@ namespace Arkivverket.Arkade.Core.Report
             return testResults.Select(testResult => new Result
             {
                 ResultType = testResult.Result,
-                Location = testResult.Location.ToString(),
                 Message = testResult.Message,
+                Location = new Location
+                {
+                    String = testResult.Location.ToString(),
+                    FileName = testResult.Location.FileName,
+                    LineNumbers = testResult.Location.ErrorLocations == null ? null : new List<int>(testResult.Location.ErrorLocations),
+                },
             }).ToList();
         }
 
@@ -132,7 +137,7 @@ namespace Arkivverket.Arkade.Core.Report
             {
                 new Result
                 {
-                    Location = Resources.OutputFileNames.DbptkValidationReportFile,
+                    Location = new Location { String = Resources.OutputFileNames.DbptkValidationReportFile },
                     Message = Resources.SiardMessages.ValidationResultMessage,
                 }
             };

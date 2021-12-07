@@ -41,7 +41,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 testResults.AddRange
                 (classReferringDossiers.Where(HasInvalidReference).Select
-                    (dossierWithInvalidReference => new TestResult(ResultType.Error, new Location(string.Empty),
+                    (dossierWithInvalidReference => new TestResult(ResultType.Error, new Location(
+                            ArkadeConstants.ArkivuttrekkXmlFileName, dossierWithInvalidReference.XmlLineNumber),
                         string.Format(Noark5Messages.ClassReferenceControlMessage,
                             dossierWithInvalidReference.SystemId ?? "?", dossierWithInvalidReference.ClassReference))
                     )
@@ -75,7 +76,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Name.Equals("mappe"))
-                _folders.Push(new Folder());
+                _folders.Push(new Folder {XmlLineNumber = eventArgs.LineNumber});
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
@@ -137,6 +138,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public string SystemId { get; set; }
             public bool IsDossier { get; set; }
             public string ClassReference { get; set; }
+            public int XmlLineNumber { get; init; }
         }
     }
 }

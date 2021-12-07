@@ -47,9 +47,15 @@ namespace Arkivverket.Arkade.Core.Report
     public class Result
     {
         public ResultType? ResultType { get; set; }
-        public string Location { get; set; }
+        public Location Location { get; set; }
         public string Message { get; set; }
     }
 
+    public class Location
+    {
+        public string String { get; set; }
+        public string FileName { get; set; }
+        public List<int> LineNumbers { get; set; }
+    }
 
 }

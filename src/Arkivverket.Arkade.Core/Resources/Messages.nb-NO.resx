@@ -350,4 +350,7 @@ Aktuell sjekksum: {1}</value>
   <data name="ValidatingExtractMessage" xml:space="preserve">
     <value>Validerer uttrekket</value>
   </data>
+  <data name="LineTraceMessage" xml:space="preserve">
+    <value>{0} - linje(r): {1}</value>
+  </data>
 </root>

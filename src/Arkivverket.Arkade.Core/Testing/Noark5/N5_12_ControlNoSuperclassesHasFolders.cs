@@ -60,7 +60,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 foreach (Class @class in superClassesWithFolder)
                 {
-                    testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                    testResults.Add(new TestResult(ResultType.Error, 
+                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName, @class.XmlLineNumber),
                         string.Format(Noark5Messages.ControlNoSuperclassesHasFoldersMessage, @class.SystemId)));
                 }
 
@@ -92,7 +93,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 if (_classes.Any())
                     _classes.Peek().HasSubclass = true;
 
-                _classes.Push(new Class());
+                _classes.Push(new Class(eventArgs.LineNumber));
             }
 
             if (eventArgs.Path.Matches("mappe", "klasse"))
@@ -140,9 +141,15 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private class Class
         {
+            public int XmlLineNumber { get; }
             public string SystemId { get; set; }
             public bool HasSubclass { get; set; }
             public bool HasFolder { get; set; }
+
+            public Class(int xmlLineNumber)
+            {
+                XmlLineNumber = xmlLineNumber;
+            }
 
             public bool IsSuperClassWithFolder()
             {

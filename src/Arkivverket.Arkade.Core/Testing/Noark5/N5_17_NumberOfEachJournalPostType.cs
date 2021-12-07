@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
@@ -10,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 17);
 
-        private readonly Dictionary<ArchivePart, Dictionary<string, int>> _numberOfJournalPostTypesPerArchivePart =
+        private readonly Dictionary<ArchivePart, Dictionary<string, JournalPostType>> _journalPostTypesPerArchivePart =
             new();
         private ArchivePart _currentArchivePart = new();
         private string _currentJournalPostSystemId;
@@ -28,30 +29,34 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override TestResultSet GetTestResults()
         {
-            bool multipleArchiveParts = _numberOfJournalPostTypesPerArchivePart.Count > 1;
+            bool multipleArchiveParts = _journalPostTypesPerArchivePart.Count > 1;
 
             var testResultSet = new TestResultSet();
 
-            if (_numberOfJournalPostTypesPerArchivePart.Count == 0)
+            if (_journalPostTypesPerArchivePart.Count == 0)
             {
                 testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
                     string.Format(Noark5Messages.TotalResultNumber, 0)));
                 return testResultSet;
             }
 
-            foreach ((ArchivePart archivePart, Dictionary<string, int> numberOfJournalPostTypes) in
-                _numberOfJournalPostTypesPerArchivePart)
+            foreach ((ArchivePart archivePart, Dictionary<string, JournalPostType> numberOfJournalPostTypes) in
+                _journalPostTypesPerArchivePart)
             {
                 var testResults = new List<TestResult>();
 
-                foreach ((string journalPostType, int count) in numberOfJournalPostTypes)
+                foreach ((string journalPostTypeName, JournalPostType journalPostType) in numberOfJournalPostTypes)
                 {
-                    ResultType resultType = journalPostType.Equals(string.Empty) 
+                    ResultType resultType = journalPostTypeName.Equals(string.Empty) 
                         ? ResultType.Error 
                         : ResultType.Success;
 
-                    testResults.Add(new TestResult(resultType, new Location(string.Empty), string.Format(
-                        Noark5Messages.NumberOfEachJournalPostTypeMessage_TypeAndCount, journalPostType, count)));
+                    Location testResultLocation = resultType == ResultType.Success
+                        ? new Location(string.Empty)
+                        : new Location(ArkadeConstants.ArkivuttrekkXmlFileName, journalPostType.Locations);
+
+                    testResults.Add(new TestResult(resultType, testResultLocation, string.Format(
+                        Noark5Messages.NumberOfEachJournalPostTypeMessage_TypeAndCount, journalPostTypeName, journalPostType.Count)));
                 }
 
                 if (multipleArchiveParts)
@@ -91,18 +96,22 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("journalposttype", "registrering") && _journalPostAttributeIsFound)
             {
                 string journalPostType = eventArgs.Value;
-                if (_numberOfJournalPostTypesPerArchivePart.ContainsKey(_currentArchivePart))
+                int xmlLineNumber = eventArgs.LineNumber;
+                if (_journalPostTypesPerArchivePart.ContainsKey(_currentArchivePart))
                 {
-                    if (_numberOfJournalPostTypesPerArchivePart[_currentArchivePart].ContainsKey(journalPostType))
-                        _numberOfJournalPostTypesPerArchivePart[_currentArchivePart][journalPostType]++;
+                    if (_journalPostTypesPerArchivePart[_currentArchivePart].ContainsKey(journalPostType))
+                    {
+                        _journalPostTypesPerArchivePart[_currentArchivePart][journalPostType].Count++;
+                        _journalPostTypesPerArchivePart[_currentArchivePart][journalPostType].Locations.Add(xmlLineNumber);
+                    }
                     else
-                        _numberOfJournalPostTypesPerArchivePart[_currentArchivePart].Add(journalPostType, 1);
+                        _journalPostTypesPerArchivePart[_currentArchivePart].Add(journalPostType, new JournalPostType(xmlLineNumber));
                 }
                 else
                 {
-                    _numberOfJournalPostTypesPerArchivePart.Add(_currentArchivePart, new Dictionary<string, int>
+                    _journalPostTypesPerArchivePart.Add(_currentArchivePart, new Dictionary<string, JournalPostType>
                     {
-                        {journalPostType, 1}
+                        {journalPostType, new JournalPostType(xmlLineNumber)}
                     });
                 }
             }
@@ -121,6 +130,19 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             _journalPostAttributeIsFound = false; // reset
             _currentJournalPostSystemId = ""; // reset
+        }
+
+
+        private class JournalPostType
+        {
+            public int Count { get; set; }
+            public List<int> Locations { get; }
+
+            public JournalPostType(int xmlLineNumber)
+            {
+                Count = 1;
+                Locations = new List<int> { xmlLineNumber };
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Tests.Base;
 using FluentAssertions;
 using Xunit;
+using Location = Arkivverket.Arkade.Core.Testing.Location;
 
 namespace Arkivverket.Arkade.Core.Tests.Report
 {

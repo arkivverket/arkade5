@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 34);
 
-        private readonly Dictionary<ArchivePart, Dictionary<string, int>>
+        private readonly Dictionary<ArchivePart, Dictionary<string, DocumentFileReference>>
             _numberOfReferencesPerDocumentFilePerArchivePart = new();
         private ArchivePart _currentArchivePart = new();
 
@@ -33,17 +33,18 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             var totalNumberOfMultiReferencedDocumentFiles = 0;
 
-            foreach ((ArchivePart archivePart, Dictionary<string, int> referencesPerDocumentFile) in
+            foreach ((ArchivePart archivePart, Dictionary<string, DocumentFileReference> referencesPerDocumentFile) in
                 _numberOfReferencesPerDocumentFilePerArchivePart)
             {
                 var testResults = new List<TestResult>();
 
                 var numberOfMultiReferencedDocumentFiles = 0;
 
-                foreach ((string reference, int count) in referencesPerDocumentFile.Where(r => r.Value > 1))
+                foreach ((string reference, DocumentFileReference documentFileReference) in referencesPerDocumentFile.Where(r => r.Value.Count > 1))
                 {
-                    testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty), string.Format(
-                        Noark5Messages.NumberOfMultiReferencedDocumentFilesMessage, reference, count)));
+                    testResults.Add(new TestResult(ResultType.Error, 
+                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName, documentFileReference.Locations),
+                        string.Format(Noark5Messages.NumberOfMultiReferencedDocumentFilesMessage, reference, documentFileReference.Count)));
                     numberOfMultiReferencedDocumentFiles++;
                 }
 
@@ -97,18 +98,19 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("referanseDokumentfil", "dokumentobjekt"))
             {
                 string reference = eventArgs.Value;
+                int xmlLineNumber = eventArgs.LineNumber;
                 if (_numberOfReferencesPerDocumentFilePerArchivePart.ContainsKey(_currentArchivePart))
                 {
                     if (_numberOfReferencesPerDocumentFilePerArchivePart[_currentArchivePart].ContainsKey(reference))
-                        _numberOfReferencesPerDocumentFilePerArchivePart[_currentArchivePart][reference]++;
+                        _numberOfReferencesPerDocumentFilePerArchivePart[_currentArchivePart][reference].Count++;
                     else
-                        _numberOfReferencesPerDocumentFilePerArchivePart[_currentArchivePart].Add(reference, 1);
+                        _numberOfReferencesPerDocumentFilePerArchivePart[_currentArchivePart].Add(reference, new DocumentFileReference(xmlLineNumber));
                 }
                 else
                 {
-                    _numberOfReferencesPerDocumentFilePerArchivePart.Add(_currentArchivePart, new Dictionary<string, int>
+                    _numberOfReferencesPerDocumentFilePerArchivePart.Add(_currentArchivePart, new Dictionary<string, DocumentFileReference>
                     {
-                        {reference, 1}
+                        {reference, new DocumentFileReference(xmlLineNumber)}
                     });
                 }
             }
@@ -118,6 +120,18 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if(eventArgs.NameEquals("arkivdel"))
                 _currentArchivePart = new ArchivePart();
+        }
+
+        private class DocumentFileReference
+        {
+            public int Count { get; set; }
+            public List<int> Locations { get; }
+
+            public DocumentFileReference(int xmlLineNumber)
+            {
+                Count = 1;
+                Locations = new List<int> { xmlLineNumber };
+            }
         }
     }
 }

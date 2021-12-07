@@ -352,4 +352,8 @@ Actual checksum: {1}</value>
   <data name="ValidatingExtractMessage" xml:space="preserve">
     <value>Validating extract</value>
   </data>
+  <data name="LineTraceMessage" xml:space="preserve">
+    <value>{0} - line(s): {1}</value>
+    <comment>{0} filnavn, {1} linjenr med feil</comment>
+  </data>
 </root>

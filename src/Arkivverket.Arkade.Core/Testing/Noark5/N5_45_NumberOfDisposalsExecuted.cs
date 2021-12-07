@@ -15,6 +15,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly Dictionary<ArchivePart, int> _numberOfDisposalsExecutedPerArchivePart;
         private ArchivePart _currentArchivePart = new ArchivePart();
         private readonly bool _disposalsAreDocumented;
+        private readonly List<int> _executedDisposalsLocations = new();
+        private int _totalNumberOfDisposalsExecuted;
 
         public N5_45_NumberOfDisposalsExecuted(Archive archive)
         {
@@ -36,14 +38,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             bool multipleArchiveParts = _numberOfDisposalsExecutedPerArchivePart.Count > 1;
 
-            int totalNumberOfDisposalsExecuted = _numberOfDisposalsExecutedPerArchivePart.Sum(a => a.Value);
-
             var testResultSet = new TestResultSet
             {
                 TestsResults = new List<TestResult>
                 {
                     new(ResultType.Success, new Location(string.Empty), string.Format(
-                        Noark5Messages.TotalResultNumber, totalNumberOfDisposalsExecuted))
+                        Noark5Messages.TotalResultNumber, _totalNumberOfDisposalsExecuted))
                 }
             };
 
@@ -57,8 +57,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     break;
                 // Error message if disposals are found but not documented:
                 case false when _numberOfDisposalsExecutedPerArchivePart.Any(a => a.Value > 0):
-                    testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
-                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                    testResultSet.TestsResults.Add(new TestResult(ResultType.Error, new Location(
+                            ArkadeConstants.ArkivuttrekkXmlFileName, _executedDisposalsLocations),
                         Noark5Messages.NumberOfDisposalsExecutedMessage_DocFalseActualTrue));
                     break;
             }
@@ -78,7 +78,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if (eventArgs.Path.Matches("utfoertKassasjon", "arkivdel") ||
                 eventArgs.Path.Matches("utfoertKassasjon", "dokumentbeskrivelse"))
+            {
                 _numberOfDisposalsExecutedPerArchivePart[_numberOfDisposalsExecutedPerArchivePart.Keys.Last()]++;
+                _executedDisposalsLocations.Add(eventArgs.LineNumber);
+                _totalNumberOfDisposalsExecuted++;
+            }
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)

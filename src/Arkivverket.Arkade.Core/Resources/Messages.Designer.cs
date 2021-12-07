@@ -666,6 +666,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - line(s): {1}.
+        /// </summary>
+        public static string LineTraceMessage {
+            get {
+                return ResourceManager.GetString("LineTraceMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Testing of archive completed..
         /// </summary>
         public static string LogMessageFinishedTesting {

@@ -43,9 +43,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 testResults.AddRange
                 (archivePartReferrers.Where(HasInvalidReference).Select
                     (referrer => new TestResult
-                        (ResultType.Error, new Location(string.Empty), string.Format(
-                            Noark5Messages.ArchivepartReferenceControlMessage,
-                            referrer.Element, referrer.SystemId ?? "?", referrer.Reference)
+                        (
+                            ResultType.Error,
+                            new Location(ArkadeConstants.ArkivuttrekkXmlFileName, referrer.XmlLineNumber),
+                            string.Format(Noark5Messages.ArchivepartReferenceControlMessage,
+                                referrer.Element, referrer.SystemId ?? "?", referrer.Reference)
                         )
                     )
                 );
@@ -78,7 +80,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (IsPossibleReferrer(eventArgs.Name))
-                _possibleReferrers.Push(new Referrer { Element = eventArgs.Name });
+                _possibleReferrers.Push(new Referrer {Element = eventArgs.Name, XmlLineNumber = eventArgs.LineNumber});
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
@@ -154,6 +156,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public string Element { get; set; }
             public string SystemId { get; set; }
             public string Reference { get; set; }
+            public int XmlLineNumber { get; init; }
         }
     }
 }

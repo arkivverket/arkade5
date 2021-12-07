@@ -48,7 +48,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 foreach (Class superClassWithRegistration in superClassesWithRegistration)
                 {
-                    testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                    testResults.Add(new TestResult(ResultType.Error, new Location(
+                            ArkadeConstants.ArkivuttrekkXmlFileName, superClassWithRegistration.XmlLineNumber),
                         string.Format(Noark5Messages.ControlNoSuperclassesHasRegistrationsMessage,
                             superClassWithRegistration.SystemId)));
                 }
@@ -77,7 +78,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 if (_classes.Any())
                     _classes.Peek().HasSubclass = true;
 
-                _classes.Push(new Class());
+                _classes.Push(new Class(eventArgs.LineNumber));
             }
 
             if (eventArgs.Path.Matches("registrering", "klasse"))
@@ -127,6 +128,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public string SystemId { get; set; }
             public bool HasSubclass { get; set; }
             public bool HasRegistration { get; set; }
+            public int XmlLineNumber { get; }
+
+            public Class(int xmlLineNumber)
+            {
+                XmlLineNumber = xmlLineNumber;
+            }
 
             public bool IsSuperClassWithRegistration()
             {
