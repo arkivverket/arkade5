@@ -59,7 +59,7 @@ namespace Arkivverket.Arkade.Core.Base
             }
             catch
             {
-                Log.Warning("Could not ensure sufficient disk space for package destination");
+                Log.Warning("Could not verify sufficient disk space at package destination.");
             }
 
             string resultDirectory = CreateResultDirectory(archive, outputDirectory);
