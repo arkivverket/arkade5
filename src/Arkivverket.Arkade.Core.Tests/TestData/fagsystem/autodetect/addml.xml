@@ -544,7 +544,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -553,7 +553,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -562,7 +562,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -571,7 +571,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -580,7 +580,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -589,7 +589,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 							<process name="Control_ForeignKey"/>
 						</processes>
@@ -599,7 +599,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -608,7 +608,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -617,7 +617,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -626,7 +626,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -635,7 +635,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -644,7 +644,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -653,7 +653,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -662,7 +662,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -671,7 +671,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -680,7 +680,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -689,7 +689,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>
@@ -698,7 +698,7 @@
 							<process name="Analyse_FindMinMaxLengths"/>
 							<process name="Control_BirthNumber"/>
 							<process name="Control_Codes"/>
-							<process name="Analyse_FindMinMaxValues"/>
+							<process name="Analyse_FindMinMaxValue"/>
 							<process name="Analyse_FrequencyList"/>
 						</processes>
 					</fieldProcesses>

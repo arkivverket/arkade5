@@ -75,5 +75,10 @@ namespace Arkivverket.Arkade.Core.Util
 
         public const string DbptkLibraryDownloadUrl =
             "https://github.com/keeps/dbptk-developer/releases/download/v2.9.9/dbptk-app-2.9.9.jar";
+
+        public static readonly string[] SuppressedDbptkWarningMessages =
+        {
+            "WARN  Could not create report file in current working directory. Attempting to use a temporary file",
+        };
     }
 }

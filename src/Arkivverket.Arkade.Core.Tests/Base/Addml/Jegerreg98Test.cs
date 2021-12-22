@@ -47,7 +47,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
                 List<AddmlFieldDefinition> addmlFieldDefinitions = addmlRecordDefinition.AddmlFieldDefinitions;
                 addmlFieldDefinitions.Count.Should().Be(37);
                 addmlFieldDefinitions[0].Name.Should().Be("plassnummer");
-                addmlFieldDefinitions[0].Type.Should().Be(IntegerDataType.Default);
+                addmlFieldDefinitions[0].Type.Should().Be(new IntegerDataType());
                 addmlFieldDefinitions[1].Name.Should().Be("landkort");
                 addmlFieldDefinitions[8].Name.Should().Be("personnummer");
                 addmlRecordDefinition.PrimaryKey.Should()

@@ -7,11 +7,11 @@ using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 {
-    public class A_09_AnalyseFindMinMaxValues : AddmlProcess
+    public class A_09_AnalyseFindMinMaxValue : AddmlProcess
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Addml, 9);
 
-        public const string Name = "Analyse_FindMinMaxValues";
+        public const string Name = "Analyse_FindMinMaxValue";
 
         private readonly Dictionary<FieldIndex, MinAndMax> _minAndMaxValuesPerField
             = new Dictionary<FieldIndex, MinAndMax>();
@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         public override string GetDescription()
         {
-            return Messages.AnalyseFindMinMaxValuesDescription;
+            return Messages.AnalyseFindMinMaxValueDescription;
         }
 
         public override TestType GetTestType()
@@ -62,7 +62,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
                 string maxValueString = minAndMaxValue.GetMax()?.ToString() ?? "<no value>";
 
                 _testResults.Add(new TestResult(ResultType.Success, AddmlLocation.FromFieldIndex(fieldIndex),
-                    string.Format(Messages.AnalyseFindMinMaxValuesMessage, minValueString, maxValueString)));
+                    string.Format(Messages.AnalyseFindMinMaxValueMessage, minValueString, maxValueString)));
             }
 
             _minAndMaxValuesPerField.Clear();

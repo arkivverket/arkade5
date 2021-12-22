@@ -24,6 +24,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             AddmlFieldDefinition fieldDefinition3 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new IntegerDataType(null, null))
                 .Build();
+            AddmlFieldDefinition fieldDefinition4 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new IntegerDataType("n,nnn", null))
+                .Build();
+            AddmlFieldDefinition fieldDefinition5 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new IntegerDataType("n nnn", null))
+                .Build();
 
             FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());
 
@@ -44,17 +50,31 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             test.Run(new Field(fieldDefinition3, "1.1"));
             test.Run(new Field(fieldDefinition3, "1E+2"));
             test.Run(new Field(fieldDefinition3, "notanint1"));
+            test.Run(new Field(fieldDefinition4, "1"));
+            test.Run(new Field(fieldDefinition4, "1,100"));
+            test.Run(new Field(fieldDefinition4, "1,1"));
+            test.Run(new Field(fieldDefinition4, "1E+2"));
+            test.Run(new Field(fieldDefinition4, "notanint1"));
+            test.Run(new Field(fieldDefinition5, "1"));
+            test.Run(new Field(fieldDefinition5, "1 100"));
+            test.Run(new Field(fieldDefinition5, "1 1"));
+            test.Run(new Field(fieldDefinition5, "1E+2"));
+            test.Run(new Field(fieldDefinition5, "notanint1"));
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.TestResults.GetNumberOfResults().Should().Be(3);
+            testRun.TestResults.GetNumberOfResults().Should().Be(5);
             testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
             testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '1.1', '1E+2', 'notanint1'");
             testRun.TestResults.TestsResults[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
             testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: '1', '1.100', '1.1', 'notanint1'");
             testRun.TestResults.TestsResults[2].Location.ToString().Should().Be(fieldDefinition3.GetIndex().ToString());
             testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig dataformat: '1.100', '1.1', '1E+2', 'notanint1'");
+            testRun.TestResults.TestsResults[3].Location.ToString().Should().Be(fieldDefinition4.GetIndex().ToString());
+            testRun.TestResults.TestsResults[3].Message.Should().Be("Ugyldig dataformat: '1,1', '1E+2', 'notanint1'");
+            testRun.TestResults.TestsResults[4].Location.ToString().Should().Be(fieldDefinition5.GetIndex().ToString());
+            testRun.TestResults.TestsResults[4].Message.Should().Be("Ugyldig dataformat: '1E+2', 'notanint1'");
         }
 
         [Fact]
@@ -111,9 +131,25 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new FloatDataType("nn,nn", null))
                 .Build();
-
+            
             AddmlFieldDefinition fieldDefinition2 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new FloatDataType("n.nnn,nn", null))
+                .Build();
+
+            AddmlFieldDefinition fieldDefinition3 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new FloatDataType("nn.nn", null))
+                .Build();
+
+            AddmlFieldDefinition fieldDefinition4 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new FloatDataType("n nnn,nn", null))
+                .Build();
+
+            AddmlFieldDefinition fieldDefinition5 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new FloatDataType("n,nnn.nn", null))
+                .Build();
+
+            AddmlFieldDefinition fieldDefinition6 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new FloatDataType("n nnn.nn", null))
                 .Build();
 
             FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());
@@ -131,15 +167,44 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             test.Run(new Field(fieldDefinition2, "1,2"));
             test.Run(new Field(fieldDefinition2, "1.200,3"));
             test.Run(new Field(fieldDefinition2, "not"));
+            test.Run(new Field(fieldDefinition3, ""));
+            test.Run(new Field(fieldDefinition3, "1"));
+            test.Run(new Field(fieldDefinition3, "1.2"));
+            test.Run(new Field(fieldDefinition3, "1,200"));
+            test.Run(new Field(fieldDefinition3, "1,200.3"));
+            test.Run(new Field(fieldDefinition3, "not"));
+            test.Run(new Field(fieldDefinition4, ""));
+            test.Run(new Field(fieldDefinition4, "1"));
+            test.Run(new Field(fieldDefinition4, "1,2"));
+            test.Run(new Field(fieldDefinition4, "1 200,3"));
+            test.Run(new Field(fieldDefinition4, "not"));
+            test.Run(new Field(fieldDefinition5, ""));
+            test.Run(new Field(fieldDefinition5, "1"));
+            test.Run(new Field(fieldDefinition5, "1.2"));
+            test.Run(new Field(fieldDefinition5, "1,200.3"));
+            test.Run(new Field(fieldDefinition5, "not"));
+            test.Run(new Field(fieldDefinition6, ""));
+            test.Run(new Field(fieldDefinition6, "1"));
+            test.Run(new Field(fieldDefinition6, "1.2"));
+            test.Run(new Field(fieldDefinition6, "1 200.3"));
+            test.Run(new Field(fieldDefinition6, "not"));
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.TestResults.GetNumberOfResults().Should().Be(2);
+            testRun.TestResults.GetNumberOfResults().Should().Be(6);
             testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
             testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '', '1.200', '1.200,3', 'not'");
             testRun.TestResults.TestsResults[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
             testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: '', 'not'");
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be(fieldDefinition3.GetIndex().ToString());
+            testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig dataformat: '', '1,200', '1,200.3', 'not'");
+            testRun.TestResults.TestsResults[3].Location.ToString().Should().Be(fieldDefinition4.GetIndex().ToString());
+            testRun.TestResults.TestsResults[3].Message.Should().Be("Ugyldig dataformat: '', 'not'");
+            testRun.TestResults.TestsResults[4].Location.ToString().Should().Be(fieldDefinition5.GetIndex().ToString());
+            testRun.TestResults.TestsResults[4].Message.Should().Be("Ugyldig dataformat: '', 'not'");
+            testRun.TestResults.TestsResults[5].Location.ToString().Should().Be(fieldDefinition6.GetIndex().ToString());
+            testRun.TestResults.TestsResults[5].Message.Should().Be("Ugyldig dataformat: '', 'not'");
         }
 
         [Fact]

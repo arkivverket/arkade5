@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes;
 using System;
 using System.Globalization;
+using System.Linq;
 
 namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
 {
@@ -10,19 +11,32 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
     {
         private readonly string _fieldFormat;
 
-        private const string FieldFormatDecimalSeparator = "nn,nn";
-        private const string FieldFormatDecimalAndThousandSeparator = "n.nnn,nn";
+        private string _numberDecimalSeparator;
+        private string _numberGroupSeparator;
+
+        private static readonly string[] AcceptedDecimalSeparators = {".", ","};
+        private static readonly string[] AcceptedThousandSeparators = {".", ",", " "};
+
 
         public FloatDataType()
         {
         }
 
-        private readonly List<string> _acceptedFieldFormats = new List<string>
+        private static readonly string[] AcceptedDecimalFormats =
         {
-            null,
-            FieldFormatDecimalSeparator,
-            FieldFormatDecimalAndThousandSeparator
+            "nn,nn",
+            "nn.nn"
         };
+        private static readonly string[] AcceptedThousandFormats =
+        {
+            "n.nnn,nn",
+            "n nnn,nn",
+            "n,nnn.nn",
+            "n nnn.nn",
+        };
+
+        private readonly List<string> _acceptedFieldFormats =
+            new(AcceptedDecimalFormats.Concat(AcceptedThousandFormats));
 
         public FloatDataType(string fieldFormat, List<string> nullValues) : base(nullValues)
         {
@@ -33,9 +47,21 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
 
         private void VerifyFieldFormat(string fieldFormat)
         {
-            if (!_acceptedFieldFormats.Contains(fieldFormat))
+            if (fieldFormat == null)
+                return;
+
+            if (AcceptedThousandFormats.Contains(fieldFormat))
             {
-                string message = "Illegal field format '" + fieldFormat + "'. Accepted field formats are " + string.Join(", ", _acceptedFieldFormats);
+                _numberGroupSeparator = fieldFormat[1].ToString();
+                _numberDecimalSeparator = fieldFormat[5].ToString();
+            }
+            else if (AcceptedDecimalFormats.Contains(fieldFormat))
+            {
+                _numberDecimalSeparator = fieldFormat[2].ToString();
+            }
+            else
+            {
+                string message = "Illegal field format '" + fieldFormat + "' for data type 'float'. Accepted field formats are " + string.Join(", ", _acceptedFieldFormats);
                 throw new ArgumentException(message);
             }
         }
@@ -61,39 +87,44 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
 
         public override bool IsValid(string s)
         {
-            if (_fieldFormat == FieldFormatDecimalSeparator)
+            if (_fieldFormat == null)
+                return TryParseDecimalForAllAllowedFormats(s);
+
+            var nfi = new NumberFormatInfo
             {
-                return IsValidDecimalSeparatorFormat(s);
-            }
-            else if (_fieldFormat == FieldFormatDecimalAndThousandSeparator)
-            {
-                return IsValidDecimalAndThousandSeparatorFormat(s);
-            }
-            else
-            {
-                // If no field format
-                return IsValidDecimalAndThousandSeparatorFormat(s);
-            }
+                NumberDecimalSeparator = _numberDecimalSeparator,
+                NumberGroupSeparator = _numberGroupSeparator?? (_numberDecimalSeparator == "." ? "," : "."),
+            };
+
+            if (_numberGroupSeparator == null)
+                return decimal.TryParse(s, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, nfi, out _);
+
+            nfi.NumberGroupSeparator = _numberGroupSeparator;
+            return decimal.TryParse(s, NumberStyles.Integer | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands, nfi, out _);
         }
 
-        private bool IsValidDecimalAndThousandSeparatorFormat(string s)
+        private bool TryParseDecimalForAllAllowedFormats(string s)
         {
-            NumberFormatInfo nfi = new NumberFormatInfo();
-            nfi.NumberDecimalSeparator = ",";
-            nfi.NumberGroupSeparator = ".";
+            var nfi = new NumberFormatInfo();
 
-            Decimal res;
-            return Decimal.TryParse(s, NumberStyles.Integer | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands, nfi, out res);
-        }
+            foreach (string decimalSeparator in AcceptedDecimalSeparators)
+            {
+                nfi.NumberDecimalSeparator = decimalSeparator;
+                foreach (string thousandSeparator in AcceptedThousandSeparators.Where(ts => ts != decimalSeparator))
+                {
+                    nfi.NumberGroupSeparator = thousandSeparator;
+                    if (decimal.TryParse(s, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, nfi, out _))
+                        return true;
 
-        private bool IsValidDecimalSeparatorFormat(string s)
-        {
-            NumberFormatInfo nfi = new NumberFormatInfo();
-            nfi.NumberDecimalSeparator = ",";
-            nfi.NumberGroupSeparator = ".";
+                    if (decimal.TryParse(s, NumberStyles.Integer | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands, nfi, out _))
+                    {
+                        VerifyFieldFormat($"n{thousandSeparator}nnn{decimalSeparator}nn");
+                        return true;
+                    }
+                }
+            }
 
-            Decimal res;
-            return Decimal.TryParse(s, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, nfi, out res);
+            return false;
         }
     }
 }

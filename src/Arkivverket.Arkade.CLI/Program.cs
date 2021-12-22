@@ -14,6 +14,7 @@ namespace Arkivverket.Arkade.CLI
     {
         public static void Main(string[] args)
         {
+            if (!Console.IsOutputRedirected)
             Console.CursorVisible = false;
             Console.CancelKeyPress += OnProcessCanceled;
             AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
@@ -30,6 +31,7 @@ namespace Arkivverket.Arkade.CLI
                 .WithParsed<AnalyseOptions>(RunAnalyseOptions)
                 .WithNotParsed(LogParseErrors);
 
+            if (!Console.IsOutputRedirected)
             Console.CursorVisible = true;
         }
 

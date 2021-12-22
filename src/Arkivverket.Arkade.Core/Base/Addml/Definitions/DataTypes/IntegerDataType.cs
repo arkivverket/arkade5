@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,20 +10,18 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 {
     public class IntegerDataType : DataType
     {
-        public static readonly IntegerDataType Default = new IntegerDataType();
-
         private readonly string _fieldFormat;
 
-        private const string FieldFormatThousandSeparator = "n.nnn";
+        private static readonly string[] FieldFormatThousandSeparators =
+        {
+            "n.nnn", 
+            "n,nnn",
+            "n nnn",
+        };
         private const string FieldFormatExponent = "nnE+exp";
         private const string ExponentSymbol = "E+";
 
-        private readonly List<string> _acceptedFieldFormats = new List<string>
-        {
-            null,
-            FieldFormatThousandSeparator,
-            FieldFormatExponent
-        };
+        private readonly List<string> _acceptedFieldFormats = new(FieldFormatThousandSeparators.Concat(new [] {FieldFormatExponent}));
 
         private readonly string _thousandSeparator;
 
@@ -42,20 +40,23 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             _fieldFormat = fieldFormat;
             _thousandSeparator = ParseThousandSeparator(fieldFormat);
         }
-
         private void VerifyFieldFormat(string fieldFormat)
         {
+            if (fieldFormat == null)
+                return;
+
             if (!_acceptedFieldFormats.Contains(fieldFormat))
             {
-                string message = "Illegal field format '" + fieldFormat + "'. Accepted field formats are " + string.Join(", ", _acceptedFieldFormats);
+                string message = "Illegal field format '" + fieldFormat + "' for data type 'integer'. Accepted field formats are " + string.Join(", ", _acceptedFieldFormats);
                 throw new ArgumentException(message);
             }
         }
 
         private string ParseThousandSeparator(string fieldFormat)
         {
-            // Currently only dot (".") is accepted as thousand separator
-            return fieldFormat == FieldFormatThousandSeparator ? "." : null;
+            return fieldFormat != null && FieldFormatThousandSeparators.Contains(fieldFormat)
+                ? fieldFormat[1].ToString()
+                : null;
         }
 
         public string GetThousandSeparator()
@@ -87,7 +88,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         {
             s = s.Replace(" ", "");
 
-            if (_fieldFormat == FieldFormatThousandSeparator)
+            if (FieldFormatThousandSeparators.Contains(_fieldFormat))
             {
                 return IsValidThousandSeparatorFormat(s);
             } else if (_fieldFormat == FieldFormatExponent)
@@ -126,7 +127,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
                 char c = reversed[i];
                 if ((i != reversed.Length - 1) && ((i + 1) % 4 == 0))
                 {
-                    if (c.ToString() != _thousandSeparator)
+                    if (c.ToString() != _thousandSeparator && !int.TryParse(c.ToString(), out _))
                     {
                         return false;
                     }

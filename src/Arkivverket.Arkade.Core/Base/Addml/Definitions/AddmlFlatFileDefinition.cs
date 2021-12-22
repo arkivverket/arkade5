@@ -17,6 +17,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         public FileInfo FileInfo { get; }
         public Separator RecordSeparator { get; }
         public Separator FieldSeparator { get; }
+        public string QuotingChar { get; }
 
         public Encoding Encoding { get; }
         public string RecordDefinitionFieldIdentifier { get; }
@@ -33,6 +34,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             FileInfo fileInfo,
             string recordSeparator,
             string fieldSeparator,
+            string quotingChar,
             string charset,
             string recordDefinitionFieldIdentifier,
             int? numberOfRecords,
@@ -45,6 +47,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             FileInfo = fileInfo;
             RecordSeparator = string.IsNullOrEmpty(recordSeparator) ? null : new Separator(recordSeparator);
             FieldSeparator = string.IsNullOrEmpty(fieldSeparator) ? null : new Separator(fieldSeparator);
+            QuotingChar = quotingChar;
             Encoding = Encodings.GetEncoding(charset);
             RecordDefinitionFieldIdentifier = recordDefinitionFieldIdentifier;
             NumberOfRecords = numberOfRecords;

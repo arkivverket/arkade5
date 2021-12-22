@@ -10,22 +10,26 @@ namespace Arkivverket.Arkade.Core.Report
     {
         public void Generate(TestReport testReport, Stream stream)
         {
-            using var streamWriter = new StreamWriter(stream);
+            var jsonWriterOptions = new JsonWriterOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement),
+                Indented = true,
+                SkipValidation = false,
+            };
+
+            using var jsonWriter = new Utf8JsonWriter(stream, jsonWriterOptions);
+
             var jsonSerializerOptions = new JsonSerializerOptions
             {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement),
                 WriteIndented = true,
-                IgnoreReadOnlyFields = true,
                 Converters =
                 {
                     new JsonStringEnumConverter()
                 },
             };
 
-            string jsonReport = JsonSerializer.Serialize(testReport, jsonSerializerOptions);
-
-            streamWriter.Write(jsonReport);
-            streamWriter.Flush();
+            JsonSerializer.Serialize(jsonWriter, testReport, jsonSerializerOptions);
         }
     }
 }

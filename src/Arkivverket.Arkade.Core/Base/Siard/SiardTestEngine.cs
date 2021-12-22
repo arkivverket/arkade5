@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Testing.Siard;
+using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Siard
 {
@@ -66,7 +67,7 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 
             _statusEventHandler.RaiseEventSiardValidationFinished(errors);
 
-            bool validationRanWithoutRunErrors = errors.All(e => e == null);
+            bool validationRanWithoutRunErrors = errors.All(e => e == null || e.StartsWith("WARN"));
 
             return validationRanWithoutRunErrors;
         }

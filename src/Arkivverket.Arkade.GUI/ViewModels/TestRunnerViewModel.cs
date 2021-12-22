@@ -319,14 +319,24 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void OnSiardValidationFinished(object sender, SiardValidationEventArgs eventArgs)
         {
-            List<string> errors = eventArgs.Errors;
+            var noErrors = true;
 
-            if (errors.Any(e => e != null))
-                foreach (string errorMsg in errors.Where(e => e != null))
-                    _statusEventHandler.RaiseEventOperationMessage(errorMsg, string.Empty,
+            foreach (string errorOrWarningMsg in eventArgs.Errors.Where(e => e != null))
+            {
+                if (!errorOrWarningMsg.StartsWith("WARN"))
+                {
+                    _statusEventHandler.RaiseEventOperationMessage(errorOrWarningMsg, string.Empty,
                         OperationMessageStatus.Error);
+                    noErrors = false;
+                }
+                else if (!ArkadeConstants.SuppressedDbptkWarningMessages.Contains(errorOrWarningMsg))
+                {
+                    _statusEventHandler.RaiseEventOperationMessage(errorOrWarningMsg, string.Empty,
+                        OperationMessageStatus.Warning);
+                }
+            }
 
-            else
+            if (noErrors)
                 _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.SiardProgressMessage,
                     TestRunnerGUI.MessageCompleted, OperationMessageStatus.Ok);
         }

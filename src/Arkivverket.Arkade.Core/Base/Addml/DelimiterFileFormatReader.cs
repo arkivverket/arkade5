@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 
 namespace Arkivverket.Arkade.Core.Base.Addml
@@ -9,6 +9,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
     public class DelimiterFileFormatReader : FileFormatReader
     {
         private readonly string _fieldDelimiter;
+        private readonly string _quotingChar;
         private readonly IEnumerator<string> _lines;
 
         // Zero based position of field used to identify recordDefinition
@@ -24,6 +25,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         {
             string recordDelimiter = GetRecordDelimiter(flatFile);
             _fieldDelimiter = GetFieldDelimiter(flatFile);
+            _quotingChar = flatFile.Definition.QuotingChar;
+            if (_quotingChar != null && _fieldDelimiter.Equals(_quotingChar))
+                throw new ArkadeAddmlDelimiterException(string.Format(
+                    Resources.AddmlMessages.FieldDelimiterAndQuotingCharCannotHaveSameValue, _quotingChar,
+                    _fieldDelimiter));
             _recordIdentifierPosition = flatFile.GetRecordIdentifierPosition();
             _lines = new DelimiterFileRecordEnumerable(streamReader, recordDelimiter).GetEnumerator();
         }
@@ -52,7 +58,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             string currentLine = _lines.Current;
 
-            string[] strings = Regex.Split(currentLine, $@"{_fieldDelimiter}(?=(?:[^""]*""[^""]*"")*[^""]*$)");
+            string [] strings = SplitAndTrimCurrentLineToCleanStringValues(currentLine);
 
             string recordIdentifier = null;
             if (_recordIdentifierPosition.HasValue)
@@ -67,8 +73,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 int maxNumberOfCharactersInErrorMessage = 40;
                 string fielddata = currentLine.Length <= maxNumberOfCharactersInErrorMessage ? currentLine : currentLine.Substring(0, maxNumberOfCharactersInErrorMessage-1);
                 throw new ArkadeAddmlDelimiterException(
-                    $"{Resources.AddmlMessages.UnexpectedNumberOfFields}: {strings.Length}/{fieldDefinitions.Count}", 
-                    recordDefinition.Name, 
+                    $"{Resources.AddmlMessages.UnexpectedNumberOfFields}: {strings.Length}/{fieldDefinitions.Count}",
+                    recordDefinition.Name,
                     fielddata);
             }
 
@@ -95,6 +101,54 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         public override void Reset()
         {
             _lines.Reset();
+        }
+
+        private string[] SplitAndTrimCurrentLineToCleanStringValues(string stringToSplit)
+        {
+            var strings = new List<string>();
+            var buffer = "";
+            var qcIndex = 0;
+            var fdIndex = 0;
+            var quotingCharsFoundSincePreviousFieldDelimiter = 0;
+
+            foreach (char c in stringToSplit)
+            {
+                buffer += c;
+
+                if (c == _fieldDelimiter[fdIndex] && quotingCharsFoundSincePreviousFieldDelimiter != 1)
+                {
+                    fdIndex++;
+                    if (fdIndex == _fieldDelimiter.Length)
+                    {
+                        strings.Add(quotingCharsFoundSincePreviousFieldDelimiter == 0 || _quotingChar == null
+                            ? buffer[Range.EndAt(Index.FromEnd(_fieldDelimiter.Length))]
+                            : buffer.Substring(_quotingChar.Length, buffer.Length - (_fieldDelimiter.Length + 2*_quotingChar.Length)));
+                        fdIndex = 0;
+                        buffer = "";
+                        quotingCharsFoundSincePreviousFieldDelimiter = 0;
+                    }
+                }
+                else
+                    fdIndex = 0;
+
+                if (_quotingChar != null && c == _quotingChar[qcIndex])
+                {
+                    qcIndex++;
+                    if (qcIndex == _quotingChar.Length)
+                    {
+                        quotingCharsFoundSincePreviousFieldDelimiter++;
+                        qcIndex = 0;
+                    }
+                }
+                else
+                    qcIndex = 0;
+            }
+
+            strings.Add(quotingCharsFoundSincePreviousFieldDelimiter == 0 || _quotingChar == null
+                ? buffer
+                : buffer.Substring(_quotingChar.Length, buffer.Length - 2*_quotingChar.Length));
+
+            return strings.ToArray();
         }
     }
 }

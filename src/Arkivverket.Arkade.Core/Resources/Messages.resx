@@ -159,10 +159,10 @@
   <data name="AnalyseFindExtremeValuesMessage" xml:space="preserve">
     <value>Longest/shortest value: {0}/{1}</value>
   </data>
-  <data name="AnalyseFindMinMaxValuesDescription" xml:space="preserve">
+  <data name="AnalyseFindMinMaxValueDescription" xml:space="preserve">
     <value>Finds the lowest and highest value in the field</value>
   </data>
-  <data name="AnalyseFindMinMaxValuesMessage" xml:space="preserve">
+  <data name="AnalyseFindMinMaxValueMessage" xml:space="preserve">
     <value>Lowest/highest value: {0}/{1}</value>
   </data>
   <data name="AnalyseFrequenceListDescription" xml:space="preserve">

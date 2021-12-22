@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -70,9 +71,16 @@ namespace Arkivverket.Arkade.CLI
 
         private static void OnSiardValidationFinishedEvent(object sender, SiardValidationEventArgs eventArgs)
         {
-            if (eventArgs.Errors.Any(e => e != null))
-                foreach (string errorMsg in eventArgs.Errors.Where(e => e != null))
-                    Log.Error(errorMsg);
+            List<string> errorsAndWarnings = eventArgs.Errors.Where(e => e != null).ToList();
+
+            if (!errorsAndWarnings.Any())
+                return;
+
+            errorsAndWarnings.Where(e => !e.StartsWith("WARN")).ToList().ForEach(Log.Error);
+
+            errorsAndWarnings.Where(e =>
+                    e.StartsWith("WARN") && !ArkadeConstants.SuppressedDbptkWarningMessages.Contains(e)).ToList()
+                .ForEach(Log.Warning);
         }
 
         private static string GetThirdPartySoftwareInfo()
