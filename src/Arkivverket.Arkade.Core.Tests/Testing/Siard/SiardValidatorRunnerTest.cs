@@ -54,7 +54,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
             string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "siardGui", "external", "siardGui.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
-            (_, List<string> errors) = SiardValidator.Validate(inputFilePath, reportFilePath);
+            (_, List<string> errorsAndWarnings) = SiardValidator.Validate(inputFilePath, reportFilePath);
+
+            var errors = new List<string>(errorsAndWarnings.Where(e => e == null || !e.StartsWith("WARN")));
 
             errors.Count.Should().Be(1);
             errors[0].Should().BeNull();
@@ -73,7 +75,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
             string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "dbPtk", "external", "dbptk.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
-            (_, List<string> errors) = SiardValidator.Validate(inputFilePath, reportFilePath);
+            (_, List<string> errorsAndWarnings) = SiardValidator.Validate(inputFilePath, reportFilePath);
+
+            var errors = new List<string>(errorsAndWarnings.Where(e => e == null || !e.StartsWith("WARN")));
 
             errors.Count.Should().Be(1);
             errors[0].Should().BeNull();
@@ -94,7 +98,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
             string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "fullConvert", "external", "scfc.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
-            (_, List<string> errors) = SiardValidator.Validate(inputFilePath, reportFilePath);
+            (_, List<string> errorsAndWarnings) = SiardValidator.Validate(inputFilePath, reportFilePath);
+
+            var errors = new List<string>(errorsAndWarnings.Where(e => e == null || !e.StartsWith("WARN")));
 
             errors.Count.Should().Be(3);
             errors[0].Should().Be("ERROR Missing mandatory strings in the metadata.xml file (schemaName: , schemaFolder: schema0");
@@ -117,12 +123,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
             string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "externalLobsMissing", "dbptk.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
-            (List<string> results, List<string> errors) = SiardValidator.Validate(inputFilePath, reportFilePath);
+            (List<string> results, List<string> errorsAndWarnings) = SiardValidator.Validate(inputFilePath, reportFilePath);
 
             List<string> summary = results.Where(r => r != null && r.Trim().StartsWith("Number of")).ToList();
 
             string numberOfWarnings = new Regex(@"(?!\[)\d+(?=\])").Match(summary.First(s => s.Contains("warnings"))).Value;
             numberOfWarnings.Should().Be("31");
+
+            var errors = new List<string>(errorsAndWarnings.Where(e => e == null || !e.StartsWith("WARN")));
 
             errors.Count.Should().Be(1);
             errors[0].Should().BeNull();
