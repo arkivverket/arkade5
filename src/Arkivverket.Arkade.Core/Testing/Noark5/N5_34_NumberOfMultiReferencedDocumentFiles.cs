@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 foreach ((string reference, DocumentFileReference documentFileReference) in referencesPerDocumentFile.Where(r => r.Value.Count > 1))
                 {
-                    testResults.Add(new TestResult(ResultType.Error, 
+                    testResults.Add(new TestResult(ResultType.Warning, 
                         new Location(ArkadeConstants.ArkivuttrekkXmlFileName, documentFileReference.Locations),
                         string.Format(Noark5Messages.NumberOfMultiReferencedDocumentFilesMessage, reference, documentFileReference.Count)));
                     numberOfMultiReferencedDocumentFiles++;

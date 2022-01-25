@@ -60,7 +60,7 @@ namespace Arkivverket.Arkade.Core.Logging
                 testResult.testCategory = testRun.TestType.ToString();
                 testResult.durationMillis = testRun.TestDuration.ToString();
                 testResult.testDescription = testRun.TestDescription;
-                testResult.status = testRun.IsSuccess() ? "SUCCESS" : "ERROR";
+                testResult.status = testRun.IsSuccess() ? "SUCCESS" : "ERROR"; // TODO: How should warnings affect this status?
                 testResult.message = ConcatMessages(testRun.TestResults.GetAllResults());
                 xmlTestResults.Add(testResult);
             }

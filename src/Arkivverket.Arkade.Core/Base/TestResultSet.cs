@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Base
             foreach (TestResultSet testResultSet in TestResultSets)
                 return testResultSet.IsSuccess();
 
-            return TestsResults.TrueForAll(r => !r.IsError());
+            return TestsResults.TrueForAll(r => r.IsSuccess()); // TODO: This way warnings will make the whole TestRun unsuccessful. Is that wanted?
         }
 
         public int FindNumberOfErrors()

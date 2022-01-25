@@ -22,6 +22,11 @@ namespace Arkivverket.Arkade.Core.Testing
             GroupErrors = groupErrors;
         }
         
+        public bool IsSuccess()
+        {
+            return Result == ResultType.Success;
+        }
+
         public bool IsError()
         {
             return Result == ResultType.Error;
@@ -41,6 +46,7 @@ namespace Arkivverket.Arkade.Core.Testing
     public enum ResultType
     {
         Success,
+        Warning,
         Error,
         ErrorGroup
     }
