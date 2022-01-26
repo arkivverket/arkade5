@@ -52,7 +52,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 {
                     if (multipleArchiveParts)
                     {
-                        testResults.Insert(0, new TestResult(ResultType.Error, new Location(string.Empty), 
+                        testResults.Insert(0, new TestResult(ResultType.Warning, new Location(string.Empty), 
                             string.Format(Noark5Messages.NumberOf, numberOfMultiReferencedDocumentFiles)));
                         testResultSet.TestResultSets.Add(new TestResultSet
                         {
@@ -71,7 +71,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             ResultType resultType = totalNumberOfMultiReferencedDocumentFiles == 0
                 ? ResultType.Success
-                : ResultType.Error;
+                : ResultType.Warning;
 
             testResultSet.TestsResults.Insert(0, new TestResult(resultType, new Location(string.Empty),
                 string.Format(Noark5Messages.TotalResultNumber, totalNumberOfMultiReferencedDocumentFiles)));

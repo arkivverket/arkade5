@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Testing
             Message = message;
             GroupErrors = groupErrors;
         }
-        
+
         public bool IsSuccess()
         {
             return Result == ResultType.Success;
@@ -37,6 +37,11 @@ namespace Arkivverket.Arkade.Core.Testing
             return Result == ResultType.ErrorGroup;
         }
 
+        public bool IsWarning()
+        {
+            return Result == ResultType.Warning;
+        }
+
         public override string ToString()
         {
             return $"[{Result}] {Message}";
@@ -48,6 +53,7 @@ namespace Arkivverket.Arkade.Core.Testing
         Success,
         Warning,
         Error,
-        ErrorGroup
+        ErrorGroup,
+        Warning,
     }
 }
