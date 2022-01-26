@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
@@ -119,6 +120,10 @@ namespace Arkivverket.Arkade.CLI
 
                 LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess && packSuccess);
             }
+            catch (SiardArchiveReaderException siardEx)
+            {
+                Log.Error(siardEx.Message);
+            }
             catch (ArgumentException e)
             {
                 Log.Error(e.Message);
@@ -141,6 +146,10 @@ namespace Arkivverket.Arkade.CLI
                 bool testSuccess = Test(options.OutputDirectory, testSession);
 
                 LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess);
+            }
+            catch (SiardArchiveReaderException siardEx)
+            {
+                Log.Error(siardEx.Message);
             }
             catch (ArgumentException e)
             {

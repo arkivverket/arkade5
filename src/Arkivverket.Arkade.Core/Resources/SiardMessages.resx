@@ -125,4 +125,10 @@
   <data name="InlinedLobContentHasUnsupportedEncoding" xml:space="preserve">
     <value>LOB is inlined in an unsupported format</value>
   </data>
+  <data name="DeserializationUnsuccessfulMessage" xml:space="preserve">
+    <value>{0} is not valid for SIARD version {1}:
+{2}</value>
+    <comment>{0} xml-file, {1} SIARD version,
+{2} schema errors</comment>
+  </data>
 </root>

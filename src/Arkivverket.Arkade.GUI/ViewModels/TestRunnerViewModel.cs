@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.GUI.Models;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -285,6 +286,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
 
                 StartTestingCommand.RaiseCanExecuteChanged(); // testSession has been updated, reevaluate command
+            }
+            catch (SiardArchiveReaderException siardArchiveReaderException)
+            {
+                Log.Error(siardArchiveReaderException, siardArchiveReaderException.Message);
+                LogNotTestableArchiveOperationMessage(siardArchiveReaderException.Message);
             }
             catch (Exception e)
             {
