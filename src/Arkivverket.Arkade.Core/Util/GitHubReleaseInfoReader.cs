@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using RestSharp;
 using Serilog;
@@ -23,9 +24,7 @@ namespace Arkivverket.Arkade.Core.Util
 
             var request = new RestRequest("repos/arkivverket/arkade5/releases/latest");
 
-            request.AddCookie("logged_in", "no");
-
-            IRestResponse<GitHubReleaseInfo> gitHubResponse = restClient.Execute<GitHubReleaseInfo>(request);
+            RestResponse<GitHubReleaseInfo> gitHubResponse = restClient.ExecuteGetAsync<GitHubReleaseInfo>(request).Result;
 
             return gitHubResponse.Data;
         }
@@ -48,6 +47,7 @@ namespace Arkivverket.Arkade.Core.Util
 
         private class GitHubReleaseInfo
         {
+            [JsonPropertyName("tag_name")]
             public string TagName { get; set; }
         }
     }
