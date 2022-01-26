@@ -30,25 +30,34 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_36_ControlBooleanValue test = new A_36_ControlBooleanValue();
             test.Run(flatFile);
+            test.IncrementRecordNumber();
             test.Run(new Field(fieldDefinition1, "Y"));
-            test.Run(new Field(fieldDefinition1, "N"));
-            test.Run(new Field(fieldDefinition1, "N"));
-            test.Run(new Field(fieldDefinition1, "C"));
-            test.Run(new Field(fieldDefinition1, "D"));
             test.Run(new Field(fieldDefinition2, "Y"));
+            test.IncrementRecordNumber();
+            test.Run(new Field(fieldDefinition1, "N"));
             test.Run(new Field(fieldDefinition2, "J"));
+            test.IncrementRecordNumber();
+            test.Run(new Field(fieldDefinition1, "N"));
             test.Run(new Field(fieldDefinition2, "Ja"));
+            test.IncrementRecordNumber();
+            test.Run(new Field(fieldDefinition1, "C"));
             test.Run(new Field(fieldDefinition2, "null"));
+            test.IncrementRecordNumber();
+            test.Run(new Field(fieldDefinition1, "D"));
             test.Run(new Field(fieldDefinition2, "Nei"));
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.TestResults.GetNumberOfResults().Should().Be(2);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
-            testRun.TestResults.TestsResults[0].Message.Should().Be("Følgende ikke-boolske verdier finnes: C D");
-            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
-            testRun.TestResults.TestsResults[1].Message.Should().Be("Følgende ikke-boolske verdier finnes: Y J");
+            testRun.TestResults.GetNumberOfResults().Should().Be(4);
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 1");
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Følgende ikke-boolske verdier finnes: Y");
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 2");
+            testRun.TestResults.TestsResults[1].Message.Should().Be("Følgende ikke-boolske verdier finnes: J");
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 4");
+            testRun.TestResults.TestsResults[2].Message.Should().Be("Følgende ikke-boolske verdier finnes: C");
+            testRun.TestResults.TestsResults[3].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 5");
+            testRun.TestResults.TestsResults[3].Message.Should().Be("Følgende ikke-boolske verdier finnes: D");
         }
     }
 }

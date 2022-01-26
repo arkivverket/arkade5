@@ -49,15 +49,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 numberOfRecords += file.Definition.NumberOfRecords;
             }
 
-            double recordCounter = 0;
+            long numberOfProcessedRecords = 0;
             double fileCounter = 0;
 
             foreach (FlatFile file in flatFiles)
             {
                 fileCounter++;
                 string testName = string.Format(Messages.RunningAddmlProcessesOnFile, file.GetName());
-
-                var recordIdx = 1;
 
                 _statusEventHandler.RaiseEventFileProcessingStarted(
                     new FileProcessingStatusEventArgs(testName, file.GetName())
@@ -70,10 +68,12 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
                 int numberOfRecordsWithFieldDelimiterError = 0;
 
-                while (recordEnumerator != null && recordEnumerator.MoveNext())
+                while (recordEnumerator != null)
                 {
                     try
                     {
+                        if (!recordEnumerator.MoveNext())
+                            break;
                         _statusEventHandler.RaiseEventRecordProcessingStart();
                         Record record = recordEnumerator.Current;
                         _addmlProcessRunner.RunProcesses(file, record);
@@ -87,14 +87,18 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
                         if (numberOfRecordsWithFieldDelimiterError <= MaxNumberOfSingleReportedFieldDelimiterErrors)
                         {
+                            string failedRecordErrorMessage = string.Format(AddmlMessages.FailedRecordErrorMessage, exception.Message, exception.RecordData);
+
                             _testResultsFailedRecordsList.Add(new TestResult(ResultType.Error,
-                                new AddmlLocation(file.GetName(), exception.RecordName, ""),
-                                string.Format(AddmlMessages.FailedRecordErrorMessage, exception.Message, exception.RecordData))
+                                new Location(file.GetName() + (string.IsNullOrWhiteSpace(exception.RecordName)
+                                    ? " - " + exception.RecordName
+                                    : string.Empty), int.Parse(exception.RecordNumber)),
+                                failedRecordErrorMessage)
                             );
 
                             _statusEventHandler.RaiseEventOperationMessage(
-                                string.Format(AddmlMessages.FailedRecordErrorIdentifier, file.GetName(), recordIdx, numberOfRecordsWithFieldDelimiterError),
-                                string.Format(AddmlMessages.FailedRecordErrorMessage, exception.Message, exception.RecordData),
+                                string.Format(AddmlMessages.FailedRecordErrorIdentifier, file.GetName(), recordEnumerator.RecordNumber, numberOfRecordsWithFieldDelimiterError),
+                                failedRecordErrorMessage,
                                 OperationMessageStatus.Error
                             );
                         }
@@ -112,11 +116,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                         _statusEventHandler.RaiseEventRecordProcessingStopped();
                     }
 
-                    recordIdx++;
-                    recordCounter++;
+                    numberOfProcessedRecords++;
 
                     if (useNumberOfRecords)
-                        _testProgressReporter.ReportTestProgress((int)(recordCounter / numberOfRecords * 100));
+                        _testProgressReporter.ReportTestProgress((int)(numberOfProcessedRecords / numberOfRecords * 100));
                 }
 
                 if (numberOfRecordsWithFieldDelimiterError > 0)
@@ -142,7 +145,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, testSession.Archive).GetTestRun());
             testSuite.AddTestRun(new AH_03_ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
 
-            testSession.TestSummary = new TestSummary((int) fileCounter, (int) recordCounter,
+            testSession.TestSummary = new TestSummary((int) fileCounter, numberOfProcessedRecords,
                 testSuite.TestRuns.Count(), testSuite.FindNumberOfErrors(), 0);
 
             _testProgressReporter.Finish();

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
@@ -96,7 +95,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("saksstatus", "mappe"))
             {
                 string caseFolderStatus = eventArgs.Value;
-                int xmlLineNumber = eventArgs.LineNumber;
+                long xmlLineNumber = eventArgs.LineNumber;
                 if (_caseFolderStatusesPerArchivePart.ContainsKey(_currentArchivePart))
                 {
                     if (_caseFolderStatusesPerArchivePart[_currentArchivePart].ContainsKey(caseFolderStatus))
@@ -128,12 +127,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private class CaseFolderStatus
         {
             public int Count { get; set; }
-            public List<int> Locations { get; }
+            public List<long> Locations { get; }
 
-            public CaseFolderStatus(int xmlLineNumber)
+            public CaseFolderStatus(long xmlLineNumber)
             {
                 Count = 1;
-                Locations = new List<int>{xmlLineNumber};
+                Locations = new List<long> {xmlLineNumber};
             }
         }
     }

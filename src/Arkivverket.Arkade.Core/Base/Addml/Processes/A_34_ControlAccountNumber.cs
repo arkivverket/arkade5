@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
             if (!ok)
             {
                 _testResults.Add(new TestResult(ResultType.Error,
-                    AddmlLocation.FromFieldIndex(field.Definition.GetIndex()),
+                    new Location(AddmlLocation.FromFieldIndex(field.Definition.GetIndex()).ToString(), CurrentRecordNumber),
                     string.Format(Messages.ControlAccountNumberMessage, value)));
             }
         }

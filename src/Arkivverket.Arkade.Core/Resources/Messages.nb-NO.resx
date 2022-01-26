@@ -311,7 +311,7 @@ Aktuell sjekksum: {1}</value>
     <value>Alle verdier er unike</value>
   </data>
   <data name="ControlUniquenessMessage2" xml:space="preserve">
-    <value>Verdiene er ikke unike</value>
+    <value>{0} er ikke en unik verdi</value>
   </data>
   <data name="ExceptionFixedLengthSumIsNotCorrect" xml:space="preserve">
     <value>{0}: Antall tegn i FixedLength-feltet [{1}] stemmer ikke med antall tegn summert for postdefinisjonen [{2}].</value>

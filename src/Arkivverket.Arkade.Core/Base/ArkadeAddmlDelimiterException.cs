@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Arkivverket.Arkade.Core.Base
 {
@@ -6,8 +6,9 @@ namespace Arkivverket.Arkade.Core.Base
     [Serializable]
     public class ArkadeAddmlDelimiterException : Exception
     {
-        public string RecordName => (string )this.Data["RecordName"];
-        public string RecordData => (string)this.Data["RecordData"];
+        public string RecordName => (string)Data["RecordName"];
+        public string RecordData => (string)Data["RecordData"];
+        public string RecordNumber => (string)Data["RecordNumber"]!;
 
 
         public ArkadeAddmlDelimiterException(string message) : base(message)
@@ -18,10 +19,11 @@ namespace Arkivverket.Arkade.Core.Base
         {
         }
 
-        public ArkadeAddmlDelimiterException(string message, string recordName, string recordData) : base(message)
+        public ArkadeAddmlDelimiterException(string message, string recordName="", string recordData="", string recordNumber="") : base(message)
         {
-            this.Data.Add("RecordName", recordName);
-            this.Data.Add("RecordData", recordData);
+            Data.Add("RecordName", recordName);
+            Data.Add("RecordData", recordData);
+            Data.Add("RecordNumber", recordNumber);
         }
     }
 }

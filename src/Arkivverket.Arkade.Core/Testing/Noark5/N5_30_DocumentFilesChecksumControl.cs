@@ -179,8 +179,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public string DocumentFileReference { get; set; }
             public string Checksum { get; set; }
             public string ChecksumAlgorithm { get; set; }
-            public int DocumentFileReferenceXmlLineNumber { get; set; }
-            public int ChecksumXmlLineNumber { get; set; }
+            public long DocumentFileReferenceXmlLineNumber { get; set; }
+            public long ChecksumXmlLineNumber { get; set; }
         }
 
     }

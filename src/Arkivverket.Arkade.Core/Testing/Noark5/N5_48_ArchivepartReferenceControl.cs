@@ -156,7 +156,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public string Element { get; set; }
             public string SystemId { get; set; }
             public string Reference { get; set; }
-            public int XmlLineNumber { get; init; }
+            public long XmlLineNumber { get; init; }
         }
     }
 }

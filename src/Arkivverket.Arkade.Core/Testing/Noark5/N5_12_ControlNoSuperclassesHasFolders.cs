@@ -141,12 +141,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private class Class
         {
-            public int XmlLineNumber { get; }
+            public long XmlLineNumber { get; }
             public string SystemId { get; set; }
             public bool HasSubclass { get; set; }
             public bool HasFolder { get; set; }
 
-            public Class(int xmlLineNumber)
+            public Class(long xmlLineNumber)
             {
                 XmlLineNumber = xmlLineNumber;
             }

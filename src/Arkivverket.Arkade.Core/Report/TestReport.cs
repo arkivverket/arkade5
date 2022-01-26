@@ -55,7 +55,7 @@ namespace Arkivverket.Arkade.Core.Report
     {
         public string String { get; set; }
         public string FileName { get; set; }
-        public List<int> LineNumbers { get; set; }
+        public List<long> LineNumbers { get; set; }
     }
 
 }

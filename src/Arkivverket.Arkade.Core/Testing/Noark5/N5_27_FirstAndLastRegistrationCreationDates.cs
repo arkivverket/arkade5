@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 27);
 
         private int _invalidRegistrationCreationDateCount;
-        private readonly List<int> _invalidRegistrationCreationDateLocations = new();
+        private readonly List<long> _invalidRegistrationCreationDateLocations = new();
         private int _registrationCount;
         private N5_27_ArchivePart _currentArchivePart;
         private readonly List<N5_27_ArchivePart> _archiveParts = new();

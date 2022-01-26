@@ -8,7 +8,7 @@
         public string NumberOfErrors { get; }
         public string NumberOfWarnings { get; }
 
-        public TestSummary(int numberOfProcessedFiles, int numberOfProcessedRecords, int numberOfTestsRun,
+        public TestSummary(int numberOfProcessedFiles, long numberOfProcessedRecords, int numberOfTestsRun,
             int numberOfErrors, int numberOfWarnings)
         {
             NumberOfProcessedFiles = numberOfProcessedFiles.ToString();

@@ -174,4 +174,7 @@
   <data name="FieldDelimiterAndQuotingCharCannotHaveSameValue" xml:space="preserve">
     <value>QuotingChar ({0}) can not be equal to Field Delimiter ({1})</value>
   </data>
+  <data name="RecordFixedLengthMismatch" xml:space="preserve">
+    <value>ADDML record is specified with a fixed length of {0} characters (included record separator), but {1} characters were read</value>
+  </data>
 </root>

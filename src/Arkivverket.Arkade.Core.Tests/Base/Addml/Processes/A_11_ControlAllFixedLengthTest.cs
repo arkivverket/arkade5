@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_11_ControlAllFixedLength test = new A_11_ControlAllFixedLength();
             test.Run(flatFile);
-            test.Run(new Arkade.Core.Base.Addml.Record(recordDefiniton, new List<Field> {
+            test.Run(new Arkade.Core.Base.Addml.Record(recordDefiniton, 1, new List<Field> {
                 new Field(fieldDefinition, "1"),
                 new Field(fieldDefinition, "12"),
                 new Field(fieldDefinition, "123"),
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(1);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(recordDefiniton.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{recordDefiniton.GetIndex()} - linje(r): 1");
             testRun.TestResults.TestsResults[0].Message.Should().Be("Oppgitt postlengde (10) er ulik faktisk (6)");
         }
     }

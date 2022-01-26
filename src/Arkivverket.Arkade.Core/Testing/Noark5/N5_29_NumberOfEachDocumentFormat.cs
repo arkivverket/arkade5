@@ -195,9 +195,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             public string Format { get; set; }
             public string FileReference { get; set; }
-            public int XmlLineNumber { get; set; }
+            public long XmlLineNumber { get; set; }
 
-            public DocumentObject(int xmlLineNumber)
+            public DocumentObject(long xmlLineNumber)
             {
                 XmlLineNumber = xmlLineNumber;
             }

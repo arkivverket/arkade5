@@ -18,6 +18,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         private readonly int _recordLength;
         private readonly Separator _recordSeparator;
         private readonly StreamReader _streamReader;
+        public long RecordNumber;
 
         public FixedFormatReader(StreamReader streamReader, FixedFormatConfig fixedFormatConfig)
         {
@@ -69,6 +70,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 throw new ArgumentException(
                     "fixedFormatDefinition.RecordDefinitions must contain more than 1 FixedFormatRecordDefinition if identifier values are set");
             }
+
+            RecordNumber = 0;
         }
 
         public bool HasMoreRecords()
@@ -76,29 +79,32 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             return !_streamReader.EndOfStream;
         }
 
-        private char[] oldBuf;
-
         public Tuple<string, List<string>> GetNextValue()
         {
-            int recordSeparatorLength = _recordSeparator != null ? _recordSeparator.GetLength() : 0;
+            RecordNumber++;
+
+            int recordSeparatorLength = _recordSeparator?.GetLength() ?? 0;
             int fullLength = _recordLength + recordSeparatorLength;
 
-            char[] buffer = new char[fullLength];
-            int read = _streamReader.ReadBlock(buffer, 0, fullLength);
+            var buffer = new char[fullLength];
+
+            int read;
+            string recordString;
+
+            if (_recordSeparator != null)
+            {
+                recordString = _streamReader.ReadLine(_recordSeparator.Get());
+                read = recordString.Length;
+            }
+            else
+            {
+                read = _streamReader.ReadBlock(buffer, 0, fullLength);
+                recordString = new string(buffer);
+            }
 
             if (read != fullLength)
-            {
-                throw new IOException("Unable to read a full record (including recordSeparator) of " + fullLength + " characters. Could only read " + read + " characters");
-            }
-
-            oldBuf = buffer;
-
-            string recordString = new string(buffer);
-
-            if (_recordSeparator != null && recordString.Substring(_recordLength, recordSeparatorLength) != _recordSeparator.Get())
-            {
-                throw new ArkadeException("RecordSeparator (" + _recordSeparator.ToString() + ") not found after record. Record with separator: '"+ StringUtil.WhiteSpaceToEscaped(recordString) +"'");
-            }
+                throw new ArkadeAddmlDelimiterException(string.Format(Resources.AddmlMessages.RecordFixedLengthMismatch,
+                    fullLength, read), recordData: recordString, recordNumber: RecordNumber.ToString());
 
             List<int> fieldLengths;
             string recordIdentifier;

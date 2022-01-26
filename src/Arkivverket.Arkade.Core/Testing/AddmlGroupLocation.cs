@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Core.Testing
     {
         private readonly List<FieldIndex> _indexes;
         public string FileName { get; }
-        public IEnumerable<int> ErrorLocations { get; }
+        public IEnumerable<long> ErrorLocations { get; }
 
         public AddmlGroupLocation(List<FieldIndex> indexes)
         {

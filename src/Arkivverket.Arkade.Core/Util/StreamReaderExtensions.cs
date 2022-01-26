@@ -1,59 +1,47 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
+using System.Text;
 
 namespace Arkivverket.Arkade.Core.Util
 {
-    // Based on http://stackoverflow.com/questions/6655246/how-to-read-text-file-by-particular-line-separator-character/31349928#31349928
+    // Based on https://stackoverflow.com/a/45228117
     internal static class StreamReaderExtensions
     {
-        public static IEnumerable<string> ReadUntil(this StreamReader reader, string delimiter)
+        public static string ReadLine(this StreamReader sr, string lineDelimiter)
         {
-            List<char> buffer = new List<char>();
-            CircularBuffer<char> delimBuffer = new CircularBuffer<char>(delimiter.Length);
-            while (reader.Peek() >= 0)
+            StringBuilder line = new StringBuilder();
+            var matchIndex = 0;
+
+            while (sr.Peek() > 0)
             {
-                char c = (char) reader.Read();
-                delimBuffer.Enqueue(c);
-                buffer.Add(c);
-                if (delimBuffer.ToString() == delimiter)
+                var nextChar = (char)sr.Read();
+                line.Append(nextChar);
+
+                if (nextChar == lineDelimiter[matchIndex])
                 {
-                    if (buffer.Count > 0)
+                    if (matchIndex == lineDelimiter.Length - 1)
                     {
-                        yield return new string(buffer.GetRange(0, buffer.Count - delimiter.Length).ToArray());
-                        buffer.Clear();
+                        return line.ToString();
+                    }
+                    matchIndex++;
+                }
+                else
+                {
+                    matchIndex = 0;
+                    //did we mistake one of the characters as the delimiter? If so let's restart our search with this character...
+                    if (nextChar == lineDelimiter[matchIndex])
+                    {
+                        if (matchIndex == lineDelimiter.Length - 1)
+                        {
+                            return line.ToString();
+                        }
+                        matchIndex++;
                     }
                 }
             }
-        }
 
-        private class CircularBuffer<T> : Queue<T>
-        {
-            private readonly int _capacity;
-
-            public CircularBuffer(int capacity) : base(capacity)
-            {
-                _capacity = capacity;
-            }
-
-            public new void Enqueue(T item)
-            {
-                if (Count == _capacity)
-                {
-                    Dequeue();
-                }
-                base.Enqueue(item);
-            }
-
-            public override string ToString()
-            {
-                List<string> items = new List<string>();
-                foreach (T t in this)
-                {
-                    items.Add(t.ToString());
-                }
-                ;
-                return string.Join("", items);
-            }
+            return line.Length == 0
+                ? null
+                : line.ToString();
         }
     }
 }

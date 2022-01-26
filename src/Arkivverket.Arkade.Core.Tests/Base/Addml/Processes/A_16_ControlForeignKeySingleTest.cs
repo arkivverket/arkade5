@@ -59,14 +59,14 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
         [Fact]
         public void ShouldReturnErrorWhenSingleForeignKeyReferenceDoesNotExist()
         {
-            var attachmentDataRecord1 = new Record(_attachmentRecordDef, new Field(_messageIdPrimaryKeyFieldDef, "556677"));
-            var attachmentDataRecord2 = new Record(_attachmentRecordDef, new Field(_messageIdPrimaryKeyFieldDef, "1002"));
+            var attachmentDataRecord1 = new Record(_attachmentRecordDef, 1, new Field(_messageIdPrimaryKeyFieldDef, "556677"));
+            var attachmentDataRecord2 = new Record(_attachmentRecordDef, 2, new Field(_messageIdPrimaryKeyFieldDef, "1002"));
 
-            var testRecord1 = new Record(_recordDef, 
+            var testRecord1 = new Record(_recordDef, 1,
                 new Field(_primaryKeyFieldDef, "1234"), 
                 new Field(_foreignKeyMessageIdFieldDef, "1001"));
 
-            var testRecord2 = new Record(_recordDef,
+            var testRecord2 = new Record(_recordDef, 2,
                 new Field(_primaryKeyFieldDef, "1235"),
                 new Field(_foreignKeyMessageIdFieldDef, "1002"));
 
@@ -77,10 +77,10 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
         [Fact]
         public void ShouldReturnSuccessWhenSingleForeignKeyReferenceExist()
         {
-            var attachmentDataRecord = new Record(_attachmentRecordDef, 
+            var attachmentDataRecord = new Record(_attachmentRecordDef, 1,
                 new Field(_messageIdPrimaryKeyFieldDef, "1001"));
 
-            var testRecord = new Record(_recordDef, 
+            var testRecord = new Record(_recordDef, 2,
                 new Field(_primaryKeyFieldDef, "1234"),
                 new Field(_foreignKeyMessageIdFieldDef, "1001"));
 
@@ -91,14 +91,14 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
         [Fact]
         public void ShouldReturnSuccessWhenAllSingleForeignKeyReferenceExist()
         {
-            var attachmentDataRecord1 = new Record(_attachmentRecordDef, new Field(_messageIdPrimaryKeyFieldDef, "1001"));
-            var attachmentDataRecord2 = new Record(_attachmentRecordDef, new Field(_messageIdPrimaryKeyFieldDef, "1002"));
+            var attachmentDataRecord1 = new Record(_attachmentRecordDef, 1, new Field(_messageIdPrimaryKeyFieldDef, "1001"));
+            var attachmentDataRecord2 = new Record(_attachmentRecordDef, 1, new Field(_messageIdPrimaryKeyFieldDef, "1002"));
 
-            var testRecord1 = new Record(_recordDef,
+            var testRecord1 = new Record(_recordDef, 1,
                 new Field(_primaryKeyFieldDef, "1234"),
                 new Field(_foreignKeyMessageIdFieldDef, "1001"));
 
-            var testRecord2 = new Record(_recordDef,
+            var testRecord2 = new Record(_recordDef, 1,
                 new Field(_primaryKeyFieldDef, "1235"),
                 new Field(_foreignKeyMessageIdFieldDef, "1002"));
 

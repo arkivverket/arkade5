@@ -12,8 +12,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         public const string Name = "Control_MinLength";
 
-        private readonly Dictionary<FieldIndex, HashSet<string>> _valuesShorterThanMinLength
-            = new Dictionary<FieldIndex, HashSet<string>>();
+        private readonly Dictionary<FieldIndex, Dictionary<long, HashSet<string>>> _valuesShorterThanMinLength = new();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
@@ -52,13 +51,12 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         protected override void DoEndOfFile()
         {
-            foreach (KeyValuePair<FieldIndex, HashSet<string>> entry in _valuesShorterThanMinLength)
+            foreach ((FieldIndex fieldIndex, Dictionary<long, HashSet<string>> valuesMappedByRecordNumber) in _valuesShorterThanMinLength)
             {
-                FieldIndex fieldIndex = entry.Key;
-                HashSet<string> valuesShorterThanMinLength = entry.Value;
-
-                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(fieldIndex),
-                    string.Format(Messages.ControlMinLengthMessage, string.Join(" ", valuesShorterThanMinLength))));
+                foreach ((long recordNumber, HashSet<string> valuesShorterThanMinLength) in valuesMappedByRecordNumber)
+                    _testResults.Add(new TestResult(ResultType.Error,
+                        new Location(AddmlLocation.FromFieldIndex(fieldIndex).ToString(), recordNumber),
+                        string.Format(Messages.ControlMinLengthMessage, string.Join(" ", valuesShorterThanMinLength))));
             }
 
             _valuesShorterThanMinLength.Clear();
@@ -80,13 +78,25 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
             }
 
             // value is shorter than min length
-            FieldIndex fieldIndeks = field.Definition.GetIndex();
-            if (!_valuesShorterThanMinLength.ContainsKey(fieldIndeks))
+            FieldIndex fieldIndex = field.Definition.GetIndex();
+            if (_valuesShorterThanMinLength.ContainsKey(fieldIndex))
             {
-                _valuesShorterThanMinLength.Add(fieldIndeks, new HashSet<string>());
+                if (_valuesShorterThanMinLength[fieldIndex].ContainsKey(CurrentRecordNumber))
+                    _valuesShorterThanMinLength[fieldIndex][CurrentRecordNumber].Add(value);
+                else
+                    _valuesShorterThanMinLength[fieldIndex].Add(CurrentRecordNumber, new HashSet<string> { value });
             }
-
-            _valuesShorterThanMinLength[fieldIndeks].Add(value);
+            else
+            {
+                _valuesShorterThanMinLength.Add
+                (
+                    fieldIndex,
+                    new Dictionary<long, HashSet<string>>
+                    {
+                        { CurrentRecordNumber, new HashSet<string> { value } }
+                    }
+                );
+            }
         }
     }
 }

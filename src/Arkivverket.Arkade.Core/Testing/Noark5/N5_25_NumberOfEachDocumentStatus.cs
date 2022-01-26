@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
@@ -81,7 +80,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("dokumentstatus", "dokumentbeskrivelse"))
             {
                 string documentStatus = eventArgs.Value;
-                int xmlLineNumber = eventArgs.LineNumber;
+                long xmlLineNumber = eventArgs.LineNumber;
 
                 if (_documentStatusesPerArchivePart.ContainsKey(_currentArchivePart))
                 {
@@ -114,12 +113,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private class DocumentStatus
         {
             public int Count { get; set; }
-            public List<int> Locations { get; }
+            public List<long> Locations { get; }
 
-            public DocumentStatus(int xmlLineNumber)
+            public DocumentStatus(long xmlLineNumber)
             {
                 Count = 1;
-                Locations = new List<int> { xmlLineNumber };
+                Locations = new List<long> { xmlLineNumber };
             }
         }
     }

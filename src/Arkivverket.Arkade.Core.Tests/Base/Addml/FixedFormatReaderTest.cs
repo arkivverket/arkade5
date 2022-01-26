@@ -78,7 +78,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
 
             FixedFormatReader reader = new FixedFormatReader(streamReader, fixedFormatDefinition);
             reader.GetNextValue();
-            Assert.Throws<IOException>(() => reader.GetNextValue());
+            Assert.Throws<ArkadeAddmlDelimiterException>(() => reader.GetNextValue());
         }
 
         [Fact]

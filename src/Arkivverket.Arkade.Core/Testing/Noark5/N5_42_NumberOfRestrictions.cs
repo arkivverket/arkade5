@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             _numberOfRestrictionsPerElementPerArchivePart = new();
         private ArchivePart _currentArchivePart = new();
         private readonly bool _documentationStatesRestrictions;
-        private readonly List<int> _restrictionLocations = new();
+        private readonly List<long> _restrictionLocations = new();
         private int _totalNumberOfRestrictions;
 
         public N5_42_NumberOfRestrictions(Archive testArchive)

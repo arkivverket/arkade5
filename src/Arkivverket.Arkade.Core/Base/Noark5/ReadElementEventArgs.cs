@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
         public string Name { get; set; }
         public string Value { get; set; }
         public ElementPath Path { get; set; }
-        public int LineNumber { get; set; }
+        public long LineNumber { get; set; }
 
         public ReadElementEventArgs(string name, string value, ElementPath path)
         {
@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
             Path = path;
         }
 
-        public ReadElementEventArgs(string name, string value, ElementPath path, int lineNumber)
+        public ReadElementEventArgs(string name, string value, ElementPath path, long lineNumber)
         {
             Name = name;
             Value = value;

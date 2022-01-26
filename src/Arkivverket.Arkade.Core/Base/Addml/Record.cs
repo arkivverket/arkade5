@@ -10,6 +10,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         public List<Field> Fields { get; }
 
+        public long LineNumber { get; }
+
         public string Value
         {
             get
@@ -19,16 +21,18 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             }
         }
 
-        public Record(AddmlRecordDefinition definition, List<Field> fields)
+        public Record(AddmlRecordDefinition definition, long lineNumber, List<Field> fields)
         {
             Definition = definition;
             Fields = fields;
+            LineNumber = lineNumber;
         }
 
-        public Record(AddmlRecordDefinition definition, params Field[] fields)
+        public Record(AddmlRecordDefinition definition, long lineNumber, params Field[] fields)
         {
             Definition = definition;
             Fields = fields.ToList();
+            LineNumber = lineNumber;
         }
     }
 }

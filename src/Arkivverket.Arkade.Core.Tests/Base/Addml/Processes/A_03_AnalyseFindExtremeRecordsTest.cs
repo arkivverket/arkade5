@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
                 new Field(fieldDefinition, "12345"),
                 new Field(fieldDefinition, "1")
             };
-            Record record1 = new Record(recordDefinition, fields1);
+            Record record1 = new Record(recordDefinition, 1, fields1);
 
             List<Field> fields2 = new List<Field>
             {
@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
                 new Field(fieldDefinition, ""),
                 new Field(fieldDefinition, "3")
             };
-            Record record2 = new Record(recordDefinition, fields2);
+            Record record2 = new Record(recordDefinition, 2, fields2);
 
 
             A_03_AnalyseFindExtremeRecords test = new A_03_AnalyseFindExtremeRecords();

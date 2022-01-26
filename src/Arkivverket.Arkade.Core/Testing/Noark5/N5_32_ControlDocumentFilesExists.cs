@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private readonly ReadOnlyDictionary<string, DocumentFile> _documentFiles;
 
-        private readonly Dictionary<ArchivePart, List<(string, int)>> _missingFilesPerArchivePart = new();
+        private readonly Dictionary<ArchivePart, List<(string, long)>> _missingFilesPerArchivePart = new();
         private ArchivePart _currentArchivePart = new(); 
 
         public N5_32_ControlDocumentFilesExists(Archive archive)
@@ -37,11 +37,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             var testResultSet = new TestResultSet();
 
-            foreach ((ArchivePart archivePart, List<(string, int)> missingFiles) in _missingFilesPerArchivePart)
+            foreach ((ArchivePart archivePart, List<(string, long)> missingFiles) in _missingFilesPerArchivePart)
             {
                 var testResults = new List<TestResult>();
 
-                foreach ((string missingFile, int xmlLineNumber) in missingFiles)
+                foreach ((string missingFile, long xmlLineNumber) in missingFiles)
                 {
                     testResults.Add(new TestResult(ResultType.Error, 
                         new Location(ArkadeConstants.ArkivuttrekkXmlFileName, xmlLineNumber),
@@ -86,7 +86,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("referanseDokumentfil"))
             {
                 string documentFileName = eventArgs.Value;
-                int xmlLineNumber = eventArgs.LineNumber;
+                long xmlLineNumber = eventArgs.LineNumber;
 
                 if (!DocumentFileExists(documentFileName))
                 {
@@ -94,7 +94,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                         _missingFilesPerArchivePart[_currentArchivePart].Add((documentFileName, xmlLineNumber));
                     else
                         _missingFilesPerArchivePart.Add(_currentArchivePart,
-                            new List<(string, int)> {(documentFileName, xmlLineNumber)});
+                            new List<(string, long)> {(documentFileName, xmlLineNumber)});
                 }
             }
         }

@@ -128,9 +128,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public string SystemId { get; set; }
             public bool HasSubclass { get; set; }
             public bool HasRegistration { get; set; }
-            public int XmlLineNumber { get; }
+            public long XmlLineNumber { get; }
 
-            public Class(int xmlLineNumber)
+            public Class(long xmlLineNumber)
             {
                 XmlLineNumber = xmlLineNumber;
             }

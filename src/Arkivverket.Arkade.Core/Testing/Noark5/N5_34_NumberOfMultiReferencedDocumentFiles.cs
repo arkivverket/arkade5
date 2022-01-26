@@ -98,7 +98,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("referanseDokumentfil", "dokumentobjekt"))
             {
                 string reference = eventArgs.Value;
-                int xmlLineNumber = eventArgs.LineNumber;
+                long xmlLineNumber = eventArgs.LineNumber;
                 if (_numberOfReferencesPerDocumentFilePerArchivePart.ContainsKey(_currentArchivePart))
                 {
                     if (_numberOfReferencesPerDocumentFilePerArchivePart[_currentArchivePart].ContainsKey(reference))
@@ -125,12 +125,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private class DocumentFileReference
         {
             public int Count { get; set; }
-            public List<int> Locations { get; }
+            public List<long> Locations { get; }
 
-            public DocumentFileReference(int xmlLineNumber)
+            public DocumentFileReference(long xmlLineNumber)
             {
                 Count = 1;
-                Locations = new List<int> { xmlLineNumber };
+                Locations = new List<long> { xmlLineNumber };
             }
         }
     }

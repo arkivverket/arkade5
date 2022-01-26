@@ -102,7 +102,7 @@ namespace Arkivverket.Arkade.Core.Report
                 {
                     String = testResult.Location.ToString(),
                     FileName = testResult.Location.FileName,
-                    LineNumbers = testResult.Location.ErrorLocations == null ? null : new List<int>(testResult.Location.ErrorLocations),
+                    LineNumbers = testResult.Location.ErrorLocations == null ? null : new List<long>(testResult.Location.ErrorLocations),
                 },
             }).ToList();
         }

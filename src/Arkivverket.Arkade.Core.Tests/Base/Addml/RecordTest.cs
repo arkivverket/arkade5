@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
                 new Field(null, "3")
             };
 
-            Record record = new Record(recordDefinition, fields);
+            Record record = new Record(recordDefinition, 1, fields);
 
             record.Value.Should().Be("1AA2AA3");
         }

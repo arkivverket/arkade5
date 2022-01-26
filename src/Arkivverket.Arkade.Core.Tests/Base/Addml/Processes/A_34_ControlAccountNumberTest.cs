@@ -28,11 +28,11 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(3);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig kontonummer: 12345678901");
-            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig kontonummer: 1234567890");
-            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig kontonummer: 1234567890A");
         }
     }

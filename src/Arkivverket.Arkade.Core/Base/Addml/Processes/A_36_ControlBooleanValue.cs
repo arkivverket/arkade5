@@ -13,8 +13,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         public const string Name = "Control_Boolean_Value";
 
-        private readonly Dictionary<FieldIndex, HashSet<string>> _nonBooleanValues
-            = new Dictionary<FieldIndex, HashSet<string>>();
+        private readonly Dictionary<FieldIndex, Dictionary<string, HashSet<long>>> _nonBooleanValues = new();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
@@ -53,13 +52,14 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         protected override void DoEndOfFile()
         {
-            foreach (KeyValuePair<FieldIndex, HashSet<string>> entry in _nonBooleanValues)
+            foreach ((FieldIndex fieldIndex, Dictionary<string, HashSet<long>> recordNumbersPerNonBooleanValue) in _nonBooleanValues)
             {
-                FieldIndex fieldIndex = entry.Key;
-                HashSet<string> nonBooleanValues = entry.Value;
-
-                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(fieldIndex),
-                    string.Format(Messages.ControlBooleanValueMessage, string.Join(" ", nonBooleanValues))));
+                foreach ((string nonBooleanValue, HashSet<long> recordNumbers) in recordNumbersPerNonBooleanValue)
+                {
+                    _testResults.Add(new TestResult(ResultType.Error, 
+                        new Location(AddmlLocation.FromFieldIndex(fieldIndex).ToString(), recordNumbers),
+                        string.Format(Messages.ControlBooleanValueMessage, nonBooleanValue)));
+                }
             }
 
             _nonBooleanValues.Clear();
@@ -82,13 +82,21 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
             }
 
             // value is illegal boolean value
-            FieldIndex fieldIndeks = field.Definition.GetIndex();
-            if (!_nonBooleanValues.ContainsKey(fieldIndeks))
+            FieldIndex fieldIndex = field.Definition.GetIndex();
+            if (_nonBooleanValues.ContainsKey(fieldIndex))
             {
-                _nonBooleanValues.Add(fieldIndeks, new HashSet<string>());
+                if (_nonBooleanValues[fieldIndex].ContainsKey(value))
+                    _nonBooleanValues[fieldIndex][value].Add(CurrentRecordNumber);
+                else
+                    _nonBooleanValues[fieldIndex].Add(value, new HashSet<long>{CurrentRecordNumber});
             }
-
-            _nonBooleanValues[fieldIndeks].Add(value);
+            else
+            {
+                _nonBooleanValues.Add(fieldIndex, new Dictionary<string, HashSet<long>>
+                {
+                    {value, new HashSet<long>{CurrentRecordNumber}}
+                });
+            }
         }
     }
 }

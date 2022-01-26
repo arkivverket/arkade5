@@ -65,15 +65,15 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(5);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '1.1', '1E+2', 'notanint1'");
-            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: '1', '1.100', '1.1', 'notanint1'");
-            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be(fieldDefinition3.GetIndex().ToString());
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition3.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig dataformat: '1.100', '1.1', '1E+2', 'notanint1'");
-            testRun.TestResults.TestsResults[3].Location.ToString().Should().Be(fieldDefinition4.GetIndex().ToString());
+            testRun.TestResults.TestsResults[3].Location.ToString().Should().Be($"{fieldDefinition4.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[3].Message.Should().Be("Ugyldig dataformat: '1,1', '1E+2', 'notanint1'");
-            testRun.TestResults.TestsResults[4].Location.ToString().Should().Be(fieldDefinition5.GetIndex().ToString());
+            testRun.TestResults.TestsResults[4].Location.ToString().Should().Be($"{fieldDefinition5.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[4].Message.Should().Be("Ugyldig dataformat: '1E+2', 'notanint1'");
         }
 
@@ -117,11 +117,11 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(3);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '', '17080232930'");
-            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: '', '914994781'");
-            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be(fieldDefinition3.GetIndex().ToString());
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition3.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig dataformat: '', '63450608211'");
         }
 
@@ -193,17 +193,17 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(6);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '', '1.200', '1.200,3', 'not'");
-            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: '', 'not'");
-            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be(fieldDefinition3.GetIndex().ToString());
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition3.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig dataformat: '', '1,200', '1,200.3', 'not'");
-            testRun.TestResults.TestsResults[3].Location.ToString().Should().Be(fieldDefinition4.GetIndex().ToString());
+            testRun.TestResults.TestsResults[3].Location.ToString().Should().Be($"{fieldDefinition4.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[3].Message.Should().Be("Ugyldig dataformat: '', 'not'");
-            testRun.TestResults.TestsResults[4].Location.ToString().Should().Be(fieldDefinition5.GetIndex().ToString());
+            testRun.TestResults.TestsResults[4].Location.ToString().Should().Be($"{fieldDefinition5.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[4].Message.Should().Be("Ugyldig dataformat: '', 'not'");
-            testRun.TestResults.TestsResults[5].Location.ToString().Should().Be(fieldDefinition6.GetIndex().ToString());
+            testRun.TestResults.TestsResults[5].Location.ToString().Should().Be($"{fieldDefinition6.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[5].Message.Should().Be("Ugyldig dataformat: '', 'not'");
         }
 
@@ -228,7 +228,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(1);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '', 'notadate', '40.11.2016T08:43:00+00:00', '18.11.2016'");
         }
 
@@ -261,9 +261,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(2);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '', 'Ja', 'Nei'");
-            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be(fieldDefinition2.GetIndex().ToString());
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: '', 'Y', 'N'");
         }
 
@@ -291,7 +291,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(1);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '19980803', '19990715', '19880805', '19890915', '19990803', '19880211' + 2 flere");
         }
     }

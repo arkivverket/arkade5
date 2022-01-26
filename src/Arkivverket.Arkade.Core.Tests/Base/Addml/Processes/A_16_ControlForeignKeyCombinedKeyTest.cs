@@ -95,11 +95,11 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
         [Fact]
         public void ShouldReturnErrorWhenCombinedForeignKeysReferenceDoesNotExist()
         {
-            var attachmentDataRecord = new Record(_attachmentRecordDef, 
+            var attachmentDataRecord = new Record(_attachmentRecordDef, 1,
                 new Field(_messageIdPrimaryKeyFieldDef, "556677"), 
                 new Field(_attachmentNumberPrimaryKeyFieldDef, "1"));
 
-            var testRecord = new Record(_recordWithBothCombinedAndSingleForeignKeyDef, 
+            var testRecord = new Record(_recordWithBothCombinedAndSingleForeignKeyDef, 2, 
                 new Field(_primaryKeyFieldDef, "1234"), 
                 new Field(_foreignKeyMessageIdFieldDef, "1001"), 
                 new Field(_foreignKeyAttachmentNumberFieldDef, "1"));
@@ -111,14 +111,14 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
         [Fact]
         public void ShouldReturnSuccessWhenCombinedForeignKeysAndSingleForeignKeyReferencesExist()
         {
-            var attachmentDataRecord = new Record(_attachmentRecordDef,
+            var attachmentDataRecord = new Record(_attachmentRecordDef, 1,
                 new Field(_messageIdPrimaryKeyFieldDef, "1001"),
                 new Field(_attachmentNumberPrimaryKeyFieldDef, "1"));
 
-            var documentRecord = new Record(_documentRecordDef,
+            var documentRecord = new Record(_documentRecordDef, 2,
                 new Field(_documentPrimaryKeyFieldDef, "42"));
 
-            var testRecord = new Record(_recordWithBothCombinedAndSingleForeignKeyDef,
+            var testRecord = new Record(_recordWithBothCombinedAndSingleForeignKeyDef, 3,
                 new Field(_primaryKeyFieldDef, "1234"),
                 new Field(_foreignKeyMessageIdFieldDef, "1001"),
                 new Field(_foreignKeyAttachmentNumberFieldDef, "1"),

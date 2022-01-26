@@ -138,7 +138,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public string SystemId { get; set; }
             public bool IsDossier { get; set; }
             public string ClassReference { get; set; }
-            public int XmlLineNumber { get; init; }
+            public long XmlLineNumber { get; init; }
         }
     }
 }

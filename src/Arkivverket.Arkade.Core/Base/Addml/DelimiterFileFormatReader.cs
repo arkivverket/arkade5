@@ -85,7 +85,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 fields.Add(new Field(fieldDefinition, s));
             }
 
-            return new Record(recordDefinition, fields);
+            return new Record(recordDefinition, RecordNumber, fields);
         }
 
         public override void Dispose()
@@ -95,7 +95,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         public override bool MoveNext()
         {
-            return _lines.MoveNext();
+            if (!_lines.MoveNext())
+                return false;
+
+            RecordNumber++;
+            return true;
         }
 
         public override void Reset()

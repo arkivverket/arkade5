@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_14_ControlNotUsedRecordDef test = new A_14_ControlNotUsedRecordDef();
             test.Run(flatFile);
-            test.Run(new Arkade.Core.Base.Addml.Record(recordDefinitionInUse, new List<Field> {
+            test.Run(new Arkade.Core.Base.Addml.Record(recordDefinitionInUse, 1, new List<Field> {
                 new Field(fieldDefinitionInUse, "A"),
                 new Field(fieldDefinitionInUse, "A"),
                 new Field(fieldDefinitionInUse, "B")

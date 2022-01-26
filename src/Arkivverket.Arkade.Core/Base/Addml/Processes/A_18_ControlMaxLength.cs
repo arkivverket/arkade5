@@ -12,8 +12,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         public const string Name = "Control_MaxLength";
 
-        private readonly Dictionary<FieldIndex, HashSet<string>> _valuesLongerThanMaxLength
-            = new Dictionary<FieldIndex, HashSet<string>>();
+        private readonly Dictionary<FieldIndex, Dictionary<long, HashSet<string>>> _valuesLongerThanMaxLength = new();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
@@ -52,13 +51,14 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         protected override void DoEndOfFile()
         {
-            foreach (KeyValuePair<FieldIndex, HashSet<string>> entry in _valuesLongerThanMaxLength)
+            foreach ((FieldIndex fieldIndex, Dictionary<long, HashSet<string>> valuesMappedByRecordNumber) in _valuesLongerThanMaxLength)
             {
-                FieldIndex fieldIndex = entry.Key;
-                HashSet<string> valuesLongerThanMaxLength = entry.Value;
-
-                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(fieldIndex),
-                    string.Format(Messages.ControlMaxLengthMessage, string.Join(" ", valuesLongerThanMaxLength))));
+                foreach ((long recordNumber, HashSet<string> valuesLongerThanMaxLength) in valuesMappedByRecordNumber)
+                {
+                    _testResults.Add(new TestResult(ResultType.Error,
+                        new Location(AddmlLocation.FromFieldIndex(fieldIndex).ToString(), recordNumber),
+                        string.Format(Messages.ControlMaxLengthMessage, string.Join(" ", valuesLongerThanMaxLength))));
+                }
             }
 
             _valuesLongerThanMaxLength.Clear();
@@ -80,13 +80,25 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
             }
 
             // value is longer than max length
-            FieldIndex fieldIndeks = field.Definition.GetIndex();
-            if (!_valuesLongerThanMaxLength.ContainsKey(fieldIndeks))
+            FieldIndex fieldIndex = field.Definition.GetIndex();
+            if (_valuesLongerThanMaxLength.ContainsKey(fieldIndex))
             {
-                _valuesLongerThanMaxLength.Add(fieldIndeks, new HashSet<string>());
+                if (_valuesLongerThanMaxLength[fieldIndex].ContainsKey(CurrentRecordNumber))
+                    _valuesLongerThanMaxLength[fieldIndex][CurrentRecordNumber].Add(value);
+                else
+                    _valuesLongerThanMaxLength[fieldIndex].Add(CurrentRecordNumber, new HashSet<string> { value });
             }
-
-            _valuesLongerThanMaxLength[fieldIndeks].Add(value);
+            else
+            {
+                _valuesLongerThanMaxLength.Add
+                (
+                    fieldIndex,
+                    new Dictionary<long, HashSet<string>>
+                    {
+                        { CurrentRecordNumber, new HashSet<string> { value } }
+                    }
+                );
+            }
         }
     }
 }

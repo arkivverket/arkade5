@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes;
 using Arkivverket.Arkade.Core.Resources;
@@ -15,8 +16,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
         public const string Name = "Control_DataFormat";
         private const int NumberOfShownErrors = 6;
 
-        private readonly Dictionary<FieldIndex, HashSet<string>> _incorrectDataFormat
-            = new Dictionary<FieldIndex, HashSet<string>>();
+        private readonly Dictionary<FieldIndex, Dictionary<string, HashSet<long>>> _incorrectDataFormat = new();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
@@ -55,12 +55,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         protected override void DoEndOfFile()
         {
-            foreach (KeyValuePair<FieldIndex, HashSet<string>> entry in _incorrectDataFormat)
+            foreach ((FieldIndex fieldIndex, Dictionary<string, HashSet<long>> incorrectDataFormat) in _incorrectDataFormat)
             {
-                FieldIndex fieldIndex = entry.Key;
-                HashSet<string> incorrectDataFormat = entry.Value;
-
-                string errorsToShow = string.Join(", ", incorrectDataFormat
+                string errorsToShow = string.Join(", ", incorrectDataFormat.Keys
                     .Take(NumberOfShownErrors)
                     .Select(s => "'" + s + "'")
                     .ToList()
@@ -74,7 +71,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
                     message += string.Format(Messages.ControlDataFormatMessageExtension, remainingErrors);
                 }
 
-                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(fieldIndex), message));
+                IEnumerable<long> recordNumbers = incorrectDataFormat.SelectMany(p => p.Value).ToImmutableSortedSet();
+                _testResults.Add(new TestResult(ResultType.Error,
+                    new Location(AddmlLocation.FromFieldIndex(fieldIndex).ToString(), recordNumbers), message));
             }
 
             _incorrectDataFormat.Clear();
@@ -92,13 +91,23 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
             }
 
             // value is illegal
-            FieldIndex fieldIndeks = field.Definition.GetIndex();
-            if (!_incorrectDataFormat.ContainsKey(fieldIndeks))
+            FieldIndex fieldIndex = field.Definition.GetIndex();
+            if (_incorrectDataFormat.ContainsKey(fieldIndex))
             {
-                _incorrectDataFormat.Add(fieldIndeks, new HashSet<string>());
+                if (_incorrectDataFormat[fieldIndex].ContainsKey(value))
+                    _incorrectDataFormat[fieldIndex][value].Add(CurrentRecordNumber);
+                
+                else
+                    _incorrectDataFormat[fieldIndex].Add(value, new HashSet<long> { CurrentRecordNumber });
             }
-
-            _incorrectDataFormat[fieldIndeks].Add(value);
+            else
+            {
+                _incorrectDataFormat.Add(fieldIndex,
+                    new Dictionary<string, HashSet<long>>
+                    {
+                        { value, new HashSet<long> { CurrentRecordNumber } }
+                    });
+            }
         }
     }
 }

@@ -12,8 +12,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         public const string Name = "Control_NotNull";
 
-        private readonly HashSet<FieldIndex> _containsNullValues
-            = new HashSet<FieldIndex>();
+        private readonly Dictionary<FieldIndex, HashSet<long>> _containsNullValues = new();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
@@ -52,9 +51,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         protected override void DoEndOfFile()
         {
-            foreach (FieldIndex index in _containsNullValues)
+            foreach ((FieldIndex index, HashSet<long> recordNumbers ) in _containsNullValues)
             {
-                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(index),
+                _testResults.Add(new TestResult(ResultType.Error,
+                    new Location(AddmlLocation.FromFieldIndex(index).ToString(), recordNumbers),
                     string.Format(Messages.ControlNotNullMessage)));
             }
 
@@ -64,8 +64,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
         protected override void DoRun(Field field)
         {
             FieldIndex index = field.Definition.GetIndex();
-            if (_containsNullValues.Contains(index))
+            if (_containsNullValues.ContainsKey(index))
             {
+                _containsNullValues[index].Add(CurrentRecordNumber);
                 // We have already found a null value, just return
                 return;
             }
@@ -74,7 +75,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
             bool isNull = field.Definition.Type.IsNull(value);
             if (isNull)
             {
-                _containsNullValues.Add(index);
+                _containsNullValues.Add(index, new HashSet<long>{CurrentRecordNumber});
             }
         }
     }

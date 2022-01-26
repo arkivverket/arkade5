@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(1);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 0");
             testRun.TestResults.TestsResults[0].Message.Should().Be("Verdier lengre enn maksimumlengde: 1234 12345");
         }
     }

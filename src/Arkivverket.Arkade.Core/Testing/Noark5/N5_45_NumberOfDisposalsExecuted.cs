@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly Dictionary<ArchivePart, int> _numberOfDisposalsExecutedPerArchivePart;
         private ArchivePart _currentArchivePart = new ArchivePart();
         private readonly bool _disposalsAreDocumented;
-        private readonly List<int> _executedDisposalsLocations = new();
+        private readonly List<long> _executedDisposalsLocations = new();
         private int _totalNumberOfDisposalsExecuted;
 
         public N5_45_NumberOfDisposalsExecuted(Archive archive)

@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             new();
         private ArchivePart _currentArchivePart = new();
         private readonly bool _documentationStatesDisposalResolutions;
-        private readonly List<int> _disposalResolutionLocations = new();
+        private readonly List<long> _disposalResolutionLocations = new();
         private int _totalNumberOfDisposalResolutions;
 
         public N5_44_NumberOfDisposalResolutions(Archive testArchive)
