@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xs:schema xmlns="http://www.arkivverket.no/standarder/addml"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://www.arkivverket.no/standarder/addml" elementFormDefault="qualified" version="8.3">
+  targetNamespace="http://www.arkivverket.no/standarder/addml" elementFormDefault="qualified" version="8.2">
   <xs:element name="addml">
     <xs:complexType>
       <xs:sequence>
