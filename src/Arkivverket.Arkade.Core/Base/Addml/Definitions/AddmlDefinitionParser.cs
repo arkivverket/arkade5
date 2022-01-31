@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -362,12 +362,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
                 string recordDefinitionName = recordDefinition.name;
                 int? recordLength = GetRecordLength(recordDefinition);
                 string recordDefinitionFieldValue = recordDefinition.recordDefinitionFieldValue;
+                int? headerLevel = GetHeaderLevel(recordDefinition);
                 List<string> recordProcesses = GetRecordProcessNames(addmlFlatFileDefinition.Name, recordDefinition.name);
 
                 List<AddmlForeignKey> foreignKeys = GetForeignKeysForRecord(flatFileDefinition, recordDefinition);
 
                 AddmlRecordDefinition addmlRecordDefinition =
-                    addmlFlatFileDefinition.AddAddmlRecordDefinition(recordDefinitionName, recordLength, recordDefinitionFieldValue, foreignKeys, recordProcesses);
+                    addmlFlatFileDefinition.AddAddmlRecordDefinition(recordDefinitionName, recordLength, recordDefinitionFieldValue, foreignKeys, headerLevel, recordProcesses);
 
                 List<fieldDefinition> fieldDefinitions = GetFieldDefinitions(recordDefinition);
                 foreach (fieldDefinition fieldDefinition in fieldDefinitions)
@@ -579,6 +580,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             return indexes;
         }
 
+        private static int? GetHeaderLevel(recordDefinition recordDefinition)
+        {
+            return recordDefinition.headerLevel == null ? null : int.Parse(recordDefinition.headerLevel);
+        }
 
         private bool IsPartOfPrimaryKey(recordDefinition recordDefinition, fieldDefinition fieldDefinition)
         {

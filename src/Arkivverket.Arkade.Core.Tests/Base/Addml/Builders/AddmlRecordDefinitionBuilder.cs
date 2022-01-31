@@ -14,6 +14,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
         private string _name = "Record" + Random.Next();
         private int? _recordLength = 100;
         private List<AddmlForeignKey> _foreignKeys = new List<AddmlForeignKey>();
+        private int? _headerLevel = 1;
 
         public AddmlRecordDefinitionBuilder WithName(string name)
         {
@@ -41,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
             }
 
             var addmlRecordDefinition = new AddmlRecordDefinition(_addmlFlatFileDefinition, _name, _recordLength,
-                _recordDefinitionFieldValue, _foreignKeys, _processes);
+                _recordDefinitionFieldValue, _foreignKeys, _headerLevel, _processes);
 
             _addmlFlatFileDefinition.AddmlRecordDefinitions.Add(addmlRecordDefinition);
 
@@ -57,6 +58,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
         public AddmlRecordDefinitionBuilder WithForeignKey(AddmlForeignKey foreignKey)
         {
             _foreignKeys.Add(foreignKey);
+            return this;
+        }
+
+        public AddmlRecordDefinitionBuilder WithHeaderLevel(int headerLevel)
+        {
+            _headerLevel = headerLevel;
             return this;
         }
 

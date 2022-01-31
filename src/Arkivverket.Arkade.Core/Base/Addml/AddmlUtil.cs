@@ -4,31 +4,27 @@ using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.Util;
 using System.Xml.Schema;
-using Serilog;
 
 namespace Arkivverket.Arkade.Core.Base.Addml
 {
     public class AddmlUtil
     {
-
-
         public static addml ReadFromString(string xml)
         {
             return SerializeUtil.DeserializeFromString<addml>(xml);
         }
 
-        public static AddmlInfo ReadFromFile(string fileName)
+        public static AddmlInfo ReadFromFile(string xmlFileName, Stream xmlSchemaStream)
         {
-            string addmlXsd = ResourceUtil.ReadResource(ArkadeConstants.AddmlXsdResource);
-
             try
             {
-                string fileContent = File.ReadAllText(fileName);
-                addml addml = ReadFromString(fileContent);
+                var addml = SerializeUtil.DeserializeFromFile<addml>(xmlFileName);
 
-                Validate(fileContent, addmlXsd);
+                using FileStream xmlStream = File.OpenRead(xmlFileName);
 
-                return new AddmlInfo(addml, new FileInfo(fileName));
+                Validate(xmlStream, xmlSchemaStream);
+
+                return new AddmlInfo(addml, new FileInfo(xmlFileName));
             }
             catch (Exception e)
             {
@@ -36,12 +32,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             }
         }
 
-        private static void Validate(string fileContent, string addmlXsd)
+        private static void Validate(Stream xmlStream, Stream xmlSchemaStream)
         {
             try
             {
-                new XmlValidator().Validate(fileContent, addmlXsd);
-            } catch (XmlSchemaException e)
+                new XmlValidator().Validate(xmlStream, xmlSchemaStream);
+            } 
+            catch (XmlSchemaException e)
             {
                 throw new ArkadeException(e.Message);
             }

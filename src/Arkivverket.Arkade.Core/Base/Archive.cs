@@ -8,6 +8,7 @@ using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.ExternalModels.Metadata;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util;
 using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
@@ -46,8 +47,12 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (!AddmlXmlUnit.File.Exists)
                 return;
-            
-            AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName);
+
+            using Stream xmlSchemaStream = AddmlXmlUnit.HasNoDefinedSchema()
+                ? ResourceUtil.GetResourceAsStream(AddmlXsdResource)
+                : AddmlXmlUnit.Schema.AsStream();
+
+            AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, xmlSchemaStream);
 
             Details = new ArchiveDetails(AddmlInfo.Addml);
 

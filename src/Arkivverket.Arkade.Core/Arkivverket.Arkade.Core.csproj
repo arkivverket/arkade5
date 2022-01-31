@@ -48,6 +48,7 @@
     <None Remove="ExternalModels\Noark5\v5_0\metadatakatalog.xsd" />
     <None Remove="ExternalModels\Noark5\v5_0\offentligJournal.xsd" />
     <None Remove="ExternalModels\xsd\addml.xsd" />
+    <None Remove="ExternalModels\xsd\addml82.xsd" />
     <None Remove="ExternalModels\xsd\arkivstruktur.xsd" />
     <None Remove="ExternalModels\xsd\cpf.xsd" />
     <None Remove="ExternalModels\xsd\DIAS_PREMIS.xsd" />
@@ -90,6 +91,7 @@
     <EmbeddedResource Include="ExternalModels\Noark5\v5_0\metadatakatalog.xsd" />
     <EmbeddedResource Include="ExternalModels\Noark5\v5_0\offentligJournal.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\addml.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\addml82.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\arkivstruktur.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\cpf.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\DIAS_PREMIS.xsd" />

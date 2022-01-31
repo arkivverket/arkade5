@@ -18,6 +18,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
 
         public List<AddmlFieldDefinition> AddmlFieldDefinitions { get; }
 
+        public int? HeaderLevel { get; }
+
         public List<string> Processes { get; }
 
         public AddmlRecordDefinition(AddmlFlatFileDefinition addmlFlatFileDefinition,
@@ -25,6 +27,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             int? recordLength,
             string recordDefinitionFieldValue,
             List<AddmlForeignKey> foreignKeys,
+            int? headerLevel,
             List<string> processes)
         {
             AddmlFlatFileDefinition = addmlFlatFileDefinition;
@@ -33,6 +36,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             RecordDefinitionFieldValue = recordDefinitionFieldValue;
             ForeignKeys = foreignKeys;
             AddmlFieldDefinitions = new List<AddmlFieldDefinition>();
+            HeaderLevel = headerLevel;
             Processes = processes;
         }
 

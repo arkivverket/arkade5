@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -16,6 +16,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         private readonly int? _recordIdentifierPosition;
 
         public override Record Current => GetCurrentRecord();
+        private int? _currentHeaderLevel;
+        private string _currentName;
 
         public DelimiterFileFormatReader(FlatFile flatFile) : this(flatFile, GetStream(flatFile))
         {
@@ -85,6 +87,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 fields.Add(new Field(fieldDefinition, s));
             }
 
+            if (_currentName != recordDefinition.Name)
+            {
+                _currentName = recordDefinition.Name;
+                _currentHeaderLevel = recordDefinition.HeaderLevel;
+                RecordNumber = 0;
+            }
+
             return new Record(recordDefinition, RecordNumber, fields);
         }
 
@@ -97,6 +106,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         {
             if (!_lines.MoveNext())
                 return false;
+
+            while (RecordNumber < _currentHeaderLevel)
+            {
+                if (!_lines.MoveNext())
+                    return false;
+                RecordNumber++;
+            }
 
             RecordNumber++;
             return true;
