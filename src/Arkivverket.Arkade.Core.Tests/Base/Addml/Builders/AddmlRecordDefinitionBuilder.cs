@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
         private string _name = "Record" + Random.Next();
         private int? _recordLength = 100;
         private List<AddmlForeignKey> _foreignKeys = new List<AddmlForeignKey>();
-        private int? _headerLevel = 1;
+        private int? _headerLevel;
 
         public AddmlRecordDefinitionBuilder WithName(string name)
         {
