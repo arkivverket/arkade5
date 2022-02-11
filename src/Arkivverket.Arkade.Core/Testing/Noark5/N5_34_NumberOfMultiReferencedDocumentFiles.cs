@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 foreach ((string reference, DocumentFileReference documentFileReference) in referencesPerDocumentFile.Where(r => r.Value.Count > 1))
                 {
-                    testResults.Add(new TestResult(ResultType.Error, 
+                    testResults.Add(new TestResult(ResultType.Success, 
                         new Location(ArkadeConstants.ArkivuttrekkXmlFileName, documentFileReference.Locations),
                         string.Format(Noark5Messages.NumberOfMultiReferencedDocumentFilesMessage, reference, documentFileReference.Count)));
                     numberOfMultiReferencedDocumentFiles++;
@@ -52,7 +52,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 {
                     if (multipleArchiveParts)
                     {
-                        testResults.Insert(0, new TestResult(ResultType.Error, new Location(string.Empty), 
+                        testResults.Insert(0, new TestResult(ResultType.Success, new Location(string.Empty), 
                             string.Format(Noark5Messages.NumberOf, numberOfMultiReferencedDocumentFiles)));
                         testResultSet.TestResultSets.Add(new TestResultSet
                         {
@@ -69,11 +69,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 totalNumberOfMultiReferencedDocumentFiles += numberOfMultiReferencedDocumentFiles;
             }
 
-            ResultType resultType = totalNumberOfMultiReferencedDocumentFiles == 0
-                ? ResultType.Success
-                : ResultType.Error;
-
-            testResultSet.TestsResults.Insert(0, new TestResult(resultType, new Location(string.Empty),
+            testResultSet.TestsResults.Insert(0, new TestResult(ResultType.Success, new Location(string.Empty),
                 string.Format(Noark5Messages.TotalResultNumber, totalNumberOfMultiReferencedDocumentFiles)));
 
             return testResultSet;
