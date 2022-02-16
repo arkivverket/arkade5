@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                     Resources.AddmlMessages.FieldDelimiterAndQuotingCharCannotHaveSameValue, _quotingChar,
                     _fieldDelimiter));
             _recordIdentifierPosition = flatFile.GetRecordIdentifierPosition();
-            _lines = new DelimiterFileRecordEnumerable(streamReader, recordDelimiter).GetEnumerator();
+            _lines = new DelimiterFileRecordEnumerable(streamReader, recordDelimiter, _quotingChar).GetEnumerator();
         }
 
         private string GetFieldDelimiter(FlatFile flatFile)

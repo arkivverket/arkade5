@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -10,13 +10,15 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         private StreamReader _stream;
         private string _delimiter;
+        private string _quotingChar;
         private string _foundRecord = string.Empty;
 
 
-        public DelimiterFileRecordEnumerator(StreamReader stream, string delimiter)
+        public DelimiterFileRecordEnumerator(StreamReader stream, string delimiter, string quotingChar)
         {
             _stream = stream;
             _delimiter = delimiter;
+            _quotingChar = quotingChar;
         }
 
         string IEnumerator<string>.Current
@@ -37,10 +39,12 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         public bool MoveNext()
         {
-            StringBuilder strBld = new StringBuilder();
+            var stringBuilder = new StringBuilder();
             int readChar;
             bool search = true;
             bool returnVal = false;
+            int numberOfQuotingCharsFound = 0;
+            int quotingCharIndex = 0;
 
             while (search)
             {
@@ -48,9 +52,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
                 if (readChar == -1)
                 {
-                    if (strBld.Length > 0)
+                    if (stringBuilder.Length > 0)
                     {
-                        _foundRecord = strBld.ToString();
+                        _foundRecord = stringBuilder.ToString();
                         returnVal = true;
                         search = false;
                     }
@@ -63,10 +67,27 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 }
                 else
                 {
-                    strBld.Append(Convert.ToChar(readChar));
-                    if (_CheckIfEndOfStringContainsDelimiter(strBld, _delimiter))
+                    var value = Convert.ToChar(readChar);
+                    stringBuilder.Append(value);
+
+                    if (_quotingChar != null && value == _quotingChar[quotingCharIndex])
                     {
-                        _foundRecord = _ReturnStringWithoutDelimAtEndOfStringbuilder(strBld, _delimiter);
+                        quotingCharIndex++;
+
+                        if (quotingCharIndex == _quotingChar.Length)
+                        {
+                            numberOfQuotingCharsFound++;
+                            quotingCharIndex = 0;
+                        }
+
+                        continue;
+                    }
+
+                    quotingCharIndex = 0;
+
+                    if (numberOfQuotingCharsFound % 2 == 0 && _CheckIfEndOfStringContainsDelimiter(stringBuilder, _delimiter))
+                    {
+                        _foundRecord = _ReturnStringWithoutDelimAtEndOfStringbuilder(stringBuilder, _delimiter);
                         returnVal = true;
                         search = false;
                     }

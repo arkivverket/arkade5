@@ -123,8 +123,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
             new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
             new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
             new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
+            new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
 
-            const string csvData = "AA;\"B;B\";CC;\"DD\"";
+            const string csvData = "AA;\"B;B\";CC;\"DD\";\"&#321;ørgen\"";
 
             var streamReader = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(csvData)));
             var recordReader = new DelimiterFileFormatReader(new FlatFile(addmlFlatFileDefinition), streamReader);
@@ -133,7 +134,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
             recordReader.MoveNext(); // AA;"B;B";CC;"DD"
 
             actionOfGettingCurrent.Should().NotThrow<Exception>();
-            recordReader.Current?.Fields?.Count.Should().Be(4);
+            recordReader.Current?.Fields?.Count.Should().Be(5);
         }
 
         [Fact]
@@ -167,6 +168,40 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
                 recordReader.Current?.Fields?.Count.Should().Be(2);
                 recordReader.Current?.Fields?[0].Value.Should().Be("B,B");
                 recordReader.Current?.Fields?[1].Value.Should().Be("1234,56");
+            }
+        }
+
+        [Fact]
+        public void RecordSeparatorWithinQuotingCharsAreNotInterpretedAsFieldDelimiters()
+        {
+            string[] quotingStrings = { "\"", "\"\"\"", "|", ";", "*", "#", "|s", "as\\d5", "\\*+?|{[()^$.#" };
+
+            foreach (string quotingString in quotingStrings)
+            {
+                AddmlFlatFileDefinition addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder()
+                    .WithRecordSeparator("CRLF")
+                    .WithFieldSeparator(",")
+                    .WithQuotingChar(quotingString)
+                    .Build();
+
+                AddmlRecordDefinition recordDefinition = new AddmlRecordDefinitionBuilder()
+                    .WithAddmlFlatFileDefinition(addmlFlatFileDefinition).Build();
+
+                new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
+                new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
+
+                var csvData = $"{quotingString}B\r\nB{quotingString},{quotingString}1234\r\n56{quotingString}";
+
+                var streamReader = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(csvData)));
+                var recordReader = new DelimiterFileFormatReader(new FlatFile(addmlFlatFileDefinition), streamReader);
+                var actionOfGettingCurrent = (Action)(() => ((Func<object>)(() => recordReader.Current))());
+
+                recordReader.MoveNext();
+
+                actionOfGettingCurrent.Should().NotThrow<Exception>();
+                recordReader.Current?.Fields?.Count.Should().Be(2);
+                recordReader.Current?.Fields?[0].Value.Should().Be("B\r\nB");
+                recordReader.Current?.Fields?[1].Value.Should().Be("1234\r\n56");
             }
         }
 
