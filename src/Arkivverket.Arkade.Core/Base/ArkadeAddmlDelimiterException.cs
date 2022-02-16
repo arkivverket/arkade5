@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Base
         {
         }
 
-        public ArkadeAddmlDelimiterException(string message, string recordName="", string recordData="", string recordNumber="") : base(message)
+        public ArkadeAddmlDelimiterException(string message, string recordName, string recordData, string recordNumber) : base(message)
         {
             Data.Add("RecordName", recordName);
             Data.Add("RecordData", recordData);

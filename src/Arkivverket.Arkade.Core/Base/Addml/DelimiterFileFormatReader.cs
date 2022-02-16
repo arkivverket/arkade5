@@ -77,7 +77,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 throw new ArkadeAddmlDelimiterException(
                     $"{Resources.AddmlMessages.UnexpectedNumberOfFields}: {strings.Length}/{fieldDefinitions.Count}",
                     recordDefinition.Name,
-                    fielddata);
+                    fielddata,
+                    RecordNumber.ToString());
             }
 
             for (int i = 0; i < strings.Length; i++)

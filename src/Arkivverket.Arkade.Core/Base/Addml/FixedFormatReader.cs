@@ -104,7 +104,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             if (read != fullLength)
                 throw new ArkadeAddmlDelimiterException(string.Format(Resources.AddmlMessages.RecordFixedLengthMismatch,
-                    fullLength, read), recordData: recordString, recordNumber: RecordNumber.ToString());
+                    fullLength, read), string.Empty, recordString, RecordNumber.ToString());
 
             List<int> fieldLengths;
             string recordIdentifier;
