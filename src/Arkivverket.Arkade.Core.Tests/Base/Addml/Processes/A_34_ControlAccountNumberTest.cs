@@ -19,20 +19,20 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_34_ControlAccountNumber test = new A_34_ControlAccountNumber();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinition, "12345678903")); // ok
-            test.Run(new Field(fieldDefinition, "12345678901")); // invalid checksum
-            test.Run(new Field(fieldDefinition, "1234567890")); // invalid length
-            test.Run(new Field(fieldDefinition, "1234567890A")); // invalid characters
+            test.Run(new Field(fieldDefinition, "12345678903"), 1); // ok
+            test.Run(new Field(fieldDefinition, "12345678901"), 1); // invalid checksum
+            test.Run(new Field(fieldDefinition, "1234567890"), 1); // invalid length
+            test.Run(new Field(fieldDefinition, "1234567890A"), 1); // invalid characters
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(3);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 0");
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 1");
             testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig kontonummer: 12345678901");
-            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 0");
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 1");
             testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig kontonummer: 1234567890");
-            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 0");
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 1");
             testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig kontonummer: 1234567890A");
         }
     }

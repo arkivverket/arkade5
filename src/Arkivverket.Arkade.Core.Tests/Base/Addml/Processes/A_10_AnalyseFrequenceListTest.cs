@@ -18,12 +18,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_10_AnalyseFrequenceList test = new A_10_AnalyseFrequenceList();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinition, "A"));
-            test.Run(new Field(fieldDefinition, "A"));
-            test.Run(new Field(fieldDefinition, "B"));
-            test.Run(new Field(fieldDefinition, "B"));
-            test.Run(new Field(fieldDefinition, "B"));
-            test.Run(new Field(fieldDefinition, "C"));
+            test.Run(new Field(fieldDefinition, "A"), 1);
+            test.Run(new Field(fieldDefinition, "A"), 1);
+            test.Run(new Field(fieldDefinition, "B"), 1);
+            test.Run(new Field(fieldDefinition, "B"), 1);
+            test.Run(new Field(fieldDefinition, "B"), 1);
+            test.Run(new Field(fieldDefinition, "C"), 1);
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();

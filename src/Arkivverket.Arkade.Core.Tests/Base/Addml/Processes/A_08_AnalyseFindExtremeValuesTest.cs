@@ -18,9 +18,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_08_AnalyseFindExtremeValues test = new A_08_AnalyseFindExtremeValues();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinition, "1234567890"));
-            test.Run(new Field(fieldDefinition, "12345"));
-            test.Run(new Field(fieldDefinition, "1"));
+            test.Run(new Field(fieldDefinition, "1234567890"), 1);
+            test.Run(new Field(fieldDefinition, "12345"), 1);
+            test.Run(new Field(fieldDefinition, "1"), 1);
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();

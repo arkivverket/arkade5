@@ -30,21 +30,16 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_36_ControlBooleanValue test = new A_36_ControlBooleanValue();
             test.Run(flatFile);
-            test.IncrementRecordNumber();
-            test.Run(new Field(fieldDefinition1, "Y"));
-            test.Run(new Field(fieldDefinition2, "Y"));
-            test.IncrementRecordNumber();
-            test.Run(new Field(fieldDefinition1, "N"));
-            test.Run(new Field(fieldDefinition2, "J"));
-            test.IncrementRecordNumber();
-            test.Run(new Field(fieldDefinition1, "N"));
-            test.Run(new Field(fieldDefinition2, "Ja"));
-            test.IncrementRecordNumber();
-            test.Run(new Field(fieldDefinition1, "C"));
-            test.Run(new Field(fieldDefinition2, "null"));
-            test.IncrementRecordNumber();
-            test.Run(new Field(fieldDefinition1, "D"));
-            test.Run(new Field(fieldDefinition2, "Nei"));
+            test.Run(new Field(fieldDefinition1, "Y"), 1);
+            test.Run(new Field(fieldDefinition2, "Y"), 1);
+            test.Run(new Field(fieldDefinition1, "N"), 2);
+            test.Run(new Field(fieldDefinition2, "J"), 2);
+            test.Run(new Field(fieldDefinition1, "N"), 3);
+            test.Run(new Field(fieldDefinition2, "Ja"), 3);
+            test.Run(new Field(fieldDefinition1, "C"), 4);
+            test.Run(new Field(fieldDefinition2, "null"), 4);
+            test.Run(new Field(fieldDefinition1, "D"), 5);
+            test.Run(new Field(fieldDefinition2, "Nei"), 5);
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();

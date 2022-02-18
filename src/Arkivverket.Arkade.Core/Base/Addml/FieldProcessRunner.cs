@@ -14,12 +14,12 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             _processCache = _processManager.GetFieldProcesses();
         }
 
-        public void RunProcesses(Field field)
+        public void RunProcesses(Field field, long recordNumber)
         {
             List<IAddmlProcess> processes = _processManager.GetProcesses(field.Definition.GetIndex(), _processCache);
             foreach (IAddmlProcess process in processes)
             {
-                process.Run(field);
+                process.Run(field, recordNumber);
             }
         }
 

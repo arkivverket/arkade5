@@ -19,7 +19,6 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
         private readonly Stopwatch _stopwatch = new Stopwatch();
 
         protected long CurrentRecordNumber;
-        public void IncrementRecordNumber() => CurrentRecordNumber++;
 
         public TestRun GetTestRun()
         {
@@ -51,8 +50,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
             _stopwatch.Stop();
         }
 
-        public void Run(Field field)
+        public void Run(Field field, long recordNumber)
         {
+            CurrentRecordNumber = recordNumber;
             _stopwatch.Start();
             DoRun(field);
             _stopwatch.Stop();

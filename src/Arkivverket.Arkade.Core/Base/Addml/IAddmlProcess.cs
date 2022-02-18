@@ -27,7 +27,7 @@
         ///     Invoked on the process when a new field is read from a record
         /// </summary>
         /// <param name="field">the field to process</param>
-        void Run(Field field);
+        void Run(Field field, long recordNumber);
 
         /// <summary>
         ///     Let the process clean up when last line of a file has been read.

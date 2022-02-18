@@ -92,7 +92,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             {
                 _currentName = recordDefinition.Name;
                 _currentHeaderLevel = recordDefinition.HeaderLevel;
-                RecordNumber = 0;
+                RecordNumber = 1;
             }
 
             return new Record(recordDefinition, RecordNumber, fields);

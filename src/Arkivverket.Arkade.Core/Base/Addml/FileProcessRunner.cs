@@ -38,11 +38,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             }
         }
 
-        public void RunProcesses(FlatFile file, Field field)
+        public void RunProcesses(FlatFile file, Field field, long recordNumber)
         {
             foreach (IAddmlProcess process in GetProcessesForFile(file))
             {
-                process.Run(field);
+                process.Run(field, recordNumber);
             }
         }
 

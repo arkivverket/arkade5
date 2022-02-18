@@ -79,7 +79,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                         _addmlProcessRunner.RunProcesses(file, record);
 
                         foreach (Field field in record.Fields)
-                            _addmlProcessRunner.RunProcesses(file, field);
+                            _addmlProcessRunner.RunProcesses(file, field, record.LineNumber);
                     }
                     catch (ArkadeAddmlDelimiterException exception)
                     {
