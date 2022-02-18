@@ -63,20 +63,18 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         protected override void DoRun(Field field)
         {
-            FieldIndex index = field.Definition.GetIndex();
-            if (_containsNullValues.ContainsKey(index))
-            {
-                _containsNullValues[index].Add(CurrentRecordNumber);
-                // We have already found a null value, just return
-                return;
-            }
-
             string value = field.Value;
             bool isNull = field.Definition.Type.IsNull(value);
-            if (isNull)
-            {
+
+            if (!isNull)
+                return;
+
+            FieldIndex index = field.Definition.GetIndex();
+
+            if (_containsNullValues.ContainsKey(index))
+                _containsNullValues[index].Add(CurrentRecordNumber);
+            else
                 _containsNullValues.Add(index, new HashSet<long>{CurrentRecordNumber});
-            }
         }
     }
 }
