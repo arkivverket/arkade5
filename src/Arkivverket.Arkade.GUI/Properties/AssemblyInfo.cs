@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyDescription("Test and package tool for archive data")]
 [assembly: AssemblyCompany("Arkivverket")]
 [assembly: AssemblyProduct("Arkade 5")]
-[assembly: AssemblyCopyright("Copyright © 2016-2021")]
+[assembly: AssemblyCopyright("Copyright © 2016-2022")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
