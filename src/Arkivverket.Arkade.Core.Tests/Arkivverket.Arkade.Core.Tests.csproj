@@ -4,6 +4,13 @@
     <TargetFramework>net6.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <OutputType>Library</OutputType>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+    <Product>Arkade 5 Core Tests</Product>
+    <Company>Arkivverket</Company>
+    <Authors>Arkivverket, Arkitektum AS</Authors>
+    <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
+    <PackageReleaseNotes>https://github.com/arkivverket/arkade5/releases</PackageReleaseNotes>
 
   </PropertyGroup>
 

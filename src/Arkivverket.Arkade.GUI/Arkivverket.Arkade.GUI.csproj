@@ -7,14 +7,16 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Arkade5_2.0.ico</ApplicationIcon>
-    <Authors>Arkitektum AS for Arkivverket</Authors>
-    <PackageLicenseExpression>GNU GPL</PackageLicenseExpression>
+    <Authors>Arkivverket, Arkitektum AS</Authors>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
     <PackageIcon>Arkade5_2.0.ico</PackageIcon>
     <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>https://github.com/arkivverket/arkade5/tags</PackageTags>
     <PackageReleaseNotes>https://github.com/arkivverket/arkade5/releases</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Company>Arkivverket</Company>
+    <Product>Arkade 5</Product>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -33,6 +35,10 @@
 
   <ItemGroup>
     <None Remove="Arkade5_2.0.ico" />
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\Setup\Arkade5_2.0.ico">
       <Pack>True</Pack>
     </None>

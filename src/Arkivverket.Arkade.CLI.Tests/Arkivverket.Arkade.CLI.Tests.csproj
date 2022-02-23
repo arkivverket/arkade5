@@ -4,6 +4,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <OutputType>Library</OutputType>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+    <Authors>Arkivverket, Arkitektum AS</Authors>
+    <Company>Arkivverket</Company>
+    <Product>Arkade 5 CLI Tests</Product>
+    <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
