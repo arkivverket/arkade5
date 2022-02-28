@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.ExternalModels.DiasMets;
+using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Metadata
 {
-    public static class DiasMetsLoader
+    public static class SubmissionDescriptionLoader
     {
         public static ArchiveMetadata Load(string diasMetsFile)
         {
@@ -34,13 +34,27 @@ namespace Arkivverket.Arkade.Core.Metadata
         {
             archiveMetadata.ExtractionDate = metsHdr.CREATEDATE;
 
+            if (metsHdr.altRecordID != null)
+                LoadMetsHdrAltRecordIDs(archiveMetadata, metsHdr.altRecordID);
+
             if (metsHdr.agent != null)
                 LoadMetsHdrAgents(archiveMetadata, metsHdr.agent);
+        }
+
+        private static void LoadMetsHdrAltRecordIDs(ArchiveMetadata archiveMetadata,
+            metsTypeMetsHdrAltRecordID[] metsHdrAltRecordIds)
+        {
+            LoadArchiveDescription(archiveMetadata, metsHdrAltRecordIds);
+            LoadAgreementNumber(archiveMetadata, metsHdrAltRecordIds);
+            LoadStartDate(archiveMetadata, metsHdrAltRecordIds);
+            LoadEndDate(archiveMetadata, metsHdrAltRecordIds);
         }
 
         private static void LoadMetsHdrAgents(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
         {
             LoadArchiveCreators(archiveMetadata, metsHdrAgents);
+            LoadTransferer(archiveMetadata, metsHdrAgents);
+            LoadProducer(archiveMetadata, metsHdrAgents);
             LoadOwners(archiveMetadata, metsHdrAgents);
             LoadCreator(archiveMetadata, metsHdrAgents);
             LoadRecipient(archiveMetadata, metsHdrAgents);
@@ -48,6 +62,39 @@ namespace Arkivverket.Arkade.Core.Metadata
             LoadCreatorSoftwareSystem(archiveMetadata, metsHdrAgents);
             LoadArchiveSystem(archiveMetadata, metsHdrAgents);
         }
+
+        private static void LoadArchiveDescription(ArchiveMetadata archiveMetadata,
+            IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
+        {
+            archiveMetadata.ArchiveDescription = metsHdrAltRecordIds.FirstOrDefault(a =>
+                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.DELIVERYSPECIFICATION)?.Value;
+        }
+
+        private static void LoadAgreementNumber(ArchiveMetadata archiveMetadata,
+            IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
+        {
+            archiveMetadata.AgreementNumber = metsHdrAltRecordIds.FirstOrDefault(a =>
+                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.SUBMISSIONAGREEMENT)?.Value;
+        }
+
+        private static void LoadStartDate(ArchiveMetadata archiveMetadata,
+            IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
+        {
+            string dateValue = metsHdrAltRecordIds.FirstOrDefault(a =>
+                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.STARTDATE)?.Value;
+
+            archiveMetadata.StartDate = LoadDateOrNull(dateValue);
+        }
+
+        private static void LoadEndDate(ArchiveMetadata archiveMetadata,
+            IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
+        {
+            string dateValue = metsHdrAltRecordIds.FirstOrDefault(a =>
+                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.ENDDATE)?.Value;
+
+            archiveMetadata.EndDate = LoadDateOrNull(dateValue);
+        }
+
 
         private static void LoadArchiveCreators(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
         {
@@ -65,6 +112,48 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             if (archiveMetadataArchiveCreators.Any())
                 archiveMetadata.ArchiveCreators = archiveMetadataArchiveCreators;
+        }
+
+        private static void LoadTransferer(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
+        {
+            metsTypeMetsHdrAgent[] metsTransfererAgents = metsHdrAgents.Where(a =>
+                a.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
+                a.OTHERROLE.Equals(metsTypeMetsHdrAgentOTHERROLE.SUBMITTER) &&
+                (a.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION || a.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL)
+            ).ToArray();
+
+            if (!metsTransfererAgents.Any())
+                return;
+
+            var archiveMetadataTransfererContainer = new List<MetadataEntityInformationUnit>();
+
+            LoadEntityInformationUnits(archiveMetadataTransfererContainer, metsTransfererAgents);
+
+            var archiveMetadataTransferer = archiveMetadataTransfererContainer.FirstOrDefault();
+
+            if (archiveMetadataTransferer != null && HasData(archiveMetadataTransferer))
+                archiveMetadata.Transferer = archiveMetadataTransferer;
+        }
+
+        private static void LoadProducer(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
+        {
+            metsTypeMetsHdrAgent[] metsProducerAgents = metsHdrAgents.Where(a =>
+                a.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
+                a.OTHERROLE.Equals(metsTypeMetsHdrAgentOTHERROLE.PRODUCER) &&
+                (a.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION || a.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL)
+            ).ToArray();
+
+            if (!metsProducerAgents.Any())
+                return;
+
+            var archiveMetadataProducerContainer = new List<MetadataEntityInformationUnit>();
+
+            LoadEntityInformationUnits(archiveMetadataProducerContainer, metsProducerAgents);
+
+            var archiveMetadataProducer = archiveMetadataProducerContainer.FirstOrDefault();
+
+            if (archiveMetadataProducer != null && HasData(archiveMetadataProducer))
+                archiveMetadata.Producer = archiveMetadataProducer;
         }
 
         private static void LoadOwners(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
@@ -182,8 +271,8 @@ namespace Arkivverket.Arkade.Core.Metadata
             metsTypeMetsHdrAgent metsSystemAgent = metsHdrAgents.FirstOrDefault(a =>
                 a.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                 a.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
-                a.ROLE == metsTypeMetsHdrAgentROLE.CREATOR 
-       
+                a.ROLE == metsTypeMetsHdrAgentROLE.CREATOR
+
             );
 
             if (metsSystemAgent == null)
@@ -202,7 +291,8 @@ namespace Arkivverket.Arkade.Core.Metadata
             metsTypeMetsHdrAgent metsArchiveSystemAgent = metsHdrAgents.FirstOrDefault(a =>
                 a.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                 a.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
-                a.ROLE == metsTypeMetsHdrAgentROLE.OTHER
+                a.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
+                a.OTHERROLE == metsTypeMetsHdrAgentOTHERROLE.PRODUCER
             );
 
             if (metsArchiveSystemAgent == null)
@@ -250,7 +340,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static DateTime? LoadDateOrNull(string dateValue)
         {
-            return DateTime.TryParse(dateValue, out DateTime date) ? (DateTime?) date : null;
+            return DateTime.TryParse(dateValue, out DateTime date) ? (DateTime?)date : null;
         }
     }
 }

@@ -91,7 +91,7 @@ namespace Arkivverket.Arkade.Core.Base
             return Uuid + ".tar";
         }
 
-        public string GetInfoXmlFileName()
+        public string GetSubmissionDescriptionFileName()
         {
             return Uuid + ".xml";
         }

@@ -1,60 +1,72 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.ExternalModels.DiasMets;
+using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Metadata
 {
-    public class DiasMetsCreator : MetsCreator<mets>
+    public class SubmissionDescriptionCreator : MetsCreator<mets>
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata)
+        public void CreateAndSaveFile(ArchiveMetadata metadata, string packageFileName, string diasMetsFileName,
+            string submissionDescriptionFileName)
         {
-            DirectoryInfo rootDirectory = archive.WorkingDirectory.Root().DirectoryInfo();
+            var packageFile = new FileInfo(packageFileName);
+            var diasMetsFile = new FileInfo(diasMetsFileName);
 
-            if (rootDirectory.Exists)
-            {
-                string[] filesToSkip = metadata.PackageType == PackageType.SubmissionInformationPackage
-                    ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
-                    : null;
+            PrepareForPackageDescription(metadata, packageFile, diasMetsFile);
 
-                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, archive.DocumentFiles, filesToSkip);
-            }
+            mets submissionDescription = Create(metadata);
 
-            if (archive.WorkingDirectory.HasExternalContentDirectory())
-            {
-                DirectoryInfo externalContentDirectory = archive.WorkingDirectory.Content().DirectoryInfo();
-
-                if (externalContentDirectory.Exists)
-                {
-                    var fileDescriptions = GetFileDescriptions(externalContentDirectory, externalContentDirectory, archive.DocumentFiles);
-
-                    foreach (FileDescription fileDescription in fileDescriptions)
-                        fileDescription.Name = Path.Combine("content", fileDescription.Name);
-
-                    metadata.FileDescriptions.AddRange(fileDescriptions);
-                }
-            }
-
-            const int fileIdOffset = 1; // Reserving 0 for package file
-            AutoIncrementFileIds(metadata.FileDescriptions, fileIdOffset);
-
-            mets mets = Create(metadata);
-
-            FileInfo targetFileName = archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
+            var targetFileObject = new FileInfo(
+                Path.Combine(packageFile.DirectoryName, submissionDescriptionFileName)
+            );
 
             XmlSerializerNamespaces namespaces = SetupNamespaces();
 
-            SerializeUtil.SerializeToFile(mets, targetFileName, namespaces);
+            SerializeUtil.SerializeToFile(submissionDescription, targetFileObject, namespaces);
 
-            Log.Debug($"Created {ArkadeConstants.DiasMetsXmlFileName}");
+            Log.Debug($"Created {targetFileObject}");
+        }
+
+        private static void PrepareForPackageDescription(ArchiveMetadata metadata, FileInfo packageFile,
+            FileInfo diasMetsFile)
+        {
+            metadata.FileDescriptions = null; // Removes any existing file-descriptions
+
+            if (packageFile.Exists && diasMetsFile.Exists)
+            {
+                FileDescription informationPackageFileDescription = GetFileDescription
+                (
+                    packageFile,
+                    packageFile.Directory
+                );
+
+                FileDescription metsFileDescription = GetFileDescription
+                (
+                    diasMetsFile,
+                    diasMetsFile.Directory
+                );
+
+                string metsFileDirectoryName = Path.GetFileNameWithoutExtension(packageFile.Name);
+
+                informationPackageFileDescription.Id = 0;
+                metsFileDescription.Id = 1;
+                metsFileDescription.Name = Path.Combine(metsFileDirectoryName, diasMetsFile.Name);
+
+                metadata.FileDescriptions = new List<FileDescription>
+                {
+                    informationPackageFileDescription,
+                    metsFileDescription
+                };
+            }
         }
 
         public static mets Create(ArchiveMetadata metadata)
@@ -112,6 +124,8 @@ namespace Arkivverket.Arkade.Core.Metadata
             {
                 altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
                 {
+                    TYPESpecified = true,
+                    TYPE = metsTypeMetsHdrAltRecordIDTYPE.DELIVERYSPECIFICATION,
                     Value = metadata.ArchiveDescription
                 });
             }
@@ -120,6 +134,8 @@ namespace Arkivverket.Arkade.Core.Metadata
             {
                 altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
                 {
+                    TYPESpecified = true,
+                    TYPE = metsTypeMetsHdrAltRecordIDTYPE.SUBMISSIONAGREEMENT,
                     Value = metadata.AgreementNumber
                 });
             }
@@ -128,6 +144,8 @@ namespace Arkivverket.Arkade.Core.Metadata
             {
                 altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
                 {
+                    TYPESpecified = true,
+                    TYPE = metsTypeMetsHdrAltRecordIDTYPE.STARTDATE,
                     Value = ((DateTime)metadata.StartDate).ToString(DateFormat)
                 });
             }
@@ -136,6 +154,8 @@ namespace Arkivverket.Arkade.Core.Metadata
             {
                 altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
                 {
+                    TYPESpecified = true,
+                    TYPE = metsTypeMetsHdrAltRecordIDTYPE.ENDDATE,
                     Value = ((DateTime)metadata.EndDate).ToString(DateFormat)
                 });
             }
@@ -190,6 +210,8 @@ namespace Arkivverket.Arkade.Core.Metadata
                     {
                         TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLESpecified = true,
+                        OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.SUBMITTER,
                         name = metadata.Transferer.Entity
                     });
                 }
@@ -200,6 +222,8 @@ namespace Arkivverket.Arkade.Core.Metadata
                     {
                         TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLESpecified = true,
+                        OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.SUBMITTER,
                         name = metadata.Transferer.ContactPerson,
                         note = GetEntityInfoUnitNotes(metadata.Transferer)
                     });
@@ -216,6 +240,8 @@ namespace Arkivverket.Arkade.Core.Metadata
                     {
                         TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLESpecified = true,
+                        OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
                         name = metadata.Producer.Entity
                     });
                 }
@@ -226,6 +252,8 @@ namespace Arkivverket.Arkade.Core.Metadata
                     {
                         TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLESpecified = true,
+                        OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
                         name = metadata.Producer.ContactPerson,
                         note = GetEntityInfoUnitNotes(metadata.Producer)
                     });
@@ -348,6 +376,8 @@ namespace Arkivverket.Arkade.Core.Metadata
                         OTHERTYPESpecified = true,
                         OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLESpecified = true,
+                        OTHERROLE = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
                         name = archiveSystem.Name
                     };
 
@@ -407,15 +437,13 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             foreach (FileDescription fileDescription in metadata.FileDescriptions)
             {
-                if (!Enum.TryParse($"application/{fileDescription.Extension}", true, out mdSecTypeMdRefMIMETYPE mimeType))
-                    mimeType = default;
-
                 metsFiles.Add(new fileType
                 {
                     ID = $"fileId_{fileDescription.Id}",
-                    MIMETYPE = mimeType,
+                    MIMETYPE = $"application/{fileDescription.Extension}",
                     USE = "Datafile",
-                    CHECKSUMTYPE = mdSecTypeMdRefCHECKSUMTYPE.SHA256,
+                    CHECKSUMTYPESpecified = true,
+                    CHECKSUMTYPE = fileTypeCHECKSUMTYPE.SHA256,
                     CHECKSUM = fileDescription.Sha256Checksum.ToLower(),
                     SIZE = fileDescription.Size,
                     CREATED = fileDescription.CreationTime,
@@ -435,6 +463,11 @@ namespace Arkivverket.Arkade.Core.Metadata
             };
 
             mets.fileSec = new metsTypeFileSec { fileGrp = new[] { metsTypeFileSecFileGrp } };
+        }
+
+        private static void CreateStructMap(mets mets)
+        {
+            mets.structMap = new[] { new structMapType { div = new divType() } };
         }
     }
 }

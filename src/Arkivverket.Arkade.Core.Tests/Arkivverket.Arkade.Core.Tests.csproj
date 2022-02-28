@@ -116,7 +116,10 @@
     <None Update="TestData\Metadata\DiasMets\directorykeeper.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\Metadata\InfoXmlCreator\directorykeeper.txt">
+    <None Update="TestData\Metadata\SubmissionDescriptionCreator\directorykeeper.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Metadata\SubmissionDescriptionLoader\submissionDescription.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\noark3-info.xml">

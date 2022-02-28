@@ -101,7 +101,7 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<LogCreator>();
             containerRegistry.Register<EadCreator>();
             containerRegistry.Register<EacCpfCreator>();
-            containerRegistry.Register<InfoXmlCreator>();
+            containerRegistry.Register<SubmissionDescriptionCreator>();
             containerRegistry.Register<InformationPackageCreator>();
             containerRegistry.Register<ArkadeApi>();
             containerRegistry.Register<TestSessionXmlGenerator>();

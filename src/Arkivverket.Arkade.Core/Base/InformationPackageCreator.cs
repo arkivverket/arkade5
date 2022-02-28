@@ -124,8 +124,8 @@ namespace Arkivverket.Arkade.Core.Base
                 ArkadeConstants.DiasMetsXmlFileName
             );
 
-            new InfoXmlCreator().CreateAndSaveFile(metadata, packageFilePath, diasMetsFilePath,
-                archive.GetInfoXmlFileName());
+            new SubmissionDescriptionCreator().CreateAndSaveFile(metadata, packageFilePath, diasMetsFilePath,
+                archive.GetSubmissionDescriptionFileName());
 
             return packageFilePath;
         }

@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
-using Arkivverket.Arkade.Core.ExternalModels.Mets;
+using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Identify

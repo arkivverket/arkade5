@@ -51,6 +51,7 @@
     <None Remove="ExternalModels\xsd\addml82.xsd" />
     <None Remove="ExternalModels\xsd\arkivstruktur.xsd" />
     <None Remove="ExternalModels\xsd\cpf.xsd" />
+    <None Remove="ExternalModels\xsd\DIAS_METS.xsd" />
     <None Remove="ExternalModels\xsd\DIAS_PREMIS.xsd" />
     <None Remove="ExternalModels\xsd\ead3.xsd" />
     <None Remove="ExternalModels\xsd\endringslogg.xsd" />
@@ -58,8 +59,8 @@
     <None Remove="ExternalModels\xsd\loependeJournal.xsd" />
     <None Remove="ExternalModels\xsd\metadata.xsd" />
     <None Remove="ExternalModels\xsd\metadatakatalog.xsd" />
-    <None Remove="ExternalModels\xsd\mets.xsd" />
     <None Remove="ExternalModels\xsd\offentligJournal.xsd" />
+    <None Remove="ExternalModels\xsd\submissionDescription.xsd" />
     <None Remove="ExternalModels\xsd\testSessionLog.xsd" />
     <None Remove="ExternalModels\xsd\xlink.xsd" />
     <None Remove="ExternalModels\xsl\noarkih-to-addml.xsl" />
@@ -94,6 +95,7 @@
     <EmbeddedResource Include="ExternalModels\xsd\addml82.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\arkivstruktur.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\cpf.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\DIAS_METS.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\DIAS_PREMIS.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\ead3.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\endringslogg.xsd" />
@@ -101,8 +103,8 @@
     <EmbeddedResource Include="ExternalModels\xsd\loependeJournal.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\metadata.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\metadatakatalog.xsd" />
-    <EmbeddedResource Include="ExternalModels\xsd\mets.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\offentligJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\submissionDescription.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\testSessionLog.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\xlink.xsd" />
     <EmbeddedResource Include="ExternalModels\xsl\noarkih-to-addml.xsl" />
