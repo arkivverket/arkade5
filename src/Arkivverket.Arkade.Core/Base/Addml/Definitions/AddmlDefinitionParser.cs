@@ -648,7 +648,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
 
         private int? GetNumberOfRecords(string definitionReference)
         {
-            string numberOfRecords = GetProperty(definitionReference, "numberOfRecords");
+            string numberOfRecords = GetProperty(definitionReference, "numberOfOccurrences") ?? GetProperty(definitionReference, "numberOfRecords");
             return StringUtil.ToInt(numberOfRecords);
         }
 
