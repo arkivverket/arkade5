@@ -176,7 +176,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
                 ResourceUtil.GetResourceAsStream(ArkadeConstants.Addml82XsdResource));
 
             AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml, workingDirectory, new StatusEventHandler()).GetAddmlDefinition();
-            FlatFile flatFile = addmlDefinition.GetFlatFiles().Single(file => file.Definition.FileName == "DOK.DAT");
+            FlatFile flatFile = addmlDefinition.GetFlatFiles().Single(file => file.Definition.FileName.Name == "DOK.DAT");
             return flatFile;
         }
 

@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
         public string Name { get; }
-        public string FileName { get; }
+        public AddmlDefinitionFlatFileName FileName { get; }
         public FileInfo FileInfo { get; }
         public Separator RecordSeparator { get; }
         public Separator FieldSeparator { get; }
@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         private readonly FlatFileIndex _index;
 
         public AddmlFlatFileDefinition(string name,
-            string fileName,
+            AddmlDefinitionFlatFileName fileName,
             FileInfo fileInfo,
             string recordSeparator,
             string fieldSeparator,

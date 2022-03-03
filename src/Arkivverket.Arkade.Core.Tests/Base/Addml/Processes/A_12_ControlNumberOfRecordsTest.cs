@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
         {
             AddmlFlatFileDefinition defintion = new AddmlFlatFileDefinitionBuilder()
                 .WithNumberOfRecords(4)
-                .WithFileName("filnavn.dat")
+                .WithRelativeFileName("filnavn.dat")
                 .Build();
             FlatFile flatFile = new FlatFile(defintion);
 

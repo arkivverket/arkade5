@@ -82,7 +82,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions
             List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = addmlDefinition.AddmlFlatFileDefinitions;
             addmlFlatFileDefinitions.Count.Should().Be(3);
             addmlFlatFileDefinitions[0].Name.Should().Be("Saksregister");
-            addmlFlatFileDefinitions[0].FileName.Should().Be("SAK.DAT");
+            addmlFlatFileDefinitions[0].FileName.Name.Should().Be("SAK.DAT");
             addmlFlatFileDefinitions[0].Encoding.Should().Be(Encodings.ISO_8859_1);
             addmlFlatFileDefinitions[0].RecordSeparator.Should().BeNull();
             addmlFlatFileDefinitions[0].AddmlRecordDefinitions.Count.Should().Be(1);

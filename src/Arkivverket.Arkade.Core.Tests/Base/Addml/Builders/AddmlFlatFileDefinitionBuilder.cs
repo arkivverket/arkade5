@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
 
         private readonly string _charset = "UTF-8";
         private FileInfo _fileInfo = null;
-        private string _fileName = "";
+        private AddmlDefinitionFlatFileName _fileName;
         private string _name = "FlatFile" + Random.Next();
 
         private int? _numberOfRecords = null;
@@ -43,9 +43,13 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
             return this;
         }
 
-        public AddmlFlatFileDefinitionBuilder WithFileName(string fileName)
+        public AddmlFlatFileDefinitionBuilder WithRelativeFileName(string relativeFilename)
         {
-            _fileName = fileName;
+            _fileName = new AddmlDefinitionFlatFileName(
+                Path.GetDirectoryName(relativeFilename),
+                Path.GetFileName(relativeFilename),
+                relativeFilename);
+            
             return this;
         }
 

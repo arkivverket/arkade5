@@ -49,7 +49,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
         {
             if (!_currentFlatFile.Definition.NumberOfRecords.HasValue)
             {
-                _testResults.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName),
+                _testResults.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName.RelativeFilename),
                     Messages.ControlNumberOfRecordsMessage1));
                 return;
             }
@@ -61,12 +61,12 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
                 if (expectedNumberOfRecords == _numberOfOccurrencesForCurrentFile)
                 {
                     _testResults.Add(new TestResult(ResultType.Success,
-                        new Location(_currentFlatFile.Definition.FileName),
+                        new Location(_currentFlatFile.Definition.FileName.RelativeFilename),
                         string.Format(Messages.ControlNumberOfRecordsMessage2, expectedNumberOfRecords)));
                 }
                 else
                 {
-                    _testResults.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName),
+                    _testResults.Add(new TestResult(ResultType.Error, new Location(_currentFlatFile.Definition.FileName.RelativeFilename),
                         string.Format(Messages.ControlNumberOfRecordsMessage3, expectedNumberOfRecords,
                             _numberOfOccurrencesForCurrentFile)));
                 }

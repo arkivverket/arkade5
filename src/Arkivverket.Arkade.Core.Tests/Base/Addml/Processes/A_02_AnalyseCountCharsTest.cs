@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
         public void ShouldCountNumberOfCharsInFields()
         {
             AddmlFlatFileDefinition defintion = new AddmlFlatFileDefinitionBuilder()
-                .WithFileName("filnavn.dat")
+                .WithRelativeFileName("filnavn.dat")
                 .Build();
             FlatFile flatFile = new FlatFile(defintion);            
 

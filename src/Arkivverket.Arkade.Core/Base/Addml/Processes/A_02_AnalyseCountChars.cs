@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         protected override void DoEndOfFile()
         {
-            _testResults.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName),
+            _testResults.Add(new TestResult(ResultType.Success, new Location(_currentFlatFile.Definition.FileName.RelativeFilename),
                 string.Format(Messages.AnalyseCountCharsMessage, _numberOfChars)));
         }
 
