@@ -148,8 +148,6 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
 
             List<AddmlFlatFileDefinition> addmlFlatFilesExistingInDirectory = GetFilesExistingInDirectory(addmlFlatFileDefinitions, fileInfos);
 
-            GetFilesExistingInDirectory(addmlFlatFileDefinitions, fileInfos);
-            
             return new AddmlDefinition(addmlFlatFileDefinitions, addmlFlatFilesExistingInDirectory);
         }
 
