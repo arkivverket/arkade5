@@ -159,13 +159,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
 
             foreach (var addmlFlatFileDefinition in addmlFlatFileDefinitions)
             {
-                foreach (var fileInfo in fileInfos)
-                {
-                    if (addmlFlatFileDefinition.FileName.Equals(fileInfo.Name))
-                    {
-                        filesExistingInDirectory.Add(addmlFlatFileDefinition);
-                    }
-                }
+                if (fileInfos.Any(f => f.Name.Equals(Path.GetFileName(addmlFlatFileDefinition.FileName))))
+                    filesExistingInDirectory.Add(addmlFlatFileDefinition);
             }
 
             return filesExistingInDirectory;
