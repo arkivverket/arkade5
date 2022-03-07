@@ -74,8 +74,12 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                     {
                         if (!recordEnumerator.MoveNext())
                             break;
-                        _statusEventHandler.RaiseEventRecordProcessingStart();
+                        
                         Record record = recordEnumerator.Current;
+                        if (record.LineNumber <= record.Definition.HeaderLevel)
+                            continue;
+
+                        _statusEventHandler.RaiseEventRecordProcessingStart();
                         _addmlProcessRunner.RunProcesses(file, record);
 
                         foreach (Field field in record.Fields)

@@ -16,7 +16,6 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         private readonly int? _recordIdentifierPosition;
 
         public override Record Current => GetCurrentRecord();
-        private int? _currentHeaderLevel;
         private string _currentName;
 
         public DelimiterFileFormatReader(FlatFile flatFile) : this(flatFile, GetStream(flatFile))
@@ -91,7 +90,6 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             if (_currentName != recordDefinition.Name)
             {
                 _currentName = recordDefinition.Name;
-                _currentHeaderLevel = recordDefinition.HeaderLevel;
                 RecordNumber = 1;
             }
 
@@ -107,13 +105,6 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         {
             if (!_lines.MoveNext())
                 return false;
-
-            while (RecordNumber < _currentHeaderLevel)
-            {
-                if (!_lines.MoveNext())
-                    return false;
-                RecordNumber++;
-            }
 
             RecordNumber++;
             return true;
