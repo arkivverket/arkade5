@@ -87,10 +87,10 @@ namespace Arkivverket.Arkade.CLI
             CommandLineRunner.Run(analyseOptions);
         }
 
-        private static bool ReadyToRun(Options options)
+        private static bool ReadyToRun(OutputOptions outputOptions)
         {
-            return DirectoryArgsExists(options.OutputDirectory) &&
-                SelectedOutputLanguageIsValid(options.OutputLanguage);
+            return DirectoryArgsExists(outputOptions.OutputDirectory) &&
+                SelectedOutputLanguageIsValid(outputOptions.OutputLanguage);
         }
 
         private static bool ReadyToRun(AnalyseOptions analyseOptions)
