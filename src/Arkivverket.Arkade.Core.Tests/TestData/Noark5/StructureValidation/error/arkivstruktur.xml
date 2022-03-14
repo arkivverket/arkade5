@@ -8,11 +8,11 @@
  <opprettetDato>1863-11-27T00:00:00Z</opprettetDato>
  <opprettetAv>Espen Tønnessen</opprettetAv>
  <avsluttetDato>1864-04-09T00:00:00Z</avsluttetDato>
+ <avsluttetAv>Espen Tønnesen</avsluttetAv>
  <arkivskaper>
   <arkivskaperID>arkivskaper57d6608566c0b0.48437213</arkivskaperID>
   <beskrivelse>A small girls adventures in strange lands</beskrivelse>
  </arkivskaper>
- <arkiv></arkiv>
  <arkivdel>
   <systemID>arkivdel57d6608566c0b9.14601960</systemID>
   <tittel>Alice 1863-1864</tittel>
@@ -104,6 +104,7 @@
         <arkivertAv>Kristian Hunskaar</arkivertAv>
         <referanseArkivdel>arkivdel57d6608566c0b9.14601960</referanseArkivdel>
         <skjerming>
+         <ugyldigElement/>
          <tilgangsrestriksjon>Personalsaker</tilgangsrestriksjon>
          <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
          <skjermingMetadata>Skjermet</skjermingMetadata>
@@ -134,6 +135,7 @@
          <tilknyttetDato>1864-05-04T00:00:00Z</tilknyttetDato>
          <tilknyttetAv>Espen Tønnessen</tilknyttetAv>
          <skjerming>
+          <ugyldigElement/>
           <tilgangsrestriksjon>skjeming dokumentbeskrivelse</tilgangsrestriksjon>
           <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
           <skjermingMetadata>Skjermet</skjermingMetadata>
@@ -198,6 +200,7 @@
         <arkivertAv>Joachim Fugleberg</arkivertAv>
         <referanseArkivdel>arkivdel57d6608566c0b9.14601960</referanseArkivdel>
         <skjerming>
+         <ugyldigElement/>
          <tilgangsrestriksjon>Klientsaker</tilgangsrestriksjon>
          <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
          <skjermingMetadata>Skjermet</skjermingMetadata>
@@ -221,6 +224,7 @@
          <tilknyttetDato>1864-05-02T00:00:00Z</tilknyttetDato>
          <tilknyttetAv>Kristian Hunskaar</tilknyttetAv>
          <skjerming>
+          <ugyldigElement/>
           <tilgangsrestriksjon>skjeming dokumentbeskrivelse</tilgangsrestriksjon>
           <skjermingshjemmel>Unntatt etter Offentleglova</skjermingshjemmel>
           <skjermingMetadata>Skjermet</skjermingMetadata>

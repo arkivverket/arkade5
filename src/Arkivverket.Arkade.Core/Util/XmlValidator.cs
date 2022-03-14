@@ -15,16 +15,16 @@ namespace Arkivverket.Arkade.Core.Util
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private const int ValidationErrorCountLimit = 100;
-        private readonly List<string> _validationErrorMessages = new List<string>();
+        private readonly Dictionary<string, List<long>> _validationErrorMessages = new();
 
-        public List<string> Validate(string xmlString, string xmlSchemaString)
+        public Dictionary<string, List<long>> Validate(string xmlString, string xmlSchemaString)
         {
             var xmlStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlString));
             var xmlSchemaStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlSchemaString));
             return Validate(xmlStream, xmlSchemaStream);
         }
 
-        public List<string> Validate(Stream xmlStream, Stream xmlSchemaStream)
+        public Dictionary<string, List<long>> Validate(Stream xmlStream, Stream xmlSchemaStream)
         {
             XmlSchema xmlSchema = XmlSchema.Read(xmlSchemaStream, ValidationCallBack);
             XmlReaderSettings xmlReaderSettings = SetupXmlValidation(new List<XmlSchema> {xmlSchema});
@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Util
             return _validationErrorMessages;
         }
 
-        public List<string> Validate(Stream xmlStream, Stream[] xmlSchemaStreams, string xmlFileName)
+        public Dictionary<string, List<long>> Validate(Stream xmlStream, Stream[] xmlSchemaStreams, string xmlFileName)
         {
             var xmlSchemas = new List<XmlSchema>();
 
@@ -56,7 +56,7 @@ namespace Arkivverket.Arkade.Core.Util
             }
         }
 
-        public IEnumerable<string> Validate(ArchiveXmlUnit xmlUnit)
+        public Dictionary<string, List<long>> Validate(ArchiveXmlUnit xmlUnit)
         {
             Stream xmlStream = xmlUnit.File.AsStream();
 
@@ -87,11 +87,10 @@ namespace Arkivverket.Arkade.Core.Util
 
         private void ValidationCallBack(object sender, ValidationEventArgs args)
         {
-            _validationErrorMessages.Add(string.Format(
-                Resources.ExceptionMessages.XmlValidationErrorMessage,
-                args.Exception.LineNumber,
-                args.Message
-            ));
+            if (_validationErrorMessages.ContainsKey(args.Message))
+                _validationErrorMessages[args.Message].Add(args.Exception.LineNumber);
+            else
+                _validationErrorMessages.Add(args.Message, new List<long>{args.Exception.LineNumber});
         }
     }
 }
