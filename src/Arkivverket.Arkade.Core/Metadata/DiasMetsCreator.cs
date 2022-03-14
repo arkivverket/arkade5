@@ -98,6 +98,8 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             CreateAltRecordIDs(metsHdr, metadata);
 
+            metsHdr.metsDocumentID = new metsTypeMetsHdrMetsDocumentID { Value = ArkadeConstants.DiasMetsXmlFileName };
+
             CreateHdrAgents(metsHdr, metadata);
 
             if (metadata.ExtractionDate != null || metsHdr.altRecordID != null || metsHdr.agent != null)
@@ -139,10 +141,6 @@ namespace Arkivverket.Arkade.Core.Metadata
                     Value = ((DateTime)metadata.EndDate).ToString(DateFormat)
                 });
             }
-
-            // Ensure min. 3 altRecordIDs (ESSArch requirement)
-            while (altRecordIDs.Count < 3)
-                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID());
 
             metsHdr.altRecordID = altRecordIDs.ToArray();
         }

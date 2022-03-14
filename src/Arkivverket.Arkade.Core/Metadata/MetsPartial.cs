@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.DiasMets
 #pragma warning restore IDE1006
     {
         [XmlAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        public string SchemaLocation = "http://www.loc.gov/METS/ https://schema.arkivverket.no/METS/latest/DIAS_METS.xsd";
+        public string SchemaLocation = "http://arkivverket.no/standarder/METS https://schema.arkivverket.no/METS/latest/DIAS_METS.xsd";
     }
 }
 
