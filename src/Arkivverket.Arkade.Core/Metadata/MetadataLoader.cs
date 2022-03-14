@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     HandleLabelPlaceholder(metadata);
                     return metadata;
                 case '<': // METS
-                    return DiasMetsLoader.Load(metadataFilePath);
+                    return SubmissionDescriptionLoader.Load(metadataFilePath);
                     // HandleLabelPlaceholder called from DiasMetsLoader
                 default:
                     throw new ArkadeException($"The contents of {metadataFilePath} was not recognized as metadata");
