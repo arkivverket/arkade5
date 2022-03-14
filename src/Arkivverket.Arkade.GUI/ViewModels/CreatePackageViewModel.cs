@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private IList<String> _systemTypeList  = new List<string>()
         {
-            "Noark3", "Noark4", "Noark5", "Fagsystem", "Siard"
+            "Noark3", "Noark5", "Fagsystem", "Siard"
         }; 
 
         public string ArkadeNameAndCurrentVersion { get; } = $"Arkade 5 {ArkadeVersion.Current}";
