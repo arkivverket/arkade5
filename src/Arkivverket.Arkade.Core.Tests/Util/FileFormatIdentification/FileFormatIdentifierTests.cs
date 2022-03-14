@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         [Fact, Trait("Category", "Integration")]
         public void IdentifyTest()
         {
-            var directory = new DirectoryInfo(Path.Combine("TestData", "FileTypes")); // PDF, PDF/A, DOCX
+            var directory = new DirectoryInfo(Path.Combine("TestData", "FileTypes")); // PDF, PDF/A-1b, PDF/A-3a, DOCX
 
             IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
 
@@ -20,25 +20,34 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
 
             // PDF
 
-            IFileFormatInfo pdfSiegfriedFileInfo = filesWithFormat.First(f => f.FileName.EndsWith("pdf-file.pdf"));
+            IFileFormatInfo pdfSiegfriedFileInfo = filesWithFormat.First(f => f.FileName.EndsWith("pdf.pdf"));
 
             pdfSiegfriedFileInfo.Id.Should().Be("fmt/276");
             pdfSiegfriedFileInfo.Format.Should().Be("Acrobat PDF 1.7 - Portable Document Format");
             pdfSiegfriedFileInfo.Version.Should().Be("1.7");
             pdfSiegfriedFileInfo.Errors.Should().BeEmpty();
 
-            // PDF/A
+            // PDF/A-1B
 
-            IFileFormatInfo pdfASiegfriedFileInfo = filesWithFormat.First(f => f.FileName.EndsWith("pdfa-file.pdf"));
+            IFileFormatInfo pdfA1bSiegfriedFileInfo = filesWithFormat.First(f => f.FileName.EndsWith("pdfA-1b.pdf"));
 
-            pdfASiegfriedFileInfo.Id.Should().Be("fmt/479");
-            pdfASiegfriedFileInfo.Format.Should().Be("Acrobat PDF/A - Portable Document Format");
-            pdfASiegfriedFileInfo.Version.Should().Be("3a");
-            pdfASiegfriedFileInfo.Errors.Should().BeEmpty();
+            pdfA1bSiegfriedFileInfo.Id.Should().Be("fmt/354");
+            pdfA1bSiegfriedFileInfo.Format.Should().Be("Acrobat PDF/A - Portable Document Format");
+            pdfA1bSiegfriedFileInfo.Version.Should().Be("1b");
+            pdfA1bSiegfriedFileInfo.Errors.Should().BeEmpty();
+            
+            // PDF/A-3A (disapproved PDF/A variant)
+
+            IFileFormatInfo pdfA3aSiegfriedFileInfo = filesWithFormat.First(f => f.FileName.EndsWith("pdfA-3a.pdf"));
+
+            pdfA3aSiegfriedFileInfo.Id.Should().Be("fmt/479");
+            pdfA3aSiegfriedFileInfo.Format.Should().Be("Acrobat PDF/A - Portable Document Format");
+            pdfA3aSiegfriedFileInfo.Version.Should().Be("3a");
+            pdfA3aSiegfriedFileInfo.Errors.Should().BeEmpty();
 
             // DOCX
 
-            IFileFormatInfo docXSiegfriedFileInfo = filesWithFormat.First(f => f.FileName.EndsWith("docx-file.docx"));
+            IFileFormatInfo docXSiegfriedFileInfo = filesWithFormat.First(f => f.FileName.EndsWith("docx.docx"));
 
             docXSiegfriedFileInfo.Id.Should().Be("fmt/412");
             docXSiegfriedFileInfo.Format.Should().Be("Microsoft Word for Windows");
@@ -51,7 +60,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         {
             IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
 
-            string docxFilePath = Path.Combine("TestData", "FileTypes", "docx-file.docx");
+            string docxFilePath = Path.Combine("TestData", "FileTypes", "docx.docx");
 
             var docxFile = new FileInfo(docxFilePath);
 
@@ -68,7 +77,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         {
             IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
 
-            string docxFilePath = Path.Combine("TestData", "FileTypes", "docx-file.docx");
+            string docxFilePath = Path.Combine("TestData", "FileTypes", "docx.docx");
 
             var fileStream = new FileStream(docxFilePath, FileMode.Open, FileAccess.Read);
 
@@ -87,15 +96,15 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         {
             IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
 
-            string pdfaFilePath = Path.Combine("TestData", "FileTypes", "pdfa-file.pdf");
+            string pdfaFilePath = Path.Combine("TestData", "FileTypes", "pdfA-1b.pdf");
 
             var pdfaFile = new FileInfo(pdfaFilePath);
 
             IFileFormatInfo pdfASiegfriedFileInfo = formatIdentifier.IdentifyFormat(pdfaFile);
 
-            pdfASiegfriedFileInfo.Id.Should().Be("fmt/479");
+            pdfASiegfriedFileInfo.Id.Should().Be("fmt/354");
             pdfASiegfriedFileInfo.Format.Should().Be("Acrobat PDF/A - Portable Document Format");
-            pdfASiegfriedFileInfo.Version.Should().Be("3a");
+            pdfASiegfriedFileInfo.Version.Should().Be("1b");
             pdfASiegfriedFileInfo.Errors.Should().BeEmpty();
         }
 
@@ -104,7 +113,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         {
             IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
 
-            string pdfaFilePath = Path.Combine("TestData", "FileTypes", "pdfa-file.pdf");
+            string pdfaFilePath = Path.Combine("TestData", "FileTypes", "pdfA-1b.pdf");
 
             var fileStream = new FileStream(pdfaFilePath, FileMode.Open, FileAccess.Read);
 
@@ -112,9 +121,9 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
 
             IFileFormatInfo pdfASiegfriedFileInfo = formatIdentifier.IdentifyFormat(target);
 
-            pdfASiegfriedFileInfo.Id.Should().Be("fmt/479");
+            pdfASiegfriedFileInfo.Id.Should().Be("fmt/354");
             pdfASiegfriedFileInfo.Format.Should().Be("Acrobat PDF/A - Portable Document Format");
-            pdfASiegfriedFileInfo.Version.Should().Be("3a");
+            pdfASiegfriedFileInfo.Version.Should().Be("1b");
             pdfASiegfriedFileInfo.Errors.Should().BeEmpty();
         }
 
@@ -123,7 +132,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         {
             IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
 
-            string pdfFilePath = Path.Combine("TestData", "FileTypes", "pdf-file.pdf");
+            string pdfFilePath = Path.Combine("TestData", "FileTypes", "pdf.pdf");
 
             var pdfFile = new FileInfo(pdfFilePath);
 
@@ -140,7 +149,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         {
             IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
 
-            string pdfFilePath = Path.Combine("TestData", "FileTypes", "pdf-file.pdf");
+            string pdfFilePath = Path.Combine("TestData", "FileTypes", "pdf.pdf");
 
             var fileStream = new FileStream(pdfFilePath, FileMode.Open, FileAccess.Read);
 

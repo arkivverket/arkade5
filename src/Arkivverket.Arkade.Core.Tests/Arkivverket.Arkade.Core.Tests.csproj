@@ -22,8 +22,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="TestData\FileTypes\docx-file.docx" />
-    <None Remove="TestData\FileTypes\pdf-file.pdf" />
+    <None Remove="TestData\FileTypes\docx.docx" />
+    <None Remove="TestData\FileTypes\pdf.pdf" />
+    <None Remove="TestData\FileTypes\pdfA-1b.pdf" />
+    <None Remove="TestData\FileTypes\pdfA-3a.pdf" />
     <None Remove="TestData\FileTypes\pdfa-file.pdf" />
     <None Remove="TestData\noark3\noark_3_arkivuttrekk_med_prosesser.xml" />
     <None Remove="TestData\Noark5\StructureValidation\correct\custom.xml" />
@@ -31,13 +33,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="TestData\FileTypes\docx-file.docx">
+    <Content Include="TestData\FileTypes\docx.docx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\FileTypes\pdf-file.pdf">
+    <Content Include="TestData\FileTypes\pdf.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\FileTypes\pdfa-file.pdf">
+    <Content Include="TestData\FileTypes\pdfA-1b.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\FileTypes\pdfA-3a.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\noark3\noark_3_arkivuttrekk_med_prosesser.xml">
