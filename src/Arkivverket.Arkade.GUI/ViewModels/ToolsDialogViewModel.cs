@@ -8,6 +8,7 @@ using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Util;
 using Prism.Commands;
@@ -19,7 +20,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 {
     class ToolsDialogViewModel : BindableBase
     {
+        private readonly ILogger _log = Log.ForContext<ToolsDialogViewModel>();
+
         private ArkadeApi _arkadeApi;
+
+        // ---------- File format analysis --------------
 
         private string _directoryForFormatCheck;
         public string DirectoryForFormatCheck
@@ -49,13 +54,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _runButtonIsEnabled, value);
         }
 
-        private bool _closeButtonIsEnabled;
-        public bool CloseButtonIsEnabled
-        {
-            get => _closeButtonIsEnabled;
-            set => SetProperty(ref _closeButtonIsEnabled, value);
-        }
-
         private Visibility _progressBarVisibility;
         public Visibility ProgressBarVisibility
         {
@@ -63,20 +61,83 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _progressBarVisibility, value);
         }
 
-        private readonly ILogger _log = Log.ForContext<ToolsDialogViewModel>();
         public DelegateCommand ChooseDirectoryForFormatCheckCommand { get; }
         public DelegateCommand RunFormatCheckCommand { get; }
+
+
+        // ---------- Archive format validation ----------
+
+        private string _archiveFormatValidationItemPath;
+        public string ArchiveFormatValidationItemPath
+        {
+            get => _archiveFormatValidationItemPath;
+            set => SetProperty(ref _archiveFormatValidationItemPath, value);
+        }
+
+        private string[] _archiveFormatValidationFormats;
+        public string[] ArchiveFormatValidationFormats
+        {
+            get => _archiveFormatValidationFormats;
+            set => SetProperty(ref _archiveFormatValidationFormats, value);
+        }
+
+        private string _archiveFormatValidationFormat;
+        public string ArchiveFormatValidationFormat
+        {
+            get => _archiveFormatValidationFormat;
+            set => SetProperty(ref _archiveFormatValidationFormat, value);
+        }
+
+        private bool _validateArchiveFormatButtonIsEnabled;
+        public bool ValidateArchiveFormatButtonIsEnabled
+        {
+            get => _validateArchiveFormatButtonIsEnabled;
+            set => SetProperty(ref _validateArchiveFormatButtonIsEnabled, value);
+        }
+
+        private ArchiveFormatValidationStatusDisplay _archiveFormatValidationStatusDisplay;
+        public ArchiveFormatValidationStatusDisplay ArchiveFormatValidationStatusDisplay
+        {
+            get => _archiveFormatValidationStatusDisplay;
+            set => SetProperty(ref _archiveFormatValidationStatusDisplay, value);
+        }
+
+        public DelegateCommand ChooseFileForArchiveFormatValidationCommand { get; }
+        public DelegateCommand ValidateArchiveFormatCommand { get; }
+
+        // -----------------------------------------------
+
+        private bool _closeButtonIsEnabled;
+        public bool CloseButtonIsEnabled
+        {
+            get => _closeButtonIsEnabled;
+            set => SetProperty(ref _closeButtonIsEnabled, value);
+        }
 
         public ToolsDialogViewModel(ArkadeApi arkadeApi)
         {
             _arkadeApi = arkadeApi;
 
+            // ---------- File format analysis --------------
+
             ChooseDirectoryForFormatCheckCommand = new DelegateCommand(ChooseDirectoryForFormatCheck);
             RunFormatCheckCommand = new DelegateCommand(RunFormatCheck);
 
             RunButtonIsEnabled = false;
-            CloseButtonIsEnabled = true;
             _progressBarVisibility = Visibility.Hidden;
+
+            // ---------- Archive format validation ----------
+
+            ChooseFileForArchiveFormatValidationCommand = new DelegateCommand(ChooseFileForArchiveFormatValidation);
+            ValidateArchiveFormatCommand = new DelegateCommand(ValidateArchiveFormat);
+
+            ValidateArchiveFormatButtonIsEnabled = false;
+            _archiveFormatValidationStatusDisplay = new ArchiveFormatValidationStatusDisplay();
+            ArchiveFormatValidationFormats = typeof(ArchiveFormat).GetDescriptions();
+
+            // -----------------------------------------------
+
+            CloseButtonIsEnabled = true;
         }
 
         public void OnClose(object sender, CancelEventArgs e)
@@ -94,6 +155,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     ExternalProcessManager.Terminate(processName);
             }
         }
+
+        // ---------- File format analysis --------------
 
         private void ChooseDirectoryForFormatCheck()
         {
@@ -177,6 +240,42 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             System.Diagnostics.Process.Start("explorer.exe", argument);
         }
 
+        // ---------- Archive format validation ----------
+
+        private void ChooseFileForArchiveFormatValidation()
+        {
+            FilePicker("archive format validation",
+                ToolsGUI.ArchiveFormatValidationFileSelectDialogTitle,
+                ToolsGUI.ArchiveFormatValidationFileSelectDialogFilter,
+                out string fileToValidate
+            );
+
+            if (fileToValidate != null)
+            {
+                ArchiveFormatValidationItemPath = fileToValidate;
+                ValidateArchiveFormatButtonIsEnabled = true;
+            }
+        }
+
+        private async void ValidateArchiveFormat()
+        {
+            CloseButtonIsEnabled = false;
+            ValidateArchiveFormatButtonIsEnabled = false;
+            ArchiveFormatValidationStatusDisplay.DisplayRunning();
+
+            FileSystemInfo item = new FileInfo(ArchiveFormatValidationItemPath);
+            ArchiveFormat format = ArchiveFormatValidationFormat.GetValueByDescription<ArchiveFormat>();
+            SupportedLanguage language = LanguageSettingHelper.GetUILanguage();
+
+            ArchiveFormatValidationReport report = await _arkadeApi.ValidateArchiveFormat(item, format, language);
+
+            ArchiveFormatValidationStatusDisplay.DisplayFinished(report);
+            ValidateArchiveFormatButtonIsEnabled = true;
+            CloseButtonIsEnabled = true;
+        }
+        
+        // -----------------------------------------------
+
         private void DirectoryPicker(string action, string title, out string directory)
         {
             _log.Information($"User action: Open choose directory for {action} dialog");
@@ -198,6 +297,30 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 directory = null;
                 _log.Information($"User action: Abort choose directory for {action}");
+            }
+        }
+
+        private void FilePicker(string action, string title, string filter, out string file)
+        {
+            _log.Information($"User action: Open choose file for {action} dialog");
+
+            var selectFileDialog = new OpenFileDialog()
+            {
+                Title = title,
+                Filter = filter,
+            };
+
+
+            if (selectFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                file = selectFileDialog.FileName;
+
+                _log.Information($"User action: Chose file for {action}: {file}");
+            }
+            else
+            {
+                file = null;
+                _log.Information($"User action: Abort choose file for {action}");
             }
         }
     }

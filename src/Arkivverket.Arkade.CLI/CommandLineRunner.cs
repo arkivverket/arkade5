@@ -13,6 +13,7 @@ using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Serilog;
 
 namespace Arkivverket.Arkade.CLI
@@ -216,6 +217,25 @@ namespace Arkivverket.Arkade.CLI
 
             Arkade.GenerateFileFormatInfoFiles(analysisDirectory, options.OutputDirectory, outputFileName, language);
             
+            LogFinishedStatus(command);
+        }
+
+        public static void Run(ValidateOptions options)
+        {
+            string command = GetRunningCommand(options.GetType().Name);
+
+            FileSystemInfo item = File.GetAttributes(options.Item).HasFlag(FileAttributes.Directory)
+                ? new DirectoryInfo(options.Item)
+                : new FileInfo(options.Item);
+
+            var archiveFormat = options.Format.GetValueByDescription<ArchiveFormat>();
+
+            Log.Information($"{{{command.TrimEnd('e')}ing}} the format of {item} as {archiveFormat.GetDescription()}");
+
+            ArchiveFormatValidationReport validationReport = Arkade.ValidateArchiveFormat(item, archiveFormat, SupportedLanguage.en).Result;
+
+            Log.Information(validationReport.ToString());
+
             LogFinishedStatus(command);
         }
 

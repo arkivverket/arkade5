@@ -151,4 +151,25 @@ Resultat lagret i:</value>
   <data name="UnsavedResultsOnExitWarning" xml:space="preserve">
     <value>Hvis Verktøy-dialogen lukkes nå vil resultater fra det kjørende verktøyet gå tapt. Ønker du likevel å lukke?</value>
   </data>
+  <data name="ArchiveFormatValidationChooseFileButtonText" xml:space="preserve">
+    <value>Velg fil ...</value>
+  </data>
+  <data name="ArchiveFormatValidationFileSelectDialogTitle" xml:space="preserve">
+    <value>Velg fil til validering</value>
+  </data>
+  <data name="ArchiveFormatValidationFormatSelectMenuLabel" xml:space="preserve">
+    <value>Arkivformat</value>
+  </data>
+  <data name="ArchiveFormatValidationRunButtonText" xml:space="preserve">
+    <value>Valider</value>
+  </data>
+  <data name="ArchiveFormatValidationSectionHeading" xml:space="preserve">
+    <value>Validering av arkivformat</value>
+  </data>
+  <data name="ArchiveFormatValidationRunningStatusMessage" xml:space="preserve">
+    <value>Utfører validering av arkivformat ...</value>
+  </data>
+  <data name="ArchiveFormatValidationFileSelectDialogFilter" xml:space="preserve">
+    <value>Arkivformat-filer|*.pdf</value>
+  </data>
 </root>

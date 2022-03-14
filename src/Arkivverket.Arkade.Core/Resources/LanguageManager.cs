@@ -40,6 +40,11 @@ namespace Arkivverket.Arkade.Core.Languages
             Resources.FormatAnalysisResultFileContent.Culture = cultureInfo;
             Resources.OutputFileNames.Culture = cultureInfo;
         }
+
+        public static void SetResourceLanguageForArchiveFormatValidation(SupportedLanguage language)
+        {
+            Resources.ArchiveFormatValidationMessages.Culture = CultureInfo.CreateSpecificCulture(language.ToString());
+        }
     }
 
     public enum SupportedLanguage

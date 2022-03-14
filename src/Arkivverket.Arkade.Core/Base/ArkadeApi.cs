@@ -1,11 +1,13 @@
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Base
@@ -134,6 +136,13 @@ namespace Arkivverket.Arkade.Core.Base
             string resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
 
             FileFormatInfoGenerator.Generate(filesDirectory, resultFileFullName);
+        }
+
+        public Task<ArchiveFormatValidationReport> ValidateArchiveFormat(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language)
+        {
+            LanguageManager.SetResourceLanguageForArchiveFormatValidation(language);
+
+            return ArchiveFormatValidator.ValidateAsFormat(item, format);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)

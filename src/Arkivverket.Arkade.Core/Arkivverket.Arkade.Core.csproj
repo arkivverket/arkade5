@@ -117,6 +117,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Codeuctivity.PdfAValidator" Version="2.2.14" />
     <PackageReference Include="CsvHelper" Version="27.2.1" />
     <PackageReference Include="itext7.pdfhtml" Version="4.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -179,6 +180,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Report.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\ArchiveFormatValidationMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ArchiveFormatValidationMessages.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\SiardMessages.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -249,6 +255,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Report.Designer.cs</LastGenOutput>
       <CustomToolNamespace></CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ArchiveFormatValidationMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ArchiveFormatValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\SiardMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

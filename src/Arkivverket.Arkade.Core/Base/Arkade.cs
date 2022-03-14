@@ -1,8 +1,10 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Autofac;
 
 namespace Arkivverket.Arkade.Core.Base
@@ -75,6 +77,11 @@ namespace Arkivverket.Arkade.Core.Base
         public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName, SupportedLanguage language)
         {
             _arkadeApi.GenerateFileFormatInfoFiles(filesDirectory, resultFileDirectoryPath, resultFileName, language);
+        }
+
+        public Task<ArchiveFormatValidationReport> ValidateArchiveFormat(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language)
+        {
+            return _arkadeApi.ValidateArchiveFormat(item, format, language);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)
