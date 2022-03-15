@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -12,7 +12,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
     public class SiardValidatorRunnerTest
     {
         [Fact]
-        [Trait("Category", "DBPTK integration")]
+        [Trait("Category", "Integration")]
+        [Trait("Dependency", "JRE"), Trait("Dependency", "DBPTK")]
         public void ShouldGenerateValidationReportFileAtDesignatedDestination()
         {
             string inputFilePath = Path.Combine("TestData", "Siard", "dbptk_produced.siard");
@@ -28,7 +29,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
         }
 
         [Fact]
-        [Trait("Category", "DBPTK integration")]
+        [Trait("Category", "Integration")]
+        [Trait("Dependency", "JRE"), Trait("Dependency", "DBPTK")]
         public void ShouldReportUnsupportedSiardVersion()
         {
             string inputFilePath = Path.Combine("TestData", "Siard", "siard1_med_blobs.siard");
@@ -48,7 +50,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
         }
         
         [Fact]
-        [Trait("Category", "DBPTK integration")]
+        [Trait("Category", "Integration")]
+        [Trait("Dependency", "JRE"), Trait("Dependency", "DBPTK")]
         public void ShouldValidateExtractProducedBySiardGui()
         {
             string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "siardGui", "external", "siardGui.siard");
@@ -69,7 +72,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
         }
 
         [Fact]
-        [Trait("Category", "DBPTK integration")]
+        [Trait("Category", "Integration")]
+        [Trait("Dependency", "JRE"), Trait("Dependency", "DBPTK")]
         public void ShouldValidateExtractProducedByDbptkDeveloper()
         {
             string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "dbPtk", "external", "dbptk.siard");
@@ -90,7 +94,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
         }
 
         [Fact]
-        [Trait("Category", "DBPTK integration")]
+        [Trait("Category", "Integration")]
+        [Trait("Dependency", "JRE"), Trait("Dependency", "DBPTK")]
         public void ShouldFailToValidateExtractProducedBySpectralCoreFullConvert()
         {
             Directory.GetFiles(Path.Combine("TestData", "Siard")).Where(f => f.EndsWith(".txt")).ToList().ForEach(File.Delete);
@@ -115,7 +120,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
         }
 
         [Fact]
-        [Trait("Category", "DBPTK integration")]
+        [Trait("Category", "Integration")]
+        [Trait("Dependency", "JRE"), Trait("Dependency", "DBPTK")]
         public void ShouldReportWarningsWhenExternalLobsAreMissing()
         {
             Directory.GetFiles(Path.Combine("TestData", "Siard")).Where(f => f.EndsWith(".txt")).ToList().ForEach(File.Delete);

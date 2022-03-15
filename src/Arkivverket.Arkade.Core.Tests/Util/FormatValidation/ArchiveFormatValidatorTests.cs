@@ -18,6 +18,8 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FormatValidation
         private readonly FileInfo _nonExistingFile = new("invalid_filepath");
 
         [Fact]
+        [Trait("Category", "Integration")]
+        [Trait("Dependency", "JRE")]
         public void ValidateAsFormatTest()
         {
             ArchiveFormatValidationReport validationReport =
@@ -27,6 +29,8 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FormatValidation
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
+        [Trait("Dependency", "JRE")]
         public void ValidateAsPdfATest()
         {
             ArchiveFormatValidator.ValidateAsPdfA(_approvedPdfAFile).Result
