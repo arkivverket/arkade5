@@ -117,7 +117,7 @@ namespace Arkivverket.Arkade.CLI
         private static bool ReadyToRun(ValidateOptions validateOptions, out string failReason)
         {
             bool itemExists = File.Exists(validateOptions.Item) || Directory.Exists(validateOptions.Item);
-            bool archiveFormatIsSupported = validateOptions.Format.HasValueForDescription<ArchiveFormat>();
+            bool archiveFormatIsSupported = validateOptions.Format.ToUpper().HasValueForDescription<ArchiveFormat>();
 
             failReason = !itemExists ? $@"Item [{validateOptions.Item}] was not found" :
                 !archiveFormatIsSupported ? $@"Format [{validateOptions.Format}] was not recognized" : Empty;

@@ -228,7 +228,7 @@ namespace Arkivverket.Arkade.CLI
                 ? new DirectoryInfo(options.Item)
                 : new FileInfo(options.Item);
 
-            var archiveFormat = options.Format.GetValueByDescription<ArchiveFormat>();
+            var archiveFormat = options.Format.ToUpper().GetValueByDescription<ArchiveFormat>();
 
             Log.Information($"{{{command.TrimEnd('e')}ing}} the format of {item} as {archiveFormat.GetDescription()}");
 
