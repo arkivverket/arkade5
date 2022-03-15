@@ -77,6 +77,19 @@ namespace Arkivverket.Arkade.Core.Util
             }
         }
 
+        public static bool TryDeserializeFromFile<T>(string pathToFile, out T serialized)
+        {
+            try
+            {
+                serialized = DeserializeFromFile<T>(pathToFile);
+                return true;
+            }
+            catch
+            {
+                serialized = default;
+                return false;
+            }
+        }
 
     }
 }
