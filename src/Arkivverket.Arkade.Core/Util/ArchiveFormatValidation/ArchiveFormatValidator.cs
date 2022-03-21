@@ -46,6 +46,9 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 
             try
             {
+                if ((item.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
+                    throw new Exception("PDF/A validator doesn't support directory input");
+
                 ValidationReport report = (
                     await new PdfAValidator().ValidateWithDetailedReportAsync(item.FullName)
                 ).Jobs.Job.ValidationReport;
