@@ -59,10 +59,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             return ArkadeProcessingState.PackingIsStarted && !ArkadeProcessingState.PackingIsFinished;
         }
 
-        private IList<String> _systemTypeList  = new List<string>()
-        {
-            "Noark3", "Noark5", "Fagsystem", "Siard"
-        }; 
+        private IList<string> _systemTypeList = Enum.GetNames<ArchiveType>();
 
         public string ArkadeNameAndCurrentVersion { get; } = $"Arkade 5 {ArkadeVersion.Current}";
 

@@ -25,17 +25,19 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_22_ControlCodes test = new A_22_ControlCodes();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinition, "Y"));
-            test.Run(new Field(fieldDefinition, "N"));
-            test.Run(new Field(fieldDefinition, "A"));
-            test.Run(new Field(fieldDefinition, "B"));
+            test.Run(new Field(fieldDefinition, "Y"), 1);
+            test.Run(new Field(fieldDefinition, "N"), 1);
+            test.Run(new Field(fieldDefinition, "A"), 1);
+            test.Run(new Field(fieldDefinition, "B"), 1);
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.TestResults.GetNumberOfResults().Should().Be(1);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
-            testRun.TestResults.TestsResults[0].Message.Should().Be("Ikke i kodelisten: A B");
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 1");
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Ikke i kodelisten: A");
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 1");
+            testRun.TestResults.TestsResults[1].Message.Should().Be("Ikke i kodelisten: B");
         }
     }
 }

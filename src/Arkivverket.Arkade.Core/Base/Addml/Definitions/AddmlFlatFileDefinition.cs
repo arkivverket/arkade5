@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
         public string Name { get; }
-        public string FileName { get; }
+        public AddmlDefinitionFlatFileName FileName { get; }
         public FileInfo FileInfo { get; }
         public Separator RecordSeparator { get; }
         public Separator FieldSeparator { get; }
@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         private readonly FlatFileIndex _index;
 
         public AddmlFlatFileDefinition(string name,
-            string fileName,
+            AddmlDefinitionFlatFileName fileName,
             FileInfo fileInfo,
             string recordSeparator,
             string fieldSeparator,
@@ -59,13 +59,14 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             _index = new FlatFileIndex(name);
         }
 
-        internal AddmlRecordDefinition AddAddmlRecordDefinition(string name, int? recordLength, string recordDefinitionFieldValue, List<AddmlForeignKey> foreignKeys, List<string> processes)
+        internal AddmlRecordDefinition AddAddmlRecordDefinition(string name, int? recordLength, string recordDefinitionFieldValue, List<AddmlForeignKey> foreignKeys, int? headerLevel, List<string> processes)
         {
             AddmlRecordDefinition addmlFieldDefinition = new AddmlRecordDefinition(this,
                 name,
                 recordLength,
                 recordDefinitionFieldValue,
                 foreignKeys,
+                headerLevel,
                 processes);
             AddmlRecordDefinitions.Add(addmlFieldDefinition);
             return addmlFieldDefinition;

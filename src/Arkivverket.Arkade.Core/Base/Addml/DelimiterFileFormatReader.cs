@@ -1,6 +1,6 @@
-﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 
@@ -16,6 +16,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         private readonly int? _recordIdentifierPosition;
 
         public override Record Current => GetCurrentRecord();
+        private string _currentName;
 
         public DelimiterFileFormatReader(FlatFile flatFile) : this(flatFile, GetStream(flatFile))
         {
@@ -31,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                     Resources.AddmlMessages.FieldDelimiterAndQuotingCharCannotHaveSameValue, _quotingChar,
                     _fieldDelimiter));
             _recordIdentifierPosition = flatFile.GetRecordIdentifierPosition();
-            _lines = new DelimiterFileRecordEnumerable(streamReader, recordDelimiter).GetEnumerator();
+            _lines = new DelimiterFileRecordEnumerable(streamReader, recordDelimiter, _quotingChar).GetEnumerator();
         }
 
         private string GetFieldDelimiter(FlatFile flatFile)
@@ -58,7 +59,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             string currentLine = _lines.Current;
 
-            string [] strings = SplitAndTrimCurrentLineToCleanStringValues(currentLine);
+            string [] strings = JoinQuotedValues(Split(currentLine));
 
             string recordIdentifier = null;
             if (_recordIdentifierPosition.HasValue)
@@ -75,7 +76,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 throw new ArkadeAddmlDelimiterException(
                     $"{Resources.AddmlMessages.UnexpectedNumberOfFields}: {strings.Length}/{fieldDefinitions.Count}",
                     recordDefinition.Name,
-                    fielddata);
+                    fielddata,
+                    RecordNumber.ToString());
             }
 
             for (int i = 0; i < strings.Length; i++)
@@ -85,7 +87,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 fields.Add(new Field(fieldDefinition, s));
             }
 
-            return new Record(recordDefinition, fields);
+            if (_currentName != recordDefinition.Name)
+            {
+                _currentName = recordDefinition.Name;
+                RecordNumber = 1;
+            }
+
+            return new Record(recordDefinition, RecordNumber, fields);
         }
 
         public override void Dispose()
@@ -95,7 +103,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         public override bool MoveNext()
         {
-            return _lines.MoveNext();
+            if (!_lines.MoveNext())
+                return false;
+
+            RecordNumber++;
+            return true;
         }
 
         public override void Reset()
@@ -103,52 +115,107 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             _lines.Reset();
         }
 
-        private string[] SplitAndTrimCurrentLineToCleanStringValues(string stringToSplit)
+        private IEnumerable<string> Split(string stringToSplit)
         {
             var strings = new List<string>();
             var buffer = "";
-            var qcIndex = 0;
             var fdIndex = 0;
-            var quotingCharsFoundSincePreviousFieldDelimiter = 0;
 
             foreach (char c in stringToSplit)
             {
                 buffer += c;
 
-                if (c == _fieldDelimiter[fdIndex] && quotingCharsFoundSincePreviousFieldDelimiter != 1)
+                if (c == _fieldDelimiter[fdIndex])
                 {
                     fdIndex++;
-                    if (fdIndex == _fieldDelimiter.Length)
-                    {
-                        strings.Add(quotingCharsFoundSincePreviousFieldDelimiter == 0 || _quotingChar == null
-                            ? buffer[Range.EndAt(Index.FromEnd(_fieldDelimiter.Length))]
-                            : buffer.Substring(_quotingChar.Length, buffer.Length - (_fieldDelimiter.Length + 2*_quotingChar.Length)));
-                        fdIndex = 0;
-                        buffer = "";
-                        quotingCharsFoundSincePreviousFieldDelimiter = 0;
-                    }
+
+                    if (fdIndex != _fieldDelimiter.Length)
+                        continue;
+                    
+                    strings.Add(buffer[..^_fieldDelimiter.Length]);
+                    fdIndex = 0;
+                    buffer = "";
                 }
                 else
                     fdIndex = 0;
-
-                if (_quotingChar != null && c == _quotingChar[qcIndex])
-                {
-                    qcIndex++;
-                    if (qcIndex == _quotingChar.Length)
-                    {
-                        quotingCharsFoundSincePreviousFieldDelimiter++;
-                        qcIndex = 0;
-                    }
-                }
-                else
-                    qcIndex = 0;
             }
 
-            strings.Add(quotingCharsFoundSincePreviousFieldDelimiter == 0 || _quotingChar == null
-                ? buffer
-                : buffer.Substring(_quotingChar.Length, buffer.Length - 2*_quotingChar.Length));
+            strings.Add(buffer);
 
-            return strings.ToArray();
+            return strings;
+        }
+
+        private string[] JoinQuotedValues(IEnumerable<string> splitFieldValues)
+        {
+            if (_quotingChar == null)
+                return splitFieldValues.ToArray();
+
+            var fieldValues = new List<string>();
+            var fieldValue = "";
+            var concatenating = false;
+            foreach (string splitFieldValue in splitFieldValues)
+            {
+                if (concatenating)
+                {
+                    fieldValue += _fieldDelimiter;
+
+                    if (EndsWithOddNumberOfQuotingChars(splitFieldValue))
+                    {
+                        fieldValue += TrimQuotingCharFromEnd(splitFieldValue);
+                        fieldValues.Add(fieldValue);
+                        fieldValue = "";
+                        concatenating = false;
+                    }
+                    else
+                        fieldValue += splitFieldValue;
+                    
+                }
+                else
+                {
+                    if (splitFieldValue.StartsWith(_quotingChar))
+                    {
+                        if (EndsWithOddNumberOfQuotingChars(splitFieldValue))
+                            fieldValues.Add(TrimQuotingChar(splitFieldValue));
+                        else
+                        {
+                            fieldValue = TrimQuotingCharFromStart(splitFieldValue);
+                            concatenating = true;
+                        }
+                    }
+                    else
+                        fieldValues.Add(splitFieldValue);
+                }
+            }
+
+            return fieldValues.ToArray();
+        }
+
+        private string TrimQuotingChar(string valueWithQuotingChar)
+        {
+            return valueWithQuotingChar[_quotingChar.Length..^_quotingChar.Length];
+        }
+
+        private string TrimQuotingCharFromStart(string valueWithQuotingChar)
+        {
+            return valueWithQuotingChar[_quotingChar.Length..];
+        }
+
+        private string TrimQuotingCharFromEnd(string valueWithQuotingChar)
+        {
+            return valueWithQuotingChar[..^_quotingChar.Length];
+        }
+
+        private bool EndsWithOddNumberOfQuotingChars(string value)
+        {
+            var numberOfQuotingChars = 0;
+            string copy = value;
+            while (copy.EndsWith(_quotingChar))
+            {
+                numberOfQuotingChars++;
+                copy = TrimQuotingCharFromEnd(copy);
+            }
+
+            return numberOfQuotingChars % 2 == 1;
         }
     }
 }

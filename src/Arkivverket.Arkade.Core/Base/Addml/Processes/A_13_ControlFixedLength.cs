@@ -59,7 +59,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
             // actual record length is different than specified
             RecordIndex index = record.Definition.GetIndex();
-            _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromRecordIndex(index),
+            _testResults.Add(new TestResult(ResultType.Error,
+                new Location(AddmlLocation.FromRecordIndex(index).ToString(), record.LineNumber),
                 string.Format(Messages.ControlFixedLengthMessage, specifiedLength, actualLength)));
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
@@ -90,7 +91,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             List<string> fileList = new List<string>();
 
             using Stream inStream = File.OpenRead(targetFileName);
-            using TarArchive tarArchive = TarArchive.CreateInputTarArchive(inStream);
+            using TarArchive tarArchive = TarArchive.CreateInputTarArchive(inStream, Encoding.Latin1);
             tarArchive.ProgressMessageEvent += delegate(TarArchive archive1, TarEntry entry, string message)
             {
                 fileList.Add(entry.Name);

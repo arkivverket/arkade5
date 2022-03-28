@@ -4,9 +4,11 @@ using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using CommandLine;
 using Serilog;
 using Serilog.Events;
+using static System.String;
 
 namespace Arkivverket.Arkade.CLI
 {
@@ -29,6 +31,7 @@ namespace Arkivverket.Arkade.CLI
                 .WithParsed<PackOptions>(RunPackOptions)
                 .WithParsed<GenerateOptions>(RunGenerateOptions)
                 .WithParsed<AnalyseOptions>(RunAnalyseOptions)
+                .WithParsed<ValidateOptions>(RunValidateOptions)
                 .WithNotParsed(LogParseErrors);
 
             if (!Console.IsOutputRedirected)
@@ -37,7 +40,7 @@ namespace Arkivverket.Arkade.CLI
 
         public static ParserResult<object> ParseArguments(IEnumerable<string> args)
         {
-            return Parser.Default.ParseArguments<TestOptions, PackOptions, ProcessOptions, GenerateOptions, AnalyseOptions>(args);
+            return Parser.Default.ParseArguments<TestOptions, PackOptions, ProcessOptions, GenerateOptions, AnalyseOptions, ValidateOptions>(args);
         }
 
         private static void RunProcessOptions(ProcessOptions processOptions)
@@ -87,10 +90,21 @@ namespace Arkivverket.Arkade.CLI
             CommandLineRunner.Run(analyseOptions);
         }
 
-        private static bool ReadyToRun(Options options)
+        private static void RunValidateOptions(ValidateOptions validateOptions)
         {
-            return DirectoryArgsExists(options.OutputDirectory) &&
-                SelectedOutputLanguageIsValid(options.OutputLanguage);
+            if (!ReadyToRun(validateOptions, out string failReason))
+            {
+                Log.Error(failReason);
+                return;
+            }
+
+            CommandLineRunner.Run(validateOptions);
+        }
+
+        private static bool ReadyToRun(OutputOptions outputOptions)
+        {
+            return DirectoryArgsExists(outputOptions.OutputDirectory) &&
+                SelectedOutputLanguageIsValid(outputOptions.OutputLanguage);
         }
 
         private static bool ReadyToRun(AnalyseOptions analyseOptions)
@@ -98,6 +112,17 @@ namespace Arkivverket.Arkade.CLI
             return DirectoryArgsExists(analyseOptions.OutputDirectory,
                 documentFileDirectoryPath: analyseOptions.FormatCheckTarget) &&
                 SelectedOutputLanguageIsValid(analyseOptions.OutputLanguage);
+        }
+
+        private static bool ReadyToRun(ValidateOptions validateOptions, out string failReason)
+        {
+            bool itemExists = File.Exists(validateOptions.Item) || Directory.Exists(validateOptions.Item);
+            bool archiveFormatIsSupported = validateOptions.Format.ToUpper().HasValueForDescription<ArchiveFormat>();
+
+            failReason = !itemExists ? $@"Item [{validateOptions.Item}] was not found" :
+                !archiveFormatIsSupported ? $@"Format [{validateOptions.Format}] was not recognized" : Empty;
+
+            return itemExists && archiveFormatIsSupported;
         }
 
         private static bool ReadyToRun(string outputDirectoryPath, string processingAreaPath = null,

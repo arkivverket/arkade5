@@ -79,6 +79,16 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} is not valid for SIARD version {1}:
+        ///{2}.
+        /// </summary>
+        public static string DeserializationUnsuccessfulMessage {
+            get {
+                return ResourceManager.GetString("DeserializationUnsuccessfulMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ERROR.
         /// </summary>
         public static string ErrorMessage {

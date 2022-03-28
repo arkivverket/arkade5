@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
@@ -50,13 +51,19 @@ namespace Arkivverket.Arkade.Core.Base.Siard
                         Log.Error(message);
                     }
 
-                    for (var i = 0; i < lobXmlElements.Count(); i++)
+                    var indexCounter = 0;
+                    var formatAnalysedLobTasks = new List<Task<IFileFormatInfo>>();
+                    foreach (XElement element in lobXmlElements)
                     {
-                        if (int.TryParse(lobXmlElementsRowIndexElements[i].Value, out int rowIndex))
+                        if (int.TryParse(lobXmlElementsRowIndexElements[indexCounter].Value, out int rowIndex))
                             siardLobReference.RowIndex = rowIndex;
 
-                        formatAnalysedLobs.Add(GetFormatAnalysedLob(lobXmlElements[i], siardFileName, siardLobReference));
+                        formatAnalysedLobTasks.Add(GetFormatAnalysedLobAsync(element, siardFileName, new SiardLobReference(siardLobReference)));
+                        indexCounter++;
                     }
+
+                    IFileFormatInfo[] fileFormatInfos = Task.WhenAll(formatAnalysedLobTasks).Result;
+                    formatAnalysedLobs.AddRange(fileFormatInfos);
 
                     if (formatAnalysedLobs.Any(f => f == null))
                     {
@@ -96,21 +103,21 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             return Path.Combine(archiveFolderPath, schemaFolderName, tableFolderAndFileName, tableFolderAndFileName + ".xml");
         }
 
-        private IFileFormatInfo GetFormatAnalysedLob(XElement lobXmlElement, string siardFileName, SiardLobReference siardLobReference)
+        private async Task<IFileFormatInfo> GetFormatAnalysedLobAsync(XElement lobXmlElement, string siardFileName, SiardLobReference siardLobReference)
         {
             siardLobReference.FilePathInTableXml = lobXmlElement.Attributes().FirstOrDefault(a => a.Name.LocalName.Equals("file"))?.Value;
 
             if (LobIsInlinedInXmlTable(siardLobReference.FilePathInTableXml))
             {
-                return RunFormatAnalysisOnInlinedLob(lobXmlElement, siardLobReference);
+                return await Task.Run(() => RunFormatAnalysisOnInlinedLob(lobXmlElement, siardLobReference));
             }
 
             if (SiardLobIsExternal(siardLobReference))
             {
-                return RunFormatAnalysisOnExternalLobFile(siardFileName, siardLobReference);
+                return await Task.Run(() => RunFormatAnalysisOnExternalLobFile(siardFileName, siardLobReference));
             }
 
-            return RunFormatAnalysisOnInternalLobFile(siardFileName, siardLobReference);
+            return await Task.Run(() => RunFormatAnalysisOnInternalLobFile(siardFileName, siardLobReference));
         }
 
         private static bool LobIsInlinedInXmlTable(string siardLobFileReferenceFromTableXml)

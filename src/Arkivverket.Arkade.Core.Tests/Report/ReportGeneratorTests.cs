@@ -9,6 +9,7 @@ using Arkivverket.Arkade.Core.Tests.Base;
 using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;
+using Location = Arkivverket.Arkade.Core.Testing.Location;
 
 namespace Arkivverket.Arkade.Core.Tests.Report
 {
@@ -125,7 +126,8 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             xml.Contains("<Results>").Should().BeTrue();
             xml.Contains("<Result>").Should().BeTrue();
             xml.Contains("<ResultType>Error").Should().BeTrue();
-            xml.Contains("<Location>location").Should().BeTrue();
+            xml.Contains("<Location>").Should().BeTrue();
+            xml.Contains("<String>location").Should().BeTrue();
             xml.Contains("<Message>Test result 1").Should().BeTrue();
         }
 

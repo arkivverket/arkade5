@@ -13,8 +13,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         public const string Name = "Control_Date_Value";
 
-        private readonly Dictionary<FieldIndex, HashSet<string>> _nonDateValues
-            = new Dictionary<FieldIndex, HashSet<string>>();
+        private readonly Dictionary<FieldIndex, Dictionary<string, HashSet<long>>> _nonDateValues = new ();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
@@ -53,13 +52,14 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         protected override void DoEndOfFile()
         {
-            foreach (KeyValuePair<FieldIndex, HashSet<string>> entry in _nonDateValues)
+            foreach ((FieldIndex fieldIndex, Dictionary<string, HashSet<long>> recordNumbersPerNonDateValue) in _nonDateValues)
             {
-                FieldIndex fieldIndex = entry.Key;
-                HashSet<string> nonDateValues = entry.Value;
-
-                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(fieldIndex),
-                    string.Format(Messages.ControlDateValueMessage, string.Join(" ", nonDateValues))));
+                foreach ((string nonDateValue, HashSet<long> recordNumbers) in recordNumbersPerNonDateValue)
+                {
+                    _testResults.Add(new TestResult(ResultType.Error,
+                        new Location(AddmlLocation.FromFieldIndex(fieldIndex).ToString(), recordNumbers),
+                        string.Format(Messages.ControlDateValueMessage, nonDateValue)));
+                }
             }
 
             _nonDateValues.Clear();
@@ -82,13 +82,21 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
             }
 
             // value is illegal date value
-            FieldIndex fieldIndeks = field.Definition.GetIndex();
-            if (!_nonDateValues.ContainsKey(fieldIndeks))
+            FieldIndex fieldIndex = field.Definition.GetIndex();
+            if (_nonDateValues.ContainsKey(fieldIndex))
             {
-                _nonDateValues.Add(fieldIndeks, new HashSet<string>());
+                if (_nonDateValues[fieldIndex].ContainsKey(value))
+                    _nonDateValues[fieldIndex][value].Add(CurrentRecordNumber);
+                else
+                    _nonDateValues[fieldIndex].Add(value, new HashSet<long>{CurrentRecordNumber});
             }
-
-            _nonDateValues[fieldIndeks].Add(value);
+            else
+            {
+                _nonDateValues.Add(fieldIndex, new Dictionary<string, HashSet<long>>
+                {
+                    {value, new HashSet<long>{CurrentRecordNumber}}
+                });
+            }
         }
     }
 }

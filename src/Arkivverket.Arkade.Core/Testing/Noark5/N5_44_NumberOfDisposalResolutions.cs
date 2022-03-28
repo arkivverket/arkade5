@@ -16,6 +16,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             new();
         private ArchivePart _currentArchivePart = new();
         private readonly bool _documentationStatesDisposalResolutions;
+        private readonly List<long> _disposalResolutionLocations = new();
+        private int _totalNumberOfDisposalResolutions;
 
         public N5_44_NumberOfDisposalResolutions(Archive testArchive)
         {
@@ -36,15 +38,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             bool multipleArchiveParts = _disposalResolutionsPerElementPerArchivePart.Count > 1;
 
-            int totalNumberOfDisposalResolutions =
-                _disposalResolutionsPerElementPerArchivePart.Sum(a => a.Value.Sum(d => d.Value));
-
             var testResultSet = new TestResultSet
             {
                 TestsResults = new List<TestResult>
                 {
                     new(ResultType.Success, new Location(string.Empty), string.Format(
-                        Noark5Messages.TotalResultNumber, totalNumberOfDisposalResolutions))
+                        Noark5Messages.TotalResultNumber, _totalNumberOfDisposalResolutions))
                 }
             };
 
@@ -76,15 +75,15 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             switch (_documentationStatesDisposalResolutions)
             {
                 // Error message if documentation states instances of disposal resolutions but none are found:
-                case true when totalNumberOfDisposalResolutions == 0:
+                case true when _totalNumberOfDisposalResolutions == 0:
                     testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
                         new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
                         Noark5Messages.NumberOfDisposalResolutionsMessage_DocTrueActualFalse));
                     break;
                 // Error message if documentation states no instances of disposal resolutions but some are found:
-                case false when totalNumberOfDisposalResolutions > 0:
+                case false when _totalNumberOfDisposalResolutions > 0:
                     testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
-                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName, _disposalResolutionLocations),
                         Noark5Messages.NumberOfDisposalResolutionsMessage_DocFalseActualTrue));
                     break;
             }
@@ -112,6 +111,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                             {parentElementName, 1}
                         }
                     );
+
+                _disposalResolutionLocations.Add(eventArgs.LineNumber);
+                _totalNumberOfDisposalResolutions++;
             }
         }
 

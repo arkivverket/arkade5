@@ -10,8 +10,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 25);
 
-        private readonly List<N5_25_ArchivePart> _archiveParts = new();
-        private N5_25_ArchivePart _currentArchivePart = new();
+        private readonly Dictionary<ArchivePart, Dictionary<string, DocumentStatus>> _documentStatusesPerArchivePart =
+            new();
+        private ArchivePart _currentArchivePart = new();
 
         public override TestId GetId()
         {
@@ -25,22 +26,26 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override TestResultSet GetTestResults()
         {
-            bool multipleArchiveParts = _archiveParts.Count > 1;
+            bool multipleArchiveParts = _documentStatusesPerArchivePart.Count > 1;
 
             var testResultSet = new TestResultSet();
 
-            foreach (N5_25_ArchivePart archivePart in _archiveParts)
+            foreach ((ArchivePart archivePart, Dictionary<string, DocumentStatus> documentStatuses) in _documentStatusesPerArchivePart)
             {
                 var testResults = new List<TestResult>();
 
-                foreach ((string status, int count) in archivePart.DocumentDescriptions)
+                foreach ((string status, DocumentStatus documentStatus) in documentStatuses)
                 {
                     ResultType resultType = status.Equals("Dokumentet er ferdigstilt")
                         ? ResultType.Success
                         : ResultType.Error;
 
-                    testResults.Add(new TestResult(resultType, new Location(string.Empty),
-                        string.Format(Noark5Messages.NumberOfEachDocumentStatusMessage, status, count)));
+                    Location testResultLocation = resultType == ResultType.Success
+                        ? new Location(string.Empty)
+                        : new Location(ArkadeConstants.ArkivuttrekkXmlFileName, documentStatus.Locations);
+
+                    testResults.Add(new TestResult(resultType, testResultLocation,
+                        string.Format(Noark5Messages.NumberOfEachDocumentStatusMessage, status, documentStatus.Count)));
                 }
 
                 if (multipleArchiveParts)
@@ -74,12 +79,26 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (eventArgs.Path.Matches("dokumentstatus", "dokumentbeskrivelse"))
             {
-                string status = eventArgs.Value;
+                string documentStatus = eventArgs.Value;
+                long xmlLineNumber = eventArgs.LineNumber;
 
-                if (_currentArchivePart.DocumentDescriptions.ContainsKey(status))
-                    _currentArchivePart.DocumentDescriptions[status]++;
+                if (_documentStatusesPerArchivePart.ContainsKey(_currentArchivePart))
+                {
+                    if (_documentStatusesPerArchivePart[_currentArchivePart].ContainsKey(documentStatus))
+                    {
+                        _documentStatusesPerArchivePart[_currentArchivePart][documentStatus].Count++;
+                        _documentStatusesPerArchivePart[_currentArchivePart][documentStatus].Locations.Add(xmlLineNumber);
+                    }
+                    else
+                        _documentStatusesPerArchivePart[_currentArchivePart].Add(documentStatus, new DocumentStatus(xmlLineNumber));
+                }
                 else
-                    _currentArchivePart.DocumentDescriptions.Add(status, 1);
+                {
+                    _documentStatusesPerArchivePart.Add(_currentArchivePart, new Dictionary<string, DocumentStatus>
+                    {
+                        {documentStatus, new DocumentStatus(xmlLineNumber)}
+                    });
+                }
             }
         }
 
@@ -87,14 +106,20 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             if(eventArgs.NameEquals("arkivdel"))
             {
-                _archiveParts.Add(_currentArchivePart);
-                _currentArchivePart = new N5_25_ArchivePart();
+                _currentArchivePart = new ArchivePart();
             }
         }
 
-        private class N5_25_ArchivePart : ArchivePart
+        private class DocumentStatus
         {
-            public readonly Dictionary<string, int> DocumentDescriptions = new();
+            public int Count { get; set; }
+            public List<long> Locations { get; }
+
+            public DocumentStatus(long xmlLineNumber)
+            {
+                Count = 1;
+                Locations = new List<long> { xmlLineNumber };
+            }
         }
     }
 }

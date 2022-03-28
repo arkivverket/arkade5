@@ -3,8 +3,9 @@ using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
-using Arkivverket.Arkade.Core.ExternalModels.Mets;
+using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 using Arkivverket.Arkade.Core.Util;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Identify
 {
@@ -28,17 +29,23 @@ namespace Arkivverket.Arkade.Core.Identify
             if (!File.Exists(addmlFile?.FullName))
                 return null;
 
-            var addml = SerializeUtil.DeserializeFromFile<addml>(addmlFile.FullName);
+            try
+            {
+                var addml = SerializeUtil.DeserializeFromFile<addml>(addmlFile.FullName);
+                if (TypeOfChosenArchiveDirectoryIsNoark3(addml))
+                    return ArchiveType.Noark3;
 
-            if (TypeOfChosenArchiveDirectoryIsNoark3(addml))
-                return ArchiveType.Noark3;
+                if (TypeOfChosenArchiveDirectoryIsFagsystem(addml))
+                    return ArchiveType.Fagsystem;
 
-            if (TypeOfChosenArchiveDirectoryIsFagsystem(addml))
-                return ArchiveType.Fagsystem;
-
-            if (TypeOfChosenArchiveDirectoryIsNoark5(addml))
-                return ArchiveType.Noark5;
-
+                if (TypeOfChosenArchiveDirectoryIsNoark5(addml))
+                    return ArchiveType.Noark5;
+            }
+            catch(ArkadeException arkadeException)
+            {
+                Log.Error("Arkade could not automatically identify the type of the chosen archive:\n" + arkadeException.Message);
+            }
+            
             return null;
         }
 

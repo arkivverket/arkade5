@@ -19,10 +19,10 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_21_ControlUniqueness test = new A_21_ControlUniqueness();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinition, "A"));
-            test.Run(new Field(fieldDefinition, "B"));
-            test.Run(new Field(fieldDefinition, "C"));
-            test.Run(new Field(fieldDefinition, "D"));
+            test.Run(new Field(fieldDefinition, "A"), 1);
+            test.Run(new Field(fieldDefinition, "B"), 1);
+            test.Run(new Field(fieldDefinition, "C"), 1);
+            test.Run(new Field(fieldDefinition, "D"), 1);
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
@@ -41,17 +41,17 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_21_ControlUniqueness test = new A_21_ControlUniqueness();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinition, "A"));
-            test.Run(new Field(fieldDefinition, "B"));
-            test.Run(new Field(fieldDefinition, "C"));
-            test.Run(new Field(fieldDefinition, "A"));
+            test.Run(new Field(fieldDefinition, "A"), 1);
+            test.Run(new Field(fieldDefinition, "B"), 1);
+            test.Run(new Field(fieldDefinition, "C"), 1);
+            test.Run(new Field(fieldDefinition, "A"), 2);
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(1);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
-            testRun.TestResults.TestsResults[0].Message.Should().Be("Verdiene er ikke unike");
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 1, 2");
+            testRun.TestResults.TestsResults[0].Message.Should().Be("A er ikke en unik verdi");
         }
 
     }

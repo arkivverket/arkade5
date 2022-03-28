@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<LogCreator>().AsSelf();
             builder.RegisterType<EadCreator>().AsSelf();
             builder.RegisterType<EacCpfCreator>().AsSelf();
-            builder.RegisterType<InfoXmlCreator>().AsSelf();
+            builder.RegisterType<SubmissionDescriptionCreator>().AsSelf();
             builder.RegisterType<InformationPackageCreator>().AsSelf();
             builder.RegisterType<ArkadeApi>().AsSelf();
             builder.RegisterType<TestSessionXmlGenerator>().AsSelf();

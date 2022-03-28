@@ -21,19 +21,19 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_18_ControlMaxLength test = new A_18_ControlMaxLength();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinition, ""));
-            test.Run(new Field(fieldDefinition, "1"));
-            test.Run(new Field(fieldDefinition, "12"));
-            test.Run(new Field(fieldDefinition, "123"));
-            test.Run(new Field(fieldDefinition, "1234"));
-            test.Run(new Field(fieldDefinition, "1234"));
-            test.Run(new Field(fieldDefinition, "12345"));
+            test.Run(new Field(fieldDefinition, ""), 1);
+            test.Run(new Field(fieldDefinition, "1"), 1);
+            test.Run(new Field(fieldDefinition, "12"), 1);
+            test.Run(new Field(fieldDefinition, "123"), 1);
+            test.Run(new Field(fieldDefinition, "1234"), 1);
+            test.Run(new Field(fieldDefinition, "1234"), 1);
+            test.Run(new Field(fieldDefinition, "12345"), 1);
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(1);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition.GetIndex()} - linje(r): 1");
             testRun.TestResults.TestsResults[0].Message.Should().Be("Verdier lengre enn maksimumlengde: 1234 12345");
         }
     }

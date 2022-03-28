@@ -18,6 +18,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
         protected abstract void DoEndOfFile();
         private readonly Stopwatch _stopwatch = new Stopwatch();
 
+        protected long CurrentRecordNumber;
+
         public TestRun GetTestRun()
         {
             _stopwatch.Start();
@@ -43,12 +45,14 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
         public void Run(Record record)
         {
             _stopwatch.Start();
+            CurrentRecordNumber = record?.LineNumber ?? CurrentRecordNumber++;
             DoRun(record);
             _stopwatch.Stop();
         }
 
-        public void Run(Field field)
+        public void Run(Field field, long recordNumber)
         {
+            CurrentRecordNumber = recordNumber;
             _stopwatch.Start();
             DoRun(field);
             _stopwatch.Stop();

@@ -311,7 +311,7 @@ Actual checksum: {1}</value>
     <value>All values are unique</value>
   </data>
   <data name="ControlUniquenessMessage2" xml:space="preserve">
-    <value>Not all values are unique</value>
+    <value>{0} is not a unique value</value>
   </data>
   <data name="ExceptionFixedLengthSumIsNotCorrect" xml:space="preserve">
     <value>{0}: The number of characters in the FixedLength field [{1}] does not match the number of characters summed for the record definition [{2}].</value>
@@ -351,5 +351,9 @@ Actual checksum: {1}</value>
   </data>
   <data name="ValidatingExtractMessage" xml:space="preserve">
     <value>Validating extract</value>
+  </data>
+  <data name="LineTraceMessage" xml:space="preserve">
+    <value>{0} - line(s): {1}</value>
+    <comment>{0} filnavn, {1} linjenr med feil</comment>
   </data>
 </root>

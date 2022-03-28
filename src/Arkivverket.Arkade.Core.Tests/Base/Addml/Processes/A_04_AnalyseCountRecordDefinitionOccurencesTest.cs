@@ -30,9 +30,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
                 .WithName("recordDef2")
                 .Build();
 
-            Record record1 = new Record(addmlRecordDefinition1, new List<Field>());
-            Record record2 = new Record(addmlRecordDefinition1, new List<Field>());
-            Record record3 = new Record(addmlRecordDefinition2, new List<Field>());
+            Record record1 = new Record(addmlRecordDefinition1, 1, new List<Field>());
+            Record record2 = new Record(addmlRecordDefinition1, 2, new List<Field>());
+            Record record3 = new Record(addmlRecordDefinition2, 3, new List<Field>());
 
             process.Run(flatFile);
             process.Run(record1);

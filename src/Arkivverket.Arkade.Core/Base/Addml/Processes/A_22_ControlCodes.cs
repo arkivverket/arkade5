@@ -12,8 +12,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         public const string Name = "Control_Codes";
 
-        private readonly Dictionary<FieldIndex, HashSet<string>> _valuesNotInCodeList
-            = new Dictionary<FieldIndex, HashSet<string>>();
+        private readonly Dictionary<FieldIndex, Dictionary<string, HashSet<long>>> _valuesNotInCodeList = new();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
@@ -52,13 +51,14 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         protected override void DoEndOfFile()
         {
-            foreach (KeyValuePair<FieldIndex, HashSet<string>> entry in _valuesNotInCodeList)
+            foreach ((FieldIndex fieldIndex, Dictionary<string, HashSet<long>> recordNumbersPerValueNotInCodeList)in _valuesNotInCodeList)
             {
-                FieldIndex fieldIndex = entry.Key;
-                HashSet<string> valuesNotInCodeList = entry.Value;
-
-                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(fieldIndex),
-                    string.Format(Messages.ControlCodesMessage, string.Join(" ", valuesNotInCodeList))));
+                foreach ((string valueNotInCodeList, HashSet<long> recordNumbers) in recordNumbersPerValueNotInCodeList)
+                {
+                    _testResults.Add(new TestResult(ResultType.Error,
+                        new Location(AddmlLocation.FromFieldIndex(fieldIndex).ToString(), recordNumbers),
+                        string.Format(Messages.ControlCodesMessage, valueNotInCodeList)));
+                }
             }
 
             _valuesNotInCodeList.Clear();
@@ -84,12 +84,20 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
             // value is not in code list
             FieldIndex fieldIndeks = field.Definition.GetIndex();
-            if (!_valuesNotInCodeList.ContainsKey(fieldIndeks))
+            if (_valuesNotInCodeList.ContainsKey(fieldIndeks))
             {
-                _valuesNotInCodeList.Add(fieldIndeks, new HashSet<string>());
+                if (_valuesNotInCodeList[fieldIndeks].ContainsKey(value))
+                    _valuesNotInCodeList[fieldIndeks][value].Add(CurrentRecordNumber);
+                else
+                    _valuesNotInCodeList[fieldIndeks].Add(value, new HashSet<long>{CurrentRecordNumber});
             }
-
-            _valuesNotInCodeList[fieldIndeks].Add(value);
+            else
+            {
+                _valuesNotInCodeList.Add(fieldIndeks, new Dictionary<string, HashSet<long>>
+                {
+                    {value, new HashSet<long>{CurrentRecordNumber}}
+                });
+            }
         }
     }
 }

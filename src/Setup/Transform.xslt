@@ -23,8 +23,8 @@
 -->
 
   <!-- Fix path issues -->
-  <xsl:template match="wix:File[contains(@Source, '\net5.0-windows')]">
-    <xsl:variable name="fileName" select="substring-after(@*[name()='Source'],'\net5.0-windows\')" />
+  <xsl:template match="wix:File[contains(@Source, '\net6.0-windows')]">
+    <xsl:variable name="fileName" select="substring-after(@*[name()='Source'],'\net6.0-windows\')" />
     <xsl:copy>
       <xsl:attribute name="Source">$(var.Arkivverket.Arkade.GUI.TargetDir)<xsl:value-of select="$fileName"/></xsl:attribute>
       <xsl:apply-templates select="@*[name()!='Source'] | node()" />
@@ -32,7 +32,7 @@
   </xsl:template>
   
   <xsl:template match="wix:File[contains(@Source, 'Arkade.GUI.exe') and not(contains(@Source, '.config'))]">
-    <xsl:variable name="fileName" select="substring-after(@*[name()='Source'],'\net5.0-windows\')" />
+    <xsl:variable name="fileName" select="substring-after(@*[name()='Source'],'\net6.0-windows\')" />
     <xsl:copy>
       <xsl:attribute name="Source">$(var.Arkivverket.Arkade.GUI.TargetDir)<xsl:value-of select="$fileName"/></xsl:attribute>
       <xsl:attribute name="Id">ApplicationExe</xsl:attribute>

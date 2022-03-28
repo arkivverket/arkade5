@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing;
@@ -13,11 +14,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         public const string Name = "Control_Key";
 
-        private readonly Dictionary<RecordIndex, HashSet<PrimaryKeyValue>> _primaryKeyValuesPerRecord
-            = new Dictionary<RecordIndex, HashSet<PrimaryKeyValue>>();
+        private readonly Dictionary<RecordIndex, Dictionary<PrimaryKeyValue, HashSet<long>>> _primaryKeyValuesPerRecord = new();
 
-        private readonly Dictionary<RecordIndex, HashSet<PrimaryKeyValue>> _nonUniqueprimaryKeyValuesPerRecord
-            = new Dictionary<RecordIndex, HashSet<PrimaryKeyValue>>();
+        private readonly Dictionary<RecordIndex, Dictionary<PrimaryKeyValue, HashSet<long>>> _nonUniquePrimaryKeyValuesPerRecord = new();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
@@ -65,44 +64,50 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
             RecordIndex recordIndex = record.Definition.GetIndex();
             if (!_primaryKeyValuesPerRecord.ContainsKey(recordIndex))
             {
-                _primaryKeyValuesPerRecord.Add(recordIndex, new HashSet<PrimaryKeyValue>());
+                _primaryKeyValuesPerRecord.Add(recordIndex, new Dictionary<PrimaryKeyValue, HashSet<long>>());
             }
-            HashSet<PrimaryKeyValue> allPrimaryKeyValuesForRecord = _primaryKeyValuesPerRecord[recordIndex];
 
-            // If null, this primary key value is already handled
-            if (allPrimaryKeyValuesForRecord == null)
-            {
-                return;
-            }
+            var allPrimaryKeyValuesForRecord = _primaryKeyValuesPerRecord[recordIndex];
+
 
             // If list of primary key values already contains the value, it is not unique
-            if (allPrimaryKeyValuesForRecord.Contains(primaryKeyValueForCurrentRecord))
+            if (allPrimaryKeyValuesForRecord.ContainsKey(primaryKeyValueForCurrentRecord))
             {
-                if (!_nonUniqueprimaryKeyValuesPerRecord.ContainsKey(recordIndex))
+                if (_nonUniquePrimaryKeyValuesPerRecord.ContainsKey(recordIndex))
                 {
-                    _nonUniqueprimaryKeyValuesPerRecord.Add(recordIndex, new HashSet<PrimaryKeyValue>());
+                    if (_nonUniquePrimaryKeyValuesPerRecord[recordIndex].ContainsKey(primaryKeyValueForCurrentRecord))
+                        _nonUniquePrimaryKeyValuesPerRecord[recordIndex][primaryKeyValueForCurrentRecord].Add(record.LineNumber);
+                    else
+                        _nonUniquePrimaryKeyValuesPerRecord[recordIndex].Add(primaryKeyValueForCurrentRecord, 
+                            new HashSet<long>(allPrimaryKeyValuesForRecord[primaryKeyValueForCurrentRecord]) {record.LineNumber});
                 }
-                _nonUniqueprimaryKeyValuesPerRecord[recordIndex].Add(primaryKeyValueForCurrentRecord);
-
-                _primaryKeyValuesPerRecord[recordIndex].Remove(primaryKeyValueForCurrentRecord);
+                else
+                {
+                    _nonUniquePrimaryKeyValuesPerRecord.Add(recordIndex, new Dictionary<PrimaryKeyValue, HashSet<long>>
+                    {
+                        {primaryKeyValueForCurrentRecord, new HashSet<long>(allPrimaryKeyValuesForRecord[primaryKeyValueForCurrentRecord]){record.LineNumber}}
+                    });
+                }
             }
             else
             {
-                allPrimaryKeyValuesForRecord.Add(primaryKeyValueForCurrentRecord);
+                allPrimaryKeyValuesForRecord.Add(primaryKeyValueForCurrentRecord, new HashSet<long>{record.LineNumber});
             }
 
         }
 
         protected override void DoEndOfFile()
         {
-            foreach (KeyValuePair<RecordIndex, HashSet<PrimaryKeyValue>> entry in _nonUniqueprimaryKeyValuesPerRecord)
+            foreach ((RecordIndex recordIndex, Dictionary<PrimaryKeyValue, HashSet<long>> primaryKeyValues) in _nonUniquePrimaryKeyValuesPerRecord)
             {
-                string text = string.Join(" ", entry.Value);
-                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromRecordIndex(entry.Key),
+                string text = string.Join(" ", primaryKeyValues.Keys);
+                IEnumerable<long> recordNumbers = primaryKeyValues.SelectMany(p => p.Value).ToImmutableSortedSet();
+                _testResults.Add(new TestResult(ResultType.Error, 
+                    new Location(AddmlLocation.FromRecordIndex(recordIndex).ToString(), recordNumbers),
                     string.Format(Messages.ControlKeyMessage, text)));
             }
 
-            _nonUniqueprimaryKeyValuesPerRecord.Clear();
+            _nonUniquePrimaryKeyValuesPerRecord.Clear();
             _primaryKeyValuesPerRecord.Clear();
         }
 

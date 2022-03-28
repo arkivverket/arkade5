@@ -8,6 +8,7 @@ using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.ExternalModels.Metadata;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util;
 using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
@@ -46,8 +47,12 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (!AddmlXmlUnit.File.Exists)
                 return;
-            
-            AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName);
+
+            using Stream xmlSchemaStream = AddmlXmlUnit.HasNoDefinedSchema()
+                ? ResourceUtil.GetResourceAsStream(AddmlXsdResource)
+                : AddmlXmlUnit.Schema.AsStream();
+
+            AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, xmlSchemaStream);
 
             Details = new ArchiveDetails(AddmlInfo.Addml);
 
@@ -68,12 +73,11 @@ namespace Arkivverket.Arkade.Core.Base
             if (!siardArchiveFile.Exists)
                 throw new ArkadeException(string.Format(ExceptionMessages.FileNotFound, siardArchiveFile.FullName));
 
-            object siardArchive = new SiardArchiveReader().DeserializeMetadataXmlFromArchiveFile(siardArchiveFile.FullName);
-
-            if (siardArchive is siardArchive siard2Archive)
+            if (new SiardArchiveReader().TryDeserializeToSiard2_1(siardArchiveFile.FullName, out siardArchive siard2Archive, out string errorMessage))
                 return new SiardArchiveDetails(siard2Archive);
 
-            return null;
+            throw new SiardArchiveReaderException(string.Format(SiardMessages.DeserializationUnsuccessfulMessage,
+                SiardMetadataXmlFileName, "2.1", errorMessage));
         }
 
         public DirectoryInfo GetTestReportDirectory()
@@ -87,7 +91,7 @@ namespace Arkivverket.Arkade.Core.Base
             return Uuid + ".tar";
         }
 
-        public string GetInfoXmlFileName()
+        public string GetSubmissionDescriptionFileName()
         {
             return Uuid + ".xml";
         }

@@ -22,16 +22,18 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_35_ControlDateValue test = new A_35_ControlDateValue();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinition1, "18.11.2016T08:43:00+01:00"));
-            test.Run(new Field(fieldDefinition1, "notadate1"));
-            test.Run(new Field(fieldDefinition1, "notadate2"));
+            test.Run(new Field(fieldDefinition1, "18.11.2016T08:43:00+01:00"), 1);
+            test.Run(new Field(fieldDefinition1, "notadate1"), 2);
+            test.Run(new Field(fieldDefinition1, "notadate2"), 3);
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
-            testRun.TestResults.GetNumberOfResults().Should().Be(1);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
-            testRun.TestResults.TestsResults[0].Message.Should().Be("Verdier som ikke er dato: notadate1 notadate2");
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 2");
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Verdier som ikke er dato: notadate1");
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 3");
+            testRun.TestResults.TestsResults[1].Message.Should().Be("Verdier som ikke er dato: notadate2");
         }
     }
 }

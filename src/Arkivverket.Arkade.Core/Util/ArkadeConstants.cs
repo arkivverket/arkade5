@@ -32,10 +32,12 @@ namespace Arkivverket.Arkade.Core.Util
         public const string SiardMetadataXsdFileName = "metadata.xsd";
 
         public const string AddmlXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.addml.xsd";
+        public const string Addml82XsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.addml82.xsd";
         public const string ArkivstrukturXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.arkivstruktur.xsd";
         public const string MetadatakatalogXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.metadatakatalog.xsd";
         public const string DiasPremisXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.DIAS_PREMIS.xsd";
-        public const string DiasMetsXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.mets.xsd";
+        public const string DiasMetsXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.DIAS_METS.xsd";
+        public const string SubmissionDescriptionXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.submissionDescription.xsd";
         public const string ChangeLogXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.endringslogg.xsd";
         public const string PublicJournalXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.offentligJournal.xsd";
         public const string RunningJournalXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.loependeJournal.xsd";
@@ -47,7 +49,8 @@ namespace Arkivverket.Arkade.Core.Util
         public static readonly string[] SupportedNoark5Versions =
             { "3.1", "4.0", "5.0"};
 
-        public const string BuiltInAddmlSchemaVersion = "8.2";
+        public const string BuiltInAddmlSchemaVersion = "8.3";
+        public const string DefaultAddmlVersion = "83";
 
         public const string DirectoryNameArkadeProcessingAreaRoot = "arkade-tmp";
         public const string DirectoryNameArkadeProcessingAreaWork = "work";

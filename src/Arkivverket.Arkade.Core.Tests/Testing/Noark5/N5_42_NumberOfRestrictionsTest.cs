@@ -186,7 +186,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testResults.Should().Contain(r =>
                 r.IsError() && r.Message.Equals(
                     "Det er angitt at uttrekket ikke skal inneholde skjerminger, men skjerminger ble funnet") &&
-                r.Location.ToString().Equals("arkivuttrekk.xml"));
+                r.Location.ToString().Equals("arkivuttrekk.xml - linje(r): 0"));
 
             testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }

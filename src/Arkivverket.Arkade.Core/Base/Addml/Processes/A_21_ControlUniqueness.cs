@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing;
@@ -12,8 +13,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         public const string Name = "Control_Uniqueness";
 
-        private readonly Dictionary<FieldIndex, HashSet<string>> _valuesPerField
-            = new Dictionary<FieldIndex, HashSet<string>>();
+        private readonly Dictionary<FieldIndex, Dictionary<string, HashSet<long>>> _valuesPerField = new();
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
@@ -52,15 +52,20 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         protected override void DoEndOfFile()
         {
-            foreach (KeyValuePair<FieldIndex, HashSet<string>> entry in _valuesPerField)
+            foreach ((FieldIndex fieldIndex, Dictionary<string, HashSet<long>> recordNumbersPerFieldValue) in _valuesPerField)
             {
-                FieldIndex fieldIndex = entry.Key;
-                HashSet<string> fieldValues = entry.Value;
-
-                if (fieldValues != null)
+                if (recordNumbersPerFieldValue.Values.All(v => v.Count == 1))
                 {
                     _testResults.Add(new TestResult(ResultType.Success, AddmlLocation.FromFieldIndex(fieldIndex),
-                    string.Format(Messages.ControlUniquenessMessage1)));
+                        string.Format(Messages.ControlUniquenessMessage1)));
+                    continue;
+                }
+
+                foreach ((string fieldValue, HashSet<long> recordNumber) in recordNumbersPerFieldValue.Where(v => v.Value.Count > 1))
+                {
+                    _testResults.Add(new TestResult(ResultType.Error,
+                        new Location(AddmlLocation.FromFieldIndex(fieldIndex).ToString(), recordNumber),
+                        string.Format(Messages.ControlUniquenessMessage2, fieldValue)));
                 }
             }
 
@@ -72,31 +77,19 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
             string value = field.Value;
 
             FieldIndex fieldIndex = field.Definition.GetIndex();
-            if (!_valuesPerField.ContainsKey(fieldIndex))
+            if (_valuesPerField.ContainsKey(fieldIndex))
             {
-                _valuesPerField.Add(fieldIndex, new HashSet<string>());
-            }
-
-            HashSet<string> fieldValues = _valuesPerField[fieldIndex];
-
-            // If null, the testresult for this value has already been created
-            if (fieldValues == null)
-            {
-                return;
-            }
-
-            // If field already contains the value, it is not unique
-            if (fieldValues.Contains(value))
-            {
-                _testResults.Add(new TestResult(ResultType.Error, AddmlLocation.FromFieldIndex(fieldIndex),
-                    string.Format(Messages.ControlUniquenessMessage2)));
-
-                // Set to null so we do not collect more values for this field
-                _valuesPerField[fieldIndex] = null;
+                if (_valuesPerField[fieldIndex].ContainsKey(value))
+                    _valuesPerField[fieldIndex][value].Add(CurrentRecordNumber);
+                else
+                    _valuesPerField[fieldIndex].Add(value, new HashSet<long> { CurrentRecordNumber });
             }
             else
             {
-                fieldValues.Add(value);
+                _valuesPerField.Add(fieldIndex, new Dictionary<string, HashSet<long>>
+                {
+                    {value, new HashSet<long>{CurrentRecordNumber}}
+                });
             }
         }
     }

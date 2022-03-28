@@ -23,11 +23,11 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_07_AnalyseCountNull test = new A_07_AnalyseCountNull();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinition, "1"));
-            test.Run(new Field(fieldDefinition, "null"));
-            test.Run(new Field(fieldDefinition, "nulll"));
-            test.Run(new Field(fieldDefinition, "2"));
-            test.Run(new Field(fieldDefinition, "<null>"));
+            test.Run(new Field(fieldDefinition, "1"), 1);
+            test.Run(new Field(fieldDefinition, "null"), 1);
+            test.Run(new Field(fieldDefinition, "nulll"), 1);
+            test.Run(new Field(fieldDefinition, "2"), 1);
+            test.Run(new Field(fieldDefinition, "<null>"), 1);
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();

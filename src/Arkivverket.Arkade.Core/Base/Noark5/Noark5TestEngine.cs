@@ -165,7 +165,8 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
 
         private static ReadElementEventArgs CreateReadElementEventArgs(XmlReader reader, Stack<string> path)
         {
-            return new ReadElementEventArgs(reader.Name, reader.Value, new ElementPath(path.ToList()));
+            int lineNumber = ((IXmlLineInfo) reader).LineNumber;
+            return new ReadElementEventArgs(reader.Name, reader.Value, new ElementPath(path.ToList()), lineNumber);
         }
 
         private void SubscribeTestsToReadElementEvent(List<INoark5Test> testsForArchive)

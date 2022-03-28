@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 15);
 
-        private readonly Dictionary<ArchivePart, Dictionary<string, int>> _numberOfEachCaseFolderStatusPerArchivePart =
+        private readonly Dictionary<ArchivePart, Dictionary<string, CaseFolderStatus>> _caseFolderStatusesPerArchivePart =
             new();
         private ArchivePart _currentArchivePart = new();
 
@@ -26,19 +26,19 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override TestResultSet GetTestResults()
         {
-            bool multipleArchiveParts = _numberOfEachCaseFolderStatusPerArchivePart.Count > 1;
+            bool multipleArchiveParts = _caseFolderStatusesPerArchivePart.Count > 1;
 
             var testResultSet = new TestResultSet();
 
-            if (_numberOfEachCaseFolderStatusPerArchivePart.Count == 0)
+            if (_caseFolderStatusesPerArchivePart.Count == 0)
             {
                 testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
                     string.Format(Noark5Messages.TotalResultNumber, 0)));
                 return testResultSet;
             }
 
-            foreach ((ArchivePart archivePart, Dictionary<string, int> numberOfEachCaseFolderStatus) in
-                _numberOfEachCaseFolderStatusPerArchivePart)
+            foreach ((ArchivePart archivePart, Dictionary<string, CaseFolderStatus> numberOfEachCaseFolderStatus) in
+                _caseFolderStatusesPerArchivePart)
             {
                 string message = multipleArchiveParts
                     ? string.Format(Noark5Messages.NumberOf, numberOfEachCaseFolderStatus.Count)
@@ -49,14 +49,18 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     new(ResultType.Success, new Location(string.Empty), message)
                 };
 
-                foreach ((string status, int count) in numberOfEachCaseFolderStatus)
+                foreach ((string status, CaseFolderStatus caseFolderStatus) in numberOfEachCaseFolderStatus)
                 {
                     ResultType resultType = status.Equals("Avsluttet") || status.Equals("Utgår")
                         ? ResultType.Success
                         : ResultType.Error;
 
-                    testResults.Add(new TestResult(resultType, new Location(string.Empty), string.Format(
-                        Noark5Messages.NumberOfEachCaseFolderStatusMessage, status, count)));
+                    Location testResultLocation = resultType == ResultType.Success
+                        ? new Location(string.Empty)
+                        : new Location(ArkadeConstants.ArkivuttrekkXmlFileName, caseFolderStatus.Locations);
+
+                    testResults.Add(new TestResult(resultType, testResultLocation, string.Format(
+                        Noark5Messages.NumberOfEachCaseFolderStatusMessage, status, caseFolderStatus.Count)));
                 }
 
                 if (multipleArchiveParts)
@@ -91,18 +95,22 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("saksstatus", "mappe"))
             {
                 string caseFolderStatus = eventArgs.Value;
-                if (_numberOfEachCaseFolderStatusPerArchivePart.ContainsKey(_currentArchivePart))
+                long xmlLineNumber = eventArgs.LineNumber;
+                if (_caseFolderStatusesPerArchivePart.ContainsKey(_currentArchivePart))
                 {
-                    if (_numberOfEachCaseFolderStatusPerArchivePart[_currentArchivePart].ContainsKey(caseFolderStatus))
-                        _numberOfEachCaseFolderStatusPerArchivePart[_currentArchivePart][caseFolderStatus]++;
+                    if (_caseFolderStatusesPerArchivePart[_currentArchivePart].ContainsKey(caseFolderStatus))
+                    {
+                        _caseFolderStatusesPerArchivePart[_currentArchivePart][caseFolderStatus].Count++;
+                        _caseFolderStatusesPerArchivePart[_currentArchivePart][caseFolderStatus].Locations.Add(xmlLineNumber);
+                    }
                     else
-                        _numberOfEachCaseFolderStatusPerArchivePart[_currentArchivePart].Add(caseFolderStatus, 1);
+                        _caseFolderStatusesPerArchivePart[_currentArchivePart].Add(caseFolderStatus, new CaseFolderStatus(xmlLineNumber));
                 }
                 else
                 {
-                    _numberOfEachCaseFolderStatusPerArchivePart.Add(_currentArchivePart, new Dictionary<string, int>
+                    _caseFolderStatusesPerArchivePart.Add(_currentArchivePart, new Dictionary<string, CaseFolderStatus>
                     {
-                        {caseFolderStatus, 1}
+                        {caseFolderStatus, new CaseFolderStatus(xmlLineNumber)}
                     });
                 }
             }
@@ -114,6 +122,18 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (eventArgs.NameEquals("arkivdel"))
                 _currentArchivePart = new ArchivePart();
+        }
+
+        private class CaseFolderStatus
+        {
+            public int Count { get; set; }
+            public List<long> Locations { get; }
+
+            public CaseFolderStatus(long xmlLineNumber)
+            {
+                Count = 1;
+                Locations = new List<long> {xmlLineNumber};
+            }
         }
     }
 }

@@ -16,6 +16,12 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         private readonly Dictionary<string, AddmlRecordDefinition> _addmlRecordDefinitions;
         private Record _currentRecord;
 
+        public long RecordNumber
+        {
+            get => _fixedFormatReader.RecordNumber;
+            set => _fixedFormatReader.RecordNumber = value;
+        }
+
         public FixedFileFormatReader(FlatFile file) : this(file, file.Definition.FileInfo.OpenRead())
         {
         }
@@ -137,7 +143,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             List<Field> fields = CreateFields(fieldIdentifierAndValues);
             AddmlRecordDefinition addmlRecordDefinition = _addmlRecordDefinitions[fieldIdentifierAndValues.Item1];
-            return new Record(addmlRecordDefinition, fields);
+            return new Record(addmlRecordDefinition, RecordNumber, fields);
         }
 
         private List<Field> CreateFields(Tuple<string, List<string>> fieldIdentifierAndValues)

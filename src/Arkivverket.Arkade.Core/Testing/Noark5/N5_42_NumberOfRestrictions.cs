@@ -16,6 +16,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             _numberOfRestrictionsPerElementPerArchivePart = new();
         private ArchivePart _currentArchivePart = new();
         private readonly bool _documentationStatesRestrictions;
+        private readonly List<long> _restrictionLocations = new();
+        private int _totalNumberOfRestrictions;
 
         public N5_42_NumberOfRestrictions(Archive testArchive)
         {
@@ -36,35 +38,32 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             bool multipleArchiveParts = _numberOfRestrictionsPerElementPerArchivePart.Count > 1;
 
-            int totalNumberOfRestrictions =
-                _numberOfRestrictionsPerElementPerArchivePart.Sum(a => a.Value.Values.Sum());
-
             var testResultSet = new TestResultSet
             {
                 TestsResults = new List<TestResult>
                 {
                     new(ResultType.Success, new Location(string.Empty), string.Format(
-                        Noark5Messages.TotalResultNumber, totalNumberOfRestrictions))
+                        Noark5Messages.TotalResultNumber, _totalNumberOfRestrictions))
                 }
             };
 
             switch (_documentationStatesRestrictions)
             {
                 // Error message if documentation states instances of restrictions but none are found:
-                case true when totalNumberOfRestrictions == 0:
+                case true when _totalNumberOfRestrictions == 0:
                     testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
                         new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
                         Noark5Messages.NumberOfRestrictionsMessage_DocTrueActualFalse));
                     break;
                 // Error message if documentation states no instances of restrictions but some are found:
-                case false when totalNumberOfRestrictions > 0:
+                case false when _totalNumberOfRestrictions > 0:
                     testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
-                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName, _restrictionLocations),
                         Noark5Messages.NumberOfRestrictionsMessage_DocFalseActualTrue));
                     break;
             }
 
-            if (totalNumberOfRestrictions == 0)
+            if (_totalNumberOfRestrictions == 0)
                 return testResultSet;
 
             foreach ((ArchivePart archivePart, Dictionary<string, int> restrictionsPerElement) in
@@ -112,6 +111,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     _numberOfRestrictionsPerElementPerArchivePart.Add(_currentArchivePart,
                         new Dictionary<string, int> {{parentElementName, 1}});
                 }
+
+                _restrictionLocations.Add(eventArgs.LineNumber);
+                _totalNumberOfRestrictions++;
             }
         }
 

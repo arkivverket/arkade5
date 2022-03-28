@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.ExternalModels.DiasMets;
 using Arkivverket.Arkade.Core.Util;
 using Newtonsoft.Json;
 
@@ -19,8 +20,11 @@ namespace Arkivverket.Arkade.Core.Metadata
                     HandleLabelPlaceholder(metadata);
                     return metadata;
                 case '<': // METS
-                    return DiasMetsLoader.Load(metadataFilePath);
-                    // HandleLabelPlaceholder called from DiasMetsLoader
+                    return SerializeUtil.TryDeserializeFromFile<mets>(metadataFilePath, out _)
+                        ? DiasMetsLoader.Load(metadataFilePath)
+                        : SubmissionDescriptionLoader.Load(metadataFilePath);
+
+                // HandleLabelPlaceholder called from DiasMetsLoader
                 default:
                     throw new ArkadeException($"The contents of {metadataFilePath} was not recognized as metadata");
             }

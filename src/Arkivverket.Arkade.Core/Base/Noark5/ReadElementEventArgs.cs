@@ -9,12 +9,21 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
         public string Name { get; set; }
         public string Value { get; set; }
         public ElementPath Path { get; set; }
+        public long LineNumber { get; set; }
 
         public ReadElementEventArgs(string name, string value, ElementPath path)
         {
             Name = name;
             Value = value;
             Path = path;
+        }
+
+        public ReadElementEventArgs(string name, string value, ElementPath path, long lineNumber)
+        {
+            Name = name;
+            Value = value;
+            Path = path;
+            LineNumber = lineNumber;
         }
 
         public bool NameEquals(string inputName)

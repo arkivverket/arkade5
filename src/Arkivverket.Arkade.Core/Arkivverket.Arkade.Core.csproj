@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>Arkivverket.Arkade.Core</AssemblyName>
     <RootNamespace>Arkivverket.Arkade.Core</RootNamespace>
@@ -48,8 +48,10 @@
     <None Remove="ExternalModels\Noark5\v5_0\metadatakatalog.xsd" />
     <None Remove="ExternalModels\Noark5\v5_0\offentligJournal.xsd" />
     <None Remove="ExternalModels\xsd\addml.xsd" />
+    <None Remove="ExternalModels\xsd\addml82.xsd" />
     <None Remove="ExternalModels\xsd\arkivstruktur.xsd" />
     <None Remove="ExternalModels\xsd\cpf.xsd" />
+    <None Remove="ExternalModels\xsd\DIAS_METS.xsd" />
     <None Remove="ExternalModels\xsd\DIAS_PREMIS.xsd" />
     <None Remove="ExternalModels\xsd\ead3.xsd" />
     <None Remove="ExternalModels\xsd\endringslogg.xsd" />
@@ -57,8 +59,8 @@
     <None Remove="ExternalModels\xsd\loependeJournal.xsd" />
     <None Remove="ExternalModels\xsd\metadata.xsd" />
     <None Remove="ExternalModels\xsd\metadatakatalog.xsd" />
-    <None Remove="ExternalModels\xsd\mets.xsd" />
     <None Remove="ExternalModels\xsd\offentligJournal.xsd" />
+    <None Remove="ExternalModels\xsd\submissionDescription.xsd" />
     <None Remove="ExternalModels\xsd\testSessionLog.xsd" />
     <None Remove="ExternalModels\xsd\xlink.xsd" />
     <None Remove="ExternalModels\xsl\noarkih-to-addml.xsl" />
@@ -90,8 +92,10 @@
     <EmbeddedResource Include="ExternalModels\Noark5\v5_0\metadatakatalog.xsd" />
     <EmbeddedResource Include="ExternalModels\Noark5\v5_0\offentligJournal.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\addml.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\addml82.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\arkivstruktur.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\cpf.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\DIAS_METS.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\DIAS_PREMIS.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\ead3.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\endringslogg.xsd" />
@@ -99,8 +103,8 @@
     <EmbeddedResource Include="ExternalModels\xsd\loependeJournal.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\metadata.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\metadatakatalog.xsd" />
-    <EmbeddedResource Include="ExternalModels\xsd\mets.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\offentligJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\submissionDescription.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\testSessionLog.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\xlink.xsd" />
     <EmbeddedResource Include="ExternalModels\xsl\noarkih-to-addml.xsl" />
@@ -113,10 +117,11 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Codeuctivity.PdfAValidator" Version="2.2.14" />
     <PackageReference Include="CsvHelper" Version="27.2.1" />
-    <PackageReference Include="itext7.pdfhtml" Version="4.0.0" />
+    <PackageReference Include="itext7.pdfhtml" Version="4.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="RestSharp" Version="106.15.0" />
+    <PackageReference Include="RestSharp" Version="107.3.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
@@ -175,6 +180,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Report.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\ArchiveFormatValidationMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ArchiveFormatValidationMessages.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\SiardMessages.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -245,6 +255,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Report.Designer.cs</LastGenOutput>
       <CustomToolNamespace></CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ArchiveFormatValidationMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ArchiveFormatValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\SiardMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

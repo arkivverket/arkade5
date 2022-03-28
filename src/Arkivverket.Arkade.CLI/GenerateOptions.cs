@@ -5,7 +5,7 @@ using CommandLine.Text;
 namespace Arkivverket.Arkade.CLI
 {
     [Verb("generate", HelpText = "Generate a specified file. Run this command followed by '--help' for more detailed info.")]
-    public class GenerateOptions : Options
+    public class GenerateOptions : OutputOptions
     {
         [Option('m', "metadata-example", Group = "file-type", 
             HelpText = "Generate json file with example metadata.")]

@@ -14,6 +14,19 @@ namespace Arkivverket.Arkade.Core.Base.Siard
         public bool IsExternal { get; init; }
         public int RowIndex { get; set; }
 
+        public SiardLobReference(){}
+
+        public SiardLobReference(SiardLobReference siardLobReference)
+        {
+            SchemaFolder = siardLobReference.SchemaFolder;
+            Table = new SiardTable(siardLobReference.Table);
+            Column = new SiardColumn(siardLobReference.Column);
+            FilePathInTableXml = siardLobReference.FilePathInTableXml;
+            LobFolderPath = siardLobReference.LobFolderPath;
+            IsExternal = siardLobReference.IsExternal;
+            RowIndex = siardLobReference.RowIndex;
+        }
+
         private string GetPathFromContent()
         {
             string path;
@@ -48,11 +61,26 @@ namespace Arkivverket.Arkade.Core.Base.Siard
     public class SiardTable : SiardMetadataLevel
     {
         public string Name { get; init; }
+
+        public SiardTable(){}
+
+        public SiardTable(SiardTable siardTable)
+        {
+            Name = siardTable.Name;
+            FolderName = siardTable.FolderName;
+        }
     }
 
     public class SiardColumn : SiardMetadataLevel
     {
         public int Index { get; init; }
+        public SiardColumn() { }
+
+        public SiardColumn(SiardColumn siardColumn)
+        {
+            Index = siardColumn.Index;
+            FolderName = siardColumn.FolderName;
+        }
     }
 
     public abstract class SiardMetadataLevel

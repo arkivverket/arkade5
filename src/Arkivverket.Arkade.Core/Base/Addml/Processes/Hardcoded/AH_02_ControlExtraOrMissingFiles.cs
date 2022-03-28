@@ -95,7 +95,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
         {
             return new HashSet<string>(
                 addmlDefinition.AddmlFlatFileDefinitions
-                .Select(d => d.FileName)
+                .Select(d => d.FileName.RelativeFilename)
                 .AsEnumerable());
         }
 

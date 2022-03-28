@@ -29,17 +29,17 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_05_AnalyseAllFrequenceList test = new A_05_AnalyseAllFrequenceList();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinitionWithCodeList, "A"));
-            test.Run(new Field(fieldDefinitionWithCodeList, "A"));
-            test.Run(new Field(fieldDefinitionWithCodeList, "B"));
-            test.Run(new Field(fieldDefinitionWithCodeList, "B"));
-            test.Run(new Field(fieldDefinitionWithCodeList, "B"));
-            test.Run(new Field(fieldDefinitionWithCodeList, "C"));
-            test.Run(new Field(fieldDefinitionWithoutCodeList, "A"));
-            test.Run(new Field(fieldDefinitionWithoutCodeList, "A"));
-            test.Run(new Field(fieldDefinitionWithoutCodeList, "B"));
-            test.Run(new Field(fieldDefinitionWithoutCodeList, "B"));
-            test.Run(new Field(fieldDefinitionWithoutCodeList, "C"));
+            test.Run(new Field(fieldDefinitionWithCodeList, "A"), 1);
+            test.Run(new Field(fieldDefinitionWithCodeList, "A"), 1);
+            test.Run(new Field(fieldDefinitionWithCodeList, "B"), 1);
+            test.Run(new Field(fieldDefinitionWithCodeList, "B"), 1);
+            test.Run(new Field(fieldDefinitionWithCodeList, "B"), 1);
+            test.Run(new Field(fieldDefinitionWithCodeList, "C"), 1);
+            test.Run(new Field(fieldDefinitionWithoutCodeList, "A"), 1);
+            test.Run(new Field(fieldDefinitionWithoutCodeList, "A"), 1);
+            test.Run(new Field(fieldDefinitionWithoutCodeList, "B"), 1);
+            test.Run(new Field(fieldDefinitionWithoutCodeList, "B"), 1);
+            test.Run(new Field(fieldDefinitionWithoutCodeList, "C"), 1);
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();

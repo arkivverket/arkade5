@@ -6,6 +6,7 @@ using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes;
 using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;
 
@@ -18,7 +19,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
         {
             var testDataDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\jegerreg-98-dos");
             var workingDirectory = new WorkingDirectory(testDataDirectory, testDataDirectory);
-            AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content().WithFile("arkivuttrekk.xml").FullName);
+            AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content().WithFile("arkivuttrekk.xml").FullName,
+                ResourceUtil.GetResourceAsStream(ArkadeConstants.Addml82XsdResource));
 
             AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml, workingDirectory, new StatusEventHandler()).GetAddmlDefinition();
 
@@ -26,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
             addmlFlatFileDefinitions.Count.Should().Be(10);
             {
                 addmlFlatFileDefinitions[0].Name.Should().Be("ffd_3");
-                addmlFlatFileDefinitions[0].FileName.Should().Be("jeger.dat");
+                addmlFlatFileDefinitions[0].FileName.Name.Should().Be("jeger.dat");
                 addmlFlatFileDefinitions[0].Encoding.Should().Be(Encodings.ISO_8859_1);
                 addmlFlatFileDefinitions[0].RecordSeparator.Should().Be(Separator.CRLF);
                 addmlFlatFileDefinitions[0].AddmlRecordDefinitions.Count.Should().Be(1);
@@ -39,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
             }
             {
                 addmlFlatFileDefinitions[1].Name.Should().Be("ffd_4");
-                addmlFlatFileDefinitions[1].FileName.Should().Be("ut_jeger.dat");
+                addmlFlatFileDefinitions[1].FileName.Name.Should().Be("ut_jeger.dat");
                 addmlFlatFileDefinitions[1].Encoding.Should().Be(Encodings.ISO_8859_1);
                 addmlFlatFileDefinitions[1].RecordSeparator.Should().Be(Separator.CRLF);
                 addmlFlatFileDefinitions[1].AddmlRecordDefinitions.Count.Should().Be(1);
@@ -60,7 +62,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
             }
             {
                 addmlFlatFileDefinitions[2].Name.Should().Be("ffd_5");
-                addmlFlatFileDefinitions[2].FileName.Should().Be("ikkejeg.dat");
+                addmlFlatFileDefinitions[2].FileName.Name.Should().Be("ikkejeg.dat");
                 addmlFlatFileDefinitions[2].Encoding.Should().Be(Encodings.ISO_8859_1);
                 addmlFlatFileDefinitions[2].RecordSeparator.Should().Be(Separator.CRLF);
                 addmlFlatFileDefinitions[2].AddmlRecordDefinitions.Count.Should().Be(1);
@@ -106,7 +108,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
         {
             AddmlFlatFileDefinition addmlFlatFileDefinition = addmlDefinition.AddmlFlatFileDefinitions[2];
             addmlFlatFileDefinition.Name.Should().Be("ffd_5");
-            addmlFlatFileDefinition.FileName.Should().Be("ikkejeg.dat");
+            addmlFlatFileDefinition.FileName.Name.Should().Be("ikkejeg.dat");
             AddmlFieldDefinition addmlFieldDefinition = addmlFlatFileDefinition.AddmlRecordDefinitions[0].AddmlFieldDefinitions[35];
             addmlFieldDefinition.Name.Should().Be("fradato");
             addmlFieldDefinition.Type.Should().Be(new DateDataType("ddmmyyyy"));
@@ -116,7 +118,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
         {
             AddmlFlatFileDefinition addmlFlatFileDefinition = addmlDefinition.AddmlFlatFileDefinitions[5];
             addmlFlatFileDefinition.Name.Should().Be("ffd_8");
-            addmlFlatFileDefinition.FileName.Should().Be("betalt.dat");
+            addmlFlatFileDefinition.FileName.Name.Should().Be("betalt.dat");
             AddmlFieldDefinition addmlFieldDefinition = addmlFlatFileDefinition.AddmlRecordDefinitions[0].AddmlFieldDefinitions[8];
             addmlFieldDefinition.Name.Should().Be("beløp");
             addmlFieldDefinition.Type.Should().Be(new FloatDataType());
@@ -126,7 +128,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
         {
             AddmlFlatFileDefinition addmlFlatFileDefinition = addmlDefinition.AddmlFlatFileDefinitions[3];
             addmlFlatFileDefinition.Name.Should().Be("ffd_6");
-            addmlFlatFileDefinition.FileName.Should().Be("jegerK.dat");
+            addmlFlatFileDefinition.FileName.Name.Should().Be("jegerK.dat");
             AddmlFieldDefinition addmlFieldDefinition = addmlFlatFileDefinition.AddmlRecordDefinitions[0].AddmlFieldDefinitions[10];
             addmlFieldDefinition.Name.Should().Be("avgift");
             addmlFieldDefinition.Type.Should().Be(new BooleanDataType("J/N"));

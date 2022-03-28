@@ -20,12 +20,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
 
             AddmlFlatFileDefinition flatFileDefinition1 = new AddmlFlatFileDefinitionBuilder()
                 .WithFileInfo(new FileInfo(Path.Combine(workingDirectory.Content().DirectoryInfo().FullName, "nosuchfile.txt")))
-                .WithFileName("nosuchfile.txt")
+                .WithRelativeFileName("nosuchfile.txt")
                 .Build();
 
             AddmlFlatFileDefinition flatFileDefinition2 = new AddmlFlatFileDefinitionBuilder()
                 .WithFileInfo(new FileInfo(Path.Combine(workingDirectory.Content().DirectoryInfo().FullName, "ARKIV.DAT")))
-                .WithFileName("ARKIV.DAT")
+                .WithRelativeFileName("ARKIV.DAT")
                 .Build();
 
             AddmlDefinition addmlDefinition = new AddmlDefinitionBuilder()

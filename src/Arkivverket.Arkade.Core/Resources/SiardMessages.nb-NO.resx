@@ -144,4 +144,8 @@
   <data name="InlinedLobContentHasUnsupportedEncoding" xml:space="preserve">
     <value>LOBen er lagret direkte i databasen, og er lagret med et format som ikke støttes av Arkade</value>
   </data>
+  <data name="DeserializationUnsuccessfulMessage" xml:space="preserve">
+    <value>{0} er ikke gyldig for SIARD-versjon {1}:
+{2}</value>
+  </data>
 </root>

@@ -83,7 +83,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                     foreach (DocumentObject documentObject in group.Where(d => d.HasFormatMismatch()))
                     {
-                        errorResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                        errorResults.Add(new TestResult(ResultType.Error, 
+                            new Location(ArkadeConstants.ArkivuttrekkXmlFileName, documentObject.XmlLineNumber),
                             string.Format(Noark5Messages.NumberOfEachDocumentFormatMessage_FormatMismatch,
                                 documentObject.FileReference)));
 
@@ -137,7 +138,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
             if (eventArgs.Path.Matches("dokumentobjekt", "dokumentbeskrivelse", "registrering"))
-                _currentDocumentObject = new DocumentObject();
+                _currentDocumentObject = new DocumentObject(eventArgs.LineNumber);
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
@@ -194,6 +195,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             public string Format { get; set; }
             public string FileReference { get; set; }
+            public long XmlLineNumber { get; set; }
+
+            public DocumentObject(long xmlLineNumber)
+            {
+                XmlLineNumber = xmlLineNumber;
+            }
 
             public bool HasFormatMismatch()
             {

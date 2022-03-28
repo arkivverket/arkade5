@@ -12,6 +12,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         private readonly Dictionary<string, AddmlRecordDefinition> _addmlRecordDefinitions =
             new Dictionary<string, AddmlRecordDefinition>();
 
+        public long RecordNumber { get; set; }
+
         protected FileFormatReader(AddmlFlatFileDefinition addmlFlatFileDefinition)
         {
             List<AddmlRecordDefinition> addmlRecordDefinitions = addmlFlatFileDefinition.AddmlRecordDefinitions;
@@ -39,6 +41,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
                 _addmlRecordDefinitions.Add(recordDefinitionFieldValue, addmlRecordDefinition);
             }
+
+            RecordNumber = 0;
         }
 
         protected AddmlRecordDefinition GetAddmlRecordDefinition(string recordDefinitionFieldValue)

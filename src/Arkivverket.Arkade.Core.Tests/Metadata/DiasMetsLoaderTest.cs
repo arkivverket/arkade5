@@ -18,11 +18,11 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
 
             ArchiveMetadata archiveMetadata = DiasMetsLoader.Load(diasMetsFile);
 
-            archiveMetadata.Label.Should().Be("Some system name (2017 - 2020)");
+            archiveMetadata.Label.Should().Be("Some system name");
 
-            archiveMetadata.ArchiveDescription.Should().Be("Some archive description");
+            archiveMetadata.ArchiveDescription.Should().Be(null);
 
-            archiveMetadata.AgreementNumber.Should().Be("XX 00-0000/0000; 0000-00-00");
+            archiveMetadata.AgreementNumber.Should().Be(null);
 
             archiveMetadata.ArchiveCreators.Should().Contain(a =>
                 a.Entity.Equals("Entity 1") &&
@@ -38,18 +38,6 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
                 a.Telephone.Equals("2-99999999") &&
                 a.Email.Equals("post@entity-2.com")
             );
-
-            archiveMetadata.Transferer.Entity.Should().Be("Entity 3");
-            archiveMetadata.Transferer.ContactPerson.Should().Be("Contactperson 3");
-            archiveMetadata.Transferer.Address.Should().Be("Road 3, 3000 City");
-            archiveMetadata.Transferer.Telephone.Should().Be("3-99999999");
-            archiveMetadata.Transferer.Email.Should().Be("post@entity-3.com");
-
-            archiveMetadata.Producer.Entity.Should().Be("Entity 4");
-            archiveMetadata.Producer.ContactPerson.Should().Be("Contactperson 4");
-            archiveMetadata.Producer.Address.Should().Be("Road 4, 4000 City");
-            archiveMetadata.Producer.Telephone.Should().Be("4-99999999");
-            archiveMetadata.Producer.Email.Should().Be("post@entity-4.com");
 
             archiveMetadata.Owners.Should().Contain(a =>
                 a.Entity.Equals("Entity 5") &&
@@ -79,13 +67,8 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             archiveMetadata.System.Type.Should().Be("Noark5");
             archiveMetadata.System.TypeVersion.Should().Be("v3.1");
 
-            archiveMetadata.ArchiveSystem.Name.Should().Be("Some archive system name");
-            archiveMetadata.ArchiveSystem.Version.Should().Be("v2.0.0");
-            archiveMetadata.ArchiveSystem.Type.Should().Be("Noark5");
-            archiveMetadata.ArchiveSystem.TypeVersion.Should().BeNull(); // Applies to Noark5 only
-
-            archiveMetadata.StartDate.Should().Be(new DateTime(2017, 01, 01));
-            archiveMetadata.EndDate.Should().Be(new DateTime(2020, 01, 01));
+            archiveMetadata.StartDate.Should().Be(null);
+            archiveMetadata.EndDate.Should().Be(null);
             archiveMetadata.ExtractionDate.Should().Be(new DateTime(2023, 01, 01));
         }
     }

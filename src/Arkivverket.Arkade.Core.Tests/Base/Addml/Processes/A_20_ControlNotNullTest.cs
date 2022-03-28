@@ -30,19 +30,19 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_20_ControlNotNull test = new A_20_ControlNotNull();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinition1, "A"));
-            test.Run(new Field(fieldDefinition1, "null"));
-            test.Run(new Field(fieldDefinition1, "B"));
-            test.Run(new Field(fieldDefinition1, "C"));
-            test.Run(new Field(fieldDefinition2, "A"));
-            test.Run(new Field(fieldDefinition2, "B"));
-            test.Run(new Field(fieldDefinition2, "C"));
+            test.Run(new Field(fieldDefinition1, "A"), 1);
+            test.Run(new Field(fieldDefinition1, "null"), 2);
+            test.Run(new Field(fieldDefinition1, "B"), 3);
+            test.Run(new Field(fieldDefinition1, "C"), 4);
+            test.Run(new Field(fieldDefinition2, "A"), 1);
+            test.Run(new Field(fieldDefinition2, "B"), 2);
+            test.Run(new Field(fieldDefinition2, "C"), 3);
             test.EndOfFile();
 
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(1);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be(fieldDefinition1.GetIndex().ToString());
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 2");
             testRun.TestResults.TestsResults[0].Message.Should().Be("NULL-verdier finnes");
         }
     }

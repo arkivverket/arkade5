@@ -13,6 +13,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 27);
 
         private int _invalidRegistrationCreationDateCount;
+        private readonly List<long> _invalidRegistrationCreationDateLocations = new();
         private int _registrationCount;
         private N5_27_ArchivePart _currentArchivePart;
         private readonly List<N5_27_ArchivePart> _archiveParts = new();
@@ -42,9 +43,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             };
 
             if (_invalidRegistrationCreationDateCount > 0)
-                testResultSet.TestsResults.Add(
-                    new TestResult(ResultType.Error, new Location(""), string.Format(
-                        Noark5Messages.DatesFirstAndLastRegistrationMessage_NumberOfInvalidRegistrationCreationDates,
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Error, 
+                    new Location(ArkadeConstants.ArkivuttrekkXmlFileName, _invalidRegistrationCreationDateLocations),
+                    string.Format(Noark5Messages.DatesFirstAndLastRegistrationMessage_NumberOfInvalidRegistrationCreationDates,
                         _invalidRegistrationCreationDateCount))
                 );
 
@@ -95,7 +96,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (Noark5TestHelper.TryParseValidXmlDate(eventArgs.Value, out DateTime registrationCreatedTime))
                 _currentArchivePart.RegistrationCreationDates.Add(registrationCreatedTime);
             else
+            {
                 _invalidRegistrationCreationDateCount++;
+                _invalidRegistrationCreationDateLocations.Add(eventArgs.LineNumber);
+            }
         }
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)

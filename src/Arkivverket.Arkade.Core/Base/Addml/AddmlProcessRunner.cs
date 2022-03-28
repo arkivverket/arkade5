@@ -39,10 +39,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             _recordProcessRunner.RunProcesses(record);
         }
 
-        public void RunProcesses(FlatFile file, Field field)
+        public void RunProcesses(FlatFile file, Field field, long recordNumber)
         {
-            _fileProcessRunner.RunProcesses(file, field);
-            _fieldProcessRunner.RunProcesses(field);
+            _fileProcessRunner.RunProcesses(file, field, recordNumber);
+            _fieldProcessRunner.RunProcesses(field, recordNumber);
         }
 
         public TestSuite GetTestSuite()

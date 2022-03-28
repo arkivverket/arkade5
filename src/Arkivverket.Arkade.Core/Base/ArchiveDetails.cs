@@ -27,61 +27,44 @@ namespace Arkivverket.Arkade.Core.Base
 
         private string GetArchiveCreators()
         {
-            try
-            {
-                IEnumerable<additionalElement> archiveCreators = GetAdditionalElements(
-                    GetContextAdditionalElementsRoot(), "recordCreator"
-                );
-
-                return string.Join(", ", archiveCreators.Select(a => a.value));
-            }
-            catch
-            {
+            if (!TryGetContextAdditionalElementsRoot(out additionalElements additionalElementsRoot))
                 return string.Empty;
-            }
+
+            IEnumerable<additionalElement> archiveCreators = GetAdditionalElements(
+                additionalElementsRoot, "recordCreator");
+
+            return string.Join(", ", archiveCreators.Select(a => a.value));
         }
 
         private string GetArchivalPeriod()
         {
-            try
-            {
-                additionalElement archivalPeriodElement = GetAdditionalElements(
-                    GetContentAdditionalElementsRoot(), "archivalPeriod"
-                ).FirstOrDefault();
+            if (!TryGetContentAdditionalElementsRoot(out additionalElements additionalElementsRoot))
+                    return string.Empty;
 
-                property startDate = archivalPeriodElement?.properties.FirstOrDefault(p => p.name.Equals("startDate"));
-                property endDate = archivalPeriodElement?.properties.FirstOrDefault(p => p.name.Equals("endDate"));
+            additionalElement archivalPeriodElement = GetAdditionalElements(
+                additionalElementsRoot, "archivalPeriod"
+            ).FirstOrDefault();
 
-                return $"{startDate?.value} - {endDate?.value}";
-            }
-            catch
-            {
-                return string.Empty;
-            }
+            property startDate = archivalPeriodElement?.properties.FirstOrDefault(p => p.name.Equals("startDate"));
+            property endDate = archivalPeriodElement?.properties.FirstOrDefault(p => p.name.Equals("endDate"));
+
+            return $"{startDate?.value ?? string.Empty} - {endDate?.value ?? string.Empty}";
         }
 
         private string GetSystemName()
         {
-            try
-            {
-                return GetAdditionalElements(GetContextAdditionalElementsRoot(), "systemName").FirstOrDefault()?.value;
-            }
-            catch
-            {
+            if (!TryGetContextAdditionalElementsRoot(out additionalElements additionalElementsRoot))
                 return string.Empty;
-            }
+            
+            return GetAdditionalElements(additionalElementsRoot, "systemName").FirstOrDefault()?.value ?? string.Empty;
         }
 
         private string GetSystemType()
         {
-            try
-            {
-                return GetAdditionalElements(GetContextAdditionalElementsRoot(), "systemType").FirstOrDefault()?.value;
-            }
-            catch
-            {
+            if (!TryGetContextAdditionalElementsRoot(out additionalElements additionalElementsRoot))
                 return string.Empty;
-            }
+
+            return GetAdditionalElements(additionalElementsRoot, "systemType").FirstOrDefault()?.value ?? string.Empty;
         }
 
         private string GetArchiveStandardVersion()
@@ -197,14 +180,34 @@ namespace Arkivverket.Arkade.Core.Base
             return standardXmlUnits;
         }
 
-        private additionalElements GetContentAdditionalElementsRoot()
+        private bool TryGetContentAdditionalElementsRoot(out additionalElements additionalElements)
         {
-            return _addml.dataset[0].reference.content.additionalElements;
+            try
+            {
+                additionalElements = _addml.dataset[0].reference.content.additionalElements;
+                return true;
+            }
+            catch
+            {
+                additionalElements = null;
+            }
+
+            return false;
         }
 
-        private additionalElements GetContextAdditionalElementsRoot()
+        private bool TryGetContextAdditionalElementsRoot(out additionalElements additionalElements)
         {
-            return _addml.dataset[0].reference.context.additionalElements;
+            try
+            {
+                additionalElements = _addml.dataset[0].reference.context.additionalElements;
+                return true;
+            }
+            catch
+            {
+                additionalElements = null;
+            }
+
+            return false;
         }
 
         private static IEnumerable<additionalElement> GetAdditionalElements(additionalElements root, string name)

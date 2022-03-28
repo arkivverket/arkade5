@@ -143,9 +143,9 @@ namespace Arkivverket.Arkade.Core.Report
             {
                 stream.WriteLine(@"            <tr>");
                 if (_archiveType.Equals(ArchiveType.Siard))
-                    stream.WriteLine(@"                <td><a href='" + result.Location + "'>" + result.Location + "</a></td>");
+                    stream.WriteLine(@"                <td><a href='" + result.Location.String + "'>" + result.Location.String + "</a></td>");
                 else
-                    stream.WriteLine(@"                <td>" + result.Location + "</td>");
+                    stream.WriteLine(@"                <td>" + result.Location.String + "</td>");
                 stream.WriteLine(@"                <td>");
                 stream.WriteLine(@"                " + SubstituteLineBreaksWithHtmlBreak(result.Message));
                 stream.WriteLine(@"                </td>");

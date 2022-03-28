@@ -5,7 +5,7 @@ using CommandLine.Text;
 namespace Arkivverket.Arkade.CLI
 {
     [Verb("analyse", HelpText = "Performs a specified type of analysis. Run this command followed by '--help' for more detailed info.")]
-    public class AnalyseOptions : Options
+    public class AnalyseOptions : OutputOptions
     {
         [Option('f', "format-analysis", HelpText = "Recursively performs PRONOM format analysis on all files in a directory.", Required = true)]
         public string FormatCheckTarget { get; set; }

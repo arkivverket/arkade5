@@ -11,10 +11,11 @@ ECHO ------------------------------------------------- && ECHO.
 CALL :GenerateClass Addml.cs, Addml, addml.xsd
 CALL :GenerateClass Arkivstruktur.cs, Noark5, arkivstruktur.xsd, metadatakatalog.xsd
 CALL :GenerateClass Cpf.cs, Cpf, cpf.xsd, xlink.xsd
+CALL :GenerateClass DiasMets.cs, DiasMets, DIAS_METS.xsd, xlink.xsd
 CALL :GenerateClass DiasPremis.cs, DiasPremis, DIAS_PREMIS.xsd, xlink.xsd
 CALL :GenerateClass Ead.cs, Ead, ead3.xsd
 CALL :GenerateClass Info.cs, Info, info.xsd
-CALL :GenerateClass Mets.cs, Mets, mets.xsd, xlink.xsd
+CALL :GenerateClass SubmissionDescription.cs, SubmissionDescription, submissionDescription.xsd, xlink.xsd
 CALL :GenerateClass Metadata.cs, Metadata, metadata.xsd
 CALL :GenerateClass Siard1metadata.cs, Siard1Metadata, siard1metadata.xsd
 CALL :GenerateClass TestSessionLog.cs, TestSessionLog, testSessionLog.xsd

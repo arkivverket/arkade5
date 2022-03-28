@@ -151,4 +151,25 @@ Result saved at:</value>
   <data name="UnsavedResultsOnExitWarning" xml:space="preserve">
     <value>If the Tools dialog is closed now,  results from the running tool will be lost. Do you still want to close?</value>
   </data>
+  <data name="ArchiveFormatValidationSectionHeading" xml:space="preserve">
+    <value>Archive format validation</value>
+  </data>
+  <data name="ArchiveFormatValidationChooseFileButtonText" xml:space="preserve">
+    <value>Choose file ...</value>
+  </data>
+  <data name="ArchiveFormatValidationRunButtonText" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="ArchiveFormatValidationRunningStatusMessage" xml:space="preserve">
+    <value>Performing archive format validation ...</value>
+  </data>
+  <data name="ArchiveFormatValidationFileSelectDialogTitle" xml:space="preserve">
+    <value>Choose a file to validate</value>
+  </data>
+  <data name="ArchiveFormatValidationFormatSelectMenuLabel" xml:space="preserve">
+    <value>Archive format</value>
+  </data>
+  <data name="ArchiveFormatValidationFileSelectDialogFilter" xml:space="preserve">
+    <value>Archive format files|*.pdf</value>
+  </data>
 </root>
