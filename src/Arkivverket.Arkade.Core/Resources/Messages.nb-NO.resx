@@ -353,4 +353,7 @@ Aktuell sjekksum: {1}</value>
   <data name="LineTraceMessage" xml:space="preserve">
     <value>{0} - linje(r): {1}</value>
   </data>
+  <data name="Noark4ValidationNotSupported" xml:space="preserve">
+    <value>Validering av Noark4-uttrekk er ikke støttet</value>
+  </data>
 </root>

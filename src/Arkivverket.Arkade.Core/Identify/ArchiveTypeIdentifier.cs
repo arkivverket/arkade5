@@ -35,6 +35,9 @@ namespace Arkivverket.Arkade.Core.Identify
                 if (TypeOfChosenArchiveDirectoryIsNoark3(addml))
                     return ArchiveType.Noark3;
 
+                if (TypeOfChosenArchiveDirectoryIsNoark4(addml))
+                    return ArchiveType.Noark4;
+
                 if (TypeOfChosenArchiveDirectoryIsFagsystem(addml))
                     return ArchiveType.Fagsystem;
 
@@ -83,6 +86,9 @@ namespace Arkivverket.Arkade.Core.Identify
                 if (note.Contains("noark", StringComparison.OrdinalIgnoreCase) && note.Contains("3"))
                     return ArchiveType.Noark3;
 
+                if (note.Contains("noark", StringComparison.OrdinalIgnoreCase) && note.Contains("4"))
+                    return ArchiveType.Noark4;
+
                 if (note.Contains("noark", StringComparison.OrdinalIgnoreCase) && note.Contains("5"))
                     return ArchiveType.Noark5;
             }
@@ -100,6 +106,18 @@ namespace Arkivverket.Arkade.Core.Identify
             return archiveExtractionType != null &&
                    archiveExtractionType.Contains("noark", StringComparison.OrdinalIgnoreCase) &&
                    archiveExtractionType.Contains("3");
+        }
+
+        private static bool TypeOfChosenArchiveDirectoryIsNoark4(addml addml)
+        {
+            string archiveExtractionType = addml.dataset[0].reference?.context?.additionalElements?
+                .additionalElement
+                .FirstOrDefault(additionalElement => additionalElement.name == "systemType")?
+                .value;
+
+            return archiveExtractionType != null &&
+                   archiveExtractionType.Contains("noark", StringComparison.OrdinalIgnoreCase) &&
+                   archiveExtractionType.Contains("4");
         }
 
         private static bool TypeOfChosenArchiveDirectoryIsNoark5(addml addml)

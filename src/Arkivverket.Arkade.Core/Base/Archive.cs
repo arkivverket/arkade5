@@ -201,6 +201,7 @@ namespace Arkivverket.Arkade.Core.Base
     public enum ArchiveType
     {
         Noark3,
+        Noark4,
         Noark5,
         Fagsystem,
         Siard,
