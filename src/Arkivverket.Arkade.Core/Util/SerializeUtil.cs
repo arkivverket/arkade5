@@ -2,6 +2,7 @@ using Serilog;
 using System;
 using System.IO;
 using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Core.Base;
 
@@ -10,6 +11,7 @@ namespace Arkivverket.Arkade.Core.Util
     public class SerializeUtil
     {
         private static readonly ILogger _log = Log.ForContext<SerializeUtil>();
+        private static readonly XmlWriterSettings XmlWriterSettings = new XmlWriterSettings { Indent = true };
 
         public static T DeserializeFromFile<T>(string pathToFile)
         {
@@ -71,10 +73,9 @@ namespace Arkivverket.Arkade.Core.Util
         public static void SerializeToFile(object inputObject, FileInfo targetFileName, XmlSerializerNamespaces ns)
         {
             var serializer = new XmlSerializer(inputObject.GetType());
-            using (var stream = new StreamWriter(targetFileName.FullName, false, Encoding.UTF8))
-            {
-                serializer.Serialize(stream, inputObject, ns);
-            }
+            using var stream = new StreamWriter(targetFileName.FullName, false, Encoding.UTF8);
+            using var xmlWriter = XmlWriter.Create(stream, XmlWriterSettings);
+            serializer.Serialize(xmlWriter, inputObject, ns);
         }
 
         public static bool TryDeserializeFromFile<T>(string pathToFile, out T serialized)
