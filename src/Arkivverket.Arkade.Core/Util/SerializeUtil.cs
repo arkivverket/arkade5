@@ -11,7 +11,6 @@ namespace Arkivverket.Arkade.Core.Util
     public class SerializeUtil
     {
         private static readonly ILogger _log = Log.ForContext<SerializeUtil>();
-        private static readonly XmlWriterSettings XmlWriterSettings = new XmlWriterSettings { Indent = true };
 
         public static T DeserializeFromFile<T>(string pathToFile)
         {
@@ -39,17 +38,17 @@ namespace Arkivverket.Arkade.Core.Util
             {
                 reader = new StringReader(objectData);
                 result = serializer.Deserialize(reader);
-           }
-           catch (InvalidOperationException e)
-           {
+            }
+            catch (InvalidOperationException e)
+            {
                 string error = e.Message + ": " + e.InnerException?.Message;
                 _log.Error(error, e);
                 throw new ArkadeException(error);
-           }
-           finally
-           {
+            }
+            finally
+            {
                 reader?.Close();
-           }
+            }
 
             return result;
         }
@@ -74,7 +73,7 @@ namespace Arkivverket.Arkade.Core.Util
         {
             var serializer = new XmlSerializer(inputObject.GetType());
             using var stream = new StreamWriter(targetFileName.FullName, false, Encoding.UTF8);
-            using var xmlWriter = XmlWriter.Create(stream, XmlWriterSettings);
+            using var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true });
             serializer.Serialize(xmlWriter, inputObject, ns);
         }
 
