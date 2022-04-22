@@ -10,16 +10,16 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
-    public static class ArchiveFormatValidator
+    public static partial class ArchiveFormatValidator
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-        public static async Task<ArchiveFormatValidationReport> ValidateAsFormat(FileSystemInfo item,
-            ArchiveFormat format)
+        public static async Task<ArchiveFormatValidationReport> ValidateAsFormat(FileSystemInfo item, ArchiveFormat format)
         {
             return format switch
             {
                 ArchiveFormat.PdfA => await ValidateAsPdfA(item),
+                ArchiveFormat.DiasSip or ArchiveFormat.DiasAip or ArchiveFormat.DiasAipN5 or ArchiveFormat.DiasSipN5 => await ValidateAsDiasAsync(item, format),
                 _ => throw new ArgumentOutOfRangeException($"No validator for {format}")
             };
         }

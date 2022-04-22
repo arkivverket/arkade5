@@ -97,16 +97,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FileFormatValidationErrorMessage" xml:space="preserve">
-    <value>The validation failed. See error log for details.</value>
-  </data>
-  <data name="FileHasApprovedFormat" xml:space="preserve">
-    <value>The file {0} has an approved archive format: {1}</value>
-  </data>
-  <data name="FileHasNotApprovedFormat" xml:space="preserve">
-    <value>The file {0} has not an approved archive format. {1}</value>
-  </data>
-  <data name="MissingDiasEntries" xml:space="preserve">
-    <value>Missing files/directories: {0}</value>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>{0} was not found</value>
   </data>
 </root>

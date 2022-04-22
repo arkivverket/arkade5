@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,59 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CloseDialogButtonText" xml:space="preserve">
-    <value>Lukk</value>
-  </data>
-  <data name="FormatCheckChooseTargetDirectoryButtonText" xml:space="preserve">
-    <value>Velg katalog ...</value>
-  </data>
-  <data name="FormatCheckCompletedMessage" xml:space="preserve">
-    <value>Formatanalyse er utført!
-Resultat lagret i:</value>
-  </data>
-  <data name="FormatCheckHeading" xml:space="preserve">
-    <value>PRONOM filformat-analyse</value>
-  </data>
-  <data name="FormatCheckOngoing" xml:space="preserve">
-    <value>Utfører formatanalyse ...</value>
-  </data>
-  <data name="FormatCheckOutputDirectoryPickerTitle" xml:space="preserve">
-    <value>Velg plassering for lagring av resultat</value>
-  </data>
-  <data name="FormatCheckRunButtonText" xml:space="preserve">
-    <value>Kjør</value>
-  </data>
-  <data name="ToolsDialogTitle" xml:space="preserve">
-    <value>Verktøy</value>
-  </data>
-  <data name="ChooseDirectoryToAnalyse" xml:space="preserve">
-    <value>Velg katalog hvis innhold skal analyseres</value>
-  </data>
-  <data name="SaveFormatFileExtensionFilter" xml:space="preserve">
-    <value>CSV (Semikolondelt) (*.csv)|*.csv</value>
-  </data>
-  <data name="UnsavedResultsOnExitWarning" xml:space="preserve">
-    <value>Hvis Verktøy-dialogen lukkes nå vil resultater fra det kjørende verktøyet gå tapt. Ønker du likevel å lukke?</value>
-  </data>
-  <data name="ArchiveFormatValidationChooseFileButtonText" xml:space="preserve">
-    <value>Velg fil ...</value>
-  </data>
-  <data name="ArchiveFormatValidationFileSelectDialogTitle" xml:space="preserve">
-    <value>Velg fil til validering</value>
-  </data>
-  <data name="ArchiveFormatValidationFormatSelectMenuLabel" xml:space="preserve">
-    <value>Arkivformat</value>
-  </data>
-  <data name="ArchiveFormatValidationRunButtonText" xml:space="preserve">
-    <value>Valider</value>
-  </data>
-  <data name="ArchiveFormatValidationSectionHeading" xml:space="preserve">
-    <value>Validering av arkivformat</value>
-  </data>
-  <data name="ArchiveFormatValidationRunningStatusMessage" xml:space="preserve">
-    <value>Utfører validering av arkivformat ...</value>
-  </data>
-  <data name="ArchiveFormatValidationFileSelectDialogFilter" xml:space="preserve">
-    <value>PDF-filer (*.pdf)|*.pdf|TAR-filer (*.tar)|*.tar</value>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>{0} ble ikke funnet</value>
   </data>
 </root>

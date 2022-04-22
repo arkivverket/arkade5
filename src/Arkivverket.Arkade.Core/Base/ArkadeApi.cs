@@ -7,6 +7,7 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Serilog;
 
@@ -137,7 +138,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             FileFormatInfoGenerator.Generate(filesDirectory, resultFileFullName);
         }
-
+        
         public Task<ArchiveFormatValidationReport> ValidateArchiveFormat(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language)
         {
             LanguageManager.SetResourceLanguageForArchiveFormatValidation(language);

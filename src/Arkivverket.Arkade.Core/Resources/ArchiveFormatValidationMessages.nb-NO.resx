@@ -124,6 +124,9 @@
     <value>Filen {0} har et godkjent arkivformat: {1}</value>
   </data>
   <data name="FileHasNotApprovedFormat" xml:space="preserve">
-    <value>Filen {0} har ikke et godkjent arkivformat.</value>
+    <value>Filen {0} har ikke et godkjent arkivformat. {1}</value>
+  </data>
+  <data name="MissingDiasEntries" xml:space="preserve">
+    <value>Manglende filer/kataloger: {0}</value>
   </data>
 </root>

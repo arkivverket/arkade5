@@ -1,4 +1,4 @@
-namespace Arkivverket.Arkade.Core.Util
+﻿namespace Arkivverket.Arkade.Core.Util
 {
     public class ArkadeConstants
     {
@@ -12,7 +12,9 @@ namespace Arkivverket.Arkade.Core.Util
         public const string MetadatakatalogXsdFileName = "metadatakatalog.xsd";
         public const string ArkadeXmlLogFileName = "arkade-log.xml";
         public const string EadXmlFileName = "ead.xml";
+        public const string EadXsdFileName = "ead.xsd";
         public const string EacCpfXmlFileName = "eac-cpf.xml";
+        public const string EacCpfXsdFileName = "eac-cpf.xsd";
         public const string DiasPremisXmlFileName = "dias-premis.xml";
         public const string DiasPremisXsdFileName = "dias-premis.xsd";
         public const string DiasMetsXmlFileName = "dias-mets.xml";
@@ -26,6 +28,7 @@ namespace Arkivverket.Arkade.Core.Util
         public const string RunningJournalXsdFileName = "loependeJournal.xsd";
         public const string ChangeLogXmlFileName = "endringslogg.xml";
         public const string ChangeLogXsdFileName = "endringslogg.xsd";
+        public const string SystemhaandbokPdfFileName = "systemhåndbok.pdf";
 
         public const string SiardHeaderDirectoryName = "header";
         public const string SiardMetadataXmlFileName = "metadata.xml";
@@ -59,6 +62,8 @@ namespace Arkivverket.Arkade.Core.Util
         public const string DirectoryNameRepositoryOperations = "repository_operations";
         public const string DirectoryNameContent = "content";
         public const string DirectoryNameAppDataArkadeSubFolder = "Arkivverket";
+        public const string DirectoryNameDescriptiveMetadata = "descriptive_metadata";
+        public const string DirectoryNameAdministrativeMetadata = "administrative_metadata";
 
         public const string DirectoryNameThirdPartySoftware = "ThirdPartySoftware";
         public const string DirectoryNameSiegfried = "Siegfried";

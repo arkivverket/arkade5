@@ -146,6 +146,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ArkadeTestDisplayNames.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\DiasMetsStructureValidationMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DiasMetsStructureValidationMessages.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\ExceptionMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -207,6 +212,10 @@
     <EmbeddedResource Update="Resources\ArkadeTestDisplayNames.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ArkadeTestDisplayNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\DiasMetsStructureValidationMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DiasMetsStructureValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ExceptionMessages.nb-NO.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

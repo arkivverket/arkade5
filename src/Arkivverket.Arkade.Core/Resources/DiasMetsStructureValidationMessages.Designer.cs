@@ -22,14 +22,14 @@ namespace Arkivverket.Arkade.Core.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ArchiveFormatValidationMessages {
+    internal class DiasMetsStructureValidationMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ArchiveFormatValidationMessages() {
+        internal DiasMetsStructureValidationMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.Core.Resources.ArchiveFormatValidationMessages", typeof(ArchiveFormatValidationMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.Core.Resources.DiasMetsStructureValidationMessages", typeof(DiasMetsStructureValidationMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,11 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The validation failed. See error log for details..
+        ///   Looks up a localized string similar to {0} was not found.
         /// </summary>
-        internal static string FileFormatValidationErrorMessage {
+        internal static string FileNotFound {
             get {
-                return ResourceManager.GetString("FileFormatValidationErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The file {0} has an approved archive format: {1}.
-        /// </summary>
-        internal static string FileHasApprovedFormat {
-            get {
-                return ResourceManager.GetString("FileHasApprovedFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The file {0} has not an approved archive format. {1}.
-        /// </summary>
-        internal static string FileHasNotApprovedFormat {
-            get {
-                return ResourceManager.GetString("FileHasNotApprovedFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Missing files/directories: {0}.
-        /// </summary>
-        internal static string MissingDiasEntries {
-            get {
-                return ResourceManager.GetString("MissingDiasEntries", resourceCulture);
+                return ResourceManager.GetString("FileNotFound", resourceCulture);
             }
         }
     }
