@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ICSharpCode.SharpZipLib.Tar;
+using static System.Environment;
 using static Arkivverket.Arkade.Core.Resources.ArchiveFormatValidationMessages;
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
@@ -23,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                     Path.GetFileNameWithoutExtension(item.Name) + Path.DirectorySeparatorChar, string.Empty
                 ))); // Excluding DIAS root directory name from entry paths
             
-            string validationInfo = string.Format(MissingDiasEntries, string.Join(',', missingEntries));
+            string validationInfo = string.Format(MissingDiasEntries, NewLine + string.Join(NewLine, missingEntries));
 
             return new ArchiveFormatValidationReport(item, format, result, validationInfo);
         }
