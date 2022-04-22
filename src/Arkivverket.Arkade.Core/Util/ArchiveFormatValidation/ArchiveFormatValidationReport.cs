@@ -27,13 +27,13 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             return ValidationResult switch
             {
                 Valid => string.Format(
-                    ArchiveFormatValidationMessages.FileHasApprovedFormat, ValidatedItem.FullName, ValidationInfo
+                    ArchiveFormatValidationMessages.FileHasApprovedFormat, ValidatedItem.Name, ValidationInfo
                 ),
                 Invalid => string.Format(
-                    ArchiveFormatValidationMessages.FileHasNotApprovedFormat, ValidatedItem.FullName, ValidationInfo
+                    ArchiveFormatValidationMessages.FileHasNotApprovedFormat, ValidatedItem.Name, ValidationInfo
                 ),
                 Error => string.Format(
-                    ArchiveFormatValidationMessages.FileFormatValidationErrorMessage, ValidatedItem.FullName, ValidationInfo
+                    ArchiveFormatValidationMessages.FileFormatValidationErrorMessage, ValidatedItem.Name, ValidationInfo
                 ),
                 _ => throw new ArgumentOutOfRangeException($"No summary for {ValidationResult}")
             };
