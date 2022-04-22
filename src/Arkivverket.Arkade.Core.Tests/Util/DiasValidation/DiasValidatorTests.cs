@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Tar;
 using Xunit;
+using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 {
@@ -15,15 +15,13 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
         [Fact]
         public void DiasStructureValidator_ShouldValidateN5SIPDirectory()
         {
-            const ArchiveFormat format = ArchiveFormat.DiasSipN5;
-
-            DiasDirectory diasDirectory = DiasProvider.ProvideForFormat(format);
+            DiasDirectory diasDirectory = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSipN5);
 
             var testDirectory = new DirectoryInfo("testDirectory");
 
             DiasProvider.Write(diasDirectory, testDirectory.FullName);
 
-            ArchiveFormatValidator.ValidateAsFormat(testDirectory, format).Result
+            ArchiveFormatValidator.ValidateAsFormat(testDirectory, ArchiveFormat.DiasSipN5).Result
                 .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
 
             Delete(testDirectory);
@@ -32,23 +30,17 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
         [Fact]
         public void DiasStructureValidator_ShouldInValidateN5SIPDirectory()
         {
-            const ArchiveFormat format = ArchiveFormat.DiasSipN5;
-
-            DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(format).GetEntries();
-
-            DiasEntry[] excludedDiasEntries = { diasEntries[0], diasEntries[1] };
-            DiasEntry[] invalidDiasEntrySet = diasEntries.Except(excludedDiasEntries).ToArray();
-            IEnumerable<string> namesOfExcludedEntries = excludedDiasEntries.Select(e => e.Name);
+            DiasDirectory diasDirectory = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSip);
 
             var testDirectory = new DirectoryInfo("testDirectory");
 
-            DiasProvider.Write(new DiasDirectory(string.Empty, invalidDiasEntrySet), testDirectory.FullName);
+            DiasProvider.Write(diasDirectory, testDirectory.FullName);
 
-            ArchiveFormatValidationReport validationReport =
-                ArchiveFormatValidator.ValidateAsFormat(testDirectory, format).Result;
+            ArchiveFormatValidationReport report =
+                ArchiveFormatValidator.ValidateAsFormat(testDirectory, ArchiveFormat.DiasSipN5).Result;
 
-            validationReport.ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
-            validationReport.ValidationSummary().Should().ContainAll(namesOfExcludedEntries);
+            report.ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
+            report.ValidationSummary().Should().Contain(Path.Combine(DirectoryNameContent, ArkivstrukturXmlFileName));
 
             Delete(testDirectory);
         }
@@ -56,13 +48,11 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
         [Fact]
         public void DiasStructureValidator_ShouldValidateN5SIPZipArchive()
         {
-            const ArchiveFormat format = ArchiveFormat.DiasSipN5;
-
-            DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(format).GetEntries();
+            DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSipN5).GetEntries();
 
             FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", diasEntries);
 
-            ArchiveFormatValidator.ValidateAsFormat(diasTarArchive, format).Result
+            ArchiveFormatValidator.ValidateAsFormat(diasTarArchive, ArchiveFormat.DiasSipN5).Result
                 .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
 
             Delete(diasTarArchive);
@@ -71,21 +61,15 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
         [Fact]
         public void DiasStructureValidator_ShouldInValidateN5SIPZipArchive()
         {
-            const ArchiveFormat format = ArchiveFormat.DiasSipN5;
+            DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSip).GetEntries();
 
-            DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(format).GetEntries();
+            FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", diasEntries);
 
-            DiasEntry[] excludedDiasEntries = { diasEntries[0], diasEntries[1] };
-            DiasEntry[] invalidDiasEntrySet = diasEntries.Except(excludedDiasEntries).ToArray();
-            IEnumerable<string> namesOfExcludedEntries = excludedDiasEntries.Select(e => e.Name);
+            ArchiveFormatValidationReport report =
+                ArchiveFormatValidator.ValidateAsFormat(diasTarArchive, ArchiveFormat.DiasSipN5).Result;
 
-            FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", invalidDiasEntrySet);
-
-            ArchiveFormatValidationReport validationReport =
-                ArchiveFormatValidator.ValidateAsFormat(diasTarArchive, format).Result;
-
-            validationReport.ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
-            validationReport.ValidationSummary().Should().ContainAll(namesOfExcludedEntries);
+            report.ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
+            report.ValidationSummary().Should().Contain(Path.Combine(DirectoryNameContent, ArkivstrukturXmlFileName));
 
             Delete(diasTarArchive);
         }
@@ -111,7 +95,9 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
                 {
                     tarEntry.TarHeader.TypeFlag = TarHeader.LF_DIR;
 
-                    CreateDiasTarArchiveEntries(diasSubDirectory.GetEntries(), Path.Join(path, diasSubDirectory.Name), archive);
+                    string diasSubDirectoryPath = Path.Join(path, diasSubDirectory.Name);
+
+                    CreateDiasTarArchiveEntries(diasSubDirectory.GetEntries(), diasSubDirectoryPath, archive);
                 }
 
                 archive.PutNextEntry(tarEntry);
