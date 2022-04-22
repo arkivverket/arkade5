@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
@@ -15,6 +17,11 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 ArchiveFormat.DiasAipN5 => ProvideAipStructureNoark5(),
                 _ => throw new NotImplementedException()
             };
+        }
+
+        public static void Write(DiasDirectory diasDirectory, string directoryName)
+        {
+            WriteEntries(diasDirectory.GetEntries(), Directory.CreateDirectory(directoryName).FullName);
         }
 
         private static DiasDirectory ProvideSipStructureFagsystem()
@@ -101,6 +108,23 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 new DiasFile(SystemhaandbokPdfFileName));
 
             return diasDirectory;
+        }
+
+        private static void WriteEntries(IEnumerable<DiasEntry> entries, string path)
+        {
+            foreach (DiasEntry entry in entries)
+            {
+                string entryName = Path.Join(path, entry.Name);
+
+                if (entry is DiasFile)
+                    using (File.Create(entryName));
+
+                if (entry is DiasDirectory diasDirectory)
+                {
+                    DirectoryInfo directory = Directory.CreateDirectory(entryName);
+                    WriteEntries(diasDirectory.GetEntries(), directory.FullName);
+                }
+            }
         }
     }
 }
