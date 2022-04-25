@@ -7,7 +7,6 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
-using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Serilog;
 
