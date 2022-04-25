@@ -129,4 +129,7 @@
   <data name="MissingDiasEntries" xml:space="preserve">
     <value>Manglende filer/kataloger: {0}</value>
   </data>
+  <data name="MandatoryDiasEntriesWereFound" xml:space="preserve">
+    <value>Alle obligatoriske filer og kataloger ble funnet</value>
+  </data>
 </root>

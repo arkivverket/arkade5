@@ -24,7 +24,9 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                     Path.GetFileNameWithoutExtension(item.Name) + Path.DirectorySeparatorChar, string.Empty
                 ))); // Excluding DIAS root directory name from entry paths
             
-            string validationInfo = NewLine + string.Format(MissingDiasEntries, NewLine + string.Join(NewLine, missingEntries));
+            string validationInfo = NewLine + (result == ArchiveFormatValidationResult.Valid
+                ? MandatoryDiasEntriesWereFound
+                : string.Format(MissingDiasEntries, NewLine + string.Join(NewLine, missingEntries)));
 
             return new ArchiveFormatValidationReport(item, format, result, validationInfo);
         }

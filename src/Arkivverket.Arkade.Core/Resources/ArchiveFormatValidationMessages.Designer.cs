@@ -88,6 +88,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All mandatory files and directories were found.
+        /// </summary>
+        internal static string MandatoryDiasEntriesWereFound {
+            get {
+                return ResourceManager.GetString("MandatoryDiasEntriesWereFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing files/directories: {0}.
         /// </summary>
         internal static string MissingDiasEntries {
