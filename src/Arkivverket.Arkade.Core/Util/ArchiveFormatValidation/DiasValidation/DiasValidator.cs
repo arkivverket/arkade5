@@ -46,9 +46,9 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             using var tarInputStream = new TarInputStream(File.OpenRead(tarArchive.FullName), Encoding.Latin1);
             var tarEntryPaths = new HashSet<string>();
             while (tarInputStream.GetNextEntry() is { } entry)
-                tarEntryPaths.Add(entry.Name.ForwardSlashed());
+                tarEntryPaths.Add(Path.TrimEndingDirectorySeparator(entry.Name.ForwardSlashed()));
 
-            return diasEntryPaths.Where(diasEntryPath => !tarEntryPaths.Contains(diasEntryPath.ForwardSlashed())).ToList();
+            return diasEntryPaths.Where(diasEntryPath => !tarEntryPaths.Contains(Path.TrimEndingDirectorySeparator(diasEntryPath.ForwardSlashed()))).ToList();
         }
     }
 }
