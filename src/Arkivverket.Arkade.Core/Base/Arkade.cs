@@ -79,7 +79,7 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeApi.GenerateFileFormatInfoFiles(filesDirectory, resultFileDirectoryPath, resultFileName, language);
         }
 
-        public Task<ArchiveFormatValidationReport> ValidateArchiveFormat(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language)
+        public Task<ArchiveFormatValidationResponse> ValidateArchiveFormat(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language, bool isBatchValidation = false)
         {
             return _arkadeApi.ValidateArchiveFormat(item, format, language);
         }

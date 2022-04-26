@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Windows;
 using System.Windows.Media;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
@@ -61,12 +62,25 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             StatusMessage = ToolsGUI.ArchiveFormatValidationRunningStatusMessage;
         }
 
-        public void DisplayFinished(ArchiveFormatValidationReport validationReport)
+        public void DisplayFinished(ArchiveFormatValidationResponse validationResponse)
         {
             Reset();
-            ConfigureIconByValidationResult(validationReport.ValidationResult);
+            ConfigureIconByValidationResult(validationResponse.GetOverallResult());
             ResultIconVisibility = Visibility.Visible;
-            StatusMessage = validationReport.ValidationSummary();
+
+            if (validationResponse.IsBatchValidation)
+            {
+                var statusMessageBuilder = new StringBuilder();
+
+                foreach (ArchiveFormatValidationReport archiveFormatValidationReport in validationResponse.GetReports())
+                    statusMessageBuilder.AppendLine(archiveFormatValidationReport.ValidationSummary());
+
+                StatusMessage = statusMessageBuilder.ToString();
+            }
+            else
+            {
+                StatusMessage = validationResponse.GetReport().ValidationSummary();
+            }
         }
 
         public void Reset()

@@ -138,11 +138,11 @@ namespace Arkivverket.Arkade.Core.Base
             FileFormatInfoGenerator.Generate(filesDirectory, resultFileFullName);
         }
         
-        public Task<ArchiveFormatValidationReport> ValidateArchiveFormat(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language)
+        public Task<ArchiveFormatValidationResponse> ValidateArchiveFormat(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language, bool isBatchValidation = false)
         {
             LanguageManager.SetResourceLanguageForArchiveFormatValidation(language);
 
-            return ArchiveFormatValidator.ValidateAsFormat(item, format);
+            return ArchiveFormatValidator.ValidateAsFormat(item, format, isBatchValidation);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)

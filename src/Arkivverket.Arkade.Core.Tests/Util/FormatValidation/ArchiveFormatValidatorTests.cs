@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FormatValidation
         public void ValidateAsFormatTest()
         {
             ArchiveFormatValidationReport validationReport =
-                ArchiveFormatValidator.ValidateAsFormat(_approvedPdfAFile, ArchiveFormat.PdfA).Result;
+                ArchiveFormatValidator.ValidateAsFormat(_approvedPdfAFile, ArchiveFormat.PdfA).Result.GetReport();
 
             validationReport.ValidationFormat.Should().Be(ArchiveFormat.PdfA);
         }
@@ -33,19 +33,19 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FormatValidation
         [Trait("Dependency", "JRE")]
         public void ValidateAsPdfATest()
         {
-            ArchiveFormatValidator.ValidateAsPdfA(_approvedPdfAFile).Result
+            ArchiveFormatValidator.ValidateAsPdfA(_approvedPdfAFile).Result.GetReport()
                 .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
 
-            ArchiveFormatValidator.ValidateAsPdfA(_disapprovedPdfAFile).Result
+            ArchiveFormatValidator.ValidateAsPdfA(_disapprovedPdfAFile).Result.GetReport()
                 .ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
 
-            ArchiveFormatValidator.ValidateAsPdfA(_regularPdfFile).Result
+            ArchiveFormatValidator.ValidateAsPdfA(_regularPdfFile).Result.GetReport()
                 .ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
 
-            ArchiveFormatValidator.ValidateAsPdfA(_docxFile).Result
+            ArchiveFormatValidator.ValidateAsPdfA(_docxFile).Result.GetReport()
                 .ValidationResult.Should().Be(ArchiveFormatValidationResult.Error);
 
-            ArchiveFormatValidator.ValidateAsPdfA(_nonExistingFile).Result
+            ArchiveFormatValidator.ValidateAsPdfA(_nonExistingFile).Result.GetReport()
                 .ValidationResult.Should().Be(ArchiveFormatValidationResult.Error);
         }
     }

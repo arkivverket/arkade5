@@ -232,9 +232,16 @@ namespace Arkivverket.Arkade.CLI
 
             Log.Information($"{{{command.TrimEnd('e')}ing}} the format of {item} as {archiveFormat.GetDescription()}");
 
-            ArchiveFormatValidationReport validationReport = Arkade.ValidateArchiveFormat(item, archiveFormat, SupportedLanguage.en).Result;
+            var isBatchValidation = false; // TODO: So ...
 
-            Log.Information(validationReport.ToString());
+            ArchiveFormatValidationResponse validationResponse = Arkade.ValidateArchiveFormat(item, archiveFormat, SupportedLanguage.en, isBatchValidation).Result;
+
+            if (validationResponse.IsBatchValidation)
+                foreach (ArchiveFormatValidationReport validationReport in validationResponse.GetReports())
+                    Log.Information(validationReport.ToString());
+            
+            else
+                Log.Information(validationResponse.GetReport().ToString());
 
             LogFinishedStatus(command);
         }

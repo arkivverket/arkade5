@@ -267,9 +267,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ArchiveFormat format = ArchiveFormatValidationFormat.GetValueByDescription<ArchiveFormat>();
             SupportedLanguage language = LanguageSettingHelper.GetUILanguage();
 
-            ArchiveFormatValidationReport report = await _arkadeApi.ValidateArchiveFormat(item, format, language);
+            var isBatchValidation = false; // TODO: So ...
 
-            ArchiveFormatValidationStatusDisplay.DisplayFinished(report);
+            ArchiveFormatValidationResponse response = await _arkadeApi.ValidateArchiveFormat(item, format, language, isBatchValidation);
+
+            ArchiveFormatValidationStatusDisplay.DisplayFinished(response);
             ValidateArchiveFormatButtonIsEnabled = true;
             CloseButtonIsEnabled = true;
         }

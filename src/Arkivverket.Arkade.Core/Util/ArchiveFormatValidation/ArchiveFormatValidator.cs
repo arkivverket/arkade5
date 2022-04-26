@@ -14,17 +14,19 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-        public static async Task<ArchiveFormatValidationReport> ValidateAsFormat(FileSystemInfo item, ArchiveFormat format)
+        public static async Task<ArchiveFormatValidationResponse> ValidateAsFormat(FileSystemInfo item,
+            ArchiveFormat format, bool isBatchValidation = false)
         {
             return format switch
             {
-                ArchiveFormat.PdfA => await ValidateAsPdfA(item),
-                ArchiveFormat.DiasSip or ArchiveFormat.DiasAip or ArchiveFormat.DiasAipN5 or ArchiveFormat.DiasSipN5 => await ValidateAsDiasAsync(item, format),
+                ArchiveFormat.PdfA => await ValidateAsPdfA(item, isBatchValidation),
+                ArchiveFormat.DiasSip or ArchiveFormat.DiasAip or ArchiveFormat.DiasAipN5 or ArchiveFormat.DiasSipN5 =>
+                    new ArchiveFormatValidationResponse(await ValidateAsDiasAsync(item, format)),
                 _ => throw new ArgumentOutOfRangeException($"No validator for {format}")
             };
         }
 
-        public static async Task<ArchiveFormatValidationReport> ValidateAsPdfA(FileSystemInfo item)
+        public static async Task<ArchiveFormatValidationResponse> ValidateAsPdfA(FileSystemInfo item, bool isBatchValidation = false)
         {
             var approvedPdfAProfiles = new ReadOnlyCollection<string>(
                 new List<string>
@@ -47,7 +49,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             try
             {
                 if ((item.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
-                    throw new Exception("PDF/A validator doesn't support directory input");
+                    throw new Exception("PDF/A validator doesn't support directory input"); // TODO: So ...
 
                 ValidationReport report = (
                     await new PdfAValidator().ValidateWithDetailedReportAsync(item.FullName)
@@ -55,21 +57,23 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 
                 string reportedPdfAProfile = report.ProfileName.Split(' ')[0];
 
-                return report.IsCompliant && approvedPdfAProfiles.Contains(reportedPdfAProfile)
-                    ? new ArchiveFormatValidationReport(
-                        item, ArchiveFormat.PdfA, ArchiveFormatValidationResult.Valid, reportedPdfAProfile
-                        )
-                    : new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, ArchiveFormatValidationResult.Invalid);
+                ArchiveFormatValidationReport validationReport = report.IsCompliant && approvedPdfAProfiles.Contains(reportedPdfAProfile)
+                        ? new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, ArchiveFormatValidationResult.Valid, reportedPdfAProfile)
+                        : new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, ArchiveFormatValidationResult.Invalid);
+
+                return new ArchiveFormatValidationResponse(validationReport);
             }
             catch (Exception exception)
             {
                 Log.Error("Validation failed: " + exception.Message);
 
-                return new ArchiveFormatValidationReport(
-                    item,
-                    ArchiveFormat.PdfA,
-                    ArchiveFormatValidationResult.Error,
-                    ArchiveFormatValidationMessages.FileFormatValidationErrorMessage
+                return new ArchiveFormatValidationResponse(
+                    new ArchiveFormatValidationReport(
+                        item,
+                        ArchiveFormat.PdfA,
+                        ArchiveFormatValidationResult.Error,
+                        ArchiveFormatValidationMessages.FileFormatValidationErrorMessage
+                    )
                 );
             }
         }
