@@ -90,5 +90,10 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Builders
             return this;
         }
 
+        public AddmlFieldDefinitionBuilder NonNullable()
+        {
+            _isNullable = false;
+            return this;
+        }
     }
 }
