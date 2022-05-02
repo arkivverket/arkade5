@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Arkivverket.Arkade.Core.Util
@@ -92,7 +91,7 @@ namespace Arkivverket.Arkade.Core.Util
         public static string ConvertToBasicRepresentation(string dateTimeString)
         {
             const string colonRegex = @"(?<=\d{2}):(?=\d{2})";
-            const string hyphenRegex = @"(?<=\d{1})-(?=\d{1})";
+            const string hyphenRegex = @"(?<=\d{1})-(?=(\d{1}|W))";
 
             return Regex.Replace(Regex.Replace(dateTimeString, colonRegex, string.Empty), hyphenRegex, string.Empty);
         }

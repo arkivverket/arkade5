@@ -83,9 +83,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions.DataTypes
                 .Should().Be(new DateTimeOffset(2022, 01, 03, 00, 00, 00, TimeSpan.FromHours(0)));
             new DateDataType("YYYY\"W\"WWD\"T\"hhmmss\"Z\"").Parse("2022W011T010203Z")
                 .Should().Be(new DateTimeOffset(2022, 01, 03, 01, 02, 03, TimeSpan.FromHours(0)));
-            new DateDataType("YYYY\"W\"WWD\"T\"hhmmss±hh").Parse("2022-W01-1T01:02:03+01")
+            new DateDataType("YYYY\"W\"WWD\"T\"hhmmss±hh").Parse("2022W011T010203+01")
                 .Should().Be(new DateTimeOffset(2022, 01, 03, 01, 02, 03, TimeSpan.FromHours(1)));
-            new DateDataType("YYYY\"W\"WWD\"T\"hhmmss±hhmm").Parse("2022-W01-1T01:02:03+01:00")
+            new DateDataType("YYYY\"W\"WWD\"T\"hhmmss±hhmm").Parse("2022W011T010203+0100")
                 .Should().Be(new DateTimeOffset(2022, 01, 03, 01, 02, 03, TimeSpan.FromHours(1)));
             //Extended representations
             new DateDataType("YYYY-\"W\"WW-D").Parse("2022-W52-7")
@@ -129,8 +129,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions.DataTypes
             //Basic representations
             new DateDataType("YYYY\"W\"WWD").IsValid("2022W011").Should().BeTrue();
             new DateDataType("YYYY\"W\"WWD\"T\"hhmmss\"Z\"").IsValid("2022W011T010203Z").Should().BeTrue();
-            new DateDataType("YYYY\"W\"WWD\"T\"hhmmss±hh").IsValid("2022-W01-1T01:02:03+01").Should().BeTrue();
-            new DateDataType("YYYY\"W\"WWD\"T\"hhmmss±hhmm").IsValid("2022-W01-1T01:02:03+01:00").Should().BeTrue();
+            new DateDataType("YYYY\"W\"WWD\"T\"hhmmss±hh").IsValid("2022W011T010203+01").Should().BeTrue();
+            new DateDataType("YYYY\"W\"WWD\"T\"hhmmss±hhmm").IsValid("2022W011T010203+0100").Should().BeTrue();
             //Extended representations
             new DateDataType("YYYY-\"W\"WW-D").IsValid("2022-W52-7").Should().BeTrue();
             new DateDataType("YYYY-\"W\"WW-D\"T\"hh\":\"mm\":\"ss\"Z\"").IsValid("2022-W52-7T01:02:03Z").Should().BeTrue();
