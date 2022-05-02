@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.GUI.Util
 
         private static bool DirectoryIsWritable(string directory)
         {
-            if (string.IsNullOrWhiteSpace(directory))
+            if (string.IsNullOrWhiteSpace(directory) || !Directory.Exists(directory))
                 return false;
 
             string tmpDirectory = Path.Combine(directory, "arkade-writeaccess-test");
