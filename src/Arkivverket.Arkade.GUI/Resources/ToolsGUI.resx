@@ -134,7 +134,7 @@ Result saved at:</value>
     <value>PRONOM file format analysis</value>
   </data>
   <data name="FormatCheckOngoing" xml:space="preserve">
-    <value>Performing format analysis ...</value>
+    <value>Performing format analysis: {0} of {1} files analysed</value>
   </data>
   <data name="FormatCheckOutputDirectoryPickerTitle" xml:space="preserve">
     <value>Choose location for results</value>

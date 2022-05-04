@@ -36,7 +36,7 @@
                                  Value="0"
                                  IsIndeterminate="True"
                                  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12" Width="19"/>
-                    <TextBlock VerticalAlignment="Center" Visibility="{Binding ProgressBarVisibility}"  Text="{x:Static lang:ToolsGUI.FormatCheckOngoing}" TextWrapping="Wrap"/>
+                    <TextBlock VerticalAlignment="Center" Visibility="{Binding ProgressBarVisibility}" Text="{Binding FormatAnalysisOngoingString}" TextWrapping="Wrap"/>
                 </StackPanel>
                 <TextBox Margin="10,5,0,10" BorderThickness="0" Background="Transparent" IsReadOnly="True"
                          TextWrapping="Wrap"

@@ -35,6 +35,7 @@ namespace Arkivverket.Arkade.CLI
             StatusEventHandler.TestProgressUpdatedEvent += OnTestProgressUpdatedEvent;
             StatusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
             StatusEventHandler.SiardValidationFinishedEvent += OnSiardValidationFinishedEvent;
+            StatusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdatedEvent;
 
             Log.Information($"\n" +
                             $"********************************************************************************\n" +
@@ -83,6 +84,17 @@ namespace Arkivverket.Arkade.CLI
             errorsAndWarnings.Where(e =>
                     e.StartsWith("WARN") && !ArkadeConstants.SuppressedDbptkWarningMessages.Contains(e)).ToList()
                 .ForEach(Log.Warning);
+        }
+
+        private static void OnFormatAnalysisProgressUpdatedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
+            if (Console.IsOutputRedirected)
+                return;
+
+            if (eventArgs.FileCounter > 1)
+                Console.SetCursorPosition(0, Console.CursorTop - 1);
+
+            Log.Information($"Performing file format analysis: {eventArgs.FileCounter} of {eventArgs.TotalFiles} files analysed");
         }
 
         private static string GetThirdPartySoftwareInfo()

@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Siard;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -23,10 +24,11 @@ namespace Arkivverket.Arkade.Core.Metadata
         private readonly EadCreator _eadCreator;
         private readonly ISiardXmlTableReader _siardXmlTableReader;
         private readonly ISiardArchiveReader _siardArchiveReader;
+        private readonly IStatusEventHandler _statusEventHandler;
 
         public MetadataFilesCreator(DiasMetsCreator diasMetsCreator, DiasPremisCreator diasPremisCreator,
             EadCreator eadCreator, EacCpfCreator eacCpfCreator, LogCreator logCreator, ISiardXmlTableReader siardXmlTableReader,
-            ISiardArchiveReader siardArchiveReader)
+            ISiardArchiveReader siardArchiveReader, IStatusEventHandler statusEventHandler)
         {
             _diasMetsCreator = diasMetsCreator;
             _diasPremisCreator = diasPremisCreator;
@@ -35,6 +37,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             _eacCpfCreator = eacCpfCreator;
             _siardXmlTableReader = siardXmlTableReader;
             _siardArchiveReader = siardArchiveReader;
+            _statusEventHandler = statusEventHandler;
         }
 
         public void Create(Archive archive, ArchiveMetadata metadata, bool generateFileFormatInfo)
@@ -83,7 +86,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
                         resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, documentsDirectory.Name);
                         resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
-                        FileFormatInfoGenerator.Generate(archive.GetDocumentsDirectory(), resultFileFullName);
+                        FileFormatInfoGenerator.Generate(archive.GetDocumentsDirectory(), resultFileFullName, _statusEventHandler);
                     }
                 }
                 catch (SiegfriedFileFormatIdentifierException siegfriedException)

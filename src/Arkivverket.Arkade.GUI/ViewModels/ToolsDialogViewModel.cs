@@ -1,11 +1,13 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
@@ -23,8 +25,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private readonly ILogger _log = Log.ForContext<ToolsDialogViewModel>();
 
         private ArkadeApi _arkadeApi;
+        private readonly IStatusEventHandler _statusEventHandler;
 
         // ---------- File format analysis --------------
+
+        private string _formatAnalysisOngoingString;
+        public string FormatAnalysisOngoingString
+        {
+            get => _formatAnalysisOngoingString;
+            set => SetProperty(ref _formatAnalysisOngoingString, value);
+        }
 
         private string _directoryForFormatCheck;
         public string DirectoryForFormatCheck
@@ -114,11 +124,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _closeButtonIsEnabled, value);
         }
 
-        public ToolsDialogViewModel(ArkadeApi arkadeApi)
+        public ToolsDialogViewModel(ArkadeApi arkadeApi, IStatusEventHandler statusEventHandler)
         {
             _arkadeApi = arkadeApi;
+            _statusEventHandler = statusEventHandler;
 
             // ---------- File format analysis --------------
+
+            _statusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdated;
 
             ChooseDirectoryForFormatCheckCommand = new DelegateCommand(ChooseDirectoryForFormatCheck);
             RunFormatCheckCommand = new DelegateCommand(RunFormatCheck);
@@ -157,6 +170,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
         // ---------- File format analysis --------------
+
+        private void OnFormatAnalysisProgressUpdated(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
+            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, eventArgs.FileCounter,
+                eventArgs.TotalFiles);
+        }
 
         private void ChooseDirectoryForFormatCheck()
         {
@@ -198,6 +217,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 return;
             }
 
+            _statusEventHandler.RaiseEventFormatAnalysisProgressUpdated(0,
+                Directory.EnumerateFiles(DirectoryForFormatCheck, "*", SearchOption.AllDirectories).Count());
+
             string filePath = saveFileDialog.FileName;
 
             _log.Information($"User action: Chose directory for {action}: {filePath}");
@@ -217,7 +239,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                         SupportedLanguage language = LanguageSettingHelper.GetOutputLanguage();
 
-                        _arkadeApi.GenerateFileFormatInfoFiles(new DirectoryInfo(DirectoryForFormatCheck),
+                        var filesDirectory = new DirectoryInfo(DirectoryForFormatCheck);
+
+                        _arkadeApi.GenerateFileFormatInfoFiles(filesDirectory,
                             DirectoryToSaveFormatCheckResult, Path.GetFileName(filePath), language);
                     });
             }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using CsvHelper;
@@ -12,11 +13,12 @@ namespace Arkivverket.Arkade.Core.Report
     public static class FileFormatInfoGenerator
     {
         public static void Generate(DirectoryInfo filesDirectory, string resultFileFullPath,
+            IStatusEventHandler statusEventHandler,
             bool filesAreReferencedFromFilesDirectoryParent = false)
         {
             Log.Information($"Starting file format analysis.");
 
-            IEnumerable<IFileFormatInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(filesDirectory);
+            IEnumerable<IFileFormatInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(filesDirectory, statusEventHandler);
 
             DirectoryInfo startDirectory = filesAreReferencedFromFilesDirectoryParent
                 ? filesDirectory.Parent
@@ -42,9 +44,9 @@ namespace Arkivverket.Arkade.Core.Report
             WriteFileTypeStatisticsFile(resultFileFullPath, fileTypeStatisticsElements);
         }
 
-        private static IEnumerable<IFileFormatInfo> GetFormatInfoAllFiles(DirectoryInfo directory)
+        private static IEnumerable<IFileFormatInfo> GetFormatInfoAllFiles(DirectoryInfo directory, IStatusEventHandler statusEventHandler)
         {
-            var fileFormatIdentifier = new SiegfriedFileFormatIdentifier();
+            var fileFormatIdentifier = new SiegfriedFileFormatIdentifier(statusEventHandler);
 
             return fileFormatIdentifier.IdentifyFormat(directory);
         }

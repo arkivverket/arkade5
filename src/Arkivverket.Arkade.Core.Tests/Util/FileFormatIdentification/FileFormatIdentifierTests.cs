@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using FluentAssertions;
 using Xunit;
@@ -14,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         {
             var directory = new DirectoryInfo(Path.Combine("TestData", "FileTypes")); // PDF, PDF/A-1b, PDF/A-3a, DOCX
 
-            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
+            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier(new StatusEventHandler());
 
             List<IFileFormatInfo> filesWithFormat = formatIdentifier.IdentifyFormat(directory).ToList();
 
@@ -58,7 +59,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         [Fact]
         public void IdentifySingleDocxFileTest()
         {
-            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
+            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier(new StatusEventHandler());
 
             string docxFilePath = Path.Combine("TestData", "FileTypes", "docx.docx");
 
@@ -75,7 +76,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         [Fact]
         public void IdentifyDocxFileFromFileStreamTest()
         {
-            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
+            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier(new StatusEventHandler());
 
             string docxFilePath = Path.Combine("TestData", "FileTypes", "docx.docx");
 
@@ -94,7 +95,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         [Fact]
         public void IdentifySinglePdfAFileTest()
         {
-            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
+            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier(new StatusEventHandler());
 
             string pdfaFilePath = Path.Combine("TestData", "FileTypes", "pdfA-1b.pdf");
 
@@ -111,7 +112,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         [Fact]
         public void IdentifyPdfAFileFromFileStreamTest()
         {
-            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
+            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier(new StatusEventHandler());
 
             string pdfaFilePath = Path.Combine("TestData", "FileTypes", "pdfA-1b.pdf");
 
@@ -130,7 +131,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         [Fact]
         public void IdentifySinglePdfFileTest()
         {
-            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
+            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier(new StatusEventHandler());
 
             string pdfFilePath = Path.Combine("TestData", "FileTypes", "pdf.pdf");
 
@@ -147,7 +148,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         [Fact]
         public void IdentifyPdfFileFromFileStreamTest()
         {
-            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier();
+            IFileFormatIdentifier formatIdentifier = new SiegfriedFileFormatIdentifier(new StatusEventHandler());
 
             string pdfFilePath = Path.Combine("TestData", "FileTypes", "pdf.pdf");
 

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using Xunit;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
 using FluentAssertions;
@@ -22,7 +23,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             if (File.Exists(testFilePath))
                 File.Delete(testFilePath);
 
-            FileFormatInfoGenerator.Generate(testArchive.GetDocumentsDirectory(), testFilePath, true);
+            FileFormatInfoGenerator.Generate(testArchive.GetDocumentsDirectory(), testFilePath, new StatusEventHandler(), true);
 
             File.Exists(testFilePath).Should().BeTrue();
 

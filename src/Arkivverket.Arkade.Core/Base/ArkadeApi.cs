@@ -26,10 +26,12 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly InformationPackageCreator _informationPackageCreator;
         private readonly TestSessionXmlGenerator _testSessionXmlGenerator;
         private readonly IArchiveTypeIdentifier _archiveTypeIdentifier;
+        private readonly IStatusEventHandler _statusEventHandler;
 
         public ArkadeApi(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory,
             MetadataFilesCreator metadataFilesCreator, InformationPackageCreator informationPackageCreator,
-            TestSessionXmlGenerator testSessionXmlGenerator, IArchiveTypeIdentifier archiveTypeIdentifier)
+            TestSessionXmlGenerator testSessionXmlGenerator, IArchiveTypeIdentifier archiveTypeIdentifier,
+            IStatusEventHandler statusEventHandler)
         {
             _testSessionFactory = testSessionFactory;
             _testEngineFactory = testEngineFactory;
@@ -37,6 +39,7 @@ namespace Arkivverket.Arkade.Core.Base
             _informationPackageCreator = informationPackageCreator;
             _testSessionXmlGenerator = testSessionXmlGenerator;
             _archiveTypeIdentifier = archiveTypeIdentifier;
+            _statusEventHandler = statusEventHandler;
         }
 
         public TestSession RunTests(ArchiveDirectory archiveDirectory)
@@ -135,7 +138,7 @@ namespace Arkivverket.Arkade.Core.Base
             
             string resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
 
-            FileFormatInfoGenerator.Generate(filesDirectory, resultFileFullName);
+            FileFormatInfoGenerator.Generate(filesDirectory, resultFileFullName, _statusEventHandler);
         }
 
         public Task<ArchiveFormatValidationReport> ValidateArchiveFormat(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language)

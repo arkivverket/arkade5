@@ -7,6 +7,8 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
+using Arkivverket.Arkade.Core.Logging;
 using CsvHelper;
 using Serilog;
 
@@ -15,6 +17,13 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
     public class SiegfriedFileFormatIdentifier : IFileFormatIdentifier
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
+
+        private static IStatusEventHandler _statusEventHandler;
+
+        public SiegfriedFileFormatIdentifier(IStatusEventHandler statusEventHandler)
+        {
+            _statusEventHandler = statusEventHandler;
+        }
 
         public IEnumerable<IFileFormatInfo> IdentifyFormat(DirectoryInfo directory)
         {
@@ -89,8 +98,18 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         {
             var results = new List<string>();
             var errors = new List<string>();
+            var fileCounter = 0;
+            long numberOfFileInfoObjects = directory is DirectoryInfo dir ? dir.GetNumberOfFileInfoObjects() : 1;
+            var headerLineAdded = false;
 
-            process.OutputDataReceived += (sender, args) => results.Add(args.Data);
+            process.OutputDataReceived += (sender, args) =>
+            {
+                results.Add(args.Data);
+                if (headerLineAdded && args.Data != null)
+                    _statusEventHandler.RaiseEventFormatAnalysisProgressUpdated(++fileCounter, numberOfFileInfoObjects);
+
+                headerLineAdded = true;
+            };
             process.ErrorDataReceived += (sender, args) => errors.Add(args.Data);
 
             try

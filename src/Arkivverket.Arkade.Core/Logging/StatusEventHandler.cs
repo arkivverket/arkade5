@@ -45,6 +45,11 @@ namespace Arkivverket.Arkade.Core.Logging
             OnSiardValidationFinishedEvent(new SiardValidationEventArgs(errors));
         }
 
+        public void RaiseEventFormatAnalysisProgressUpdated(long fileCounter, long totalAmountOfFiles)
+        {
+            OnFormatAnalysisProgressUpdated(new FormatAnalysisProgressEventArgs(fileCounter, totalAmountOfFiles));
+        }
+
         public event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
 
         public event EventHandler<OperationMessageEventArgs> TestStartedEvent;
@@ -61,6 +66,8 @@ namespace Arkivverket.Arkade.Core.Logging
         public event EventHandler<TestProgressEventArgs> TestProgressUpdatedEvent;
 
         public event EventHandler<SiardValidationEventArgs> SiardValidationFinishedEvent;
+
+        public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisProgressUpdatedEvent;
 
         private void OnTestStartedEvent(OperationMessageEventArgs eventArgs)
         {
@@ -119,6 +126,12 @@ namespace Arkivverket.Arkade.Core.Logging
         protected virtual void OnSiardValidationFinishedEvent(SiardValidationEventArgs eventArgs)
         {
             var handler = SiardValidationFinishedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
+
+        protected virtual void OnFormatAnalysisProgressUpdated(FormatAnalysisProgressEventArgs eventArgs)
+        {
+            EventHandler<FormatAnalysisProgressEventArgs> handler = FormatAnalysisProgressUpdatedEvent;
             handler?.Invoke(this, eventArgs);
         }
     }

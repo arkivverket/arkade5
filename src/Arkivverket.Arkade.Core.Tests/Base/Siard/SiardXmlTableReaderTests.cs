@@ -2,6 +2,7 @@
 using Arkivverket.Arkade.Core.Base.Siard;
 using System.Collections.Generic;
 using System.IO;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using FluentAssertions;
 
@@ -13,7 +14,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1FileTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier(new StatusEventHandler()));
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "testuttrekk_med_blobs.siard");
 
@@ -31,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard1_0FileTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier(new StatusEventHandler()));
 
             string archiveFolder = Path.Combine("TestData", "Siard", "siard1_med_blobs.siard");
 
@@ -49,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1ArchiveFileWithExternalLobsCreatedBySiardGuiTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier(new StatusEventHandler()));
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "siardGui", "external", "siardGui.siard");
 
@@ -70,7 +71,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1ArchiveFileWithInternalLobsCreatedBySiardGuiTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier(new StatusEventHandler()));
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "siardGui", "internal", "siardGui.siard");
 
@@ -91,7 +92,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1ArchiveFileWithExternalLobsCreatedByDatabasePreservationToolkitTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier(new StatusEventHandler()));
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "dbPtk", "external", "dbptk.siard");
 
@@ -112,7 +113,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1ArchiveFileWithInternalLobsCreatedByDatabasePreservationToolkitTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier(new StatusEventHandler()));
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "dbPtk", "internal", "dbptk.siard");
 
@@ -147,7 +148,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1ArchiveFileWithExternalLobsCreatedBySpectralCoreFullConvertTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier(new StatusEventHandler()));
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "fullConvert", "external", "scfc.siard");
 
@@ -182,7 +183,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1ArchiveFileWithInternalLobsCreatedBySpectralCoreFullConvertTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier(new StatusEventHandler()));
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "fullConvert", "internal", "scfc.siard");
 
