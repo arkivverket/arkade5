@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 foreach ((string missingFile, long xmlLineNumber) in missingFiles)
                 {
                     testResults.Add(new TestResult(ResultType.Error, 
-                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName, xmlLineNumber),
+                        new Location(ArkadeConstants.ArkivstrukturXmlFileName, xmlLineNumber),
                         string.Format(Noark5Messages.FileNotFound, missingFile)));
                 }
 

@@ -84,7 +84,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     foreach (DocumentObject documentObject in group.Where(d => d.HasFormatMismatch()))
                     {
                         errorResults.Add(new TestResult(ResultType.Error, 
-                            new Location(ArkadeConstants.ArkivuttrekkXmlFileName, documentObject.XmlLineNumber),
+                            new Location(ArkadeConstants.ArkivstrukturXmlFileName, documentObject.XmlLineNumber),
                             string.Format(Noark5Messages.NumberOfEachDocumentFormatMessage_FormatMismatch,
                                 documentObject.FileReference)));
 

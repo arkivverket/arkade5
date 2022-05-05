@@ -52,13 +52,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 // Error message if disposals are documented but not found:
                 case true when !_numberOfDisposalsExecutedPerArchivePart.Any(a => a.Value > 0):
                     testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
-                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                        new Location(ArkadeConstants.ArkivstrukturXmlFileName),
                         Noark5Messages.NumberOfDisposalsExecutedMessage_DocTrueActualFalse));
                     break;
                 // Error message if disposals are found but not documented:
                 case false when _numberOfDisposalsExecutedPerArchivePart.Any(a => a.Value > 0):
                     testResultSet.TestsResults.Add(new TestResult(ResultType.Error, new Location(
-                            ArkadeConstants.ArkivuttrekkXmlFileName, _executedDisposalsLocations),
+                            ArkadeConstants.ArkivstrukturXmlFileName, _executedDisposalsLocations),
                         Noark5Messages.NumberOfDisposalsExecutedMessage_DocFalseActualTrue));
                     break;
             }

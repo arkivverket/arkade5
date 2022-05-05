@@ -67,7 +67,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
                 int documentedFileCount = GetDocumentedFileCount(archive);
 
                 _testResults.Add(new TestResult(ResultType.Success,
-                    new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                    new Location(ArkadeConstants.ArkivstrukturXmlFileName),
                     string.Format(Noark5Messages.ValidateNumberOfDocumentfilesMessage_NumberOfFilesDocumented,
                         documentedFileCount)));
 
@@ -80,7 +80,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             }
             catch (Exception)
             {
-                _testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                _testResults.Add(new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivstrukturXmlFileName),
                     Noark5Messages.ValidateNumberOfDocumentfilesMessage_DocumentationNotFound));
             }
         }

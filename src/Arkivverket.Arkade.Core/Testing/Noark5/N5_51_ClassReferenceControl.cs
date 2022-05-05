@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 testResults.AddRange
                 (classReferringDossiers.Where(HasInvalidReference).Select
                     (dossierWithInvalidReference => new TestResult(ResultType.Error, new Location(
-                            ArkadeConstants.ArkivuttrekkXmlFileName, dossierWithInvalidReference.XmlLineNumber),
+                            ArkadeConstants.ArkivstrukturXmlFileName, dossierWithInvalidReference.XmlLineNumber),
                         string.Format(Noark5Messages.ClassReferenceControlMessage,
                             dossierWithInvalidReference.SystemId ?? "?", dossierWithInvalidReference.ClassReference))
                     )

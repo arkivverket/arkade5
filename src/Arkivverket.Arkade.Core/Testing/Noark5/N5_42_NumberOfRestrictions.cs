@@ -52,13 +52,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 // Error message if documentation states instances of restrictions but none are found:
                 case true when _totalNumberOfRestrictions == 0:
                     testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
-                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                        new Location(ArkadeConstants.ArkivstrukturXmlFileName),
                         Noark5Messages.NumberOfRestrictionsMessage_DocTrueActualFalse));
                     break;
                 // Error message if documentation states no instances of restrictions but some are found:
                 case false when _totalNumberOfRestrictions > 0:
                     testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
-                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName, _restrictionLocations),
+                        new Location(ArkadeConstants.ArkivstrukturXmlFileName, _restrictionLocations),
                         Noark5Messages.NumberOfRestrictionsMessage_DocFalseActualTrue));
                     break;
             }
