@@ -189,7 +189,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 r.IsError() &&
                 r.Message.Equals(
                     "Det er angitt at uttrekket ikke skal inneholde kassasjonsvedtak, men kassasjonsvedtak ble funnet") &&
-                r.Location.ToString().Equals("arkivuttrekk.xml - linje(r): 0"));
+                r.Location.ToString().Equals("arkivstruktur.xml - linje(r): 0"));
             testResults.Should()
                 .Contain(r => r.Message.Equals("Kassasjonsvedtak i dokumentbeskrivelse - Antall: 1"));
 
@@ -228,7 +228,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 r.IsError() &&
                 r.Message.Equals(
                     "Det er angitt at uttrekket skal inneholde kassasjonsvedtak, men ingen kassasjonsvedtak ble funnet") &&
-                r.Location.ToString().Equals("arkivuttrekk.xml"));
+                r.Location.ToString().Equals("arkivstruktur.xml"));
 
             testRun.TestResults.GetNumberOfResults().Should().Be(2);
         }
