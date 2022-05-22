@@ -106,28 +106,20 @@ namespace Arkivverket.Arkade.Core.Base
             return _externalContentDirectory != null;
         }
 
-        public void CopyAddmlFileToAdministrativeMetadata()
+        public void EnsureAdministrativeMetadataHasAddmlFile(string addmlFileName)
         {
-            FileInfo targetAddmlFile = AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName);
-            if (!targetAddmlFile.Exists)
-            {
-                FileInfo contentAddml = Content().WithFile(ArkadeConstants.AddmlXmlFileName);
-                if (contentAddml.Exists)
-                {
-                    Log.Debug($"Copying ADDML file {contentAddml.FullName} to administrative_metadata.");
-                    contentAddml.CopyTo(targetAddmlFile.FullName);
-                }
-                else
-                {
-                    FileInfo arkivuttrekkAddml = Content().WithFile(ArkadeConstants.ArkivuttrekkXmlFileName);
-                    if (arkivuttrekkAddml.Exists)
-                    {
-                        Log.Debug($"Copying ADDML file {arkivuttrekkAddml.FullName} to administrative_metadata.");
-                        arkivuttrekkAddml.CopyTo(targetAddmlFile.FullName);
-                    }
-                }
+            FileInfo targetAddmlFile = AdministrativeMetadata().WithFile(addmlFileName);
 
-            }
+            if (targetAddmlFile.Exists)
+                return;
+
+            FileInfo contentAddml = Content().WithFile(addmlFileName);
+
+            if (!contentAddml.Exists)
+                return;
+            
+            Log.Debug($"Copying ADDML file {contentAddml.FullName} to administrative_metadata.");
+            contentAddml.CopyTo(targetAddmlFile.FullName);
         }
 
         public long GetSize()
