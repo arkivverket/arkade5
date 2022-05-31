@@ -27,11 +27,12 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly TestSessionXmlGenerator _testSessionXmlGenerator;
         private readonly IArchiveTypeIdentifier _archiveTypeIdentifier;
         private readonly IStatusEventHandler _statusEventHandler;
+        private readonly IArchiveFormatValidator _archiveFormatValidator;
 
         public ArkadeApi(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory,
             MetadataFilesCreator metadataFilesCreator, InformationPackageCreator informationPackageCreator,
             TestSessionXmlGenerator testSessionXmlGenerator, IArchiveTypeIdentifier archiveTypeIdentifier,
-            IStatusEventHandler statusEventHandler)
+            IStatusEventHandler statusEventHandler, IArchiveFormatValidator archiveFormatValidator)
         {
             _testSessionFactory = testSessionFactory;
             _testEngineFactory = testEngineFactory;
@@ -40,6 +41,7 @@ namespace Arkivverket.Arkade.Core.Base
             _testSessionXmlGenerator = testSessionXmlGenerator;
             _archiveTypeIdentifier = archiveTypeIdentifier;
             _statusEventHandler = statusEventHandler;
+            _archiveFormatValidator = archiveFormatValidator;
         }
 
         public TestSession RunTests(ArchiveDirectory archiveDirectory)
@@ -145,7 +147,7 @@ namespace Arkivverket.Arkade.Core.Base
         {
             LanguageManager.SetResourceLanguageForArchiveFormatValidation(language);
 
-            return ArchiveFormatValidator.ValidateAsFormat(item, format);
+            return _archiveFormatValidator.ValidateAsync(item, format);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)

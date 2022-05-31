@@ -7,6 +7,7 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
+using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Autofac;
 
@@ -46,6 +47,7 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<SiardTestEngine>().AsSelf();
             builder.RegisterType<CliTestProgressReporter>().As<ITestProgressReporter>().SingleInstance();
             builder.RegisterType<CliBusyIndicator>().As<IBusyIndicator>().SingleInstance();
+            builder.RegisterType<ArchiveFormatValidator>().As<IArchiveFormatValidator>();
         }
     }
 }

@@ -13,6 +13,7 @@ using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Arkivverket.Arkade.GUI.ViewModels;
 using Arkivverket.Arkade.GUI.Views;
@@ -112,6 +113,7 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<ISiardXmlTableReader, SiardXmlTableReader>();
             containerRegistry.Register<SiardTestEngine>();
             containerRegistry.RegisterSingleton<ITestProgressReporter, GuiTestProgressReporter>();
+            containerRegistry.Register<IArchiveFormatValidator, ArchiveFormatValidator>();
         }
 
         public static void MyHandler(object sender, UnhandledExceptionEventArgs args)
