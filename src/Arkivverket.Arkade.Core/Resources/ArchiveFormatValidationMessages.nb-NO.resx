@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -120,10 +120,22 @@
   <data name="FileFormatValidationErrorMessage" xml:space="preserve">
     <value>Valideringen mislyktes. Se feillogg for detaljer.</value>
   </data>
-  <data name="FileHasApprovedFormat" xml:space="preserve">
-    <value>Filen {0} har et godkjent arkivformat: {1}</value>
+  <data name="ItemConformsWithFormat" xml:space="preserve">
+    <value>{0} samsvarer med det angitte arkivformatet: {1}</value>
   </data>
-  <data name="FileHasNotApprovedFormat" xml:space="preserve">
-    <value>Filen {0} har ikke et godkjent arkivformat.</value>
+  <data name="ItemDoesNotConformWithFormat" xml:space="preserve">
+    <value>{0} samsvarer ikke med det angitte arkivformatet.
+{1}</value>
+  </data>
+  <data name="MissingDiasEntries" xml:space="preserve">
+    <value>Manglende filer/kataloger:
+{0}</value>
+  </data>
+  <data name="MandatoryDiasEntriesWereFound" xml:space="preserve">
+    <value>Alle obligatoriske filer og kataloger ble funnet</value>
+  </data>
+  <data name="DiasAcceptableWithMissingEntries" xml:space="preserve">
+    <value>Arkivverket godtar denne DIAS-pakken. For at den skal være gyldig må følgende filer også medfølge:
+{0}</value>
   </data>
 </root>

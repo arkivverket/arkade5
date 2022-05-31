@@ -64,7 +64,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public void DisplayFinished(ArchiveFormatValidationResult validationResult)
         {
             Reset();
-            ConfigureIconByValidationResult(validationResult.ValidationResult);
+            ConfigureIconByValidationResult(validationResult);
             ResultIconVisibility = Visibility.Visible;
             StatusMessage = validationResult.ValidationSummary();
         }
@@ -76,31 +76,24 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ProgressBarVisibility = Visibility.Collapsed;
         }
 
-        private void ConfigureIconByValidationResult(ArchiveFormatValidationResultType result)
+        private void ConfigureIconByValidationResult(ArchiveFormatValidationResult result)
         {
-            switch (result)
+            (ResultIconKind, ResultIconColor) = result.ValidationResult switch
             {
-                case ArchiveFormatValidationResultType.Valid:
-                {
-                    ResultIconKind = "CheckBold";
-                    ResultIconColor = new SolidColorBrush(Colors.Teal);
-                    break;
-                }
-                case ArchiveFormatValidationResultType.Invalid:
-                {
-                    ResultIconKind = "MinusCircleOutline";
-                    ResultIconColor = new SolidColorBrush(Colors.DarkRed);
-                    break;
-                }
-                case ArchiveFormatValidationResultType.Error:
-                {
-                    ResultIconKind = "CloseBold";
-                    ResultIconColor = new SolidColorBrush(Colors.DimGray);
-                    break;
-                }
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(result), result, null);
-            }
+                ArchiveFormatValidationResultType.Valid =>
+                    ("CheckBold", new SolidColorBrush(Colors.Teal)),
+
+                ArchiveFormatValidationResultType.Invalid when result.IsAcceptable =>
+                    ("Information", new SolidColorBrush(Colors.RoyalBlue)),
+
+                ArchiveFormatValidationResultType.Invalid =>
+                    ("MinusCircleOutline", new SolidColorBrush(Colors.DarkRed)),
+
+                ArchiveFormatValidationResultType.Error =>
+                    ("CloseBold", new SolidColorBrush(Colors.DimGray)),
+
+                _ => throw new ArgumentOutOfRangeException(nameof(result), result, null)
+            };
         }
     }
 }

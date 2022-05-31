@@ -170,6 +170,6 @@ Resultat lagret i:</value>
     <value>Utfører validering av arkivformat ...</value>
   </data>
   <data name="ArchiveFormatValidationFileSelectDialogFilter" xml:space="preserve">
-    <value>Arkivformat-filer|*.pdf</value>
+    <value>Arkivformat-filer (*.pdf;*.tar)|*.pdf;*.tar</value>
   </data>
 </root>
