@@ -13,6 +13,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
     public class DiasValidatorTests
     {
         [Fact]
+        [Trait("Dependency", "IO")]
         public void ShouldValidateN5SipDirectory()
         {
             DiasDirectory diasDirectory = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSipN5);
@@ -28,6 +29,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
         }
 
         [Fact]
+        [Trait("Dependency", "IO")]
         public void ShouldInvalidateN5SipDirectory()
         {
             DiasDirectory diasDirectory = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSip);
@@ -46,6 +48,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
         }
 
         [Fact]
+        [Trait("Dependency", "IO")]
         public void ShouldValidateN5SipZipArchive()
         {
             DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSipN5).GetEntries();
@@ -59,6 +62,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
         }
 
         [Fact]
+        [Trait("Dependency", "IO")]
         public void ShouldInvalidateN5SipZipArchive()
         {
             DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSip).GetEntries();
@@ -75,6 +79,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
         }
 
         [Fact]
+        [Trait("Dependency", "IO")]
         public void ShouldReportInvalidButAcceptableDias()
         {
             DiasDirectory diasSource = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSipN5);
