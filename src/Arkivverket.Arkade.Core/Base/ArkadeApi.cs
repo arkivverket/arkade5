@@ -142,8 +142,8 @@ namespace Arkivverket.Arkade.Core.Base
 
             FileFormatInfoGenerator.Generate(filesDirectory, resultFileFullName, _statusEventHandler);
         }
-
-        public Task<ArchiveFormatValidationReport> ValidateArchiveFormat(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language)
+        
+        public Task<ArchiveFormatValidationResult> ValidateArchiveFormat(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language)
         {
             LanguageManager.SetResourceLanguageForArchiveFormatValidation(language);
 

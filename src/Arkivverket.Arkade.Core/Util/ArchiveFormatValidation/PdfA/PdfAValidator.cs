@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-        public static async Task<ArchiveFormatValidationReport> ValidateAsync(FileSystemInfo item)
+        public static async Task<ArchiveFormatValidationResult> ValidateAsync(FileSystemInfo item)
         {
             var approvedPdfAProfiles = new ReadOnlyCollection<string>(
                 new List<string>
@@ -47,14 +47,14 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 string reportedPdfAProfile = report.ProfileName.Split(' ')[0];
 
                 return report.IsCompliant && approvedPdfAProfiles.Contains(reportedPdfAProfile)
-                    ? new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, Valid, reportedPdfAProfile)
-                    : new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, Invalid);
+                    ? new ArchiveFormatValidationResult(item, ArchiveFormat.PdfA, Valid, reportedPdfAProfile)
+                    : new ArchiveFormatValidationResult(item, ArchiveFormat.PdfA, Invalid);
             }
             catch (Exception exception)
             {
                 Log.Error("Validation failed: " + exception.Message);
 
-                return new ArchiveFormatValidationReport(
+                return new ArchiveFormatValidationResult(
                     item,
                     ArchiveFormat.PdfA,
                     Error,

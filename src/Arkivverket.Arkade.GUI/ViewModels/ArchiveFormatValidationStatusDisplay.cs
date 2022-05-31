@@ -61,12 +61,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             StatusMessage = ToolsGUI.ArchiveFormatValidationRunningStatusMessage;
         }
 
-        public void DisplayFinished(ArchiveFormatValidationReport validationReport)
+        public void DisplayFinished(ArchiveFormatValidationResult validationResult)
         {
             Reset();
-            ConfigureIconByValidationResult(validationReport.ValidationResult);
+            ConfigureIconByValidationResult(validationResult.ValidationResult);
             ResultIconVisibility = Visibility.Visible;
-            StatusMessage = validationReport.ValidationSummary();
+            StatusMessage = validationResult.ValidationSummary();
         }
 
         public void Reset()

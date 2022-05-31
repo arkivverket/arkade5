@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using FluentAssertions;
@@ -22,10 +22,10 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FormatValidation
         [Trait("Dependency", "JRE")]
         public void ValidateAsFormatTest()
         {
-            ArchiveFormatValidationReport validationReport =
+            ArchiveFormatValidationResult validationResult =
                 new ArchiveFormatValidator().ValidateAsync(_approvedPdfAFile, ArchiveFormat.PdfA).Result;
 
-            validationReport.ValidationFormat.Should().Be(ArchiveFormat.PdfA);
+            validationResult.ValidationFormat.Should().Be(ArchiveFormat.PdfA);
         }
 
         [Fact]
