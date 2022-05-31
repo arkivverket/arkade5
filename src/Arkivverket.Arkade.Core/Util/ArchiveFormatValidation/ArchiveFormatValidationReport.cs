@@ -2,7 +2,7 @@
 using System.IO;
 using Arkivverket.Arkade.Core.Resources;
 using static System.Environment;
-using static Arkivverket.Arkade.Core.Util.ArchiveFormatValidation.ArchiveFormatValidationResult;
+using static Arkivverket.Arkade.Core.Util.ArchiveFormatValidation.ArchiveFormatValidationResultType;
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
@@ -10,11 +10,11 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
     {
         public readonly FileSystemInfo ValidatedItem;
         public readonly ArchiveFormat ValidationFormat;
-        public readonly ArchiveFormatValidationResult ValidationResult;
+        public readonly ArchiveFormatValidationResultType ValidationResult;
         public readonly string ValidationInfo;
 
         public ArchiveFormatValidationReport(FileSystemInfo validatedItem, ArchiveFormat validationFormat,
-            ArchiveFormatValidationResult validationResult, string validationInfo = "")
+            ArchiveFormatValidationResultType validationResult, string validationInfo = "")
         {
             ValidationResult = validationResult;
             ValidationFormat = validationFormat;

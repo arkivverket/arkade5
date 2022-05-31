@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Arkivverket.Arkade.Core.Resources;
 using Codeuctivity;
 using Serilog;
+using static Arkivverket.Arkade.Core.Util.ArchiveFormatValidation.ArchiveFormatValidationResultType;
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
@@ -46,10 +47,8 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 string reportedPdfAProfile = report.ProfileName.Split(' ')[0];
 
                 return report.IsCompliant && approvedPdfAProfiles.Contains(reportedPdfAProfile)
-                    ? new ArchiveFormatValidationReport(
-                        item, ArchiveFormat.PdfA, ArchiveFormatValidationResult.Valid, reportedPdfAProfile
-                        )
-                    : new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, ArchiveFormatValidationResult.Invalid);
+                    ? new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, Valid, reportedPdfAProfile)
+                    : new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, Invalid);
             }
             catch (Exception exception)
             {
@@ -58,7 +57,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 return new ArchiveFormatValidationReport(
                     item,
                     ArchiveFormat.PdfA,
-                    ArchiveFormatValidationResult.Error,
+                    Error,
                     ArchiveFormatValidationMessages.FileFormatValidationErrorMessage
                 );
             }

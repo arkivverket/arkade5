@@ -76,23 +76,23 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ProgressBarVisibility = Visibility.Collapsed;
         }
 
-        private void ConfigureIconByValidationResult(ArchiveFormatValidationResult result)
+        private void ConfigureIconByValidationResult(ArchiveFormatValidationResultType result)
         {
             switch (result)
             {
-                case ArchiveFormatValidationResult.Valid:
+                case ArchiveFormatValidationResultType.Valid:
                 {
                     ResultIconKind = "CheckBold";
                     ResultIconColor = new SolidColorBrush(Colors.Teal);
                     break;
                 }
-                case ArchiveFormatValidationResult.Invalid:
+                case ArchiveFormatValidationResultType.Invalid:
                 {
                     ResultIconKind = "MinusCircleOutline";
                     ResultIconColor = new SolidColorBrush(Colors.DarkRed);
                     break;
                 }
-                case ArchiveFormatValidationResult.Error:
+                case ArchiveFormatValidationResultType.Error:
                 {
                     ResultIconKind = "CloseBold";
                     ResultIconColor = new SolidColorBrush(Colors.DimGray);
