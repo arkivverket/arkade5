@@ -66,7 +66,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (packageType == PackageType.SubmissionInformationPackage)
             {
-                CopyTestReportsAndLogFileToStandaloneDirectory(archive, resultDirectory);
+                CopyTestReportsToStandaloneDirectory(archive, resultDirectory);
             }
 
             string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
@@ -107,7 +107,7 @@ namespace Arkivverket.Arkade.Core.Base
             return packageFilePath;
         }   
 
-        private void CopyTestReportsAndLogFileToStandaloneDirectory(Archive archive, string resultDirectory)
+        private void CopyTestReportsToStandaloneDirectory(Archive archive, string resultDirectory)
         {
             DirectoryInfo testReportDirectory = archive.GetTestReportDirectory();
 
@@ -130,21 +130,6 @@ namespace Arkivverket.Arkade.Core.Base
                                     : string.Format(OutputFileNames.StandaloneTestReportFile, archive.Uuid,
                                         file.Extension.TrimStart('.'))),
                             overwrite: true);
-                    }
-
-                    DirectoryInfo repositoryOperationsDirectory = archive.WorkingDirectory.RepositoryOperations().DirectoryInfo();
-
-                    if (repositoryOperationsDirectory.Exists)
-                    {
-                        FileInfo arkadeLogFile = repositoryOperationsDirectory.GetFiles(ArkadeConstants.ArkadeXmlLogFileName).FirstOrDefault();
-
-                        if (arkadeLogFile != default)
-                        {
-                            arkadeLogFile.CopyTo(
-                            Path.Combine(testReportResultDirectory.FullName,
-                                arkadeLogFile.Name),
-                            overwrite: true);
-                        }
                     }
                 }
             }
