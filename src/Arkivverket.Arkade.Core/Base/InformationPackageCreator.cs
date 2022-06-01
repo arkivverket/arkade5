@@ -66,30 +66,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (packageType == PackageType.SubmissionInformationPackage)
             {
-                DirectoryInfo testReportDirectory = archive.GetTestReportDirectory();
-
-                if (testReportDirectory.Exists)
-                {
-                    FileInfo[] testReportFiles = testReportDirectory.GetFiles();
-
-                    if (testReportFiles.Any())
-                    {
-                        DirectoryInfo testReportResultDirectory = Directory.CreateDirectory(Path.Combine(
-                            resultDirectory, string.Format(OutputFileNames.StandaloneTestReportDirectory, archive.Uuid)
-                        ));
-
-                        foreach (FileInfo file in testReportFiles)
-                        {
-                            file.CopyTo(
-                                Path.Combine(testReportResultDirectory.FullName,
-                                    file.Name.Equals(OutputFileNames.DbptkValidationReportFile)
-                                        ? file.Name
-                                        : string.Format(OutputFileNames.StandaloneTestReportFile, archive.Uuid,
-                                            file.Extension.TrimStart('.'))),
-                                overwrite: true);
-                        }
-                    }
-                }
+                CopyTestReportsToStandaloneDirectory(archive, resultDirectory);
             }
 
             string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
@@ -128,6 +105,34 @@ namespace Arkivverket.Arkade.Core.Base
                 archive.GetSubmissionDescriptionFileName());
 
             return packageFilePath;
+        }   
+
+        private void CopyTestReportsToStandaloneDirectory(Archive archive, string resultDirectory)
+        {
+            DirectoryInfo testReportDirectory = archive.GetTestReportDirectory();
+
+            if (testReportDirectory.Exists)
+            {
+                FileInfo[] testReportFiles = testReportDirectory.GetFiles();
+
+                if (testReportFiles.Any())
+                {
+                    DirectoryInfo testReportResultDirectory = Directory.CreateDirectory(Path.Combine(
+                        resultDirectory, string.Format(OutputFileNames.StandaloneTestReportDirectory, archive.Uuid)
+                    ));
+
+                    foreach (FileInfo file in testReportFiles)
+                    {
+                        file.CopyTo(
+                            Path.Combine(testReportResultDirectory.FullName,
+                                file.Name.Equals(OutputFileNames.DbptkValidationReportFile)
+                                    ? file.Name
+                                    : string.Format(OutputFileNames.StandaloneTestReportFile, archive.Uuid,
+                                        file.Extension.TrimStart('.'))),
+                            overwrite: true);
+                    }
+                }
+            }
         }
 
         private static void EnsureSufficientDiskSpace(Archive archive, string outputDirectory)
@@ -180,7 +185,7 @@ namespace Arkivverket.Arkade.Core.Base
             {
                 if ((packageType != null) && (packageType == PackageType.SubmissionInformationPackage) &&
                     DirectoriesToSkipForSipPackages.Contains(currentDirectory.Name))
-                {
+                {     
                     continue;
                 }
 
