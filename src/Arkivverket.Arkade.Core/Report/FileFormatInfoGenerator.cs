@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
-using CsvHelper;
 using CsvHelper.Configuration;
 using Serilog;
+using static Arkivverket.Arkade.Core.Util.CsvHelper;
 
 namespace Arkivverket.Arkade.Core.Report
 {
@@ -98,31 +97,19 @@ namespace Arkivverket.Arkade.Core.Report
             return (listElements, fileTypeStatisticsElements);
         }
 
-        private static void WriteFileList(string fullFileName, List<ListElement> listElements)
+        private static void WriteFileList(string fullFileName, IEnumerable<ListElement> listElements)
         {
-            using (var writer = new StreamWriter(fullFileName))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-            {
-                csv.Context.RegisterClassMap<ListElementMap>();
-                csv.WriteRecords(listElements);
-            }
+            WriteToFile<ListElement, ListElementMap>(fullFileName, listElements);
         }
 
         private static void WriteFileTypeStatisticsFile(string fileFormatInfoFileName,
-            List<FileTypeStatisticsElement> fileTypeStatisticsElements)
+            IEnumerable<FileTypeStatisticsElement> fileTypeStatisticsElements)
         {
             string fullFileName = Path.Combine(Path.GetDirectoryName(fileFormatInfoFileName),
                 string.Format(OutputFileNames.FileFormatInfoStatisticsFile,
                     Path.GetFileNameWithoutExtension(fileFormatInfoFileName)));
 
-            using (var writer = new StreamWriter(fullFileName))
-            {
-                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-                {
-                    csv.Context.RegisterClassMap<FileTypeStatisticsElementMap>();
-                    csv.WriteRecords(fileTypeStatisticsElements);
-                }
-            }
+            WriteToFile<FileTypeStatisticsElement, FileTypeStatisticsElementMap>(fullFileName, fileTypeStatisticsElements);
         }
 
         private sealed class ListElementMap : ClassMap<ListElement>
