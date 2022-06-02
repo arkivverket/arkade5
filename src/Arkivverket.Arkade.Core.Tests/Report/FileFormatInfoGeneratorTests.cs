@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using Xunit;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Logging;
@@ -27,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
 
             File.Exists(testFilePath).Should().BeTrue();
 
-            File.Delete(testFilePath);
+            Directory.EnumerateFiles(workingDirectoryPath, "*.csv").ToList().ForEach(File.Delete);
         }
     }
 }
