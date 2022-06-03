@@ -138,4 +138,11 @@
     <value>Arkivverket godtar denne DIAS-pakken. For at den skal være gyldig må følgende filer også medfølge:
 {0}</value>
   </data>
+  <data name="PdfABatchValidationInfoMessage" xml:space="preserve">
+    <value> Totalt antall filer: {0}
+   Gyldige filer: {1}
+   Ugyldige filer: {2}
+   Ikke mulig å fastslå: {3}
+ Detaljert rapport: {4}</value>
+  </data>
 </root>

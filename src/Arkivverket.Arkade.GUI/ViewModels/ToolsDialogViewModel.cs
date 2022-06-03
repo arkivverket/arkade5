@@ -77,11 +77,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         // ---------- Archive format validation ----------
 
-        private string _archiveFormatValidationItemPath;
-        public string ArchiveFormatValidationItemPath
+        private FileSystemInfo _archiveFormatValidationItem;
+        public FileSystemInfo ArchiveFormatValidationItem
         {
-            get => _archiveFormatValidationItemPath;
-            set => SetProperty(ref _archiveFormatValidationItemPath, value);
+            get => _archiveFormatValidationItem;
+            set => SetProperty(ref _archiveFormatValidationItem, value);
         }
 
         private string[] _archiveFormatValidationFormats;
@@ -113,6 +113,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
         public DelegateCommand ChooseFileForArchiveFormatValidationCommand { get; }
+        public DelegateCommand ChooseDirectoryForArchiveFormatValidationCommand { get; }
         public DelegateCommand ValidateArchiveFormatCommand { get; }
 
         // -----------------------------------------------
@@ -142,6 +143,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             // ---------- Archive format validation ----------
 
             ChooseFileForArchiveFormatValidationCommand = new DelegateCommand(ChooseFileForArchiveFormatValidation);
+            ChooseDirectoryForArchiveFormatValidationCommand = new DelegateCommand(ChooseDirectoryForArchiveFormatValidation);
             ValidateArchiveFormatCommand = new DelegateCommand(ValidateArchiveFormat);
 
             ValidateArchiveFormatButtonIsEnabled = false;
@@ -276,7 +278,21 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             if (fileToValidate != null)
             {
-                ArchiveFormatValidationItemPath = fileToValidate;
+                ArchiveFormatValidationItem = new FileInfo(fileToValidate);
+                ValidateArchiveFormatButtonIsEnabled = true;
+            }
+        }
+
+        private void ChooseDirectoryForArchiveFormatValidation()
+        {
+            DirectoryPicker("archive format validation",
+                ToolsGUI.ArchiveFormatValidationDirectorySelectDialogTitle,
+                out string fileToValidate
+            );
+
+            if (fileToValidate != null)
+            {
+                ArchiveFormatValidationItem = new DirectoryInfo(fileToValidate);
                 ValidateArchiveFormatButtonIsEnabled = true;
             }
         }
@@ -287,11 +303,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ValidateArchiveFormatButtonIsEnabled = false;
             ArchiveFormatValidationStatusDisplay.DisplayRunning();
 
-            FileSystemInfo item = new FileInfo(ArchiveFormatValidationItemPath);
             ArchiveFormat format = ArchiveFormatValidationFormat.GetValueByDescription<ArchiveFormat>();
             SupportedLanguage language = LanguageSettingHelper.GetUILanguage();
 
-            ArchiveFormatValidationReport report = await _arkadeApi.ValidateArchiveFormatAsync(item, format, language);
+            ArchiveFormatValidationReport report = await _arkadeApi.ValidateArchiveFormatAsync(ArchiveFormatValidationItem, format, language);
 
             ArchiveFormatValidationStatusDisplay.DisplayFinished(report);
             ValidateArchiveFormatButtonIsEnabled = true;

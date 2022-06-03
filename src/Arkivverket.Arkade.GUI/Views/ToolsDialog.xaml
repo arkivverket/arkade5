@@ -45,9 +45,14 @@
             <StackPanel Margin="5,0,0,0">
                 <Label FontSize="20" FontWeight="DemiBold"
                        Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationSectionHeading}"/>
-                <Button VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" Height="25"
-                        Command="{Binding ChooseFileForArchiveFormatValidationCommand}"
-                        Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationChooseFileButtonText}"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" Height="25" Margin="10,0"
+                                    Command="{Binding ChooseFileForArchiveFormatValidationCommand}"
+                                    Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationChooseFileButtonText}"/>
+                    <Button VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" Height="25" Margin="10,0"
+                            Command="{Binding ChooseDirectoryForArchiveFormatValidationCommand}"
+                            Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationChooseDirectoryButtonText}"/>
+                </StackPanel>
                 <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" Margin="10,5,0,10">
                     <Run Text="{Binding ArchiveFormatValidationItemPath}"
                          Background="Beige" Foreground="Black"/>

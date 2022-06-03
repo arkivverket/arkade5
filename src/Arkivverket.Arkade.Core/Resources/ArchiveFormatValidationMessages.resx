@@ -118,4 +118,11 @@
     <value>The National Archives of Norway accepts this DIAS-package, however, it is missing the following entries to be valid:
 {0}</value>
   </data>
+  <data name="PdfABatchValidationInfoMessage" xml:space="preserve">
+    <value> Total number of validated files: {0}
+   Valid files: {1}
+   Invalid files: {2}
+   Unable to determine: {3}
+ Detailed report: {4}</value>
+  </data>
 </root>

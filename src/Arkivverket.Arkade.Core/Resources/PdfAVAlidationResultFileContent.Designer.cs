@@ -22,24 +22,24 @@ namespace Arkivverket.Arkade.Core.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ArchiveFormatValidationMessages {
+    public class PdfAValidationResultFileContent {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ArchiveFormatValidationMessages() {
+        internal PdfAValidationResultFileContent() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.Core.Resources.ArchiveFormatValidationMessages", typeof(ArchiveFormatValidationMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkivverket.Arkade.Core.Resources.PdfAValidationResultFileContent", typeof(PdfAValidationResultFileContent).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,72 +61,56 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The National Archives of Norway accepts this DIAS-package, however, it is missing the following entries to be valid:
-        ///{0}.
+        ///   Looks up a localized string similar to File name.
         /// </summary>
-        internal static string DiasAcceptableWithMissingEntries {
+        public static string HeaderFileName {
             get {
-                return ResourceManager.GetString("DiasAcceptableWithMissingEntries", resourceCulture);
+                return ResourceManager.GetString("HeaderFileName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The validation failed. See error log for details..
+        ///   Looks up a localized string similar to PDF/A profile.
         /// </summary>
-        internal static string FileFormatValidationErrorMessage {
+        public static string HeaderPdfAProfile {
             get {
-                return ResourceManager.GetString("FileFormatValidationErrorMessage", resourceCulture);
+                return ResourceManager.GetString("HeaderPdfAProfile", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} conforms with the specified archive format: {1}.
+        ///   Looks up a localized string similar to Validity.
         /// </summary>
-        internal static string ItemConformsWithFormat {
+        public static string HeaderValidationResult {
             get {
-                return ResourceManager.GetString("ItemConformsWithFormat", resourceCulture);
+                return ResourceManager.GetString("HeaderValidationResult", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} does not conform with the specified archive format.
-        ///{1}.
+        ///   Looks up a localized string similar to Indeterminable.
         /// </summary>
-        internal static string ItemDoesNotConformWithFormat {
+        public static string Validity_Error {
             get {
-                return ResourceManager.GetString("ItemDoesNotConformWithFormat", resourceCulture);
+                return ResourceManager.GetString("Validity_Error", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All mandatory files and directories were found.
+        ///   Looks up a localized string similar to Invalid.
         /// </summary>
-        internal static string MandatoryDiasEntriesWereFound {
+        public static string Validity_Invalid {
             get {
-                return ResourceManager.GetString("MandatoryDiasEntriesWereFound", resourceCulture);
+                return ResourceManager.GetString("Validity_Invalid", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Missing files/directories:
-        ///{0}.
+        ///   Looks up a localized string similar to Valid.
         /// </summary>
-        internal static string MissingDiasEntries {
+        public static string Validity_Valid {
             get {
-                return ResourceManager.GetString("MissingDiasEntries", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to  Total number of validated files: {0}
-        ///   Valid files: {1}
-        ///   Invalid files: {2}
-        ///   Unable to determine: {3}
-        /// Detailed report: {4}.
-        /// </summary>
-        internal static string PdfABatchValidationInfoMessage {
-            get {
-                return ResourceManager.GetString("PdfABatchValidationInfoMessage", resourceCulture);
+                return ResourceManager.GetString("Validity_Valid", resourceCulture);
             }
         }
     }

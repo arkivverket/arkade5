@@ -154,4 +154,7 @@
     <value>arkade-testreports_{0}</value>
     <comment>{0} = Archive UUID</comment>
   </data>
+  <data name="PdfAValidationResultFile" xml:space="preserve">
+    <value>pdfa-validationreport.csv</value>
+  </data>
 </root>

@@ -172,4 +172,10 @@ Resultat lagret i:</value>
   <data name="ArchiveFormatValidationFileSelectDialogFilter" xml:space="preserve">
     <value>Arkivformat-filer (*.pdf;*.tar)|*.pdf;*.tar</value>
   </data>
+  <data name="ArchiveFormatValidationChooseDirectoryButtonText" xml:space="preserve">
+    <value>Velg katalog ...</value>
+  </data>
+  <data name="ArchiveFormatValidationDirectorySelectDialogTitle" xml:space="preserve">
+    <value>Velg en katalog hvis innhold skal valideres</value>
+  </data>
 </root>

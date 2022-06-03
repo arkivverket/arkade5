@@ -61,11 +61,29 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose directory ....
+        /// </summary>
+        public static string ArchiveFormatValidationChooseDirectoryButtonText {
+            get {
+                return ResourceManager.GetString("ArchiveFormatValidationChooseDirectoryButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose file ....
         /// </summary>
         public static string ArchiveFormatValidationChooseFileButtonText {
             get {
                 return ResourceManager.GetString("ArchiveFormatValidationChooseFileButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a directory whose content to validate.
+        /// </summary>
+        public static string ArchiveFormatValidationDirectorySelectDialogTitle {
+            get {
+                return ResourceManager.GetString("ArchiveFormatValidationDirectorySelectDialogTitle", resourceCulture);
             }
         }
         

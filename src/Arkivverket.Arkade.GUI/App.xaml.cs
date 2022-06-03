@@ -117,8 +117,9 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.RegisterSingleton<IArchiveFormatValidator,ArchiveFormatValidator>();
         }
 
-        public static void MyHandler(object sender, UnhandledExceptionEventArgs args)
+        public void MyHandler(object sender, UnhandledExceptionEventArgs args)
         {
+            Container.GetContainer().Dispose();
             var e = (Exception) args.ExceptionObject;
             new DetailedExceptionMessage(e).ShowMessageBox();
             _log.Error("Unexpected exception", e);

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -112,70 +112,27 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChooseDirectoryToAnalyse" xml:space="preserve">
-    <value>Choose directory with the content to be analysed</value>
+  <data name="HeaderValidationResult" xml:space="preserve">
+    <value>Gyldighet</value>
   </data>
-  <data name="CloseDialogButtonText" xml:space="preserve">
-    <value>Close</value>
+  <data name="HeaderPdfAProfile" xml:space="preserve">
+    <value>PDF/A-profil</value>
   </data>
-  <data name="FormatCheckChooseTargetDirectoryButtonText" xml:space="preserve">
-    <value>Choose directory ...</value>
+  <data name="HeaderFileName" xml:space="preserve">
+    <value>Filnavn</value>
   </data>
-  <data name="FormatCheckCompletedMessage" xml:space="preserve">
-    <value>Format analysis completed!
-Result saved at:</value>
+  <data name="Validity_Valid" xml:space="preserve">
+    <value>Gyldig</value>
   </data>
-  <data name="FormatCheckHeading" xml:space="preserve">
-    <value>PRONOM file format analysis</value>
+  <data name="Validity_Invalid" xml:space="preserve">
+    <value>Ugyldig</value>
   </data>
-  <data name="FormatCheckOngoing" xml:space="preserve">
-    <value>Performing format analysis: {0} of {1} files analysed</value>
-  </data>
-  <data name="FormatCheckOutputDirectoryPickerTitle" xml:space="preserve">
-    <value>Choose location for results</value>
-  </data>
-  <data name="FormatCheckRunButtonText" xml:space="preserve">
-    <value>Run</value>
-  </data>
-  <data name="SaveFormatFileExtensionFilter" xml:space="preserve">
-    <value>CSV (Comma separated values) (*.csv)|*.csv</value>
-  </data>
-  <data name="ToolsDialogTitle" xml:space="preserve">
-    <value>Tools</value>
-  </data>
-  <data name="UnsavedResultsOnExitWarning" xml:space="preserve">
-    <value>If the Tools dialog is closed now,  results from the running tool will be lost. Do you still want to close?</value>
-  </data>
-  <data name="ArchiveFormatValidationSectionHeading" xml:space="preserve">
-    <value>Archive format validation</value>
-  </data>
-  <data name="ArchiveFormatValidationChooseFileButtonText" xml:space="preserve">
-    <value>Choose file ...</value>
-  </data>
-  <data name="ArchiveFormatValidationRunButtonText" xml:space="preserve">
-    <value>Validate</value>
-  </data>
-  <data name="ArchiveFormatValidationRunningStatusMessage" xml:space="preserve">
-    <value>Performing archive format validation ...</value>
-  </data>
-  <data name="ArchiveFormatValidationFileSelectDialogTitle" xml:space="preserve">
-    <value>Choose a file to validate</value>
-  </data>
-  <data name="ArchiveFormatValidationFormatSelectMenuLabel" xml:space="preserve">
-    <value>Archive format</value>
-  </data>
-  <data name="ArchiveFormatValidationFileSelectDialogFilter" xml:space="preserve">
-    <value>Archive format files (*.pdf;*.tar)|*.pdf;*.tar</value>
-  </data>
-  <data name="ArchiveFormatValidationChooseDirectoryButtonText" xml:space="preserve">
-    <value>Choose directory ...</value>
-  </data>
-  <data name="ArchiveFormatValidationDirectorySelectDialogTitle" xml:space="preserve">
-    <value>Choose a directory whose content to validate</value>
+  <data name="Validity_Error" xml:space="preserve">
+    <value>Kunne ikke fastslå</value>
   </data>
 </root>

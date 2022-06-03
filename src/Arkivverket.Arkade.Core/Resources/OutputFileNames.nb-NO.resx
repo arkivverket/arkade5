@@ -147,4 +147,7 @@
   <data name="StandaloneTestReportDirectory" xml:space="preserve">
     <value>arkade-testrapporter_{0}</value>
   </data>
+  <data name="PdfAValidationResultFile" xml:space="preserve">
+    <value>pdfa-valideringsrapport.csv</value>
+  </data>
 </root>

@@ -151,6 +151,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ExceptionMessages.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\PdfAVAlidationResultFileContent.Designer.cs">
+      <DependentUpon>PdfAValidationResultFileContent.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\FormatAnalysisResultFileContent.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -214,6 +219,10 @@
     <EmbeddedResource Update="Resources\ExceptionMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PdfAValidationResultFileContent.resx">
+      <LastGenOutput>PdfAVAlidationResultFileContent.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\FormatAnalysisResultFileContent.nb-NO.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

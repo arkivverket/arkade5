@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Arkivverket.Arkade.Core.Resources;
 using Codeuctivity;
+using CsvHelper.Configuration;
 using Serilog;
 using static Arkivverket.Arkade.Core.Resources.ArchiveFormatValidationMessages;
 using static Arkivverket.Arkade.Core.Util.ArchiveFormatValidation.ArchiveFormatValidationResult;
@@ -42,19 +45,10 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         {
             try
             {
-                if ((item.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
-                    throw new Exception("PDF/A validator doesn't support directory input");
+                if (item is FileInfo fileItem)
+                    return await ValidateSingleFileAsync(fileItem);
 
-                ValidationReport report = (
-                    await _validator.ValidateWithDetailedReportAsync(item.FullName)
-                ).Jobs.Job.ValidationReport;
-
-                string reportedPdfAProfile = report.ProfileName.Split(' ')[0];
-
-                return report.IsCompliant && _approvedPdfAProfiles.Contains(reportedPdfAProfile)
-                    ? new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, Valid,
-                        validationInfo: reportedPdfAProfile)
-                    : new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, Invalid);
+                return await ValidateAllInDirectory(item as DirectoryInfo);
             }
             catch (Exception exception)
             {
@@ -66,10 +60,82 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             }
         }
 
+        private async Task<ArchiveFormatValidationReport> ValidateSingleFileAsync(FileInfo item)
+        {
+            ValidationReport report = (
+                await _validator.ValidateWithDetailedReportAsync(item.FullName)
+            ).Jobs.Job.ValidationReport;
+
+            string reportedPdfAProfile = report.ProfileName.Split(' ')[0];
+
+            return report.IsCompliant && _approvedPdfAProfiles.Contains(reportedPdfAProfile)
+                ? new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, Valid, validationInfo: reportedPdfAProfile)
+                : new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, Invalid);
+        }
+
+        private async Task<ArchiveFormatValidationReport> ValidateAllInDirectory(
+            DirectoryInfo directory)
+        {
+            Codeuctivity.Report report = await _validator.ValidateBatchWithDetailedReportAsync(new[] { directory.FullName }, "");
+            IEnumerable<Job> validationJobs = report.Jobs.AllJobs.AsEnumerable();
+
+            var validationItems = new List<PdfAValidationItem>();
+
+            ArchiveFormatValidationResult validationResult = Valid;
+
+            foreach (Job job in validationJobs)
+            {
+                ValidationReport validationReport = job.ValidationReport;
+                string reportedPdfAProfile = validationReport.ProfileName.Split(' ')[0];
+
+                bool itemIsValid = validationReport.IsCompliant && _approvedPdfAProfiles.Contains(reportedPdfAProfile);
+
+                if (!itemIsValid && validationResult == Valid)
+                    validationResult = Invalid;
+
+                validationItems.Add(new PdfAValidationItem
+                {
+                    ItemName = Path.GetRelativePath(directory.FullName, job.Item.Name).Replace('\\', '/'),
+                    PdfAProfile = reportedPdfAProfile,
+                    ValidationOutcome = itemIsValid ? Valid : Invalid
+                });
+            }
+
+            string resultFileFullName = Path.Combine(directory.Parent?.FullName ?? directory.FullName,
+                OutputFileNames.PdfAValidationResultFile);
+
+            CsvHelper.WriteToFile<PdfAValidationItem, PdfAValidationItemMap>(resultFileFullName, validationItems);
+
+            return new ArchiveFormatValidationReport(
+                directory, ArchiveFormat.PdfA, validationResult,
+                validationInfo: string.Format(PdfABatchValidationInfoMessage, report.BatchSummary.TotalJobs,
+                    report.BatchSummary.ValidationReports.Compliant, report.BatchSummary.ValidationReports.NonCompliant,
+                    report.BatchSummary.ValidationReports.FailedJobs, resultFileFullName)
+            );
+        }
+
         public void Dispose()
         {
             _validator.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        private sealed class PdfAValidationItemMap : ClassMap<PdfAValidationItem>
+        {
+            public PdfAValidationItemMap()
+            {
+                Map(m => m.ItemName).Name(PdfAValidationResultFileContent.HeaderFileName);
+                Map(m => m.PdfAProfile).Name(PdfAValidationResultFileContent.HeaderPdfAProfile);
+                Map(m => m.ValidationOutcome).Name(PdfAValidationResultFileContent.HeaderValidationResult)
+                    .TypeConverter<ArchiveFormatValidationResultConverter>();
+            }
+        }
+
+        private class PdfAValidationItem
+        {
+            public string ItemName { get; set; }
+            public string PdfAProfile { get; set; }
+            public ArchiveFormatValidationResult ValidationOutcome { get; set; }
         }
     }
 }
