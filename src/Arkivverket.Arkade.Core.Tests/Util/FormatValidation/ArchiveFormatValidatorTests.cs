@@ -29,10 +29,10 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FormatValidation
         [Trait("Dependency", "JRE")]
         public void ValidateAsFormatTest()
         {
-            ArchiveFormatValidationResult validationResult =
+            ArchiveFormatValidationReport validationReport =
                 _fixture.ArchiveFormatValidator.ValidateAsync(_approvedPdfAFile, ArchiveFormat.PdfA).Result;
 
-            validationResult.ValidationFormat.Should().Be(ArchiveFormat.PdfA);
+            validationReport.ValidationFormat.Should().Be(ArchiveFormat.PdfA);
         }
 
         [Fact]

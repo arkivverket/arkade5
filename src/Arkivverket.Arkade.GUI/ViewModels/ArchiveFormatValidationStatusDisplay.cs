@@ -61,12 +61,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             StatusMessage = ToolsGUI.ArchiveFormatValidationRunningStatusMessage;
         }
 
-        public void DisplayFinished(ArchiveFormatValidationResult validationResult)
+        public void DisplayFinished(ArchiveFormatValidationReport validationReport)
         {
             Reset();
-            ConfigureIconByValidationResult(validationResult);
+            ConfigureIconByValidationResult(validationReport);
             ResultIconVisibility = Visibility.Visible;
-            StatusMessage = validationResult.ValidationSummary();
+            StatusMessage = validationReport.ValidationSummary();
         }
 
         public void Reset()
@@ -76,7 +76,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ProgressBarVisibility = Visibility.Collapsed;
         }
 
-        private void ConfigureIconByValidationResult(ArchiveFormatValidationResult result)
+        private void ConfigureIconByValidationResult(ArchiveFormatValidationReport result)
         {
             (ResultIconKind, ResultIconColor) = result.ValidationResult switch
             {

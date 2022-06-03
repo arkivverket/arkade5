@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
     public class DiasValidator
     {
-        public async Task<ArchiveFormatValidationResult> ValidateAsync(FileSystemInfo item, ArchiveFormat format)
+        public async Task<ArchiveFormatValidationReport> ValidateAsync(FileSystemInfo item, ArchiveFormat format)
         {
             List<string> missingEntries = await GetMissingEntriesAsync(item, format);
 
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 
             string validationInfo = CreateValidationInfoString(result, resultIsAcceptable, missingEntries);
 
-            return new ArchiveFormatValidationResult(item, format, result, resultIsAcceptable, validationInfo);
+            return new ArchiveFormatValidationReport(item, format, result, resultIsAcceptable, validationInfo);
         }
 
         private async Task<List<string>> GetMissingEntriesAsync(FileSystemInfo item, ArchiveFormat format)

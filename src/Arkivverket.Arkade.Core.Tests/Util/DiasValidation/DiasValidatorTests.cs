@@ -40,11 +40,11 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 
             DiasProvider.Write(diasDirectory, testDirectory.FullName);
 
-            ArchiveFormatValidationResult result = _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSipN5)
+            ArchiveFormatValidationReport report = _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSipN5)
                 .Result;
 
-            result.ValidationResult.Should().Be(ArchiveFormatValidationResultType.Invalid);
-            result.ValidationSummary().Should().Contain(Path.Combine(DirectoryNameContent, ArkivstrukturXmlFileName));
+            report.ValidationResult.Should().Be(ArchiveFormatValidationResultType.Invalid);
+            report.ValidationSummary().Should().Contain(Path.Combine(DirectoryNameContent, ArkivstrukturXmlFileName));
 
             Delete(testDirectory);
         }
@@ -71,11 +71,11 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 
             FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", diasEntries);
 
-            ArchiveFormatValidationResult result =
+            ArchiveFormatValidationReport report =
                 _diasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasSipN5).Result;
 
-            result.ValidationResult.Should().Be(ArchiveFormatValidationResultType.Invalid);
-            result.ValidationSummary().Should().Contain(Path.Combine(DirectoryNameContent, ArkivstrukturXmlFileName));
+            report.ValidationResult.Should().Be(ArchiveFormatValidationResultType.Invalid);
+            report.ValidationSummary().Should().Contain(Path.Combine(DirectoryNameContent, ArkivstrukturXmlFileName));
 
             Delete(diasTarArchive);
         }
@@ -90,12 +90,12 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
             DiasEntry[] diasEntries = diasSource.GetEntries();
             FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", diasEntries);
 
-            ArchiveFormatValidationResult result =
+            ArchiveFormatValidationReport report =
                 _diasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasSipN5).Result;
 
-            result.ValidationResult.Should().Be(ArchiveFormatValidationResultType.Invalid);
-            result.IsAcceptable.Should().BeTrue();
-            result.ValidationSummary().Should().Contain(Path.Combine(DirectoryNameContent, ChangeLogXmlFileName));
+            report.ValidationResult.Should().Be(ArchiveFormatValidationResultType.Invalid);
+            report.IsAcceptable.Should().BeTrue();
+            report.ValidationSummary().Should().Contain(Path.Combine(DirectoryNameContent, ChangeLogXmlFileName));
 
             Delete(diasTarArchive);
         }

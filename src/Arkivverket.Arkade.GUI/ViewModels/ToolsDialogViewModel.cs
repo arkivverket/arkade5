@@ -291,7 +291,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ArchiveFormat format = ArchiveFormatValidationFormat.GetValueByDescription<ArchiveFormat>();
             SupportedLanguage language = LanguageSettingHelper.GetUILanguage();
 
-            ArchiveFormatValidationResult report = await _arkadeApi.ValidateArchiveFormatAsync(item, format, language);
+            ArchiveFormatValidationReport report = await _arkadeApi.ValidateArchiveFormatAsync(item, format, language);
 
             ArchiveFormatValidationStatusDisplay.DisplayFinished(report);
             ValidateArchiveFormatButtonIsEnabled = true;

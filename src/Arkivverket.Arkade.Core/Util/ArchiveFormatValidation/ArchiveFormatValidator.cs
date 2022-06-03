@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             _diasValidator = new DiasValidator();
         }
 
-        public async Task<ArchiveFormatValidationResult> ValidateAsync(FileSystemInfo item, ArchiveFormat format)
+        public async Task<ArchiveFormatValidationReport> ValidateAsync(FileSystemInfo item, ArchiveFormat format)
         {
             return format switch
             {

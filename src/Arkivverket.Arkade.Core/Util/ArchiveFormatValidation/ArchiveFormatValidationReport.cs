@@ -6,7 +6,7 @@ using static Arkivverket.Arkade.Core.Util.ArchiveFormatValidation.ArchiveFormatV
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
-    public class ArchiveFormatValidationResult
+    public class ArchiveFormatValidationReport
     {
         public readonly FileSystemInfo ValidatedItem;
         public readonly ArchiveFormat ValidationFormat;
@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         public readonly bool IsAcceptable;
         public readonly string ValidationInfo;
 
-        public ArchiveFormatValidationResult(FileSystemInfo validatedItem, ArchiveFormat validationFormat,
+        public ArchiveFormatValidationReport(FileSystemInfo validatedItem, ArchiveFormat validationFormat,
             ArchiveFormatValidationResultType validationResult, bool isAcceptable = false, string validationInfo = "")
         {
             ValidationResult = validationResult;

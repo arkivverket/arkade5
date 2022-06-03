@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             _validator = new Codeuctivity.PdfAValidator();
         }
 
-        public async Task<ArchiveFormatValidationResult> ValidateAsync(FileSystemInfo item)
+        public async Task<ArchiveFormatValidationReport> ValidateAsync(FileSystemInfo item)
         {
             try
             {
@@ -52,15 +52,15 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 string reportedPdfAProfile = report.ProfileName.Split(' ')[0];
 
                 return report.IsCompliant && _approvedPdfAProfiles.Contains(reportedPdfAProfile)
-                    ? new ArchiveFormatValidationResult(item, ArchiveFormat.PdfA, Valid,
+                    ? new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, Valid,
                         validationInfo: reportedPdfAProfile)
-                    : new ArchiveFormatValidationResult(item, ArchiveFormat.PdfA, Invalid);
+                    : new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, Invalid);
             }
             catch (Exception exception)
             {
                 Log.Error("Validation failed: " + exception.Message);
 
-                return new ArchiveFormatValidationResult(
+                return new ArchiveFormatValidationReport(
                     item, ArchiveFormat.PdfA, Error, false, FileFormatValidationErrorMessage
                 );
             }
