@@ -12,9 +12,9 @@ using static Arkivverket.Arkade.Core.Util.ArchiveFormatValidation.ArchiveFormatV
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
-    public static class DiasValidator
+    public class DiasValidator
     {
-        public static async Task<ArchiveFormatValidationResult> ValidateAsync(FileSystemInfo item, ArchiveFormat format)
+        public async Task<ArchiveFormatValidationResult> ValidateAsync(FileSystemInfo item, ArchiveFormat format)
         {
             List<string> missingEntries = await GetMissingEntriesAsync(item, format);
 
@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             return new ArchiveFormatValidationResult(item, format, result, resultIsAcceptable, validationInfo);
         }
 
-        private static async Task<List<string>> GetMissingEntriesAsync(FileSystemInfo item, ArchiveFormat format)
+        private async Task<List<string>> GetMissingEntriesAsync(FileSystemInfo item, ArchiveFormat format)
         {
             DiasDirectory dias = DiasProvider.ProvideForFormat(format);
 
@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 : await Task.Run(() => dias.GetEntryPaths(item.FullName, getNonExistingOnly: true, recursive: true));
         }
 
-        private static async Task<List<string>> GetEntryPathsNotInTarArchiveAsync(FileInfo tarArchive, DiasDirectory validDias)
+        private async Task<List<string>> GetEntryPathsNotInTarArchiveAsync(FileInfo tarArchive, DiasDirectory validDias)
         {
             string tarArchiveRootDirectoryName = Path.GetFileNameWithoutExtension(tarArchive.Name);
             List<string> diasEntryPaths = validDias.GetEntryPaths(tarArchiveRootDirectoryName, recursive: true);

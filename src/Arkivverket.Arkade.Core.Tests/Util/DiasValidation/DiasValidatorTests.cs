@@ -12,6 +12,8 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 {
     public class DiasValidatorTests
     {
+        private readonly DiasValidator _diasValidator = new();
+
         [Fact]
         [Trait("Dependency", "IO")]
         public void ShouldValidateN5SipDirectory()
@@ -22,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 
             DiasProvider.Write(diasDirectory, testDirectory.FullName);
 
-            DiasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSipN5).Result
+            _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSipN5).Result
                 .ValidationResult.Should().Be(ArchiveFormatValidationResultType.Valid);
 
             Delete(testDirectory);
@@ -38,7 +40,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 
             DiasProvider.Write(diasDirectory, testDirectory.FullName);
 
-            ArchiveFormatValidationResult result = DiasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSipN5)
+            ArchiveFormatValidationResult result = _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSipN5)
                 .Result;
 
             result.ValidationResult.Should().Be(ArchiveFormatValidationResultType.Invalid);
@@ -55,7 +57,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 
             FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", diasEntries);
 
-            DiasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasSipN5).Result
+            _diasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasSipN5).Result
                 .ValidationResult.Should().Be(ArchiveFormatValidationResultType.Valid);
 
             Delete(diasTarArchive);
@@ -70,7 +72,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
             FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", diasEntries);
 
             ArchiveFormatValidationResult result =
-                DiasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasSipN5).Result;
+                _diasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasSipN5).Result;
 
             result.ValidationResult.Should().Be(ArchiveFormatValidationResultType.Invalid);
             result.ValidationSummary().Should().Contain(Path.Combine(DirectoryNameContent, ArkivstrukturXmlFileName));
@@ -89,7 +91,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
             FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", diasEntries);
 
             ArchiveFormatValidationResult result =
-                DiasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasSipN5).Result;
+                _diasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasSipN5).Result;
 
             result.ValidationResult.Should().Be(ArchiveFormatValidationResultType.Invalid);
             result.IsAcceptable.Should().BeTrue();
