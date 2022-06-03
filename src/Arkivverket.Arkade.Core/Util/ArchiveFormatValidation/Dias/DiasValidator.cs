@@ -8,7 +8,7 @@ using ICSharpCode.SharpZipLib.Tar;
 using static System.Environment;
 using static Arkivverket.Arkade.Core.Resources.ArchiveFormatValidationMessages;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
-using static Arkivverket.Arkade.Core.Util.ArchiveFormatValidation.ArchiveFormatValidationResultType;
+using static Arkivverket.Arkade.Core.Util.ArchiveFormatValidation.ArchiveFormatValidationResult;
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         {
             List<string> missingEntries = await GetMissingEntriesAsync(item, format);
 
-            ArchiveFormatValidationResultType result;
+            ArchiveFormatValidationResult result;
             bool resultIsAcceptable = true;
 
             if (missingEntries == null || !missingEntries.Any())
@@ -119,7 +119,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         }
 
         private static string CreateValidationInfoString(
-            ArchiveFormatValidationResultType resultType,
+            ArchiveFormatValidationResult resultType,
             bool resultIsAcceptable,
             IEnumerable<string> missingEntries)
         {

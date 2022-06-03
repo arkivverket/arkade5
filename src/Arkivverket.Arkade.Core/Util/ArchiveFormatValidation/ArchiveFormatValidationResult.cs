@@ -1,6 +1,6 @@
 ﻿namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
-    public enum ArchiveFormatValidationResultType
+    public enum ArchiveFormatValidationResult
     {
         Valid,
         Invalid,

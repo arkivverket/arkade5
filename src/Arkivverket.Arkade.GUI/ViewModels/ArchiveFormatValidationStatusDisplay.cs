@@ -80,16 +80,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             (ResultIconKind, ResultIconColor) = result.ValidationResult switch
             {
-                ArchiveFormatValidationResultType.Valid =>
+                ArchiveFormatValidationResult.Valid =>
                     ("CheckBold", new SolidColorBrush(Colors.Teal)),
 
-                ArchiveFormatValidationResultType.Invalid when result.IsAcceptable =>
+                ArchiveFormatValidationResult.Invalid when result.IsAcceptable =>
                     ("Information", new SolidColorBrush(Colors.RoyalBlue)),
 
-                ArchiveFormatValidationResultType.Invalid =>
+                ArchiveFormatValidationResult.Invalid =>
                     ("MinusCircleOutline", new SolidColorBrush(Colors.DarkRed)),
 
-                ArchiveFormatValidationResultType.Error =>
+                ArchiveFormatValidationResult.Error =>
                     ("CloseBold", new SolidColorBrush(Colors.DimGray)),
 
                 _ => throw new ArgumentOutOfRangeException(nameof(result), result, null)

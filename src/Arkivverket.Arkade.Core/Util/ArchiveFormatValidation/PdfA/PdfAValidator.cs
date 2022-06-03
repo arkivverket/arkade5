@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Codeuctivity;
 using Serilog;
 using static Arkivverket.Arkade.Core.Resources.ArchiveFormatValidationMessages;
-using static Arkivverket.Arkade.Core.Util.ArchiveFormatValidation.ArchiveFormatValidationResultType;
+using static Arkivverket.Arkade.Core.Util.ArchiveFormatValidation.ArchiveFormatValidationResult;
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {

@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
             DiasProvider.Write(diasDirectory, testDirectory.FullName);
 
             _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSipN5).Result
-                .ValidationResult.Should().Be(ArchiveFormatValidationResultType.Valid);
+                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
 
             Delete(testDirectory);
         }
@@ -43,7 +43,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
             ArchiveFormatValidationReport report = _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSipN5)
                 .Result;
 
-            report.ValidationResult.Should().Be(ArchiveFormatValidationResultType.Invalid);
+            report.ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
             report.ValidationSummary().Should().Contain(Path.Combine(DirectoryNameContent, ArkivstrukturXmlFileName));
 
             Delete(testDirectory);
@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
             FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", diasEntries);
 
             _diasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasSipN5).Result
-                .ValidationResult.Should().Be(ArchiveFormatValidationResultType.Valid);
+                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
 
             Delete(diasTarArchive);
         }
@@ -74,7 +74,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
             ArchiveFormatValidationReport report =
                 _diasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasSipN5).Result;
 
-            report.ValidationResult.Should().Be(ArchiveFormatValidationResultType.Invalid);
+            report.ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
             report.ValidationSummary().Should().Contain(Path.Combine(DirectoryNameContent, ArkivstrukturXmlFileName));
 
             Delete(diasTarArchive);
@@ -93,7 +93,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
             ArchiveFormatValidationReport report =
                 _diasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasSipN5).Result;
 
-            report.ValidationResult.Should().Be(ArchiveFormatValidationResultType.Invalid);
+            report.ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
             report.IsAcceptable.Should().BeTrue();
             report.ValidationSummary().Should().Contain(Path.Combine(DirectoryNameContent, ChangeLogXmlFileName));
 
