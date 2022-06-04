@@ -251,6 +251,11 @@ namespace Arkivverket.Arkade.CLI
             LogFinishedStatus(command);
         }
 
+        internal static void Dispose()
+        {
+            Arkade.Dispose();
+        }
+
         private static bool Test(string outputDirectory, TestSession testSession, bool createStandAloneTestReport = true)
         {
             if (!testSession.IsTestableArchive(out _))

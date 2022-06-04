@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.CLI
         public static void Main(string[] args)
         {
             if (!Console.IsOutputRedirected)
-            Console.CursorVisible = false;
+                Console.CursorVisible = false;
             Console.CancelKeyPress += OnProcessCanceled;
             AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
 
@@ -35,7 +35,9 @@ namespace Arkivverket.Arkade.CLI
                 .WithNotParsed(LogParseErrors);
 
             if (!Console.IsOutputRedirected)
-            Console.CursorVisible = true;
+                Console.CursorVisible = true;
+
+            CommandLineRunner.Dispose();
         }
 
         public static ParserResult<object> ParseArguments(IEnumerable<string> args)

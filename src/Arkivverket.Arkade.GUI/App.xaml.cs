@@ -21,6 +21,7 @@ using Arkivverket.Arkade.GUI.Languages;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using Prism.Unity;
 using Serilog;
 using Settings = Arkivverket.Arkade.GUI.Properties.Settings;
 
@@ -113,7 +114,7 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<ISiardXmlTableReader, SiardXmlTableReader>();
             containerRegistry.Register<SiardTestEngine>();
             containerRegistry.RegisterSingleton<ITestProgressReporter, GuiTestProgressReporter>();
-            containerRegistry.Register<IArchiveFormatValidator, ArchiveFormatValidator>();
+            containerRegistry.RegisterSingleton<IArchiveFormatValidator,ArchiveFormatValidator>();
         }
 
         public static void MyHandler(object sender, UnhandledExceptionEventArgs args)
@@ -136,6 +137,8 @@ namespace Arkivverket.Arkade.GUI
                 ArkadeProcessingArea.CleanUp();
 
             base.OnExit(e);
+
+            Container.GetContainer().Dispose();
         }
 
         private static void ApplyUserSettings()

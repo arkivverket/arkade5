@@ -17,6 +17,7 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly ArkadeApi _arkadeApi;
         private readonly ArkadeVersion _arkadeVersion;
         private readonly IContainer _container;
+        private readonly ILifetimeScope _scope;
 
         public readonly IStatusEventHandler StatusEventHandler;
 
@@ -28,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Base
             builder.RegisterModule(new ArkadeAutofacModule());
             _container = builder.Build();
 
-            _container.BeginLifetimeScope();
+            _scope = _container.BeginLifetimeScope();
             _arkadeApi = _container.Resolve<ArkadeApi>();
             _arkadeVersion = _container.Resolve<ArkadeVersion>();
             StatusEventHandler = _container.Resolve<IStatusEventHandler>();
@@ -36,6 +37,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         public void Dispose()
         {
+            _scope.Dispose();
             _container.Dispose();
         }
 

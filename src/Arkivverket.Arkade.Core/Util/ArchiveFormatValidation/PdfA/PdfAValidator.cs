@@ -11,7 +11,7 @@ using static Arkivverket.Arkade.Core.Util.ArchiveFormatValidation.ArchiveFormatV
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
-    public class PdfAValidator
+    public class PdfAValidator : IDisposable
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
@@ -69,6 +69,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         public void Dispose()
         {
             _validator.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }
