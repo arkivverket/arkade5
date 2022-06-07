@@ -78,10 +78,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         // ---------- Archive format validation ----------
 
         private FileSystemInfo _archiveFormatValidationItem;
-        public FileSystemInfo ArchiveFormatValidationItem
+        private string _archiveFormatValidationItemPath;
+        public string ArchiveFormatValidationItemPath
         {
-            get => _archiveFormatValidationItem;
-            set => SetProperty(ref _archiveFormatValidationItem, value);
+            get => _archiveFormatValidationItemPath;
+            set => SetProperty(ref _archiveFormatValidationItemPath, value);
         }
 
         private string[] _archiveFormatValidationFormats;
@@ -278,7 +279,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             if (fileToValidate != null)
             {
-                ArchiveFormatValidationItem = new FileInfo(fileToValidate);
+                ArchiveFormatValidationItemPath = fileToValidate;
+                _archiveFormatValidationItem = new FileInfo(fileToValidate);
                 ValidateArchiveFormatButtonIsEnabled = true;
             }
         }
@@ -292,7 +294,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             if (fileToValidate != null)
             {
-                ArchiveFormatValidationItem = new DirectoryInfo(fileToValidate);
+                ArchiveFormatValidationItemPath = fileToValidate;
+                _archiveFormatValidationItem = new DirectoryInfo(fileToValidate);
                 ValidateArchiveFormatButtonIsEnabled = true;
             }
         }
@@ -306,7 +309,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ArchiveFormat format = ArchiveFormatValidationFormat.GetValueByDescription<ArchiveFormat>();
             SupportedLanguage language = LanguageSettingHelper.GetUILanguage();
 
-            ArchiveFormatValidationReport report = await _arkadeApi.ValidateArchiveFormatAsync(ArchiveFormatValidationItem, format, language);
+            ArchiveFormatValidationReport report = await _arkadeApi.ValidateArchiveFormatAsync(_archiveFormatValidationItem, format, language);
 
             ArchiveFormatValidationStatusDisplay.DisplayFinished(report);
             ValidateArchiveFormatButtonIsEnabled = true;

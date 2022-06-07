@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 if (item is FileInfo fileItem)
                     return await ValidateSingleFileAsync(fileItem);
 
-                return await ValidateAllInDirectory(item as DirectoryInfo);
+                return await ValidateDirectoryContentAsync(item as DirectoryInfo);
             }
             catch (Exception exception)
             {
@@ -73,29 +73,58 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 : new ArchiveFormatValidationReport(item, ArchiveFormat.PdfA, Invalid);
         }
 
-        private async Task<ArchiveFormatValidationReport> ValidateAllInDirectory(
+        private async Task<ArchiveFormatValidationReport> ValidateDirectoryContentAsync(
             DirectoryInfo directory)
         {
-            Codeuctivity.Report report = await _validator.ValidateBatchWithDetailedReportAsync(new[] { directory.FullName }, "");
-            IEnumerable<Job> validationJobs = report.Jobs.AllJobs.AsEnumerable();
+            // The BatchSummary object available from the result of the ValidateBatchWithDetailedReportAsync method
+            // below does have information about total number of jobs, valid items and invalid items. However, this
+            // information only keep track of files ending with .pdf. All other files are ignored. Hence, custom
+            // counters have been implemented. Additionally, this validator is more strict than veraPDF in which
+            // PDF/A-profiles it accepts - see field _approvedPdfAProfiles.
+            IEnumerable<Job> validationJobs = (await _validator.ValidateBatchWithDetailedReportAsync(
+                new[] { directory.FullName }, "")).Jobs.AllJobs.AsEnumerable();
 
             var validationItems = new List<PdfAValidationItem>();
 
-            ArchiveFormatValidationResult validationResult = Valid;
+            ArchiveFormatValidationResult overallResult = Valid;
 
-            foreach (Job job in validationJobs)
+            FileInfo[] filesInDirectory = directory.GetFiles();
+            var totalNumberOfFiles = 0L;
+            var numberOfValidFiles = 0L;
+            var numberOfInvalidFiles = 0L;
+            var numberOfUndeterminedFiles = 0L;
+
+            foreach (FileInfo file in filesInDirectory)
             {
+                totalNumberOfFiles++;
+                
+                Job job = validationJobs.FirstOrDefault(j => j.Item.Name.Equals(file.FullName));
+
+                string itemName = file.Name;
+
+                if (job == default(Job))
+                {
+                    numberOfUndeterminedFiles++;
+                    validationItems.Add(new PdfAValidationItem
+                    {
+                        ItemName = itemName,
+                        PdfAProfile = "N/A",
+                        ValidationOutcome = Error
+                    });
+                    continue;
+                }
+
                 ValidationReport validationReport = job.ValidationReport;
                 string reportedPdfAProfile = validationReport.ProfileName.Split(' ')[0];
 
                 bool itemIsValid = validationReport.IsCompliant && _approvedPdfAProfiles.Contains(reportedPdfAProfile);
 
-                if (!itemIsValid && validationResult == Valid)
-                    validationResult = Invalid;
+                if (itemIsValid) numberOfValidFiles++;
+                else numberOfInvalidFiles++;
 
                 validationItems.Add(new PdfAValidationItem
                 {
-                    ItemName = Path.GetRelativePath(directory.FullName, job.Item.Name).Replace('\\', '/'),
+                    ItemName = itemName,
                     PdfAProfile = reportedPdfAProfile,
                     ValidationOutcome = itemIsValid ? Valid : Invalid
                 });
@@ -107,10 +136,9 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             CsvHelper.WriteToFile<PdfAValidationItem, PdfAValidationItemMap>(resultFileFullName, validationItems);
 
             return new ArchiveFormatValidationReport(
-                directory, ArchiveFormat.PdfA, validationResult,
-                validationInfo: string.Format(PdfABatchValidationInfoMessage, report.BatchSummary.TotalJobs,
-                    report.BatchSummary.ValidationReports.Compliant, report.BatchSummary.ValidationReports.NonCompliant,
-                    report.BatchSummary.ValidationReports.FailedJobs, resultFileFullName)
+                directory, ArchiveFormat.PdfA, overallResult,
+                validationInfo: string.Format(PdfABatchValidationInfoMessage, totalNumberOfFiles, numberOfValidFiles,
+                    numberOfInvalidFiles, numberOfUndeterminedFiles, resultFileFullName)
             );
         }
 
