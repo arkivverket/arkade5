@@ -81,9 +81,10 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeApi.GenerateFileFormatInfoFiles(filesDirectory, resultFileDirectoryPath, resultFileName, language);
         }
 
-        public async Task<ArchiveFormatValidationReport> ValidateArchiveFormatAsync(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language)
+        public async Task<ArchiveFormatValidationReport> ValidateArchiveFormatAsync(
+            FileSystemInfo item, ArchiveFormat format, string resultFileDirectoryPath, SupportedLanguage language)
         {
-            return await _arkadeApi.ValidateArchiveFormatAsync(item, format, language);
+            return await _arkadeApi.ValidateArchiveFormatAsync(item, format, resultFileDirectoryPath, language);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)

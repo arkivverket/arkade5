@@ -143,11 +143,12 @@ namespace Arkivverket.Arkade.Core.Base
             FileFormatInfoGenerator.Generate(filesDirectory, resultFileFullName, _statusEventHandler);
         }
 
-        public async Task<ArchiveFormatValidationReport> ValidateArchiveFormatAsync(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language)
+        public async Task<ArchiveFormatValidationReport> ValidateArchiveFormatAsync(
+            FileSystemInfo item, ArchiveFormat format, string resultFileDirectoryPath, SupportedLanguage language)
         {
             LanguageManager.SetResourceLanguageForArchiveFormatValidation(language);
 
-            return await _archiveFormatValidator.ValidateAsync(item, format);
+            return await _archiveFormatValidator.ValidateAsync(item, format, resultFileDirectoryPath);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)

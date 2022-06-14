@@ -244,7 +244,8 @@ namespace Arkivverket.Arkade.CLI
 
             Log.Information($"{{{command.TrimEnd('e')}ing}} the format of {item} as {archiveFormat.GetDescription()}");
 
-            ArchiveFormatValidationReport validationReport = Arkade.ValidateArchiveFormatAsync(item, archiveFormat, SupportedLanguage.en).Result;
+            ArchiveFormatValidationReport validationReport = Arkade.ValidateArchiveFormatAsync(
+                item, archiveFormat, options.OutputDirectory, SupportedLanguage.en).Result;
 
             Log.Information(validationReport.ToString());
 

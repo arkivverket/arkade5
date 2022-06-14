@@ -6,6 +6,6 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
     public interface IArchiveFormatValidator : IDisposable
     {
-        Task<ArchiveFormatValidationReport> ValidateAsync(FileSystemInfo item, ArchiveFormat format);
+        Task<ArchiveFormatValidationReport> ValidateAsync(FileSystemInfo item, ArchiveFormat format, string resultFileDirectoryPath="");
     }
 }

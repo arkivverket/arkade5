@@ -13,6 +13,11 @@ namespace Arkivverket.Arkade.CLI
         [Option('f', "format", HelpText = "The format which the file or directory is validated against. Available values: PDF/A, DIAS-SIP, DIAS-AIP, DIAS-SIP-Noark5, DIAS-AIP-Noark5", Required = true)]
         public string Format { get; set; }
 
+        [Option('o', "output-directory", 
+            HelpText = "Directory to place Arkade output files. Only applicable if -i/--item is a directory.", 
+            Required = false)]
+        public string OutputDirectory { get; set; }
+
         [Usage(ApplicationAlias = "arkade")]
         public static IEnumerable<Example> Examples
         {
