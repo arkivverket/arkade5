@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -77,6 +78,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         // ---------- Archive format validation ----------
 
+
+        private string _formatValidationOngoingString;
+        public string FormatValidationOngoingString
+        {
+            get => _formatValidationOngoingString;
+            set => SetProperty(ref _formatValidationOngoingString, value);
+        }
+
+
         private FileSystemInfo _archiveFormatValidationItem;
         private string _archiveFormatValidationItemPath;
         public string ArchiveFormatValidationItemPath
@@ -148,7 +158,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ValidateArchiveFormatCommand = new DelegateCommand(ValidateArchiveFormat);
 
             ValidateArchiveFormatButtonIsEnabled = false;
-            _archiveFormatValidationStatusDisplay = new ArchiveFormatValidationStatusDisplay();
+            ArchiveFormatValidationStatusDisplay = new ArchiveFormatValidationStatusDisplay(_statusEventHandler);
             ArchiveFormatValidationFormats = typeof(ArchiveFormat).GetDescriptions();
 
             // -----------------------------------------------
@@ -302,6 +312,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private async void ValidateArchiveFormat()
         {
+            var timer = new Stopwatch();
+            timer.Start();
+
             var resultFileDirectoryPath = "";
             if (_archiveFormatValidationItem is DirectoryInfo)
                 DirectoryPicker("pick save location",
@@ -313,7 +326,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             CloseButtonIsEnabled = false;
             ValidateArchiveFormatButtonIsEnabled = false;
-            ArchiveFormatValidationStatusDisplay.DisplayRunning();
 
             ArchiveFormat format = ArchiveFormatValidationFormat.GetValueByDescription<ArchiveFormat>();
             SupportedLanguage language = LanguageSettingHelper.GetUILanguage();
@@ -321,9 +333,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ArchiveFormatValidationReport report = await _arkadeApi.ValidateArchiveFormatAsync(
                 _archiveFormatValidationItem, format, resultFileDirectoryPath, language);
 
-            ArchiveFormatValidationStatusDisplay.DisplayFinished(report);
+            timer.Stop();
+
+            ArchiveFormatValidationStatusDisplay.DisplayFinished(report, timer.Elapsed.ToString("c"));
             ValidateArchiveFormatButtonIsEnabled = true;
             CloseButtonIsEnabled = true;
+            
         }
         
         // -----------------------------------------------

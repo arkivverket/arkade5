@@ -356,4 +356,7 @@ Aktuell sjekksum: {1}</value>
   <data name="Noark4ValidationNotSupported" xml:space="preserve">
     <value>Validering av Noark4-uttrekk er ikke støttet</value>
   </data>
+  <data name="PdfAValidationEventId" xml:space="preserve">
+    <value>PDF/A-validering</value>
+  </data>
 </root>

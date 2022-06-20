@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
 using System.Windows.Media;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Arkivverket.Arkade.GUI.Languages;
 using Prism.Mvvm;
@@ -9,13 +10,49 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 {
     public class ArchiveFormatValidationStatusDisplay : BindableBase
     {
-        public ArchiveFormatValidationStatusDisplay()
+        private IStatusEventHandler _statusEventHandler;
+        private long _archiveFormatItemCounter;
+        private long _totalNumberOfArchiveFormatItems;
+
+        public ArchiveFormatValidationStatusDisplay(IStatusEventHandler statusEventHandler)
         {
             Reset();
+            _statusEventHandler = statusEventHandler;
+
+            _statusEventHandler.FormatValidationStartedEvent += OnArchiveFormatValidationStarted;
+            _statusEventHandler.FormatValidationProgressUpdatedEvent += OnArchiveFormatValidationProgressUpdated;
+            _statusEventHandler.FormatValidationFinishedEvent += OnArchiveFormatValidationFinished;
+        }
+
+        private void OnArchiveFormatValidationStarted(object sender, FormatValidationProgressEventArgs eventArgs)
+        {
+            IsRunning = true;
+            _archiveFormatItemCounter = 0;
+            _totalNumberOfArchiveFormatItems = eventArgs.TotalFiles;
+            StatusMessage = string.Format(ToolsGUI.ArchiveFormatValidationOngoing, 0, _totalNumberOfArchiveFormatItems);
+        }
+
+        private void OnArchiveFormatValidationProgressUpdated(object sender, EventArgs eventArgs)
+        {
+            StatusMessage = string.Format(ToolsGUI.ArchiveFormatValidationOngoing, ++_archiveFormatItemCounter,
+                _totalNumberOfArchiveFormatItems);
+        }
+
+        private void OnArchiveFormatValidationFinished(object sender, EventArgs eventArgs)
+        {
+            StatusMessage = string.Format(ToolsGUI.ArchiveFormatValidationOngoing, _totalNumberOfArchiveFormatItems,
+                _totalNumberOfArchiveFormatItems);
+            IsRunning = false;
+        }
+
+        private bool _isRunning;
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => SetProperty(ref _isRunning, value);
         }
 
         private string _statusMessage = string.Empty;
-
         public string StatusMessage
         {
             get => _statusMessage;
@@ -54,22 +91,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _resultIconColor, value);
         }
 
-        public void DisplayRunning()
-        {
-            Reset();
-            ProgressBarVisibility = Visibility.Visible;
-            StatusMessage = ToolsGUI.ArchiveFormatValidationRunningStatusMessage;
-        }
-
-        public void DisplayFinished(ArchiveFormatValidationReport validationReport)
+        public void DisplayFinished(ArchiveFormatValidationReport validationReport, string elapsedTime)
         {
             Reset();
             ConfigureIconByValidationResult(validationReport);
             ResultIconVisibility = Visibility.Visible;
-            StatusMessage = validationReport.ValidationSummary();
+            StatusMessage = validationReport.ValidationSummary() + $"\nElapsed time: {elapsedTime}";
         }
 
-        public void Reset()
+        private void Reset()
         {
             StatusMessage = string.Empty;
             ResultIconVisibility = Visibility.Collapsed;

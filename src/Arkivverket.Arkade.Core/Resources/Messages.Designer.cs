@@ -711,6 +711,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PDF/A validation.
+        /// </summary>
+        public static string PdfAValidationEventId {
+            get {
+                return ResourceManager.GetString("PdfAValidationEventId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reading archive.
         /// </summary>
         public static string ReadingArchiveEvent {

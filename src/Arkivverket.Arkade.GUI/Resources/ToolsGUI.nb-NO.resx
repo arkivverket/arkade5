@@ -178,4 +178,7 @@ Resultat lagret i:</value>
   <data name="ArchiveFormatValidationDirectorySelectDialogTitle" xml:space="preserve">
     <value>Velg en katalog hvis innhold skal valideres</value>
   </data>
+  <data name="ArchiveFormatValidationOngoing" xml:space="preserve">
+    <value>Utfører formatvalidering: {0} av {1} filer analysert</value>
+  </data>
 </root>

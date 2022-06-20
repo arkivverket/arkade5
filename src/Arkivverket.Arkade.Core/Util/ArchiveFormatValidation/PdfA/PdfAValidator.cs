@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Codeuctivity;
 using Serilog;
@@ -18,6 +19,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly Codeuctivity.PdfAValidator _validator;
+        private IStatusEventHandler _statusEventHandler;
 
         private readonly ReadOnlyCollection<string> _approvedPdfAProfiles = new(new List<string>
         {
@@ -42,6 +44,12 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             _validator = new Codeuctivity.PdfAValidator();
         }
 
+        public PdfAValidator(IStatusEventHandler statusEventHandler)
+        {
+            _validator = new Codeuctivity.PdfAValidator();
+            _statusEventHandler = statusEventHandler;
+        }
+
         public async Task<ArchiveFormatValidationReport> ValidateAsync(FileSystemInfo item, string resultFileDirectoryPath)
         {
             try
@@ -50,6 +58,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                     return await ValidateSingleFileAsync(fileItem);
 
                 return await ValidateDirectoryContentAsync(item as DirectoryInfo, resultFileDirectoryPath);
+                //return await ValidateDirectoryContentAlt2Async(item as DirectoryInfo, resultFileDirectoryPath);
             }
             catch (Exception exception)
             {
@@ -149,6 +158,110 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             }
 
             return partialReport;
+        }
+
+        private async Task<ArchiveFormatValidationReport> ValidateDirectoryContentAlt2Async(
+            DirectoryInfo directory, string resultFileDirectoryPath)
+        {
+            _baseDirectoryPath = directory.FullName;
+
+            _statusEventHandler.RaiseEventFormatValidationStarted(directory.GetNumberOfFileInfoObjects());
+
+            PdfAValidationReport report = await CreatePdfAValidationReportAsyncAlt2(directory);
+
+            string resultFileFullName = Path.Combine(resultFileDirectoryPath, OutputFileNames.PdfAValidationResultFile);
+
+            CsvHelper.WriteToFile<PdfAValidationItem, PdfAValidationItemMap>(resultFileFullName, report.ValidationItems);
+
+            _statusEventHandler.RaiseEventFormatValidationFinished();
+
+            return new ArchiveFormatValidationReport(
+                directory, ArchiveFormat.PdfA, report.NumberOfInvalidFiles > 0 ? Invalid : Valid,
+                validationInfo: string.Format(PdfABatchValidationInfoMessage, report.TotalNumberOfFiles,
+                    report.NumberOfValidFiles, report.NumberOfInvalidFiles, report.NumberOfUndeterminedFiles,
+                    resultFileFullName)
+            );
+        }
+
+        private async Task<PdfAValidationReport> CreatePdfAValidationReportAsyncAlt2(
+            DirectoryInfo directory)
+        {
+            var partialReport = new PdfAValidationReport();
+
+            var validationTasks = CreateBatchValidationTasksAsync(directory);
+
+            foreach (PdfAValidationItem item in await validationTasks)
+            {
+                partialReport.TotalNumberOfFiles++;
+                switch (item.ValidationOutcome)
+                {
+                    case Valid:
+                        partialReport.NumberOfValidFiles++;
+                        break;
+                    case Invalid:
+                        partialReport.NumberOfInvalidFiles++;
+                        break;
+                    case Error:
+                        partialReport.NumberOfUndeterminedFiles++;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                partialReport.ValidationItems.Add(item);
+            }
+
+            return partialReport;
+        }
+
+        private async Task<IEnumerable<PdfAValidationItem>> CreateBatchValidationTasksAsync(DirectoryInfo directory)
+        {
+            var tasks = new List<PdfAValidationItem>();
+
+            await Task.Run(() =>
+            {
+                Parallel.ForEach(directory.GetFileSystemInfos(), fileSystemInfo =>
+                {
+                    if (fileSystemInfo is DirectoryInfo directoryInfo)
+                    {
+                        tasks.AddRange(CreateBatchValidationTasksAsync(directoryInfo).Result);
+                        return;
+                    }
+
+                    string itemName = Path.GetRelativePath(_baseDirectoryPath, fileSystemInfo.FullName);
+
+                    try
+                    {
+                        var job = _validator.ValidateWithDetailedReportAsync(fileSystemInfo.FullName).Result.Jobs.Job;
+
+                        ValidationReport validationReport = job.ValidationReport;
+                        string reportedPdfAProfile = validationReport.ProfileName.Split(' ')[0];
+
+                        bool itemIsValid = validationReport.IsCompliant &&
+                                           _approvedPdfAProfiles.Contains(reportedPdfAProfile);
+
+                        tasks.Add(new PdfAValidationItem
+                        {
+                            ItemName = itemName,
+                            PdfAProfile = reportedPdfAProfile,
+                            ValidationOutcome = itemIsValid ? Valid : Invalid
+                        });
+                    }
+                    catch
+                    {
+                        tasks.Add(new PdfAValidationItem
+                        {
+                            ItemName = itemName,
+                            PdfAProfile = "N/A",
+                            ValidationOutcome = Error,
+                        });
+                    }
+
+                    _statusEventHandler.RaiseEventFormatValidationProgressUpdated();
+                });
+            });
+
+
+            return tasks;
         }
 
         public void Dispose()

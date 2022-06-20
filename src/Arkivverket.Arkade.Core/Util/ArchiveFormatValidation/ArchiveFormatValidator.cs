@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Arkivverket.Arkade.Core.Logging;
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
@@ -12,6 +13,12 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         public ArchiveFormatValidator()
         {
             _pdfAValidator = new PdfAValidator();
+            _diasValidator = new DiasValidator();
+        }
+
+        public ArchiveFormatValidator(IStatusEventHandler statusEventHandler)
+        {
+            _pdfAValidator = new PdfAValidator(statusEventHandler);
             _diasValidator = new DiasValidator();
         }
 

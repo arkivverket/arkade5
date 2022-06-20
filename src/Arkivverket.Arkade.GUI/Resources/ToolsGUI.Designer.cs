@@ -115,6 +115,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Performing format validation: {0} of {1} files analysed.
+        /// </summary>
+        public static string ArchiveFormatValidationOngoing {
+            get {
+                return ResourceManager.GetString("ArchiveFormatValidationOngoing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validate.
         /// </summary>
         public static string ArchiveFormatValidationRunButtonText {

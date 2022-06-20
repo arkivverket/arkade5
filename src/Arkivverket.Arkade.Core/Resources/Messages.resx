@@ -359,4 +359,7 @@ Actual checksum: {1}</value>
   <data name="Noark4ValidationNotSupported" xml:space="preserve">
     <value>Validation of Noark4-extracts is not supported</value>
   </data>
+  <data name="PdfAValidationEventId" xml:space="preserve">
+    <value>PDF/A validation</value>
+  </data>
 </root>
