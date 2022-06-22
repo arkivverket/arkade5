@@ -54,13 +54,16 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
         {
             string value = field.Value;
 
-            bool ok = NorwegianBirthNumber.Verify(value);
-            if (!ok)
+            bool norwegianBirthNumberOk = NorwegianBirthNumber.Verify(value);
+            bool dNumberOk = NorwegianBirthNumber.Verify(value);
+
+            if (!norwegianBirthNumberOk && !dNumberOk)
             {
                 _testResults.Add(new TestResult(ResultType.Error,
                     new Location(AddmlLocation.FromFieldIndex(field.Definition.GetIndex()).ToString(), CurrentRecordNumber),
                     string.Format(Messages.ControlBirthNumberMessage, value)));
             }
+            
         }
     }
 }

@@ -13,7 +13,9 @@ namespace Arkivverket.Arkade.Core.Tests.Util
         {
             for (int i = 0; i < 100; i++)
             {
-                NorwegianBirthNumber.CreateRandom();
+                NorwegianBirthNumber birthNumber =  NorwegianBirthNumber.CreateRandom();
+                bool verified = NorwegianBirthNumber.Verify(birthNumber._id);
+                verified.Should().Be(true);
             }
         }
 

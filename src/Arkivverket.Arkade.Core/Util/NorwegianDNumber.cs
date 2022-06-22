@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Arkivverket.Arkade.Core.Util
 {
-    public class NorwegianBirthNumber : NorwegianIdNumberBase
+    public class NorwegianDNumber : NorwegianIdNumberBase
     {
         private static Random _random = new Random();
 
-        public NorwegianBirthNumber(string id)
+        public NorwegianDNumber(string id)
         {
             _id = StripSpace(id);
             if (!Verify(_id))
@@ -15,9 +19,9 @@ namespace Arkivverket.Arkade.Core.Util
             }
         }
 
-        public static NorwegianBirthNumber Create(string birthNumber)
+        public static NorwegianDNumber Create(string birthNumber)
         {
-            return new NorwegianBirthNumber(birthNumber);
+            return new NorwegianDNumber(birthNumber);
         }
 
         public static bool Verify(string id)
@@ -39,7 +43,7 @@ namespace Arkivverket.Arkade.Core.Util
 
             return actualChecksum == calculatedChecksum;
         }
-        protected bool Equals(NorwegianBirthNumber other)
+        protected bool Equals(NorwegianDNumber other)
         {
             return string.Equals(_id, other._id);
         }
@@ -58,33 +62,39 @@ namespace Arkivverket.Arkade.Core.Util
             {
                 return false;
             }
-            return Equals((NorwegianBirthNumber)obj);
+            return Equals((NorwegianDNumber)obj);
         }
-        public static NorwegianBirthNumber CreateRandom()
+
+        public static NorwegianDNumber CreateRandom()
         {
             string datePart;
             do
             {
                 datePart = "";
                 datePart += _random.Next(1, 32).ToString("D2");
+                datePart += _random.Next(1, 32).ToString("D2");
                 datePart += _random.Next(1, 13).ToString("D2");
                 datePart += _random.Next(0, 100).ToString("D2");
             } while (!DateExists(datePart)); // If we created a date which does not exist, try again!
 
-            string dateAndPersonNumberPart;
+            int[] datePartAsArray = StringUtil.ToIntArray(datePart);
+            datePartAsArray[0] = datePartAsArray[0] + 4;
+            datePart = string.Join("", datePartAsArray);
+
+            string dnumberAndPersonNumberPart;
             string checksumPart;
             do
             {
                 string personNumberPart = _random.Next(0, 999).ToString("D3");
-                dateAndPersonNumberPart = datePart + personNumberPart;
-                checksumPart = CalculateChecksumPart(dateAndPersonNumberPart);
+                dnumberAndPersonNumberPart = datePart + personNumberPart;
+                checksumPart = CalculateChecksumPart(dnumberAndPersonNumberPart);
             } while (checksumPart.Length != 2);
             // If checkum were calculated to something other than two digits, the birth number is invalid, try again!
 
-            return new NorwegianBirthNumber(dateAndPersonNumberPart + checksumPart);
+            return new NorwegianDNumber(dnumberAndPersonNumberPart + checksumPart);
         }
 
-        public static NorwegianBirthNumber CreateRandom(string seed)
+        public static NorwegianDNumber CreateRandom(string seed)
         {
             _random = new Random(seed.GetHashCode());
             return CreateRandom();
