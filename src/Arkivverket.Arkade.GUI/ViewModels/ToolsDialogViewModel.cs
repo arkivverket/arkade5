@@ -334,15 +334,20 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 }
             }
 
-            CloseButtonIsEnabled = false;
-            ValidateArchiveFormatButtonIsEnabled = false;
-            ArchiveFormatValidationStatusDisplay.DisplayRunning();
+            ArchiveFormatValidationReport report = null;
+            await Task.Run(
+                () =>
+                {
+                    CloseButtonIsEnabled = false;
+                    ValidateArchiveFormatButtonIsEnabled = false;
+                    ArchiveFormatValidationStatusDisplay.DisplayRunning();
 
-            ArchiveFormat format = ArchiveFormatValidationFormat.GetValueByDescription<ArchiveFormat>();
-            SupportedLanguage language = LanguageSettingHelper.GetUILanguage();
+                    ArchiveFormat format = ArchiveFormatValidationFormat.GetValueByDescription<ArchiveFormat>();
+                    SupportedLanguage language = LanguageSettingHelper.GetUILanguage();
 
-            ArchiveFormatValidationReport report = await _arkadeApi.ValidateArchiveFormatAsync(
-                _archiveFormatValidationItem, format, resultFileDirectoryPath, language);
+                    report = _arkadeApi.ValidateArchiveFormatAsync(
+                        _archiveFormatValidationItem, format, resultFileDirectoryPath, language).Result;
+                });
 
             ArchiveFormatValidationStatusDisplay.DisplayFinished(report);
             ValidateArchiveFormatButtonIsEnabled = true;
