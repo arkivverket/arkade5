@@ -153,4 +153,10 @@
   <data name="SiardValidatorLibraryNotFound" xml:space="preserve">
     <value>Could not find the validator library ({0}). Please download the library from {1}, and save the file at {2}.</value>
   </data>
+  <data name="WriteAccessDeniedMessage" xml:space="preserve">
+    <value>Arkade does not have permission to write to this location.</value>
+  </data>
+  <data name="WriteAccessDeniedCaption" xml:space="preserve">
+    <value>Write access denied</value>
+  </data>
 </root>

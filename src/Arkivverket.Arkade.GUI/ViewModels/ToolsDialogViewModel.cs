@@ -202,28 +202,39 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _log.Information($"User action: Open choose directory for {action} dialog");
 
-            var saveFileDialog = new SaveFileDialog
-            {
-                Title = ToolsGUI.FormatCheckOutputDirectoryPickerTitle,
-                DefaultExt = "csv",
-                AddExtension = true,
-                Filter = ToolsGUI.SaveFormatFileExtensionFilter,
-                FileName = string.Format(
-                    OutputFileNames.FileFormatInfoFile,
-                    Path.GetFileName(DirectoryForFormatCheck.TrimEnd(Path.GetInvalidFileNameChars()))
-                )
-            };
+            var filePath = "";
+            var canWriteToResultFileDirectory = false;
 
-            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            while (!canWriteToResultFileDirectory)
             {
-                _log.Information($"User action: Abort choose directory for {action}");
-                return;
+                var saveFileDialog = new SaveFileDialog
+                {
+                    Title = ToolsGUI.FormatCheckOutputDirectoryPickerTitle,
+                    DefaultExt = "csv",
+                    AddExtension = true,
+                    Filter = ToolsGUI.SaveFormatFileExtensionFilter,
+                    FileName = string.Format(
+                        OutputFileNames.FileFormatInfoFile,
+                        Path.GetFileName(DirectoryForFormatCheck.TrimEnd(Path.GetInvalidFileNameChars()))
+                    )
+                };
+
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                {
+                    _log.Information($"User action: Abort choose directory for {action}");
+                    return;
+                }
+
+                filePath = saveFileDialog.FileName;
+
+                canWriteToResultFileDirectory = new FileInfo(filePath).Directory.HasWritePermission();
+
+                if (!canWriteToResultFileDirectory)
+                    ShowWritePermissionDeniedMessageBox();
             }
 
             _statusEventHandler.RaiseEventFormatAnalysisProgressUpdated(0,
                 Directory.EnumerateFiles(DirectoryForFormatCheck, "*", SearchOption.AllDirectories).Count());
-
-            string filePath = saveFileDialog.FileName;
 
             _log.Information($"User action: Chose directory for {action}: {filePath}");
 
@@ -304,12 +315,24 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             var resultFileDirectoryPath = "";
             if (_archiveFormatValidationItem is DirectoryInfo)
-                DirectoryPicker("pick save location",
-                    ToolsGUI.FormatCheckOutputDirectoryPickerTitle,
-                    out resultFileDirectoryPath);
+            {
+                var canWriteToResultFileDirectory = false;
 
-            if (resultFileDirectoryPath == null)
-                return;
+                while (!canWriteToResultFileDirectory)
+                {
+                    DirectoryPicker("pick save location",
+                        ToolsGUI.FormatCheckOutputDirectoryPickerTitle,
+                        out resultFileDirectoryPath);
+
+                    if (resultFileDirectoryPath == null)
+                        return;
+
+                    canWriteToResultFileDirectory = new DirectoryInfo(resultFileDirectoryPath).HasWritePermission();
+
+                    if (!canWriteToResultFileDirectory)
+                        ShowWritePermissionDeniedMessageBox();
+                }
+            }
 
             CloseButtonIsEnabled = false;
             ValidateArchiveFormatButtonIsEnabled = false;
@@ -374,6 +397,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 file = null;
                 _log.Information($"User action: Abort choose file for {action}");
             }
+        }
+
+        private static void ShowWritePermissionDeniedMessageBox()
+        {
+            MessageBox.Show(ExceptionMessages.WriteAccessDeniedMessage,
+                ExceptionMessages.WriteAccessDeniedCaption, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

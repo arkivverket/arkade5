@@ -35,5 +35,24 @@ namespace Arkivverket.Arkade.Core.Util
 
             return numberOfFileInfoObjects;
         }
+
+        public static bool HasWritePermission(this DirectoryInfo directory)
+        {
+            var dummyFile = new FileInfo(Path.Combine(directory.FullName, "dummy.txt"));
+
+            try
+            {
+                FileStream tempStream = dummyFile.Create();
+                tempStream.Dispose();
+                dummyFile.Delete();
+                return true;
+            }
+            catch
+            {
+                if (dummyFile.Exists) dummyFile.Delete();
+
+                return false;
+            }
+        }
     }
 }

@@ -169,6 +169,12 @@ namespace Arkivverket.Arkade.CLI
                 return false;
             }
 
+            if (!new DirectoryInfo(outputDirectoryPath).HasWritePermission())
+            {
+                Log.Error(new IOException(), $"Arkade does not have write permissions to specified location: '{outputDirectoryPath}'");
+                return false;
+            }
+
             if (processingAreaPath != null && !Directory.Exists(processingAreaPath))
             {
                 Log.Error(new DirectoryNotFoundException(), $"Could not find processing area: '{processingAreaPath}'.");
