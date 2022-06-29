@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CommandLine;
 using CommandLine.Text;
 
-namespace Arkivverket.Arkade.CLI
+namespace Arkivverket.Arkade.CLI.Options
 {
     [Verb("validate", HelpText = "Validates the given file or directory against the specified format. Run this command followed by '--help' for more detailed info.")]
     public class ValidateOptions

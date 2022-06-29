@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CommandLine;
 using CommandLine.Text;
 
-namespace Arkivverket.Arkade.CLI
+namespace Arkivverket.Arkade.CLI.Options
 {
     [Verb("analyse", HelpText = "Performs a specified type of analysis. Run this command followed by '--help' for more detailed info.")]
     public class AnalyseOptions : OutputOptions

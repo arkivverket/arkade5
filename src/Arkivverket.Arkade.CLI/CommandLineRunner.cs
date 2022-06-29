@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using Arkivverket.Arkade.CLI.Options;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Languages;

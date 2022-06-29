@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CommandLine;
 using CommandLine.Text;
 
-namespace Arkivverket.Arkade.CLI
+namespace Arkivverket.Arkade.CLI.Options
 {
     [Verb("generate", HelpText = "Generate a specified file. Run this command followed by '--help' for more detailed info.")]
     public class GenerateOptions : OutputOptions

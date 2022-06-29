@@ -1,6 +1,6 @@
 using CommandLine;
 
-namespace Arkivverket.Arkade.CLI
+namespace Arkivverket.Arkade.CLI.Options
 {
     public abstract class ArchiveProcessingOptions : OutputOptions
     {
