@@ -196,11 +196,11 @@ namespace Arkivverket.Arkade.CLI
         {
             string command = GetRunningCommand(options.GetType().Name);
 
-            if (options.GenerateMetadataExample)
+            if (options.GenerateMetadataExampleFile)
             {
-                string metadataFileName = Path.Combine(options.OutputDirectory, OutputFileNames.MetadataFile);
-                new MetadataExampleGenerator().Generate(metadataFileName);
-                Log.Information(metadataFileName + " was created");
+                string metadataExampleFileName = Path.Combine(options.OutputDirectory, OutputFileNames.MetadataExampleFile);
+                new MetadataExampleGenerator().Generate(metadataExampleFileName);
+                Log.Information(metadataExampleFileName + " was created");
             }
 
             if (options.GenerateNoark5TestSelectionFile)

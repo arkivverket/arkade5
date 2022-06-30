@@ -90,9 +90,9 @@ namespace Arkivverket.Arkade.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to arkade-ip-metadata.json.
         /// </summary>
-        public static string MetadataFile {
+        public static string MetadataExampleFile {
             get {
-                return ResourceManager.GetString("MetadataFile", resourceCulture);
+                return ResourceManager.GetString("MetadataExampleFile", resourceCulture);
             }
         }
         
