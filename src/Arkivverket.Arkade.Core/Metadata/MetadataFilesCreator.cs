@@ -43,6 +43,8 @@ namespace Arkivverket.Arkade.Core.Metadata
             workingDirectory.AdministrativeMetadata()
                 .AddFileFromResources(DiasPremisXsdResource, DiasPremisXsdFileName);
 
+            workingDirectory.DescriptiveMetadata().AddFileFromResources(EadXsdResource, EadXsdFileName);
+            workingDirectory.DescriptiveMetadata().AddFileFromResources(EacCpfXsdResource, EacCpfXsdFileName);
         }
     }
 }

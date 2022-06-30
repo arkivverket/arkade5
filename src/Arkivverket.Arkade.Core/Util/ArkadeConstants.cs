@@ -40,6 +40,8 @@
         public const string MetadatakatalogXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.metadatakatalog.xsd";
         public const string DiasPremisXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.DIAS_PREMIS.xsd";
         public const string DiasMetsXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.DIAS_METS.xsd";
+        public const string EadXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.ead3.xsd";
+        public const string EacCpfXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.cpf.xsd";
         public const string SubmissionDescriptionXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.submissionDescription.xsd";
         public const string ChangeLogXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.endringslogg.xsd";
         public const string PublicJournalXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.offentligJournal.xsd";
