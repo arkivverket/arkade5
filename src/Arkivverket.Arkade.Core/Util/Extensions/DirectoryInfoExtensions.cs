@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Util
 
             if (!withSubDirectories)
                 return;
-            
+
             foreach (DirectoryInfo subDirectory in sourceDirectoryInfo.GetDirectories())
             {
                 subDirectory.CopyTo(Path.Combine(destinationPath, subDirectory.Name), true);
