@@ -21,18 +21,21 @@ namespace Arkivverket.Arkade.CLI.Options
             get
             {
                 yield return new Example("Generate a metadata example file",
+                    OptionsConfig.FormatStyle,
                     new GenerateOptions
                     {
                         OutputDirectory = "outputDirectory",
                         GenerateMetadataExampleFile = true
                     });
                 yield return new Example("Generate a Noark 5 test selection file",
+                    OptionsConfig.FormatStyle,
                     new GenerateOptions
                     {
                         OutputDirectory = "outputDirectory",
                         GenerateNoark5TestSelectionFile = true
                     });
                 yield return new Example("Generate a metadata example file and a Noark 5 test selection file",
+                    OptionsConfig.FormatStyle,
                     new GenerateOptions
                     {
                         OutputDirectory = "outputDirectory",

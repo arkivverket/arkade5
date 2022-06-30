@@ -25,6 +25,7 @@ namespace Arkivverket.Arkade.CLI.Options
             get
             {
                 yield return new Example("Process archive - run all tests and pack to SIP",
+                    OptionsConfig.FormatStyle,
                     new ProcessOptions
                     {
                         Archive = "noark5ArchiveDirectory",
@@ -35,6 +36,7 @@ namespace Arkivverket.Arkade.CLI.Options
 
                     });
                 yield return new Example("Process archive - run all tests and pack to AIP",
+                    OptionsConfig.FormatStyle,
                     new ProcessOptions
                     {
                         Archive = "noark5ArchiveDirectory",
@@ -45,6 +47,7 @@ namespace Arkivverket.Arkade.CLI.Options
                         InformationPackageType = "AIP"
                     });
                 yield return new Example("Process archive - run selected tests and pack to SIP",
+                    OptionsConfig.FormatStyle,
                     new ProcessOptions
                     {
                         Archive = "noark5ArchiveDirectory",

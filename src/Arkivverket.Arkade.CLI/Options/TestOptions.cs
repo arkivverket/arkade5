@@ -16,6 +16,7 @@ namespace Arkivverket.Arkade.CLI.Options
             get
             {
                 yield return new Example("Run all tests on archive data",
+                    OptionsConfig.FormatStyle,
                     new TestOptions
                     {
                         Archive = "noark5ArchiveDirectory",

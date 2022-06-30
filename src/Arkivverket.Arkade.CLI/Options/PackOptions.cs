@@ -22,6 +22,7 @@ namespace Arkivverket.Arkade.CLI.Options
             get
             {
                 yield return new Example("Pack archive data to SIP",
+                    OptionsConfig.FormatStyle,
                     new PackOptions
                     {
                         Archive = "noark5ArchiveDirectory",
@@ -31,6 +32,7 @@ namespace Arkivverket.Arkade.CLI.Options
                         MetadataFile = "metadata.json"
                     });
                 yield return new Example("Pack archive data to AIP",
+                    OptionsConfig.FormatStyle,
                     new PackOptions
                     {
                         Archive = "noark5ArchiveDirectory",

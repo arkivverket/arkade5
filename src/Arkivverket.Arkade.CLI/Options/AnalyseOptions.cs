@@ -19,6 +19,7 @@ namespace Arkivverket.Arkade.CLI.Options
             get
             {
                 yield return new Example("Perform format analysis on a specified directory",
+                    OptionsConfig.FormatStyle,
                     new AnalyseOptions
                     {
                         OutputDirectory = "outputDirectory",

@@ -24,6 +24,7 @@ namespace Arkivverket.Arkade.CLI.Options
             get
             {
                 yield return new Example("Validate a specified file as PDF/A",
+                    OptionsConfig.FormatStyle,
                     new ValidateOptions
                     {
                         Item = "/path/to/pdfA-file",
@@ -31,6 +32,7 @@ namespace Arkivverket.Arkade.CLI.Options
                     });
 
                 yield return new Example("Validate a specified tar or directory to fulfill the DIAS standard",
+                    OptionsConfig.FormatStyle,
                     new ValidateOptions
                     {
                         Item = "/path/to/dias-tar-or-directory",
