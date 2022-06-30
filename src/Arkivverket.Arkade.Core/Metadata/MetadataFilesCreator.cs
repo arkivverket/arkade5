@@ -1,15 +1,10 @@
-using System.IO;
-using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Util;
-using Serilog;
+using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Metadata
 {
     public class MetadataFilesCreator
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
-
         private readonly DiasMetsCreator _diasMetsCreator;
         private readonly DiasPremisCreator _diasPremisCreator;
         private readonly LogCreator _logCreator;
@@ -35,44 +30,19 @@ namespace Arkivverket.Arkade.Core.Metadata
             // EAC-CPF is not included in v1.0
             _eacCpfCreator.CreateAndSaveFile(archive, metadata);
 
-            CopyXsdFiles(archive.WorkingDirectory);
+            AddXsdFiles(archive.WorkingDirectory);
 
             // Generate mets-file last for it to describe all other package content
             _diasMetsCreator.CreateAndSaveFile(archive, metadata);
         }
 
-        private static void CopyXsdFiles(WorkingDirectory workingDirectory)
+        private static void AddXsdFiles(WorkingDirectory workingDirectory)
         {
-            CopyXsdFile(
-                ArkadeConstants.DiasMetsXsdResource,
-                ArkadeConstants.DiasMetsXsdFileName,
-                workingDirectory.Root()
-            );
+            workingDirectory.Root().AddFileFromResources(DiasMetsXsdResource, DiasMetsXsdFileName);
 
-            CopyXsdFile(
-                ArkadeConstants.DiasPremisXsdResource,
-                ArkadeConstants.DiasPremisXsdFileName,
-                workingDirectory.AdministrativeMetadata()
-            );
+            workingDirectory.AdministrativeMetadata()
+                .AddFileFromResources(DiasPremisXsdResource, DiasPremisXsdFileName);
 
-            CopyXsdFile(
-                ArkadeConstants.AddmlXsdResource,
-                ArkadeConstants.AddmlXsdFileName,
-                workingDirectory.AdministrativeMetadata()
-            );
-        }
-
-        private static void CopyXsdFile(string xsdResource, string xsdFileName, ArkadeDirectory arkadeDirectory)
-        {
-            using (Stream xsdResourceStream = ResourceUtil.GetResourceAsStream(xsdResource))
-            {
-                string targetXsdFileName = arkadeDirectory.WithFile(xsdFileName).FullName;
-
-                using (FileStream targetXsdFileStream = File.Create(targetXsdFileName))
-                {
-                    xsdResourceStream.CopyTo(targetXsdFileStream);
-                }
-            }
         }
     }
 }

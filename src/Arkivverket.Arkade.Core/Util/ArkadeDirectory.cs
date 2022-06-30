@@ -38,6 +38,16 @@ namespace Arkivverket.Arkade.Core.Util
            return GetSize(_directoryInfo);
         }
 
+        internal void AddFileFromResources(string resourceName, string fileName)
+        {
+            string targetXsdFileName = WithFile(fileName).FullName;
+
+            using Stream xsdResourceStream = ResourceUtil.GetResourceAsStream(resourceName);
+            using FileStream targetXsdFileStream = File.Create(targetXsdFileName);
+
+            xsdResourceStream.CopyTo(targetXsdFileStream);
+        }
+
         private static long GetSize(DirectoryInfo directory)
         {
             long size = 0;
