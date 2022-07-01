@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CommandLine;
 using CommandLine.Text;
@@ -10,7 +11,11 @@ namespace Arkivverket.Arkade.CLI.Options
         [Option('f', "format-analysis", HelpText = "Recursively performs PRONOM format analysis on all files in a directory.", Required = true)]
         public string FormatCheckTarget { get; set; }
 
-        [Option('O', "output-filename", HelpText = "Optional. Overrides default output filename.")]
+        [Option('F', "format-analysis-filename", HelpText = "Optional. Provide a custom name for format analysis file.")]
+        public string FormatAnalysisResultFileName { get; set; }
+
+        [Obsolete]
+        [Option('O', "output-filename", HelpText = "Optional. Overrides default output filename. (NB! Obsolete. Use parameter --format-analysis-filename / -F instead)")]
         public string OutputFileName { get; set; }
 
         [Usage(ApplicationAlias = "arkade")]
@@ -24,7 +29,7 @@ namespace Arkivverket.Arkade.CLI.Options
                     {
                         OutputDirectory = "outputDirectory",
                         FormatCheckTarget = "/path/to/directory",
-                        OutputFileName = "myFormatInfoFile.csv",
+                        FormatAnalysisResultFileName = "myFormatInfoFile.csv",
                     });
             }
         }
