@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Logging;
@@ -100,6 +101,8 @@ namespace Arkivverket.Arkade.Core.Report
                     existingStat.Amount++;
             }
 
+            fileTypeStatisticsElements.Sort();
+
             return (listElements, fileTypeStatisticsElements);
         }
 
@@ -152,10 +155,17 @@ namespace Arkivverket.Arkade.Core.Report
             public string FileScanError { get; set; }
         }
 
-        private class FileTypeStatisticsElement
+        private class FileTypeStatisticsElement : IComparable
         {
             public string FileType { get; set; }
             public int Amount { get; set; }
+            
+            public int CompareTo(object obj)
+            {
+                return obj is not FileTypeStatisticsElement other
+                    ? 1
+                    : string.Compare(FileType, other.FileType, StringComparison.InvariantCulture);
+            }
         }
     }
 }
