@@ -78,7 +78,13 @@ namespace Arkivverket.Arkade.Core.Report
 
                 listElements.Add(documentFileListElement);
 
-                string key = documentFileListElement.FileFormatPuId + " - " + documentFileListElement.FileFormatName;
+                string key = documentFileListElement.FileFormatPuId +
+                             (string.IsNullOrWhiteSpace(documentFileListElement.FileFormatName)
+                                 ? string.Empty
+                                 : $" - {documentFileListElement.FileFormatName}") +
+                             (string.IsNullOrWhiteSpace(documentFileListElement.FileFormatVersion)
+                                 ? string.Empty
+                                 : $" - {documentFileListElement.FileFormatVersion}");
 
                 var fileTypeStatisticElement = new FileTypeStatisticsElement
                 {
