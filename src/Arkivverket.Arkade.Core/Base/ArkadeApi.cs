@@ -35,13 +35,14 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly IFileFormatIdentifier _fileFormatIdentifier;
         private readonly IFileFormatInfoFilesGenerator _fileFormatInfoGenerator;
         private readonly ISiardXmlTableReader _siardXmlTableReader;
+        private readonly MetadataExampleGenerator _metadataExampleGenerator;
 
         public ArkadeApi(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory,
             MetadataFilesCreator metadataFilesCreator, InformationPackageCreator informationPackageCreator,
             TestSessionXmlGenerator testSessionXmlGenerator, SiardMetadataFileHelper siardMetadataFileHelper,
             IArchiveTypeIdentifier archiveTypeIdentifier, IArchiveFormatValidator archiveFormatValidator,
             IFileFormatIdentifier fileFormatIdentifier, IFileFormatInfoFilesGenerator fileFormatInfoGenerator, 
-            ISiardXmlTableReader siardXmlTableReader)
+            ISiardXmlTableReader siardXmlTableReader, MetadataExampleGenerator metadataExampleGenerator)
         {
             _testSessionFactory = testSessionFactory;
             _testEngineFactory = testEngineFactory;
@@ -54,6 +55,7 @@ namespace Arkivverket.Arkade.Core.Base
             _fileFormatIdentifier = fileFormatIdentifier;
             _fileFormatInfoGenerator = fileFormatInfoGenerator;
             _siardXmlTableReader = siardXmlTableReader;
+            _metadataExampleGenerator = metadataExampleGenerator;
         }
 
         public TestSession RunTests(ArchiveDirectory archiveDirectory)
@@ -235,6 +237,11 @@ namespace Arkivverket.Arkade.Core.Base
             LanguageManager.SetResourceLanguageForArchiveFormatValidation(language);
 
             return await _archiveFormatValidator.ValidateAsync(item, format, resultFileDirectoryPath);
+        }
+
+        public void GenerateMetadataExampleFile(string outputFileName)
+        {
+            _metadataExampleGenerator.Generate(outputFileName);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)

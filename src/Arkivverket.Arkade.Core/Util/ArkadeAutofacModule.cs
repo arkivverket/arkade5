@@ -50,6 +50,7 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<CliTestProgressReporter>().As<ITestProgressReporter>().SingleInstance();
             builder.RegisterType<CliBusyIndicator>().As<IBusyIndicator>().SingleInstance();
             builder.RegisterType<ArchiveFormatValidator>().As<IArchiveFormatValidator>();
+            builder.RegisterType<MetadataExampleGenerator>().AsSelf();
         }
     }
 }

@@ -109,6 +109,11 @@ namespace Arkivverket.Arkade.Core.Base
             return await _arkadeApi.ValidateArchiveFormatAsync(item, format, resultFileDirectoryPath, language);
         }
 
+        public void GenerateMetadataExampleFile(string outputFileName)
+        {
+            _arkadeApi.GenerateMetadataExampleFile(outputFileName);
+        }
+
         public ArchiveType? DetectArchiveType(string archiveFileName)
         {
             return _arkadeApi.DetectArchiveType(archiveFileName);

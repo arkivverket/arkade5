@@ -101,6 +101,21 @@
                     </ScrollViewer>
                 </StackPanel>
             </TabItem>
+            <TabItem Header="{x:Static lang:ToolsGUI.MetadataExampleFileGenerationSectionHeading}">
+                <StackPanel Margin="20">
+                    <Label Margin="0 20 0 0" FontSize="20" FontWeight="DemiBold"
+                           Content="{x:Static lang:ToolsGUI.MetadataExampleFileGenerationSectionHeading}" />
+                    <StackPanel Orientation="Horizontal">
+                        <Button Margin="0 20 0 0" FontSize="12" Height="25"
+                                Command="{Binding GenerateMetadataExampleFileCommand}"
+                                Content="{x:Static lang:ToolsGUI.MetadataExampleFileGenerationRunButtonText}" />
+                    </StackPanel>
+                    <StackPanel Margin="0 20 0 0" Visibility="{Binding GenerateMetadataExampleFileResultInfoVisibility}">
+                        <Label Content="{x:Static lang:ToolsGUI.GenerateMetadataExampleFilePathLabel }" FontWeight="Bold" />
+                        <TextBox Text="{Binding MetadataExampleFilePath}" IsReadOnly="True" TextWrapping="Wrap" />
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
         </TabControl>
         <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15"
                 IsCancel="True"

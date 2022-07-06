@@ -215,6 +215,42 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Metadata example file was generated:.
+        /// </summary>
+        public static string GenerateMetadataExampleFilePathLabel {
+            get {
+                return ResourceManager.GetString("GenerateMetadataExampleFilePathLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate.
+        /// </summary>
+        public static string MetadataExampleFileGenerationRunButtonText {
+            get {
+                return ResourceManager.GetString("MetadataExampleFileGenerationRunButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose name and location for metadata example file.
+        /// </summary>
+        public static string MetadataExampleFileGenerationSaveFileDialogTitle {
+            get {
+                return ResourceManager.GetString("MetadataExampleFileGenerationSaveFileDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create metadata example file.
+        /// </summary>
+        public static string MetadataExampleFileGenerationSectionHeading {
+            get {
+                return ResourceManager.GetString("MetadataExampleFileGenerationSectionHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CSV (Comma separated values) (*.csv)|*.csv.
         /// </summary>
         public static string SaveFormatFileExtensionFilter {

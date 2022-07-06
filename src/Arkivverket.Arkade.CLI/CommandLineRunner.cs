@@ -218,7 +218,7 @@ namespace Arkivverket.Arkade.CLI
             {
                 string metadataExampleFileName = Path.Combine(options.OutputDirectory,
                     options.MetadataExampleFileName ?? OutputFileNames.MetadataExampleFile);
-                new MetadataExampleGenerator().Generate(metadataExampleFileName);
+                Arkade.GenerateMetadataExampleFile(metadataExampleFileName);
                 Log.Information(metadataExampleFileName + " was created");
             }
 

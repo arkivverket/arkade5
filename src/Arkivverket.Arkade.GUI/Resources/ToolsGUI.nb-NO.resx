@@ -178,4 +178,16 @@ Resultat lagret i:</value>
   <data name="ArchiveFormatValidationDirectorySelectDialogTitle" xml:space="preserve">
     <value>Velg en katalog hvis innhold skal valideres</value>
   </data>
+  <data name="MetadataExampleFileGenerationSectionHeading" xml:space="preserve">
+    <value>Lag metadata-eksempelfil</value>
+  </data>
+  <data name="MetadataExampleFileGenerationRunButtonText" xml:space="preserve">
+    <value>Generer</value>
+  </data>
+  <data name="MetadataExampleFileGenerationSaveFileDialogTitle" xml:space="preserve">
+    <value>Velg navn og plassering for metadata-eksempelfil</value>
+  </data>
+  <data name="GenerateMetadataExampleFilePathLabel" xml:space="preserve">
+    <value>Metadata-eksempelfil ble generert:</value>
+  </data>
 </root>

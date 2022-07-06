@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Xunit;

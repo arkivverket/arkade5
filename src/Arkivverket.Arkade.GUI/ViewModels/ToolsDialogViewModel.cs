@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -114,6 +115,24 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand ChooseDirectoryForArchiveFormatValidationCommand { get; }
         public DelegateCommand ValidateArchiveFormatCommand { get; }
 
+        // ------- Metadata example file generation ------
+
+        public DelegateCommand GenerateMetadataExampleFileCommand { get; }
+
+        private string _metadataExampleFilePath;
+        public string MetadataExampleFilePath
+        {
+            get => _metadataExampleFilePath;
+            set => SetProperty(ref _metadataExampleFilePath, value);
+        }
+
+        private Visibility _generateMetadataExampleFileResultInfoVisibility;
+        public Visibility GenerateMetadataExampleFileResultInfoVisibility
+        {
+            get => _generateMetadataExampleFileResultInfoVisibility;
+            set => SetProperty(ref _generateMetadataExampleFileResultInfoVisibility, value);
+        }
+
         // -----------------------------------------------
 
         private bool _closeButtonIsEnabled;
@@ -149,6 +168,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ValidateArchiveFormatButtonIsEnabled = false;
             _archiveFormatValidationStatusDisplay = new ArchiveFormatValidationStatusDisplay();
             ArchiveFormatValidationFormats = typeof(ArchiveFormat).GetDescriptions();
+
+            // ------- Metadata example file generation ------
+
+            GenerateMetadataExampleFileCommand = new DelegateCommand(GenerateMetadataExampleFile);
+            GenerateMetadataExampleFileResultInfoVisibility = Visibility.Hidden;
+            MetadataExampleFilePath = string.Empty;
 
             // -----------------------------------------------
 
@@ -352,6 +377,36 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             CloseButtonIsEnabled = true;
         }
         
+        // ------- Metadata example file generation ------
+
+        private void GenerateMetadataExampleFile()
+        {
+            GenerateMetadataExampleFileResultInfoVisibility = Visibility.Hidden;
+            MetadataExampleFilePath = string.Empty;
+
+            var saveFileDialog = new SaveFileDialog
+            {
+                Title = ToolsGUI.MetadataExampleFileGenerationSaveFileDialogTitle,
+                FileName = OutputFileNames.MetadataExampleFile,
+                Filter = @"JSON (*.json)|*.json",
+                DefaultExt = "json",
+            };
+
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            {
+                _log.Information("User action: Abort select name and location for generated metadata example file");
+                return;
+            }
+
+            _arkadeApi.GenerateMetadataExampleFile(saveFileDialog.FileName);
+
+            string argument = "/select, \"" + saveFileDialog.FileName + "\"";
+            Process.Start("explorer.exe", argument);
+
+            MetadataExampleFilePath = saveFileDialog.FileName;
+            GenerateMetadataExampleFileResultInfoVisibility = Visibility.Visible;
+        }
+
         // -----------------------------------------------
 
         private void DirectoryPicker(string action, string title, out string directory)
