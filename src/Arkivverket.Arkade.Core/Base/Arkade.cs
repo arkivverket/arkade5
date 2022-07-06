@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
+using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Autofac;
 
 namespace Arkivverket.Arkade.Core.Base
@@ -76,9 +78,29 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeApi.SaveReport(testSession, directory, standalone);
         }
 
-        public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName, SupportedLanguage language)
+        public IFileFormatInfo AnalyseFileFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
         {
-            _arkadeApi.GenerateFileFormatInfoFiles(filesDirectory, resultFileDirectoryPath, resultFileName, language);
+            return _arkadeApi.AnalyseFileFormat(filePathAndByteContent);
+        }
+
+        public IFileFormatInfo AnalyseFileFormat(FileInfo file)
+        {
+            return _arkadeApi.AnalyseFileFormat(file);
+        }
+        
+        public IEnumerable<IFileFormatInfo> AnalyseFileFormats(string targetPath, FileFormatScanMode scanMode)
+        {
+            return _arkadeApi.AnalyseFileFormats(targetPath, scanMode);
+        }
+        
+        public void GenerateFileFormatInfoFiles(TestSession testSession)
+        {
+            _arkadeApi.GenerateFileFormatInfoFiles(testSession);
+        }
+
+        public void GenerateFileFormatInfoFiles(IEnumerable<IFileFormatInfo> fileFormatInfos, string relativePathRoot, string resultFileFullName, SupportedLanguage language)
+        {
+            _arkadeApi.GenerateFileFormatInfoFiles(fileFormatInfos, relativePathRoot, resultFileFullName, language);
         }
 
         public async Task<ArchiveFormatValidationReport> ValidateArchiveFormatAsync(

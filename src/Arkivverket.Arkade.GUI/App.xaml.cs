@@ -109,10 +109,13 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<TestSessionXmlGenerator>();
             containerRegistry.Register<IReleaseInfoReader, GitHubReleaseInfoReader>();
             containerRegistry.Register<ArkadeVersion>();
+            containerRegistry.Register<IFileFormatInfoFilesGenerator, FileFormatInfoFilesGenerator>();
             containerRegistry.Register<IFileFormatIdentifier, SiegfriedFileFormatIdentifier>();
+            containerRegistry.Register<SiegfriedProcessRunner>();
             containerRegistry.Register<ISiardArchiveReader, SiardArchiveReader>();
             containerRegistry.Register<ISiardXmlTableReader, SiardXmlTableReader>();
             containerRegistry.Register<SiardTestEngine>();
+            containerRegistry.Register<SiardMetadataFileHelper>();
             containerRegistry.RegisterSingleton<ITestProgressReporter, GuiTestProgressReporter>();
             containerRegistry.RegisterSingleton<IArchiveFormatValidator,ArchiveFormatValidator>();
         }

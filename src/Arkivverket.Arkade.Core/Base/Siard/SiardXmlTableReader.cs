@@ -5,10 +5,8 @@ using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using Arkivverket.Arkade.Core.Util;
-using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Serilog;
 using Wmhelp.XPath2;
 
@@ -19,20 +17,16 @@ namespace Arkivverket.Arkade.Core.Base.Siard
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly ISiardArchiveReader _siardArchiveReader;
-        private readonly IFileFormatIdentifier _fileFormatIdentifier;
 
-        public SiardXmlTableReader(ISiardArchiveReader siardArchiveReader, IFileFormatIdentifier fileFormatIdentifier)
+        public SiardXmlTableReader(ISiardArchiveReader siardArchiveReader)
         {
             _siardArchiveReader = siardArchiveReader;
-            _fileFormatIdentifier = fileFormatIdentifier;
         }
 
-        public List<IFileFormatInfo> GetFormatAnalysedLobs(string siardFileName)
+        public IEnumerable<KeyValuePair<string, IEnumerable<byte>>> CreateLobByteArrays(string siardFileName)
         {
             Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndexes =
                 _siardArchiveReader.GetLobFolderPathsWithColumnIndexes(siardFileName);
-
-            var formatAnalysedLobs = new List<IFileFormatInfo>();
 
             foreach ((string lobFolderPath, List<SiardLobReference> siardLobReferences) in lobFolderPathsWithColumnIndexes)
             {
@@ -52,28 +46,17 @@ namespace Arkivverket.Arkade.Core.Base.Siard
                     }
 
                     var indexCounter = 0;
-                    var formatAnalysedLobTasks = new List<Task<IFileFormatInfo>>();
                     foreach (XElement element in lobXmlElements)
                     {
                         if (int.TryParse(lobXmlElementsRowIndexElements[indexCounter].Value, out int rowIndex))
                             siardLobReference.RowIndex = rowIndex;
 
-                        formatAnalysedLobTasks.Add(GetFormatAnalysedLobAsync(element, siardFileName, new SiardLobReference(siardLobReference)));
                         indexCounter++;
-                    }
 
-                    IFileFormatInfo[] fileFormatInfos = Task.WhenAll(formatAnalysedLobTasks).Result;
-                    formatAnalysedLobs.AddRange(fileFormatInfos);
-
-                    if (formatAnalysedLobs.Any(f => f == null))
-                    {
-                        Log.Error(formatAnalysedLobs.Count(f => f == null) +
-                                  " BLOBs/CLOBs were not analysed. Look for previous error messages in logfile for details.");
+                        yield return CreateKeyValuePairForLob(element, siardFileName, new SiardLobReference(siardLobReference));
                     }
                 }
             }
-
-            return formatAnalysedLobs;
         }
 
         private string GetXmlTableStringContent(string archiveFileName, SiardLobReference siardLobReference)
@@ -103,21 +86,21 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             return Path.Combine(archiveFolderPath, schemaFolderName, tableFolderAndFileName, tableFolderAndFileName + ".xml");
         }
 
-        private async Task<IFileFormatInfo> GetFormatAnalysedLobAsync(XElement lobXmlElement, string siardFileName, SiardLobReference siardLobReference)
+        private KeyValuePair<string, IEnumerable<byte>> CreateKeyValuePairForLob(XElement lobXmlElement, string siardFileName, SiardLobReference siardLobReference)
         {
             siardLobReference.FilePathInTableXml = lobXmlElement.Attributes().FirstOrDefault(a => a.Name.LocalName.Equals("file"))?.Value;
 
             if (LobIsInlinedInXmlTable(siardLobReference.FilePathInTableXml))
             {
-                return await Task.Run(() => RunFormatAnalysisOnInlinedLob(lobXmlElement, siardLobReference));
+                return CreateKeyValuePairForInlinedLob(lobXmlElement, siardLobReference);
             }
 
             if (SiardLobIsExternal(siardLobReference))
             {
-                return await Task.Run(() => RunFormatAnalysisOnExternalLobFile(siardFileName, siardLobReference));
+                return CreateKeyValuePairForExternalLobFile(siardFileName, siardLobReference);
             }
 
-            return await Task.Run(() => RunFormatAnalysisOnInternalLobFile(siardFileName, siardLobReference));
+            return CreateKeyValuePairForInternalLobFile(siardFileName, siardLobReference);
         }
 
         private static bool LobIsInlinedInXmlTable(string siardLobFileReferenceFromTableXml)
@@ -130,80 +113,42 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             return siardLobReference.FilePathInTableXml.StartsWith("..") || siardLobReference.IsExternal;
         }
 
-        private IFileFormatInfo RunFormatAnalysisOnInlinedLob(XElement lobXmlElement, SiardLobReference siardLobReference)
+        private KeyValuePair<string, IEnumerable<byte>> CreateKeyValuePairForInlinedLob(XElement lobXmlElement, SiardLobReference siardLobReference)
         {
             string siardLobLocation = siardLobReference.Table.FolderName + " - column" + siardLobReference.Column.Index +
                                       " - row" + siardLobReference.RowIndex;
-            try
-            {
-                var bytes = new Span<byte>();
-                if (!InlinedLobContentHasSupportedEncoding(lobXmlElement.Value, ref bytes))
-                {
-                    return new SiegfriedFileInfo(siardLobLocation,
-                        Resources.SiardMessages.InlinedLobContentHasUnsupportedEncoding, "N/A", "N/A", "N/A", "N/A");
-                }
+            var bytes = new Span<byte>();
 
-                using var stream = new MemoryStream(bytes.ToArray());
-                return _fileFormatIdentifier.IdentifyFormat
-                (
-                    new KeyValuePair<string, Stream>(siardLobLocation, stream)
-                );
-            }
-            catch (Exception e)
-            {
-                HandleLobAnalysisException(e, siardLobLocation);
-                return null;
-            }
+            if (!InlinedLobContentHasSupportedEncoding(lobXmlElement.Value, ref bytes))
+                return new KeyValuePair<string, IEnumerable<byte>>(siardLobLocation, null);
+
+            return new KeyValuePair<string, IEnumerable<byte>>(siardLobLocation, bytes.ToArray());
         }
 
-        private IFileFormatInfo RunFormatAnalysisOnExternalLobFile(string siardFileName, SiardLobReference siardLobReference)
+        private static KeyValuePair<string, IEnumerable<byte>> CreateKeyValuePairForExternalLobFile(string siardFileName, SiardLobReference siardLobReference)
         {
-            try
-            {
-                using FileStream stream = new FileInfo(
-                    GetPathToExternalLob(siardFileName, siardLobReference)).OpenRead();
-
-                return _fileFormatIdentifier.IdentifyFormat
-                (
-                    new KeyValuePair<string, Stream>(siardLobReference.FilePathInTableXml, stream)
-                );
-            }
-            catch (Exception e)
-            {
-                HandleLobAnalysisException(e, siardLobReference.FilePathInTableXml);
-                return null;
-            }
+            using FileStream stream = new FileInfo(GetPathToExternalLob(siardFileName, siardLobReference)).OpenRead();
+            byte[] bytes = File.ReadAllBytes(GetPathToExternalLob(siardFileName, siardLobReference));
+            return new KeyValuePair<string, IEnumerable<byte>>(siardLobReference.FilePathInTableXml, bytes);
         }
 
-        private IFileFormatInfo RunFormatAnalysisOnInternalLobFile(string siardFileName, SiardLobReference siardLobReference)
+        private KeyValuePair<string, IEnumerable<byte>> CreateKeyValuePairForInternalLobFile(string siardFileName, SiardLobReference siardLobReference)
         {
-            try
-            {
-                using var siardFileStream = new FileStream(siardFileName, FileMode.Open, FileAccess.Read);
-                using var siardZipArchive = new ZipArchive(siardFileStream);
-                using Stream stream = _siardArchiveReader.GetNamedEntryStreamFromSiardZipArchive(
-                    siardZipArchive, siardLobReference.FilePathRelativeToContentFolder);
+            using var siardFileStream = new FileStream(siardFileName, FileMode.Open, FileAccess.Read);
+            using var siardZipArchive = new ZipArchive(siardFileStream);
+            using Stream stream = _siardArchiveReader.GetNamedEntryStreamFromSiardZipArchive(
+                siardZipArchive, siardLobReference.FilePathRelativeToContentFolder);
 
-                return _fileFormatIdentifier.IdentifyFormat
-                (
-                    new KeyValuePair<string, Stream>
-                    (
-                        Path.Combine("content", siardLobReference.FilePathRelativeToContentFolder),
-                        stream
-                    )
-                );
-            }
-            catch (Exception e)
-            {
-                HandleLobAnalysisException(e, siardLobReference.FilePathRelativeToContentFolder);
-                return null;
-            }
-        }
+            using var memoryStream = new MemoryStream();
+            stream.CopyTo(memoryStream);
 
-        private static void HandleLobAnalysisException(Exception e, string siardLobIdentifier)
-        {
-            Log.Debug(e.ToString());
-            Log.Error($"Was not able to analyse {siardLobIdentifier} - please see logfile for details.");
+            byte[] bytes = memoryStream.ToArray();
+
+            return new KeyValuePair<string, IEnumerable<byte>>
+            (
+                Path.Combine("content", siardLobReference.FilePathRelativeToContentFolder),
+                bytes
+            );
         }
 
         private bool InlinedLobContentHasSupportedEncoding(string value, ref Span<byte> bytes)

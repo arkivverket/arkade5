@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -11,6 +11,7 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
+using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Util;
 using Prism.Commands;
@@ -29,6 +30,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         // ---------- File format analysis --------------
 
+        private long _numberOfAnalysedFiles;
+        private long _totalNumberOfFilesToAnalyse;
+
         private string _formatAnalysisOngoingString;
         public string FormatAnalysisOngoingString
         {
@@ -41,13 +45,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             get => _directoryForFormatCheck;
             set => SetProperty(ref _directoryForFormatCheck, value);
-        }
-
-        private string _directoryToSaveFormatCheckResult;
-        public string DirectoryToSaveFormatCheckResult
-        {
-            get => _directoryToSaveFormatCheckResult;
-            set => SetProperty(ref _directoryToSaveFormatCheckResult, value);
         }
 
         private string _formatCheckStatus;
@@ -133,7 +130,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             // ---------- File format analysis --------------
 
+            _statusEventHandler.FormatAnalysisStartedEvent += OnFormatAnalysisStarted;
             _statusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdated;
+            _statusEventHandler.FormatAnalysisFinishedEvent += OnFormatAnalysisFinished;
 
             ChooseDirectoryForFormatCheckCommand = new DelegateCommand(ChooseDirectoryForFormatCheck);
             RunFormatCheckCommand = new DelegateCommand(RunFormatCheck);
@@ -174,10 +173,25 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         // ---------- File format analysis --------------
 
+        private void OnFormatAnalysisStarted(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
+            _numberOfAnalysedFiles = 0;
+            _totalNumberOfFilesToAnalyse = eventArgs.TotalFiles;
+            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, _numberOfAnalysedFiles,
+                _totalNumberOfFilesToAnalyse);
+        }
+
         private void OnFormatAnalysisProgressUpdated(object sender, FormatAnalysisProgressEventArgs eventArgs)
         {
-            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, eventArgs.FileCounter,
-                eventArgs.TotalFiles);
+            _numberOfAnalysedFiles++;
+            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, _numberOfAnalysedFiles,
+                _totalNumberOfFilesToAnalyse);
+        }
+
+        private void OnFormatAnalysisFinished(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
+            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, _totalNumberOfFilesToAnalyse,
+                _totalNumberOfFilesToAnalyse);
         }
 
         private void ChooseDirectoryForFormatCheck()
@@ -202,43 +216,27 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _log.Information($"User action: Open choose directory for {action} dialog");
 
-            var filePath = "";
-            var canWriteToResultFileDirectory = false;
-
-            while (!canWriteToResultFileDirectory)
+            var saveFileDialog = new SaveFileDialog
             {
-                var saveFileDialog = new SaveFileDialog
-                {
-                    Title = ToolsGUI.FormatCheckOutputDirectoryPickerTitle,
-                    DefaultExt = "csv",
-                    AddExtension = true,
-                    Filter = ToolsGUI.SaveFormatFileExtensionFilter,
-                    FileName = string.Format(
-                        OutputFileNames.FileFormatInfoFile,
-                        Path.GetFileName(DirectoryForFormatCheck.TrimEnd(Path.GetInvalidFileNameChars()))
-                    )
-                };
+                Title = ToolsGUI.FormatCheckOutputDirectoryPickerTitle,
+                DefaultExt = "csv",
+                AddExtension = true,
+                Filter = ToolsGUI.SaveFormatFileExtensionFilter,
+                FileName = string.Format(
+                    OutputFileNames.FileFormatInfoFile,
+                    Path.GetFileName(DirectoryForFormatCheck.TrimEnd(Path.GetInvalidFileNameChars()))
+                )
+            };
 
-                if (saveFileDialog.ShowDialog() != DialogResult.OK)
-                {
-                    _log.Information($"User action: Abort choose directory for {action}");
-                    return;
-                }
-
-                filePath = saveFileDialog.FileName;
-
-                canWriteToResultFileDirectory = new FileInfo(filePath).Directory.HasWritePermission();
-
-                if (!canWriteToResultFileDirectory)
-                    ShowWritePermissionDeniedMessageBox();
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            {
+                _log.Information($"User action: Abort choose directory for {action}");
+                return;
             }
 
-            _statusEventHandler.RaiseEventFormatAnalysisProgressUpdated(0,
-                Directory.EnumerateFiles(DirectoryForFormatCheck, "*", SearchOption.AllDirectories).Count());
+            string filePath = saveFileDialog.FileName;
 
             _log.Information($"User action: Chose directory for {action}: {filePath}");
-
-            DirectoryToSaveFormatCheckResult = Path.GetDirectoryName(filePath);
 
             var successfulRun = true;
 
@@ -253,10 +251,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                         SupportedLanguage language = LanguageSettingHelper.GetOutputLanguage();
 
-                        var filesDirectory = new DirectoryInfo(DirectoryForFormatCheck);
+                        IEnumerable<IFileFormatInfo> analysedFiles =
+                            _arkadeApi.AnalyseFileFormats(DirectoryForFormatCheck, FileFormatScanMode.Directory);
 
-                        _arkadeApi.GenerateFileFormatInfoFiles(filesDirectory,
-                            DirectoryToSaveFormatCheckResult, Path.GetFileName(filePath), language);
+                        _arkadeApi.GenerateFileFormatInfoFiles(analysedFiles, DirectoryForFormatCheck, filePath, language);
                     });
             }
             catch (Exception e)

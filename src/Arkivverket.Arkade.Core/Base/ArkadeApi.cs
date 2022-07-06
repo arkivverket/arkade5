@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
@@ -8,6 +11,7 @@ using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
+using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Base
@@ -25,23 +29,31 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly MetadataFilesCreator _metadataFilesCreator;
         private readonly InformationPackageCreator _informationPackageCreator;
         private readonly TestSessionXmlGenerator _testSessionXmlGenerator;
+        private readonly SiardMetadataFileHelper _siardMetadataFileHelper;
         private readonly IArchiveTypeIdentifier _archiveTypeIdentifier;
-        private readonly IStatusEventHandler _statusEventHandler;
         private readonly IArchiveFormatValidator _archiveFormatValidator;
+        private readonly IFileFormatIdentifier _fileFormatIdentifier;
+        private readonly IFileFormatInfoFilesGenerator _fileFormatInfoGenerator;
+        private readonly ISiardXmlTableReader _siardXmlTableReader;
 
         public ArkadeApi(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory,
             MetadataFilesCreator metadataFilesCreator, InformationPackageCreator informationPackageCreator,
-            TestSessionXmlGenerator testSessionXmlGenerator, IArchiveTypeIdentifier archiveTypeIdentifier,
-            IStatusEventHandler statusEventHandler, IArchiveFormatValidator archiveFormatValidator)
+            TestSessionXmlGenerator testSessionXmlGenerator, SiardMetadataFileHelper siardMetadataFileHelper,
+            IArchiveTypeIdentifier archiveTypeIdentifier, IArchiveFormatValidator archiveFormatValidator,
+            IFileFormatIdentifier fileFormatIdentifier, IFileFormatInfoFilesGenerator fileFormatInfoGenerator, 
+            ISiardXmlTableReader siardXmlTableReader)
         {
             _testSessionFactory = testSessionFactory;
             _testEngineFactory = testEngineFactory;
             _metadataFilesCreator = metadataFilesCreator;
             _informationPackageCreator = informationPackageCreator;
             _testSessionXmlGenerator = testSessionXmlGenerator;
+            _siardMetadataFileHelper = siardMetadataFileHelper;
             _archiveTypeIdentifier = archiveTypeIdentifier;
-            _statusEventHandler = statusEventHandler;
             _archiveFormatValidator = archiveFormatValidator;
+            _fileFormatIdentifier = fileFormatIdentifier;
+            _fileFormatInfoGenerator = fileFormatInfoGenerator;
+            _siardXmlTableReader = siardXmlTableReader;
         }
 
         public TestSession RunTests(ArchiveDirectory archiveDirectory)
@@ -94,7 +106,17 @@ namespace Arkivverket.Arkade.Core.Base
 
             LanguageManager.SetResourceLanguageForPackageCreation(testSession.OutputLanguage);
 
-            _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata, testSession.GenerateFileFormatInfo);
+            if (testSession.GenerateFileFormatInfo)
+            {
+                GenerateFileFormatInfoFiles(testSession);
+            }
+
+            if (testSession.Archive.ArchiveType is ArchiveType.Siard)
+            {
+                _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(testSession.Archive);
+            }
+
+            _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata);
 
             string packageFilePath;
 
@@ -134,13 +156,77 @@ namespace Arkivverket.Arkade.Core.Base
             TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory, standalone);
         }
 
-        public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName, SupportedLanguage language)
+        public IEnumerable<KeyValuePair<string, IEnumerable<byte>>> GetSiardLobsAsByteArrays(string siardFileFullPath)
+        {
+            return _siardXmlTableReader.CreateLobByteArrays(siardFileFullPath);
+        }
+
+        public IFileFormatInfo AnalyseFileFormat(FileInfo file)
+        {
+            return _fileFormatIdentifier.IdentifyFormat(file);
+        }
+
+        public IFileFormatInfo AnalyseFileFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
+        {
+            return _fileFormatIdentifier.IdentifyFormat(filePathAndByteContent);
+        }
+
+        public IEnumerable<IFileFormatInfo> AnalyseFileFormats(string targetPath, FileFormatScanMode scanMode)
+        {
+            return _fileFormatIdentifier.IdentifyFormats(targetPath, scanMode);
+        }
+        
+        public IEnumerable<IFileFormatInfo> AnalyseFileFormats(IEnumerable<KeyValuePair<string, IEnumerable<byte>>> filePathsAndByteContent)
+        {
+            return _fileFormatIdentifier.IdentifyFormats(filePathsAndByteContent);
+        }
+        
+        public void GenerateFileFormatInfoFiles(TestSession testSession)
+        {
+            Archive archive = testSession.Archive;
+            WorkingDirectory workingDirectory = archive.WorkingDirectory;
+            try
+            {
+                var resultFileDirectoryPath = workingDirectory.AdministrativeMetadata().ToString();
+                string resultFileName;
+                string resultFileFullName;
+
+                if (archive.ArchiveType == ArchiveType.Siard)
+                {
+                    string siardFileFullName = workingDirectory.Content().DirectoryInfo().GetFiles("*.siard")[0].FullName;
+
+                    resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, Path.GetFileNameWithoutExtension(siardFileFullName));
+                    resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
+
+                    IEnumerable<KeyValuePair<string, IEnumerable<byte>>> lobsAsByte = _siardXmlTableReader.CreateLobByteArrays(siardFileFullName);
+                    IEnumerable<IFileFormatInfo> formatAnalysedLobs = _fileFormatIdentifier.IdentifyFormats(lobsAsByte);
+                    _fileFormatInfoGenerator.Generate(formatAnalysedLobs, siardFileFullName, resultFileFullName);
+                }
+                else
+                {
+                    DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
+                    resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, documentsDirectory.Name);
+                    resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
+                    IEnumerable<IFileFormatInfo> analysedFiles = _fileFormatIdentifier.IdentifyFormats(documentsDirectory.FullName, FileFormatScanMode.Directory);
+                    _fileFormatInfoGenerator.Generate(analysedFiles, documentsDirectory.FullName, resultFileFullName);
+                }
+            }
+            catch (SiegfriedFileFormatIdentifierException siegfriedException)
+            {
+                Log.Error(siegfriedException.Message);
+            }
+            catch (Exception e)
+            {
+                Log.Debug(e.ToString());
+                Log.Error("An unforeseen error related to document file format analysis has occured. As a result, document file format analysis was aborted. Please see /arkade-tmp/logs for details.");
+            }
+        }
+
+        public void GenerateFileFormatInfoFiles(IEnumerable<IFileFormatInfo> fileFormatInfos, string relativePathRoot, string resultFileFullName, SupportedLanguage language)
         {
             LanguageManager.SetResourceLanguageForStandalonePronomAnalysis(language);
-            
-            string resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
 
-            FileFormatInfoGenerator.Generate(filesDirectory, resultFileFullName, _statusEventHandler);
+            _fileFormatInfoGenerator.Generate(fileFormatInfos, relativePathRoot, resultFileFullName);
         }
 
         public async Task<ArchiveFormatValidationReport> ValidateArchiveFormatAsync(

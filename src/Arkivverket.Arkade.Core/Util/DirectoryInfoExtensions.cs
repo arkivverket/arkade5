@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 
 namespace Arkivverket.Arkade.Core.Util
 {
@@ -21,19 +20,6 @@ namespace Arkivverket.Arkade.Core.Util
             {
                 subDirectory.CopyTo(Path.Combine(destinationPath, subDirectory.Name), true);
             }
-        }
-
-        public static long GetNumberOfFileInfoObjects(this DirectoryInfo directory, bool recursive = true)
-        {
-            long numberOfFileInfoObjects = directory.GetFiles().LongLength;
-
-            if (!recursive)
-                return numberOfFileInfoObjects;
-
-            numberOfFileInfoObjects = directory.GetDirectories()
-                .Aggregate(numberOfFileInfoObjects, (i, info) => i + info.GetNumberOfFileInfoObjects());
-
-            return numberOfFileInfoObjects;
         }
 
         public static bool HasWritePermission(this DirectoryInfo directory)

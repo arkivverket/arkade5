@@ -1,80 +1,48 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
-using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using CsvHelper.Configuration;
-using Serilog;
 using static Arkivverket.Arkade.Core.Util.CsvHelper;
 
-namespace Arkivverket.Arkade.Core.Report
+namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 {
-    public static class FileFormatInfoGenerator
+    public class FileFormatInfoFilesGenerator : IFileFormatInfoFilesGenerator
     {
-        public static void Generate(DirectoryInfo filesDirectory, string resultFileFullPath,
-            IStatusEventHandler statusEventHandler,
-            bool filesAreReferencedFromFilesDirectoryParent = false)
-        {
-            Log.Information($"Starting file format analysis.");
-
-            IEnumerable<IFileFormatInfo> siegfriedFileInfoSet = GetFormatInfoAllFiles(filesDirectory, statusEventHandler);
-
-            DirectoryInfo startDirectory = filesAreReferencedFromFilesDirectoryParent
-                ? filesDirectory.Parent
-                : filesDirectory;
-
-            (List<ListElement> listElements, List<FileTypeStatisticsElement> fileTypeStatisticsElements) =
-                ArrangeFileFormatStatistics(siegfriedFileInfoSet, startDirectory);
-
-            WriteFileList(resultFileFullPath, listElements);
-
-            WriteFileTypeStatisticsFile(resultFileFullPath, fileTypeStatisticsElements);
-
-            Log.Information($"File format analysis completed.");
-        }
-
-        public static void Generate(IEnumerable<IFileFormatInfo> siegfriedFileInfoSet, string siardFolder, string resultFileFullPath)
+        public void Generate(IEnumerable<IFileFormatInfo> fileFormatInfoSet, string relativePathRoot, string resultFileFullPath)
         {
             (List<ListElement> listElements, List<FileTypeStatisticsElement> fileTypeStatisticsElements) =
-                ArrangeFileFormatStatistics(siegfriedFileInfoSet, new DirectoryInfo(siardFolder));
+                ArrangeFileFormatStatistics(fileFormatInfoSet, relativePathRoot);
 
             WriteFileList(resultFileFullPath, listElements);
 
             WriteFileTypeStatisticsFile(resultFileFullPath, fileTypeStatisticsElements);
         }
 
-        private static IEnumerable<IFileFormatInfo> GetFormatInfoAllFiles(DirectoryInfo directory, IStatusEventHandler statusEventHandler)
-        {
-            var fileFormatIdentifier = new SiegfriedFileFormatIdentifier(statusEventHandler);
-
-            return fileFormatIdentifier.IdentifyFormat(directory);
-        }
-
-        private static (List<ListElement>, List<FileTypeStatisticsElement>) ArrangeFileFormatStatistics(
-            IEnumerable<IFileFormatInfo> siegfriedFileInfoSet, DirectoryInfo startDirectory)
+        private (List<ListElement>, List<FileTypeStatisticsElement>) ArrangeFileFormatStatistics(
+            IEnumerable<IFileFormatInfo> fileFormatInfoSet, string relativePathRoot)
         {
             var listElements = new List<ListElement>();
             var fileTypeStatisticsElements = new List<FileTypeStatisticsElement>();
 
-            foreach (IFileFormatInfo siegfriedFileInfo in siegfriedFileInfoSet)
+            foreach (IFileFormatInfo fileFormatInfo in fileFormatInfoSet)
             {
-                if (siegfriedFileInfo == null)
+                if (fileFormatInfo == null)
                     continue;
 
-                string fileName = Path.IsPathFullyQualified(siegfriedFileInfo.FileName)
-                    ? Path.GetRelativePath(startDirectory.FullName, siegfriedFileInfo.FileName)
-                    : siegfriedFileInfo.FileName;
+                string fileName = Path.IsPathFullyQualified(fileFormatInfo.FileName)
+                    ? Path.GetRelativePath(relativePathRoot, fileFormatInfo.FileName)
+                    : fileFormatInfo.FileName;
 
                 var documentFileListElement = new ListElement
                 {
-                    FileName = fileName.Replace('\\','/'),
-                    FileExtension = siegfriedFileInfo.FileExtension,
-                    FileFormatPuId = siegfriedFileInfo.Id,
-                    FileFormatName = siegfriedFileInfo.Format,
-                    FileFormatVersion = siegfriedFileInfo.Version,
-                    FileMimeType = siegfriedFileInfo.MimeType,
-                    FileScanError = siegfriedFileInfo.Errors,
+                    FileName = fileName.Replace('\\', '/'),
+                    FileExtension = fileFormatInfo.FileExtension,
+                    FileFormatPuId = fileFormatInfo.Id,
+                    FileFormatName = fileFormatInfo.Format,
+                    FileFormatVersion = fileFormatInfo.Version,
+                    FileMimeType = fileFormatInfo.MimeType,
+                    FileScanError = fileFormatInfo.Errors,
                 };
 
                 listElements.Add(documentFileListElement);

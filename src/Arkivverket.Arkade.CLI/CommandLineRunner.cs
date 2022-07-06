@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using Arkivverket.Arkade.CLI.Options;
+using Arkivverket.Arkade.CLI.Utils;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Languages;
@@ -15,6 +16,7 @@ using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
+using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Serilog;
 
 namespace Arkivverket.Arkade.CLI
@@ -28,6 +30,8 @@ namespace Arkivverket.Arkade.CLI
 
         private static bool _testRunHasFailed;
 
+        private static FormatAnalysisProgressPresenter _formatAnalysisProgressPresenter;
+
         static CommandLineRunner()
         {
             Arkade = new Core.Base.Arkade();
@@ -36,7 +40,9 @@ namespace Arkivverket.Arkade.CLI
             StatusEventHandler.TestProgressUpdatedEvent += OnTestProgressUpdatedEvent;
             StatusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
             StatusEventHandler.SiardValidationFinishedEvent += OnSiardValidationFinishedEvent;
+            StatusEventHandler.FormatAnalysisStartedEvent += OnFormatAnalysisStartedEvent;
             StatusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdatedEvent;
+            StatusEventHandler.FormatAnalysisFinishedEvent += OnFormatAnalysisFinishedEvent;
 
             Log.Information($"\n" +
                             $"********************************************************************************\n" +
@@ -87,15 +93,27 @@ namespace Arkivverket.Arkade.CLI
                 .ForEach(Log.Warning);
         }
 
+        private static void OnFormatAnalysisStartedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
+            _formatAnalysisProgressPresenter = new FormatAnalysisProgressPresenter(eventArgs.TotalFiles);
+        }
+
         private static void OnFormatAnalysisProgressUpdatedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
         {
             if (Console.IsOutputRedirected)
                 return;
 
-            if (eventArgs.FileCounter > 1)
-                Console.SetCursorPosition(0, Console.CursorTop - 1);
+            _formatAnalysisProgressPresenter.FileCounter++;
 
-            Log.Information($"Performing file format analysis: {eventArgs.FileCounter} of {eventArgs.TotalFiles} files analysed");
+            _formatAnalysisProgressPresenter.DisplayProgress();
+        }
+
+        private static void OnFormatAnalysisFinishedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
+            if (Console.IsOutputRedirected)
+                return;
+
+            _formatAnalysisProgressPresenter.DisplayFinished();
         }
 
         private static string GetThirdPartySoftwareInfo()
@@ -234,7 +252,10 @@ namespace Arkivverket.Arkade.CLI
 
             SupportedLanguage language = GetSupportedLanguage(options.OutputLanguage);
 
-            Arkade.GenerateFileFormatInfoFiles(analysisDirectory, options.OutputDirectory, outputFileName, language);
+            IEnumerable<IFileFormatInfo> fileFormatInfos = Arkade.
+                AnalyseFileFormats(analysisDirectory.FullName, FileFormatScanMode.Directory);
+            Arkade.GenerateFileFormatInfoFiles(fileFormatInfos, analysisDirectory.FullName,
+                Path.Combine(options.OutputDirectory, outputFileName), language);
             
             LogFinishedStatus(command);
         }

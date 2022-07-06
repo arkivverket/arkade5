@@ -45,9 +45,19 @@ namespace Arkivverket.Arkade.Core.Logging
             OnSiardValidationFinishedEvent(new SiardValidationEventArgs(errors));
         }
 
-        public void RaiseEventFormatAnalysisProgressUpdated(long fileCounter, long totalAmountOfFiles)
+        public void RaiseEventFormatAnalysisStarted(long totalAmountOfFiles)
         {
-            OnFormatAnalysisProgressUpdated(new FormatAnalysisProgressEventArgs(fileCounter, totalAmountOfFiles));
+            OnFormatAnalysisStarted(new FormatAnalysisProgressEventArgs(totalAmountOfFiles));
+        }
+
+        public void RaiseEventFormatAnalysisProgressUpdated()
+        {
+            OnFormatAnalysisProgressUpdated(default);
+        }
+
+        public void RaiseEventFormatAnalysisFinished()
+        {
+            OnFormatAnalysisFinished(default);
         }
 
         public event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
@@ -67,7 +77,9 @@ namespace Arkivverket.Arkade.Core.Logging
 
         public event EventHandler<SiardValidationEventArgs> SiardValidationFinishedEvent;
 
+        public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisStartedEvent;
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisProgressUpdatedEvent;
+        public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisFinishedEvent;
 
         private void OnTestStartedEvent(OperationMessageEventArgs eventArgs)
         {
@@ -129,9 +141,21 @@ namespace Arkivverket.Arkade.Core.Logging
             handler?.Invoke(this, eventArgs);
         }
 
+        protected virtual void OnFormatAnalysisStarted(FormatAnalysisProgressEventArgs eventArgs)
+        {
+            EventHandler<FormatAnalysisProgressEventArgs> handler = FormatAnalysisStartedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
+    
         protected virtual void OnFormatAnalysisProgressUpdated(FormatAnalysisProgressEventArgs eventArgs)
         {
             EventHandler<FormatAnalysisProgressEventArgs> handler = FormatAnalysisProgressUpdatedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
+    
+        protected virtual void OnFormatAnalysisFinished(FormatAnalysisProgressEventArgs eventArgs)
+        {
+            EventHandler<FormatAnalysisProgressEventArgs> handler = FormatAnalysisFinishedEvent;
             handler?.Invoke(this, eventArgs);
         }
     }
