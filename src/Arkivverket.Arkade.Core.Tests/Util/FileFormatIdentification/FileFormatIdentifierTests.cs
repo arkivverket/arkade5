@@ -12,6 +12,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
     public class SiegfriedFileFormatIdentifierTests
     {
         [Fact, Trait("Category", "Integration")]
+        [Trait("Dependency", "IO")]
         public void IdentifyTest()
         {
             var directoryPath = Path.Combine("TestData", "FileTypes"); // PDF, PDF/A-1b, PDF/A-3a, DOCX
@@ -58,6 +59,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         }
 
         [Fact, Trait("Category", "Integration")]
+        [Trait("Dependency", "IO")]
         public void IdentifySingleDocxFileTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -75,6 +77,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         }
 
         [Fact, Trait("Category", "Integration")]
+        [Trait("Dependency", "IO")]
         public void IdentifyDocxFileFromFileStreamTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -94,6 +97,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         }
 
         [Fact, Trait("Category", "Integration")]
+        [Trait("Dependency", "IO")]
         public void IdentifySinglePdfAFileTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -111,6 +115,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         }
 
         [Fact, Trait("Category", "Integration")]
+        [Trait("Dependency", "IO")]
         public void IdentifyPdfAFileFromFileStreamTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -130,6 +135,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         }
 
         [Fact, Trait("Category", "Integration")]
+        [Trait("Dependency", "IO")]
         public void IdentifySinglePdfFileTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -147,6 +153,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         }
 
         [Fact, Trait("Category", "Integration")]
+        [Trait("Dependency", "IO")]
         public void IdentifyPdfFileFromFileStreamTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -166,6 +173,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         }
 
         [Fact, Trait("Category", "Integration")]
+        [Trait("Dependency", "IO")]
         public void IdentifyArchiveFileContentTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
