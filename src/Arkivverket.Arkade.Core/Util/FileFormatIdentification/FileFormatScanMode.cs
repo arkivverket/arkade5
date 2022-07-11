@@ -5,5 +5,6 @@
         Directory,
         File,
         Stream,
+        Archive,
     }
 }

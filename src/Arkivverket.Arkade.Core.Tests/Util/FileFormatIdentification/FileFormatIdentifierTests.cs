@@ -4,6 +4,7 @@ using System.Linq;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
@@ -56,7 +57,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
             docXSiegfriedFileInfo.Errors.Should().BeEmpty();
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Integration")]
         public void IdentifySingleDocxFileTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -73,7 +74,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
             docXSiegfriedFileInfo.Errors.Should().BeEmpty();
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Integration")]
         public void IdentifyDocxFileFromFileStreamTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -92,7 +93,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
             docXSiegfriedFileInfo.Errors.Should().BeEmpty();
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Integration")]
         public void IdentifySinglePdfAFileTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -109,7 +110,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
             pdfASiegfriedFileInfo.Errors.Should().BeEmpty();
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Integration")]
         public void IdentifyPdfAFileFromFileStreamTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -128,7 +129,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
             pdfASiegfriedFileInfo.Errors.Should().BeEmpty();
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Integration")]
         public void IdentifySinglePdfFileTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -145,7 +146,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
             pdfSiegfriedFileInfo.Errors.Should().BeEmpty();
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Integration")]
         public void IdentifyPdfFileFromFileStreamTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -164,9 +165,34 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
             pdfSiegfriedFileInfo.Errors.Should().BeEmpty();
         }
 
+        [Fact, Trait("Category", "Integration")]
+        public void IdentifyArchiveFileContentTest()
+        {
+            IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
+
+            var archiveFilePath = Path.Combine("TestData", "FileTypes", "fileTypes.zip");
+
+            var fileFormatResults = formatIdentifier.IdentifyFormats(archiveFilePath, FileFormatScanMode.Archive).ToList();
+
+            fileFormatResults.Should().NotBeEmpty();
+            fileFormatResults.Should().Contain(r => r.Id.Equals("fmt/276") && 
+                                                    r.Format.Equals("Acrobat PDF 1.7 - Portable Document Format") &&
+                                                    r.Version.Equals("1.7"));
+            fileFormatResults.Should().Contain(r => r.Id.Equals("fmt/354") &&
+                                                    r.Format.Equals("Acrobat PDF/A - Portable Document Format") &&
+                                                    r.Version.Equals("1b"));
+            fileFormatResults.Should().Contain(r => r.Id.Equals("fmt/412") &&
+                                                    r.Format.Equals("Microsoft Word for Windows") &&
+                                                    r.Version.Equals("2007 onwards"));
+            fileFormatResults.Should().Contain(r => r.Id.Equals("fmt/479") &&
+                                                    r.Format.Equals("Acrobat PDF/A - Portable Document Format") &&
+                                                    r.Version.Equals("3a"));
+        }
+
         private static IFileFormatIdentifier CreateFileFormatIdentifier()
         {
-            return new SiegfriedFileFormatIdentifier(new SiegfriedProcessRunner(new StatusEventHandler()));
+            IStatusEventHandler statusEventHandler = new Mock<IStatusEventHandler>().Object;
+            return new SiegfriedFileFormatIdentifier(new SiegfriedProcessRunner(statusEventHandler), statusEventHandler);
         }
     }
 }

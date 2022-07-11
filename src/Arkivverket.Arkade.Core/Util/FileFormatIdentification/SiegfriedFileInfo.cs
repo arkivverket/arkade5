@@ -25,12 +25,6 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             MimeType = mimeType;
         }
 
-        public IFileFormatInfo Create(string fileName, string errors, string id, string format, string version,
-            string mimeType)
-        {
-            return new SiegfriedFileInfo(fileName, errors, id, format, version, mimeType);
-        }
-
         public bool Equals(SiegfriedFileInfo other)
         {
             return Id == other?.Id;
