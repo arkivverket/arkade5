@@ -53,8 +53,14 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             }
             catch (Exception exception)
             {
-                Log.Error("Validation failed: " + exception.Message);
-
+                if (!string.IsNullOrEmpty(exception.Message) && exception.Message.Contains("JAVA_HOME is not defined correctly"))
+                {
+                    Log.Error("Validation failed: " + "Arkade failed to validate. Make sure that Java Runtime is installed correctly");
+                }
+                else
+                {
+                    Log.Error("Validation failed: " + exception.Message);
+                }
                 return new ArchiveFormatValidationReport(
                     item, ArchiveFormat.PdfA, Error, false, FileFormatValidationErrorMessage
                 );
