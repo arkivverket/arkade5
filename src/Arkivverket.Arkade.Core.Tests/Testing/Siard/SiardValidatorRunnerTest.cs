@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
             string inputFilePath = Path.Combine("TestData", "Siard", "siard1_med_blobs.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
-            (List<string> results, _) = Validator.Validate(inputFilePath, reportFilePath);
+            List<string> results = Validator.Validate(inputFilePath, reportFilePath).Results;
 
             results.Count.Should().Be(2);
             results[0].Should().Be(Resources.SiardMessages.ErrorMessage);
@@ -65,7 +65,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
             string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "siardGui", "external", "siardGui.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
-            (_, List<string> errorsAndWarnings) = Validator.Validate(inputFilePath, reportFilePath);
+            List<string> errorsAndWarnings = Validator.Validate(inputFilePath, reportFilePath).Errors;
 
             var errors = new List<string>(errorsAndWarnings.Where(e => e == null || !e.StartsWith("WARN")));
 
@@ -87,7 +87,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
             string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "dbPtk", "external", "dbptk.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
-            (_, List<string> errorsAndWarnings) = Validator.Validate(inputFilePath, reportFilePath);
+            List<string> errorsAndWarnings = Validator.Validate(inputFilePath, reportFilePath).Errors;
 
             var errors = new List<string>(errorsAndWarnings.Where(e => e == null || !e.StartsWith("WARN")));
 
@@ -111,7 +111,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
             string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "fullConvert", "external", "scfc.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
-            (_, List<string> errorsAndWarnings) = Validator.Validate(inputFilePath, reportFilePath);
+            List<string> errorsAndWarnings = Validator.Validate(inputFilePath, reportFilePath).Errors;
 
             var errors = new List<string>(errorsAndWarnings.Where(e => e == null || !e.StartsWith("WARN")));
 
@@ -137,7 +137,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Siard
             string inputFilePath = Path.Combine("TestData", "Siard", "siard2", "externalLobsMissing", "dbptk.siard");
             string reportFilePath = Path.Combine("TestData", "Siard", "testReport.txt");
 
-            (List<string> results, List<string> errorsAndWarnings) = Validator.Validate(inputFilePath, reportFilePath);
+            var report = Validator.Validate(inputFilePath, reportFilePath);
+            List<string> results = report.Results;
+            List<string> errorsAndWarnings = report.Errors;
 
             List<string> summary = results.Where(r => r != null && r.Trim().StartsWith("Number of")).ToList();
 

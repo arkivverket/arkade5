@@ -24,9 +24,9 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             string reportFilePath = Path.Combine(testSession.Archive.WorkingDirectory.RepositoryOperations().ToString(),
                 Resources.OutputFileNames.DbptkValidationReportFile);
 
-            (List<string> results, List<string> errors) = _validator.Validate(inputFilePath, reportFilePath);
+            SiardValidationReport report = _validator.Validate(inputFilePath, reportFilePath);
 
-            List<string> summary = results.Where(r => r != null && r.Contains("number of", StringComparison.InvariantCultureIgnoreCase)).ToList();
+            List<string> summary = report.Results.Where(r => r != null && r.Contains("number of", StringComparison.InvariantCultureIgnoreCase)).ToList();
 
             int numberOfValidationErrors;
             int numberOfValidationWarnings;
@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 
             testSession.TestSummary = new TestSummary(0, 0, 0, numberOfValidationErrors, numberOfValidationWarnings);
 
-            return new TestSuite();
+            return new TestSuite(report.TestingTool);
         }
 
         private int GetNumberOfXFromSummary(string x, List<string> summary)

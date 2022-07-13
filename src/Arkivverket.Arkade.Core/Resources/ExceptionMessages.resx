@@ -151,7 +151,7 @@
     <value>Could not start validator. Please make sure that Java Runtime is installed and available by entering "java -version" in a console.</value>
   </data>
   <data name="SiardValidatorLibraryNotFound" xml:space="preserve">
-    <value>Could not find the validator library ({0}). Please download the library from {1}, and save the file at {2}.</value>
+    <value>Could not find the validator library. Please download the library from {0}, and save the file at {1}.</value>
   </data>
   <data name="WriteAccessDeniedMessage" xml:space="preserve">
     <value>Arkade does not have permission to write to this location.</value>

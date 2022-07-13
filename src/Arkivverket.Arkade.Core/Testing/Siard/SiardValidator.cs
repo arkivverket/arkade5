@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -30,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
                 ArkadeConstants.DirectoryNameThirdPartySoftware, ArkadeConstants.DirectoryNameDbptk);
         }
 
-        public (List<string>, List<string>) Validate(string inputFilePath, string reportFilePath)
+        public SiardValidationReport Validate(string inputFilePath, string reportFilePath)
         {
             _statusEventHandler.RaiseEventOperationMessage(Messages.ValidatingExtractMessage, null, OperationMessageStatus.Started);
             _testProgressReporter.Begin(ArchiveType.Siard);
@@ -38,14 +39,13 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
             var dbptkLibraryPath = "";
             try
             {
-                dbptkLibraryPath = new DirectoryInfo(_dbptkLibraryDirectoryPath).GetFiles("dbptk-app-2.9.9.jar").First().FullName;
+                dbptkLibraryPath = new DirectoryInfo(_dbptkLibraryDirectoryPath).GetFiles("*.jar").First().FullName;
             }
             catch
             {
                 _testProgressReporter.Finish(hasFailed: true);
                 throw new ArkadeException(
                     string.Format(ExceptionMessages.SiardValidatorLibraryNotFound,
-                        Path.GetFileName(dbptkLibraryPath),
                         ArkadeConstants.DbptkLibraryDownloadUrl,
                         _dbptkLibraryDirectoryPath));
             }
@@ -56,19 +56,36 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
 
             Process process = SetupSiardValidatorProcess(processArguments);
 
-            (List<string> results, List<string> errors) = RunProcess(process);
+            SiardValidationReport siardValidationReport = RunProcess(process);
+
+            siardValidationReport.TestingTool = GetDbptkDeveloperInformation(dbptkLibraryPath);
 
             ExternalProcessManager.Close(process);
 
             CleanUpDbptkLogFiles();
 
-            _statusEventHandler.RaiseEventSiardValidationFinished(errors);
+            _statusEventHandler.RaiseEventSiardValidationFinished(siardValidationReport.Errors);
 
-            bool validationRanWithoutRunErrors = errors.All(e => e == null || e.StartsWith("WARN"));
+            bool validationRanWithoutRunErrors = siardValidationReport.Errors.All(e => e == null || e.StartsWith("WARN"));
 
             _testProgressReporter.Finish(hasFailed: !validationRanWithoutRunErrors);
 
-            return (results, errors);
+            return siardValidationReport;
+        }
+
+        private ArchiveTestingTool GetDbptkDeveloperInformation(string dbptkLibraryPath)
+        {
+            var processArguments = $"-jar \"-Dfile.encoding=UTF-8\" \"{dbptkLibraryPath}\" -h validate";
+            Process process = SetupSiardValidatorProcess(processArguments);
+
+            List<string> results = RunProcess(process).Results;
+
+            string versionString = results.Find(s => s.Contains("version"));
+
+            string version = versionString?.Replace("DBPTK Developer (version ", string.Empty,
+                StringComparison.InvariantCultureIgnoreCase).TrimEnd(')');
+
+            return new ArchiveTestingTool("Database Preservation Toolkit Developer", version);
         }
 
         private void CleanUpDbptkLogFiles()
@@ -103,7 +120,7 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
             return siardValidatorProcess;
         }
 
-        private (List<string>, List<string>) RunProcess(Process process)
+        private SiardValidationReport RunProcess(Process process)
         {
             var results = new List<string>();
             var errors = new List<string>();
@@ -128,7 +145,7 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
             if (errors.Any())
                 HandleValidationErrors(errors, results);
 
-            return (results, errors);
+            return new SiardValidationReport(results, errors);
         }
 
         private static string ResolveMessageForException(Exception e)

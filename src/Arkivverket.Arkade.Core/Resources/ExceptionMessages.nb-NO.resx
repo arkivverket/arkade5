@@ -151,7 +151,7 @@
     <value>Klarte ikke starte validatoren. Vennligst forsikre deg om at Java Runtime er installert og tilgjengelig ved å skrive "java -version" i konsollen.</value>
   </data>
   <data name="SiardValidatorLibraryNotFound" xml:space="preserve">
-    <value>Klarte ikke finne validatorbiblioteket ({0}). Vennligst last ned fra {1}, og lagre filen i {2}.</value>
+    <value>Klarte ikke finne validatorbiblioteket. Vennligst last ned fra {0}, og lagre filen i {1}.</value>
   </data>
   <data name="WriteAccessDeniedMessage" xml:space="preserve">
     <value>Arkade har ikke rettigheter til å skrive til denne lokasjonen.</value>

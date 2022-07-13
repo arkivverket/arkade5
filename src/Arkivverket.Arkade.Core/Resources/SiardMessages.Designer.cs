@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class SiardMessages {
@@ -70,15 +70,6 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Database Preservation Toolkit Developer version 2.9.9.
-        /// </summary>
-        public static string DbptkDeveloper {
-            get {
-                return ResourceManager.GetString("DbptkDeveloper", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} is not valid for SIARD version {1}:
         ///{2}.
         /// </summary>
@@ -107,7 +98,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is being validated with Database Preservation Toolkit Developer version 2.9.9.
+        ///   Looks up a localized string similar to {0} is being validated with Database Preservation Toolkit Developer version {1}.
         /// </summary>
         public static string ValidationMessage {
             get {
@@ -139,6 +130,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string ValidationResultTestName {
             get {
                 return ResourceManager.GetString("ValidationResultTestName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} version {1}.
+        /// </summary>
+        public static string ValidationTool {
+            get {
+                return ResourceManager.GetString("ValidationTool", resourceCulture);
             }
         }
         
