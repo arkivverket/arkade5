@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace Arkivverket.Arkade.Core.Report
@@ -7,7 +8,8 @@ namespace Arkivverket.Arkade.Core.Report
     {
         public void Generate(TestReport testReport, Stream stream)
         {
-            new XmlSerializer(typeof(TestReport)).Serialize(stream, testReport);
+            var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings{ Indent = true});
+            new XmlSerializer(typeof(TestReport)).Serialize(xmlWriter, testReport);
         }
     }
 }
