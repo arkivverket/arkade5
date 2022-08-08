@@ -75,7 +75,7 @@ namespace Arkivverket.Arkade.Core.Base
             using TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream));
 
             string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
-            CreateEntry(packageRootDirectory, false, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
+            CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
                 archive, archive.WorkingDirectory.Root().DirectoryInfo(), packageType, tarArchive, packageRootDirectory
@@ -164,7 +164,7 @@ namespace Arkivverket.Arkade.Core.Base
         }
 
         private void AddFilesInDirectory(Archive archive, DirectoryInfo rootDirectory, PackageType? packageType, TarArchive tarArchive,
-            string fileNamePrefix = null)
+            string fileNamePrefix)
         {
             AddFilesInDirectory(archive, rootDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
         }
@@ -179,7 +179,7 @@ namespace Arkivverket.Arkade.Core.Base
         /// <param name="tarArchive">the archive to add files to</param>
         /// <param name="fileNamePrefix">a prefix to add to all files after removing the root directory.</param>
         private void AddFilesInDirectory(Archive archive, DirectoryInfo directory, DirectoryInfo rootDirectory, PackageType? packageType,
-            TarArchive tarArchive, string fileNamePrefix = null)
+            TarArchive tarArchive, string fileNamePrefix)
         {
             foreach (DirectoryInfo currentDirectory in directory.GetDirectories())
             {
@@ -205,17 +205,26 @@ namespace Arkivverket.Arkade.Core.Base
                     continue;
                 }
 
-                CreateEntry(file.FullName, true, rootDirectory, tarArchive, fileNamePrefix);
+                CreateEntry(file.FullName, false, rootDirectory, tarArchive, fileNamePrefix);
             }
         }
 
-        private void CreateEntry(string fileName, bool fileExists, DirectoryInfo rootDirectory, TarArchive tarArchive, string fileNamePrefix,
+        private void CreateEntry(string entryName, bool entryIsDirectory, DirectoryInfo rootDirectory, TarArchive tarArchive, string fileNamePrefix,
             string filenameSuffix = null)
         {
-            TarEntry tarEntry = fileExists? TarEntry.CreateEntryFromFile(fileName) : TarEntry.CreateTarEntry(fileName);
+            TarEntry tarEntry;
+            if (entryIsDirectory && !Directory.Exists(entryName))
+            {
+                tarEntry = TarEntry.CreateTarEntry(entryName);
+                tarEntry.TarHeader.TypeFlag = TarHeader.LF_DIR;
+            }
+            else
+            {
+                tarEntry = TarEntry.CreateEntryFromFile(entryName);
+            }
 
             string packagePreparedFileName = fileNamePrefix +
-                                             RemoveRootDirectoryFromFilename(fileName, rootDirectory.FullName) +
+                                             RemoveRootDirectoryFromFilename(entryName, rootDirectory.FullName) +
                                              filenameSuffix;
 
             string tarEntryName = packagePreparedFileName.Replace("\\", "/"); // UNIX-style directory-separators
