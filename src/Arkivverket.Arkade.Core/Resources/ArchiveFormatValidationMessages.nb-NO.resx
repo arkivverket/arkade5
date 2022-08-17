@@ -127,17 +127,6 @@
     <value>{0} samsvarer ikke med det angitte arkivformatet.
 {1}</value>
   </data>
-  <data name="MissingDiasEntries" xml:space="preserve">
-    <value>Manglende filer/kataloger:
-{0}</value>
-  </data>
-  <data name="MandatoryDiasEntriesWereFound" xml:space="preserve">
-    <value>Alle obligatoriske filer og kataloger ble funnet</value>
-  </data>
-  <data name="DiasAcceptableWithMissingEntries" xml:space="preserve">
-    <value>Arkivverket godtar denne DIAS-pakken. For at den skal være gyldig må følgende filer også medfølge:
-{0}</value>
-  </data>
   <data name="PdfABatchValidationInfoMessage" xml:space="preserve">
     <value> Totalt antall filer: {0}
    Gyldige filer: {1}

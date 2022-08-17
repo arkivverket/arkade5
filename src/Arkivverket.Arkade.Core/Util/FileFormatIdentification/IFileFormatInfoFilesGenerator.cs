@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 
-namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification;
-
-public interface IFileFormatInfoFilesGenerator
+namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 {
-    void Generate(IEnumerable<IFileFormatInfo> fileFormatInfoSet, string relativePathRoot, string resultFileFullPath);
+    public interface IFileFormatInfoFilesGenerator
+    {
+        void Generate(IEnumerable<IFileFormatInfo> fileFormatInfoSet, string relativePathRoot,
+            string resultFileFullPath);
+    }
 }

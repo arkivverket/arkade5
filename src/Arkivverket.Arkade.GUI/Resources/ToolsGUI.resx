@@ -170,7 +170,7 @@ Result saved at:</value>
     <value>Archive format</value>
   </data>
   <data name="ArchiveFormatValidationFileSelectDialogFilter" xml:space="preserve">
-    <value>Archive format files (*.pdf;*.tar)|*.pdf;*.tar</value>
+    <value>Archive format files|*.pdf</value>
   </data>
   <data name="ArchiveFormatValidationChooseDirectoryButtonText" xml:space="preserve">
     <value>Choose directory ...</value>
