@@ -68,6 +68,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
         {
             string value = field.Value;
 
+            if (string.IsNullOrEmpty(value) && field.Definition.IsNullable)
+                return;
+
             List<AddmlCode> codes = field.Definition.Codes;
             if (codes == null)
             {

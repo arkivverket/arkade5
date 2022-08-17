@@ -126,7 +126,7 @@
   <data name="FileFormatInfoStatisticsFile" xml:space="preserve">
     <value>{0}-statistikk.csv</value>
   </data>
-  <data name="MetadataFile" xml:space="preserve">
+  <data name="MetadataExampleFile" xml:space="preserve">
     <value>arkade-ip-metadata.json</value>
   </data>
   <data name="Noark5TestSelectionFile" xml:space="preserve">
@@ -146,5 +146,8 @@
   </data>
   <data name="StandaloneTestReportDirectory" xml:space="preserve">
     <value>arkade-testrapporter_{0}</value>
+  </data>
+  <data name="PdfAValidationResultFile" xml:space="preserve">
+    <value>pdfa-valideringsrapport.csv</value>
   </data>
 </root>

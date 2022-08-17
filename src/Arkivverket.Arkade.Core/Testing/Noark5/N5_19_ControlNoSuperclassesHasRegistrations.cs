@@ -49,7 +49,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 foreach (Class superClassWithRegistration in superClassesWithRegistration)
                 {
                     testResults.Add(new TestResult(ResultType.Error, new Location(
-                            ArkadeConstants.ArkivuttrekkXmlFileName, superClassWithRegistration.XmlLineNumber),
+                            ArkadeConstants.ArkivstrukturXmlFileName, superClassWithRegistration.XmlLineNumber),
                         string.Format(Noark5Messages.ControlNoSuperclassesHasRegistrationsMessage,
                             superClassWithRegistration.SystemId)));
                 }

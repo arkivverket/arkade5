@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CommandLine;
 using CommandLine.Text;
 
-namespace Arkivverket.Arkade.CLI
+namespace Arkivverket.Arkade.CLI.Options
 {
     [Verb("test", HelpText = "Test archive data in accordance with a specified standard. Run this command followed by '--help' for more detailed info.")]
     public class TestOptions : ArchiveProcessingOptions
@@ -16,6 +16,7 @@ namespace Arkivverket.Arkade.CLI
             get
             {
                 yield return new Example("Run all tests on archive data",
+                    OptionsConfig.FormatStyle,
                     new TestOptions
                     {
                         Archive = "noark5ArchiveDirectory",

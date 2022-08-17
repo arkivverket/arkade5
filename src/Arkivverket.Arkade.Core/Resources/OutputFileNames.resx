@@ -129,7 +129,7 @@
     <value>{0}-statistics.csv</value>
     <comment>{0} = Name of analysed directory</comment>
   </data>
-  <data name="MetadataFile" xml:space="preserve">
+  <data name="MetadataExampleFile" xml:space="preserve">
     <value>arkade-ip-metadata.json</value>
   </data>
   <data name="Noark5TestSelectionFile" xml:space="preserve">
@@ -153,5 +153,8 @@
   <data name="StandaloneTestReportDirectory" xml:space="preserve">
     <value>arkade-testreports_{0}</value>
     <comment>{0} = Archive UUID</comment>
+  </data>
+  <data name="PdfAValidationResultFile" xml:space="preserve">
+    <value>pdfa-validationreport.csv</value>
   </data>
 </root>

@@ -1,12 +1,11 @@
 using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Metadata;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Serilog;
 
-namespace Arkivverket.Arkade.CLI
+namespace Arkivverket.Arkade.Core.Metadata
 {
     public class MetadataExampleGenerator
     {
@@ -19,7 +18,7 @@ namespace Arkivverket.Arkade.CLI
                 new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore,
-                    Converters = {new IsoDateTimeConverter {DateTimeFormat = "yyyy-MM-dd"}}
+                    Converters = { new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" } }
                 });
 
             WriteMetadataToFile(outputFileName, serializedObject);

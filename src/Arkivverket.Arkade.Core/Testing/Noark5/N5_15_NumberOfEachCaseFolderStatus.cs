@@ -57,7 +57,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                     Location testResultLocation = resultType == ResultType.Success
                         ? new Location(string.Empty)
-                        : new Location(ArkadeConstants.ArkivuttrekkXmlFileName, caseFolderStatus.Locations);
+                        : new Location(ArkadeConstants.ArkivstrukturXmlFileName, caseFolderStatus.Locations);
 
                     testResults.Add(new TestResult(resultType, testResultLocation, string.Format(
                         Noark5Messages.NumberOfEachCaseFolderStatusMessage, status, caseFolderStatus.Count)));

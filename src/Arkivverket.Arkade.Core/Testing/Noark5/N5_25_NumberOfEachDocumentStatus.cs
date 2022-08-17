@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                     Location testResultLocation = resultType == ResultType.Success
                         ? new Location(string.Empty)
-                        : new Location(ArkadeConstants.ArkivuttrekkXmlFileName, documentStatus.Locations);
+                        : new Location(ArkadeConstants.ArkivstrukturXmlFileName, documentStatus.Locations);
 
                     testResults.Add(new TestResult(resultType, testResultLocation,
                         string.Format(Noark5Messages.NumberOfEachDocumentStatusMessage, status, documentStatus.Count)));

@@ -2,6 +2,8 @@
 using Arkivverket.Arkade.Core.Base.Siard;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using FluentAssertions;
 
@@ -9,15 +11,23 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
 {
     public class SiardXmlTableReaderTests
     {
+        private readonly IFileFormatIdentifier _fileFormatIdentifier;
+
+        public SiardXmlTableReaderTests()
+        {
+            _fileFormatIdentifier = new SiegfriedFileFormatIdentifier(new SiegfriedProcessRunner(new StatusEventHandler()));
+        }
+
         [Fact]
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1FileTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            SiardXmlTableReader xmlTableReader = CreateReader();
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "testuttrekk_med_blobs.siard");
 
-            List<IFileFormatInfo> formatAnalysedLobs = xmlTableReader.GetFormatAnalysedLobs(siardArchivePath);
+            var lobStreams = xmlTableReader.CreateLobByteArrays(siardArchivePath);
+            List<IFileFormatInfo> formatAnalysedLobs = _fileFormatIdentifier.IdentifyFormats(lobStreams).ToList();
 
             formatAnalysedLobs.Should().NotBeEmpty();
             formatAnalysedLobs.Count.Should().Be(9);
@@ -31,11 +41,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard1_0FileTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            SiardXmlTableReader xmlTableReader = CreateReader();
 
             string archiveFolder = Path.Combine("TestData", "Siard", "siard1_med_blobs.siard");
 
-            List<IFileFormatInfo> formatAnalysedLobs = xmlTableReader.GetFormatAnalysedLobs(archiveFolder);
+            var lobStreams = xmlTableReader.CreateLobByteArrays(archiveFolder);
+            List<IFileFormatInfo> formatAnalysedLobs = _fileFormatIdentifier.IdentifyFormats(lobStreams).ToList();
 
             formatAnalysedLobs.Should().NotBeEmpty();
             formatAnalysedLobs.Count.Should().Be(10);
@@ -49,11 +60,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1ArchiveFileWithExternalLobsCreatedBySiardGuiTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            SiardXmlTableReader xmlTableReader = CreateReader();
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "siardGui", "external", "siardGui.siard");
 
-            List<IFileFormatInfo> formatAnalysedLobs = xmlTableReader.GetFormatAnalysedLobs(siardArchivePath);
+            var lobStreams = xmlTableReader.CreateLobByteArrays(siardArchivePath);
+            List<IFileFormatInfo> formatAnalysedLobs = _fileFormatIdentifier.IdentifyFormats(lobStreams).ToList();
 
             formatAnalysedLobs.Should().NotBeEmpty();
             formatAnalysedLobs.Count.Should().Be(35);
@@ -70,11 +82,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1ArchiveFileWithInternalLobsCreatedBySiardGuiTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            SiardXmlTableReader xmlTableReader = CreateReader();
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "siardGui", "internal", "siardGui.siard");
 
-            List<IFileFormatInfo> formatAnalysedLobs = xmlTableReader.GetFormatAnalysedLobs(siardArchivePath);
+            var lobStreams = xmlTableReader.CreateLobByteArrays(siardArchivePath);
+            List<IFileFormatInfo> formatAnalysedLobs = _fileFormatIdentifier.IdentifyFormats(lobStreams).ToList();
 
             formatAnalysedLobs.Should().NotBeEmpty();
             formatAnalysedLobs.Count.Should().Be(35);
@@ -91,11 +104,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1ArchiveFileWithExternalLobsCreatedByDatabasePreservationToolkitTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            SiardXmlTableReader xmlTableReader = CreateReader();
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "dbPtk", "external", "dbptk.siard");
 
-            List<IFileFormatInfo> formatAnalysedLobs = xmlTableReader.GetFormatAnalysedLobs(siardArchivePath);
+            var lobStreams = xmlTableReader.CreateLobByteArrays(siardArchivePath);
+            List<IFileFormatInfo> formatAnalysedLobs = _fileFormatIdentifier.IdentifyFormats(lobStreams).ToList();
 
             formatAnalysedLobs.Should().NotBeEmpty();
             formatAnalysedLobs.Count.Should().Be(35);
@@ -112,11 +126,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1ArchiveFileWithInternalLobsCreatedByDatabasePreservationToolkitTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            SiardXmlTableReader xmlTableReader = CreateReader();
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "dbPtk", "internal", "dbptk.siard");
 
-            List<IFileFormatInfo> formatAnalysedLobs = xmlTableReader.GetFormatAnalysedLobs(siardArchivePath);
+            var lobStreams = xmlTableReader.CreateLobByteArrays(siardArchivePath);
+            List<IFileFormatInfo> formatAnalysedLobs = _fileFormatIdentifier.IdentifyFormats(lobStreams).ToList();
 
             formatAnalysedLobs.Should().NotBeEmpty();
             formatAnalysedLobs.Count.Should().Be(35);
@@ -147,11 +162,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1ArchiveFileWithExternalLobsCreatedBySpectralCoreFullConvertTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            SiardXmlTableReader xmlTableReader = CreateReader();
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "fullConvert", "external", "scfc.siard");
 
-            List<IFileFormatInfo> formatAnalysedLobs = xmlTableReader.GetFormatAnalysedLobs(siardArchivePath);
+            var lobStreams = xmlTableReader.CreateLobByteArrays(siardArchivePath);
+            List<IFileFormatInfo> formatAnalysedLobs = _fileFormatIdentifier.IdentifyFormats(lobStreams).ToList();
 
             formatAnalysedLobs.Should().NotBeEmpty();
             formatAnalysedLobs.Count.Should().Be(35);
@@ -182,11 +198,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         [Trait("Category", "Integration")]
         public void GetFormatAnalysedLobsFromSiard2_1ArchiveFileWithInternalLobsCreatedBySpectralCoreFullConvertTest()
         {
-            var xmlTableReader = new SiardXmlTableReader(new SiardArchiveReader(), new SiegfriedFileFormatIdentifier());
+            SiardXmlTableReader xmlTableReader = CreateReader();
 
             string siardArchivePath = Path.Combine("TestData", "Siard", "siard2", "fullConvert", "internal", "scfc.siard");
 
-            List<IFileFormatInfo> formatAnalysedLobs = xmlTableReader.GetFormatAnalysedLobs(siardArchivePath);
+            var lobStreams = xmlTableReader.CreateLobByteArrays(siardArchivePath);
+            List<IFileFormatInfo> formatAnalysedLobs = _fileFormatIdentifier.IdentifyFormats(lobStreams).ToList();
 
             formatAnalysedLobs.Should().NotBeEmpty();
             formatAnalysedLobs.Count.Should().Be(35);
@@ -211,6 +228,11 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
 
                 lobCounter++;
             }
+        }
+
+        private static SiardXmlTableReader CreateReader()
+        {
+            return new SiardXmlTableReader(new SiardArchiveReader());
         }
     }
 }

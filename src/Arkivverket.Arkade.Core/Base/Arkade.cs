@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
+using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Autofac;
 
 namespace Arkivverket.Arkade.Core.Base
@@ -17,6 +19,7 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly ArkadeApi _arkadeApi;
         private readonly ArkadeVersion _arkadeVersion;
         private readonly IContainer _container;
+        private readonly ILifetimeScope _scope;
 
         public readonly IStatusEventHandler StatusEventHandler;
 
@@ -28,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Base
             builder.RegisterModule(new ArkadeAutofacModule());
             _container = builder.Build();
 
-            _container.BeginLifetimeScope();
+            _scope = _container.BeginLifetimeScope();
             _arkadeApi = _container.Resolve<ArkadeApi>();
             _arkadeVersion = _container.Resolve<ArkadeVersion>();
             StatusEventHandler = _container.Resolve<IStatusEventHandler>();
@@ -36,6 +39,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         public void Dispose()
         {
+            _scope.Dispose();
             _container.Dispose();
         }
 
@@ -74,14 +78,40 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeApi.SaveReport(testSession, directory, standalone);
         }
 
-        public void GenerateFileFormatInfoFiles(DirectoryInfo filesDirectory, string resultFileDirectoryPath, string resultFileName, SupportedLanguage language)
+        public IFileFormatInfo AnalyseFileFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
         {
-            _arkadeApi.GenerateFileFormatInfoFiles(filesDirectory, resultFileDirectoryPath, resultFileName, language);
+            return _arkadeApi.AnalyseFileFormat(filePathAndByteContent);
         }
 
-        public Task<ArchiveFormatValidationReport> ValidateArchiveFormat(FileSystemInfo item, ArchiveFormat format, SupportedLanguage language)
+        public IFileFormatInfo AnalyseFileFormat(FileInfo file)
         {
-            return _arkadeApi.ValidateArchiveFormat(item, format, language);
+            return _arkadeApi.AnalyseFileFormat(file);
+        }
+        
+        public IEnumerable<IFileFormatInfo> AnalyseFileFormats(string targetPath, FileFormatScanMode scanMode)
+        {
+            return _arkadeApi.AnalyseFileFormats(targetPath, scanMode);
+        }
+        
+        public void GenerateFileFormatInfoFiles(TestSession testSession)
+        {
+            _arkadeApi.GenerateFileFormatInfoFiles(testSession);
+        }
+
+        public void GenerateFileFormatInfoFiles(IEnumerable<IFileFormatInfo> fileFormatInfos, string relativePathRoot, string resultFileFullName, SupportedLanguage language)
+        {
+            _arkadeApi.GenerateFileFormatInfoFiles(fileFormatInfos, relativePathRoot, resultFileFullName, language);
+        }
+
+        public async Task<ArchiveFormatValidationReport> ValidateArchiveFormatAsync(
+            FileSystemInfo item, ArchiveFormat format, string resultFileDirectoryPath, SupportedLanguage language)
+        {
+            return await _arkadeApi.ValidateArchiveFormatAsync(item, format, resultFileDirectoryPath, language);
+        }
+
+        public void GenerateMetadataExampleFile(string outputFileName)
+        {
+            _arkadeApi.GenerateMetadataExampleFile(outputFileName);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)

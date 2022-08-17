@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CommandLine;
 using CommandLine.Text;
 
-namespace Arkivverket.Arkade.CLI
+namespace Arkivverket.Arkade.CLI.Options
 {
     [Verb("process", HelpText = "Process archive data in accordance with specified standard. Run this command followed by '--help' for more detailed info.")]
     public class ProcessOptions : ArchiveProcessingOptions
@@ -25,6 +25,7 @@ namespace Arkivverket.Arkade.CLI
             get
             {
                 yield return new Example("Process archive - run all tests and pack to SIP",
+                    OptionsConfig.FormatStyle,
                     new ProcessOptions
                     {
                         Archive = "noark5ArchiveDirectory",
@@ -35,6 +36,7 @@ namespace Arkivverket.Arkade.CLI
 
                     });
                 yield return new Example("Process archive - run all tests and pack to AIP",
+                    OptionsConfig.FormatStyle,
                     new ProcessOptions
                     {
                         Archive = "noark5ArchiveDirectory",
@@ -45,6 +47,7 @@ namespace Arkivverket.Arkade.CLI
                         InformationPackageType = "AIP"
                     });
                 yield return new Example("Process archive - run selected tests and pack to SIP",
+                    OptionsConfig.FormatStyle,
                     new ProcessOptions
                     {
                         Archive = "noark5ArchiveDirectory",

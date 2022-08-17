@@ -131,7 +131,7 @@ Resultat lagret i:</value>
     <value>PRONOM filformat-analyse</value>
   </data>
   <data name="FormatCheckOngoing" xml:space="preserve">
-    <value>Utfører formatanalyse ...</value>
+    <value>Utfører formatanalyse: {0} av {1} filer analysert</value>
   </data>
   <data name="FormatCheckOutputDirectoryPickerTitle" xml:space="preserve">
     <value>Velg plassering for lagring av resultat</value>
@@ -171,5 +171,23 @@ Resultat lagret i:</value>
   </data>
   <data name="ArchiveFormatValidationFileSelectDialogFilter" xml:space="preserve">
     <value>Arkivformat-filer|*.pdf</value>
+  </data>
+  <data name="ArchiveFormatValidationChooseDirectoryButtonText" xml:space="preserve">
+    <value>Velg katalog ...</value>
+  </data>
+  <data name="ArchiveFormatValidationDirectorySelectDialogTitle" xml:space="preserve">
+    <value>Velg en katalog hvis innhold skal valideres</value>
+  </data>
+  <data name="MetadataExampleFileGenerationSectionHeading" xml:space="preserve">
+    <value>Lag metadata-eksempelfil</value>
+  </data>
+  <data name="MetadataExampleFileGenerationRunButtonText" xml:space="preserve">
+    <value>Generer</value>
+  </data>
+  <data name="MetadataExampleFileGenerationSaveFileDialogTitle" xml:space="preserve">
+    <value>Velg navn og plassering for metadata-eksempelfil</value>
+  </data>
+  <data name="GenerateMetadataExampleFilePathLabel" xml:space="preserve">
+    <value>Metadata-eksempelfil ble generert:</value>
   </data>
 </root>

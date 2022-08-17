@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 if (instances.Count > 1)
                     testResultSet.TestsResults.Add(new TestResult(ResultType.Error, new Location(
-                            ArkadeConstants.ArkivuttrekkXmlFileName, instances.Locations),
+                            ArkadeConstants.ArkivstrukturXmlFileName, instances.Locations),
                         string.Format(Noark5Messages.SystemIdUniqueControlMessage, systemId, instances.Count)));
             }
 

@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
+using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base
 {
@@ -106,28 +107,32 @@ namespace Arkivverket.Arkade.Core.Base
             return _externalContentDirectory != null;
         }
 
-        public void CopyAddmlFileToAdministrativeMetadata()
+        public void EnsureAdministrativeMetadataHasAddmlFiles(string addmlFileName)
         {
-            FileInfo targetAddmlFile = AdministrativeMetadata().WithFile(ArkadeConstants.AddmlXmlFileName);
-            if (!targetAddmlFile.Exists)
-            {
-                FileInfo contentAddml = Content().WithFile(ArkadeConstants.AddmlXmlFileName);
-                if (contentAddml.Exists)
-                {
-                    Log.Debug($"Copying ADDML file {contentAddml.FullName} to administrative_metadata.");
-                    contentAddml.CopyTo(targetAddmlFile.FullName);
-                }
-                else
-                {
-                    FileInfo arkivuttrekkAddml = Content().WithFile(ArkadeConstants.ArkivuttrekkXmlFileName);
-                    if (arkivuttrekkAddml.Exists)
-                    {
-                        Log.Debug($"Copying ADDML file {arkivuttrekkAddml.FullName} to administrative_metadata.");
-                        arkivuttrekkAddml.CopyTo(targetAddmlFile.FullName);
-                    }
-                }
+            TryCopyAddmlFileToAdministrativeMetadata(addmlFileName);
 
+            if (!TryCopyAddmlFileToAdministrativeMetadata(AddmlXsdFileName))
+            {
+                AdministrativeMetadata().AddFileFromResources(AddmlXsdResource, AddmlXsdFileName);
+                Log.Debug($"Adding {AddmlXsdFileName} from Arkade built-in resources to administrative_metadata.");
             }
+        }
+
+        private bool TryCopyAddmlFileToAdministrativeMetadata(string addmlFileName)
+        {
+            FileInfo targetAddmlFile = AdministrativeMetadata().WithFile(addmlFileName);
+
+            if (targetAddmlFile.Exists)
+                return false;
+
+            FileInfo contentAddml = Content().WithFile(addmlFileName);
+
+            if (!contentAddml.Exists)
+                return false;
+
+            Log.Debug($"Copying ADDML file {contentAddml.FullName} to administrative_metadata.");
+            contentAddml.CopyTo(targetAddmlFile.FullName);
+            return true;
         }
 
         public long GetSize()

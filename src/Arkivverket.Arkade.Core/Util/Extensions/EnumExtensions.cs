@@ -29,6 +29,20 @@ namespace Arkivverket.Arkade.Core.Util
             throw new ArgumentException(@"Description not found", nameof(description));
         }
 
+        public static bool TryParseFromDescription<TEnum>(this string description, out TEnum enumValue)
+        {
+            try
+            {
+                enumValue = description.GetValueByDescription<TEnum>();
+                return true;
+            }
+            catch
+            {
+                enumValue = default;
+                return false;
+            }
+        }
+
         public static bool HasValueForDescription<T>(this string description)
         {
             return typeof(T).GetFields().Any(field => FieldHasDescription(description, field));

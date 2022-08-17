@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     (referrer => new TestResult
                         (
                             ResultType.Error,
-                            new Location(ArkadeConstants.ArkivuttrekkXmlFileName, referrer.XmlLineNumber),
+                            new Location(ArkadeConstants.ArkivstrukturXmlFileName, referrer.XmlLineNumber),
                             string.Format(Noark5Messages.ArchivepartReferenceControlMessage,
                                 referrer.Element, referrer.SystemId ?? "?", referrer.Reference)
                         )

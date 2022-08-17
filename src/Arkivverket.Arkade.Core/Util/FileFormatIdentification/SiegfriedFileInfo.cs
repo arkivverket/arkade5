@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 {
@@ -24,9 +25,32 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             MimeType = mimeType;
         }
 
+        public IFileFormatInfo Create(string fileName, string errors, string id, string format, string version,
+            string mimeType)
+        {
+            return new SiegfriedFileInfo(fileName, errors, id, format, version, mimeType);
+        }
+
         public bool Equals(SiegfriedFileInfo other)
         {
             return Id == other?.Id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is SiegfriedFileInfo info && Equals(info);
+        }
+
+        public override int GetHashCode()
+        {
+            var sb = new StringBuilder();
+            sb.Append(FileName);
+            sb.Append(FileExtension);
+            sb.Append(Errors);
+            sb.Append(Id);
+            sb.Append(Version);
+            sb.Append(MimeType);
+            return sb.ToString().GetHashCode();
         }
     }
 }

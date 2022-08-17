@@ -134,7 +134,7 @@ Result saved at:</value>
     <value>PRONOM file format analysis</value>
   </data>
   <data name="FormatCheckOngoing" xml:space="preserve">
-    <value>Performing format analysis ...</value>
+    <value>Performing format analysis: {0} of {1} files analysed</value>
   </data>
   <data name="FormatCheckOutputDirectoryPickerTitle" xml:space="preserve">
     <value>Choose location for results</value>
@@ -171,5 +171,23 @@ Result saved at:</value>
   </data>
   <data name="ArchiveFormatValidationFileSelectDialogFilter" xml:space="preserve">
     <value>Archive format files|*.pdf</value>
+  </data>
+  <data name="ArchiveFormatValidationChooseDirectoryButtonText" xml:space="preserve">
+    <value>Choose directory ...</value>
+  </data>
+  <data name="ArchiveFormatValidationDirectorySelectDialogTitle" xml:space="preserve">
+    <value>Choose a directory whose content to validate</value>
+  </data>
+  <data name="MetadataExampleFileGenerationSectionHeading" xml:space="preserve">
+    <value>Create metadata example file</value>
+  </data>
+  <data name="MetadataExampleFileGenerationRunButtonText" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="MetadataExampleFileGenerationSaveFileDialogTitle" xml:space="preserve">
+    <value>Choose name and location for metadata example file</value>
+  </data>
+  <data name="GenerateMetadataExampleFilePathLabel" xml:space="preserve">
+    <value>Metadata example file was generated:</value>
   </data>
 </root>

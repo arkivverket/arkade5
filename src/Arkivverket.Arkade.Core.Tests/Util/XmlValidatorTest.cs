@@ -1,4 +1,10 @@
-﻿using Arkivverket.Arkade.Core.Tests.Testing.Noark5;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Testing;
+using Arkivverket.Arkade.Core.Tests.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Xunit;
 using FluentAssertions;
@@ -26,7 +32,32 @@ namespace Arkivverket.Arkade.Core.Tests.Util
 
             var validationErrorMessages = new XmlValidator().Validate(invalidAddml, _addmlXsd);
 
-            validationErrorMessages[0].Should().Contain("datasett");
+            validationErrorMessages.Keys.First().Should().Contain("datasett");
+        }
+
+        [Fact]
+        public void ErrorsShouldBeCorrectlyGrouped()
+        {
+            const string directory = "Noark5\\StructureValidation\\error";
+            Stream arkivstrukturXmlWithErrors = TestUtil.ReadFileStreamFromTestDataDir(Path.Combine(directory, ArkadeConstants.ArkivstrukturXmlFileName));
+            Stream arkivstrukturXsd = ResourceUtil.GetResourceAsStream(ArkadeConstants.ArkivstrukturXsdResource);
+            Stream metadatakatalogXsd = ResourceUtil.GetResourceAsStream(ArkadeConstants.MetadatakatalogXsdResource);
+
+            Dictionary<string, List<long>> validationErrorMessages =
+                new XmlValidator().Validate(arkivstrukturXmlWithErrors, new[] { arkivstrukturXsd, metadatakatalogXsd },
+                    ArkadeConstants.ArkivstrukturXmlFileName);
+
+            validationErrorMessages.Count.Should().Be(2);
+
+            KeyValuePair<string, List<long>> firstError = validationErrorMessages.First();
+            bool firstErrorIsUnique = firstError.Value.Count == 1;
+
+            firstErrorIsUnique.Should().BeTrue();
+
+            KeyValuePair<string, List<long>> secondError = validationErrorMessages.Last();
+            bool secondErrorIsNotUniqueAndShouldThereforeBeGrouped = secondError.Value.Count > 1;
+
+            secondErrorIsNotUniqueAndShouldThereforeBeGrouped.Should().BeTrue();
         }
 
     }

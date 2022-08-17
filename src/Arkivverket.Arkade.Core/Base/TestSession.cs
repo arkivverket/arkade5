@@ -71,6 +71,10 @@ namespace Arkivverket.Arkade.Core.Base
                     }
                     break;
 
+                case ArchiveType.Noark4:
+                    disqualifyingCause = Resources.Messages.Noark4ValidationNotSupported;
+                    return false;
+
                 default:
                     if (AddmlDefinition == null)
                     {

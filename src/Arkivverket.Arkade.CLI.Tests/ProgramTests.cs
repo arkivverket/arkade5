@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Xunit;
@@ -29,7 +30,7 @@ namespace Arkivverket.Arkade.CLI.Tests
             OutputFileNames.Culture = new CultureInfo(Language.ToString());
 
             workingDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
-            metadataFilePath = Path.Combine(workingDirectoryPath, OutputFileNames.MetadataFile);
+            metadataFilePath = Path.Combine(workingDirectoryPath, OutputFileNames.MetadataExampleFile);
             noark5TestSelectionFilePath = Path.Combine(workingDirectoryPath, OutputFileNames.Noark5TestSelectionFile);
             testDataDirectoryPath = Path.Combine(workingDirectoryPath, "TestData");
             archiveDirectoryPath = Path.Combine(testDataDirectoryPath, "N5-archive");
@@ -96,7 +97,7 @@ namespace Arkivverket.Arkade.CLI.Tests
         {
             // Prepare needed files and/or directories
 
-            new MetadataExampleGenerator().Generate(OutputFileNames.MetadataFile);
+            new MetadataExampleGenerator().Generate(OutputFileNames.MetadataExampleFile);
             Directory.CreateDirectory(outputDirectoryPath);
 
             // Run commands and store results:
@@ -126,7 +127,7 @@ namespace Arkivverket.Arkade.CLI.Tests
         {
             // Prepare needed files and/or directories
 
-            new MetadataExampleGenerator().Generate(OutputFileNames.MetadataFile);
+            new MetadataExampleGenerator().Generate(OutputFileNames.MetadataExampleFile);
             Noark5TestSelectionFileGenerator.Generate(OutputFileNames.Noark5TestSelectionFile, Language);
             Directory.CreateDirectory(outputDirectoryPath);
 

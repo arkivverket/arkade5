@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Arkivverket.Arkade.CLI.Options;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Util;
@@ -17,7 +18,7 @@ namespace Arkivverket.Arkade.CLI
         public static void Main(string[] args)
         {
             if (!Console.IsOutputRedirected)
-            Console.CursorVisible = false;
+                Console.CursorVisible = false;
             Console.CancelKeyPress += OnProcessCanceled;
             AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
 
@@ -25,17 +26,22 @@ namespace Arkivverket.Arkade.CLI
 
             ConfigureLogging(); // Configured with temporary log directory
 
+            bool hasRun = false;
+
             ParseArguments(args)
                 .WithParsed<ProcessOptions>(RunProcessOptions)
                 .WithParsed<TestOptions>(RunTestOptions)
                 .WithParsed<PackOptions>(RunPackOptions)
                 .WithParsed<GenerateOptions>(RunGenerateOptions)
                 .WithParsed<AnalyseOptions>(RunAnalyseOptions)
-                .WithParsed<ValidateOptions>(RunValidateOptions)
+                .WithParsed<ValidateOptions>(options => RunValidateOptions(options, out hasRun))
                 .WithNotParsed(LogParseErrors);
 
             if (!Console.IsOutputRedirected)
-            Console.CursorVisible = true;
+                Console.CursorVisible = true;
+            
+            if (hasRun)
+                CommandLineRunner.Dispose();
         }
 
         public static ParserResult<object> ParseArguments(IEnumerable<string> args)
@@ -90,13 +96,11 @@ namespace Arkivverket.Arkade.CLI
             CommandLineRunner.Run(analyseOptions);
         }
 
-        private static void RunValidateOptions(ValidateOptions validateOptions)
+        private static void RunValidateOptions(ValidateOptions validateOptions, out bool canRun)
         {
-            if (!ReadyToRun(validateOptions, out string failReason))
-            {
-                Log.Error(failReason);
+            canRun = ReadyToRun(validateOptions);
+            if (!canRun)
                 return;
-            }
 
             CommandLineRunner.Run(validateOptions);
         }
@@ -114,15 +118,32 @@ namespace Arkivverket.Arkade.CLI
                 SelectedOutputLanguageIsValid(analyseOptions.OutputLanguage);
         }
 
-        private static bool ReadyToRun(ValidateOptions validateOptions, out string failReason)
+        private static bool ReadyToRun(ValidateOptions validateOptions)
         {
-            bool itemExists = File.Exists(validateOptions.Item) || Directory.Exists(validateOptions.Item);
-            bool archiveFormatIsSupported = validateOptions.Format.ToUpper().HasValueForDescription<ArchiveFormat>();
+            if (!(File.Exists(validateOptions.Item) || Directory.Exists(validateOptions.Item)))
+            {
+                Log.Error($@"Item [{validateOptions.Item}] was not found");
+                return false;
+            }
 
-            failReason = !itemExists ? $@"Item [{validateOptions.Item}] was not found" :
-                !archiveFormatIsSupported ? $@"Format [{validateOptions.Format}] was not recognized" : Empty;
+            if (!validateOptions.Format.ToUpper().TryParseFromDescription(out ArchiveFormat archiveFormat))
+            {
+                Log.Error($@"Format [{validateOptions.Format}] was not recognized");
+                return false;
+            }
 
-            return itemExists && archiveFormatIsSupported;
+            if (Directory.Exists(validateOptions.Item))
+            {
+                if (IsNullOrEmpty(validateOptions.OutputDirectory))
+                {
+                    Log.Error(@"The -o/--output-directory argument is required when -i/--item is a directory.");
+                    return false;
+                }
+
+                return DirectoryArgsExists(validateOptions.OutputDirectory);
+            }
+
+            return true;
         }
 
         private static bool ReadyToRun(string outputDirectoryPath, string processingAreaPath = null,
@@ -146,6 +167,12 @@ namespace Arkivverket.Arkade.CLI
             if (!Directory.Exists(outputDirectoryPath))
             {
                 Log.Error(new DirectoryNotFoundException(), $"Could not find output directory: '{outputDirectoryPath}'.");
+                return false;
+            }
+
+            if (!new DirectoryInfo(outputDirectoryPath).HasWritePermission())
+            {
+                Log.Error(new IOException(), $"Arkade does not have write permissions to specified location: '{outputDirectoryPath}'");
                 return false;
             }
 

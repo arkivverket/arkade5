@@ -70,20 +70,34 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file {0} has an approved archive format: {1}.
+        ///   Looks up a localized string similar to {0} conforms with the specified archive format: {1}.
         /// </summary>
-        internal static string FileHasApprovedFormat {
+        internal static string ItemConformsWithFormat {
             get {
-                return ResourceManager.GetString("FileHasApprovedFormat", resourceCulture);
+                return ResourceManager.GetString("ItemConformsWithFormat", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file {0} has not an approved archive format..
+        ///   Looks up a localized string similar to {0} does not conform with the specified archive format.
+        ///{1}.
         /// </summary>
-        internal static string FileHasNotApprovedFormat {
+        internal static string ItemDoesNotConformWithFormat {
             get {
-                return ResourceManager.GetString("FileHasNotApprovedFormat", resourceCulture);
+                return ResourceManager.GetString("ItemDoesNotConformWithFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Total number of validated files: {0}
+        ///   Valid files: {1}
+        ///   Invalid files: {2}
+        ///   Unable to determine: {3}
+        /// Detailed report: {4}.
+        /// </summary>
+        internal static string PdfABatchValidationInfoMessage {
+            get {
+                return ResourceManager.GetString("PdfABatchValidationInfoMessage", resourceCulture);
             }
         }
     }

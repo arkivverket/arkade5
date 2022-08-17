@@ -50,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (totalNumberOfRegistrations != documentedNumberOfRegistrations)
                 testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
-                    new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                    new Location(ArkadeConstants.ArkivstrukturXmlFileName),
                     string.Format(Noark5Messages.NumberOfRegistrations_DocumentedAndActualMismatch,
                         documentedNumberOfRegistrations, totalNumberOfRegistrations)));
 

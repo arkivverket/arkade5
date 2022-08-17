@@ -356,4 +356,7 @@ Actual checksum: {1}</value>
     <value>{0} - line(s): {1}</value>
     <comment>{0} filnavn, {1} linjenr med feil</comment>
   </data>
+  <data name="Noark4ValidationNotSupported" xml:space="preserve">
+    <value>Validation of Noark4-extracts is not supported</value>
+  </data>
 </root>

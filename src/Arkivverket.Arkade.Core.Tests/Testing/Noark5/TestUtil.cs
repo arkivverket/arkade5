@@ -32,5 +32,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             return File.ReadAllText(Path.Combine(TestDataDirectory, fileName));
         }
 
+        public static Stream ReadFileStreamFromTestDataDir(string fileName)
+        {
+            return File.OpenRead(Path.Combine(TestDataDirectory, fileName));
+        }
+
     }
 }

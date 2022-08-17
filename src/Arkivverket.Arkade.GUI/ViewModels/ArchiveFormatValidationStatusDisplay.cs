@@ -78,29 +78,19 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ConfigureIconByValidationResult(ArchiveFormatValidationResult result)
         {
-            switch (result)
+            (ResultIconKind, ResultIconColor) = result switch 
             {
-                case ArchiveFormatValidationResult.Valid:
-                {
-                    ResultIconKind = "CheckBold";
-                    ResultIconColor = new SolidColorBrush(Colors.Teal);
-                    break;
-                }
-                case ArchiveFormatValidationResult.Invalid:
-                {
-                    ResultIconKind = "MinusCircleOutline";
-                    ResultIconColor = new SolidColorBrush(Colors.DarkRed);
-                    break;
-                }
-                case ArchiveFormatValidationResult.Error:
-                {
-                    ResultIconKind = "CloseBold";
-                    ResultIconColor = new SolidColorBrush(Colors.DimGray);
-                    break;
-                }
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(result), result, null);
-            }
+                ArchiveFormatValidationResult.Valid =>
+                    ("CheckBold", new SolidColorBrush(Colors.Teal)),
+
+                ArchiveFormatValidationResult.Invalid =>
+                    ("MinusCircleOutline", new SolidColorBrush(Colors.DarkRed)),
+
+                ArchiveFormatValidationResult.Error =>
+                    ("CloseBold", new SolidColorBrush(Colors.DimGray)),
+
+                _ => throw new ArgumentOutOfRangeException(nameof(result), result, null)
+            };
         }
     }
 }

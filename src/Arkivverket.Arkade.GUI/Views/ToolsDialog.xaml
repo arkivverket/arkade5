@@ -5,84 +5,121 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lang="clr-namespace:Arkivverket.Arkade.GUI.Languages"
         xmlns:prism="http://prismlibrary.com/"
-        xmlns:util="clr-namespace:Arkivverket.Arkade.GUI.Util"
-        xmlns:archiveFormatValidation="clr-namespace:Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;assembly=Arkivverket.Arkade.Core"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
-        Title="{x:Static lang:ToolsGUI.ToolsDialogTitle}" Height ="500"  Width="750"
+        Title="{x:Static lang:ToolsGUI.ToolsDialogTitle}"
+        Height="570"
+        Width="700"
         Icon="../Arkade5_2.0.ico"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         d:DataContext="{d:DesignData ToolsDialogViewModel}">
+
     <Grid>
-        <StackPanel Margin="10">
-            <StackPanel Margin="5,0,0,0">
-                <Label FontSize="20" FontWeight="DemiBold"
-                       Content="{x:Static lang:ToolsGUI.FormatCheckHeading}"/>
-                <Button VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" Height="25"
-                        Command="{Binding ChooseDirectoryForFormatCheckCommand}"
-                        Content="{x:Static lang:ToolsGUI.FormatCheckChooseTargetDirectoryButtonText}"/>
-                <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" Margin="10,5,0,10">
-                    <Run Text="{Binding DirectoryForFormatCheck}"
-                         Background="Beige" Foreground="Black"/>
-                </TextBlock>
-                <Button VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Height="25"
-                        Command="{Binding RunFormatCheckCommand}"
-                        Content="{x:Static lang:ToolsGUI.FormatCheckRunButtonText}"
-                        IsEnabled="{Binding RunButtonIsEnabled}"/>
-                <StackPanel Margin="10" Orientation="Horizontal">
-                    <ProgressBar Visibility="{Binding ProgressBarVisibility}" Style="{StaticResource MaterialDesignCircularProgressBar}"                     
-                                 Value="0"
-                                 IsIndeterminate="True"
-                                 VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12" Width="19"/>
-                    <TextBlock VerticalAlignment="Center" Visibility="{Binding ProgressBarVisibility}"  Text="{x:Static lang:ToolsGUI.FormatCheckOngoing}" TextWrapping="Wrap"/>
+        <TabControl Margin="15">
+            <TabItem Header="{x:Static lang:ToolsGUI.FormatCheckHeading}">
+                <StackPanel Margin="20">
+                    <Label Margin="0 20 0 0" FontSize="20" FontWeight="DemiBold"
+                           Content="{x:Static lang:ToolsGUI.FormatCheckHeading}" />
+                    <Button Margin="0 20 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12"
+                            Height="25"
+                            Command="{Binding ChooseDirectoryForFormatCheckCommand}"
+                            Content="{x:Static lang:ToolsGUI.FormatCheckChooseTargetDirectoryButtonText}" />
+                    <TextBlock Margin="0 20 0 0" VerticalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold"
+                               MaxHeight="75">
+                        <Run Text="{Binding DirectoryForFormatCheck}" Background="Beige" Foreground="Black" />
+                    </TextBlock>
+                    <Button Margin="0 20 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12"
+                            Height="25"
+                            Command="{Binding RunFormatCheckCommand}"
+                            Content="{x:Static lang:ToolsGUI.FormatCheckRunButtonText}"
+                            IsEnabled="{Binding RunButtonIsEnabled}" />
+                    <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
+                        <ProgressBar Visibility="{Binding ProgressBarVisibility}"
+                                     Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                     Value="0"
+                                     IsIndeterminate="True"
+                                     VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,15,0"
+                                     Width="19" />
+                        <TextBlock VerticalAlignment="Center" Visibility="{Binding ProgressBarVisibility}"
+                                   Text="{Binding FormatAnalysisOngoingString}" TextWrapping="Wrap" />
+                    </StackPanel>
+                    <ScrollViewer MaxHeight="100" Margin="0 20 0 0" VerticalScrollBarVisibility="Auto"
+                                  HorizontalAlignment="Left">
+                        <TextBox Text="{Binding FormatCheckStatus}" IsReadOnly="True" TextWrapping="Wrap" />
+                    </ScrollViewer>
                 </StackPanel>
-                <TextBox Margin="10,5,0,10" BorderThickness="0" Background="Transparent" IsReadOnly="True"
-                         TextWrapping="Wrap"
-                         Text="{Binding FormatCheckStatus, Mode=OneWay}"/>
-            </StackPanel>
-            <StackPanel Margin="5,0,0,0">
-                <Label FontSize="20" FontWeight="DemiBold"
-                       Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationSectionHeading}"/>
-                <Button VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" Height="25"
-                        Command="{Binding ChooseFileForArchiveFormatValidationCommand}"
-                        Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationChooseFileButtonText}"/>
-                <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" Margin="10,5,0,10">
-                    <Run Text="{Binding ArchiveFormatValidationItemPath}"
-                         Background="Beige" Foreground="Black"/>
-                </TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationFormatSelectMenuLabel}" />
-                    <ComboBox Margin="25 0" Width="90" HorizontalAlignment="Center"
-                              ItemsSource="{Binding ArchiveFormatValidationFormats}"
-                              SelectedValue="{Binding ArchiveFormatValidationFormats[0]}"
-                              SelectedItem="{Binding ArchiveFormatValidationFormat}"
-                              Cursor="Hand">
-                    </ComboBox>
-                    <Button VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Height="25"
-                            Command="{Binding ValidateArchiveFormatCommand}"
-                            Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationRunButtonText}"
-                            IsEnabled="{Binding ValidateArchiveFormatButtonIsEnabled}"/>
+            </TabItem>
+            <TabItem Header="{x:Static lang:ToolsGUI.ArchiveFormatValidationSectionHeading}">
+                <StackPanel Margin="20">
+                    <Label Margin="0 20 0 0" FontSize="20" FontWeight="DemiBold"
+                           Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationSectionHeading}" />
+                    <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
+                        <Button VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" Height="25"
+                                Command="{Binding ChooseFileForArchiveFormatValidationCommand}"
+                                Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationChooseFileButtonText}" />
+                        <Button Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12"
+                                Height="25"
+                                Command="{Binding ChooseDirectoryForArchiveFormatValidationCommand}"
+                                Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationChooseDirectoryButtonText}" />
+                    </StackPanel>
+                    <TextBlock Margin="0 20 0 0" VerticalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold"
+                               MaxHeight="35">
+                        <Run Text="{Binding ArchiveFormatValidationItemPath}" Background="Beige" Foreground="Black" />
+                    </TextBlock>
+                    <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
+                        <Label Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationFormatSelectMenuLabel}"
+                               FontWeight="Bold" />
+                        <ComboBox Margin="5 0 0 0" Width="90" HorizontalAlignment="Center"
+                                  ItemsSource="{Binding ArchiveFormatValidationFormats}"
+                                  SelectedValue="{Binding ArchiveFormatValidationFormats[0]}"
+                                  SelectedItem="{Binding ArchiveFormatValidationFormat}"
+                                  Cursor="Hand">
+                        </ComboBox>
+                        <Button Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12"
+                                Height="25"
+                                Command="{Binding ValidateArchiveFormatCommand}"
+                                Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationRunButtonText}"
+                                IsEnabled="{Binding ValidateArchiveFormatButtonIsEnabled}" />
+                    </StackPanel>
+                    <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
+                        <ProgressBar Visibility="{Binding ArchiveFormatValidationStatusDisplay.ProgressBarVisibility}"
+                                     Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                     IsIndeterminate="True" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                     Width="19" />
+                        <materialDesign:PackIcon
+                            Visibility="{Binding ArchiveFormatValidationStatusDisplay.ResultIconVisibility}"
+                            Kind="{Binding ArchiveFormatValidationStatusDisplay.ResultIconKind}"
+                            Foreground="{Binding ArchiveFormatValidationStatusDisplay.ResultIconColor}"
+                            VerticalAlignment="Center" HorizontalAlignment="Center" Width="19" Height="19" />
+                    </StackPanel>
+                    <ScrollViewer MaxHeight="150" VerticalScrollBarVisibility="Auto"
+                                  HorizontalAlignment="Left">
+                        <TextBox Text="{Binding ArchiveFormatValidationStatusDisplay.StatusMessage}" IsReadOnly="True"
+                                 TextWrapping="Wrap" />
+                    </ScrollViewer>
                 </StackPanel>
-                
-                <StackPanel Margin="10" Orientation="Horizontal">
-                    <ProgressBar Visibility="{Binding ArchiveFormatValidationStatusDisplay.ProgressBarVisibility}" Style="{StaticResource MaterialDesignCircularProgressBar}"
-                                 Value="0"
-                                 IsIndeterminate="True"
-                                 VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12" Width="19"/>
-                    <materialDesign:PackIcon
-                        Visibility="{Binding ArchiveFormatValidationStatusDisplay.ResultIconVisibility}"
-                        Kind="{Binding ArchiveFormatValidationStatusDisplay.ResultIconKind}"
-                        Foreground="{Binding ArchiveFormatValidationStatusDisplay.ResultIconColor}"
-                        VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12" Width="19" Height="19"/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding ArchiveFormatValidationStatusDisplay.StatusMessage}" MaxWidth="550" TextWrapping="Wrap" />
+            </TabItem>
+            <TabItem Header="{x:Static lang:ToolsGUI.MetadataExampleFileGenerationSectionHeading}">
+                <StackPanel Margin="20">
+                    <Label Margin="0 20 0 0" FontSize="20" FontWeight="DemiBold"
+                           Content="{x:Static lang:ToolsGUI.MetadataExampleFileGenerationSectionHeading}" />
+                    <StackPanel Orientation="Horizontal">
+                        <Button Margin="0 20 0 0" FontSize="12" Height="25"
+                                Command="{Binding GenerateMetadataExampleFileCommand}"
+                                Content="{x:Static lang:ToolsGUI.MetadataExampleFileGenerationRunButtonText}" />
+                    </StackPanel>
+                    <StackPanel Margin="0 20 0 0" Visibility="{Binding GenerateMetadataExampleFileResultInfoVisibility}">
+                        <Label Content="{x:Static lang:ToolsGUI.GenerateMetadataExampleFilePathLabel }" FontWeight="Bold" />
+                        <TextBox Text="{Binding MetadataExampleFilePath}" IsReadOnly="True" TextWrapping="Wrap" />
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-        </StackPanel>
+            </TabItem>
+        </TabControl>
         <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15"
                 IsCancel="True"
                 Content="{x:Static lang:ToolsGUI.CloseDialogButtonText}"
-                IsEnabled="{Binding CloseButtonIsEnabled, Mode=OneWay}"/>
+                IsEnabled="{Binding CloseButtonIsEnabled, Mode=OneWay}" />
     </Grid>
 </Window>

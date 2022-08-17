@@ -102,7 +102,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     if (!ActualAndDocumentedFileChecksumsMatch(_currentDocumentObject))
                     {
                         testResult = new TestResult(ResultType.Error, new Location(
-                                ArkadeConstants.ArkivuttrekkXmlFileName, _currentDocumentObject.ChecksumXmlLineNumber),
+                                ArkadeConstants.ArkivstrukturXmlFileName, _currentDocumentObject.ChecksumXmlLineNumber),
                             string.Format(Noark5Messages.DocumentFilesChecksumControlMessage,
                                 _currentDocumentObject.DocumentFileReference,
                                 _currentDocumentObject.DocumentDescriptionSystemId
@@ -111,7 +111,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 }
                 catch (Exception)
                 {
-                    testResult = new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivuttrekkXmlFileName,
+                    testResult = new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivstrukturXmlFileName,
                         _currentDocumentObject.DocumentFileReferenceXmlLineNumber), string.Format(
                         Noark5Messages.FileNotFound, _currentDocumentObject.DocumentFileReference));
                 }

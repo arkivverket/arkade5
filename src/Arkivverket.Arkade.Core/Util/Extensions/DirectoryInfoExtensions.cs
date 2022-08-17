@@ -15,10 +15,29 @@ namespace Arkivverket.Arkade.Core.Util
 
             if (!withSubDirectories)
                 return;
-            
+
             foreach (DirectoryInfo subDirectory in sourceDirectoryInfo.GetDirectories())
             {
                 subDirectory.CopyTo(Path.Combine(destinationPath, subDirectory.Name), true);
+            }
+        }
+
+        public static bool HasWritePermission(this DirectoryInfo directory)
+        {
+            var dummyFile = new FileInfo(Path.Combine(directory.FullName, "dummy.txt"));
+
+            try
+            {
+                FileStream tempStream = dummyFile.Create();
+                tempStream.Dispose();
+                dummyFile.Delete();
+                return true;
+            }
+            catch
+            {
+                if (dummyFile.Exists) dummyFile.Delete();
+
+                return false;
             }
         }
     }

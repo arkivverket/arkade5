@@ -1,14 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
+using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Util;
 using Prism.Commands;
@@ -23,21 +27,25 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private readonly ILogger _log = Log.ForContext<ToolsDialogViewModel>();
 
         private ArkadeApi _arkadeApi;
+        private readonly IStatusEventHandler _statusEventHandler;
 
         // ---------- File format analysis --------------
+
+        private long _numberOfAnalysedFiles;
+        private long _totalNumberOfFilesToAnalyse;
+
+        private string _formatAnalysisOngoingString;
+        public string FormatAnalysisOngoingString
+        {
+            get => _formatAnalysisOngoingString;
+            set => SetProperty(ref _formatAnalysisOngoingString, value);
+        }
 
         private string _directoryForFormatCheck;
         public string DirectoryForFormatCheck
         {
             get => _directoryForFormatCheck;
             set => SetProperty(ref _directoryForFormatCheck, value);
-        }
-
-        private string _directoryToSaveFormatCheckResult;
-        public string DirectoryToSaveFormatCheckResult
-        {
-            get => _directoryToSaveFormatCheckResult;
-            set => SetProperty(ref _directoryToSaveFormatCheckResult, value);
         }
 
         private string _formatCheckStatus;
@@ -67,6 +75,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         // ---------- Archive format validation ----------
 
+        private FileSystemInfo _archiveFormatValidationItem;
         private string _archiveFormatValidationItemPath;
         public string ArchiveFormatValidationItemPath
         {
@@ -103,7 +112,26 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
         public DelegateCommand ChooseFileForArchiveFormatValidationCommand { get; }
+        public DelegateCommand ChooseDirectoryForArchiveFormatValidationCommand { get; }
         public DelegateCommand ValidateArchiveFormatCommand { get; }
+
+        // ------- Metadata example file generation ------
+
+        public DelegateCommand GenerateMetadataExampleFileCommand { get; }
+
+        private string _metadataExampleFilePath;
+        public string MetadataExampleFilePath
+        {
+            get => _metadataExampleFilePath;
+            set => SetProperty(ref _metadataExampleFilePath, value);
+        }
+
+        private Visibility _generateMetadataExampleFileResultInfoVisibility;
+        public Visibility GenerateMetadataExampleFileResultInfoVisibility
+        {
+            get => _generateMetadataExampleFileResultInfoVisibility;
+            set => SetProperty(ref _generateMetadataExampleFileResultInfoVisibility, value);
+        }
 
         // -----------------------------------------------
 
@@ -114,11 +142,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _closeButtonIsEnabled, value);
         }
 
-        public ToolsDialogViewModel(ArkadeApi arkadeApi)
+        public ToolsDialogViewModel(ArkadeApi arkadeApi, IStatusEventHandler statusEventHandler)
         {
             _arkadeApi = arkadeApi;
+            _statusEventHandler = statusEventHandler;
 
             // ---------- File format analysis --------------
+
+            _statusEventHandler.FormatAnalysisStartedEvent += OnFormatAnalysisStarted;
+            _statusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdated;
+            _statusEventHandler.FormatAnalysisFinishedEvent += OnFormatAnalysisFinished;
 
             ChooseDirectoryForFormatCheckCommand = new DelegateCommand(ChooseDirectoryForFormatCheck);
             RunFormatCheckCommand = new DelegateCommand(RunFormatCheck);
@@ -129,11 +162,18 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             // ---------- Archive format validation ----------
 
             ChooseFileForArchiveFormatValidationCommand = new DelegateCommand(ChooseFileForArchiveFormatValidation);
+            ChooseDirectoryForArchiveFormatValidationCommand = new DelegateCommand(ChooseDirectoryForArchiveFormatValidation);
             ValidateArchiveFormatCommand = new DelegateCommand(ValidateArchiveFormat);
 
             ValidateArchiveFormatButtonIsEnabled = false;
             _archiveFormatValidationStatusDisplay = new ArchiveFormatValidationStatusDisplay();
             ArchiveFormatValidationFormats = typeof(ArchiveFormat).GetDescriptions();
+
+            // ------- Metadata example file generation ------
+
+            GenerateMetadataExampleFileCommand = new DelegateCommand(GenerateMetadataExampleFile);
+            GenerateMetadataExampleFileResultInfoVisibility = Visibility.Hidden;
+            MetadataExampleFilePath = string.Empty;
 
             // -----------------------------------------------
 
@@ -157,6 +197,27 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
         // ---------- File format analysis --------------
+
+        private void OnFormatAnalysisStarted(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
+            _numberOfAnalysedFiles = 0;
+            _totalNumberOfFilesToAnalyse = eventArgs.TotalFiles;
+            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, _numberOfAnalysedFiles,
+                _totalNumberOfFilesToAnalyse);
+        }
+
+        private void OnFormatAnalysisProgressUpdated(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
+            _numberOfAnalysedFiles++;
+            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, _numberOfAnalysedFiles,
+                _totalNumberOfFilesToAnalyse);
+        }
+
+        private void OnFormatAnalysisFinished(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
+            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, _totalNumberOfFilesToAnalyse,
+                _totalNumberOfFilesToAnalyse);
+        }
 
         private void ChooseDirectoryForFormatCheck()
         {
@@ -202,8 +263,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _log.Information($"User action: Chose directory for {action}: {filePath}");
 
-            DirectoryToSaveFormatCheckResult = Path.GetDirectoryName(filePath);
-
             var successfulRun = true;
 
             try
@@ -217,8 +276,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                         SupportedLanguage language = LanguageSettingHelper.GetOutputLanguage();
 
-                        _arkadeApi.GenerateFileFormatInfoFiles(new DirectoryInfo(DirectoryForFormatCheck),
-                            DirectoryToSaveFormatCheckResult, Path.GetFileName(filePath), language);
+                        IEnumerable<IFileFormatInfo> analysedFiles =
+                            _arkadeApi.AnalyseFileFormats(DirectoryForFormatCheck, FileFormatScanMode.Directory);
+
+                        _arkadeApi.GenerateFileFormatInfoFiles(analysedFiles, DirectoryForFormatCheck, filePath, language);
                     });
             }
             catch (Exception e)
@@ -253,27 +314,99 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             if (fileToValidate != null)
             {
                 ArchiveFormatValidationItemPath = fileToValidate;
+                _archiveFormatValidationItem = new FileInfo(fileToValidate);
+                ValidateArchiveFormatButtonIsEnabled = true;
+            }
+        }
+
+        private void ChooseDirectoryForArchiveFormatValidation()
+        {
+            DirectoryPicker("archive format validation",
+                ToolsGUI.ArchiveFormatValidationDirectorySelectDialogTitle,
+                out string fileToValidate
+            );
+
+            if (fileToValidate != null)
+            {
+                ArchiveFormatValidationItemPath = fileToValidate;
+                _archiveFormatValidationItem = new DirectoryInfo(fileToValidate);
                 ValidateArchiveFormatButtonIsEnabled = true;
             }
         }
 
         private async void ValidateArchiveFormat()
         {
-            CloseButtonIsEnabled = false;
-            ValidateArchiveFormatButtonIsEnabled = false;
-            ArchiveFormatValidationStatusDisplay.DisplayRunning();
+            var resultFileDirectoryPath = "";
+            if (_archiveFormatValidationItem is DirectoryInfo)
+            {
+                var canWriteToResultFileDirectory = false;
 
-            FileSystemInfo item = new FileInfo(ArchiveFormatValidationItemPath);
-            ArchiveFormat format = ArchiveFormatValidationFormat.GetValueByDescription<ArchiveFormat>();
-            SupportedLanguage language = LanguageSettingHelper.GetUILanguage();
+                while (!canWriteToResultFileDirectory)
+                {
+                    DirectoryPicker("pick save location",
+                        ToolsGUI.FormatCheckOutputDirectoryPickerTitle,
+                        out resultFileDirectoryPath);
 
-            ArchiveFormatValidationReport report = await _arkadeApi.ValidateArchiveFormat(item, format, language);
+                    if (resultFileDirectoryPath == null)
+                        return;
+
+                    canWriteToResultFileDirectory = new DirectoryInfo(resultFileDirectoryPath).HasWritePermission();
+
+                    if (!canWriteToResultFileDirectory)
+                        ShowWritePermissionDeniedMessageBox();
+                }
+            }
+
+            ArchiveFormatValidationReport report = null;
+            await Task.Run(
+                () =>
+                {
+                    CloseButtonIsEnabled = false;
+                    ValidateArchiveFormatButtonIsEnabled = false;
+                    ArchiveFormatValidationStatusDisplay.DisplayRunning();
+
+                    ArchiveFormat format = ArchiveFormatValidationFormat.GetValueByDescription<ArchiveFormat>();
+                    SupportedLanguage language = LanguageSettingHelper.GetUILanguage();
+
+                    report = _arkadeApi.ValidateArchiveFormatAsync(
+                        _archiveFormatValidationItem, format, resultFileDirectoryPath, language).Result;
+                });
 
             ArchiveFormatValidationStatusDisplay.DisplayFinished(report);
             ValidateArchiveFormatButtonIsEnabled = true;
             CloseButtonIsEnabled = true;
         }
         
+        // ------- Metadata example file generation ------
+
+        private void GenerateMetadataExampleFile()
+        {
+            GenerateMetadataExampleFileResultInfoVisibility = Visibility.Hidden;
+            MetadataExampleFilePath = string.Empty;
+
+            var saveFileDialog = new SaveFileDialog
+            {
+                Title = ToolsGUI.MetadataExampleFileGenerationSaveFileDialogTitle,
+                FileName = OutputFileNames.MetadataExampleFile,
+                Filter = @"JSON (*.json)|*.json",
+                DefaultExt = "json",
+            };
+
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            {
+                _log.Information("User action: Abort select name and location for generated metadata example file");
+                return;
+            }
+
+            _arkadeApi.GenerateMetadataExampleFile(saveFileDialog.FileName);
+
+            string argument = "/select, \"" + saveFileDialog.FileName + "\"";
+            Process.Start("explorer.exe", argument);
+
+            MetadataExampleFilePath = saveFileDialog.FileName;
+            GenerateMetadataExampleFileResultInfoVisibility = Visibility.Visible;
+        }
+
         // -----------------------------------------------
 
         private void DirectoryPicker(string action, string title, out string directory)
@@ -322,6 +455,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 file = null;
                 _log.Information($"User action: Abort choose file for {action}");
             }
+        }
+
+        private static void ShowWritePermissionDeniedMessageBox()
+        {
+            MessageBox.Show(ExceptionMessages.WriteAccessDeniedMessage,
+                ExceptionMessages.WriteAccessDeniedCaption, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

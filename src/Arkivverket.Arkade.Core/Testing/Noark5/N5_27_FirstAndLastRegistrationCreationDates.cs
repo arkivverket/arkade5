@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             if (_invalidRegistrationCreationDateCount > 0)
                 testResultSet.TestsResults.Add(new TestResult(ResultType.Error, 
-                    new Location(ArkadeConstants.ArkivuttrekkXmlFileName, _invalidRegistrationCreationDateLocations),
+                    new Location(ArkadeConstants.ArkivstrukturXmlFileName, _invalidRegistrationCreationDateLocations),
                     string.Format(Noark5Messages.DatesFirstAndLastRegistrationMessage_NumberOfInvalidRegistrationCreationDates,
                         _invalidRegistrationCreationDateCount))
                 );

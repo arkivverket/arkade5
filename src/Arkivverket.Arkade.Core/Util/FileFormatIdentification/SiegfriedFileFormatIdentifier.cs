@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
+using System.Threading.Tasks;
+using Arkivverket.Arkade.Core.Resources;
 using CsvHelper;
 using Serilog;
 
@@ -14,15 +14,20 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 {
     public class SiegfriedFileFormatIdentifier : IFileFormatIdentifier
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private static SiegfriedProcessRunner _processRunner;
 
-        public IEnumerable<IFileFormatInfo> IdentifyFormat(DirectoryInfo directory)
+        public SiegfriedFileFormatIdentifier(SiegfriedProcessRunner siegfriedProcessRunner)
         {
-            const SiegfriedScanMode scanMode = SiegfriedScanMode.Directory;
+            _processRunner = siegfriedProcessRunner;
+        }
+        
+        public IEnumerable<IFileFormatInfo> IdentifyFormats(string target, FileFormatScanMode scanMode)
+        {
+            Process siegfriedProcess = _processRunner.SetupSiegfriedProcess(scanMode, target);
 
-            Process siegfriedProcess = SetupSiegfriedProcess(scanMode);
+            long numberOfFilesToAnalyse = CalculateNumberOfFilesToAnalyse(scanMode, target);
 
-            IEnumerable<string> siegfriedResult = RunProcessOnDirectory(siegfriedProcess, directory);
+            IEnumerable<string> siegfriedResult = _processRunner.Run(siegfriedProcess, numberOfFilesToAnalyse);
 
             int siegfriedCloseStatus = ExternalProcessManager.Close(siegfriedProcess.Id);
             return siegfriedCloseStatus switch
@@ -32,152 +37,70 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                 _ => GetSiegfriedFileInfoObjects(siegfriedResult)
             };
         }
+        
+        public IEnumerable<IFileFormatInfo> IdentifyFormats(IEnumerable<KeyValuePair<string, IEnumerable<byte>>> filePathsAndByteContent)
+        {
+            List<Task<IFileFormatInfo>> fileFormatTasks = new();
+
+            foreach (var filePathAndByteContent in filePathsAndByteContent)
+            {
+                fileFormatTasks.Add(IdentifyFormatAsync(filePathAndByteContent));
+            }
+
+            return Task.WhenAll(fileFormatTasks).Result;
+        }
+
+        private async Task<IFileFormatInfo> IdentifyFormatAsync(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
+        {
+            return await Task.Run(() => IdentifyFormat(filePathAndByteContent));
+        }
 
         public IFileFormatInfo IdentifyFormat(FileInfo file)
         {
-            const SiegfriedScanMode scanMode = SiegfriedScanMode.File;
+            const FileFormatScanMode scanMode = FileFormatScanMode.File;
 
-            Process siegfriedProcess = SetupSiegfriedProcess(scanMode);
+            Process siegfriedProcess = _processRunner.SetupSiegfriedProcess(scanMode, file.FullName);
 
-            string siegfriedResult = RunProcessOnFile(siegfriedProcess, file);
-
-            ExternalProcessManager.Close(siegfriedProcess);
-
-            return GetSiegfriedFileInfoObject(siegfriedResult);
-        }
-
-        public IFileFormatInfo IdentifyFormat(KeyValuePair<string, Stream> filePathAndStream)
-        {
-            const SiegfriedScanMode scanMode = SiegfriedScanMode.Stream;
-
-            Process siegfriedProcess = SetupSiegfriedProcess(scanMode);
-
-            string siegfriedResult = RunProcessOnStream(siegfriedProcess, filePathAndStream);
+            string siegfriedResult = _processRunner.RunOnFile(siegfriedProcess);
 
             ExternalProcessManager.Close(siegfriedProcess);
 
             return GetSiegfriedFileInfoObject(siegfriedResult);
         }
 
-        private static Process SetupSiegfriedProcess(SiegfriedScanMode scanMode)
+        public IFileFormatInfo IdentifyFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
         {
-            string executableFileName = GetOSSpecificExecutableFileName();
+            if (filePathAndByteContent.Value == null)
+                return FileFormatInfoFactory.Create(filePathAndByteContent.Key,
+                    Resources.SiardMessages.InlinedLobContentHasUnsupportedEncoding, "N/A", "N/A", "N/A", "N/A");
 
-            string thirdPartySoftwareDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                ArkadeConstants.DirectoryNameThirdPartySoftware);
-            string siegfriedDirectory = Path.Combine(thirdPartySoftwareDirectory, ArkadeConstants.DirectoryNameSiegfried);
-            string siegfriedExecutable = Path.Combine(siegfriedDirectory, executableFileName);
-            string argumentsExceptInputDirectory = $"-home \"{siegfriedDirectory}\" -csv -log e,w -coe " + BuildSiegfriedArgument(scanMode);
+            const FileFormatScanMode scanMode = FileFormatScanMode.Stream;
 
-            var process = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = siegfriedExecutable,
-                    Arguments = argumentsExceptInputDirectory,
-                    StandardOutputEncoding = Encoding.UTF8,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                }
-            };
-            return process;
-        }
+            Process siegfriedProcess = _processRunner.SetupSiegfriedProcess(scanMode, string.Empty);
 
-        private static IEnumerable<string> RunProcessOnDirectory(Process process, FileSystemInfo directory)
-        {
-            var results = new List<string>();
-            var errors = new List<string>();
-
-            process.OutputDataReceived += (sender, args) => results.Add(args.Data);
-            process.ErrorDataReceived += (sender, args) => errors.Add(args.Data);
 
             try
             {
-                process.StartInfo.Arguments +=
-                    "\"" +
-                    directory.FullName +
-                    (directory.FullName.Equals(Path.GetPathRoot(directory.FullName))
-                        ? Path.DirectorySeparatorChar.ToString()
-                        : string.Empty) +
-                    "\"";
+                string siegfriedResult = _processRunner.RunOnByteArray(siegfriedProcess, filePathAndByteContent);
 
-                ExternalProcessManager.Start(process);
+                return GetSiegfriedFileInfoObject(siegfriedResult);
             }
             catch (Exception e)
             {
                 Log.Debug(e.ToString());
-                throw new SiegfriedFileFormatIdentifierException("Document file format analysis could not to be executed, process is skipped. Details can be found in arkade-tmp/logs/");
+                Log.Error($"Was not able to analyse {filePathAndByteContent.Key} - please see logfile for details.");
+                return FileFormatInfoFactory.Create(filePathAndByteContent.Key,
+                    SiardMessages.ErrorMessage, "N/A", "N/A", "N/A", "N/A");
             }
-
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-
-            process.WaitForExit();
-
-            if (errors.Any())
-                errors.ForEach(Log.Debug);
-
-            return results;
-        }
-
-        private static string RunProcessOnFile(Process process, FileSystemInfo file)
-        {
-            return RunProcessOnDirectory(process, file).Skip(1).First();
-        }
-
-        private static string RunProcessOnStream(Process process, KeyValuePair<string, Stream> filePathAndStream)
-        {
-            var results = new List<string>();
-            var errors = new List<string>();
-
-            process.OutputDataReceived += (sender, args) => results.Add(args.Data);
-            process.ErrorDataReceived += (sender, args) => errors.Add(args.Data);
-
-            try
+            finally
             {
-                process.StartInfo.RedirectStandardInput = true;
-
-                ExternalProcessManager.Start(process);
-
-                using StreamWriter streamWriter = process.StandardInput;
-
-                filePathAndStream.Value.CopyTo(streamWriter.BaseStream);
+                ExternalProcessManager.Close(siegfriedProcess);
             }
-            catch (Exception e)
-            {
-                ExternalProcessManager.Close(process);
-                try
-                {
-                    process.StartInfo.StandardInputEncoding = Encoding.UTF8;
-                    ExternalProcessManager.Start(process);
-                    using StreamWriter streamWriter = process.StandardInput;
-                    filePathAndStream.Value.CopyTo(streamWriter.BaseStream);
-                }
-                catch (Exception exception)
-                {
-                    Log.Debug(e.ToString());
-                    throw new SiegfriedFileFormatIdentifierException("Document file format analysis could not to be executed, process is skipped. Details can be found in arkade-tmp/logs/");
-                }
-            }
-
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-
-            process.WaitForExit();
-
-            if (errors.Any())
-                errors.ForEach(Log.Debug);
-
-            string result = filePathAndStream.Key + results.Skip(1).First();
-
-            return result;
         }
 
         private static IEnumerable<SiegfriedFileInfo> GetSiegfriedFileInfoObjects(IEnumerable<string> formatInfoSet)
         {
-            return formatInfoSet.Skip(1).Select(GetSiegfriedFileInfoObject).ToList();
+            return formatInfoSet.Skip(1).Select(GetSiegfriedFileInfoObject);
         }
 
         private static SiegfriedFileInfo GetSiegfriedFileInfoObject(string siegfriedFormatResult)
@@ -202,39 +125,22 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             }
         }
 
-        private static string GetOSSpecificExecutableFileName()
+        private long CalculateNumberOfFilesToAnalyse(FileFormatScanMode scanMode, string target)
         {
-            string fileName;
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                fileName = ArkadeConstants.SiegfriedWindowsExecutable;
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                fileName = ArkadeConstants.SiegfriedLinuxExecutable;
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                fileName = ArkadeConstants.SiegfriedMacOSXExecutable;
-            else
-                throw new SiegfriedFileFormatIdentifierException("Arkade could not identify your OS, format analysis will be skipped");
+            if (scanMode is FileFormatScanMode.Directory)
+                return CalculateNumberOfFilesToAnalyse(new DirectoryInfo(target));
 
-            return fileName;
+            return 1;
         }
 
-        private static string BuildSiegfriedArgument(SiegfriedScanMode scanMode)
+        private long CalculateNumberOfFilesToAnalyse(DirectoryInfo directory)
         {
-            return scanMode switch
+            return directory.EnumerateFiles("*", new EnumerationOptions
             {
-                SiegfriedScanMode.Directory => "-multi 256 ",
-                SiegfriedScanMode.File => "",
-                SiegfriedScanMode.Stream => "-",
-                _ => throw new SiegfriedFileFormatIdentifierException(
-                    $"Siegfried scan mode {{{nameof(scanMode)}}} is not implemented")
-            };
+                IgnoreInaccessible = true,
+                RecurseSubdirectories = true,
+            }).LongCount();
         }
-    }
-
-    internal enum SiegfriedScanMode
-    {
-        Directory,
-        File,
-        Stream
     }
 
     public class SiegfriedFileFormatIdentifierException : Exception

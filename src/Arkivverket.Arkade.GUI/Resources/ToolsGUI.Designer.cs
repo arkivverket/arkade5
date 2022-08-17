@@ -61,11 +61,29 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose directory ....
+        /// </summary>
+        public static string ArchiveFormatValidationChooseDirectoryButtonText {
+            get {
+                return ResourceManager.GetString("ArchiveFormatValidationChooseDirectoryButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose file ....
         /// </summary>
         public static string ArchiveFormatValidationChooseFileButtonText {
             get {
                 return ResourceManager.GetString("ArchiveFormatValidationChooseFileButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a directory whose content to validate.
+        /// </summary>
+        public static string ArchiveFormatValidationDirectorySelectDialogTitle {
+            get {
+                return ResourceManager.GetString("ArchiveFormatValidationDirectorySelectDialogTitle", resourceCulture);
             }
         }
         
@@ -170,7 +188,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Performing format analysis ....
+        ///   Looks up a localized string similar to Performing format analysis: {0} of {1} files analysed.
         /// </summary>
         public static string FormatCheckOngoing {
             get {
@@ -193,6 +211,42 @@ namespace Arkivverket.Arkade.GUI.Languages {
         public static string FormatCheckRunButtonText {
             get {
                 return ResourceManager.GetString("FormatCheckRunButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metadata example file was generated:.
+        /// </summary>
+        public static string GenerateMetadataExampleFilePathLabel {
+            get {
+                return ResourceManager.GetString("GenerateMetadataExampleFilePathLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate.
+        /// </summary>
+        public static string MetadataExampleFileGenerationRunButtonText {
+            get {
+                return ResourceManager.GetString("MetadataExampleFileGenerationRunButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose name and location for metadata example file.
+        /// </summary>
+        public static string MetadataExampleFileGenerationSaveFileDialogTitle {
+            get {
+                return ResourceManager.GetString("MetadataExampleFileGenerationSaveFileDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create metadata example file.
+        /// </summary>
+        public static string MetadataExampleFileGenerationSectionHeading {
+            get {
+                return ResourceManager.GetString("MetadataExampleFileGenerationSectionHeading", resourceCulture);
             }
         }
         

@@ -116,17 +116,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.3.0" />
-    <PackageReference Include="Codeuctivity.PdfAValidator" Version="2.2.14" />
+    <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="Codeuctivity.PdfAValidator" Version="2.2.32" />
     <PackageReference Include="CsvHelper" Version="27.2.1" />
-    <PackageReference Include="itext7.pdfhtml" Version="4.0.1" />
+    <PackageReference Include="itext7.pdfhtml" Version="4.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="RestSharp" Version="107.3.0" />
-    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="RestSharp" Version="108.0.1" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="SharpZipLib" Version="1.3.3" />
-    <PackageReference Include="XPath2" Version="1.1.2" />
+    <PackageReference Include="XPath2" Version="1.1.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -150,6 +150,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ExceptionMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\PdfAVAlidationResultFileContent.Designer.cs">
+      <DependentUpon>PdfAValidationResultFileContent.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Update="Resources\FormatAnalysisResultFileContent.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -214,6 +219,10 @@
     <EmbeddedResource Update="Resources\ExceptionMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PdfAValidationResultFileContent.resx">
+      <LastGenOutput>PdfAVAlidationResultFileContent.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\FormatAnalysisResultFileContent.nb-NO.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

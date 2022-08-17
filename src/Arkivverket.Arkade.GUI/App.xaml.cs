@@ -13,6 +13,7 @@ using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Arkivverket.Arkade.GUI.ViewModels;
 using Arkivverket.Arkade.GUI.Views;
@@ -20,6 +21,7 @@ using Arkivverket.Arkade.GUI.Languages;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using Prism.Unity;
 using Serilog;
 using Settings = Arkivverket.Arkade.GUI.Properties.Settings;
 
@@ -107,15 +109,20 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<TestSessionXmlGenerator>();
             containerRegistry.Register<IReleaseInfoReader, GitHubReleaseInfoReader>();
             containerRegistry.Register<ArkadeVersion>();
+            containerRegistry.Register<IFileFormatInfoFilesGenerator, FileFormatInfoFilesGenerator>();
             containerRegistry.Register<IFileFormatIdentifier, SiegfriedFileFormatIdentifier>();
+            containerRegistry.Register<SiegfriedProcessRunner>();
             containerRegistry.Register<ISiardArchiveReader, SiardArchiveReader>();
             containerRegistry.Register<ISiardXmlTableReader, SiardXmlTableReader>();
             containerRegistry.Register<SiardTestEngine>();
+            containerRegistry.Register<SiardMetadataFileHelper>();
             containerRegistry.RegisterSingleton<ITestProgressReporter, GuiTestProgressReporter>();
+            containerRegistry.RegisterSingleton<IArchiveFormatValidator,ArchiveFormatValidator>();
         }
 
-        public static void MyHandler(object sender, UnhandledExceptionEventArgs args)
+        public void MyHandler(object sender, UnhandledExceptionEventArgs args)
         {
+            Container.GetContainer().Dispose();
             var e = (Exception) args.ExceptionObject;
             new DetailedExceptionMessage(e).ShowMessageBox();
             _log.Error("Unexpected exception", e);
@@ -134,6 +141,8 @@ namespace Arkivverket.Arkade.GUI
                 ArkadeProcessingArea.CleanUp();
 
             base.OnExit(e);
+
+            Container.GetContainer().Dispose();
         }
 
         private static void ApplyUserSettings()

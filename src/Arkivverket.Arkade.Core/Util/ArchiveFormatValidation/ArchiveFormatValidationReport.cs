@@ -27,13 +27,13 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             return ValidationResult switch
             {
                 Valid => string.Format(
-                    ArchiveFormatValidationMessages.FileHasApprovedFormat, ValidatedItem.FullName, ValidationInfo
+                    ArchiveFormatValidationMessages.ItemConformsWithFormat, ValidatedItem.Name, ValidationInfo
                 ),
                 Invalid => string.Format(
-                    ArchiveFormatValidationMessages.FileHasNotApprovedFormat, ValidatedItem.FullName, ValidationInfo
+                    ArchiveFormatValidationMessages.ItemDoesNotConformWithFormat, ValidatedItem.Name, ValidationInfo
                 ),
                 Error => string.Format(
-                    ArchiveFormatValidationMessages.FileFormatValidationErrorMessage, ValidatedItem.FullName, ValidationInfo
+                    ArchiveFormatValidationMessages.FileFormatValidationErrorMessage, ValidatedItem.Name, ValidationInfo
                 ),
                 _ => throw new ArgumentOutOfRangeException($"No summary for {ValidationResult}")
             };
@@ -41,7 +41,8 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 
         public override string ToString()
         {
-            return $@" Archive format validation report:{NewLine}{NewLine}"
+            return $@"{NewLine}"
+                   + $@" Archive format validation report:{NewLine}{NewLine}"
                    + $@" Validated item: {ValidatedItem.FullName}{NewLine}"
                    + $@" Validation format: {ValidationFormat.GetDescription()}{NewLine}"
                    + $@" Validation result: {ValidationResult}{NewLine}"

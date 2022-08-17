@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
 
             string fileName = GetFileNameForReport(archiveXmlUnit);
 
-            IEnumerable<string> validationErrorMessages;
+            Dictionary<string, List<long>> validationErrorMessages;
 
             try
             {
@@ -62,8 +62,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
                 );
             }
 
-            foreach (string errorMessage in validationErrorMessages)
-                _testResults.Add(new TestResult(ResultType.Error, new Location(fileName), errorMessage));
+            foreach ((string errorMessage, List<long> errorLocations) in validationErrorMessages)
+                _testResults.Add(new TestResult(ResultType.Error, new Location(fileName, errorLocations), errorMessage));
         }
 
         private void ReportFallbackOnBuiltInSchemas(ArchiveXmlUnit archiveXmlUnit)

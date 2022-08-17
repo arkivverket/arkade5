@@ -52,6 +52,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool _testRunHasFailed;
         private bool _canSelectTests;
         private bool _allTestsSelected;
+        private bool _isProcessingRecord;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
         private Visibility _numberOfProcessedRecordsVisibility = Visibility.Collapsed;
@@ -380,10 +381,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         
         private void OnRecordProcessingStartedEvent(object sender, EventArgs eventArgs)
         {
+            _isProcessingRecord = true;
         }
         private void OnRecordProcessingFinishedEvent(object sender, EventArgs eventArgs)
         {
-            NumberOfProcessedRecords = NumberOfProcessedRecords + 1;
+            if (_isProcessingRecord)
+                NumberOfProcessedRecords = NumberOfProcessedRecords + 1;
+
+            _isProcessingRecord = false;
         }
 
         private void OnNewArchiveInformationEvent(object sender, ArchiveInformationEventArgs eventArgs)

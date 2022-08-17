@@ -77,13 +77,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 // Error message if documentation states instances of disposal resolutions but none are found:
                 case true when _totalNumberOfDisposalResolutions == 0:
                     testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
-                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName),
+                        new Location(ArkadeConstants.ArkivstrukturXmlFileName),
                         Noark5Messages.NumberOfDisposalResolutionsMessage_DocTrueActualFalse));
                     break;
                 // Error message if documentation states no instances of disposal resolutions but some are found:
                 case false when _totalNumberOfDisposalResolutions > 0:
                     testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
-                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName, _disposalResolutionLocations),
+                        new Location(ArkadeConstants.ArkivstrukturXmlFileName, _disposalResolutionLocations),
                         Noark5Messages.NumberOfDisposalResolutionsMessage_DocFalseActualTrue));
                     break;
             }

@@ -84,7 +84,8 @@ namespace Arkivverket.Arkade.Core.Identify
                     AddmlXsdFileName, BuiltInAddmlSchemaVersion));
             }
 
-            workingDirectory.CopyAddmlFileToAdministrativeMetadata();
+            if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.Fagsystem)
+                workingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(archive.AddmlXmlUnit.File.Name);
 
             var testSession = new TestSession(archive);
 

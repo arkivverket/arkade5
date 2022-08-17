@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using Arkivverket.Arkade.CLI.Options;
+using Arkivverket.Arkade.CLI.Utils;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Languages;
@@ -14,6 +16,7 @@ using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
+using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Serilog;
 
 namespace Arkivverket.Arkade.CLI
@@ -27,6 +30,8 @@ namespace Arkivverket.Arkade.CLI
 
         private static bool _testRunHasFailed;
 
+        private static FormatAnalysisProgressPresenter _formatAnalysisProgressPresenter;
+
         static CommandLineRunner()
         {
             Arkade = new Core.Base.Arkade();
@@ -35,6 +40,9 @@ namespace Arkivverket.Arkade.CLI
             StatusEventHandler.TestProgressUpdatedEvent += OnTestProgressUpdatedEvent;
             StatusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
             StatusEventHandler.SiardValidationFinishedEvent += OnSiardValidationFinishedEvent;
+            StatusEventHandler.FormatAnalysisStartedEvent += OnFormatAnalysisStartedEvent;
+            StatusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdatedEvent;
+            StatusEventHandler.FormatAnalysisFinishedEvent += OnFormatAnalysisFinishedEvent;
 
             Log.Information($"\n" +
                             $"********************************************************************************\n" +
@@ -83,6 +91,29 @@ namespace Arkivverket.Arkade.CLI
             errorsAndWarnings.Where(e =>
                     e.StartsWith("WARN") && !ArkadeConstants.SuppressedDbptkWarningMessages.Contains(e)).ToList()
                 .ForEach(Log.Warning);
+        }
+
+        private static void OnFormatAnalysisStartedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
+            _formatAnalysisProgressPresenter = new FormatAnalysisProgressPresenter(eventArgs.TotalFiles);
+        }
+
+        private static void OnFormatAnalysisProgressUpdatedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
+            if (Console.IsOutputRedirected)
+                return;
+
+            _formatAnalysisProgressPresenter.FileCounter++;
+
+            _formatAnalysisProgressPresenter.DisplayProgress();
+        }
+
+        private static void OnFormatAnalysisFinishedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
+            if (Console.IsOutputRedirected)
+                return;
+
+            _formatAnalysisProgressPresenter.DisplayFinished();
         }
 
         private static string GetThirdPartySoftwareInfo()
@@ -183,16 +214,18 @@ namespace Arkivverket.Arkade.CLI
         {
             string command = GetRunningCommand(options.GetType().Name);
 
-            if (options.GenerateMetadataExample)
+            if (options.GenerateMetadataExampleFile)
             {
-                string metadataFileName = Path.Combine(options.OutputDirectory, OutputFileNames.MetadataFile);
-                new MetadataExampleGenerator().Generate(metadataFileName);
-                Log.Information(metadataFileName + " was created");
+                string metadataExampleFileName = Path.Combine(options.OutputDirectory,
+                    options.MetadataExampleFileName ?? OutputFileNames.MetadataExampleFile);
+                Arkade.GenerateMetadataExampleFile(metadataExampleFileName);
+                Log.Information(metadataExampleFileName + " was created");
             }
 
             if (options.GenerateNoark5TestSelectionFile)
             {
-                string noark5TestSelectionFileName = Path.Combine(options.OutputDirectory, OutputFileNames.Noark5TestSelectionFile);
+                string noark5TestSelectionFileName = Path.Combine(options.OutputDirectory,
+                    options.Noark5TestSelectionFileName ?? OutputFileNames.Noark5TestSelectionFile);
                 SupportedLanguage language = GetSupportedLanguage(options.OutputLanguage);
                 Noark5TestSelectionFileGenerator.Generate(noark5TestSelectionFileName, language);
                 Log.Information(noark5TestSelectionFileName + " was created");
@@ -207,15 +240,22 @@ namespace Arkivverket.Arkade.CLI
 
             var analysisDirectory = new DirectoryInfo(options.FormatCheckTarget);
 
+            if (options.OutputFileName != null)
+                Log.Warning("Parameter --output-filename / -O is obsolete and will be removed in a future release." +
+                            " Use parameter --format-analysis-filename / -F instead. Proceeding analysis ...");
+
             Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {analysisDirectory}");
-            string outputFileName = options.OutputFileName ?? string.Format(
+            string outputFileName = options.FormatAnalysisResultFileName ?? options.OutputFileName ?? string.Format(
                 OutputFileNames.FileFormatInfoFile,
                 analysisDirectory.Name.TrimEnd(Path.GetInvalidFileNameChars())
             );
 
             SupportedLanguage language = GetSupportedLanguage(options.OutputLanguage);
 
-            Arkade.GenerateFileFormatInfoFiles(analysisDirectory, options.OutputDirectory, outputFileName, language);
+            IEnumerable<IFileFormatInfo> fileFormatInfos = Arkade.
+                AnalyseFileFormats(analysisDirectory.FullName, FileFormatScanMode.Directory);
+            Arkade.GenerateFileFormatInfoFiles(fileFormatInfos, analysisDirectory.FullName,
+                Path.Combine(options.OutputDirectory, outputFileName), language);
             
             LogFinishedStatus(command);
         }
@@ -232,11 +272,17 @@ namespace Arkivverket.Arkade.CLI
 
             Log.Information($"{{{command.TrimEnd('e')}ing}} the format of {item} as {archiveFormat.GetDescription()}");
 
-            ArchiveFormatValidationReport validationReport = Arkade.ValidateArchiveFormat(item, archiveFormat, SupportedLanguage.en).Result;
+            ArchiveFormatValidationReport validationReport = Arkade.ValidateArchiveFormatAsync(
+                item, archiveFormat, options.OutputDirectory, SupportedLanguage.en).Result;
 
             Log.Information(validationReport.ToString());
 
             LogFinishedStatus(command);
+        }
+
+        internal static void Dispose()
+        {
+            Arkade.Dispose();
         }
 
         private static bool Test(string outputDirectory, TestSession testSession, bool createStandAloneTestReport = true)

@@ -61,7 +61,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 foreach (Class @class in superClassesWithFolder)
                 {
                     testResults.Add(new TestResult(ResultType.Error, 
-                        new Location(ArkadeConstants.ArkivuttrekkXmlFileName, @class.XmlLineNumber),
+                        new Location(ArkadeConstants.ArkivstrukturXmlFileName, @class.XmlLineNumber),
                         string.Format(Noark5Messages.ControlNoSuperclassesHasFoldersMessage, @class.SystemId)));
                 }
 

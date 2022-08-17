@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CommandLine;
 using CommandLine.Text;
 
-namespace Arkivverket.Arkade.CLI
+namespace Arkivverket.Arkade.CLI.Options
 {
     [Verb("pack", HelpText = "Pack archive data in accordance with a specified standard. Run this command followed by '--help' for more detailed info.")]
     public class PackOptions : ArchiveProcessingOptions
@@ -22,6 +22,7 @@ namespace Arkivverket.Arkade.CLI
             get
             {
                 yield return new Example("Pack archive data to SIP",
+                    OptionsConfig.FormatStyle,
                     new PackOptions
                     {
                         Archive = "noark5ArchiveDirectory",
@@ -31,6 +32,7 @@ namespace Arkivverket.Arkade.CLI
                         MetadataFile = "metadata.json"
                     });
                 yield return new Example("Pack archive data to AIP",
+                    OptionsConfig.FormatStyle,
                     new PackOptions
                     {
                         Archive = "noark5ArchiveDirectory",
