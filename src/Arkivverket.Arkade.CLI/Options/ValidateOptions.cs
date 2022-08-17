@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.CLI.Options
         public string Format { get; set; }
 
         [Option('o', "output-directory", 
-            HelpText = "Directory to place Arkade output files. Required if -i/--item is a directory.", 
+            HelpText = "Directory to place Arkade output files. Required if -i/--item is a directory and -f/--format is PDF/A.", 
             Required = false)]
         public string OutputDirectory { get; set; }
 

@@ -27,12 +27,14 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             {
                 result = Invalid;
                 resultIsAcceptable = DetermineAcceptability(missingEntries, format);
-            }
 
-            missingEntries = new List<string>(
-                missingEntries.Select(e => e.Replace(
-                    Path.GetFileNameWithoutExtension(item.Name) + Path.DirectorySeparatorChar, string.Empty
-                ))); // Excluding DIAS root directory name from entry paths
+                string rootPath = item.Extension == ".tar"
+                    ? $"{Path.GetFileNameWithoutExtension(item.Name)}{Path.DirectorySeparatorChar}"
+                    : item.FullName;
+
+                // Excluding DIAS root directory name from entry paths
+                missingEntries = missingEntries.Select(e => Path.GetRelativePath(rootPath, e)).ToList();
+            }
 
             string validationInfo = CreateValidationInfoString(result, resultIsAcceptable, missingEntries);
 
@@ -126,8 +128,8 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             return resultType switch
             {
                 Valid => NewLine + MandatoryDiasEntriesWereFound,
-                Invalid when resultIsAcceptable => string.Format(DiasAcceptableWithMissingEntries, "\t" + string.Join(NewLine + "\t", missingEntries)),
-                Invalid => string.Format(MissingDiasEntries, "\t" + string.Join(NewLine, missingEntries)),
+                Invalid when resultIsAcceptable => string.Format(DiasAcceptableWithMissingEntries, $"\t{string.Join($"{NewLine}\t", missingEntries)}"),
+                Invalid => string.Format(MissingDiasEntries, $"\t{string.Join($"{NewLine}\t", missingEntries)}"),
                 _ => throw new NotImplementedException()
             };
         }
