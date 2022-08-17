@@ -134,9 +134,9 @@ namespace Arkivverket.Arkade.CLI
 
             if (Directory.Exists(validateOptions.Item))
             {
-                if (archiveFormat == ArchiveFormat.PdfA && IsNullOrEmpty(validateOptions.OutputDirectory))
+                if (IsNullOrEmpty(validateOptions.OutputDirectory))
                 {
-                    Log.Error(@"The -o/--output-directory argument is required when -i/--item is a directory and -f/--format is PDF/A.");
+                    Log.Error(@"The -o/--output-directory argument is required when -i/--item is a directory.");
                     return false;
                 }
 

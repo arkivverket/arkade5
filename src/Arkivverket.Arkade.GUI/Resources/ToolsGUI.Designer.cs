@@ -88,7 +88,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive format files (*.pdf;*.tar)|*.pdf;*.tar.
+        ///   Looks up a localized string similar to Archive format files|*.pdf.
         /// </summary>
         public static string ArchiveFormatValidationFileSelectDialogFilter {
             get {

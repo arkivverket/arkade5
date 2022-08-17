@@ -11,16 +11,14 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         public readonly FileSystemInfo ValidatedItem;
         public readonly ArchiveFormat ValidationFormat;
         public readonly ArchiveFormatValidationResult ValidationResult;
-        public readonly bool IsAcceptable;
         public readonly string ValidationInfo;
 
         public ArchiveFormatValidationReport(FileSystemInfo validatedItem, ArchiveFormat validationFormat,
-            ArchiveFormatValidationResult validationResult, bool isAcceptable = false, string validationInfo = "")
+            ArchiveFormatValidationResult validationResult, string validationInfo = "")
         {
             ValidationResult = validationResult;
             ValidationFormat = validationFormat;
             ValidatedItem = validatedItem;
-            IsAcceptable = isAcceptable;
             ValidationInfo = validationInfo;
         }
 
