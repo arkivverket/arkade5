@@ -102,28 +102,22 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             // counters have been implemented. Additionally, this validator is more strict than veraPDF in which
             // PDF/A-profiles it accepts - see field _approvedPdfAProfiles.
             IEnumerable<Job> validationJobs = (await _validator.ValidateBatchWithDetailedReportAsync(
-                new[] { directory.FullName }, "")).Jobs.AllJobs.AsEnumerable();
+                new[] { directory.FullName }, "-r")).Jobs.AllJobs.AsEnumerable();
 
-            var partialReport = new PdfAValidationReport();
+            var pdfAValidationReport = new PdfAValidationReport();
             
-            foreach (FileSystemInfo fileSystemInfo in directory.EnumerateFileSystemInfos())
+            foreach (FileInfo fileInfo in directory.EnumerateFiles("*", SearchOption.AllDirectories))
             {
-                if (fileSystemInfo is DirectoryInfo directoryInfo)
-                {
-                    partialReport.Merge(await CreatePdfAValidationReportAsync(directoryInfo));
-                    continue;
-                }
+                pdfAValidationReport.TotalNumberOfFiles++;
 
-                partialReport.TotalNumberOfFiles++;
+                string itemName = Path.GetRelativePath(_baseDirectoryPath, fileInfo.FullName);
 
-                string itemName = Path.GetRelativePath(_baseDirectoryPath, fileSystemInfo.FullName);
-
-                Job job = validationJobs.FirstOrDefault(j => j.Item.Name.Equals(fileSystemInfo.FullName));
+                Job job = validationJobs.FirstOrDefault(j => j.Item.Name.Equals(fileInfo.FullName));
 
                 if (job == default(Job))
                 {
-                    partialReport.NumberOfUndeterminedFiles++;
-                    partialReport.ValidationItems.Add(new PdfAValidationItem
+                    pdfAValidationReport.NumberOfUndeterminedFiles++;
+                    pdfAValidationReport.ValidationItems.Add(new PdfAValidationItem
                     {
                         ItemName = itemName,
                         PdfAProfile = "N/A",
@@ -137,10 +131,10 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 
                 bool itemIsValid = validationReport.IsCompliant && _approvedPdfAProfiles.Contains(reportedPdfAProfile);
 
-                if (itemIsValid) partialReport.NumberOfValidFiles++;
-                else partialReport.NumberOfInvalidFiles++;
+                if (itemIsValid) pdfAValidationReport.NumberOfValidFiles++;
+                else pdfAValidationReport.NumberOfInvalidFiles++;
 
-                partialReport.ValidationItems.Add(new PdfAValidationItem
+                pdfAValidationReport.ValidationItems.Add(new PdfAValidationItem
                 {
                     ItemName = itemName,
                     PdfAProfile = reportedPdfAProfile,
@@ -148,7 +142,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 });
             }
 
-            return partialReport;
+            return pdfAValidationReport;
         }
 
         public void Dispose()
