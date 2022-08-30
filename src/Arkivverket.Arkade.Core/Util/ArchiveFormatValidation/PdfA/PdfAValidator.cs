@@ -101,8 +101,16 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             // information only keep track of files ending with .pdf. All other files are ignored. Hence, custom
             // counters have been implemented. Additionally, this validator is more strict than veraPDF in which
             // PDF/A-profiles it accepts - see field _approvedPdfAProfiles.
-            IEnumerable<Job> validationJobs = (await _validator.ValidateBatchWithDetailedReportAsync(
-                new[] { directory.FullName }, "-r")).Jobs.AllJobs.AsEnumerable();
+            IEnumerable<Job> validationJobs = null;
+            try
+            {
+                validationJobs = (await _validator.ValidateBatchWithDetailedReportAsync(
+                        new[] { directory.FullName }, "-r")).Jobs.AllJobs.AsEnumerable();
+            }
+            catch (Exception e)
+            {
+                Log.Error($"veraPDF encountered a problem: {e}");
+            }
 
             var pdfAValidationReport = new PdfAValidationReport();
             
@@ -112,7 +120,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 
                 string itemName = Path.GetRelativePath(_baseDirectoryPath, fileInfo.FullName);
 
-                Job job = validationJobs.FirstOrDefault(j => j.Item.Name.Equals(fileInfo.FullName));
+                Job job = validationJobs?.FirstOrDefault(j => j.Item.Name.Equals(fileInfo.FullName));
 
                 if (job == default(Job))
                 {
