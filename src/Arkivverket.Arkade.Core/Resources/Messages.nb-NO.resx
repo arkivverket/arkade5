@@ -275,7 +275,7 @@ Aktuell sjekksum: {1}</value>
     <value>Verdier kortere enn minstelengde: {0}</value>
   </data>
   <data name="ControlNotNullDescription" xml:space="preserve">
-    <value>Kontrollerer om det fines null-verdier i feltet</value>
+    <value>Kontrollerer om det finnes null-verdier i feltet</value>
   </data>
   <data name="ControlNotNullMessage" xml:space="preserve">
     <value>NULL-verdier finnes</value>
