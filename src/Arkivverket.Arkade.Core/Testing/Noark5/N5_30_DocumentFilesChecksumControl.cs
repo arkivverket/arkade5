@@ -72,6 +72,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("systemID", "dokumentbeskrivelse"))
                 _currentDocumentDescriptionSystemId = eventArgs.Value;
 
+            if (eventArgs.Path.Matches("dokumentobjekt"))
+                _currentDocumentObject.DocumentObjectXmlLineNumber = eventArgs.LineNumber;
+
             if (eventArgs.Path.Matches("referanseDokumentfil", "dokumentobjekt"))
             {
                 _currentDocumentObject.DocumentFileReference = eventArgs.Value;
@@ -111,9 +114,19 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 }
                 catch (Exception)
                 {
-                    testResult = new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivstrukturXmlFileName,
-                        _currentDocumentObject.DocumentFileReferenceXmlLineNumber), string.Format(
-                        Noark5Messages.FileNotFound, _currentDocumentObject.DocumentFileReference));
+                    if (string.IsNullOrEmpty(_currentDocumentObject.DocumentFileReference) &&
+                        _currentDocumentObject.DocumentFileReferenceXmlLineNumber == 0)
+                    {
+                        testResult = new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivstrukturXmlFileName, 
+                                _currentDocumentObject.DocumentObjectXmlLineNumber), 
+                            Noark5Messages.DocumentFileReferenceInvalidMessage);
+                    }
+                    else
+                    {
+                        testResult = new TestResult(ResultType.Error, new Location(ArkadeConstants.ArkivstrukturXmlFileName,
+                            _currentDocumentObject.DocumentFileReferenceXmlLineNumber), string.Format(
+                            Noark5Messages.FileNotFound, _currentDocumentObject.DocumentFileReference));
+                    }
                 }
 
                 if (testResult != null)
@@ -181,6 +194,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public string ChecksumAlgorithm { get; set; }
             public long DocumentFileReferenceXmlLineNumber { get; set; }
             public long ChecksumXmlLineNumber { get; set; }
+            public long DocumentObjectXmlLineNumber { get; set; }
         }
 
     }

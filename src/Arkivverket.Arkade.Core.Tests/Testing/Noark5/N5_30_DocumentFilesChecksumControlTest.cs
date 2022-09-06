@@ -151,6 +151,40 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.TestResults.GetNumberOfResults().Should().Be(2);
         }
 
+        [Fact]
+        public void ShouldShowEmptyDocumentfileReferenceMessageWhenEmpty()
+        {
+            XmlElementHelper xmlElementHelper = new XmlElementHelper()
+                .Add("arkiv", new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "archivePartSystemId_1")
+                        .Add("tittel", "archivePartTitle_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("registrering", new XmlElementHelper()
+                                        .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                            .Add("systemID", "someSystemId_1")
+                                            .Add("dokumentobjekt", new XmlElementHelper()
+                                                // "/" is supported:
+                                                .Add("referanseDokumentfil", "")
+                                                .Add("sjekksum", // Actual checksum of testdata file:
+                                                    "3B29DFCC4286E50B180AF8F21904C86F8AA42A23C4055C3A71D0512F9AE3886F")
+                                                .Add("sjekksumAlgoritme", "SHA-256")))))))));
+
+
+            TestRun testRun = CreateTestRun(xmlElementHelper);
+
+            List<TestResult> testResults = testRun.TestResults.TestsResults;
+
+            testResults.Should().Contain(r =>
+                r.IsError() && r.Message.Equals(
+                    "Verdien til \"referanseDokumentfil\" er ikke gyldig"
+                ));
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
+        }
+
         private static TestRun CreateTestRun(XmlElementHelper xmlElementHelper)
         {
             const string testdataDirectory = "TestData\\Noark5\\DocumentfilesControl\\FilesWithDocumentedChecksums";

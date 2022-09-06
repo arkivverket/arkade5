@@ -410,4 +410,7 @@ Generert:  {2}</value>
   <data name="CouldNotFindValidSpecificationFile" xml:space="preserve">
     <value>Klarte ikke finne en gyldig spesifikasjonsfil</value>
   </data>
+  <data name="DocumentFileReferenceInvalidMessage" xml:space="preserve">
+    <value>Verdien til "referanseDokumentfil" er ikke gyldig</value>
+  </data>
 </root>

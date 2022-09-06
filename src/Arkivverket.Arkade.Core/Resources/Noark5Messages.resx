@@ -413,4 +413,7 @@ Generated: {2}</value>
   <data name="CouldNotFindValidSpecificationFile" xml:space="preserve">
     <value>Could not find a valid specification file</value>
   </data>
+  <data name="DocumentFileReferenceInvalidMessage" xml:space="preserve">
+    <value>The value of "referanseDokumentfil" is not valid</value>
+  </data>
 </root>
