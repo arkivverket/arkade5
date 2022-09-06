@@ -223,7 +223,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
 
                 new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
 
-                var csvData = $"{quotingString}A{quotingString}B{quotingString}";
+                var csvData = $"{quotingString}A{quotingString}{quotingString}B{quotingString}";
 
                 var streamReader = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(csvData)));
                 var recordReader = new DelimiterFileFormatReader(new FlatFile(addmlFlatFileDefinition), streamReader);
@@ -262,10 +262,10 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
                     new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
                     new AddmlFieldDefinitionBuilder().WithRecordDefinition(recordDefinition).Build();
 
-                    string csvData = $"{quotingString}A{quotingString}B{quotingString}{fieldSeparator}" +
-                                     $"C{quotingString}{fieldSeparator}" +
+                    string csvData = $"{quotingString}A{quotingString}{quotingString}B{quotingString}{fieldSeparator}" +
+                                     $"{quotingString}C{quotingString}{quotingString}{quotingString}{fieldSeparator}" +
                                      $"{quotingString}D{quotingString}{quotingString}{fieldSeparator} asd{quotingString}{fieldSeparator}" +
-                                     $"E{quotingString}noko{quotingString}{fieldSeparator}" +
+                                     $"{quotingString}E{quotingString}{quotingString}noko{quotingString}{quotingString}{quotingString}{fieldSeparator}" +
                                      "F";
 
                     var streamReader = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(csvData)));
@@ -278,7 +278,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
                     recordReader.Current?.Fields?.Count.Should().Be(5);
                     recordReader.Current?.Fields?[0].Value.Should().Be($"A{quotingString}B");
                     recordReader.Current?.Fields?[1].Value.Should().Be($"C{quotingString}");
-                    recordReader.Current?.Fields?[2].Value.Should().Be($"D{quotingString}{quotingString}{fieldSeparator} asd");
+                    recordReader.Current?.Fields?[2].Value.Should().Be($"D{quotingString}{fieldSeparator} asd");
                     recordReader.Current?.Fields?[3].Value.Should().Be($"E{quotingString}noko{quotingString}");
                     recordReader.Current?.Fields?[4].Value.Should().Be("F");
                 }
