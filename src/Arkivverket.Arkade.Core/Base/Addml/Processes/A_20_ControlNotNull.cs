@@ -63,10 +63,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
         protected override void DoRun(Field field)
         {
-            string value = field.Value;
-            bool isNull = field.Definition.Type.IsNull(value);
+            if (field.Definition.IsNullable)
+                return;
 
-            if (!isNull)
+            string value = field.Value;
+            bool isValidNullValue = field.Definition.Type.IsValidNullValue(value);
+
+            if (isValidNullValue || !string.IsNullOrWhiteSpace(value))
                 return;
 
             FieldIndex index = field.Definition.GetIndex();

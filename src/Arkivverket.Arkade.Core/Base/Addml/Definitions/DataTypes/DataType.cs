@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 
         }
 
-        public bool IsNull(string s)
+        public bool IsValidNullValue(string s)
         {
             return _nullValues != null && _nullValues.Contains(s);
         }

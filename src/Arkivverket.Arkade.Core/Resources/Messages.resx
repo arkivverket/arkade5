@@ -133,7 +133,9 @@
     <value>Counts the number of occurrences of null in the field</value>
   </data>
   <data name="AnalyseCountNullMessage" xml:space="preserve">
-    <value>{0} occurrences of null</value>
+    <value>{0} occurrences of null
+Valid null values: {1}
+Invalid null values: {2}</value>
   </data>
   <data name="AnalyseCountRecordDefinitionOccurrencesDescription" xml:space="preserve">
     <value>Counts the number of records for each record type</value>
