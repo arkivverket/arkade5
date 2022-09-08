@@ -4,6 +4,7 @@ using System.Text;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
+using Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes;
 using Arkivverket.Arkade.Core.Tests.Base.Addml.Builders;
 using FluentAssertions;
 using Xunit;
@@ -306,6 +307,45 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
             var actionOfCreatingRecordReader = (Action)(() => ((Func<object>)(() => new DelimiterFileFormatReader(new FlatFile(addmlFlatFileDefinition), streamReader)))());
 
             actionOfCreatingRecordReader.Should().Throw<ArkadeAddmlDelimiterException>();
+        }
+
+        [Fact]
+        public void DateFieldsEncapsulatedByQuotesShouldBeValid()
+        {
+            const string d = ";";
+            const string q = "\"";
+            AddmlFlatFileDefinition addmlFlatFileDefinition = new AddmlFlatFileDefinitionBuilder()
+                .WithRecordSeparator("CRLF")
+                .WithFieldSeparator(d)
+                .WithQuotingChar(q)
+                .Build();
+
+            AddmlRecordDefinition recordDefinition = new AddmlRecordDefinitionBuilder()
+                .WithAddmlFlatFileDefinition(addmlFlatFileDefinition).Build();
+
+            new AddmlFieldDefinitionBuilder()
+                .WithRecordDefinition(recordDefinition)
+                .WithDataType(new DateDataType("YYYY-MM-DD"))
+                .WithName("date")
+                .Build();
+            new AddmlFieldDefinitionBuilder()
+                .WithRecordDefinition(recordDefinition)
+                .WithDataType(new DateDataType("YYYY-MM-DD"))
+                .WithName("date")
+                .Build();
+
+            const string csvData = $"{q}2022-09-06{q}{d}{q}2022-09-05{q}";
+
+            using var streamReader = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(csvData)));
+            var recordReader = new DelimiterFileFormatReader(new FlatFile(addmlFlatFileDefinition), streamReader);
+            var actionOfGettingCurrent = (Action)(() => ((Func<object>)(() => recordReader.Current))());
+
+            recordReader.MoveNext();
+
+            actionOfGettingCurrent.Should().NotThrow<Exception>();
+            recordReader.Current?.Fields?.Count.Should().Be(2);
+            recordReader.Current?.Fields?[0].Value.Should().Be("2022-09-06");
+            recordReader.Current?.Fields?[1].Value.Should().Be("2022-09-05");
         }
     }
 }
