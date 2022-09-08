@@ -159,4 +159,7 @@
   <data name="WriteAccessDeniedCaption" xml:space="preserve">
     <value>Write access denied</value>
   </data>
+  <data name="InvalidFieldFormatMessage" xml:space="preserve">
+    <value>Invalid field format '{0}' for data type '{1}'. Accepted field formats are: {2}</value>
+  </data>
 </root>

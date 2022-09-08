@@ -15,11 +15,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 
         public override bool IsValid(string timeString, bool isNullable)
         {
-            TimeSpan unUsed;
-
             string escapedLowerCaseFormat = EscapeColonsAndDashes(_timeFormat).ToLower();
 
-            return TimeSpan.TryParseExact(timeString, escapedLowerCaseFormat, CultureInfo.InvariantCulture, out unUsed)
+            return TimeSpan.TryParseExact(timeString, escapedLowerCaseFormat, CultureInfo.InvariantCulture, out _)
                 || base.IsValid(timeString, isNullable);
         }
 

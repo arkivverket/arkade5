@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 {
@@ -18,7 +18,6 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         protected DataType(List<string> nullValues)
         {
             _nullValues = nullValues;
-
         }
 
         public bool IsValidNullValue(string s)

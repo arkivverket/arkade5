@@ -1,11 +1,10 @@
-
-using System.Collections.Generic;
-using Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes;
+﻿using System.Collections.Generic;
 using System;
 using System.Globalization;
 using System.Linq;
+using Arkivverket.Arkade.Core.Resources;
 
-namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
+namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 {
     public class FloatDataType : DataType
     {
@@ -61,7 +60,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             }
             else
             {
-                string message = "Illegal field format '" + fieldFormat + "' for data type 'float'. Accepted field formats are " + string.Join(", ", _acceptedFieldFormats);
+                string message = string.Format(ExceptionMessages.InvalidFieldFormatMessage, fieldFormat, "float",
+                    string.Join(", ", _acceptedFieldFormats));
                 throw new ArgumentException(message);
             }
         }
@@ -95,9 +95,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             else
             {
                 var nfi = new NumberFormatInfo
-            {
-                NumberDecimalSeparator = _numberDecimalSeparator,
-                NumberGroupSeparator = _numberGroupSeparator?? (_numberDecimalSeparator == "." ? "," : "."),
+                {
+                    NumberDecimalSeparator = _numberDecimalSeparator,
+                    NumberGroupSeparator = _numberGroupSeparator?? (_numberDecimalSeparator == "." ? "," : "."),
                 };
 
                 if (_numberGroupSeparator == null)

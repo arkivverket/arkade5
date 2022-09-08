@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using Xunit;
-using Arkivverket.Arkade.Core.Base.Addml.Definitions;
+using Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions.DataTypes
 {
