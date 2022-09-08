@@ -84,20 +84,23 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 
 
 
-        public override bool IsValid(string s)
+        public override bool IsValid(string s, bool isNullable)
         {
-            s = s.Replace(" ", "");
+            bool isValid;
+            string stringWithoutWhitespace = s.Replace(" ", "");
 
             if (FieldFormatThousandSeparators.Contains(_fieldFormat))
             {
-                return IsValidThousandSeparatorFormat(s);
+                isValid = IsValidThousandSeparatorFormat(stringWithoutWhitespace);
             } else if (_fieldFormat == FieldFormatExponent)
             {
-                return IsValidExponentFormat(s);
+                isValid = IsValidExponentFormat(stringWithoutWhitespace);
             } else
             {
-                return IsValidIntegerFormat(s);
+                isValid = IsValidIntegerFormat(stringWithoutWhitespace);
             }
+
+            return isValid || base.IsValid(s, isNullable);
         }
 
         private bool IsValidIntegerFormat(string s)

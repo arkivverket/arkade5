@@ -9,31 +9,31 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions.DataTypes
         [Fact]
         public void IsValidShouldReturnTrueIfTimeStringAndFormatStringAreValid()
         {
-            new TimeDataType("hhmmss").IsValid("101010").Should().BeTrue();
+            new TimeDataType("hhmmss").IsValid("101010", true).Should().BeTrue();
 
-            new TimeDataType("HHMMSS").IsValid("101010").Should().BeTrue();
+            new TimeDataType("HHMMSS").IsValid("101010", true).Should().BeTrue();
 
-            new TimeDataType("hh:mm:ss").IsValid("10:10:10").Should().BeTrue();
+            new TimeDataType("hh:mm:ss").IsValid("10:10:10", true).Should().BeTrue();
 
-            new TimeDataType("hh-mm-ss").IsValid("10-10-10").Should().BeTrue();
+            new TimeDataType("hh-mm-ss").IsValid("10-10-10", true).Should().BeTrue();
         }
 
         [Fact]
         public void IsValidShouldReturnFalseIfTimeStringIsInvalid()
         {
-            new TimeDataType("hhmmss").IsValid("240000").Should().BeFalse();
+            new TimeDataType("hhmmss").IsValid("240000", true).Should().BeFalse();
 
-            new TimeDataType("hhmmss").IsValid("").Should().BeFalse();
+            new TimeDataType("hhmmss").IsValid("", false).Should().BeFalse();
         }
 
         [Fact]
         public void IsValidShouldReturnFalseIfFormatStringIsInvalid()
         {
-            new TimeDataType("hh mm ss").IsValid("10 10 10").Should().BeFalse();
+            new TimeDataType("hh mm ss").IsValid("10 10 10", true).Should().BeFalse();
 
-            new TimeDataType("xxyyzz").IsValid("101010").Should().BeFalse();
+            new TimeDataType("xxyyzz").IsValid("101010", true).Should().BeFalse();
 
-            new TimeDataType("").IsValid("101010").Should().BeFalse();
+            new TimeDataType("").IsValid("101010", true).Should().BeFalse();
         }
     }
 }

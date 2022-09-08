@@ -13,13 +13,14 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             _timeFormat = timeFormat;
         }
 
-        public override bool IsValid(string timeString)
+        public override bool IsValid(string timeString, bool isNullable)
         {
             TimeSpan unUsed;
 
             string escapedLowerCaseFormat = EscapeColonsAndDashes(_timeFormat).ToLower();
 
-            return TimeSpan.TryParseExact(timeString, escapedLowerCaseFormat, CultureInfo.InvariantCulture, out unUsed);
+            return TimeSpan.TryParseExact(timeString, escapedLowerCaseFormat, CultureInfo.InvariantCulture, out unUsed)
+                || base.IsValid(timeString, isNullable);
         }
 
         private static string EscapeColonsAndDashes(string someString)

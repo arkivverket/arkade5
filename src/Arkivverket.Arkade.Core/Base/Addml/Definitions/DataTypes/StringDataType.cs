@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Core.Util;
 using System;
 using System.Collections.Generic;
 
@@ -42,20 +42,15 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             }
         }
 
-        public override bool IsValid(string s)
+        public override bool IsValid(string s, bool isNullable)
         {
-            if (_fieldFormat == StringDataTypeAccountNumber)
+            return _fieldFormat switch
             {
-                return NorwegianAccountNumber.Verify(s);
-            } else if (_fieldFormat == StringDataTypeBirthNumber)
-            {
-                return NorwegianBirthNumber.Verify(s);
-            } else if (_fieldFormat == StringDataTypeOrganizationNumber)
-            {
-                return NorwegianOrganizationNumber.Verify(s);
-            } else {
-                return true;
-            }
+                StringDataTypeAccountNumber => NorwegianAccountNumber.Verify(s), 
+                StringDataTypeBirthNumber => NorwegianBirthNumber.Verify(s), 
+                StringDataTypeOrganizationNumber => NorwegianOrganizationNumber.Verify(s),
+                _ => !string.IsNullOrWhiteSpace(s)
+            } || base.IsValid(s, isNullable);
         }
 
         protected bool Equals(StringDataType other)

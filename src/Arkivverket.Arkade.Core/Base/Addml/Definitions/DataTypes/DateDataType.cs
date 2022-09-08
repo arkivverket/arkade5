@@ -74,7 +74,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             return _fieldFormat?.GetHashCode() ?? 0;
         }
 
-        public override bool IsValid(string s)
+        public override bool IsValid(string s, bool isNullable)
         {
             return _dateFormat switch
             {
@@ -99,7 +99,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
                     CultureInfo.InvariantCulture, DateTimeStyles.None, out _
                 ),
                 _ => false
-            };
+            } || base.IsValid(s, isNullable);
         }
 
         private static string ConvertIso8601CalendarDateTimeStringToCSharpDateTimeString(string iso8601DateTimeString)

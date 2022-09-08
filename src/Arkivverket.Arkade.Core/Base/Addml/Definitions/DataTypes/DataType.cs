@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 {
@@ -10,7 +10,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         {
         }
 
-        public abstract bool IsValid(string s);
+        public virtual bool IsValid(string s, bool isNullable)
+        {
+            return IsValidNullValue(s) || isNullable && string.IsNullOrEmpty(s);
+        }
 
         protected DataType(List<string> nullValues)
         {

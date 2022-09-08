@@ -50,9 +50,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             return _falseString;
         }
 
-        public override bool IsValid(string s)
+        public override bool IsValid(string s, bool isNullable)
         {
-            return s == GetTrue() || s == GetFalse() || IsValidNullValue(s);
+            return s == GetTrue() || s == GetFalse() || base.IsValid(s, isNullable);
         }
 
         protected bool Equals(BooleanDataType other)

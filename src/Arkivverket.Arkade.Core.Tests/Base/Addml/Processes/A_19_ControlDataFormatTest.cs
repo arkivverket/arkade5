@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core.Base;
+﻿using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes;
@@ -78,18 +79,70 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
         }
 
         [Fact]
+        public void ShouldReportFormatValidityForIntegerNullValuesCorrectly()
+        {
+            AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
+                .NonNullable()
+                .WithDataType(new IntegerDataType("n.nnn", new List<string> { "null", "" }))
+                .Build();
+            AddmlFieldDefinition fieldDefinition2 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new IntegerDataType("n.nnn", null))
+                .NonNullable()
+                .Build();
+            AddmlFieldDefinition fieldDefinition3 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new IntegerDataType("n.nnn", new List<string> { "null", "" }))
+                .Build();
+            AddmlFieldDefinition fieldDefinition4 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new IntegerDataType("n.nnn", null))
+                .Build();
+
+            FlatFile flatFile = new(fieldDefinition1.GetAddmlFlatFileDefinition());
+
+            A_19_ControlDataFormat test = new();
+            test.Run(flatFile);
+            test.Run(new Field(fieldDefinition1, "null"), 1);
+            test.Run(new Field(fieldDefinition1, ""), 2);
+            test.Run(new Field(fieldDefinition1, " "), 3);
+            test.Run(new Field(fieldDefinition2, "null"), 1);
+            test.Run(new Field(fieldDefinition2, ""), 2);
+            test.Run(new Field(fieldDefinition2, " "), 3);
+            test.Run(new Field(fieldDefinition3, "null"), 1);
+            test.Run(new Field(fieldDefinition3, ""), 2);
+            test.Run(new Field(fieldDefinition3, " "), 3);
+            test.Run(new Field(fieldDefinition4, "null"), 1);
+            test.Run(new Field(fieldDefinition4, ""), 2);
+            test.Run(new Field(fieldDefinition4, " "), 3);
+            test.EndOfFile();
+
+            TestRun testRun = test.GetTestRun();
+            testRun.IsSuccess().Should().BeFalse();
+            testRun.TestResults.GetNumberOfResults().Should().Be(4);
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 3");
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: ' '");
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 1, 2, 3");
+            testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: 'null', '', ' '");
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition3.GetIndex()} - linje(r): 3");
+            testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig dataformat: ' '");
+            testRun.TestResults.TestsResults[3].Location.ToString().Should().Be($"{fieldDefinition4.GetIndex()} - linje(r): 1, 3");
+            testRun.TestResults.TestsResults[3].Message.Should().Be("Ugyldig dataformat: 'null', ' '");
+        }
+
+        [Fact]
         public void ShouldReportIncorrectStringDataFormat()
         {
             AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new StringDataType("fnr", null))
+                .NonNullable()
                 .Build();
 
             AddmlFieldDefinition fieldDefinition2 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new StringDataType("org", null))
+                .NonNullable()
                 .Build();
 
             AddmlFieldDefinition fieldDefinition3 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new StringDataType("knr", null))
+                .NonNullable()
                 .Build();
 
             AddmlFieldDefinition fieldDefinition4 = new AddmlFieldDefinitionBuilder()
@@ -130,26 +183,32 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
         {
             AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new FloatDataType("nn,nn", null))
+                .NonNullable()
                 .Build();
             
             AddmlFieldDefinition fieldDefinition2 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new FloatDataType("n.nnn,nn", null))
+                .NonNullable()
                 .Build();
 
             AddmlFieldDefinition fieldDefinition3 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new FloatDataType("nn.nn", null))
+                .NonNullable()
                 .Build();
 
             AddmlFieldDefinition fieldDefinition4 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new FloatDataType("n nnn,nn", null))
+                .NonNullable()
                 .Build();
 
             AddmlFieldDefinition fieldDefinition5 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new FloatDataType("n,nnn.nn", null))
+                .NonNullable()
                 .Build();
 
             AddmlFieldDefinition fieldDefinition6 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new FloatDataType("n nnn.nn", null))
+                .NonNullable()
                 .Build();
 
             FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());
@@ -212,6 +271,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
         {
             AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new DateDataType("dd.MM.yyyyTHH:mm:sszzz", null))
+                .NonNullable()
                 .Build();
 
             FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());
@@ -237,9 +297,11 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
         {
             AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new BooleanDataType("Y/N", null))
+                .NonNullable()
                 .Build();
             AddmlFieldDefinition fieldDefinition2 = new AddmlFieldDefinitionBuilder()
                 .WithDataType(new BooleanDataType("Ja/Nei", null))
+                .NonNullable()
                 .Build();
 
             FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());
