@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Languages
             CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture(language.ToString());
 
             Resources.FormatAnalysisResultFileContent.Culture = cultureInfo;
-            Resources.OutputFileNames.Culture = cultureInfo;
+            Resources.OutputFileNames.Culture = cultureInfo;  // TODO: This has no effect as output file name already is defined by GUI/CLI
         }
 
         public static void SetResourceLanguageForArchiveFormatValidation(SupportedLanguage language)

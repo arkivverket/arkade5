@@ -248,7 +248,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 AddExtension = true,
                 Filter = ToolsGUI.SaveFormatFileExtensionFilter,
                 FileName = string.Format(
-                    OutputFileNames.FileFormatInfoFile,
+                    OutputFileNames.FileFormatInfoFile, // TODO: Set output file name language
                     Path.GetFileName(DirectoryForFormatCheck.TrimEnd(Path.GetInvalidFileNameChars()))
                 )
             };
@@ -387,7 +387,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             var saveFileDialog = new SaveFileDialog
             {
                 Title = ToolsGUI.MetadataExampleFileGenerationSaveFileDialogTitle,
-                FileName = OutputFileNames.MetadataExampleFile,
+                FileName = OutputFileNames.MetadataExampleFile, // TODO: Set output file name language
                 Filter = @"JSON (*.json)|*.json",
                 DefaultExt = "json",
             };

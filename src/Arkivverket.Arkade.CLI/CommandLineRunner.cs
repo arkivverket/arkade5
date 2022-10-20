@@ -217,7 +217,7 @@ namespace Arkivverket.Arkade.CLI
             if (options.GenerateMetadataExampleFile)
             {
                 string metadataExampleFileName = Path.Combine(options.OutputDirectory,
-                    options.MetadataExampleFileName ?? OutputFileNames.MetadataExampleFile);
+                    options.MetadataExampleFileName ?? OutputFileNames.MetadataExampleFile); // TODO: Set output file name language
                 Arkade.GenerateMetadataExampleFile(metadataExampleFileName);
                 Log.Information(metadataExampleFileName + " was created");
             }
@@ -225,7 +225,7 @@ namespace Arkivverket.Arkade.CLI
             if (options.GenerateNoark5TestSelectionFile)
             {
                 string noark5TestSelectionFileName = Path.Combine(options.OutputDirectory,
-                    options.Noark5TestSelectionFileName ?? OutputFileNames.Noark5TestSelectionFile);
+                    options.Noark5TestSelectionFileName ?? OutputFileNames.Noark5TestSelectionFile); // TODO: Set output file name language
                 SupportedLanguage language = GetSupportedLanguage(options.OutputLanguage);
                 Noark5TestSelectionFileGenerator.Generate(noark5TestSelectionFileName, language);
                 Log.Information(noark5TestSelectionFileName + " was created");
@@ -246,7 +246,7 @@ namespace Arkivverket.Arkade.CLI
 
             Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {analysisDirectory}");
             string outputFileName = options.FormatAnalysisResultFileName ?? options.OutputFileName ?? string.Format(
-                OutputFileNames.FileFormatInfoFile,
+                OutputFileNames.FileFormatInfoFile, // TODO: Set output file name language
                 analysisDirectory.Name.TrimEnd(Path.GetInvalidFileNameChars())
             );
 
