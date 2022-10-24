@@ -121,7 +121,8 @@
     <value>Valideringen mislyktes. Se feillogg for detaljer.</value>
   </data>
   <data name="ItemConformsWithFormat" xml:space="preserve">
-    <value>{0} samsvarer med det angitte arkivformatet: {1}</value>
+    <value>{0} samsvarer med det angitte arkivformatet:
+{1}</value>
   </data>
   <data name="ItemDoesNotConformWithFormat" xml:space="preserve">
     <value>{0} samsvarer ikke med det angitte arkivformatet.
@@ -133,5 +134,9 @@
    Ugyldige filer: {2}
    Ikke mulig å fastslå: {3}
  Detaljert rapport: {4}</value>
+  </data>
+  <data name="DirectoryValidationResultMessage" xml:space="preserve">
+    <value>Innhold i {0} er validert mot det angitte arkivformat:
+{1}</value>
   </data>
 </root>

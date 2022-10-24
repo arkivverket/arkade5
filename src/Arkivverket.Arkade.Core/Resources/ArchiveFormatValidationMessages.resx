@@ -101,10 +101,11 @@
     <value>The validation failed. See error log for details.</value>
   </data>
   <data name="ItemConformsWithFormat" xml:space="preserve">
-    <value>{0} conforms with the specified archive format: {1}</value>
+    <value>{0} conforms with the selected archive format:
+{1}</value>
   </data>
   <data name="ItemDoesNotConformWithFormat" xml:space="preserve">
-    <value>{0} does not conform with the specified archive format.
+    <value>{0} does not conform with the selected archive format.
 {1}</value>
   </data>
   <data name="PdfABatchValidationInfoMessage" xml:space="preserve">
@@ -113,5 +114,9 @@
    Invalid files: {2}
    Unable to determine: {3}
  Detailed report: {4}</value>
+  </data>
+  <data name="DirectoryValidationResultMessage" xml:space="preserve">
+    <value>Content of {0} has been validated against the selected archive format:
+{1}</value>
   </data>
 </root>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Resources;
 using static System.Environment;
@@ -24,6 +24,12 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 
         public string ValidationSummary()
         {
+            if (ValidatedItem is DirectoryInfo && ValidationFormat is ArchiveFormat.PdfA)
+            {
+                return string.Format(
+                    ArchiveFormatValidationMessages.DirectoryValidationResultMessage, ValidatedItem.Name, ValidationInfo
+                );
+            }
             return ValidationResult switch
             {
                 Valid => string.Format(

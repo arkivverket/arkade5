@@ -61,6 +61,16 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Content of {0} has been validated against the selected archive format:
+        ///{1}.
+        /// </summary>
+        internal static string DirectoryValidationResultMessage {
+            get {
+                return ResourceManager.GetString("DirectoryValidationResultMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The validation failed. See error log for details..
         /// </summary>
         internal static string FileFormatValidationErrorMessage {
@@ -70,7 +80,8 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} conforms with the specified archive format: {1}.
+        ///   Looks up a localized string similar to {0} conforms with the selected archive format:
+        ///{1}.
         /// </summary>
         internal static string ItemConformsWithFormat {
             get {
@@ -79,7 +90,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} does not conform with the specified archive format.
+        ///   Looks up a localized string similar to {0} does not conform with the selected archive format.
         ///{1}.
         /// </summary>
         internal static string ItemDoesNotConformWithFormat {
