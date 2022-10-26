@@ -61,6 +61,17 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The National Archives of Norway accepts this DIAS structure.
+        ///However, the DIAS standard additionally requires the following item(s):
+        ///{0}.
+        /// </summary>
+        internal static string DiasAcceptableWithMissingEntries {
+            get {
+                return ResourceManager.GetString("DiasAcceptableWithMissingEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Content of {0} has been validated against the selected archive format:
         ///{1}.
         /// </summary>
@@ -96,6 +107,25 @@ namespace Arkivverket.Arkade.Core.Resources {
         internal static string ItemDoesNotConformWithFormat {
             get {
                 return ResourceManager.GetString("ItemDoesNotConformWithFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All mandatory files and directories were found.
+        /// </summary>
+        internal static string MandatoryDiasEntriesWereFound {
+            get {
+                return ResourceManager.GetString("MandatoryDiasEntriesWereFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing files/directories:
+        ///{0}.
+        /// </summary>
+        internal static string MissingDiasEntries {
+            get {
+                return ResourceManager.GetString("MissingDiasEntries", resourceCulture);
             }
         }
         

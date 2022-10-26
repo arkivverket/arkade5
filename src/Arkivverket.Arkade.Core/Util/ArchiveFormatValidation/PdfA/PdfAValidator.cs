@@ -56,7 +56,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 Log.Error("Validation failed: " + exception.Message);
 
                 return new ArchiveFormatValidationReport(
-                    item, ArchiveFormat.PdfA, Error, FileFormatValidationErrorMessage
+                    item, ArchiveFormat.PdfA, Error, false, FileFormatValidationErrorMessage
                 );
             }
         }

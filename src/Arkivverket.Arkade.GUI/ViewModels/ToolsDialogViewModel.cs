@@ -337,7 +337,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private async void ValidateArchiveFormat()
         {
             var resultFileDirectoryPath = "";
-            if (_archiveFormatValidationItem is DirectoryInfo)
+            if (ArchiveFormatValidationFormat == ArchiveFormat.PdfA.GetDescription() && _archiveFormatValidationItem is DirectoryInfo)
             {
                 var canWriteToResultFileDirectory = false;
 

@@ -108,6 +108,18 @@
     <value>{0} does not conform with the selected archive format.
 {1}</value>
   </data>
+  <data name="MissingDiasEntries" xml:space="preserve">
+    <value>Missing files/directories:
+{0}</value>
+  </data>
+  <data name="MandatoryDiasEntriesWereFound" xml:space="preserve">
+    <value>All mandatory files and directories were found</value>
+  </data>
+  <data name="DiasAcceptableWithMissingEntries" xml:space="preserve">
+    <value>The National Archives of Norway accepts this DIAS structure.
+However, the DIAS standard additionally requires the following item(s):
+{0}</value>
+  </data>
   <data name="PdfABatchValidationInfoMessage" xml:space="preserve">
     <value> Total number of validated files: {0}
    Valid files: {1}
