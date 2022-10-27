@@ -136,8 +136,7 @@
     <value>Alle obligatoriske filer og kataloger ble funnet</value>
   </data>
   <data name="DiasAcceptableWithMissingEntries" xml:space="preserve">
-    <value>Arkivverket aksepterer denne DIAS-strukturen.
-For å oppfylle DIAS-standarden kreves imidlertid følgende element(er):
+    <value>Arkivverket aksepterer denne DIAS-strukturen på tross av følgende manglende filer/kataloger:
 {0}</value>
   </data>
   <data name="PdfABatchValidationInfoMessage" xml:space="preserve">

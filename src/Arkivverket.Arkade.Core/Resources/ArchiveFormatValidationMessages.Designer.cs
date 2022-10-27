@@ -61,8 +61,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The National Archives of Norway accepts this DIAS structure.
-        ///However, the DIAS standard additionally requires the following item(s):
+        ///   Looks up a localized string similar to The National Archives of Norway accepts this DIAS structure despite the following missing files/directories:
         ///{0}.
         /// </summary>
         internal static string DiasAcceptableWithMissingEntries {

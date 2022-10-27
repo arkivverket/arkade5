@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.CLI.Options
                         Format = "PDF/A"
                     });
 
-                yield return new Example("Validate a specified tar or directory to fulfill the DIAS standard",
+                yield return new Example("Validate the file/directory structure of a specified IP against DIAS",
                     OptionsConfig.FormatStyle,
                     new ValidateOptions
                     {
