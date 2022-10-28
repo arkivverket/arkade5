@@ -85,7 +85,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 
             DataType dataType = field.Definition.Type;
 
-            if (dataType.IsValid(value, field.Definition.IsNullable))
+            if (string.IsNullOrEmpty(value) || dataType.IsValid(value, field.Definition.IsNullable))
             {
                 return;
             }

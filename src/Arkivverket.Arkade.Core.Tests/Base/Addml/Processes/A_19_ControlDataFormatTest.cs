@@ -104,13 +104,13 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             test.Run(new Field(fieldDefinition1, ""), 2);
             test.Run(new Field(fieldDefinition1, " "), 3);
             test.Run(new Field(fieldDefinition2, "null"), 1);
-            test.Run(new Field(fieldDefinition2, ""), 2);
+            test.Run(new Field(fieldDefinition2, ""), 2); // empty value is handled by A.20
             test.Run(new Field(fieldDefinition2, " "), 3);
             test.Run(new Field(fieldDefinition3, "null"), 1);
-            test.Run(new Field(fieldDefinition3, ""), 2);
+            test.Run(new Field(fieldDefinition3, ""), 2); // empty value is handled by A.20
             test.Run(new Field(fieldDefinition3, " "), 3);
             test.Run(new Field(fieldDefinition4, "null"), 1);
-            test.Run(new Field(fieldDefinition4, ""), 2);
+            test.Run(new Field(fieldDefinition4, ""), 2); // empty value is handled by A.20
             test.Run(new Field(fieldDefinition4, " "), 3);
             test.EndOfFile();
 
@@ -119,8 +119,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             testRun.TestResults.GetNumberOfResults().Should().Be(4);
             testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 3");
             testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: ' '");
-            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 1, 2, 3");
-            testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: 'null', '', ' '");
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 1, 3");
+            testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: 'null', ' '");
             testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition3.GetIndex()} - linje(r): 3");
             testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig dataformat: ' '");
             testRun.TestResults.TestsResults[3].Location.ToString().Should().Be($"{fieldDefinition4.GetIndex()} - linje(r): 1, 3");
@@ -170,12 +170,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(3);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 1, 2");
-            testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '', '17080232930'");
-            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 1, 2");
-            testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: '', '914994781'");
-            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition3.GetIndex()} - linje(r): 1, 2");
-            testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig dataformat: '', '63450608211'");
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 2");
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '17080232930'");
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 2");
+            testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: '914994781'");
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition3.GetIndex()} - linje(r): 2");
+            testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig dataformat: '63450608211'");
         }
 
         [Fact]
@@ -252,18 +252,18 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(6);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 1, 4, 5, 6");
-            testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '', '1.200', '1.200,3', 'not'");
-            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 1, 5");
-            testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: '', 'not'");
-            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition3.GetIndex()} - linje(r): 1, 4, 5, 6");
-            testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig dataformat: '', '1,200', '1,200.3', 'not'");
-            testRun.TestResults.TestsResults[3].Location.ToString().Should().Be($"{fieldDefinition4.GetIndex()} - linje(r): 1, 5");
-            testRun.TestResults.TestsResults[3].Message.Should().Be("Ugyldig dataformat: '', 'not'");
-            testRun.TestResults.TestsResults[4].Location.ToString().Should().Be($"{fieldDefinition5.GetIndex()} - linje(r): 1, 5");
-            testRun.TestResults.TestsResults[4].Message.Should().Be("Ugyldig dataformat: '', 'not'");
-            testRun.TestResults.TestsResults[5].Location.ToString().Should().Be($"{fieldDefinition6.GetIndex()} - linje(r): 1, 5");
-            testRun.TestResults.TestsResults[5].Message.Should().Be("Ugyldig dataformat: '', 'not'");
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 4, 5, 6");
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '1.200', '1.200,3', 'not'");
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 5");
+            testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: 'not'");
+            testRun.TestResults.TestsResults[2].Location.ToString().Should().Be($"{fieldDefinition3.GetIndex()} - linje(r): 4, 5, 6");
+            testRun.TestResults.TestsResults[2].Message.Should().Be("Ugyldig dataformat: '1,200', '1,200.3', 'not'");
+            testRun.TestResults.TestsResults[3].Location.ToString().Should().Be($"{fieldDefinition4.GetIndex()} - linje(r): 5");
+            testRun.TestResults.TestsResults[3].Message.Should().Be("Ugyldig dataformat: 'not'");
+            testRun.TestResults.TestsResults[4].Location.ToString().Should().Be($"{fieldDefinition5.GetIndex()} - linje(r): 5");
+            testRun.TestResults.TestsResults[4].Message.Should().Be("Ugyldig dataformat: 'not'");
+            testRun.TestResults.TestsResults[5].Location.ToString().Should().Be($"{fieldDefinition6.GetIndex()} - linje(r): 5");
+            testRun.TestResults.TestsResults[5].Message.Should().Be("Ugyldig dataformat: 'not'");
         }
 
         [Fact]
@@ -278,7 +278,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_19_ControlDataFormat test = new A_19_ControlDataFormat();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinition1, ""), 1);
+            test.Run(new Field(fieldDefinition1, ""), 1); // empty value is handled by A.20
             test.Run(new Field(fieldDefinition1, "18.11.2016T08:43:00+00:00"), 2); // ok
             test.Run(new Field(fieldDefinition1, "notadate"), 3);
             test.Run(new Field(fieldDefinition1, "40.11.2016T08:43:00+00:00"), 4);
@@ -288,8 +288,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(1);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 1, 3, 4, 5");
-            testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '', 'notadate', '40.11.2016T08:43:00+00:00', '18.11.2016'");
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 3, 4, 5");
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: 'notadate', '40.11.2016T08:43:00+00:00', '18.11.2016'");
         }
 
         [Fact]
@@ -308,12 +308,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
 
             A_19_ControlDataFormat test = new A_19_ControlDataFormat();
             test.Run(flatFile);
-            test.Run(new Field(fieldDefinition1, ""), 1);
+            test.Run(new Field(fieldDefinition1, ""), 1); // empty value is handled by A.20
             test.Run(new Field(fieldDefinition1, "Y"), 2);
             test.Run(new Field(fieldDefinition1, "N"), 3);
             test.Run(new Field(fieldDefinition1, "Ja"), 4);
             test.Run(new Field(fieldDefinition1, "Nei"), 5);
-            test.Run(new Field(fieldDefinition2, ""), 1);
+            test.Run(new Field(fieldDefinition2, ""), 1); // empty value is handled by A.20
             test.Run(new Field(fieldDefinition2, "Y"), 2);
             test.Run(new Field(fieldDefinition2, "N"), 3);
             test.Run(new Field(fieldDefinition2, "Ja"), 4);
@@ -323,10 +323,10 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
             TestRun testRun = test.GetTestRun();
             testRun.IsSuccess().Should().BeFalse();
             testRun.TestResults.GetNumberOfResults().Should().Be(2);
-            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 1, 4, 5");
-            testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: '', 'Ja', 'Nei'");
-            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 1, 2, 3");
-            testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: '', 'Y', 'N'");
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 4, 5");
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: 'Ja', 'Nei'");
+            testRun.TestResults.TestsResults[1].Location.ToString().Should().Be($"{fieldDefinition2.GetIndex()} - linje(r): 2, 3");
+            testRun.TestResults.TestsResults[1].Message.Should().Be("Ugyldig dataformat: 'Y', 'N'");
         }
 
         [Fact]
