@@ -143,7 +143,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
                 string entryName = Path.Join(path, entry.Name);
 
                 if (entry is DiasFile)
-                    File.Create(entryName);
+                    using (File.Create(entryName)) { } //This is needed to release the resource before cleanup
 
                 if (entry is DiasDirectory diasDirectory)
                 {
