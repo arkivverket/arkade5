@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 
             var testDirectory = new DirectoryInfo("testDirectory");
 
-            DiasProvider.Write(diasDirectory, testDirectory.FullName);
+            Write(diasDirectory, testDirectory.FullName);
 
             _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSipN5).Result
                 .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 
             var testDirectory = new DirectoryInfo("testDirectory");
 
-            DiasProvider.Write(diasDirectory, testDirectory.FullName);
+            Write(diasDirectory, testDirectory.FullName);
 
             ArchiveFormatValidationReport report = _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSipN5)
                 .Result;
@@ -128,6 +128,28 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 
                 archive.PutNextEntry(tarEntry);
                 archive.CloseEntry();
+            }
+        }
+
+        private static void Write(DiasDirectory diasDirectory, string directoryName)
+        {
+            WriteEntries(diasDirectory.GetEntries(), Directory.CreateDirectory(directoryName).FullName);
+        }
+
+        private static void WriteEntries(IEnumerable<DiasEntry> entries, string path)
+        {
+            foreach (DiasEntry entry in entries)
+            {
+                string entryName = Path.Join(path, entry.Name);
+
+                if (entry is DiasFile)
+                    File.Create(entryName);
+
+                if (entry is DiasDirectory diasDirectory)
+                {
+                    DirectoryInfo directory = Directory.CreateDirectory(entryName);
+                    WriteEntries(diasDirectory.GetEntries(), directory.FullName);
+                }
             }
         }
 
