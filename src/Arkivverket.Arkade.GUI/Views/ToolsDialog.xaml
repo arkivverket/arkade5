@@ -71,9 +71,9 @@
                     <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
                         <Label Content="{x:Static lang:ToolsGUI.ArchiveFormatValidationFormatSelectMenuLabel}"
                                FontWeight="Bold" />
-                        <ComboBox Margin="5 0 0 0" Width="90" HorizontalAlignment="Center"
+                        <ComboBox Margin="5 0 0 0" Width="155" HorizontalAlignment="Center"
                                   ItemsSource="{Binding ArchiveFormatValidationFormats}"
-                                  SelectedValue="{Binding ArchiveFormatValidationFormats[0]}"
+                                  SelectedValue="{Binding ArchiveFormatValidationFormat}"
                                   SelectedItem="{Binding ArchiveFormatValidationFormat}"
                                   Cursor="Hand">
                         </ComboBox>

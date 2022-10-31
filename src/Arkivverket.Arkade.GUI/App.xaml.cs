@@ -118,6 +118,7 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<SiardTestEngine>();
             containerRegistry.Register<ISiardValidator, SiardValidator>();
             containerRegistry.Register<SiardMetadataFileHelper>();
+            containerRegistry.Register<InformationPackageTypeIdentifier>();
             containerRegistry.RegisterSingleton<ITestProgressReporter, GuiTestProgressReporter>();
             containerRegistry.RegisterSingleton<IArchiveFormatValidator,ArchiveFormatValidator>();
         }

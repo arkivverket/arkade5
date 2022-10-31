@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
@@ -28,6 +29,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private ArkadeApi _arkadeApi;
         private readonly IStatusEventHandler _statusEventHandler;
+        private readonly IArchiveTypeIdentifier _archiveTypeIdentifier;
+        private readonly InformationPackageTypeIdentifier _informationPackageTypeIdentifier;
 
         // ---------- File format analysis --------------
 
@@ -142,10 +145,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _closeButtonIsEnabled, value);
         }
 
-        public ToolsDialogViewModel(ArkadeApi arkadeApi, IStatusEventHandler statusEventHandler)
+        public ToolsDialogViewModel(ArkadeApi arkadeApi, IStatusEventHandler statusEventHandler, 
+            IArchiveTypeIdentifier archiveTypeIdentifier, InformationPackageTypeIdentifier ipTypeIdentifier)
         {
             _arkadeApi = arkadeApi;
             _statusEventHandler = statusEventHandler;
+            _archiveTypeIdentifier = archiveTypeIdentifier;
+            _informationPackageTypeIdentifier = ipTypeIdentifier;
 
             // ---------- File format analysis --------------
 
@@ -311,12 +317,30 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 out string fileToValidate
             );
 
-            if (fileToValidate != null)
+            if (fileToValidate == null)
+                return;
+
+            if (Path.GetExtension(fileToValidate).Equals(".tar"))
             {
-                ArchiveFormatValidationItemPath = fileToValidate;
-                _archiveFormatValidationItem = new FileInfo(fileToValidate);
-                ValidateArchiveFormatButtonIsEnabled = true;
+                ArchiveType? archiveType = _archiveTypeIdentifier.IdentifyTypeOfChosenArchiveFile(fileToValidate);
+                PackageType? ipType = _informationPackageTypeIdentifier.IdentifyPackageTypeFromArchiveFile(fileToValidate);
+
+                ArchiveFormatValidationFormat = ipType switch
+                {
+                    PackageType.ArchivalInformationPackage when archiveType != null => archiveType == ArchiveType.Noark5
+                        ? ArchiveFormat.DiasAipN5.GetDescription()
+                        : ArchiveFormat.DiasAip.GetDescription(),
+                    PackageType.SubmissionInformationPackage when archiveType != null =>
+                        archiveType == ArchiveType.Noark5
+                            ? ArchiveFormat.DiasSipN5.GetDescription()
+                            : ArchiveFormat.DiasSip.GetDescription(),
+                    _ => ArchiveFormat.PdfA.GetDescription()
+                };
             }
+            
+            ArchiveFormatValidationItemPath = fileToValidate;
+            _archiveFormatValidationItem = new FileInfo(fileToValidate);
+            ValidateArchiveFormatButtonIsEnabled = true;
         }
 
         private void ChooseDirectoryForArchiveFormatValidation()
