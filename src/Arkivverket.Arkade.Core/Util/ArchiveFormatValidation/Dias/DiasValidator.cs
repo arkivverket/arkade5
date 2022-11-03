@@ -129,6 +129,12 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             if (isMissingChangeLogXml || isMissingRunningJournalXml || isMissingPublicJournalXml)
                 return true;
 
+            if (format == ArchiveFormat.DiasAipN5)
+                return missingEntries.All(e =>
+                    e.Contains(EadXmlFileName) || e.Contains(EadXsdFileName) ||
+                    e.Contains(EacCpfXmlFileName) || e.Contains(EacCpfXsdFileName) ||
+                    e.Contains(SystemhaandbokPdfFileName));
+
             return false;
         }
 
