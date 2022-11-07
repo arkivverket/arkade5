@@ -405,13 +405,10 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             foreach (FileDescription fileDescription in metadata.FileDescriptions)
             {
-                if (!Enum.TryParse($"application/{fileDescription.Extension}", true, out mdSecTypeMdRefMIMETYPE mimeType))
-                    mimeType = default;
-
                 metsFiles.Add(new fileType
                 {
                     ID = $"fileId_{fileDescription.Id}",
-                    MIMETYPE = mimeType,
+                    MIMETYPE = MimeTypeParser(fileDescription),
                     USE = "Datafile",
                     CHECKSUMTYPE = mdSecTypeMdRefCHECKSUMTYPE.SHA256,
                     CHECKSUM = fileDescription.Sha256Checksum.ToLower(),
@@ -433,6 +430,23 @@ namespace Arkivverket.Arkade.Core.Metadata
             };
 
             mets.fileSec = new metsTypeFileSec { fileGrp = new[] { metsTypeFileSecFileGrp } };
+        }
+
+        private static mdSecTypeMdRefMIMETYPE MimeTypeParser(FileDescription fileDescription)
+        {
+            //https://mimetype.io/
+            return fileDescription.Extension switch
+            {
+                "pdf" => mdSecTypeMdRefMIMETYPE.imagepdf,
+                "jpe" or "jpeg" or "jpg" or "pjpg" or "jfif" or "jfif-tbnl" or "jif" => mdSecTypeMdRefMIMETYPE.imagejpg, 
+                "tiff" or "tif" => mdSecTypeMdRefMIMETYPE.imagetiff,
+                "xml" or "xpdl" or "xsl" or "gml" or "xsd" => mdSecTypeMdRefMIMETYPE.applicationxml,
+                "tar" => mdSecTypeMdRefMIMETYPE.applicationxtar,
+                "m2a" or "m3a" or "mp2" or "mp2a" or "mp3" or "mpga" => mdSecTypeMdRefMIMETYPE.audiomp3,
+                "m1v" or "m2v" or "mpa" or "mpe" or "mpeg" or "mpg" => mdSecTypeMdRefMIMETYPE.videompg,
+                "conf" or "def" or "diff" or "in" or "ksh" or "list" or "log" or "pl" or "text" or "txt" => mdSecTypeMdRefMIMETYPE.textplain,
+                _ => mdSecTypeMdRefMIMETYPE.textplain // todo: should have a 'undefined' fallback of sorts - not possible with current version (1.9) of DIAS-METS.xsd
+            };
         }
     }
 }
