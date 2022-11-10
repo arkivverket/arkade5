@@ -16,6 +16,38 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 
         [Fact]
         [Trait("Dependency", "IO")]
+        public void ShouldValidateSipDirectory()
+        {
+            DiasDirectory diasDirectory = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSip);
+
+            var testDirectory = new DirectoryInfo("testDirectory");
+
+            Write(diasDirectory, testDirectory.FullName);
+
+            _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSip).Result
+                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
+
+            Delete(testDirectory);
+        }
+
+        [Fact]
+        [Trait("Dependency", "IO")]
+        public void ShouldValidateAipDirectory()
+        {
+            DiasDirectory diasDirectory = DiasProvider.ProvideForFormat(ArchiveFormat.DiasAip);
+
+            var testDirectory = new DirectoryInfo("testDirectory");
+
+            Write(diasDirectory, testDirectory.FullName);
+
+            _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasAip).Result
+                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
+
+            Delete(testDirectory);
+        }
+
+        [Fact]
+        [Trait("Dependency", "IO")]
         public void ShouldValidateN5SipDirectory()
         {
             DiasDirectory diasDirectory = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSipN5);
@@ -25,6 +57,22 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
             Write(diasDirectory, testDirectory.FullName);
 
             _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSipN5).Result
+                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
+
+            Delete(testDirectory);
+        }
+
+        [Fact]
+        [Trait("Dependency", "IO")]
+        public void ShouldValidateN5AipDirectory()
+        {
+            DiasDirectory diasDirectory = DiasProvider.ProvideForFormat(ArchiveFormat.DiasAipN5);
+
+            var testDirectory = new DirectoryInfo("testDirectory");
+
+            Write(diasDirectory, testDirectory.FullName);
+
+            _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasAipN5).Result
                 .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
 
             Delete(testDirectory);
@@ -51,6 +99,34 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 
         [Fact]
         [Trait("Dependency", "IO")]
+        public void ShouldValidateSipZipArchive()
+        {
+            DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSip).GetEntries();
+
+            FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", diasEntries);
+
+            _diasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasSip).Result
+                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
+
+            Delete(diasTarArchive);
+        }
+
+        [Fact]
+        [Trait("Dependency", "IO")]
+        public void ShouldValidateAipZipArchive()
+        {
+            DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(ArchiveFormat.DiasAip).GetEntries();
+
+            FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", diasEntries);
+
+            _diasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasAip).Result
+                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
+
+            Delete(diasTarArchive);
+        }
+
+        [Fact]
+        [Trait("Dependency", "IO")]
         public void ShouldValidateN5SipZipArchive()
         {
             DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSipN5).GetEntries();
@@ -65,9 +141,23 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 
         [Fact]
         [Trait("Dependency", "IO")]
+        public void ShouldValidateN5AipZipArchive()
+        {
+            DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(ArchiveFormat.DiasAipN5).GetEntries();
+
+            FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", diasEntries);
+
+            _diasValidator.ValidateAsync(diasTarArchive, ArchiveFormat.DiasAipN5).Result
+                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
+
+            Delete(diasTarArchive);
+        }
+
+        [Fact]
+        [Trait("Dependency", "IO")]
         public void ShouldInvalidateN5SipZipArchive()
         {
-            DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSip).GetEntries();
+            DiasEntry[] diasEntries = DiasProvider.ProvideForFormat(ArchiveFormat.DiasAip).GetEntries();
 
             FileInfo diasTarArchive = CreateDiasTarArchive("testArchive.tar", diasEntries);
 

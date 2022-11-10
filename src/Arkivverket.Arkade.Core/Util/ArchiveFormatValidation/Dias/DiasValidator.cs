@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -5,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Arkivverket.Arkade.Core.Base;
 using ICSharpCode.SharpZipLib.Tar;
+using Serilog;
 using static System.Environment;
 using static Arkivverket.Arkade.Core.Resources.ArchiveFormatValidationMessages;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
@@ -16,7 +18,17 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
     {
         public async Task<ArchiveFormatValidationReport> ValidateAsync(FileSystemInfo item, ArchiveFormat format)
         {
-            List<string> missingEntries = await GetMissingEntriesAsync(item, format);
+            List<string> missingEntries;
+
+            try
+            {
+                missingEntries = await GetMissingEntriesAsync(item, format);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, e.Message);
+                return new ArchiveFormatValidationReport(item, format, Error);
+            }
 
             ArchiveFormatValidationResult result;
             var resultIsAcceptable = true;
@@ -116,6 +128,12 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 return false;
             if (isMissingChangeLogXml || isMissingRunningJournalXml || isMissingPublicJournalXml)
                 return true;
+
+            if (format == ArchiveFormat.DiasAipN5)
+                return missingEntries.All(e =>
+                    e.Contains(EadXmlFileName) || e.Contains(EadXsdFileName) ||
+                    e.Contains(EacCpfXmlFileName) || e.Contains(EacCpfXsdFileName) ||
+                    e.Contains(SystemhaandbokPdfFileName));
 
             return false;
         }
