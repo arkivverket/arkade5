@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 
@@ -8,6 +7,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 {
     public class DelimiterFileFormatReader : FileFormatReader
     {
+        private readonly string _recordDelimiter;
         private readonly string _fieldDelimiter;
         private readonly string _quotingChar;
         private readonly IEnumerator<string> _lines;
@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         public DelimiterFileFormatReader(FlatFile flatFile, StreamReader streamReader) : base(flatFile.Definition)
         {
-            string recordDelimiter = GetRecordDelimiter(flatFile);
+            _recordDelimiter = GetRecordDelimiter(flatFile);
             _fieldDelimiter = GetFieldDelimiter(flatFile);
             _quotingChar = flatFile.Definition.QuotingChar;
             if (_quotingChar != null && _fieldDelimiter.Equals(_quotingChar))
@@ -32,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                     Resources.AddmlMessages.FieldDelimiterAndQuotingCharCannotHaveSameValue, _quotingChar,
                     _fieldDelimiter));
             _recordIdentifierPosition = flatFile.GetRecordIdentifierPosition();
-            _lines = new DelimiterFileRecordEnumerable(streamReader, recordDelimiter, _quotingChar).GetEnumerator();
+            _lines = new DelimiterFileRecordEnumerable(streamReader, _recordDelimiter, _quotingChar).GetEnumerator();
         }
 
         private string GetFieldDelimiter(FlatFile flatFile)
@@ -59,7 +59,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             string currentLine = _lines.Current;
 
-            string [] strings = JoinQuotedValues(Split(currentLine));
+            string[] strings = Util.CsvHelper.Split(currentLine, _recordDelimiter, _fieldDelimiter, _quotingChar);
+            
 
             string recordIdentifier = null;
             if (_recordIdentifierPosition.HasValue)
@@ -113,109 +114,6 @@ namespace Arkivverket.Arkade.Core.Base.Addml
         public override void Reset()
         {
             _lines.Reset();
-        }
-
-        private IEnumerable<string> Split(string stringToSplit)
-        {
-            var strings = new List<string>();
-            var buffer = "";
-            var fdIndex = 0;
-
-            foreach (char c in stringToSplit)
-            {
-                buffer += c;
-
-                if (c == _fieldDelimiter[fdIndex])
-                {
-                    fdIndex++;
-
-                    if (fdIndex != _fieldDelimiter.Length)
-                        continue;
-                    
-                    strings.Add(buffer[..^_fieldDelimiter.Length]);
-                    fdIndex = 0;
-                    buffer = "";
-                }
-                else
-                    fdIndex = 0;
-            }
-
-            strings.Add(buffer);
-
-            return strings;
-        }
-
-        private string[] JoinQuotedValues(IEnumerable<string> splitFieldValues)
-        {
-            if (_quotingChar == null)
-                return splitFieldValues.ToArray();
-
-            var fieldValues = new List<string>();
-            var fieldValue = "";
-            var concatenating = false;
-            foreach (string splitFieldValue in splitFieldValues)
-            {
-                if (concatenating)
-                {
-                    fieldValue += _fieldDelimiter;
-
-                    if (EndsWithOddNumberOfQuotingChars(splitFieldValue))
-                    {
-                        fieldValue += TrimQuotingCharFromEnd(splitFieldValue);
-                        fieldValues.Add(fieldValue);
-                        fieldValue = "";
-                        concatenating = false;
-                    }
-                    else
-                        fieldValue += splitFieldValue;
-                    
-                }
-                else
-                {
-                    if (splitFieldValue.StartsWith(_quotingChar))
-                    {
-                        if (EndsWithOddNumberOfQuotingChars(splitFieldValue))
-                            fieldValues.Add(TrimQuotingChar(splitFieldValue));
-                        else
-                        {
-                            fieldValue = TrimQuotingCharFromStart(splitFieldValue);
-                            concatenating = true;
-                        }
-                    }
-                    else
-                        fieldValues.Add(splitFieldValue);
-                }
-            }
-
-            return fieldValues.ToArray();
-        }
-
-        private string TrimQuotingChar(string valueWithQuotingChar)
-        {
-            return valueWithQuotingChar[_quotingChar.Length..^_quotingChar.Length];
-        }
-
-        private string TrimQuotingCharFromStart(string valueWithQuotingChar)
-        {
-            return valueWithQuotingChar[_quotingChar.Length..];
-        }
-
-        private string TrimQuotingCharFromEnd(string valueWithQuotingChar)
-        {
-            return valueWithQuotingChar[..^_quotingChar.Length];
-        }
-
-        private bool EndsWithOddNumberOfQuotingChars(string value)
-        {
-            var numberOfQuotingChars = 0;
-            string copy = value;
-            while (copy.EndsWith(_quotingChar))
-            {
-                numberOfQuotingChars++;
-                copy = TrimQuotingCharFromEnd(copy);
-            }
-
-            return numberOfQuotingChars % 2 == 1;
         }
     }
 }

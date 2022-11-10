@@ -9,11 +9,19 @@ namespace Arkivverket.Arkade.Core.Base
     {
         public IEnumerable<TestRun> TestRuns => _testRuns.ToList();
 
+        internal ArchiveTestingTool TestTool { get; set; }
+
         private readonly SortedSet<TestRun> _testRuns;
 
         public TestSuite()
         {
             _testRuns = new SortedSet<TestRun>();
+        }
+
+        internal TestSuite(ArchiveTestingTool testingTool)
+        {
+            _testRuns = new SortedSet<TestRun>();
+            TestTool = testingTool;
         }
 
         public void AddTestRun(TestRun testRun)

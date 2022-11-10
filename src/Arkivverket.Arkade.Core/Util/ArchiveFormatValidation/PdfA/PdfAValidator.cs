@@ -56,7 +56,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 Log.Error("Validation failed: " + exception.Message);
 
                 return new ArchiveFormatValidationReport(
-                    item, ArchiveFormat.PdfA, Error, FileFormatValidationErrorMessage
+                    item, ArchiveFormat.PdfA, Error, false, FileFormatValidationErrorMessage
                 );
             }
         }
@@ -101,29 +101,31 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             // information only keep track of files ending with .pdf. All other files are ignored. Hence, custom
             // counters have been implemented. Additionally, this validator is more strict than veraPDF in which
             // PDF/A-profiles it accepts - see field _approvedPdfAProfiles.
-            IEnumerable<Job> validationJobs = (await _validator.ValidateBatchWithDetailedReportAsync(
-                new[] { directory.FullName }, "")).Jobs.AllJobs.AsEnumerable();
-
-            var partialReport = new PdfAValidationReport();
-            
-            foreach (FileSystemInfo fileSystemInfo in directory.EnumerateFileSystemInfos())
+            IEnumerable<Job> validationJobs = null;
+            try
             {
-                if (fileSystemInfo is DirectoryInfo directoryInfo)
-                {
-                    partialReport.Merge(await CreatePdfAValidationReportAsync(directoryInfo));
-                    continue;
-                }
+                validationJobs = (await _validator.ValidateBatchWithDetailedReportAsync(
+                        new[] { directory.FullName }, "-r")).Jobs.AllJobs.AsEnumerable();
+            }
+            catch (Exception e)
+            {
+                Log.Error($"veraPDF encountered a problem: {e}");
+            }
 
-                partialReport.TotalNumberOfFiles++;
+            var pdfAValidationReport = new PdfAValidationReport();
+            
+            foreach (FileInfo fileInfo in directory.EnumerateFiles("*", SearchOption.AllDirectories))
+            {
+                pdfAValidationReport.TotalNumberOfFiles++;
 
-                string itemName = Path.GetRelativePath(_baseDirectoryPath, fileSystemInfo.FullName);
+                string itemName = Path.GetRelativePath(_baseDirectoryPath, fileInfo.FullName);
 
-                Job job = validationJobs.FirstOrDefault(j => j.Item.Name.Equals(fileSystemInfo.FullName));
+                Job job = validationJobs?.FirstOrDefault(j => j.Item.Name.Equals(fileInfo.FullName));
 
                 if (job == default(Job))
                 {
-                    partialReport.NumberOfUndeterminedFiles++;
-                    partialReport.ValidationItems.Add(new PdfAValidationItem
+                    pdfAValidationReport.NumberOfUndeterminedFiles++;
+                    pdfAValidationReport.ValidationItems.Add(new PdfAValidationItem
                     {
                         ItemName = itemName,
                         PdfAProfile = "N/A",
@@ -137,10 +139,10 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 
                 bool itemIsValid = validationReport.IsCompliant && _approvedPdfAProfiles.Contains(reportedPdfAProfile);
 
-                if (itemIsValid) partialReport.NumberOfValidFiles++;
-                else partialReport.NumberOfInvalidFiles++;
+                if (itemIsValid) pdfAValidationReport.NumberOfValidFiles++;
+                else pdfAValidationReport.NumberOfInvalidFiles++;
 
-                partialReport.ValidationItems.Add(new PdfAValidationItem
+                pdfAValidationReport.ValidationItems.Add(new PdfAValidationItem
                 {
                     ItemName = itemName,
                     PdfAProfile = reportedPdfAProfile,
@@ -148,7 +150,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 });
             }
 
-            return partialReport;
+            return pdfAValidationReport;
         }
 
         public void Dispose()

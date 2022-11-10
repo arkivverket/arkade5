@@ -101,7 +101,8 @@
     <value>Siard Validation</value>
   </data>
   <data name="ValidationMessage" xml:space="preserve">
-    <value>{0} is being validated with Database Preservation Toolkit Developer version 2.9.9</value>
+    <value>{0} is being validated with Database Preservation Toolkit Developer version {1}</value>
+    <comment>{0} target, {1} DBPTK-version</comment>
   </data>
   <data name="ValidatorDoesNotSupportVersionMessage" xml:space="preserve">
     <value>SIARD validator only supports SIARD 2.1 version</value>
@@ -113,8 +114,9 @@
     <value>Results of conformity test performed by {0}</value>
     <comment>{0} tool used for validation</comment>
   </data>
-  <data name="DbptkDeveloper" xml:space="preserve">
-    <value>Database Preservation Toolkit Developer version 2.9.9</value>
+  <data name="ValidationTool" xml:space="preserve">
+    <value>{0} version {1}</value>
+    <comment>{0}: Name, {1}: version</comment>
   </data>
   <data name="ValidationResultMessage" xml:space="preserve">
     <value>Validation results</value>

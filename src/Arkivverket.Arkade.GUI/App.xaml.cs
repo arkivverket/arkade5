@@ -11,6 +11,7 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
+using Arkivverket.Arkade.Core.Testing.Siard;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
@@ -115,6 +116,7 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<ISiardArchiveReader, SiardArchiveReader>();
             containerRegistry.Register<ISiardXmlTableReader, SiardXmlTableReader>();
             containerRegistry.Register<SiardTestEngine>();
+            containerRegistry.Register<ISiardValidator, SiardValidator>();
             containerRegistry.Register<SiardMetadataFileHelper>();
             containerRegistry.RegisterSingleton<ITestProgressReporter, GuiTestProgressReporter>();
             containerRegistry.RegisterSingleton<IArchiveFormatValidator,ArchiveFormatValidator>();

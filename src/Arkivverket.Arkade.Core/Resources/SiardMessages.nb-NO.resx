@@ -121,7 +121,7 @@
     <value>Siard-validering</value>
   </data>
   <data name="ValidationMessage" xml:space="preserve">
-    <value>{0} blir validert med Database Preservation Toolkit Developer versjon 2.9.9</value>
+    <value>{0} blir validert med Database Preservation Toolkit Developer versjon {1}</value>
   </data>
   <data name="ValidatorDoesNotSupportVersionMessage" xml:space="preserve">
     <value>SIARD validatoren støtter kun versjon 2.1 av SIARD</value>
@@ -132,8 +132,8 @@
   <data name="ValidationResultTestName" xml:space="preserve">
     <value>Resultater fra konformitetstest utført med {0}</value>
   </data>
-  <data name="DbptkDeveloper" xml:space="preserve">
-    <value>Database Preservation Toolkit Developer versjon 2.9.9</value>
+  <data name="ValidationTool" xml:space="preserve">
+    <value>{0} versjon {1}</value>
   </data>
   <data name="ValidationResultMessage" xml:space="preserve">
     <value>Valideringsresultater</value>

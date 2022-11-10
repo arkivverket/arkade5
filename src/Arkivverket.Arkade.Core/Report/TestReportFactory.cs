@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing;
 
 namespace Arkivverket.Arkade.Core.Report
@@ -24,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Report
             var testReport = new TestReport
             {
                 Summary = CreateTestReportSummary(testSession),
-                TestsResults = GetSiardTestReportResults(),
+                TestsResults = GetSiardTestReportResults(testSession.TestSuite.TestTool),
             };
 
             return testReport;
@@ -107,14 +108,15 @@ namespace Arkivverket.Arkade.Core.Report
             }).ToList();
         }
 
-        private static List<ExecutedTest> GetSiardTestReportResults()
+        private static List<ExecutedTest> GetSiardTestReportResults(ArchiveTestingTool testingTool)
         {
             return new()
             {
                 new ExecutedTest
                 {
                     TestId = "externalReport",
-                    TestName = string.Format(Resources.SiardMessages.ValidationResultTestName, Resources.SiardMessages.DbptkDeveloper),
+                    TestName = string.Format(SiardMessages.ValidationResultTestName, 
+                        string.Format(SiardMessages.ValidationTool, testingTool.Name, testingTool.Version)),
                     ResultSet = GetSiardResultSet(),
                     HasResults = true,
                     TestType = null,
@@ -137,8 +139,8 @@ namespace Arkivverket.Arkade.Core.Report
             {
                 new Result
                 {
-                    Location = new Location { String = Resources.OutputFileNames.DbptkValidationReportFile },
-                    Message = Resources.SiardMessages.ValidationResultMessage,
+                    Location = new Location { String = OutputFileNames.DbptkValidationReportFile },
+                    Message = SiardMessages.ValidationResultMessage,
                 }
             };
         }

@@ -10,11 +10,11 @@ namespace Arkivverket.Arkade.CLI.Options
         [Option('i', "item", HelpText = "The file or directory to be validated", Required = true)]
         public string Item { get; set; }
 
-        [Option('f', "format", HelpText = "The format which the file or directory is validated against. Available values: PDF/A", Required = true)]
+        [Option('f', "format", HelpText = "The format which the file or directory is validated against. Available values: PDF/A, DIAS-SIP, DIAS-AIP, DIAS-SIP-Noark5, DIAS-AIP-Noark5", Required = true)]
         public string Format { get; set; }
 
         [Option('o', "output-directory", 
-            HelpText = "Directory to place Arkade output files. Required if -i/--item is a directory.", 
+            HelpText = "Directory to place Arkade output files. Required if -i/--item is a directory and -f/--format is PDF/A.", 
             Required = false)]
         public string OutputDirectory { get; set; }
 
@@ -29,6 +29,14 @@ namespace Arkivverket.Arkade.CLI.Options
                     {
                         Item = "/path/to/pdfA-file",
                         Format = "PDF/A"
+                    });
+
+                yield return new Example("Validate the file/directory structure of a specified IP against DIAS",
+                    OptionsConfig.FormatStyle,
+                    new ValidateOptions
+                    {
+                        Item = "/path/to/dias-tar-or-directory",
+                        Format = "DIAS SIP"
                     });
             }
         }

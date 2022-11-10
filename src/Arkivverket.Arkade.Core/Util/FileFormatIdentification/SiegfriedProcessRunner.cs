@@ -44,7 +44,6 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             try
             {
-                _statusEventHandler.RaiseEventFormatAnalysisStarted(numberOfFilesToAnalyse);
                 ExternalProcessManager.Start(process);
             }
             catch (Exception e)
@@ -60,8 +59,6 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             if (errors.Any())
                 errors.ForEach(Log.Debug);
-
-            _statusEventHandler.RaiseEventFormatAnalysisFinished();
 
             return results;
         }
@@ -168,6 +165,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                 FileFormatScanMode.Directory => "-multi 256 ",
                 FileFormatScanMode.File => "",
                 FileFormatScanMode.Stream => "-",
+                FileFormatScanMode.Archive => "-z",
                 _ => throw new SiegfriedFileFormatIdentifierException(
                     $"Siegfried scan mode {{{nameof(scanMode)}}} is not implemented")
             };

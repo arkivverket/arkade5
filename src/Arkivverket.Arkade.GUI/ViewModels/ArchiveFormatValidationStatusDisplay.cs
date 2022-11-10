@@ -64,7 +64,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public void DisplayFinished(ArchiveFormatValidationReport validationReport)
         {
             Reset();
-            ConfigureIconByValidationResult(validationReport.ValidationResult);
+            ConfigureIconByValidationResult(validationReport);
             ResultIconVisibility = Visibility.Visible;
             StatusMessage = validationReport.ValidationSummary();
         }
@@ -76,12 +76,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ProgressBarVisibility = Visibility.Collapsed;
         }
 
-        private void ConfigureIconByValidationResult(ArchiveFormatValidationResult result)
+        private void ConfigureIconByValidationResult(ArchiveFormatValidationReport result)
         {
-            (ResultIconKind, ResultIconColor) = result switch 
+            (ResultIconKind, ResultIconColor) = result.ValidationResult switch
             {
                 ArchiveFormatValidationResult.Valid =>
                     ("CheckBold", new SolidColorBrush(Colors.Teal)),
+
+                ArchiveFormatValidationResult.Invalid when result.IsAcceptable =>
+                    ("Information", new SolidColorBrush(Colors.RoyalBlue)),
 
                 ArchiveFormatValidationResult.Invalid =>
                     ("MinusCircleOutline", new SolidColorBrush(Colors.DarkRed)),

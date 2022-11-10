@@ -106,6 +106,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         {
             string iso8601CalendarDateBasicRepresentation = Iso8601Format.ConvertToBasicRepresentation(iso8601DateTimeString);
 
+            if (iso8601CalendarDateBasicRepresentation.Length < 8)
+                return iso8601DateTimeString;
+
             if (!(int.TryParse(iso8601CalendarDateBasicRepresentation[..4], out int year) 
                   && int.TryParse(iso8601CalendarDateBasicRepresentation[4..6], out int month) 
                   && int.TryParse(iso8601CalendarDateBasicRepresentation[6..8], out int day)))
@@ -126,6 +129,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         private static string ConvertIso8601OrdinalDateTimeStringToCSharpDateTimeString(string iso8601DateTimeString)
         {
             string iso8601OrdinalDateBasicRepresentation = Iso8601Format.ConvertToBasicRepresentation(iso8601DateTimeString);
+
+            if (iso8601OrdinalDateBasicRepresentation.Length < 7)
+                return iso8601DateTimeString;
 
             if (!(int.TryParse(iso8601OrdinalDateBasicRepresentation[..4], out int year)
                   && int.TryParse((iso8601OrdinalDateBasicRepresentation[4..7]), out int dayNumber)))
@@ -156,6 +162,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         private static string ConvertIso8601WeekDateTimeStringToCSharpDateTimeString(string iso8601DateTimeString)
         {
             string iso8601WeekDateBasicRepresentation = Iso8601Format.ConvertToBasicRepresentation(iso8601DateTimeString);
+
+            if (iso8601WeekDateBasicRepresentation.Length < 8)
+                return iso8601DateTimeString;
 
             if (!(int.TryParse(iso8601WeekDateBasicRepresentation[..4], out int year)
                   && int.TryParse(iso8601WeekDateBasicRepresentation[5..7], out int weekOfYear)
