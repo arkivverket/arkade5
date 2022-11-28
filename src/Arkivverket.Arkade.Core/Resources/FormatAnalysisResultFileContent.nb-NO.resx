@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -149,5 +149,8 @@
   </data>
   <data name="StatisticsHeaderFormatVersion" xml:space="preserve">
     <value>Formatversjon</value>
+  </data>
+  <data name="HeaderFileSize" xml:space="preserve">
+    <value>Filstørrelse</value>
   </data>
 </root>

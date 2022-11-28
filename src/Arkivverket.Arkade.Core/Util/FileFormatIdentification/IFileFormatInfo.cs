@@ -3,6 +3,7 @@
     public interface IFileFormatInfo
     {
         string FileName { get; }
+        string ByteSize { get; }
         string FileExtension { get; }
         string Errors { get; }
         string Id { get; }

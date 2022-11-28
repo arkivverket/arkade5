@@ -43,6 +43,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                     FileFormatVersion = fileFormatInfo.Version,
                     FileMimeType = fileFormatInfo.MimeType,
                     FileScanError = fileFormatInfo.Errors,
+                    FileSize = fileFormatInfo.ByteSize,
                 };
 
                 listElements.Add(documentFileListElement);
@@ -96,6 +97,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                 Map(m => m.FileFormatVersion).Name(FormatAnalysisResultFileContent.HeaderFormatVersion);
                 Map(m => m.FileMimeType).Name(FormatAnalysisResultFileContent.HeaderMimeType);
                 Map(m => m.FileScanError).Name(FormatAnalysisResultFileContent.HeaderErrors);
+                Map(m => m.FileSize).Name(FormatAnalysisResultFileContent.HeaderFileSize);
             }
         }
 
@@ -119,6 +121,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             public string FileFormatVersion { get; set; }
             public string FileMimeType { get; set; }
             public string FileScanError { get; set; }
+            public string FileSize { get; set; }
         }
 
         private class FileTypeStatisticsElement : IComparable

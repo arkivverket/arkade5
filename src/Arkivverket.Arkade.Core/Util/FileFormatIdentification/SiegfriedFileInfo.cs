@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
 
@@ -7,6 +7,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
     public class SiegfriedFileInfo : IFileFormatInfo, IEquatable<SiegfriedFileInfo>
     {
         public string FileName { get; }
+        public string ByteSize { get; }
         public string FileExtension { get; }
         public string Errors { get; }
         public string Id { get; }
@@ -14,9 +15,10 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         public string Version { get; }
         public string MimeType { get; }
 
-        public SiegfriedFileInfo(string fileName, string errors, string id, string format, string version, string mimeType)
+        public SiegfriedFileInfo(string fileName, string byteSize, string errors, string id, string format, string version, string mimeType)
         {
             FileName = fileName;
+            ByteSize = byteSize;
             FileExtension = Path.GetExtension(fileName);
             Errors = errors;
             Id = id;
@@ -39,6 +41,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         {
             var sb = new StringBuilder();
             sb.Append(FileName);
+            sb.Append(ByteSize);
             sb.Append(FileExtension);
             sb.Append(Errors);
             sb.Append(Id);

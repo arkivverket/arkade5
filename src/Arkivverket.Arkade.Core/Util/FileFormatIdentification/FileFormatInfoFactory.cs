@@ -2,10 +2,10 @@
 {
     public static class FileFormatInfoFactory
     {
-        public static IFileFormatInfo Create(string fileName, string errors, string id, string format, string version,
+        public static IFileFormatInfo Create(string fileName, string byteSize, string errors, string id, string format, string version,
             string mimeType)
         {
-            return new SiegfriedFileInfo(fileName, errors, id, format, version, mimeType);
+            return new SiegfriedFileInfo(fileName, byteSize, errors, id, format, version, mimeType);
         }
     }
 }
