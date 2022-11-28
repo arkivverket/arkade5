@@ -144,4 +144,10 @@
   <data name="HeaderFormatVersion" xml:space="preserve">
     <value>Format version</value>
   </data>
+  <data name="StatisticsHeaderFormatId" xml:space="preserve">
+    <value>Format ID</value>
+  </data>
+  <data name="StatisticsHeaderFormatVersion" xml:space="preserve">
+    <value>Format version</value>
+  </data>
 </root>

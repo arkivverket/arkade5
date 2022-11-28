@@ -47,26 +47,22 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
                 listElements.Add(documentFileListElement);
 
-                string key = documentFileListElement.FileFormatPuId +
-                             (string.IsNullOrWhiteSpace(documentFileListElement.FileFormatName)
-                                 ? string.Empty
-                                 : $" - {documentFileListElement.FileFormatName}") +
-                             (string.IsNullOrWhiteSpace(documentFileListElement.FileFormatVersion)
-                                 ? string.Empty
-                                 : $" - {documentFileListElement.FileFormatVersion}");
+                FileTypeStatisticsElement existingStat;
 
-                var fileTypeStatisticElement = new FileTypeStatisticsElement
+                if ((existingStat = fileTypeStatisticsElements.Find(t => t.PuId.Equals(fileFormatInfo.Id))) != null)
                 {
-                    FileType = key,
-                    Amount = 1,
-                };
-
-                FileTypeStatisticsElement existingStat = fileTypeStatisticsElements.Find(t => t.FileType.Equals(key));
-
-                if (existingStat == null)
-                    fileTypeStatisticsElements.Add(fileTypeStatisticElement);
-                else
                     existingStat.Amount++;
+                }
+                else
+                {
+                    fileTypeStatisticsElements.Add(new FileTypeStatisticsElement
+                    {
+                        PuId = fileFormatInfo.Id,
+                        FileFormatName = fileFormatInfo.Format,
+                        FileFormatVersion = fileFormatInfo.Version,
+                        Amount = 1,
+                    });
+                }
             }
 
             fileTypeStatisticsElements.Sort();
@@ -107,7 +103,9 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         {
             public FileTypeStatisticsElementMap()
             {
-                Map(m => m.FileType).Name(FormatAnalysisResultFileContent.StatisticsHeaderFileType);
+                Map(m => m.PuId).Name(FormatAnalysisResultFileContent.StatisticsHeaderFormatId);
+                Map(m => m.FileFormatName).Name(FormatAnalysisResultFileContent.StatisticsHeaderFileType);
+                Map(m => m.FileFormatVersion).Name(FormatAnalysisResultFileContent.StatisticsHeaderFormatVersion);
                 Map(m => m.Amount).Name(FormatAnalysisResultFileContent.StatisticsHeaderAmount);
             }
         }
@@ -125,14 +123,16 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
         private class FileTypeStatisticsElement : IComparable
         {
-            public string FileType { get; set; }
+            public string PuId { get; init; }
+            public string FileFormatName { get; init; }
+            public string FileFormatVersion { get; init; }
             public int Amount { get; set; }
             
             public int CompareTo(object obj)
             {
                 return obj is not FileTypeStatisticsElement other
                     ? 1
-                    : string.Compare(FileType, other.FileType, StringComparison.InvariantCulture);
+                    : string.Compare(FileFormatName, other.FileFormatName, StringComparison.InvariantCulture);
             }
         }
     }
