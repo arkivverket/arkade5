@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -149,6 +149,9 @@
   </data>
   <data name="StatisticsHeaderFormatVersion" xml:space="preserve">
     <value>Format version</value>
+  </data>
+  <data name="HeaderAbsoluteFilePath" xml:space="preserve">
+    <value>Absolute file path</value>
   </data>
   <data name="HeaderFileSize" xml:space="preserve">
     <value>File size</value>

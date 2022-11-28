@@ -36,6 +36,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
                 var documentFileListElement = new ListElement
                 {
+                    AbsoluteFilePath = fileFormatInfo.FileName,
                     FileName = fileName.Replace('\\', '/'),
                     FileExtension = fileFormatInfo.FileExtension,
                     FileFormatPuId = fileFormatInfo.Id,
@@ -90,6 +91,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         {
             public ListElementMap()
             {
+                Map(m => m.AbsoluteFilePath).Name(FormatAnalysisResultFileContent.HeaderAbsoluteFilePath);
                 Map(m => m.FileName).Name(FormatAnalysisResultFileContent.HeaderFileName);
                 Map(m => m.FileExtension).Name(FormatAnalysisResultFileContent.HeaderFileExtension);
                 Map(m => m.FileFormatPuId).Name(FormatAnalysisResultFileContent.HeaderFormatId);
@@ -114,6 +116,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
         private class ListElement
         {
+            public string AbsoluteFilePath { get; init; }
             public string FileName { get; set; }
             public string FileExtension { get; set; }
             public string FileFormatPuId { get; set; }
