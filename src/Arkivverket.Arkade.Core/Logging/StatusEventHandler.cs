@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Arkivverket.Arkade.Core.Logging
 {
@@ -60,6 +61,16 @@ namespace Arkivverket.Arkade.Core.Logging
             OnFormatAnalysisFinished(default);
         }
 
+        public void RaiseEventIoAccessLost(DirectoryInfo writeLocation, IoAccessType ioAccessType)
+        {
+            OnIoAccessLost(new IoAccessEventArgs(writeLocation, ioAccessType));
+        }
+
+        public void RaiseEventAbortExecution(DirectoryInfo location, IoAccessType ioAccessType)
+        {
+            OnAbortExecution(new IoAccessEventArgs(location, ioAccessType));
+        }
+
         public event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
 
         public event EventHandler<OperationMessageEventArgs> TestStartedEvent;
@@ -80,6 +91,9 @@ namespace Arkivverket.Arkade.Core.Logging
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisStartedEvent;
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisProgressUpdatedEvent;
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisFinishedEvent;
+
+        public event EventHandler<IoAccessEventArgs> IoAccessLostEvent;
+        public event EventHandler<IoAccessEventArgs> AbortExecutionEvent;
 
         private void OnTestStartedEvent(OperationMessageEventArgs eventArgs)
         {
@@ -156,6 +170,18 @@ namespace Arkivverket.Arkade.Core.Logging
         protected virtual void OnFormatAnalysisFinished(FormatAnalysisProgressEventArgs eventArgs)
         {
             EventHandler<FormatAnalysisProgressEventArgs> handler = FormatAnalysisFinishedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
+
+        protected virtual void OnIoAccessLost(IoAccessEventArgs eventArgs)
+        {
+            EventHandler<IoAccessEventArgs> handler = IoAccessLostEvent;
+            handler?.Invoke(this, eventArgs);
+        }
+
+        protected virtual void OnAbortExecution(IoAccessEventArgs eventArgs)
+        {
+            EventHandler<IoAccessEventArgs> handler = AbortExecutionEvent;
             handler?.Invoke(this, eventArgs);
         }
     }

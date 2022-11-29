@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -15,6 +16,7 @@ namespace Arkivverket.Arkade.Core.Base
     public class InformationPackageCreator
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly IoAccessErrorHandler _ioAccessErrorHandler;
 
         private static readonly List<string> FilesToSkipForSipPackages = new List<string>
         {
@@ -26,6 +28,15 @@ namespace Arkivverket.Arkade.Core.Base
         {
             ArkadeConstants.DirectoryNameRepositoryOperations
         };
+
+        public InformationPackageCreator()
+        {
+        }
+
+        public InformationPackageCreator(IoAccessErrorHandler ioAccessErrorHandler)
+        {
+            _ioAccessErrorHandler = ioAccessErrorHandler;
+        }
 
         /// <summary>
         /// Create SIP (Submission Information Package). 
@@ -181,6 +192,10 @@ namespace Arkivverket.Arkade.Core.Base
         private void AddFilesInDirectory(Archive archive, DirectoryInfo directory, DirectoryInfo rootDirectory, PackageType? packageType,
             TarArchive tarArchive, string fileNamePrefix)
         {
+            if (!directory.Exists)
+            {
+                _ioAccessErrorHandler.HandleLostIoAccessToDiskLocation(directory, IoAccessType.Read);
+            }
             foreach (DirectoryInfo currentDirectory in directory.GetDirectories())
             {
                 if ((packageType != null) && (packageType == PackageType.SubmissionInformationPackage) &&
@@ -212,6 +227,11 @@ namespace Arkivverket.Arkade.Core.Base
         private void CreateEntry(string entryName, bool entryIsDirectory, DirectoryInfo rootDirectory, TarArchive tarArchive, string fileNamePrefix,
             string filenameSuffix = null)
         {
+            if (rootDirectory.Name != "none" && !rootDirectory.Exists)
+            {
+                _ioAccessErrorHandler.HandleLostIoAccessToDiskLocation(rootDirectory, IoAccessType.Write);
+            }
+
             TarEntry tarEntry;
             if (entryIsDirectory && !Directory.Exists(entryName))
             {
@@ -233,7 +253,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             tarArchive.WriteEntry(tarEntry, false);
         }
-
+        
         private string RemoveRootDirectoryFromFilename(string filename, string rootDirectory)
         {
             if (!rootDirectory.EndsWith(Path.DirectorySeparatorChar.ToString()))

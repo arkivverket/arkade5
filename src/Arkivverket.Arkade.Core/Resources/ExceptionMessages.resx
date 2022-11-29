@@ -162,4 +162,10 @@
   <data name="InvalidFieldFormatMessage" xml:space="preserve">
     <value>Invalid field format '{0}' for data type '{1}'. Accepted field formats are: {2}</value>
   </data>
+  <data name="ReadAccessLostMessage" xml:space="preserve">
+    <value>Read access to '{0}' was lost. Please control source, then try again.</value>
+  </data>
+  <data name="WriteAccessLostMessage" xml:space="preserve">
+    <value>Write access to '{0}' was lost. Please control target, then try again.</value>
+  </data>
 </root>

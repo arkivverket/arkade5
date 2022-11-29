@@ -135,4 +135,14 @@
   <data name="IPandMetadataSuccessfullyCreatedStatusMessage" xml:space="preserve">
     <value>IP og metadata lagret i </value>
   </data>
+  <data name="WriteAccessLostMessageBoxCaption" xml:space="preserve">
+    <value>Mistet skrivetilgang</value>
+  </data>
+  <data name="ReadAccessLostMessageBoxCaption" xml:space="preserve">
+    <value>Mistet lesetilgang</value>
+  </data>
+  <data name="IoAccessLostMessageBoxMessage" xml:space="preserve">
+    <value>{0}
+ADVARSEL: Dersom 'Avbryt' velges, vil denne kjøringen avsluttes.</value>
+  </data>
 </root>

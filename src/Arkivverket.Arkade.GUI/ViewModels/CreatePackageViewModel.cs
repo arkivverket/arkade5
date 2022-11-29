@@ -17,6 +17,8 @@ using Prism.Regions;
 using Serilog;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Views;
 using MessageBox = System.Windows.MessageBox;
@@ -39,7 +41,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private TestSession _testSession;
         private string _archiveFileName;
         private readonly IRegionManager _regionManager;
-
+        private readonly IStatusEventHandler _statusEventHandler;
 
         private GuiMetaDataModel _metaDataArchiveDescription = new GuiMetaDataModel(string.Empty, string.Empty);
         private ObservableCollection<GuiMetaDataModel> _metaDataArchiveCreators = new ObservableCollectionEx<GuiMetaDataModel>();
@@ -213,10 +215,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
 
-        public CreatePackageViewModel(ArkadeApi arkadeApi, IRegionManager regionManager)
+        public CreatePackageViewModel(ArkadeApi arkadeApi, IRegionManager regionManager,
+            IStatusEventHandler statusEventHandler)
         {
             _arkadeApi = arkadeApi;
             _regionManager = regionManager;
+            _statusEventHandler = statusEventHandler;
 
             LoadExternalMetadataCommand = new DelegateCommand(RunLoadExternalMetadata, CanLoadMetadata);
             CreatePackageCommand = new DelegateCommand(RunCreatePackage, CanExecuteCreatePackage);
@@ -227,6 +231,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
            ((INotifyPropertyChanged)MetaDataArchiveCreators).PropertyChanged += (x, y) => OnMetaDataArchiveCreatorsDataElementChange();
            ((INotifyPropertyChanged)MetaDataOwners).PropertyChanged += (x, y) => OnMetaDataOwnersDataElementChange();
 
+           _statusEventHandler.IoAccessLostEvent += OnIoAccessLost;
         }
 
         public void OnMetaDataArchiveCreatorsDataElementChange()
@@ -475,6 +480,21 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             MainWindow.ProgressBarWorker.ReportProgress(100);
         }
 
+        private void OnIoAccessLost(object sender, IoAccessEventArgs eventArgs)
+        {
+            var messageBoxMessage = string.Format(CreatePackageGUI.IoAccessLostMessageBoxMessage,
+                string.Format(eventArgs.IoAccessType == IoAccessType.Write
+                    ? ExceptionMessages.ReadAccessLostMessage
+                    : ExceptionMessages.WriteAccessLostMessage, eventArgs.Location));
+            var messageBoxCaption = eventArgs.IoAccessType == IoAccessType.Write
+                ? CreatePackageGUI.ReadAccessLostMessageBoxCaption
+                : CreatePackageGUI.WriteAccessLostMessageBoxCaption;
+
+            var retry = MessageBox.Show(messageBoxMessage, messageBoxCaption, MessageBoxButton.OKCancel);
+
+            if (retry == MessageBoxResult.Cancel)
+                _statusEventHandler.RaiseEventAbortExecution(eventArgs.Location, eventArgs.IoAccessType);
+        }
 
         private void CreatePackageRunEngine(string outputDirectory)
         {

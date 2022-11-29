@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Arkivverket.Arkade.Core.Logging
 {
@@ -23,6 +24,9 @@ namespace Arkivverket.Arkade.Core.Logging
         void RaiseEventFormatAnalysisProgressUpdated();
         void RaiseEventFormatAnalysisFinished();
 
+        void RaiseEventIoAccessLost(DirectoryInfo location, IoAccessType ioAccessType);
+        void RaiseEventAbortExecution(DirectoryInfo location, IoAccessType ioAccessType);
+
 
         event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
 
@@ -45,5 +49,8 @@ namespace Arkivverket.Arkade.Core.Logging
         event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisStartedEvent;
         event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisProgressUpdatedEvent;
         event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisFinishedEvent;
+
+        event EventHandler<IoAccessEventArgs> IoAccessLostEvent;
+        event EventHandler<IoAccessEventArgs> AbortExecutionEvent;
     }
 }

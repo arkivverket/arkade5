@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CreatePackageGUI {
@@ -70,6 +70,16 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}
+        ///WARNING: Pressing &apos;Cancel&apos; will abort the current session..
+        /// </summary>
+        public static string IoAccessLostMessageBoxMessage {
+            get {
+                return ResourceManager.GetString("IoAccessLostMessageBoxMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IP and metadata created at .
         /// </summary>
         public static string IPandMetadataSuccessfullyCreatedStatusMessage {
@@ -97,6 +107,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Read access lost.
+        /// </summary>
+        public static string ReadAccessLostMessageBoxCaption {
+            get {
+                return ResourceManager.GetString("ReadAccessLostMessageBoxCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose package type.
         /// </summary>
         public static string SelectTypeLabel {
@@ -111,6 +130,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         public static string WindowTitle {
             get {
                 return ResourceManager.GetString("WindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write access lost.
+        /// </summary>
+        public static string WriteAccessLostMessageBoxCaption {
+            get {
+                return ResourceManager.GetString("WriteAccessLostMessageBoxCaption", resourceCulture);
             }
         }
     }

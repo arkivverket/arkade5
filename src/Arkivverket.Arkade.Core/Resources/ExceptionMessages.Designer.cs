@@ -133,6 +133,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Read access to &apos;{0}&apos; was lost. Please control source, then try again..
+        /// </summary>
+        public static string ReadAccessLostMessage {
+            get {
+                return ResourceManager.GetString("ReadAccessLostMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong while validating Siard file. Please see arkade-tmp/logs/ for details..
         /// </summary>
         public static string SiardValidatorError {
@@ -183,6 +192,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string WriteAccessDeniedMessage {
             get {
                 return ResourceManager.GetString("WriteAccessDeniedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write access to &apos;{0}&apos; was lost. Please control target, then try again..
+        /// </summary>
+        public static string WriteAccessLostMessage {
+            get {
+                return ResourceManager.GetString("WriteAccessLostMessage", resourceCulture);
             }
         }
         

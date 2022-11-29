@@ -53,6 +53,7 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<CliBusyIndicator>().As<IBusyIndicator>().SingleInstance();
             builder.RegisterType<ArchiveFormatValidator>().As<IArchiveFormatValidator>();
             builder.RegisterType<MetadataExampleGenerator>().AsSelf();
+            builder.RegisterType<IoAccessErrorHandler>().AsSelf().SingleInstance();
         }
     }
 }

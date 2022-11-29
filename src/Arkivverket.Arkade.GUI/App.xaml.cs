@@ -120,6 +120,7 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<SiardMetadataFileHelper>();
             containerRegistry.RegisterSingleton<ITestProgressReporter, GuiTestProgressReporter>();
             containerRegistry.RegisterSingleton<IArchiveFormatValidator,ArchiveFormatValidator>();
+            containerRegistry.RegisterSingleton<IoAccessErrorHandler>();
         }
 
         public void MyHandler(object sender, UnhandledExceptionEventArgs args)

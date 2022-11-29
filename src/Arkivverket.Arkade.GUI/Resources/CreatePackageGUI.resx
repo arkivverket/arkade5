@@ -135,4 +135,14 @@
   <data name="IPandMetadataSuccessfullyCreatedStatusMessage" xml:space="preserve">
     <value>IP and metadata created at </value>
   </data>
+  <data name="WriteAccessLostMessageBoxCaption" xml:space="preserve">
+    <value>Write access lost</value>
+  </data>
+  <data name="ReadAccessLostMessageBoxCaption" xml:space="preserve">
+    <value>Read access lost</value>
+  </data>
+  <data name="IoAccessLostMessageBoxMessage" xml:space="preserve">
+    <value>{0}
+WARNING: Pressing 'Cancel' will abort the current session.</value>
+  </data>
 </root>

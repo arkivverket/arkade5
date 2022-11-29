@@ -162,4 +162,10 @@
   <data name="InvalidFieldFormatMessage" xml:space="preserve">
     <value>Ugyldig feltformat '{0}' for datatype '{1}'. Gyldige feltformater er: {2}</value>
   </data>
+  <data name="ReadAccessLostMessage" xml:space="preserve">
+    <value>Lesetilgang til '{0}' ble tapt. Vennligst kontroller kilden, og forsøk igjen.</value>
+  </data>
+  <data name="WriteAccessLostMessage" xml:space="preserve">
+    <value>Skrivetilgang til '{0}' ble tapt. Vennligst kontroller målet, og forsøk igjen.</value>
+  </data>
 </root>
