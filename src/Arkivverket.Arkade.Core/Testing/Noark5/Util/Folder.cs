@@ -2,12 +2,13 @@
 {
     internal class Folder
     {
-        public Folder ContainingFolder { get; }
+        private readonly Folder _containingFolder;
+
         public string Status { get; set; }
 
         public Folder(Folder containingFolder)
         {
-            ContainingFolder = containingFolder;
+            _containingFolder = containingFolder;
         }
 
         public bool Utgaar()
@@ -15,7 +16,7 @@
             if (Status?.ToLower() == "utgår")
                 return true;
 
-            return ContainingFolder?.Utgaar() ?? false;
+            return _containingFolder?.Utgaar() ?? false;
         }
     }
 }
