@@ -413,4 +413,7 @@ Generert:  {2}</value>
   <data name="FolderSystemIdAndFolderId" xml:space="preserve">
     <value>Mappe (systemID, mappeID): {0}, {1}</value>
   </data>
+  <data name="RegistrationSystemIdAndRegistrationId" xml:space="preserve">
+    <value>Registrering (systemID, registreringsID): {0}, {1}</value>
+  </data>
 </root>

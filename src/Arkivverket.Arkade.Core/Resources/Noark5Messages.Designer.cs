@@ -828,6 +828,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registration (systemID, registreringsID): {0}, {1}.
+        /// </summary>
+        public static string RegistrationSystemIdAndRegistrationId {
+            get {
+                return ResourceManager.GetString("RegistrationSystemIdAndRegistrationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Secondary.
         /// </summary>
         public static string Secondary {

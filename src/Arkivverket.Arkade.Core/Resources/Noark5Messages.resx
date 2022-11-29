@@ -416,4 +416,7 @@ Generated: {2}</value>
   <data name="FolderSystemIdAndFolderId" xml:space="preserve">
     <value>Folder (systemID, mappeID): {0}, {1}</value>
   </data>
+  <data name="RegistrationSystemIdAndRegistrationId" xml:space="preserve">
+    <value>Registration (systemID, registreringsID): {0}, {1}</value>
+  </data>
 </root>
