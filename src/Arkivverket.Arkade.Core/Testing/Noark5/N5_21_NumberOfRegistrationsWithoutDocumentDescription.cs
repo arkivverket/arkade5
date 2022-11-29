@@ -11,11 +11,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 21);
 
-        private readonly Dictionary<ArchivePart, List<Registration>> _registrationsWithoutDocumentDescriptionPerArchivePart = new();
+        private readonly Dictionary<ArchivePart, List<N5_21_Registration>> _registrationsWithoutDocumentDescriptionPerArchivePart = new();
         private ArchivePart _currentArchivePart = new();
         private int _totalNumberOfMissingDocumentDescriptions;
         private Folder _currentFolder;
-        private Registration _currentRegistration;
+        private N5_21_Registration _currentRegistration;
 
         public override TestId GetId()
         {
@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private IEnumerable<TestResultSet> CreateTestResultSets()
         {
-            foreach ((ArchivePart archivePart, List<Registration> registrations) in
+            foreach ((ArchivePart archivePart, List<N5_21_Registration> registrations) in
                      _registrationsWithoutDocumentDescriptionPerArchivePart)
             {
                 var archivePartResultSet = new TestResultSet
@@ -77,7 +77,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
         }
 
-        private static IEnumerable<TestResult> CreateTestResults(IEnumerable<Registration> registrations)
+        private static IEnumerable<TestResult> CreateTestResults(IEnumerable<N5_21_Registration> registrations)
         {
             return registrations.Select(registration => new TestResult(ResultType.Success,
                 new Location(ArkadeConstants.ArkivstrukturXmlFileName, registration.LineNumber),
@@ -95,7 +95,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
 
             else if (eventArgs.NameEquals("registrering"))
-                _currentRegistration = new Registration(_currentFolder, eventArgs.LineNumber);
+                _currentRegistration = new N5_21_Registration(_currentFolder, eventArgs.LineNumber);
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
@@ -107,13 +107,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
                 _currentArchivePart.SystemId = eventArgs.Value;
-                _registrationsWithoutDocumentDescriptionPerArchivePart.Add(_currentArchivePart, new List<Registration>());
+                _registrationsWithoutDocumentDescriptionPerArchivePart.Add(_currentArchivePart, new List<N5_21_Registration>());
             }
             else if (eventArgs.Path.Matches("tittel", "arkivdel"))
             {
                 _currentArchivePart.Name = eventArgs.Value;
             }
-            else if (eventArgs.Path.Matches("saksstatus", "mappe"))
+            else if (Noark5TestHelper.IdentifiesFolderStatus(eventArgs))
             {
                 _currentFolder.Status = eventArgs.Value;
             }
@@ -125,8 +125,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 _currentRegistration.RegistrationId = eventArgs.Value;
             }
-            else if (eventArgs.Path.Matches("journalstatus", "registrering") ||
-                     eventArgs.Path.Matches("moeteregistreringsstatus", "registrering"))
+            else if (Noark5TestHelper.IdentifiesRegistrationStatus(eventArgs))
             {
                 _currentRegistration.Status = eventArgs.Value;
             }
@@ -149,49 +148,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
         }
 
-        private class Folder
+        private class N5_21_Registration : Registration
         {
-            public Folder ContainingFolder { get; }
-            public string Status { get; set; }
-
-            public Folder(Folder containingFolder)
-            {
-                ContainingFolder = containingFolder;
-            }
-        }
-
-        private class Registration
-        {
-            private readonly Folder _containingFolder;
-
             public long LineNumber { get; }
-            public string Status { get; set; }
             public string SystemId { get; set; }
-            public string RegistrationId { get; set; }
             public bool HasDocumentDescription { get; set; }
-            public bool ShallBeReported => !HasUtgaarStatus() && !HasDocumentDescription;
+            public bool ShallBeReported => !Utgaar() && !HasDocumentDescription;
 
-            public Registration(Folder containingFolder, long lineNumber)
+            public N5_21_Registration(Folder containingFolder, long lineNumber) : base(containingFolder)
             {
-                _containingFolder = containingFolder;
                 LineNumber = lineNumber;
-            }
-
-            private bool HasUtgaarStatus()
-            {
-                if (Status?.ToLower() == "utgår")
-                    return true;
-
-                Folder containingFolder = _containingFolder;
-                while (containingFolder != null)
-                {
-                    if (containingFolder.Status?.ToLower() == "utgår")
-                        return true;
-
-                    containingFolder = containingFolder.ContainingFolder;
-                }
-
-                return false;
             }
 
             public override string ToString()
