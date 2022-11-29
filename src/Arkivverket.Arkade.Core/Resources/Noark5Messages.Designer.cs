@@ -277,6 +277,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Document description (systemID, registreringsID, dokumentnummer): {0}, {1}, {2}.
+        /// </summary>
+        public static string DocumentDescriptionSystemIdRegistrationIdAndDocumentNumber {
+            get {
+                return ResourceManager.GetString("DocumentDescriptionSystemIdRegistrationIdAndDocumentNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file {0} does not have the same checksum as specified in document description (systemID) {1}.
         /// </summary>
         public static string DocumentFilesChecksumControlMessage {

@@ -44,8 +44,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("klasse", new XmlElementHelper()
                             .Add("mappe", new XmlElementHelper()
                                 .Add("registrering", new XmlElementHelper()
-                                    .Add("dokumentbeskrivelse", new XmlElementHelper())
-                                    .Add("dokumentbeskrivelse", new XmlElementHelper()))))))
+                                    .Add("registreringsID", "regId1")
+                                    .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                        .Add("systemID", "dokBesSysId1")
+                                        .Add("dokumentnummer", "1"))
+                                    .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                        .Add("systemID", "dokBesSysId2")
+                                        .Add("dokumentnummer", "2")))))))
                 .Add("arkivdel", new XmlElementHelper()
                     .Add("systemID", "someSystemId_2")
                     .Add("tittel", "someTitle_2")
@@ -60,12 +65,44 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             List<TestResult> testResults = testRun.TestResults.TestsResults;
             testResults.Should().Contain(r => r.Message.Equals("Totalt: 2"));
-            testResults.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1: 2"));
-            testResults.Should().Contain(r =>
-                r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, someTitle_2: 0"));
 
-            testRun.TestResults.GetNumberOfResults().Should().Be(3);
+            testRun.TestResults.TestResultSets[0].TestsResults[0].Message.Should().Be("Totalt: 2");
+            testRun.TestResults.TestResultSets[0].TestsResults[1].Message.Should()
+                .Be("Dokumentbeskrivelse (systemID, registreringsID, dokumentnummer): dokBesSysId1, regId1, 1");
+            testRun.TestResults.TestResultSets[0].TestsResults[2].Message.Should()
+                .Be("Dokumentbeskrivelse (systemID, registreringsID, dokumentnummer): dokBesSysId2, regId1, 2");
+
+            testRun.TestResults.TestResultSets[1].TestsResults[0].Message.Should().Be("Totalt: 0");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(5);
+        }
+
+        [Theory]
+        [InlineData("utgår", "avsluttet", "arkivert")]
+        [InlineData("avsluttet", "utgår", "arkivert")]
+        [InlineData("avsluttet", "avsluttet", "utgår")]
+        public void ShouldNotReportMissingDocumentObjectIfStatusUtgaar(string superFolderStatus, string folderStatus, string regStatus)
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("saksstatus", superFolderStatus)
+                                    .Add("mappe", new XmlElementHelper()
+                                        .Add("saksstatus", folderStatus)
+                                        .Add("registrering", new XmlElementHelper()
+                                            .Add("journalstatus", regStatus)
+                                            .Add("dokumentbeskrivelse", new XmlElementHelper()))))))));
+
+            TestRun testRun = helper.RunEventsOnTest(new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject());
+
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Totalt: 0");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
     }
 }

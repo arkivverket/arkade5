@@ -416,4 +416,7 @@ Generert:  {2}</value>
   <data name="RegistrationSystemIdAndRegistrationId" xml:space="preserve">
     <value>Registrering (systemID, registreringsID): {0}, {1}</value>
   </data>
+  <data name="DocumentDescriptionSystemIdRegistrationIdAndDocumentNumber" xml:space="preserve">
+    <value>Dokumentbeskrivelse (systemID, registreringsID, dokumentnummer): {0}, {1}, {2}</value>
+  </data>
 </root>
