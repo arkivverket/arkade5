@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly Archive _archive;
         private readonly Stack<string> _currentFolderType = new();
         private readonly List<N5_10_ArchivePart> _archiveParts = new();
-        private N5_10_ArchivePart _currentArchivePart = new();
+        private N5_10_ArchivePart _currentArchivePart;
 
         public N5_10_NumberOfFolders(Archive archive)
         {
@@ -57,59 +57,74 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (totalNumberOfFolders == 0)
                 return testResultSet;
 
-            foreach (N5_10_ArchivePart archivePart in _archiveParts)
-            {
-                int numberOfFolders = archivePart.FoldersPerLevel.Sum(f => f.Value.Values.Sum());
-
-                var archivePartResultSet = new TestResultSet
-                {
-                    Name = archivePart.ToString(),
-                    TestsResults = new List<TestResult>
-                    {
-                        new(ResultType.Success, new Location(string.Empty), string.Format(
-                            Noark5Messages.NumberOf, numberOfFolders))
-                    }
-                };
-
-                if (multipleArchiveParts)
-                    testResultSet.TestResultSets.Add(archivePartResultSet);
-
-                if (numberOfFolders == 0)
-                    continue;
-
-                foreach ((string folderName, Dictionary<int, int> numberOfFoldersPerLevel) in archivePart.FoldersPerLevel)
-                {
-                    string folderType = Noark5TestHelper.StripNamespace(folderName);
-
-                    var folderTypeResultSet = new TestResultSet
-                    {
-                        Name = string.Format(Noark5Messages.FolderType, folderType),
-                        TestsResults = new List<TestResult>
-                        {
-                            new(ResultType.Success, new Location(string.Empty), string.Format(
-                                Noark5Messages.NumberOf, numberOfFoldersPerLevel.Values.Sum()))
-                        }
-                    };
-
-                    foreach ((int level, int number) in numberOfFoldersPerLevel)
-                    {
-                        folderTypeResultSet.TestsResults.Add(new TestResult(ResultType.Success,
-                            new Location(string.Empty), string.Format(
-                                Noark5Messages.NumberOfTypeFoldersAtLevel, level, number)));
-                    }
-
-                    if (multipleArchiveParts)
-                        archivePartResultSet.TestResultSets.Add(folderTypeResultSet);
-                    else
-                        testResultSet.TestResultSets.Add(folderTypeResultSet);
-                }
-            }
+            testResultSet.TestResultSets.AddRange(multipleArchiveParts
+                ? CreateArchivePartTestResultSets()
+                : CreateFolderTypeTestResultSets(_currentArchivePart));
 
             return testResultSet;
         }
 
+        private IEnumerable<TestResultSet> CreateArchivePartTestResultSets()
+        {
+            foreach (N5_10_ArchivePart archivePart in _archiveParts)
+            {
+                var testResultSet = new TestResultSet
+                {
+                    Name = archivePart.ToString(),
+                    TestsResults = new List<TestResult>()
+                };
+
+                int numberOfFolders = archivePart.FoldersPerLevel.Sum(f => f.Value.Values.Sum());
+
+                testResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.NumberOf, numberOfFolders)));
+
+                if (numberOfFolders > 0)
+                {
+                    testResultSet.TestResultSets.AddRange(CreateFolderTypeTestResultSets(archivePart));
+                }
+
+                yield return testResultSet;
+            }
+        }
+
+        private IEnumerable<TestResultSet> CreateFolderTypeTestResultSets(N5_10_ArchivePart archivePart)
+        {
+            foreach ((string folderName, Dictionary<int, int> numberOfFoldersPerLevel) in archivePart.FoldersPerLevel)
+            {
+                string folderType = Noark5TestHelper.StripNamespace(folderName);
+
+                var folderTypeResultSet = new TestResultSet
+                {
+                    Name = string.Format(Noark5Messages.FolderType, folderType),
+                    TestsResults = new List<TestResult>
+                    {
+                        new(ResultType.Success, new Location(string.Empty), string.Format(
+                            Noark5Messages.NumberOf, numberOfFoldersPerLevel.Values.Sum()))
+                    }
+                };
+
+                folderTypeResultSet.TestsResults.AddRange(CreateFolderTypeTestResults(numberOfFoldersPerLevel));
+
+                yield return folderTypeResultSet;
+            }
+        }
+
+        private static IEnumerable<TestResult> CreateFolderTypeTestResults(Dictionary<int, int> numberOfFoldersPerLevel)
+        {
+            foreach ((int level, int numberOfFolders) in numberOfFoldersPerLevel)
+            {
+                yield return new TestResult(ResultType.Success, new Location(string.Empty),
+                    string.Format(Noark5Messages.NumberOfTypeFoldersAtLevel, level, numberOfFolders));
+            }
+        }
+
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
+            if (eventArgs.NameEquals("arkivdel"))
+            {
+                _currentArchivePart = new N5_10_ArchivePart();
+            }
             if (eventArgs.NameEquals("mappe"))
                 _currentFolderType.Push("mappe");
         }
@@ -146,7 +161,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.NameEquals("arkivdel"))
             {
                 _archiveParts.Add(_currentArchivePart);
-                _currentArchivePart = new N5_10_ArchivePart();
             }
         }
 

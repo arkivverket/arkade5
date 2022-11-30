@@ -212,5 +212,57 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
+
+        [Fact]
+        public void ShouldFindTwoCaseFoldersAndOneMeetingFolderInOneOfTwoArchiveparts()
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("mappe", new[] { "xsi:type", "saksmappe" }, new XmlElementHelper()
+                                .Add("mappe", new[] { "xsi:type", "saksmappe" }, new XmlElementHelper()))
+                            .Add("mappe", new[] { "xsi:type", "moetemappe" }, new XmlElementHelper()
+                            )))
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_2")
+                        .Add("tittel", "someTitle_2")
+                        .Add("klassifikasjonssystem", new XmlElementHelper())));
+
+            Archive testArchive = TestUtil.CreateArchiveExtraction(
+                Path.Combine("TestData", "Noark5", "FolderControl", "SixFolders")
+            );
+            TestRun testRun = helper.RunEventsOnTest(new N5_10_NumberOfFolders(testArchive));
+
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals("Totalt: 3"));
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals(
+                "Det er angitt at arkivstrukturen skal innholde 6 mapper men 3 ble funnet"
+            ));
+
+            TestResultSet arkivdel1ResultSet = testRun.TestResults.TestResultSets[0];
+            arkivdel1ResultSet.Name.Should().Be("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1");
+            arkivdel1ResultSet.TestsResults.Should().Contain(r => r.Message.Equals("Antall: 3"));
+
+            TestResultSet arkivdel1SaksmappeResultSet = arkivdel1ResultSet.TestResultSets[0];
+            arkivdel1SaksmappeResultSet.Name.Should().Be("Mappetype: saksmappe");
+            arkivdel1SaksmappeResultSet.TestsResults.Should().Contain(r => r.Message.Equals("Antall: 2"));
+            arkivdel1SaksmappeResultSet.TestsResults.Should().Contain(r => r.Message.Equals("Antall på nivå 1: 1"));
+            arkivdel1SaksmappeResultSet.TestsResults.Should().Contain(r => r.Message.Equals("Antall på nivå 2: 1"));
+
+            TestResultSet arkivdel1MoetemappeResultSet = arkivdel1ResultSet.TestResultSets[1];
+            arkivdel1MoetemappeResultSet.Name.Should().Be("Mappetype: moetemappe");
+            arkivdel1MoetemappeResultSet.TestsResults.Should().Contain(r => r.Message.Equals("Antall: 1"));
+            arkivdel1MoetemappeResultSet.TestsResults.Should().Contain(r => r.Message.Equals("Antall på nivå 1: 1"));
+
+
+            TestResultSet arkivdel2ResultSet = testRun.TestResults.TestResultSets[1];
+            arkivdel2ResultSet.Name.Should().Be("Arkivdel (systemID, tittel): someSystemId_2, someTitle_2");
+            arkivdel2ResultSet.TestsResults.Should().Contain(r => r.Message.Equals("Antall: 0"));
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(9);
+        }
+
     }
 }
