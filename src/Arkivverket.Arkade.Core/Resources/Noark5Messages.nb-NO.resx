@@ -410,8 +410,8 @@ Generert:  {2}</value>
   <data name="CouldNotFindValidSpecificationFile" xml:space="preserve">
     <value>Klarte ikke finne en gyldig spesifikasjonsfil</value>
   </data>
-  <data name="FolderSystemIdAndFolderId" xml:space="preserve">
-    <value>Mappe (systemID, mappeID): {0}, {1}</value>
+  <data name="FolderSystemIdFolderIdAndTitle" xml:space="preserve">
+    <value>Mappe (systemID, mappeID, tittel): {0}, {1}, {2}</value>
   </data>
   <data name="RegistrationSystemIdAndRegistrationId" xml:space="preserve">
     <value>Registrering (systemID, registreringsID): {0}, {1}</value>

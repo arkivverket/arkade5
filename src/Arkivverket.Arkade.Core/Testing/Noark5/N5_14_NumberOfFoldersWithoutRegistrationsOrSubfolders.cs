@@ -116,6 +116,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 _currentFolder.MappeId = eventArgs.Value;
             }
+            else if (eventArgs.Path.Matches("tittel", "mappe"))
+            {
+                _currentFolder.Title = eventArgs.Value;
+            }
             else if (eventArgs.Path.Matches("saksstatus", "mappe"))
             {
                 _currentFolder.Status = eventArgs.Value;
@@ -147,6 +151,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             public string SystemId { get; set; }
             public string MappeId { get; set; }
+            public string Title { get; set; }
             public long LineNumber { get; }
             public string Status { get; set; }
             public bool HasSubFolderOrRegistration { get; set; }
@@ -158,7 +163,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             public override string ToString()
             {
-                return string.Format(Noark5Messages.FolderSystemIdAndFolderId, SystemId, MappeId);
+                return string.Format(Noark5Messages.FolderSystemIdFolderIdAndTitle, SystemId, MappeId, Title);
             }
         }
     }

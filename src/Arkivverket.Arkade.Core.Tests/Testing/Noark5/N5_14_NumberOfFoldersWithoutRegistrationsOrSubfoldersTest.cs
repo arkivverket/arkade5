@@ -53,20 +53,22 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("someelement", "some value")))
                                     .Add("mappe", new XmlElementHelper()
                                         .Add("systemID", "mappeSysId1")
-                                        .Add("mappeID", "mappeId1"))) // Folder has no registration but has a subfolder
+                                        .Add("mappeID", "mappeId1")
+                                        .Add("tittel", "mappeTittel1")))
                                 .Add("mappe", new XmlElementHelper()
                                     .Add("mappe", new XmlElementHelper() // Folder has neither registration or subfolder
                                         .Add("systemID", "mappeSysId2")
-                                        .Add("mappeID", "mappeId2"))))))); 
+                                        .Add("mappeID", "mappeId2")
+                                        .Add("tittel", "mappeTittel2"))))))); 
 
             TestRun testRun = helper.RunEventsOnTest(new N5_14_NumberOfFoldersWithoutRegistrationsOrSubfolders());
 
             testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 2");
 
             testRun.TestResults.TestsResults[1].Message.Should()
-                .Be("Mappe (systemID, mappeID): mappeSysId1, mappeId1");
+                .Be("Mappe (systemID, mappeID, tittel): mappeSysId1, mappeId1, mappeTittel1");
             testRun.TestResults.TestsResults[2].Message.Should()
-                .Be("Mappe (systemID, mappeID): mappeSysId2, mappeId2");
+                .Be("Mappe (systemID, mappeID, tittel): mappeSysId2, mappeId2, mappeTittel2");
 
             testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
@@ -85,19 +87,21 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                     .Add("mappe", new XmlElementHelper() // Folder has neither registration or subfolder
                                         .Add("someelement", "some value")
                                         .Add("systemID", "mappeSysId1")
-                                        .Add("mappeID", "mappeId1"))
+                                        .Add("mappeID", "mappeId1")
+                                        .Add("tittel", "mappeTittel1"))
                                     .Add("mappe", new XmlElementHelper() // Folder has neither registration or subfolder
                                         .Add("someelement", "some value")
                                         .Add("systemID", "mappeSysId2")
-                                        .Add("mappeID", "mappeId2"))))));
+                                        .Add("mappeID", "mappeId2")
+                                        .Add("tittel", "mappeTittel2"))))));
 
             TestRun testRun = helper.RunEventsOnTest(new N5_14_NumberOfFoldersWithoutRegistrationsOrSubfolders());
 
             testRun.TestResults.TestsResults.First().Message.Should().Be("Totalt: 2");
             testRun.TestResults.TestsResults[1].Message.Should()
-                .Be("Mappe (systemID, mappeID): mappeSysId1, mappeId1");
+                .Be("Mappe (systemID, mappeID, tittel): mappeSysId1, mappeId1, mappeTittel1");
             testRun.TestResults.TestsResults[2].Message.Should()
-                .Be("Mappe (systemID, mappeID): mappeSysId2, mappeId2");
+                .Be("Mappe (systemID, mappeID, tittel): mappeSysId2, mappeId2, mappeTittel2");
 
             testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
@@ -115,11 +119,13 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                 .Add("mappe", // Folder has neither registration or subfolder
                                     new XmlElementHelper()
                                         .Add("systemID", "mappeSysId1")
-                                        .Add("mappeID", "mappeId1"))
+                                        .Add("mappeID", "mappeId1")
+                                        .Add("tittel", "mappeTittel1"))
                                 .Add("mappe", // Folder has neither registration or subfolder
                                     new XmlElementHelper()
                                         .Add("systemID", "mappeSysId2")
-                                        .Add("mappeID", "mappeId2")))))
+                                        .Add("mappeID", "mappeId2")
+                                        .Add("tittel", "mappeTittel2")))))
                    .Add("arkivdel", new XmlElementHelper()
                         .Add("systemID", "someSystemId_2")
                         .Add("tittel", "someTitle_2")
@@ -136,9 +142,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals("Totalt: 2"));
             testRun.TestResults.TestResultSets[0].TestsResults.Should().Contain(r =>
-                r.Message.Equals("Mappe (systemID, mappeID): mappeSysId1, mappeId1"));
+                r.Message.Equals("Mappe (systemID, mappeID, tittel): mappeSysId1, mappeId1, mappeTittel1"));
             testRun.TestResults.TestResultSets[0].TestsResults.Should().Contain(r =>
-                r.Message.Equals("Mappe (systemID, mappeID): mappeSysId2, mappeId2"));
+                r.Message.Equals("Mappe (systemID, mappeID, tittel): mappeSysId2, mappeId2, mappeTittel2"));
 
             testRun.TestResults.GetNumberOfResults().Should().Be(5);
         }
@@ -177,7 +183,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testResults[0].Message.Should().Be("Totalt: 1");
 
-            testResults[1].Message.Should().Be("Mappe (systemID, mappeID): someMappeSystemId_2, someMappeId_2");
+            testResults[1].Message.Should().Be("Mappe (systemID, mappeID, tittel): someMappeSystemId_2, someMappeId_2, someMappeTitle_2");
         }
     }
 }

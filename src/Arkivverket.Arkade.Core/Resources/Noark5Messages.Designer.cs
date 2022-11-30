@@ -362,11 +362,11 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Folder (systemID, mappeID): {0}, {1}.
+        ///   Looks up a localized string similar to Folder (systemID, mappeID, title): {0}, {1}, {2}.
         /// </summary>
-        public static string FolderSystemIdAndFolderId {
+        public static string FolderSystemIdFolderIdAndTitle {
             get {
-                return ResourceManager.GetString("FolderSystemIdAndFolderId", resourceCulture);
+                return ResourceManager.GetString("FolderSystemIdFolderIdAndTitle", resourceCulture);
             }
         }
         
