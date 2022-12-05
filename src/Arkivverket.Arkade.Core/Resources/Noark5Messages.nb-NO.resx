@@ -419,4 +419,12 @@ Generert:  {2}</value>
   <data name="DocumentDescriptionSystemIdRegistrationIdAndDocumentNumber" xml:space="preserve">
     <value>Dokumentbeskrivelse (systemID, registreringsID, dokumentnummer): {0}, {1}, {2}</value>
   </data>
+  <data name="DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage" xml:space="preserve">
+    <value>I tillegg ble det funnet {0} dokumentbeskrivelser uten dokumentobjekt der lagringsmedium er "fysisk arkiv" eller "fysisk medium".</value>
+  </data>
+  <data name="DocumentDescriptionsWithoutDocumentObjectsInfoMessage" xml:space="preserve">
+    <value>Følgende tilfeller er ikke inkludert i totalen:
+Dokumentbeskrivelser som er underlagt mapper eller registreringer med status "utgår".
+Dokumentbeskrivelser der "dokumentmedium" er "fysisk medium" eller "fysisk arkiv".</value>
+  </data>
 </root>

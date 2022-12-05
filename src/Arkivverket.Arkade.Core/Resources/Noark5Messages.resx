@@ -422,4 +422,12 @@ Generated: {2}</value>
   <data name="DocumentDescriptionSystemIdRegistrationIdAndDocumentNumber" xml:space="preserve">
     <value>Document description (systemID, registreringsID, dokumentnummer): {0}, {1}, {2}</value>
   </data>
+  <data name="DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage" xml:space="preserve">
+    <value>In addition, {0} document descriptions without document objects and a physical storage medium were found.</value>
+  </data>
+  <data name="DocumentDescriptionsWithoutDocumentObjectsInfoMessage" xml:space="preserve">
+    <value>The following cases are not included in the total count:
+Document descriptions which are subject to a folder or registration with status "utgår".
+Document descriptions where "dokumentmedium" is "fysisk medium" or "fysisk arkiv".</value>
+  </data>
 </root>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
@@ -28,9 +29,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject());
 
+            testRun.TestResults.TestsResults[0].Message.Should()
+                .Be(Noark5Messages.DocumentDescriptionsWithoutDocumentObjectsInfoMessage);
             testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals("Totalt: 0"));
 
-            testRun.TestResults.GetNumberOfResults().Should().Be(1);
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
         }
 
         [Fact]
@@ -64,6 +67,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject());
 
             List<TestResult> testResults = testRun.TestResults.TestsResults;
+            testResults[0].Message.Should().Be(Noark5Messages.DocumentDescriptionsWithoutDocumentObjectsInfoMessage);
             testResults.Should().Contain(r => r.Message.Equals("Totalt: 2"));
 
             testRun.TestResults.TestResultSets[0].TestsResults[0].Message.Should().Be("Totalt: 2");
@@ -74,7 +78,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.TestResults.TestResultSets[1].TestsResults[0].Message.Should().Be("Totalt: 0");
 
-            testRun.TestResults.GetNumberOfResults().Should().Be(5);
+            testRun.TestResults.GetNumberOfResults().Should().Be(6);
         }
 
         [Theory]
@@ -100,9 +104,42 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject());
 
-            testRun.TestResults.TestsResults[0].Message.Should().Be("Totalt: 0");
+            testRun.TestResults.TestsResults[0].Message.Should()
+                .Be(Noark5Messages.DocumentDescriptionsWithoutDocumentObjectsInfoMessage);
+            testRun.TestResults.TestsResults[1].Message.Should().Be("Totalt: 0");
 
-            testRun.TestResults.GetNumberOfResults().Should().Be(1);
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
+        }
+
+        [Fact]
+        public void ShouldReportAmountOfMissingDocumentObjectsForPhysicalStorage()
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("mappe", new XmlElementHelper()
+                                        .Add("registrering", new XmlElementHelper()
+                                            .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                                .Add("dokumentmedium", "fysisk arkiv"))))
+                                    .Add("mappe", new XmlElementHelper()
+                                        .Add("registrering", new XmlElementHelper()
+                                            .Add("dokumentbeskrivelse", new XmlElementHelper()
+                                                .Add("dokumentmedium", "fysisk medium")))))))));
+
+            TestRun testRun = helper.RunEventsOnTest(new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject());
+
+            testRun.TestResults.TestsResults[0].Message.Should()
+                .Be(Noark5Messages.DocumentDescriptionsWithoutDocumentObjectsInfoMessage);
+            testRun.TestResults.TestsResults[1].Message.Should().Be("Totalt: 0");
+            testRun.TestResults.TestsResults[2].Message.Should()
+                .Be(string.Format(Noark5Messages.DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage, 2));
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(3);
         }
     }
 }

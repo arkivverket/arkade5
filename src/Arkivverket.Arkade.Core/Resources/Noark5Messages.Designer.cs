@@ -277,6 +277,26 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In addition, {0} document descriptions without document objects and a physical storage medium were found..
+        /// </summary>
+        public static string DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage {
+            get {
+                return ResourceManager.GetString("DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following cases are not included in the total count:
+        ///Document descriptions which are subject to a folder or registration with status &quot;utgår&quot;.
+        ///Document descriptions where &quot;dokumentmedium&quot; is &quot;fysisk medium&quot; or &quot;fysisk arkiv&quot;..
+        /// </summary>
+        public static string DocumentDescriptionsWithoutDocumentObjectsInfoMessage {
+            get {
+                return ResourceManager.GetString("DocumentDescriptionsWithoutDocumentObjectsInfoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Document description (systemID, registreringsID, dokumentnummer): {0}, {1}, {2}.
         /// </summary>
         public static string DocumentDescriptionSystemIdRegistrationIdAndDocumentNumber {
