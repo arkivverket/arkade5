@@ -189,6 +189,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _statusEventHandler.RecordProcessingFinishedEvent += OnRecordProcessingFinishedEvent;
             _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveInformationEvent;
             _statusEventHandler.SiardValidationFinishedEvent += OnSiardValidationFinished;
+            _statusEventHandler.ReadXmlEndElementEvent += OnReadXmlEndElementEvent;
 
             StartTestingCommand = new DelegateCommand(StartTesting, CanStartTestRun);
             RunTestEngineCommand = new DelegateCommand(async () => await Task.Run(() => RunTests()));
@@ -389,6 +390,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 NumberOfProcessedRecords = NumberOfProcessedRecords + 1;
 
             _isProcessingRecord = false;
+        }
+
+        private void OnReadXmlEndElementEvent(object sender, EventArgs eventArgs)
+        {
+            NumberOfProcessedRecords = NumberOfProcessedRecords + 1;
         }
 
         private void OnNewArchiveInformationEvent(object sender, ArchiveInformationEventArgs eventArgs)
