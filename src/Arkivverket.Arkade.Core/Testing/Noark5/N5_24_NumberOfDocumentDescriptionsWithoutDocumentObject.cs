@@ -36,8 +36,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 TestsResults = new List<TestResult>
                 {
-                    new(ResultType.Success, new Location(string.Empty), 
-                        Noark5Messages.DocumentDescriptionsWithoutDocumentObjectsInfoMessage),
                     new(ResultType.Success, new Location(string.Empty), string.Format(
                         Noark5Messages.TotalResultNumber, _totalNumberOfMissingDocumentObjects))
                 }

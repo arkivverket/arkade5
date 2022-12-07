@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Noark5TestDescriptions {
@@ -57,6 +57,15 @@ namespace Arkivverket.Arkade.Core.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counts document descriptions without document objects in arkivstruktur.xml.{0}The following cases are not reported towards the total number:{0}1. Document descriptions subject to a folder or registration with status &quot;utgår&quot;.{0}2. Document descriptions where &quot;dokumentmedium&quot; is &quot;fysisk medium&quot; or &quot;fysisk arkiv&quot;..
+        /// </summary>
+        public static string N5_24 {
+            get {
+                return ResourceManager.GetString("N5.24", resourceCulture);
             }
         }
     }

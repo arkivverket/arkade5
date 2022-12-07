@@ -29,11 +29,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject());
 
-            testRun.TestResults.TestsResults[0].Message.Should()
-                .Be(Noark5Messages.DocumentDescriptionsWithoutDocumentObjectsInfoMessage);
             testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals("Totalt: 0"));
 
-            testRun.TestResults.GetNumberOfResults().Should().Be(2);
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
 
         [Fact]
@@ -67,7 +65,6 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             TestRun testRun = helper.RunEventsOnTest(new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject());
 
             List<TestResult> testResults = testRun.TestResults.TestsResults;
-            testResults[0].Message.Should().Be(Noark5Messages.DocumentDescriptionsWithoutDocumentObjectsInfoMessage);
             testResults.Should().Contain(r => r.Message.Equals("Totalt: 2"));
 
             testRun.TestResults.TestResultSets[0].TestsResults[0].Message.Should().Be("Totalt: 2");
@@ -78,7 +75,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             testRun.TestResults.TestResultSets[1].TestsResults[0].Message.Should().Be("Totalt: 0");
 
-            testRun.TestResults.GetNumberOfResults().Should().Be(6);
+            testRun.TestResults.GetNumberOfResults().Should().Be(5);
         }
 
         [Theory]
@@ -104,11 +101,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject());
 
-            testRun.TestResults.TestsResults[0].Message.Should()
-                .Be(Noark5Messages.DocumentDescriptionsWithoutDocumentObjectsInfoMessage);
-            testRun.TestResults.TestsResults[1].Message.Should().Be("Totalt: 0");
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Totalt: 0");
 
-            testRun.TestResults.GetNumberOfResults().Should().Be(2);
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
 
         [Fact]
@@ -133,13 +128,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             TestRun testRun = helper.RunEventsOnTest(new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject());
 
-            testRun.TestResults.TestsResults[0].Message.Should()
-                .Be(Noark5Messages.DocumentDescriptionsWithoutDocumentObjectsInfoMessage);
-            testRun.TestResults.TestsResults[1].Message.Should().Be("Totalt: 0");
-            testRun.TestResults.TestsResults[2].Message.Should()
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Totalt: 0");
+            testRun.TestResults.TestsResults[1].Message.Should()
                 .Be(string.Format(Noark5Messages.DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage, 2));
 
-            testRun.TestResults.GetNumberOfResults().Should().Be(3);
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
         }
     }
 }

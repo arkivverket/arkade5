@@ -78,7 +78,7 @@ namespace Arkivverket.Arkade.Core.Report
                 stream.WriteLine(@"        <p><b>Type:</b> " + GetTestTypeDisplayName(test.TestType) + "</p>");
                 stream.WriteLine(@"");
                 stream.WriteLine(@"        <p class=""test-description"">");
-                stream.WriteLine(@"            " + test.TestDescription);
+                stream.WriteLine($@"            {test.TestDescription}", "<br>");
                 stream.WriteLine(@"        </p>");
                 stream.WriteLine(@"");
                 stream.WriteLine(@"        <h4>" + Resources.Report.HeadingTestResults + "</h4>");
