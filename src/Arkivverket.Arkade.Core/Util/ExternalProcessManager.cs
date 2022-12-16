@@ -71,11 +71,8 @@ namespace Arkivverket.Arkade.Core.Util
 
         public static bool HasActiveProcess(string processName)
         {
-            Process process = Processes.FirstOrDefault(p => p.Value.ProcessName.Contains(processName)).Value;
-            if (process == default)
-                return false;
-
-            return !process.HasExited;
+            Process process = Processes.Values.FirstOrDefault(p => !p.HasExited && p.ProcessName.Contains(processName));
+            return process != default;
         }
     }
 }
