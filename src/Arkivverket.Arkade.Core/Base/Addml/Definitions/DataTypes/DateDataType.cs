@@ -76,7 +76,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 
         public override bool IsValid(string s, bool isNullable)
         {
-            return _dateFormat switch
+            bool tryParseExact = _dateFormat switch
             {
                 DateFormat.CSharpDateTime => DateTimeOffset.TryParseExact
                 (
@@ -99,7 +99,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
                     CultureInfo.InvariantCulture, DateTimeStyles.None, out _
                 ),
                 _ => false
-            } || base.IsValid(s, isNullable);
+            };
+            bool baseIsValid = base.IsValid(s, isNullable);
+            return tryParseExact || baseIsValid;
         }
 
         private static string ConvertIso8601CalendarDateTimeStringToCSharpDateTimeString(string iso8601DateTimeString)
@@ -114,14 +116,21 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
                   && int.TryParse(iso8601CalendarDateBasicRepresentation[6..8], out int day)))
                 return iso8601DateTimeString;
 
+            var dateString = $"{year}-{month}-{day}";
+            if (!DateTimeOffset.TryParse(dateString, out _))
+                return iso8601DateTimeString;
+
             if (iso8601CalendarDateBasicRepresentation.Length == 8)
                 return new DateTimeOffset(year, month, day, 0, 0, 0, TimeSpan.FromHours(0)).ToString("O");
-            
+
             if (TryConvertIso8601TimeRepresentationToCSharpFormat(iso8601CalendarDateBasicRepresentation[9..],
                     out (TimeSpan timeOfDay, TimeSpan timeZone) timeComponents))
-                return new DateTimeOffset(year, month, day,
-                    timeComponents.timeOfDay.Hours, timeComponents.timeOfDay.Minutes, timeComponents.timeOfDay.Seconds,
-                    timeComponents.timeZone).ToString("O");
+            {
+                if (DateTimeOffset.TryParse($"{dateString}T{iso8601CalendarDateBasicRepresentation[9..]}", out _))
+                    return new DateTimeOffset(year, month, day,
+                        timeComponents.timeOfDay.Hours, timeComponents.timeOfDay.Minutes, 
+                        timeComponents.timeOfDay.Seconds, timeComponents.timeZone).ToString("O");
+            }
 
             return iso8601DateTimeString;
         }
@@ -142,6 +151,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 
             while (dayNumber > daysInMonth)
             {
+                if (monthNumber == 12)
+                    return iso8601DateTimeString;
+
                 dayNumber -= daysInMonth;
                 monthNumber++;
                 daysInMonth = DateTime.DaysInMonth(year, monthNumber);
@@ -168,7 +180,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 
             if (!(int.TryParse(iso8601WeekDateBasicRepresentation[..4], out int year)
                   && int.TryParse(iso8601WeekDateBasicRepresentation[5..7], out int weekOfYear)
-                  && int.TryParse(iso8601WeekDateBasicRepresentation[7].ToString(), out int dayNumber)))
+                  && int.TryParse(iso8601WeekDateBasicRepresentation[7].ToString(), out int dayNumber)) ||
+                weekOfYear > 53 || dayNumber is < 1 or > 7)
                 return iso8601DateTimeString;
 
             // https://stackoverflow.com/questions/662379/calculate-date-from-week-number

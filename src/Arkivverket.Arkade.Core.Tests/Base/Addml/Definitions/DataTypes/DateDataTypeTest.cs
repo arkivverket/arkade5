@@ -137,5 +137,46 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions.DataTypes
             new DateDataType("YYYY-\"W\"WW-D\"T\"hh\":\"mm\":\"ss±hh").IsValid("2022-W52-7T01:02:03+01", true).Should().BeTrue();
             new DateDataType("YYYY-\"W\"WW-D\"T\"hh\":\"mm\":\"ss±hh\":\"mm").IsValid("2022-W52-7T01:02:03+01:00", true).Should().BeTrue();
         }
+
+
+        [Fact]
+        public void NS_ISO_8601FormatsShouldBeInvalid()
+        {
+            //Calendar dates
+            //Basic representations
+            new DateDataType("YYYYMMDD").IsValid("20201301", true).Should().BeFalse();
+            new DateDataType("YYYYMMDD\"T\"hhmmss\"Z\"").IsValid("20201301T010203Z", true).Should().BeFalse();
+            new DateDataType("YYYYMMDD\"T\"hhmmss±hh").IsValid("20200001T010203+01", true).Should().BeFalse();
+            new DateDataType("YYYYMMDD\"T\"hhmmss±hhmm").IsValid("20200001T010203+0100", true).Should().BeFalse();
+            //Extended representations
+            new DateDataType("YYYY-MM-DD").IsValid("2020-13-01", true).Should().BeFalse();
+            new DateDataType("YYYY-MM-DD\"T\"hh\":\"mm\":\"ss\"Z\"").IsValid("2020-13-01T01:02:03Z", true).Should().BeFalse();
+            new DateDataType("YYYY-MM-DD\"T\"hh\":\"mm\":\"ss±hh").IsValid("2020-00-01T01:02:03+01", true).Should().BeFalse();
+            new DateDataType("YYYY-MM-DD\"T\"hh\":\"mm\":\"ss±hh\":\"mm").IsValid("2020-00-01T01:02:03+01:00", true).Should().BeFalse();
+
+            //Ordinal dates
+            //Basic representations
+            new DateDataType("YYYYDDD").IsValid("2022500", true).Should().BeFalse();
+            new DateDataType("YYYYDDD\"T\"hhmmss\"Z\"").IsValid("2022500T092800Z", true).Should().BeFalse();
+            new DateDataType("YYYYDDD\"T\"hhmmss±hh").IsValid("2022500T092800+01", true).Should().BeFalse();
+            new DateDataType("YYYYDDD\"T\"hhmmss±hhmm").IsValid("2022500T092800+0100", true).Should().BeFalse();
+            //Extended representations
+            new DateDataType("YYYY-DDD").IsValid("2024-367", true).Should().BeFalse();
+            new DateDataType("YYYY-DDD\"T\"hh\":\"mm\":\"ss\"Z\"").IsValid("2024-367T09:28:00Z", true).Should().BeFalse();
+            new DateDataType("YYYY-DDD\"T\"hh\":\"mm\":\"ss±hh").IsValid("2024-367T09:28:00+01", true).Should().BeFalse();
+            new DateDataType("YYYY-DDD\"T\"hh\":\"mm\":\"ss±hh\":\"mm").IsValid("2024-367T09:28:00+01:00", true).Should().BeFalse();
+
+            //Week dates
+            //Basic representations
+            new DateDataType("YYYY\"W\"WWD").IsValid("2022W541", true).Should().BeFalse();
+            new DateDataType("YYYY\"W\"WWD\"T\"hhmmss\"Z\"").IsValid("2022W541T010203Z", true).Should().BeFalse();
+            new DateDataType("YYYY\"W\"WWD\"T\"hhmmss±hh").IsValid("2022W518T010203+01", true).Should().BeFalse();
+            new DateDataType("YYYY\"W\"WWD\"T\"hhmmss±hhmm").IsValid("2022W5113T010203+0100", true).Should().BeFalse();
+            //Extended representations
+            new DateDataType("YYYY-\"W\"WW-D").IsValid("2022-W54-7", true).Should().BeFalse();
+            new DateDataType("YYYY-\"W\"WW-D\"T\"hh\":\"mm\":\"ss\"Z\"").IsValid("2022-W54-7T01:02:03Z", true).Should().BeFalse();
+            new DateDataType("YYYY-\"W\"WW-D\"T\"hh\":\"mm\":\"ss±hh").IsValid("2022-W51-8T01:02:03+01", true).Should().BeFalse();
+            new DateDataType("YYYY-\"W\"WW-D\"T\"hh\":\"mm\":\"ss±hh\":\"mm").IsValid("2022-W51-13T01:02:03+01:00", true).Should().BeFalse();
+        }
     }
 }
