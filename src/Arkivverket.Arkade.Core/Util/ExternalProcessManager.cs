@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -6,6 +6,9 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Core.Util
 {
+    /// <summary>
+    /// <para>Manages processes which are spawned from Arkade.</para>
+    /// </summary>
     public static class ExternalProcessManager
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
@@ -51,7 +54,8 @@ namespace Arkivverket.Arkade.Core.Util
 
             int processId = process.Id;
             process.Kill();
-            Processes[processId] = default;
+            process.Dispose();
+            Processes.Remove(processId);
         }
 
         public static void TerminateAll()
@@ -61,6 +65,7 @@ namespace Arkivverket.Arkade.Core.Util
 
             foreach ((int _, Process process) in Processes)
             {
+                if (process == default) continue;
                 process.Kill();
                 process.Dispose();
             }
