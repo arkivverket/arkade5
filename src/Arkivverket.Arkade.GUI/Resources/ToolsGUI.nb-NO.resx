@@ -149,7 +149,7 @@ Resultat lagret i:</value>
     <value>CSV (Semikolondelt) (*.csv)|*.csv</value>
   </data>
   <data name="UnsavedResultsOnExitWarning" xml:space="preserve">
-    <value>Hvis Verktøy-dialogen lukkes nå vil resultater fra det kjørende verktøyet gå tapt. Ønker du likevel å lukke?</value>
+    <value>Hvis Verktøy-dialogen lukkes nå vil resultater fra {0} gå tapt. Ønker du likevel å lukke?</value>
   </data>
   <data name="ArchiveFormatValidationChooseFileButtonText" xml:space="preserve">
     <value>Velg fil ...</value>
@@ -189,5 +189,14 @@ Resultat lagret i:</value>
   </data>
   <data name="GenerateMetadataExampleFilePathLabel" xml:space="preserve">
     <value>Metadata-eksempelfil ble generert:</value>
+  </data>
+  <data name="FormatAnalysis" xml:space="preserve">
+    <value>formatanalyse</value>
+  </data>
+  <data name="PdfAValidation" xml:space="preserve">
+    <value>PDF/A-validering</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>og</value>
   </data>
 </root>
