@@ -126,7 +126,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             if (TryConvertIso8601TimeRepresentationToCSharpFormat(iso8601CalendarDateBasicRepresentation[9..],
                     out (TimeSpan timeOfDay, TimeSpan timeZone) timeComponents))
             {
-                if (DateTimeOffset.TryParse($"{dateString}T{iso8601CalendarDateBasicRepresentation[9..]}", out _))
+                if (DateTimeOffset.TryParse($"{dateString}T{timeComponents.timeOfDay}Z", out _))
                     return new DateTimeOffset(year, month, day,
                         timeComponents.timeOfDay.Hours, timeComponents.timeOfDay.Minutes, 
                         timeComponents.timeOfDay.Seconds, timeComponents.timeZone).ToString("O");
