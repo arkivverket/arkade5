@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.GUI.Util
         public void ShowMessageBox()
         {
             string messageBoxErrorMessage = new StringBuilder()
-                .AppendLine("Use Ctrl+C to copy this error message and send it to arkade5@arkivverket.no")
+                .AppendLine("Use Ctrl+C to copy this error message and send it to support.arkade@arkivverket.no")
                 .AppendLine("")
                 .Append(_errorMessage)
                 .ToString();
