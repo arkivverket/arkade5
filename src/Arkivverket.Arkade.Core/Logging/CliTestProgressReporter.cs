@@ -73,18 +73,17 @@ namespace Arkivverket.Arkade.Core.Logging
             if (_archiveType == ArchiveType.Siard)
                 return;
 
-            int cursorLeft = Console.CursorLeft;
-            int cursorTop = Console.CursorTop;
-
-            SetConsoleCursorToTestProgressWriteLocation();
-
             if (_previousTestProgressValue != testProgressValue)
             {
+                int cursorLeft = Console.CursorLeft;
+                int cursorTop = Console.CursorTop;
+
+                SetConsoleCursorToTestProgressWriteLocation();
                 _statusEventHandler.RaiseEventTestProgressUpdated($"{testProgressValue} %");
                 _previousTestProgressValue = testProgressValue;
-            }
 
-            ResetCursorPositionToPreviousWriteLocation(cursorLeft, cursorTop);
+                ResetCursorPositionToPreviousWriteLocation(cursorLeft, cursorTop);
+            }
         }
 
         public void Finish(bool hasFailed)
