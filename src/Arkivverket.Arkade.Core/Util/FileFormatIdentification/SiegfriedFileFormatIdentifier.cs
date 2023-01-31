@@ -32,6 +32,8 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         
         public IEnumerable<IFileFormatInfo> IdentifyFormats(string target, FileFormatScanMode scanMode)
         {
+            _statusEventHandler.RaiseEventFormatAnalysisStarted(0); // reset file counter
+
             long numberOfFilesToAnalyse = CalculateNumberOfFilesToAnalyse(scanMode, target);
 
             _statusEventHandler.RaiseEventFormatAnalysisStarted(numberOfFilesToAnalyse);
