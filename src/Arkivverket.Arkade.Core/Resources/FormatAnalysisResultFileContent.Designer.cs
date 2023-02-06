@@ -61,6 +61,24 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid.
+        /// </summary>
+        public static string FormatIsInvalidValue {
+            get {
+                return ResourceManager.GetString("FormatIsInvalidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        public static string FormatIsValidValue {
+            get {
+                return ResourceManager.GetString("FormatIsValidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Absolute file path.
         /// </summary>
         public static string HeaderAbsoluteFilePath {

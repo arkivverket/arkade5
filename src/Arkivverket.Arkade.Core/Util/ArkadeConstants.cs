@@ -1,4 +1,4 @@
-﻿namespace Arkivverket.Arkade.Core.Util
+namespace Arkivverket.Arkade.Core.Util
 {
     public class ArkadeConstants
     {
@@ -44,6 +44,8 @@
         public const string ChangeLogXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.endringslogg.xsd";
         public const string PublicJournalXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.offentligJournal.xsd";
         public const string RunningJournalXsdResource = "Arkivverket.Arkade.Core.ExternalModels.xsd.loependeJournal.xsd";
+
+        public const string ArchiveFileFormatsJsonResource = "Arkivverket.Arkade.Core.Resources.ArchiveFileFormats.json";
 
         public const string DirectoryPathBuiltInXsdResources = "Arkivverket.Arkade.Core.ExternalModels.xsd";
         public const string DirectoryPathNoark5XsdResources = "Arkivverket.Arkade.Core.ExternalModels.Noark5.{0}";

@@ -64,6 +64,7 @@
     <None Remove="ExternalModels\xsd\testSessionLog.xsd" />
     <None Remove="ExternalModels\xsd\xlink.xsd" />
     <None Remove="ExternalModels\xsl\noarkih-to-addml.xsl" />
+    <None Remove="Resources\ArchiveFileFormats.json" />
     <None Remove="Resources\arkade.css" />
     <None Remove="Resources\arkivverket.gif" />
     <None Remove="Resources\bootstrap.min.css" />
@@ -111,6 +112,7 @@
     <EmbeddedResource Include="Resources\arkade.css" />
     <EmbeddedResource Include="Resources\arkivverket.gif" />
     <EmbeddedResource Include="Resources\bootstrap.min.css" />
+    <EmbeddedResource Include="Resources\ArchiveFileFormats.json" />
     <EmbeddedResource Include="Resources\FreeSans.ttf" />
     <EmbeddedResource Include="Resources\sRGB_CS_profile.icm" />
   </ItemGroup>
