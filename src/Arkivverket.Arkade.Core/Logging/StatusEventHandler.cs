@@ -45,9 +45,14 @@ namespace Arkivverket.Arkade.Core.Logging
             OnSiardValidationFinishedEvent(new SiardValidationEventArgs(errors));
         }
 
-        public void RaiseEventFormatAnalysisStarted(long totalAmountOfFiles)
+        public void RaiseEventFormatAnalysisStarted()
         {
-            OnFormatAnalysisStarted(new FormatAnalysisProgressEventArgs(totalAmountOfFiles));
+            OnFormatAnalysisStarted(default);
+        }
+
+        public void RaiseEventFormatAnalysisTotalFileCounterFinished(long totalAmountOfFiles)
+        {
+            OnFormatAnalysisTotalFileCounterFinished(new FormatAnalysisProgressEventArgs(totalAmountOfFiles));
         }
 
         public void RaiseEventFormatAnalysisProgressUpdated()
@@ -83,6 +88,7 @@ namespace Arkivverket.Arkade.Core.Logging
         public event EventHandler<SiardValidationEventArgs> SiardValidationFinishedEvent;
 
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisStartedEvent;
+        public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisTotalFileCounterFinishedEvent;
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisProgressUpdatedEvent;
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisFinishedEvent;
 
@@ -154,6 +160,12 @@ namespace Arkivverket.Arkade.Core.Logging
             handler?.Invoke(this, eventArgs);
         }
     
+        protected virtual void OnFormatAnalysisTotalFileCounterFinished(FormatAnalysisProgressEventArgs eventArgs)
+        {
+            EventHandler<FormatAnalysisProgressEventArgs> handler = FormatAnalysisTotalFileCounterFinishedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
+
         protected virtual void OnFormatAnalysisProgressUpdated(FormatAnalysisProgressEventArgs eventArgs)
         {
             EventHandler<FormatAnalysisProgressEventArgs> handler = FormatAnalysisProgressUpdatedEvent;

@@ -151,6 +151,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (calculating..).
+        /// </summary>
+        public static string Calculating {
+            get {
+                return ResourceManager.GetString("Calculating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose directory with the content to be analysed.
         /// </summary>
         public static string ChooseDirectoryToAnalyse {

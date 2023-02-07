@@ -199,4 +199,7 @@ Result saved at:</value>
   <data name="And" xml:space="preserve">
     <value>and</value>
   </data>
+  <data name="Calculating" xml:space="preserve">
+    <value>(calculating..)</value>
+  </data>
 </root>

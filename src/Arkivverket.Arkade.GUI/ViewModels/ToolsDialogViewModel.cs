@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         // ---------- File format analysis --------------
 
         private long _numberOfAnalysedFiles;
-        private long _totalNumberOfFilesToAnalyse;
+        private long? _totalNumberOfFilesToAnalyse;
 
         private string _formatAnalysisOngoingString;
         public string FormatAnalysisOngoingString
@@ -153,6 +153,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _statusEventHandler.FormatAnalysisStartedEvent += OnFormatAnalysisStarted;
             _statusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdated;
             _statusEventHandler.FormatAnalysisFinishedEvent += OnFormatAnalysisFinished;
+            _statusEventHandler.FormatAnalysisTotalFileCounterFinishedEvent += OnFormatAnalysisTotalFileCounterFinished;
 
             ChooseDirectoryForFormatCheckCommand = new DelegateCommand(ChooseDirectoryForFormatCheck);
             RunFormatCheckCommand = new DelegateCommand(RunFormatCheck);
@@ -212,17 +213,22 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void OnFormatAnalysisStarted(object sender, FormatAnalysisProgressEventArgs eventArgs)
         {
+            _totalNumberOfFilesToAnalyse = null;
             _numberOfAnalysedFiles = 0;
+            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, _numberOfAnalysedFiles, 
+                ToolsGUI.Calculating);
+        }
+
+        private void OnFormatAnalysisTotalFileCounterFinished(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        {
             _totalNumberOfFilesToAnalyse = eventArgs.TotalFiles;
-            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, _numberOfAnalysedFiles,
-                _totalNumberOfFilesToAnalyse);
         }
 
         private void OnFormatAnalysisProgressUpdated(object sender, FormatAnalysisProgressEventArgs eventArgs)
         {
             _numberOfAnalysedFiles++;
             FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, _numberOfAnalysedFiles,
-                _totalNumberOfFilesToAnalyse);
+                _totalNumberOfFilesToAnalyse?.ToString() ?? ToolsGUI.Calculating);
         }
 
         private void OnFormatAnalysisFinished(object sender, FormatAnalysisProgressEventArgs eventArgs)

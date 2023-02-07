@@ -199,4 +199,7 @@ Resultat lagret i:</value>
   <data name="And" xml:space="preserve">
     <value>og</value>
   </data>
+  <data name="Calculating" xml:space="preserve">
+    <value>(kalkulerer..)</value>
+  </data>
 </root>

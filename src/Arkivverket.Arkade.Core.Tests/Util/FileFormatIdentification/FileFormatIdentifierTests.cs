@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using FluentAssertions;
 using Moq;
@@ -200,7 +201,8 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         private static IFileFormatIdentifier CreateFileFormatIdentifier()
         {
             IStatusEventHandler statusEventHandler = new Mock<IStatusEventHandler>().Object;
-            return new SiegfriedFileFormatIdentifier(new SiegfriedProcessRunner(statusEventHandler), statusEventHandler);
+            return new SiegfriedFileFormatIdentifier(new SiegfriedProcessRunner(statusEventHandler), statusEventHandler,
+                new FileCounter(statusEventHandler));
         }
     }
 }

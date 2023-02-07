@@ -113,6 +113,7 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<IFileFormatInfoFilesGenerator, FileFormatInfoFilesGenerator>();
             containerRegistry.Register<IFileFormatIdentifier, SiegfriedFileFormatIdentifier>();
             containerRegistry.Register<SiegfriedProcessRunner>();
+            containerRegistry.Register<IFileCounter, FileCounter>();
             containerRegistry.Register<ISiardArchiveReader, SiardArchiveReader>();
             containerRegistry.Register<ISiardXmlTableReader, SiardXmlTableReader>();
             containerRegistry.Register<SiardTestEngine>();

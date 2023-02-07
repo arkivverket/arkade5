@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             _statusEventHandler = statusEventHandler;
         }
 
-        internal IEnumerable<string> Run(Process process, long numberOfFilesToAnalyse)
+        internal IEnumerable<string> Run(Process process)
         {
             var results = new List<string>();
             var errors = new List<string>();
@@ -65,7 +65,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
         internal string RunOnFile(Process process)
         {
-            return Run(process, numberOfFilesToAnalyse: 1).Skip(1).First();
+            return Run(process).Skip(1).First();
         }
 
         internal string RunOnByteArray(Process process, KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
