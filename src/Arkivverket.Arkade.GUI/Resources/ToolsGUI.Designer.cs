@@ -61,6 +61,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to and.
+        /// </summary>
+        public static string And {
+            get {
+                return ResourceManager.GetString("And", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose directory ....
         /// </summary>
         public static string ArchiveFormatValidationChooseDirectoryButtonText {
@@ -160,6 +169,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to format analysis.
+        /// </summary>
+        public static string FormatAnalysis {
+            get {
+                return ResourceManager.GetString("FormatAnalysis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose directory ....
         /// </summary>
         public static string FormatCheckChooseTargetDirectoryButtonText {
@@ -251,6 +269,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PDF/A validation.
+        /// </summary>
+        public static string PdfAValidation {
+            get {
+                return ResourceManager.GetString("PdfAValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CSV (Comma separated values) (*.csv)|*.csv.
         /// </summary>
         public static string SaveFormatFileExtensionFilter {
@@ -269,7 +296,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If the Tools dialog is closed now,  results from the running tool will be lost. Do you still want to close?.
+        ///   Looks up a localized string similar to If the Tools dialog is closed now, results from {0} will be lost. Do you still want to close?.
         /// </summary>
         public static string UnsavedResultsOnExitWarning {
             get {

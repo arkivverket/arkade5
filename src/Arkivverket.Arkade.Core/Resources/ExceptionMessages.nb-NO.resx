@@ -159,4 +159,7 @@
   <data name="WriteAccessDeniedCaption" xml:space="preserve">
     <value>Skrivetilgang ikke godkjent</value>
   </data>
+  <data name="InvalidFieldFormatMessage" xml:space="preserve">
+    <value>Ugyldig feltformat '{0}' for datatype '{1}'. Gyldige feltformater er: {2}</value>
+  </data>
 </root>

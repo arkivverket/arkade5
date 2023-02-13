@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
@@ -22,11 +22,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                 .Add("mappe", new XmlElementHelper()
                                     .Add("registrering", new XmlElementHelper()
                                         .Add("dokumentbeskrivelse", new XmlElementHelper()
-                                            .Add("somesubelement", "some value"))))
+                                            .Add("someSubElement", "some value"))))
                                 .Add("mappe", new XmlElementHelper()
                                     .Add("registrering", new XmlElementHelper()
                                         .Add("dokumentbeskrivelse", new XmlElementHelper()
-                                            .Add("somesubelement", "some value"))))))));
+                                            .Add("someSubElement", "some value"))))))));
 
             TestRun testRun = helper.RunEventsOnTest(new N5_21_NumberOfRegistrationsWithoutDocumentDescription());
 
@@ -48,20 +48,25 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                 .Add("mappe", new XmlElementHelper()
                                     .Add("registrering", new XmlElementHelper()
                                         .Add("dokumentbeskrivelse", new XmlElementHelper()
-                                            .Add("somesubelement", "some value"))))
+                                            .Add("someSubElement", "some value"))))
                                 .Add("mappe", new XmlElementHelper()
                                     .Add("registrering", new XmlElementHelper()
-                                        .Add("somesubelement", "some value")))))));
+                                        .Add("systemID", "regSysId1")
+                                        .Add("registreringsID", "regId1")
+                                        .Add("someSubElement", "some value")))))));
 
             TestRun testRun = helper.RunEventsOnTest(new N5_21_NumberOfRegistrationsWithoutDocumentDescription());
 
             testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Equals("Totalt: 1"));
 
-            testRun.TestResults.GetNumberOfResults().Should().Be(1);
+            testRun.TestResults.TestsResults[1].Message.Should()
+                .Be("Registrering (systemID, registreringsID): regSysId1, regId1");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(2);
         }
 
         [Fact]
-        public void ShouldFindTwoRegistrationsWithoutDocumentDescriptionInOneOfTwoArchiveparts()
+        public void ShouldFindTwoRegistrationsWithoutDocumentDescriptionInOneOfTwoArchiveParts()
         {
             XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
                 new XmlElementHelper()
@@ -79,17 +84,56 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
-                                    .Add("registrering", string.Empty)
-                                    .Add("registrering", string.Empty))))));
+                                    .Add("registrering", new XmlElementHelper()
+                                        .Add("systemID", "regSysId1")
+                                        .Add("registreringsID", "regId1"))
+                                    .Add("registrering", new XmlElementHelper()
+                                        .Add("systemID", "regSysId2")
+                                        .Add("registreringsID", "regId2")))))));
 
             TestRun testRun = helper.RunEventsOnTest(new N5_21_NumberOfRegistrationsWithoutDocumentDescription());
 
             List<TestResult> testResults = testRun.TestResults.TestsResults;
             testResults.Should().Contain(r => r.Message.Equals("Totalt: 2"));
-            testResults.Should().Contain(r => r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_1, someTitle_1: 0"));
-            testResults.Should().Contain(r => r.Message.Equals("Arkivdel (systemID, tittel): someSystemId_2, someTitle_2: 2"));
 
-            testRun.TestResults.GetNumberOfResults().Should().Be(3);
+            testRun.TestResults.TestResultSets[0].TestsResults[0].Message.Should()
+                .Be("Totalt: 0");
+
+            testRun.TestResults.TestResultSets[1].TestsResults[0].Message.Should()
+                .Be("Totalt: 2");
+            testRun.TestResults.TestResultSets[1].TestsResults[1].Message.Should()
+                .Be("Registrering (systemID, registreringsID): regSysId1, regId1");
+            testRun.TestResults.TestResultSets[1].TestsResults[2].Message.Should()
+                .Be("Registrering (systemID, registreringsID): regSysId2, regId2");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(5);
+        }
+
+        [Theory]
+        [InlineData("utgår", "avsluttet", "arkivert")]
+        [InlineData("avsluttet", "utgår", "arkivert")]
+        [InlineData("avsluttet", "avsluttet", "utgår")]
+        public void ShouldNotReportRegistrationIfStatusUtgaar(string superFolderStatus, string folderStatus, string regStatus)
+        {
+            XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
+                new XmlElementHelper()
+                    .Add("arkivdel", new XmlElementHelper()
+                        .Add("systemID", "someSystemId_1")
+                        .Add("tittel", "someTitle_1")
+                        .Add("klassifikasjonssystem", new XmlElementHelper()
+                            .Add("klasse", new XmlElementHelper()
+                                .Add("mappe", new XmlElementHelper()
+                                    .Add("saksstatus", superFolderStatus)
+                                    .Add("mappe", new XmlElementHelper()
+                                        .Add("saksstatus", folderStatus)
+                                        .Add("registrering", new XmlElementHelper()
+                                            .Add("journalstatus", regStatus))))))));
+
+            TestRun testRun = helper.RunEventsOnTest(new N5_21_NumberOfRegistrationsWithoutDocumentDescription());
+
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Totalt: 0");
+
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
     }
 }

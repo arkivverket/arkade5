@@ -133,7 +133,9 @@
     <value>Teller opp antall forekomster av verdien null i feltet</value>
   </data>
   <data name="AnalyseCountNullMessage" xml:space="preserve">
-    <value>{0} forekomster av null</value>
+    <value>{0} forekomster av null
+Gyldige nullverdier: {1}
+Ugyldige nullverdier: {2}</value>
   </data>
   <data name="AnalyseCountRecordDefinitionOccurrencesDescription" xml:space="preserve">
     <value>Teller opp antall poster for hver posttype</value>

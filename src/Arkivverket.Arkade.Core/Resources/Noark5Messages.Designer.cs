@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Noark5Messages {
@@ -277,6 +277,24 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In addition, {0} document descriptions without document objects and a physical storage medium were found..
+        /// </summary>
+        public static string DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage {
+            get {
+                return ResourceManager.GetString("DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document description (systemID, registreringsID, dokumentnummer): {0}, {1}, {2}.
+        /// </summary>
+        public static string DocumentDescriptionSystemIdRegistrationIdAndDocumentNumber {
+            get {
+                return ResourceManager.GetString("DocumentDescriptionSystemIdRegistrationIdAndDocumentNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file {0} does not have the same checksum as specified in document description (systemID) {1}.
         /// </summary>
         public static string DocumentFilesChecksumControlMessage {
@@ -329,6 +347,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string FileNotFound {
             get {
                 return ResourceManager.GetString("FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder (systemID, mappeID, title): {0}, {1}, {2}.
+        /// </summary>
+        public static string FolderSystemIdFolderIdAndTitle {
+            get {
+                return ResourceManager.GetString("FolderSystemIdFolderIdAndTitle", resourceCulture);
             }
         }
         
@@ -815,6 +842,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string Primary {
             get {
                 return ResourceManager.GetString("Primary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration (systemID, registreringsID): {0}, {1}.
+        /// </summary>
+        public static string RegistrationSystemIdAndRegistrationId {
+            get {
+                return ResourceManager.GetString("RegistrationSystemIdAndRegistrationId", resourceCulture);
             }
         }
         

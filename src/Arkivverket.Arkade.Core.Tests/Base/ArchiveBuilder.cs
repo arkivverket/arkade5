@@ -59,7 +59,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
         public Archive Build()
         {
-            var archive = new Archive(_archiveType, _uuid, new WorkingDirectory(_workingDirectory, _workingDirectoryContent));
+            var archive = new Archive(_archiveType, _uuid, new WorkingDirectory(_workingDirectory, _workingDirectoryContent), null);
             return archive;
         }
     }

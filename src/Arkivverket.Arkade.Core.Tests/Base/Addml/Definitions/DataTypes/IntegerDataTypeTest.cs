@@ -69,110 +69,110 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions.DataTypes
         [Fact]
         public void IsValidShouldIgnoreSpace()
         {
-            new IntegerDataType(null, null).IsValid("1 000").Should().BeTrue();
-            new IntegerDataType("n.nnn", null).IsValid("1.0 00").Should().BeTrue();
-            new IntegerDataType("nnE+exp", null).IsValid("4 E+5").Should().BeTrue();
+            new IntegerDataType(null, null).IsValid("1 000", true).Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("1.0 00", true).Should().BeTrue();
+            new IntegerDataType("nnE+exp", null).IsValid("4 E+5", true).Should().BeTrue();
         }
 
         [Fact]
         public void IsValidShouldReturnTrueWithThousandSeparatorPlacedCorrect()
         {
-            new IntegerDataType("n.nnn", null).IsValid("1").Should().BeTrue();
-            new IntegerDataType("n.nnn", null).IsValid("12").Should().BeTrue();
-            new IntegerDataType("n.nnn", null).IsValid("123").Should().BeTrue();
-            new IntegerDataType("n.nnn", null).IsValid("4.000").Should().BeTrue();
-            new IntegerDataType("n.nnn", null).IsValid("111.000").Should().BeTrue();
-            new IntegerDataType("n.nnn", null).IsValid("1.111.000").Should().BeTrue();
-            new IntegerDataType("n.nnn", null).IsValid("1.111.000").Should().BeTrue();
-            new IntegerDataType("n.nnn", null).IsValid("22.111.000").Should().BeTrue();
-            new IntegerDataType("n.nnn", null).IsValid("222.111.000").Should().BeTrue();
-            new IntegerDataType("n.nnn", null).IsValid("3.222.111.000").Should().BeTrue();
-            new IntegerDataType("n.nnn", null).IsValid("-3.222.111.000").Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("1", true).Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("12", true).Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("123", true).Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("4.000", true).Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("111.000", true).Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("1.111.000", true).Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("1.111.000", true).Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("22.111.000", true).Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("222.111.000", true).Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("3.222.111.000", true).Should().BeTrue();
+            new IntegerDataType("n.nnn", null).IsValid("-3.222.111.000", true).Should().BeTrue();
 
-            new IntegerDataType("n,nnn", null).IsValid("1").Should().BeTrue();
-            new IntegerDataType("n,nnn", null).IsValid("12").Should().BeTrue();
-            new IntegerDataType("n,nnn", null).IsValid("123").Should().BeTrue();
-            new IntegerDataType("n,nnn", null).IsValid("4,000").Should().BeTrue();
-            new IntegerDataType("n,nnn", null).IsValid("111,000").Should().BeTrue();
-            new IntegerDataType("n,nnn", null).IsValid("1,111,000").Should().BeTrue();
-            new IntegerDataType("n,nnn", null).IsValid("1,111,000").Should().BeTrue();
-            new IntegerDataType("n,nnn", null).IsValid("22,111,000").Should().BeTrue();
-            new IntegerDataType("n,nnn", null).IsValid("222,111,000").Should().BeTrue();
-            new IntegerDataType("n,nnn", null).IsValid("3,222,111,000").Should().BeTrue();
-            new IntegerDataType("n,nnn", null).IsValid("-3,222,111,000").Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("1", true).Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("12", true).Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("123", true).Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("4,000", true).Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("111,000", true).Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("1,111,000", true).Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("1,111,000", true).Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("22,111,000", true).Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("222,111,000", true).Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("3,222,111,000", true).Should().BeTrue();
+            new IntegerDataType("n,nnn", null).IsValid("-3,222,111,000", true).Should().BeTrue();
 
-            new IntegerDataType("n nnn", null).IsValid("1").Should().BeTrue();
-            new IntegerDataType("n nnn", null).IsValid("12").Should().BeTrue();
-            new IntegerDataType("n nnn", null).IsValid("123").Should().BeTrue();
-            new IntegerDataType("n nnn", null).IsValid("4 000").Should().BeTrue();
-            new IntegerDataType("n nnn", null).IsValid("111 000").Should().BeTrue();
-            new IntegerDataType("n nnn", null).IsValid("1 111 000").Should().BeTrue();
-            new IntegerDataType("n nnn", null).IsValid("1 111 000").Should().BeTrue();
-            new IntegerDataType("n nnn", null).IsValid("22 111 000").Should().BeTrue();
-            new IntegerDataType("n nnn", null).IsValid("222 111 000").Should().BeTrue();
-            new IntegerDataType("n nnn", null).IsValid("3 222 111 000").Should().BeTrue();
-            new IntegerDataType("n nnn", null).IsValid("-3 222 111 000").Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("1", true).Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("12", true).Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("123", true).Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("4 000", true).Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("111 000", true).Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("1 111 000", true).Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("1 111 000", true).Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("22 111 000", true).Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("222 111 000", true).Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("3 222 111 000", true).Should().BeTrue();
+            new IntegerDataType("n nnn", null).IsValid("-3 222 111 000", true).Should().BeTrue();
         }
 
         [Fact]
         public void IsValidShouldReturnFalseWithThousandSeparatorPlacedIncorrect()
         {
-            new IntegerDataType("n.nnn", null).IsValid(".1").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("1.2").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("1.23").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("1.23.").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("1.23.4").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("1.234.").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("1.234.5").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid(".123.456").Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid(".1", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("1.2", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("1.23", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("1.23.", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("1.23.4", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("1.234.", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("1.234.5", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid(".123.456", true).Should().BeFalse();
 
-            new IntegerDataType("n,nnn", null).IsValid(",1").Should().BeFalse();
-            new IntegerDataType("n,nnn", null).IsValid("1,2").Should().BeFalse();
-            new IntegerDataType("n,nnn", null).IsValid("1,23").Should().BeFalse();
-            new IntegerDataType("n,nnn", null).IsValid("1,23,").Should().BeFalse();
-            new IntegerDataType("n,nnn", null).IsValid("1,23,4").Should().BeFalse();
-            new IntegerDataType("n,nnn", null).IsValid("1,234,").Should().BeFalse();
-            new IntegerDataType("n,nnn", null).IsValid("1,234,5").Should().BeFalse();
-            new IntegerDataType("n,nnn", null).IsValid(",123,456").Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid(",1", true).Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid("1,2", true).Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid("1,23", true).Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid("1,23,", true).Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid("1,23,4", true).Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid("1,234,", true).Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid("1,234,5", true).Should().BeFalse();
+            new IntegerDataType("n,nnn", null).IsValid(",123,456", true).Should().BeFalse();
         }
 
         [Fact]
         public void IsValidShouldReturnFalseIfDecimalSeparatorIsInUse()
         {
-            new IntegerDataType("n.nnn", null).IsValid("1,1").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("12,1").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("123,1").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("4.000,1").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("111.000,1").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("1.111.000,1").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("1.111.000,1").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("22.111.000,1").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("222.111.000,1").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("3.222.111.000,1").Should().BeFalse();
-            new IntegerDataType("n.nnn", null).IsValid("-3.222.111.000,1").Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("1,1", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("12,1", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("123,1", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("4.000,1", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("111.000,1", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("1.111.000,1", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("1.111.000,1", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("22.111.000,1", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("222.111.000,1", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("3.222.111.000,1", true).Should().BeFalse();
+            new IntegerDataType("n.nnn", null).IsValid("-3.222.111.000,1", true).Should().BeFalse();
         }
 
         [Fact]
         public void IsValidShouldReturnTrueWithCorrectExponentFormat()
         {
-            new IntegerDataType("nnE+exp", null).IsValid("4E+5").Should().BeTrue();
-            new IntegerDataType("nnE+exp", null).IsValid("123E+4").Should().BeTrue();
-            new IntegerDataType("nnE+exp", null).IsValid("123E+10").Should().BeTrue();
-            new IntegerDataType("nnE+exp", null).IsValid("-123E+10").Should().BeTrue();
+            new IntegerDataType("nnE+exp", null).IsValid("4E+5", true).Should().BeTrue();
+            new IntegerDataType("nnE+exp", null).IsValid("123E+4", true).Should().BeTrue();
+            new IntegerDataType("nnE+exp", null).IsValid("123E+10", true).Should().BeTrue();
+            new IntegerDataType("nnE+exp", null).IsValid("-123E+10", true).Should().BeTrue();
         }
 
         [Fact]
         public void IsValidShouldReturnFalseWithIncorrectExponentFormat()
         {
-            new IntegerDataType("nnE+exp", null).IsValid("E+5").Should().BeFalse();
-            new IntegerDataType("nnE+exp", null).IsValid("1E+").Should().BeFalse();
-            new IntegerDataType("nnE+exp", null).IsValid("4E-2").Should().BeFalse();
+            new IntegerDataType("nnE+exp", null).IsValid("E+5", true).Should().BeFalse();
+            new IntegerDataType("nnE+exp", null).IsValid("1E+", true).Should().BeFalse();
+            new IntegerDataType("nnE+exp", null).IsValid("4E-2", true).Should().BeFalse();
 
             // Supported by BigInteger.Parse, but not according to ADDML spec
-            new IntegerDataType("nnE+exp", null).IsValid("4e+5").Should().BeFalse();
-            new IntegerDataType("nnE+exp", null).IsValid("4E5").Should().BeFalse();
-            new IntegerDataType("nnE+exp", null).IsValid("400E-2").Should().BeFalse();
-            new IntegerDataType("nnE+exp", null).IsValid("1").Should().BeFalse();
+            new IntegerDataType("nnE+exp", null).IsValid("4e+5", true).Should().BeFalse();
+            new IntegerDataType("nnE+exp", null).IsValid("4E5", true).Should().BeFalse();
+            new IntegerDataType("nnE+exp", null).IsValid("400E-2", true).Should().BeFalse();
+            new IntegerDataType("nnE+exp", null).IsValid("1", true).Should().BeFalse();
         }
 
     }

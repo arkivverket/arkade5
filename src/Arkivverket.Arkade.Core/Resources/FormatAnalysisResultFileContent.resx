@@ -144,4 +144,22 @@
   <data name="HeaderFormatVersion" xml:space="preserve">
     <value>Format version</value>
   </data>
+  <data name="StatisticsHeaderFormatId" xml:space="preserve">
+    <value>Format ID</value>
+  </data>
+  <data name="StatisticsHeaderFormatVersion" xml:space="preserve">
+    <value>Format version</value>
+  </data>
+  <data name="HeaderAbsoluteFilePath" xml:space="preserve">
+    <value>Absolute file path</value>
+  </data>
+  <data name="HeaderFileSize" xml:space="preserve">
+    <value>File size</value>
+  </data>
+  <data name="FormatIsValidValue" xml:space="preserve">
+    <value>Valid</value>
+  </data>
+  <data name="FormatIsInvalidValue" xml:space="preserve">
+    <value>Invalid</value>
+  </data>
 </root>

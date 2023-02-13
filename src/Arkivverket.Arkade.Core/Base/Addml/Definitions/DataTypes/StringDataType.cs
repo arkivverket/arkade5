@@ -1,6 +1,7 @@
 ﻿using Arkivverket.Arkade.Core.Util;
 using System;
 using System.Collections.Generic;
+using Arkivverket.Arkade.Core.Resources;
 
 namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 {
@@ -37,25 +38,21 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         {
             if (!_acceptedFieldFormats.Contains(fieldFormat))
             {
-                string message = "Illegal field format '" + fieldFormat + "' for data type 'string'. Accepted field formats are " + string.Join(", ", _acceptedFieldFormats);
+                string message = string.Format(ExceptionMessages.InvalidFieldFormatMessage, fieldFormat, "string",
+                    string.Join(", ", _acceptedFieldFormats));
                 throw new ArgumentException(message);
             }
         }
 
-        public override bool IsValid(string s)
+        public override bool IsValid(string s, bool isNullable)
         {
-            if (_fieldFormat == StringDataTypeAccountNumber)
+            return _fieldFormat switch
             {
-                return NorwegianAccountNumber.Verify(s);
-            } else if (_fieldFormat == StringDataTypeBirthNumber)
-            {
-                return NorwegianBirthNumber.Verify(s);
-            } else if (_fieldFormat == StringDataTypeOrganizationNumber)
-            {
-                return NorwegianOrganizationNumber.Verify(s);
-            } else {
-                return true;
-            }
+                StringDataTypeAccountNumber => NorwegianAccountNumber.Verify(s), 
+                StringDataTypeBirthNumber => NorwegianBirthNumber.Verify(s), 
+                StringDataTypeOrganizationNumber => NorwegianOrganizationNumber.Verify(s),
+                _ => !string.IsNullOrWhiteSpace(s)
+            } || base.IsValid(s, isNullable);
         }
 
         protected bool Equals(StringDataType other)

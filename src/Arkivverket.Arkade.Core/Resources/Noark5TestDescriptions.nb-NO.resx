@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,49 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddTestRunToTestSuite" xml:space="preserve">
-    <value>TestRun for the test {0} with ID {1} was not added to test suite. Probable cause: Another test has already been added with the same ID</value>
-  </data>
-  <data name="FileDescriptionParseError" xml:space="preserve">
-    <value>Arkade could not find any information about {0} from {1}</value>
-  </data>
-  <data name="FileNotFound" xml:space="preserve">
-    <value>Cannot find the file: {0}</value>
-  </data>
-  <data name="FileNotRead" xml:space="preserve">
-    <value>Could not read the file: {0}</value>
-  </data>
-  <data name="PathCombine" xml:space="preserve">
-    <value>Could not combine {0} and {1}</value>
-  </data>
-  <data name="PeriodSeparationParseError" xml:space="preserve">
-    <value>Arkade did not manage to interpret information about period separator from {0}</value>
-  </data>
-  <data name="XmlValidationErrorMessage" xml:space="preserve">
-    <value>Line {0}: {1}</value>
-  </data>
-  <data name="UnknownPackageType" xml:space="preserve">
-    <value>Unknown package type: {0}</value>
-  </data>
-  <data name="ArkadeProcessAreaNotSet" xml:space="preserve">
-    <value>Processing area is not set.</value>
-  </data>
-  <data name="SiardValidatorError" xml:space="preserve">
-    <value>Something went wrong while validating Siard file. Please see arkade-tmp/logs/ for details.</value>
-  </data>
-  <data name="SiardValidatorOpenError" xml:space="preserve">
-    <value>Could not start validator. Please make sure that Java Runtime is installed and available by entering "java -version" in a console.</value>
-  </data>
-  <data name="SiardValidatorLibraryNotFound" xml:space="preserve">
-    <value>Could not find the validator library. Please download the library from {0}, and save the file at {1}.</value>
-  </data>
-  <data name="WriteAccessDeniedMessage" xml:space="preserve">
-    <value>Arkade does not have permission to write to this location.</value>
-  </data>
-  <data name="WriteAccessDeniedCaption" xml:space="preserve">
-    <value>Write access denied</value>
-  </data>
-  <data name="InvalidFieldFormatMessage" xml:space="preserve">
-    <value>Invalid field format '{0}' for data type '{1}'. Accepted field formats are: {2}</value>
+  <data name="N5.24" xml:space="preserve">
+    <value>Teller antall dokumentbeskrivelser uten dokumentobjekter i arkivstruktur.xml.{0}Følgende tilfeller er ikke inkludert i totalen:{0}1. Dokumentbeskrivelser som er underlagt mapper eller registreringer med status "utgår".{0}2. Dokumentbeskrivelser der "dokumentmedium" er "fysisk medium" eller "fysisk arkiv".</value>
   </data>
 </root>

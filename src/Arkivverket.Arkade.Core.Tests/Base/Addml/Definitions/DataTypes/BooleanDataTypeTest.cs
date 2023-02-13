@@ -80,28 +80,28 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions.DataTypes
         public void IsNullShouldReturnTrueIfStringIsEqualToNullValue()
         {
             BooleanDataType type = new BooleanDataType("T/F", new List<string> {"null", ""});
-            type.IsNull("null").Should().BeTrue();
-            type.IsNull("").Should().BeTrue();
+            type.IsValidNullValue("null").Should().BeTrue();
+            type.IsValidNullValue("").Should().BeTrue();
         }
 
         [Fact]
         public void IsNullShouldReturnFalseIfStringIsNotEqualToNullValue()
         {
             BooleanDataType type = new BooleanDataType("T/F", new List<string> { "null", "" });
-            type.IsNull("T").Should().BeFalse();
-            type.IsNull("F").Should().BeFalse();
-            type.IsNull("other").Should().BeFalse();
+            type.IsValidNullValue("T").Should().BeFalse();
+            type.IsValidNullValue("F").Should().BeFalse();
+            type.IsValidNullValue("other").Should().BeFalse();
         }
 
         [Fact]
         public void IsNullShouldReturnFalseIfNullValueIsNotSet()
         {
             BooleanDataType type = new BooleanDataType("T/F", null);
-            type.IsNull("null").Should().BeFalse();
-            type.IsNull("").Should().BeFalse();
-            type.IsNull("T").Should().BeFalse();
-            type.IsNull("F").Should().BeFalse();
-            type.IsNull("other").Should().BeFalse();
+            type.IsValidNullValue("null").Should().BeFalse();
+            type.IsValidNullValue("").Should().BeFalse();
+            type.IsValidNullValue("T").Should().BeFalse();
+            type.IsValidNullValue("F").Should().BeFalse();
+            type.IsValidNullValue("other").Should().BeFalse();
         }
 
     }

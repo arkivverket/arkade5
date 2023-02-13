@@ -413,4 +413,16 @@ Generated: {2}</value>
   <data name="CouldNotFindValidSpecificationFile" xml:space="preserve">
     <value>Could not find a valid specification file</value>
   </data>
+  <data name="FolderSystemIdFolderIdAndTitle" xml:space="preserve">
+    <value>Folder (systemID, mappeID, title): {0}, {1}, {2}</value>
+  </data>
+  <data name="RegistrationSystemIdAndRegistrationId" xml:space="preserve">
+    <value>Registration (systemID, registreringsID): {0}, {1}</value>
+  </data>
+  <data name="DocumentDescriptionSystemIdRegistrationIdAndDocumentNumber" xml:space="preserve">
+    <value>Document description (systemID, registreringsID, dokumentnummer): {0}, {1}, {2}</value>
+  </data>
+  <data name="DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage" xml:space="preserve">
+    <value>In addition, {0} document descriptions without document objects and a physical storage medium were found.</value>
+  </data>
 </root>

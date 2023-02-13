@@ -26,9 +26,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             return 1;
         }
 
-        public override bool IsValid(string s)
+        public override bool IsValid(string s, bool isNullable)
         {
-            return true;
+            return base.IsValid(s, isNullable);
         }
     }
 }

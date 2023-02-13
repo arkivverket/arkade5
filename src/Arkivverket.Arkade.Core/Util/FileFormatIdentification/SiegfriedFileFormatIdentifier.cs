@@ -119,6 +119,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         {
             if (filePathAndByteContent.Value == null)
                 return FileFormatInfoFactory.Create(filePathAndByteContent.Key,
+                    filePathAndByteContent.Value?.Count().ToString() ?? "N/A",
                     Resources.SiardMessages.InlinedLobContentHasUnsupportedEncoding, "N/A", "N/A", "N/A", "N/A");
 
             const FileFormatScanMode scanMode = FileFormatScanMode.Stream;
@@ -136,7 +137,8 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             {
                 Log.Debug(e.ToString());
                 Log.Error($"Was not able to analyse {filePathAndByteContent.Key} - please see logfile for details.");
-                return FileFormatInfoFactory.Create(filePathAndByteContent.Key,
+                return FileFormatInfoFactory.Create(filePathAndByteContent.Key, 
+                    filePathAndByteContent.Value?.Count().ToString() ?? "N/A",
                     SiardMessages.ErrorMessage, "N/A", "N/A", "N/A", "N/A");
             }
             finally
@@ -163,6 +165,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                 return new SiegfriedFileInfo
                 (
                     fileName: csvParser.Record[0],
+                    byteSize: csvParser.Record[1],
                     errors: csvParser.Record[3],
                     id: csvParser.Record[5],
                     format: csvParser.Record[6],

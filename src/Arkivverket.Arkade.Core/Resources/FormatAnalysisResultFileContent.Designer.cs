@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class FormatAnalysisResultFileContent {
@@ -61,6 +61,33 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid.
+        /// </summary>
+        public static string FormatIsInvalidValue {
+            get {
+                return ResourceManager.GetString("FormatIsInvalidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        public static string FormatIsValidValue {
+            get {
+                return ResourceManager.GetString("FormatIsValidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Absolute file path.
+        /// </summary>
+        public static string HeaderAbsoluteFilePath {
+            get {
+                return ResourceManager.GetString("HeaderAbsoluteFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string HeaderErrors {
@@ -84,6 +111,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string HeaderFileName {
             get {
                 return ResourceManager.GetString("HeaderFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File size.
+        /// </summary>
+        public static string HeaderFileSize {
+            get {
+                return ResourceManager.GetString("HeaderFileSize", resourceCulture);
             }
         }
         
@@ -138,6 +174,24 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string StatisticsHeaderFileType {
             get {
                 return ResourceManager.GetString("StatisticsHeaderFileType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format ID.
+        /// </summary>
+        public static string StatisticsHeaderFormatId {
+            get {
+                return ResourceManager.GetString("StatisticsHeaderFormatId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format version.
+        /// </summary>
+        public static string StatisticsHeaderFormatVersion {
+            get {
+                return ResourceManager.GetString("StatisticsHeaderFormatVersion", resourceCulture);
             }
         }
     }

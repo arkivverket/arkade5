@@ -60,6 +60,11 @@ namespace Arkivverket.Arkade.Core.Logging
             OnFormatAnalysisFinished(default);
         }
 
+        public void RaiseEventReadXmlEndElement()
+        {
+            OnReadXmlEndElement(default);
+        }
+
         public event EventHandler<OperationMessageEventArgs> OperationMessageEvent;
 
         public event EventHandler<OperationMessageEventArgs> TestStartedEvent;
@@ -80,6 +85,8 @@ namespace Arkivverket.Arkade.Core.Logging
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisStartedEvent;
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisProgressUpdatedEvent;
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisFinishedEvent;
+
+        public event EventHandler<EventArgs> ReadXmlEndElementEvent;
 
         private void OnTestStartedEvent(OperationMessageEventArgs eventArgs)
         {
@@ -156,6 +163,12 @@ namespace Arkivverket.Arkade.Core.Logging
         protected virtual void OnFormatAnalysisFinished(FormatAnalysisProgressEventArgs eventArgs)
         {
             EventHandler<FormatAnalysisProgressEventArgs> handler = FormatAnalysisFinishedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
+
+        protected virtual void OnReadXmlEndElement(EventArgs eventArgs)
+        {
+            EventHandler<EventArgs> handler = ReadXmlEndElementEvent;
             handler?.Invoke(this, eventArgs);
         }
     }

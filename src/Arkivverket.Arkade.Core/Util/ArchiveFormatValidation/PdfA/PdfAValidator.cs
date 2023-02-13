@@ -63,9 +63,13 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 
         private async Task<ArchiveFormatValidationReport> ValidateSingleFileAsync(FileInfo item)
         {
+            ExternalProcessManager.Add("java", DateTime.Now);
+
             ValidationReport report = (
                 await _validator.ValidateWithDetailedReportAsync(item.FullName)
             ).Jobs.Job.ValidationReport;
+
+            ExternalProcessManager.Remove("java");
 
             string reportedPdfAProfile = report.ProfileName.Split(' ')[0];
 
@@ -79,7 +83,11 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         {
             _baseDirectoryPath = directory.FullName;
 
+            ExternalProcessManager.Add("java", DateTime.Now);
+
             PdfAValidationReport report = await CreatePdfAValidationReportAsync(directory);
+
+            ExternalProcessManager.Remove("java");
 
             string resultFileFullName = Path.Combine(resultFileDirectoryPath, OutputFileNames.PdfAValidationResultFile);
 

@@ -1,11 +1,10 @@
-﻿
-using System.Collections.Generic;
-using Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes;
+﻿using System.Collections.Generic;
 using System;
 using System.Globalization;
 using System.Linq;
+using Arkivverket.Arkade.Core.Resources;
 
-namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
+namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 {
     public class FloatDataType : DataType
     {
@@ -61,7 +60,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             }
             else
             {
-                string message = "Illegal field format '" + fieldFormat + "' for data type 'float'. Accepted field formats are " + string.Join(", ", _acceptedFieldFormats);
+                string message = string.Format(ExceptionMessages.InvalidFieldFormatMessage, fieldFormat, "float",
+                    string.Join(", ", _acceptedFieldFormats));
                 throw new ArgumentException(message);
             }
         }
@@ -85,22 +85,34 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
             return (_fieldFormat != null ? _fieldFormat.GetHashCode() : 0);
         }
 
-        public override bool IsValid(string s)
+        public override bool IsValid(string s, bool isNullable)
         {
+            bool isValid;
             if (_fieldFormat == null)
-                return TryParseDecimalForAllAllowedFormats(s);
-
-            var nfi = new NumberFormatInfo
             {
-                NumberDecimalSeparator = _numberDecimalSeparator,
-                NumberGroupSeparator = _numberGroupSeparator?? (_numberDecimalSeparator == "." ? "," : "."),
-            };
+                isValid = TryParseDecimalForAllAllowedFormats(s);
+            }
+            else
+            {
+                var nfi = new NumberFormatInfo
+                {
+                    NumberDecimalSeparator = _numberDecimalSeparator,
+                    NumberGroupSeparator = _numberGroupSeparator?? (_numberDecimalSeparator == "." ? "," : "."),
+                };
 
-            if (_numberGroupSeparator == null)
-                return decimal.TryParse(s, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, nfi, out _);
-
-            nfi.NumberGroupSeparator = _numberGroupSeparator;
-            return decimal.TryParse(s, NumberStyles.Integer | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands, nfi, out _);
+                if (_numberGroupSeparator == null)
+                {
+                    isValid = decimal.TryParse(s, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, nfi, out _);
+                }
+                else
+                {
+                    nfi.NumberGroupSeparator = _numberGroupSeparator;
+                    isValid = decimal.TryParse(s,
+                        NumberStyles.Integer | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands, nfi, out _);
+                }
+            }
+            
+            return isValid || base.IsValid(s, isNullable);
         }
 
         private bool TryParseDecimalForAllAllowedFormats(string s)

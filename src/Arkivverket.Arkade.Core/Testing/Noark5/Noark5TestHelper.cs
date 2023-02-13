@@ -48,6 +48,17 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                    eventArgs.Value.Equals("basisregistrering");
         }
 
+        public static bool IdentifiesFolderStatus(ReadElementEventArgs eventArgs)
+        {
+            return eventArgs.Path.Matches("saksstatus", "mappe");
+        }
+
+        public static bool IdentifiesRegistrationStatus(ReadElementEventArgs eventArgs)
+        {
+            return eventArgs.Path.Matches("journalstatus", "registrering") ||
+                   eventArgs.Path.Matches("moeteregistreringsstatus", "registrering");
+        }
+
         public static bool PeriodSeparationIsSharp(Archive archive)
         {
             bool inboundSeparationIsSharp;

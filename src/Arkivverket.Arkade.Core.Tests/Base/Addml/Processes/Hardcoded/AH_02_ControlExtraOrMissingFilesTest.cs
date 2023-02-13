@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
                  })
                 .Build();
 
-            Archive archive = new Archive(ArchiveType.Fagsystem, Uuid.Random(), workingDirectory);
+            Archive archive = new Archive(ArchiveType.Fagsystem, Uuid.Random(), workingDirectory, null);
 
             AH_02_ControlExtraOrMissingFiles test = new AH_02_ControlExtraOrMissingFiles(addmlDefinition, archive);
 

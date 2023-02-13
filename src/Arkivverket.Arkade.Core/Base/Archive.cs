@@ -7,6 +7,7 @@ using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.ExternalModels.Metadata;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
@@ -17,6 +18,7 @@ namespace Arkivverket.Arkade.Core.Base
     public class Archive
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+        private static IStatusEventHandler _statusEventHandler;
 
         public Uuid Uuid { get; }
         public WorkingDirectory WorkingDirectory { get; }
@@ -29,8 +31,11 @@ namespace Arkivverket.Arkade.Core.Base
         public IArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
-        public Archive(ArchiveType archiveType, Uuid uuid, WorkingDirectory workingDirectory)
+        public Archive(ArchiveType archiveType, Uuid uuid, WorkingDirectory workingDirectory,
+            IStatusEventHandler statusEventHandler)
         {
+            _statusEventHandler = statusEventHandler;
+
             Uuid = uuid;
 
             ArchiveType = archiveType;
@@ -42,7 +47,7 @@ namespace Arkivverket.Arkade.Core.Base
                 Details = SetupSiardArchiveDetails(workingDirectory);
                 return;
             }
-            
+
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
             if (!AddmlXmlUnit.File.Exists)
@@ -60,7 +65,7 @@ namespace Arkivverket.Arkade.Core.Base
             {
                 if (AddmlXmlUnit.HasNoDefinedSchema())
                     AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
-                
+
                 SetupArchiveXmlUnits();
             }
         }
@@ -76,8 +81,11 @@ namespace Arkivverket.Arkade.Core.Base
             if (new SiardArchiveReader().TryDeserializeToSiard2_1(siardArchiveFile.FullName, out siardArchive siard2Archive, out string errorMessage))
                 return new SiardArchiveDetails(siard2Archive);
 
-            throw new SiardArchiveReaderException(string.Format(SiardMessages.DeserializationUnsuccessfulMessage,
-                SiardMetadataXmlFileName, "2.1", errorMessage));
+            _statusEventHandler?.RaiseEventOperationMessage(null,
+                string.Format(SiardMessages.DeserializationUnsuccessfulMessage, SiardMetadataXmlFileName, "2.1", errorMessage),
+                OperationMessageStatus.Error);
+
+            return null;
         }
 
         public DirectoryInfo GetTestReportDirectory()

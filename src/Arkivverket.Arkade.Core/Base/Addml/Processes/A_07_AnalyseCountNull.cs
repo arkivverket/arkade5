@@ -9,14 +9,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
 {
     public class A_07_AnalyseCountNull : AddmlProcess
     {
-        private readonly TestId _id = new TestId(TestId.TestKind.Addml, 7);
+        private readonly TestId _id = new(TestId.TestKind.Addml, 7);
 
         public const string Name = "Analyse_CountNULL";
 
-        private readonly Dictionary<FieldIndex, BigInteger> _nullCount
-            = new Dictionary<FieldIndex, BigInteger>();
+        private readonly Dictionary<FieldIndex, NullCount> _nullCount = new();
 
-        private readonly List<TestResult> _testResults = new List<TestResult>();
+        private readonly List<TestResult> _testResults = new();
 
         public override TestId GetId()
         {
@@ -54,32 +53,55 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes
         protected override void DoRun(Field field)
         {
             string value = field.Value;
-            bool isNull = field.Definition.Type.IsNull(value);
+            bool isValidNullValue = field.Definition.Type.IsValidNullValue(value);
 
             FieldIndex index = field.Definition.GetIndex();
-            if (!_nullCount.ContainsKey(index))
+
+            if (isValidNullValue)
             {
-                _nullCount.Add(index, new BigInteger(0L));
+                if (!_nullCount.ContainsKey(index))
+                {
+                    _nullCount.Add(index, new NullCount { ValidNullCount = new BigInteger(1L) });
+                    return;
+                }
+                _nullCount[index].ValidNullCount++;
+                return;
             }
 
-            if (isNull)
+            if (!string.IsNullOrWhiteSpace(value))
+                return;
+
+            if (!_nullCount.ContainsKey(index))
             {
-                _nullCount[index]++;
+                _nullCount.Add(index, new NullCount { InvalidNullCount = new BigInteger(1L) });
+                return;
             }
+            _nullCount[index].InvalidNullCount++;
         }
 
         protected override void DoEndOfFile()
         {
-            foreach (KeyValuePair<FieldIndex, BigInteger> entry in _nullCount)
+            foreach ((FieldIndex index, NullCount nullCount) in _nullCount)
             {
-                FieldIndex index = entry.Key;
-                BigInteger nullCount = entry.Value;
-
                 _testResults.Add(new TestResult(ResultType.Success, AddmlLocation.FromFieldIndex(index),
-                    string.Format(Messages.AnalyseCountNullMessage, nullCount)));
+                    string.Format(Messages.AnalyseCountNullMessage, nullCount.TotalNullCount, nullCount.ValidNullCount,
+                        nullCount.InvalidNullCount)));
             }
 
             _nullCount.Clear();
+        }
+
+        private class NullCount
+        {
+            public BigInteger ValidNullCount { get; set; }
+            public BigInteger InvalidNullCount { get; set; }
+            public BigInteger TotalNullCount => ValidNullCount + InvalidNullCount;
+
+            public NullCount()
+            {
+                ValidNullCount = BigInteger.Zero;
+                InvalidNullCount = BigInteger.Zero;
+            }
         }
     }
 }

@@ -410,4 +410,16 @@ Generert:  {2}</value>
   <data name="CouldNotFindValidSpecificationFile" xml:space="preserve">
     <value>Klarte ikke finne en gyldig spesifikasjonsfil</value>
   </data>
+  <data name="FolderSystemIdFolderIdAndTitle" xml:space="preserve">
+    <value>Mappe (systemID, mappeID, tittel): {0}, {1}, {2}</value>
+  </data>
+  <data name="RegistrationSystemIdAndRegistrationId" xml:space="preserve">
+    <value>Registrering (systemID, registreringsID): {0}, {1}</value>
+  </data>
+  <data name="DocumentDescriptionSystemIdRegistrationIdAndDocumentNumber" xml:space="preserve">
+    <value>Dokumentbeskrivelse (systemID, registreringsID, dokumentnummer): {0}, {1}, {2}</value>
+  </data>
+  <data name="DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage" xml:space="preserve">
+    <value>I tillegg ble det funnet {0} dokumentbeskrivelser uten dokumentobjekt der lagringsmedium er "fysisk arkiv" eller "fysisk medium".</value>
+  </data>
 </root>

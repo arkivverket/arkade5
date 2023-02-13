@@ -106,7 +106,9 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} occurrences of null.
+        ///   Looks up a localized string similar to {0} occurrences of null
+        ///Valid null values: {1}
+        ///Invalid null values: {2}.
         /// </summary>
         public static string AnalyseCountNullMessage {
             get {

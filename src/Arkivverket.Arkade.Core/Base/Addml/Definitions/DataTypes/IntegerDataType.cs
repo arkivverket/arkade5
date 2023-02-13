@@ -1,4 +1,4 @@
-
+using Arkivverket.Arkade.Core.Resources;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -40,6 +40,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             _fieldFormat = fieldFormat;
             _thousandSeparator = ParseThousandSeparator(fieldFormat);
         }
+
         private void VerifyFieldFormat(string fieldFormat)
         {
             if (fieldFormat == null)
@@ -47,7 +48,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 
             if (!_acceptedFieldFormats.Contains(fieldFormat))
             {
-                string message = "Illegal field format '" + fieldFormat + "' for data type 'integer'. Accepted field formats are " + string.Join(", ", _acceptedFieldFormats);
+                string message = string.Format(ExceptionMessages.InvalidFieldFormatMessage, fieldFormat, "integer",
+                    string.Join(", ", _acceptedFieldFormats));
                 throw new ArgumentException(message);
             }
         }
@@ -82,47 +84,51 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             return (_fieldFormat != null ? _fieldFormat.GetHashCode() : 0);
         }
 
-
-
-        public override bool IsValid(string s)
+        public override bool IsValid(string s, bool isNullable)
         {
-            s = s.Replace(" ", "");
+            bool isValid;
+            string stringWithoutWhitespace = s.Replace(" ", "");
 
             if (FieldFormatThousandSeparators.Contains(_fieldFormat))
             {
-                return IsValidThousandSeparatorFormat(s);
-            } else if (_fieldFormat == FieldFormatExponent)
-            {
-                return IsValidExponentFormat(s);
-            } else
-            {
-                return IsValidIntegerFormat(s);
+                isValid = IsValidThousandSeparatorFormat(stringWithoutWhitespace);
             }
+            else if (_fieldFormat == FieldFormatExponent)
+            {
+                isValid = IsValidExponentFormat(stringWithoutWhitespace);
+            }
+            else
+            {
+                isValid = IsValidIntegerFormat(stringWithoutWhitespace);
+            }
+
+            return isValid || base.IsValid(s, isNullable);
         }
 
         private bool IsValidIntegerFormat(string s)
         {
-            BigInteger res;
-            return BigInteger.TryParse(s, NumberStyles.Integer, null, out res);
+            return BigInteger.TryParse(s, NumberStyles.Integer, null, out _);
         }
 
         private bool IsValidExponentFormat(string s)
         {
-            if (!s.Contains(ExponentSymbol))
-            {
-                return false;
-            }
-
-            BigInteger res;
-            return BigInteger.TryParse(s, NumberStyles.AllowExponent | NumberStyles.AllowLeadingSign, null, out res);
+            return s.Contains(ExponentSymbol) && 
+                   BigInteger.TryParse(s, NumberStyles.AllowExponent | NumberStyles.AllowLeadingSign, null, out _);
         }
 
         private bool IsValidThousandSeparatorFormat(string s)
         {
+            return TryRemoveThousandSeparator(s, out string modified) &&
+                   BigInteger.TryParse(modified, NumberStyles.Integer, null, out _);
+        }
+
+        private bool TryRemoveThousandSeparator(string s, out string modifiedString)
+        {
             // Remove every fourth character, starting at the end of the string
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
+            modifiedString = s;
             char[] reversed = s.Reverse().ToArray();
-            for (int i = 0; i < reversed.Length; i++)
+            for (var i = 0; i < reversed.Length; i++)
             {
                 char c = reversed[i];
                 if ((i != reversed.Length - 1) && ((i + 1) % 4 == 0))
@@ -137,10 +143,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
                     sb.Append(c);
                 }
             }
-            s = new string(sb.ToString().Reverse().ToArray());
-            BigInteger res;
-            return BigInteger.TryParse(s, NumberStyles.Integer, null, out res);
-        }
 
+            modifiedString = new string(sb.ToString().Reverse().ToArray());
+            return true;
+        }
     }
 }

@@ -71,7 +71,7 @@ namespace Arkivverket.Arkade.Core.Identify
         }
         private TestSession NewSession(WorkingDirectory workingDirectory, ArchiveType archiveType, Uuid uuid)
         {
-            Archive archive = new Archive(archiveType, uuid, workingDirectory);
+            Archive archive = new Archive(archiveType, uuid, workingDirectory, _statusEventHandler);
 
             if (archive.ArchiveType == ArchiveType.Noark5 && archive.AddmlXmlUnit.File.Exists &&
                 archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())

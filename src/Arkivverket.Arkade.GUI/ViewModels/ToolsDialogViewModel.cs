@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -182,18 +183,29 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public void OnClose(object sender, CancelEventArgs e)
         {
-            const string processName = "siegfried";
+            var processNames = new []{"siegfried", "java"};
+            var activeProcesses = new List<string>();
+            var activeProcessesPresentableNames = new List<string>();
 
-            if (ExternalProcessManager.HasActiveProcess(processName))
+            foreach (string processName in processNames.Where(ExternalProcessManager.HasActiveProcess))
             {
-                MessageBoxResult dialogResult = MessageBox.Show(ToolsGUI.UnsavedResultsOnExitWarning,
-                    "NB!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-
-                if (dialogResult == MessageBoxResult.No)
-                    e.Cancel = true;
-                else
-                    ExternalProcessManager.Terminate(processName);
+                activeProcesses.Add(processName);
+                activeProcessesPresentableNames.Add(processName == "siegfried"
+                    ? ToolsGUI.FormatAnalysis
+                    : ToolsGUI.PdfAValidation);
             }
+
+            if (activeProcesses.Count == 0)
+                return;
+
+            MessageBoxResult dialogResult = MessageBox.Show(
+                string.Format(ToolsGUI.UnsavedResultsOnExitWarning, string.Join(ToolsGUI.And, activeProcessesPresentableNames)),
+                "NB!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+
+            if (dialogResult == MessageBoxResult.No)
+                e.Cancel = true;
+            else
+                activeProcesses.ForEach(ExternalProcessManager.Terminate);
         }
 
         // ---------- File format analysis --------------

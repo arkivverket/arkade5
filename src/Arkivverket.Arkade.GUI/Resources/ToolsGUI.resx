@@ -149,7 +149,7 @@ Result saved at:</value>
     <value>Tools</value>
   </data>
   <data name="UnsavedResultsOnExitWarning" xml:space="preserve">
-    <value>If the Tools dialog is closed now,  results from the running tool will be lost. Do you still want to close?</value>
+    <value>If the Tools dialog is closed now, results from {0} will be lost. Do you still want to close?</value>
   </data>
   <data name="ArchiveFormatValidationSectionHeading" xml:space="preserve">
     <value>Archive format validation</value>
@@ -189,5 +189,14 @@ Result saved at:</value>
   </data>
   <data name="GenerateMetadataExampleFilePathLabel" xml:space="preserve">
     <value>Metadata example file was generated:</value>
+  </data>
+  <data name="FormatAnalysis" xml:space="preserve">
+    <value>format analysis</value>
+  </data>
+  <data name="PdfAValidation" xml:space="preserve">
+    <value>PDF/A validation</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>and</value>
   </data>
 </root>
