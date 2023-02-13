@@ -202,4 +202,7 @@ Result saved at:</value>
   <data name="Calculating" xml:space="preserve">
     <value>(calculating..)</value>
   </data>
+  <data name="ProcessFailedMessage" xml:space="preserve">
+    <value>Arkade encountered an error which caused '{0}' to abort. Please see log for details.</value>
+  </data>
 </root>

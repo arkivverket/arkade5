@@ -287,6 +287,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arkade encountered an error which caused &apos;{0}&apos; to abort. Please see log for details..
+        /// </summary>
+        public static string ProcessFailedMessage {
+            get {
+                return ResourceManager.GetString("ProcessFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CSV (Comma separated values) (*.csv)|*.csv.
         /// </summary>
         public static string SaveFormatFileExtensionFilter {

@@ -302,7 +302,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             }
             catch (Exception e)
             {
-                _log.Information("Format analysis failed: " + e.Message);
+                _log.Error("Format analysis failed: " + e.Message);
                 successfulRun = false;
             }
 
@@ -310,7 +310,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ProgressBarVisibility = Visibility.Hidden;
 
             if (!successfulRun)
+            {
+                FormatCheckStatus = string.Format(ToolsGUI.ProcessFailedMessage, ToolsGUI.FormatCheckHeading);
                 return;
+            }
 
             FormatCheckStatus = $"{ToolsGUI.FormatCheckCompletedMessage}\n" +
                                 $"{filePath}";

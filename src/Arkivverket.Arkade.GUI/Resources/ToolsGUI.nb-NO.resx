@@ -202,4 +202,7 @@ Resultat lagret i:</value>
   <data name="Calculating" xml:space="preserve">
     <value>(kalkulerer..)</value>
   </data>
+  <data name="ProcessFailedMessage" xml:space="preserve">
+    <value>Arkade støtte på en feil som avbrøt '{0}'. Vennligst se loggfil for detaljer.</value>
+  </data>
 </root>
