@@ -250,7 +250,7 @@ namespace Arkivverket.Arkade.CLI
                 Log.Warning("Parameter --output-filename / -O is obsolete and will be removed in a future release." +
                             " Use parameter --format-analysis-filename / -F instead. Proceeding analysis ...");
 
-            Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {analysisDirectory}");
+            Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {analysisDirectory.FullName}");
             string outputFileName = options.FormatAnalysisResultFileName ?? options.OutputFileName ?? string.Format(
                 OutputFileNames.FileFormatInfoFile,
                 analysisDirectory.Name.TrimEnd(Path.GetInvalidFileNameChars())
