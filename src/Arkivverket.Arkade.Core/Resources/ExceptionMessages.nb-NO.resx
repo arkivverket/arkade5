@@ -162,4 +162,9 @@
   <data name="InvalidFieldFormatMessage" xml:space="preserve">
     <value>Ugyldig feltformat '{0}' for datatype '{1}'. Gyldige feltformater er: {2}</value>
   </data>
+  <data name="ProcessAreaCleanUpFailed" xml:space="preserve">
+    <value>Noe gikk galt under oppryddingen av denne Arkade-kjøringen.
+
+For å være sikker på at alle temporærfiler fra kjøringen blir fjernet fra systemet ditt, må '{0}' slettes manuelt.</value>
+  </data>
 </root>

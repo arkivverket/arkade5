@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -168,7 +169,7 @@ namespace Arkivverket.Arkade.CLI
             }
             finally
             {
-                ArkadeProcessingArea.CleanUp();
+                DoCleanUp();
             }
         }
 
@@ -195,7 +196,7 @@ namespace Arkivverket.Arkade.CLI
             }
             finally
             {
-                ArkadeProcessingArea.CleanUp();
+                DoCleanUp();
             }
         }
 
@@ -212,7 +213,7 @@ namespace Arkivverket.Arkade.CLI
             }
             finally
             {
-                ArkadeProcessingArea.CleanUp();
+                DoCleanUp();
             }
         }
 
@@ -447,6 +448,21 @@ namespace Arkivverket.Arkade.CLI
                 return false;
             }
             return true;
+        }
+
+        private static void DoCleanUp()
+        {
+            Log.Debug("Deleting temporary files");
+            
+            if (!ArkadeProcessingArea.CleanUp())
+            {
+                ExceptionMessages.Culture = CultureInfo.CreateSpecificCulture(SupportedLanguage.en.ToString());
+                Log.Error($"\n{ExceptionMessages.ProcessAreaCleanUpFailed}", ArkadeProcessingArea.WorkDirectory.FullName);
+            }
+            else
+            {
+                Log.Debug("Temporary files deleted");
+            }
         }
     }
 }

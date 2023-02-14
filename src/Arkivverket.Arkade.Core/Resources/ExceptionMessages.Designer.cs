@@ -133,6 +133,17 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something went wrong while cleaning up this Arkade session.
+        ///
+        ///To ensure all temporary files from the session are removed from your system, please delete &apos;{0}&apos; manually..
+        /// </summary>
+        public static string ProcessAreaCleanUpFailed {
+            get {
+                return ResourceManager.GetString("ProcessAreaCleanUpFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong while validating Siard file. Please see arkade-tmp/logs/ for details..
         /// </summary>
         public static string SiardValidatorError {

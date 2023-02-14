@@ -38,11 +38,15 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        public static void CleanUp()
+        /// <summary>
+        /// Clean up temporary files generated from an Arkade session
+        /// </summary>
+        /// <returns><c>false</c> if any temporary files could not be deleted<br/><c>true</c> otherwise</returns>
+        public static bool CleanUp()
         {
-            DeleteWorkDirectory();
-
             DeleteOldLogs();
+
+            return TryDeleteWorkDirectory();
         }
 
         public static void Destroy()
@@ -104,10 +108,18 @@ namespace Arkivverket.Arkade.Core.Base
             return directory;
         }
 
-        private static void DeleteWorkDirectory()
+        private static bool TryDeleteWorkDirectory()
         {
-            if (WorkDirectory != null && WorkDirectory.Exists)
-                WorkDirectory.Delete(true);
+            try
+            {
+                if (WorkDirectory != null && WorkDirectory.Exists)
+                    WorkDirectory.Delete(true);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         private static void DeleteOldLogs()

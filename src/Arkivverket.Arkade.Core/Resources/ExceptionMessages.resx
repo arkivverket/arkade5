@@ -162,4 +162,9 @@
   <data name="InvalidFieldFormatMessage" xml:space="preserve">
     <value>Invalid field format '{0}' for data type '{1}'. Accepted field formats are: {2}</value>
   </data>
+  <data name="ProcessAreaCleanUpFailed" xml:space="preserve">
+    <value>Something went wrong while cleaning up this Arkade session.
+
+To ensure all temporary files from the session are removed from your system, please delete '{0}' manually.</value>
+  </data>
 </root>
