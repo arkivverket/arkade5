@@ -50,14 +50,9 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             IEnumerable<string> siegfriedResult = _processRunner.Run(siegfriedProcess);
 
-            int siegfriedCloseStatus = ExternalProcessManager.Close(siegfriedProcess.Id);
-
-            List<IFileFormatInfo> siegfriedFileInfoObjects = siegfriedCloseStatus switch
-            {
-                -1 => throw new SiegfriedFileFormatIdentifierException("Process does not exist"),
-                1 => throw new SiegfriedFileFormatIdentifierException("Process was terminated"),
-                _ => GetSiegfriedFileInfoObjects(siegfriedResult).ToList(),
-            };
+            List<IFileFormatInfo> siegfriedFileInfoObjects = ExternalProcessManager.TryClose(siegfriedProcess)
+                ? GetSiegfriedFileInfoObjects(siegfriedResult).ToList()
+                : throw new SiegfriedFileFormatIdentifierException("Process does not exist, or has been terminated");
 
             if (!SiegfriedFileInfoObjectsContainsArchiveFiles(ref siegfriedFileInfoObjects, scanMode))
                 return siegfriedFileInfoObjects;
