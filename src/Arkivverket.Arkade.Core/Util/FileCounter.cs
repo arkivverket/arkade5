@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Util
 {
     public class FileCounter : IFileCounter
     {
-        private readonly List<string> _supportedZipFormatExtension = new()
+        private readonly List<string> _supportedArchiveFormatExtension = new()
         {
             ".zip", ".tar", ".gz", ".arc", ".warc"
         };
@@ -63,7 +63,7 @@ namespace Arkivverket.Arkade.Core.Util
             foreach (FileInfo fileInfo in allFiles)
             {
                 numberOfFilesInDirectory++;
-                if (_supportedZipFormatExtension.Contains(fileInfo.Extension))
+                if (_supportedArchiveFormatExtension.Contains(fileInfo.Extension) || fileInfo.Attributes.HasFlag(FileAttributes.Archive))
                 {
                     numberOfFilesInDirectory += CountNumberOfFileEntriesInArchiveFile(fileInfo.FullName);
                 }
@@ -72,23 +72,32 @@ namespace Arkivverket.Arkade.Core.Util
             return numberOfFilesInDirectory;
         }
 
-        private long CountNumberOfFileEntriesInArchiveFile(string pathToArchiveFile, string extension=null)
+        private long CountNumberOfFileEntriesInArchiveFile(string pathToArchiveFile)
         {
-            extension ??= Path.GetExtension(pathToArchiveFile);
-            using FileStream archiveFileAsStream = File.OpenRead(pathToArchiveFile);
+            foreach (string supportedExtension in _supportedArchiveFormatExtension)
+            {
+                try
+                {
+                    using FileStream archiveFileAsStream = File.OpenRead(pathToArchiveFile);
+                    return RunFileEntryCounter(supportedExtension, archiveFileAsStream);
+                }
+                catch (Exception)
+                {
+                    // try next supported extension
+                }
+            }
 
-            return RunFileEntryCounter(extension, archiveFileAsStream);
+            return 0;
         }
 
         private long RunFileEntryCounter(string extension, Stream archiveFileAsStream)
         {
-            return extension switch
+            return extension.ToLower() switch
             {
                 ".zip" => CountFileEntriesForZip(archiveFileAsStream),
-                ".tar" => CountFileEntriesForTar(archiveFileAsStream),
-                ".gz" => CountFileEntriesForGz(archiveFileAsStream),
-                ".arc" or ".warc" => 1,
-                _ => 1
+                ".tar" or ".gz" => CountFileEntriesForTar(archiveFileAsStream),
+                ".arc" or ".warc" => 0,
+                _ => 0
             };
         }
 
@@ -100,7 +109,7 @@ namespace Arkivverket.Arkade.Core.Util
             {
                 string entryExtension = Path.GetExtension(entry.Name);
 
-                if (_supportedZipFormatExtension.Contains(entryExtension))
+                if (_supportedArchiveFormatExtension.Contains(entryExtension))
                 {
                     numberOfFilesInArchive += CountFileEntriesForArchiveFileInsideZip(entry, entryExtension);
                 }
@@ -121,7 +130,7 @@ namespace Arkivverket.Arkade.Core.Util
 
                 string entryExtension = Path.GetExtension(entry.Name);
 
-                if (_supportedZipFormatExtension.Contains(entryExtension))
+                if (_supportedArchiveFormatExtension.Contains(entryExtension))
                 {
                     counter += CountFileEntriesForArchiveFileInsideTar(tarInputStream, entryExtension);
                 }
@@ -142,18 +151,6 @@ namespace Arkivverket.Arkade.Core.Util
             tarInputStream.CopyEntryContents(entryAsStream);
             entryAsStream.Position=0;
             return RunFileEntryCounter(entryExtension, entryAsStream);
-        }
-
-        private long CountFileEntriesForGz(Stream archiveFileAsStream)
-        {
-            try
-            {
-                return CountFileEntriesForTar(archiveFileAsStream);
-            }
-            catch (Exception)
-            {
-                return 1;
-            }
         }
     }
 }

@@ -18,9 +18,12 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         private readonly IStatusEventHandler _statusEventHandler;
         private readonly IFileCounter _fileCounter;
 
-        private readonly List<string> _supportedZipFormatExtension = new()
+        private readonly List<string> _supportedArchiveFilePronomCodes = new()
         {
-            ".zip", ".tar", ".gz", ".arc", ".warc"
+            "x-fmt/263", //.zip
+            "x-fmt/265", //.tar
+            "fmt/289", "fmt/1355", "fmt/1281", //.warc
+            "fmt/161", "fmt/995", "fmt/1196", "fmt/1777" // .siard
         };
 
         public SiegfriedFileFormatIdentifier(SiegfriedProcessRunner siegfriedProcessRunner,
@@ -58,7 +61,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                 return siegfriedFileInfoObjects;
 
             List<IFileFormatInfo> archiveFilePaths = siegfriedFileInfoObjects.Where(s =>
-                _supportedZipFormatExtension.Contains(s.FileExtension)).ToList();
+                _supportedArchiveFilePronomCodes.Contains(s.Id)).ToList();
 
             IEnumerable<Task<IEnumerable<IFileFormatInfo>>> archiveFormatAnalysisTasks = archiveFilePaths
                 .Select(f => AnalyseFilesAsync(f.FileName, FileFormatScanMode.Archive));
@@ -81,7 +84,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                 // Skip first element when .zip (or similar) have been analysed, as this element is the .zip file itself
                 fileFormatInfoObjects = fileFormatInfoObjects.Skip(1).ToList();
             }
-            return fileFormatInfoObjects.Any(f => _supportedZipFormatExtension.Contains(f.FileExtension));
+            return fileFormatInfoObjects.Any(f => _supportedArchiveFilePronomCodes.Contains(f.Id));
         }
 
         public IEnumerable<IFileFormatInfo> IdentifyFormats(IEnumerable<KeyValuePair<string, IEnumerable<byte>>> filePathsAndByteContent)
