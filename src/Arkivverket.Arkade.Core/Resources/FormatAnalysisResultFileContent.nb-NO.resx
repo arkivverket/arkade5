@@ -156,7 +156,7 @@
   <data name="FormatIsValidValue" xml:space="preserve">
     <value>Gyldig</value>
   </data>
-  <data name="FormatIsInvalidValue" xml:space="preserve">
-    <value>Ugyldig</value>
+  <data name="FormatIsNotValidValue" xml:space="preserve">
+    <value>Ikke gyldig</value>
   </data>
 </root>

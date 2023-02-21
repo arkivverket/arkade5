@@ -52,7 +52,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                     FileSize = fileFormatInfo.ByteSize,
                     IsValidFormat = approvedPuidArchiveFormats.Contains(fileFormatInfo.Id) 
                         ? FormatAnalysisResultFileContent.FormatIsValidValue
-                        : FormatAnalysisResultFileContent.FormatIsInvalidValue,
+                        : FormatAnalysisResultFileContent.FormatIsNotValidValue,
                 };
 
                 listElements.Add(documentFileListElement);
