@@ -70,8 +70,8 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                         PuId = fileFormatInfo.Id,
                         FileFormatName = fileFormatInfo.Format,
                         FileFormatVersion = fileFormatInfo.Version,
-                        Amount = 1,
                         IsValidFormat = documentFileListElement.IsValidFormat,
+                        Amount = 1,
                     });
                 }
             }
@@ -119,8 +119,8 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                 Map(m => m.PuId).Name(FormatAnalysisResultFileContent.StatisticsHeaderFormatId);
                 Map(m => m.FileFormatName).Name(FormatAnalysisResultFileContent.StatisticsHeaderFileType);
                 Map(m => m.FileFormatVersion).Name(FormatAnalysisResultFileContent.StatisticsHeaderFormatVersion);
-                Map(m => m.Amount).Name(FormatAnalysisResultFileContent.StatisticsHeaderAmount);
                 Map(m => m.IsValidFormat).Name(_regulationVersion);
+                Map(m => m.Amount).Name(FormatAnalysisResultFileContent.StatisticsHeaderAmount);
             }
         }
 
@@ -142,8 +142,8 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             public string PuId { get; init; }
             public string FileFormatName { get; init; }
             public string FileFormatVersion { get; init; }
-            public int Amount { get; set; }
             public string IsValidFormat { get; set; }
+            public int Amount { get; set; }
 
             public int CompareTo(object obj)
             {
