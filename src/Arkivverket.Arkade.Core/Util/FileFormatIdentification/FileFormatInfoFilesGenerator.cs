@@ -48,11 +48,11 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                     FileFormatName = fileFormatInfo.Format,
                     FileFormatVersion = fileFormatInfo.Version,
                     FileMimeType = fileFormatInfo.MimeType,
-                    FileScanError = fileFormatInfo.Errors,
                     FileSize = fileFormatInfo.ByteSize,
                     IsValidFormat = approvedPuidArchiveFormats.Contains(fileFormatInfo.Id) 
                         ? FormatAnalysisResultFileContent.FormatIsValidValue
                         : FormatAnalysisResultFileContent.FormatIsNotValidValue,
+                    FileScanError = fileFormatInfo.Errors,
                 };
 
                 listElements.Add(documentFileListElement);
@@ -106,9 +106,9 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                 Map(m => m.FileFormatName).Name(FormatAnalysisResultFileContent.HeaderFormatName);
                 Map(m => m.FileFormatVersion).Name(FormatAnalysisResultFileContent.HeaderFormatVersion);
                 Map(m => m.FileMimeType).Name(FormatAnalysisResultFileContent.HeaderMimeType);
-                Map(m => m.FileScanError).Name(FormatAnalysisResultFileContent.HeaderErrors);
                 Map(m => m.FileSize).Name(FormatAnalysisResultFileContent.HeaderFileSize);
                 Map(m => m.IsValidFormat).Name(_regulationVersion);
+                Map(m => m.FileScanError).Name(FormatAnalysisResultFileContent.HeaderErrors);
             }
         }
 
@@ -132,9 +132,9 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             public string FileFormatName { get; set; }
             public string FileFormatVersion { get; set; }
             public string FileMimeType { get; set; }
-            public string FileScanError { get; set; }
             public string FileSize { get; set; }
             public string IsValidFormat { get; set; }
+            public string FileScanError { get; set; }
         }
 
         private class FileTypeStatisticsElement : IComparable
