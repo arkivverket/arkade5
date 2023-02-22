@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Siard;
@@ -10,6 +11,7 @@ using Arkivverket.Arkade.Core.ExternalModels.Metadata;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
+using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
@@ -20,21 +22,28 @@ namespace Arkivverket.Arkade.Core.Base
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private static IStatusEventHandler _statusEventHandler;
 
+        private readonly string? _archiveFileFullName;
+
         public Uuid Uuid { get; }
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
         private ReadOnlyDictionary<string, DocumentFile> _documentFiles;
-        public ReadOnlyDictionary<string, DocumentFile> DocumentFiles => _documentFiles ?? GetDocumentFiles();
+
+        public ReadOnlyDictionary<string, DocumentFile> DocumentFiles => _documentFiles ??
+                                                                         (_archiveFileFullName == null
+                                                                             ? GetDocumentFiles()
+                                                                             : GetDocumentFilesFromTar());
         public AddmlXmlUnit AddmlXmlUnit { get; }
         public AddmlInfo AddmlInfo { get; }
         public IArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
         public Archive(ArchiveType archiveType, Uuid uuid, WorkingDirectory workingDirectory,
-            IStatusEventHandler statusEventHandler)
+            IStatusEventHandler statusEventHandler, string archiveFileFullName=null)
         {
             _statusEventHandler = statusEventHandler;
+            _archiveFileFullName = archiveFileFullName;
 
             Uuid = uuid;
 
@@ -192,6 +201,26 @@ namespace Arkivverket.Arkade.Core.Base
             _documentFiles = new ReadOnlyDictionary<string, DocumentFile>(documentFiles);
 
             Log.Information($"{documentFiles.Count} document files registered.");
+
+            return _documentFiles;
+        }
+
+        private ReadOnlyDictionary<string, DocumentFile> GetDocumentFilesFromTar()
+        {
+            var documentFiles = new Dictionary<string, DocumentFile>();
+
+            using var tarInputStream = new TarInputStream(File.OpenRead(_archiveFileFullName), Encoding.UTF8);
+            while (tarInputStream.GetNextEntry() is { Name: { } } entry)
+            {
+                if (!entry.Name.Contains("dokumenter") || entry.IsDirectory)
+                    continue;
+
+                string entryName = entry.Name;
+                documentFiles.Add(entryName, new DocumentFile(null));
+            }
+
+            // Instantiate field for next access:
+            _documentFiles = new ReadOnlyDictionary<string, DocumentFile>(documentFiles);
 
             return _documentFiles;
         }
