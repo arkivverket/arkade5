@@ -32,6 +32,8 @@ namespace Arkivverket.Arkade.CLI
         private static bool _testRunHasFailed;
 
         private static FormatAnalysisProgressPresenter _formatAnalysisProgressPresenter;
+        private static Dictionary<string, string> _analysisErrorsMappedToTarget = new();
+
 
         static CommandLineRunner()
         {
@@ -45,6 +47,7 @@ namespace Arkivverket.Arkade.CLI
             StatusEventHandler.FormatAnalysisTotalFileCounterFinishedEvent += OnFormatAnalysisTotalFileCounterFinishedEvent;
             StatusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdatedEvent;
             StatusEventHandler.FormatAnalysisFinishedEvent += OnFormatAnalysisFinishedEvent;
+            StatusEventHandler.FormatAnalysisErrorEvent += OnFormatAnalysisErrorEvent;
 
             Log.Information($"\n" +
                             $"********************************************************************************\n" +
@@ -119,6 +122,20 @@ namespace Arkivverket.Arkade.CLI
                 return;
 
             _formatAnalysisProgressPresenter.DisplayFinished();
+
+            if (_analysisErrorsMappedToTarget.Any())
+            {
+                Log.Warning("The following targets were not analysed:");
+                foreach ((string fileName, string errorMessage) in _analysisErrorsMappedToTarget)
+                {
+                    Log.Warning(fileName + ": " + errorMessage);
+                }
+            }
+        }
+
+        private static void OnFormatAnalysisErrorEvent(object sender, FormatAnalysisErrorEventArgs eventArgs)
+        {
+            _analysisErrorsMappedToTarget.Add(eventArgs.FileName, eventArgs.Message);
         }
 
         private static string GetThirdPartySoftwareInfo()

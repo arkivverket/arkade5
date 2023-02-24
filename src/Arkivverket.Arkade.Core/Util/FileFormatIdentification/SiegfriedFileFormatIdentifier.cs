@@ -64,14 +64,23 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             IEnumerable<Task<IEnumerable<IFileFormatInfo>>> archiveFormatAnalysisTasks = archiveFilePaths
                 .Select(f => AnalyseFilesAsync(f.FileName, FileFormatScanMode.Archive));
 
-            siegfriedFileInfoObjects.AddRange(Task.WhenAll(archiveFormatAnalysisTasks).Result.SelectMany(a => a));
+            siegfriedFileInfoObjects.AddRange(Task.WhenAll(archiveFormatAnalysisTasks).Result.SelectMany(a => a).Where(a => a != null));
 
             return siegfriedFileInfoObjects;
         }
 
         private async Task<IEnumerable<IFileFormatInfo>> AnalyseFilesAsync(string target, FileFormatScanMode scanMode)
         {
-            return await Task.Run(() => AnalyseFiles(target, scanMode));
+            try
+            {
+                return await Task.Run(() => AnalyseFiles(target, scanMode));
+            }
+            catch (Exception e)
+            {
+                _statusEventHandler.RaiseEventFormatAnalysisError(target, e.Message);
+                Log.Error(e, e.Message);
+                return null;
+            }
         }
 
         private bool SiegfriedFileInfoObjectsContainsArchiveFiles(ref List<IFileFormatInfo> fileFormatInfoObjects,

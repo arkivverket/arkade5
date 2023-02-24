@@ -205,4 +205,11 @@ Resultat lagret i:</value>
   <data name="ProcessFailedMessage" xml:space="preserve">
     <value>Arkade støtte på en feil som avbrøt '{0}'. Vennligst se loggfil for detaljer.</value>
   </data>
+  <data name="FormatAnalysisFailedMessageBoxText" xml:space="preserve">
+    <value>Analysen feilet for følgende filstier:
+{0}</value>
+  </data>
+  <data name="FormatAnalysisFailedMessageBoxCaption" xml:space="preserve">
+    <value>PRONOM-analyse feil</value>
+  </data>
 </root>

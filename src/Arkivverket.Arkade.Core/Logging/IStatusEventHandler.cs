@@ -24,6 +24,8 @@ namespace Arkivverket.Arkade.Core.Logging
         void RaiseEventFormatAnalysisProgressUpdated(long bytesRead);
         void RaiseEventFormatAnalysisFinished();
 
+        void RaiseEventFormatAnalysisError(string fileName, string message);
+
         void RaiseEventReadXmlEndElement();
 
 
@@ -49,6 +51,8 @@ namespace Arkivverket.Arkade.Core.Logging
         event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisTotalFileCounterFinishedEvent;
         event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisProgressUpdatedEvent;
         event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisFinishedEvent;
+
+        event EventHandler<FormatAnalysisErrorEventArgs> FormatAnalysisErrorEvent;
 
         event EventHandler<EventArgs> ReadXmlEndElementEvent;
     }

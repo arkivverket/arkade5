@@ -205,4 +205,11 @@ Result saved at:</value>
   <data name="ProcessFailedMessage" xml:space="preserve">
     <value>Arkade encountered an error which caused '{0}' to abort. Please see log for details.</value>
   </data>
+  <data name="FormatAnalysisFailedMessageBoxText" xml:space="preserve">
+    <value>The analysis failed for the following targets:
+{0}</value>
+  </data>
+  <data name="FormatAnalysisFailedMessageBoxCaption" xml:space="preserve">
+    <value>PRONOM analysis errors</value>
+  </data>
 </root>

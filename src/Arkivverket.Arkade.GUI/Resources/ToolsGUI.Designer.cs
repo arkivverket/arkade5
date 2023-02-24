@@ -187,6 +187,25 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PRONOM analysis errors.
+        /// </summary>
+        public static string FormatAnalysisFailedMessageBoxCaption {
+            get {
+                return ResourceManager.GetString("FormatAnalysisFailedMessageBoxCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The analysis failed for the following targets:
+        ///{0}.
+        /// </summary>
+        public static string FormatAnalysisFailedMessageBoxText {
+            get {
+                return ResourceManager.GetString("FormatAnalysisFailedMessageBoxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose directory ....
         /// </summary>
         public static string FormatCheckChooseTargetDirectoryButtonText {

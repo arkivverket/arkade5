@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -35,6 +36,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private long _sizeOfAnalysedFiles;
         private long? _analysisTargetSize;
         private decimal _analysisPercentageProgress => _sizeOfAnalysedFiles / (decimal)_analysisTargetSize;
+
+        private readonly Dictionary<string, string> _analysisErrorsMappedToTarget = new();
 
         private string _formatAnalysisOngoingString;
         public string FormatAnalysisOngoingString
@@ -155,6 +158,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _statusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdated;
             _statusEventHandler.FormatAnalysisFinishedEvent += OnFormatAnalysisFinished;
             _statusEventHandler.FormatAnalysisTotalFileCounterFinishedEvent += OnFormatAnalysisTotalFileCounterFinished;
+            _statusEventHandler.FormatAnalysisErrorEvent += OnFormatAnalysisError;
 
             ChooseDirectoryForFormatCheckCommand = new DelegateCommand(ChooseDirectoryForFormatCheck);
             RunFormatCheckCommand = new DelegateCommand(RunFormatCheck);
@@ -235,6 +239,23 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             _sizeOfAnalysedFiles = _analysisTargetSize.Value;
             SetFormatAnalysisOngoingString();
+
+            if (_analysisErrorsMappedToTarget.Any())
+            {
+                var sb = new StringBuilder();
+                foreach ((string fileName, string errorMessage) in _analysisErrorsMappedToTarget)
+                {
+                    sb.AppendLine(fileName + ": " + errorMessage);
+                }
+
+                MessageBox.Show(string.Format(ToolsGUI.FormatAnalysisFailedMessageBoxText, sb),
+                    ToolsGUI.FormatAnalysisFailedMessageBoxCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void OnFormatAnalysisError(object sender, FormatAnalysisErrorEventArgs eventArgs)
+        {
+            _analysisErrorsMappedToTarget.Add(eventArgs.FileName, eventArgs.Message);
         }
 
         private void SetFormatAnalysisOngoingString()

@@ -65,6 +65,11 @@ namespace Arkivverket.Arkade.Core.Logging
             OnFormatAnalysisFinished(default);
         }
 
+        public void RaiseEventFormatAnalysisError(string fileName, string message)
+        {
+            OnFormatAnalysisError(new FormatAnalysisErrorEventArgs(fileName, message));
+        }
+
         public void RaiseEventReadXmlEndElement()
         {
             OnReadXmlEndElement(default);
@@ -91,6 +96,7 @@ namespace Arkivverket.Arkade.Core.Logging
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisTotalFileCounterFinishedEvent;
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisProgressUpdatedEvent;
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisFinishedEvent;
+        public event EventHandler<FormatAnalysisErrorEventArgs> FormatAnalysisErrorEvent;
 
         public event EventHandler<EventArgs> ReadXmlEndElementEvent;
 
@@ -175,6 +181,12 @@ namespace Arkivverket.Arkade.Core.Logging
         protected virtual void OnFormatAnalysisFinished(FormatAnalysisProgressEventArgs eventArgs)
         {
             EventHandler<FormatAnalysisProgressEventArgs> handler = FormatAnalysisFinishedEvent;
+            handler?.Invoke(this, eventArgs);
+        }
+
+        protected virtual void OnFormatAnalysisError(FormatAnalysisErrorEventArgs eventArgs)
+        {
+            EventHandler<FormatAnalysisErrorEventArgs> handler = FormatAnalysisErrorEvent;
             handler?.Invoke(this, eventArgs);
         }
 
