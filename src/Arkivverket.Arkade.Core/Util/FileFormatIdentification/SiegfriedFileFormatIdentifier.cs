@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             IEnumerable<string> siegfriedResult = _processRunner.Run(siegfriedProcess);
 
             List<IFileFormatInfo> siegfriedFileInfoObjects = ExternalProcessManager.TryClose(siegfriedProcess)
-                ? GetSiegfriedFileInfoObjects(siegfriedResult).ToList()
+                ? GetFileFormatInfoObjects(siegfriedResult).ToList()
                 : throw new SiegfriedFileFormatIdentifierException("Process does not exist, or has been terminated");
 
             if (!SiegfriedFileInfoObjectsContainsArchiveFiles(ref siegfriedFileInfoObjects, scanMode))
@@ -114,7 +114,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             ExternalProcessManager.Close(siegfriedProcess);
 
-            return GetSiegfriedFileInfoObject(siegfriedResult);
+            return GetFileFormatInfoObject(siegfriedResult);
         }
 
         public IFileFormatInfo IdentifyFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
@@ -133,7 +133,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             {
                 string siegfriedResult = _processRunner.RunOnByteArray(siegfriedProcess, filePathAndByteContent);
 
-                return GetSiegfriedFileInfoObject(siegfriedResult);
+                return GetFileFormatInfoObject(siegfriedResult);
             }
             catch (Exception e)
             {
@@ -149,32 +149,14 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             }
         }
 
-        private static IEnumerable<IFileFormatInfo> GetSiegfriedFileInfoObjects(IEnumerable<string> formatInfoSet)
+        private static IEnumerable<IFileFormatInfo> GetFileFormatInfoObjects(IEnumerable<string> formatInfoSet)
         {
-            return formatInfoSet.Skip(1).Where(f => f != null).Select(GetSiegfriedFileInfoObject);
+            return formatInfoSet.Skip(1).Where(f => f != null).Select(GetFileFormatInfoObject);
         }
 
-        private static SiegfriedFileInfo GetSiegfriedFileInfoObject(string siegfriedFormatResult)
+        private static IFileFormatInfo GetFileFormatInfoObject(string siegfriedFormatResult)
         {
-            if (siegfriedFormatResult == null)
-                return null;
-
-            using (var stringReader = new StringReader(siegfriedFormatResult))
-            using (var csvParser = new CsvParser(stringReader, CultureInfo.InvariantCulture))
-            {
-                csvParser.Read();
-
-                return new SiegfriedFileInfo
-                (
-                    fileName: csvParser.Record[0],
-                    byteSize: csvParser.Record[1],
-                    errors: csvParser.Record[3],
-                    id: csvParser.Record[5],
-                    format: csvParser.Record[6],
-                    version: csvParser.Record[7],
-                    mimeType: csvParser.Record[8]
-                );
-            }
+            return SiegfriedFileInfo.CreateFromString(siegfriedFormatResult);
         }
     }
 
