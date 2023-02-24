@@ -151,6 +151,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Illegal character(s) in path.
+        /// </summary>
+        public static string IllegalCharactersError {
+            get {
+                return ResourceManager.GetString("IllegalCharactersError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amount.
         /// </summary>
         public static string StatisticsHeaderAmount {

@@ -159,4 +159,7 @@
   <data name="FormatIsNotValidValue" xml:space="preserve">
     <value>Not valid</value>
   </data>
+  <data name="IllegalCharactersError" xml:space="preserve">
+    <value>Illegal character(s) in path</value>
+  </data>
 </root>

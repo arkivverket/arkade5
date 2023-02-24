@@ -159,4 +159,7 @@
   <data name="FormatIsNotValidValue" xml:space="preserve">
     <value>Ikke gyldig</value>
   </data>
+  <data name="IllegalCharactersError" xml:space="preserve">
+    <value>Filstien inneholder ulovlig(e) tegn</value>
+  </data>
 </root>

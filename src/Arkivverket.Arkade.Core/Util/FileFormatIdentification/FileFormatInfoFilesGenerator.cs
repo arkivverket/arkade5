@@ -36,13 +36,23 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                 if (fileFormatInfo == null)
                     continue;
 
-                string fileName = Path.IsPathFullyQualified(fileFormatInfo.FileName)
-                    ? Path.GetRelativePath(relativePathRoot, fileFormatInfo.FileName)
-                    : fileFormatInfo.FileName;
+                string fileName;
+                string invalidPathError = null;
+                try
+                {
+                    fileName = Path.IsPathFullyQualified(fileFormatInfo.FileName)
+                        ? Path.GetRelativePath(relativePathRoot, fileFormatInfo.FileName)
+                        : fileFormatInfo.FileName;
+                }
+                catch (ArgumentException)
+                {
+                    fileName = fileFormatInfo.FileName.Replace(relativePathRoot, "");
+                    invalidPathError = FormatAnalysisResultFileContent.IllegalCharactersError;
+                }
 
                 var documentFileListElement = new ListElement
                 {
-                    FileName = fileName.Replace('\\', '/'),
+                    FileName = fileName.Replace('\\', '/').TrimStart('/'),
                     FileExtension = fileFormatInfo.FileExtension,
                     FileFormatPuId = fileFormatInfo.Id,
                     FileFormatName = fileFormatInfo.Format,
@@ -52,7 +62,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                     IsValidFormat = approvedPuidArchiveFormats.Contains(fileFormatInfo.Id) 
                         ? FormatAnalysisResultFileContent.FormatIsValidValue
                         : FormatAnalysisResultFileContent.FormatIsNotValidValue,
-                    FileScanError = fileFormatInfo.Errors,
+                    FileScanError = invalidPathError ?? fileFormatInfo.Errors,
                 };
 
                 listElements.Add(documentFileListElement);
