@@ -20,8 +20,8 @@ namespace Arkivverket.Arkade.Core.Logging
         void RaiseEventSiardValidationFinished(List<string> errors);
 
         void RaiseEventFormatAnalysisStarted();
-        void RaiseEventFormatAnalysisTotalFileCounterFinished(long totalFiles);
-        void RaiseEventFormatAnalysisProgressUpdated();
+        void RaiseEventFormatAnalysisTotalFileCounterFinished(long targetSize);
+        void RaiseEventFormatAnalysisProgressUpdated(long bytesRead);
         void RaiseEventFormatAnalysisFinished();
 
         void RaiseEventReadXmlEndElement();

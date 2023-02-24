@@ -131,7 +131,7 @@ Resultat lagret i:</value>
     <value>PRONOM filformat-analyse</value>
   </data>
   <data name="FormatCheckOngoing" xml:space="preserve">
-    <value>Utfører formatanalyse: {0} av {1} filer analysert</value>
+    <value>Utfører formatanalyse: {0}</value>
   </data>
   <data name="FormatCheckOutputDirectoryPickerTitle" xml:space="preserve">
     <value>Velg plassering for lagring av resultat</value>

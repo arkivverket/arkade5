@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
-using CsvHelper;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
@@ -16,7 +14,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
     {
         private static SiegfriedProcessRunner _processRunner;
         private readonly IStatusEventHandler _statusEventHandler;
-        private readonly IFileCounter _fileCounter;
+        private readonly IFileSystemInfoSizeCalculator _fileSystemInfoSizeCalculator;
 
         private readonly List<string> _supportedArchiveFilePronomCodes = new()
         {
@@ -27,18 +25,18 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         };
 
         public SiegfriedFileFormatIdentifier(SiegfriedProcessRunner siegfriedProcessRunner,
-            IStatusEventHandler statusEventHandler, IFileCounter fileCounter)
+            IStatusEventHandler statusEventHandler, IFileSystemInfoSizeCalculator fileSystemInfoSizeCalculator)
         {
             _processRunner = siegfriedProcessRunner;
             _statusEventHandler = statusEventHandler;
-            _fileCounter = fileCounter;
+            _fileSystemInfoSizeCalculator = fileSystemInfoSizeCalculator;
         }
 
         public IEnumerable<IFileFormatInfo> IdentifyFormats(string target, FileFormatScanMode scanMode)
         {
             _statusEventHandler.RaiseEventFormatAnalysisStarted();
 
-            _fileCounter.CountFiles(scanMode, target);
+            _fileSystemInfoSizeCalculator.CalculateSize(scanMode, target);
 
             IEnumerable<IFileFormatInfo> siegfriedFileInfoObjects = AnalyseFiles(target, scanMode);
 

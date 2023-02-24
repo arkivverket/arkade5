@@ -50,14 +50,14 @@ namespace Arkivverket.Arkade.Core.Logging
             OnFormatAnalysisStarted(default);
         }
 
-        public void RaiseEventFormatAnalysisTotalFileCounterFinished(long totalAmountOfFiles)
+        public void RaiseEventFormatAnalysisTotalFileCounterFinished(long targetSize)
         {
-            OnFormatAnalysisTotalFileCounterFinished(new FormatAnalysisProgressEventArgs(totalAmountOfFiles));
+            OnFormatAnalysisTotalFileCounterFinished(new FormatAnalysisProgressEventArgs(targetSize, 0));
         }
 
-        public void RaiseEventFormatAnalysisProgressUpdated()
+        public void RaiseEventFormatAnalysisProgressUpdated(long fileSize)
         {
-            OnFormatAnalysisProgressUpdated(default);
+            OnFormatAnalysisProgressUpdated(new FormatAnalysisProgressEventArgs(null, fileSize));
         }
 
         public void RaiseEventFormatAnalysisFinished()

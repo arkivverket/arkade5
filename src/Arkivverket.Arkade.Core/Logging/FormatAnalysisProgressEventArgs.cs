@@ -4,11 +4,13 @@ namespace Arkivverket.Arkade.Core.Logging
 {
     public class FormatAnalysisProgressEventArgs : EventArgs
     {
-        public long TotalFiles { get; }
+        public long? TargetSize { get; }
+        public long FileSize { get; }
 
-        public FormatAnalysisProgressEventArgs(long totalFiles)
+        public FormatAnalysisProgressEventArgs(long? targetSize, long fileSize)
         {
-            TotalFiles = totalFiles;
+            TargetSize = targetSize;
+            FileSize = fileSize;
         }
     }
 }

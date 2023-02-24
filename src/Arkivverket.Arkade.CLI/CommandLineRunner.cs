@@ -102,7 +102,7 @@ namespace Arkivverket.Arkade.CLI
 
         private static void OnFormatAnalysisTotalFileCounterFinishedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
         {
-            _formatAnalysisProgressPresenter.SetTotalAmountOfFiles(eventArgs.TotalFiles);
+            _formatAnalysisProgressPresenter.SetTotalAmountOfFiles(eventArgs.TargetSize);
         }
 
         private static void OnFormatAnalysisProgressUpdatedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
@@ -110,9 +110,7 @@ namespace Arkivverket.Arkade.CLI
             if (Console.IsOutputRedirected)
                 return;
 
-            _formatAnalysisProgressPresenter.FileCounter++;
-
-            _formatAnalysisProgressPresenter.DisplayProgress();
+            _formatAnalysisProgressPresenter.UpdateAndDisplayProgress(eventArgs.FileSize);
         }
 
         private static void OnFormatAnalysisFinishedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
