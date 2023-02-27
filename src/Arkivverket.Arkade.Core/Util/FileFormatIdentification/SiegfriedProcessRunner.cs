@@ -194,10 +194,13 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             results.Add(eventArgs.Data);
             IFileFormatInfo siegfriedFileInfo = SiegfriedFileInfo.CreateFromString(eventArgs.Data);
-            if (!_supportedArchiveFilePronomCodes.Contains(siegfriedFileInfo.Id))
-            {
-                _statusEventHandler.RaiseEventFormatAnalysisProgressUpdated(long.Parse(siegfriedFileInfo.ByteSize));
-            }
+
+            if (_supportedArchiveFilePronomCodes.Contains(siegfriedFileInfo.Id)) 
+                return;
+            
+            if (long.TryParse(siegfriedFileInfo.ByteSize, out long result))
+                _statusEventHandler.RaiseEventFormatAnalysisProgressUpdated(result);
+            
         }
 
         private static void HandleReceivedErrorData(DataReceivedEventArgs eventArgs, ICollection<string> errors)
