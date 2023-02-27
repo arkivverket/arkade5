@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System;
 using System.Text;
 using ICSharpCode.SharpZipLib.Tar;
@@ -22,8 +22,7 @@ namespace Arkivverket.Arkade.Core.Util
 
                 var tarInputStream = new TarInputStream(inputStream, Encoding.UTF8);
 
-                TarEntry tarEntry;
-                while ((tarEntry = tarInputStream.GetNextEntry()) != null)
+                while (tarInputStream.GetNextEntry() is { } tarEntry)
                 {
                     if (tarEntry.IsDirectory)
                         continue;
@@ -31,10 +30,10 @@ namespace Arkivverket.Arkade.Core.Util
                     string name = tarEntry.Name.Replace('/', Path.DirectorySeparatorChar);
 
                     if (singleRootDirectory != null)
-                        name = name.Substring(singleRootDirectory.Name.Length);
+                        name = name[singleRootDirectory.Name.Length..];
 
                     if (Path.IsPathRooted(name))
-                        name = name.Substring(Path.GetPathRoot(name).Length);
+                        name = name[Path.GetPathRoot(name).Length..];
 
                     string fullName = Path.Combine(targetDirectory.FullName, name);
                     string directoryName = Path.GetDirectoryName(fullName);
@@ -61,8 +60,7 @@ namespace Arkivverket.Arkade.Core.Util
             if (!firstEntry.IsDirectory)
                 return null;
 
-            TarEntry tarEntry;
-            while ((tarEntry = tarInputStream.GetNextEntry()) != null)
+            while (tarInputStream.GetNextEntry() is { } tarEntry)
                 if (!tarEntry.Name.StartsWith(firstEntry.Name))
                     return null;
 
