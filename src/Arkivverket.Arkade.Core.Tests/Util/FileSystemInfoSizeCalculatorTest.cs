@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
@@ -19,6 +19,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void ShouldCalculateCorrectTotalFileSize()
         {
             string pathToFiles =  Path.Combine("TestData", "FileTypes");
