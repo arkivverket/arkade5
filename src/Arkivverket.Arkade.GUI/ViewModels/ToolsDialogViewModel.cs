@@ -154,7 +154,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _statusEventHandler.FormatAnalysisStartedEvent += OnFormatAnalysisStarted;
             _statusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdated;
             _statusEventHandler.FormatAnalysisFinishedEvent += OnFormatAnalysisFinished;
-            _statusEventHandler.FormatAnalysisTotalFileCounterFinishedEvent += OnFormatAnalysisTotalFileCounterFinished;
+            _statusEventHandler.TargetSizeCalculatorFinishedEvent += OnTargetSizeCalculatorFinished;
 
             ChooseDirectoryForFormatCheckCommand = new DelegateCommand(ChooseDirectoryForFormatCheck);
             RunFormatCheckCommand = new DelegateCommand(RunFormatCheck);
@@ -219,7 +219,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             SetFormatAnalysisOngoingString();
         }
 
-        private void OnFormatAnalysisTotalFileCounterFinished(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        private void OnTargetSizeCalculatorFinished(object sender, TargetSizeCalculatorEventArgs eventArgs)
         {
             _analysisTargetSize = eventArgs.TargetSize;
             SetFormatAnalysisOngoingString();

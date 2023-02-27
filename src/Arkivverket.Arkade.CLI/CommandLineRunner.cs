@@ -42,9 +42,9 @@ namespace Arkivverket.Arkade.CLI
             StatusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
             StatusEventHandler.SiardValidationFinishedEvent += OnSiardValidationFinishedEvent;
             StatusEventHandler.FormatAnalysisStartedEvent += OnFormatAnalysisStartedEvent;
-            StatusEventHandler.FormatAnalysisTotalFileCounterFinishedEvent += OnFormatAnalysisTotalFileCounterFinishedEvent;
             StatusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdatedEvent;
             StatusEventHandler.FormatAnalysisFinishedEvent += OnFormatAnalysisFinishedEvent;
+            StatusEventHandler.TargetSizeCalculatorFinishedEvent += OnTargetSizeCalculatorFinishedEvent;
 
             Log.Information($"\n" +
                             $"********************************************************************************\n" +
@@ -100,7 +100,7 @@ namespace Arkivverket.Arkade.CLI
             _formatAnalysisProgressPresenter = new FormatAnalysisProgressPresenter();
         }
 
-        private static void OnFormatAnalysisTotalFileCounterFinishedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
+        private static void OnTargetSizeCalculatorFinishedEvent(object sender, TargetSizeCalculatorEventArgs eventArgs)
         {
             _formatAnalysisProgressPresenter.SetTotalAmountOfFiles(eventArgs.TargetSize);
         }

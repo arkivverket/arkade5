@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util
         public FileSystemInfoSizeCalculatorTest()
         {
             _statusEventHandler = new StatusEventHandler();
-            _statusEventHandler.FormatAnalysisTotalFileCounterFinishedEvent += OnFileCounterFinished;
+            _statusEventHandler.TargetSizeCalculatorFinishedEvent += OnTargetSizeCalculatorFinished;
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util
             _totalFileSize.Should().Be(totalSize); // 5 files + where one is a .zip with 4 files inside
         }
 
-        private void OnFileCounterFinished(object o, FormatAnalysisProgressEventArgs e)
+        private void OnTargetSizeCalculatorFinished(object o, TargetSizeCalculatorEventArgs e)
         {
             _totalFileSize = e.TargetSize;
         }

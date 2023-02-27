@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Util
         {
             var scanArgs = e.Argument as dynamic;
             long targetFileSize = GetTargetFileSize(scanArgs.ScanMode, scanArgs.Target);
-            _statusEventHandler.RaiseEventFormatAnalysisTotalFileCounterFinished(targetFileSize);
+            _statusEventHandler.RaiseEventTargetSizeCalculatorFinished(targetFileSize);
         }
 
         private static long GetTargetFileSize(FileFormatScanMode scanMode, string target)
