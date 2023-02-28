@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -43,6 +44,7 @@ namespace Arkivverket.Arkade.CLI
             StatusEventHandler.FormatAnalysisStartedEvent += OnFormatAnalysisStartedEvent;
             StatusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdatedEvent;
             StatusEventHandler.FormatAnalysisFinishedEvent += OnFormatAnalysisFinishedEvent;
+            StatusEventHandler.TargetSizeCalculatorFinishedEvent += OnTargetSizeCalculatorFinishedEvent;
 
             Log.Information($"\n" +
                             $"********************************************************************************\n" +
@@ -95,7 +97,12 @@ namespace Arkivverket.Arkade.CLI
 
         private static void OnFormatAnalysisStartedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
         {
-            _formatAnalysisProgressPresenter = new FormatAnalysisProgressPresenter(eventArgs.TotalFiles);
+            _formatAnalysisProgressPresenter = new FormatAnalysisProgressPresenter();
+        }
+
+        private static void OnTargetSizeCalculatorFinishedEvent(object sender, TargetSizeCalculatorEventArgs eventArgs)
+        {
+            _formatAnalysisProgressPresenter.SetTotalAmountOfFiles(eventArgs.TargetSize);
         }
 
         private static void OnFormatAnalysisProgressUpdatedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
@@ -103,9 +110,7 @@ namespace Arkivverket.Arkade.CLI
             if (Console.IsOutputRedirected)
                 return;
 
-            _formatAnalysisProgressPresenter.FileCounter++;
-
-            _formatAnalysisProgressPresenter.DisplayProgress();
+            _formatAnalysisProgressPresenter.UpdateAndDisplayProgress(eventArgs.FileSize);
         }
 
         private static void OnFormatAnalysisFinishedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
@@ -162,7 +167,7 @@ namespace Arkivverket.Arkade.CLI
             }
             finally
             {
-                ArkadeProcessingArea.CleanUp();
+                DoCleanUp();
             }
         }
 
@@ -189,7 +194,7 @@ namespace Arkivverket.Arkade.CLI
             }
             finally
             {
-                ArkadeProcessingArea.CleanUp();
+                DoCleanUp();
             }
         }
 
@@ -206,7 +211,7 @@ namespace Arkivverket.Arkade.CLI
             }
             finally
             {
-                ArkadeProcessingArea.CleanUp();
+                DoCleanUp();
             }
         }
 
@@ -244,7 +249,7 @@ namespace Arkivverket.Arkade.CLI
                 Log.Warning("Parameter --output-filename / -O is obsolete and will be removed in a future release." +
                             " Use parameter --format-analysis-filename / -F instead. Proceeding analysis ...");
 
-            Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {analysisDirectory}");
+            Log.Information($"{{{command.TrimEnd('e')}ing}} format of all content in {analysisDirectory.FullName}");
             string outputFileName = options.FormatAnalysisResultFileName ?? options.OutputFileName ?? string.Format(
                 OutputFileNames.FileFormatInfoFile,
                 analysisDirectory.Name.TrimEnd(Path.GetInvalidFileNameChars())
@@ -441,6 +446,21 @@ namespace Arkivverket.Arkade.CLI
                 return false;
             }
             return true;
+        }
+
+        private static void DoCleanUp()
+        {
+            Log.Debug("Deleting temporary files");
+            
+            if (!ArkadeProcessingArea.CleanUp())
+            {
+                ExceptionMessages.Culture = CultureInfo.CreateSpecificCulture(SupportedLanguage.en.ToString());
+                Log.Error($"\n{ExceptionMessages.ProcessAreaCleanUpFailed}", ArkadeProcessingArea.WorkDirectory.FullName);
+            }
+            else
+            {
+                Log.Debug("Temporary files deleted");
+            }
         }
     }
 }

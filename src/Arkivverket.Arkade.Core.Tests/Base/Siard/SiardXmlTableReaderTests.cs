@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using FluentAssertions;
 using Moq;
@@ -17,7 +18,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         public SiardXmlTableReaderTests()
         {
             IStatusEventHandler statusEventHandler = new Mock<IStatusEventHandler>().Object;
-            _fileFormatIdentifier = new SiegfriedFileFormatIdentifier(new SiegfriedProcessRunner(statusEventHandler), statusEventHandler);
+            _fileFormatIdentifier = new SiegfriedFileFormatIdentifier(new SiegfriedProcessRunner(statusEventHandler),
+                statusEventHandler, new FileSystemInfoSizeCalculator(statusEventHandler));
         }
 
         [Fact]

@@ -151,6 +151,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (calculating..).
+        /// </summary>
+        public static string Calculating {
+            get {
+                return ResourceManager.GetString("Calculating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose directory with the content to be analysed.
         /// </summary>
         public static string ChooseDirectoryToAnalyse {
@@ -206,7 +215,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Performing format analysis: {0} of {1} files analysed.
+        ///   Looks up a localized string similar to Performing format analysis: {0}.
         /// </summary>
         public static string FormatCheckOngoing {
             get {
@@ -274,6 +283,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         public static string PdfAValidation {
             get {
                 return ResourceManager.GetString("PdfAValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkade encountered an error which caused &apos;{0}&apos; to abort. Please see log for details..
+        /// </summary>
+        public static string ProcessFailedMessage {
+            get {
+                return ResourceManager.GetString("ProcessFailedMessage", resourceCulture);
             }
         }
         

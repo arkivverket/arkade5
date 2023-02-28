@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Util
@@ -11,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Util
     /// <summary>
     /// <para>Manages processes which are spawned from Arkade.</para>
     /// <para>Third party applications (i.e. Siegfried, dbptk) should be managed with <see cref="Start"/> and
-    /// <see cref="Close(Process)"/>/<see cref="Close(int)"/> </para>
+    /// <see cref="Close(Process)"/></para>
     /// Processes spawned via third party libraries (i.e greenfield-apps from Codeuctivity's PDF/A validator) should
     /// be managed with <see cref="Add"/> and <see cref="Remove"/>.
     /// </summary>
@@ -20,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Util
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
         private static readonly Dictionary<int, Process> Processes = new();
 
-        private static readonly BackgroundWorker ProcessListener = new();
+        private static readonly BackgroundWorker ProcessListener = new() { WorkerSupportsCancellation = true };
 
         static ExternalProcessManager()
         {
@@ -43,20 +44,30 @@ namespace Arkivverket.Arkade.Core.Util
             Processes.Remove(processId);
         }
 
-        public static int Close(int processId)
+        public static bool TryClose(Process process)
         {
-            if (!Processes.ContainsKey(processId))
-                return -1;
-
-            if (Processes[processId] == default)
+            try
             {
+                int processId = process.Id;
+
+                if (!Processes.ContainsKey(processId))
+                    return false;
+
+                if (Processes[processId] == default)
+                {
+                    Processes?.Remove(processId);
+                    return true;
+                }
+
+                Processes[processId].Close();
                 Processes?.Remove(processId);
-                return 1;
+                return true;
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
             }
 
-            Processes[processId].Close();
-            Processes?.Remove(processId);
-            return 0;
         }
 
         public static void Terminate(string processName)
@@ -100,6 +111,19 @@ namespace Arkivverket.Arkade.Core.Util
         /// <param name="startTimeAfter"></param>
         public static void Add(string processName, DateTime startTimeAfter)
         {
+            if (ProcessListener.IsBusy)
+                ProcessListener.CancelAsync();
+
+            var waitCounter = 0;
+            while (ProcessListener.IsBusy)
+            {
+                Thread.Sleep(500);
+                waitCounter++;
+
+                if (waitCounter == 10)
+                    break;
+            }
+
             ProcessListener.RunWorkerAsync(new object[]{processName, startTimeAfter});
         }
 
@@ -127,6 +151,9 @@ namespace Arkivverket.Arkade.Core.Util
 
             while (process == default)
             {
+                if (e.Cancel)
+                    return;
+
                 process = Process.GetProcesses().FirstOrDefault(p =>
                     p.ProcessName.Contains(processName) &&
                     p.StartTime.CompareTo(startTime) >= 0);

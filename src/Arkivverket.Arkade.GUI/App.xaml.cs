@@ -25,6 +25,7 @@ using Prism.Regions;
 using Prism.Unity;
 using Serilog;
 using Settings = Arkivverket.Arkade.GUI.Properties.Settings;
+using Arkivverket.Arkade.Core.Resources;
 
 namespace Arkivverket.Arkade.GUI
 {
@@ -113,6 +114,7 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<IFileFormatInfoFilesGenerator, FileFormatInfoFilesGenerator>();
             containerRegistry.Register<IFileFormatIdentifier, SiegfriedFileFormatIdentifier>();
             containerRegistry.Register<SiegfriedProcessRunner>();
+            containerRegistry.Register<IFileSystemInfoSizeCalculator, FileSystemInfoSizeCalculator>();
             containerRegistry.Register<ISiardArchiveReader, SiardArchiveReader>();
             containerRegistry.Register<ISiardXmlTableReader, SiardXmlTableReader>();
             containerRegistry.Register<SiardTestEngine>();
@@ -140,8 +142,15 @@ namespace Arkivverket.Arkade.GUI
                 ArkadeProcessingArea.Destroy();
 
             else if (ArkadeInstance.IsOnlyInstance)
-                ArkadeProcessingArea.CleanUp();
-
+            {
+                if (!ArkadeProcessingArea.CleanUp())
+                {
+                    MessageBox.Show(
+                        string.Format(ExceptionMessages.ProcessAreaCleanUpFailed, ArkadeProcessingArea.WorkDirectory.FullName),
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
             base.OnExit(e);
 
             Container.GetContainer().Dispose();

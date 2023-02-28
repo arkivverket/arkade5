@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -150,16 +150,16 @@
   <data name="StatisticsHeaderFormatVersion" xml:space="preserve">
     <value>Formatversjon</value>
   </data>
-  <data name="HeaderAbsoluteFilePath" xml:space="preserve">
-    <value>Absolutt filsti</value>
-  </data>
   <data name="HeaderFileSize" xml:space="preserve">
     <value>Filstørrelse</value>
   </data>
   <data name="FormatIsValidValue" xml:space="preserve">
     <value>Gyldig</value>
   </data>
-  <data name="FormatIsInvalidValue" xml:space="preserve">
-    <value>Ugyldig</value>
+  <data name="FormatIsNotValidValue" xml:space="preserve">
+    <value>Ikke gyldig</value>
+  </data>
+  <data name="IllegalCharactersError" xml:space="preserve">
+    <value>Filstien inneholder ulovlig(e) tegn</value>
   </data>
 </root>

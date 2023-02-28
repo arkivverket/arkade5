@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
-using CsvHelper;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
@@ -17,72 +14,75 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
     {
         private static SiegfriedProcessRunner _processRunner;
         private readonly IStatusEventHandler _statusEventHandler;
+        private readonly IFileSystemInfoSizeCalculator _fileSystemInfoSizeCalculator;
 
-        private readonly List<string> _supportedZipFormatExtension = new()
+        private readonly List<string> _supportedArchiveFilePronomCodes = new()
         {
-            ".zip", ".tar", ".gz", ".arc", ".warc"
+            "x-fmt/263", //.zip
+            "x-fmt/265", //.tar
+            "fmt/289", "fmt/1355", "fmt/1281", //.warc
+            "fmt/161", "fmt/995", "fmt/1196", "fmt/1777" // .siard
         };
 
         public SiegfriedFileFormatIdentifier(SiegfriedProcessRunner siegfriedProcessRunner,
-            IStatusEventHandler statusEventHandler)
+            IStatusEventHandler statusEventHandler, IFileSystemInfoSizeCalculator fileSystemInfoSizeCalculator)
         {
             _processRunner = siegfriedProcessRunner;
             _statusEventHandler = statusEventHandler;
+            _fileSystemInfoSizeCalculator = fileSystemInfoSizeCalculator;
         }
-        
+
         public IEnumerable<IFileFormatInfo> IdentifyFormats(string target, FileFormatScanMode scanMode)
         {
-            long numberOfFilesToAnalyse = CalculateNumberOfFilesToAnalyse(scanMode, target);
+            _statusEventHandler.RaiseEventFormatAnalysisStarted();
 
-            _statusEventHandler.RaiseEventFormatAnalysisStarted(numberOfFilesToAnalyse);
+            _fileSystemInfoSizeCalculator.CalculateSize(scanMode, target);
 
-            IEnumerable<IFileFormatInfo> siegfriedFileInfoObjects = AnalyseFiles(target, scanMode, numberOfFilesToAnalyse);
+            IEnumerable<IFileFormatInfo> siegfriedFileInfoObjects = AnalyseFiles(target, scanMode);
 
             _statusEventHandler.RaiseEventFormatAnalysisFinished();
 
             return siegfriedFileInfoObjects;
         }
 
-        private IEnumerable<IFileFormatInfo> AnalyseFiles(string target, FileFormatScanMode scanMode, long numberOfFilesToAnalyse)
+        private IEnumerable<IFileFormatInfo> AnalyseFiles(string target, FileFormatScanMode scanMode)
         {
             Process siegfriedProcess = _processRunner.SetupSiegfriedProcess(scanMode, target);
 
-            IEnumerable<string> siegfriedResult = _processRunner.Run(siegfriedProcess, numberOfFilesToAnalyse);
+            IEnumerable<string> siegfriedResult = _processRunner.Run(siegfriedProcess);
 
-            int siegfriedCloseStatus = ExternalProcessManager.Close(siegfriedProcess.Id);
+            List<IFileFormatInfo> siegfriedFileInfoObjects = ExternalProcessManager.TryClose(siegfriedProcess)
+                ? GetFileFormatInfoObjects(siegfriedResult).ToList()
+                : throw new SiegfriedFileFormatIdentifierException("Process does not exist, or has been terminated");
 
-            List<IFileFormatInfo> siegfriedFileInfoObjects = siegfriedCloseStatus switch
-            {
-                -1 => throw new SiegfriedFileFormatIdentifierException("Process does not exist"),
-                1 => throw new SiegfriedFileFormatIdentifierException("Process was terminated"),
-                _ => GetSiegfriedFileInfoObjects(siegfriedResult).ToList(),
-            };
-
-            if (!SiegfriedFileInfoObjectsContainsArchiveFiles(siegfriedFileInfoObjects, scanMode))
+            if (!SiegfriedFileInfoObjectsContainsArchiveFiles(ref siegfriedFileInfoObjects, scanMode))
                 return siegfriedFileInfoObjects;
 
             List<IFileFormatInfo> archiveFilePaths = siegfriedFileInfoObjects.Where(s =>
-                _supportedZipFormatExtension.Contains(s.FileExtension)).ToList();
+                _supportedArchiveFilePronomCodes.Contains(s.Id)).ToList();
 
             IEnumerable<Task<IEnumerable<IFileFormatInfo>>> archiveFormatAnalysisTasks = archiveFilePaths
-                .Select(f => AnalyseFilesAsync(f.FileName, FileFormatScanMode.Archive, numberOfFilesToAnalyse));
+                .Select(f => AnalyseFilesAsync(f.FileName, FileFormatScanMode.Archive));
 
             siegfriedFileInfoObjects.AddRange(Task.WhenAll(archiveFormatAnalysisTasks).Result.SelectMany(a => a));
 
             return siegfriedFileInfoObjects;
         }
 
-        private async Task<IEnumerable<IFileFormatInfo>> AnalyseFilesAsync(string target, FileFormatScanMode scanMode,
-            long numberOfFilesToAnalyse)
+        private async Task<IEnumerable<IFileFormatInfo>> AnalyseFilesAsync(string target, FileFormatScanMode scanMode)
         {
-            return await Task.Run(() => AnalyseFiles(target, scanMode, numberOfFilesToAnalyse));
+            return await Task.Run(() => AnalyseFiles(target, scanMode));
         }
-        private bool SiegfriedFileInfoObjectsContainsArchiveFiles(
-            IEnumerable<IFileFormatInfo> fileFormatInfoObjects, FileFormatScanMode scanMode)
+
+        private bool SiegfriedFileInfoObjectsContainsArchiveFiles(ref List<IFileFormatInfo> fileFormatInfoObjects,
+            FileFormatScanMode scanMode)
         {
-            return (scanMode == FileFormatScanMode.Archive
-                ? fileFormatInfoObjects.Skip(1) // Skip first element when .zip (or similar) have been analysed, as this element is the .zip file itself
-                : fileFormatInfoObjects).Any(f => _supportedZipFormatExtension.Contains(f.FileExtension));
+            if (scanMode == FileFormatScanMode.Archive)
+            {
+                // Skip first element when .zip (or similar) have been analysed, as this element is the .zip file itself
+                fileFormatInfoObjects = fileFormatInfoObjects.Skip(1).ToList();
+            }
+            return fileFormatInfoObjects.Any(f => _supportedArchiveFilePronomCodes.Contains(f.Id));
         }
 
         public IEnumerable<IFileFormatInfo> IdentifyFormats(IEnumerable<KeyValuePair<string, IEnumerable<byte>>> filePathsAndByteContent)
@@ -112,7 +112,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             ExternalProcessManager.Close(siegfriedProcess);
 
-            return GetSiegfriedFileInfoObject(siegfriedResult);
+            return GetFileFormatInfoObject(siegfriedResult);
         }
 
         public IFileFormatInfo IdentifyFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
@@ -131,7 +131,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             {
                 string siegfriedResult = _processRunner.RunOnByteArray(siegfriedProcess, filePathAndByteContent);
 
-                return GetSiegfriedFileInfoObject(siegfriedResult);
+                return GetFileFormatInfoObject(siegfriedResult);
             }
             catch (Exception e)
             {
@@ -147,64 +147,14 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             }
         }
 
-        private static IEnumerable<IFileFormatInfo> GetSiegfriedFileInfoObjects(IEnumerable<string> formatInfoSet)
+        private static IEnumerable<IFileFormatInfo> GetFileFormatInfoObjects(IEnumerable<string> formatInfoSet)
         {
-            return formatInfoSet.Skip(1).Where(f => f != null).Select(GetSiegfriedFileInfoObject);
+            return formatInfoSet.Skip(1).Where(f => f != null).Select(GetFileFormatInfoObject);
         }
 
-        private static SiegfriedFileInfo GetSiegfriedFileInfoObject(string siegfriedFormatResult)
+        private static IFileFormatInfo GetFileFormatInfoObject(string siegfriedFormatResult)
         {
-            if (siegfriedFormatResult == null)
-                return null;
-
-            using (var stringReader = new StringReader(siegfriedFormatResult))
-            using (var csvParser = new CsvParser(stringReader, CultureInfo.InvariantCulture))
-            {
-                csvParser.Read();
-
-                return new SiegfriedFileInfo
-                (
-                    fileName: csvParser.Record[0],
-                    byteSize: csvParser.Record[1],
-                    errors: csvParser.Record[3],
-                    id: csvParser.Record[5],
-                    format: csvParser.Record[6],
-                    version: csvParser.Record[7],
-                    mimeType: csvParser.Record[8]
-                );
-            }
-        }
-
-        private long CalculateNumberOfFilesToAnalyse(FileFormatScanMode scanMode, string target)
-        {
-            if (scanMode is FileFormatScanMode.Directory)
-                return CalculateNumberOfFilesToAnalyse(new DirectoryInfo(target));
-
-            if (scanMode is FileFormatScanMode.Archive)
-                return CalculateNumberOfFilesToAnalyse(target);
-
-            return 1;
-        }
-
-        private long CalculateNumberOfFilesToAnalyse(DirectoryInfo directory)
-        {
-            IEnumerable<FileInfo> allFiles = directory.EnumerateFiles("*", new EnumerationOptions
-            {
-                IgnoreInaccessible = true,
-                RecurseSubdirectories = true,
-            });
-
-            long numberOfFilesToAnalyse = allFiles.LongCount();
-
-            return numberOfFilesToAnalyse + allFiles
-                .Where(f => _supportedZipFormatExtension.Contains(f.Extension))
-                .Select(f => CalculateNumberOfFilesToAnalyse(f.FullName)).Sum();
-        }
-
-        private long CalculateNumberOfFilesToAnalyse(string pathToArchiveFile)
-        {
-            using var zipArchive = new ZipArchive(File.OpenRead(pathToArchiveFile));
-            return zipArchive.Entries.LongCount(e => e.Name != string.Empty);
+            return SiegfriedFileInfo.CreateFromString(siegfriedFormatResult);
         }
     }
 

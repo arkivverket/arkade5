@@ -19,9 +19,11 @@ namespace Arkivverket.Arkade.Core.Logging
 
         void RaiseEventSiardValidationFinished(List<string> errors);
 
-        void RaiseEventFormatAnalysisStarted(long totalFiles);
-        void RaiseEventFormatAnalysisProgressUpdated();
+        void RaiseEventFormatAnalysisStarted();
+        void RaiseEventFormatAnalysisProgressUpdated(long bytesRead);
         void RaiseEventFormatAnalysisFinished();
+
+        void RaiseEventTargetSizeCalculatorFinished(long targetSize);
 
         void RaiseEventReadXmlEndElement();
 
@@ -43,10 +45,13 @@ namespace Arkivverket.Arkade.Core.Logging
         event EventHandler<TestProgressEventArgs> TestProgressUpdatedEvent;
 
         event EventHandler<SiardValidationEventArgs> SiardValidationFinishedEvent;
-
+        
         event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisStartedEvent;
         event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisProgressUpdatedEvent;
         event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisFinishedEvent;
+
+        event EventHandler<TargetSizeCalculatorEventArgs> TargetSizeCalculatorFinishedEvent;
+
 
         event EventHandler<EventArgs> ReadXmlEndElementEvent;
     }

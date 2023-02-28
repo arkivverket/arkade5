@@ -32,8 +32,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         // ---------- File format analysis --------------
 
-        private long _numberOfAnalysedFiles;
-        private long _totalNumberOfFilesToAnalyse;
+        private long _sizeOfAnalysedFiles;
+        private long? _analysisTargetSize;
+        private decimal _analysisPercentageProgress => _sizeOfAnalysedFiles / (decimal)_analysisTargetSize;
 
         private string _formatAnalysisOngoingString;
         public string FormatAnalysisOngoingString
@@ -153,6 +154,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _statusEventHandler.FormatAnalysisStartedEvent += OnFormatAnalysisStarted;
             _statusEventHandler.FormatAnalysisProgressUpdatedEvent += OnFormatAnalysisProgressUpdated;
             _statusEventHandler.FormatAnalysisFinishedEvent += OnFormatAnalysisFinished;
+            _statusEventHandler.TargetSizeCalculatorFinishedEvent += OnTargetSizeCalculatorFinished;
 
             ChooseDirectoryForFormatCheckCommand = new DelegateCommand(ChooseDirectoryForFormatCheck);
             RunFormatCheckCommand = new DelegateCommand(RunFormatCheck);
@@ -212,23 +214,36 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void OnFormatAnalysisStarted(object sender, FormatAnalysisProgressEventArgs eventArgs)
         {
-            _numberOfAnalysedFiles = 0;
-            _totalNumberOfFilesToAnalyse = eventArgs.TotalFiles;
-            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, _numberOfAnalysedFiles,
-                _totalNumberOfFilesToAnalyse);
+            _analysisTargetSize = null;
+            _sizeOfAnalysedFiles = 0;
+            SetFormatAnalysisOngoingString();
+        }
+
+        private void OnTargetSizeCalculatorFinished(object sender, TargetSizeCalculatorEventArgs eventArgs)
+        {
+            _analysisTargetSize = eventArgs.TargetSize;
+            SetFormatAnalysisOngoingString();
         }
 
         private void OnFormatAnalysisProgressUpdated(object sender, FormatAnalysisProgressEventArgs eventArgs)
         {
-            _numberOfAnalysedFiles++;
-            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, _numberOfAnalysedFiles,
-                _totalNumberOfFilesToAnalyse);
+            _sizeOfAnalysedFiles += eventArgs.FileSize;
+            SetFormatAnalysisOngoingString();
         }
 
         private void OnFormatAnalysisFinished(object sender, FormatAnalysisProgressEventArgs eventArgs)
         {
-            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, _totalNumberOfFilesToAnalyse,
-                _totalNumberOfFilesToAnalyse);
+            _sizeOfAnalysedFiles = _analysisTargetSize.Value;
+            SetFormatAnalysisOngoingString();
+        }
+
+        private void SetFormatAnalysisOngoingString()
+        {
+            var progress = _analysisTargetSize == null
+                ? ToolsGUI.Calculating
+                : _analysisPercentageProgress.ToString("P");
+
+            FormatAnalysisOngoingString = string.Format(ToolsGUI.FormatCheckOngoing, progress);
         }
 
         private void ChooseDirectoryForFormatCheck()
@@ -296,7 +311,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             }
             catch (Exception e)
             {
-                _log.Information("Format analysis failed: " + e.Message);
+                _log.Error("Format analysis failed: " + e.Message);
                 successfulRun = false;
             }
 
@@ -304,7 +319,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ProgressBarVisibility = Visibility.Hidden;
 
             if (!successfulRun)
+            {
+                FormatCheckStatus = string.Format(ToolsGUI.ProcessFailedMessage, ToolsGUI.FormatCheckHeading);
                 return;
+            }
 
             FormatCheckStatus = $"{ToolsGUI.FormatCheckCompletedMessage}\n" +
                                 $"{filePath}";

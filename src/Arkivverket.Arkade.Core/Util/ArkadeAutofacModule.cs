@@ -44,6 +44,7 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<FileFormatInfoFilesGenerator>().As<IFileFormatInfoFilesGenerator>();
             builder.RegisterType<SiegfriedFileFormatIdentifier>().As<IFileFormatIdentifier>();
             builder.RegisterType<SiegfriedProcessRunner>().AsSelf();
+            builder.RegisterType<FileSystemInfoSizeCalculator>().As<IFileSystemInfoSizeCalculator>();
             builder.RegisterType<SiardArchiveReader>().As<ISiardArchiveReader>();
             builder.RegisterType<SiardXmlTableReader>().As<ISiardXmlTableReader>();
             builder.RegisterType<SiardTestEngine>().AsSelf();

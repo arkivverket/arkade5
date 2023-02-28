@@ -1,4 +1,6 @@
+using CsvHelper;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -48,6 +50,28 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             sb.Append(Version);
             sb.Append(MimeType);
             return sb.ToString().GetHashCode();
+        }
+
+        public static IFileFormatInfo CreateFromString(string siegfriedFormatResult)
+        {
+            if (siegfriedFormatResult == null)
+                return null;
+
+            using var stringReader = new StringReader(siegfriedFormatResult);
+            using var csvParser = new CsvParser(stringReader, CultureInfo.InvariantCulture);
+
+            csvParser.Read();
+
+            return new SiegfriedFileInfo
+            (
+                fileName: csvParser.Record[0],
+                byteSize: csvParser.Record[1],
+                errors: csvParser.Record[3],
+                id: csvParser.Record[5],
+                format: csvParser.Record[6],
+                version: csvParser.Record[7],
+                mimeType: csvParser.Record[8]
+            );
         }
     }
 }
