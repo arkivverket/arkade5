@@ -24,6 +24,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool _darkModeSelected;
         private SupportedLanguage _selectedUILanguage;
         private SupportedLanguage _selectedOutputLanguage;
+        private string _selectedTestResultDisplayLimit;
 
         public string CurrentArkadeProcessingAreaLocation { get; }
         public string DirectoryNameArkadeProcessingAreaRoot { get; }
@@ -64,6 +65,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _arkadeProcessingAreaLocationSetting, value);
         }
 
+        public string SelectedTestResultDisplayLimit
+        {
+            get => _selectedTestResultDisplayLimit;
+            set => SetProperty(ref _selectedTestResultDisplayLimit, value);
+        }
+
         public DelegateCommand ChangeArkadeProcessingAreaLocationCommand { get; }
         public DelegateCommand ApplyChangesAndCloseWindowCommand { get; }
 
@@ -83,6 +90,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             SelectedUILanguage = LanguageSettingHelper.GetUILanguage();
 
             DarkModeSelected = Settings.Default.DarkModeEnabled;
+
+            SelectedTestResultDisplayLimit = Settings.Default.TestResultDisplayLimit == -1
+                ? ""
+                : Settings.Default.TestResultDisplayLimit.ToString();
         }
 
         private void ChangeArkadeProcessingAreaLocation()
@@ -118,6 +129,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ApplySelectedMode();
             ApplyUILanguageSelection();
             ApplyOutputLanguageSelection();
+            ApplyTestResultDisplayLimitSelection();
             Util.ArkadeProcessingAreaLocationSetting.Set(ArkadeProcessingAreaLocationSetting);
 
             _eventAggregator.GetEvent<CloseChildWindowEvent>().Publish();
@@ -183,6 +195,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 supportedLanguages.TryAdd(supportedLanguage, languageAsString);
             }
             return supportedLanguages;
+        }
+
+        private void ApplyTestResultDisplayLimitSelection()
+        {
+            Settings.Default.TestResultDisplayLimit = int.TryParse(SelectedTestResultDisplayLimit, out int maxDisplayResult)
+                ? maxDisplayResult
+                : string.IsNullOrWhiteSpace(SelectedTestResultDisplayLimit)
+                    ? -1
+                    : Settings.Default.TestResultDisplayLimit;
+
+            Settings.Default.Save();
         }
     }
 }

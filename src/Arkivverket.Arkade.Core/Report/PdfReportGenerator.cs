@@ -10,10 +10,17 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public class PdfReportGenerator : IReportGenerator
     {
+        private readonly int _testResultDisplayLimit;
+
+        public PdfReportGenerator(int testResultDisplayLimit)
+        {
+            _testResultDisplayLimit = testResultDisplayLimit;
+        }
+
         public void Generate(TestReport testReport, Stream stream)
         {
             using var memoryStream = new MemoryStream();
-            var reportGenerator = new HtmlReportGenerator();
+            var reportGenerator = new HtmlReportGenerator(_testResultDisplayLimit);
             reportGenerator.Generate(testReport, memoryStream);
             string htmlString = Encoding.UTF8.GetString(memoryStream.ToArray());
 

@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class SettingsGUI {
@@ -151,11 +151,31 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Limit for number of results per archive test:.
+        /// </summary>
+        public static string SelectTestResultDisplayLimitText {
+            get {
+                return ResourceManager.GetString("SelectTestResultDisplayLimitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language for user interface:.
         /// </summary>
         public static string SelectUILanguageText {
             get {
                 return ResourceManager.GetString("SelectUILanguageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If set, limits the amount of results written to each archive test in the HTML and PDF test reports.
+        ///Default value is 100.
+        ///NB! No limit may cause memory issues..
+        /// </summary>
+        public static string SetResultDisplayLimitToolTip {
+            get {
+                return ResourceManager.GetString("SetResultDisplayLimitToolTip", resourceCulture);
             }
         }
         

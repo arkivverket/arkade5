@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Util;
@@ -9,8 +10,13 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public class HtmlReportGenerator : IReportGenerator
     {
-        private const int NumberOfResultsToDisplay = 100;
+        private static int _testResultDisplayLimit;
         private static ArchiveType _archiveType;
+
+        public HtmlReportGenerator(int testResultDisplayLimit)
+        {
+            _testResultDisplayLimit = testResultDisplayLimit;
+        }
 
         public void Generate(TestReport testReport, Stream stream)
         {
@@ -139,7 +145,11 @@ namespace Arkivverket.Arkade.Core.Report
                     break;
             }
 
-            foreach (Result result in resultSet.Results.Take(NumberOfResultsToDisplay))
+            IEnumerable<Result> resultsToDisplay = _testResultDisplayLimit == -1
+                ? resultSet.Results
+                : resultSet.Results.Take(_testResultDisplayLimit);
+
+            foreach (Result result in resultsToDisplay)
             {
                 stream.WriteLine(@"            <tr>");
                 if (_archiveType.Equals(ArchiveType.Siard))
@@ -152,11 +162,11 @@ namespace Arkivverket.Arkade.Core.Report
                 stream.WriteLine(@"            </tr>");
             }
 
-            if (resultSet.Results.Count > NumberOfResultsToDisplay)
+            if (_testResultDisplayLimit > 0 && resultSet.Results.Count > _testResultDisplayLimit)
             {
                 string moreResultsMessage = string.Format(
                     Resources.Report.TestMoreResultsOfSameKind,
-                    resultSet.Results.Count - NumberOfResultsToDisplay
+                    resultSet.Results.Count - _testResultDisplayLimit
                 );
 
                 stream.WriteLine(@"            <tr>");

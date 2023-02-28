@@ -156,4 +156,12 @@
   <data name="SelectOutputLanguageText" xml:space="preserve">
     <value>Språk for produserte filer:</value>
   </data>
+  <data name="SelectTestResultDisplayLimitText" xml:space="preserve">
+    <value>Grense for antall resultater per arkivtest:</value>
+  </data>
+  <data name="SetResultDisplayLimitToolTip" xml:space="preserve">
+    <value>Dersom definert, begrenses antall resultater som skrives til hvert enkelt testpunkt i HTML- og PDF-testrapporter.
+Standardverdi er 100.
+NB! Ingen begrensning kan føre til minneproblemer.</value>
+  </data>
 </root>

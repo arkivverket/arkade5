@@ -151,7 +151,8 @@ namespace Arkivverket.Arkade.CLI
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
                     options.OutputLanguage, options.TestSelectionFile, options.PerformFileFormatAnalysis);
 
-                bool testSuccess = Test(options.OutputDirectory, testSession, createStandAloneTestReport: false);
+                bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, testSession,
+                    createStandAloneTestReport: false);
 
                 bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
 
@@ -180,7 +181,7 @@ namespace Arkivverket.Arkade.CLI
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
                     options.OutputLanguage, options.TestSelectionFile);
 
-                bool testSuccess = Test(options.OutputDirectory, testSession);
+                bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, testSession);
 
                 LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess);
             }
@@ -290,7 +291,8 @@ namespace Arkivverket.Arkade.CLI
             Arkade.Dispose();
         }
 
-        private static bool Test(string outputDirectory, TestSession testSession, bool createStandAloneTestReport = true)
+        private static bool Test(string outputDirectory, int testResultDisplayLimit, TestSession testSession,
+            bool createStandAloneTestReport = true)
         {
             if (!testSession.IsTestableArchive(out _))
                 return false;
@@ -308,7 +310,7 @@ namespace Arkivverket.Arkade.CLI
             if (_testRunHasFailed)
                 return false;
 
-            SaveTestReport(testSession, outputDirectory, createStandAloneTestReport);
+            SaveTestReport(testSession, outputDirectory, createStandAloneTestReport, testResultDisplayLimit);
             return true;
         }
 
@@ -407,7 +409,7 @@ namespace Arkivverket.Arkade.CLI
         }
 
         private static void SaveTestReport(TestSession testSession, string outputDirectory,
-            bool createStandAloneTestReport)
+            bool createStandAloneTestReport, int testResultDisplayLimit)
         {
             DirectoryInfo packageTestReportDirectory = testSession.Archive.GetTestReportDirectory();
 
@@ -418,7 +420,7 @@ namespace Arkivverket.Arkade.CLI
                 packageTestReportDirectory.Create();
             }
 
-            Arkade.SaveReport(testSession, packageTestReportDirectory, createStandAloneTestReport);
+            Arkade.SaveReport(testSession, packageTestReportDirectory, createStandAloneTestReport, testResultDisplayLimit);
 
             if (createStandAloneTestReport)
                 Log.Information($"Test reports generated at: {packageTestReportDirectory.FullName}");

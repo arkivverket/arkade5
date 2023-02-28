@@ -14,6 +14,8 @@ namespace Arkivverket.Arkade.Core.Tests.Report
 {
     public class HtmlReportGeneratorTest
     {
+        private const int TestResultDisplayLimit = 100;
+
         private static TestSession CreateTestSessionWithTwoTestRuns()
         {
             TestRun testRun1 = new TestRunBuilder()
@@ -48,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
         {
             var ms = new MemoryStream();
             TestReport testReport = TestReportFactory.Create(testSession);
-            new HtmlReportGenerator().Generate(testReport, ms);
+            new HtmlReportGenerator(TestResultDisplayLimit).Generate(testReport, ms);
             return Encoding.UTF8.GetString(ms.ToArray());
         }
 

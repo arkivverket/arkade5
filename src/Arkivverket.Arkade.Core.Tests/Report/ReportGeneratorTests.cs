@@ -68,12 +68,13 @@ namespace Arkivverket.Arkade.Core.Tests.Report
 
         private static IReportGenerator SelectReportGenerator(TestReportFormat reportType)
         {
+            int maxNumberOfResultsToDisplay = 100;
             return reportType switch
             {
-                TestReportFormat.html => new HtmlReportGenerator(),
+                TestReportFormat.html => new HtmlReportGenerator(maxNumberOfResultsToDisplay),
                 TestReportFormat.xml => new XmlReportGenerator(),
                 TestReportFormat.json => new JsonReportGenerator(),
-                TestReportFormat.pdf => new PdfReportGenerator(),
+                TestReportFormat.pdf => new PdfReportGenerator(maxNumberOfResultsToDisplay),
                 _ => null
             };
         }

@@ -10,6 +10,9 @@ namespace Arkivverket.Arkade.CLI.Options
         [Option('s', "noark5-test-selection", HelpText = "Optional. Selection of Noark 5 tests to be run. Omit to run all tests.")]
         public string TestSelectionFile { get; set; }
 
+        [Option('r', "result-display-limit", HelpText = "Optional. Set maximum amount of test results to be displayed per test point.", Default = 100)]
+        public int TestResultDisplayLimit { get; set; }
+
         [Usage(ApplicationAlias = "arkade")]
         public static IEnumerable<Example> Examples
         {
