@@ -61,11 +61,11 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid.
+        ///   Looks up a localized string similar to Not valid.
         /// </summary>
-        public static string FormatIsInvalidValue {
+        public static string FormatIsNotValidValue {
             get {
-                return ResourceManager.GetString("FormatIsInvalidValue", resourceCulture);
+                return ResourceManager.GetString("FormatIsNotValidValue", resourceCulture);
             }
         }
         
@@ -75,15 +75,6 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string FormatIsValidValue {
             get {
                 return ResourceManager.GetString("FormatIsValidValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Absolute file path.
-        /// </summary>
-        public static string HeaderAbsoluteFilePath {
-            get {
-                return ResourceManager.GetString("HeaderAbsoluteFilePath", resourceCulture);
             }
         }
         
@@ -156,6 +147,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string HeaderMimeType {
             get {
                 return ResourceManager.GetString("HeaderMimeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illegal character(s) in path.
+        /// </summary>
+        public static string IllegalCharactersError {
+            get {
+                return ResourceManager.GetString("IllegalCharactersError", resourceCulture);
             }
         }
         

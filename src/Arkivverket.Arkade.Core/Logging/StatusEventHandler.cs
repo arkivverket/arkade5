@@ -50,19 +50,19 @@ namespace Arkivverket.Arkade.Core.Logging
             OnFormatAnalysisStarted(default);
         }
 
-        public void RaiseEventFormatAnalysisTotalFileCounterFinished(long totalAmountOfFiles)
+        public void RaiseEventFormatAnalysisProgressUpdated(long fileSize)
         {
-            OnFormatAnalysisTotalFileCounterFinished(new FormatAnalysisProgressEventArgs(totalAmountOfFiles));
-        }
-
-        public void RaiseEventFormatAnalysisProgressUpdated()
-        {
-            OnFormatAnalysisProgressUpdated(default);
+            OnFormatAnalysisProgressUpdated(new FormatAnalysisProgressEventArgs(fileSize));
         }
 
         public void RaiseEventFormatAnalysisFinished()
         {
             OnFormatAnalysisFinished(default);
+        }
+
+        public void RaiseEventTargetSizeCalculatorFinished(long targetSize)
+        {
+            OnTargetSizeCalculatorFinished(new TargetSizeCalculatorEventArgs(targetSize));
         }
 
         public void RaiseEventReadXmlEndElement()
@@ -88,9 +88,10 @@ namespace Arkivverket.Arkade.Core.Logging
         public event EventHandler<SiardValidationEventArgs> SiardValidationFinishedEvent;
 
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisStartedEvent;
-        public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisTotalFileCounterFinishedEvent;
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisProgressUpdatedEvent;
         public event EventHandler<FormatAnalysisProgressEventArgs> FormatAnalysisFinishedEvent;
+
+        public event EventHandler<TargetSizeCalculatorEventArgs> TargetSizeCalculatorFinishedEvent;
 
         public event EventHandler<EventArgs> ReadXmlEndElementEvent;
 
@@ -160,9 +161,9 @@ namespace Arkivverket.Arkade.Core.Logging
             handler?.Invoke(this, eventArgs);
         }
     
-        protected virtual void OnFormatAnalysisTotalFileCounterFinished(FormatAnalysisProgressEventArgs eventArgs)
+        protected virtual void OnTargetSizeCalculatorFinished(TargetSizeCalculatorEventArgs eventArgs)
         {
-            EventHandler<FormatAnalysisProgressEventArgs> handler = FormatAnalysisTotalFileCounterFinishedEvent;
+            EventHandler<TargetSizeCalculatorEventArgs> handler = TargetSizeCalculatorFinishedEvent;
             handler?.Invoke(this, eventArgs);
         }
 

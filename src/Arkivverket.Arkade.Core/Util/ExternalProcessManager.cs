@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Util
@@ -20,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Util
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
         private static readonly Dictionary<int, Process> Processes = new();
 
-        private static readonly BackgroundWorker ProcessListener = new();
+        private static readonly BackgroundWorker ProcessListener = new() { WorkerSupportsCancellation = true };
 
         static ExternalProcessManager()
         {
@@ -110,6 +111,19 @@ namespace Arkivverket.Arkade.Core.Util
         /// <param name="startTimeAfter"></param>
         public static void Add(string processName, DateTime startTimeAfter)
         {
+            if (ProcessListener.IsBusy)
+                ProcessListener.CancelAsync();
+
+            var waitCounter = 0;
+            while (ProcessListener.IsBusy)
+            {
+                Thread.Sleep(500);
+                waitCounter++;
+
+                if (waitCounter == 10)
+                    break;
+            }
+
             ProcessListener.RunWorkerAsync(new object[]{processName, startTimeAfter});
         }
 
@@ -137,6 +151,9 @@ namespace Arkivverket.Arkade.Core.Util
 
             while (process == default)
             {
+                if (e.Cancel)
+                    return;
+
                 process = Process.GetProcesses().FirstOrDefault(p =>
                     p.ProcessName.Contains(processName) &&
                     p.StartTime.CompareTo(startTime) >= 0);

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System;
+using System.Text;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
 
@@ -19,10 +20,9 @@ namespace Arkivverket.Arkade.Core.Util
                 DirectoryInfo singleRootDirectory = GetSingleRootDirectory(inputStream);
                 inputStream.Position = 0; // Needs resetting after GetSingleRootDirectory()
 
-                var tarInputStream = new TarInputStream(inputStream);
+                var tarInputStream = new TarInputStream(inputStream, Encoding.UTF8);
 
-                TarEntry tarEntry;
-                while ((tarEntry = tarInputStream.GetNextEntry()) != null)
+                while (tarInputStream.GetNextEntry() is { } tarEntry)
                 {
                     if (tarEntry.IsDirectory)
                         continue;
@@ -30,10 +30,10 @@ namespace Arkivverket.Arkade.Core.Util
                     string name = tarEntry.Name.Replace('/', Path.DirectorySeparatorChar);
 
                     if (singleRootDirectory != null)
-                        name = name.Substring(singleRootDirectory.Name.Length);
+                        name = name[singleRootDirectory.Name.Length..];
 
                     if (Path.IsPathRooted(name))
-                        name = name.Substring(Path.GetPathRoot(name).Length);
+                        name = name[Path.GetPathRoot(name).Length..];
 
                     string fullName = Path.Combine(targetDirectory.FullName, name);
                     string directoryName = Path.GetDirectoryName(fullName);
@@ -54,14 +54,13 @@ namespace Arkivverket.Arkade.Core.Util
 
         private static DirectoryInfo GetSingleRootDirectory(Stream inputStream)
         {
-            var tarInputStream = new TarInputStream(inputStream);
+            var tarInputStream = new TarInputStream(inputStream, Encoding.UTF8);
             TarEntry firstEntry = tarInputStream.GetNextEntry();
 
             if (!firstEntry.IsDirectory)
                 return null;
 
-            TarEntry tarEntry;
-            while ((tarEntry = tarInputStream.GetNextEntry()) != null)
+            while (tarInputStream.GetNextEntry() is { } tarEntry)
                 if (!tarEntry.Name.StartsWith(firstEntry.Name))
                     return null;
 
@@ -71,7 +70,7 @@ namespace Arkivverket.Arkade.Core.Util
         public void CompressFolderContentToArchiveFile(FileInfo targetFileName, DirectoryInfo sourceFileFolder)
         {
             Stream outStream = File.Create(targetFileName.FullName);
-            var tarOutputStream = new TarOutputStream(outStream);
+            var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);
 
             // TODO: check difference between writing and not writing this 
             // Optionally, write an entry for the directory itself.

@@ -17,6 +17,14 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
         private static IStatusEventHandler _statusEventHandler;
 
+        private static readonly List<string> _supportedArchiveFilePronomCodes = new()
+        {
+            "x-fmt/263", //.zip
+            "x-fmt/265", //.tar
+            "fmt/289", "fmt/1355", "fmt/1281", //.warc
+            "fmt/161", "fmt/995", "fmt/1196", "fmt/1777" // .siard
+        };
+
         public SiegfriedProcessRunner(IStatusEventHandler statusEventHandler)
         {
             _statusEventHandler = statusEventHandler;
@@ -182,8 +190,17 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
         private static void HandleReceivedOutputData(DataReceivedEventArgs eventArgs, ICollection<string> results)
         {
+            if (eventArgs.Data == null) return;
+
             results.Add(eventArgs.Data);
-            _statusEventHandler.RaiseEventFormatAnalysisProgressUpdated();
+            IFileFormatInfo siegfriedFileInfo = SiegfriedFileInfo.CreateFromString(eventArgs.Data);
+
+            if (_supportedArchiveFilePronomCodes.Contains(siegfriedFileInfo.Id)) 
+                return;
+            
+            if (long.TryParse(siegfriedFileInfo.ByteSize, out long result))
+                _statusEventHandler.RaiseEventFormatAnalysisProgressUpdated(result);
+            
         }
 
         private static void HandleReceivedErrorData(DataReceivedEventArgs eventArgs, ICollection<string> errors)

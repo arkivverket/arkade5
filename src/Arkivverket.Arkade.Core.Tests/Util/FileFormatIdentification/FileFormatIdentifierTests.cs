@@ -202,7 +202,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         {
             IStatusEventHandler statusEventHandler = new Mock<IStatusEventHandler>().Object;
             return new SiegfriedFileFormatIdentifier(new SiegfriedProcessRunner(statusEventHandler), statusEventHandler,
-                new FileCounter(statusEventHandler));
+                new FileSystemInfoSizeCalculator(statusEventHandler));
         }
     }
 }

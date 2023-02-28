@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Siard
         {
             IStatusEventHandler statusEventHandler = new Mock<IStatusEventHandler>().Object;
             _fileFormatIdentifier = new SiegfriedFileFormatIdentifier(new SiegfriedProcessRunner(statusEventHandler),
-                statusEventHandler, new FileCounter(statusEventHandler));
+                statusEventHandler, new FileSystemInfoSizeCalculator(statusEventHandler));
         }
 
         [Fact]

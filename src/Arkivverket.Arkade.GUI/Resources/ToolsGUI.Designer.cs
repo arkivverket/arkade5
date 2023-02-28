@@ -215,7 +215,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Performing format analysis: {0} of {1} files analysed.
+        ///   Looks up a localized string similar to Performing format analysis: {0}.
         /// </summary>
         public static string FormatCheckOngoing {
             get {
