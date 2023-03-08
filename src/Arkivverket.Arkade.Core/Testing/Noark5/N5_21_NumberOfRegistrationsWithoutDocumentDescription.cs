@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
@@ -11,11 +12,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 21);
 
-        private readonly Dictionary<ArchivePart, List<N5_21_Registration>> _registrationsWithoutDocumentDescriptionPerArchivePart = new();
-        private ArchivePart _currentArchivePart = new();
-        private int _totalNumberOfMissingDocumentDescriptions;
-        private Folder _currentFolder;
+        private readonly ICollection<N5_21_ArchivePart> _archiveParts = new List<N5_21_ArchivePart>();
+        private N5_21_ArchivePart _currentArchivePart = new();
+        private N5_21_Folder _currentFolder;
         private N5_21_Registration _currentRegistration;
+        private int _totalNumberOfMissingDocumentDescriptions;
 
         public override TestId GetId()
         {
@@ -29,7 +30,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override TestResultSet GetTestResults()
         {
-            bool multipleArchiveParts = _registrationsWithoutDocumentDescriptionPerArchivePart.Count > 1;
+            bool multipleArchiveParts = _archiveParts.Count > 1;
+
+            _totalNumberOfMissingDocumentDescriptions = _archiveParts.Sum(a => a.NumberOfRegistrationsWithoutDocumentDescriptions);
 
             var testResultSet = new TestResultSet
             {
@@ -50,7 +53,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             else
             {
                 testResultSet.TestsResults.AddRange(
-                    CreateTestResults(_registrationsWithoutDocumentDescriptionPerArchivePart.First().Value));
+                    CreateTestResults(_currentArchivePart.GetRegistrations()));
             }
 
             return testResultSet;
@@ -58,8 +61,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private IEnumerable<TestResultSet> CreateTestResultSets()
         {
-            foreach ((ArchivePart archivePart, List<N5_21_Registration> registrations) in
-                     _registrationsWithoutDocumentDescriptionPerArchivePart)
+            foreach (N5_21_ArchivePart archivePart in _archiveParts)
             {
                 var archivePartResultSet = new TestResultSet
                 {
@@ -67,11 +69,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     TestsResults = new List<TestResult>
                     {
                         new(ResultType.Success, new Location(string.Empty),
-                            string.Format(Noark5Messages.TotalResultNumber, registrations.Count))
+                            string.Format(Noark5Messages.TotalResultNumber, archivePart.NumberOfRegistrationsWithoutDocumentDescriptions))
                     }
                 };
 
-                archivePartResultSet.TestsResults.AddRange(CreateTestResults(registrations));
+                archivePartResultSet.TestsResults.AddRange(CreateTestResults(archivePart.GetRegistrations()));
 
                 yield return archivePartResultSet;
             }
@@ -86,16 +88,27 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadStartElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.NameEquals("dokumentbeskrivelse"))
-                _currentRegistration.HasDocumentDescription = true;
-
+            if (eventArgs.NameEquals("arkivdel"))
+            {
+                _currentArchivePart = new N5_21_ArchivePart();
+            }
             else if (eventArgs.NameEquals("mappe"))
             {
-                _currentFolder = new Folder(_currentFolder);
+                var tempFolder = new N5_21_Folder();
+                if (eventArgs.Path.GetParent().Equals("mappe"))
+                {
+                    tempFolder.ContainingFolder = _currentFolder;
+                }
+                _currentFolder = tempFolder;
             }
-
             else if (eventArgs.NameEquals("registrering"))
-                _currentRegistration = new N5_21_Registration(_currentFolder, eventArgs.LineNumber);
+            {
+                _currentRegistration = new N5_21_Registration(eventArgs.LineNumber);
+            }
+            else if (eventArgs.NameEquals("dokumentbeskrivelse"))
+            {
+                _currentRegistration.HasDocumentDescription = true;
+            }
         }
 
         protected override void ReadAttributeEvent(object sender, ReadElementEventArgs eventArgs)
@@ -107,7 +120,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
                 _currentArchivePart.SystemId = eventArgs.Value;
-                _registrationsWithoutDocumentDescriptionPerArchivePart.Add(_currentArchivePart, new List<N5_21_Registration>());
             }
             else if (eventArgs.Path.Matches("tittel", "arkivdel"))
             {
@@ -133,18 +145,59 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.NameEquals("registrering"))
+            if (eventArgs.NameEquals("arkivdel"))
             {
-                if (_currentRegistration.ShallBeReported)
+                _archiveParts.Add(_currentArchivePart);
+                _currentFolder = null;
+            }
+            else if (eventArgs.NameEquals("mappe"))
+            {
+                if (_currentFolder.Utgaar)
+                    return;
+
+                if (_currentFolder.ContainingFolder != null)
                 {
-                    _totalNumberOfMissingDocumentDescriptions++;
-                    _registrationsWithoutDocumentDescriptionPerArchivePart[_currentArchivePart].Add(_currentRegistration);
+                    _currentFolder.ContainingFolder.Folders.Add(_currentFolder);
+                }
+                else
+                {
+                    _currentArchivePart.Folders.Add(_currentFolder);
                 }
             }
-
-            if(eventArgs.NameEquals("arkivdel"))
+            else if (eventArgs.NameEquals("registrering"))
             {
-                _currentArchivePart = new ArchivePart();
+                if (_currentRegistration.ShallBeReported)
+                    _currentFolder.Registrations.Add(_currentRegistration);
+            }
+        }
+
+        private class N5_21_ArchivePart : ArchivePart
+        {
+            private int? _numberOfRegistrationsWithoutDocumentDescriptions;
+            public int NumberOfRegistrationsWithoutDocumentDescriptions =>
+                _numberOfRegistrationsWithoutDocumentDescriptions ??=
+                    Folders.Sum(f => f.NumberOfRegistrationsWithoutDocumentDescriptions);
+
+            public ICollection<N5_21_Folder> Folders { get; } = new Collection<N5_21_Folder>();
+
+            public IEnumerable<N5_21_Registration> GetRegistrations()
+            {
+                return Folders.SelectMany(f => f.GetRegistrations());
+            }
+        }
+
+        private class N5_21_Folder : Folder
+        {
+            private int? _numberOfRegistrationsWithoutDocumentDescriptions;
+            public int NumberOfRegistrationsWithoutDocumentDescriptions =>
+                _numberOfRegistrationsWithoutDocumentDescriptions ??=
+                    Folders.Cast<N5_21_Folder>().Sum(f => f.NumberOfRegistrationsWithoutDocumentDescriptions) +
+                    Registrations.Cast<N5_21_Registration>().Sum(r => r.ShallBeReported ? 1 : 0);
+
+            public IEnumerable<N5_21_Registration> GetRegistrations()
+            {
+                return Folders.SelectMany(f => ((N5_21_Folder)f).GetRegistrations())
+                    .Concat(Registrations.Cast<N5_21_Registration>());
             }
         }
 
@@ -153,9 +206,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public long LineNumber { get; }
             public string SystemId { get; set; }
             public bool HasDocumentDescription { get; set; }
-            public bool ShallBeReported => !Utgaar() && !HasDocumentDescription;
+            public bool ShallBeReported => !Utgaar && !HasDocumentDescription;
 
-            public N5_21_Registration(Folder containingFolder, long lineNumber) : base(containingFolder)
+
+            public N5_21_Registration(long lineNumber)
             {
                 LineNumber = lineNumber;
             }
