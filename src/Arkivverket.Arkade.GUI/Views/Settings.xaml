@@ -84,7 +84,7 @@
                 <materialDesign:PackIcon Kind="InfoCircleOutline" Foreground="DarkCyan"  Height="22" Width="30" Margin="0" />
             </Label>
             <TextBox Margin="0" MinWidth="21" TextAlignment="Right"
-                     Text="{Binding SelectedMaxNumberOfTestResultsToDisplay}"/>
+                     Text="{Binding SelectedTestResultDisplayLimit}"/>
         </WrapPanel>
 
         <WrapPanel Margin="10" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
