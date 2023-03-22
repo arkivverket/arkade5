@@ -60,7 +60,8 @@ namespace Arkivverket.Arkade.Core.Identify
             else
             {
                 TarExtractionStartedEvent();
-                _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo());
+                _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo(),
+                    uuid);
                 TarExtractionFinishedEvent(workingDirectory);
             }
 

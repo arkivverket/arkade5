@@ -39,14 +39,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
 
             var documentsDirectory = archive.GetDocumentsDirectory();
 
-            if (!documentsDirectory.Exists)
-            {
-                string documentDirectoryParent = archive.WorkingDirectory.Content().DirectoryInfo().Name + "\\";
+            //if (!documentsDirectory.Exists)
+            //{
+            //    string documentDirectoryParent = archive.WorkingDirectory.Content().DirectoryInfo().Name + "\\";
 
-                _testResults.Add(new TestResult(ResultType.Error, new Location(documentDirectoryParent),
-                    Noark5Messages.ValidateNumberOfDocumentfilesMessage_FilesDirectoryNotFound));
-            }
-            else
+            //    _testResults.Add(new TestResult(ResultType.Error, new Location(documentDirectoryParent),
+            //        Noark5Messages.ValidateNumberOfDocumentfilesMessage_FilesDirectoryNotFound));
+            //}
+            //else
             {
                 actualFileCount = archive.DocumentFiles.Count;
 

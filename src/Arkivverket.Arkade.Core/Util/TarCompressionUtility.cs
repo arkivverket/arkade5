@@ -3,6 +3,8 @@ using System;
 using System.Text;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
+using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 
 namespace Arkivverket.Arkade.Core.Util
 {
@@ -13,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Util
     {
         private readonly ILogger _log = Log.ForContext<TarCompressionUtility>();
 
-        public void ExtractFolderFromArchive(FileInfo file, DirectoryInfo targetDirectory)
+        public void ExtractFolderFromArchive(FileInfo file, DirectoryInfo targetDirectory, Uuid uuid)
         {
             using (var inputStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read))
             {
@@ -24,6 +26,9 @@ namespace Arkivverket.Arkade.Core.Util
 
                 while (tarInputStream.GetNextEntry() is { } tarEntry)
                 {
+                    if (tarEntry.Name.StartsWith($"{uuid}/content/dokumenter/"))
+                        continue;
+
                     if (tarEntry.IsDirectory)
                         continue;
 

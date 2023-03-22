@@ -217,7 +217,7 @@ namespace Arkivverket.Arkade.Core.Base
             {
                 string entryName = entry.Name;
 
-                if (!entryName.Contains("dokumenter") || entry.IsDirectory)
+                if (!entryName.StartsWith($"{Uuid}/content/dokumenter/") || entry.IsDirectory)
                     continue;
                 
                 using var entryStream = new MemoryStream();
@@ -233,7 +233,7 @@ namespace Arkivverket.Arkade.Core.Base
 
                 string relativeEntryName = entryName.Remove(0, entryName.IndexOf("dokumenter", StringComparison.OrdinalIgnoreCase));
 
-                documentFiles.Add(entryName, documentFile);
+                documentFiles.Add(relativeEntryName, documentFile);
             }
 
             // Instantiate field for next access:
