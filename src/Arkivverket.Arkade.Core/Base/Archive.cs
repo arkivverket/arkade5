@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -209,14 +210,30 @@ namespace Arkivverket.Arkade.Core.Base
         {
             var documentFiles = new Dictionary<string, DocumentFile>();
 
+            var checksumGenerator = new Sha256ChecksumGenerator();
+
             using var tarInputStream = new TarInputStream(File.OpenRead(_archiveFileFullName), Encoding.UTF8);
             while (tarInputStream.GetNextEntry() is { Name: { } } entry)
             {
-                if (!entry.Name.Contains("dokumenter") || entry.IsDirectory)
-                    continue;
-
                 string entryName = entry.Name;
-                documentFiles.Add(entryName, new DocumentFile(null));
+
+                if (!entryName.Contains("dokumenter") || entry.IsDirectory)
+                    continue;
+                
+                using var entryStream = new MemoryStream();
+
+                tarInputStream.CopyEntryContents(entryStream);
+
+                entryStream.Position = 0;
+
+                var documentFile = new DocumentFile(null)
+                {
+                    CheckSum = checksumGenerator.GenerateChecksum(entryStream)
+                };
+
+                string relativeEntryName = entryName.Remove(0, entryName.IndexOf("dokumenter", StringComparison.OrdinalIgnoreCase));
+
+                documentFiles.Add(entryName, documentFile);
             }
 
             // Instantiate field for next access:
