@@ -35,8 +35,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         public ReadOnlyDictionary<string, DocumentFile> DocumentFiles => _documentFiles ??
                                                                          (IsTarArchive
-                                                                             ? GetDocumentFiles()
-                                                                             : GetDocumentFilesFromTar());
+                                                                             ? GetDocumentFilesFromTar()
+                                                                             : GetDocumentFiles());
         public AddmlXmlUnit AddmlXmlUnit { get; }
         public AddmlInfo AddmlInfo { get; }
         public IArchiveDetails Details { get; }
