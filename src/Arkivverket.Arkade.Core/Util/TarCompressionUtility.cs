@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System;
 using System.Text;
 using ICSharpCode.SharpZipLib.Tar;
@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Util
     {
         private readonly ILogger _log = Log.ForContext<TarCompressionUtility>();
 
-        public void ExtractFolderFromArchive(FileInfo file, DirectoryInfo targetDirectory, Uuid uuid)
+        public void ExtractFolderFromArchive(FileInfo file, DirectoryInfo targetDirectory, bool withoutDocumentFiles, Uuid uuid)
         {
             using (var inputStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read))
             {
@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Util
 
                 while (tarInputStream.GetNextEntry() is { } tarEntry)
                 {
-                    if (tarEntry.Name.StartsWith($"{uuid}/content/dokumenter/"))
+                    if (withoutDocumentFiles && tarEntry.Name.StartsWith($"{uuid}/content/dokumenter/"))
                         continue;
 
                     if (tarEntry.IsDirectory)
