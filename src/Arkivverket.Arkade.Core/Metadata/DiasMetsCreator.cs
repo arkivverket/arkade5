@@ -8,7 +8,7 @@ using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.ExternalModels.DiasMets;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
-
+ 
 namespace Arkivverket.Arkade.Core.Metadata
 {
     public class DiasMetsCreator : MetsCreator<mets>
@@ -25,7 +25,9 @@ namespace Arkivverket.Arkade.Core.Metadata
                     ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
                     : null;
 
-                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, archive.DocumentFiles, filesToSkip);
+                metadata.FileDescriptions = archive.IsTarArchive 
+                    ? GetFileDescriptionsFromDocumentFiles(archive.DocumentFiles)
+                    : GetFileDescriptions(rootDirectory, rootDirectory, archive.DocumentFiles, filesToSkip);
             }
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())

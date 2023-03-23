@@ -25,6 +25,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         private readonly string? _archiveFileFullName;
 
+        public bool IsTarArchive => _archiveFileFullName != null;
+
         public Uuid Uuid { get; }
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
@@ -32,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Base
         private ReadOnlyDictionary<string, DocumentFile> _documentFiles;
 
         public ReadOnlyDictionary<string, DocumentFile> DocumentFiles => _documentFiles ??
-                                                                         (_archiveFileFullName == null
+                                                                         (IsTarArchive
                                                                              ? GetDocumentFiles()
                                                                              : GetDocumentFilesFromTar());
         public AddmlXmlUnit AddmlXmlUnit { get; }
@@ -219,7 +221,8 @@ namespace Arkivverket.Arkade.Core.Base
 
                 if (!entryName.StartsWith($"{Uuid}/content/dokumenter/") || entry.IsDirectory)
                     continue;
-                
+
+                //todo: vurdere using var noko = new BufferedStream();
                 using var entryStream = new MemoryStream();
 
                 tarInputStream.CopyEntryContents(entryStream);
@@ -228,7 +231,10 @@ namespace Arkivverket.Arkade.Core.Base
 
                 var documentFile = new DocumentFile(null)
                 {
-                    CheckSum = checksumGenerator.GenerateChecksum(entryStream)
+                    CheckSum = checksumGenerator.GenerateChecksum(entryStream),
+                    Size = entry.Size,
+                    Extension = Path.GetExtension(entry.File).Replace(".", string.Empty),
+                    CreationTime = entry.ModTime,
                 };
 
                 string relativeEntryName = entryName.Remove(0, entryName.IndexOf("dokumenter", StringComparison.OrdinalIgnoreCase));

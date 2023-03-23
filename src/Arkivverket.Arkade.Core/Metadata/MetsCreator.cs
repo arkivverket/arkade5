@@ -54,6 +54,26 @@ namespace Arkivverket.Arkade.Core.Metadata
             };
         }
 
+        protected IEnumerable<FileDescription> GetFileDescriptionsFromDocumentFiles(ReadOnlyDictionary<string, DocumentFile> documentFiles)
+        {
+            foreach ((var name, var documentFile) in documentFiles)
+            {
+                yield return GetFileDescriptionFromDocumentFile(name, documentFile);
+            }
+        }
+
+        private FileDescription GetFileDescriptionFromDocumentFile(string name, DocumentFile documentFile)
+        {
+            return new FileDescription
+            {
+                Name = name,
+                Extension = documentFile.FileInfo.Extension.Replace(".", string.Empty),
+                Sha256Checksum = documentFile.CheckSum ?? GetSha256Checksum(documentFile.FileInfo),
+                Size = documentFile.FileInfo.Length,
+                CreationTime = documentFile.FileInfo.CreationTime
+            };
+        }
+
         private static string GetCheckSum(FileInfo file, IReadOnlyDictionary<string, DocumentFile> documentFiles,
             string relativeFilePath)
         {
