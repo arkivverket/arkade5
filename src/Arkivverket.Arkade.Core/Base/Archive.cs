@@ -23,9 +23,9 @@ namespace Arkivverket.Arkade.Core.Base
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private static IStatusEventHandler _statusEventHandler;
 
-        private readonly string? _archiveFileFullName;
+        internal string? ArchiveFileFullName { get; }
 
-        public bool IsTarArchive => _archiveFileFullName != null;
+        public bool IsTarArchive => ArchiveFileFullName != null;
 
         public Uuid Uuid { get; }
         public WorkingDirectory WorkingDirectory { get; }
@@ -46,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Base
             IStatusEventHandler statusEventHandler, string archiveFileFullName=null)
         {
             _statusEventHandler = statusEventHandler;
-            _archiveFileFullName = archiveFileFullName;
+            ArchiveFileFullName = archiveFileFullName;
 
             Uuid = uuid;
 
@@ -214,7 +214,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             var checksumGenerator = new Sha256ChecksumGenerator();
 
-            using var tarInputStream = new TarInputStream(File.OpenRead(_archiveFileFullName), Encoding.UTF8);
+            using var tarInputStream = new TarInputStream(File.OpenRead(ArchiveFileFullName), Encoding.UTF8);
             while (tarInputStream.GetNextEntry() is { Name: { } } entry)
             {
                 string entryName = entry.Name;

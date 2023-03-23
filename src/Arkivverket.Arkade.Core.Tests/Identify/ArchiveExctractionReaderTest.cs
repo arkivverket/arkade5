@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Tests.Identify
             pathToExtractedFilesRegex = pathToExtractedFilesRegex.Replace("\\", "\\\\");
 
             var extractorMock = new Mock<ICompressionUtility>();
-            extractorMock.Setup(e => e.ExtractFolderFromArchive(It.IsAny<FileInfo>(), It.IsAny<DirectoryInfo>()));
+            extractorMock.Setup(e => e.ExtractFolderFromArchive(It.IsAny<FileInfo>(), It.IsAny<DirectoryInfo>(), uuid));
 
             var archiveType = ArchiveType.Noark5;
             var identifierMock = new Mock<IArchiveTypeIdentifier>();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Tar;
@@ -37,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util
             new TarCompressionUtility().CompressFolderContentToArchiveFile(pathToTargetTarFile, pathSourceFolder);
             _output.WriteLine("Generated Archive");
 
-            new TarCompressionUtility().ExtractFolderFromArchive(pathToTargetTarFile, pathToExtractedDirectory);
+            new TarCompressionUtility().ExtractFolderFromArchive(pathToTargetTarFile, pathToExtractedDirectory, Uuid.Random());//FIX!
             _output.WriteLine("Extracted Archive");
 
             // Check that correct number of files were extracted:

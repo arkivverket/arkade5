@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     : null;
 
                 metadata.FileDescriptions = archive.IsTarArchive 
-                    ? GetFileDescriptionsFromDocumentFiles(archive.DocumentFiles)
+                    ? GetFileDescriptionsFromDocumentFiles(archive.DocumentFiles).ToList()
                     : GetFileDescriptions(rootDirectory, rootDirectory, archive.DocumentFiles, filesToSkip);
             }
 
