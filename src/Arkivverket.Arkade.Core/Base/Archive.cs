@@ -233,7 +233,7 @@ namespace Arkivverket.Arkade.Core.Base
                 {
                     CheckSum = checksumGenerator.GenerateChecksum(entryStream),
                     Size = entry.Size,
-                    Extension = Path.GetExtension(entry.File).Replace(".", string.Empty),
+                    Extension = Path.GetExtension(entry.Name).Replace(".", string.Empty),
                     CreationTime = entry.ModTime,
                 };
 
