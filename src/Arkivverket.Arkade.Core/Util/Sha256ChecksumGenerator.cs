@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using Arkivverket.Arkade.Core.Base;
@@ -6,6 +7,8 @@ namespace Arkivverket.Arkade.Core.Util
 {
     public class Sha256ChecksumGenerator : IChecksumGenerator
     {
+        private HashAlgorithm _hasher;
+
         /// <summary>
         ///     Generates a checksum with the SHA-256 algorithm
         /// </summary>
@@ -38,6 +41,45 @@ namespace Arkivverket.Arkade.Core.Util
             }
 
             return h.ComputeHash(stream);
+        }
+
+        public void Initialize()
+        {
+            _hasher = (HashAlgorithm)CryptoConfig.CreateFromName("SHA256");
+            _hasher?.Initialize();
+        }
+
+        /// <summary>
+        /// Must be called after <see cref="Initialize"/>. Will otherwise throw a <see cref="NullReferenceException"/>.
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="numberOfBytes"></param>
+        /// <exception cref="NullReferenceException"></exception>
+        public void TransformBlock(byte[] buffer, int numberOfBytes)
+        {
+            CheckIfHasherIsInitialized();
+
+            _hasher.TransformBlock(buffer, 0, numberOfBytes, null, 0);
+        }
+
+        /// <summary>
+        /// Must be called after <see cref="Initialize"/>. Will otherwise throw a <see cref="NullReferenceException"/>.
+        /// </summary>
+        /// <exception cref="NullReferenceException"></exception>
+        public string GenerateChecksum()
+        {
+            CheckIfHasherIsInitialized();
+
+            _hasher.TransformFinalBlock(Array.Empty<byte>(), 0, 0);
+
+            return Hex.ToHexString(_hasher.Hash);
+        }
+
+        private void CheckIfHasherIsInitialized()
+        {
+            if (_hasher == null)
+                throw new NullReferenceException(
+                    $"Initialize() method of {nameof(Sha256ChecksumGenerator)} must be called before attempting to compute the hash for the buffer.");
         }
     }
 }

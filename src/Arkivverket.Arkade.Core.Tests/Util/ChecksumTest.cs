@@ -45,6 +45,39 @@ namespace Arkivverket.Arkade.Core.Tests.Util
             _output.WriteLine("Checksum: " + checksum);
         }
 
+        [Fact]
+        public void GenerateChecksumByBlockTransform()
+        {
+            string pathToFile = AppDomain.CurrentDomain.BaseDirectory + "\\Util\\demo.txt";
+            _output.WriteLine("File path: " + pathToFile);
+
+            var checksumGenerator = new Sha256ChecksumGenerator();
+            string checksum;
+
+            using (FileStream fileStream = File.OpenRead(pathToFile))
+            {
+                checksumGenerator.Initialize();
+
+                var buffer = new byte[32 * 1024];
+
+                while (true)
+                {
+                    int numRead = fileStream.Read(buffer, 0, buffer.Length);
+                    if (numRead <= 0)
+                    {
+                        break;
+                    }
+                    checksumGenerator.TransformBlock(buffer, numRead);
+                }
+
+                checksum = checksumGenerator.GenerateChecksum();
+            }
+
+            checksum.Should().Be("8661245AF5506ABE3347B7906A54EDCAE280EC8638E6801A373A948AD2A35D96"); // generated with another tool 
+
+            _output.WriteLine("Checksum: " + checksum);
+        }
+
 
         [Fact]
         public void CheckForFileExistence()

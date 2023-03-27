@@ -222,16 +222,25 @@ namespace Arkivverket.Arkade.Core.Base
                 if (!entryName.StartsWith($"{Uuid}/content/dokumenter/") || entry.IsDirectory)
                     continue;
 
-                //todo: vurdere using var noko = new BufferedStream();
-                using var entryStream = new MemoryStream();
+                checksumGenerator.Initialize();
 
-                tarInputStream.CopyEntryContents(entryStream);
+                var tempBuffer = new byte[32 * 1024];
 
-                entryStream.Position = 0;
+                while (true)
+                {
+                    int numRead = tarInputStream.Read(tempBuffer, 0, tempBuffer.Length);
+                    if (numRead <= 0)
+                    {
+                        break;
+                    }
+
+                    checksumGenerator.TransformBlock(tempBuffer, numRead);
+                }
+                string checksum = checksumGenerator.GenerateChecksum();
 
                 var documentFile = new DocumentFile(null)
                 {
-                    CheckSum = checksumGenerator.GenerateChecksum(entryStream),
+                    CheckSum = checksum,
                     Size = entry.Size,
                     Extension = Path.GetExtension(entry.Name).Replace(".", string.Empty),
                     CreationTime = entry.ModTime,
