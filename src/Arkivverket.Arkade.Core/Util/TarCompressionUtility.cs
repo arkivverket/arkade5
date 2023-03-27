@@ -3,7 +3,6 @@ using System;
 using System.Text;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
-using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 
 namespace Arkivverket.Arkade.Core.Util
@@ -109,6 +108,31 @@ namespace Arkivverket.Arkade.Core.Util
                 tarOutputStream.CloseEntry();
             }
             tarOutputStream.Close();
+        }
+
+        public string ExtractEntryAndGenerateSHA256Checksum(TarInputStream tarInputStream, string targetFileFullName)
+        {
+            var buffer = new byte[32 * 1024];
+
+            var checksumGenerator = new Sha256ChecksumGenerator();
+
+            checksumGenerator.Initialize();
+
+            using FileStream targetFileStream = File.Create(targetFileFullName, buffer.Length);
+
+            while (true)
+            {
+                int numRead = tarInputStream.Read(buffer, 0, buffer.Length);
+                if (numRead <= 0)
+                {
+                    break;
+                }
+
+                checksumGenerator.TransformBlock(buffer, numRead);
+                targetFileStream.Write(buffer, 0, numRead);
+            }
+
+            return checksumGenerator.GenerateChecksum();
         }
     }
 }
