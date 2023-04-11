@@ -35,7 +35,7 @@ namespace Arkivverket.Arkade.Core.Util
 
         public int GetProgressPercentage()
         {
-            return (int) (_position / _fileSize * 100);
+            return (int) ((decimal)_position / _fileSize * 100);
         }
 
     }
