@@ -18,7 +18,11 @@ namespace Arkivverket.Arkade.Core.Metadata
                 new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore,
-                    Converters = { new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" } }
+                    Converters =
+                    {
+                        new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" },
+                        new StringEnumConverter()
+                    }
                 });
 
             WriteMetadataToFile(outputFileName, serializedObject);
