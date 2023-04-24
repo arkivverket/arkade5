@@ -9,6 +9,7 @@ using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
+using System.Runtime.Serialization;
 
 namespace Arkivverket.Arkade.Core.Base
 {
@@ -263,7 +264,9 @@ namespace Arkivverket.Arkade.Core.Base
 
     public enum PackageType
     {
+        [EnumMember(Value = "SIP")]
         SubmissionInformationPackage,
+        [EnumMember(Value = "AIP")]
         ArchivalInformationPackage
     }
 }
