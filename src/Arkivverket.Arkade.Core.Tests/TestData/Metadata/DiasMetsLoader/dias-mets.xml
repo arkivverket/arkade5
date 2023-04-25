@@ -55,6 +55,10 @@
       <note>Noark5</note>
       <note>v3.1</note>
     </agent>
+    <altRecordID TYPE="DELIVERYSPECIFICATION">Some archive description</altRecordID>
+    <altRecordID TYPE="SUBMISSIONAGREEMENT">XX 00-0000/0000; 0000-00-00</altRecordID>
+    <altRecordID TYPE="STARTDATE">2017-01-01</altRecordID>
+    <altRecordID TYPE="ENDDATE">2020-01-01</altRecordID>
   </metsHdr>
   <fileSec>
     <fileGrp ID="fileGroup001" USE="FILES">

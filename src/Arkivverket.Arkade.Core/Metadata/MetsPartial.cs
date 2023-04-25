@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 
 namespace Arkivverket.Arkade.Core.ExternalModels.DiasMets
 {
@@ -11,6 +12,20 @@ namespace Arkivverket.Arkade.Core.ExternalModels.DiasMets
     {
         [XmlAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
         public string SchemaLocation = "http://arkivverket.no/standarder/METS https://schema.arkivverket.no/METS/latest/DIAS_METS.xsd";
+    }
+
+    public enum AltRecordIdType
+    {
+        DELIVERYSPECIFICATION = metsTypeMetsHdrAltRecordIDTYPE.DELIVERYSPECIFICATION,
+        SUBMISSIONAGREEMENT = metsTypeMetsHdrAltRecordIDTYPE.SUBMISSIONAGREEMENT,
+        STARTDATE = metsTypeMetsHdrAltRecordIDTYPE.STARTDATE,
+        ENDDATE = metsTypeMetsHdrAltRecordIDTYPE.ENDDATE,
+    }
+
+    public enum MetsHdrAgentOtherRoleType
+    {
+        SUBMITTER = metsTypeMetsHdrAgentOTHERROLE.SUBMITTER,
+        PRODUCER = metsTypeMetsHdrAgentOTHERROLE.PRODUCER,
     }
 }
 

@@ -34,13 +34,36 @@ namespace Arkivverket.Arkade.Core.Metadata
         {
             archiveMetadata.ExtractionDate = metsHdr.CREATEDATE;
 
+            if (metsHdr.altRecordID != null)
+                LoadMetsHdrAltRecordIDs(archiveMetadata, metsHdr.altRecordID);
+
             if (metsHdr.agent != null)
                 LoadMetsHdrAgents(archiveMetadata, metsHdr.agent);
+        }
+
+        private static void LoadMetsHdrAltRecordIDs(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAltRecordID[] altRecordIds)
+        {
+            foreach (metsTypeMetsHdrAltRecordID altRecordId in altRecordIds)
+            {
+                if (altRecordId.TYPE == AltRecordIdType.DELIVERYSPECIFICATION.ToString())
+                    archiveMetadata.ArchiveDescription = altRecordId.Value;
+
+                else if (altRecordId.TYPE == AltRecordIdType.SUBMISSIONAGREEMENT.ToString())
+                    archiveMetadata.AgreementNumber = altRecordId.Value;
+
+                else if (altRecordId.TYPE == AltRecordIdType.STARTDATE.ToString())
+                    archiveMetadata.StartDate = LoadDateOrNull(altRecordId.Value);
+
+                else if (altRecordId.TYPE == AltRecordIdType.ENDDATE.ToString())
+                    archiveMetadata.EndDate = LoadDateOrNull(altRecordId.Value);
+            }
         }
 
         private static void LoadMetsHdrAgents(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
         {
             LoadArchiveCreators(archiveMetadata, metsHdrAgents);
+            LoadTransferer(archiveMetadata, metsHdrAgents);
+            LoadProducer(archiveMetadata, metsHdrAgents);
             LoadOwners(archiveMetadata, metsHdrAgents);
             LoadCreator(archiveMetadata, metsHdrAgents);
             LoadRecipient(archiveMetadata, metsHdrAgents);
@@ -65,6 +88,48 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             if (archiveMetadataArchiveCreators.Any())
                 archiveMetadata.ArchiveCreators = archiveMetadataArchiveCreators;
+        }
+
+        private static void LoadTransferer(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
+        {
+            metsTypeMetsHdrAgent[] metsTransfererAgents = metsHdrAgents.Where(a =>
+                a.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
+                a.OTHERROLE.Equals(MetsHdrAgentOtherRoleType.SUBMITTER.ToString()) &&
+                (a.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION || a.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL)
+            ).ToArray();
+
+            if (!metsTransfererAgents.Any())
+                return;
+
+            var archiveMetadataTransfererContainer = new List<MetadataEntityInformationUnit>();
+
+            LoadEntityInformationUnits(archiveMetadataTransfererContainer, metsTransfererAgents);
+
+            var archiveMetadataTransferer = archiveMetadataTransfererContainer.FirstOrDefault();
+
+            if (archiveMetadataTransferer != null && HasData(archiveMetadataTransferer))
+                archiveMetadata.Transferer = archiveMetadataTransferer;
+        }
+
+        private static void LoadProducer(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
+        {
+            metsTypeMetsHdrAgent[] metsProducerAgents = metsHdrAgents.Where(a =>
+                a.ROLE == metsTypeMetsHdrAgentROLE.OTHER &&
+                a.OTHERROLE.Equals(MetsHdrAgentOtherRoleType.PRODUCER.ToString()) &&
+                (a.TYPE == metsTypeMetsHdrAgentTYPE.ORGANIZATION || a.TYPE == metsTypeMetsHdrAgentTYPE.INDIVIDUAL)
+            ).ToArray();
+
+            if (!metsProducerAgents.Any())
+                return;
+
+            var archiveMetadataProducerContainer = new List<MetadataEntityInformationUnit>();
+
+            LoadEntityInformationUnits(archiveMetadataProducerContainer, metsProducerAgents);
+
+            var archiveMetadataProducer = archiveMetadataProducerContainer.FirstOrDefault();
+
+            if (archiveMetadataProducer != null && HasData(archiveMetadataProducer))
+                archiveMetadata.Producer = archiveMetadataProducer;
         }
 
         private static void LoadOwners(ArchiveMetadata archiveMetadata, metsTypeMetsHdrAgent[] metsHdrAgents)
@@ -202,6 +267,10 @@ namespace Arkivverket.Arkade.Core.Metadata
             metsTypeMetsHdrAgent metsArchiveSystemAgent = metsHdrAgents.FirstOrDefault(a =>
                 a.TYPE == metsTypeMetsHdrAgentTYPE.OTHER &&
                 a.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE &&
+                // TODO: Include OTHERROLE in ARKADE 3.0?
+                //a.OTHERROLE == MetsHdrAgentOtherRoleType.PRODUCER.ToString() &&
+                // Including the above condition will break loading this data from dias-mets.xml files created with
+                // Arkade versions 2.6.0 - 2.9.x
                 a.ROLE == metsTypeMetsHdrAgentROLE.OTHER
             );
 

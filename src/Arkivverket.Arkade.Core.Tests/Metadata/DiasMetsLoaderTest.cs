@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Metadata;
@@ -18,11 +18,11 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
 
             ArchiveMetadata archiveMetadata = DiasMetsLoader.Load(diasMetsFile);
 
-            archiveMetadata.Label.Should().Be("Some system name");
+            archiveMetadata.Label.Should().Be("Some system name (2017 - 2020)");
 
-            archiveMetadata.ArchiveDescription.Should().Be(null);
+            archiveMetadata.ArchiveDescription.Should().Be("Some archive description");
 
-            archiveMetadata.AgreementNumber.Should().Be(null);
+            archiveMetadata.AgreementNumber.Should().Be("XX 00-0000/0000; 0000-00-00");
 
             archiveMetadata.ArchiveCreators.Should().Contain(a =>
                 a.Entity.Equals("Entity 1") &&
@@ -67,8 +67,8 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             archiveMetadata.System.Type.Should().Be("Noark5");
             archiveMetadata.System.TypeVersion.Should().Be("v3.1");
 
-            archiveMetadata.StartDate.Should().Be(null);
-            archiveMetadata.EndDate.Should().Be(null);
+            archiveMetadata.StartDate.Should().Be(new DateTime(2017, 01, 01));
+            archiveMetadata.EndDate.Should().Be(new DateTime(2020, 01, 01));
             archiveMetadata.ExtractionDate.Should().Be(new DateTime(2023, 01, 01));
         }
     }
