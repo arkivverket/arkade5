@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
@@ -21,10 +21,6 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         {
             DiasDirectory diasDirectory = GetSipStructureBase();
 
-            diasDirectory.GetSubDirectory(DirectoryNameAdministrativeMetadata).AddEntries(
-                new DiasFile(AddmlXmlFileName),
-                new DiasFile(AddmlXsdFileName));
-
             return diasDirectory;
         }
 
@@ -42,10 +38,6 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         private static DiasDirectory ProvideSipStructureNoark5()
         {
             DiasDirectory diasDirectory = GetSipStructureBase();
-
-            diasDirectory.GetSubDirectory(DirectoryNameAdministrativeMetadata).AddEntries(
-                new DiasFile(ArkivuttrekkXmlFileName),
-                new DiasFile(AddmlXsdFileName));
 
             diasDirectory.GetSubDirectory(DirectoryNameContent).AddEntries(
                 new DiasFile(ArkivstrukturXmlFileName),
@@ -66,6 +58,10 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             DiasDirectory diasDirectory = GetAipStructureBase();
 
             diasDirectory.Merge(ProvideSipStructureNoark5());
+
+            diasDirectory.GetSubDirectory(DirectoryNameAdministrativeMetadata).AddEntries(
+                new DiasFile(ArkivuttrekkXmlFileName),
+                new DiasFile(AddmlXsdFileName));
 
             return diasDirectory;
         }
