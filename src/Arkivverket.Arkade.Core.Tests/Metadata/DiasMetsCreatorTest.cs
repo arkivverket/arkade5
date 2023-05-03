@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.ExternalModels.DiasMets;
@@ -80,6 +80,34 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             mets.OBJID.Should().Be("UUID:12345-12345-12345-12345-12345-12345");
 
             metsTypeMetsHdr metsHdr = mets.metsHdr;
+
+            // RECORDSTATUS:
+
+            metsHdr.RECORDSTATUS.Should().Be(RecordStatusType.NEW.ToString());
+
+            // DELIVERYTYPE:
+
+            metsHdr.altRecordID.Should().Contain(altRecordId =>
+                altRecordId.TYPE == AltRecordIdType.DELIVERYTYPE.ToString() &&
+                altRecordId.Value.Equals("Sak-/Arkivsystem")
+            );
+
+            // PROJECTNAME:
+            metsHdr.altRecordID.Should().Contain(altRecordId =>
+                altRecordId.TYPE == AltRecordIdType.PROJECTNAME.ToString() &&
+                altRecordId.Value.Equals("Some project name"));
+
+            // PACKAGENUMBER:
+
+            metsHdr.altRecordID.Should().Contain(altRecordId =>
+                altRecordId.TYPE == AltRecordIdType.PACKAGENUMBER.ToString() &&
+                altRecordId.Value.Equals("1.0"));
+
+            // REFERENCECODE:
+
+            metsHdr.altRecordID.Should().Contain(altRecordId =>
+                altRecordId.TYPE == AltRecordIdType.REFERENCECODE.ToString() &&
+                altRecordId.Value.Equals("Some reference code"));
 
             // CREATEDATE:
 

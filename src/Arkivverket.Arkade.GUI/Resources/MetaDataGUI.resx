@@ -336,4 +336,19 @@
   <data name="CreateLobFormatInfoFileText" xml:space="preserve">
     <value>Include format information for LOBs</value>
   </data>
+  <data name="RecordStatus" xml:space="preserve">
+    <value>Record status</value>
+  </data>
+  <data name="DeliveryType" xml:space="preserve">
+    <value>Delivery Type</value>
+  </data>
+  <data name="PackageNumber" xml:space="preserve">
+    <value>Package number</value>
+  </data>
+  <data name="ReferenceCode" xml:space="preserve">
+    <value>Reference code</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Project name</value>
+  </data>
 </root>

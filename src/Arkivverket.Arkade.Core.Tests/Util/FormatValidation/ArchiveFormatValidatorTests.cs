@@ -35,7 +35,6 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FormatValidation
             validationReport.ValidationFormat.Should().Be(ArchiveFormat.PdfA);
         }
 
-        [Fact]
         [Trait("Category", "Integration")]
         [Trait("Dependency", "JRE")]
         public void ValidateAsPdfATest()

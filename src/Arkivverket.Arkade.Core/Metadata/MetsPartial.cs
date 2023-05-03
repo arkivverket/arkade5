@@ -1,4 +1,4 @@
-﻿using System.Xml.Serialization;
+using System.Xml.Serialization;
 using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 
 namespace Arkivverket.Arkade.Core.ExternalModels.DiasMets
@@ -18,8 +18,22 @@ namespace Arkivverket.Arkade.Core.ExternalModels.DiasMets
     {
         DELIVERYSPECIFICATION = metsTypeMetsHdrAltRecordIDTYPE.DELIVERYSPECIFICATION,
         SUBMISSIONAGREEMENT = metsTypeMetsHdrAltRecordIDTYPE.SUBMISSIONAGREEMENT,
+        DELIVERYTYPE = metsTypeMetsHdrAltRecordIDTYPE.DELIVERYTYPE,
+        PACKAGENUMBER = metsTypeMetsHdrAltRecordIDTYPE.PACKAGENUMBER,
+        REFERENCECODE = metsTypeMetsHdrAltRecordIDTYPE.REFERENCECODE,
         STARTDATE = metsTypeMetsHdrAltRecordIDTYPE.STARTDATE,
         ENDDATE = metsTypeMetsHdrAltRecordIDTYPE.ENDDATE,
+        PROJECTNAME = 999,
+    }
+
+    public enum RecordStatusType
+    {
+        NEW = metsTypeMetsHdrRECORDSTATUS.NEW,
+        SUPPLEMENT = metsTypeMetsHdrRECORDSTATUS.SUPPLEMENT,
+        REPLACEMENT = metsTypeMetsHdrRECORDSTATUS.REPLACEMENT,
+        VERSION = metsTypeMetsHdrRECORDSTATUS.VERSION,
+        TEST = metsTypeMetsHdrRECORDSTATUS.TEST,
+        OTHER = metsTypeMetsHdrRECORDSTATUS.OTHER,
     }
 
     public enum MetsHdrAgentOtherRoleType

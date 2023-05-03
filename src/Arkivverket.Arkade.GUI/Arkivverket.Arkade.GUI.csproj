@@ -84,6 +84,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>MetaDataGUI.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\MetadataToolTips.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MetadataToolTips.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\SettingsGUI.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -152,6 +157,16 @@
     <EmbeddedResource Update="Resources\MetaDataGUI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MetaDataGUI.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\MetadataToolTips.nb-NO.resx">
+      <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
+      <LastGenOutput>MetadataToolTips.nb-NO.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\MetadataToolTips.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MetadataToolTips.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Arkivverket.Arkade.GUI.Languages</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\SettingsGUI.nb-NO.resx">

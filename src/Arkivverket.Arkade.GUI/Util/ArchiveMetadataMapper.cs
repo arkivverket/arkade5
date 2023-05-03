@@ -24,6 +24,31 @@ namespace Arkivverket.Arkade.GUI.Util
             return guiMetaDataModel.AgreementNumber;
         }
 
+        public static string MapToRecordStatus(GuiMetaDataModel guiMetaDataModel)
+        {
+            return guiMetaDataModel.RecordStatus;
+        }
+
+        public static string MapToDeliveryType(GuiMetaDataModel guiMetaDataModel)
+        {
+            return guiMetaDataModel.DeliveryType;
+        }
+
+        public static string MapToProjectName(GuiMetaDataModel guiMetaDataModel)
+        {
+            return guiMetaDataModel.ProjectName;
+        }
+
+        public static string MapToPackageNumber(GuiMetaDataModel guiMetaDataModel)
+        {
+            return guiMetaDataModel.PackageNumber;
+        }
+
+        public static string MapToReferenceCode(GuiMetaDataModel guiMetaDataModel)
+        {
+            return guiMetaDataModel.ReferenceCode;
+        }
+
         public static List<MetadataEntityInformationUnit> MapToArchiveCreators(
             IEnumerable<GuiMetaDataModel> guiMetaDataModels)
         {

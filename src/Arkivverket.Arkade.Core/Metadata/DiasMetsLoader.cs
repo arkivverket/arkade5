@@ -34,6 +34,8 @@ namespace Arkivverket.Arkade.Core.Metadata
         {
             archiveMetadata.ExtractionDate = metsHdr.CREATEDATE;
 
+            archiveMetadata.RecordStatus = metsHdr.RECORDSTATUS;
+
             if (metsHdr.altRecordID != null)
                 LoadMetsHdrAltRecordIDs(archiveMetadata, metsHdr.altRecordID);
 
@@ -50,6 +52,18 @@ namespace Arkivverket.Arkade.Core.Metadata
 
                 else if (altRecordId.TYPE == AltRecordIdType.SUBMISSIONAGREEMENT.ToString())
                     archiveMetadata.AgreementNumber = altRecordId.Value;
+
+                else if (altRecordId.TYPE == AltRecordIdType.DELIVERYTYPE.ToString())
+                    archiveMetadata.DeliveryType = altRecordId.Value;
+
+                else if (altRecordId.TYPE == AltRecordIdType.PROJECTNAME.ToString())
+                    archiveMetadata.ProjectName = altRecordId.Value;
+
+                else if (altRecordId.TYPE == AltRecordIdType.PACKAGENUMBER.ToString())
+                    archiveMetadata.PackageNumber = altRecordId.Value;
+
+                else if (altRecordId.TYPE == AltRecordIdType.REFERENCECODE.ToString())
+                    archiveMetadata.ReferenceCode = altRecordId.Value;
 
                 else if (altRecordId.TYPE == AltRecordIdType.STARTDATE.ToString())
                     archiveMetadata.StartDate = LoadDateOrNull(altRecordId.Value);

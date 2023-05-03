@@ -96,6 +96,9 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (metadata.ExtractionDate != null)
                 metsHdr.CREATEDATE = metadata.ExtractionDate.Value;
                 
+            if (metadata.RecordStatus != null)
+                metsHdr.RECORDSTATUS = metadata.RecordStatus;
+
             CreateAltRecordIDs(metsHdr, metadata);
 
             metsHdr.metsDocumentID = new metsTypeMetsHdrMetsDocumentID { Value = ArkadeConstants.DiasMetsXmlFileName };
@@ -125,6 +128,42 @@ namespace Arkivverket.Arkade.Core.Metadata
                 {
                     TYPE = AltRecordIdType.SUBMISSIONAGREEMENT.ToString(),
                     Value = metadata.AgreementNumber
+                });
+            }
+
+            if (!string.IsNullOrEmpty(metadata.DeliveryType))
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPE = AltRecordIdType.DELIVERYTYPE.ToString(),
+                    Value = metadata.DeliveryType
+                });
+            }
+
+            if (!string.IsNullOrEmpty(metadata.ProjectName))
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPE = AltRecordIdType.PROJECTNAME.ToString(),
+                    Value = metadata.ProjectName
+                });
+            }
+
+            if (!string.IsNullOrEmpty(metadata.PackageNumber))
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPE = AltRecordIdType.PACKAGENUMBER.ToString(),
+                    Value = metadata.PackageNumber
+                });
+            }
+
+            if (!string.IsNullOrEmpty(metadata.ReferenceCode))
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPE = AltRecordIdType.REFERENCECODE.ToString(),
+                    Value = metadata.ReferenceCode
                 });
             }
 

@@ -8,9 +8,17 @@ namespace Arkivverket.Arkade.GUI.Util
 {
     internal static class GuiMetadataMapper
     {
-        public static GuiMetaDataModel MapToArchiveDescription(string archiveDescription, string agreementNumber)
+        public static GuiMetaDataModel MapToArchiveDescription(string archiveDescription, string agreementNumber,
+            string recordStatus, string deliveryType, string projectName, string packageNumber, string referenceCode)
         {
-            return new GuiMetaDataModel(archiveDescription ?? string.Empty, agreementNumber);
+            return new GuiMetaDataModel(
+                archiveDescription ?? string.Empty,
+                agreementNumber ?? string.Empty,
+                recordStatus ?? string.Empty,
+                deliveryType ?? string.Empty,
+                projectName ?? string.Empty,
+                packageNumber ?? string.Empty,
+                referenceCode ?? string.Empty);
         }
 
         public static ObservableCollection<GuiMetaDataModel> MapToArchiveCreators(

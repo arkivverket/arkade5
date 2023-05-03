@@ -78,19 +78,24 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="220" />
+                            <ColumnDefinition Width="40" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Row="0" Grid.Column="0" TextAlignment="Left"
+                        <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" TextAlignment="Left"
                                  materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.ArchiveDescription}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataModelArchiveDescription.ArchiveDescription, Mode=TwoWay}"
                                  TextWrapping="Wrap" />
 
-
-                        <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,0,15" TextAlignment="Left"
+                        <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,0,0" TextAlignment="Left"
                                  materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.AgreementNumber}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
@@ -98,6 +103,71 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
+
+                        <ComboBox Grid.Row="2" Grid.Column="0" Width="220" HorizontalAlignment="Left"
+                                  materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.RecordStatus}"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  DisplayMemberPath="RecordStatus"
+                                  ItemsSource="{Binding RecordStatusList}">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem">
+                                    <Setter Property="ToolTip" Value="{Binding TooltipText}" />
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                            <ComboBox.Text>
+                                <Binding Path="MetaDataModelArchiveDescription.RecordStatus" Mode="TwoWay"
+                                         UpdateSourceTrigger="PropertyChanged" />
+                            </ComboBox.Text>
+                        </ComboBox>
+                        <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom"
+                               ToolTip="{x:Static lang:MetadataToolTips.RecordStatus}">
+                            <materialDesign:PackIcon Kind="QuestionMarkCircleOutline" Foreground="Teal" Height="22"
+                                                     Width="30" Margin="0" />
+                        </Label>
+
+                        <TextBox Grid.Row="3" Grid.Column="0" TextAlignment="Left"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.DeliveryType}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataModelArchiveDescription.DeliveryType, Mode=TwoWay}"
+                                 TextWrapping="Wrap" />
+                        <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom"
+                               ToolTip="{x:Static lang:MetadataToolTips.DeliveryType}">
+                            <materialDesign:PackIcon Kind="QuestionMarkCircleOutline" Foreground="Teal" Height="22"
+                                                     Width="30" Margin="0" />
+                        </Label>
+
+                        <TextBox Grid.Row="4" Grid.Column="0" TextAlignment="Left"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.ProjectName}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataModelArchiveDescription.ProjectName, Mode=TwoWay}"
+                                 TextWrapping="Wrap" />
+                        <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom"
+                               ToolTip="{x:Static lang:MetadataToolTips.ProjectName}">
+                            <materialDesign:PackIcon Kind="QuestionMarkCircleOutline" Foreground="Teal" Height="22"
+                                                     Width="30" Margin="0" />
+                        </Label>
+
+                        <TextBox Grid.Row="5" Grid.Column="0" TextAlignment="Left"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.PackageNumber}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataModelArchiveDescription.PackageNumber, Mode=TwoWay}"
+                                 TextWrapping="Wrap" />
+                        <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Bottom"
+                               ToolTip="{x:Static lang:MetadataToolTips.PackageNumber}">
+                            <materialDesign:PackIcon Kind="QuestionMarkCircleOutline" Foreground="Teal" Height="22"
+                                                     Width="30" Margin="0" />
+                        </Label>
+
+                        <TextBox Grid.Row="6" Grid.Column="0" Margin="0,0,0,15" TextAlignment="Left"
+                                 materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.ReferenceCode}"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding MetaDataModelArchiveDescription.ReferenceCode, Mode=TwoWay}"
+                                 TextWrapping="Wrap" />
+                        <Label Grid.Row="6" Grid.Column="1" VerticalAlignment="Bottom"
+                               ToolTip="{x:Static lang:MetadataToolTips.ReferenceCode}" Margin="0,0,0,15">
+                            <materialDesign:PackIcon Kind="QuestionMarkCircleOutline" Foreground="Teal" Height="22"
+                                                     Width="30" Margin="0" />
+                        </Label>
 
                     </Grid>
                 </Border>
