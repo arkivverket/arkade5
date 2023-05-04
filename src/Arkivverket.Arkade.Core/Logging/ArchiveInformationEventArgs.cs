@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Logging
         public ArchiveInformationEventArgs(string archiveType, string uuid, string archiveFileName)
         {
             ArchiveType = archiveType;
-            Uuid = uuid;
+            Uuid = uuid; // NB! UUID-transfer
             ArchiveFileName = archiveFileName;
         }
     }

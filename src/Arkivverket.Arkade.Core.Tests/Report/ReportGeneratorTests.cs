@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
                 .WithWorkingDirectoryRoot(_workingDirectory)
                 .WithArchiveDetails("5.0")
                 .WithArchiveType(ArchiveType.Noark5)
-                .WithUuid(Uuid.Random())
+                .WithUuid(Uuid.Random()) // NB! UUID-origin
                 .Build();
             
             TestSession testSession = new TestSessionBuilder()

@@ -20,7 +20,7 @@ namespace Arkivverket.Arkade.GUI.Views
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             ((TestReportDialogViewModel) DataContext).TestReportDirectory = testReportDirectory;
-            ((TestReportDialogViewModel) DataContext).Uuid = uuid;
+            ((TestReportDialogViewModel) DataContext).Uuid = uuid; // NB! UUID-transfer
         }
     }
 }
