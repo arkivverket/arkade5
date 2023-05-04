@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Identify
             _log.Debug(
                 $"Building new TestSession from directory [archiveType: {archiveType}] [directory: {archiveDirectory.Directory.FullName}]");
 
-            Uuid uuid = Uuid.Random();
+            Uuid uuid = Uuid.Random(); // NB! UUID-origin
             ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType, uuid);
             WorkingDirectory workingDirectory = WorkingDirectory.FromExternalDirectory(archiveDirectory.Directory);
             
@@ -49,8 +49,8 @@ namespace Arkivverket.Arkade.Core.Identify
             _log.Debug(
                 $"Building new TestSession from file [archiveType: {archiveFile.ArchiveType}] [directory: {archiveFile.File.FullName}]");
             Uuid uuid = archiveFile.File.Extension.Equals(".siard")
-                ? Uuid.Random()
-                : Uuid.Of(Path.GetFileNameWithoutExtension(archiveFile.File.Name));
+                ? Uuid.Random() // NB! UUID-origin
+                : Uuid.Of(Path.GetFileNameWithoutExtension(archiveFile.File.Name)); // NB! UUID-origin
             ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, uuid);
 
             WorkingDirectory workingDirectory = WorkingDirectory.FromArchiveFile();
@@ -127,7 +127,7 @@ namespace Arkivverket.Arkade.Core.Identify
         private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType, Uuid uuid)
         {
             _statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
-                archiveType.ToString(), uuid.ToString(), archiveFileName));
+                archiveType.ToString(), uuid.ToString(), archiveFileName)); // NB! UUID-writeout
         }
 
         private void ReadingArchiveStartedEvent()

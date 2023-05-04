@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     new objectIdentifierComplexType()
                     {
                         objectIdentifierType = "NO/RA",
-                        objectIdentifierValue = uuid.ToString()
+                        objectIdentifierValue = uuid.ToString() // NB! UUID-writeout
                     }
                 },
                 preservationLevel = new []{ new preservationLevelComplexType { preservationLevelValue = "full" } },

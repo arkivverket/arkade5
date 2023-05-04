@@ -59,7 +59,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _log.Information($"User action: Chose directory for {action}: {testReportExportDestination}");
 
             var testReportExportDirectory = new DirectoryInfo(Path.Combine(testReportExportDestination,
-                string.Format(Core.Resources.OutputFileNames.StandaloneTestReportDirectory, Uuid)));
+                string.Format(Core.Resources.OutputFileNames.StandaloneTestReportDirectory, Uuid))); // NB! UUID-writeout
 
             if (!testReportExportDirectory.Exists)
                 testReportExportDirectory.Create();
@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     testReportExportDirectory.FullName,
                     testReportFile.Name.Equals(Core.Resources.OutputFileNames.DbptkValidationReportFile)
                         ? testReportFile.Name
-                        : string.Format(Core.Resources.OutputFileNames.StandaloneTestReportFile, Uuid,
+                        : string.Format(Core.Resources.OutputFileNames.StandaloneTestReportFile, Uuid, // NB! UUID-writeout
                             testReportFile.Extension.Trim('.'))
                 );
 

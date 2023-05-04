@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
     public class InformationPackageCreatorTest
     {
         private readonly string _workingDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\package-creation";
-        private static readonly Uuid Uuid = Uuid.Random();
+        private static readonly Uuid Uuid = Uuid.Random(); // NB! UUID-origin
         private readonly ArchiveMetadata _archiveMetadata = MetadataExampleCreator.Create(MetadataExamplePurpose.InternalTesting);
         private readonly string _outputDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
-            string rootDir = Uuid.GetValue() + "/";
+            string rootDir = Uuid.GetValue() + "/"; // NB! UUID-writeout
 
             fileList.Count.Should().Be(9);
             fileList.Contains(rootDir).Should().BeTrue();
@@ -65,7 +65,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
-            string rootDir = Uuid.GetValue() + "/";
+            string rootDir = Uuid.GetValue() + "/"; // NB! UUID-writeout
 
             fileList.Count.Should().Be(14);
             fileList.Contains(rootDir).Should().BeTrue();

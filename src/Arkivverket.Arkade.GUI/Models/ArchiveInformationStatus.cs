@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.GUI.Models
         {
             ArchiveFileName = archiveInformationEvent.ArchiveFileName;
             ArchiveType = archiveInformationEvent.ArchiveType;
-            Uuid = archiveInformationEvent.Uuid;
+            Uuid = archiveInformationEvent.Uuid; // NB! UUID-transfer
         }
 
         public string ArchiveType
