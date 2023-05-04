@@ -151,6 +151,24 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not find checksum algorithm for file &apos;{0}&apos;..
+        /// </summary>
+        public static string ChecksumAlgorithmMissing {
+            get {
+                return ResourceManager.GetString("ChecksumAlgorithmMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find &lt;property name=&quot;checksum&quot;&gt; for file &apos;{0}&apos;..
+        /// </summary>
+        public static string ChecksumPropertyMissing {
+            get {
+                return ResourceManager.GetString("ChecksumPropertyMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} classification system (systemID): {1}.
         /// </summary>
         public static string ClassificationSystemTypeAndId {
@@ -896,6 +914,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string TotalResultNumber {
             get {
                 return ResourceManager.GetString("TotalResultNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checksum algorithm (&apos;{0}&apos;) given for file &apos;{1}&apos; is not supported by Arkade..
+        /// </summary>
+        public static string UnsupportedChecksumAlgorithm {
+            get {
+                return ResourceManager.GetString("UnsupportedChecksumAlgorithm", resourceCulture);
             }
         }
         

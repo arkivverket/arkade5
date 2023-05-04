@@ -425,4 +425,13 @@ Generated: {2}</value>
   <data name="DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage" xml:space="preserve">
     <value>In addition, {0} document descriptions without document objects and a physical storage medium were found.</value>
   </data>
+  <data name="UnsupportedChecksumAlgorithm" xml:space="preserve">
+    <value>Checksum algorithm ('{0}') given for file '{1}' is not supported by Arkade.</value>
+  </data>
+  <data name="ChecksumAlgorithmMissing" xml:space="preserve">
+    <value>Could not find checksum algorithm for file '{0}'.</value>
+  </data>
+  <data name="ChecksumPropertyMissing" xml:space="preserve">
+    <value>Could not find &lt;property name="checksum"&gt; for file '{0}'.</value>
+  </data>
 </root>
