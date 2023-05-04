@@ -43,6 +43,7 @@
         <Label Grid.Row="0" FontSize="24"
                Grid.ColumnSpan="6"
                Content="{x:Static lang:CreatePackageGUI.WindowTitle}"
+               Style="{StaticResource MaterialDesignLabel}"
                Margin="5" />
 
         
