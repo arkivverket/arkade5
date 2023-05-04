@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Base
         {
             _statusEventHandler = statusEventHandler;
 
-            Uuid = uuid;
+            Uuid = uuid; // NB! UUID-transfer
 
             ArchiveType = archiveType;
 
@@ -107,12 +107,12 @@ namespace Arkivverket.Arkade.Core.Base
 
         public string GetInformationPackageFileName()
         {
-            return Uuid + ".tar";
+            return Uuid + ".tar"; // NB! UUID-writeout
         }
 
         public string GetSubmissionDescriptionFileName()
         {
-            return Uuid + ".xml";
+            return Uuid + ".xml"; // NB! UUID-writeout
         }
 
         public ArchiveXmlFile GetArchiveXmlFile(string fileName)
