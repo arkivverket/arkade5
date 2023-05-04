@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Report
             var streamWriter = new StreamWriter(stream);
             streamWriter.WriteLine(@"<!DOCTYPE html>");
             streamWriter.WriteLine(@"<html lang=""no"">");
-            Head(testReport.Summary.Uuid, streamWriter);
+            Head(testReport.Summary.Uuid, streamWriter); // NB! UUID-writeout
             Body(testReport, streamWriter);
             streamWriter.WriteLine(@"</html>");
             streamWriter.Flush();
@@ -218,7 +218,7 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(Resources.Report.LabelUuid);
             stream.WriteLine("                </td>");
             stream.WriteLine(@"                <td>");
-            stream.WriteLine(testReport.Summary.Uuid);
+            stream.WriteLine(testReport.Summary.Uuid); // NB! UUID-writeout
             stream.WriteLine("                </td>");
             stream.WriteLine(@"            </tr>");
             
