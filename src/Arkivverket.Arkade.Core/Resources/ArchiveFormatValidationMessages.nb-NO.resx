@@ -150,4 +150,7 @@
     <value>Innhold i {0} er validert mot det angitte arkivformat:
 {1}</value>
   </data>
+  <data name="ItemWasNotFoundMessage" xml:space="preserve">
+    <value>Valideringen mislyktes: '{0}' ble ikke funnet.</value>
+  </data>
 </root>
