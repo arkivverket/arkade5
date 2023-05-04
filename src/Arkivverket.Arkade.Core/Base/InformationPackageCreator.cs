@@ -76,7 +76,7 @@ namespace Arkivverket.Arkade.Core.Base
             using var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);
             using var tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
 
-            string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
+            string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar; // NB! UUID-writeout
             CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
@@ -123,7 +123,7 @@ namespace Arkivverket.Arkade.Core.Base
                 if (testReportFiles.Any())
                 {
                     DirectoryInfo testReportResultDirectory = Directory.CreateDirectory(Path.Combine(
-                        resultDirectory, string.Format(OutputFileNames.StandaloneTestReportDirectory, archive.Uuid)
+                        resultDirectory, string.Format(OutputFileNames.StandaloneTestReportDirectory, archive.Uuid) // NB! UUID-writeout
                     ));
 
                     foreach (FileInfo file in testReportFiles)
@@ -132,7 +132,7 @@ namespace Arkivverket.Arkade.Core.Base
                             Path.Combine(testReportResultDirectory.FullName,
                                 file.Name.Equals(OutputFileNames.DbptkValidationReportFile)
                                     ? file.Name
-                                    : string.Format(OutputFileNames.StandaloneTestReportFile, archive.Uuid,
+                                    : string.Format(OutputFileNames.StandaloneTestReportFile, archive.Uuid, // NB! UUID-writeout
                                         file.Extension.TrimStart('.'))),
                             overwrite: true);
                     }
@@ -160,7 +160,7 @@ namespace Arkivverket.Arkade.Core.Base
         private string CreateResultDirectory(Archive archive, string outputDirectory)
         {
             var resultDirectory = new DirectoryInfo(
-                Path.Combine(outputDirectory, string.Format(OutputFileNames.ResultOutputDirectory, archive.Uuid))
+                Path.Combine(outputDirectory, string.Format(OutputFileNames.ResultOutputDirectory, archive.Uuid)) // NB! UUID-writeout
             );
 
             resultDirectory.Create();

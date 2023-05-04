@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         private ArchiveType _archiveType = ArchiveType.Noark5;
         private ArchiveDetails _archiveDetails;
 
-        private Uuid _uuid = Uuid.Random();
+        private Uuid _uuid = Uuid.Random(); // NB! UUID-origin
         private DirectoryInfo _workingDirectoryContent;
         private DirectoryInfo _workingDirectory;
         private string _archiveFileFullName;
@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
         public ArchiveBuilder WithUuid(Uuid uuid)
         {
-            _uuid = uuid;
+            _uuid = uuid; // NB! UUID-transfer
             return this;
         }
 
