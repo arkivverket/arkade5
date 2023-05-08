@@ -431,4 +431,12 @@ Generert:  {2}</value>
   <data name="ChecksumPropertyMissing" xml:space="preserve">
     <value>Klarte ikke finne &lt;property name="checksum"&gt; for filen '{0}'.</value>
   </data>
+  <data name="DocumentFileIsEmptyMessage" xml:space="preserve">
+    <value>Filen {0} er tom. Dokumentbeskrivelse (systemID, registreringsID, dokumentnummer): {1}, {2}, {3}</value>
+  </data>
+  <data name="DocumentFileSizeMismatchMessage" xml:space="preserve">
+    <value>Dokumentert og faktisk filstørrelse stemmer ikke overens for filen {0}:
+Dokumentert: {1}
+Faktisk: {2}</value>
+  </data>
 </root>

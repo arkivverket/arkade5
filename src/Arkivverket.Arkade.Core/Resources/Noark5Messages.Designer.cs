@@ -313,11 +313,31 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file {0} is empty. Document description (systemID, registreringsID, dokumentnummer): {1}, {2}, {3}.
+        /// </summary>
+        public static string DocumentFileIsEmptyMessage {
+            get {
+                return ResourceManager.GetString("DocumentFileIsEmptyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file {0} does not have the same checksum as specified in document description (systemID) {1}.
         /// </summary>
         public static string DocumentFilesChecksumControlMessage {
             get {
                 return ResourceManager.GetString("DocumentFilesChecksumControlMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mismatch between documented and actual file size for file {0}:
+        ///Documented: {1}
+        ///Actual: {2}.
+        /// </summary>
+        public static string DocumentFileSizeMismatchMessage {
+            get {
+                return ResourceManager.GetString("DocumentFileSizeMismatchMessage", resourceCulture);
             }
         }
         
