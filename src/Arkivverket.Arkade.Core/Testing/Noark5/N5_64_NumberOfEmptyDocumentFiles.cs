@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
@@ -20,8 +20,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private N5_64_Registration _currentRegistration;
         private DocumentDescription _currentDocumentDescription;
         private DocumentObject _currentDocumentObject;
-
-        private int _numberOfDocumentFileSizeMismatches;
 
         public N5_64_NumberOfEmptyDocumentFiles(Archive archive)
         {
@@ -53,7 +51,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 }
             };
 
-            if (totalNumberOfEmptyDocumentFiles == 0 && _numberOfDocumentFileSizeMismatches == 0)
+            if (totalNumberOfEmptyDocumentFiles == 0)
             {
                 return testResultSet;
             }
@@ -217,11 +215,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 {
                     _currentDocumentDescription.DocumentObjects.Add(_currentDocumentObject);
                 }
-                else if (_currentDocumentObject.HasFileSizeMismatch)
-                {
-                    _numberOfDocumentFileSizeMismatches++;
-                    _currentDocumentDescription.DocumentObjects.Add(_currentDocumentObject);
-                }
             }
         }
 
@@ -319,10 +312,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public long? DocumentedFileSize { get; set; }
             public long? ActualFileSize { get; set; }
 
-            public bool ShallBeCounted => ActualFileSize == 0 && DocumentedFileSize == 0;
-
-            public bool HasFileSizeMismatch => DocumentedFileSize.HasValue && ActualFileSize.HasValue && 
-                                               DocumentedFileSize.Value != ActualFileSize.Value;
+            public bool ShallBeCounted => ActualFileSize is null or 0 || DocumentedFileSize is null or 0;
 
             public DocumentObject(DocumentDescription containingDocumentDescription, long lineNumber)
             {
