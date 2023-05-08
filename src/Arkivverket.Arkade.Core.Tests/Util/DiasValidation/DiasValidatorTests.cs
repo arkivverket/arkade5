@@ -80,6 +80,42 @@ namespace Arkivverket.Arkade.Core.Tests.Util.DiasValidation
 
         [Fact]
         [Trait("Dependency", "IO")]
+        public void ShouldValidateSiardAipDirectory()
+        {
+            DiasDirectory diasDirectory = DiasProvider.ProvideForFormat(ArchiveFormat.DiasAipSiard);
+
+            var testDirectory = new DirectoryInfo("testDirectory");
+
+            Write(diasDirectory, testDirectory.FullName);
+
+            ArchiveFormatValidationReport report = _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasAipSiard)
+                .Result;
+
+            report.ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
+
+            Delete(testDirectory);
+        }
+
+        [Fact]
+        [Trait("Dependency", "IO")]
+        public void ShouldValidateSiardSipDirectory()
+        {
+            DiasDirectory diasDirectory = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSipSiard);
+
+            var testDirectory = new DirectoryInfo("testDirectory");
+
+            Write(diasDirectory, testDirectory.FullName);
+
+            ArchiveFormatValidationReport report = _diasValidator.ValidateAsync(testDirectory, ArchiveFormat.DiasSipSiard)
+                .Result;
+
+            report.ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
+
+            Delete(testDirectory);
+        }
+
+        [Fact]
+        [Trait("Dependency", "IO")]
         public void ShouldInvalidateN5SipDirectory()
         {
             DiasDirectory diasDirectory = DiasProvider.ProvideForFormat(ArchiveFormat.DiasSip);

@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.CLI.Options
         [Option('i', "item", HelpText = "The file or directory to be validated", Required = true)]
         public string Item { get; set; }
 
-        [Option('f', "format", HelpText = "The format which the file or directory is validated against. Available values: PDF/A, DIAS-SIP, DIAS-AIP, DIAS-SIP-Noark5, DIAS-AIP-Noark5", Required = true)]
+        [Option('f', "format", HelpText = "The format which the file or directory is validated against. Available values: PDF/A, DIAS-SIP, DIAS-AIP, DIAS-SIP-Noark5, DIAS-AIP-Noark5, DIAS-SIP-SIARD, DIAS-AIP-SIARD", Required = true)]
         public string Format { get; set; }
 
         [Option('o', "output-directory", 

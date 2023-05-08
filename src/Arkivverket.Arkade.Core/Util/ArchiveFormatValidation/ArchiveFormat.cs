@@ -14,5 +14,9 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         DiasSipN5,
         [Description("DIAS-AIP-NOARK5")]
         DiasAipN5,
+        [Description("DIAS-SIP-SIARD")]
+        DiasSipSiard,
+        [Description("DIAS-AIP-SIARD")]
+        DiasAipSiard,
     }
 }

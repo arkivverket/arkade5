@@ -1,4 +1,4 @@
-using Arkivverket.Arkade.Core.Base;
+﻿using Arkivverket.Arkade.Core.Base;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
@@ -13,6 +13,8 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 ArchiveFormat.DiasAip => ProvideAipStructureFagsystem(),
                 ArchiveFormat.DiasSipN5 => ProvideSipStructureNoark5(),
                 ArchiveFormat.DiasAipN5 => ProvideAipStructureNoark5(),
+                ArchiveFormat.DiasSipSiard => ProvideSipStructureSiard(),
+                ArchiveFormat.DiasAipSiard => ProvideAipStructureSiard(),
                 _ => throw new ArkadeException($"Archive format type {format} is not implemented."),
             };
         }
@@ -62,6 +64,24 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             diasDirectory.GetSubDirectory(DirectoryNameAdministrativeMetadata).AddEntries(
                 new DiasFile(ArkivuttrekkXmlFileName),
                 new DiasFile(AddmlXsdFileName));
+
+            return diasDirectory;
+        }
+
+        private static DiasDirectory ProvideSipStructureSiard()
+        {
+            DiasDirectory diasDirectory = GetSipStructureBase();
+
+            return diasDirectory;
+        }
+
+        private static DiasDirectory ProvideAipStructureSiard()
+        {
+            DiasDirectory diasDirectory = GetAipStructureBase();
+
+            diasDirectory.GetSubDirectory(DirectoryNameAdministrativeMetadata).AddEntries(
+                new DiasFile(SiardMetadataXmlFileName),
+                new DiasFile(SiardMetadataXsdFileName));
 
             return diasDirectory;
         }
