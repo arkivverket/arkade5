@@ -330,6 +330,31 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes
         }
 
         [Fact]
+        public void ShouldReportIncorrectLinkDataFormat()
+        {
+            AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
+                .WithDataType(new LinkDataType("url", null))
+                .Build();
+
+            FlatFile flatFile = new FlatFile(fieldDefinition1.GetAddmlFlatFileDefinition());
+
+            A_19_ControlDataFormat test = new A_19_ControlDataFormat();
+            test.Run(flatFile);
+            test.Run(new Field(fieldDefinition1, ""), 1);
+            test.Run(new Field(fieldDefinition1, "http://en.url.her"), 2);
+            test.Run(new Field(fieldDefinition1, "https://en.url.her"), 3);
+            test.Run(new Field(fieldDefinition1, "www.webpage.net"), 4);
+            test.Run(new Field(fieldDefinition1, "not-a-url"), 5);
+            test.EndOfFile();
+
+            TestRun testRun = test.GetTestRun();
+            testRun.IsSuccess().Should().BeFalse();
+            testRun.TestResults.GetNumberOfResults().Should().Be(1);
+            testRun.TestResults.TestsResults[0].Location.ToString().Should().Be($"{fieldDefinition1.GetIndex()} - linje(r): 5");
+            testRun.TestResults.TestsResults[0].Message.Should().Be("Ugyldig dataformat: 'not-a-url'");
+        }
+
+        [Fact]
         public void ShouldOnlyShowSixErrorsPerFieldDefinition()
         {
             AddmlFieldDefinition fieldDefinition1 = new AddmlFieldDefinitionBuilder()
