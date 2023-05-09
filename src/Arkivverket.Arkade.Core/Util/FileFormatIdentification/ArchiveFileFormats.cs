@@ -22,5 +22,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         public DateOnly? ValidTo { get; set; }
         [JsonPropertyName("valid_from")]
         public DateOnly? ValidFrom { get; set; }
+        [JsonPropertyName("additional_requirements")]
+        public string AdditionalRequirements { get; set; }
     }
 }

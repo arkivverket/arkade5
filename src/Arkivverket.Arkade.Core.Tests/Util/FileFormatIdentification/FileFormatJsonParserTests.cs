@@ -13,7 +13,13 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         {
             ArchiveFileFormats archiveFileFormats = FileFormatsJsonParser.ParseArchiveFileFormats();
 
-            archiveFileFormats.FileFormats.FirstOrDefault(f => f.Puid.Equals("fmt/817"))?.ValidFrom.Should().Be(new DateOnly(2022, 3, 1));
+            archiveFileFormats.FileFormats.Should().Contain(f => f.Puid.Contains("fmt/817"));
+
+            ArchiveFileFormat jsonFileFormat = archiveFileFormats.FileFormats.First(f => f.Puid.Contains("fmt/817"));
+
+            jsonFileFormat.ValidFrom.Should().Be(new DateOnly(2022, 3, 1));
+            jsonFileFormat.ValidTo.Should().BeNull();
+            jsonFileFormat.AdditionalRequirements.Should().NotBeEmpty();
         }
     }
 }

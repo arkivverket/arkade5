@@ -1,25 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
+using static Arkivverket.Arkade.Core.Resources.FormatAnalysisResultFileContent;
 
 [assembly: InternalsVisibleTo("Arkivverket.Arkade.Core.Tests")]
 namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 {
     internal static class ArchiveFileFormatValidator
     {
-        public static HashSet<string> GetValidPuids(IEnumerable<ArchiveFileFormat> archiveFileFormats)
+        private static readonly DateOnly DateOnlyNow;
+        private static readonly Dictionary<string, bool> ValidPuidsWithAdditionalRequirementsIndicator;
+
+        static ArchiveFileFormatValidator()
         {
-            DateOnly dateOnlyNow = DateOnly.FromDateTime(DateTime.Now);
-            return archiveFileFormats.Where(aff => IsValid(aff, dateOnlyNow)).SelectMany(aff => aff.Puid).ToHashSet();
+            DateOnlyNow = DateOnly.FromDateTime(DateTime.Now);
+            ValidPuidsWithAdditionalRequirementsIndicator = new Dictionary<string, bool>();
         }
 
-        private static bool IsValid(ArchiveFileFormat archiveFileFormat, DateOnly dateOnlyNow)
+        public static void Initialize(IEnumerable<ArchiveFileFormat> archiveFileFormats)
+        {
+            GetValidPuidsWithAdditionalRequirementIndicator(archiveFileFormats);
+        }
+
+        public static string Validate(string puid)
+        {
+            if (!ValidPuidsWithAdditionalRequirementsIndicator.ContainsKey(puid))
+                return FormatIsNotValidValue;
+
+            return ValidPuidsWithAdditionalRequirementsIndicator[puid]
+                ? FormatIsValidWithAdditionalRequirementsValue
+                : FormatIsValidValue;
+        }
+
+        private static void GetValidPuidsWithAdditionalRequirementIndicator(
+            IEnumerable<ArchiveFileFormat> archiveFileFormats)
+        {
+            foreach (ArchiveFileFormat archiveFileFormat in archiveFileFormats)
+            {
+                if (!IsValid(archiveFileFormat))
+                    continue;
+
+                bool hasAdditionalRequirements = !string.IsNullOrEmpty(archiveFileFormat.AdditionalRequirements);
+                
+                foreach (string puid in archiveFileFormat.Puid)
+                {
+                    ValidPuidsWithAdditionalRequirementsIndicator.TryAdd(puid, hasAdditionalRequirements);
+                }
+            }
+        }
+
+        private static bool IsValid(ArchiveFileFormat archiveFileFormat)
         {
             DateOnly? validFrom = archiveFileFormat.ValidFrom;
             DateOnly? validTo = archiveFileFormat.ValidTo;
 
-            return !(validFrom > dateOnlyNow) && !(validTo < dateOnlyNow);
+            return !(validFrom > DateOnlyNow) && !(validTo < DateOnlyNow);
         }
     }
 }

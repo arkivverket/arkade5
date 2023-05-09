@@ -79,6 +79,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valid*.
+        /// </summary>
+        public static string FormatIsValidWithAdditionalRequirementsValue {
+            get {
+                return ResourceManager.GetString("FormatIsValidWithAdditionalRequirementsValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string HeaderErrors {
