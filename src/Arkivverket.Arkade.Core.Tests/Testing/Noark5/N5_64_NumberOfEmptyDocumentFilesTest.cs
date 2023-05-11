@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
@@ -81,7 +81,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         [InlineData("utgår", "avsluttet", "arkivert")]
         [InlineData("avsluttet", "utgår", "arkivert")]
         [InlineData("avsluttet", "avsluttet", "utgår")]
-        public void ShouldNotReportEmptyDocumentFileIfStatusUtgaar(string superFolderStatus, string folderStatus, string regStatus)
+        public void EmptyDocumentFileSubjectToStatusUtgaarIsNotReported(string superFolderStatus, string folderStatus, string regStatus)
         {
             XmlElementHelper helper = new XmlElementHelper().Add("arkiv",
                 new XmlElementHelper()
@@ -113,7 +113,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         }
 
         [Fact]
-        public void ShouldFindOneEmptyDocumentFileInOneOfTwoArchiveParts()
+        public void OneEmptyDocumentFileInOneOfTwoArchivePartsIsReported()
         {
             XmlElementHelper helper = new XmlElementHelper().Add("arkiv", new XmlElementHelper()
                 .Add("arkivdel", new XmlElementHelper()
@@ -164,7 +164,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         }
 
         [Fact]
-        public void FilePathsWithBackOrForwardSlashShouldBeParsed()
+        public void FilePathsWithBackOrForwardSlashAreParsed()
         {
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv", new XmlElementHelper()
