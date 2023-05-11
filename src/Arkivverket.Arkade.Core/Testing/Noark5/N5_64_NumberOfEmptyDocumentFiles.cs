@@ -166,7 +166,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 _currentDocumentObject.FileName = eventArgs.Value;
 
-                if (_documentFiles.TryGetValue(eventArgs.Value, out DocumentFile documentFile))
+                if (TryGetDocumentFile(eventArgs.Value, out DocumentFile documentFile))
                 {
                     _currentDocumentObject.ActualFileSize = documentFile.FileInfo.Length;
                 }
@@ -176,6 +176,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 if (long.TryParse(eventArgs.Value, out long fileSize))
                     _currentDocumentObject.DocumentedFileSize = fileSize;
             }
+        }
+
+        private bool TryGetDocumentFile(string documentFileName, out DocumentFile documentFile)
+        {
+            return _documentFiles.TryGetValue(documentFileName.Replace('\\', '/'), out documentFile);
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
