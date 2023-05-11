@@ -68,5 +68,14 @@ namespace Arkivverket.Arkade.Core.Resources {
                 return ResourceManager.GetString("N5.24", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counts number of empty document files. A file is empty if:{0}1. The value of xml-element &quot;filstoerrelse&quot; is 0.{0}2. The document file&apos;s actual size is 0.{0}Only files which are referenced in arkivstruktur.xml are reported. N5.33 gives a list of all unreferenced files..
+        /// </summary>
+        public static string N5_64 {
+            get {
+                return ResourceManager.GetString("N5.64", resourceCulture);
+            }
+        }
     }
 }
