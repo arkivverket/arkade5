@@ -127,7 +127,7 @@ namespace Arkivverket.Arkade.Core.Identify
         private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType, Uuid uuid)
         {
             _statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
-                archiveType.ToString(), uuid.ToString(), archiveFileName)); // NB! UUID-writeout
+                archiveType.ToString(), uuid.ToString(), archiveFileName)); // NB! UUID-writeout (right after UUID init)
         }
 
         private void ReadingArchiveStartedEvent()

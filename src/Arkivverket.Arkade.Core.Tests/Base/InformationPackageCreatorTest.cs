@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
-            string rootDir = Uuid.GetValue() + "/"; // NB! UUID-writeout
+            string rootDir = Uuid.GetValue() + "/"; // NB! UUID-writeout (unit testing)
 
             fileList.Count.Should().Be(9);
             fileList.Contains(rootDir).Should().BeTrue();
@@ -65,7 +65,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
-            string rootDir = Uuid.GetValue() + "/"; // NB! UUID-writeout
+            string rootDir = Uuid.GetValue() + "/"; // NB! UUID-writeout (unit testing)
 
             fileList.Count.Should().Be(14);
             fileList.Contains(rootDir).Should().BeTrue();

@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Report
             foreach (TestReportFormat testReportFormat in Enum.GetValues<TestReportFormat>())
             {
                 string testReportFileName = Path.Combine(testReportDirectory.FullName, standalone
-                    ? string.Format(Resources.OutputFileNames.StandaloneTestReportFile, testReport.Summary.Uuid, testReportFormat.ToString()) // NB! UUID-writeout
+                    ? string.Format(Resources.OutputFileNames.StandaloneTestReportFile, testReport.Summary.Uuid, testReportFormat.ToString()) // NB! UUID-writeout (test results)
                     : string.Format(Resources.OutputFileNames.TestReportFile, testReportFormat.ToString()));
 
                 using FileStream fileStream = new FileInfo(testReportFileName).OpenWrite();

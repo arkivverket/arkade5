@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.Core.Tests.Identify
         {
             var uuid = Uuid.Of("c3db9d4e-720c-4f75-bfb6-de90231dc44c"); // NB! UUID-origin
             string pathToExtractedFilesRegex = Path.Combine(
-                ArkadeProcessingArea.WorkDirectory.FullName, "..............-" + uuid, uuid.ToString() // NB! UUID-writeout
+                ArkadeProcessingArea.WorkDirectory.FullName, "..............-" + uuid, uuid.ToString() // NB! UUID-writeout (unit testing)
             );
             pathToExtractedFilesRegex = pathToExtractedFilesRegex.Replace("\\", "\\\\");
 
@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Tests.Identify
 
             var statusEventHandler = new StatusEventHandler();
 
-            string file = Path.Combine(TestUtil.TestDataDirectory, "tar", "Noark3-eksempel-1", uuid + ".tar"); // NB! UUID-writeout
+            string file = Path.Combine(TestUtil.TestDataDirectory, "tar", "Noark3-eksempel-1", uuid + ".tar"); // NB! UUID-writeout (unit testing)
             TestSession testSession =
                 new TestSessionFactory(extractorMock.Object, statusEventHandler)
                     .NewSession(ArchiveFile.Read(file,archiveType));

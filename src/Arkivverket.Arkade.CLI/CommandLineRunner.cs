@@ -318,7 +318,7 @@ namespace Arkivverket.Arkade.CLI
             archiveMetadata.PackageType = InformationPackageCreator.ParsePackageType(packageType);
 
             testSession.ArchiveMetadata = archiveMetadata;
-            testSession.ArchiveMetadata.Id = $"UUID:{testSession.Archive.Uuid}"; // NB! UUID-writeout
+            testSession.ArchiveMetadata.Id = $"UUID:{testSession.Archive.Uuid}"; // NB! UUID-writeout (package creation)
 
             Arkade.CreatePackage(testSession, outputDirectory);
 
@@ -411,7 +411,7 @@ namespace Arkivverket.Arkade.CLI
 
             if (createStandAloneTestReport)
             {
-                string testReportDirectoryName = string.Format(OutputFileNames.StandaloneTestReportDirectory, testSession.Archive.Uuid); // NB! UUID-writeout
+                string testReportDirectoryName = string.Format(OutputFileNames.StandaloneTestReportDirectory, testSession.Archive.Uuid); // NB! UUID-writeout (test results)
                 packageTestReportDirectory = new DirectoryInfo(Path.Combine(outputDirectory, testReportDirectoryName));
                 packageTestReportDirectory.Create();
             }
