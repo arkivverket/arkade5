@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
@@ -327,22 +327,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             public override string ToString()
             {
-                if (ShallBeCounted)
-                {
-                    return string.Format(
-                        Noark5Messages.DocumentFileIsEmptyMessage,
-                        FileName,
-                        _containingDocumentDescription.SystemId,
-                        _containingDocumentDescription.ContainingRegistration.RegistrationId, 
-                        _containingDocumentDescription.DocumentNumber
-                    );
-                }
-
                 return string.Format(
-                    Noark5Messages.DocumentFileSizeMismatchMessage,
+                    Noark5Messages.DocumentFileIsEmptyMessage,
                     FileName,
-                    DocumentedFileSize,
-                    ActualFileSize
+                    _containingDocumentDescription.SystemId,
+                    _containingDocumentDescription.ContainingRegistration.RegistrationId,
+                    _containingDocumentDescription.DocumentNumber
                 );
             }
         }
