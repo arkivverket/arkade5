@@ -101,4 +101,8 @@
     <value>Counts document descriptions without document objects in arkivstruktur.xml.{0}The following cases are not reported towards the total number:{0}1. Document descriptions subject to a folder or registration with status "utgår".{0}2. Document descriptions where "dokumentmedium" is "fysisk medium" or "fysisk arkiv".</value>
     <comment>{0} = newline</comment>
   </data>
+  <data name="N5.64" xml:space="preserve">
+    <value>Counts number of document files where the actual file size is 0.{0}Only files which are referenced in arkivstruktur.xml are reported. Non-referenced files are reported in N5.33.</value>
+    <comment>{0} = newline</comment>
+  </data>
 </root>

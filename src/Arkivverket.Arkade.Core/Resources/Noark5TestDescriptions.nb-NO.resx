@@ -120,4 +120,7 @@
   <data name="N5.24" xml:space="preserve">
     <value>Teller antall dokumentbeskrivelser uten dokumentobjekter i arkivstruktur.xml.{0}Følgende tilfeller er ikke inkludert i totalen:{0}1. Dokumentbeskrivelser som er underlagt mapper eller registreringer med status "utgår".{0}2. Dokumentbeskrivelser der "dokumentmedium" er "fysisk medium" eller "fysisk arkiv".</value>
   </data>
+  <data name="N5.64" xml:space="preserve">
+    <value>Teller antall dokumentfiler der faktisk filstørrelse er 0.{0}Det er kun dokumentfiler som er referert til i arkivstruktur.xml som blir rapportert. Ikke-refererte filer rapporteres i N5.33.</value>
+  </data>
 </root>

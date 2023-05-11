@@ -166,16 +166,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             {
                 _currentDocumentObject.FileName = eventArgs.Value;
 
-                if (_documentFiles.TryGetValue(eventArgs.Value, out DocumentFile documentFile))
+                if (TryGetDocumentFile(eventArgs.Value, out DocumentFile documentFile))
                 {
-                    _currentDocumentObject.ActualFileSize = documentFile.FileInfo.Length;
+                    _currentDocumentObject.FileIsEmpty = documentFile.FileInfo.Length == 0;
                 }
             }
-            else if (eventArgs.Path.Matches("filstoerrelse", "dokumentobjekt"))
-            {
-                if (long.TryParse(eventArgs.Value, out long fileSize))
-                    _currentDocumentObject.DocumentedFileSize = fileSize;
-            }
+        }
+
+        private bool TryGetDocumentFile(string documentFileName, out DocumentFile documentFile)
+        {
+            return _documentFiles.TryGetValue(documentFileName.Replace('\\', '/'), out documentFile);
         }
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
@@ -211,7 +211,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             }
             else if (eventArgs.NameEquals("dokumentobjekt"))
             {
-                if (_currentDocumentObject.ShallBeCounted)
+                if (_currentDocumentObject.FileIsEmpty)
                 {
                     _currentDocumentDescription.DocumentObjects.Add(_currentDocumentObject);
                 }
@@ -297,7 +297,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             private int GetNumberOfEmptyDocumentFiles()
             {
-                int amount = DocumentObjects.Sum(d => d.ShallBeCounted ? 1 : 0);
+                int amount = DocumentObjects.Sum(d => d.FileIsEmpty ? 1 : 0);
                 _numberOfEmptyDocumentFiles = amount;
                 return amount;
             }
@@ -309,10 +309,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             public long LineNumber { get; }
             public string FileName { get; set; }
-            public long? DocumentedFileSize { get; set; }
-            public long? ActualFileSize { get; set; }
-
-            public bool ShallBeCounted => ActualFileSize is null or 0 || DocumentedFileSize is null or 0;
+            public bool FileIsEmpty { get; set; }
 
             public DocumentObject(DocumentDescription containingDocumentDescription, long lineNumber)
             {
@@ -322,22 +319,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             public override string ToString()
             {
-                if (ShallBeCounted)
-                {
-                    return string.Format(
-                        Noark5Messages.DocumentFileIsEmptyMessage,
-                        FileName,
-                        _containingDocumentDescription.SystemId,
-                        _containingDocumentDescription.ContainingRegistration.RegistrationId, 
-                        _containingDocumentDescription.DocumentNumber
-                    );
-                }
-
                 return string.Format(
-                    Noark5Messages.DocumentFileSizeMismatchMessage,
+                    Noark5Messages.DocumentFileIsEmptyMessage,
                     FileName,
-                    DocumentedFileSize,
-                    ActualFileSize
+                    _containingDocumentDescription.SystemId,
+                    _containingDocumentDescription.ContainingRegistration.RegistrationId,
+                    _containingDocumentDescription.DocumentNumber
                 );
             }
         }

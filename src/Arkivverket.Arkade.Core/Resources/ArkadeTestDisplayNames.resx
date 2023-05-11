@@ -373,4 +373,7 @@
   <data name="N5_63" xml:space="preserve">
     <value>Elements without content</value>
   </data>
+  <data name="N5_64" xml:space="preserve">
+    <value>Number of empty document files</value>
+  </data>
 </root>
