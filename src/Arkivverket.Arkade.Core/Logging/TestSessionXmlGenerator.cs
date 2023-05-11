@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Logging
             log.arkadeVersion = ArkadeVersion.Current;
 
             log.archiveType = testSession?.Archive?.ArchiveType.ToString();
-            log.archiveUuid = testSession?.Archive?.Uuid?.GetValue(); // NB! UUID-writeout
+            log.archiveUuid = testSession?.Archive?.Uuid?.GetValue(); // NB! UUID-writeout (test results)
 
             log.logEntries = GetLogEntries(testSession);
             log.testResults = GetTestResults(testSession);

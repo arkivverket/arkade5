@@ -107,12 +107,12 @@ namespace Arkivverket.Arkade.Core.Base
 
         public string GetInformationPackageFileName()
         {
-            return Uuid + ".tar"; // NB! UUID-writeout
+            return Uuid + ".tar"; // NB! UUID-writeout (package creation)
         }
 
         public string GetSubmissionDescriptionFileName()
         {
-            return Uuid + ".xml"; // NB! UUID-writeout
+            return Uuid + ".xml"; // NB! UUID-writeout (package creation)
         }
 
         public ArchiveXmlFile GetArchiveXmlFile(string fileName)
