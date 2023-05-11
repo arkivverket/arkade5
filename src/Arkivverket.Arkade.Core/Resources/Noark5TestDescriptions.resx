@@ -102,6 +102,7 @@
     <comment>{0} = newline</comment>
   </data>
   <data name="N5.64" xml:space="preserve">
-    <value>Counts number of empty document files. A file is empty if:{0}1. The value of xml-element "filstoerrelse" is 0.{0}2. The document file's actual size is 0.{0}Only files which are referenced in arkivstruktur.xml are reported. N5.33 gives a list of all unreferenced files.</value>
+    <value>Counts number of document files where the actual file size is 0.{0}Only files which are referenced in arkivstruktur.xml are reported. Non-referenced files are reported in N5.33.</value>
+    <comment>{0} = newline</comment>
   </data>
 </root>
