@@ -7,6 +7,7 @@ using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
+using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
 {
@@ -60,7 +61,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             if (checksumProperty == null)
             {
                 resultMessage = string.Format(Noark5Messages.ChecksumPropertyMissing, fileName);
-                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error));
+                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error, fileName));
                 return;
             }
 
@@ -69,14 +70,14 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             if (string.IsNullOrEmpty(checksumAlgorithm))
             {
                 resultMessage = string.Format(Noark5Messages.ChecksumAlgorithmMissing, fileName);
-                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error));
+                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error, fileName));
                 return;
             }
 
             if (checksumAlgorithm is not ("SHA-256" or "SHA256"))
             {
                 resultMessage = string.Format(Noark5Messages.UnsupportedChecksumAlgorithm, checksumAlgorithm, fileName);
-                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error));
+                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error, fileName));
                 return;
             }
 
@@ -85,7 +86,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             if (!File.Exists(fullPathToFile))
             {
                 resultMessage = string.Format(Noark5Messages.FileNotFound, fileName);
-                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error));
+                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error, fileName));
                 return;
             }
 
@@ -100,18 +101,18 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
                 resultMessage = string.Format(Noark5Messages.ExceptionInvalidChecksum, fileName,
                     expectedChecksum?.ToLower(), generatedChecksum?.ToLower());
                 resultMessage = $"{resultMessage}.\n {checksumAlgorithmMessage}";
-                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error));
+                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error, fileName));
             }
             else
             {
                 resultMessage = checksumAlgorithmMessage;
-                _testResults.Add(CreateTestResult(resultMessage, ResultType.Success));
+                _testResults.Add(CreateTestResult(resultMessage, ResultType.Success, fileName));
             }
         }
 
-        private TestResult CreateTestResult(string resultMessage, ResultType resultType)
+        private TestResult CreateTestResult(string resultMessage, ResultType resultType, string fileName)
         {
-            return new TestResult(resultType, new Location(ArkadeConstants.ArkivuttrekkXmlFileName), resultMessage);
+            return new TestResult(resultType, new Location(fileName), resultMessage);
         }
 
         private string GenerateChecksumForFile(string filename, string checksumAlgorithm)
