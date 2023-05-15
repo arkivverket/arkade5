@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
         [Fact]
         public void CleanTest()
         {
-            var metadata = new ArchiveMetadata
+            var metadata = new ArchiveMetadata // NB! Metadata-origin (unit testing)
             {
                 Owners = new List<MetadataEntityInformationUnit>
                 {
