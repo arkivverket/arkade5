@@ -167,4 +167,7 @@
 
 To ensure all temporary files from the session are removed from your system, please delete '{0}' manually.</value>
   </data>
+  <data name="InvalidUUID" xml:space="preserve">
+    <value>{0} is not a valid UUID</value>
+  </data>
 </root>
