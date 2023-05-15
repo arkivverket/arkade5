@@ -167,4 +167,7 @@
 
 For å være sikker på at alle temporærfiler fra kjøringen blir fjernet fra systemet ditt, må '{0}' slettes manuelt.</value>
   </data>
+  <data name="InvalidUUID" xml:space="preserve">
+    <value>{0} er ikke en gyldig UUID</value>
+  </data>
 </root>
