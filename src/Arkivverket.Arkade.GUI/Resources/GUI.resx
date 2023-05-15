@@ -152,7 +152,7 @@
     <value>New session</value>
   </data>
   <data name="NewVersionMessage" xml:space="preserve">
-    <value>New version available</value>
+    <value>Newer version available</value>
   </data>
   <data name="RestartArkadeButtonText" xml:space="preserve">
     <value>Restart Arkade</value>

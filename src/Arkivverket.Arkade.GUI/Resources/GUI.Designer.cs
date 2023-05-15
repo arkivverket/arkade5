@@ -187,7 +187,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New version available.
+        ///   Looks up a localized string similar to Newer version available.
         /// </summary>
         public static string NewVersionMessage {
             get {
