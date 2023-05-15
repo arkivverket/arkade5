@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
 {
     public class MetadataLoaderTest
     {
-        private readonly ArchiveMetadata _metadata = new ArchiveMetadata
+        private readonly ArchiveMetadata _metadata = new ArchiveMetadata // NB! Metadata-origin (unit testing)
         {
             System = new MetadataSystemInformationUnit {Name = "Some system name"},
             StartDate = new DateTime(1970, 01, 01),

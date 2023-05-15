@@ -10,7 +10,7 @@ namespace Arkivverket.Arkade.Core.Metadata
     {
         public static ArchiveMetadata Create(MetadataExamplePurpose purpose)
         {
-            var metadataExample = new ArchiveMetadata
+            var metadataExample = new ArchiveMetadata // NB! Metadata-origin (metadata example creation)
             {
                 Id = "UUID:12345-12345-12345-12345-12345-12345",
                 Label = "Some system name (2017 - 2020)",

@@ -457,7 +457,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ProgressBarVisibility = Visibility.Visible;
             Log.Information("User action: Choose package destination {informationPackageDestination}", outputDirectory);
             
-            _testSession.ArchiveMetadata = new ArchiveMetadata
+            _testSession.ArchiveMetadata = new ArchiveMetadata // NB! Metadata-origin (metadata creation)
             {
                 Id = $"UUID:{_testSession.Archive.Uuid}", // NB! UUID-writeout (package creation)
 

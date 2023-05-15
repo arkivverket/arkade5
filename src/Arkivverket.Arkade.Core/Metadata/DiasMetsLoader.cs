@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Metadata
         {
             var mets = SerializeUtil.DeserializeFromFile<mets>(diasMetsFile);
 
-            var archiveMetadata = new ArchiveMetadata();
+            var archiveMetadata = new ArchiveMetadata(); // NB! Metadata-origin (metadata loading)
 
             LoadMetsElementAttributes(archiveMetadata, mets);
 
