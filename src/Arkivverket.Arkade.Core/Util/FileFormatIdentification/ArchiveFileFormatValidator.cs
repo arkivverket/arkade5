@@ -8,12 +8,12 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 {
     internal static class ArchiveFileFormatValidator
     {
-        private static readonly DateOnly DateOnlyNow;
+        private static readonly DateTime DateTimeNow;
         private static readonly Dictionary<string, bool> ValidPuidsWithAdditionalRequirementsIndicator;
 
         static ArchiveFileFormatValidator()
         {
-            DateOnlyNow = DateOnly.FromDateTime(DateTime.Now);
+            DateTimeNow = DateTime.Now.Date;
             ValidPuidsWithAdditionalRequirementsIndicator = new Dictionary<string, bool>();
         }
 
@@ -51,10 +51,10 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
         private static bool IsValid(ArchiveFileFormat archiveFileFormat)
         {
-            DateOnly? validFrom = archiveFileFormat.ValidFrom;
-            DateOnly? validTo = archiveFileFormat.ValidTo;
+            DateTime? validFrom = archiveFileFormat.ValidFrom;
+            DateTime? validTo = archiveFileFormat.ValidTo;
 
-            return !(validFrom > DateOnlyNow) && !(validTo < DateOnlyNow);
+            return !(validFrom > DateTimeNow) && !(validTo < DateTimeNow);
         }
     }
 }

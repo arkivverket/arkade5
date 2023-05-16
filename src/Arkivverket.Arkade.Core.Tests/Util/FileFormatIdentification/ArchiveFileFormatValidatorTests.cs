@@ -13,10 +13,10 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
         {
             var archiveFileFormats = new List<ArchiveFileFormat>
             {
-                new() { Puid = new[] { "fmt/1" }, ValidFrom = new DateOnly(2022, 3, 1), AdditionalRequirements = "" },
-                new() { Puid = new[] { "fmt/2" }, ValidTo = new DateOnly(2007, 3, 1), AdditionalRequirements = "" },
-                new() { Puid = new[] { "fmt/3" }, ValidTo = DateOnly.MaxValue, AdditionalRequirements = "" },
-                new() { Puid = new[] { "fmt/4" }, ValidFrom = new DateOnly(2024, 3, 1), AdditionalRequirements = "" },
+                new() { Puid = new[] { "fmt/1" }, ValidFrom = new DateTime(2022, 3, 1), AdditionalRequirements = "" },
+                new() { Puid = new[] { "fmt/2" }, ValidTo = new DateTime(2007, 3, 1), AdditionalRequirements = "" },
+                new() { Puid = new[] { "fmt/3" }, ValidTo = DateTime.MaxValue, AdditionalRequirements = "" },
+                new() { Puid = new[] { "fmt/4" }, ValidFrom = DateTime.Now.AddDays(2), AdditionalRequirements = "" },
                 new() { Puid = new[] { "fmt/5" }, AdditionalRequirements = "yes" },
             };
 

@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
 
             ArchiveFileFormat jsonFileFormat = archiveFileFormats.FileFormats.First(f => f.Puid.Contains("fmt/817"));
 
-            jsonFileFormat.ValidFrom.Should().Be(new DateOnly(2022, 3, 1));
+            jsonFileFormat.ValidFrom.Should().Be(new DateTime(2022, 3, 1));
             jsonFileFormat.ValidTo.Should().BeNull();
             jsonFileFormat.AdditionalRequirements.Should().NotBeEmpty();
         }

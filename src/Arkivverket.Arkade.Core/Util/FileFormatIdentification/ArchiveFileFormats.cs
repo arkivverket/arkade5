@@ -19,9 +19,9 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         [JsonPropertyName("puid")]
         public IEnumerable<string> Puid { get; set; }
         [JsonPropertyName("valid_to")]
-        public DateOnly? ValidTo { get; set; }
+        public DateTime? ValidTo { get; set; }
         [JsonPropertyName("valid_from")]
-        public DateOnly? ValidFrom { get; set; }
+        public DateTime? ValidFrom { get; set; }
         [JsonPropertyName("additional_requirements")]
         public string AdditionalRequirements { get; set; }
     }
