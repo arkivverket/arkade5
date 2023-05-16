@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 using Arkivverket.Arkade.Core.Metadata;
 using FluentAssertions;
 using Xunit;
@@ -23,6 +24,14 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             archiveMetadata.ArchiveDescription.Should().Be("Some archive description");
 
             archiveMetadata.AgreementNumber.Should().Be("XX 00-0000/0000; 0000-00-00");
+
+            archiveMetadata.RecordStatus.Should().Be(metsTypeMetsHdrRECORDSTATUS.NEW.ToString());
+
+            archiveMetadata.DeliveryType.Should().Be("Sak-/Arkivsystem");
+
+            archiveMetadata.PackageNumber.Should().Be("1.0");
+
+            archiveMetadata.ReferenceCode.Should().Be("Some reference code");
 
             archiveMetadata.ArchiveCreators.Should().Contain(a =>
                 a.Entity.Equals("Entity 1") &&

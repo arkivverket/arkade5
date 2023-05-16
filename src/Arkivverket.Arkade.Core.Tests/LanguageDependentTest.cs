@@ -21,6 +21,7 @@ namespace Arkivverket.Arkade.Core.Tests
             OutputFileNames.Culture = cultureInfo;
             Resources.Report.Culture = cultureInfo;
             FormatAnalysisResultFileContent.Culture = cultureInfo;
+            ArchiveFormatValidationMessages.Culture = cultureInfo;
         }
     }
 }

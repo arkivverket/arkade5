@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Util.FormatValidation
 {
-    public class ArchiveFormatValidatorTests : IClassFixture<ArchiveFormatValidatorFixture>
+    public class ArchiveFormatValidatorTests : LanguageDependentTest, IClassFixture<ArchiveFormatValidatorFixture>
     {
         private static readonly string TestFilesDirectoryPath =
             Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData", "FileTypes");
@@ -38,22 +38,57 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FormatValidation
         [Fact]
         [Trait("Category", "Integration")]
         [Trait("Dependency", "JRE")]
-        public void ValidateAsPdfATest()
+        public void PdfA1BShouldBeValidPdfAFormat()
         {
-            _fixture.ArchiveFormatValidator.ValidateAsync(_approvedPdfAFile, ArchiveFormat.PdfA).Result
-                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
+            ArchiveFormatValidationReport validationReport = 
+                _fixture.ArchiveFormatValidator.ValidateAsync(_approvedPdfAFile, ArchiveFormat.PdfA).Result;
 
-            _fixture.ArchiveFormatValidator.ValidateAsync(_disapprovedPdfAFile, ArchiveFormat.PdfA).Result
-                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
+            validationReport.ValidationResult.Should().Be(ArchiveFormatValidationResult.Valid);
+        }
 
-            _fixture.ArchiveFormatValidator.ValidateAsync(_regularPdfFile, ArchiveFormat.PdfA).Result
-                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
+        [Fact]
+        [Trait("Category", "Integration")]
+        [Trait("Dependency", "JRE")]
+        public void PdfA3AShouldBeInvalidPdfAFormat()
+        {
+            ArchiveFormatValidationReport archiveFormatValidationReport = 
+                _fixture.ArchiveFormatValidator.ValidateAsync(_disapprovedPdfAFile, ArchiveFormat.PdfA).Result;
 
-            _fixture.ArchiveFormatValidator.ValidateAsync(_docxFile, ArchiveFormat.PdfA).Result
-                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Error);
+            archiveFormatValidationReport.ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
+        }
 
-            _fixture.ArchiveFormatValidator.ValidateAsync(_nonExistingFile, ArchiveFormat.PdfA).Result
-                .ValidationResult.Should().Be(ArchiveFormatValidationResult.Error);
+        [Fact]
+        [Trait("Category", "Integration")]
+        [Trait("Dependency", "JRE")]
+        public void PdfShouldBeInvalidPdfAFormat()
+        {
+            ArchiveFormatValidationReport archiveFormatValidationReport = 
+                _fixture.ArchiveFormatValidator.ValidateAsync(_regularPdfFile, ArchiveFormat.PdfA).Result;
+
+            archiveFormatValidationReport.ValidationResult.Should().Be(ArchiveFormatValidationResult.Invalid);
+        }
+
+        [Fact]
+        [Trait("Category", "Integration")]
+        [Trait("Dependency", "JRE")]
+        public void DocXShouldBeReportedAsErrorForPdfAValidation()
+        {
+            ArchiveFormatValidationReport archiveFormatValidationReport =
+                _fixture.ArchiveFormatValidator.ValidateAsync(_docxFile, ArchiveFormat.PdfA).Result;
+
+            archiveFormatValidationReport.ValidationResult.Should().Be(ArchiveFormatValidationResult.Error);
+        }
+
+        [Fact]
+        [Trait("Category", "Integration")]
+        [Trait("Dependency", "JRE")]
+        public void NonExistingFileShouldBeReportedAsErrorForPdfAValidation()
+        {
+            ArchiveFormatValidationReport archiveFormatValidationReport =
+                _fixture.ArchiveFormatValidator.ValidateAsync(_nonExistingFile, ArchiveFormat.PdfA).Result;
+
+            archiveFormatValidationReport.ValidationResult.Should().Be(ArchiveFormatValidationResult.Error);
+            archiveFormatValidationReport.ValidationInfo.Should().Be($"Valideringen mislyktes: '{_nonExistingFile.FullName}' ble ikke funnet.");
         }
     }
 
@@ -65,6 +100,10 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FormatValidation
         {
             ArchiveFormatValidator = new ArchiveFormatValidator();
         }
-        public void Dispose() => ArchiveFormatValidator.Dispose();
+
+        public void Dispose()
+        {
+            ArchiveFormatValidator.Dispose();
+        }
     }
 }

@@ -68,5 +68,14 @@ namespace Arkivverket.Arkade.Core.Resources {
                 return ResourceManager.GetString("N5.24", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counts number of document files where the actual file size is 0.{0}Only files which are referenced in arkivstruktur.xml are reported. Non-referenced files are reported in N5.33..
+        /// </summary>
+        public static string N5_64 {
+            get {
+                return ResourceManager.GetString("N5.64", resourceCulture);
+            }
+        }
     }
 }

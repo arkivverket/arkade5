@@ -39,6 +39,9 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             if (metsHdr.agent != null)
                 LoadMetsHdrAgents(archiveMetadata, metsHdr.agent);
+
+            if (metsHdr.RECORDSTATUSSpecified)
+                archiveMetadata.RecordStatus = metsHdr.RECORDSTATUS.ToString();
         }
 
         private static void LoadMetsHdrAltRecordIDs(ArchiveMetadata archiveMetadata,
@@ -46,6 +49,9 @@ namespace Arkivverket.Arkade.Core.Metadata
         {
             LoadArchiveDescription(archiveMetadata, metsHdrAltRecordIds);
             LoadAgreementNumber(archiveMetadata, metsHdrAltRecordIds);
+            LoadDeliveryType(archiveMetadata, metsHdrAltRecordIds);
+            LoadPackageNumber(archiveMetadata, metsHdrAltRecordIds);
+            LoadReferenceCode(archiveMetadata, metsHdrAltRecordIds);
             LoadStartDate(archiveMetadata, metsHdrAltRecordIds);
             LoadEndDate(archiveMetadata, metsHdrAltRecordIds);
         }
@@ -75,6 +81,27 @@ namespace Arkivverket.Arkade.Core.Metadata
         {
             archiveMetadata.AgreementNumber = metsHdrAltRecordIds.FirstOrDefault(a =>
                 a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.SUBMISSIONAGREEMENT)?.Value;
+        }
+
+        private static void LoadDeliveryType(ArchiveMetadata archiveMetadata,
+            IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
+        {
+            archiveMetadata.DeliveryType = metsHdrAltRecordIds.FirstOrDefault(a =>
+                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.DELIVERYTYPE)?.Value;
+        }
+
+        private static void LoadPackageNumber(ArchiveMetadata archiveMetadata,
+            IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
+        {
+            archiveMetadata.PackageNumber = metsHdrAltRecordIds.FirstOrDefault(a =>
+                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.PACKAGENUMBER)?.Value;
+        }
+        
+        private static void LoadReferenceCode(ArchiveMetadata archiveMetadata,
+            IEnumerable<metsTypeMetsHdrAltRecordID> metsHdrAltRecordIds)
+        {
+            archiveMetadata.ReferenceCode = metsHdrAltRecordIds.FirstOrDefault(a =>
+                a.TYPE == metsTypeMetsHdrAltRecordIDTYPE.REFERENCECODE)?.Value;
         }
 
         private static void LoadStartDate(ArchiveMetadata archiveMetadata,

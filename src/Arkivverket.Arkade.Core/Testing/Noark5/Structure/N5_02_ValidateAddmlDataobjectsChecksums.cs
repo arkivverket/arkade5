@@ -7,6 +7,7 @@ using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
+using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
 {
@@ -16,9 +17,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
 
         private readonly List<TestResult> _testResults = new List<TestResult>();
 
+        private readonly HashSet<string> _validatedSchemas = new();
+
         public override void Test(Archive archive)
         {
             addml structure = archive.AddmlInfo.Addml;
+
+            string basePath = archive.WorkingDirectory.Content().DirectoryInfo().FullName;
 
             foreach (var entry in structure.dataset[0].dataObjects.dataObject)
             {
@@ -27,62 +32,87 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
                     foreach (var fileProperty in currentObject.properties.Where(s => s.name == "file"))
                     {
                         string fileName = GetFileNameFromProperty(fileProperty);
-                        var fullPathToFile = Path.Combine(archive.WorkingDirectory.Content().DirectoryInfo().FullName, fileName);
-
-                        var checksumAlgorithm = GetChecksumAlgorithmFromProperty(fileProperty);
-
-                        var checksumValue = GetChecksumValueFromProperty(fileProperty);
-
-                        var generatedChecksum = GenerateChecksumForFile(fullPathToFile, checksumAlgorithm);
-
-                        var checksumsAreEqual = string.Equals(generatedChecksum, checksumValue, StringComparison.InvariantCultureIgnoreCase);
-
-                        var testResult = CreateTestResult(checksumsAreEqual, generatedChecksum, checksumValue, fileName, checksumAlgorithm);
-                        _testResults.Add(testResult);
+                        PerformTestOnFile(fileProperty, basePath, fileName);
                     }
-
 
                     foreach (var schema in currentObject.properties.Where(s => s.name == "schema"))
                     {
-                        foreach (var fileProperty in schema.properties.Where(s => s.name == "file")) {
+                        foreach (var fileProperty in schema.properties.Where(s => s.name == "file"))
+                        {
+                            string fileName = GetFileNameFromProperty(fileProperty);
+                            if (!string.IsNullOrEmpty(fileName) && _validatedSchemas.Contains(fileName))
+                                continue;
 
-                        string fileName = GetFileNameFromProperty(fileProperty);
-                        var fullPathToFile = Path.Combine(archive.WorkingDirectory.Content().DirectoryInfo().FullName, fileName);
-
-                        var checksumAlgorithm = GetChecksumAlgorithmFromProperty(fileProperty);
-
-                            if (!string.IsNullOrEmpty(checksumAlgorithm))
-                            { 
-
-                            var checksumValue = GetChecksumValueFromProperty(fileProperty);
-
-                            var generatedChecksum = GenerateChecksumForFile(fullPathToFile, checksumAlgorithm);
-
-                            var checksumsAreEqual = string.Equals(generatedChecksum, checksumValue, StringComparison.InvariantCultureIgnoreCase);
-
-                            var testResult = CreateTestResult(checksumsAreEqual, generatedChecksum, checksumValue, fileName, checksumAlgorithm);
-                            _testResults.Add(testResult);
-                            }
+                            PerformTestOnFile(fileProperty, basePath, fileName);
+                            _validatedSchemas.Add(GetFileNameFromProperty(fileProperty));
                         }
                     }
                 }
             }
         }
 
-        private TestResult CreateTestResult(bool checksumsAreEqual, string generatedChecksum, string expectedChecksum, string fileName,
-            string checksumAlgorithm)
+        private void PerformTestOnFile(property fileProperty, string basePath, string fileName)
         {
-            if (!checksumsAreEqual)
+            string fullPathToFile = Path.Combine(basePath, fileName);
+
+            property checksumProperty = GetChecksumPropertyFromFileProperty(fileProperty);
+
+            string resultMessage;
+            if (checksumProperty == null)
             {
-                var message = string.Format(Noark5Messages.ExceptionInvalidChecksum, fileName,
-                    expectedChecksum.ToLower(), generatedChecksum.ToLower());
-                return new TestResult(ResultType.Error, new Location(fileName),
-                    $"{message}.\n " + string.Format(Noark5Messages.ChecksumAlgorithmMessage, checksumAlgorithm));
+                resultMessage = string.Format(Noark5Messages.ChecksumPropertyMissing, fileName);
+                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error, fileName));
+                return;
             }
 
-            return new TestResult(ResultType.Success, new Location(fileName),
-                string.Format(Noark5Messages.ChecksumAlgorithmMessage, checksumAlgorithm)
-            );
+            string checksumAlgorithm = GetChecksumAlgorithmFromProperty(fileProperty);
+
+            if (string.IsNullOrEmpty(checksumAlgorithm))
+            {
+                resultMessage = string.Format(Noark5Messages.ChecksumAlgorithmMissing, fileName);
+                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error, fileName));
+                return;
+            }
+
+            if (checksumAlgorithm is not ("SHA-256" or "SHA256"))
+            {
+                resultMessage = string.Format(Noark5Messages.UnsupportedChecksumAlgorithm, checksumAlgorithm, fileName);
+                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error, fileName));
+                return;
+            }
+
+            string expectedChecksum = GetChecksumValueFromProperty(fileProperty);
+
+            if (!File.Exists(fullPathToFile))
+            {
+                resultMessage = string.Format(Noark5Messages.FileNotFound, fileName);
+                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error, fileName));
+                return;
+            }
+
+            string generatedChecksum = GenerateChecksumForFile(fullPathToFile, checksumAlgorithm);
+
+            bool checksumsAreEqual = string.Equals(generatedChecksum, expectedChecksum, StringComparison.InvariantCultureIgnoreCase);
+
+            string checksumAlgorithmMessage = string.Format(Noark5Messages.ChecksumAlgorithmMessage, checksumAlgorithm);
+
+            if (!checksumsAreEqual)
+            {
+                resultMessage = string.Format(Noark5Messages.ExceptionInvalidChecksum, fileName,
+                    expectedChecksum?.ToLower(), generatedChecksum?.ToLower());
+                resultMessage = $"{resultMessage}.\n {checksumAlgorithmMessage}";
+                _testResults.Add(CreateTestResult(resultMessage, ResultType.Error, fileName));
+            }
+            else
+            {
+                resultMessage = checksumAlgorithmMessage;
+                _testResults.Add(CreateTestResult(resultMessage, ResultType.Success, fileName));
+            }
+        }
+
+        private TestResult CreateTestResult(string resultMessage, ResultType resultType, string fileName)
+        {
+            return new TestResult(resultType, new Location(fileName), resultMessage);
         }
 
         private string GenerateChecksumForFile(string filename, string checksumAlgorithm)
@@ -91,17 +121,22 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             return generator.GenerateChecksum(filename);
         }
 
-        private static string GetChecksumValueFromProperty(property fileProperty)
+        private static property? GetChecksumPropertyFromFileProperty(property fileProperty)
         {
-            var checksumProperty = fileProperty.properties.FirstOrDefault(p => p.name == "checksum");
+            return fileProperty.properties.FirstOrDefault(p => p.name == "checksum");
+        }
+
+        private static string? GetChecksumValueFromProperty(property fileProperty)
+        {
+            var checksumProperty = fileProperty.properties?.FirstOrDefault(p => p.name == "checksum");
             var checksumValueProperty = checksumProperty?.properties.FirstOrDefault(p => p.name == "value");
             return checksumValueProperty?.value;
         }
 
-        private static string GetChecksumAlgorithmFromProperty(property fileProperty)
+        private static string? GetChecksumAlgorithmFromProperty(property fileProperty)
         {
             var checksumProperty = fileProperty.properties.FirstOrDefault(p => p.name == "checksum");
-            var checksumAlgorithmProperty = checksumProperty?.properties.FirstOrDefault(p => p.name == "algorithm");
+            var checksumAlgorithmProperty = checksumProperty?.properties?.FirstOrDefault(p => p.name == "algorithm");
             return checksumAlgorithmProperty?.value;
         }
 

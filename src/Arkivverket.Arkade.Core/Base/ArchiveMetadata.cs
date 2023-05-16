@@ -9,6 +9,11 @@ namespace Arkivverket.Arkade.Core.Base
         public string Label { get; set; }
         public string ArchiveDescription { get; set; }
         public string AgreementNumber { get; set; }
+        public string RecordStatus { get; set; }
+        public string DeliveryType { get; set; }
+        public string ProjectName { get; set; }
+        public string PackageNumber { get; set; }
+        public string ReferenceCode { get; set; }
         public List<MetadataEntityInformationUnit> ArchiveCreators { get; set; }
         public MetadataEntityInformationUnit Transferer { get; set; }
         public MetadataEntityInformationUnit Producer { get; set; }

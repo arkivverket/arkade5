@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
+using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -63,6 +64,11 @@ namespace Arkivverket.Arkade.GUI.Models
 
         private string _archiveDescription;
         private string _agreementNumber;
+        private metsTypeMetsHdrRECORDSTATUS? _recordStatus;
+        private string _projectName;
+        private string _deliveryType;
+        private string _packageNumber;
+        private string _referenceCode;
 
         private string _entity;
         private string _contactPerson;
@@ -142,6 +148,44 @@ namespace Arkivverket.Arkade.GUI.Models
             set => SetProperty(ref _agreementNumber, value);
         }
 
+        public string RecordStatus
+        {
+            get => _recordStatus.ToString();
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    SetProperty(ref _recordStatus, null);
+                if (Enum.TryParse(value, out metsTypeMetsHdrRECORDSTATUS recordStatus))
+                    SetProperty(ref _recordStatus, recordStatus);
+                else
+                    SetProperty(ref _recordStatus, null);
+            }
+        }
+
+        public string ProjectName
+        {
+            get => _projectName;
+            set => SetProperty(ref _projectName, value);
+        }
+
+        public string DeliveryType
+        {
+            get => _deliveryType;
+            set => SetProperty(ref _deliveryType, value);
+        }
+
+        public string PackageNumber
+        {
+            get => _packageNumber;
+            set => SetProperty(ref _packageNumber, value);
+        }
+
+        public string ReferenceCode
+        {
+            get => _referenceCode;
+            set => SetProperty(ref _referenceCode, value);
+        }
+
 
         private DateTime? _startDate;
         private DateTime? _endDate;
@@ -183,10 +227,16 @@ namespace Arkivverket.Arkade.GUI.Models
             set => SetProperty(ref _userdefinedLabel, value);
         }
 
-        public GuiMetaDataModel(string archiveDescription, string agreementNumber)
+        public GuiMetaDataModel(string archiveDescription, string agreementNumber, string recordStatus, string deliveryType,
+            string projectName, string packageNumber, string referenceCode)
         {
             ArchiveDescription = archiveDescription;
             AgreementNumber = agreementNumber;
+            RecordStatus = recordStatus;
+            DeliveryType = deliveryType;
+            ProjectName = projectName;
+            PackageNumber = packageNumber;
+            ReferenceCode = referenceCode;
             CommandDeleteItem = new DelegateCommand(ExecuteDeleteItem);
             CommandAddItem = new DelegateCommand(ExecuteAddItem);
             CommandNullOutEntry = new DelegateCommand(NullOutRecord);
@@ -288,6 +338,11 @@ namespace Arkivverket.Arkade.GUI.Models
             SystemTypeVersion = string.Empty;
             ArchiveDescription = string.Empty;
             AgreementNumber = string.Empty;
+            RecordStatus = string.Empty;
+            DeliveryType = string.Empty;
+            ProjectName = string.Empty;
+            PackageNumber = string.Empty;
+            ReferenceCode = string.Empty;
             StartDate = DateTime.Today;
             EndDate = DateTime.Today;
             ExtractionDate = DateTime.Today;

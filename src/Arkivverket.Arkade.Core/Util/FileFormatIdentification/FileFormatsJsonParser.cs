@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             string archiveFileFormatsAsJson = ResourceUtil.ReadResource(ArkadeConstants.ArchiveFileFormatsJsonResource);
             return JsonSerializer.Deserialize<ArchiveFileFormats>(archiveFileFormatsAsJson, new JsonSerializerOptions
             {
-                Converters = { new JsonDateOnlyConverter{ } }
+                Converters = { new JsonDateTimeConverter{ } }
             });
         }
     }

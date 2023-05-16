@@ -92,12 +92,12 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                         .Add("klassifikasjonssystem", new XmlElementHelper()
                             .Add("klasse", new XmlElementHelper()
                                 .Add("mappe", new XmlElementHelper()
-                                    .Add("saksstatus", superFolderStatus)
                                     .Add("mappe", new XmlElementHelper()
-                                        .Add("saksstatus", folderStatus)
                                         .Add("registrering", new XmlElementHelper()
-                                            .Add("journalstatus", regStatus)
-                                            .Add("dokumentbeskrivelse", new XmlElementHelper()))))))));
+                                            .Add("dokumentbeskrivelse", new XmlElementHelper())
+                                            .Add("journalstatus", regStatus))
+                                        .Add("saksstatus", folderStatus))
+                                    .Add("saksstatus", superFolderStatus))))));
 
             TestRun testRun = helper.RunEventsOnTest(new N5_24_NumberOfDocumentDescriptionsWithoutDocumentObject());
 

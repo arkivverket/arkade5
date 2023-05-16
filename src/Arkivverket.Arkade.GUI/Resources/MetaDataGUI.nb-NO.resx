@@ -360,4 +360,19 @@ Tidl. nevnt som avleverende myndighet</comment>
   <data name="CreateLobFormatInfoFileText" xml:space="preserve">
     <value>Inkluder formatinformasjon for LOBer</value>
   </data>
+  <data name="RecordStatus" xml:space="preserve">
+    <value>Oppføringstype</value>
+  </data>
+  <data name="DeliveryType" xml:space="preserve">
+    <value>Arkivsystemtype</value>
+  </data>
+  <data name="PackageNumber" xml:space="preserve">
+    <value>Pakkenummer</value>
+  </data>
+  <data name="ReferenceCode" xml:space="preserve">
+    <value>Referansekode</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Prosjektnavn</value>
+  </data>
 </root>

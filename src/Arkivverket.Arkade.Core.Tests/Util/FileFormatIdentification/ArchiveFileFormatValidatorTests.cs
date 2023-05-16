@@ -6,27 +6,27 @@ using FluentAssertions;
 
 namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
 {
-    public class ArchiveFileFormatValidatorTests
+    public class ArchiveFileFormatValidatorTests : LanguageDependentTest
     {
         [Fact]
         public void ShouldValidateArchiveFileFormats()
         {
             var archiveFileFormats = new List<ArchiveFileFormat>
             {
-                new() { Puid = new[] { "fmt/1" }, ValidFrom = new DateOnly(2022, 3, 1) },
-                new() { Puid = new[] { "fmt/2" }, ValidTo = new DateOnly(2007, 3, 1) },
-                new() { Puid = new[] { "fmt/3" }, ValidTo = new DateOnly(2024, 3, 1) },
-                new() { Puid = new[] { "fmt/4" }, ValidFrom = new DateOnly(2024, 3, 1) },
-                new() { Puid = new[] { "fmt/5" } },
+                new() { Puid = new[] { "fmt/1" }, ValidFrom = new DateTime(2022, 3, 1), AdditionalRequirements = "" },
+                new() { Puid = new[] { "fmt/2" }, ValidTo = new DateTime(2007, 3, 1), AdditionalRequirements = "" },
+                new() { Puid = new[] { "fmt/3" }, ValidTo = DateTime.MaxValue, AdditionalRequirements = "" },
+                new() { Puid = new[] { "fmt/4" }, ValidFrom = DateTime.Now.AddDays(2), AdditionalRequirements = "" },
+                new() { Puid = new[] { "fmt/5" }, AdditionalRequirements = "yes" },
             };
 
-            HashSet<string> validFormats = ArchiveFileFormatValidator.GetValidPuids(archiveFileFormats);
+            ArchiveFileFormatValidator.Initialize(archiveFileFormats);
 
-            validFormats.Should().Contain("fmt/1");
-            validFormats.Should().NotContain("fmt/2");
-            validFormats.Should().Contain("fmt/3");
-            validFormats.Should().NotContain("fmt/4");
-            validFormats.Should().Contain("fmt/5");
+            ArchiveFileFormatValidator.Validate("fmt/1").Should().Be("Gyldig");
+            ArchiveFileFormatValidator.Validate("fmt/2").Should().Be("Ikke gyldig");
+            ArchiveFileFormatValidator.Validate("fmt/3").Should().Be("Gyldig");
+            ArchiveFileFormatValidator.Validate("fmt/4").Should().Be("Ikke gyldig");
+            ArchiveFileFormatValidator.Validate("fmt/5").Should().Be("Gyldig*");
         }
     }
 }

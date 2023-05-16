@@ -9,12 +9,12 @@ namespace Arkivverket.Arkade.Core.Util
         private int _currentLinePosition;
         private readonly long _fileSize;
 
-        public int Position { get; private set; }
+        private long _position;
 
         public XmlReaderLineInfoUtil(XmlReader xmlReader, long fileSize)
         {
             _xmlLineInfo = (IXmlLineInfo) xmlReader;
-            Position = 0;
+            _position = 0;
             _fileSize = fileSize;
         }
 
@@ -23,19 +23,19 @@ namespace Arkivverket.Arkade.Core.Util
             if (_xmlLineInfo.LineNumber != _previousLine)
             {
                 _currentLinePosition = _xmlLineInfo.LinePosition;
-                Position += _currentLinePosition;
+                _position += _currentLinePosition;
                 _previousLine = _xmlLineInfo.LineNumber;
             }
             else
             {
-                Position += _xmlLineInfo.LinePosition - _currentLinePosition;
+                _position += _xmlLineInfo.LinePosition - _currentLinePosition;
                 _currentLinePosition = _xmlLineInfo.LinePosition;
             }
         }
 
         public int GetProgressPercentage()
         {
-            return (int)((double) Position / _fileSize * 100);
+            return (int) ((decimal)_position / _fileSize * 100);
         }
 
     }

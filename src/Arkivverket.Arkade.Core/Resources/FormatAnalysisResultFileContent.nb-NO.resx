@@ -162,4 +162,7 @@
   <data name="IllegalCharactersError" xml:space="preserve">
     <value>Filstien inneholder ulovlig(e) tegn</value>
   </data>
+  <data name="FormatIsValidWithAdditionalRequirementsValue" xml:space="preserve">
+    <value>Gyldig*</value>
+  </data>
 </root>

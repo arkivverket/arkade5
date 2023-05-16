@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Metadata
@@ -15,6 +16,11 @@ namespace Arkivverket.Arkade.Core.Metadata
                 Label = "Some system name (2017 - 2020)",
                 ArchiveDescription = "Some archive description",
                 AgreementNumber = "XX 00-0000/0000; 0000-00-00",
+                RecordStatus = metsTypeMetsHdrRECORDSTATUS.NEW.ToString(),
+                DeliveryType = "Sak-/Arkivsystem",
+                ProjectName = "Some project name",
+                PackageNumber = "1.0",
+                ReferenceCode = "Some reference code",
                 ArchiveCreators = new List<MetadataEntityInformationUnit>
                 {
                     CreateMetadataEntityInformationUnit('1'),

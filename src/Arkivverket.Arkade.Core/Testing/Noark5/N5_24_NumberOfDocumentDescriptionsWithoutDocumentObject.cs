@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
@@ -10,12 +11,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 24);
 
-        private int _totalNumberOfMissingDocumentObjects;
+        private static int _totalNumberOfMissingDocumentObjects;
+        private readonly ICollection<N5_24_ArchivePart> _archiveParts = new List<N5_24_ArchivePart>();
         private N5_24_ArchivePart _currentArchivePart;
-        private Folder _currentFolder;
-        private Registration _currentRegistration;
+        private N5_24_Folder _currentFolder;
+        private N5_24_Registration _currentRegistration;
         private DocumentDescription _currentDocumentDescription;
-        private readonly Dictionary<N5_24_ArchivePart, List<DocumentDescription>> _documentDescriptionsWithoutDocumentObjectPerArchivePart = new();
         private bool _documentDescriptionWithoutDocumentObjectAndPhysicalDocumentMediumIsFound = false;
 
         public override TestId GetId()
@@ -30,7 +31,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override TestResultSet GetTestResults()
         {
-            bool multipleArchiveParts = _documentDescriptionsWithoutDocumentObjectPerArchivePart.Count > 1;
+            bool multipleArchiveParts = _archiveParts.Count > 1;
+
+            _totalNumberOfMissingDocumentObjects = _archiveParts.Sum(a => a.NumberOfMissingDocumentObjects);
 
             var testResultSet = new TestResultSet
             {
@@ -61,8 +64,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private IEnumerable<TestResultSet> CreateTestResultSets()
         {
-            foreach ((N5_24_ArchivePart archivePart, List<DocumentDescription> documentDescriptions) in
-                     _documentDescriptionsWithoutDocumentObjectPerArchivePart)
+            foreach (N5_24_ArchivePart archivePart in _archiveParts)
             {
                 var archivePartResultSet = new TestResultSet
                 {
@@ -70,11 +72,18 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                     TestsResults = new List<TestResult>
                     {
                         new(ResultType.Success, new Location(string.Empty), string.Format(
-                            Noark5Messages.TotalResultNumber, documentDescriptions.Count))
+                            Noark5Messages.TotalResultNumber, archivePart.NumberOfMissingDocumentObjects))
                     }
                 };
 
                 archivePartResultSet.TestsResults.AddRange(CreateTestResults(archivePart));
+
+                if (archivePart.NumberOfDocumentDescriptionsWithPhysicalStorageMedium > 0)
+                {
+                    archivePartResultSet.TestsResults.Add(new TestResult(ResultType.Success, new Location(ArkadeConstants.ArkivstrukturXmlFileName),
+                        string.Format(Noark5Messages.DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage,
+                            archivePart.NumberOfDocumentDescriptionsWithPhysicalStorageMedium)));
+                }
 
                 yield return archivePartResultSet;
             }
@@ -82,8 +91,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private IEnumerable<TestResult> CreateTestResults(N5_24_ArchivePart archivePart)
         {
-            foreach (DocumentDescription documentDescription in 
-                     _documentDescriptionsWithoutDocumentObjectPerArchivePart[archivePart])
+            foreach (DocumentDescription documentDescription in archivePart.GetDocumentDescriptions())
             {
                 yield return new TestResult(ResultType.Success,
                     new Location(ArkadeConstants.ArkivstrukturXmlFileName, documentDescription.LineNumber),
@@ -103,14 +111,20 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.NameEquals("arkivdel"))
             {
                 _currentArchivePart = new N5_24_ArchivePart();
+                _currentFolder = null;
             }
             else if (eventArgs.NameEquals("mappe"))
             {
-                _currentFolder = new Folder(_currentFolder);
+                var tmpFolder = new N5_24_Folder();
+                if (eventArgs.Path.GetParent().Equals("mappe"))
+                {
+                    tmpFolder.ContainingFolder = _currentFolder;
+                }
+                _currentFolder = tmpFolder;
             }
             else if (eventArgs.NameEquals("registrering"))
             {
-                _currentRegistration = new Registration(_currentFolder);
+                _currentRegistration = new N5_24_Registration();
             }
             else if(eventArgs.NameEquals("dokumentbeskrivelse"))
             {
@@ -132,7 +146,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             if (eventArgs.Path.Matches("systemID", "arkivdel"))
             {
                 _currentArchivePart.SystemId = eventArgs.Value;
-                _documentDescriptionsWithoutDocumentObjectPerArchivePart.Add(_currentArchivePart, new List<DocumentDescription>());
             }
             else if (eventArgs.Path.Matches("tittel", "arkivdel"))
             {
@@ -166,12 +179,36 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         protected override void ReadEndElementEvent(object sender, ReadElementEventArgs eventArgs)
         {
-            if (eventArgs.NameEquals("dokumentbeskrivelse"))
+            if (eventArgs.NameEquals("arkivdel"))
+            {
+                _archiveParts.Add(_currentArchivePart);
+            }
+            else if (eventArgs.NameEquals("mappe"))
+            {
+                if (_currentFolder.Utgaar)
+                    return;
+
+                if (_currentFolder.ContainingFolder != null)
+                {
+                    _currentFolder.ContainingFolder.Folders.Add(_currentFolder);
+                }
+                else
+                {
+                    _currentArchivePart.Folders.Add(_currentFolder);
+                }
+            }
+            else if (eventArgs.NameEquals("registrering"))
+            {
+                if (_currentRegistration.Utgaar)
+                    return;
+
+                _currentFolder.Registrations.Add(_currentRegistration);
+            }
+            else if (eventArgs.NameEquals("dokumentbeskrivelse"))
             {
                 if (_currentDocumentDescription.ShallBeReported)
                 {
-                    _totalNumberOfMissingDocumentObjects++;
-                    _documentDescriptionsWithoutDocumentObjectPerArchivePart[_currentArchivePart].Add(_currentDocumentDescription);
+                    _currentRegistration.DocumentDescriptions.Add(_currentDocumentDescription);
                 }
                 else if (_currentDocumentDescription.DokumentMedium?.ToLower() is "fysisk medium" or "fysisk arkiv")
                 {
@@ -183,12 +220,67 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private class N5_24_ArchivePart : ArchivePart
         {
+            private int? _numberOfMissingDocumentObjects;
+
+            public int NumberOfMissingDocumentObjects =>
+                _numberOfMissingDocumentObjects ??= GetNumberOfMissingDocumentObjects();
+
             public long NumberOfDocumentDescriptionsWithPhysicalStorageMedium { get; set; }
+            public ICollection<N5_24_Folder> Folders { get; } = new List<N5_24_Folder>();
+
+            public IEnumerable<DocumentDescription> GetDocumentDescriptions()
+            {
+                return Folders.SelectMany(f => f.GetDocumentDescriptions());
+            }
+
+            private int GetNumberOfMissingDocumentObjects()
+            {
+                int amount = Folders.Sum(f => f.NumberOfMissingDocumentObjects);
+                _numberOfMissingDocumentObjects = amount;
+                return amount;
+            }
+        }
+
+        private class N5_24_Folder : Folder
+        {
+            private int? _numberOfMissingDocumentObjects;
+            public int NumberOfMissingDocumentObjects =>
+                _numberOfMissingDocumentObjects ??= GetNumberOfMissingDocumentObjects();
+
+            public IEnumerable<DocumentDescription> GetDocumentDescriptions()
+            {
+                return Folders.Cast<N5_24_Folder>().SelectMany(f => f.GetDocumentDescriptions()).Concat(
+                    Registrations.Cast<N5_24_Registration>().SelectMany(r => r.DocumentDescriptions));
+            }
+
+            private int GetNumberOfMissingDocumentObjects()
+            {
+                int amount = Registrations.Cast<N5_24_Registration>().Sum(r => r.NumberOfMissingDocumentObjects) +
+                             Folders.Cast<N5_24_Folder>().Sum(f => f.NumberOfMissingDocumentObjects);
+                _numberOfMissingDocumentObjects = amount;
+                return amount;
+            }
+        }
+
+        private class N5_24_Registration : Registration
+        {
+            private int? _numberOfMissingDocumentObjects;
+            public int NumberOfMissingDocumentObjects => 
+                _numberOfMissingDocumentObjects ??= GetNumberOfMissingDocumentObjects();
+
+            public ICollection<DocumentDescription> DocumentDescriptions { get; } = new List<DocumentDescription>();
+
+            private int GetNumberOfMissingDocumentObjects()
+            {
+                int amount = DocumentDescriptions.Sum(d => d.ShallBeReported ? 1 : 0);
+                _numberOfMissingDocumentObjects = amount;
+                return amount;
+            }
         }
 
         private class DocumentDescription
         {
-            private readonly Registration _containingRegistration;
+            private readonly N5_24_Registration _containingRegistration;
 
             public long LineNumber { get; }
             public string SystemId { get; set; }
@@ -196,11 +288,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             public string DokumentMedium { get; set; }
             public bool HasDocumentObject { get; set; }
 
-            public bool ShallBeReported => !_containingRegistration.Utgaar() &&
-                                           !HasDocumentObject &&
+            public bool ShallBeReported => !HasDocumentObject &&
                                            DokumentMedium?.ToLower() is not ("fysisk medium" or "fysisk arkiv");
 
-            public DocumentDescription(Registration containingRegistration, long lineNumber)
+            public DocumentDescription(N5_24_Registration containingRegistration, long lineNumber)
             {
                 _containingRegistration = containingRegistration;
                 LineNumber = lineNumber;

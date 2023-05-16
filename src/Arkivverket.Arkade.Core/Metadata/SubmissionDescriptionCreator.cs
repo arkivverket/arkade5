@@ -108,6 +108,13 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (metadata.ExtractionDate != null)
                 metsHdr.CREATEDATE = (DateTime)metadata.ExtractionDate;
 
+            if (!string.IsNullOrEmpty(metadata.RecordStatus) &&
+                Enum.TryParse(metadata.RecordStatus, out metsTypeMetsHdrRECORDSTATUS recordStatus))
+            {
+                metsHdr.RECORDSTATUSSpecified = true;
+                metsHdr.RECORDSTATUS = recordStatus;
+            }
+
             CreateAltRecordIDs(metsHdr, metadata);
 
             CreateHdrAgents(metsHdr, metadata);
@@ -137,6 +144,36 @@ namespace Arkivverket.Arkade.Core.Metadata
                     TYPESpecified = true,
                     TYPE = metsTypeMetsHdrAltRecordIDTYPE.SUBMISSIONAGREEMENT,
                     Value = metadata.AgreementNumber
+                });
+            }
+
+            if (!string.IsNullOrEmpty(metadata.DeliveryType))
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPESpecified = true,
+                    TYPE = metsTypeMetsHdrAltRecordIDTYPE.DELIVERYTYPE,
+                    Value = metadata.DeliveryType
+                });
+            }
+
+            if (!string.IsNullOrEmpty(metadata.PackageNumber))
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPESpecified = true,
+                    TYPE = metsTypeMetsHdrAltRecordIDTYPE.PACKAGENUMBER,
+                    Value = metadata.PackageNumber
+                });
+            }
+
+            if (!string.IsNullOrEmpty(metadata.ReferenceCode))
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPESpecified = true,
+                    TYPE = metsTypeMetsHdrAltRecordIDTYPE.REFERENCECODE,
+                    Value = metadata.ReferenceCode
                 });
             }
 

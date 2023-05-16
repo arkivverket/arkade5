@@ -140,7 +140,8 @@ namespace Arkivverket.Arkade.Core.Base
             return packageFilePath;
         }
 
-        public void SaveReport(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone)
+        public void SaveReport(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone, 
+            int testResultDisplayLimit)
         {
             if(testReportDirectory.Exists)
                 testReportDirectory.Delete(recursive: true);
@@ -155,7 +156,8 @@ namespace Arkivverket.Arkade.Core.Base
                 );
 
             
-            TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory, standalone);
+            TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory, standalone,
+                testResultDisplayLimit);
         }
 
         public IEnumerable<KeyValuePair<string, IEnumerable<byte>>> GetSiardLobsAsByteArrays(string siardFileFullPath)

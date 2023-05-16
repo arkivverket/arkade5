@@ -372,4 +372,7 @@
   <data name="N5_63" xml:space="preserve">
     <value>Elementer som mangler innhold</value>
   </data>
+  <data name="N5_64" xml:space="preserve">
+    <value>Antall tomme dokumentfiler</value>
+  </data>
 </root>

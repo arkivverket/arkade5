@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.GUI.Languages {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class MetaDataGUI {
@@ -255,6 +255,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         public static string Creator_Telephone {
             get {
                 return ResourceManager.GetString("Creator_Telephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Type.
+        /// </summary>
+        public static string DeliveryType {
+            get {
+                return ResourceManager.GetString("DeliveryType", resourceCulture);
             }
         }
         
@@ -529,6 +538,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Package number.
+        /// </summary>
+        public static string PackageNumber {
+            get {
+                return ResourceManager.GetString("PackageNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Producer*.
         /// </summary>
         public static string Producer {
@@ -574,11 +592,38 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project name.
+        /// </summary>
+        public static string ProjectName {
+            get {
+                return ResourceManager.GetString("ProjectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recipient*.
         /// </summary>
         public static string Recipient {
             get {
                 return ResourceManager.GetString("Recipient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record status.
+        /// </summary>
+        public static string RecordStatus {
+            get {
+                return ResourceManager.GetString("RecordStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference code.
+        /// </summary>
+        public static string ReferenceCode {
+            get {
+                return ResourceManager.GetString("ReferenceCode", resourceCulture);
             }
         }
         

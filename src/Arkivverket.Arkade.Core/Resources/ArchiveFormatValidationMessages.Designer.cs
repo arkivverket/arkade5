@@ -110,6 +110,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The validation failed: &apos;{0}&apos; was not found..
+        /// </summary>
+        internal static string ItemWasNotFoundMessage {
+            get {
+                return ResourceManager.GetString("ItemWasNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All mandatory files and directories were found.
         /// </summary>
         internal static string MandatoryDiasEntriesWereFound {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OBJID="UUID:12345-12345-12345-12345-12345-12345" LABEL="[standard_label]" TYPE="SIP" PROFILE="http://xml.ra.se/METS/RA_METS_eARD.xml" xmlns="http://arkivverket.no/standarder/METS">
-  <mets:metsHdr CREATEDATE="2023-01-01T00:00:00">
+  <mets:metsHdr CREATEDATE="2023-01-01T00:00:00" RECORDSTATUS="NEW">
     <mets:agent ROLE="ARCHIVIST" TYPE="ORGANIZATION">
       <mets:name>Entity 1</mets:name>
     </mets:agent>
@@ -82,6 +82,9 @@
     <mets:altRecordID TYPE="SUBMISSIONAGREEMENT">XX 00-0000/0000; 0000-00-00</mets:altRecordID>
     <mets:altRecordID TYPE="STARTDATE">2017-01-01</mets:altRecordID>
     <mets:altRecordID TYPE="ENDDATE">2020-01-01</mets:altRecordID>
+    <mets:altRecordID TYPE="DELIVERYTYPE">Sak-/Arkivsystem</mets:altRecordID>
+    <mets:altRecordID TYPE="PACKAGENUMBER">1.0</mets:altRecordID>
+	<mets:altRecordID TYPE="REFERENCECODE">Some reference code</mets:altRecordID>
   </mets:metsHdr>
   <mets:fileSec>
     <mets:fileGrp ID="fileGroup001" USE="FILES">

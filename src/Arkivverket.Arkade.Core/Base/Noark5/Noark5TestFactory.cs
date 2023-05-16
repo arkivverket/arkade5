@@ -93,7 +93,8 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
                 {TestId.Create("N5.60"), typeof(N5_60_ArchiveStartAndEndDateControl)},
                 {TestId.Create("N5.61"), typeof(N5_61_NumberOfChangesLogged)},
                 {TestId.Create("N5.62"), typeof(N5_62_ChangeLogArchiveReferenceControl)},
-                {TestId.Create("N5.63"), typeof(N5_63_ControlElementsHasContent)}
+                {TestId.Create("N5.63"), typeof(N5_63_ControlElementsHasContent)},
+                {TestId.Create("N5.64"), typeof(N5_64_NumberOfEmptyDocumentFiles)}
             };
         }
     }

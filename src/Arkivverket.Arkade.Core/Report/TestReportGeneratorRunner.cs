@@ -6,7 +6,8 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public static class TestReportGeneratorRunner
     {
-        public static void RunAllGenerators(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone)
+        public static void RunAllGenerators(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone,
+            int testResultDisplayLimit)
         {
             TestReport testReport = testSession.Archive.ArchiveType.Equals(ArchiveType.Siard)
                 ? TestReportFactory.CreateForSiard(testSession)
@@ -20,19 +21,19 @@ namespace Arkivverket.Arkade.Core.Report
 
                 using FileStream fileStream = new FileInfo(testReportFileName).OpenWrite();
                 
-                IReportGenerator reportGenerator = GetReportGenerator(testReportFormat);
+                IReportGenerator reportGenerator = GetReportGenerator(testReportFormat, testResultDisplayLimit);
                 reportGenerator.Generate(testReport, fileStream);
             }
         }
 
-        private static IReportGenerator GetReportGenerator(TestReportFormat testReportFormat)
+        private static IReportGenerator GetReportGenerator(TestReportFormat testReportFormat, int testResultDisplayLimit)
         {
             return testReportFormat switch
             {
-                TestReportFormat.html => new HtmlReportGenerator(),
+                TestReportFormat.html => new HtmlReportGenerator(testResultDisplayLimit),
                 TestReportFormat.xml => new XmlReportGenerator(),
                 TestReportFormat.json => new JsonReportGenerator(),
-                TestReportFormat.pdf => new PdfReportGenerator(),
+                TestReportFormat.pdf => new PdfReportGenerator(testResultDisplayLimit),
                 _ => null
             };
         }

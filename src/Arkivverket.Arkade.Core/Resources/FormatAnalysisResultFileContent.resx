@@ -162,4 +162,7 @@
   <data name="IllegalCharactersError" xml:space="preserve">
     <value>Illegal character(s) in path</value>
   </data>
+  <data name="FormatIsValidWithAdditionalRequirementsValue" xml:space="preserve">
+    <value>Valid*</value>
+  </data>
 </root>

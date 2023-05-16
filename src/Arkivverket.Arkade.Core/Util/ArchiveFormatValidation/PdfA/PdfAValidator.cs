@@ -46,6 +46,11 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         {
             try
             {
+                if (!item.Exists)
+                    return new ArchiveFormatValidationReport(
+                        item, ArchiveFormat.PdfA, Error, false, string.Format(ItemWasNotFoundMessage, item.FullName)
+                    );
+
                 if (item is FileInfo fileItem)
                     return await ValidateSingleFileAsync(fileItem);
 

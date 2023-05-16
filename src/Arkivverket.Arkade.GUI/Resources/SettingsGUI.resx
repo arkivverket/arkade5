@@ -156,4 +156,12 @@
   <data name="SelectOutputLanguageText" xml:space="preserve">
     <value>Language for produced files:</value>
   </data>
+  <data name="SelectTestResultDisplayLimitText" xml:space="preserve">
+    <value>Limit for number of results per archive test:</value>
+  </data>
+  <data name="SetResultDisplayLimitToolTip" xml:space="preserve">
+    <value>If set, limits the amount of results written to each archive test in the HTML and PDF test reports.
+Default value is 100.
+NB! No limit may cause memory issues.</value>
+  </data>
 </root>

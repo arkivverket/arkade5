@@ -422,4 +422,21 @@ Generert:  {2}</value>
   <data name="DocumentDescriptionsWithoutDocumentObjectsAndPhysicalStorage" xml:space="preserve">
     <value>I tillegg ble det funnet {0} dokumentbeskrivelser uten dokumentobjekt der lagringsmedium er "fysisk arkiv" eller "fysisk medium".</value>
   </data>
+  <data name="UnsupportedChecksumAlgorithm" xml:space="preserve">
+    <value>Oppgitt sjekksumalgoritme ('{0}') for '{1}' er ikke støttet av Arkade.</value>
+  </data>
+  <data name="ChecksumAlgorithmMissing" xml:space="preserve">
+    <value>Sjekksumalgoritme for filen '{0}' ble ikke funnet.</value>
+  </data>
+  <data name="ChecksumPropertyMissing" xml:space="preserve">
+    <value>Klarte ikke finne &lt;property name="checksum"&gt; for filen '{0}'.</value>
+  </data>
+  <data name="DocumentFileIsEmptyMessage" xml:space="preserve">
+    <value>Filen {0} er tom. Dokumentbeskrivelse (systemID, registreringsID, dokumentnummer): {1}, {2}, {3}</value>
+  </data>
+  <data name="DocumentFileSizeMismatchMessage" xml:space="preserve">
+    <value>Dokumentert og faktisk filstørrelse stemmer ikke overens for filen {0}:
+Dokumentert: {1}
+Faktisk: {2}</value>
+  </data>
 </root>

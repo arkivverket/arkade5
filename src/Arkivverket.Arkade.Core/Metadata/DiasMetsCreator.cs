@@ -94,7 +94,10 @@ namespace Arkivverket.Arkade.Core.Metadata
             var metsHdr = new metsTypeMetsHdr();
 
             if (metadata.ExtractionDate != null)
-                metsHdr.CREATEDATE = (DateTime)metadata.ExtractionDate;
+                metsHdr.CREATEDATE = metadata.ExtractionDate.Value;
+                
+            if (metadata.RecordStatus != null)
+                metsHdr.RECORDSTATUS = metadata.RecordStatus;
 
             CreateAltRecordIDs(metsHdr, metadata);
 
@@ -114,6 +117,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             {
                 altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
                 {
+                    TYPE = AltRecordIdType.DELIVERYSPECIFICATION.ToString(),
                     Value = metadata.ArchiveDescription
                 });
             }
@@ -122,7 +126,44 @@ namespace Arkivverket.Arkade.Core.Metadata
             {
                 altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
                 {
+                    TYPE = AltRecordIdType.SUBMISSIONAGREEMENT.ToString(),
                     Value = metadata.AgreementNumber
+                });
+            }
+
+            if (!string.IsNullOrEmpty(metadata.DeliveryType))
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPE = AltRecordIdType.DELIVERYTYPE.ToString(),
+                    Value = metadata.DeliveryType
+                });
+            }
+
+            if (!string.IsNullOrEmpty(metadata.ProjectName))
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPE = AltRecordIdType.PROJECTNAME.ToString(),
+                    Value = metadata.ProjectName
+                });
+            }
+
+            if (!string.IsNullOrEmpty(metadata.PackageNumber))
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPE = AltRecordIdType.PACKAGENUMBER.ToString(),
+                    Value = metadata.PackageNumber
+                });
+            }
+
+            if (!string.IsNullOrEmpty(metadata.ReferenceCode))
+            {
+                altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
+                {
+                    TYPE = AltRecordIdType.REFERENCECODE.ToString(),
+                    Value = metadata.ReferenceCode
                 });
             }
 
@@ -130,6 +171,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             {
                 altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
                 {
+                    TYPE = AltRecordIdType.STARTDATE.ToString(),
                     Value = ((DateTime)metadata.StartDate).ToString(DateFormat)
                 });
             }
@@ -138,6 +180,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             {
                 altRecordIDs.Add(new metsTypeMetsHdrAltRecordID
                 {
+                    TYPE = AltRecordIdType.ENDDATE.ToString(),
                     Value = ((DateTime)metadata.EndDate).ToString(DateFormat)
                 });
             }
@@ -188,6 +231,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     {
                         TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = MetsHdrAgentOtherRoleType.SUBMITTER.ToString(),
                         name = metadata.Transferer.Entity
                     });
                 }
@@ -198,6 +242,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     {
                         TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = MetsHdrAgentOtherRoleType.SUBMITTER.ToString(),
                         name = metadata.Transferer.ContactPerson,
                         note = GetEntityInfoUnitNotes(metadata.Transferer)
                     });
@@ -214,6 +259,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     {
                         TYPE = metsTypeMetsHdrAgentTYPE.ORGANIZATION,
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = MetsHdrAgentOtherRoleType.PRODUCER.ToString(),
                         name = metadata.Producer.Entity
                     });
                 }
@@ -224,6 +270,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     {
                         TYPE = metsTypeMetsHdrAgentTYPE.INDIVIDUAL,
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = MetsHdrAgentOtherRoleType.PRODUCER.ToString(),
                         name = metadata.Producer.ContactPerson,
                         note = GetEntityInfoUnitNotes(metadata.Producer)
                     });
@@ -346,6 +393,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         OTHERTYPESpecified = true,
                         OTHERTYPE = metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE,
                         ROLE = metsTypeMetsHdrAgentROLE.OTHER,
+                        OTHERROLE = MetsHdrAgentOtherRoleType.PRODUCER.ToString(),
                         name = archiveSystem.Name
                     };
 

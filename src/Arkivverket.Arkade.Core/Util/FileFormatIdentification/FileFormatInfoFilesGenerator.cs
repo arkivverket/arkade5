@@ -28,8 +28,8 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             var fileTypeStatisticsElements = new List<FileTypeStatisticsElement>();
 
             ArchiveFileFormats archiveFileFormats = FileFormatsJsonParser.ParseArchiveFileFormats();
-            HashSet<string> approvedPuidArchiveFormats = ArchiveFileFormatValidator.GetValidPuids(archiveFileFormats.FileFormats);
             _regulationVersion = archiveFileFormats.RegulationVersion;
+            ArchiveFileFormatValidator.Initialize(archiveFileFormats.FileFormats);
 
             foreach (IFileFormatInfo fileFormatInfo in fileFormatInfoSet)
             {
@@ -59,9 +59,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                     FileFormatVersion = fileFormatInfo.Version,
                     FileMimeType = fileFormatInfo.MimeType,
                     FileSize = fileFormatInfo.ByteSize,
-                    IsValidFormat = approvedPuidArchiveFormats.Contains(fileFormatInfo.Id) 
-                        ? FormatAnalysisResultFileContent.FormatIsValidValue
-                        : FormatAnalysisResultFileContent.FormatIsNotValidValue,
+                    IsValidFormat = ArchiveFileFormatValidator.Validate(fileFormatInfo.Id),
                     FileScanError = invalidPathError ?? fileFormatInfo.Errors,
                 };
 

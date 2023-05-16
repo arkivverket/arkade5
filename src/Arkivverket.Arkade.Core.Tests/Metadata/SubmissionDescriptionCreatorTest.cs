@@ -38,6 +38,30 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
 
             metsTypeMetsHdr metsHdr = mets.metsHdr;
 
+            // RECORDSTATUS:
+
+            metsHdr.RECORDSTATUSSpecified.Should().BeTrue();
+            metsHdr.RECORDSTATUS.Should().Be(metsTypeMetsHdrRECORDSTATUS.NEW);
+
+            // DELIVERYTYPE:
+
+            metsHdr.altRecordID.Should().Contain(altRecordId =>
+                altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.DELIVERYTYPE &&
+                altRecordId.Value.Equals("Sak-/Arkivsystem")
+            );
+
+            // PACKAGENUMBER:
+
+            metsHdr.altRecordID.Should().Contain(altRecordId =>
+                altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.PACKAGENUMBER &&
+                altRecordId.Value.Equals("1.0"));
+
+            // REFERENCECODE:
+
+            metsHdr.altRecordID.Should().Contain(altRecordId =>
+                altRecordId.TYPE == metsTypeMetsHdrAltRecordIDTYPE.REFERENCECODE &&
+                altRecordId.Value.Equals("Some reference code"));
+
             // CREATEDATE:
 
             metsHdr.CREATEDATE.Should().Be(new DateTime(2023, 01, 01));

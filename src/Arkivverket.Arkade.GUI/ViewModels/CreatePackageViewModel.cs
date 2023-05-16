@@ -17,6 +17,7 @@ using Prism.Regions;
 using Serilog;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Views;
 using MessageBox = System.Windows.MessageBox;
@@ -41,7 +42,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private readonly IRegionManager _regionManager;
 
 
-        private GuiMetaDataModel _metaDataArchiveDescription = new GuiMetaDataModel(string.Empty, string.Empty);
+        private GuiMetaDataModel _metaDataArchiveDescription = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
         private ObservableCollection<GuiMetaDataModel> _metaDataArchiveCreators = new ObservableCollectionEx<GuiMetaDataModel>();
         private GuiMetaDataModel _metaDataTransferer = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
         private GuiMetaDataModel _metaDataProducer = new GuiMetaDataModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
@@ -60,6 +61,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
         private IList<string> _systemTypeList = Enum.GetNames<ArchiveType>();
+
+        private IList<ComboBoxItemRecordStatusWithTooltip> _recordStatusList = new List<ComboBoxItemRecordStatusWithTooltip>
+        {
+            new (){RecordStatus = metsTypeMetsHdrRECORDSTATUS.NEW, TooltipText = MetadataToolTips.RecordStatusNEW },
+            new (){RecordStatus = metsTypeMetsHdrRECORDSTATUS.SUPPLEMENT, TooltipText = MetadataToolTips.RecordStatusSUPPLEMENT },
+            new (){RecordStatus = metsTypeMetsHdrRECORDSTATUS.REPLACEMENT, TooltipText = MetadataToolTips.RecordStatusREPLACEMENT },
+            new (){RecordStatus = metsTypeMetsHdrRECORDSTATUS.TEST, TooltipText = MetadataToolTips.RecordStatusTEST },
+            new (){RecordStatus = metsTypeMetsHdrRECORDSTATUS.VERSION, TooltipText = MetadataToolTips.RecordStatusVERSION },
+            new (){RecordStatus = metsTypeMetsHdrRECORDSTATUS.OTHER, TooltipText = MetadataToolTips.RecordStatusOTHER },
+        };
 
         public string ArkadeNameAndCurrentVersion { get; } = $"Arkade 5 {ArkadeVersion.Current}";
 
@@ -190,6 +201,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _systemTypeList, value);
         }
 
+        public IList<ComboBoxItemRecordStatusWithTooltip> RecordStatusList
+        {
+            get => _recordStatusList;
+            set => SetProperty(ref _recordStatusList, value);
+        }
+
 
         //---------------------------------------------------------------------------
 
@@ -305,10 +322,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void FillForm(ArchiveMetadata archiveMetadata)
         {
-            if (archiveMetadata.AgreementNumber != null) // archiveMetadata.ArchiveDescription is not required
-                MetaDataModelArchiveDescription = GuiMetadataMapper.MapToArchiveDescription(
-                    archiveMetadata.ArchiveDescription, archiveMetadata.AgreementNumber
-                );
+            MetaDataModelArchiveDescription = GuiMetadataMapper.MapToArchiveDescription(
+                archiveMetadata.ArchiveDescription, archiveMetadata.AgreementNumber, archiveMetadata.RecordStatus,
+                archiveMetadata.DeliveryType, archiveMetadata.ProjectName, archiveMetadata.PackageNumber, 
+                archiveMetadata.ReferenceCode
+            );
 
             if (archiveMetadata.ArchiveCreators != null && archiveMetadata.ArchiveCreators.Any())
                 MetaDataArchiveCreators = GuiMetadataMapper.MapToArchiveCreators(archiveMetadata.ArchiveCreators);
@@ -443,6 +461,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 Label = ArchiveMetadataMapper.MapToLabel(_metaDataNoarkSection, StandardLabelIsSelected),
                 ArchiveDescription = ArchiveMetadataMapper.MapToArchiveDescription(_metaDataArchiveDescription),
                 AgreementNumber = ArchiveMetadataMapper.MapToAgreementNumber(_metaDataArchiveDescription),
+                RecordStatus = ArchiveMetadataMapper.MapToRecordStatus(_metaDataArchiveDescription),
+                DeliveryType = ArchiveMetadataMapper.MapToDeliveryType(_metaDataArchiveDescription),
+                ProjectName = ArchiveMetadataMapper.MapToProjectName(_metaDataArchiveDescription),
+                PackageNumber = ArchiveMetadataMapper.MapToPackageNumber(_metaDataArchiveDescription),
+                ReferenceCode = ArchiveMetadataMapper.MapToReferenceCode(_metaDataArchiveDescription),
                 ArchiveCreators = ArchiveMetadataMapper.MapToArchiveCreators(_metaDataArchiveCreators.Where(c => !c.IsDeleted)),
                 Transferer = ArchiveMetadataMapper.MapToTransferer(_metaDataTransferer),
                 Producer = ArchiveMetadataMapper.MapToProducer(_metaDataProducer),
