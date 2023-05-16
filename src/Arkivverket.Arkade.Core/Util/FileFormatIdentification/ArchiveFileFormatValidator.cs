@@ -9,25 +9,25 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
     internal static class ArchiveFileFormatValidator
     {
         private static readonly DateTime DateTimeNow;
-        private static readonly Dictionary<string, bool> ValidPuidsWithAdditionalRequirementsIndicator;
+        private static Dictionary<string, bool> _validPuidsWithAdditionalRequirementsIndicator;
 
         static ArchiveFileFormatValidator()
         {
             DateTimeNow = DateTime.Now.Date;
-            ValidPuidsWithAdditionalRequirementsIndicator = new Dictionary<string, bool>();
         }
 
         public static void Initialize(IEnumerable<ArchiveFileFormat> archiveFileFormats)
         {
+            _validPuidsWithAdditionalRequirementsIndicator = new Dictionary<string, bool>();
             GetValidPuidsWithAdditionalRequirementIndicator(archiveFileFormats);
         }
 
         public static string Validate(string puid)
         {
-            if (!ValidPuidsWithAdditionalRequirementsIndicator.ContainsKey(puid))
+            if (!_validPuidsWithAdditionalRequirementsIndicator.ContainsKey(puid))
                 return FormatIsNotValidValue;
 
-            return ValidPuidsWithAdditionalRequirementsIndicator[puid]
+            return _validPuidsWithAdditionalRequirementsIndicator[puid]
                 ? FormatIsValidWithAdditionalRequirementsValue
                 : FormatIsValidValue;
         }
@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                 
                 foreach (string puid in archiveFileFormat.Puid)
                 {
-                    ValidPuidsWithAdditionalRequirementsIndicator.TryAdd(puid, hasAdditionalRequirements);
+                    _validPuidsWithAdditionalRequirementsIndicator.TryAdd(puid, hasAdditionalRequirements);
                 }
             }
         }
