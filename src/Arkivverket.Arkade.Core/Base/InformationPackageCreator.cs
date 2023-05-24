@@ -72,7 +72,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
 
-            using Stream outStream = File.Create(packageFilePath);
+            using Stream outStream = File.OpenWrite(packageFilePath);
             using var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);
             using var tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
 
@@ -96,9 +96,6 @@ namespace Arkivverket.Arkade.Core.Base
                 );
             }
 
-            if (archive.IsTarArchive)
-                TransferDocumentFiles(archive, tarOutputStream);
-
             tarArchive.Close();
 
             var diasMetsFilePath = Path.Combine(
@@ -110,25 +107,6 @@ namespace Arkivverket.Arkade.Core.Base
                 archive.GetSubmissionDescriptionFileName());
 
             return packageFilePath;
-        }   
-
-        private void TransferDocumentFiles(Archive archive, TarOutputStream tarOutputStream)
-        {
-            using var tarInputStream = new TarInputStream(File.OpenRead(archive.ArchiveFileFullName), Encoding.UTF8);
-            
-            while (tarInputStream.GetNextEntry() is { Name: { } } entry)
-            {
-                string entryName = entry.Name;
-
-                if (!entryName.StartsWith($"{archive.Uuid}/content/dokumenter/")) // TODO: Support all document directory names
-                    continue;
-                
-                tarOutputStream.PutNextEntry(entry);
-
-                tarInputStream.CopyEntryContents(tarOutputStream);
-                
-                tarOutputStream.CloseEntry();
-            }
         }
 
         private void CopyTestReportsToStandaloneDirectory(Archive archive, string resultDirectory)
@@ -176,15 +154,14 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
         
-        private string CreateResultDirectory(Archive archive, string outputDirectory)
+        private static string CreateResultDirectory(Archive archive, string outputDirectoryFullPath)
         {
-            var resultDirectory = new DirectoryInfo(
-                Path.Combine(outputDirectory, string.Format(OutputFileNames.ResultOutputDirectory, archive.Uuid))
-            );
+            string resultDirectoryFullPath = Path.Combine(outputDirectoryFullPath,
+                string.Format(OutputFileNames.ResultOutputDirectory, archive.Uuid));
 
-            resultDirectory.Create();
+            Directory.CreateDirectory(resultDirectoryFullPath);
 
-            return resultDirectory.FullName;
+            return resultDirectoryFullPath;
         }
 
         private void AddFilesInDirectory(Archive archive, DirectoryInfo rootDirectory, PackageType? packageType, TarArchive tarArchive,

@@ -27,16 +27,15 @@ namespace Arkivverket.Arkade.Core.Base
 
         public bool IsTarArchive => ArchiveFileFullName != null;
 
+        /// <summary> UUID of the loaded archive </summary>
+        public Uuid SourceUuid { get; }
         public Uuid Uuid { get; }
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
-        private ReadOnlyDictionary<string, DocumentFile> _documentFiles;
-
-        public ReadOnlyDictionary<string, DocumentFile> DocumentFiles => _documentFiles ??
-                                                                         (IsTarArchive
-                                                                             ? GetDocumentFilesFromTar()
-                                                                             : GetDocumentFiles());
+        public ReadOnlyDictionary<string, DocumentFile> DocumentFiles { get; private set; }
+        internal bool DocumentFilesAreRegistered => DocumentFiles != null;
+        internal bool DocumentFilesHasCheckSums { get; private set; }
         public AddmlXmlUnit AddmlXmlUnit { get; }
         public AddmlInfo AddmlInfo { get; }
         public IArchiveDetails Details { get; }
@@ -49,6 +48,7 @@ namespace Arkivverket.Arkade.Core.Base
             ArchiveFileFullName = archiveFileFullName;
 
             Uuid = uuid;
+            SourceUuid = uuid;
 
             ArchiveType = archiveType;
 
@@ -134,6 +134,29 @@ namespace Arkivverket.Arkade.Core.Base
             return DocumentsDirectory ?? DefaultNamedDocumentsDirectory();
         }
 
+        public void RegisterDocumentFiles(bool withCheckSums)
+        {
+            Log.Information("Registering document files.");
+
+            Dictionary<string, DocumentFile> documentFiles = IsTarArchive
+                ? GetDocumentFilesFromTar(withCheckSums)
+                : GetDocumentFilesFromDirectory(withCheckSums);
+
+            DocumentFiles = new ReadOnlyDictionary<string, DocumentFile>(documentFiles);
+
+            DocumentFilesHasCheckSums = withCheckSums;
+
+            Log.Information($"{DocumentFiles.Count} document files registered.");
+        }
+
+        public void SetDocumentFiles(ReadOnlyDictionary<string, DocumentFile> documentFiles)
+        {
+            if (DocumentFiles != null)
+                throw new ArkadeException("Document files are already set.");
+
+            DocumentFiles = documentFiles;
+        }
+
         private DirectoryInfo DefaultNamedDocumentsDirectory()
         {
             return WorkingDirectory.Content().WithSubDirectory(
@@ -180,81 +203,76 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        private ReadOnlyDictionary<string, DocumentFile> GetDocumentFiles()
+        private Dictionary<string, DocumentFile> GetDocumentFilesFromDirectory(bool withCheckSums)
         {
-            Log.Information("Registering document files.");
-
             var documentFiles = new Dictionary<string, DocumentFile>();
+
+            IChecksumGenerator checksumGenerator = withCheckSums
+                ? new Sha256ChecksumGenerator()
+                : null;
 
             DirectoryInfo documentsDirectory = GetDocumentsDirectory();
 
-            if (documentsDirectory.Exists)
-            {
-                foreach (FileInfo documentFileInfo in documentsDirectory.GetFiles("*", SearchOption.AllDirectories))
-                {
-                    string relativePath = documentsDirectory.Parent != null
-                        ? Path.GetRelativePath(documentsDirectory.Parent.FullName, documentFileInfo.FullName)
-                        : documentFileInfo.FullName;
+            if (!documentsDirectory.Exists)
+                return documentFiles;
 
-                    documentFiles.Add(relativePath.Replace('\\', '/'), new DocumentFile(documentFileInfo));
-                }
+            foreach (FileInfo documentFileInfo in documentsDirectory.EnumerateFiles("*", SearchOption.AllDirectories))
+            {
+                string relativePath = documentsDirectory.Parent != null
+                    ? Path.GetRelativePath(documentsDirectory.Parent.FullName, documentFileInfo.FullName)
+                    : documentFileInfo.FullName;
+
+                string checkSum = withCheckSums
+                    ? checksumGenerator.GenerateChecksum(documentFileInfo.FullName)
+                    : null;
+
+                var documentFile = new DocumentFile
+                {
+                    FullName = documentFileInfo.FullName,
+                    Extension = documentFileInfo.Extension,
+                    Size = documentFileInfo.Length,
+                    CreationTime = documentFileInfo.CreationTime,
+                    CheckSum = checkSum,
+                };
+
+                documentFiles.Add(relativePath.Replace('\\', '/'), documentFile);
             }
 
-            // Instantiate field for next access:
-            _documentFiles = new ReadOnlyDictionary<string, DocumentFile>(documentFiles);
-
-            Log.Information($"{documentFiles.Count} document files registered.");
-
-            return _documentFiles;
+            return documentFiles;
         }
 
-        private ReadOnlyDictionary<string, DocumentFile> GetDocumentFilesFromTar()
+        private Dictionary<string, DocumentFile> GetDocumentFilesFromTar(bool withCheckSums)
         {
             var documentFiles = new Dictionary<string, DocumentFile>();
 
-            var checksumGenerator = new Sha256ChecksumGenerator();
+            IChecksumGenerator checksumGenerator = withCheckSums 
+                ? new Sha256ChecksumGenerator() 
+                : null;
 
             using var tarInputStream = new TarInputStream(File.OpenRead(ArchiveFileFullName), Encoding.UTF8);
             while (tarInputStream.GetNextEntry() is { Name: { } } entry)
             {
-                string entryName = entry.Name;
-
-                if (!entryName.StartsWith($"{Uuid}/content/dokumenter/") || entry.IsDirectory)
+                if (entry.IsNoark5DocumentsEntry(Uuid) || entry.IsDirectory)
                     continue;
 
-                checksumGenerator.Initialize();
+                string checkSum = withCheckSums 
+                    ? tarInputStream.GenerateChecksumForEntry(checksumGenerator) 
+                    : null;
 
-                var tempBuffer = new byte[32 * 1024];
-
-                while (true)
+                var documentFile = new DocumentFile
                 {
-                    int numRead = tarInputStream.Read(tempBuffer, 0, tempBuffer.Length);
-                    if (numRead <= 0)
-                    {
-                        break;
-                    }
-
-                    checksumGenerator.TransformBlock(tempBuffer, numRead);
-                }
-                string checksum = checksumGenerator.GenerateChecksum();
-
-                var documentFile = new DocumentFile(null)
-                {
-                    CheckSum = checksum,
+                    Extension = Path.GetExtension(entry.Name).TrimStart("."),
                     Size = entry.Size,
-                    Extension = Path.GetExtension(entry.Name).Replace(".", string.Empty),
                     CreationTime = entry.ModTime,
+                    CheckSum = checkSum,
                 };
 
-                string relativeEntryName = entryName.Remove(0, entryName.IndexOf("dokumenter", StringComparison.OrdinalIgnoreCase));
+                string relativeEntryName = entry.GetRelativePathForNoark5DocumentEntry();
 
                 documentFiles.Add(relativeEntryName, documentFile);
             }
 
-            // Instantiate field for next access:
-            _documentFiles = new ReadOnlyDictionary<string, DocumentFile>(documentFiles);
-
-            return _documentFiles;
+            return documentFiles;
         }
 
         private bool AddmlVersionIsSupported()

@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Util
 
                 while (tarInputStream.GetNextEntry() is { } tarEntry)
                 {
-                    if (withoutDocumentFiles && tarEntry.Name.StartsWith($"{uuid}/content/dokumenter/"))
+                    if (withoutDocumentFiles && tarEntry.IsNoark5DocumentsEntry(uuid))
                         continue;
 
                     if (tarEntry.IsDirectory)
@@ -108,31 +108,6 @@ namespace Arkivverket.Arkade.Core.Util
                 tarOutputStream.CloseEntry();
             }
             tarOutputStream.Close();
-        }
-
-        public string ExtractEntryAndGenerateSHA256Checksum(TarInputStream tarInputStream, string targetFileFullName)
-        {
-            var buffer = new byte[32 * 1024];
-
-            var checksumGenerator = new Sha256ChecksumGenerator();
-
-            checksumGenerator.Initialize();
-
-            using FileStream targetFileStream = File.Create(targetFileFullName, buffer.Length);
-
-            while (true)
-            {
-                int numRead = tarInputStream.Read(buffer, 0, buffer.Length);
-                if (numRead <= 0)
-                {
-                    break;
-                }
-
-                checksumGenerator.TransformBlock(buffer, numRead);
-                targetFileStream.Write(buffer, 0, numRead);
-            }
-
-            return checksumGenerator.GenerateChecksum();
         }
     }
 }

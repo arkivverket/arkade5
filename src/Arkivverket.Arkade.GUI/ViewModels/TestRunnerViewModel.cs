@@ -426,7 +426,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 NotifyStartRunningTests();
 
                 _testSession.TestsToRun = GetSelectedTests();
-                
+
+                if (_testSession.TestRunContainsDocumentFileDependentTests)
+                    _testSession.Archive.RegisterDocumentFiles(_testSession.TestRunContainsChecksumControl);
+
                 _testSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
 
                 _arkadeApi.RunTests(_testSession);

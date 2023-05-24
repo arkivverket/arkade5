@@ -394,6 +394,9 @@ namespace Arkivverket.Arkade.CLI
                     ? Noark5TestSelectionFileReader.GetUserSelectedTestIds(testSelectionFilePath)
                     : Noark5TestProvider.GetAllTestIds();
 
+                if (testSession.TestRunContainsDocumentFileDependentTests)
+                    testSession.Archive.RegisterDocumentFiles(testSession.TestRunContainsChecksumControl);
+
                 if (testSession.TestsToRun.Count == 0)
                     throw new ArgumentException($"No tests selected in {testSelectionFilePath}");
             }

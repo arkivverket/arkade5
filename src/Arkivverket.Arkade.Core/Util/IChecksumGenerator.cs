@@ -6,5 +6,9 @@ namespace Arkivverket.Arkade.Core.Util
     {
         string GenerateChecksum(string pathToFile);
         string GenerateChecksum(Stream stream);
+
+        void Initialize();
+        void TransformBlock(byte[] buffer, int numberOfBytes);
+        string GenerateChecksum();
     }
 }

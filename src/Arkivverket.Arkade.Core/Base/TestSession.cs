@@ -31,6 +31,12 @@ namespace Arkivverket.Arkade.Core.Base
 
         public SupportedLanguage OutputLanguage { get; set; }
 
+        public bool TestRunContainsDocumentFileDependentTests =>
+            TestsToRun.Any(test => ArkadeConstants.DocumentFileDependentNoark5Tests.Contains(test));
+
+        public bool TestRunContainsChecksumControl =>
+            TestsToRun.Contains(TestId.Create("N5.30"));
+
         public TestSession(Archive archive)
         {
             Archive = archive;

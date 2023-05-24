@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Arkivverket.Arkade.Core.Util
 {
     public class ArkadeConstants
@@ -89,6 +91,15 @@ namespace Arkivverket.Arkade.Core.Util
         public static readonly string[] SuppressedDbptkWarningMessages =
         {
             "WARN  Could not create report file in current working directory. Attempting to use a temporary file",
+        };
+
+        public static readonly List<TestId> DocumentFileDependentNoark5Tests = new()
+        {
+            TestId.Create("N5.28"),
+            TestId.Create("N5.30"),
+            TestId.Create("N5.32"),
+            TestId.Create("N5.33"),
+            TestId.Create("N5.64")
         };
     }
 }

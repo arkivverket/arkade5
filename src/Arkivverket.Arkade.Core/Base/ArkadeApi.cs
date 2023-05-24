@@ -10,6 +10,7 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Serilog;
@@ -36,13 +37,15 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly IFileFormatInfoFilesGenerator _fileFormatInfoGenerator;
         private readonly ISiardXmlTableReader _siardXmlTableReader;
         private readonly MetadataExampleGenerator _metadataExampleGenerator;
+        private readonly Noark5DocumentFileTarEntryTransferManager _noark5DocumentFileEntryTransferManager;
 
         public ArkadeApi(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory,
             MetadataFilesCreator metadataFilesCreator, InformationPackageCreator informationPackageCreator,
             TestSessionXmlGenerator testSessionXmlGenerator, SiardMetadataFileHelper siardMetadataFileHelper,
             IArchiveTypeIdentifier archiveTypeIdentifier, IArchiveFormatValidator archiveFormatValidator,
             IFileFormatIdentifier fileFormatIdentifier, IFileFormatInfoFilesGenerator fileFormatInfoGenerator, 
-            ISiardXmlTableReader siardXmlTableReader, MetadataExampleGenerator metadataExampleGenerator)
+            ISiardXmlTableReader siardXmlTableReader, MetadataExampleGenerator metadataExampleGenerator, 
+            Noark5DocumentFileTarEntryTransferManager noark5DocumentFileEntryTransferManager)
         {
             _testSessionFactory = testSessionFactory;
             _testEngineFactory = testEngineFactory;
@@ -56,6 +59,7 @@ namespace Arkivverket.Arkade.Core.Base
             _fileFormatInfoGenerator = fileFormatInfoGenerator;
             _siardXmlTableReader = siardXmlTableReader;
             _metadataExampleGenerator = metadataExampleGenerator;
+            _noark5DocumentFileEntryTransferManager = noark5DocumentFileEntryTransferManager;
         }
 
         public TestSession RunTests(ArchiveDirectory archiveDirectory)
@@ -116,6 +120,11 @@ namespace Arkivverket.Arkade.Core.Base
             if (testSession.Archive.ArchiveType is ArchiveType.Siard)
             {
                 _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(testSession.Archive);
+            }
+
+            if (testSession.Archive.ArchiveType is ArchiveType.Noark5 && testSession.Archive.IsTarArchive)
+            {
+                Noark5DocumentFileTarEntryTransferManager.TransferDocumentFiles(testSession.Archive, outputDirectory);
             }
 
             _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata);

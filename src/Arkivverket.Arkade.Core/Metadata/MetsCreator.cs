@@ -56,19 +56,19 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         protected IEnumerable<FileDescription> GetFileDescriptionsFromDocumentFiles(ReadOnlyDictionary<string, DocumentFile> documentFiles)
         {
-            foreach ((var name, var documentFile) in documentFiles)
+            foreach ((string name, DocumentFile documentFile) in documentFiles)
             {
                 yield return GetFileDescriptionFromDocumentFile(name, documentFile);
             }
         }
 
-        private FileDescription GetFileDescriptionFromDocumentFile(string name, DocumentFile documentFile)
+        private static FileDescription GetFileDescriptionFromDocumentFile(string name, DocumentFile documentFile)
         {
             return new FileDescription
             {
                 Name = name,
                 Extension = documentFile.Extension,
-                Sha256Checksum = documentFile.CheckSum, // ?? GetSha256Checksum(documentFile.FileInfo), TODO ...
+                Sha256Checksum = documentFile.CheckSum,
                 Size = documentFile.Size,
                 CreationTime = documentFile.CreationTime
             };
