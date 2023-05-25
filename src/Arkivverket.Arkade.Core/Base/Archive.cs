@@ -27,8 +27,6 @@ namespace Arkivverket.Arkade.Core.Base
 
         public bool IsNoark5TarArchive => ArchiveFileFullName != null && ArchiveType is ArchiveType.Noark5;
 
-        /// <summary> UUID of the loaded archive </summary>
-        public Uuid SourceUuid { get; }
         public Uuid Uuid { get; }
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
@@ -48,7 +46,6 @@ namespace Arkivverket.Arkade.Core.Base
             ArchiveFileFullName = archiveFileFullName;
 
             Uuid = uuid;
-            SourceUuid = uuid;
 
             ArchiveType = archiveType;
 
