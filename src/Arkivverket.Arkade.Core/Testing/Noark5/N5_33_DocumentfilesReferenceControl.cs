@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         public N5_33_DocumentfilesReferenceControl(Archive archive)
         {
             _documentsDirectory = archive.GetDocumentsDirectory();
-            _documentFileNames = new Dictionary<string, DocumentFile>(archive.DocumentFiles);
+            _documentFileNames = new Dictionary<string, DocumentFile>(archive.GetDocumentFiles());
         }
 
         public override TestId GetId()

@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         public N5_30_DocumentFilesChecksumControl(Archive archive)
         {
-            _documentFiles = archive.DocumentFiles;
+            _documentFiles = archive.GetDocumentFiles(includeChecksums: true);
 
             _testResultSet = new TestResultSet();
         }

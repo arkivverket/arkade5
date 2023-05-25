@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -31,9 +30,8 @@ namespace Arkivverket.Arkade.Core.Base
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
-        public ReadOnlyDictionary<string, DocumentFile> DocumentFiles { get; private set; }
-        internal bool DocumentFilesAreRegistered => DocumentFiles != null;
-        internal bool DocumentFilesHasCheckSums { get; private set; }
+        private ReadOnlyDictionary<string, DocumentFile> _documentFiles;
+        private bool _documentFilesHaveCheckSums;
         public AddmlXmlUnit AddmlXmlUnit { get; }
         public AddmlInfo AddmlInfo { get; }
         public IArchiveDetails Details { get; }
@@ -131,27 +129,33 @@ namespace Arkivverket.Arkade.Core.Base
             return DocumentsDirectory ?? DefaultNamedDocumentsDirectory();
         }
 
-        public void RegisterDocumentFiles(bool withCheckSums)
+        internal ReadOnlyDictionary<string, DocumentFile> GetDocumentFiles(bool includeChecksums = false)
+        {
+            if (_documentFiles == null)
+            {
+                RegisterDocumentFiles(includeChecksums);
+            }
+            else if (includeChecksums && !_documentFilesHaveCheckSums)
+            {
+                GenerateSha256ChecksumsForDocumentFiles();
+            }
+
+            return _documentFiles;
+        }
+
+        internal void RegisterDocumentFiles(bool includeChecksums)
         {
             Log.Information("Registering document files.");
 
             Dictionary<string, DocumentFile> documentFiles = IsNoark5TarArchive
-                ? GetDocumentFilesFromTar(withCheckSums)
-                : GetDocumentFilesFromDirectory(withCheckSums);
+                ? GetDocumentFilesFromTar(includeChecksums)
+                : GetDocumentFilesFromDirectory(includeChecksums);
 
-            DocumentFiles = new ReadOnlyDictionary<string, DocumentFile>(documentFiles);
+            _documentFiles = new ReadOnlyDictionary<string, DocumentFile>(documentFiles);
 
-            DocumentFilesHasCheckSums = withCheckSums;
+            _documentFilesHaveCheckSums = includeChecksums;
 
-            Log.Information($"{DocumentFiles.Count} document files registered.");
-        }
-
-        public void SetDocumentFiles(ReadOnlyDictionary<string, DocumentFile> documentFiles)
-        {
-            if (DocumentFiles != null)
-                throw new ArkadeException("Document files are already set.");
-
-            DocumentFiles = documentFiles;
+            Log.Information($"{_documentFiles.Count} document files registered.");
         }
 
         private DirectoryInfo DefaultNamedDocumentsDirectory()
@@ -200,11 +204,11 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        private Dictionary<string, DocumentFile> GetDocumentFilesFromDirectory(bool withCheckSums)
+        private Dictionary<string, DocumentFile> GetDocumentFilesFromDirectory(bool includeChecksums)
         {
             var documentFiles = new Dictionary<string, DocumentFile>();
 
-            IChecksumGenerator checksumGenerator = withCheckSums
+            IChecksumGenerator checksumGenerator = includeChecksums
                 ? new Sha256ChecksumGenerator()
                 : null;
 
@@ -219,7 +223,7 @@ namespace Arkivverket.Arkade.Core.Base
                     ? Path.GetRelativePath(documentsDirectory.Parent.FullName, documentFileInfo.FullName)
                     : documentFileInfo.FullName;
 
-                string checkSum = withCheckSums
+                string checkSum = includeChecksums
                     ? checksumGenerator.GenerateChecksum(documentFileInfo.FullName)
                     : null;
 
@@ -238,11 +242,11 @@ namespace Arkivverket.Arkade.Core.Base
             return documentFiles;
         }
 
-        private Dictionary<string, DocumentFile> GetDocumentFilesFromTar(bool withCheckSums)
+        private Dictionary<string, DocumentFile> GetDocumentFilesFromTar(bool includeChecksums)
         {
             var documentFiles = new Dictionary<string, DocumentFile>();
 
-            IChecksumGenerator checksumGenerator = withCheckSums 
+            IChecksumGenerator checksumGenerator = includeChecksums
                 ? new Sha256ChecksumGenerator() 
                 : null;
 
@@ -252,7 +256,7 @@ namespace Arkivverket.Arkade.Core.Base
                 if (!entry.IsNoark5DocumentsEntry(Uuid) || entry.IsDirectory)
                     continue;
 
-                string checkSum = withCheckSums 
+                string checkSum = includeChecksums
                     ? tarInputStream.GenerateChecksumForEntry(checksumGenerator) 
                     : null;
 
@@ -270,6 +274,25 @@ namespace Arkivverket.Arkade.Core.Base
             }
 
             return documentFiles;
+        }
+
+        private void GenerateSha256ChecksumsForDocumentFiles()
+        {
+            IChecksumGenerator checksumGenerator = new Sha256ChecksumGenerator();
+
+            using var tarInputStream = new TarInputStream(File.OpenRead(ArchiveFileFullName), Encoding.UTF8);
+
+            while (tarInputStream.GetNextEntry() is { Name: { } } entry)
+            {
+                if (!entry.IsNoark5DocumentsEntry(Uuid) || entry.IsDirectory)
+                    continue;
+
+                string checkSum = tarInputStream.GenerateChecksumForEntry(checksumGenerator);
+                
+                string documentFileRelativePath = entry.GetRelativePathForNoark5DocumentEntry();
+
+                _documentFiles[documentFileRelativePath].CheckSum = checkSum;
+            }
         }
 
         private bool AddmlVersionIsSupported()

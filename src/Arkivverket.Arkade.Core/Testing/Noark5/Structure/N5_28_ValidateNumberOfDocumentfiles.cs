@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             //}
             //else
             {
-                actualFileCount = archive.DocumentFiles.Count;
+                actualFileCount = archive.GetDocumentFiles().Count;
 
                 if (actualFileCount > 0)
                     _testResults.Add(new TestResult(ResultType.Success,

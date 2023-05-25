@@ -85,6 +85,9 @@ namespace Arkivverket.Arkade.Core.Base
 
         public void RunTests(TestSession testSession)
         {
+            if (testSession.TestRunContainsDocumentFileDependentTests)
+                testSession.Archive.RegisterDocumentFiles(testSession.TestRunContainsChecksumControl);
+
             testSession.AddLogEntry(Messages.LogMessageStartTesting);
 
             Log.Information("Starting testing of archive.");
@@ -117,11 +120,6 @@ namespace Arkivverket.Arkade.Core.Base
             if (testSession.Archive.ArchiveType is ArchiveType.Siard)
             {
                 _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(testSession.Archive);
-            }
-
-            if (testSession.Archive.IsNoark5TarArchive && !testSession.Archive.DocumentFilesAreRegistered)
-            {
-                testSession.Archive.RegisterDocumentFiles(withCheckSums: true);
             }
 
             _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata);

@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         public N5_64_NumberOfEmptyDocumentFiles(Archive archive)
         {
-            _documentFiles = archive?.DocumentFiles;
+            _documentFiles = archive?.GetDocumentFiles();
         }
 
         public override TestId GetId()

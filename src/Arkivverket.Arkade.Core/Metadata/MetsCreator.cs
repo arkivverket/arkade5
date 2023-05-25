@@ -27,20 +27,24 @@ namespace Arkivverket.Arkade.Core.Metadata
             mets.structMap = new[] { new structMapType { div = new divType() } };
         }
 
-        protected static List<FileDescription> GetFileDescriptions(DirectoryInfo directory,
+        protected List<FileDescription> GetFileDescriptions(DirectoryInfo directory,
             DirectoryInfo pathRoot, ReadOnlyDictionary<string, DocumentFile> documentFiles,
             string[] filesToSkip = null)
         {
             var fileDescriptions = new List<FileDescription>();
 
-            foreach (FileInfo file in GetFilesToDescribe(directory, filesToSkip))
-                fileDescriptions.Add(GetFileDescription(file, pathRoot, documentFiles));
+            bool shallGetDocumentDescriptionsFromDocumentFiles = documentFiles.Any();
+
+            foreach (FileInfo file in GetFilesToDescribe(directory, filesToSkip, shallGetDocumentDescriptionsFromDocumentFiles))
+                fileDescriptions.Add(GetFileDescription(file, pathRoot));
+
+            if (documentFiles.Any())
+                fileDescriptions.AddRange(GetFileDescriptionsFromDocumentFiles(documentFiles));
 
             return fileDescriptions;
         }
 
-        protected static FileDescription GetFileDescription(FileInfo file, DirectoryInfo pathRoot,
-            ReadOnlyDictionary<string, DocumentFile> documentFiles = null)
+        protected static FileDescription GetFileDescription(FileInfo file, DirectoryInfo pathRoot)
         {
             string name = pathRoot != null ? Path.GetRelativePath(pathRoot.FullName, file.FullName) : file.FullName;
 
@@ -48,49 +52,45 @@ namespace Arkivverket.Arkade.Core.Metadata
             {
                 Name = name,
                 Extension = file.Extension.Replace(".", string.Empty),
-                Sha256Checksum = GetCheckSum(file, documentFiles, name),
+                Sha256Checksum = GetSha256Checksum(file),
                 Size = file.Length,
                 CreationTime = file.CreationTime
             };
         }
 
-        protected IEnumerable<FileDescription> GetFileDescriptionsFromDocumentFiles(ReadOnlyDictionary<string, DocumentFile> documentFiles)
+        private static IEnumerable<FileDescription> GetFileDescriptionsFromDocumentFiles(ReadOnlyDictionary<string, DocumentFile> documentFiles)
         {
             foreach ((string name, DocumentFile documentFile) in documentFiles)
             {
-                yield return GetFileDescriptionFromDocumentFile(name, documentFile);
+                yield return new FileDescription
+                {
+                    Name = Path.Combine(ArkadeConstants.DirectoryNameContent, name),
+                    Extension = documentFile.Extension,
+                    Sha256Checksum = documentFile.CheckSum,
+                    Size = documentFile.Size,
+                    CreationTime = documentFile.CreationTime
+                };
             }
         }
 
-        private static FileDescription GetFileDescriptionFromDocumentFile(string name, DocumentFile documentFile)
+        private static IEnumerable<FileInfo> GetFilesToDescribe(DirectoryInfo directory, string[] filesToSkip, 
+            bool shallGetDocumentDescriptionsFromDocumentFiles)
         {
-            return new FileDescription
+            IEnumerable<FileInfo> filesToDescribe = directory.EnumerateFiles(".", SearchOption.TopDirectoryOnly);
+
+            if (filesToSkip != null)
+                filesToDescribe = filesToDescribe.Where(f => !filesToSkip.Contains(f.Name));
+
+            foreach (DirectoryInfo subDirectory in directory.EnumerateDirectories())
             {
-                Name = name,
-                Extension = documentFile.Extension,
-                Sha256Checksum = documentFile.CheckSum,
-                Size = documentFile.Size,
-                CreationTime = documentFile.CreationTime
-            };
-        }
+                if (shallGetDocumentDescriptionsFromDocumentFiles && ArkadeConstants.DocumentDirectoryNames.Contains(subDirectory.Name))
+                    continue;
 
-        private static string GetCheckSum(FileInfo file, IReadOnlyDictionary<string, DocumentFile> documentFiles,
-            string relativeFilePath)
-        {
-            return documentFiles != null &&
-                   documentFiles.TryGetValue(relativeFilePath.Replace("\\", "/"), out DocumentFile documentFile) &&
-                   documentFile.CheckSum != null
-                ? documentFile.CheckSum
-                : GetSha256Checksum(file);
-        }
+                var filesInSubDirectory = GetFilesToDescribe(subDirectory, filesToSkip, shallGetDocumentDescriptionsFromDocumentFiles);
+                filesToDescribe = filesToDescribe.Concat(filesInSubDirectory);
+            }
 
-        private static IEnumerable<FileInfo> GetFilesToDescribe(DirectoryInfo directory, string[] filesToSkip)
-        {
-            IEnumerable<FileInfo> filesToDescribe = directory.EnumerateFiles(".", SearchOption.AllDirectories);
-            
-            return filesToSkip != null
-                ? filesToDescribe.Where(f => !filesToSkip.Contains(f.Name))
-                : filesToDescribe;
+            return filesToDescribe;
         }
 
         protected static void AutoIncrementFileIds(IEnumerable<FileDescription> fileDescriptions, int offset = 0)

@@ -25,9 +25,10 @@ namespace Arkivverket.Arkade.Core.Metadata
                     ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
                     : null;
 
-                metadata.FileDescriptions = archive.IsNoark5TarArchive 
-                    ? GetFileDescriptionsFromDocumentFiles(archive.DocumentFiles).ToList()
-                    : GetFileDescriptions(rootDirectory, rootDirectory, archive.DocumentFiles, filesToSkip);
+                var documentFiles = archive.GetDocumentFiles(includeChecksums: true);
+
+                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, documentFiles,
+                    filesToSkip);
             }
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())
@@ -36,7 +37,10 @@ namespace Arkivverket.Arkade.Core.Metadata
 
                 if (externalContentDirectory.Exists)
                 {
-                    var fileDescriptions = GetFileDescriptions(externalContentDirectory, externalContentDirectory, archive.DocumentFiles);
+                    var documentFiles = archive.GetDocumentFiles(includeChecksums: true);
+
+                    var fileDescriptions = GetFileDescriptions(externalContentDirectory, externalContentDirectory, 
+                        documentFiles);
 
                     foreach (FileDescription fileDescription in fileDescriptions)
                         fileDescription.Name = Path.Combine("content", fileDescription.Name);
