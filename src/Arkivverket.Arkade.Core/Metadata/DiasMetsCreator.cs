@@ -96,7 +96,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (metadata.ExtractionDate != null)
                 metsHdr.CREATEDATE = metadata.ExtractionDate.Value;
                 
-            if (metadata.RecordStatus != null)
+            if (!string.IsNullOrEmpty(metadata.RecordStatus))
                 metsHdr.RECORDSTATUS = metadata.RecordStatus;
 
             CreateAltRecordIDs(metsHdr, metadata);
