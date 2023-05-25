@@ -28,12 +28,6 @@ namespace Arkivverket.Arkade.Core.Base
             ArkadeConstants.DirectoryNameRepositoryOperations
         };
 
-        private static readonly List<string> DirectoriesToSkipForNoark5TarArchives =
-            new(ArkadeConstants.DocumentDirectoryNames)
-            {
-                ArkadeConstants.DirectoryNameContent,
-            };
-
         /// <summary>
         /// Create SIP (Submission Information Package). 
         /// Package- and metafile are written to the given output directory
@@ -82,12 +76,8 @@ namespace Arkivverket.Arkade.Core.Base
             using var tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream, Encoding.UTF8));
 
             string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
-
-            // If source archive is tar and Noark5, the root directory is already (implicitly) entered into the
-            // produced tar-package by the Noark5DocumentFileTarEntryTransferManager.
-            bool rootEntryIsAlreadyCreated = archive.IsNoark5TarArchive;
-            if (!rootEntryIsAlreadyCreated)
-                CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
+            
+            CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
                 archive, archive.WorkingDirectory.Root().DirectoryInfo(), packageType, tarArchive, packageRootDirectory
@@ -199,13 +189,8 @@ namespace Arkivverket.Arkade.Core.Base
                 {     
                     continue;
                 }
-
-                // If source archive is tar and Noark5, the content and documents directories is already (implicitly)
-                // entered into the produced tar-package by the Noark5DocumentFileTarEntryTransferManager.
-                if (!(archive.IsNoark5TarArchive &&
-                    DirectoriesToSkipForNoark5TarArchives.Contains(currentDirectory.Name)))
-                    CreateEntry(currentDirectory.FullName, true, rootDirectory, tarArchive, fileNamePrefix, Path.DirectorySeparatorChar.ToString());
-
+                
+                CreateEntry(currentDirectory.FullName, true, rootDirectory, tarArchive, fileNamePrefix, Path.DirectorySeparatorChar.ToString());
                 AddFilesInDirectory(archive, currentDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
             }
 

@@ -37,15 +37,13 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly IFileFormatInfoFilesGenerator _fileFormatInfoGenerator;
         private readonly ISiardXmlTableReader _siardXmlTableReader;
         private readonly MetadataExampleGenerator _metadataExampleGenerator;
-        private readonly Noark5DocumentFileTarEntryTransferManager _noark5DocumentFileEntryTransferManager;
 
         public ArkadeApi(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory,
             MetadataFilesCreator metadataFilesCreator, InformationPackageCreator informationPackageCreator,
             TestSessionXmlGenerator testSessionXmlGenerator, SiardMetadataFileHelper siardMetadataFileHelper,
             IArchiveTypeIdentifier archiveTypeIdentifier, IArchiveFormatValidator archiveFormatValidator,
             IFileFormatIdentifier fileFormatIdentifier, IFileFormatInfoFilesGenerator fileFormatInfoGenerator, 
-            ISiardXmlTableReader siardXmlTableReader, MetadataExampleGenerator metadataExampleGenerator, 
-            Noark5DocumentFileTarEntryTransferManager noark5DocumentFileEntryTransferManager)
+            ISiardXmlTableReader siardXmlTableReader, MetadataExampleGenerator metadataExampleGenerator)
         {
             _testSessionFactory = testSessionFactory;
             _testEngineFactory = testEngineFactory;
@@ -59,7 +57,6 @@ namespace Arkivverket.Arkade.Core.Base
             _fileFormatInfoGenerator = fileFormatInfoGenerator;
             _siardXmlTableReader = siardXmlTableReader;
             _metadataExampleGenerator = metadataExampleGenerator;
-            _noark5DocumentFileEntryTransferManager = noark5DocumentFileEntryTransferManager;
         }
 
         public TestSession RunTests(ArchiveDirectory archiveDirectory)
@@ -122,9 +119,9 @@ namespace Arkivverket.Arkade.Core.Base
                 _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(testSession.Archive);
             }
 
-            if (testSession.Archive.IsNoark5TarArchive)
+            if (testSession.Archive.IsNoark5TarArchive && !testSession.Archive.DocumentFilesAreRegistered)
             {
-                Noark5DocumentFileTarEntryTransferManager.TransferDocumentFiles(testSession.Archive, outputDirectory);
+                testSession.Archive.RegisterDocumentFiles(withCheckSums: true);
             }
 
             _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata);
