@@ -122,7 +122,7 @@ namespace Arkivverket.Arkade.Core.Base
                 _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(testSession.Archive);
             }
 
-            if (testSession.Archive.ArchiveType is ArchiveType.Noark5 && testSession.Archive.IsTarArchive)
+            if (testSession.Archive.IsNoark5TarArchive)
             {
                 Noark5DocumentFileTarEntryTransferManager.TransferDocumentFiles(testSession.Archive, outputDirectory);
             }

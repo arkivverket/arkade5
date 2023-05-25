@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
                     : null;
 
-                metadata.FileDescriptions = archive.IsTarArchive 
+                metadata.FileDescriptions = archive.IsNoark5TarArchive 
                     ? GetFileDescriptionsFromDocumentFiles(archive.DocumentFiles).ToList()
                     : GetFileDescriptions(rootDirectory, rootDirectory, archive.DocumentFiles, filesToSkip);
             }

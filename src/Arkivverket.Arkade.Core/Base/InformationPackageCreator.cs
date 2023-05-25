@@ -63,7 +63,7 @@ namespace Arkivverket.Arkade.Core.Base
                 Log.Warning("Could not verify sufficient disk space at package destination.");
             }
 
-            string resultDirectory = CreateResultDirectory(archive, outputDirectory);
+            string resultDirectory = EnsureResultDirectoryIsCreated(archive, outputDirectory);
 
             if (packageType == PackageType.SubmissionInformationPackage)
             {
@@ -73,8 +73,7 @@ namespace Arkivverket.Arkade.Core.Base
             string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
 
             using Stream outStream = File.OpenWrite(packageFilePath);
-            using var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);
-            using var tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
+            using var tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream, Encoding.UTF8));
 
             string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
             CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
@@ -154,7 +153,7 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
         
-        private static string CreateResultDirectory(Archive archive, string outputDirectoryFullPath)
+        private static string EnsureResultDirectoryIsCreated(Archive archive, string outputDirectoryFullPath)
         {
             string resultDirectoryFullPath = Path.Combine(outputDirectoryFullPath,
                 string.Format(OutputFileNames.ResultOutputDirectory, archive.Uuid));
@@ -194,7 +193,7 @@ namespace Arkivverket.Arkade.Core.Base
                 AddFilesInDirectory(archive, currentDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
             }
 
-            foreach (FileInfo file in directory.GetFiles())
+            foreach (FileInfo file in directory.EnumerateFiles())
             {
                 if (file.Name == archive.GetInformationPackageFileName()) // don't try to add the tar file into the tar file...
                 {
@@ -245,9 +244,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         private static bool FileIsInSkipList(PackageType? packageType, FileInfo file)
         {
-            return packageType.HasValue
-                   && (packageType == PackageType.SubmissionInformationPackage)
-                   && FilesToSkipForSipPackages.Contains(file.Name);
+            return packageType is PackageType.SubmissionInformationPackage &&
+                   FilesToSkipForSipPackages.Contains(file.Name);
         }
 
         public static PackageType ParsePackageType(string packageType)

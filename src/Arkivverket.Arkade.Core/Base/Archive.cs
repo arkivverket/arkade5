@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         internal string? ArchiveFileFullName { get; }
 
-        public bool IsTarArchive => ArchiveFileFullName != null;
+        public bool IsNoark5TarArchive => ArchiveFileFullName != null && ArchiveType is ArchiveType.Noark5;
 
         /// <summary> UUID of the loaded archive </summary>
         public Uuid SourceUuid { get; }
@@ -138,7 +138,7 @@ namespace Arkivverket.Arkade.Core.Base
         {
             Log.Information("Registering document files.");
 
-            Dictionary<string, DocumentFile> documentFiles = IsTarArchive
+            Dictionary<string, DocumentFile> documentFiles = IsNoark5TarArchive
                 ? GetDocumentFilesFromTar(withCheckSums)
                 : GetDocumentFilesFromDirectory(withCheckSums);
 
