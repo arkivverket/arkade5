@@ -72,8 +72,9 @@ namespace Arkivverket.Arkade.Core.Base
 
             string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
 
-            using Stream outStream = File.OpenWrite(packageFilePath);
-            using var tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream, Encoding.UTF8));
+            using Stream outStream = File.Create(packageFilePath);
+            var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);
+            using var tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
 
             string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
             
@@ -95,6 +96,10 @@ namespace Arkivverket.Arkade.Core.Base
                     archive, archive.WorkingDirectory.Content().DirectoryInfo(), null, tarArchive, contentDirectory
                 );
             }
+
+            if (archive.IsNoark5TarArchive)
+                Noark5DocumentFileTarEntryTransferManager.TransferDocumentFiles(archive.ArchiveFileFullName,
+                    archive.SourceUuid, tarOutputStream);
 
             tarArchive.Close();
 
