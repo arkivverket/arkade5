@@ -242,6 +242,17 @@ namespace Arkivverket.Arkade.Core.Base
             return documentFiles;
         }
 
+        /// <summary>
+        /// This method traverses through all the entries in the archive file referred by
+        /// <see cref="ArchiveFileFullName"/>, <br/> and creates a dictionary of the files in the "dokumenter"-directory
+        /// (recursively).
+        /// </summary>
+        /// <param name="includeChecksums"></param>
+        /// <returns>
+        /// A dictionary where the key is the path to the file, relative to the "documenter"-directory, and the value
+        /// is a <see cref="DocumentFile"/>-object. <br/>
+        /// If <paramref name="includeChecksums"/> is <see langword="true"/>, the <see cref="DocumentFile"/> object
+        /// contains the SHA-256 checksum of the file. </returns>
         private Dictionary<string, DocumentFile> GetDocumentFilesFromTar(bool includeChecksums)
         {
             var documentFiles = new Dictionary<string, DocumentFile>();
