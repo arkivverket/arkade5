@@ -98,8 +98,7 @@ namespace Arkivverket.Arkade.Core.Base
             }
 
             if (archive.IsNoark5TarArchive)
-                Noark5DocumentFileTarEntryTransferManager.TransferDocumentFiles(archive.ArchiveFileFullName,
-                    archive.Uuid.ToString(), tarOutputStream);
+                TransferDocumentFiles(archive.ArchiveFileFullName, archive.Uuid.ToString(), tarOutputStream);
 
             tarArchive.Close();
 
@@ -112,6 +111,23 @@ namespace Arkivverket.Arkade.Core.Base
                 archive.GetSubmissionDescriptionFileName());
 
             return packageFilePath;
+        }
+
+        private static void TransferDocumentFiles(string archiveFileFullPath, string archiveRootDirectoryName, TarOutputStream tarOutputStream)
+        {
+            using var tarInputStream = new TarInputStream(File.OpenRead(archiveFileFullPath), Encoding.UTF8);
+
+            while (tarInputStream.GetNextEntry() is { Name: not null } entry)
+            {
+                if (!entry.IsNoark5DocumentsEntry(archiveRootDirectoryName))
+                    continue;
+
+                tarOutputStream.PutNextEntry(entry);
+
+                tarInputStream.CopyEntryContents(tarOutputStream);
+
+                tarOutputStream.CloseEntry();
+            }
         }
 
         private void CopyTestReportsToStandaloneDirectory(Archive archive, string resultDirectory)
