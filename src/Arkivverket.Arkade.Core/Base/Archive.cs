@@ -253,7 +253,7 @@ namespace Arkivverket.Arkade.Core.Base
             using var tarInputStream = new TarInputStream(File.OpenRead(ArchiveFileFullName), Encoding.UTF8);
             while (tarInputStream.GetNextEntry() is { Name: { } } entry)
             {
-                if (!entry.IsNoark5DocumentsEntry(Uuid) || entry.IsDirectory)
+                if (!entry.IsNoark5DocumentsEntry(Uuid.ToString()) || entry.IsDirectory)
                     continue;
 
                 string checkSum = includeChecksums
@@ -284,7 +284,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             while (tarInputStream.GetNextEntry() is { Name: { } } entry)
             {
-                if (!entry.IsNoark5DocumentsEntry(Uuid) || entry.IsDirectory)
+                if (!entry.IsNoark5DocumentsEntry(Uuid.ToString()) || entry.IsDirectory)
                     continue;
 
                 string checkSum = tarInputStream.GenerateChecksumForEntry(checksumGenerator);

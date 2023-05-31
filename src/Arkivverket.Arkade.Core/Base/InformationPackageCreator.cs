@@ -99,7 +99,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (archive.IsNoark5TarArchive)
                 Noark5DocumentFileTarEntryTransferManager.TransferDocumentFiles(archive.ArchiveFileFullName,
-                    archive.Uuid, tarOutputStream);
+                    archive.Uuid.ToString(), tarOutputStream);
 
             tarArchive.Close();
 

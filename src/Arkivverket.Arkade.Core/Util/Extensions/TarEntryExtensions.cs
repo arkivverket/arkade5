@@ -1,18 +1,17 @@
 ﻿using System;
 using ICSharpCode.SharpZipLib.Tar;
 using System.Linq;
-using Arkivverket.Arkade.Core.Base;
 
 namespace Arkivverket.Arkade.Core.Util
 {
     public static class TarEntryExtensions
     {
-        public static bool IsNoark5DocumentsEntry(this TarEntry tarEntry, Uuid uuid)
+        public static bool IsNoark5DocumentsEntry(this TarEntry tarEntry, string archiveRootDirectoryName)
         {
             string entryName = tarEntry.Name.Replace('\\', '/');
 
             return ArkadeConstants.DocumentDirectoryNames.Any(documentDirectoryName =>
-                entryName.StartsWith($"{uuid}/content/{documentDirectoryName}"));
+                entryName.StartsWith($"{archiveRootDirectoryName}/content/{documentDirectoryName}"));
         }
 
         public static string GetRelativePathForNoark5DocumentEntry(this TarEntry tarEntry)
