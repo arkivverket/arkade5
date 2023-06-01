@@ -221,6 +221,11 @@ namespace Arkivverket.Arkade.Core.Base
             }
             else
             {
+                Log.Error($"{entryName} has last write time before {DateTime.UnixEpoch:d}");
+                Log.Information($"Setting last write time for {entryName} to {DateTime.UnixEpoch:d}");
+                if (File.GetLastWriteTime(entryName).CompareTo(DateTime.UnixEpoch) < 0)
+                    File.SetLastWriteTime(entryName, DateTime.UnixEpoch);
+
                 tarEntry = TarEntry.CreateEntryFromFile(entryName);
             }
 
