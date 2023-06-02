@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -27,20 +26,18 @@ namespace Arkivverket.Arkade.Core.Metadata
             mets.structMap = new[] { new structMapType { div = new divType() } };
         }
 
-        protected static List<FileDescription> GetFileDescriptions(DirectoryInfo directory,
-            DirectoryInfo pathRoot, ReadOnlyDictionary<string, DocumentFile> documentFiles,
-            string[] filesToSkip = null)
+        protected List<FileDescription> GetFileDescriptions(DirectoryInfo directory,
+            DirectoryInfo pathRoot, string[] directoriesToSkip = null, string[] filesToSkip = null)
         {
             var fileDescriptions = new List<FileDescription>();
 
-            foreach (FileInfo file in GetFilesToDescribe(directory, filesToSkip))
-                fileDescriptions.Add(GetFileDescription(file, pathRoot, documentFiles));
+            foreach (FileInfo file in GetFilesToDescribe(directory, directoriesToSkip, filesToSkip))
+                fileDescriptions.Add(GetFileDescription(file, pathRoot));
 
             return fileDescriptions;
         }
 
-        protected static FileDescription GetFileDescription(FileInfo file, DirectoryInfo pathRoot,
-            ReadOnlyDictionary<string, DocumentFile> documentFiles = null)
+        protected FileDescription GetFileDescription(FileInfo file, DirectoryInfo pathRoot)
         {
             string name = pathRoot != null ? Path.GetRelativePath(pathRoot.FullName, file.FullName) : file.FullName;
 
@@ -48,29 +45,29 @@ namespace Arkivverket.Arkade.Core.Metadata
             {
                 Name = name,
                 Extension = file.Extension.Replace(".", string.Empty),
-                Sha256Checksum = GetCheckSum(file, documentFiles, name),
+                Sha256Checksum = GetSha256Checksum(file),
                 Size = file.Length,
                 CreationTime = file.CreationTime
             };
         }
 
-        private static string GetCheckSum(FileInfo file, IReadOnlyDictionary<string, DocumentFile> documentFiles,
-            string relativeFilePath)
+        private static IEnumerable<FileInfo> GetFilesToDescribe(DirectoryInfo directory, string[] directoriesToSkip, string[] filesToSkip)
         {
-            return documentFiles != null &&
-                   documentFiles.TryGetValue(relativeFilePath.Replace("\\", "/"), out DocumentFile documentFile) &&
-                   documentFile.CheckSum != null
-                ? documentFile.CheckSum
-                : GetSha256Checksum(file);
-        }
+            IEnumerable<FileInfo> filesToDescribe = directory.EnumerateFiles(".", SearchOption.TopDirectoryOnly);
 
-        private static IEnumerable<FileInfo> GetFilesToDescribe(DirectoryInfo directory, string[] filesToSkip)
-        {
-            IEnumerable<FileInfo> filesToDescribe = directory.EnumerateFiles(".", SearchOption.AllDirectories);
-            
-            return filesToSkip != null
-                ? filesToDescribe.Where(f => !filesToSkip.Contains(f.Name))
-                : filesToDescribe;
+            if (filesToSkip != null)
+                filesToDescribe = filesToDescribe.Where(f => !filesToSkip.Contains(f.Name));
+
+            foreach (DirectoryInfo subDirectory in directory.EnumerateDirectories())
+            {
+                if (directoriesToSkip?.Contains(subDirectory.Name) == true)
+                    continue;
+
+                var filesInSubDirectory = GetFilesToDescribe(subDirectory, directoriesToSkip, filesToSkip);
+                filesToDescribe = filesToDescribe.Concat(filesInSubDirectory);
+            }
+
+            return filesToDescribe;
         }
 
         protected static void AutoIncrementFileIds(IEnumerable<FileDescription> fileDescriptions, int offset = 0)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -25,13 +26,14 @@ namespace Arkivverket.Arkade.Core.Metadata
                     ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
                     : null;
 
-                if (!archive.DocumentFiles.AreMetsReady())
-                    archive.DocumentFiles.Register(includeChecksums: true);
+                bool documentFilesAreDescribed = archive.ArchiveType is ArchiveType.Noark5 && archive.DocumentFiles.AreMetsReady();
 
-                var documentFiles = archive.DocumentFiles.Get();
+                string[] directoriesToSkip = documentFilesAreDescribed ? ArkadeConstants.DocumentDirectoryNames : null;
 
-                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, documentFiles,
-                    filesToSkip);
+                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, directoriesToSkip, filesToSkip);
+
+                if (documentFilesAreDescribed)
+                    metadata.FileDescriptions.AddRange(GetFileDescriptionsFromDocumentFiles(archive.DocumentFiles.Get()));
             }
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())
@@ -40,16 +42,21 @@ namespace Arkivverket.Arkade.Core.Metadata
 
                 if (externalContentDirectory.Exists)
                 {
-                    if (!archive.DocumentFiles.AreMetsReady())
-                        archive.DocumentFiles.Register(includeChecksums: true);
+                    bool documentFilesAreDescribed = archive.ArchiveType is ArchiveType.Noark5 && archive.DocumentFiles.AreMetsReady();
 
-                    var documentFiles = archive.DocumentFiles.Get();
+                    string[] directoriesToSkip = documentFilesAreDescribed ? ArkadeConstants.DocumentDirectoryNames : null;
 
-                    var fileDescriptions = GetFileDescriptions(externalContentDirectory, externalContentDirectory, 
-                        documentFiles);
+                    // The loaded archive (as dictionary) might have a name different from "content", therefore it is
+                    // necessary to strip the name of the source "content" directory from the file descriptions, 
+                    // before prepending "content/" to their names - to ensure the files are correctly referred in
+                    // the dias-mets.xml of the produced IP.
+                    List<FileDescription> fileDescriptions = GetFileDescriptions(externalContentDirectory, 
+                        externalContentDirectory, directoriesToSkip);
 
-                    foreach (FileDescription fileDescription in fileDescriptions)
-                        fileDescription.Name = Path.Combine("content", fileDescription.Name);
+                    PrependFileDescriptionsNameWithContent(fileDescriptions);
+
+                    if (documentFilesAreDescribed)
+                        fileDescriptions.AddRange(GetFileDescriptionsFromDocumentFiles(archive.DocumentFiles.Get()));
 
                     metadata.FileDescriptions.AddRange(fileDescriptions);
                 }
@@ -67,6 +74,27 @@ namespace Arkivverket.Arkade.Core.Metadata
             SerializeUtil.SerializeToFile(mets, targetFileName, namespaces);
 
             Log.Debug($"Created {ArkadeConstants.DiasMetsXmlFileName}");
+        }
+
+        private static void PrependFileDescriptionsNameWithContent(List<FileDescription> fileDescriptions)
+        {
+            foreach (FileDescription fileDescription in fileDescriptions)
+                fileDescription.Name = Path.Combine(ArkadeConstants.DirectoryNameContent, fileDescription.Name);
+        }
+
+        private static IEnumerable<FileDescription> GetFileDescriptionsFromDocumentFiles(ReadOnlyDictionary<string, DocumentFile> documentFiles)
+        {
+            foreach ((string name, DocumentFile documentFile) in documentFiles)
+            {
+                yield return new FileDescription
+                {
+                    Name = Path.Combine(ArkadeConstants.DirectoryNameContent, name),
+                    Extension = documentFile.Extension,
+                    Sha256Checksum = documentFile.CheckSum,
+                    Size = documentFile.Size,
+                    CreationTime = documentFile.CreationTime
+                };
+            }
         }
 
         public static mets Create(ArchiveMetadata metadata)
