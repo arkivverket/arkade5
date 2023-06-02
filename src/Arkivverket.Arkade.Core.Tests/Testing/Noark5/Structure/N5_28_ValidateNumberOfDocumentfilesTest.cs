@@ -111,6 +111,8 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
                 .Build();
 
+            archive.DocumentFiles.Register(false);
+
             var validateNumberOfDocumentfiles = new N5_28_ValidateNumberOfDocumentfiles();
 
             validateNumberOfDocumentfiles.Test(archive);

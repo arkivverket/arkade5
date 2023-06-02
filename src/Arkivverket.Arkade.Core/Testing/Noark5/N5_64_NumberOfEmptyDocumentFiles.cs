@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
@@ -168,7 +168,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
                 if (TryGetDocumentFile(eventArgs.Value, out DocumentFile documentFile))
                 {
-                    _currentDocumentObject.FileIsEmpty = documentFile.FileInfo.Length == 0;
+                    _currentDocumentObject.FileIsEmpty = documentFile.Size == 0;
                 }
             }
         }

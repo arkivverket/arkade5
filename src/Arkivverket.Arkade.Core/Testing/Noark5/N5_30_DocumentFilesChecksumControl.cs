@@ -158,7 +158,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
         private string GenerateChecksumForFile(string documentFileRelativePath, string checksumAlgorithm)
         {
-            var documentFileFullName = _documentFiles[documentFileRelativePath]?.FileInfo?.FullName;
+            var documentFileFullName = _documentFiles[documentFileRelativePath]?.FullName;
 
             var generator = new ChecksumGeneratorFactory().GetGenerator(checksumAlgorithm);
             string checkSum = generator.GenerateChecksum(documentFileFullName);

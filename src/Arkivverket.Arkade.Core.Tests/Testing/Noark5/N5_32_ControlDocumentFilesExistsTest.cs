@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("dokumentobjekt", new XmlElementHelper()
                                                 .Add("referanseDokumentfil", "dokumenter/5000001.pdf")))))))));
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(
+            Archive testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "ArchiveReferencedFiles")
             );
 
@@ -87,7 +87,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("dokumentobjekt", new XmlElementHelper()
                                                 .Add("referanseDokumentfil", "dokumenter/5000002.pdf")))))))));
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(
+            Archive testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "ArchiveReferencedFiles")
             );
 
@@ -124,7 +124,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("dokumentobjekt", new XmlElementHelper()
                                                 .Add("referanseDokumentfil", "dokumenter/5000002.pdf")))))))));
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(
+            Archive testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "ArchiveReferencedFiles")
             );
 
@@ -166,13 +166,22 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                            .Add("dokumentobjekt", new XmlElementHelper()
                                                .Add("referanseDokumentfil", "dokumenter/5000001.pdf")))))))));
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(
+            Archive testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "ArchiveReferencedFiles")
             );
 
             TestRun testRun = helper.RunEventsOnTest(new N5_32_ControlDocumentFilesExists(testArchive));
 
             testRun.TestResults.GetNumberOfResults().Should().Be(0);
+        }
+
+        private static Archive CreateTestArchive(string pathToArchive)
+        {
+            Archive archive = TestUtil.CreateArchiveExtraction(pathToArchive);
+
+            archive.DocumentFiles.Register(false);
+
+            return archive;
         }
     }
 }
