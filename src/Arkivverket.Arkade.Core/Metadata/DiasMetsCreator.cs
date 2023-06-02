@@ -9,7 +9,7 @@ using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.ExternalModels.DiasMets;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
-
+ 
 namespace Arkivverket.Arkade.Core.Metadata
 {
     public class DiasMetsCreator : MetsCreator<mets>
@@ -26,14 +26,17 @@ namespace Arkivverket.Arkade.Core.Metadata
                     ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
                     : null;
 
-                bool documentFilesAreDescribed = archive.ArchiveType is ArchiveType.Noark5 && archive.DocumentFiles.AreMetsReady();
+                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip: filesToSkip);
 
-                string[] directoriesToSkip = documentFilesAreDescribed ? ArkadeConstants.DocumentDirectoryNames : null;
+                if (archive.ArchiveType is ArchiveType.Noark5)
+                {
+                    if (!archive.DocumentFiles.AreMetsReady())
+                        archive.DocumentFiles.Register(includeChecksums: true);
 
-                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, directoriesToSkip, filesToSkip);
+                    ReadOnlyDictionary<string, DocumentFile> documentFiles = archive.DocumentFiles.Get();
 
-                if (documentFilesAreDescribed)
-                    metadata.FileDescriptions.AddRange(GetFileDescriptionsFromDocumentFiles(archive.DocumentFiles.Get()));
+                    metadata.FileDescriptions.AddRange(GetFileDescriptionsFromDocumentFiles(documentFiles));
+                }
             }
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())

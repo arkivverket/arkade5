@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util
             new TarCompressionUtility().CompressFolderContentToArchiveFile(pathToTargetTarFile, pathSourceFolder);
             _output.WriteLine("Generated Archive");
 
-            new TarCompressionUtility().ExtractFolderFromArchive(pathToTargetTarFile, pathToExtractedDirectory);
+            new TarCompressionUtility().ExtractFolderFromArchive(pathToTargetTarFile, pathToExtractedDirectory, false, null);
             _output.WriteLine("Extracted Archive");
 
             // Check that correct number of files were extracted:

@@ -60,18 +60,21 @@ namespace Arkivverket.Arkade.Core.Identify
             else
             {
                 TarExtractionStartedEvent();
-                _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo());
+                _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo(),
+                    withoutDocumentFiles: true, archiveRootDirectoryName: uuid.ToString());
                 TarExtractionFinishedEvent(workingDirectory);
             }
 
-            TestSession testSession = NewSession(workingDirectory, archiveFile.ArchiveType, uuid);
+            TestSession testSession = NewSession(workingDirectory, archiveFile.ArchiveType, uuid, archiveFile.File.FullName);
 
             ReadingArchiveFinishedEvent();
             return testSession;
         }
-        private TestSession NewSession(WorkingDirectory workingDirectory, ArchiveType archiveType, Uuid uuid)
+
+        private TestSession NewSession(WorkingDirectory workingDirectory, ArchiveType archiveType, Uuid uuid,
+            string archiveFileFullName = null)
         {
-            Archive archive = new Archive(archiveType, uuid, workingDirectory, _statusEventHandler);
+            Archive archive = new Archive(archiveType, uuid, workingDirectory, _statusEventHandler, archiveFileFullName);
 
             if (archive.ArchiveType == ArchiveType.Noark5 && archive.AddmlXmlUnit.File.Exists &&
                 archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())

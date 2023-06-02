@@ -19,6 +19,10 @@ namespace Arkivverket.Arkade.Core.Base
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private static IStatusEventHandler _statusEventHandler;
 
+        internal string? ArchiveFileFullName { get; }
+
+        public bool IsNoark5TarArchive => ArchiveFileFullName != null && ArchiveType is ArchiveType.Noark5;
+
         public Uuid Uuid { get; }
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
@@ -30,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Base
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
         public Archive(ArchiveType archiveType, Uuid uuid, WorkingDirectory workingDirectory,
-            IStatusEventHandler statusEventHandler)
+            IStatusEventHandler statusEventHandler, string archiveFileFullName=null)
         {
             _statusEventHandler = statusEventHandler;
 
@@ -40,12 +44,14 @@ namespace Arkivverket.Arkade.Core.Base
 
             WorkingDirectory = workingDirectory;
 
+            ArchiveFileFullName = archiveFileFullName;
+
             if (archiveType == ArchiveType.Siard)
             {
                 Details = SetupSiardArchiveDetails(workingDirectory);
                 return;
             }
-
+            
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
             if (!AddmlXmlUnit.File.Exists)
@@ -66,7 +72,9 @@ namespace Arkivverket.Arkade.Core.Base
 
                 SetupArchiveXmlUnits();
 
-                DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
+                DocumentFiles = archiveFileFullName == null
+                    ? new DocumentFiles(GetDocumentsDirectory())
+                    : new DocumentFiles(archiveFileFullName);
             }
         }
 
