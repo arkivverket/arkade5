@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         public string CreatePackage(TestSession testSession, string outputDirectory)
         {
-            string packageType = testSession.ArchiveMetadata.PackageType.Equals(PackageType.SubmissionInformationPackage)
+            string packageType = testSession.Archive.Metadata.PackageType.Equals(PackageType.SubmissionInformationPackage)
                 ? "SIP"
                 : "AIP";
             Log.Information($"Creating {packageType}.");
@@ -126,20 +126,20 @@ namespace Arkivverket.Arkade.Core.Base
             // Delete any existing dias-mets.xml extracted from input tar-file
             testSession.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
 
-            _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata);
+            _metadataFilesCreator.Create(testSession.Archive, testSession.Archive.Metadata);
 
             string packageFilePath;
 
-            if (testSession.ArchiveMetadata.PackageType == PackageType.SubmissionInformationPackage)
+            if (testSession.Archive.Metadata.PackageType == PackageType.SubmissionInformationPackage)
             {
                 packageFilePath = _informationPackageCreator.CreateSip(
-                    testSession.Archive, testSession.ArchiveMetadata, outputDirectory
+                    testSession.Archive, testSession.Archive.Metadata, outputDirectory
                 );
             }
             else // ArchivalInformationPackage
             {
                 packageFilePath = _informationPackageCreator.CreateAip(
-                    testSession.Archive, testSession.ArchiveMetadata, outputDirectory
+                    testSession.Archive, testSession.Archive.Metadata, outputDirectory
                 );
             }
 

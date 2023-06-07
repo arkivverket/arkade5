@@ -317,8 +317,8 @@ namespace Arkivverket.Arkade.CLI
 
             archiveMetadata.PackageType = InformationPackageCreator.ParsePackageType(packageType);
 
-            testSession.ArchiveMetadata = archiveMetadata;
-            testSession.ArchiveMetadata.Id = $"UUID:{testSession.Archive.Uuid}"; // NB! UUID-writeout (package creation)
+            testSession.Archive.Metadata = archiveMetadata;
+            testSession.Archive.Metadata.Id = $"UUID:{testSession.Archive.Uuid}"; // NB! UUID-writeout (package creation)
 
             Arkade.CreatePackage(testSession, outputDirectory);
 
