@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Tests.Logging
 
             new TestSessionLogXmlAssert(xml)
                 .AssertTimestampNow()
-                .AssertArchiveUuid(testSession.Archive.Uuid)
+                .AssertArchiveUuid(testSession.Archive.NewUuid)
                 .AssertArchiveType(testSession.Archive.ArchiveType)
                 .AssertArkadeVersionIsSet();
         }
