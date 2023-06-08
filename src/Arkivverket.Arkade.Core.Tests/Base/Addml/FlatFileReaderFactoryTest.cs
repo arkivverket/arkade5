@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
     {
         private static Archive CreateArchive(ArchiveType archiveType)
         {
-            return new Archive(archiveType, Uuid.Random(), new WorkingDirectory(new DirectoryInfo(@"c:\temp")), null); // NB! UUID-origin
+            return new Archive(archiveType, Uuid.Random(), null, new WorkingDirectory(new DirectoryInfo(@"c:\temp")), null); // NB! UUID-origin
         }
 
         [Fact(Skip = "flatFile == null wont work!")]

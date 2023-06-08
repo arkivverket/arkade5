@@ -25,7 +25,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         public bool IsNoark5TarArchive => ArchiveFileFullName != null && ArchiveType is ArchiveType.Noark5;
 
-        public Uuid Uuid { get; }
+        public Uuid OriginalUuid { get; }
+        public Uuid NewUuid { get; }
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
@@ -37,12 +38,13 @@ namespace Arkivverket.Arkade.Core.Base
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
         public ArchiveMetadata Metadata { get; set; }
 
-        public Archive(ArchiveType archiveType, Uuid uuid, WorkingDirectory workingDirectory,
+        public Archive(ArchiveType archiveType, Uuid originalUuid, Uuid newUuid, WorkingDirectory workingDirectory,
             IStatusEventHandler statusEventHandler, string archiveFileFullName=null)
         {
             _statusEventHandler = statusEventHandler;
 
-            Uuid = uuid; // NB! UUID-transfer
+            NewUuid = newUuid; // NB! UUID-transfer
+            OriginalUuid = originalUuid; // NB! UUID-transfer
 
             ArchiveType = archiveType;
 
@@ -108,12 +110,12 @@ namespace Arkivverket.Arkade.Core.Base
 
         public string GetInformationPackageFileName()
         {
-            return Uuid + ".tar"; // NB! UUID-writeout (package creation)
+            return NewUuid + ".tar"; // NB! UUID-writeout (package creation)
         }
 
         public string GetSubmissionDescriptionFileName()
         {
-            return Uuid + ".xml"; // NB! UUID-writeout (package creation)
+            return NewUuid + ".xml"; // NB! UUID-writeout (package creation)
         }
 
         public ArchiveXmlFile GetArchiveXmlFile(string fileName)

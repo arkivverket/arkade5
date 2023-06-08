@@ -82,7 +82,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             var testRuns = new List<TestRun> {testRun1};
 
             TestSession testSession = new TestSessionBuilder()
-                .WithArchive(new Archive(ArchiveType.Noark3, null, null, null))
+                .WithArchive(new Archive(ArchiveType.Noark3, null, null, null, null))
                 .WithTestSummary(new TestSummary(41, 42, 0, 0, 0))
                 .WithTestRuns(testRuns)
                 .Build();
@@ -111,7 +111,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             var testRuns = new List<TestRun> {testRun1};
 
             TestSession testSession = new TestSessionBuilder()
-                .WithArchive(new Archive(ArchiveType.Noark5, null, null, null))
+                .WithArchive(new Archive(ArchiveType.Noark5, null, null, null, null))
                 .WithTestSummary(new TestSummary(0, 0, 44, 0, 0))
                 .WithTestRuns(testRuns)
                 .Build();
