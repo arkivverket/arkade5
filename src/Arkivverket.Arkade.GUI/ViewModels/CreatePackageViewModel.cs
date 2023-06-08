@@ -459,7 +459,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             
             _testSession.Archive.Metadata = new ArchiveMetadata // NB! Metadata-origin (metadata creation)
             {
-                Id = $"UUID:{_testSession.Archive.Uuid}", // NB! UUID-writeout (package creation)
+                Id = $"UUID:{_testSession.Archive.NewUuid}", // NB! UUID-writeout (package creation)
 
                 Label = ArchiveMetadataMapper.MapToLabel(_metaDataNoarkSection, StandardLabelIsSelected),
                 ArchiveDescription = ArchiveMetadataMapper.MapToArchiveDescription(_metaDataArchiveDescription),

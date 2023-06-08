@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             {
                 @object = new objectComplexType[]
                 {
-                    CreateEntryForTarFile(archive.Uuid)
+                    CreateEntryForTarFile(archive.NewUuid)
                 }
             };
         }

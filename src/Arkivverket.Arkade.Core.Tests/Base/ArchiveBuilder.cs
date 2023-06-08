@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Moq;
 
@@ -65,7 +65,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
         public Archive Build()
         {
-            var archive = new Archive(_archiveType, _uuid, new WorkingDirectory(_workingDirectory, _workingDirectoryContent), null, _archiveFileFullName);
+            var archive = new Archive(_archiveType, _uuid, null, new WorkingDirectory(_workingDirectory, _workingDirectoryContent), null, _archiveFileFullName);
             return archive;
         }
     }
