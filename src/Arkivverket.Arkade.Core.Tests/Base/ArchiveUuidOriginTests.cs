@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
             Archive archive = GetResultingArchive(archiveDirectory);
 
-            archive.Uuid.Should().BeOfType<Uuid>();
+            archive.NewUuid.Should().BeOfType<Uuid>();
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
             Archive archive = GetResultingArchive(archiveFile);
 
-            archive.Uuid.ToString().Should().Be("258e3353-cef2-407f-92ac-264ad887527b");
+            archive.OriginalUuid.ToString().Should().Be("258e3353-cef2-407f-92ac-264ad887527b");
         }
 
         [Fact]
