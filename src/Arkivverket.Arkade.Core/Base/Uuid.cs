@@ -13,12 +13,16 @@ namespace Arkivverket.Arkade.Core.Base
             _uuid = uuid; // NB! UUID-transfer
         }
 
-        public static Uuid Of(string uuidString)
+        public static bool TryParse(string uuidString, out Uuid uuid)
         {
-            if (!Guid.TryParse(uuidString, out Guid uuid))
-                throw new ArkadeException(string.Format(ExceptionMessages.InvalidUUID, uuidString));
+            if (Guid.TryParse(uuidString, out Guid guid))
+            {
+                uuid = new Uuid(guid);
+                return true;
+            }
 
-            return new Uuid(uuid);
+            uuid = null;
+            return false;
         }
 
         public static Uuid Random()

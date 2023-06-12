@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Tests.Testing.Noark5;
@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         [Fact]
         public void OriginalUuidIsPreservedWhenInputIsDiasTarFile()
         {
-            string n5ExtractTarFile = Path.Combine(TestDataDirectory, "Noark5-extract.tar"); // UUID defined in mets
+            string n5ExtractTarFile = Path.Combine(TestDataDirectory, "258e3353-cef2-407f-92ac-264ad887527b.tar");
 
             ArchiveFile archiveFile = ArchiveFile.Read(n5ExtractTarFile, ArchiveType.Noark5);
 
@@ -39,9 +39,29 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         }
 
         [Fact]
-        public void NewUuidIsGeneratedWhenInputIsDiasTarFileWithOriginalUuidMissing() // Should this be supported?
+        public void NewUuidIsGeneratedWhenInputIsDiasTarFileWithOriginalUuidMissing()
         {
-            throw new NotImplementedException();
+            string n5ExtractTarFile = Path.Combine(TestDataDirectory, "invalid-uuid.tar");
+
+            ArchiveFile archiveFile = ArchiveFile.Read(n5ExtractTarFile, ArchiveType.Noark5);
+
+            Archive archive = GetResultingArchive(archiveFile);
+
+            archive.NewUuid.Should().BeOfType<Uuid>();
+            archive.OriginalUuid.Should().BeNull();
+        }
+
+        [Fact]
+        public void NewUuidIsGeneratedWhenInputIsSiardArchiveFile()
+        {
+            string siardArchiveFile = Path.Combine(TestDataDirectory, "Siard-extract.siard");
+
+            ArchiveFile archiveFile = ArchiveFile.Read(siardArchiveFile, ArchiveType.Siard);
+
+            Archive archive = GetResultingArchive(archiveFile);
+
+            archive.NewUuid.Should().BeOfType<Uuid>();
+            archive.OriginalUuid.Should().BeNull();
         }
 
         private static Archive GetResultingArchive(object archiveExtract)
