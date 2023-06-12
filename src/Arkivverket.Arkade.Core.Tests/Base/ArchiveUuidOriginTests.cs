@@ -22,6 +22,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             Archive archive = GetResultingArchive(archiveDirectory);
 
             archive.NewUuid.Should().BeOfType<Uuid>();
+            archive.OriginalUuid.Should().BeNull();
         }
 
         [Fact]
@@ -34,10 +35,11 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             Archive archive = GetResultingArchive(archiveFile);
 
             archive.OriginalUuid.ToString().Should().Be("258e3353-cef2-407f-92ac-264ad887527b");
+            archive.NewUuid.Should().BeNull();
         }
 
         [Fact]
-        public void NewUuidIsGeneratedWhenInputIsDiasTarFileWithOriginalUuidMissing()
+        public void NewUuidIsGeneratedWhenInputIsDiasTarFileWithOriginalUuidMissing() // Should this be supported?
         {
             throw new NotImplementedException();
         }
