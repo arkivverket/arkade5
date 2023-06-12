@@ -33,14 +33,11 @@ namespace Arkivverket.Arkade.Core.Identify
             _log.Debug(
                 $"Building new TestSession from directory [archiveType: {archiveType}] [directory: {archiveDirectory.Directory.FullName}]");
 
-            Uuid uuid = Uuid.Random(); // NB! UUID-origin
-            ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType, uuid);
+            Uuid newUuid = Uuid.Random(); // NB! UUID-origin
+            ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType, newUuid);
             WorkingDirectory workingDirectory = WorkingDirectory.FromExternalDirectory(archiveDirectory.Directory);
             
-            Uuid originalUuid = null;
-            Uuid newUuid = null;
-
-            TestSession testSession = NewSession(workingDirectory, archiveType, originalUuid, newUuid);
+            TestSession testSession = NewSession(workingDirectory, archiveType, null, newUuid);
 
             ReadingArchiveFinishedEvent();
             return testSession;
@@ -51,10 +48,18 @@ namespace Arkivverket.Arkade.Core.Identify
             ReadingArchiveStartedEvent();
             _log.Debug(
                 $"Building new TestSession from file [archiveType: {archiveFile.ArchiveType}] [directory: {archiveFile.File.FullName}]");
-            Uuid uuid = archiveFile.File.Extension.Equals(".siard")
-                ? Uuid.Random() // NB! UUID-origin
-                : Uuid.Of(Path.GetFileNameWithoutExtension(archiveFile.File.Name)); // NB! UUID-origin
-            ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, uuid);
+            
+            Uuid originalUuid = null; // NB! UUID-origin
+            Uuid newUuid = null; // NB! UUID-origin
+
+            if (archiveFile.File.Extension.Equals(".siard") ||
+                !Uuid.TryParse(Path.GetFileNameWithoutExtension(archiveFile.File.Name), out originalUuid))
+                newUuid = Uuid.Random();
+
+            /*else if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(archiveFile.File.Name), out originalUuid))
+                newUuid = Uuid.Random();*/
+
+            //ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, uuid);
 
             WorkingDirectory workingDirectory = WorkingDirectory.FromArchiveFile();
 
@@ -64,14 +69,14 @@ namespace Arkivverket.Arkade.Core.Identify
             }
             else
             {
+                if(originalUuid == null)
+
+
                 TarExtractionStartedEvent();
                 _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo(),
-                    withoutDocumentFiles: archiveFile.ArchiveType == ArchiveType.Noark5, archiveRootDirectoryName: uuid.ToString());
+                    withoutDocumentFiles: archiveFile.ArchiveType == ArchiveType.Noark5, archiveRootDirectoryName: originalUuid?.ToString() ?? newUuid.ToString());
                 TarExtractionFinishedEvent(workingDirectory);
             }
-
-            Uuid originalUuid = null;
-            Uuid newUuid = null;
 
             TestSession testSession = NewSession(workingDirectory, archiveFile.ArchiveType, originalUuid, newUuid, archiveFile.File.FullName);
 
