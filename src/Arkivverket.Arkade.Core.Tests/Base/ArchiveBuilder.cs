@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
         public ArchiveBuilder WithUuid(string uuid)
         {
-            _uuid = Uuid.Of(uuid);
+            Uuid.TryParse(uuid, out _uuid);
             return this;
         }
 
