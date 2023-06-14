@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
+using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing.Noark5;
@@ -55,7 +57,7 @@ namespace Arkivverket.Arkade.Core.Identify
 
             if (archiveFile.ArchiveType == ArchiveType.Siard && archiveFile.File.Extension.Equals(".siard"))
             {
-                CopySiardFilesToContentDirectory(archiveFile.File.Directory, workingDirectory.Content().ToString());
+                CopySiardFilesToContentDirectory(archiveFile, workingDirectory.Content().ToString());
             }
             else
             {
@@ -149,17 +151,38 @@ namespace Arkivverket.Arkade.Core.Identify
                 OperationMessageStatus.Ok);
         }
 
-        private static void CopySiardFilesToContentDirectory(DirectoryInfo archiveFileDirectory, string contentDirectoryPath)
+        private void CopySiardFilesToContentDirectory(ArchiveFile siardArchiveFile, string contentDirectoryPath)
         {
-            foreach (FileInfo fileInfo in archiveFileDirectory.GetFiles())
-            {
-                File.Copy(fileInfo.FullName,
-                    Path.Combine(contentDirectoryPath, fileInfo.Name));
-            }
+            var siardTableXmlReader = new SiardXmlTableReader(new SiardArchiveReader());
 
-            foreach (DirectoryInfo contentDirectory in archiveFileDirectory.GetDirectories())
+            siardArchiveFile.File.CopyTo(Path.Combine(contentDirectoryPath, siardArchiveFile.File.Name));
+
+            IEnumerable<string> fullPathsToExternalLobs =
+                siardTableXmlReader.GetFullPathsToExternalLobs(siardArchiveFile.File.FullName);
+
+            foreach (string fullPathToExternalLob in fullPathsToExternalLobs)
             {
-                contentDirectory.CopyTo(Path.Combine(contentDirectoryPath, contentDirectory.Name), true);
+                if (!File.Exists(fullPathToExternalLob))
+                {
+                    string message = string.Format(SiardMessages.ExternalLobFileNotFoundMessage, fullPathToExternalLob);
+                    _statusEventHandler.RaiseEventOperationMessage("", message, OperationMessageStatus.Error);
+                    _log.Error(message);
+                    continue;
+                }
+
+                string relativePathFromSiardFileToExternalLob =
+                    Path.GetRelativePath(siardArchiveFile.File.DirectoryName, fullPathToExternalLob);
+
+                string externalLobDestinationPath =
+                    Path.Combine(contentDirectoryPath, relativePathFromSiardFileToExternalLob);
+
+                var destinationDirectoryForExternalLob = Path.GetDirectoryName(externalLobDestinationPath);
+
+                Directory.CreateDirectory(destinationDirectoryForExternalLob);
+
+                File.Copy(fullPathToExternalLob, externalLobDestinationPath);
+
+                _log.Debug("'{0}' has been added to Arkade temporary work area", fullPathToExternalLob);
             }
         }
     }
