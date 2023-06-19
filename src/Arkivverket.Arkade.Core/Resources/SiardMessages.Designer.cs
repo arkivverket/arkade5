@@ -89,6 +89,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to External LOB file &apos;{0}&apos; not found.
+        /// </summary>
+        public static string ExternalLobFileNotFoundMessage {
+            get {
+                return ResourceManager.GetString("ExternalLobFileNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOB is inlined in an unsupported format.
         /// </summary>
         public static string InlinedLobContentHasUnsupportedEncoding {

@@ -148,4 +148,7 @@
     <value>{0} er ikke gyldig for SIARD-versjon {1}:
 {2}</value>
   </data>
+  <data name="ExternalLobFileNotFoundMessage" xml:space="preserve">
+    <value>Ekstern LOB-fil '{0}' ikke funnet</value>
+  </data>
 </root>
