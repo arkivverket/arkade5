@@ -90,6 +90,9 @@ namespace Arkivverket.Arkade.Core.Base
 
             LanguageManager.SetResourcesLanguageForTesting(testSession.OutputLanguage);
 
+            if (testSession.TestRunContainsDocumentFileDependentTests)
+                testSession.Archive.DocumentFiles.Register(includeChecksums: testSession.TestRunContainsChecksumControl);
+
             ITestEngine testEngine = _testEngineFactory.GetTestEngine(testSession);
             testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
 

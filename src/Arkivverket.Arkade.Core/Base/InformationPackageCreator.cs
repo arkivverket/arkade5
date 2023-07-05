@@ -73,7 +73,8 @@ namespace Arkivverket.Arkade.Core.Base
             string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
 
             using Stream outStream = File.Create(packageFilePath);
-            using TarArchive tarArchive = TarArchive.CreateOutputTarArchive(new TarOutputStream(outStream, Encoding.UTF8));
+            using var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);
+            using var tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
 
             string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
             CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
@@ -95,6 +96,9 @@ namespace Arkivverket.Arkade.Core.Base
                 );
             }
 
+            if (archive.IsNoark5TarArchive)
+                archive.DocumentFiles.TransferFromTarToInformationPackage(tarOutputStream);
+
             tarArchive.Close();
 
             var diasMetsFilePath = Path.Combine(
@@ -106,7 +110,7 @@ namespace Arkivverket.Arkade.Core.Base
                 archive.GetSubmissionDescriptionFileName());
 
             return packageFilePath;
-        }   
+        }
 
         private void CopyTestReportsToStandaloneDirectory(Archive archive, string resultDirectory)
         {
@@ -189,7 +193,7 @@ namespace Arkivverket.Arkade.Core.Base
                 {     
                     continue;
                 }
-
+                
                 CreateEntry(currentDirectory.FullName, true, rootDirectory, tarArchive, fileNamePrefix, Path.DirectorySeparatorChar.ToString());
                 AddFilesInDirectory(archive, currentDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
             }

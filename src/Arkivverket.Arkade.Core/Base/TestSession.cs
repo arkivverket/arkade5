@@ -12,6 +12,15 @@ namespace Arkivverket.Arkade.Core.Base
     {
         private readonly List<LogEntry> LogEntries = new List<LogEntry>();
 
+        private static readonly List<TestId> DocumentFileDependentNoark5Tests = new()
+        {
+            TestId.Create("N5.28"),
+            TestId.Create("N5.30"),
+            TestId.Create("N5.32"),
+            TestId.Create("N5.33"),
+            TestId.Create("N5.64")
+        };
+
         public Archive Archive { get; }
 
         public ArchiveMetadata ArchiveMetadata { get; set; }
@@ -30,6 +39,12 @@ namespace Arkivverket.Arkade.Core.Base
         public bool GenerateFileFormatInfo { get; set; }
 
         public SupportedLanguage OutputLanguage { get; set; }
+
+        public bool TestRunContainsDocumentFileDependentTests =>
+            TestsToRun.Any(test => DocumentFileDependentNoark5Tests.Contains(test));
+
+        public bool TestRunContainsChecksumControl =>
+            TestsToRun.Contains(TestId.Create("N5.30"));
 
         public TestSession(Archive archive)
         {

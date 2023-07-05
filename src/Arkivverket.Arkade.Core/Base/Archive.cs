@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -20,19 +19,22 @@ namespace Arkivverket.Arkade.Core.Base
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private static IStatusEventHandler _statusEventHandler;
 
+        internal string? ArchiveFileFullName { get; }
+
+        public bool IsNoark5TarArchive => ArchiveFileFullName != null && ArchiveType is ArchiveType.Noark5;
+
         public Uuid Uuid { get; }
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
-        private ReadOnlyDictionary<string, DocumentFile> _documentFiles;
-        public ReadOnlyDictionary<string, DocumentFile> DocumentFiles => _documentFiles ?? GetDocumentFiles();
+        internal DocumentFiles DocumentFiles { get; }
         public AddmlXmlUnit AddmlXmlUnit { get; }
         public AddmlInfo AddmlInfo { get; }
         public IArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
         public Archive(ArchiveType archiveType, Uuid uuid, WorkingDirectory workingDirectory,
-            IStatusEventHandler statusEventHandler)
+            IStatusEventHandler statusEventHandler, string archiveFileFullName=null)
         {
             _statusEventHandler = statusEventHandler;
 
@@ -42,12 +44,14 @@ namespace Arkivverket.Arkade.Core.Base
 
             WorkingDirectory = workingDirectory;
 
+            ArchiveFileFullName = archiveFileFullName;
+
             if (archiveType == ArchiveType.Siard)
             {
                 Details = SetupSiardArchiveDetails(workingDirectory);
                 return;
             }
-
+            
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
             if (!AddmlXmlUnit.File.Exists)
@@ -67,6 +71,10 @@ namespace Arkivverket.Arkade.Core.Base
                     AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
 
                 SetupArchiveXmlUnits();
+
+                DocumentFiles = archiveFileFullName == null
+                    ? new DocumentFiles(GetDocumentsDirectory())
+                    : new DocumentFiles(archiveFileFullName);
             }
         }
 
@@ -166,34 +174,6 @@ namespace Arkivverket.Arkade.Core.Base
 
                 XmlUnits.Add(new ArchiveXmlUnit(archiveXmlFile, archiveXmlSchemas));
             }
-        }
-
-        private ReadOnlyDictionary<string, DocumentFile> GetDocumentFiles()
-        {
-            Log.Information("Registering document files.");
-
-            var documentFiles = new Dictionary<string, DocumentFile>();
-
-            DirectoryInfo documentsDirectory = GetDocumentsDirectory();
-
-            if (documentsDirectory.Exists)
-            {
-                foreach (FileInfo documentFileInfo in documentsDirectory.GetFiles("*", SearchOption.AllDirectories))
-                {
-                    string relativePath = documentsDirectory.Parent != null
-                        ? Path.GetRelativePath(documentsDirectory.Parent.FullName, documentFileInfo.FullName)
-                        : documentFileInfo.FullName;
-
-                    documentFiles.Add(relativePath.Replace('\\', '/'), new DocumentFile(documentFileInfo));
-                }
-            }
-
-            // Instantiate field for next access:
-            _documentFiles = new ReadOnlyDictionary<string, DocumentFile>(documentFiles);
-
-            Log.Information($"{documentFiles.Count} document files registered.");
-
-            return _documentFiles;
         }
 
         private bool AddmlVersionIsSupported()

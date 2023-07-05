@@ -144,28 +144,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             string documentFileRelativePath = documentObject.DocumentFileReference.Replace('\\', '/');
 
-            var actualFileCheckSum = GetDocumentFileChecksum(documentFileRelativePath, documentObject.ChecksumAlgorithm);
+            var actualFileCheckSum = _documentFiles[documentFileRelativePath].CheckSum;
 
             return ChecksumsMatch(documentObject.Checksum, actualFileCheckSum);
-        }
-
-        private string GetDocumentFileChecksum(string documentFileRelativePath, string checksumAlgorithm)
-        {
-            return _documentFiles[documentFileRelativePath]?.CheckSum != null
-                ? _documentFiles[documentFileRelativePath].CheckSum
-                : GenerateChecksumForFile(documentFileRelativePath, checksumAlgorithm);
-        }
-
-        private string GenerateChecksumForFile(string documentFileRelativePath, string checksumAlgorithm)
-        {
-            var documentFileFullName = _documentFiles[documentFileRelativePath]?.FileInfo?.FullName;
-
-            var generator = new ChecksumGeneratorFactory().GetGenerator(checksumAlgorithm);
-            string checkSum = generator.GenerateChecksum(documentFileFullName);
-
-            _documentFiles[documentFileRelativePath].CheckSum = checkSum;
-
-            return checkSum;
         }
 
         private static bool ChecksumsMatch(string checksumA, string checkSumB)

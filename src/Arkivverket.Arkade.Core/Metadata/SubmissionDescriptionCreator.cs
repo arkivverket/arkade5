@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             Log.Debug($"Created {targetFileObject}");
         }
 
-        private static void PrepareForPackageDescription(ArchiveMetadata metadata, FileInfo packageFile,
+        private void PrepareForPackageDescription(ArchiveMetadata metadata, FileInfo packageFile,
             FileInfo diasMetsFile)
         {
             metadata.FileDescriptions = null; // Removes any existing file-descriptions
