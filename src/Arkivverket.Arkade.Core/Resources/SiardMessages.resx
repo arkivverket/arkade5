@@ -133,4 +133,8 @@
     <comment>{0} xml-file, {1} SIARD version,
 {2} schema errors</comment>
   </data>
+  <data name="ExternalLobFileNotFoundMessage" xml:space="preserve">
+    <value>External LOB file '{0}' not found</value>
+    <comment>{0}: full path to directory</comment>
+  </data>
 </root>

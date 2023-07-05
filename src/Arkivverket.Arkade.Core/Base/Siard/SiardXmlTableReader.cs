@@ -23,6 +23,32 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             _siardArchiveReader = siardArchiveReader;
         }
 
+        internal IEnumerable<string> GetFullPathsToExternalLobs(string siardArchiveFullPath)
+        {
+            Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndexes =
+                _siardArchiveReader.GetLobFolderPathsWithColumnIndexes(siardArchiveFullPath);
+
+            foreach (SiardLobReference siardLobReference in lobFolderPathsWithColumnIndexes.Values.SelectMany(l => l))
+            {
+                XDocument xmlTableDoc = XDocument.Parse(GetXmlTableStringContent(siardArchiveFullPath, siardLobReference));
+                var xPathQuery = $"//*:c{siardLobReference.Column.Index}";
+
+                List<XElement> lobXmlElements = xmlTableDoc.XPath2SelectElements(xPathQuery).ToList();
+
+                foreach (XElement lobXmlElement in lobXmlElements)
+                {
+                    var lobReference = new SiardLobReference(siardLobReference)
+                    {
+                        FilePathInTableXml = lobXmlElement.Attributes().FirstOrDefault(a => a.Name.LocalName.Equals("file"))?.Value
+                    };
+
+                    if (!SiardLobIsExternal(lobReference)) continue;
+
+                    yield return GetPathToExternalLob(siardArchiveFullPath, lobReference);
+                }
+            }
+        }
+
         public IEnumerable<KeyValuePair<string, IEnumerable<byte>>> CreateLobByteArrays(string siardFileName)
         {
             Dictionary<string, List<SiardLobReference>> lobFolderPathsWithColumnIndexes =
@@ -110,7 +136,8 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 
         private static bool SiardLobIsExternal(SiardLobReference siardLobReference)
         {
-            return siardLobReference.FilePathInTableXml.StartsWith("..") || siardLobReference.IsExternal;
+            return !LobIsInlinedInXmlTable(siardLobReference.FilePathInTableXml) &&
+                (siardLobReference.FilePathInTableXml?.StartsWith("..") == true || siardLobReference.IsExternal);
         }
 
         private KeyValuePair<string, IEnumerable<byte>> CreateKeyValuePairForInlinedLob(XElement lobXmlElement, SiardLobReference siardLobReference)
@@ -171,13 +198,13 @@ namespace Arkivverket.Arkade.Core.Base.Siard
         {
             string siardFileDirectoryPath = siardFileName.Replace(Path.GetFileName(siardFileName), string.Empty);
 
-            string relativePathToLobFile = siardLobReference.FilePathInTableXml.StartsWith("..")
+            string relativePathToLobFile = siardLobReference.FilePathInTableXml?.StartsWith("..") == true
                 ? siardLobReference.FilePathInTableXml.Remove(0, 3)
                 : Path.Combine(siardLobReference.LobFolderPath.TrimStart('.', '\\', '/'),
                     siardLobReference.FilePathRelativeToLobFolder);
 
             string pathToExternalLob = Path.Combine(siardFileDirectoryPath, relativePathToLobFile);
-            return pathToExternalLob;
+            return pathToExternalLob.Replace('\\', '/');
         }
     }
 }
