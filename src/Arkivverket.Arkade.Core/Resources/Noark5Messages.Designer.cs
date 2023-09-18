@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID, title): {0}, {1}.
+        ///   Looks up a localized string similar to Archive part (systemID, tittel): {0}, {1}.
         /// </summary>
         public static string ArchivePartSystemId {
             get {
@@ -389,11 +389,11 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Folder (systemID, mappeID, title): {0}, {1}, {2}.
+        ///   Looks up a localized string similar to Folder (systemID, mappeID, offentligTittel): {0}, {1}, {2}.
         /// </summary>
-        public static string FolderSystemIdFolderIdAndTitle {
+        public static string FolderSystemIdFolderIdAndPublicTitle {
             get {
-                return ResourceManager.GetString("FolderSystemIdFolderIdAndTitle", resourceCulture);
+                return ResourceManager.GetString("FolderSystemIdFolderIdAndPublicTitle", resourceCulture);
             }
         }
         
@@ -461,7 +461,7 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive part (systemID - title) {0} - {1}: {2}.
+        ///   Looks up a localized string similar to Archive part (systemID - tittel) {0} - {1}: {2}.
         /// </summary>
         public static string NumberOf_PerArchivePart {
             get {

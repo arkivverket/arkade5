@@ -204,7 +204,7 @@ Generated: {2}</value>
     <value>Referenced document file: {0} - Number of References: {1}</value>
   </data>
   <data name="ArchivePartSystemId" xml:space="preserve">
-    <value>Archive part (systemID, title): {0}, {1}</value>
+    <value>Archive part (systemID, tittel): {0}, {1}</value>
   </data>
   <data name="ControlNoSuperclassesHasFoldersMessage" xml:space="preserve">
     <value>Class with systemID {0}</value>
@@ -304,7 +304,7 @@ Generated: {2}</value>
     <value>Number of classification systems in {0}: {1}</value>
   </data>
   <data name="NumberOf_PerArchivePart" xml:space="preserve">
-    <value>Archive part (systemID - title) {0} - {1}: {2}</value>
+    <value>Archive part (systemID - tittel) {0} - {1}: {2}</value>
   </data>
   <data name="CouldNotReadFromFiles" xml:space="preserve">
     <value>Could not read from one or more files</value>
@@ -413,8 +413,8 @@ Generated: {2}</value>
   <data name="CouldNotFindValidSpecificationFile" xml:space="preserve">
     <value>Could not find a valid specification file</value>
   </data>
-  <data name="FolderSystemIdFolderIdAndTitle" xml:space="preserve">
-    <value>Folder (systemID, mappeID, title): {0}, {1}, {2}</value>
+  <data name="FolderSystemIdFolderIdAndPublicTitle" xml:space="preserve">
+    <value>Folder (systemID, mappeID, offentligTittel): {0}, {1}, {2}</value>
   </data>
   <data name="RegistrationSystemIdAndRegistrationId" xml:space="preserve">
     <value>Registration (systemID, registreringsID): {0}, {1}</value>
