@@ -104,6 +104,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             return tryParseExact || baseIsValid;
         }
 
+        protected override void VerifyFieldFormat(string fieldFormat)
+        {
+            throw new NotImplementedException();
+        }
+
         private static string ConvertIso8601CalendarDateTimeStringToCSharpDateTimeString(string iso8601DateTimeString)
         {
             string iso8601CalendarDateBasicRepresentation = Iso8601Format.ConvertToBasicRepresentation(iso8601DateTimeString);

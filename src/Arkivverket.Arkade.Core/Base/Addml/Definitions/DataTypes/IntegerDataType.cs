@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             _thousandSeparator = ParseThousandSeparator(fieldFormat);
         }
 
-        private void VerifyFieldFormat(string fieldFormat)
+        protected override void VerifyFieldFormat(string fieldFormat)
         {
             if (fieldFormat == null)
                 return;

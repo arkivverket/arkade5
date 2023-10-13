@@ -55,6 +55,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             return s == GetTrue() || s == GetFalse() || base.IsValid(s, isNullable);
         }
 
+        protected override void VerifyFieldFormat(string fieldFormat)
+        {
+            throw new NotImplementedException();
+        }
+
         protected bool Equals(BooleanDataType other)
         {
             return string.Equals(_fieldFormat, other._fieldFormat);

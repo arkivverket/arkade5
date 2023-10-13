@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             VerifyFieldFormat(fieldFormat);
         }
 
-        private void VerifyFieldFormat(string fieldFormat)
+        protected override void VerifyFieldFormat(string fieldFormat)
         {
             if (!_acceptedFieldFormats.Contains(fieldFormat))
             {

@@ -1,4 +1,4 @@
-﻿
+
 namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 {
     public class LinkDataType : DataType
@@ -29,6 +29,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         public override bool IsValid(string s, bool isNullable)
         {
             return base.IsValid(s, isNullable);
+        }
+
+        protected override void VerifyFieldFormat(string fieldFormat)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

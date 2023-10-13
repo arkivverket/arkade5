@@ -21,6 +21,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
                 || base.IsValid(timeString, isNullable);
         }
 
+        protected override void VerifyFieldFormat(string fieldFormat)
+        {
+            throw new NotImplementedException();
+        }
+
         private static string EscapeColonsAndDashes(string someString)
         {
             return someString.Replace(":", "\\:").Replace("-", "\\-");

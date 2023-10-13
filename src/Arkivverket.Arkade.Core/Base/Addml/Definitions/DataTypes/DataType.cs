@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 {
@@ -24,5 +24,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         {
             return _nullValues != null && _nullValues.Contains(s);
         }
+
+        protected abstract void VerifyFieldFormat(string fieldFormat);
     }
 }
