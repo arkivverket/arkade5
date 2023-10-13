@@ -33,10 +33,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         {
         }
 
-        public IntegerDataType(string fieldFormat, List<string> nullValues) : base(nullValues)
+        public IntegerDataType(string fieldFormat, List<string> nullValues) : base(fieldFormat, nullValues)
         {
-            VerifyFieldFormat(fieldFormat);
-
             _fieldFormat = fieldFormat;
             _thousandSeparator = ParseThousandSeparator(fieldFormat);
         }

@@ -37,11 +37,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         private readonly List<string> _acceptedFieldFormats =
             new(AcceptedDecimalFormats.Concat(AcceptedThousandFormats));
 
-        public FloatDataType(string fieldFormat, List<string> nullValues) : base(nullValues)
+        public FloatDataType(string fieldFormat, List<string> nullValues) : base(fieldFormat, nullValues)
         {
             _fieldFormat = fieldFormat;
-
-            VerifyFieldFormat(fieldFormat);
         }
 
         protected override void VerifyFieldFormat(string fieldFormat)

@@ -15,8 +15,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             return IsValidNullValue(s) || isNullable && string.IsNullOrEmpty(s);
         }
 
-        protected DataType(List<string> nullValues)
+        protected DataType(string fieldFormat, List<string> nullValues)
         {
+            VerifyFieldFormat(fieldFormat);
+
             _nullValues = nullValues;
         }
 

@@ -1,4 +1,4 @@
-﻿using Arkivverket.Arkade.Core.Util;
+using Arkivverket.Arkade.Core.Util;
 using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Resources;
@@ -27,11 +27,9 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         {
         }
 
-        public StringDataType(string fieldFormat, List<string> nullValues) : base(nullValues)
+        public StringDataType(string fieldFormat, List<string> nullValues) : base(fieldFormat, nullValues)
         {
             _fieldFormat = fieldFormat;
-
-            VerifyFieldFormat(fieldFormat);
         }
 
         protected override void VerifyFieldFormat(string fieldFormat)

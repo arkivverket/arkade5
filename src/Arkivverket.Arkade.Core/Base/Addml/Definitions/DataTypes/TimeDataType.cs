@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
     {
         private readonly string _timeFormat;
 
-        public TimeDataType(string timeFormat, List<string> nullValues = null) : base(nullValues)
+        public TimeDataType(string timeFormat, List<string> nullValues = null) : base(timeFormat, nullValues)
         {
             _timeFormat = timeFormat;
         }

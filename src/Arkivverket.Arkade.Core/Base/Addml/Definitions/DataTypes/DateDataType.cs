@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Arkivverket.Arkade.Core.Util;
@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         {
         }
 
-        public DateDataType(string fieldFormat, List<string> nullValues) : base(nullValues)
+        public DateDataType(string fieldFormat, List<string> nullValues) : base(fieldFormat, nullValues)
         {
             _fieldFormat = fieldFormat;
             _dateFormat = ParseCSharpDateTimeFormat(_fieldFormat);
