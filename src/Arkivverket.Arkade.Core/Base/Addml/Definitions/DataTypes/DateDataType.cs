@@ -11,11 +11,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         private readonly string _fieldFormat;
         private readonly DateFormat _dateFormat;
 
-        public DateDataType(string fieldFormat) : this(fieldFormat, null)
-        {
-        }
-
-        public DateDataType(string fieldFormat, List<string> nullValues) : base(fieldFormat, nullValues)
+        public DateDataType(string fieldFormat, List<string> nullValues = null) : base(fieldFormat, nullValues)
         {
             _fieldFormat = fieldFormat;
             _dateFormat = ParseCSharpDateTimeFormat(_fieldFormat);

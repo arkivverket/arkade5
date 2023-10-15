@@ -4,7 +4,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
     public class LinkDataType : DataType
     {
 
-        public LinkDataType()
+        public LinkDataType(): base(null)
         {
         }
 

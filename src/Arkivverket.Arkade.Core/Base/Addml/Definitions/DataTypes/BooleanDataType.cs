@@ -9,11 +9,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         private readonly string _trueString;
         private readonly string _falseString;
 
-        public BooleanDataType(string fieldFormat) : this(fieldFormat, null)
-        {            
-        }
-
-        public BooleanDataType(string fieldFormat, List<string> nullValues) : base(fieldFormat, nullValues)
+        public BooleanDataType(string fieldFormat, List<string> nullValues = null) : base(fieldFormat, nullValues)
         {
 
             string[] strings = fieldFormat.Split('/');

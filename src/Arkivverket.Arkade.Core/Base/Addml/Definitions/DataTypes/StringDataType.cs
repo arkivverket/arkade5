@@ -23,11 +23,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
             StringDataTypeAccountNumber
         };
 
-        public StringDataType()
-        {
-        }
-
-        public StringDataType(string fieldFormat, List<string> nullValues) : base(fieldFormat, nullValues)
+        public StringDataType(string fieldFormat = null, List<string> nullValues = null) : base(fieldFormat, nullValues)
         {
             _fieldFormat = fieldFormat;
         }

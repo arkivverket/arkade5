@@ -6,16 +6,12 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
     {
         private readonly List<string> _nullValues;
 
-        protected DataType()
-        {
-        }
-
         public virtual bool IsValid(string s, bool isNullable)
         {
             return IsValidNullValue(s) || isNullable && string.IsNullOrEmpty(s);
         }
 
-        protected DataType(string fieldFormat, List<string> nullValues)
+        protected DataType(string fieldFormat, List<string> nullValues = null)
         {
             VerifyFieldFormat(fieldFormat);
 

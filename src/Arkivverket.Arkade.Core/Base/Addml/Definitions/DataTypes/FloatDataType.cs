@@ -16,11 +16,6 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         private static readonly string[] AcceptedDecimalSeparators = {".", ","};
         private static readonly string[] AcceptedThousandSeparators = {".", ",", " "};
 
-
-        public FloatDataType()
-        {
-        }
-
         private static readonly string[] AcceptedDecimalFormats =
         {
             "nn,nn",
@@ -37,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         private readonly List<string> _acceptedFieldFormats =
             new(AcceptedDecimalFormats.Concat(AcceptedThousandFormats));
 
-        public FloatDataType(string fieldFormat, List<string> nullValues) : base(fieldFormat, nullValues)
+        public FloatDataType(string fieldFormat = null, List<string> nullValues = null) : base(fieldFormat, nullValues)
         {
             _fieldFormat = fieldFormat;
         }

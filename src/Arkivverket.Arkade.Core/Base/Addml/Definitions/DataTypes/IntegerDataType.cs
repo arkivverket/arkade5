@@ -25,15 +25,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 
         private readonly string _thousandSeparator;
 
-        public IntegerDataType()
-        {
-        }
-
-        public IntegerDataType(string fieldFormat) : this(fieldFormat, null)
-        {
-        }
-
-        public IntegerDataType(string fieldFormat, List<string> nullValues) : base(fieldFormat, nullValues)
+        public IntegerDataType(string fieldFormat = null, List<string> nullValues = null) : base(fieldFormat, nullValues)
         {
             _fieldFormat = fieldFormat;
             _thousandSeparator = ParseThousandSeparator(fieldFormat);
