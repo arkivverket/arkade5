@@ -34,29 +34,29 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 
         public FloatDataType(string fieldFormat = null, List<string> nullValues = null) : base(fieldFormat, nullValues)
         {
+            if (fieldFormat != null && AcceptedThousandFormats.Contains(fieldFormat))
+            {
+                _numberGroupSeparator = fieldFormat[1].ToString();
+                _numberDecimalSeparator = fieldFormat[5].ToString();
+            }
+            else if (fieldFormat != null && AcceptedDecimalFormats.Contains(fieldFormat))
+            {
+                _numberDecimalSeparator = fieldFormat[2].ToString();
+            }
+
             _fieldFormat = fieldFormat;
         }
 
         protected override void VerifyFieldFormat(string fieldFormat)
         {
-            if (fieldFormat == null)
+            if (fieldFormat == null
+                || AcceptedThousandFormats.Contains(fieldFormat)
+                || AcceptedDecimalFormats.Contains(fieldFormat))
                 return;
 
-            if (AcceptedThousandFormats.Contains(fieldFormat))
-            {
-                _numberGroupSeparator = fieldFormat[1].ToString();
-                _numberDecimalSeparator = fieldFormat[5].ToString();
-            }
-            else if (AcceptedDecimalFormats.Contains(fieldFormat))
-            {
-                _numberDecimalSeparator = fieldFormat[2].ToString();
-            }
-            else
-            {
-                string message = string.Format(ExceptionMessages.InvalidFieldFormatMessage, fieldFormat, "float",
-                    string.Join(", ", _acceptedFieldFormats));
-                throw new ArgumentException(message);
-            }
+            string message = string.Format(ExceptionMessages.InvalidFieldFormatMessage, fieldFormat, "float",
+                string.Join(", ", _acceptedFieldFormats));
+            throw new ArgumentException(message);
         }
 
 

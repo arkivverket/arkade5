@@ -13,20 +13,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
         {
 
             string[] strings = fieldFormat.Split('/');
-            if (strings.Length != 2)
-            {
-                ThrowException(fieldFormat);
-            }
-
             _trueString = strings[0];
             _falseString = strings[1];
-
-            if (string.IsNullOrWhiteSpace(_trueString) 
-                || string.IsNullOrWhiteSpace(_falseString)
-                || _trueString.Equals(_falseString))
-            {
-                ThrowException(fieldFormat);
-            }
 
             _fieldFormat = fieldFormat;
         }
@@ -53,7 +41,21 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions.DataTypes
 
         protected override void VerifyFieldFormat(string fieldFormat)
         {
-            throw new NotImplementedException();
+            string[] strings = fieldFormat.Split('/');
+            if (strings.Length != 2)
+            {
+                ThrowException(fieldFormat);
+            }
+
+            string trueString = strings[0];
+            string falseString = strings[1];
+
+            if (string.IsNullOrWhiteSpace(trueString)
+                || string.IsNullOrWhiteSpace(falseString)
+                || trueString.Equals(falseString))
+            {
+                ThrowException(fieldFormat);
+            }
         }
 
         protected bool Equals(BooleanDataType other)
