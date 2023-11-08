@@ -90,7 +90,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static void CreateMetsElementAttributes(mets mets, ArchiveMetadata metadata)
         {
-            mets.OBJID = metadata.Id; // NB! UUID-writeout (package creation)
+            mets.OBJID = metadata.Id; // NB! UUID-writeout (package creation) (from ArchiveMetadata)
             mets.PROFILE = "http://xml.ra.se/METS/RA_METS_eARD.xml";
 
             mets.TYPE = metadata.PackageType == PackageType.SubmissionInformationPackage
