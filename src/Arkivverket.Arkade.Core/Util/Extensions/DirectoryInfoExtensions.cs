@@ -1,25 +1,23 @@
-﻿using System.IO;
+using System.IO;
 
 namespace Arkivverket.Arkade.Core.Util
 {
     public static class DirectoryInfoExtensions
     {
-        public static void CopyTo(this DirectoryInfo sourceDirectoryInfo, string destinationPath, bool withSubDirectories)
+        public static void CopyTo(this DirectoryInfo sourceDirectory, string directoryCopyLocationPath, bool overwrite)
         {
-            Directory.CreateDirectory(destinationPath);
+            var directoryCopy = new DirectoryInfo(Path.Combine(directoryCopyLocationPath, sourceDirectory.Name));
 
-            foreach (FileInfo fileInfo in sourceDirectoryInfo.GetFiles())
-            {
-                fileInfo.CopyTo(Path.Combine(destinationPath, fileInfo.Name));
-            }
+            if (overwrite && directoryCopy.Exists)
+                directoryCopy.Delete(true);
 
-            if (!withSubDirectories)
-                return;
+            directoryCopy.Create();
 
-            foreach (DirectoryInfo subDirectory in sourceDirectoryInfo.GetDirectories())
-            {
-                subDirectory.CopyTo(Path.Combine(destinationPath, subDirectory.Name), true);
-            }
+            foreach (FileInfo file in sourceDirectory.GetFiles())
+                file.CopyTo(Path.Combine(directoryCopy.FullName, file.Name));
+
+            foreach (DirectoryInfo directory in sourceDirectory.GetDirectories())
+                directory.CopyTo(directoryCopy.FullName, overwrite);
         }
 
         public static bool HasWritePermission(this DirectoryInfo directory)
