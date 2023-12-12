@@ -187,7 +187,7 @@ namespace Arkivverket.Arkade.Core.Report
             return (test.TestType is TestType.ContentControl or TestType.StructureControl);
         }
 
-        private static string GetTestTypeDisplayName(TestType? testType)
+        private static string GetTestTypeDisplayName(TestType? testType) //TODO: Move to Core and reuse for GUI test-selector and CLI test selection file generation?
         {
             return testType switch
             {

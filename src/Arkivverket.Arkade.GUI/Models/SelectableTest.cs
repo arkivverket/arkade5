@@ -1,4 +1,5 @@
-﻿using Arkivverket.Arkade.Core.Util;
+﻿using Arkivverket.Arkade.Core.Testing;
+using Arkivverket.Arkade.Core.Util;
 using Prism.Mvvm;
 
 namespace Arkivverket.Arkade.GUI.Models
@@ -6,6 +7,7 @@ namespace Arkivverket.Arkade.GUI.Models
     public class SelectableTest : BindableBase
     {
         public TestId TestId { get; set; }
+        public TestType? TestType { get; set; }
         public string DisplayName { get; set; }
 
         private bool _isSelected;

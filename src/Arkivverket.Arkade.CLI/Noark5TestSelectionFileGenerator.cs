@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
@@ -20,10 +21,11 @@ namespace Arkivverket.Arkade.CLI
             testList.AppendLine($"{commentSymbol} {string.Format(OutputStrings.Noark5TestSelectionFileDescription, commentSymbol)}");
             testList.AppendLine();
 
-            foreach (TestId testId in Noark5TestProvider.GetAllTestIds())
+            foreach ((TestId testId, TestType? testType) in Noark5TestProvider.GetAvailableTests())
             {
                 string line = (allTestsEnabled ? string.Empty : commentSymbol) +
-                              ArkadeTestNameProvider.GetDisplayName(testId, language);
+                              ArkadeTestNameProvider.GetDisplayName(testId, language) +
+                              (testType != null? " (" + testType + ")" : string.Empty);
 
                 testList.AppendLine(line);
             }

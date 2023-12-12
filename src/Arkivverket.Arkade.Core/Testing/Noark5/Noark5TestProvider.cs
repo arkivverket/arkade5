@@ -56,5 +56,15 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         {
             return new Noark5TestFactory().GetTestIds();
         }
+
+        public static SortedDictionary<TestId, TestType?> GetAvailableTests()
+        {
+            var availableTests = new SortedDictionary<TestId, TestType?>();
+
+            foreach (TestId testId in GetAllTestIds())
+                availableTests.Add(testId, Noark5TestFactory.GetTestType(testId));
+
+            return availableTests;
+        }
     }
 }

@@ -96,7 +96,7 @@ namespace Arkivverket.Arkade.Core.Identify
 
             if (archiveType == ArchiveType.Noark5)
             {
-                testSession.AvailableTests = Noark5TestProvider.GetAllTestIds();
+                testSession.AvailableTests = Noark5TestProvider.GetAvailableTests();
 
                 return testSession;
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Testing.Noark5.Structure;
 using Arkivverket.Arkade.Core.Util;
@@ -22,6 +23,13 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
         public List<TestId> GetTestIds()
         {
             return _arkadeTestImplementationsByTestId.Keys.ToList();
+        }
+
+        public static TestType? GetTestType(TestId testId)
+        {
+            Type testClass = GetArkadeTestImplementationsByTestId()[testId];
+
+            return testClass.GetField("Type")?.GetValue(testClass)! as TestType?;
         }
 
         public IArkadeTest Create(TestId testId)

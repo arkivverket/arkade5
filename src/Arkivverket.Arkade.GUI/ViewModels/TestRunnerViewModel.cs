@@ -15,6 +15,7 @@ using Prism.Regions;
 using Serilog;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
 using Arkivverket.Arkade.Core.Util;
@@ -52,6 +53,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool _testRunHasFailed;
         private bool _canSelectTests;
         private bool _allTestsSelected;
+        private bool _onlyStructureTestsSelected;
         private bool _isProcessingRecord;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
@@ -144,6 +146,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             }
         }
 
+        public bool OnlyStructureTestsSelected
+        {
+            get => _onlyStructureTestsSelected;
+            set
+            {
+                SetProperty(ref _allTestsSelected, value);
+                foreach (SelectableTest test in SelectableTests)
+                    test.IsSelected = value;
+            }
+        }
+
         public bool CanSelectTests
         {
             get => _canSelectTests;
@@ -197,6 +210,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             NewProgramSessionCommand = new DelegateCommand(ReturnToProgramStart, IsFinishedRunningTests);
             ShowReportCommand = new DelegateCommand(ShowTestReportDialog, CanContinueOperationOnTestRun);
             _allTestsSelected = true;
+            _onlyStructureTestsSelected = false;
         }
 
         private void StartTesting()
@@ -273,12 +287,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 {
                     SupportedLanguage uiLanguage = LanguageSettingHelper.GetUILanguage();
 
-                    foreach (TestId testId in _testSession.AvailableTests)
+                    foreach ((TestId testId, TestType? testType) in _testSession.AvailableTests)
                     {
                         _selectableTests.Add(new SelectableTest
                         {
                             TestId = testId,
-                            DisplayName = ArkadeTestNameProvider.GetDisplayName(testId, uiLanguage),
+                            TestType = testType,
+                            DisplayName = ArkadeTestNameProvider.GetDisplayName(testId, uiLanguage) + (testType != null ? $" ({testType})" : ""),
                             IsSelected = true
                         });
                     }

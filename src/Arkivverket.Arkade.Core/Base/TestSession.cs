@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base
@@ -26,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Base
         public ArchiveMetadata ArchiveMetadata { get; set; }
 
         public List<TestId> TestsToRun { get; set; } = new List<TestId>();
-        public List<TestId> AvailableTests { get; set; } = new List<TestId>();
+        public SortedDictionary<TestId, TestType?> AvailableTests { get; set; } = new();
 
         public TestSuite TestSuite { get; set; }
 
