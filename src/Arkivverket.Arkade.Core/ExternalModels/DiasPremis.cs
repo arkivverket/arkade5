@@ -2913,7 +2913,7 @@ namespace Arkivverket.Arkade.Core.ExternalModels.DiasPremis {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://arkivverket.no/standarder/PREMIS")]
-    public partial class file : objectComplexType {
+    public partial class @file : objectComplexType {
         
         private objectIdentifierComplexType[] objectIdentifierField;
         

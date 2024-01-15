@@ -23,7 +23,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             };
         }
 
-        private static file CreateEntryForTarFile(Uuid uuid)
+        private static @file CreateEntryForTarFile(Uuid uuid)
         {
             return new file()
             {
