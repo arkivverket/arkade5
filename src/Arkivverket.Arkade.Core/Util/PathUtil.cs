@@ -1,4 +1,6 @@
-﻿namespace Arkivverket.Arkade.Core.Util
+using System.IO;
+
+namespace Arkivverket.Arkade.Core.Util
 {
     public static class PathUtil
     {
@@ -21,6 +23,15 @@
                 return path1;
 
             return path2 + "/" + path1;
+        }
+
+        public static bool HasIllegalCharacters(string path)
+        {
+            bool pathHasIllegalChars = path.IndexOfAny(Path.GetInvalidPathChars()) >= 0;
+
+            bool fileNameHasIllegalChars = new FileInfo(path).Name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0;
+
+            return pathHasIllegalChars || fileNameHasIllegalChars;
         }
     }
 }
