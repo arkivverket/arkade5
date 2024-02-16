@@ -151,4 +151,7 @@
   <data name="ExternalLobFileNotFoundMessage" xml:space="preserve">
     <value>Ekstern LOB-fil '{0}' ikke funnet</value>
   </data>
+  <data name="ExternalLobsNotCopiedWarning" xml:space="preserve">
+    <value>NB! Hvis en pakke opprettes, vil Arkade ikke være i stand til å inkludere ev. eksterne blob/clob-er</value>
+  </data>
 </root>
