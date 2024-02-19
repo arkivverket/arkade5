@@ -119,7 +119,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="8.0.0" />
-    <PackageReference Include="Codeuctivity.PdfAValidator" Version="3.0.189" />
+    <PackageReference Include="Codeuctivity.PdfAValidator" Version="3.0.208" />
     <PackageReference Include="CsvHelper" Version="31.0.0" />
     <PackageReference Include="itext7.pdfhtml" Version="4.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
