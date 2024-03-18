@@ -110,7 +110,7 @@ namespace Arkivverket.Arkade.CLI
             if (Console.IsOutputRedirected)
                 return;
 
-            _formatAnalysisProgressPresenter.UpdateAndDisplayProgress(eventArgs.FileSize);
+            _formatAnalysisProgressPresenter?.UpdateAndDisplayProgress(eventArgs.FileSize);
         }
 
         private static void OnFormatAnalysisFinishedEvent(object sender, FormatAnalysisProgressEventArgs eventArgs)
