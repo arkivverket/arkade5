@@ -32,6 +32,16 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             _fileSystemInfoSizeCalculator = fileSystemInfoSizeCalculator;
         }
 
+        public void BroadCastStarted()
+        {
+            _statusEventHandler.RaiseEventFormatAnalysisStarted();
+        }
+
+        public void BroadCastFinished()
+        {
+            _statusEventHandler.RaiseEventFormatAnalysisFinished();
+        }
+
         public IEnumerable<IFileFormatInfo> IdentifyFormats(string target, FileFormatScanMode scanMode)
         {
             _statusEventHandler.RaiseEventFormatAnalysisStarted();

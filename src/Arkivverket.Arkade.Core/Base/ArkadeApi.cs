@@ -208,7 +208,9 @@ namespace Arkivverket.Arkade.Core.Base
                     resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
 
                     IEnumerable<KeyValuePair<string, IEnumerable<byte>>> lobsAsByte = _siardXmlTableReader.CreateLobByteArrays(siardFileFullName);
+                    _fileFormatIdentifier.BroadCastStarted();
                     IEnumerable<IFileFormatInfo> formatAnalysedLobs = _fileFormatIdentifier.IdentifyFormats(lobsAsByte);
+                    _fileFormatIdentifier.BroadCastFinished();
                     _fileFormatInfoGenerator.Generate(formatAnalysedLobs, siardFileFullName, resultFileFullName);
                 }
                 else if (archive.IsNoark5TarArchive)
