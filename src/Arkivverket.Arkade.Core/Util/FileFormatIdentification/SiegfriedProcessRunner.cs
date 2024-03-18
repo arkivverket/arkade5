@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -180,6 +180,9 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             if (scanMode is FileFormatScanMode.Stream)
                 return siegfriedArgument;
+
+            if (!(Directory.Exists(analysisTargetFullName) || File.Exists(analysisTargetFullName)))
+                throw new SiegfriedFileFormatIdentifierException("Analysis target not found");
 
             string rootDirPostfix = analysisTargetFullName.Equals(Path.GetPathRoot(analysisTargetFullName))
                 ? Path.DirectorySeparatorChar.ToString()
