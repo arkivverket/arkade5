@@ -78,6 +78,12 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
         internal string RunOnByteArray(Process process, KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
         {
+            using var streamFromByteContent = new MemoryStream(filePathAndByteContent.Value.ToArray());
+            return RunOnStream(process, streamFromByteContent, filePathAndByteContent.Key);
+        }
+
+        internal string RunOnStream(Process process, Stream stream, string fileName)
+        {
             var results = new List<string>();
             var errors = new List<string>();
 
@@ -89,8 +95,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                 ExternalProcessManager.Start(process);
 
                 using StreamWriter streamWriter = process.StandardInput;
-                using var ms = new MemoryStream(filePathAndByteContent.Value.ToArray());
-                ms.CopyTo(streamWriter.BaseStream);
+                stream.CopyTo(streamWriter.BaseStream);
             }
             catch (Exception e)
             {
@@ -100,8 +105,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
                     process.StartInfo.StandardInputEncoding = Encoding.UTF8;
                     ExternalProcessManager.Start(process);
                     using StreamWriter streamWriter = process.StandardInput;
-                    using var ms = new MemoryStream(filePathAndByteContent.Value.ToArray());
-                    ms.CopyTo(streamWriter.BaseStream);
+                    stream.CopyTo(streamWriter.BaseStream);
                 }
                 catch (Exception)
                 {
@@ -118,7 +122,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             if (errors.Any())
                 errors.ForEach(Log.Debug);
 
-            string result = filePathAndByteContent.Key + results.Skip(1).First();
+            string result = fileName + results.Skip(1).First();
 
             return result;
         }

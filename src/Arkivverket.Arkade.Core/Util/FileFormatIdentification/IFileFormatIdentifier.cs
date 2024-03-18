@@ -12,5 +12,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         IFileFormatInfo IdentifyFormat(FileInfo file);
 
         IFileFormatInfo IdentifyFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent);
+
+        IFileFormatInfo IdentifyFormat(Stream stream, string fileName);
     }
 }

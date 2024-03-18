@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using FluentAssertions;
+using ICSharpCode.SharpZipLib.Tar;
 using Moq;
 using Xunit;
 
@@ -99,6 +101,28 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
 
         [Fact, Trait("Category", "Integration")]
         [Trait("Dependency", "IO")]
+        public void IdentifyDocxFileFromTarArchiveEntryStreamTest()
+        {
+            IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
+
+            string tarArchiveFilePath = Path.Combine("TestData", "FileTypes", "fileTypes.tar");
+
+            const string fileName = "docx.docx";
+
+            using var tarInputStream = new TarInputStream(File.OpenRead(tarArchiveFilePath), Encoding.UTF8);
+
+            while (!tarInputStream.GetNextEntry().Name.Equals(fileName)) { }
+
+            IFileFormatInfo docXSiegfriedFileInfo = formatIdentifier.IdentifyFormat(tarInputStream, fileName);
+
+            docXSiegfriedFileInfo.Id.Should().Be("fmt/412");
+            docXSiegfriedFileInfo.Format.Should().Be("Microsoft Word for Windows");
+            docXSiegfriedFileInfo.Version.Should().Be("2007 onwards");
+            docXSiegfriedFileInfo.Errors.Should().BeEmpty();
+        }
+
+        [Fact, Trait("Category", "Integration")]
+        [Trait("Dependency", "IO")]
         public void IdentifySinglePdfAFileTest()
         {
             IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
@@ -128,6 +152,28 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
             var target = new KeyValuePair<string, IEnumerable<byte>>(pdfaFilePath, bytes);
 
             IFileFormatInfo pdfASiegfriedFileInfo = formatIdentifier.IdentifyFormat(target);
+
+            pdfASiegfriedFileInfo.Id.Should().Be("fmt/354");
+            pdfASiegfriedFileInfo.Format.Should().Be("Acrobat PDF/A - Portable Document Format");
+            pdfASiegfriedFileInfo.Version.Should().Be("1b");
+            pdfASiegfriedFileInfo.Errors.Should().BeEmpty();
+        }
+        
+        [Fact, Trait("Category", "Integration")]
+        [Trait("Dependency", "IO")]
+        public void IdentifyPdfAFileFromTarArchiveEntryStreamTest()
+        {
+            IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
+
+            string tarArchiveFilePath = Path.Combine("TestData", "FileTypes", "fileTypes.tar");
+
+            const string fileName = "pdfA-1b.pdf";
+            
+            using var tarInputStream = new TarInputStream(File.OpenRead(tarArchiveFilePath), Encoding.UTF8);
+            
+            while (!tarInputStream.GetNextEntry().Name.Equals(fileName)) { }
+
+            IFileFormatInfo pdfASiegfriedFileInfo = formatIdentifier.IdentifyFormat(tarInputStream, fileName);
 
             pdfASiegfriedFileInfo.Id.Should().Be("fmt/354");
             pdfASiegfriedFileInfo.Format.Should().Be("Acrobat PDF/A - Portable Document Format");
@@ -166,6 +212,28 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
             var target = new KeyValuePair<string, IEnumerable<byte>>(pdfFilePath, bytes);
 
             IFileFormatInfo pdfSiegfriedFileInfo = formatIdentifier.IdentifyFormat(target);
+
+            pdfSiegfriedFileInfo.Id.Should().Be("fmt/276");
+            pdfSiegfriedFileInfo.Format.Should().Be("Acrobat PDF 1.7 - Portable Document Format");
+            pdfSiegfriedFileInfo.Version.Should().Be("1.7");
+            pdfSiegfriedFileInfo.Errors.Should().BeEmpty();
+        }
+
+        [Fact, Trait("Category", "Integration")]
+        [Trait("Dependency", "IO")]
+        public void IdentifyPdfFileFromTarArchiveEntryStreamTest()
+        {
+            IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
+
+            string tarArchiveFilePath = Path.Combine("TestData", "FileTypes", "fileTypes.tar");
+
+            const string fileName = "pdf.pdf";
+
+            using var tarInputStream = new TarInputStream(File.OpenRead(tarArchiveFilePath), Encoding.UTF8);
+
+            while (!tarInputStream.GetNextEntry().Name.Equals(fileName)) { }
+
+            IFileFormatInfo pdfSiegfriedFileInfo = formatIdentifier.IdentifyFormat(tarInputStream, fileName);
 
             pdfSiegfriedFileInfo.Id.Should().Be("fmt/276");
             pdfSiegfriedFileInfo.Format.Should().Be("Acrobat PDF 1.7 - Portable Document Format");

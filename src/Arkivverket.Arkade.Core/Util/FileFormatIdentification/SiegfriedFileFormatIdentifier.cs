@@ -147,6 +147,32 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             }
         }
 
+        public IFileFormatInfo IdentifyFormat(Stream stream, string fileName)
+        {
+            const FileFormatScanMode scanMode = FileFormatScanMode.Stream;
+
+            Process siegfriedProcess = _processRunner.SetupSiegfriedProcess(scanMode, string.Empty);
+
+            try
+            {
+                string siegfriedResult = _processRunner.RunOnStream(siegfriedProcess, stream, fileName);
+
+                return GetFileFormatInfoObject(siegfriedResult);
+            }
+            catch (Exception e)
+            {
+                Log.Debug(e.ToString());
+                Log.Error($"Was not able to analyse {fileName} - please see logfile for details.");
+                return FileFormatInfoFactory.Create(
+                    fileName, "N/A", "ERROR", "N/A", "N/A", "N/A", "N/A"
+                );
+            }
+            finally
+            {
+                ExternalProcessManager.Close(siegfriedProcess);
+            }
+        }
+
         private static IEnumerable<IFileFormatInfo> GetFileFormatInfoObjects(IEnumerable<string> formatInfoSet)
         {
             return formatInfoSet.Skip(1).Where(f => f != null).Select(GetFileFormatInfoObject);

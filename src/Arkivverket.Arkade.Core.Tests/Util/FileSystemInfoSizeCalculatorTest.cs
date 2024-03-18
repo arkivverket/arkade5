@@ -34,12 +34,13 @@ namespace Arkivverket.Arkade.Core.Tests.Util
 
             long docxByteSize = 12895L;
             long zipByteSize = 89899L;
+            long tarByteSize = 111104L;
             long pdfByteSize = 27182L;
             long pdfA1bByteSize = 34155L;
             long pdfA3aByteSize = 32506L;
 
-            long totalSize = docxByteSize + zipByteSize + pdfByteSize + pdfA1bByteSize + pdfA3aByteSize;
-            _totalFileSize.Should().Be(totalSize); // 5 files + where one is a .zip with 4 files inside
+            long totalSize = docxByteSize + zipByteSize + tarByteSize + pdfByteSize + pdfA1bByteSize + pdfA3aByteSize;
+            _totalFileSize.Should().Be(totalSize); // 6 files including 1 zip-file and 1 tar-file containing 4 files each
         }
 
         private void OnTargetSizeCalculatorFinished(object o, TargetSizeCalculatorEventArgs e)
