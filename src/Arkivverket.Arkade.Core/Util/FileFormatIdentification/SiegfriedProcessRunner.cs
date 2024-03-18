@@ -86,8 +86,20 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         {
             var results = new List<string>();
             var errors = new List<string>();
+            var headerLineAdded = false;
 
-            process.OutputDataReceived += (_, args) => HandleReceivedOutputData(args, results);
+            process.OutputDataReceived += (_, args) =>
+            {
+                if (headerLineAdded)
+                {
+                    HandleReceivedOutputData(args, results); // Why not call with args.Data only? Why call with args.Data = null?
+                }
+                else
+                {
+                    results.Add(args.Data); // Why add header to results?
+                    headerLineAdded = true;
+                }
+            };
             process.ErrorDataReceived += (_, args) => HandleReceivedErrorData(args, errors);
 
             try
