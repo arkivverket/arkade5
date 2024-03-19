@@ -12,11 +12,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 33);
 
         private static Dictionary<string, DocumentFile> _documentFileNames;
-        private static DirectoryInfo _documentsDirectory;
+        private static string _documentsDirectoryName;
 
         public N5_33_DocumentfilesReferenceControl(Archive archive)
         {
-            _documentsDirectory = archive.GetDocumentsDirectory();
+            _documentsDirectoryName = archive.GetDocumentsDirectoryName();
             _documentFileNames = new Dictionary<string, DocumentFile>(archive.DocumentFiles.Get());
         }
 
@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             foreach ((string fileName, DocumentFile _) in _documentFileNames)
             {
                 testResultSet.TestsResults.Add(new TestResult(ResultType.Error,
-                    new Location(_documentsDirectory.Name),
+                    new Location(_documentsDirectoryName),
                     string.Format(Noark5Messages.DocumentfilesReferenceControlMessage, fileName)));
             }
 

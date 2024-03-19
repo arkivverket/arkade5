@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using FluentAssertions;
 using Xunit;
@@ -37,6 +37,22 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             DirectoryInfo documentsDirectoryD = SetupArchiveWithPhysicalDocumentsDirectory("DOKUMENT");
             documentsDirectoryD.Name.Should().Be("DOKUMENT");
             documentsDirectoryD.Exists.Should().BeTrue();
+
+            // Singular, uppercase documents directory name - IP is tar-file:
+            Archive archive = SetupArchive(Path.Combine(_workingDirectory.FullName, "some_IP.tar"));
+
+            /*
+            some_IP.tar contains:
+             
+            some_IP/
+              content/
+                someFile.txt
+                DOKUMENT/
+                  someDocumentFile.txt
+            */
+
+            archive.GetDocumentsDirectoryName().Should().Be("DOKUMENT");
+            archive.GetDocumentsDirectory().Should().BeNull();
         }
 
         [Fact]
@@ -50,6 +66,23 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             // English documents directory name:
             DirectoryInfo documentsDirectoryB = SetupArchiveWithPhysicalDocumentsDirectory("documenter");
             documentsDirectoryB.Name.Should().Be("dokumenter");
+
+            // English documents directory name - IP is tar-file:
+            Archive archive = SetupArchive(
+                Path.Combine(_workingDirectory.FullName, "some_IP_invalid_documents-directory-name.tar"));
+
+            /*
+            some_IP_invalid_documents-directory-name.tar contains:
+             
+            some_IP_invalid_documents-directory-name/
+              content/
+                someFile.txt
+                DOCUMENT/ (invalid name)
+                  someDocumentFile.txt
+            */
+
+            archive.GetDocumentsDirectoryName().Should().Be("dokumenter"); // default name
+            archive.GetDocumentsDirectory().Should().BeNull();
         }
 
         [Fact]
@@ -84,11 +117,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base
                     directory.Delete(true);
         }
 
-        private static Archive SetupArchive()
+        private static Archive SetupArchive(string archiveFileFullName = null)
         {
             return new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(_workingDirectory.FullName)
+                .WithArchiveFileFullName(archiveFileFullName)
                 .Build();
         }
 

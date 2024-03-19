@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Arkivverket.Arkade.Core.Base.Siard;
@@ -10,6 +11,7 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Serilog;
@@ -208,6 +210,28 @@ namespace Arkivverket.Arkade.Core.Base
                     IEnumerable<KeyValuePair<string, IEnumerable<byte>>> lobsAsByte = _siardXmlTableReader.CreateLobByteArrays(siardFileFullName);
                     IEnumerable<IFileFormatInfo> formatAnalysedLobs = _fileFormatIdentifier.IdentifyFormats(lobsAsByte);
                     _fileFormatInfoGenerator.Generate(formatAnalysedLobs, siardFileFullName, resultFileFullName);
+                }
+                else if (archive.IsNoark5TarArchive)
+                {
+                    IEnumerable<IFileFormatInfo> analysedTarContents = _fileFormatIdentifier
+                        .IdentifyFormats(archive.ArchiveFileFullName, FileFormatScanMode.Archive).ToList();
+
+                    string tarRootDirectoryName = Path.GetFileNameWithoutExtension(archive.ArchiveFileFullName);
+                    string documentsDirectoryName = archive.GetDocumentsDirectoryName();
+
+                    string tarFileRelativeDocumentsDirectoryPath = Path.Combine(tarRootDirectoryName!,
+                        ArkadeConstants.DirectoryNameContent, documentsDirectoryName);
+
+                    var fullDocumentsDirectoryTarPath = $"{archive.ArchiveFileFullName}#{tarFileRelativeDocumentsDirectoryPath}";
+
+                    bool IsDocumentFile(IFileFormatInfo fileFormatInfo) => fileFormatInfo.FileName.StartsWith(fullDocumentsDirectoryTarPath);
+
+                    IEnumerable<IFileFormatInfo> analysedDocumentFiles = analysedTarContents.Where(IsDocumentFile);
+
+                    resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, documentsDirectoryName);
+                    resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
+
+                    _fileFormatInfoGenerator.Generate(analysedDocumentFiles, tarFileRelativeDocumentsDirectoryPath, resultFileFullName);
                 }
                 else
                 {
