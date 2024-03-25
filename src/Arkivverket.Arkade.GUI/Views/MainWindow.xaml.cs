@@ -43,6 +43,9 @@ namespace Arkivverket.Arkade.GUI.Views
                 if(dialogResult == MessageBoxResult.No)
                         e.Cancel = true;
             }
+
+            // TODO: Raise generic warning
+            // TODO: Raise warning on close-attempt between archive loading started and testing started?
         }
 
         private void OnProgressChanged(object sender, ProgressChangedEventArgs e)

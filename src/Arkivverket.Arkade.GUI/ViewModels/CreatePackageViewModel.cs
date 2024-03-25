@@ -382,6 +382,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void RunNavigateToLoadArchivePage()
         {
+            // TODO: Raise warning!
+
             Log.Information("User action: Leave test session and return to load archive window");
 
             _regionManager.RequestNavigate("MainContentRegion", "LoadArchiveExtraction");
