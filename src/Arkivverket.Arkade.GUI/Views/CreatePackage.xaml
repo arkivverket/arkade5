@@ -38,6 +38,10 @@
                 <Setter Property="ToolTipService.InitialShowDelay" Value="10"/>
                 <Setter Property="ToolTipService.ShowDuration" Value="30000"/>
             </Style>
+            <Style TargetType="materialDesign:PackIcon">
+                <Setter Property="ToolTipService.InitialShowDelay" Value="10"/>
+                <Setter Property="ToolTipService.ShowDuration" Value="30000"/>
+            </Style>
         </Grid.Resources>
 
         <Label Grid.Row="0" FontSize="24"
@@ -66,9 +70,17 @@
             <StackPanel>
 
                 <!-- Arkivbeskrivelse -->
-                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_ArchiveMain}"
-                          Style="{DynamicResource MaterialDesignGroupBox}"
+                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderThickness="0">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_ArchiveMain}"
+                                   VerticalAlignment="Center" Foreground="White" />
+                            <materialDesign:PackIcon ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_ArchiveMain}"
+                                                     Kind="QuestionMarkCircleOutline" Height="22" Width="22"
+                                                     VerticalAlignment="Center" Foreground="White" />
+                        </StackPanel>
+                    </GroupBox.Header>
                 </GroupBox>
 
                 <Border BorderBrush="LightGray" BorderThickness="1"
@@ -175,10 +187,19 @@
 
 
                 <!-- Arkivskaper -->
-                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_ArchiveCreator}"
-                          Style="{DynamicResource MaterialDesignGroupBox}"
+                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_ArchiveCreator}"
+                                   VerticalAlignment="Center" Foreground="White" />
+                            <materialDesign:PackIcon
+                                ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_ArchiveCreator}"
+                                Kind="QuestionMarkCircleOutline" Height="22" Width="22"
+                                VerticalAlignment="Center" Foreground="White" />
+                        </StackPanel>
+                    </GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -259,10 +280,19 @@
 
 
                 <!-- Overforer -->
-                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_Transferer}"
-                          Style="{DynamicResource MaterialDesignGroupBox}"
+                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_Transferer}"
+                                   VerticalAlignment="Center" Foreground="White" />
+                            <materialDesign:PackIcon
+                                ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_Transferer}"
+                                Kind="QuestionMarkCircleOutline" Height="22" Width="22"
+                                VerticalAlignment="Center" Foreground="White" />
+                        </StackPanel>
+                    </GroupBox.Header>
                 </GroupBox>
 
                 <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
@@ -325,10 +355,18 @@
 
 
                 <!-- Produsent -->
-                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_Producer}"
-                          Style="{DynamicResource MaterialDesignGroupBox}"
+                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_Producer}"
+                                   VerticalAlignment="Center" Foreground="White" />
+                            <materialDesign:PackIcon ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_Producer}"
+                                                     Kind="QuestionMarkCircleOutline" Height="22" Width="22"
+                                                     VerticalAlignment="Center" Foreground="White" />
+                        </StackPanel>
+                    </GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
                         <!--<Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -400,10 +438,18 @@
 
 
                 <!-- Eier -->
-                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_Owner}"
-                          Style="{DynamicResource MaterialDesignGroupBox}"
+                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_Owner}"
+                                   VerticalAlignment="Center" Foreground="White" />
+                            <materialDesign:PackIcon ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_Owner}"
+                                                     Kind="QuestionMarkCircleOutline" Height="22" Width="22"
+                                                     VerticalAlignment="Center" Foreground="White" />
+                        </StackPanel>
+                    </GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -482,10 +528,18 @@
                 </ItemsControl>
 
                 <!-- Pakkeskaper -->
-                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_Creator}"
-                          Style="{DynamicResource MaterialDesignGroupBox}"
+                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_Creator}"
+                                   VerticalAlignment="Center" Foreground="White" />
+                            <materialDesign:PackIcon ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_Creator}"
+                                                     Kind="QuestionMarkCircleOutline" Height="22" Width="22"
+                                                     VerticalAlignment="Center" Foreground="White" />
+                        </StackPanel>
+                    </GroupBox.Header>
 
                     <StackPanel Orientation="Horizontal">
                         <Border BorderBrush="LightGray" BorderThickness="1"
@@ -500,7 +554,8 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="250" />
+                                    <ColumnDefinition Width="220" />
+                                    <ColumnDefinition Width="40" />
                                 </Grid.ColumnDefinitions>
 
                                 <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,0,15" TextAlignment="Left"
@@ -535,6 +590,11 @@
                                  materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.Creator_Email}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MetaDataCreator.Email, Mode=TwoWay}" />
+                                <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom"
+                                       ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_Creator_Email}">
+                                    <materialDesign:PackIcon Kind="QuestionMarkCircleOutline" Foreground="Teal"
+                                                             Height="22" Width="30" Margin="0" />
+                                </Label>
                             </Grid>
                         </Border>
                         <!-- Pakkeskaper-system -->
@@ -562,9 +622,18 @@
                 </GroupBox>
 
                 <!-- Mottaker -->
-                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_Recipient}"
-                          Style="{DynamicResource MaterialDesignGroupBox}"
-                          materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderThickness="0" Margin="0,20,0,0" />
+                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderThickness="0" Margin="0,20,0,0">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_Recipient}"
+                                   VerticalAlignment="Center" Foreground="White" />
+                            <materialDesign:PackIcon ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_Recipient}"
+                                                     Kind="QuestionMarkCircleOutline" Height="22" Width="22"
+                                                     VerticalAlignment="Center" Foreground="White" />
+                        </StackPanel>
+                    </GroupBox.Header>
+                </GroupBox>
 
                 <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
                         Visibility="{Binding MetaDataRecipient.VisibilityItem}" Width="269" HorizontalAlignment="Left">
@@ -591,10 +660,19 @@
 
 
                 <!-- System -->
-                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_System}"
-                          Style="{DynamicResource MaterialDesignGroupBox}"
+                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                          BorderThickness="0" Margin="0,20,0,0"/>
+                          BorderThickness="0" Margin="0,20,0,0">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_System}"
+                                   VerticalAlignment="Center" Foreground="White" />
+                            <materialDesign:PackIcon ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_System}"
+                                                     Kind="QuestionMarkCircleOutline" Height="22" Width="22"
+                                                     VerticalAlignment="Center" Foreground="White" />
+                        </StackPanel>
+                    </GroupBox.Header>
+                </GroupBox>
 
                 <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="5"
                         Visibility="{Binding MetaDataSystem.VisibilityItem}"
@@ -666,10 +744,19 @@
 
 
                 <!-- Uttrekkssystem -->
-                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_ArchiveSystem}"
-                          Style="{DynamicResource MaterialDesignGroupBox}"
+                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_ArchiveSystem}"
+                                   VerticalAlignment="Center" Foreground="White" />
+                            <materialDesign:PackIcon
+                                ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_ArchiveSystem}"
+                                Kind="QuestionMarkCircleOutline" Height="22" Width="22"
+                                VerticalAlignment="Center" Foreground="White" />
+                        </StackPanel>
+                    </GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -741,10 +828,19 @@
 
 
                 <!-- Noark section (start/end/inncomming/outgoing seps) -->
-                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_NoarkParameters}"
-                          Style="{DynamicResource MaterialDesignGroupBox}"
+                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_NoarkParameters}"
+                                   VerticalAlignment="Center" Foreground="White" />
+                            <materialDesign:PackIcon
+                                ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_NoarkParameters}"
+                                Kind="QuestionMarkCircleOutline" Height="22" Width="22"
+                                VerticalAlignment="Center" Foreground="White" />
+                        </StackPanel>
+                    </GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 Height="32" Width="32"
@@ -803,10 +899,19 @@
 
 
                 <!-- Uttrekksdato -->
-                <GroupBox Header="{x:Static lang:MetaDataGUI.GuiSubsection_ExtractionDate}"
-                          Style="{DynamicResource MaterialDesignGroupBox}"
+                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           BorderThickness="0" Margin="0,20,0,0">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_ExtractionDate}"
+                                   VerticalAlignment="Center" Foreground="White" />
+                            <materialDesign:PackIcon
+                                ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_ExtractionDate}"
+                                Kind="QuestionMarkCircleOutline" Height="22" Width="22"
+                                VerticalAlignment="Center" Foreground="White" />
+                        </StackPanel>
+                    </GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
                     </StackPanel>
                 </GroupBox>
@@ -882,15 +987,26 @@
                 <Border Margin="0,16" BorderThickness="0 2 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" />
 
                 <!-- Create SIP/AIP package  -->
-                <TextBlock Text="{x:Static lang:CreatePackageGUI.SelectTypeLabel}" Margin="10" />
+                <StackPanel Margin="10" Orientation="Horizontal">
+                    <TextBlock Text="{x:Static lang:CreatePackageGUI.SelectTypeLabel}" />
+                    <materialDesign:PackIcon ToolTip="{x:Static lang:MetadataToolTips.SelectPackageType}"
+                                             Kind="QuestionMarkCircleOutline" Foreground="Teal" Height="18"
+                                             Width="18" Margin="2, 0,0, 0" />
+                </StackPanel>
 
                 <StackPanel Margin="10" Orientation="Horizontal">
                     <RadioButton Content="{x:Static lang:CreatePackageGUI.PackageTypeSIP}"
                          IsChecked="{Binding SelectedPackageTypeSip, Mode=TwoWay}"
-                         Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 8" VerticalAlignment="Center" />
+                         Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 0 8" VerticalAlignment="Center" />
+                    <materialDesign:PackIcon ToolTip="{x:Static lang:MetadataToolTips.SelectPackageType_SIP}"
+                                             Kind="QuestionMarkCircleOutline" Foreground="Teal" Height="15"
+                                             Width="15" Margin="2, 3,10, 0" />
                     <RadioButton Content="{x:Static lang:CreatePackageGUI.PackageTypeAIP}"
                          IsChecked="{Binding SelectedPackageTypeAip, Mode=TwoWay}"
-                         Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 8 8" VerticalAlignment="Center" />
+                         Style="{StaticResource MaterialDesignRadioButton}" Margin="0 0 0 8" VerticalAlignment="Center" />
+                    <materialDesign:PackIcon ToolTip="{x:Static lang:MetadataToolTips.SelectPackageType_AIP}"
+                                             Kind="QuestionMarkCircleOutline" Foreground="Teal" Height="15"
+                                             Width="15" Margin="2, 3,0, 0" />
                 </StackPanel>
 
                 <StackPanel Margin="10 10" Orientation="Horizontal">

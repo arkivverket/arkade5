@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
 		Microsoft ResX Schema
@@ -150,5 +150,51 @@ Eksempler:
   </data>
   <data name="ProjectName" xml:space="preserve">
     <value>Eventuelt prosjektnavn hos etat, kommune, arkivskaper eller arkiveier.</value>
+  </data>
+  <data name="GuiSubsection_ArchiveMain" xml:space="preserve">
+    <value>Gi en kort beskrivelse av innholdet i arkivet</value>
+  </data>
+  <data name="GuiSubsection_ArchiveCreator" xml:space="preserve">
+    <value>Opprinnelig arkivskaper, opphavet til arkivet</value>
+  </data>
+  <data name="GuiSubsection_Transferer" xml:space="preserve">
+    <value>Juridisk ansvarlig virksomhet for overføring av arkiv til depot. Ofte samme som arkivskaper.</value>
+  </data>
+  <data name="GuiSubsection_Producer" xml:space="preserve">
+    <value>Teknisk uttrekksprodusent. Ofte systemleverandør.</value>
+  </data>
+  <data name="GuiSubsection_System" xml:space="preserve">
+    <value>Navnet på systemet arkivet ble skapt i. Bruk det etablerte navnet hos dere. Er det ikke et naturlig systemnavn kan korte beskrivelser som «Mappestruktur på filserver» og «Mediekonvertert fotosamling» benyttes.</value>
+  </data>
+  <data name="GuiSubsection_Recipient" xml:space="preserve">
+    <value>Mottaker av arkivpakke, f.eks. «Arkivverket»</value>
+    <comment>Institusjonsnavn</comment>
+  </data>
+  <data name="GuiSubsection_Owner" xml:space="preserve">
+    <value>Virksomhet med eierskap og råderett til arkivet</value>
+  </data>
+  <data name="GuiSubsection_NoarkParameters" xml:space="preserve">
+    <value>Første og siste registrering</value>
+  </data>
+  <data name="GuiSubsection_ExtractionDate" xml:space="preserve">
+    <value>Dato arkivuttrekket ble generert</value>
+  </data>
+  <data name="GuiSubsection_Creator" xml:space="preserve">
+    <value>Virksomhet som skaper arkivpakken og tilhørende METS-dokument</value>
+  </data>
+  <data name="GuiSubsection_ArchiveSystem" xml:space="preserve">
+    <value>Systemet som produserte arkivuttrekket</value>
+  </data>
+  <data name="GuiSubsection_Creator_Email" xml:space="preserve">
+    <value>Mottar opplastingslenke ved overføring til Arkivverket</value>
+  </data>
+  <data name="SelectPackageType" xml:space="preserve">
+    <value>Informasjonspakketype etter OAIS-standarden.</value>
+  </data>
+  <data name="SelectPackageType_SIP" xml:space="preserve">
+    <value>SIP - Overføringspakke - for overføring til depot</value>
+  </data>
+  <data name="SelectPackageType_AIP" xml:space="preserve">
+    <value>AIP - Bevaringspakke - for vedlikehold i depot</value>
   </data>
 </root>
