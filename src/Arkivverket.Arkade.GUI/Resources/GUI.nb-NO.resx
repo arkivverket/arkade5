@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -172,8 +172,8 @@
   <data name="NewVersionMessage" xml:space="preserve">
     <value>Nyere versjon tilgjengelig</value>
   </data>
-  <data name="UnsavedTestResultsOnExitWarning" xml:space="preserve">
-    <value>Hvis du avslutter nå vil resultater fra testkjøringen gå tapt. Ønsker du likevel å avslutte?</value>
+  <data name="TestResultsAndOtherAddedDataLostWarning" xml:space="preserve">
+    <value>Gjeldende testresultater og ev. andre tilførte data vil gå tapt.</value>
   </data>
   <data name="ShowAboutDialogButtonText" xml:space="preserve">
     <value>Om Arkade 5</value>
@@ -202,5 +202,11 @@ Vennligst start Arkade manuelt etter avslutning.</value>
   </data>
   <data name="UiAndOutputLanguagesIsDifferentWarningMessage" xml:space="preserve">
     <value>Utdataspråk: {0}</value>
+  </data>
+  <data name="ApplicationShutdownConfirmDialogText" xml:space="preserve">
+    <value>Ønsker du å avslutte Arkade?</value>
+  </data>
+  <data name="ApplicationShutdownConfirmDialogCaption" xml:space="preserve">
+    <value>Programavslutning</value>
   </data>
 </root>

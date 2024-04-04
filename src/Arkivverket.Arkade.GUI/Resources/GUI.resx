@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -172,8 +172,8 @@
   <data name="ShowWebPageButtonText" xml:space="preserve">
     <value>Web page</value>
   </data>
-  <data name="UnsavedTestResultsOnExitWarning" xml:space="preserve">
-    <value>If the application is closed now, the current test results will be lost. Do you still want to close?</value>
+  <data name="TestResultsAndOtherAddedDataLostWarning" xml:space="preserve">
+    <value>The current test results and any other added data will be lost.</value>
   </data>
   <data name="SerilogFormatConfig" xml:space="preserve">
     <value>{Timestamp:yyyy-MM-ddTHH:mm:ss.fff} [{Level}] {SourceContext} {Message}{NewLine}{Exception}</value>
@@ -203,5 +203,11 @@ Please manually start Arkade after shutdown.</value>
   </data>
   <data name="UiAndOutputLanguagesIsDifferentWarningMessage" xml:space="preserve">
     <value>Output language: {0}</value>
+  </data>
+  <data name="ApplicationShutdownConfirmDialogText" xml:space="preserve">
+    <value>Do you want to exit Arkade?</value>
+  </data>
+  <data name="ApplicationShutdownConfirmDialogCaption" xml:space="preserve">
+    <value>Application shutdown</value>
   </data>
 </root>

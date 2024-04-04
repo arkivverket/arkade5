@@ -134,6 +134,10 @@ namespace Arkivverket.Arkade.GUI
 
         protected override void OnExit(ExitEventArgs e)
         {
+#if DEBUG
+            if (!ArkadeInstance.IsClearedToShutDown)
+                throw new Exception("Please make sure Util.ArkadeInstance.ClearToShutDown() is called before System.Windows.Application.Shutdown()");
+#endif
             _log.Information("Arkade " + ArkadeVersion.Current + " stopping");
 
             ExternalProcessManager.TerminateAll();
