@@ -205,6 +205,24 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New session.
+        /// </summary>
+        public static string NewProgramSessionConfirmDialogCaption {
+            get {
+                return ResourceManager.GetString("NewProgramSessionConfirmDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to start a new session?.
+        /// </summary>
+        public static string NewProgramSessionConfirmDialogText {
+            get {
+                return ResourceManager.GetString("NewProgramSessionConfirmDialogText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Newer version available.
         /// </summary>
         public static string NewVersionMessage {

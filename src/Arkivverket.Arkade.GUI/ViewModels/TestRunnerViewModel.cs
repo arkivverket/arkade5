@@ -219,6 +219,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ReturnToProgramStart()
         {
+            if (!UserDialogs.UserConfirmsNewProgramSession())
+                return;
+
             _log.Information("User action: Leave test session and return to load archive window");
 
             _regionManager.RequestNavigate("MainContentRegion", "LoadArchiveExtraction");

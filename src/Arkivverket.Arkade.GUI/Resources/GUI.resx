@@ -210,4 +210,10 @@ Please manually start Arkade after shutdown.</value>
   <data name="ApplicationShutdownConfirmDialogCaption" xml:space="preserve">
     <value>Application shutdown</value>
   </data>
+  <data name="NewProgramSessionConfirmDialogText" xml:space="preserve">
+    <value>Do you want to start a new session?</value>
+  </data>
+  <data name="NewProgramSessionConfirmDialogCaption" xml:space="preserve">
+    <value>New session</value>
+  </data>
 </root>

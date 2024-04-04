@@ -209,4 +209,10 @@ Vennligst start Arkade manuelt etter avslutning.</value>
   <data name="ApplicationShutdownConfirmDialogCaption" xml:space="preserve">
     <value>Programavslutning</value>
   </data>
+  <data name="NewProgramSessionConfirmDialogCaption" xml:space="preserve">
+    <value>Ny kjøring</value>
+  </data>
+  <data name="NewProgramSessionConfirmDialogText" xml:space="preserve">
+    <value>Ønsker du å starte en ny kjøring?</value>
+  </data>
 </root>
