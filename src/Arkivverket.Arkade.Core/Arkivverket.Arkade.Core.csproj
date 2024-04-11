@@ -288,13 +288,13 @@
     <None Update="ThirdPartySoftware\Siegfried\LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ThirdPartySoftware\Siegfried\siegfried.exe">
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-0_win64.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ThirdPartySoftware\Siegfried\siegfried_linux">
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-0_linux64">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ThirdPartySoftware\Siegfried\siegfried_mac">
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-0_mac64">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
