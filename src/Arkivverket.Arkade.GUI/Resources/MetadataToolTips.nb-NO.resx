@@ -173,7 +173,7 @@ Eksempler:
   <data name="GuiSubsection_Owner" xml:space="preserve">
     <value>Virksomhet med eierskap og råderett til arkivet</value>
   </data>
-  <data name="GuiSubsection_NoarkParameters" xml:space="preserve">
+  <data name="GuiSubsection_ArchiveStartAndEndDate" xml:space="preserve">
     <value>Første og siste registrering</value>
   </data>
   <data name="GuiSubsection_ExtractionDate" xml:space="preserve">

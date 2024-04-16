@@ -106,6 +106,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The first and last registration of records.
+        /// </summary>
+        public static string GuiSubsection_ArchiveStartAndEndDate {
+            get {
+                return ResourceManager.GetString("GuiSubsection_ArchiveStartAndEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The software that extracted data from the system.
         /// </summary>
         public static string GuiSubsection_ArchiveSystem {
@@ -138,15 +147,6 @@ namespace Arkivverket.Arkade.GUI.Languages {
         public static string GuiSubsection_ExtractionDate {
             get {
                 return ResourceManager.GetString("GuiSubsection_ExtractionDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The first and last registration of records.
-        /// </summary>
-        public static string GuiSubsection_NoarkParameters {
-            get {
-                return ResourceManager.GetString("GuiSubsection_NoarkParameters", resourceCulture);
             }
         }
         

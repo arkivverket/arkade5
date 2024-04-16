@@ -833,10 +833,10 @@
                           BorderThickness="0" Margin="0,20,0,0">
                     <GroupBox.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_NoarkParameters}"
+                            <Label Content="{x:Static lang:MetaDataGUI.GuiSubsection_ArchiveStartAndEndDate}"
                                    VerticalAlignment="Center" Foreground="White" />
                             <materialDesign:PackIcon
-                                ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_NoarkParameters}"
+                                ToolTip="{x:Static lang:MetadataToolTips.GuiSubsection_ArchiveStartAndEndDate}"
                                 Kind="QuestionMarkCircleOutline" Height="22" Width="22"
                                 VerticalAlignment="Center" Foreground="White" />
                         </StackPanel>

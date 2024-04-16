@@ -190,7 +190,7 @@ Some examples:
   <data name="GuiSubsection_Owner" xml:space="preserve">
     <value>The entity with ownership and disposal rights over the archive</value>
   </data>
-  <data name="GuiSubsection_NoarkParameters" xml:space="preserve">
+  <data name="GuiSubsection_ArchiveStartAndEndDate" xml:space="preserve">
     <value>The first and last registration of records</value>
   </data>
   <data name="GuiSubsection_ExtractionDate" xml:space="preserve">
