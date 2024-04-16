@@ -12,6 +12,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         private Uuid _uuid = Uuid.Random();
         private DirectoryInfo _workingDirectoryContent;
         private DirectoryInfo _workingDirectory;
+        private string _archiveFileFullName;
 
         public ArchiveBuilder WithUuid(string uuid)
         {
@@ -56,10 +57,15 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             _archiveDetails = mock.Object;
             return this;
         }
+        public ArchiveBuilder WithArchiveFileFullName(string archiveFileFullName)
+        {
+            _archiveFileFullName = archiveFileFullName;
+            return this;
+        }
 
         public Archive Build()
         {
-            var archive = new Archive(_archiveType, _uuid, new WorkingDirectory(_workingDirectory, _workingDirectoryContent), null);
+            var archive = new Archive(_archiveType, _uuid, new WorkingDirectory(_workingDirectory, _workingDirectoryContent), null, _archiveFileFullName);
             return archive;
         }
     }

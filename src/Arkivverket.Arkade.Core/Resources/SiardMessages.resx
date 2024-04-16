@@ -137,4 +137,7 @@
     <value>External LOB file '{0}' not found</value>
     <comment>{0}: full path to directory</comment>
   </data>
+  <data name="ExternalLobsNotCopiedWarning" xml:space="preserve">
+    <value>NB! If a package is created, Arkade will not be able to include any external blobs/clobs</value>
+  </data>
 </root>

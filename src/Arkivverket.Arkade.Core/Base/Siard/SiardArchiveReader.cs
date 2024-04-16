@@ -24,13 +24,13 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 
             var lobTablePathsWithColumnIndexes = new Dictionary<string, List<SiardLobReference>>();
 
-            if (TryDeserializeToSiard2_1(siardArchivePath, out siard2Archive siard2Archive, out _))
+            if (TryDeserializeToSiard2_1(siardArchivePath, out siard2Archive siard2Archive, out string errorMessage))
                 return GetLobFolderPathsFromSiard2Archive(siard2Archive, lobTablePathsWithColumnIndexes, zeroIndexOffset);
             
-            if (TryDeserializeToSiard1(siardArchivePath, out siard1Archive siard1Archive, out _))
+            if (TryDeserializeToSiard1(siardArchivePath, out siard1Archive siard1Archive, out errorMessage))
                 return GetLobFolderPathsFromSiard1Archive(siard1Archive, lobTablePathsWithColumnIndexes, zeroIndexOffset);
 
-            return null;
+            throw new SiardArchiveReaderException(errorMessage);
         }
 
         public bool TryDeserializeToSiard2_1(string siardArchivePath, out siard2Archive siardArchive, out string errorMessage)

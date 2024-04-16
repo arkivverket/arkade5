@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 
 namespace Arkivverket.Arkade.Core.Util
@@ -23,6 +24,40 @@ namespace Arkivverket.Arkade.Core.Util
                 return path1;
 
             return path2 + "/" + path1;
+        }
+
+        public static string GetSubPath(string cutoff, string path)
+        {
+            if (path is null)
+                throw new ArgumentNullException(nameof(path));
+
+            if (string.IsNullOrEmpty(cutoff))
+                return null;
+
+            cutoff = cutoff.Replace('\\', '/').Trim('/');
+
+            int cutoffIndex = path.Replace('\\', '/').IndexOf(cutoff, StringComparison.Ordinal);
+
+            if (cutoffIndex == -1)
+                return null;
+
+            string subPath = path[(cutoffIndex + cutoff.Length)..].TrimStart('/', '\\');
+
+            return string.IsNullOrEmpty(subPath) ? null : subPath;
+        }
+
+        public static string GetChild(string parent, string path)
+        {
+            if (path is null)
+                throw new ArgumentNullException(nameof(path));
+
+            string[] pathSegments = path.Replace('\\', '/').Trim('/').Split('/');
+
+            int indexOfParent = Array.IndexOf(pathSegments, parent);
+
+            return indexOfParent < 0 || indexOfParent + 1 > pathSegments.Length - 1
+                ? null
+                : pathSegments[indexOfParent + 1];
         }
 
         public static bool HasIllegalCharacters(string path)

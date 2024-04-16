@@ -3,6 +3,8 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using CsvHelper.Configuration;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 {
@@ -57,8 +59,17 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             if (siegfriedFormatResult == null)
                 return null;
 
+            var parseProblem = string.Empty;
+
             using var stringReader = new StringReader(siegfriedFormatResult);
-            using var csvParser = new CsvParser(stringReader, CultureInfo.InvariantCulture);
+            using var csvParser = new CsvParser(stringReader, new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                BadDataFound = context =>
+                {
+                    Log.Error($"Bad record: {context.RawRecord}");
+                    parseProblem = "Analysis result parse problem";
+                }
+            });
 
             csvParser.Read();
 
@@ -66,7 +77,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             (
                 fileName: csvParser.Record[0],
                 byteSize: csvParser.Record[1],
-                errors: csvParser.Record[3],
+                errors: string.Join(", ", csvParser.Record[3], parseProblem).Trim(", "),
                 id: csvParser.Record[5],
                 format: csvParser.Record[6],
                 version: csvParser.Record[7],

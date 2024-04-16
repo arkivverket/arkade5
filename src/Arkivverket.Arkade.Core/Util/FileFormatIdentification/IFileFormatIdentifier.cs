@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
@@ -12,5 +12,9 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
         IFileFormatInfo IdentifyFormat(FileInfo file);
 
         IFileFormatInfo IdentifyFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent);
+        
+        void BroadCastStarted();
+        
+        void BroadCastFinished();
     }
 }

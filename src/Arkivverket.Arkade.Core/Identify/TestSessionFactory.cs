@@ -160,32 +160,39 @@ namespace Arkivverket.Arkade.Core.Identify
 
             siardArchiveFile.File.CopyTo(Path.Combine(contentDirectoryPath, siardArchiveFile.File.Name));
 
-            IEnumerable<string> fullPathsToExternalLobs =
-                siardTableXmlReader.GetFullPathsToExternalLobs(siardArchiveFile.File.FullName);
-
-            foreach (string fullPathToExternalLob in fullPathsToExternalLobs)
+            try
             {
-                if (!File.Exists(fullPathToExternalLob))
+                IEnumerable<string> fullPathsToExternalLobs =
+                    siardTableXmlReader.GetFullPathsToExternalLobs(siardArchiveFile.File.FullName);
+
+                foreach (string fullPathToExternalLob in fullPathsToExternalLobs)
                 {
-                    string message = string.Format(SiardMessages.ExternalLobFileNotFoundMessage, fullPathToExternalLob);
-                    _statusEventHandler.RaiseEventOperationMessage("", message, OperationMessageStatus.Error);
-                    _log.Error(message);
-                    continue;
+                    if (!File.Exists(fullPathToExternalLob))
+                    {
+                        string message = string.Format(SiardMessages.ExternalLobFileNotFoundMessage, fullPathToExternalLob);
+                        _statusEventHandler.RaiseEventOperationMessage("", message, OperationMessageStatus.Error);
+                        _log.Error(message);
+                        continue;
+                    }
+
+                    string relativePathFromSiardFileToExternalLob =
+                        Path.GetRelativePath(siardArchiveFile.File.DirectoryName, fullPathToExternalLob);
+
+                    string externalLobDestinationPath =
+                        Path.Combine(contentDirectoryPath, relativePathFromSiardFileToExternalLob);
+
+                    var destinationDirectoryForExternalLob = Path.GetDirectoryName(externalLobDestinationPath);
+
+                    Directory.CreateDirectory(destinationDirectoryForExternalLob);
+
+                    File.Copy(fullPathToExternalLob, externalLobDestinationPath);
+
+                    _log.Debug("'{0}' has been added to Arkade temporary work area", fullPathToExternalLob);
                 }
-
-                string relativePathFromSiardFileToExternalLob =
-                    Path.GetRelativePath(siardArchiveFile.File.DirectoryName, fullPathToExternalLob);
-
-                string externalLobDestinationPath =
-                    Path.Combine(contentDirectoryPath, relativePathFromSiardFileToExternalLob);
-
-                var destinationDirectoryForExternalLob = Path.GetDirectoryName(externalLobDestinationPath);
-
-                Directory.CreateDirectory(destinationDirectoryForExternalLob);
-
-                File.Copy(fullPathToExternalLob, externalLobDestinationPath);
-
-                _log.Debug("'{0}' has been added to Arkade temporary work area", fullPathToExternalLob);
+            }
+            catch (SiardArchiveReaderException)
+            {
+                _statusEventHandler.RaiseEventOperationMessage("", SiardMessages.ExternalLobsNotCopiedWarning, OperationMessageStatus.Warning);
             }
         }
     }
