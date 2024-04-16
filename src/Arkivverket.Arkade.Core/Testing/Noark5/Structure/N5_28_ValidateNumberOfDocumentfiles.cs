@@ -37,9 +37,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
         {
             var actualFileCount = 0;
 
-            var documentsDirectory = archive.GetDocumentsDirectory();
-
-            if (!archive.IsNoark5TarArchive && !documentsDirectory.Exists)
+            if (!archive.IsNoark5TarArchive && !archive.GetDocumentsDirectory().Exists)
             {
                 string documentDirectoryParent = archive.WorkingDirectory.Content().DirectoryInfo().Name + "\\";
 
@@ -52,13 +50,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
 
                 if (actualFileCount > 0)
                     _testResults.Add(new TestResult(ResultType.Success,
-                        new Location(documentsDirectory.Name + "\\"),
+                        new Location(archive.GetDocumentsDirectoryName() + "\\"),
                         string.Format(Noark5Messages.ValidateNumberOfDocumentfilesMessage_NumberOfFilesFound,
                             actualFileCount)));
 
                 else
                     _testResults.Add(new TestResult(ResultType.Error,
-                        new Location(documentsDirectory.Name + "\\"),
+                        new Location(archive.GetDocumentsDirectoryName() + "\\"),
                         Noark5Messages.ValidateNumberOfDocumentfilesMessage_NoFilesFound));
             }
 

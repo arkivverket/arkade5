@@ -98,6 +98,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NB! If a package is created, Arkade will not be able to include any external blobs/clobs.
+        /// </summary>
+        public static string ExternalLobsNotCopiedWarning {
+            get {
+                return ResourceManager.GetString("ExternalLobsNotCopiedWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOB is inlined in an unsupported format.
         /// </summary>
         public static string InlinedLobContentHasUnsupportedEncoding {

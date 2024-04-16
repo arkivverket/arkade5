@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Siard;
@@ -9,6 +10,7 @@ using Arkivverket.Arkade.Core.ExternalModels.Metadata;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
+using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
@@ -27,6 +29,7 @@ namespace Arkivverket.Arkade.Core.Base
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
+        private string DocumentsDirectoryName { get; set; }
         internal DocumentFiles DocumentFiles { get; }
         public AddmlXmlUnit AddmlXmlUnit { get; }
         public AddmlInfo AddmlInfo { get; }
@@ -119,6 +122,9 @@ namespace Arkivverket.Arkade.Core.Base
 
         public DirectoryInfo GetDocumentsDirectory()
         {
+            if (IsNoark5TarArchive)
+                return null;
+
             if (DocumentsDirectory != null)
                 return DocumentsDirectory;
 
@@ -128,6 +134,32 @@ namespace Arkivverket.Arkade.Core.Base
                     DocumentsDirectory = directory;
 
             return DocumentsDirectory ?? DefaultNamedDocumentsDirectory();
+        }
+
+        public string GetDocumentsDirectoryName()
+        {
+            if (DocumentsDirectoryName != null)
+                return DocumentsDirectoryName;
+
+            if (IsNoark5TarArchive)
+            {
+                var tarInputStream = new TarInputStream(File.OpenRead(ArchiveFileFullName!), Encoding.UTF8);
+
+                while (tarInputStream.GetNextEntry() is { Name: not null } entry)
+                {
+                    string archiveRootDirectoryName = Path.GetFileNameWithoutExtension(ArchiveFileFullName);
+
+                    if (!entry.IsDirectory && entry.IsNoark5DocumentsEntry(archiveRootDirectoryName))
+                    {
+                        DocumentsDirectoryName = PathUtil.GetChild(DirectoryNameContent, entry.Name);
+                        break;
+                    }
+                }
+
+                return DocumentsDirectoryName ?? DefaultNamedDocumentsDirectory().Name;
+            }
+
+            return GetDocumentsDirectory()?.Name;
         }
 
         private DirectoryInfo DefaultNamedDocumentsDirectory()

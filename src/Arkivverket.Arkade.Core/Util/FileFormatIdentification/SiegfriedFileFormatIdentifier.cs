@@ -32,13 +32,38 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             _fileSystemInfoSizeCalculator = fileSystemInfoSizeCalculator;
         }
 
+        public void BroadCastStarted()
+        {
+            _statusEventHandler.RaiseEventFormatAnalysisStarted();
+        }
+
+        public void BroadCastFinished()
+        {
+            _statusEventHandler.RaiseEventFormatAnalysisFinished();
+        }
+
         public IEnumerable<IFileFormatInfo> IdentifyFormats(string target, FileFormatScanMode scanMode)
         {
             _statusEventHandler.RaiseEventFormatAnalysisStarted();
 
             _fileSystemInfoSizeCalculator.CalculateSize(scanMode, target);
 
-            IEnumerable<IFileFormatInfo> siegfriedFileInfoObjects = AnalyseFiles(target, scanMode);
+            IEnumerable<IFileFormatInfo> siegfriedFileInfoObjects;
+            
+            if (scanMode == FileFormatScanMode.Archive)
+            {
+                Process siegfriedProcess = _processRunner.SetupSiegfriedProcess(scanMode, target);
+
+                IEnumerable<string> siegfriedResults = _processRunner.RunOnArchive(siegfriedProcess);
+
+                ExternalProcessManager.Close(siegfriedProcess); // TODO: Call after AnalyseFiles also?
+
+                siegfriedFileInfoObjects = GetFileFormatInfoObjects(siegfriedResults);
+            }
+            else
+            {
+                siegfriedFileInfoObjects = AnalyseFiles(target, scanMode);
+            }
 
             _statusEventHandler.RaiseEventFormatAnalysisFinished();
 
