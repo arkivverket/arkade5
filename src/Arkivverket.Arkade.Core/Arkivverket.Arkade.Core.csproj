@@ -299,4 +299,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <None Update="ThirdPartySoftware\DBPTK\dbptk-app-2.11.0.jar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
