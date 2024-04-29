@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using CommandLine;
 using CommandLine.Text;
@@ -13,10 +12,6 @@ namespace Arkivverket.Arkade.CLI.Options
 
         [Option('F', "format-analysis-filename", HelpText = "Optional. Provide a custom name for format analysis file.")]
         public string FormatAnalysisResultFileName { get; set; }
-
-        [Obsolete]
-        [Option('O', "output-filename", HelpText = "Optional. Overrides default output filename. (NB! Obsolete. Use parameter --format-analysis-filename / -F instead)")]
-        public string OutputFileName { get; set; }
 
         [Usage(ApplicationAlias = "arkade")]
         public static IEnumerable<Example> Examples
