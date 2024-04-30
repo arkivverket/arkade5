@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Core.Util
         public static int? ToInt(string s)
         {
             int ret;
-            return int.TryParse(s, out ret) ? ret : (int?) null;
+            return int.TryParse(s, out ret) ? ret : null;
         }
 
         public static int[] ToIntArray(string stringWithInts)

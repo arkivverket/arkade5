@@ -367,7 +367,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static DateTime? LoadDateOrNull(string dateValue)
         {
-            return DateTime.TryParse(dateValue, out DateTime date) ? (DateTime?)date : null;
+            return DateTime.TryParse(dateValue, out DateTime date) ? date : null;
         }
     }
 }
