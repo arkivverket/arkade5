@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Shell;
-using Arkivverket.Arkade.GUI.Models;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.ViewModels;
 

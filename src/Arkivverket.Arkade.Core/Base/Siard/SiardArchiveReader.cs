@@ -5,7 +5,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using Arkivverket.Arkade.Core.ExternalModels.Metadata;
-using Arkivverket.Arkade.Core.ExternalModels.Siard1Metadata;
 using Arkivverket.Arkade.Core.Util;
 using siard2ColumnType = Arkivverket.Arkade.Core.ExternalModels.Metadata.columnType;
 using siard1ColumnType = Arkivverket.Arkade.Core.ExternalModels.Siard1Metadata.columnType;
