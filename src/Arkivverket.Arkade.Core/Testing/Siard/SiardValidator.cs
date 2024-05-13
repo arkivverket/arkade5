@@ -108,8 +108,10 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
                 {
                     FileName = @"java",
                     Arguments = processArguments,
+                    RedirectStandardInput = true,
                     RedirectStandardError = true,
                     RedirectStandardOutput = true,
+                    StandardInputEncoding = Encoding.UTF8,
                     StandardOutputEncoding = Encoding.UTF8,
                     StandardErrorEncoding = Encoding.UTF8,
                     UseShellExecute = false,
