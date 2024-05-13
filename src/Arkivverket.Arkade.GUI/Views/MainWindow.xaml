@@ -13,8 +13,8 @@
         Height="720" Width="1024" 
         WindowStartupLocation="CenterScreen" WindowState="Normal"
         ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+        Background="{DynamicResource MaterialDesign.Brush.Background}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
@@ -32,7 +32,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel>
-            <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid" DockPanel.Dock="Top">
+            <materialDesign:ColorZone Padding="16" materialDesign:ElevationAssist.Elevation="Dp3" Mode="PrimaryMid" DockPanel.Dock="Top">
                 <DockPanel>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Text="{x:Static lang:GUI.ApplicationName}"/>
                 </DockPanel>

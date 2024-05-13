@@ -10,8 +10,8 @@
         mc:Ignorable="d"
         Title="{x:Static lang:SettingsGUI.DialogTitle}" Height="500" Width="628"
         Icon="../Arkade5_2.0.ico"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+        Background="{DynamicResource MaterialDesign.Brush.Background}"
         d:DataContext="{d:DesignData SettingsViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>

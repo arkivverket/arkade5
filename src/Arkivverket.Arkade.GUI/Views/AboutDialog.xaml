@@ -8,8 +8,8 @@
         d:DataContext="{d:DesignData AboutDialogViewModel}"
         Title="{x:Static lang:AboutGUI.AboutDialogWindowName}" Height ="270"  Width="500"
         Icon="../Arkade5_2.0.ico"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}">
+        TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+        Background="{DynamicResource MaterialDesign.Brush.Background}">
     <Grid>
         <StackPanel Margin="10">
             <WrapPanel Margin="10,20">

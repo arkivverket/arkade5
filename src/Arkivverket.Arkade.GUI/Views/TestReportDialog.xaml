@@ -11,8 +11,8 @@
         Height="350"
         Width="450"
         Icon="../Arkade5_2.0.ico"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+        Background="{DynamicResource MaterialDesign.Brush.Background}"
         d:DataContext="{d:DesignData TestReportDialogViewModel}">
     <Grid>
         <StackPanel Margin="20">
