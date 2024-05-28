@@ -1,0 +1,14 @@
+<Project Sdk="WixToolset.Sdk/5.0.0">
+  <ItemGroup>
+
+    <ProjectReference Include="..\Arkivverket.Arkade.GUI\Arkivverket.Arkade.GUI.csproj" />
+
+    <PackageReference Include="WixToolset.UI.wixext" Version="5.0.0" />
+    <PackageReference Include="WixToolset.Util.wixext" Version="5.0.0" />
+
+    <BindVariable Include="WixUILicenseRtf=gnu-agpl.rtf" />
+    <BindVariable Include="WixUIBannerBmp=Arkade5_2.0_banner.bmp" />
+    <BindVariable Include="WixUIDialogBmp=Arkade5_2.0_dialog.bmp" />
+
+  </ItemGroup>
+</Project>
