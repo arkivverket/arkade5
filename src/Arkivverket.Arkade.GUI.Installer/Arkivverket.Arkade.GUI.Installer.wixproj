@@ -11,4 +11,7 @@
     <BindVariable Include="WixUIDialogBmp=Arkade5_2.0_dialog.bmp" />
 
   </ItemGroup>
+  <PropertyGroup>
+    <OutputName>NORELEASE_Arkade5</OutputName>
+  </PropertyGroup>
 </Project>
