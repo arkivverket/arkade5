@@ -1,0 +1,18 @@
+<Project>
+
+  <PropertyGroup>
+     <MSBuildProjectExtensionsPath>..\artifacts\obj\$(MSBuildProjectName)</MSBuildProjectExtensionsPath>
+     <PerConfigurationOutputPath>..\artifacts\bin\$(MSBuildProjectName)</PerConfigurationOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <IntermediateOutputPath>$(MSBuildProjectExtensionsPath)\debug</IntermediateOutputPath>
+    <OutputPath>$(PerConfigurationOutputPath)\debug</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <IntermediateOutputPath>$(MSBuildProjectExtensionsPath)\release</IntermediateOutputPath>
+    <OutputPath>$(PerConfigurationOutputPath)\release</OutputPath>
+  </PropertyGroup>
+
+</Project>
