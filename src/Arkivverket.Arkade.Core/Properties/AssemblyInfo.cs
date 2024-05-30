@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Test and package tool for archive data")]
 [assembly: AssemblyCompany("Arkivverket")]
 [assembly: AssemblyProduct("Arkade 5")]
-[assembly: AssemblyCopyright("Copyright © 2016-2022")]
+[assembly: AssemblyCopyright("Copyright © 2016-2024")]
 
 [assembly: InternalsVisibleTo("Arkivverket.Arkade.Core.Test")]
 
