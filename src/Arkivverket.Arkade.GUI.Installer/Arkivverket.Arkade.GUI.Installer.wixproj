@@ -10,6 +10,11 @@
     <BindVariable Include="WixUIBannerBmp=Arkade5_2.0_banner.bmp" />
     <BindVariable Include="WixUIDialogBmp=Arkade5_2.0_dialog.bmp" />
 
+    <None Include="gnu-agpl.rtf" />
+	<None Include="Arkade5_2.0_banner.bmp" />
+    <None Include="Arkade5_2.0_dialog.bmp" />
+    <None Include="Arkade5_2.0.ico" />
+
   </ItemGroup>
   <PropertyGroup>
     <OutputName>NORELEASE_Arkade5</OutputName>
