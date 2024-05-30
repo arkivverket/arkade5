@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Base
             }
 
             Uuid o = obj as Uuid;
-            if ((System.Object)o == null)
+            if (o == null)
             {
                 return false;
             }

@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Shell;
-using Arkivverket.Arkade.GUI.Models;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.ViewModels;
 
@@ -35,14 +34,13 @@ namespace Arkivverket.Arkade.GUI.Views
 
         private void WindowClosing(object sender, CancelEventArgs e)
         {
-            if (ArkadeProcessingState.TestingIsStarted && !ArkadeProcessingState.PackingIsFinished)
-            {
-                MessageBoxResult dialogResult = MessageBox.Show(Languages.GUI.UnsavedTestResultsOnExitWarning,
-                    "NB!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+            if (ArkadeInstance.IsClearedToShutDown)
+                return;
 
-                if(dialogResult == MessageBoxResult.No)
-                        e.Cancel = true;
-            }
+            if (!UserDialogs.UserConfirmsShutDown())
+                e.Cancel = true;
+            else
+                ArkadeInstance.ClearToShutDown();
         }
 
         private void OnProgressChanged(object sender, ProgressChangedEventArgs e)

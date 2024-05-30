@@ -182,8 +182,8 @@ Noark 3, Noark 4, Noark 5, Fagsystem</comment>
   <data name="GuiSubsection_ExtractionDate" xml:space="preserve">
     <value>Uttrekksdato</value>
   </data>
-  <data name="GuiSubsection_NoarkParameters" xml:space="preserve">
-    <value>Noark felter</value>
+  <data name="GuiSubsection_ArchiveStartAndEndDate" xml:space="preserve">
+    <value>Arkivets start- og sluttdato</value>
   </data>
   <data name="GuiSubsection_Owner" xml:space="preserve">
     <value>Eier</value>

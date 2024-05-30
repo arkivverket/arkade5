@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 namespace Arkivverket.Arkade.Core.Util
 {
@@ -57,6 +58,15 @@ namespace Arkivverket.Arkade.Core.Util
             return indexOfParent < 0 || indexOfParent + 1 > pathSegments.Length - 1
                 ? null
                 : pathSegments[indexOfParent + 1];
+        }
+
+        public static bool HasIllegalCharacters(string path)
+        {
+            bool pathHasIllegalChars = path.IndexOfAny(Path.GetInvalidPathChars()) >= 0;
+
+            bool fileNameHasIllegalChars = new FileInfo(path).Name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0;
+
+            return pathHasIllegalChars || fileNameHasIllegalChars;
         }
     }
 }

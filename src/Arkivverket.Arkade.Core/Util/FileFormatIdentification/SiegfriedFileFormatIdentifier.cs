@@ -145,7 +145,7 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             if (filePathAndByteContent.Value == null)
                 return FileFormatInfoFactory.Create(filePathAndByteContent.Key,
                     filePathAndByteContent.Value?.Count().ToString() ?? "N/A",
-                    Resources.SiardMessages.InlinedLobContentHasUnsupportedEncoding, "N/A", "N/A", "N/A", "N/A");
+                    SiardMessages.InlinedLobContentHasUnsupportedEncoding, "N/A", "N/A", "N/A", "N/A");
 
             const FileFormatScanMode scanMode = FileFormatScanMode.Stream;
 

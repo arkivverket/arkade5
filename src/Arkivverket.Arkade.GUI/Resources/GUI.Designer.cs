@@ -70,6 +70,24 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application shutdown.
+        /// </summary>
+        public static string ApplicationShutdownConfirmDialogCaption {
+            get {
+                return ResourceManager.GetString("ApplicationShutdownConfirmDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to exit Arkade?.
+        /// </summary>
+        public static string ApplicationShutdownConfirmDialogText {
+            get {
+                return ResourceManager.GetString("ApplicationShutdownConfirmDialogText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Working area - {0}.
         /// </summary>
         public static string ArkadeDirectoryPathInfo {
@@ -187,6 +205,24 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New session.
+        /// </summary>
+        public static string NewProgramSessionConfirmDialogCaption {
+            get {
+                return ResourceManager.GetString("NewProgramSessionConfirmDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to start a new session?.
+        /// </summary>
+        public static string NewProgramSessionConfirmDialogText {
+            get {
+                return ResourceManager.GetString("NewProgramSessionConfirmDialogText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Newer version available.
         /// </summary>
         public static string NewVersionMessage {
@@ -287,20 +323,20 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The current test results and any other added data will be lost..
+        /// </summary>
+        public static string TestResultsAndOtherAddedDataLostWarning {
+            get {
+                return ResourceManager.GetString("TestResultsAndOtherAddedDataLostWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Output language: {0}.
         /// </summary>
         public static string UiAndOutputLanguagesIsDifferentWarningMessage {
             get {
                 return ResourceManager.GetString("UiAndOutputLanguagesIsDifferentWarningMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If the application is closed now, the current test results will be lost. Do you still want to close?.
-        /// </summary>
-        public static string UnsavedTestResultsOnExitWarning {
-            get {
-                return ResourceManager.GetString("UnsavedTestResultsOnExitWarning", resourceCulture);
             }
         }
         

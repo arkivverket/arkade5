@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
     <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
@@ -35,9 +35,6 @@
     <None Remove="arkade.bat" />
     <None Remove="arkade.sh" />
     <None Remove="README.txt" />
-    <None Include="..\Setup\Arkade5_2.0.ico">
-      <Pack>True</Pack>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

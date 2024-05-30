@@ -88,6 +88,114 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Original archival creator, the origin or source of the archive.
+        /// </summary>
+        public static string GuiSubsection_ArchiveCreator {
+            get {
+                return ResourceManager.GetString("GuiSubsection_ArchiveCreator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Give a short explanation of the archive&apos;s content.
+        /// </summary>
+        public static string GuiSubsection_ArchiveMain {
+            get {
+                return ResourceManager.GetString("GuiSubsection_ArchiveMain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The first and last registration of records.
+        /// </summary>
+        public static string GuiSubsection_ArchiveStartAndEndDate {
+            get {
+                return ResourceManager.GetString("GuiSubsection_ArchiveStartAndEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The software that extracted data from the system.
+        /// </summary>
+        public static string GuiSubsection_ArchiveSystem {
+            get {
+                return ResourceManager.GetString("GuiSubsection_ArchiveSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The organization that creates the package containing the archive.
+        /// </summary>
+        public static string GuiSubsection_Creator {
+            get {
+                return ResourceManager.GetString("GuiSubsection_Creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receives upload link for transfer to the National Archives.
+        /// </summary>
+        public static string GuiSubsection_Creator_Email {
+            get {
+                return ResourceManager.GetString("GuiSubsection_Creator_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The date when data was extracted from the system.
+        /// </summary>
+        public static string GuiSubsection_ExtractionDate {
+            get {
+                return ResourceManager.GetString("GuiSubsection_ExtractionDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The entity with ownership and disposal rights over the archive.
+        /// </summary>
+        public static string GuiSubsection_Owner {
+            get {
+                return ResourceManager.GetString("GuiSubsection_Owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The entity responsible for the technical extraction of data. Often the service provider..
+        /// </summary>
+        public static string GuiSubsection_Producer {
+            get {
+                return ResourceManager.GetString("GuiSubsection_Producer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The archival repository responsible for receiving the information package.
+        /// </summary>
+        public static string GuiSubsection_Recipient {
+            get {
+                return ResourceManager.GetString("GuiSubsection_Recipient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The software used for creating the archive, such as records management systems or information systems..
+        /// </summary>
+        public static string GuiSubsection_System {
+            get {
+                return ResourceManager.GetString("GuiSubsection_System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Responsible organisation for the transfer of archives to the depository..
+        /// </summary>
+        public static string GuiSubsection_Transferer {
+            get {
+                return ResourceManager.GetString("GuiSubsection_Transferer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Indicates the position of this package in a series or session.
         ///E.g.:
         ///NEW - 1.0
@@ -187,6 +295,33 @@ namespace Arkivverket.Arkade.GUI.Languages {
         public static string ReferenceCode {
             get {
                 return ResourceManager.GetString("ReferenceCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type of information packet according to the OAIS (Open Archival Information System) standard. For transfers to the repository, &quot;SIP&quot; (Submission Information Package) is used..
+        /// </summary>
+        public static string SelectPackageType {
+            get {
+                return ResourceManager.GetString("SelectPackageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AIP - Archival Information Package.
+        /// </summary>
+        public static string SelectPackageType_AIP {
+            get {
+                return ResourceManager.GetString("SelectPackageType_AIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIP - Submission Information Package.
+        /// </summary>
+        public static string SelectPackageType_SIP {
+            get {
+                return ResourceManager.GetString("SelectPackageType_SIP", resourceCulture);
             }
         }
     }

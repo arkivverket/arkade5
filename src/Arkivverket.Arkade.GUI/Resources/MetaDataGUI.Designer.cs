@@ -304,6 +304,15 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Archive start and end date.
+        /// </summary>
+        public static string GuiSubsection_ArchiveStartAndEndDate {
+            get {
+                return ResourceManager.GetString("GuiSubsection_ArchiveStartAndEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extraction System.
         /// </summary>
         public static string GuiSubsection_ArchiveSystem {
@@ -327,15 +336,6 @@ namespace Arkivverket.Arkade.GUI.Languages {
         public static string GuiSubsection_ExtractionDate {
             get {
                 return ResourceManager.GetString("GuiSubsection_ExtractionDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Noark fields.
-        /// </summary>
-        public static string GuiSubsection_NoarkParameters {
-            get {
-                return ResourceManager.GetString("GuiSubsection_NoarkParameters", resourceCulture);
             }
         }
         

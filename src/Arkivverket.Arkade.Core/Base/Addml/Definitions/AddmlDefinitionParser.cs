@@ -449,28 +449,28 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
 
         private int? GetMaxLength(fieldDefinition fieldDefinition)
         {
-            return fieldDefinition.maxLength == null ? (int?) null : int.Parse(fieldDefinition.maxLength);
+            return fieldDefinition.maxLength == null ? null : int.Parse(fieldDefinition.maxLength);
         }
 
         private int? GetFixedLength(fieldDefinition fieldDefinition)
         {
-            return fieldDefinition.fixedLength == null ? (int?) null : int.Parse(fieldDefinition.fixedLength);
+            return fieldDefinition.fixedLength == null ? null : int.Parse(fieldDefinition.fixedLength);
         }
 
         private int? GetStartPosition(fieldDefinition fieldDefinition)
         {
-            return fieldDefinition.startPos == null ? (int?) null : int.Parse(fieldDefinition.startPos);
+            return fieldDefinition.startPos == null ? null : int.Parse(fieldDefinition.startPos);
         }
 
         private int? GetEndPosition(fieldDefinition fieldDefinition)
         {
-            return fieldDefinition.endPos == null ? (int?)null : int.Parse(fieldDefinition.endPos);
+            return fieldDefinition.endPos == null ? null : int.Parse(fieldDefinition.endPos);
         }
 
 
         private int? GetMinLength(fieldDefinition fieldDefinition)
         {
-            return fieldDefinition.minLength == null ? (int?) null : int.Parse(fieldDefinition.minLength);
+            return fieldDefinition.minLength == null ? null : int.Parse(fieldDefinition.minLength);
         }
 
 
@@ -553,7 +553,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
 
         private int? GetRecordLength(recordDefinition recordDefinition)
         {
-            return recordDefinition.fixedLength == null ? (int?)null : int.Parse(recordDefinition.fixedLength);
+            return recordDefinition.fixedLength == null ? null : int.Parse(recordDefinition.fixedLength);
         }
 
 

@@ -143,14 +143,14 @@ namespace Arkivverket.Arkade.Core.Identify
         private void TarExtractionStartedEvent()
         {
             _statusEventHandler.RaiseEventOperationMessage(
-                Resources.Messages.ReadingArchiveEvent,
-                Resources.Messages.TarExtractionMessageStarted, OperationMessageStatus.Started);
+                Messages.ReadingArchiveEvent,
+                Messages.TarExtractionMessageStarted, OperationMessageStatus.Started);
         }
 
         private void TarExtractionFinishedEvent(WorkingDirectory workingDirectory)
         {
-            _statusEventHandler.RaiseEventOperationMessage(Resources.Messages.ReadingArchiveEvent,
-                string.Format(Resources.Messages.TarExtractionMessageFinished, workingDirectory.ContentWorkDirectory().DirectoryInfo().FullName),
+            _statusEventHandler.RaiseEventOperationMessage(Messages.ReadingArchiveEvent,
+                string.Format(Messages.TarExtractionMessageFinished, workingDirectory.ContentWorkDirectory().DirectoryInfo().FullName),
                 OperationMessageStatus.Ok);
         }
 

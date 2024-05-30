@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
 using System.Linq;
-using Arkivverket.Arkade.Core.Testing;
 using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5

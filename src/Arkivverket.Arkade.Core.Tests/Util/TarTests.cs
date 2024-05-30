@@ -37,13 +37,13 @@ namespace Arkivverket.Arkade.Core.Tests.Util
             _output.WriteLine("Extracted Archive");
 
             // Check that correct number of files were extracted:
-            var filenames = System.IO.Directory.GetFiles(pathToExtractedDirectory.FullName, "*.*", SearchOption.AllDirectories);
+            var filenames = Directory.GetFiles(pathToExtractedDirectory.FullName, "*.*", SearchOption.AllDirectories);
             var numFilesExtracted = filenames.Length;
             numFilesExtracted.Should().Be(12);
             _output.WriteLine("Verified file count in extracted Archive");
 
             // Clean up temp directory
-            System.IO.Directory.Delete(pathToExtractedDirectory.FullName, true);
+            Directory.Delete(pathToExtractedDirectory.FullName, true);
             File.Delete(pathToTargetTarFile.FullName);
         }
     }

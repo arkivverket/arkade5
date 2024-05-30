@@ -328,7 +328,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                                 $"{filePath}";
 
             string argument = "/select, \"" + filePath + "\"";
-            System.Diagnostics.Process.Start("explorer.exe", argument);
+            Process.Start("explorer.exe", argument);
         }
 
         // ---------- Archive format validation ----------

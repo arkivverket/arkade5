@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return (IEnumerator)GetEnumerator();
+            return GetEnumerator();
         }
     }
 

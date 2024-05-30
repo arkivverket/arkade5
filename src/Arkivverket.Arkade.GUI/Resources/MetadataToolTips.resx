@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -168,5 +168,50 @@ Some examples:
   </data>
   <data name="ProjectName" xml:space="preserve">
     <value>If applicable, the name of the project this package belongs to.</value>
+  </data>
+  <data name="GuiSubsection_ArchiveMain" xml:space="preserve">
+    <value>Give a short explanation of the archive's content</value>
+  </data>
+  <data name="GuiSubsection_ArchiveCreator" xml:space="preserve">
+    <value>Original archival creator, the origin or source of the archive</value>
+  </data>
+  <data name="GuiSubsection_Transferer" xml:space="preserve">
+    <value>Responsible organisation for the transfer of archives to the depository.</value>
+  </data>
+  <data name="GuiSubsection_Producer" xml:space="preserve">
+    <value>The entity responsible for the technical extraction of data. Often the service provider.</value>
+  </data>
+  <data name="GuiSubsection_System" xml:space="preserve">
+    <value>The software used for creating the archive, such as records management systems or information systems.</value>
+  </data>
+  <data name="GuiSubsection_Recipient" xml:space="preserve">
+    <value>The archival repository responsible for receiving the information package</value>
+  </data>
+  <data name="GuiSubsection_Owner" xml:space="preserve">
+    <value>The entity with ownership and disposal rights over the archive</value>
+  </data>
+  <data name="GuiSubsection_ArchiveStartAndEndDate" xml:space="preserve">
+    <value>The first and last registration of records</value>
+  </data>
+  <data name="GuiSubsection_ExtractionDate" xml:space="preserve">
+    <value>The date when data was extracted from the system</value>
+  </data>
+  <data name="GuiSubsection_Creator" xml:space="preserve">
+    <value>The organization that creates the package containing the archive</value>
+  </data>
+  <data name="GuiSubsection_Creator_Email" xml:space="preserve">
+    <value>Receives upload link for transfer to the National Archives</value>
+  </data>
+  <data name="GuiSubsection_ArchiveSystem" xml:space="preserve">
+    <value>The software that extracted data from the system</value>
+  </data>
+  <data name="SelectPackageType" xml:space="preserve">
+    <value>The type of information packet according to the OAIS (Open Archival Information System) standard. For transfers to the repository, "SIP" (Submission Information Package) is used.</value>
+  </data>
+  <data name="SelectPackageType_SIP" xml:space="preserve">
+    <value>SIP - Submission Information Package</value>
+  </data>
+  <data name="SelectPackageType_AIP" xml:space="preserve">
+    <value>AIP - Archival Information Package</value>
   </data>
 </root>

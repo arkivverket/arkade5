@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Tests.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Xunit;

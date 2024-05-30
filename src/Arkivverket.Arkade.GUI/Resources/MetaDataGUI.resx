@@ -201,8 +201,8 @@
   <data name="GuiSubsection_ExtractionDate" xml:space="preserve">
     <value>Extraction Date</value>
   </data>
-  <data name="GuiSubsection_NoarkParameters" xml:space="preserve">
-    <value>Noark fields</value>
+  <data name="GuiSubsection_ArchiveStartAndEndDate" xml:space="preserve">
+    <value>Archive start and end date</value>
   </data>
   <data name="GuiSubsection_Owner" xml:space="preserve">
     <value>Owner</value>

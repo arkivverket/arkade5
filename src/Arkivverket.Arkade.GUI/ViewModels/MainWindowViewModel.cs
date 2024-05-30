@@ -155,7 +155,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             if (dialogResult == MessageBoxResult.OK)
                 ShowSettingsCommand.Execute();
             else
+            {
+                ArkadeInstance.ClearToShutDown();
                 Application.Current.Shutdown();
+            }
         }
 
         private static void RestartArkadeIfNeededAndWanted()
@@ -183,6 +186,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                             Languages.GUI.RestartFailedMessageBoxTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
+                    ArkadeInstance.ClearToShutDown();
                     Application.Current.Shutdown();
                 }
             }
