@@ -32,13 +32,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Arkade5_2.0.ico" />
-    <None Include="..\Setup\Arkade5_2.0.ico">
-      <Pack>True</Pack>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="Prism.Unity" Version="8.1.97" />

@@ -70,10 +70,6 @@
     <None Remove="Resources\bootstrap.min.css" />
     <None Remove="Resources\FreeSans.ttf" />
     <None Remove="Resources\sRGB_CS_profile.icm" />
-    <None Include="..\Setup\Arkade5_2.0.ico">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

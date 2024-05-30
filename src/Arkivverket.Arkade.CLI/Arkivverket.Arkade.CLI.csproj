@@ -35,9 +35,6 @@
     <None Remove="arkade.bat" />
     <None Remove="arkade.sh" />
     <None Remove="README.txt" />
-    <None Include="..\Setup\Arkade5_2.0.ico">
-      <Pack>True</Pack>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

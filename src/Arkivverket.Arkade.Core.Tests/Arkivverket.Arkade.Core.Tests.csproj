@@ -22,6 +22,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="TestData\FileTypes\docx.docx" />
     <None Remove="TestData\FileTypes\pdf.pdf" />
     <None Remove="TestData\FileTypes\pdfA-1b.pdf" />
@@ -69,7 +75,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
     <Folder Include="TestData\Noark5\StructureValidationFileExists\OneFileIsMissing\" />
   </ItemGroup>
 
