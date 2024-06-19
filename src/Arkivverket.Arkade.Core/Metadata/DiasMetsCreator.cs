@@ -137,8 +137,8 @@ namespace Arkivverket.Arkade.Core.Metadata
             var metsHdr = new metsTypeMetsHdr();
 
             if (metadata.ExtractionDate != null)
-                metsHdr.CREATEDATE = metadata.ExtractionDate.Value;
-                
+                metsHdr.CREATEDATE = metadata.ExtractionDate.Value; // TODO: Check with AV if metadata.ExtractionDate really should be mapped to metsHdr.CREATEDATE
+
             if (!string.IsNullOrEmpty(metadata.RecordStatus))
                 metsHdr.RECORDSTATUS = metadata.RecordStatus;
 
