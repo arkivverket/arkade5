@@ -526,7 +526,7 @@ namespace Arkivverket.Arkade.Core.Metadata
         private static mdSecTypeMdRefMIMETYPE MimeTypeParser(FileDescription fileDescription)
         {
             //https://mimetype.io/
-            return fileDescription.Extension switch
+            return fileDescription.Extension.Split('.').Last().ToLower() switch
             {
                 "pdf" => mdSecTypeMdRefMIMETYPE.imagepdf,
                 "jpe" or "jpeg" or "jpg" or "pjpg" or "jfif" or "jfif-tbnl" or "jif" => mdSecTypeMdRefMIMETYPE.imagejpg, 

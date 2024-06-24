@@ -151,7 +151,7 @@ namespace Arkivverket.Arkade.Core.Base
 
                 var documentFile = new DocumentFile{
                     FullName = entry.Name,
-                    Extension = Path.GetExtension(entry.Name).TrimStart("."),
+                    Extension = Path.GetExtension(entry.Name),
                     Size = entry.Size,
                     CreationTime = entry.ModTime,
                     CheckSum = checkSum
