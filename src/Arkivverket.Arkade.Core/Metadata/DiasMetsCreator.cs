@@ -27,16 +27,6 @@ namespace Arkivverket.Arkade.Core.Metadata
                     : null;
 
                 metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip: filesToSkip);
-
-                if (archive.ArchiveType is ArchiveType.Noark5)
-                {
-                    if (!archive.DocumentFiles.AreMetsReady())
-                        archive.DocumentFiles.Register(includeChecksums: true);
-
-                    ReadOnlyDictionary<string, DocumentFile> documentFiles = archive.DocumentFiles.Get();
-
-                    metadata.FileDescriptions.AddRange(GetFileDescriptionsFromDocumentFiles(documentFiles));
-                }
             }
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())
@@ -58,6 +48,16 @@ namespace Arkivverket.Arkade.Core.Metadata
 
                     metadata.FileDescriptions.AddRange(fileDescriptions);
                 }
+            }
+
+            if (archive.ArchiveType is ArchiveType.Noark5)
+            {
+                if (!archive.DocumentFiles.AreMetsReady())
+                    archive.DocumentFiles.Register(includeChecksums: true);
+
+                ReadOnlyDictionary<string, DocumentFile> documentFiles = archive.DocumentFiles.Get();
+
+                metadata.FileDescriptions.AddRange(GetFileDescriptionsFromDocumentFiles(documentFiles));
             }
 
             const int fileIdOffset = 1; // Reserving 0 for package file
