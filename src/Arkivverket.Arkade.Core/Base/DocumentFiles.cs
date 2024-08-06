@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Core.Base
 {
     internal class DocumentFiles
     {
-        private readonly Dictionary<string, DocumentFile> _documentFiles = new();
+        private readonly SortedDictionary<string, DocumentFile> _documentFiles = new();
 
         private bool _haveCheckSums;
         private bool _areRegistered;
