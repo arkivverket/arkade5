@@ -23,8 +23,8 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (rootDirectory.Exists)
             {
                 string[] filesToSkip = metadata.PackageType == PackageType.SubmissionInformationPackage
-                    ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
-                    : null;
+                    ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName, ArkadeConstants.DiasMetsXmlFileName }
+                    : new[] { ArkadeConstants.DiasMetsXmlFileName };
 
                 metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip: filesToSkip);
             }
