@@ -26,7 +26,11 @@ namespace Arkivverket.Arkade.Core.Metadata
                     ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName, ArkadeConstants.DiasMetsXmlFileName }
                     : new[] { ArkadeConstants.DiasMetsXmlFileName };
 
-                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip: filesToSkip);
+                string[] directoriesToSkip = metadata.PackageType == PackageType.SubmissionInformationPackage
+                    ? new[] { ArkadeConstants.DirectoryNameRepositoryOperations }
+                    : null;
+
+                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip: filesToSkip, directoriesToSkip: directoriesToSkip);
             }
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())
