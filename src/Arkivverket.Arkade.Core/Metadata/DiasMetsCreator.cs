@@ -94,7 +94,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     Extension = documentFile.Extension,
                     Sha256Checksum = documentFile.CheckSum,
                     Size = documentFile.Size,
-                    CreationTime = documentFile.CreationTime
+                    ModifiedTime = documentFile.ModifiedTime
                 };
             }
         }
@@ -503,7 +503,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     CHECKSUMTYPE = mdSecTypeMdRefCHECKSUMTYPE.SHA256,
                     CHECKSUM = fileDescription.Sha256Checksum.ToLower(),
                     SIZE = fileDescription.Size,
-                    CREATED = fileDescription.CreationTime,
+                    CREATED = fileDescription.ModifiedTime,
                     FLocat = new fileTypeFLocat
                     {
                         href = "file:" + fileDescription.Name.Replace("\\", "/"),

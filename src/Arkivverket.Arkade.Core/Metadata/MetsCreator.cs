@@ -47,7 +47,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                 Extension = file.Extension,
                 Sha256Checksum = GetSha256Checksum(file),
                 Size = file.Length,
-                CreationTime = file.CreationTime
+                ModifiedTime = file.LastWriteTime
             };
         }
 

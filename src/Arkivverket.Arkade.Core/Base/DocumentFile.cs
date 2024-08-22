@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Core.Base
         public string FullName { get; init; }
         public string Extension { get; init; }
         public long Size { get; init; }
-        public DateTime CreationTime { get; init; }
+        public DateTime ModifiedTime { get; init; }
         public string CheckSum { get; set; }
     }
 }

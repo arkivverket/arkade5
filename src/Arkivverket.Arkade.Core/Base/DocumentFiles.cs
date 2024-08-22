@@ -99,7 +99,7 @@ namespace Arkivverket.Arkade.Core.Base
                     FullName = documentFileInfo.FullName,
                     Extension = documentFileInfo.Extension,
                     Size = documentFileInfo.Length,
-                    CreationTime = documentFileInfo.CreationTime,
+                    ModifiedTime = documentFileInfo.LastWriteTime,
                     CheckSum = checkSum
                 };
 
@@ -153,7 +153,7 @@ namespace Arkivverket.Arkade.Core.Base
                     FullName = entry.Name,
                     Extension = Path.GetExtension(entry.Name),
                     Size = entry.Size,
-                    CreationTime = entry.ModTime,
+                    ModifiedTime = entry.ModTime,
                     CheckSum = checkSum
                 };
 

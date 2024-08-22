@@ -55,6 +55,6 @@ namespace Arkivverket.Arkade.Core.Base
         public string Extension { get; set; }
         public string Sha256Checksum { get; set; }
         public long Size { get; set; }
-        public DateTime CreationTime { get; set; }
+        public DateTime ModifiedTime { get; set; }
     }
 }
