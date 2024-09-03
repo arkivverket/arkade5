@@ -3,8 +3,8 @@
 
     <ProjectReference Include="..\Arkivverket.Arkade.GUI\Arkivverket.Arkade.GUI.csproj" />
 
-    <PackageReference Include="WixToolset.UI.wixext" Version="5.0.0" />
-    <PackageReference Include="WixToolset.Util.wixext" Version="5.0.0" />
+    <PackageReference Include="WixToolset.UI.wixext" Version="5.0.1" />
+    <PackageReference Include="WixToolset.Util.wixext" Version="5.0.1" />
 
     <BindVariable Include="WixUILicenseRtf=gnu-agpl.rtf" />
     <BindVariable Include="WixUIBannerBmp=Arkade5_2.0_banner.bmp" />

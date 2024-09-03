@@ -1,7 +1,7 @@
 ﻿using Arkivverket.Arkade.GUI.Views;
 using Prism.Ioc;
 using Prism.Modularity;
-using Prism.Regions;
+using Prism.Navigation.Regions;
 
 namespace Arkivverket.Arkade.GUI
 {

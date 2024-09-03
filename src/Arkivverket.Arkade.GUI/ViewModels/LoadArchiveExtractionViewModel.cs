@@ -6,7 +6,8 @@ using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Models;
 using Prism.Commands;
 using Prism.Mvvm;
-using Prism.Regions;
+using Prism.Navigation;
+using Prism.Navigation.Regions;
 using Serilog;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
