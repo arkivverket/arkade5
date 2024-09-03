@@ -64,7 +64,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                         Extension = "pdf",
                         Sha256Checksum = "3B29DFCC4286E50B180AF8F21904C86F8AA42A23C4055C3A71D0512F9AE3886F",
                         Size = 2325452,
-                        CreationTime = new DateTime(2017, 06, 30)
+                        ModifiedTime = new DateTime(2017, 06, 30)
                     }
                 },
                 StartDate = new DateTime(2017, 01, 01),

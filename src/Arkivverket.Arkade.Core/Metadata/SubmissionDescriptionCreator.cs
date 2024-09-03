@@ -479,7 +479,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     CHECKSUMTYPE = fileTypeCHECKSUMTYPE.SHA256,
                     CHECKSUM = fileDescription.Sha256Checksum.ToLower(),
                     SIZE = fileDescription.Size,
-                    CREATED = fileDescription.CreationTime,
+                    CREATED = fileDescription.ModifiedTime,
                     FLocat = new fileTypeFLocat
                     {
                         href = "file:" + fileDescription.Name.Replace("\\", "/"),

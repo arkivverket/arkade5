@@ -13,7 +13,7 @@ using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.Core.Util;
 using Prism.Commands;
 using Prism.Mvvm;
-using Prism.Regions;
+using Prism.Navigation.Regions;
 using Serilog;
 using System.Threading.Tasks;
 using System.Windows.Forms;

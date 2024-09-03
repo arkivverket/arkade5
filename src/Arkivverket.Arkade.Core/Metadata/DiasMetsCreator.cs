@@ -23,20 +23,14 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (rootDirectory.Exists)
             {
                 string[] filesToSkip = metadata.PackageType == PackageType.SubmissionInformationPackage
-                    ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
+                    ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName, ArkadeConstants.DiasMetsXmlFileName }
+                    : new[] { ArkadeConstants.DiasMetsXmlFileName };
+
+                string[] directoriesToSkip = metadata.PackageType == PackageType.SubmissionInformationPackage
+                    ? new[] { ArkadeConstants.DirectoryNameRepositoryOperations }
                     : null;
 
-                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip: filesToSkip);
-
-                if (archive.ArchiveType is ArchiveType.Noark5)
-                {
-                    if (!archive.DocumentFiles.AreMetsReady())
-                        archive.DocumentFiles.Register(includeChecksums: true);
-
-                    ReadOnlyDictionary<string, DocumentFile> documentFiles = archive.DocumentFiles.Get();
-
-                    metadata.FileDescriptions.AddRange(GetFileDescriptionsFromDocumentFiles(documentFiles));
-                }
+                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip: filesToSkip, directoriesToSkip: directoriesToSkip);
             }
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())
@@ -45,9 +39,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
                 if (externalContentDirectory.Exists)
                 {
-                    bool documentFilesAreDescribed = archive.ArchiveType is ArchiveType.Noark5 && archive.DocumentFiles.AreMetsReady();
-
-                    string[] directoriesToSkip = documentFilesAreDescribed ? ArkadeConstants.DocumentDirectoryNames : null;
+                    string[] directoriesToSkip = ArkadeConstants.DocumentDirectoryNames;
 
                     // The loaded archive (as dictionary) might have a name different from "content", therefore it is
                     // necessary to strip the name of the source "content" directory from the file descriptions, 
@@ -58,11 +50,18 @@ namespace Arkivverket.Arkade.Core.Metadata
 
                     PrependFileDescriptionsNameWithContent(fileDescriptions);
 
-                    if (documentFilesAreDescribed)
-                        fileDescriptions.AddRange(GetFileDescriptionsFromDocumentFiles(archive.DocumentFiles.Get()));
-
                     metadata.FileDescriptions.AddRange(fileDescriptions);
                 }
+            }
+
+            if (archive.ArchiveType is ArchiveType.Noark5)
+            {
+                if (!archive.DocumentFiles.AreMetsReady())
+                    archive.DocumentFiles.Register(includeChecksums: true);
+
+                ReadOnlyDictionary<string, DocumentFile> documentFiles = archive.DocumentFiles.Get();
+
+                metadata.FileDescriptions.AddRange(GetFileDescriptionsFromDocumentFiles(documentFiles));
             }
 
             const int fileIdOffset = 1; // Reserving 0 for package file
@@ -95,7 +94,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     Extension = documentFile.Extension,
                     Sha256Checksum = documentFile.CheckSum,
                     Size = documentFile.Size,
-                    CreationTime = documentFile.CreationTime
+                    ModifiedTime = documentFile.ModifiedTime
                 };
             }
         }
@@ -504,7 +503,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                     CHECKSUMTYPE = mdSecTypeMdRefCHECKSUMTYPE.SHA256,
                     CHECKSUM = fileDescription.Sha256Checksum.ToLower(),
                     SIZE = fileDescription.Size,
-                    CREATED = fileDescription.CreationTime,
+                    CREATED = fileDescription.ModifiedTime,
                     FLocat = new fileTypeFLocat
                     {
                         href = "file:" + fileDescription.Name.Replace("\\", "/"),
@@ -526,7 +525,7 @@ namespace Arkivverket.Arkade.Core.Metadata
         private static mdSecTypeMdRefMIMETYPE MimeTypeParser(FileDescription fileDescription)
         {
             //https://mimetype.io/
-            return fileDescription.Extension switch
+            return fileDescription.Extension.Split('.').Last().ToLower() switch
             {
                 "pdf" => mdSecTypeMdRefMIMETYPE.imagepdf,
                 "jpe" or "jpeg" or "jpg" or "pjpg" or "jfif" or "jfif-tbnl" or "jif" => mdSecTypeMdRefMIMETYPE.imagejpg, 

@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Core.Base
 {
     internal class DocumentFiles
     {
-        private readonly Dictionary<string, DocumentFile> _documentFiles = new();
+        private readonly SortedDictionary<string, DocumentFile> _documentFiles = new();
 
         private bool _haveCheckSums;
         private bool _areRegistered;
@@ -99,7 +99,7 @@ namespace Arkivverket.Arkade.Core.Base
                     FullName = documentFileInfo.FullName,
                     Extension = documentFileInfo.Extension,
                     Size = documentFileInfo.Length,
-                    CreationTime = documentFileInfo.CreationTime,
+                    ModifiedTime = documentFileInfo.LastWriteTime,
                     CheckSum = checkSum
                 };
 
@@ -151,9 +151,9 @@ namespace Arkivverket.Arkade.Core.Base
 
                 var documentFile = new DocumentFile{
                     FullName = entry.Name,
-                    Extension = Path.GetExtension(entry.Name).TrimStart("."),
+                    Extension = Path.GetExtension(entry.Name),
                     Size = entry.Size,
-                    CreationTime = entry.ModTime,
+                    ModifiedTime = entry.ModTime,
                     CheckSum = checkSum
                 };
 

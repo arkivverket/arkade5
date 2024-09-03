@@ -44,10 +44,10 @@ namespace Arkivverket.Arkade.Core.Metadata
             return new FileDescription
             {
                 Name = name,
-                Extension = file.Extension.Replace(".", string.Empty),
+                Extension = file.Extension,
                 Sha256Checksum = GetSha256Checksum(file),
                 Size = file.Length,
-                CreationTime = file.CreationTime
+                ModifiedTime = file.LastWriteTime
             };
         }
 
