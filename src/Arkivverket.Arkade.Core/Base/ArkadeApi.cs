@@ -123,6 +123,9 @@ namespace Arkivverket.Arkade.Core.Base
                 _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(testSession.Archive);
             }
 
+            // Delete any existing dias-mets.xml extracted from input tar-file
+            testSession.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
+
             _metadataFilesCreator.Create(testSession.Archive, testSession.ArchiveMetadata);
 
             string packageFilePath;
