@@ -63,7 +63,7 @@ namespace Arkivverket.Arkade.Core.Identify
             {
                 TarExtractionStartedEvent();
                 _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo(),
-                    withoutDocumentFiles: true, archiveRootDirectoryName: uuid.ToString());
+                    withoutDocumentFiles: archiveFile.ArchiveType == ArchiveType.Noark5, archiveRootDirectoryName: uuid.ToString());
                 TarExtractionFinishedEvent(workingDirectory);
             }
 
