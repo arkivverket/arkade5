@@ -232,9 +232,7 @@ namespace Arkivverket.Arkade.Core.Base
                                              RemoveRootDirectoryFromFilename(entryName, rootDirectory.FullName) +
                                              filenameSuffix;
 
-            string tarEntryName = packagePreparedFileName.Replace("\\", "/"); // UNIX-style directory-separators
-
-            tarEntry.Name = Encoding.GetEncoding("ISO-8859-1").GetString(Encoding.UTF8.GetBytes(tarEntryName));
+            tarEntry.Name = packagePreparedFileName.Replace("\\", "/"); // UNIX-style directory-separators
 
             tarArchive.WriteEntry(tarEntry, false);
         }
