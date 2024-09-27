@@ -39,7 +39,9 @@ namespace Arkivverket.Arkade.Core.Metadata
 
                 if (externalContentDirectory.Exists)
                 {
-                    string[] directoriesToSkip = ArkadeConstants.DocumentDirectoryNames;
+                    string[] directoriesToSkip = archive.ArchiveType == ArchiveType.Noark5
+                        ? ArkadeConstants.DocumentDirectoryNames
+                        : null;
 
                     // The loaded archive (as dictionary) might have a name different from "content", therefore it is
                     // necessary to strip the name of the source "content" directory from the file descriptions, 

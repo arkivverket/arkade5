@@ -80,7 +80,7 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
 
             List<string> results = RunProcess(process).Results;
 
-            string versionString = results.Find(s => s.Contains("version"));
+            string versionString = results.Find(s => s != null && s.Contains("version"));
 
             string version = versionString?.Replace("DBPTK Developer (version ", string.Empty,
                 StringComparison.InvariantCultureIgnoreCase).TrimEnd(')');

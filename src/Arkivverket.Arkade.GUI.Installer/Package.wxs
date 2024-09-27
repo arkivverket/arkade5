@@ -1,6 +1,6 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui"
      xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
-	<Package Name="Arkade 5" Manufacturer="Arkivverket" Version="2.12.1.0" 
+	<Package Name="Arkade 5" Manufacturer="Arkivverket" Version="2.12.2.0" 
 	         UpgradeCode="029ba52f-9fd9-483c-9f7b-b83febc9d9d6"> <!-- TODO: Set package info dynamically on build -->
 
 		<MediaTemplate EmbedCab="yes" />
