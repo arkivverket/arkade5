@@ -135,10 +135,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static void CreateMetsHdr(mets mets, ArchiveMetadata metadata)
         {
-            var metsHdr = new metsTypeMetsHdr();
-
-            if (metadata.ExtractionDate != null)
-                metsHdr.CREATEDATE = metadata.ExtractionDate.Value;
+            var metsHdr = new metsTypeMetsHdr { CREATEDATE = DateTime.Now };
                 
             if (!string.IsNullOrEmpty(metadata.RecordStatus))
                 metsHdr.RECORDSTATUS = metadata.RecordStatus;
@@ -520,6 +517,12 @@ namespace Arkivverket.Arkade.Core.Metadata
                 USE = "FILES",
                 Items = metsFiles.ToArray()
             };
+
+            if (metadata.ExtractionDate.HasValue)
+            {
+                metsTypeFileSecFileGrp.VERSDATESpecified = true;
+                metsTypeFileSecFileGrp.VERSDATE = metadata.ExtractionDate.Value;
+            }
 
             mets.fileSec = new metsTypeFileSec { fileGrp = new[] { metsTypeFileSecFileGrp } };
         }

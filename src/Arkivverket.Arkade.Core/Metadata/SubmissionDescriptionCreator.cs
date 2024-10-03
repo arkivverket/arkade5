@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -103,10 +103,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static void CreateMetsHdr(mets mets, ArchiveMetadata metadata)
         {
-            var metsHdr = new metsTypeMetsHdr();
-
-            if (metadata.ExtractionDate != null)
-                metsHdr.CREATEDATE = (DateTime)metadata.ExtractionDate;
+            var metsHdr = new metsTypeMetsHdr { CREATEDATE = DateTime.Now };
 
             if (!string.IsNullOrEmpty(metadata.RecordStatus) &&
                 Enum.TryParse(metadata.RecordStatus, out metsTypeMetsHdrRECORDSTATUS recordStatus))
@@ -494,6 +491,12 @@ namespace Arkivverket.Arkade.Core.Metadata
                 USE = "FILES",
                 Items = metsFiles.ToArray()
             };
+
+            if (metadata.ExtractionDate.HasValue)
+            {
+                metsTypeFileSecFileGrp.VERSDATESpecified = true;
+                metsTypeFileSecFileGrp.VERSDATE = metadata.ExtractionDate.Value;
+            }
 
             mets.fileSec = new metsTypeFileSec { fileGrp = new[] { metsTypeFileSecFileGrp } };
         }
