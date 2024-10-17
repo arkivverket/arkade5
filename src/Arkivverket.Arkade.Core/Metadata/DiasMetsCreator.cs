@@ -146,7 +146,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             CreateHdrAgents(metsHdr, metadata);
 
-            if (metadata.ExtractionDate != null || metsHdr.altRecordID != null || metsHdr.agent != null)
+            if (metsHdr.altRecordID != null || metsHdr.agent != null)
                 mets.metsHdr = metsHdr;
         }
 

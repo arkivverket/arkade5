@@ -65,7 +65,7 @@
 	<altRecordID TYPE="REFERENCECODE">Some reference code</altRecordID>
   </metsHdr>
   <fileSec>
-    <fileGrp ID="fileGroup001" USE="FILES">
+    <fileGrp ID="fileGroup001" VERSDATE="2024-10-17T00:00:00" USE="FILES">
       <file ID="fileId_1" MIMETYPE="application/xml" SIZE="5307" CREATED="2018-08-30T09:48:07.471132+02:00" CHECKSUM="c8b1b1993988e8126a556b724c173896c9e47600da6f75333c3f7092a9b297dc" CHECKSUMTYPE="SHA-256" USE="Datafile">
         <FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:dias-mets.xml" />
       </file>
