@@ -20,9 +20,27 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (mets.metsHdr != null)
                 LoadMetsHdr(archiveMetadata, mets.metsHdr);
 
+            LoadExtractionDate(archiveMetadata, mets);
+
             MetadataLoader.HandleLabelPlaceholder(archiveMetadata);
 
             return archiveMetadata;
+        }
+
+        private static void LoadExtractionDate(ArchiveMetadata archiveMetadata, mets mets)
+        {
+            foreach (metsTypeFileSecFileGrp metsTypeFileSecFileGrp in mets.fileSec.fileGrp)
+            {
+                if (metsTypeFileSecFileGrp.VERSDATESpecified)
+                {
+                    archiveMetadata.ExtractionDate = metsTypeFileSecFileGrp.VERSDATE;
+                }
+
+                break;
+            }
+
+            // TODO: This strategy picks the VERSDATE value from the first occurence of metsTypeFileSecFileGrp having this specified
+            // TODO: Consider how to handle a METS file containing multiple metsTypeFileSecFileGrp objects having VERSDATE specified
         }
 
         private static void LoadMetsElementAttributes(ArchiveMetadata archiveMetadata, mets mets)
@@ -32,8 +50,6 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static void LoadMetsHdr(ArchiveMetadata archiveMetadata, metsTypeMetsHdr metsHdr)
         {
-            archiveMetadata.ExtractionDate = metsHdr.CREATEDATE;
-
             archiveMetadata.RecordStatus = metsHdr.RECORDSTATUS;
 
             if (metsHdr.altRecordID != null)
