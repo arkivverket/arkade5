@@ -111,7 +111,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
 
             // CREATEDATE:
 
-            metsHdr.CREATEDATE.Should().Be(new DateTime(2023, 01, 01));
+            metsHdr.CREATEDATE.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(30));
 
             // ARCHIVEDESCRIPTION:
 
