@@ -1,4 +1,4 @@
-<UserControl x:Class="Arkivverket.Arkade.GUI.Views.CreatePackage"
+﻿<UserControl x:Class="Arkivverket.Arkade.GUI.Views.CreatePackage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -934,9 +934,7 @@
                                     Language="no"
                                     materialDesign:HintAssist.Hint="{x:Static lang:MetaDataGUI.ExtractionDate}" 
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
-                                    Focusable="False"
                                     SelectedDate="{Binding MetaDataExtractionDate.ExtractionDate, Mode=TwoWay}" CalendarOpened="DatePicker_CalendarOpened"/>
-                                    <!-- TODO: Enable user to set field empty -->
                     </Grid>
                 </Border>
 
