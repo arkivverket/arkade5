@@ -33,11 +33,10 @@ namespace Arkivverket.Arkade.Core.Identify
             _log.Debug(
                 $"Building new TestSession from directory [archiveType: {archiveType}] [directory: {archiveDirectory.Directory.FullName}]");
 
-            Uuid newUuid = Uuid.Random(); // NB! UUID-origin
-            ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType, newUuid);
+            ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType);
             WorkingDirectory workingDirectory = WorkingDirectory.FromExternalDirectory(archiveDirectory.Directory);
             
-            TestSession testSession = NewSession(workingDirectory, archiveType, null, newUuid);
+            TestSession testSession = NewSession(workingDirectory, archiveType, null, null);
 
             ReadingArchiveFinishedEvent();
             return testSession;
@@ -48,18 +47,10 @@ namespace Arkivverket.Arkade.Core.Identify
             ReadingArchiveStartedEvent();
             _log.Debug(
                 $"Building new TestSession from file [archiveType: {archiveFile.ArchiveType}] [directory: {archiveFile.File.FullName}]");
+
+            Uuid.TryParse(Path.GetFileNameWithoutExtension(archiveFile.File.Name), out Uuid originalUuid); // NB! UUID-orig
             
-            Uuid originalUuid = null; // NB! UUID-origin
-            Uuid newUuid = null; // NB! UUID-origin
-
-            if (archiveFile.File.Extension.Equals(".siard") ||
-                !Uuid.TryParse(Path.GetFileNameWithoutExtension(archiveFile.File.Name), out originalUuid))
-                newUuid = Uuid.Random();
-
-            /*else if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(archiveFile.File.Name), out originalUuid))
-                newUuid = Uuid.Random();*/
-
-            //ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, uuid);
+            ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, originalUuid);
 
             WorkingDirectory workingDirectory = WorkingDirectory.FromArchiveFile();
 
@@ -74,20 +65,20 @@ namespace Arkivverket.Arkade.Core.Identify
 
                 TarExtractionStartedEvent();
                 _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo(),
-                    withoutDocumentFiles: archiveFile.ArchiveType == ArchiveType.Noark5, archiveRootDirectoryName: originalUuid?.ToString() ?? newUuid.ToString());
+                    withoutDocumentFiles: archiveFile.ArchiveType == ArchiveType.Noark5, archiveRootDirectoryName: originalUuid?.ToString() ?? "noko");
                 TarExtractionFinishedEvent(workingDirectory);
             }
 
-            TestSession testSession = NewSession(workingDirectory, archiveFile.ArchiveType, originalUuid, newUuid, archiveFile.File.FullName);
+            TestSession testSession = NewSession(workingDirectory, archiveFile.ArchiveType, originalUuid, archiveFile.File.FullName);
 
             ReadingArchiveFinishedEvent();
             return testSession;
         }
 
-        private TestSession NewSession(WorkingDirectory workingDirectory, ArchiveType archiveType, Uuid originalUuid, Uuid newUuid,
+        private TestSession NewSession(WorkingDirectory workingDirectory, ArchiveType archiveType, Uuid originalUuid,
             string archiveFileFullName = null)
         {
-            Archive archive = new Archive(archiveType, originalUuid, newUuid, workingDirectory, _statusEventHandler, archiveFileFullName);
+            Archive archive = new Archive(archiveType, originalUuid, workingDirectory, _statusEventHandler, archiveFileFullName);
 
             if (archive.ArchiveType == ArchiveType.Noark5 && archive.AddmlXmlUnit.File.Exists &&
                 archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())
@@ -135,10 +126,10 @@ namespace Arkivverket.Arkade.Core.Identify
             return testSession;
         }
 
-        private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType, Uuid uuid)
+        private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType, Uuid uuid = null)
         {
             _statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
-                archiveType.ToString(), uuid.ToString(), archiveFileName)); // NB! UUID-writeout (right after UUID init)
+                archiveType.ToString(), uuid?.ToString()?? "—", archiveFileName)); // NB! UUID-writeout (right after UUID init)
         }
 
         private void ReadingArchiveStartedEvent()

@@ -106,6 +106,8 @@ namespace Arkivverket.Arkade.Core.Base
 
         public string CreatePackage(TestSession testSession, string outputDirectory)
         {
+            testSession.Archive.NewUuid = Uuid.Random(); // NB! UUID-origin
+
             string packageType = testSession.Archive.Metadata.PackageType.Equals(PackageType.SubmissionInformationPackage)
                 ? "SIP"
                 : "AIP";
