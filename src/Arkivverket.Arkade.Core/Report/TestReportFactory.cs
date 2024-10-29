@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Core.Report
 
             var summary = new TestReportSummary
             {
-                Uuid = testSession.Archive.OriginalUuid.ToString(), // NB! UUID-transfer
+                Uuid = (testSession.Archive.NewUuid ?? testSession.Archive.OriginalUuid)?.ToString() ?? "—",
                 ArchiveCreators = testSession.Archive.Details.ArchiveCreators,
                 ArchivalPeriod = testSession.Archive.Details.ArchivalPeriod,
                 SystemName = testSession.Archive.Details.SystemName,

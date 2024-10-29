@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Base
         public bool IsNoark5TarArchive => ArchiveFileFullName != null && ArchiveType is ArchiveType.Noark5;
 
         public Uuid OriginalUuid { get; }
-        public Uuid NewUuid { get; }
+        public Uuid NewUuid { get; set; }
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
@@ -38,12 +38,11 @@ namespace Arkivverket.Arkade.Core.Base
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
         public ArchiveMetadata Metadata { get; set; }
 
-        public Archive(ArchiveType archiveType, Uuid originalUuid, Uuid newUuid, WorkingDirectory workingDirectory,
+        public Archive(ArchiveType archiveType, Uuid originalUuid, WorkingDirectory workingDirectory,
             IStatusEventHandler statusEventHandler, string archiveFileFullName=null)
         {
             _statusEventHandler = statusEventHandler;
 
-            NewUuid = newUuid; // NB! UUID-transfer
             OriginalUuid = originalUuid; // NB! UUID-transfer
 
             ArchiveType = archiveType;
