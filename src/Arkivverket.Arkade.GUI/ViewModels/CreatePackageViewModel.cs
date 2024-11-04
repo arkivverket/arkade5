@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private string _statusMessageText;
         private string _statusMessagePath;
         private string _includeFormatInfoFile;
-        private TestSession _testSession;
+        private ArchiveProcessing _archiveProcessing;
         private string _archiveFileName;
         private readonly IRegionManager _regionManager;
 
@@ -277,16 +277,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             try
             {
-                _testSession = (TestSession) context.Parameters["TestSession"];
+                _archiveProcessing = (ArchiveProcessing) context.Parameters["ArchiveProcessing"];
                 _archiveFileName = (string) context.Parameters["archiveFileName"];
 
-                if (_testSession.Archive.ArchiveType == ArchiveType.Siard)
+                if (_archiveProcessing.Archive.ArchiveType == ArchiveType.Siard)
                     IncludeFormatInfoFile = MetaDataGUI.CreateLobFormatInfoFileText;
                 else
                     IncludeFormatInfoFile = MetaDataGUI.CreateDocumentFileInfoText;
 
                 FileInfo includedMetadataFile =
-                    _testSession.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
+                    _archiveProcessing.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
 
                 LoadMetadataIntoForm(includedMetadataFile,
                     delegate { Log.Error("Not able to load metadata from file: " + includedMetadataFile.FullName); }
@@ -456,10 +456,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             
             ProgressBarVisibility = Visibility.Visible;
             Log.Information("User action: Choose package destination {informationPackageDestination}", outputDirectory);
-            
-            _testSession.Archive.Metadata = new ArchiveMetadata // NB! Metadata-origin (metadata creation)
+
+            Uuid newInformationPackageUuid = Uuid.Random(); // NB! UUID-origin)
+
+            var archiveMetadata = new ArchiveMetadata // NB! Metadata-origin (metadata creation)
             {
-                Id = $"UUID:{_testSession.Archive.NewUuid}", // NB! UUID-writeout (package creation)
+                Id = $"UUID:{newInformationPackageUuid}", // NB! UUID-writeout (package creation)
 
                 Label = ArchiveMetadataMapper.MapToLabel(_metaDataNoarkSection, StandardLabelIsSelected),
                 ArchiveDescription = ArchiveMetadataMapper.MapToArchiveDescription(_metaDataArchiveDescription),
@@ -483,7 +485,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 PackageType = ArchiveMetadataMapper.MapToPackageType(SelectedPackageTypeSip)
             };
 
-            _testSession.GenerateFileFormatInfo = GenerateFileFormatInfoSelected;
+
+            InformationPackage newInformationPackage = new InformationPackage(newInformationPackageUuid, archiveMetadata.PackageType, _archiveProcessing.Archive, archiveMetadata);
+
+            _archiveProcessing.GenerateFileFormatInfo = GenerateFileFormatInfoSelected;
 
             ArkadeProcessingState.PackingIsStarted = true;
             MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
@@ -504,11 +509,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void CreatePackageRunEngine(string outputDirectory)
         {
+
+
             try
             {
-                _testSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
+                _archiveProcessing.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
 
-                string packageFilePath = _arkadeApi.CreatePackage(_testSession, outputDirectory);
+                string packageFilePath = _arkadeApi.CreatePackage(_archiveProcessing, outputDirectory);
 
                 string packageOutputContainer = new FileInfo(packageFilePath).DirectoryName;
 

@@ -33,10 +33,9 @@ namespace Arkivverket.Arkade.Core.Base
         public AddmlDefinition AddmlDefinition { get; set; }
 
         public DateTime DateOfTesting { get; }
-
-        public bool GenerateFileFormatInfo { get; set; }
-
-        public SupportedLanguage OutputLanguage { get; set; }
+        
+        public SupportedLanguage Language { get; set; }
+        
 
         public bool TestRunContainsDocumentFileDependentTests =>
             TestsToRun.Any(test => DocumentFileDependentNoark5Tests.Contains(test));

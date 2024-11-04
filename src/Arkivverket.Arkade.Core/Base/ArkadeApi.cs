@@ -84,13 +84,13 @@ namespace Arkivverket.Arkade.Core.Base
             return _testSessionFactory.NewSession(archive);
         }
 
-        public void RunTests(TestSession testSession)
+        public void RunTests(TestSession testSession, SupportedLanguage outputLanguage)
         {
             testSession.AddLogEntry(Messages.LogMessageStartTesting);
 
             Log.Information("Starting testing of archive.");
 
-            LanguageManager.SetResourcesLanguageForTesting(testSession.OutputLanguage);
+            LanguageManager.SetResourcesLanguageForTesting(outputLanguage);
 
             if (testSession.TestRunContainsDocumentFileDependentTests)
                 testSession.Archive.DocumentFiles.Register(includeChecksums: testSession.TestRunContainsChecksumControl);
@@ -104,44 +104,43 @@ namespace Arkivverket.Arkade.Core.Base
             _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession);
         }
 
-        public string CreatePackage(TestSession testSession, string outputDirectory)
+        public string CreatePackage(InformationPackage newInformationPackage, string outputDirectory)
         {
-            testSession.Archive.NewUuid = Uuid.Random(); // NB! UUID-origin
-
-            string packageType = testSession.Archive.Metadata.PackageType.Equals(PackageType.SubmissionInformationPackage)
+            string packageType = newInformationPackage.PackageType.Equals(PackageType.SubmissionInformationPackage)
                 ? "SIP"
                 : "AIP";
+
             Log.Information($"Creating {packageType}.");
 
-            LanguageManager.SetResourceLanguageForPackageCreation(testSession.OutputLanguage);
+            LanguageManager.SetResourceLanguageForPackageCreation(newInformationPackage.Language);
 
-            if (testSession.GenerateFileFormatInfo)
+            if (archiveProcessing.GenerateFileFormatInfo)
             {
-                GenerateFileFormatInfoFiles(testSession);
+                GenerateFileFormatInfoFiles(archiveProcessing);
             }
 
-            if (testSession.Archive.ArchiveType is ArchiveType.Siard)
+            if (archiveProcessing.Archive.ArchiveType is ArchiveType.Siard)
             {
-                _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(testSession.Archive);
+                _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(archiveProcessing.Archive);
             }
 
             // Delete any existing dias-mets.xml extracted from input tar-file
-            testSession.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
+            archiveProcessing.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
 
-            _metadataFilesCreator.Create(testSession.Archive, testSession.Archive.Metadata);
+            _metadataFilesCreator.Create(archiveProcessing.Archive, archiveProcessing.Archive.Metadata);
 
             string packageFilePath;
 
-            if (testSession.Archive.Metadata.PackageType == PackageType.SubmissionInformationPackage)
+            if (archiveProcessing.Archive.Metadata.PackageType == PackageType.SubmissionInformationPackage)
             {
                 packageFilePath = _informationPackageCreator.CreateSip(
-                    testSession.Archive, testSession.Archive.Metadata, outputDirectory
+                    archiveProcessing.Archive, archiveProcessing.Archive.Metadata, outputDirectory
                 );
             }
             else // ArchivalInformationPackage
             {
                 packageFilePath = _informationPackageCreator.CreateAip(
-                    testSession.Archive, testSession.Archive.Metadata, outputDirectory
+                    archiveProcessing, outputDirectory
                 );
             }
 

@@ -68,9 +68,9 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeApi.RunTests(testSession);
         }
 
-        public void CreatePackage(TestSession testSession, string outputDirectory)
+        public void CreatePackage(ArchiveProcessing archiveProcessing, string outputDirectory)
         {
-            _arkadeApi.CreatePackage(testSession, outputDirectory);
+            _arkadeApi.CreatePackage(archiveProcessing, outputDirectory);
         }
 
         public void SaveReport(TestSession testSession, DirectoryInfo directory, bool standalone, 

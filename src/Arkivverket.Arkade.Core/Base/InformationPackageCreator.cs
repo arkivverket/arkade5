@@ -45,15 +45,18 @@ namespace Arkivverket.Arkade.Core.Base
         /// Package- and metafile are written to the given output directory
         /// The full path of the created package is returned
         /// </summary>
-        public string CreateAip(Archive archive, ArchiveMetadata metadata, string outputDirectory)
+        public string CreateAip(ArchiveProcessing archiveProcessing, string outputDirectory)
         {
             string packageFilePath = CreatePackage(PackageType.ArchivalInformationPackage, archive, metadata, outputDirectory);
 
             return packageFilePath;
         }
 
-        private string CreatePackage(PackageType packageType, Archive archive, ArchiveMetadata metadata, string outputDirectory)
+        private string CreatePackage(ArchiveProcessing archiveProcessing, string outputDirectory)
         {
+            Archive archive = archiveProcessing.Archive;
+            InformationPackage newInformationPackage = archiveProcessing.NewInformationPackage;
+
             try
             {
                 EnsureSufficientDiskSpace(archive, outputDirectory);
@@ -65,22 +68,22 @@ namespace Arkivverket.Arkade.Core.Base
 
             string resultDirectory = CreateResultDirectory(archive, outputDirectory);
 
-            if (packageType == PackageType.SubmissionInformationPackage)
+            if (newInformationPackage.PackageType == PackageType.SubmissionInformationPackage)
             {
                 CopyTestReportsToStandaloneDirectory(archive, resultDirectory);
             }
 
-            string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
+            string packageFilePath = Path.Combine(resultDirectory, newInformationPackage.GetInformationPackageFileName());
 
             using Stream outStream = File.Create(packageFilePath);
             using var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);
             using var tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
 
-            string packageRootDirectory = archive.NewUuid.GetValue() + Path.DirectorySeparatorChar; // NB! UUID-writeout (package creation)
+            string packageRootDirectory = newInformationPackage.Uuid.GetValue() + Path.DirectorySeparatorChar; // NB! UUID-writeout (package creation)
             CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
-                archive, archive.WorkingDirectory.Root().DirectoryInfo(), packageType, tarArchive, packageRootDirectory
+                archive, archive.WorkingDirectory.Root().DirectoryInfo(), newInformationPackage.PackageType, tarArchive, packageRootDirectory
             );
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())
@@ -106,8 +109,8 @@ namespace Arkivverket.Arkade.Core.Base
                 ArkadeConstants.DiasMetsXmlFileName
             );
 
-            new SubmissionDescriptionCreator().CreateAndSaveFile(metadata, packageFilePath, diasMetsFilePath,
-                archive.GetSubmissionDescriptionFileName());
+            new SubmissionDescriptionCreator().CreateAndSaveFile(archiveProcessing.Archive.Metadata, packageFilePath, diasMetsFilePath,
+                archiveProcessing.NewInformationPackage.GetSubmissionDescriptionFileName());
 
             return packageFilePath;
         }
