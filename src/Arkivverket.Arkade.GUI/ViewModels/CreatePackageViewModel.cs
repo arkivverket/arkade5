@@ -457,12 +457,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             ProgressBarVisibility = Visibility.Visible;
             Log.Information("User action: Choose package destination {informationPackageDestination}", outputDirectory);
 
-            Uuid newInformationPackageUuid = Uuid.Random(); // NB! UUID-origin)
-
+            PackageType packageType = SelectedPackageTypeSip
+                ? PackageType.SubmissionInformationPackage
+                : PackageType.ArchivalInformationPackage;
+            
             var archiveMetadata = new ArchiveMetadata // NB! Metadata-origin (metadata creation)
             {
-                Id = $"UUID:{newInformationPackageUuid}", // NB! UUID-writeout (package creation)
-
                 Label = ArchiveMetadataMapper.MapToLabel(_metaDataNoarkSection, StandardLabelIsSelected),
                 ArchiveDescription = ArchiveMetadataMapper.MapToArchiveDescription(_metaDataArchiveDescription),
                 AgreementNumber = ArchiveMetadataMapper.MapToAgreementNumber(_metaDataArchiveDescription),
@@ -485,10 +485,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 PackageType = ArchiveMetadataMapper.MapToPackageType(SelectedPackageTypeSip)
             };
 
+            var informationPackage = new OutputInformationPackage(packageType, _archiveProcessing.Archive, archiveMetadata, LanguageSettingHelper.GetOutputLanguage(), GenerateFileFormatInfoSelected); // NB! UUID-origin
 
-            InformationPackage newInformationPackage = new InformationPackage(newInformationPackageUuid, archiveMetadata.PackageType, _archiveProcessing.Archive, archiveMetadata);
+            informationPackage.ArchiveMetadata.Id = $"UUID:{informationPackage.Uuid}"; // NB! UUID-writeout (package creation)
 
-            _archiveProcessing.GenerateFileFormatInfo = GenerateFileFormatInfoSelected;
 
             ArkadeProcessingState.PackingIsStarted = true;
             MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();

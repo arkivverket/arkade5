@@ -104,34 +104,34 @@ namespace Arkivverket.Arkade.Core.Base
             _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession);
         }
 
-        public string CreatePackage(InformationPackage newInformationPackage, string outputDirectory)
+        public string CreatePackage(OutputInformationPackage informationPackage, string outputDirectory)
         {
-            string packageType = newInformationPackage.PackageType.Equals(PackageType.SubmissionInformationPackage)
+            string packageType = informationPackage.PackageType.Equals(PackageType.SubmissionInformationPackage)
                 ? "SIP"
                 : "AIP";
 
             Log.Information($"Creating {packageType}.");
 
-            LanguageManager.SetResourceLanguageForPackageCreation(newInformationPackage.Language);
+            LanguageManager.SetResourceLanguageForPackageCreation(informationPackage.Language);
 
-            if (archiveProcessing.GenerateFileFormatInfo)
+            if (informationPackage.GenerateFileFormatInfo)
             {
                 GenerateFileFormatInfoFiles(archiveProcessing);
             }
 
-            if (archiveProcessing.Archive.ArchiveType is ArchiveType.Siard)
+            if (informationPackage.Archive.ArchiveType is ArchiveType.Siard)
             {
-                _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(archiveProcessing.Archive);
+                _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(informationPackage.Archive);
             }
 
             // Delete any existing dias-mets.xml extracted from input tar-file
-            archiveProcessing.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
+            informationPackage.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
 
-            _metadataFilesCreator.Create(archiveProcessing.Archive, archiveProcessing.ArchiveMetadata);
+            _metadataFilesCreator.Create(informationPackage.Archive, informationPackage.ArchiveMetadata);
 
             string packageFilePath;
 
-            if (archiveProcessing.Archive.Metadata.PackageType == PackageType.SubmissionInformationPackage)
+            if (archiveProcessing.ArchiveMetadata.PackageType == PackageType.SubmissionInformationPackage)
             {
                 packageFilePath = _informationPackageCreator.CreateSip(
                     archiveProcessing.Archive, archiveProcessing.ArchiveMetadata, outputDirectory

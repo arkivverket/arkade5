@@ -1,13 +1,22 @@
-﻿using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Languages;
 namespace Arkivverket.Arkade.Core.Base;
 
-public abstract class InformationPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata)
+public abstract class InformationPackage
 {
-    public Uuid Uuid { get; } = uuid;
-    public PackageType PackageType { get; } = packageType;
-    public Archive Archive { get; } = archive;
-    public ArchiveMetadata ArchiveMetadata { get; } = archiveMetadata;
+    public Uuid Uuid { get; }
+    public PackageType PackageType { get; }
+    public Archive Archive { get; }
+    public ArchiveMetadata ArchiveMetadata { get; }
 
+    protected InformationPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata)
+    {
+        Uuid = uuid;
+        PackageType = packageType;
+        Archive = archive;
+        
+        archiveMetadata.Id = $"UUID:{Uuid}";
+        ArchiveMetadata = archiveMetadata;
+    }
 
     public string GetInformationPackageFileName()
     {
@@ -24,8 +33,8 @@ public class InputInformationPackage(Uuid uuid, PackageType packageType, Archive
 {
 }
 
-public class OutputInformationPackage(PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata, SupportedLanguage language, bool generateFileFormatInfo) : InformationPackage(Uuid.Random(), packageType, archive, archiveMetadata)
+public class OutputInformationPackage(PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata, SupportedLanguage language, bool generateFileFormatInfo = false) : InformationPackage(Uuid.Random(), packageType, archive, archiveMetadata)
 {
     public SupportedLanguage Language { get; } = language;
-    public bool GenerateFileFormatInfo { get; set; } = generateFileFormatInfo;
+    public bool GenerateFileFormatInfo { get; } = generateFileFormatInfo;
 }

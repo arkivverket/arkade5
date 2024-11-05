@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         public DateTime DateOfTesting { get; }
         
-        public SupportedLanguage Language { get; set; }
+        public SupportedLanguage OutputLanguage { get; set; }
         
 
         public bool TestRunContainsDocumentFileDependentTests =>
