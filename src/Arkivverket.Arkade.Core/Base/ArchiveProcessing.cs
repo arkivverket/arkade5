@@ -1,6 +1,4 @@
-﻿using Arkivverket.Arkade.Core.Languages;
-
-namespace Arkivverket.Arkade.Core.Base
+﻿namespace Arkivverket.Arkade.Core.Base
 {
     public class ArchiveProcessing(Archive archive)
     {
