@@ -127,14 +127,14 @@ namespace Arkivverket.Arkade.Core.Base
             // Delete any existing dias-mets.xml extracted from input tar-file
             archiveProcessing.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
 
-            _metadataFilesCreator.Create(archiveProcessing.Archive, archiveProcessing.Archive.Metadata);
+            _metadataFilesCreator.Create(archiveProcessing.Archive, archiveProcessing.ArchiveMetadata);
 
             string packageFilePath;
 
             if (archiveProcessing.Archive.Metadata.PackageType == PackageType.SubmissionInformationPackage)
             {
                 packageFilePath = _informationPackageCreator.CreateSip(
-                    archiveProcessing.Archive, archiveProcessing.Archive.Metadata, outputDirectory
+                    archiveProcessing.Archive, archiveProcessing.ArchiveMetadata, outputDirectory
                 );
             }
             else // ArchivalInformationPackage
