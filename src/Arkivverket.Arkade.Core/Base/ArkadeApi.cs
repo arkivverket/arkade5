@@ -84,13 +84,13 @@ namespace Arkivverket.Arkade.Core.Base
             return _testSessionFactory.NewSession(archive);
         }
 
-        public void RunTests(TestSession testSession, SupportedLanguage outputLanguage)
+        public void RunTests(TestSession testSession)
         {
             testSession.AddLogEntry(Messages.LogMessageStartTesting);
 
             Log.Information("Starting testing of archive.");
 
-            LanguageManager.SetResourcesLanguageForTesting(outputLanguage);
+            LanguageManager.SetResourcesLanguageForTesting(testSession.OutputLanguage);
 
             if (testSession.TestRunContainsDocumentFileDependentTests)
                 testSession.Archive.DocumentFiles.Register(includeChecksums: testSession.TestRunContainsChecksumControl);
@@ -116,7 +116,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (informationPackage.GenerateFileFormatInfo)
             {
-                GenerateFileFormatInfoFiles(archiveProcessing);
+                GenerateFileFormatInfoFiles(informationPackage.Archive);
             }
 
             if (informationPackage.Archive.ArchiveType is ArchiveType.Siard)
@@ -127,20 +127,20 @@ namespace Arkivverket.Arkade.Core.Base
             // Delete any existing dias-mets.xml extracted from input tar-file
             informationPackage.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
 
-            _metadataFilesCreator.Create(informationPackage.Archive, informationPackage.ArchiveMetadata);
+            _metadataFilesCreator.Create(informationPackage);
 
             string packageFilePath;
 
-            if (archiveProcessing.ArchiveMetadata.PackageType == PackageType.SubmissionInformationPackage)
+            if (informationPackage.PackageType == PackageType.SubmissionInformationPackage)
             {
                 packageFilePath = _informationPackageCreator.CreateSip(
-                    archiveProcessing.Archive, archiveProcessing.ArchiveMetadata, outputDirectory
+                    informationPackage.Archive, informationPackage.ArchiveMetadata, outputDirectory
                 );
             }
             else // ArchivalInformationPackage
             {
                 packageFilePath = _informationPackageCreator.CreateAip(
-                    archiveProcessing, outputDirectory
+                    informationPackage, outputDirectory
                 );
             }
 
@@ -194,9 +194,8 @@ namespace Arkivverket.Arkade.Core.Base
             return _fileFormatIdentifier.IdentifyFormats(filePathsAndByteContent);
         }
         
-        public void GenerateFileFormatInfoFiles(TestSession testSession)
+        public void GenerateFileFormatInfoFiles(Archive archive)
         {
-            Archive archive = testSession.Archive;
             WorkingDirectory workingDirectory = archive.WorkingDirectory;
             try
             {

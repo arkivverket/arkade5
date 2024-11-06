@@ -35,7 +35,7 @@ namespace Arkivverket.Arkade.Core.Base
         public IArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
-        public Archive(ArchiveType archiveType, Uuid originalUuid, WorkingDirectory workingDirectory,
+        public Archive(ArchiveType archiveType, WorkingDirectory workingDirectory,
             IStatusEventHandler statusEventHandler, string archiveFileFullName=null)
         {
             _statusEventHandler = statusEventHandler;

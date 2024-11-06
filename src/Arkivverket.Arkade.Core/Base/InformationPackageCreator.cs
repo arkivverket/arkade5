@@ -33,9 +33,9 @@ namespace Arkivverket.Arkade.Core.Base
         /// Package- and metafile are written to the given output directory
         /// The full path of the created package is returned
         /// </summary>
-        public string CreateSip(Archive archive, ArchiveMetadata metadata, string outputDirectory)
+        public string CreateSip(OutputInformationPackage informationPackage, string outputDirectory)
         {
-            string packageFilePath = CreatePackage(PackageType.SubmissionInformationPackage, archive, metadata, outputDirectory);
+            string packageFilePath = CreatePackage(informationPackage, outputDirectory);
 
             return packageFilePath;
         }
@@ -65,11 +65,11 @@ namespace Arkivverket.Arkade.Core.Base
                 Log.Warning("Could not verify sufficient disk space at package destination.");
             }
 
-            string resultDirectory = CreateResultDirectory(archive, outputDirectory);
+            string resultDirectory = CreateResultDirectory(informationPackage.Uuid, outputDirectory);
 
             if (informationPackage.PackageType == PackageType.SubmissionInformationPackage)
             {
-                CopyTestReportsToStandaloneDirectory(archive, resultDirectory);
+                CopyTestReportsToStandaloneDirectory(informationPackage, resultDirectory);
             }
 
             string packageFilePath = Path.Combine(resultDirectory, informationPackage.GetInformationPackageFileName());
@@ -82,7 +82,7 @@ namespace Arkivverket.Arkade.Core.Base
             CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
-                archive, archive.WorkingDirectory.Root().DirectoryInfo(), informationPackage.PackageType, tarArchive, packageRootDirectory
+                informationPackage, archive.WorkingDirectory.Root().DirectoryInfo(), informationPackage.PackageType, tarArchive, packageRootDirectory
             );
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())
@@ -94,7 +94,7 @@ namespace Arkivverket.Arkade.Core.Base
                                           Path.DirectorySeparatorChar;
 
                 AddFilesInDirectory(
-                    archive, archive.WorkingDirectory.Content().DirectoryInfo(), null, tarArchive, contentDirectory
+                    informationPackage, archive.WorkingDirectory.Content().DirectoryInfo(), null, tarArchive, contentDirectory
                 );
             }
 
@@ -114,9 +114,9 @@ namespace Arkivverket.Arkade.Core.Base
             return packageFilePath;
         }
 
-        private void CopyTestReportsToStandaloneDirectory(Uuid outputPackageUuid, string resultDirectory)
+        private void CopyTestReportsToStandaloneDirectory(OutputInformationPackage informationPackage, string resultDirectory)
         {
-            DirectoryInfo testReportDirectory = archive.GetTestReportDirectory();
+            DirectoryInfo testReportDirectory = informationPackage.Archive.GetTestReportDirectory();
 
             if (testReportDirectory.Exists)
             {
@@ -125,7 +125,7 @@ namespace Arkivverket.Arkade.Core.Base
                 if (testReportFiles.Any())
                 {
                     DirectoryInfo testReportResultDirectory = Directory.CreateDirectory(Path.Combine(
-                        resultDirectory, string.Format(OutputFileNames.StandaloneTestReportDirectory, archive.NewUuid) // NB! UUID-writeout (package creation)
+                        resultDirectory, string.Format(OutputFileNames.StandaloneTestReportDirectory, informationPackage.Uuid) // NB! UUID-writeout (package creation)
                     ));
 
                     foreach (FileInfo file in testReportFiles)
@@ -134,7 +134,7 @@ namespace Arkivverket.Arkade.Core.Base
                             Path.Combine(testReportResultDirectory.FullName,
                                 file.Name.Equals(OutputFileNames.DbptkValidationReportFile)
                                     ? file.Name
-                                    : string.Format(OutputFileNames.StandaloneTestReportFile, archive.NewUuid, // NB! UUID-writeout (package creation)
+                                    : string.Format(OutputFileNames.StandaloneTestReportFile, informationPackage.Uuid, // NB! UUID-writeout (package creation)
                                         file.Extension.TrimStart('.'))),
                             overwrite: true);
                     }
@@ -159,10 +159,10 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
         
-        private string CreateResultDirectory(Archive archive, string outputDirectory)
+        private string CreateResultDirectory(Uuid informationPackageUuid, string outputDirectory)
         {
             var resultDirectory = new DirectoryInfo(
-                Path.Combine(outputDirectory, string.Format(OutputFileNames.ResultOutputDirectory, archive.NewUuid)) // NB! UUID-writeout (package creation)
+                Path.Combine(outputDirectory, string.Format(OutputFileNames.ResultOutputDirectory, informationPackageUuid)) // NB! UUID-writeout (package creation)
             );
 
             resultDirectory.Create();
@@ -170,22 +170,22 @@ namespace Arkivverket.Arkade.Core.Base
             return resultDirectory.FullName;
         }
 
-        private void AddFilesInDirectory(Archive archive, DirectoryInfo rootDirectory, PackageType? packageType, TarArchive tarArchive,
+        private void AddFilesInDirectory(OutputInformationPackage informationPackage, DirectoryInfo rootDirectory, PackageType? packageType, TarArchive tarArchive,
             string fileNamePrefix)
         {
-            AddFilesInDirectory(archive, rootDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
+            AddFilesInDirectory(informationPackage, rootDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
         }
 
         /// <summary>
         ///     Recursively add all files and directories to the given tar archive.
         /// </summary>
-        /// <param name="archive">the archive we are working on</param>
+        /// <param name="informationPackage">the information package we are working on</param>
         /// <param name="directory">the directory we want to add files from</param>
         /// <param name="rootDirectory">this path is stripped from the filename used in tar file</param>
         /// <param name="packageType">the package type - used for filtering some files that are not needed for SIP-packages</param>
         /// <param name="tarArchive">the archive to add files to</param>
         /// <param name="fileNamePrefix">a prefix to add to all files after removing the root directory.</param>
-        private void AddFilesInDirectory(Archive archive, DirectoryInfo directory, DirectoryInfo rootDirectory, PackageType? packageType,
+        private void AddFilesInDirectory(OutputInformationPackage informationPackage, DirectoryInfo directory, DirectoryInfo rootDirectory, PackageType? packageType,
             TarArchive tarArchive, string fileNamePrefix)
         {
             foreach (DirectoryInfo currentDirectory in directory.GetDirectories())
@@ -197,12 +197,12 @@ namespace Arkivverket.Arkade.Core.Base
                 }
                 
                 CreateEntry(currentDirectory.FullName, true, rootDirectory, tarArchive, fileNamePrefix, Path.DirectorySeparatorChar.ToString());
-                AddFilesInDirectory(archive, currentDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
+                AddFilesInDirectory(informationPackage, currentDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
             }
 
             foreach (FileInfo file in directory.GetFiles())
             {
-                if (file.Name == archive.GetInformationPackageFileName()) // don't try to add the tar file into the tar file...
+                if (file.Name == informationPackage.GetInformationPackageFileName()) // don't try to add the tar file into the tar file...
                 {
                     continue;
                 }
