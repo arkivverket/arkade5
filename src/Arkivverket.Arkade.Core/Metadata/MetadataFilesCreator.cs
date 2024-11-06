@@ -21,19 +21,19 @@ namespace Arkivverket.Arkade.Core.Metadata
             _eacCpfCreator = eacCpfCreator;
         }
 
-        public void Create(Archive archive, ArchiveMetadata metadata)
+        public void Create(OutputInformationPackage outputInformationPackage)
         {
-            _diasPremisCreator.CreateAndSaveFile(archive, metadata);
-            _logCreator.CreateAndSaveFile(archive, metadata);
+            _diasPremisCreator.CreateAndSaveFile(outputInformationPackage);
+            _logCreator.CreateAndSaveFile(outputInformationPackage);
             // EAD is not included in v1.0
-            _eadCreator.CreateAndSaveFile(archive, metadata);
+            _eadCreator.CreateAndSaveFile(outputInformationPackage);
             // EAC-CPF is not included in v1.0
-            _eacCpfCreator.CreateAndSaveFile(archive, metadata);
+            _eacCpfCreator.CreateAndSaveFile(outputInformationPackage);
 
-            AddXsdFiles(archive.WorkingDirectory);
+            AddXsdFiles(outputInformationPackage.Archive.WorkingDirectory);
 
             // Generate mets-file last for it to describe all other package content
-            _diasMetsCreator.CreateAndSaveFile(archive, metadata);
+            _diasMetsCreator.CreateAndSaveFile(outputInformationPackage);
         }
 
         private static void AddXsdFiles(WorkingDirectory workingDirectory)

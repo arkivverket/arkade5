@@ -12,22 +12,22 @@ namespace Arkivverket.Arkade.Core.Metadata
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ead Create(Archive archive, ArchiveMetadata metadata)
+        public ead Create(Uuid outputPackageUuid)
         {
             return new ead()
             {
-                control = new control() {recordid = new recordid() { Text = new[] { archive.NewUuid.ToString() } } } // NB! UUID-writeout (package creation)
+                control = new control() {recordid = new recordid() { Text = new[] { outputPackageUuid.ToString() } } } // NB! UUID-writeout (package creation)
             };
         }
 
-        public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata)
+        public void CreateAndSaveFile(OutputInformationPackage informationPackage)
         {
-            ead ead = Create(archive, metadata);
+            ead ead = Create(informationPackage.Uuid);
 
             var namespaces = new XmlSerializerNamespaces();
             namespaces.Add("", "http://ead3.archivists.org/schema/"); // use blank in namespace prefix to create files without prefixed elements
             namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            FileInfo targetFileName = archive.WorkingDirectory.DescriptiveMetadata().WithFile(ArkadeConstants.EadXmlFileName);
+            FileInfo targetFileName = informationPackage.Archive.WorkingDirectory.DescriptiveMetadata().WithFile(ArkadeConstants.EadXmlFileName);
             SerializeUtil.SerializeToFile(ead, targetFileName, namespaces);
 
             Log.Debug($"Created {ArkadeConstants.EadXmlFileName}");

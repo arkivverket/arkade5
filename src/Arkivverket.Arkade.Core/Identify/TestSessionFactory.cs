@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Identify
             ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType);
             WorkingDirectory workingDirectory = WorkingDirectory.FromExternalDirectory(archiveDirectory.Directory);
             
-            TestSession testSession = NewSession(workingDirectory, archiveType, null, null);
+            TestSession testSession = NewSession(workingDirectory, archiveType);
 
             ReadingArchiveFinishedEvent();
             return testSession;
@@ -69,16 +69,15 @@ namespace Arkivverket.Arkade.Core.Identify
                 TarExtractionFinishedEvent(workingDirectory);
             }
 
-            TestSession testSession = NewSession(workingDirectory, archiveFile.ArchiveType, originalUuid, archiveFile.File.FullName);
+            TestSession testSession = NewSession(workingDirectory, archiveFile.ArchiveType, archiveFile.File.FullName);
 
             ReadingArchiveFinishedEvent();
             return testSession;
         }
 
-        private TestSession NewSession(WorkingDirectory workingDirectory, ArchiveType archiveType, Uuid originalUuid,
-            string archiveFileFullName = null)
+        private TestSession NewSession(WorkingDirectory workingDirectory, ArchiveType archiveType, string archiveFileFullName = null)
         {
-            Archive archive = new Archive(archiveType, originalUuid, workingDirectory, _statusEventHandler, archiveFileFullName);
+            Archive archive = new Archive(archiveType, workingDirectory, _statusEventHandler, archiveFileFullName); // Move
 
             if (archive.ArchiveType == ArchiveType.Noark5 && archive.AddmlXmlUnit.File.Exists &&
                 archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())

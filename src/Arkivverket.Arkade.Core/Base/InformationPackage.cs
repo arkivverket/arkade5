@@ -1,3 +1,4 @@
+using System.IO;
 using Arkivverket.Arkade.Core.Languages;
 namespace Arkivverket.Arkade.Core.Base;
 
@@ -7,8 +8,9 @@ public abstract class InformationPackage
     public PackageType PackageType { get; }
     public Archive Archive { get; }
     public ArchiveMetadata ArchiveMetadata { get; }
+    public FileInfo PhysicalPath { get; }
 
-    protected InformationPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata)
+    protected InformationPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata, FileInfo physicalPath)
     {
         Uuid = uuid;
         PackageType = packageType;
@@ -16,6 +18,7 @@ public abstract class InformationPackage
         
         archiveMetadata.Id = $"UUID:{Uuid}";
         ArchiveMetadata = archiveMetadata;
+        PhysicalPath = physicalPath;
     }
 
     public string GetInformationPackageFileName()
@@ -29,11 +32,11 @@ public abstract class InformationPackage
     }
 }
 
-public class InputInformationPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata) : InformationPackage(uuid, packageType, archive, archiveMetadata)
+public class InputInformationPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata, FileInfo physicalPath) : InformationPackage(uuid, packageType, archive, archiveMetadata, physicalPath)
 {
 }
 
-public class OutputInformationPackage(PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata, SupportedLanguage language, bool generateFileFormatInfo = false) : InformationPackage(Uuid.Random(), packageType, archive, archiveMetadata)
+public class OutputInformationPackage(PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata, FileInfo physicalPath, SupportedLanguage language, bool generateFileFormatInfo = false) : InformationPackage(Uuid.Random(), packageType, archive, archiveMetadata, physicalPath)
 {
     public SupportedLanguage Language { get; } = language;
     public bool GenerateFileFormatInfo { get; } = generateFileFormatInfo;
