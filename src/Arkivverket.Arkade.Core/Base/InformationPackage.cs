@@ -1,8 +1,9 @@
 using System.IO;
 using Arkivverket.Arkade.Core.Languages;
+
 namespace Arkivverket.Arkade.Core.Base;
 
-public abstract class InformationPackage
+public abstract class InformationPackage // TODO: Rename to DiasPackage?
 {
     public Uuid Uuid { get; }
     public PackageType PackageType { get; }
@@ -10,15 +11,17 @@ public abstract class InformationPackage
     public ArchiveMetadata ArchiveMetadata { get; }
     public FileInfo PhysicalPath { get; }
 
-    protected InformationPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata, FileInfo physicalPath)
+    protected InformationPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*,
+        FileInfo physicalPath*/)
     {
         Uuid = uuid;
         PackageType = packageType;
         Archive = archive;
-        
+
         archiveMetadata.Id = $"UUID:{Uuid}";
+        archiveMetadata.PackageType = packageType;
         ArchiveMetadata = archiveMetadata;
-        PhysicalPath = physicalPath;
+        //PhysicalPath = physicalPath;
     }
 
     public string GetInformationPackageFileName()
@@ -32,11 +35,13 @@ public abstract class InformationPackage
     }
 }
 
-public class InputInformationPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata, FileInfo physicalPath) : InformationPackage(uuid, packageType, archive, archiveMetadata, physicalPath)
+public class InputInformationPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*, FileInfo physicalPath*/)
+    : InformationPackage(uuid, packageType, archive, archiveMetadata/*, physicalPath*/) // TODO: Rename to InputDiasPackage?
 {
 }
 
-public class OutputInformationPackage(PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata, FileInfo physicalPath, SupportedLanguage language, bool generateFileFormatInfo = false) : InformationPackage(Uuid.Random(), packageType, archive, archiveMetadata, physicalPath)
+public class OutputInformationPackage(PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*, FileInfo physicalPath*/, SupportedLanguage language, bool generateFileFormatInfo = false)
+    : InformationPackage(Uuid.Random(), packageType, archive, archiveMetadata/*, physicalPath*/) // TODO: Rename to OutputDiasPackage?
 {
     public SupportedLanguage Language { get; } = language;
     public bool GenerateFileFormatInfo { get; } = generateFileFormatInfo;

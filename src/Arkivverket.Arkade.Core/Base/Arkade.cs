@@ -68,9 +68,9 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeApi.RunTests(testSession);
         }
 
-        public void CreatePackage(ArchiveProcessing archiveProcessing, string outputDirectory)
+        public void CreatePackage(OutputInformationPackage outputInformationPackage, string outputDirectory)
         {
-            _arkadeApi.CreatePackage(archiveProcessing, outputDirectory);
+            _arkadeApi.CreatePackage(outputInformationPackage, outputDirectory);
         }
 
         public void SaveReport(TestSession testSession, DirectoryInfo directory, bool standalone, 
@@ -94,9 +94,9 @@ namespace Arkivverket.Arkade.Core.Base
             return _arkadeApi.AnalyseFileFormats(targetPath, scanMode);
         }
         
-        public void GenerateFileFormatInfoFiles(TestSession testSession)
+        public void GenerateFileFormatInfoFiles(Archive archive)
         {
-            _arkadeApi.GenerateFileFormatInfoFiles(testSession);
+            _arkadeApi.GenerateFileFormatInfoFiles(archive);
         }
 
         public void GenerateFileFormatInfoFiles(IEnumerable<IFileFormatInfo> fileFormatInfos, string relativePathRoot, string resultFileFullName, SupportedLanguage language)

@@ -134,7 +134,7 @@ namespace Arkivverket.Arkade.Core.Base
             if (informationPackage.PackageType == PackageType.SubmissionInformationPackage)
             {
                 packageFilePath = _informationPackageCreator.CreateSip(
-                    informationPackage.Archive, informationPackage.ArchiveMetadata, outputDirectory
+                    informationPackage, outputDirectory
                 );
             }
             else // ArchivalInformationPackage

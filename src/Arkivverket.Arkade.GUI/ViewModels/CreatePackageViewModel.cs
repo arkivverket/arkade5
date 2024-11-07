@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private string _statusMessageText;
         private string _statusMessagePath;
         private string _includeFormatInfoFile;
-        private ArchiveProcessing _archiveProcessing;
+        private Archive _archive;
         private string _archiveFileName;
         private readonly IRegionManager _regionManager;
 
@@ -277,16 +277,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             try
             {
-                _archiveProcessing = (ArchiveProcessing) context.Parameters["ArchiveProcessing"];
+                _archive = (Archive) context.Parameters["Archive"];
                 _archiveFileName = (string) context.Parameters["archiveFileName"];
 
-                if (_archiveProcessing.Archive.ArchiveType == ArchiveType.Siard)
+                if (_archive.ArchiveType == ArchiveType.Siard)
                     IncludeFormatInfoFile = MetaDataGUI.CreateLobFormatInfoFileText;
                 else
                     IncludeFormatInfoFile = MetaDataGUI.CreateDocumentFileInfoText;
 
                 FileInfo includedMetadataFile =
-                    _archiveProcessing.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
+                    _archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
 
                 LoadMetadataIntoForm(includedMetadataFile,
                     delegate { Log.Error("Not able to load metadata from file: " + includedMetadataFile.FullName); }
@@ -485,7 +485,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 PackageType = ArchiveMetadataMapper.MapToPackageType(SelectedPackageTypeSip)
             };
 
-            var informationPackage = new OutputInformationPackage(packageType, _archiveProcessing.Archive, archiveMetadata, LanguageSettingHelper.GetOutputLanguage(), GenerateFileFormatInfoSelected); // NB! UUID-origin
+            var informationPackage = new OutputInformationPackage(packageType, _archive, archiveMetadata, LanguageSettingHelper.GetOutputLanguage(), GenerateFileFormatInfoSelected); // NB! UUID-origin
 
             informationPackage.ArchiveMetadata.Id = $"UUID:{informationPackage.Uuid}"; // NB! UUID-writeout (package creation)
 
@@ -496,7 +496,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             CreatePackageCommand.RaiseCanExecuteChanged();
             MainWindow.ProgressBarWorker.ReportProgress(0);
 
-            Task.Factory.StartNew(() => CreatePackageRunEngine(outputDirectory)).ContinueWith(t => OnCompletedCreatePackage());
+            Task.Factory.StartNew(() => CreatePackageRunEngine(informationPackage, outputDirectory)).ContinueWith(t => OnCompletedCreatePackage());
         }
 
         private void OnCompletedCreatePackage()
@@ -507,15 +507,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
 
-        private void CreatePackageRunEngine(string outputDirectory)
+        private void CreatePackageRunEngine(OutputInformationPackage informationPackage, string outputDirectory)
         {
-
-
             try
             {
-                _archiveProcessing.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
-
-                string packageFilePath = _arkadeApi.CreatePackage(_archiveProcessing, outputDirectory);
+                string packageFilePath = _arkadeApi.CreatePackage(informationPackage, outputDirectory);
 
                 string packageOutputContainer = new FileInfo(packageFilePath).DirectoryName;
 
