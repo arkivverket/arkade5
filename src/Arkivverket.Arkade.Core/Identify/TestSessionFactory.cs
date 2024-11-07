@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Identify
             _statusEventHandler = statusEventHandler;
         }
 
-        public TestSession NewSession(ArchiveDirectory archiveDirectory)
+        public TestSession NewSession(ArchiveDirectory archiveDirectory) // TODO: Remake as Archive-factory?
         {
             ReadingArchiveStartedEvent();
 
@@ -35,14 +35,16 @@ namespace Arkivverket.Arkade.Core.Identify
 
             ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType);
             WorkingDirectory workingDirectory = WorkingDirectory.FromExternalDirectory(archiveDirectory.Directory);
-            
-            TestSession testSession = NewSession(workingDirectory, archiveType);
+
+            var archive = new Archive(archiveType, workingDirectory, _statusEventHandler); // ...
+
+            TestSession testSession = NewSession(archive);
 
             ReadingArchiveFinishedEvent();
             return testSession;
         }
 
-        public TestSession NewSession(ArchiveFile archiveFile)
+        public TestSession NewSession(ArchiveFile archiveFile) // TODO: Remake as Archive-factory?
         {
             ReadingArchiveStartedEvent();
             _log.Debug(
@@ -69,15 +71,16 @@ namespace Arkivverket.Arkade.Core.Identify
                 TarExtractionFinishedEvent(workingDirectory);
             }
 
-            TestSession testSession = NewSession(workingDirectory, archiveFile.ArchiveType, archiveFile.File.FullName);
+            var archive = new Archive(archiveFile.ArchiveType, workingDirectory, _statusEventHandler, archiveFile.File.FullName); // ...
+
+            TestSession testSession = NewSession(archive);
 
             ReadingArchiveFinishedEvent();
             return testSession;
         }
 
-        private TestSession NewSession(WorkingDirectory workingDirectory, ArchiveType archiveType, string archiveFileFullName = null)
+        private TestSession NewSession(Archive archive)
         {
-            Archive archive = new Archive(archiveType, workingDirectory, _statusEventHandler, archiveFileFullName); // Move
 
             if (archive.ArchiveType == ArchiveType.Noark5 && archive.AddmlXmlUnit.File.Exists &&
                 archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())
@@ -91,18 +94,18 @@ namespace Arkivverket.Arkade.Core.Identify
             }
 
             if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.Fagsystem)
-                workingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(archive.AddmlXmlUnit.File.Name);
+                archive.WorkingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(archive.AddmlXmlUnit.File.Name);
 
             var testSession = new TestSession(archive);
 
-            if (archiveType == ArchiveType.Noark5)
+            if (archive.ArchiveType == ArchiveType.Noark5)
             {
                 testSession.AvailableTests = Noark5TestProvider.GetAllTestIds();
 
                 return testSession;
             }
 
-            if (archiveType == ArchiveType.Siard)
+            if (archive.ArchiveType == ArchiveType.Siard)
             {
                 return testSession;
             }
@@ -111,7 +114,7 @@ namespace Arkivverket.Arkade.Core.Identify
 
             try
             {
-                var addmlDefinitionParser = new AddmlDefinitionParser(addml, workingDirectory, _statusEventHandler);
+                var addmlDefinitionParser = new AddmlDefinitionParser(addml, archive.WorkingDirectory, _statusEventHandler);
 
                 testSession.AddmlDefinition = addmlDefinitionParser.GetAddmlDefinition();
             }
@@ -128,7 +131,7 @@ namespace Arkivverket.Arkade.Core.Identify
         private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType, Uuid uuid = null)
         {
             _statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
-                archiveType.ToString(), uuid?.ToString()?? "—", archiveFileName)); // NB! UUID-writeout (right after UUID init)
+                archiveType.ToString(), uuid?.ToString()?? "ï¿½", archiveFileName)); // NB! UUID-writeout (right after UUID init)
         }
 
         private void ReadingArchiveStartedEvent()

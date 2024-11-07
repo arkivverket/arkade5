@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Report
             return testReport;
         }
 
-        private static TestReportSummary CreateTestReportSummary(TestSession testSession)
+        private static TestReportSummary CreateTestReportSummary(TestSession testSession, Uuid uuid = null)
         {
             var norwegianCulture = new CultureInfo("nb-NO");
             int numberOfExecutedTests = testSession.TestSuite.TestRuns.Count();
@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Core.Report
 
             var summary = new TestReportSummary
             {
-                Uuid = (testSession.Archive.NewUuid ?? testSession.Archive.OriginalUuid)?.ToString() ?? "—",
+                Uuid = uuid?.ToString() ?? "-",
                 ArchiveCreators = testSession.Archive.Details.ArchiveCreators,
                 ArchivalPeriod = testSession.Archive.Details.ArchivalPeriod,
                 SystemName = testSession.Archive.Details.SystemName,

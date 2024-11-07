@@ -18,6 +18,7 @@ using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
+using Org.BouncyCastle.Tls;
 using Serilog;
 
 namespace Arkivverket.Arkade.CLI
@@ -149,12 +150,14 @@ namespace Arkivverket.Arkade.CLI
                 string command = GetRunningCommand(options.GetType().Name);
 
                 TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
-                    options.OutputLanguage, options.TestSelectionFile, options.PerformFileFormatAnalysis);
+                    options.OutputLanguage, options.TestSelectionFile);
 
                 bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, testSession,
                     createStandAloneTestReport: false);
 
-                bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession);
+                Archive archive = testSession.Archive; // TODO: Get independent of testSession
+                
+                bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis);
 
                 LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess && packSuccess);
             }
@@ -205,10 +208,11 @@ namespace Arkivverket.Arkade.CLI
             {
                 string command = GetRunningCommand(options.GetType().Name);
 
-                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
-                    options.OutputLanguage, performFileFormatAnalysis: options.PerformFileFormatAnalysis);
+                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command, options.OutputLanguage);
 
-                LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, options.OutputDirectory, testSession));
+                Archive archive = testSession.Archive; // TODO: Get independent of testSession
+
+                LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis));
             }
             finally
             {
@@ -310,17 +314,11 @@ namespace Arkivverket.Arkade.CLI
             return true;
         }
 
-        private static bool Pack(string metadataFile, string packageType, string outputDirectory,
-            TestSession testSession)
+        private static bool Pack(string metadataFile, string packageType, Archive archive, string outputDirectory, SupportedLanguage outputLanguage, bool generateFileFormatInfo)
         {
-            ArchiveMetadata archiveMetadata = MetadataLoader.Load(metadataFile);
+            var outputInformationPackage = new OutputInformationPackage(InformationPackageCreator.ParsePackageType(packageType), archive, MetadataLoader.Load(metadataFile), outputLanguage, generateFileFormatInfo);
 
-            archiveMetadata.PackageType = InformationPackageCreator.ParsePackageType(packageType);
-
-            testSession.ArchiveMetadata = archiveMetadata;
-            testSession.ArchiveMetadata.Id = $"UUID:{testSession.Archive.NewUuid}"; // NB! UUID-writeout (package creation)
-
-            Arkade.CreatePackage(testSession, outputDirectory);
+            Arkade.CreatePackage(outputInformationPackage, outputDirectory);
 
             return true;
         }
@@ -360,8 +358,7 @@ namespace Arkivverket.Arkade.CLI
         }
 
         private static TestSession CreateTestSession(string archive, string archiveTypeString,
-            string command, string selectedOutputLanguage, string testSelectionFilePath = null,
-            bool performFileFormatAnalysis = false)
+            string command, string selectedOutputLanguage, string testSelectionFilePath = null)
         {
             var fileInfo = new FileInfo(archive);
             Log.Information($"{{{command}ing}} archive: {fileInfo.FullName}");
@@ -398,8 +395,6 @@ namespace Arkivverket.Arkade.CLI
             if (!Enum.TryParse(selectedOutputLanguage, out SupportedLanguage outputLanguage))
                 outputLanguage = SupportedLanguage.en;
             testSession.OutputLanguage = outputLanguage;
-
-            testSession.GenerateFileFormatInfo = performFileFormatAnalysis;
 
             return testSession;
         }
