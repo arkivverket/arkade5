@@ -485,7 +485,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 PackageType = ArchiveMetadataMapper.MapToPackageType(SelectedPackageTypeSip)
             };
 
-            var informationPackage = new OutputInformationPackage(packageType, _archive, archiveMetadata, LanguageSettingHelper.GetOutputLanguage(), GenerateFileFormatInfoSelected); // NB! UUID-origin
+            var informationPackage = new OutputDiasPackage(packageType, _archive, archiveMetadata, LanguageSettingHelper.GetOutputLanguage(), GenerateFileFormatInfoSelected); // NB! UUID-origin
 
             informationPackage.ArchiveMetadata.Id = $"UUID:{informationPackage.Uuid}"; // NB! UUID-writeout (package creation)
 
@@ -507,11 +507,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
 
-        private void CreatePackageRunEngine(OutputInformationPackage informationPackage, string outputDirectory)
+        private void CreatePackageRunEngine(OutputDiasPackage diasPackage, string outputDirectory)
         {
             try
             {
-                string packageFilePath = _arkadeApi.CreatePackage(informationPackage, outputDirectory);
+                string packageFilePath = _arkadeApi.CreatePackage(diasPackage, outputDirectory);
 
                 string packageOutputContainer = new FileInfo(packageFilePath).DirectoryName;
 

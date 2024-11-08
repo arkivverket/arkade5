@@ -104,43 +104,43 @@ namespace Arkivverket.Arkade.Core.Base
             _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession);
         }
 
-        public string CreatePackage(OutputInformationPackage informationPackage, string outputDirectory)
+        public string CreatePackage(OutputDiasPackage diasPackage, string outputDirectory)
         {
-            string packageType = informationPackage.PackageType.Equals(PackageType.SubmissionInformationPackage)
+            string packageType = diasPackage.PackageType.Equals(PackageType.SubmissionInformationPackage)
                 ? "SIP"
                 : "AIP";
 
             Log.Information($"Creating {packageType}.");
 
-            LanguageManager.SetResourceLanguageForPackageCreation(informationPackage.Language);
+            LanguageManager.SetResourceLanguageForPackageCreation(diasPackage.Language);
 
-            if (informationPackage.GenerateFileFormatInfo)
+            if (diasPackage.GenerateFileFormatInfo)
             {
-                GenerateFileFormatInfoFiles(informationPackage.Archive);
+                GenerateFileFormatInfoFiles(diasPackage.Archive);
             }
 
-            if (informationPackage.Archive.ArchiveType is ArchiveType.Siard)
+            if (diasPackage.Archive.ArchiveType is ArchiveType.Siard)
             {
-                _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(informationPackage.Archive);
+                _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(diasPackage.Archive);
             }
 
             // Delete any existing dias-mets.xml extracted from input tar-file
-            informationPackage.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
+            diasPackage.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
 
-            _metadataFilesCreator.Create(informationPackage);
+            _metadataFilesCreator.Create(diasPackage);
 
             string packageFilePath;
 
-            if (informationPackage.PackageType == PackageType.SubmissionInformationPackage)
+            if (diasPackage.PackageType == PackageType.SubmissionInformationPackage)
             {
                 packageFilePath = _informationPackageCreator.CreateSip(
-                    informationPackage, outputDirectory
+                    diasPackage, outputDirectory
                 );
             }
             else // ArchivalInformationPackage
             {
                 packageFilePath = _informationPackageCreator.CreateAip(
-                    informationPackage, outputDirectory
+                    diasPackage, outputDirectory
                 );
             }
 

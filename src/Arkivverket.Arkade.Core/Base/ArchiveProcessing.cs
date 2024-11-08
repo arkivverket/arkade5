@@ -4,7 +4,7 @@
     {
         public Archive Archive { get; } = archive;
 
-        public InformationPackage OriginalInformationPackage { get; set; }
+        public DiasPackage OriginalDiasPackage { get; set; }
         public TestSession TestSession { get; set; }
     }
 }
