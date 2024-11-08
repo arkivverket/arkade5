@@ -16,20 +16,20 @@ namespace Arkivverket.Arkade.Core.Metadata
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public void CreateAndSaveFile(OutputInformationPackage informationPackage)
+        public void CreateAndSaveFile(OutputDiasPackage diasPackage)
         {
-            Archive archive = informationPackage.Archive;
-            ArchiveMetadata metadata = informationPackage.ArchiveMetadata;
+            Archive archive = diasPackage.Archive;
+            ArchiveMetadata metadata = diasPackage.ArchiveMetadata;
 
-            DirectoryInfo rootDirectory = informationPackage.Archive.WorkingDirectory.Root().DirectoryInfo();
+            DirectoryInfo rootDirectory = diasPackage.Archive.WorkingDirectory.Root().DirectoryInfo();
 
             if (rootDirectory.Exists)
             {
-                string[] filesToSkip = informationPackage.PackageType == PackageType.SubmissionInformationPackage
+                string[] filesToSkip = diasPackage.PackageType == PackageType.SubmissionInformationPackage
                     ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
                     : null;
 
-                string[] directoriesToSkip = informationPackage.PackageType == PackageType.SubmissionInformationPackage
+                string[] directoriesToSkip = diasPackage.PackageType == PackageType.SubmissionInformationPackage
                     ? new[] { ArkadeConstants.DirectoryNameRepositoryOperations }
                     : null;
 

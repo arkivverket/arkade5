@@ -3,7 +3,7 @@ using Arkivverket.Arkade.Core.Languages;
 
 namespace Arkivverket.Arkade.Core.Base;
 
-public abstract class InformationPackage // TODO: Rename to DiasPackage?
+public abstract class DiasPackage
 {
     public Uuid Uuid { get; }
     public PackageType PackageType { get; }
@@ -11,7 +11,7 @@ public abstract class InformationPackage // TODO: Rename to DiasPackage?
     public ArchiveMetadata ArchiveMetadata { get; }
     public FileInfo PhysicalPath { get; }
 
-    protected InformationPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*,
+    protected DiasPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*,
         FileInfo physicalPath*/)
     {
         Uuid = uuid;
@@ -35,13 +35,13 @@ public abstract class InformationPackage // TODO: Rename to DiasPackage?
     }
 }
 
-public class InputInformationPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*, FileInfo physicalPath*/)
-    : InformationPackage(uuid, packageType, archive, archiveMetadata/*, physicalPath*/) // TODO: Rename to InputDiasPackage?
+public class InputDiasPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*, FileInfo physicalPath*/)
+    : DiasPackage(uuid, packageType, archive, archiveMetadata/*, physicalPath*/)
 {
 }
 
-public class OutputInformationPackage(PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*, FileInfo physicalPath*/, SupportedLanguage language, bool generateFileFormatInfo = false)
-    : InformationPackage(Uuid.Random(), packageType, archive, archiveMetadata/*, physicalPath*/) // TODO: Rename to OutputDiasPackage?
+public class OutputDiasPackage(PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*, FileInfo physicalPath*/, SupportedLanguage language, bool generateFileFormatInfo = false)
+    : DiasPackage(Uuid.Random(), packageType, archive, archiveMetadata/*, physicalPath*/)
 {
     public SupportedLanguage Language { get; } = language;
     public bool GenerateFileFormatInfo { get; } = generateFileFormatInfo;
