@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 using Arkivverket.Arkade.Core.Metadata;
@@ -241,17 +241,17 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
 
             var metsFile = mets.fileSec.fileGrp[0].Items[0] as fileType;
 
-            metsFile?.ID.Should().Be("fileId_1");
-            metsFile?.MIMETYPE.Should().Be("application/pdf");
-            metsFile?.USE.Should().Be("Datafile");
-            metsFile?.CHECKSUMTYPE.Should().Be(fileTypeCHECKSUMTYPE.SHA256);
-            metsFile?.CHECKSUM.Should().Be("3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f");
-            metsFile?.SIZE.Should().Be(2325452);
-            metsFile?.CREATED.Year.Should().Be(2017);
-            metsFile?.CREATED.Month.Should().Be(06);
-            metsFile?.CREATED.Day.Should().Be(30);
-            metsFile?.FLocat.href.Should().Be("file:someDirectory/someFileName.pdf");
-            metsFile?.FLocat.LOCTYPE.Should().Be(mdSecTypeMdRefLOCTYPE.URL);
+            metsFile.ID.Should().Be("fileId_1");
+            metsFile.MIMETYPE.Should().Be("application/pdf");
+            metsFile.USE.Should().Be("Datafile");
+            metsFile.CHECKSUMTYPE.Should().Be(fileTypeCHECKSUMTYPE.SHA256);
+            metsFile.CHECKSUM.Should().Be("3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f");
+            metsFile.SIZE.Should().Be(2325452);
+            metsFile.CREATED.Year.Should().Be(2017);
+            metsFile.CREATED.Month.Should().Be(06);
+            metsFile.CREATED.Day.Should().Be(30);
+            metsFile.FLocat.href.Should().Be("file:someDirectory/someFileName.pdf");
+            metsFile.FLocat.LOCTYPE.Should().Be(mdSecTypeMdRefLOCTYPE.URL);
 
             // PACKAGE TYPE
 
