@@ -69,15 +69,17 @@
       <file ID="fileId_1" MIMETYPE="application/xml" SIZE="5307" CREATED="2018-08-30T09:48:07.471132+02:00" CHECKSUM="c8b1b1993988e8126a556b724c173896c9e47600da6f75333c3f7092a9b297dc" CHECKSUMTYPE="SHA-256" USE="Datafile">
         <FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:dias-mets.xml" />
       </file>
-      <file ID="fileId_2" MIMETYPE="image/pdf" SIZE="20637" CREATED="2017-11-13T15:26:06.1458311+01:00" CHECKSUM="3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f" CHECKSUMTYPE="SHA-256" USE="Datafile">
-        <FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:content/dokumenter/5000000.pdf" />
-      </file>
-      <file ID="fileId_3" MIMETYPE="image/pdf" SIZE="18432" CREATED="2017-11-13T15:26:06.1543543+01:00" CHECKSUM="2ea3a86de226d791a07abb5279b0e2813b037730730ba630de4f14dea7c32208" CHECKSUMTYPE="SHA-256" USE="Datafile">
-        <FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:content/dokumenter/5000001.pdf" />
-      </file>
-      <file ID="fileId_4" MIMETYPE="image/pdf" SIZE="18432" CREATED="2017-11-13T15:26:06.1623847+01:00" CHECKSUM="2ea3a86de226d791a07abb5279b0e2813b037730730ba630de4f14dea7c32208" CHECKSUMTYPE="SHA-256" USE="Datafile">
-        <FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:content/dokumenter/underkatalog/5000002.pdf" />
-      </file>
+  	  <fileGrp VERSDATE="2022-01-01T00:00:00" USE="ArchiveExtraction">
+        <file ID="fileId_2" MIMETYPE="image/pdf" SIZE="20637" CREATED="2017-11-13T15:26:06.1458311+01:00" CHECKSUM="3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f" CHECKSUMTYPE="SHA-256" USE="Datafile">
+          <FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:content/dokumenter/5000000.pdf" />
+        </file>
+        <file ID="fileId_3" MIMETYPE="image/pdf" SIZE="18432" CREATED="2017-11-13T15:26:06.1543543+01:00" CHECKSUM="2ea3a86de226d791a07abb5279b0e2813b037730730ba630de4f14dea7c32208" CHECKSUMTYPE="SHA-256" USE="Datafile">
+          <FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:content/dokumenter/5000001.pdf" />
+        </file>
+        <file ID="fileId_4" MIMETYPE="image/pdf" SIZE="18432" CREATED="2017-11-13T15:26:06.1623847+01:00" CHECKSUM="2ea3a86de226d791a07abb5279b0e2813b037730730ba630de4f14dea7c32208" CHECKSUMTYPE="SHA-256" USE="Datafile">
+          <FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:content/dokumenter/underkatalog/5000002.pdf" />
+        </file>
+      </fileGrp>
     </fileGrp>
   </fileSec>
   <structMap>

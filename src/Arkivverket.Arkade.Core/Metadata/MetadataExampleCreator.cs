@@ -60,16 +60,25 @@ namespace Arkivverket.Arkade.Core.Metadata
                     new FileDescription
                     {
                         Id = 1,
-                        Name = "someDirectory\\someFileName.pdf",
-                        Extension = "pdf",
+                        Name = "someFileName.xml",
+                        Extension = "xml",
                         Sha256Checksum = "3B29DFCC4286E50B180AF8F21904C86F8AA42A23C4055C3A71D0512F9AE3886F",
                         Size = 2325452,
+                        ModifiedTime = new DateTime(2017, 06, 30)
+                    },
+                    new FileDescription
+                    {
+                        Id = 2,
+                        Name = "content\\someFileName.xml",
+                        Extension = "xml",
+                        Sha256Checksum = "000CDCA105BD9722759FF81BCB2977E09E6A9A473735CCC540866989444198A2",
+                        Size = 2427358,
                         ModifiedTime = new DateTime(2017, 06, 30)
                     }
                 },
                 StartDate = new DateTime(2017, 01, 01),
                 EndDate = new DateTime(2020, 01, 01),
-                ExtractionDate = new DateTime(2023, 01, 01),
+                ExtractionDate = new DateTime(2022, 01, 01),
             };
 
             if (purpose == MetadataExamplePurpose.UserExample)

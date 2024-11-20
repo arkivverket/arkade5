@@ -64,7 +64,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
 
             // CREATEDATE:
 
-            metsHdr.CREATEDATE.Should().Be(new DateTime(2023, 01, 01));
+            metsHdr.CREATEDATE.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(30));
 
             // ARCHIVEDESCRIPTION:
 
@@ -242,7 +242,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             var metsFile = mets.fileSec.fileGrp[0].Items[0] as fileType;
 
             metsFile.ID.Should().Be("fileId_1");
-            metsFile.MIMETYPE.Should().Be("application/pdf");
+            metsFile.MIMETYPE.Should().Be("application/xml");
             metsFile.USE.Should().Be("Datafile");
             metsFile.CHECKSUMTYPE.Should().Be(fileTypeCHECKSUMTYPE.SHA256);
             metsFile.CHECKSUM.Should().Be("3b29dfcc4286e50b180af8f21904c86f8aa42a23c4055c3a71d0512f9ae3886f");
@@ -250,7 +250,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             metsFile.CREATED.Year.Should().Be(2017);
             metsFile.CREATED.Month.Should().Be(06);
             metsFile.CREATED.Day.Should().Be(30);
-            metsFile.FLocat.href.Should().Be("file:someDirectory/someFileName.pdf");
+            metsFile.FLocat.href.Should().Be("file:someFileName.xml");
             metsFile.FLocat.LOCTYPE.Should().Be(mdSecTypeMdRefLOCTYPE.URL);
 
             // PACKAGE TYPE

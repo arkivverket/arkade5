@@ -80,6 +80,7 @@ namespace Arkivverket.Arkade.Core.Util
 
         public const string MetadataStandardLabelPlaceholder = "[standard_label]";
         public const string MetsHdrAgentMetaNoteKeyWord = "notescontent:";
+        public const string MetsArchiveExtractionFileGroupUse = "ArchiveExtraction";
 
         public const string ArkadeWebSiteUrl = "https://arkade.arkivverket.no";
 

@@ -135,10 +135,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static void CreateMetsHdr(mets mets, ArchiveMetadata metadata)
         {
-            var metsHdr = new metsTypeMetsHdr();
-
-            if (metadata.ExtractionDate != null)
-                metsHdr.CREATEDATE = metadata.ExtractionDate.Value;
+            var metsHdr = new metsTypeMetsHdr { CREATEDATE = DateTime.Now };
                 
             if (!string.IsNullOrEmpty(metadata.RecordStatus))
                 metsHdr.RECORDSTATUS = metadata.RecordStatus;
@@ -149,8 +146,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             CreateHdrAgents(metsHdr, metadata);
 
-            if (metadata.ExtractionDate != null || metsHdr.altRecordID != null || metsHdr.agent != null)
-                mets.metsHdr = metsHdr;
+            mets.metsHdr = metsHdr;
         }
 
         private static void CreateAltRecordIDs(metsTypeMetsHdr metsHdr, ArchiveMetadata metadata)
@@ -494,10 +490,11 @@ namespace Arkivverket.Arkade.Core.Metadata
                 return;
 
             var metsFiles = new List<object>();
+            var metsArchiveExtractionFiles = new List<object>();
 
             foreach (FileDescription fileDescription in metadata.FileDescriptions)
             {
-                metsFiles.Add(new fileType
+                var metsFile = new fileType
                 {
                     ID = $"fileId_{fileDescription.Id}",
                     MIMETYPE = MimeTypeParser(fileDescription),
@@ -511,8 +508,27 @@ namespace Arkivverket.Arkade.Core.Metadata
                         href = "file:" + fileDescription.Name.Replace("\\", "/"),
                         LOCTYPE = mdSecTypeMdRefLOCTYPE.URL
                     }
-                });
+                };
+
+                if (fileDescription.Name.StartsWith(ArkadeConstants.DirectoryNameContent))
+                    metsArchiveExtractionFiles.Add(metsFile);
+                else
+                    metsFiles.Add(metsFile);
             }
+
+            var archiveExtractionFileGroup = new fileGrpType
+            {
+                USE = ArkadeConstants.MetsArchiveExtractionFileGroupUse,
+                Items = metsArchiveExtractionFiles.ToArray()
+            };
+
+            if (metadata.ExtractionDate.HasValue)
+            {
+                archiveExtractionFileGroup.VERSDATESpecified = true;
+                archiveExtractionFileGroup.VERSDATE = metadata.ExtractionDate.Value;
+            }
+
+            metsFiles.Add(archiveExtractionFileGroup);
 
             var metsTypeFileSecFileGrp = new metsTypeFileSecFileGrp
             {

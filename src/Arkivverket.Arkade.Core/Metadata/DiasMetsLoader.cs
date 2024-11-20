@@ -20,9 +20,41 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (mets.metsHdr != null)
                 LoadMetsHdr(archiveMetadata, mets.metsHdr);
 
+            LoadExtractionDate(archiveMetadata, mets.fileSec.fileGrp);
+
             MetadataLoader.HandleLabelPlaceholder(archiveMetadata);
 
             return archiveMetadata;
+        }
+
+        private static void LoadExtractionDate(ArchiveMetadata archiveMetadata, IEnumerable<fileGrpType> fileGroups)
+        {
+            foreach (fileGrpType fileGroup in fileGroups)
+            {
+                if (fileGroup.USE != null && IsParsedAsArchiveExtraction(fileGroup.USE) && fileGroup.VERSDATESpecified)
+                {
+                    archiveMetadata.ExtractionDate = fileGroup.VERSDATE;
+                    return;
+                }
+
+                var subFileGroups = new List<fileGrpType>();
+
+                foreach (object fileGroupItem in fileGroup.Items)
+                {
+                    if (fileGroupItem is fileGrpType subFileGroup)
+                    {
+                        subFileGroups.Add(subFileGroup);
+                    }
+                }
+
+                LoadExtractionDate(archiveMetadata, subFileGroups);
+            }
+
+            return;
+
+            bool IsParsedAsArchiveExtraction(string fileGroupUse) =>
+                string.Equals(fileGroupUse.Replace(" ", string.Empty).Replace("-", string.Empty),
+                    ArkadeConstants.MetsArchiveExtractionFileGroupUse, StringComparison.OrdinalIgnoreCase);
         }
 
         private static void LoadMetsElementAttributes(ArchiveMetadata archiveMetadata, mets mets)
@@ -32,8 +64,6 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static void LoadMetsHdr(ArchiveMetadata archiveMetadata, metsTypeMetsHdr metsHdr)
         {
-            archiveMetadata.ExtractionDate = metsHdr.CREATEDATE;
-
             archiveMetadata.RecordStatus = metsHdr.RECORDSTATUS;
 
             if (metsHdr.altRecordID != null)
