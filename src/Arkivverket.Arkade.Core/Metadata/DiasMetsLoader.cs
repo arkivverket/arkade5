@@ -20,7 +20,8 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (mets.metsHdr != null)
                 LoadMetsHdr(archiveMetadata, mets.metsHdr);
 
-            LoadExtractionDate(archiveMetadata, mets.fileSec.fileGrp);
+            if (mets.fileSec?.fileGrp != null)
+                LoadExtractionDate(archiveMetadata, mets.fileSec?.fileGrp);
 
             MetadataLoader.HandleLabelPlaceholder(archiveMetadata);
 
