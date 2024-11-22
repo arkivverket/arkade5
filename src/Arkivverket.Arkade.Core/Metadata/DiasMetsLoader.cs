@@ -29,32 +29,26 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static void LoadExtractionDate(ArchiveMetadata archiveMetadata, IEnumerable<fileGrpType> fileGroups)
         {
+            var archiveExtractionFileGroups = new List<fileGrpType>();
+
             foreach (fileGrpType fileGroup in fileGroups)
-            {
-                if (fileGroup.USE != null && IsParsedAsArchiveExtraction(fileGroup.USE) && fileGroup.VERSDATESpecified)
-                {
-                    archiveMetadata.ExtractionDate = fileGroup.VERSDATE;
-                    return;
-                }
+                CollectArchiveExtractionFileGroups(fileGroup, archiveExtractionFileGroups);
 
-                var subFileGroups = new List<fileGrpType>();
+            if (archiveExtractionFileGroups.Count != 1)
+                return;
 
-                foreach (object fileGroupItem in fileGroup.Items)
-                {
-                    if (fileGroupItem is fileGrpType subFileGroup)
-                    {
-                        subFileGroups.Add(subFileGroup);
-                    }
-                }
+            if (archiveExtractionFileGroups.First() is { VERSDATESpecified: true } extractionDatedFileGroup)
+                archiveMetadata.ExtractionDate = extractionDatedFileGroup.VERSDATE;
+        }
 
-                LoadExtractionDate(archiveMetadata, subFileGroups);
-            }
+        private static void CollectArchiveExtractionFileGroups(fileGrpType fileGroup, List<fileGrpType> archiveExtractionFileGroups)
+        {
+            if (string.Equals(fileGroup.USE?.ToLower(), ArkadeConstants.MetsArchiveExtractionFileGroupUse.ToLower()))
+                archiveExtractionFileGroups.Add(fileGroup);
 
-            return;
-
-            bool IsParsedAsArchiveExtraction(string fileGroupUse) =>
-                string.Equals(fileGroupUse.Replace(" ", string.Empty).Replace("-", string.Empty),
-                    ArkadeConstants.MetsArchiveExtractionFileGroupUse, StringComparison.OrdinalIgnoreCase);
+            if (fileGroup.Items != null)
+                foreach (fileGrpType subFileGroup in fileGroup.Items.Where(f => f is fileGrpType))
+                    CollectArchiveExtractionFileGroups(subFileGroup, archiveExtractionFileGroups);
         }
 
         private static void LoadMetsElementAttributes(ArchiveMetadata archiveMetadata, mets mets)
