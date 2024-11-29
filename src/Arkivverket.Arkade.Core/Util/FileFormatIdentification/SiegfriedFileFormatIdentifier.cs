@@ -76,38 +76,33 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
 
             IEnumerable<string> siegfriedResult = _processRunner.Run(siegfriedProcess);
 
-            List<IFileFormatInfo> siegfriedFileInfoObjects = ExternalProcessManager.TryClose(siegfriedProcess)
-                ? GetFileFormatInfoObjects(siegfriedResult).ToList()
+            HashSet<IFileFormatInfo> siegfriedFileInfoObjects = ExternalProcessManager.TryClose(siegfriedProcess)
+                ? GetFileFormatInfoObjects(siegfriedResult).ToHashSet()
                 : throw new SiegfriedFileFormatIdentifierException("Process does not exist, or has been terminated");
 
-            if (!SiegfriedFileInfoObjectsContainsArchiveFiles(ref siegfriedFileInfoObjects, scanMode))
-                return siegfriedFileInfoObjects;
-
-            List<IFileFormatInfo> archiveFilePaths = siegfriedFileInfoObjects.Where(s =>
-                _supportedArchiveFilePronomCodes.Contains(s.Id)).ToList();
-
-            IEnumerable<Task<IEnumerable<IFileFormatInfo>>> archiveFormatAnalysisTasks = archiveFilePaths
-                .Select(f => AnalyseFilesAsync(f.FileName, FileFormatScanMode.Archive));
-
-            siegfriedFileInfoObjects.AddRange(Task.WhenAll(archiveFormatAnalysisTasks).Result.SelectMany(a => a));
+            if (scanMode == FileFormatScanMode.Directory)
+                AppendArchiveFileContents(siegfriedFileInfoObjects);
 
             return siegfriedFileInfoObjects;
+        }
+
+        private void AppendArchiveFileContents(ISet<IFileFormatInfo> siegfriedFileInfoObjects)
+        {
+            List<string> archiveFilePaths = siegfriedFileInfoObjects.Where(
+                s => _supportedArchiveFilePronomCodes.Contains(s.Id)
+            ).Select(s => s.FileName).ToList();
+
+            IEnumerable<IFileFormatInfo> fileFormatInfos = Task.WhenAll(
+                archiveFilePaths.Select(p => AnalyseFilesAsync(p, FileFormatScanMode.Archive))
+            ).Result.SelectMany(a => a);
+                
+            foreach (IFileFormatInfo fileFormatInfo in fileFormatInfos)
+                siegfriedFileInfoObjects.Add(fileFormatInfo);
         }
 
         private async Task<IEnumerable<IFileFormatInfo>> AnalyseFilesAsync(string target, FileFormatScanMode scanMode)
         {
             return await Task.Run(() => AnalyseFiles(target, scanMode));
-        }
-
-        private bool SiegfriedFileInfoObjectsContainsArchiveFiles(ref List<IFileFormatInfo> fileFormatInfoObjects,
-            FileFormatScanMode scanMode)
-        {
-            if (scanMode == FileFormatScanMode.Archive)
-            {
-                // Skip first element when .zip (or similar) have been analysed, as this element is the .zip file itself
-                fileFormatInfoObjects = fileFormatInfoObjects.Skip(1).ToList();
-            }
-            return fileFormatInfoObjects.Any(f => _supportedArchiveFilePronomCodes.Contains(f.Id));
         }
 
         public IEnumerable<IFileFormatInfo> IdentifyFormats(IEnumerable<KeyValuePair<string, IEnumerable<byte>>> filePathsAndByteContent)
