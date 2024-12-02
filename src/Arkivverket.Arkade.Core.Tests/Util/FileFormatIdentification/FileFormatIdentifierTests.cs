@@ -219,6 +219,11 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
             };
 
             expectedFileNames.ForEach(fileName => directoryInputResults.Should().Contain(r => r.FileName.Equals(Path.Combine(directoryPath, fileName))));
+
+            List<IFileFormatInfo> archiveFileAInputResults = formatIdentifier.IdentifyFormats(Path.Combine(directoryPath, "A.tar"), FileFormatScanMode.Archive).ToList();
+            List<IFileFormatInfo> archiveFileBInputResults = formatIdentifier.IdentifyFormats(Path.Combine(directoryPath, "B.zip"), FileFormatScanMode.Archive).ToList();
+
+            archiveFileAInputResults.Concat(archiveFileBInputResults).Should().BeEquivalentTo(directoryInputResults);
         }
 
         private static IFileFormatIdentifier CreateFileFormatIdentifier()
