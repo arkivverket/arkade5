@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -284,13 +284,13 @@
     <None Update="ThirdPartySoftware\Siegfried\LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-0_win64.exe">
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-1_win64.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-0_linux64">
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-1_linux64">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-0_mac64">
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-1_mac64">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
