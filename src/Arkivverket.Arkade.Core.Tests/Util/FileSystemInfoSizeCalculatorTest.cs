@@ -37,8 +37,8 @@ namespace Arkivverket.Arkade.Core.Tests.Util
             long pdfByteSize = 27182L;
             long pdfA1bByteSize = 34155L;
             long pdfA3aByteSize = 32506L;
-            long zip2ByteSize = 633L;
-            long tarByteSize = 6144L;
+            long zip2ByteSize = 921L;
+            long tarByteSize = 7168L;
 
             long totalSize = docxByteSize + zipByteSize + pdfByteSize + pdfA1bByteSize + pdfA3aByteSize + zip2ByteSize + tarByteSize;
             _totalFileSize.Should().Be(totalSize); // 7 files which of 3 are archive files
