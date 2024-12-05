@@ -28,6 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="TestData\DiskUsage\docx.docx" />
+    <None Remove="TestData\DiskUsage\pdf.pdf" />
     <None Remove="TestData\FileTypes\docx.docx" />
     <None Remove="TestData\FileTypes\pdf.pdf" />
     <None Remove="TestData\FileTypes\pdfA-1b.pdf" />
@@ -39,6 +41,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="TestData\DiskUsage\docx.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DiskUsage\pdf.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\FileTypes\docx.docx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
