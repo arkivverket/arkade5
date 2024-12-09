@@ -20,9 +20,36 @@ namespace Arkivverket.Arkade.Core.Metadata
             if (mets.metsHdr != null)
                 LoadMetsHdr(archiveMetadata, mets.metsHdr);
 
+            if (mets.fileSec?.fileGrp != null)
+                LoadExtractionDate(archiveMetadata, mets.fileSec?.fileGrp);
+
             MetadataLoader.HandleLabelPlaceholder(archiveMetadata);
 
             return archiveMetadata;
+        }
+
+        private static void LoadExtractionDate(ArchiveMetadata archiveMetadata, IEnumerable<fileGrpType> fileGroups)
+        {
+            var archiveExtractionFileGroups = new List<fileGrpType>();
+
+            foreach (fileGrpType fileGroup in fileGroups)
+                CollectArchiveExtractionFileGroups(fileGroup, archiveExtractionFileGroups);
+
+            if (archiveExtractionFileGroups.Count != 1)
+                return;
+
+            if (archiveExtractionFileGroups.First() is { VERSDATESpecified: true } extractionDatedFileGroup)
+                archiveMetadata.ExtractionDate = extractionDatedFileGroup.VERSDATE;
+        }
+
+        private static void CollectArchiveExtractionFileGroups(fileGrpType fileGroup, List<fileGrpType> archiveExtractionFileGroups)
+        {
+            if (string.Equals(fileGroup.USE?.ToLower(), ArkadeConstants.MetsArchiveExtractionFileGroupUse.ToLower()))
+                archiveExtractionFileGroups.Add(fileGroup);
+
+            if (fileGroup.Items != null)
+                foreach (fileGrpType subFileGroup in fileGroup.Items.Where(f => f is fileGrpType))
+                    CollectArchiveExtractionFileGroups(subFileGroup, archiveExtractionFileGroups);
         }
 
         private static void LoadMetsElementAttributes(ArchiveMetadata archiveMetadata, mets mets)
@@ -32,8 +59,6 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static void LoadMetsHdr(ArchiveMetadata archiveMetadata, metsTypeMetsHdr metsHdr)
         {
-            archiveMetadata.ExtractionDate = metsHdr.CREATEDATE;
-
             archiveMetadata.RecordStatus = metsHdr.RECORDSTATUS;
 
             if (metsHdr.altRecordID != null)

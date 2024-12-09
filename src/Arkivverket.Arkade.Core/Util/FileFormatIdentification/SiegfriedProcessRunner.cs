@@ -76,11 +76,6 @@ namespace Arkivverket.Arkade.Core.Util.FileFormatIdentification
             return Run(process).Skip(1).First();
         }
 
-        internal IEnumerable<string> RunOnArchive(Process process)
-        {
-            return Run(process).Skip(1);
-        }
-
         internal string RunOnByteArray(Process process, KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
         {
             var results = new List<string>();

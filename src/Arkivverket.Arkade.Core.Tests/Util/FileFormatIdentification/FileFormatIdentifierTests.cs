@@ -198,6 +198,34 @@ namespace Arkivverket.Arkade.Core.Tests.Util.FileFormatIdentification
                                                     r.Version.Equals("3a"));
         }
 
+        [Fact, Trait("Category", "Integration")]
+        [Trait("Dependency", "IO")]
+        public void IdentifyNestedArchiveFilesTest()
+        {
+            IFileFormatIdentifier formatIdentifier = CreateFileFormatIdentifier();
+
+            string directoryPath = Path.Combine("TestData", "FileTypes", "nested_archive-files");
+            List<IFileFormatInfo> directoryInputResults = formatIdentifier.IdentifyFormats(directoryPath, FileFormatScanMode.Directory).ToList();
+            
+            var expectedFileNames = new List<string>
+            {
+                "A.tar", "B.zip",
+                "A.tar#AA.tar", "A.tar#AB.zip",
+                "B.zip#BA.tar", "B.zip#BB.zip",
+                "A.tar#AA.tar#AAA.tar", "A.tar#AA.tar#AAB.zip",
+                "A.tar#AB.zip#ABA.tar", "A.tar#AB.zip#ABB.zip",
+                "B.zip#BA.tar#BAA.tar", "B.zip#BA.tar#BAB.zip",
+                "B.zip#BB.zip#BBA.tar", "B.zip#BB.zip#BBB.zip"
+            };
+
+            expectedFileNames.ForEach(fileName => directoryInputResults.Should().Contain(r => r.FileName.Equals(Path.Combine(directoryPath, fileName))));
+
+            List<IFileFormatInfo> archiveFileAInputResults = formatIdentifier.IdentifyFormats(Path.Combine(directoryPath, "A.tar"), FileFormatScanMode.Archive).ToList();
+            List<IFileFormatInfo> archiveFileBInputResults = formatIdentifier.IdentifyFormats(Path.Combine(directoryPath, "B.zip"), FileFormatScanMode.Archive).ToList();
+
+            archiveFileAInputResults.Concat(archiveFileBInputResults).Should().BeEquivalentTo(directoryInputResults);
+        }
+
         private static IFileFormatIdentifier CreateFileFormatIdentifier()
         {
             IStatusEventHandler statusEventHandler = new Mock<IStatusEventHandler>().Object;

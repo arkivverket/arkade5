@@ -254,3 +254,5 @@ paket-files/
 # Local launch settings
 launchSettings.json
 
+# Directory for Visual Studio extension ContextKeeper
+.contextkeeper/

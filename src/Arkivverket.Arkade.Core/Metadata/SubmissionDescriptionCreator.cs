@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -103,10 +103,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static void CreateMetsHdr(mets mets, ArchiveMetadata metadata)
         {
-            var metsHdr = new metsTypeMetsHdr();
-
-            if (metadata.ExtractionDate != null)
-                metsHdr.CREATEDATE = (DateTime)metadata.ExtractionDate;
+            var metsHdr = new metsTypeMetsHdr { CREATEDATE = DateTime.Now };
 
             if (!string.IsNullOrEmpty(metadata.RecordStatus) &&
                 Enum.TryParse(metadata.RecordStatus, out metsTypeMetsHdrRECORDSTATUS recordStatus))
@@ -119,8 +116,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             CreateHdrAgents(metsHdr, metadata);
 
-            if (metadata.ExtractionDate != null || metsHdr.altRecordID != null || metsHdr.agent != null)
-                mets.metsHdr = metsHdr;
+            mets.metsHdr = metsHdr;
         }
 
         private static void CreateAltRecordIDs(metsTypeMetsHdr metsHdr, ArchiveMetadata metadata)

@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Tests.Util
         [Trait("Category", "Integration")]
         public void ShouldCalculateCorrectTotalFileSize()
         {
-            string pathToFiles =  Path.Combine("TestData", "FileTypes");
+            string pathToFiles =  Path.Combine("TestData", "DiskUsage");
 
             var fileSystemInfoSizeCalculator = new FileSystemInfoSizeCalculator(_statusEventHandler);
 
@@ -33,13 +33,9 @@ namespace Arkivverket.Arkade.Core.Tests.Util
             }
 
             long docxByteSize = 12895L;
-            long zipByteSize = 89899L;
             long pdfByteSize = 27182L;
-            long pdfA1bByteSize = 34155L;
-            long pdfA3aByteSize = 32506L;
 
-            long totalSize = docxByteSize + zipByteSize + pdfByteSize + pdfA1bByteSize + pdfA3aByteSize;
-            _totalFileSize.Should().Be(totalSize); // 5 files + where one is a .zip with 4 files inside
+            _totalFileSize.Should().Be(docxByteSize + pdfByteSize);
         }
 
         private void OnTargetSizeCalculatorFinished(object o, TargetSizeCalculatorEventArgs e)

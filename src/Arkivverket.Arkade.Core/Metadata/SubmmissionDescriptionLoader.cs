@@ -32,8 +32,6 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static void LoadMetsHdr(ArchiveMetadata archiveMetadata, metsTypeMetsHdr metsHdr)
         {
-            archiveMetadata.ExtractionDate = metsHdr.CREATEDATE;
-
             if (metsHdr.altRecordID != null)
                 LoadMetsHdrAltRecordIDs(archiveMetadata, metsHdr.altRecordID);
 
