@@ -65,7 +65,7 @@ namespace Arkivverket.Arkade.Core.Base
                 Log.Warning("Could not verify sufficient disk space at package destination.");
             }
 
-            string resultDirectory = CreateResultDirectory(diasPackage.Uuid, outputDirectory);
+            string resultDirectory = CreateResultDirectory(diasPackage.Id, outputDirectory);
 
             if (diasPackage.PackageType == PackageType.SubmissionInformationPackage)
             {
@@ -78,7 +78,7 @@ namespace Arkivverket.Arkade.Core.Base
             using var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);
             using var tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
 
-            string packageRootDirectory = diasPackage.Uuid.GetValue() + Path.DirectorySeparatorChar; // NB! UUID-writeout (package creation)
+            string packageRootDirectory = diasPackage.Id.GetValue() + Path.DirectorySeparatorChar; // NB! UUID-writeout (package creation)
             CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
@@ -125,7 +125,7 @@ namespace Arkivverket.Arkade.Core.Base
                 if (testReportFiles.Any())
                 {
                     DirectoryInfo testReportResultDirectory = Directory.CreateDirectory(Path.Combine(
-                        resultDirectory, string.Format(OutputFileNames.StandaloneTestReportDirectory, diasPackage.Uuid) // NB! UUID-writeout (package creation)
+                        resultDirectory, string.Format(OutputFileNames.StandaloneTestReportDirectory, diasPackage.Id) // NB! UUID-writeout (package creation)
                     ));
 
                     foreach (FileInfo file in testReportFiles)
@@ -134,7 +134,7 @@ namespace Arkivverket.Arkade.Core.Base
                             Path.Combine(testReportResultDirectory.FullName,
                                 file.Name.Equals(OutputFileNames.DbptkValidationReportFile)
                                     ? file.Name
-                                    : string.Format(OutputFileNames.StandaloneTestReportFile, diasPackage.Uuid, // NB! UUID-writeout (package creation)
+                                    : string.Format(OutputFileNames.StandaloneTestReportFile, diasPackage.Id, // NB! UUID-writeout (package creation)
                                         file.Extension.TrimStart('.'))),
                             overwrite: true);
                     }

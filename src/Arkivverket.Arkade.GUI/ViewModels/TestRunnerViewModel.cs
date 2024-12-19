@@ -547,7 +547,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ShowTestReportDialog()
         {
-            new TestReportDialog(_testSession.Archive.GetTestReportDirectory(), _testSession.Archive.OriginalUuid).ShowDialog(); // NB! UUID-transfer
+            new TestReportDialog(_testSession.Archive.GetTestReportDirectory(), _testSession.InputDiasPackageId).ShowDialog(); // NB! UUID-transfer
         }
 
         private void SaveTestReports(DirectoryInfo testReportDirectory)

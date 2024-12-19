@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         public void CreateAndSaveFile(OutputDiasPackage diasPackage)
         {
-            premisComplexType premis = Create(diasPackage.Uuid);
+            premisComplexType premis = Create(diasPackage.Id);
 
             var namespaces = new XmlSerializerNamespaces();
             namespaces.Add("premis", "http://arkivverket.no/standarder/PREMIS");

@@ -487,7 +487,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             var informationPackage = new OutputDiasPackage(packageType, _archive, archiveMetadata, LanguageSettingHelper.GetOutputLanguage(), GenerateFileFormatInfoSelected); // NB! UUID-origin
 
-            informationPackage.ArchiveMetadata.Id = $"UUID:{informationPackage.Uuid}"; // NB! UUID-writeout (package creation)
+            informationPackage.ArchiveMetadata.Id = $"UUID:{informationPackage.Id}"; // NB! UUID-writeout (package creation)
 
 
             ArkadeProcessingState.PackingIsStarted = true;

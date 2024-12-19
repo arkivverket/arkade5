@@ -406,7 +406,7 @@ namespace Arkivverket.Arkade.CLI
 
             if (createStandAloneTestReport)
             {
-                string testReportDirectoryName = string.Format(OutputFileNames.StandaloneTestReportDirectory, testSession.Archive.OriginalUuid); // NB! UUID-writeout (test results)
+                string testReportDirectoryName = string.Format(OutputFileNames.StandaloneTestReportDirectory, testSession.InputDiasPackageId); // NB! UUID-writeout (test results)
                 packageTestReportDirectory = new DirectoryInfo(Path.Combine(outputDirectory, testReportDirectoryName));
                 packageTestReportDirectory.Create();
             }

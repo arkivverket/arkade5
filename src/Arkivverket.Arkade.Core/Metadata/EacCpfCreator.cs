@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         public void CreateAndSaveFile(OutputDiasPackage diasPackage)
         {
-            eaccpf eaccpf = Create(diasPackage.Uuid);
+            eaccpf eaccpf = Create(diasPackage.Id);
 
             var namespaces = new XmlSerializerNamespaces();
             namespaces.Add("", "urn:isbn:1-931666-33-4"); // use blank in namespace prefix to create files without prefixed elements

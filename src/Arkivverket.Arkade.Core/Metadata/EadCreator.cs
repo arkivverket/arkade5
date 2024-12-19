@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         public void CreateAndSaveFile(OutputDiasPackage diasPackage)
         {
-            ead ead = Create(diasPackage.Uuid);
+            ead ead = Create(diasPackage.Id);
 
             var namespaces = new XmlSerializerNamespaces();
             namespaces.Add("", "http://ead3.archivists.org/schema/"); // use blank in namespace prefix to create files without prefixed elements
