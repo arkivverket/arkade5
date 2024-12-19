@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Report
 
             foreach (TestReportFormat testReportFormat in Enum.GetValues<TestReportFormat>())
             {
-                var archiveIdentifier = (testSession.Archive.NewUuid ?? testSession.Archive.OriginalUuid)?.ToString() ?? "noIP";  // NB! UUID-writeout (test results)
+                var archiveIdentifier = testSession.InputDiasPackageId?.ToString() ?? "noIP";  // NB! UUID-writeout (test results)
 
                 string testReportFileName = Path.Combine(testReportDirectory.FullName, standalone
                     ? string.Format(Resources.OutputFileNames.StandaloneTestReportFile, archiveIdentifier, testReportFormat.ToString())

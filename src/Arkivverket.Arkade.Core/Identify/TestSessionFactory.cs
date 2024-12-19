@@ -50,9 +50,9 @@ namespace Arkivverket.Arkade.Core.Identify
             _log.Debug(
                 $"Building new TestSession from file [archiveType: {archiveFile.ArchiveType}] [directory: {archiveFile.File.FullName}]");
 
-            Uuid.TryParse(Path.GetFileNameWithoutExtension(archiveFile.File.Name), out Uuid originalUuid); // NB! UUID-orig
+            Uuid.TryParse(Path.GetFileNameWithoutExtension(archiveFile.File.Name), out Uuid inputDiasPackageId); // NB! UUID-orig
             
-            ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, originalUuid);
+            ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, inputDiasPackageId);
 
             WorkingDirectory workingDirectory = WorkingDirectory.FromArchiveFile();
 
@@ -62,24 +62,21 @@ namespace Arkivverket.Arkade.Core.Identify
             }
             else
             {
-                if(originalUuid == null)
-
-
                 TarExtractionStartedEvent();
                 _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo(),
-                    withoutDocumentFiles: archiveFile.ArchiveType == ArchiveType.Noark5, archiveRootDirectoryName: originalUuid?.ToString() ?? "noko");
+                    withoutDocumentFiles: archiveFile.ArchiveType == ArchiveType.Noark5, archiveRootDirectoryName: inputDiasPackageId?.ToString());
                 TarExtractionFinishedEvent(workingDirectory);
             }
 
             var archive = new Archive(archiveFile.ArchiveType, workingDirectory, _statusEventHandler, archiveFile.File.FullName); // ...
 
-            TestSession testSession = NewSession(archive);
+            TestSession testSession = NewSession(archive, inputDiasPackageId);
 
             ReadingArchiveFinishedEvent();
             return testSession;
         }
 
-        private TestSession NewSession(Archive archive)
+        private TestSession NewSession(Archive archive, Uuid inputDiasPackageId = null)
         {
 
             if (archive.ArchiveType == ArchiveType.Noark5 && archive.AddmlXmlUnit.File.Exists &&
@@ -96,7 +93,7 @@ namespace Arkivverket.Arkade.Core.Identify
             if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.Fagsystem)
                 archive.WorkingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(archive.AddmlXmlUnit.File.Name);
 
-            var testSession = new TestSession(archive);
+            var testSession = new TestSession(archive, inputDiasPackageId);
 
             if (archive.ArchiveType == ArchiveType.Noark5)
             {
@@ -128,10 +125,10 @@ namespace Arkivverket.Arkade.Core.Identify
             return testSession;
         }
 
-        private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType, Uuid uuid = null)
+        private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType, Uuid inputDiasPackageUuid = null)
         {
             _statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
-                archiveType.ToString(), uuid?.ToString()?? "�", archiveFileName)); // NB! UUID-writeout (right after UUID init)
+                archiveType.ToString(), inputDiasPackageUuid?.ToString()?? "-", archiveFileName)); // NB! UUID-writeout (right after UUID init)
         }
 
         private void ReadingArchiveStartedEvent()

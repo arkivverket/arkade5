@@ -5,20 +5,20 @@ namespace Arkivverket.Arkade.Core.Base;
 
 public abstract class DiasPackage
 {
-    public Uuid Uuid { get; }
+    public Uuid Id { get; }
     public PackageType PackageType { get; }
     public Archive Archive { get; }
     public ArchiveMetadata ArchiveMetadata { get; }
     public FileInfo PhysicalPath { get; }
 
-    protected DiasPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*,
+    protected DiasPackage(Uuid id, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*,
         FileInfo physicalPath*/)
     {
-        Uuid = uuid;
+        Id = id;
         PackageType = packageType;
         Archive = archive;
 
-        archiveMetadata.Id = $"UUID:{Uuid}";
+        archiveMetadata.Id = $"UUID:{Id}";
         archiveMetadata.PackageType = packageType;
         ArchiveMetadata = archiveMetadata;
         //PhysicalPath = physicalPath;
@@ -26,17 +26,17 @@ public abstract class DiasPackage
 
     public string GetInformationPackageFileName()
     {
-        return Uuid + ".tar"; // NB! UUID-writeout (package creation)
+        return Id + ".tar"; // NB! UUID-writeout (package creation)
     }
 
     public string GetSubmissionDescriptionFileName()
     {
-        return Uuid + ".xml"; // NB! UUID-writeout (package creation)
+        return Id + ".xml"; // NB! UUID-writeout (package creation)
     }
 }
 
-public class InputDiasPackage(Uuid uuid, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*, FileInfo physicalPath*/)
-    : DiasPackage(uuid, packageType, archive, archiveMetadata/*, physicalPath*/)
+public class InputDiasPackage(Uuid id, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata/*, FileInfo physicalPath*/)
+    : DiasPackage(id, packageType, archive, archiveMetadata/*, physicalPath*/)
 {
 }
 
