@@ -28,7 +28,6 @@ namespace Arkivverket.Arkade.Core.Base
         public Uuid InputDiasPackageId { get; }
 
         public List<TestId> TestsToRun { get; set; } = new List<TestId>();
-        public List<TestId> AvailableTests { get; set; } = new List<TestId>();
 
         public TestSuite TestSuite { get; set; }
 
