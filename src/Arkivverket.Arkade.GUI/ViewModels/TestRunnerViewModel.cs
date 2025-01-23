@@ -16,7 +16,6 @@ using Prism.Navigation.Regions;
 using Serilog;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Languages;
-using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
 using Arkivverket.Arkade.Core.Util;
@@ -278,7 +277,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 {
                     SupportedLanguage uiLanguage = LanguageSettingHelper.GetUILanguage();
 
-                    foreach (TestId testId in Noark5TestProvider.GetAllTestIds())
+                    foreach (TestId testId in _testSession.AvailableTests)
                     {
                         _selectableTests.Add(new SelectableTest
                         {

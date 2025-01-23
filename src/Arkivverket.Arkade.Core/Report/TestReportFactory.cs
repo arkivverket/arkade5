@@ -4,7 +4,6 @@ using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing;
-using Arkivverket.Arkade.Core.Testing.Noark5;
 
 namespace Arkivverket.Arkade.Core.Report
 {
@@ -36,7 +35,7 @@ namespace Arkivverket.Arkade.Core.Report
         {
             var norwegianCulture = new CultureInfo("nb-NO");
             int numberOfExecutedTests = testSession.TestSuite.TestRuns.Count();
-            int numberOfAvailableTests = testSession.Archive.ArchiveType is ArchiveType.Noark5 ? Noark5TestProvider.GetAllTestIds().Count : 0; // Is this logic as it was?
+            int numberOfAvailableTests = testSession.AvailableTests.Count;
 
             var summary = new TestReportSummary
             {
