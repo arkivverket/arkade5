@@ -95,7 +95,14 @@ namespace Arkivverket.Arkade.Core.Identify
 
             var testSession = new TestSession(archive, inputDiasPackageId);
 
-            if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.Siard)
+            if (archive.ArchiveType == ArchiveType.Noark5)
+            {
+                testSession.AvailableTests = Noark5TestProvider.GetAllTestIds();
+
+                return testSession;
+            }
+
+            if (archive.ArchiveType == ArchiveType.Siard)
             {
                 return testSession;
             }
