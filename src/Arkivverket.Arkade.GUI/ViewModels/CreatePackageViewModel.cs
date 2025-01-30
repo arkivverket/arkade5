@@ -482,13 +482,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 StartDate = ArchiveMetadataMapper.MapToStartDate(_metaDataNoarkSection),
                 EndDate = ArchiveMetadataMapper.MapToEndDate(_metaDataNoarkSection),
                 ExtractionDate = ArchiveMetadataMapper.MapToExtractionDate(_metaDataExtractionDate),
-                PackageType = ArchiveMetadataMapper.MapToPackageType(SelectedPackageTypeSip)
             };
 
             var informationPackage = new OutputDiasPackage(packageType, _archive, archiveMetadata, LanguageSettingHelper.GetOutputLanguage(), GenerateFileFormatInfoSelected); // NB! UUID-origin
-
-            informationPackage.ArchiveMetadata.Id = $"UUID:{informationPackage.Id}"; // NB! UUID-writeout (package creation)
-
 
             ArkadeProcessingState.PackingIsStarted = true;
             MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();

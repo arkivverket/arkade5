@@ -18,7 +18,7 @@ public abstract class DiasPackage
         PackageType = packageType;
         Archive = archive;
 
-        archiveMetadata.Id = $"UUID:{Id}";
+        archiveMetadata.Id = $"UUID:{Id}"; // NB! UUID-writeout (package creation)
         archiveMetadata.PackageType = packageType;
         ArchiveMetadata = archiveMetadata;
         //PhysicalPath = physicalPath;
