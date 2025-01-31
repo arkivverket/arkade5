@@ -1,10 +1,10 @@
-﻿namespace Arkivverket.Arkade.Core.Base
+namespace Arkivverket.Arkade.Core.Base
 {
     public class ArchiveProcessing(Archive archive)
     {
         public Archive Archive { get; } = archive;
-
-        public DiasPackage OriginalDiasPackage { get; set; }
+        public InputDiasPackage InputDiasPackage { get; set; }
+        public OutputDiasPackage OutputDiasPackage { get; set; }
         public TestSession TestSession { get; set; }
     }
 }
