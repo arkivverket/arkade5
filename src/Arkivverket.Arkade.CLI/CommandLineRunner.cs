@@ -294,7 +294,7 @@ namespace Arkivverket.Arkade.CLI
         private static bool Test(string outputDirectory, int testResultDisplayLimit, TestSession testSession,
             bool createStandAloneTestReport = true)
         {
-            if (!testSession.IsTestableArchive(out _))
+            if (TestSession.IsTestableArchive(testSession.Archive, testSession.AddmlDefinition, out _))
                 return false;
 
             try
@@ -433,7 +433,7 @@ namespace Arkivverket.Arkade.CLI
 
         private static bool RanWithoutErrors(TestSession testSession)
         {
-            if (!testSession.IsTestableArchive(out string disqualifyingCause))
+            if (TestSession.IsTestableArchive(testSession.Archive, testSession.AddmlDefinition, out string disqualifyingCause))
             {
                 Log.Error("Archive is not testable: " + disqualifyingCause);
                 return false;

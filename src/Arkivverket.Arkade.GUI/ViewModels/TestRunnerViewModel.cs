@@ -242,7 +242,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private bool CanStartTestRun()
         {
-            return _testSession != null && _testSession.IsTestableArchive(out _) && !_testRunHasBeenExecuted;
+            return _testSession != null && TestSession.IsTestableArchive(_testSession.Archive, _testSession.AddmlDefinition, out _) && !_testRunHasBeenExecuted;
         }
 
         private bool CanCreatePackage()
@@ -271,7 +271,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
                     : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
 
-                if (!_testSession.IsTestableArchive(out string disqualifyingCause))
+                if (!TestSession.IsTestableArchive(_testSession.Archive, _testSession.AddmlDefinition, out string disqualifyingCause))
                     LogNotTestableArchiveOperationMessage(disqualifyingCause);
 
                 if (_testSession.Archive.ArchiveType == ArchiveType.Noark5)
