@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Report
         {
             var norwegianCulture = new CultureInfo("nb-NO");
             int numberOfExecutedTests = testSession.TestSuite.TestRuns.Count();
-            int numberOfAvailableTests = testSession.Archive.ArchiveType is ArchiveType.Noark5 ? Noark5TestProvider.GetAllTestIds().Count : 0; // Is this logic as it was?
+            int numberOfAvailableTests = testSession.Archive.ArchiveType is ArchiveType.Noark5 ? Noark5TestProvider.GetAllTestIds().Count : 0;
 
             var summary = new TestReportSummary
             {
