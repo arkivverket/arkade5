@@ -316,9 +316,9 @@ namespace Arkivverket.Arkade.CLI
 
         private static bool Pack(string metadataFile, string packageType, Archive archive, string outputDirectory, SupportedLanguage outputLanguage, bool generateFileFormatInfo)
         {
-            var outputInformationPackage = new OutputDiasPackage(InformationPackageCreator.ParsePackageType(packageType), archive, MetadataLoader.Load(metadataFile), outputLanguage, generateFileFormatInfo);
+            var outputDiasPackage = new OutputDiasPackage(InformationPackageCreator.ParsePackageType(packageType), archive, MetadataLoader.Load(metadataFile), outputLanguage, generateFileFormatInfo);
 
-            Arkade.CreatePackage(outputInformationPackage, outputDirectory);
+            Arkade.CreatePackage(outputDiasPackage, outputDirectory);
 
             return true;
         }
