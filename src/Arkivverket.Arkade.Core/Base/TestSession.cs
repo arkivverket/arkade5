@@ -23,8 +23,6 @@ namespace Arkivverket.Arkade.Core.Base
 
         public Archive Archive { get; }
 
-        public ArchiveMetadata ArchiveMetadata { get; set; }
-
         public Uuid InputDiasPackageId { get; }
 
         public List<TestId> TestsToRun { get; set; } = new List<TestId>();
