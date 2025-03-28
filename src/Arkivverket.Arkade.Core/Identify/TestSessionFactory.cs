@@ -27,8 +27,6 @@ namespace Arkivverket.Arkade.Core.Identify
 
         public TestSession NewSession(ArchiveDirectory archiveDirectory) // TODO: Remake as Archive-factory?
         {
-            ReadingArchiveStartedEvent();
-
             ArchiveType archiveType = archiveDirectory.ArchiveType;
             _log.Debug(
                 $"Building new TestSession from directory [archiveType: {archiveType}] [directory: {archiveDirectory.Directory.FullName}]");
@@ -40,13 +38,11 @@ namespace Arkivverket.Arkade.Core.Identify
 
             TestSession testSession = NewSession(archive);
 
-            ReadingArchiveFinishedEvent();
             return testSession;
         }
 
         public TestSession NewSession(ArchiveFile archiveFile) // TODO: Remake as Archive-factory?
         {
-            ReadingArchiveStartedEvent();
             _log.Debug(
                 $"Building new TestSession from file [archiveType: {archiveFile.ArchiveType}] [directory: {archiveFile.File.FullName}]");
 
@@ -72,7 +68,6 @@ namespace Arkivverket.Arkade.Core.Identify
 
             TestSession testSession = NewSession(archive, inputDiasPackageId);
 
-            ReadingArchiveFinishedEvent();
             return testSession;
         }
 
@@ -122,16 +117,6 @@ namespace Arkivverket.Arkade.Core.Identify
         {
             _statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
                 archiveType.ToString(), inputDiasPackageUuid?.ToString()?? "-", archiveFileName)); // NB! UUID-writeout (right after UUID init)
-        }
-
-        private void ReadingArchiveStartedEvent()
-        {
-            
-        }
-
-        private void ReadingArchiveFinishedEvent()
-        {
-
         }
 
         private void TarExtractionStartedEvent()
