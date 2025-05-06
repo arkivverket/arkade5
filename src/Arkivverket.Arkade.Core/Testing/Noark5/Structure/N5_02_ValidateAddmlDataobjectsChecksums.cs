@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
         {
             addml structure = archive.AddmlInfo.Addml;
 
-            string basePath = archive.WorkingDirectory.Content().DirectoryInfo().FullName;
+            string basePath = archive.Content.DirectoryInfo().FullName;
 
             foreach (var entry in structure.dataset[0].dataObjects.dataObject)
             {

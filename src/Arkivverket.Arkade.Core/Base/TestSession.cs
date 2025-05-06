@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -68,7 +68,7 @@ namespace Arkivverket.Arkade.Core.Base
             switch (archive.ArchiveType)
             {
                 case ArchiveType.Siard:
-                    FileInfo[] fileInfos = archive.WorkingDirectory.Content().DirectoryInfo().GetFiles("*.siard");
+                    FileInfo[] fileInfos = archive.Content.DirectoryInfo().GetFiles("*.siard");
                     if (fileInfos.FirstOrDefault() == default)
                         disqualifyingCause = Resources.SiardMessages.CouldNotFindASiardFile;
                     else if (archive.Details == null)

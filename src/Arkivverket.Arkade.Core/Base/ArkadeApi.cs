@@ -205,7 +205,7 @@ namespace Arkivverket.Arkade.Core.Base
 
                 if (archive.ArchiveType == ArchiveType.Siard)
                 {
-                    string siardFileFullName = workingDirectory.Content().DirectoryInfo().GetFiles("*.siard")[0].FullName;
+                    string siardFileFullName = archive.Content.DirectoryInfo().GetFiles("*.siard")[0].FullName;
 
                     resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, Path.GetFileNameWithoutExtension(siardFileFullName));
                     resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);

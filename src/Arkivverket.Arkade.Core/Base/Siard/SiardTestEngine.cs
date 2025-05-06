@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 
         public TestSuite RunTestsOnArchive(TestSession testSession)
         {
-            FileInfo siardFileInfo = testSession.Archive.WorkingDirectory.Content().DirectoryInfo().GetFiles()
+            FileInfo siardFileInfo = testSession.Archive.Content.DirectoryInfo().GetFiles()
                 .First(f => f.Extension.Equals(".siard"));
             string inputFilePath = siardFileInfo.FullName;
             string reportFilePath = Path.Combine(testSession.Archive.WorkingDirectory.RepositoryOperations().ToString(),

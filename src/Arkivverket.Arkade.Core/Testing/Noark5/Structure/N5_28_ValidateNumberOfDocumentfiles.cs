@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
 
             if (!archive.IsNoark5TarArchive && !archive.GetDocumentsDirectory().Exists)
             {
-                string documentDirectoryParent = archive.WorkingDirectory.Content().DirectoryInfo().Name + "\\";
+                string documentDirectoryParent = archive.Content.DirectoryInfo().Name + "\\";
 
                 _testResults.Add(new TestResult(ResultType.Error, new Location(documentDirectoryParent),
                     Noark5Messages.ValidateNumberOfDocumentfilesMessage_FilesDirectoryNotFound));
