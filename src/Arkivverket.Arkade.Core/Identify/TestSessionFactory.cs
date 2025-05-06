@@ -34,7 +34,9 @@ namespace Arkivverket.Arkade.Core.Identify
             ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType);
             WorkingDirectory workingDirectory = WorkingDirectory.FromExternalDirectory(archiveDirectory.Directory);
 
-            var archive = new Archive(archiveType, workingDirectory, _statusEventHandler); // ...
+            ArkadeDirectory content = null; // TODO: Provide
+
+            var archive = new Archive(archiveType, workingDirectory, content, _statusEventHandler); // ...
 
             TestSession testSession = NewSession(archive);
 
@@ -52,9 +54,11 @@ namespace Arkivverket.Arkade.Core.Identify
 
             WorkingDirectory workingDirectory = WorkingDirectory.FromArchiveFile();
 
+            ArkadeDirectory content = null; // TODO: Provide
+
             if (archiveFile.ArchiveType == ArchiveType.Siard && archiveFile.File.Extension.Equals(".siard"))
             {
-                CopySiardFilesToContentDirectory(archiveFile, workingDirectory.Content().ToString());
+                CopySiardFilesToContentDirectory(archiveFile, content.ToString());
             }
             else
             {
@@ -64,7 +68,7 @@ namespace Arkivverket.Arkade.Core.Identify
                 TarExtractionFinishedEvent(workingDirectory);
             }
 
-            var archive = new Archive(archiveFile.ArchiveType, workingDirectory, _statusEventHandler, archiveFile.File.FullName); // ...
+            var archive = new Archive(archiveFile.ArchiveType, workingDirectory, content, _statusEventHandler, archiveFile.File.FullName); // ...
 
             TestSession testSession = NewSession(archive, inputDiasPackageId);
 
@@ -99,7 +103,7 @@ namespace Arkivverket.Arkade.Core.Identify
 
             try
             {
-                var addmlDefinitionParser = new AddmlDefinitionParser(addml, archive.WorkingDirectory, _statusEventHandler);
+                var addmlDefinitionParser = new AddmlDefinitionParser(addml, archive.Content, _statusEventHandler);
 
                 testSession.AddmlDefinition = addmlDefinitionParser.GetAddmlDefinition();
             }

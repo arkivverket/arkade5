@@ -87,14 +87,14 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (archive.WorkingDirectory.HasExternalContentDirectory())
             {
-                Log.Debug($"Archive has external content directory, including files from {archive.WorkingDirectory.Content()}");
+                Log.Debug($"Archive has external content directory, including files from {archive.Content}");
 
                 string contentDirectory = packageRootDirectory +
                                           ArkadeConstants.DirectoryNameContent +
                                           Path.DirectorySeparatorChar;
 
                 AddFilesInDirectory(
-                    diasPackage, archive.WorkingDirectory.Content().DirectoryInfo(), null, tarArchive, contentDirectory
+                    diasPackage, archive.Content.DirectoryInfo(), null, tarArchive, contentDirectory
                 );
             }
 

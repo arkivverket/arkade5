@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         public bool IsNoark5TarArchive => ArchiveFileFullName != null && ArchiveType is ArchiveType.Noark5;
 
+        public ArkadeDirectory Content { get; }
         public WorkingDirectory WorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
@@ -35,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Base
         public IArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
-        public Archive(ArchiveType archiveType, WorkingDirectory workingDirectory,
+        public Archive(ArchiveType archiveType, WorkingDirectory workingDirectory, ArkadeDirectory content,
             IStatusEventHandler statusEventHandler, string archiveFileFullName=null)
         {
             _statusEventHandler = statusEventHandler;
@@ -44,11 +46,13 @@ namespace Arkivverket.Arkade.Core.Base
 
             WorkingDirectory = workingDirectory;
 
+            Content = content;
+
             ArchiveFileFullName = archiveFileFullName;
 
             if (archiveType == ArchiveType.Siard)
             {
-                Details = SetupSiardArchiveDetails(workingDirectory);
+                Details = SetupSiardArchiveDetails(content);
                 return;
             }
             
@@ -78,9 +82,9 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        private static IArchiveDetails SetupSiardArchiveDetails(WorkingDirectory workingDirectory)
+        private static IArchiveDetails SetupSiardArchiveDetails(ArkadeDirectory content)
         {
-            FileInfo siardArchiveFile = workingDirectory.Content().DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
+            FileInfo siardArchiveFile = content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
             if (siardArchiveFile == null)
                 throw new ArkadeException("Siard file not found");
             if (!siardArchiveFile.Exists)
@@ -117,7 +121,7 @@ namespace Arkivverket.Arkade.Core.Base
             if (DocumentsDirectory != null)
                 return DocumentsDirectory;
 
-            foreach (DirectoryInfo directory in WorkingDirectory.Content().DirectoryInfo().EnumerateDirectories())
+            foreach (DirectoryInfo directory in Content.DirectoryInfo().EnumerateDirectories())
             foreach (string documentDirectoryName in DocumentDirectoryNames)
                 if (directory.Name.Equals(documentDirectoryName))
                     DocumentsDirectory = directory;
@@ -153,21 +157,21 @@ namespace Arkivverket.Arkade.Core.Base
 
         private DirectoryInfo DefaultNamedDocumentsDirectory()
         {
-            return WorkingDirectory.Content().WithSubDirectory(
+            return Content.WithSubDirectory(
                 DocumentDirectoryNames[0]
             ).DirectoryInfo();
         }
 
         private AddmlXmlUnit SetupAddmlXmlUnit()
         {
-            FileInfo addmlFileInfo = WorkingDirectory.Content().WithFile(AddmlXmlFileName);
+            FileInfo addmlFileInfo = Content.WithFile(AddmlXmlFileName);
 
             if (!addmlFileInfo.Exists && ArchiveType == ArchiveType.Noark5)
-                addmlFileInfo = WorkingDirectory.Content().WithFile(ArkivuttrekkXmlFileName);
+                addmlFileInfo = Content.WithFile(ArkivuttrekkXmlFileName);
 
             var addmlXmlFile = new ArchiveXmlFile(addmlFileInfo);
 
-            FileInfo addmlXsdFileInfo = WorkingDirectory.Content().WithFile(AddmlXsdFileName);
+            FileInfo addmlXsdFileInfo = Content.WithFile(AddmlXsdFileName);
 
             ArchiveXmlSchema addmlSchema = addmlXsdFileInfo.Exists
                 ? ArchiveXmlSchema.Create(addmlXsdFileInfo)
@@ -183,7 +187,7 @@ namespace Arkivverket.Arkade.Core.Base
             foreach ((string documentedXmlFileName, IEnumerable<string> documentedXmlSchemas) in Details.DocumentedXmlUnits)
             {
                 IEnumerable<ArchiveXmlSchema> userProvidedSchemas =
-                    documentedXmlSchemas.Select(s => ArchiveXmlSchema.Create(WorkingDirectory.Content().WithFile(s)));
+                    documentedXmlSchemas.Select(s => ArchiveXmlSchema.Create(Content.WithFile(s)));
 
                 IEnumerable<ArchiveXmlSchema> arkadeSuppliedSchemas = Details.StandardXmlUnits[documentedXmlFileName]
                     .Except(documentedXmlSchemas).Select(s => ArchiveXmlSchema
@@ -191,7 +195,7 @@ namespace Arkivverket.Arkade.Core.Base
 
                 var archiveXmlSchemas = new List<ArchiveXmlSchema>(userProvidedSchemas.Concat(arkadeSuppliedSchemas));
 
-                var archiveXmlFile = new ArchiveXmlFile(WorkingDirectory.Content().WithFile(documentedXmlFileName));
+                var archiveXmlFile = new ArchiveXmlFile(Content.WithFile(documentedXmlFileName));
 
                 XmlUnits.Add(new ArchiveXmlUnit(archiveXmlFile, archiveXmlSchemas));
             }

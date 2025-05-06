@@ -62,12 +62,12 @@ namespace Arkivverket.Arkade.Core.Base
         /// This directory contains the archive files. Can be an external content directory located outside of Arkade's work directory.
         /// </summary>
         /// <returns></returns>
-        public ArkadeDirectory Content()
-        {
-            if (HasExternalContentDirectory())
-                return _externalContentDirectory;
-            return _root.WithSubDirectory("content");
-        }
+        //public ArkadeDirectory Content()
+        //{
+        //    if (HasExternalContentDirectory())
+        //        return _externalContentDirectory;
+        //    return _root.WithSubDirectory("content");
+        //}
 
         /// <summary>
         /// This is the local content directory inside Arkade's work directory. Writing of content files (like the addml.xml) should done within this directory.
@@ -125,7 +125,9 @@ namespace Arkivverket.Arkade.Core.Base
             if (targetAddmlFile.Exists)
                 return false;
 
-            FileInfo contentAddml = Content().WithFile(addmlFileName);
+            ArkadeDirectory content = null; // TODO: Provide
+
+            FileInfo contentAddml = content.WithFile(addmlFileName);
 
             if (!contentAddml.Exists)
                 return false;
@@ -137,7 +139,9 @@ namespace Arkivverket.Arkade.Core.Base
 
         public long GetSize()
         {
-            return Root().GetSize() + Content().GetSize();
+            ArkadeDirectory content = null; // TODO: Provide
+
+            return Root().GetSize() + content.GetSize();
         }
     }
 }
