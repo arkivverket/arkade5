@@ -7,7 +7,7 @@ namespace Arkivverket.Arkade.Core.Report
     public static class TestReportGeneratorRunner
     {
         public static void RunAllGenerators(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone,
-            int testResultDisplayLimit)
+            int testResultDisplayLimit, Uuid diasPackageId)
         {
             TestReport testReport = testSession.Archive.ArchiveType.Equals(ArchiveType.Siard)
                 ? TestReportFactory.CreateForSiard(testSession)
@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Report
 
             foreach (TestReportFormat testReportFormat in Enum.GetValues<TestReportFormat>())
             {
-                var archiveIdentifier = testSession.InputDiasPackageId?.ToString() ?? "noIP";  // NB! UUID-writeout (test results)
+                string archiveIdentifier = diasPackageId?.ToString() ?? DateTime.Now.ToString("yyyyMMddHHmmss"); // NB! UUID-writeout (test results)
 
                 string testReportFileName = Path.Combine(testReportDirectory.FullName, standalone
                     ? string.Format(Resources.OutputFileNames.StandaloneTestReportFile, archiveIdentifier, testReportFormat.ToString())

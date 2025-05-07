@@ -102,8 +102,10 @@ namespace Arkivverket.Arkade.Core.Base
 
         public DirectoryInfo GetTestReportDirectory()
         {
-            return WorkingDirectory.RepositoryOperations().WithSubDirectory(OutputFileNames.TestReportDirectory)
-                .DirectoryInfo();
+            //return WorkingDirectory.RepositoryOperations().WithSubDirectory(OutputFileNames.TestReportDirectory)
+            //    .DirectoryInfo();
+
+            throw new NotImplementedException();
         }
 
 
@@ -211,6 +213,7 @@ namespace Arkivverket.Arkade.Core.Base
         }
     }
 
+    [Flags]
     public enum ArchiveType
     {
         Noark3,

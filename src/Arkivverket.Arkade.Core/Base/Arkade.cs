@@ -17,6 +17,7 @@ namespace Arkivverket.Arkade.Core.Base
     public class Arkade : IDisposable
     {
         private readonly ArkadeApi _arkadeApi;
+        private readonly ArkadeCoreApi _arkadeCoreApi;
         private readonly ArkadeVersion _arkadeVersion;
         private readonly IContainer _container;
         private readonly ILifetimeScope _scope;
@@ -33,6 +34,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             _scope = _container.BeginLifetimeScope();
             _arkadeApi = _container.Resolve<ArkadeApi>();
+            _arkadeCoreApi = _container.Resolve<ArkadeCoreApi>();
             _arkadeVersion = _container.Resolve<ArkadeVersion>();
             StatusEventHandler = _container.Resolve<IStatusEventHandler>();
         }
@@ -43,25 +45,40 @@ namespace Arkivverket.Arkade.Core.Base
             _container.Dispose();
         }
 
-        public TestSession CreateTestSession(ArchiveDirectory archiveDirectory)
+        public Archive LoadArchiveExtraction(FileSystemInfo archiveSource, ArchiveType archiveType)
         {
-            return _arkadeApi.CreateTestSession(archiveDirectory);
+            return _arkadeCoreApi.LoadArchiveExtraction(archiveSource, archiveType);
         }
 
-        public TestSession CreateTestSession(ArchiveFile archive)
+        public InputDiasPackage LoadDiasPackage(FileInfo diasPackage, ArchiveType archiveType)
         {
-            return _arkadeApi.CreateTestSession(archive);
+            return _arkadeCoreApi.LoadDiasPackage(diasPackage, archiveType);
         }
 
-        public TestSession RunTests(ArchiveFile archiveFile)
+        //public TestSession CreateTestSession(ArchiveDirectory archiveDirectory)
+        //{
+        //    return _arkadeApi.CreateTestSession(archiveDirectory);
+        //}
+
+        //public TestSession CreateTestSession(ArchiveFile archive)
+        //{
+        //    return _arkadeApi.CreateTestSession(archive);
+        //}
+
+        public TestSession CreateTestSession(Archive archive)
         {
-            return _arkadeApi.RunTests(archiveFile);
+            return _arkadeCoreApi.CreateTestSession(archive);
         }
 
-        public TestSession RunTests(ArchiveDirectory archiveDirectory)
-        {
-            return _arkadeApi.RunTests(archiveDirectory);
-        }
+        //public TestSession RunTests(ArchiveFile archiveFile)
+        //{
+        //    return _arkadeApi.RunTests(archiveFile);
+        //}
+
+        //public TestSession RunTests(ArchiveDirectory archiveDirectory)
+        //{
+        //    return _arkadeApi.RunTests(archiveDirectory);
+        //}
 
         public void RunTests(TestSession testSession)
         {
@@ -96,7 +113,7 @@ namespace Arkivverket.Arkade.Core.Base
         
         public void GenerateFileFormatInfoFiles(Archive archive)
         {
-            _arkadeApi.GenerateFileFormatInfoFiles(archive);
+           // _arkadeApi.GenerateFileFormatInfoFiles(archive); // Not in use?
         }
 
         public void GenerateFileFormatInfoFiles(IEnumerable<IFileFormatInfo> fileFormatInfos, string relativePathRoot, string resultFileFullName, SupportedLanguage language)

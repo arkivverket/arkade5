@@ -17,7 +17,9 @@ using Prism.Navigation.Regions;
 using Serilog;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
+using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Views;
 using MessageBox = System.Windows.MessageBox;
@@ -26,7 +28,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 {
     public class CreatePackageViewModel : BindableBase, INavigationAware
     {
-        private readonly ArkadeApi _arkadeApi;
+        //private readonly ArkadeApi _arkadeApi;
+        private readonly ArkadeCoreApi _arkadeCoreApi;
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private bool _generateFileFormatInfoSelected;
         private bool _selectedPackageTypeAip;
@@ -230,9 +233,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
 
-        public CreatePackageViewModel(ArkadeApi arkadeApi, IRegionManager regionManager)
+        public CreatePackageViewModel(ArkadeCoreApi arkadeCoreApi, IRegionManager regionManager)
         {
-            _arkadeApi = arkadeApi;
+            _arkadeCoreApi = arkadeCoreApi;
             _regionManager = regionManager;
 
             LoadExternalMetadataCommand = new DelegateCommand(RunLoadExternalMetadata, CanLoadMetadata);
@@ -484,8 +487,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 ExtractionDate = ArchiveMetadataMapper.MapToExtractionDate(_metaDataExtractionDate),
             };
 
-            var informationPackage = new OutputDiasPackage(packageType, _archive, archiveMetadata, LanguageSettingHelper.GetOutputLanguage(), GenerateFileFormatInfoSelected); // NB! UUID-origin
-
+            var informationPackage = new OutputDiasPackage(packageType, _archive, archiveMetadata); // NB! UUID-origin
+            
             ArkadeProcessingState.PackingIsStarted = true;
             MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
             
@@ -505,9 +508,18 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void CreatePackageRunEngine(OutputDiasPackage diasPackage, string outputDirectory)
         {
+            ArchiveProcessing archiveProcessing = null; // TODO: Provide
+
+            var workingDirectory = new WorkingDirectory(archiveProcessing.ProcessingDirectory);
+
+            diasPackage.WorkingDirectory = workingDirectory; // Hmmm ...
+
             try
             {
-                string packageFilePath = _arkadeApi.CreatePackage(diasPackage, outputDirectory);
+                string packageFilePath = _arkadeCoreApi.CreatePackage(
+                    diasPackage, LanguageSettingHelper.GetOutputLanguage(),
+                    GenerateFileFormatInfoSelected, outputDirectory
+                );
 
                 string packageOutputContainer = new FileInfo(packageFilePath).DirectoryName;
 

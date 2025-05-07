@@ -25,57 +25,53 @@ namespace Arkivverket.Arkade.Core.Identify
             _statusEventHandler = statusEventHandler;
         }
 
-        public TestSession NewSession(ArchiveDirectory archiveDirectory) // TODO: Remake as Archive-factory?
-        {
-            ArchiveType archiveType = archiveDirectory.ArchiveType;
-            _log.Debug(
-                $"Building new TestSession from directory [archiveType: {archiveType}] [directory: {archiveDirectory.Directory.FullName}]");
+        //public TestSession NewSession(ArchiveDirectory archiveDirectory) // TODO: Remake as Archive-factory?
+        //{
+        //    ArchiveType archiveType = archiveDirectory.ArchiveType;
+        //    _log.Debug(
+        //        $"Building new TestSession from directory [archiveType: {archiveType}] [directory: {archiveDirectory.Directory.FullName}]");
 
-            ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType);
-            WorkingDirectory workingDirectory = WorkingDirectory.FromExternalDirectory(archiveDirectory.Directory);
+        //    ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType);
+        //    WorkingDirectory workingDirectory = WorkingDirectory.FromExternalDirectory(archiveDirectory.Directory);
 
-            ArkadeDirectory content = null; // TODO: Provide
+        //    var archive = new Archive(archiveType, workingDirectory, _statusEventHandler); // ...
 
-            var archive = new Archive(archiveType, workingDirectory, content, _statusEventHandler); // ...
+        //    TestSession testSession = NewSession(archive);
 
-            TestSession testSession = NewSession(archive);
+        //    return testSession;
+        //}
 
-            return testSession;
-        }
+        //public TestSession NewSession(ArchiveFile archiveFile) // TODO: Remake as Archive-factory?
+        //{
+        //    _log.Debug(
+        //        $"Building new TestSession from file [archiveType: {archiveFile.ArchiveType}] [directory: {archiveFile.File.FullName}]");
 
-        public TestSession NewSession(ArchiveFile archiveFile) // TODO: Remake as Archive-factory?
-        {
-            _log.Debug(
-                $"Building new TestSession from file [archiveType: {archiveFile.ArchiveType}] [directory: {archiveFile.File.FullName}]");
-
-            Uuid.TryParse(Path.GetFileNameWithoutExtension(archiveFile.File.Name), out Uuid inputDiasPackageId); // NB! UUID-orig
+        //    Uuid.TryParse(Path.GetFileNameWithoutExtension(archiveFile.File.Name), out Uuid inputDiasPackageId); // NB! UUID-orig
             
-            ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, inputDiasPackageId);
+        //    ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, inputDiasPackageId);
 
-            WorkingDirectory workingDirectory = WorkingDirectory.FromArchiveFile();
+        //    WorkingDirectory workingDirectory = WorkingDirectory.FromArchiveFile();
 
-            ArkadeDirectory content = null; // TODO: Provide
+        //    if (archiveFile.ArchiveType == ArchiveType.Siard && archiveFile.File.Extension.Equals(".siard"))
+        //    {
+        //        CopySiardFilesToContentDirectory(archiveFile, workingDirectory.Content().ToString());
+        //    }
+        //    else
+        //    {
+        //        TarExtractionStartedEvent();
+        //        _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo(),
+        //            withoutDocumentFiles: archiveFile.ArchiveType == ArchiveType.Noark5, archiveRootDirectoryName: inputDiasPackageId?.ToString());
+        //        TarExtractionFinishedEvent(workingDirectory);
+        //    }
 
-            if (archiveFile.ArchiveType == ArchiveType.Siard && archiveFile.File.Extension.Equals(".siard"))
-            {
-                CopySiardFilesToContentDirectory(archiveFile, content.ToString());
-            }
-            else
-            {
-                TarExtractionStartedEvent();
-                _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo(),
-                    withoutDocumentFiles: archiveFile.ArchiveType == ArchiveType.Noark5, archiveRootDirectoryName: inputDiasPackageId?.ToString());
-                TarExtractionFinishedEvent(workingDirectory);
-            }
+        //    var archive = new Archive(archiveFile.ArchiveType, workingDirectory, _statusEventHandler, archiveFile.File.FullName); // ...
 
-            var archive = new Archive(archiveFile.ArchiveType, workingDirectory, content, _statusEventHandler, archiveFile.File.FullName); // ...
+        //    TestSession testSession = NewSession(archive);
 
-            TestSession testSession = NewSession(archive, inputDiasPackageId);
+        //    return testSession;
+        //}
 
-            return testSession;
-        }
-
-        private TestSession NewSession(Archive archive, Uuid inputDiasPackageId = null)
+        public TestSession NewSession(Archive archive)
         {
 
             if (archive.ArchiveType == ArchiveType.Noark5 && archive.AddmlXmlUnit.File.Exists &&
@@ -89,10 +85,10 @@ namespace Arkivverket.Arkade.Core.Identify
                     AddmlXsdFileName, BuiltInAddmlSchemaVersion));
             }
 
-            if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.Fagsystem)
-                archive.WorkingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(archive.AddmlXmlUnit.File.Name);
+            //if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.Fagsystem)
+            //    archive.WorkingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(archive.AddmlXmlUnit.File.Name); // TODO: Wait until package creation
 
-            var testSession = new TestSession(archive, inputDiasPackageId);
+            var testSession = new TestSession(archive);
 
             if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.Siard)
             {
@@ -135,48 +131,6 @@ namespace Arkivverket.Arkade.Core.Identify
             _statusEventHandler.RaiseEventOperationMessage(Messages.ReadingArchiveEvent,
                 string.Format(Messages.TarExtractionMessageFinished, workingDirectory.ContentWorkDirectory().DirectoryInfo().FullName),
                 OperationMessageStatus.Ok);
-        }
-
-        private void CopySiardFilesToContentDirectory(ArchiveFile siardArchiveFile, string contentDirectoryPath)
-        {
-            var siardTableXmlReader = new SiardXmlTableReader(new SiardArchiveReader());
-
-            siardArchiveFile.File.CopyTo(Path.Combine(contentDirectoryPath, siardArchiveFile.File.Name));
-
-            try
-            {
-                IEnumerable<string> fullPathsToExternalLobs =
-                    siardTableXmlReader.GetFullPathsToExternalLobs(siardArchiveFile.File.FullName);
-
-                foreach (string fullPathToExternalLob in fullPathsToExternalLobs)
-                {
-                    if (!File.Exists(fullPathToExternalLob))
-                    {
-                        string message = string.Format(SiardMessages.ExternalLobFileNotFoundMessage, fullPathToExternalLob);
-                        _statusEventHandler.RaiseEventOperationMessage("", message, OperationMessageStatus.Error);
-                        _log.Error(message);
-                        continue;
-                    }
-
-                    string relativePathFromSiardFileToExternalLob =
-                        Path.GetRelativePath(siardArchiveFile.File.DirectoryName, fullPathToExternalLob);
-
-                    string externalLobDestinationPath =
-                        Path.Combine(contentDirectoryPath, relativePathFromSiardFileToExternalLob);
-
-                    var destinationDirectoryForExternalLob = Path.GetDirectoryName(externalLobDestinationPath);
-
-                    Directory.CreateDirectory(destinationDirectoryForExternalLob);
-
-                    File.Copy(fullPathToExternalLob, externalLobDestinationPath);
-
-                    _log.Debug("'{0}' has been added to Arkade temporary work area", fullPathToExternalLob);
-                }
-            }
-            catch (SiardArchiveReaderException)
-            {
-                _statusEventHandler.RaiseEventOperationMessage("", SiardMessages.ExternalLobsNotCopiedWarning, OperationMessageStatus.Warning);
-            }
         }
     }
 }
