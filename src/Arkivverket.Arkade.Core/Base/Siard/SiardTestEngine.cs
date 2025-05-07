@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             FileInfo siardFileInfo = testSession.Archive.Content.DirectoryInfo().GetFiles()
                 .First(f => f.Extension.Equals(".siard"));
             string inputFilePath = siardFileInfo.FullName;
-            string reportFilePath = Path.Combine(testSession.Archive.WorkingDirectory.RepositoryOperations().ToString(),
+            string reportFilePath = Path.Combine(testSession.TemporaryTestResultFilesDirectory.FullName,
                 Resources.OutputFileNames.DbptkValidationReportFile);
 
             SiardValidationReport report = _validator.Validate(inputFilePath, reportFilePath);

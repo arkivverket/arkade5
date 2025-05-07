@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Windows;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Noark5;
@@ -108,6 +109,9 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<SubmissionDescriptionCreator>();
             containerRegistry.Register<InformationPackageCreator>();
             containerRegistry.Register<ArkadeApi>();
+
+            containerRegistry.Register<ArkadeCoreApi>();
+
             containerRegistry.Register<TestSessionXmlGenerator>();
             containerRegistry.Register<IReleaseInfoReader, GitHubReleaseInfoReader>();
             containerRegistry.Register<ArkadeVersion>();

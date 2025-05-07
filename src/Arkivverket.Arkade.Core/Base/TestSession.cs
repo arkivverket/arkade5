@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,8 +23,6 @@ namespace Arkivverket.Arkade.Core.Base
 
         public Archive Archive { get; }
 
-        public Uuid InputDiasPackageId { get; }
-
         public List<TestId> TestsToRun { get; set; } = new List<TestId>();
 
         public TestSuite TestSuite { get; set; }
@@ -36,7 +34,9 @@ namespace Arkivverket.Arkade.Core.Base
         public DateTime DateOfTesting { get; }
         
         public SupportedLanguage OutputLanguage { get; set; }
-        
+
+        public DirectoryInfo TemporaryTestResultFilesDirectory { get; set; }
+
 
         public bool TestRunContainsDocumentFileDependentTests =>
             TestsToRun.Any(test => DocumentFileDependentNoark5Tests.Contains(test));
@@ -44,10 +44,9 @@ namespace Arkivverket.Arkade.Core.Base
         public bool TestRunContainsChecksumControl =>
             TestsToRun.Contains(TestId.Create("N5.30"));
 
-        public TestSession(Archive archive, Uuid inputDiasPackageId = null)
+        public TestSession(Archive archive)
         {
             Archive = archive;
-            InputDiasPackageId = inputDiasPackageId;
             DateOfTesting = DateTime.Now;
         }
 

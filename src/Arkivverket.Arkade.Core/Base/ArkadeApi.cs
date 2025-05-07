@@ -14,7 +14,9 @@ using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
+using iText.Kernel.Geom;
 using Serilog;
+using Path = System.IO.Path;
 
 namespace Arkivverket.Arkade.Core.Base
 {
@@ -60,29 +62,29 @@ namespace Arkivverket.Arkade.Core.Base
             _metadataExampleGenerator = metadataExampleGenerator;
         }
 
-        public TestSession RunTests(ArchiveDirectory archiveDirectory)
-        {
-            TestSession testSession = CreateTestSession(archiveDirectory);
-            RunTests(testSession);
-            return testSession;
-        }
+        //public TestSession RunTests(ArchiveDirectory archiveDirectory)
+        //{
+        //    TestSession testSession = CreateTestSession(archiveDirectory);
+        //    RunTests(testSession);
+        //    return testSession;
+        //}
 
-        public TestSession RunTests(ArchiveFile archive)
-        {
-            TestSession testSession = CreateTestSession(archive);
-            RunTests(testSession);
-            return testSession;
-        }
+        //public TestSession RunTests(ArchiveFile archive)
+        //{
+        //    TestSession testSession = CreateTestSession(archive);
+        //    RunTests(testSession);
+        //    return testSession;
+        //}
         
-        public TestSession CreateTestSession(ArchiveDirectory archiveDirectory)
-        {
-            return _testSessionFactory.NewSession(archiveDirectory);
-        }
+        //public TestSession CreateTestSession(ArchiveDirectory archiveDirectory)
+        //{
+        //    return _testSessionFactory.NewSession(archiveDirectory);
+        //}
 
-        public TestSession CreateTestSession(ArchiveFile archive)
-        {
-            return _testSessionFactory.NewSession(archive);
-        }
+        //public TestSession CreateTestSession(ArchiveFile archive)
+        //{
+        //    return _testSessionFactory.NewSession(archive);
+        //}
 
         public void RunTests(TestSession testSession)
         {
@@ -101,7 +103,7 @@ namespace Arkivverket.Arkade.Core.Base
             testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
             Log.Information("Testing of archive finished.");
 
-            _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession);
+            //_testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession); // TODO: Is this file relevant any longer?
         }
 
         public string CreatePackage(OutputDiasPackage diasPackage, string outputDirectory)
@@ -112,12 +114,12 @@ namespace Arkivverket.Arkade.Core.Base
 
             Log.Information($"Creating {packageType}.");
 
-            LanguageManager.SetResourceLanguageForPackageCreation(diasPackage.Language);
+            //LanguageManager.SetResourceLanguageForPackageCreation(diasPackage.Language);
 
-            if (diasPackage.GenerateFileFormatInfo)
-            {
-                GenerateFileFormatInfoFiles(diasPackage.Archive);
-            }
+            //if (diasPackage.GenerateFileFormatInfo)
+            //{
+            //    GenerateFileFormatInfoFiles(diasPackage.Archive);
+            //}
 
             if (diasPackage.Archive.ArchiveType is ArchiveType.Siard)
             {
@@ -152,21 +154,24 @@ namespace Arkivverket.Arkade.Core.Base
         public void SaveReport(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone, 
             int testResultDisplayLimit)
         {
-            if(testReportDirectory.Exists)
-                testReportDirectory.Delete(recursive: true);
+            //if(testReportDirectory.Exists)
+            //    testReportDirectory.Delete(recursive: true);
             
-            testReportDirectory.Create();
+            //testReportDirectory.Create();
 
-            if (testSession.Archive.ArchiveType == ArchiveType.Siard)
-                File.Move(
-                    sourceFileName: Path.Combine(testSession.Archive.WorkingDirectory.RepositoryOperations().ToString(),
-                        OutputFileNames.DbptkValidationReportFile),
-                    destFileName: Path.Combine(testReportDirectory.FullName, OutputFileNames.DbptkValidationReportFile)
-                );
+            //if (testSession.Archive.ArchiveType == ArchiveType.Siard)
+            //    File.Move(
+            //        sourceFileName: Path.Combine(testSession.Archive.Content.RepositoryOperations().ToString(),
+            //            OutputFileNames.DbptkValidationReportFile),
+            //        destFileName: Path.Combine(testReportDirectory.FullName, OutputFileNames.DbptkValidationReportFile)
+            //    );
 
-            
-            TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory, standalone,
-                testResultDisplayLimit);
+            //Uuid diasPackageId = Uuid.Random(); // Noko m� gjerast ...
+
+            //TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory, standalone,
+            //    testResultDisplayLimit, diasPackageId);
+
+            throw new NotImplementedException();
         }
 
         public IEnumerable<KeyValuePair<string, IEnumerable<byte>>> GetSiardLobsAsByteArrays(string siardFileFullPath)

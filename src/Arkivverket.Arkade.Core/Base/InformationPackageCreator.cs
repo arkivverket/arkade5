@@ -72,7 +72,7 @@ namespace Arkivverket.Arkade.Core.Base
                 CopyTestReportsToStandaloneDirectory(diasPackage, resultDirectory);
             }
 
-            string packageFilePath = Path.Combine(resultDirectory, diasPackage.GetInformationPackageFileName());
+            string packageFilePath = Path.Combine(resultDirectory, diasPackage.Id + ".tar"); // NB! UUID-writeout (package creation)
 
             using Stream outStream = File.Create(packageFilePath);
             using var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);
@@ -109,7 +109,7 @@ namespace Arkivverket.Arkade.Core.Base
             );
 
             new SubmissionDescriptionCreator().CreateAndSaveFile(diasPackage.ArchiveMetadata, packageFilePath, diasMetsFilePath,
-                diasPackage.GetSubmissionDescriptionFileName());
+                diasPackage.Id + ".xml"); // NB! UUID-writeout (package creation)
 
             return packageFilePath;
         }
@@ -202,7 +202,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             foreach (FileInfo file in directory.GetFiles())
             {
-                if (file.Name == diasPackage.GetInformationPackageFileName()) // don't try to add the tar file into the tar file...
+                if (file.Name == diasPackage.Id + ".tar") // don't try to add the tar file into the tar file...  // NB! UUID-writeout (package creation)
                 {
                     continue;
                 }

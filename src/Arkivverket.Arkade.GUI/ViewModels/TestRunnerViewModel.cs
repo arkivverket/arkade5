@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.GUI.Models;
@@ -45,6 +46,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand ShowReportCommand { get; set; }
         public DelegateCommand NewProgramSessionCommand { get; set; }
 
+        private ArchiveProcessing _archiveProcessing;
         private string _archiveFileName;
         private ArchiveType _archiveType;
         private TestSession _testSession;
@@ -68,6 +70,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private int _numberOfTestsFinished = 0;
         private string _currentlyRunningTest;
         private string _testProgressPercentage;
+        private readonly ArkadeCoreApi _arkadeCoreApi;
 
         public Visibility NumberOfProcessedRecordsVisibility
         {
@@ -176,9 +179,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _archiveCurrentProcessing, value);
         }
 
-        public TestRunnerViewModel(ArkadeApi arkadeApi, IRegionManager regionManager,  IStatusEventHandler statusEventHandler)
+        public TestRunnerViewModel(ArkadeApi arkadeApi, ArkadeCoreApi arkadeCoreApi, IRegionManager regionManager,  IStatusEventHandler statusEventHandler)
         {
             _arkadeApi = arkadeApi;
+            _arkadeCoreApi = arkadeCoreApi;
             _regionManager = regionManager;
             _statusEventHandler = statusEventHandler;
             _statusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
@@ -264,12 +268,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             try
             {
-                _archiveType = (ArchiveType) context.Parameters["archiveType"];
-                _archiveFileName = (string) context.Parameters["archiveFileName"];
+                _archiveProcessing = (ArchiveProcessing)context.Parameters["archiveProcessing"];
+                
+                _testSession = _arkadeCoreApi.CreateTestSession(_archiveProcessing?.Archive);
+                    
+                //_archiveType = (ArchiveType) context.Parameters["archiveType"];
+                //_archiveFileName = (string) context.Parameters["archiveFileName"];
 
-                _testSession = Directory.Exists(_archiveFileName)
-                    ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
-                    : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
+                //_testSession = Directory.Exists(_archiveFileName)
+                //    ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
+                //    : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
 
                 if (!TestSession.IsTestableArchive(_testSession.Archive, _testSession.AddmlDefinition, out string disqualifyingCause))
                     LogNotTestableArchiveOperationMessage(disqualifyingCause);
@@ -444,7 +452,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     return;
                 }
 
-                SaveTestReports(_testSession.Archive.GetTestReportDirectory());
+               // SaveTestReports(_testSession.Archive.GetTestReportDirectory());
 
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedOperation, null, OperationMessageStatus.Ok);
@@ -548,7 +556,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ShowTestReportDialog()
         {
-            new TestReportDialog(_testSession.Archive.GetTestReportDirectory(), _testSession.InputDiasPackageId).ShowDialog(); // NB! UUID-transfer
+            Uuid diasPackageId = Uuid.Random(); // Noko må gjerast ...
+
+            new TestReportDialog(_testSession.Archive.GetTestReportDirectory(), diasPackageId).ShowDialog(); // NB! UUID-transfer
         }
 
         private void SaveTestReports(DirectoryInfo testReportDirectory)

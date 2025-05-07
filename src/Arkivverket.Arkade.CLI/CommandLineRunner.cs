@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using Arkivverket.Arkade.CLI.Options;
 using Arkivverket.Arkade.CLI.Utils;
+using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Languages;
@@ -149,15 +150,16 @@ namespace Arkivverket.Arkade.CLI
             {
                 string command = GetRunningCommand(options.GetType().Name);
 
-                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
-                    options.OutputLanguage, options.TestSelectionFile);
+                ArchiveProcessing archiveProcessing = LoadArchiveInput(options.Archive, options.ArchiveType, command);
+
+                TestSession testSession = CreateTestSession(archiveProcessing.Archive, options.OutputLanguage, options.TestSelectionFile);
 
                 bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, testSession,
                     createStandAloneTestReport: false);
 
-                Archive archive = testSession.Archive; // TODO: Get independent of testSession
-                
-                bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis);
+                InputDiasPackage inputDiasPackage = archiveProcessing.InputDiasPackage;
+
+                bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, archiveProcessing.Archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis);
 
                 LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess && packSuccess);
             }
@@ -181,8 +183,9 @@ namespace Arkivverket.Arkade.CLI
             {
                 string command = GetRunningCommand(options.GetType().Name);
 
-                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command,
-                    options.OutputLanguage, options.TestSelectionFile);
+                Archive archive = LoadArchiveInput(options.Archive, options.ArchiveType, command).Archive;
+
+                TestSession testSession = CreateTestSession(archive, options.OutputLanguage, options.TestSelectionFile);
 
                 bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, testSession);
 
@@ -208,11 +211,11 @@ namespace Arkivverket.Arkade.CLI
             {
                 string command = GetRunningCommand(options.GetType().Name);
 
-                TestSession testSession = CreateTestSession(options.Archive, options.ArchiveType, command, options.OutputLanguage);
+                ArchiveProcessing archiveProcessing = LoadArchiveInput(options.Archive, options.ArchiveType, command);
 
-                Archive archive = testSession.Archive; // TODO: Get independent of testSession
-
-                LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis));
+                InputDiasPackage inputDiasPackage = archiveProcessing.InputDiasPackage;
+                
+                LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, archiveProcessing.Archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis));
             }
             finally
             {
@@ -294,7 +297,7 @@ namespace Arkivverket.Arkade.CLI
         private static bool Test(string outputDirectory, int testResultDisplayLimit, TestSession testSession,
             bool createStandAloneTestReport = true)
         {
-            if (TestSession.IsTestableArchive(testSession.Archive, testSession.AddmlDefinition, out _))
+            if (!TestSession.IsTestableArchive(testSession.Archive, testSession.AddmlDefinition, out _))
                 return false;
 
             try
@@ -310,15 +313,21 @@ namespace Arkivverket.Arkade.CLI
             if (_testRunHasFailed)
                 return false;
 
-            SaveTestReport(testSession, outputDirectory, createStandAloneTestReport, testResultDisplayLimit);
+            Uuid diasPackageId = Uuid.Random(); // Noko må gjerast ...
+
+            SaveTestReport(testSession, outputDirectory, createStandAloneTestReport, testResultDisplayLimit, diasPackageId);
             return true;
         }
 
         private static bool Pack(string metadataFile, string packageType, Archive archive, string outputDirectory, SupportedLanguage outputLanguage, bool generateFileFormatInfo)
         {
-            var outputDiasPackage = new OutputDiasPackage(InformationPackageCreator.ParsePackageType(packageType), archive, MetadataLoader.Load(metadataFile), outputLanguage, generateFileFormatInfo);
+            ArchiveProcessing archiveProcessing = null; // TODO: Provide
 
-            Arkade.CreatePackage(outputDiasPackage, outputDirectory);
+            var workingDirectory = new WorkingDirectory(archiveProcessing.ProcessingDirectory);
+            
+            var outputDiasPackage = new OutputDiasPackage(InformationPackageCreator.ParsePackageType(packageType), archive, MetadataLoader.Load(metadataFile));
+
+            Arkade.CreatePackage(outputDiasPackage, outputDirectory); //, workingDirectory);
 
             return true;
         }
@@ -357,31 +366,36 @@ namespace Arkivverket.Arkade.CLI
             return language;
         }
 
-        private static TestSession CreateTestSession(string archive, string archiveTypeString,
-            string command, string selectedOutputLanguage, string testSelectionFilePath = null)
+        private static ArchiveProcessing LoadArchiveInput(string archiveSourcePath, string archiveTypeString, string command)
         {
-            var fileInfo = new FileInfo(archive);
-            Log.Information($"{{{command}ing}} archive: {fileInfo.FullName}");
+            FileSystemInfo archiveSource = File.Exists(archiveSourcePath) ? new FileInfo(archiveSourcePath)
+                : Directory.Exists(archiveSourcePath) ? new DirectoryInfo(archiveSourcePath)
+                : throw new ArgumentException("Invalid archive path: " + archiveSourcePath);
 
-            ArchiveType archiveType = GetArchiveType(archiveTypeString, archive);
 
-            TestSession testSession;
-            if (File.Exists(archive))
-            {
-                Log.Debug("File exists");
-                testSession = Arkade.CreateTestSession(ArchiveFile.Read(archive, archiveType));
-            }
-            else if (Directory.Exists(archive))
-            {
-                Log.Debug("Directory exists");
-                testSession = Arkade.CreateTestSession(ArchiveDirectory.Read(archive, archiveType));
-            }
-            else
-            {
-                throw new ArgumentException("Invalid archive path: " + archive);
-            }
+            ArchiveType archiveType = GetArchiveType(archiveTypeString, archiveSourcePath);
 
-            if (archiveType == ArchiveType.Noark5)
+            Log.Information($"{{{command}ing}} {archiveType} archive from source: {archiveSource.FullName}");
+
+            return archiveSource switch
+            {
+                DirectoryInfo or FileInfo { Extension: ".siard" }
+                    => new ArchiveProcessing(Arkade.LoadArchiveExtraction(archiveSource, archiveType)),
+
+                FileInfo { Extension: ".tar" } tarFile
+                    => new ArchiveProcessing(Arkade.LoadDiasPackage(tarFile, archiveType)),
+
+                _ => throw new ArgumentException("Unsupported archive input or input + archive type combination")
+            };
+        }
+
+        private static TestSession CreateTestSession(Archive archive, string selectedOutputLanguage, string testSelectionFilePath = null)
+        {
+            Log.Information("Creating test session");
+
+            TestSession testSession = Arkade.CreateTestSession(archive);
+            
+            if (archive.ArchiveType == ArchiveType.Noark5)
             {
                 testSession.TestsToRun = File.Exists(testSelectionFilePath)
                     ? Noark5TestSelectionFileReader.GetUserSelectedTestIds(testSelectionFilePath)
@@ -400,13 +414,13 @@ namespace Arkivverket.Arkade.CLI
         }
 
         private static void SaveTestReport(TestSession testSession, string outputDirectory,
-            bool createStandAloneTestReport, int testResultDisplayLimit)
+            bool createStandAloneTestReport, int testResultDisplayLimit, Uuid diasPackageId = null)
         {
             DirectoryInfo packageTestReportDirectory = testSession.Archive.GetTestReportDirectory();
 
             if (createStandAloneTestReport)
             {
-                string testReportDirectoryName = string.Format(OutputFileNames.StandaloneTestReportDirectory, testSession.InputDiasPackageId); // NB! UUID-writeout (test results)
+                string testReportDirectoryName = string.Format(OutputFileNames.StandaloneTestReportDirectory, diasPackageId); // NB! UUID-writeout (test results)
                 packageTestReportDirectory = new DirectoryInfo(Path.Combine(outputDirectory, testReportDirectoryName));
                 packageTestReportDirectory.Create();
             }
@@ -433,7 +447,7 @@ namespace Arkivverket.Arkade.CLI
 
         private static bool RanWithoutErrors(TestSession testSession)
         {
-            if (TestSession.IsTestableArchive(testSession.Archive, testSession.AddmlDefinition, out string disqualifyingCause))
+            if (!TestSession.IsTestableArchive(testSession.Archive, testSession.AddmlDefinition, out string disqualifyingCause))
             {
                 Log.Error("Archive is not testable: " + disqualifyingCause);
                 return false;
