@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Base
         public bool IsNoark5TarArchive => ArchiveFileFullName != null && ArchiveType is ArchiveType.Noark5;
 
         public ArkadeDirectory Content { get; }
-        public WorkingDirectory WorkingDirectory { get; }
+        public DiasPackageWorkingDirectory DiasPackageWorkingDirectory { get; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
         private string DocumentsDirectoryName { get; set; }
@@ -37,14 +37,12 @@ namespace Arkivverket.Arkade.Core.Base
         public IArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
-        public Archive(ArchiveType archiveType, WorkingDirectory workingDirectory, ArkadeDirectory content,
+        public Archive(ArchiveType archiveType, ArkadeDirectory content,
             IStatusEventHandler statusEventHandler, string archiveFileFullName=null)
         {
             _statusEventHandler = statusEventHandler;
 
             ArchiveType = archiveType;
-
-            WorkingDirectory = workingDirectory;
 
             Content = content;
 

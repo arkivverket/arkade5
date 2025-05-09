@@ -323,9 +323,7 @@ namespace Arkivverket.Arkade.CLI
         {
             ArchiveProcessing archiveProcessing = null; // TODO: Provide
 
-            var workingDirectory = new WorkingDirectory(archiveProcessing.ProcessingDirectory);
-            
-            var outputDiasPackage = new OutputDiasPackage(InformationPackageCreator.ParsePackageType(packageType), archive, MetadataLoader.Load(metadataFile));
+            var outputDiasPackage = new OutputDiasPackage(InformationPackageCreator.ParsePackageType(packageType), archive, MetadataLoader.Load(metadataFile), archiveProcessing.ProcessingDirectory);
 
             Arkade.CreatePackage(outputDiasPackage, outputDirectory); //, workingDirectory);
 
@@ -377,16 +375,21 @@ namespace Arkivverket.Arkade.CLI
 
             Log.Information($"{{{command}ing}} {archiveType} archive from source: {archiveSource.FullName}");
 
-            return archiveSource switch
+            var archiveProcessing = new ArchiveProcessing();
+
+            switch (archiveSource)
             {
-                DirectoryInfo or FileInfo { Extension: ".siard" }
-                    => new ArchiveProcessing(Arkade.LoadArchiveExtraction(archiveSource, archiveType)),
+                case DirectoryInfo or FileInfo { Extension: ".siard" }:
+                    archiveProcessing.Archive = Arkade.LoadArchiveExtraction(archiveSource, archiveType);
+                    break;
+                case FileInfo { Extension: ".tar" } tarFile:
+                    archiveProcessing.InputDiasPackage = Arkade.LoadDiasPackage(tarFile, archiveType, archiveProcessing.ProcessingDirectory);
+                    break;
+                default:
+                    throw new ArgumentException("Unsupported archive input or input + archive type combination");
+            }
 
-                FileInfo { Extension: ".tar" } tarFile
-                    => new ArchiveProcessing(Arkade.LoadDiasPackage(tarFile, archiveType)),
-
-                _ => throw new ArgumentException("Unsupported archive input or input + archive type combination")
-            };
+            return archiveProcessing;
         }
 
         private static TestSession CreateTestSession(Archive archive, string selectedOutputLanguage, string testSelectionFilePath = null)

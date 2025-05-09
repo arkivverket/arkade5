@@ -126,10 +126,10 @@ namespace Arkivverket.Arkade.Core.Identify
                 Messages.TarExtractionMessageStarted, OperationMessageStatus.Started);
         }
 
-        private void TarExtractionFinishedEvent(WorkingDirectory workingDirectory)
+        private void TarExtractionFinishedEvent(DiasPackageWorkingDirectory diasPackageWorkingDirectory)
         {
             _statusEventHandler.RaiseEventOperationMessage(Messages.ReadingArchiveEvent,
-                string.Format(Messages.TarExtractionMessageFinished, workingDirectory.ContentWorkDirectory().DirectoryInfo().FullName),
+                string.Format(Messages.TarExtractionMessageFinished, diasPackageWorkingDirectory.ContentWorkDirectory().DirectoryInfo().FullName),
                 OperationMessageStatus.Ok);
         }
     }

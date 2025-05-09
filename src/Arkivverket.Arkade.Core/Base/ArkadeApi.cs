@@ -127,7 +127,7 @@ namespace Arkivverket.Arkade.Core.Base
             }
 
             // Delete any existing dias-mets.xml extracted from input tar-file
-            diasPackage.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
+            diasPackage.Archive.DiasPackageWorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
 
             _metadataFilesCreator.Create(diasPackage);
 
@@ -201,10 +201,10 @@ namespace Arkivverket.Arkade.Core.Base
         
         public void GenerateFileFormatInfoFiles(Archive archive)
         {
-            WorkingDirectory workingDirectory = archive.WorkingDirectory;
+            DiasPackageWorkingDirectory diasPackageWorkingDirectory = archive.DiasPackageWorkingDirectory;
             try
             {
-                var resultFileDirectoryPath = workingDirectory.AdministrativeMetadata().ToString();
+                var resultFileDirectoryPath = diasPackageWorkingDirectory.AdministrativeMetadata().ToString();
                 string resultFileName;
                 string resultFileFullName;
 

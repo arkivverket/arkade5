@@ -75,6 +75,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             new (){RecordStatus = metsTypeMetsHdrRECORDSTATUS.OTHER, TooltipText = MetadataToolTips.RecordStatusOTHER },
         };
 
+        private ArchiveProcessing _archiveProcessing;
+
         public string ArkadeNameAndCurrentVersion { get; } = $"Arkade 5 {ArkadeVersion.Current}";
 
         public DelegateCommand CreatePackageCommand { get; set; }
@@ -280,16 +282,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             try
             {
-                _archive = (Archive) context.Parameters["Archive"];
-                _archiveFileName = (string) context.Parameters["archiveFileName"];
-
+                _archiveProcessing = (ArchiveProcessing) context.Parameters["archiveProcessing"];
+                
                 if (_archive.ArchiveType == ArchiveType.Siard)
                     IncludeFormatInfoFile = MetaDataGUI.CreateLobFormatInfoFileText;
                 else
                     IncludeFormatInfoFile = MetaDataGUI.CreateDocumentFileInfoText;
 
                 FileInfo includedMetadataFile =
-                    _archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
+                    _archive.DiasPackageWorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
 
                 LoadMetadataIntoForm(includedMetadataFile,
                     delegate { Log.Error("Not able to load metadata from file: " + includedMetadataFile.FullName); }
@@ -487,7 +488,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 ExtractionDate = ArchiveMetadataMapper.MapToExtractionDate(_metaDataExtractionDate),
             };
 
-            var informationPackage = new OutputDiasPackage(packageType, _archive, archiveMetadata); // NB! UUID-origin
+            var informationPackage = new OutputDiasPackage(packageType, _archive, archiveMetadata, _archiveProcessing.ProcessingDirectory); // NB! UUID-origin
             
             ArkadeProcessingState.PackingIsStarted = true;
             MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
@@ -508,12 +509,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void CreatePackageRunEngine(OutputDiasPackage diasPackage, string outputDirectory)
         {
-            ArchiveProcessing archiveProcessing = null; // TODO: Provide
-
-            var workingDirectory = new WorkingDirectory(archiveProcessing.ProcessingDirectory);
-
-            diasPackage.WorkingDirectory = workingDirectory; // Hmmm ...
-
             try
             {
                 string packageFilePath = _arkadeCoreApi.CreatePackage(

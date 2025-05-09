@@ -30,17 +30,17 @@ namespace Arkivverket.Arkade.Core.Metadata
             // EAC-CPF is not included in v1.0
             _eacCpfCreator.CreateAndSaveFile(outputDiasPackage);
 
-            AddXsdFiles(outputDiasPackage.Archive.WorkingDirectory);
+            AddXsdFiles(outputDiasPackage.Archive.DiasPackageWorkingDirectory);
 
             // Generate mets-file last for it to describe all other package content
             _diasMetsCreator.CreateAndSaveFile(outputDiasPackage);
         }
 
-        private static void AddXsdFiles(WorkingDirectory workingDirectory)
+        private static void AddXsdFiles(DiasPackageWorkingDirectory diasPackageWorkingDirectory)
         {
-            workingDirectory.Root().AddFileFromResources(DiasMetsXsdResource, DiasMetsXsdFileName);
+            diasPackageWorkingDirectory.Root().AddFileFromResources(DiasMetsXsdResource, DiasMetsXsdFileName);
 
-            workingDirectory.AdministrativeMetadata()
+            diasPackageWorkingDirectory.AdministrativeMetadata()
                 .AddFileFromResources(DiasPremisXsdResource, DiasPremisXsdFileName);
 
         }

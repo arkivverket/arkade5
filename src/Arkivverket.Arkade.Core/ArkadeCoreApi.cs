@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -10,8 +10,6 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
-using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
-using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core;
@@ -33,63 +31,54 @@ public class ArkadeCoreApi(
 
         ArchiveInformationEvent(archiveSource.FullName, archiveType);
 
-        WorkingDirectory workingDirectory;
         ArkadeDirectory content;
 
         if (archiveType == ArchiveType.Siard && archiveSource is FileInfo { Exists: true, Extension: ".siard" } siardFile)
         {
-            workingDirectory = WorkingDirectory.FromArchiveFile();
-
-           // CopySiardFilesToContentDirectory(siardFile, workingDirectory.Content().ToString());
+            // CopySiardFilesToContentDirectory(siardFile, workingDirectory.Content().ToString());
 
            throw new NotImplementedException();
         }
         else if (archiveSource is DirectoryInfo { Exists: true } directory)
         {
             content = new ArkadeDirectory(directory);
-            
-            workingDirectory = WorkingDirectory.FromExternalDirectory(directory);
         }
         else
         {
             throw new ArkadeException(""); // TODO: ...
         }
 
-        
-
-        
-        
-        return new Archive(archiveType, workingDirectory, content, statusEventHandler);
+        return new Archive(archiveType, content, statusEventHandler);
     }
 
-    public InputDiasPackage LoadDiasPackage(FileInfo diasPackage, ArchiveType archiveType)
+    public InputDiasPackage LoadDiasPackage(FileInfo diasPackageFile, ArchiveType archiveType, DirectoryInfo archiveProcessingDirectory)
     {
-        Log.Debug($"Loading Dias Package [file: {diasPackage.FullName}] [archiveType: {archiveType}]");
+        Log.Debug($"Loading Dias Package [file: {diasPackageFile.FullName}] [archiveType: {archiveType}]");
 
-        Uuid.TryParse(Path.GetFileNameWithoutExtension(diasPackage.Name), out Uuid inputDiasPackageId); // NB! UUID-orig
+        Uuid.TryParse(Path.GetFileNameWithoutExtension(diasPackageFile.Name), out Uuid inputDiasPackageId); // NB! UUID-orig
 
-        ArchiveInformationEvent(diasPackage.FullName, archiveType, inputDiasPackageId);
+        ArchiveInformationEvent(diasPackageFile.FullName, archiveType, inputDiasPackageId);
 
-        ArchiveProcessing archiveProcessing = null; // TODO: Provide
-
-        var workingDirectory = new WorkingDirectory(archiveProcessing.ProcessingDirectory);
         
-        //else
-        {
-            //TarExtractionStartedEvent();
-            compressionUtility.ExtractFolderFromArchive(diasPackage, workingDirectory.Root().DirectoryInfo(),
-                withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: inputDiasPackageId?.ToString());
-            //TarExtractionFinishedEvent(workingDirectory);
-        }
 
         ArkadeDirectory content = null; // TODO Get ...
 
-        var archive = new Archive(archiveType, workingDirectory, content, statusEventHandler, diasPackage.FullName);
+        var archive = new Archive(archiveType, content, statusEventHandler, diasPackageFile.FullName);
 
         const PackageType packageType = PackageType.ArchivalInformationPackage; // Get ..
         var archiveMetadata = new ArchiveMetadata(); // Get ..
 
-        return new InputDiasPackage(inputDiasPackageId, packageType, archive, archiveMetadata);
+        var inputDiasPackage = new InputDiasPackage(inputDiasPackageId, packageType, archive, archiveMetadata, archiveProcessingDirectory);
+
+        //else
+        {
+            //TarExtractionStartedEvent();
+            compressionUtility.ExtractFolderFromArchive(diasPackageFile, inputDiasPackage.WorkingDirectory.Root().DirectoryInfo(),
+                withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: inputDiasPackageId?.ToString());
+            //TarExtractionFinishedEvent(workingDirectory);
+        }
+        
+        return inputDiasPackage;
     }
 
     public TestSession CreateTestSession(Archive archive)

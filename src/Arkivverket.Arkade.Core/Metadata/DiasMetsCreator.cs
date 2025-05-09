@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             Archive archive = diasPackage.Archive;
             ArchiveMetadata metadata = diasPackage.ArchiveMetadata;
 
-            DirectoryInfo rootDirectory = diasPackage.Archive.WorkingDirectory.Root().DirectoryInfo();
+            DirectoryInfo rootDirectory = diasPackage.Archive.DiasPackageWorkingDirectory.Root().DirectoryInfo();
 
             if (rootDirectory.Exists)
             {
@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                 metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip: filesToSkip, directoriesToSkip: directoriesToSkip);
             }
 
-            if (archive.WorkingDirectory.HasExternalContentDirectory())
+            if (archive.DiasPackageWorkingDirectory.HasExternalContentDirectory())
             {
                 DirectoryInfo externalContentDirectory = archive.Content.DirectoryInfo();
 
@@ -74,7 +74,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             mets mets = Create(metadata);
 
-            FileInfo targetFileName = archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
+            FileInfo targetFileName = archive.DiasPackageWorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
 
             XmlSerializerNamespaces namespaces = SetupNamespaces();
 
