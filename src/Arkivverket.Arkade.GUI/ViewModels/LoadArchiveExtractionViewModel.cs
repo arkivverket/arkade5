@@ -87,20 +87,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void LoadSelectedArchiveInput()
         {
+            _archiveProcessing = new ArchiveProcessing();
+
             var archiveType = (ArchiveType)ArchiveType;
 
             if (_archiveSource is FileInfo { Extension: ".tar" } tarFile)
-            {
-                InputDiasPackage diasPackage = _arkadeCoreApi.LoadDiasPackage(tarFile, archiveType);
-
-                _archiveProcessing = new ArchiveProcessing(diasPackage);
-            }
+                _archiveProcessing.InputDiasPackage =
+                    _arkadeCoreApi.LoadDiasPackage(tarFile, archiveType, _archiveProcessing.ProcessingDirectory);
             else
-            {
-                Archive archive = _arkadeCoreApi.LoadArchiveExtraction(_archiveSource, archiveType);
-                
-                _archiveProcessing = new ArchiveProcessing(archive);
-            }
+                _archiveProcessing.Archive = _arkadeCoreApi.LoadArchiveExtraction(_archiveSource, archiveType);
 
             if(NavigateToTestRunnerCommand.CanExecute())
                 NavigateToTestRunnerCommand.Execute();

@@ -7,18 +7,18 @@ using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base
 {
-    public class WorkingDirectory
+    public class DiasPackageWorkingDirectory
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly ArkadeDirectory _root;
         private readonly ArkadeDirectory _externalContentDirectory;
 
-        public WorkingDirectory(DirectoryInfo root)
+        public DiasPackageWorkingDirectory(DirectoryInfo root)
         {
             _root = new ArkadeDirectory(root);
         }
-        public WorkingDirectory(DirectoryInfo root, DirectoryInfo externalContentDirectory)
+        public DiasPackageWorkingDirectory(DirectoryInfo root, DirectoryInfo externalContentDirectory)
         {
             _root = new ArkadeDirectory(root);
             if (externalContentDirectory != null)
@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        public static WorkingDirectory FromArchiveFile()
+        public static DiasPackageWorkingDirectory FromArchiveFile()
         {
             return FromExternalDirectory(null);
         }
@@ -38,7 +38,7 @@ namespace Arkivverket.Arkade.Core.Base
         /// </summary>
         /// <param name="externalContentDirectory">optional external content directory</param>
         /// <returns></returns>
-        internal static WorkingDirectory FromExternalDirectory(DirectoryInfo externalContentDirectory)
+        internal static DiasPackageWorkingDirectory FromExternalDirectory(DirectoryInfo externalContentDirectory)
         {
             if (ArkadeProcessingArea.WorkDirectory == null)
                 throw new IOException(Resources.ExceptionMessages.ArkadeProcessAreaNotSet);
@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Base
                 Path.Combine(ArkadeProcessingArea.WorkDirectory.FullName, dateString)
             );
 
-            var workingDirectory = new WorkingDirectory(rootDirectory, externalContentDirectory);
+            var workingDirectory = new DiasPackageWorkingDirectory(rootDirectory, externalContentDirectory);
             workingDirectory.CreateAllFolders();
             return workingDirectory;
         }

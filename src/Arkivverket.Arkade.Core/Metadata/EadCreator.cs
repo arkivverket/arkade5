@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             var namespaces = new XmlSerializerNamespaces();
             namespaces.Add("", "http://ead3.archivists.org/schema/"); // use blank in namespace prefix to create files without prefixed elements
             namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            FileInfo targetFileName = diasPackage.Archive.WorkingDirectory.DescriptiveMetadata().WithFile(ArkadeConstants.EadXmlFileName);
+            FileInfo targetFileName = diasPackage.Archive.DiasPackageWorkingDirectory.DescriptiveMetadata().WithFile(ArkadeConstants.EadXmlFileName);
             SerializeUtil.SerializeToFile(ead, targetFileName, namespaces);
 
             Log.Debug($"Created {ArkadeConstants.EadXmlFileName}");

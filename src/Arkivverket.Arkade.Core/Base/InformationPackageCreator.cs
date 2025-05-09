@@ -82,10 +82,10 @@ namespace Arkivverket.Arkade.Core.Base
             CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
-                diasPackage, archive.WorkingDirectory.Root().DirectoryInfo(), diasPackage.PackageType, tarArchive, packageRootDirectory
+                diasPackage, archive.DiasPackageWorkingDirectory.Root().DirectoryInfo(), diasPackage.PackageType, tarArchive, packageRootDirectory
             );
 
-            if (archive.WorkingDirectory.HasExternalContentDirectory())
+            if (archive.DiasPackageWorkingDirectory.HasExternalContentDirectory())
             {
                 Log.Debug($"Archive has external content directory, including files from {archive.Content}");
 
@@ -104,7 +104,7 @@ namespace Arkivverket.Arkade.Core.Base
             tarArchive.Close();
 
             var diasMetsFilePath = Path.Combine(
-                archive.WorkingDirectory.Root().DirectoryInfo().FullName,
+                archive.DiasPackageWorkingDirectory.Root().DirectoryInfo().FullName,
                 ArkadeConstants.DiasMetsXmlFileName
             );
 
@@ -145,7 +145,7 @@ namespace Arkivverket.Arkade.Core.Base
         private static void EnsureSufficientDiskSpace(Archive archive, string outputDirectory)
         {
             long driveSpace = SystemInfo.GetAvailableDiskSpaceInBytes(outputDirectory);
-            long packageSize = archive.WorkingDirectory.GetSize();
+            long packageSize = archive.DiasPackageWorkingDirectory.GetSize();
 
             if (packageSize > driveSpace)
             {

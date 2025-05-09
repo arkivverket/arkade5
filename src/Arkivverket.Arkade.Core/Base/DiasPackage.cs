@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace Arkivverket.Arkade.Core.Base;
 
 public abstract class DiasPackage
@@ -6,9 +8,9 @@ public abstract class DiasPackage
     public PackageType PackageType { get; }
     public Archive Archive { get; }
     public ArchiveMetadata ArchiveMetadata { get; }
-    public WorkingDirectory WorkingDirectory { get; set; }
+    public DiasPackageWorkingDirectory WorkingDirectory { get; }
 
-    protected DiasPackage(Uuid id, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata)
+    protected DiasPackage(Uuid id, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata, DirectoryInfo archiveProcessingDirectory)
     {
         Id = id;
         PackageType = packageType;
@@ -17,11 +19,12 @@ public abstract class DiasPackage
         archiveMetadata.Id = $"UUID:{Id}"; // NB! UUID-writeout (package creation)
         archiveMetadata.PackageType = packageType;
         ArchiveMetadata = archiveMetadata;
+        WorkingDirectory = new DiasPackageWorkingDirectory(archiveProcessingDirectory);
     }
 }
 
-public class InputDiasPackage(Uuid id, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata)
-    : DiasPackage(id, packageType, archive, archiveMetadata);
+public class InputDiasPackage(Uuid id, PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata, DirectoryInfo archiveProcessingDirectory)
+    : DiasPackage(id, packageType, archive, archiveMetadata, archiveProcessingDirectory);
 
-public class OutputDiasPackage(PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata)
-    : DiasPackage(Uuid.Random(), packageType, archive, archiveMetadata);
+public class OutputDiasPackage(PackageType packageType, Archive archive, ArchiveMetadata archiveMetadata, DirectoryInfo archiveProcessingDirectory)
+    : DiasPackage(Uuid.Random(), packageType, archive, archiveMetadata, archiveProcessingDirectory);
