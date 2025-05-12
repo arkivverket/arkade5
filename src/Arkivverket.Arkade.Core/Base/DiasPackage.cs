@@ -1,4 +1,5 @@
 using System.IO;
+using Arkivverket.Arkade.Core.ExternalModels.Noark5;
 
 namespace Arkivverket.Arkade.Core.Base;
 
@@ -19,7 +20,9 @@ public abstract class DiasPackage
         archiveMetadata.Id = $"UUID:{Id}"; // NB! UUID-writeout (package creation)
         archiveMetadata.PackageType = packageType;
         ArchiveMetadata = archiveMetadata;
-        WorkingDirectory = new DiasPackageWorkingDirectory(archiveProcessingDirectory);
+        
+        DirectoryInfo workingDirectoryRoot = archiveProcessingDirectory.CreateSubdirectory(id.GetValue());
+        WorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
     }
 }
 

@@ -1,6 +1,7 @@
 using System.IO;
 using System;
 using System.Text;
+using Arkivverket.Arkade.Core.Base;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
 
@@ -19,13 +20,17 @@ namespace Arkivverket.Arkade.Core.Util
             using (var inputStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read))
             {
                 DirectoryInfo singleRootDirectory = GetSingleRootDirectory(inputStream);
+
+                if (singleRootDirectory.Name != targetDirectory.Name)
+                    throw new ArkadeException("Unexpected tar-file root directory name");
+
                 inputStream.Position = 0; // Needs resetting after GetSingleRootDirectory()
 
                 var tarInputStream = new TarInputStream(inputStream, Encoding.UTF8);
 
                 while (tarInputStream.GetNextEntry() is { } tarEntry)
                 {
-                    if (withoutDocumentFiles && tarEntry.IsNoark5DocumentsEntry(archiveRootDirectoryName))
+                    if (withoutDocumentFiles && tarEntry.IsNoark5DocumentsEntry(singleRootDirectory.Name)) // Hvorfor er ikke singleRootDirectory.Name her brukt tidligere?
                         continue;
 
                     if (tarEntry.IsDirectory)
