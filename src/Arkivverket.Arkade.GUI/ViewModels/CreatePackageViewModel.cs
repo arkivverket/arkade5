@@ -489,7 +489,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             };
 
             var informationPackage = new OutputDiasPackage(packageType, _archive, archiveMetadata, _archiveProcessing.ProcessingDirectory); // NB! UUID-origin
-            
+
             ArkadeProcessingState.PackingIsStarted = true;
             MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
             

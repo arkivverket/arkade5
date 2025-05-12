@@ -55,29 +55,29 @@ public class ArkadeCoreApi(
     {
         Log.Debug($"Loading Dias Package [file: {diasPackageFile.FullName}] [archiveType: {archiveType}]");
 
-        Uuid.TryParse(Path.GetFileNameWithoutExtension(diasPackageFile.Name), out Uuid inputDiasPackageId); // NB! UUID-orig
-
+        if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(diasPackageFile.Name), out Uuid inputDiasPackageId)) // NB! UUID-orig
+            throw new ArkadeException("Could not extract an UUID from filename: " + diasPackageFile.Name);
+        
         ArchiveInformationEvent(diasPackageFile.FullName, archiveType, inputDiasPackageId);
 
-        
+        var diasPackageWorkingDirectory = new ArkadeDirectory(archiveProcessingDirectory.CreateSubdirectory(inputDiasPackageId.ToString()));
 
-        ArkadeDirectory content = null; // TODO Get ...
+        //TarExtractionStartedEvent();
+        compressionUtility.ExtractFolderFromArchive(diasPackageFile, diasPackageWorkingDirectory.DirectoryInfo(),
+            withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: inputDiasPackageId.ToString());
+        //TarExtractionFinishedEvent(workingDirectory);
 
-        var archive = new Archive(archiveType, content, statusEventHandler, diasPackageFile.FullName);
+        // Archive trenger content og content trenger InputDiasPackage sin workingDirectory men InputDiasPackage trenger archive ...
+
+        ArkadeDirectory contentDirectory = diasPackageWorkingDirectory.WithSubDirectory(ArkadeConstants.DirectoryNameContent);
+
+        var archive = new Archive(archiveType, contentDirectory, statusEventHandler, diasPackageFile.FullName);
 
         const PackageType packageType = PackageType.ArchivalInformationPackage; // Get ..
         var archiveMetadata = new ArchiveMetadata(); // Get ..
-
+        
         var inputDiasPackage = new InputDiasPackage(inputDiasPackageId, packageType, archive, archiveMetadata, archiveProcessingDirectory);
 
-        //else
-        {
-            //TarExtractionStartedEvent();
-            compressionUtility.ExtractFolderFromArchive(diasPackageFile, inputDiasPackage.WorkingDirectory.Root().DirectoryInfo(),
-                withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: inputDiasPackageId?.ToString());
-            //TarExtractionFinishedEvent(workingDirectory);
-        }
-        
         return inputDiasPackage;
     }
 
