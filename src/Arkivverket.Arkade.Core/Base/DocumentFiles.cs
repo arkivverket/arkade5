@@ -153,7 +153,7 @@ namespace Arkivverket.Arkade.Core.Base
                     FullName = entry.Name,
                     Extension = Path.GetExtension(entry.Name),
                     Size = entry.Size,
-                    ModifiedTime = entry.ModTime,
+                    ModifiedTime = entry.ModTime.ToLocalTime(),
                     CheckSum = checkSum
                 };
 
