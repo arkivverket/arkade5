@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Test and package tool for archive data")]
 [assembly: AssemblyCompany("Arkivverket")]
 [assembly: AssemblyProduct("Arkade 5")]
-[assembly: AssemblyCopyright("Copyright © 2016-2024")]
+[assembly: AssemblyCopyright("Copyright © 2016-2025")]
 
 [assembly: InternalsVisibleTo("Arkivverket.Arkade.Core.Test")]
 

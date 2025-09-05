@@ -74,9 +74,9 @@ namespace Arkivverket.Arkade.Core.Util
         public static readonly string[] DocumentDirectoryNames =
             { "dokumenter", "DOKUMENTER", "dokument", "DOKUMENT" };
 
-        public const string SiegfriedLinuxExecutable = "siegfried_1-11-0_linux64";
-        public const string SiegfriedMacOSXExecutable = "siegfried_1-11-0_mac64";
-        public const string SiegfriedWindowsExecutable = "siegfried_1-11-0_win64.exe";
+        public const string SiegfriedLinuxExecutable = "siegfried_1-11-1_linux64";
+        public const string SiegfriedMacOSXExecutable = "siegfried_1-11-1_mac64";
+        public const string SiegfriedWindowsExecutable = "siegfried_1-11-1_win64.exe";
 
         public const string MetadataStandardLabelPlaceholder = "[standard_label]";
         public const string MetsHdrAgentMetaNoteKeyWord = "notescontent:";

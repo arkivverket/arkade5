@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Report
 
             var pdfADocument = new PdfADocument(
                 new PdfWriter(stream),
-                PdfAConformanceLevel.PDF_A_1B,
+                PdfAConformance.PDF_A_1B,
                 new PdfOutputIntent(
                     "Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                     ResourceUtil.GetResourceAsStream("Arkivverket.Arkade.Core.Resources.sRGB_CS_profile.icm")

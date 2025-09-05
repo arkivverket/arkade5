@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -114,16 +114,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="8.1.0" />
+    <PackageReference Include="Autofac" Version="8.4.0" />
     <PackageReference Include="Codeuctivity.PdfAValidator" Version="3.0.208" />
-    <PackageReference Include="CsvHelper" Version="33.0.1" />
-    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.5" />
-    <PackageReference Include="itext7.pdfhtml" Version="5.0.5" />
+    <PackageReference Include="CsvHelper" Version="33.1.0" />
+    <PackageReference Include="itext.bouncy-castle-adapter" Version="9.3.0" />
+    <PackageReference Include="itext.pdfhtml" Version="6.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RestSharp" Version="112.0.0" />
-    <PackageReference Include="Serilog" Version="4.0.1" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
+    <PackageReference Include="Serilog" Version="4.3.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
-    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
     <PackageReference Include="XPath2" Version="1.1.5" />
   </ItemGroup>
@@ -284,13 +284,13 @@
     <None Update="ThirdPartySoftware\Siegfried\LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-0_win64.exe">
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-1_win64.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-0_linux64">
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-1_linux64">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-0_mac64">
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-1_mac64">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
