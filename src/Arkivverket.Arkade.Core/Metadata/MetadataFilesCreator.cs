@@ -21,8 +21,10 @@ namespace Arkivverket.Arkade.Core.Metadata
             _eacCpfCreator = eacCpfCreator;
         }
 
-        public void Create(OutputDiasPackage outputDiasPackage)
+        public void Create(Archive archive)
         {
+            OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
+
             _diasPremisCreator.CreateAndSaveFile(outputDiasPackage);
             _logCreator.CreateAndSaveFile(outputDiasPackage);
             // EAD is not included in v1.0
@@ -30,10 +32,10 @@ namespace Arkivverket.Arkade.Core.Metadata
             // EAC-CPF is not included in v1.0
             _eacCpfCreator.CreateAndSaveFile(outputDiasPackage);
 
-            AddXsdFiles(outputDiasPackage.Archive.DiasPackageWorkingDirectory);
+            AddXsdFiles(outputDiasPackage.WorkingDirectory);
 
             // Generate mets-file last for it to describe all other package content
-            _diasMetsCreator.CreateAndSaveFile(outputDiasPackage);
+            _diasMetsCreator.CreateAndSaveFile(archive);
         }
 
         private static void AddXsdFiles(DiasPackageWorkingDirectory diasPackageWorkingDirectory)

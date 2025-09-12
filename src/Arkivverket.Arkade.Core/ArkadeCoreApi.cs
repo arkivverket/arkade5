@@ -21,7 +21,8 @@ public class ArkadeCoreApi(
     InformationPackageCreator informationPackageCreator,
     SiardMetadataFileHelper siardMetadataFileHelper,
     ICompressionUtility compressionUtility,
-    IStatusEventHandler statusEventHandler)
+    IStatusEventHandler statusEventHandler,
+    ArkadeApi arkadeApi)
 {
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
@@ -51,7 +52,7 @@ public class ArkadeCoreApi(
         return new Archive(archiveType, content, statusEventHandler);
     }
 
-    public InputDiasPackage LoadDiasPackage(FileInfo diasPackageFile, ArchiveType archiveType, DirectoryInfo archiveProcessingDirectory)
+    public Archive LoadArchiveAsDiasPackage(FileInfo diasPackageFile, ArchiveType archiveType, DirectoryInfo archiveProcessingDirectory)
     {
         Log.Debug($"Loading Dias Package [file: {diasPackageFile.FullName}] [archiveType: {archiveType}]");
 
@@ -76,9 +77,9 @@ public class ArkadeCoreApi(
         const PackageType packageType = PackageType.ArchivalInformationPackage; // Get ..
         var archiveMetadata = new ArchiveMetadata(); // Get ..
         
-        var inputDiasPackage = new InputDiasPackage(inputDiasPackageId, packageType, archive, archiveMetadata, archiveProcessingDirectory);
-
-        return inputDiasPackage;
+        archive.InputDiasPackage = new InputDiasPackage(inputDiasPackageId, packageType, archiveMetadata, archiveProcessingDirectory);
+        
+        return archive;
     }
 
     public TestSession CreateTestSession(Archive archive)
@@ -86,47 +87,44 @@ public class ArkadeCoreApi(
         return testSessionFactory.NewSession(archive);
     }
 
-    public string CreatePackage(OutputDiasPackage diasPackage, SupportedLanguage language, bool generateFileFormatInfo, string outputDirectory)
+    public string CreatePackage(Archive archive, SupportedLanguage language, bool generateFileFormatInfo, string outputDirectory)
     {
-        string packageType = diasPackage.PackageType.Equals(PackageType.SubmissionInformationPackage)
+        string packageTypeAbbreviation = archive.OutputDiasPackage.PackageType.Equals(PackageType.SubmissionInformationPackage)
             ? "SIP"
             : "AIP";
 
-        Log.Information($"Creating {packageType}.");
+        Log.Information($"Creating {packageTypeAbbreviation}.");
 
         LanguageManager.SetResourceLanguageForPackageCreation(language);
 
         if (generateFileFormatInfo)
         {
-          // GenerateFileFormatInfoFiles(diasPackage.Archive);
+          arkadeApi.GenerateFileFormatInfoFiles(archive); // TODO: Integrate in ArkadeCoreApi
         }
 
-        if (diasPackage.Archive.ArchiveType is ArchiveType.Siard)
+        if (archive.ArchiveType is ArchiveType.Siard)
         {
-            siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(diasPackage.Archive);
+            siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(archive);
         }
 
-        // Delete any existing dias-mets.xml extracted from input tar-file
-        //diasPackage.Archive.Content.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
-
-        metadataFilesCreator.Create(diasPackage);
+        metadataFilesCreator.Create(archive);
 
         string packageFilePath;
 
-        if (diasPackage.PackageType == PackageType.SubmissionInformationPackage)
+        if (archive.OutputDiasPackage.PackageType == PackageType.SubmissionInformationPackage)
         {
             packageFilePath = informationPackageCreator.CreateSip(
-                diasPackage, outputDirectory
+                archive, outputDirectory
             );
         }
         else // ArchivalInformationPackage
         {
             packageFilePath = informationPackageCreator.CreateAip(
-                diasPackage, outputDirectory
+                archive, outputDirectory
             );
         }
 
-        Log.Information($"{packageType} created at: {packageFilePath}");
+        Log.Information($"{packageTypeAbbreviation} created at: {packageFilePath}");
 
         return packageFilePath;
     }

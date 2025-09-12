@@ -33,9 +33,9 @@ namespace Arkivverket.Arkade.Core.Base
         /// Package- and metafile are written to the given output directory
         /// The full path of the created package is returned
         /// </summary>
-        public string CreateSip(OutputDiasPackage diasPackage, string outputDirectory)
+        public string CreateSip(Archive archive, string outputDirectory)
         {
-            string packageFilePath = CreatePackage(diasPackage, outputDirectory);
+            string packageFilePath = CreatePackage(archive, outputDirectory);
 
             return packageFilePath;
         }
@@ -45,47 +45,47 @@ namespace Arkivverket.Arkade.Core.Base
         /// Package- and metafile are written to the given output directory
         /// The full path of the created package is returned
         /// </summary>
-        public string CreateAip(OutputDiasPackage diasPackage, string outputDirectory)
+        public string CreateAip(Archive archive, string outputDirectory)
         {
-            string packageFilePath = CreatePackage(diasPackage, outputDirectory);
+            string packageFilePath = CreatePackage(archive, outputDirectory);
 
             return packageFilePath;
         }
 
-        private string CreatePackage(OutputDiasPackage diasPackage, string outputDirectory)
+        private string CreatePackage(Archive archive, string outputDirectory)
         {
-            Archive archive = diasPackage.Archive;
-            
+            OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
+
             try
             {
-                EnsureSufficientDiskSpace(archive, outputDirectory);
+                EnsureSufficientDiskSpace(outputDiasPackage, outputDirectory);
             }
             catch
             {
                 Log.Warning("Could not verify sufficient disk space at package destination.");
             }
 
-            string resultDirectory = CreateResultDirectory(diasPackage.Id, outputDirectory);
+            string resultDirectory = CreateResultDirectory(outputDiasPackage.Id, outputDirectory);
 
-            if (diasPackage.PackageType == PackageType.SubmissionInformationPackage)
+            if (outputDiasPackage.PackageType == PackageType.SubmissionInformationPackage)
             {
-                CopyTestReportsToStandaloneDirectory(diasPackage, resultDirectory);
+                CopyTestReportsToStandaloneDirectory(outputDiasPackage, resultDirectory);
             }
 
-            string packageFilePath = Path.Combine(resultDirectory, diasPackage.Id + ".tar"); // NB! UUID-writeout (package creation)
+            string packageFilePath = Path.Combine(resultDirectory, outputDiasPackage.Id + ".tar"); // NB! UUID-writeout (package creation)
 
             using Stream outStream = File.Create(packageFilePath);
             using var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);
             using var tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
 
-            string packageRootDirectory = diasPackage.Id.GetValue() + Path.DirectorySeparatorChar; // NB! UUID-writeout (package creation)
+            string packageRootDirectory = outputDiasPackage.Id.GetValue() + Path.DirectorySeparatorChar; // NB! UUID-writeout (package creation)
             CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
-                diasPackage, archive.DiasPackageWorkingDirectory.Root().DirectoryInfo(), diasPackage.PackageType, tarArchive, packageRootDirectory
+                outputDiasPackage, outputDiasPackage.WorkingDirectory.Root().DirectoryInfo(), outputDiasPackage.PackageType, tarArchive, packageRootDirectory
             );
 
-            if (archive.DiasPackageWorkingDirectory.HasExternalContentDirectory())
+            if (outputDiasPackage.WorkingDirectory.HasExternalContentDirectory())
             {
                 Log.Debug($"Archive has external content directory, including files from {archive.Content}");
 
@@ -94,7 +94,7 @@ namespace Arkivverket.Arkade.Core.Base
                                           Path.DirectorySeparatorChar;
 
                 AddFilesInDirectory(
-                    diasPackage, archive.Content.DirectoryInfo(), null, tarArchive, contentDirectory
+                    outputDiasPackage, archive.Content.DirectoryInfo(), null, tarArchive, contentDirectory
                 );
             }
 
@@ -104,12 +104,12 @@ namespace Arkivverket.Arkade.Core.Base
             tarArchive.Close();
 
             var diasMetsFilePath = Path.Combine(
-                archive.DiasPackageWorkingDirectory.Root().DirectoryInfo().FullName,
+                archive.OutputDiasPackage.WorkingDirectory.Root().DirectoryInfo().FullName,
                 ArkadeConstants.DiasMetsXmlFileName
             );
 
-            new SubmissionDescriptionCreator().CreateAndSaveFile(diasPackage.ArchiveMetadata, packageFilePath, diasMetsFilePath,
-                diasPackage.Id + ".xml"); // NB! UUID-writeout (package creation)
+            new SubmissionDescriptionCreator().CreateAndSaveFile(outputDiasPackage.ArchiveMetadata, packageFilePath, diasMetsFilePath,
+                outputDiasPackage.Id + ".xml"); // NB! UUID-writeout (package creation)
 
             return packageFilePath;
         }
@@ -142,10 +142,10 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        private static void EnsureSufficientDiskSpace(Archive archive, string outputDirectory)
+        private static void EnsureSufficientDiskSpace(DiasPackage diasPackage, string outputDirectory)
         {
             long driveSpace = SystemInfo.GetAvailableDiskSpaceInBytes(outputDirectory);
-            long packageSize = archive.DiasPackageWorkingDirectory.GetSize();
+            long packageSize = diasPackage.WorkingDirectory.GetSize();
 
             if (packageSize > driveSpace)
             {

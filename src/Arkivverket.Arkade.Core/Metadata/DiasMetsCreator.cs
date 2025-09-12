@@ -16,27 +16,28 @@ namespace Arkivverket.Arkade.Core.Metadata
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public void CreateAndSaveFile(OutputDiasPackage diasPackage)
+        public void CreateAndSaveFile(Archive archive)
         {
-            Archive archive = diasPackage.Archive;
-            ArchiveMetadata metadata = diasPackage.ArchiveMetadata;
+            OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
 
-            DirectoryInfo rootDirectory = diasPackage.Archive.DiasPackageWorkingDirectory.Root().DirectoryInfo();
+            ArchiveMetadata metadata = outputDiasPackage.ArchiveMetadata;
+
+            DirectoryInfo rootDirectory = outputDiasPackage.WorkingDirectory.Root().DirectoryInfo();
 
             if (rootDirectory.Exists)
             {
-                string[] filesToSkip = diasPackage.PackageType == PackageType.SubmissionInformationPackage
+                string[] filesToSkip = outputDiasPackage.PackageType == PackageType.SubmissionInformationPackage
                     ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
                     : null;
 
-                string[] directoriesToSkip = diasPackage.PackageType == PackageType.SubmissionInformationPackage
+                string[] directoriesToSkip = outputDiasPackage.PackageType == PackageType.SubmissionInformationPackage
                     ? new[] { ArkadeConstants.DirectoryNameRepositoryOperations }
                     : null;
 
                 metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip: filesToSkip, directoriesToSkip: directoriesToSkip);
             }
 
-            if (archive.DiasPackageWorkingDirectory.HasExternalContentDirectory())
+            if (outputDiasPackage.WorkingDirectory.HasExternalContentDirectory())
             {
                 DirectoryInfo externalContentDirectory = archive.Content.DirectoryInfo();
 
@@ -74,7 +75,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             mets mets = Create(metadata);
 
-            FileInfo targetFileName = archive.DiasPackageWorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
+            FileInfo targetFileName = outputDiasPackage.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
 
             XmlSerializerNamespaces namespaces = SetupNamespaces();
 

@@ -50,9 +50,9 @@ namespace Arkivverket.Arkade.Core.Base
             return _arkadeCoreApi.LoadArchiveExtraction(archiveSource, archiveType);
         }
 
-        public InputDiasPackage LoadDiasPackage(FileInfo diasPackage, ArchiveType archiveType, DirectoryInfo archiveProcessingDirectory)
+        public Archive LoadArchiveAsDiasPackage(FileInfo diasPackage, ArchiveType archiveType, DirectoryInfo archiveProcessingDirectory)
         {
-            return _arkadeCoreApi.LoadDiasPackage(diasPackage, archiveType, archiveProcessingDirectory);
+            return _arkadeCoreApi.LoadArchiveAsDiasPackage(diasPackage, archiveType, archiveProcessingDirectory);
         }
 
         //public TestSession CreateTestSession(ArchiveDirectory archiveDirectory)
@@ -85,9 +85,9 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeApi.RunTests(testSession);
         }
 
-        public void CreatePackage(OutputDiasPackage outputDiasPackage, string outputDirectory)
+        public void CreatePackage(Archive archive, SupportedLanguage language, bool generateFileFormatInfo, string outputDirectory)
         {
-            _arkadeApi.CreatePackage(outputDiasPackage, outputDirectory);
+            _arkadeCoreApi.CreatePackage(archive, language, generateFileFormatInfo, outputDirectory);
         }
 
         public void SaveReport(TestSession testSession, DirectoryInfo directory, bool standalone, 

@@ -16,27 +16,27 @@ public class ArchiveProcessing()
         }
     }
 
-    public InputDiasPackage InputDiasPackage
-    {
-        get => _inputDiasPackage;
-        set
-        {
-            PreventDifferentArchiveInstances(value.Archive);
-            _archive = value.Archive;
-            _inputDiasPackage = value;
-        }
-    }
+    //public InputDiasPackage InputDiasPackage
+    //{
+    //    get => _inputDiasPackage;
+    //    set
+    //    {
+    //        PreventDifferentArchiveInstances(value.Archive);
+    //        _archive = value.Archive;
+    //        _inputDiasPackage = value;
+    //    }
+    //}
 
-    public OutputDiasPackage OutputDiasPackage
-    {
-        get => _outputDiasPackage;
-        set
-        {
-            PreventDifferentArchiveInstances(value.Archive);
-            _archive = value.Archive;
-            _outputDiasPackage = value;
-        }
-    }
+    //public OutputDiasPackage OutputDiasPackage
+    //{
+    //    get => _outputDiasPackage;
+    //    set
+    //    {
+    //        PreventDifferentArchiveInstances(value.Archive);
+    //        _archive = value.Archive;
+    //        _outputDiasPackage = value;
+    //    }
+    //}
 
     public TestSession TestSession
     {
@@ -52,8 +52,8 @@ public class ArchiveProcessing()
     public DirectoryInfo ProcessingDirectory => _processingDirectory ?? CreateProcessingDirectory();
 
     private Archive _archive;
-    private InputDiasPackage _inputDiasPackage;
-    private OutputDiasPackage _outputDiasPackage;
+    //private InputDiasPackage _inputDiasPackage;
+    //private OutputDiasPackage _outputDiasPackage;
     private TestSession _testSession;
     private DirectoryInfo _processingDirectory;
 

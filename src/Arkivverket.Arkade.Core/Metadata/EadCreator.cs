@@ -20,14 +20,14 @@ namespace Arkivverket.Arkade.Core.Metadata
             };
         }
 
-        public void CreateAndSaveFile(OutputDiasPackage diasPackage)
+        public void CreateAndSaveFile(OutputDiasPackage outputDiasPackage)
         {
-            ead ead = Create(diasPackage.Id);
+            ead ead = Create(outputDiasPackage.Id);
 
             var namespaces = new XmlSerializerNamespaces();
             namespaces.Add("", "http://ead3.archivists.org/schema/"); // use blank in namespace prefix to create files without prefixed elements
             namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            FileInfo targetFileName = diasPackage.Archive.DiasPackageWorkingDirectory.DescriptiveMetadata().WithFile(ArkadeConstants.EadXmlFileName);
+            FileInfo targetFileName = outputDiasPackage.WorkingDirectory.DescriptiveMetadata().WithFile(ArkadeConstants.EadXmlFileName);
             SerializeUtil.SerializeToFile(ead, targetFileName, namespaces);
 
             Log.Debug($"Created {ArkadeConstants.EadXmlFileName}");

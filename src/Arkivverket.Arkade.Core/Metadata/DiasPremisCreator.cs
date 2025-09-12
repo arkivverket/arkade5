@@ -52,15 +52,15 @@ namespace Arkivverket.Arkade.Core.Metadata
             };
         }
 
-        public void CreateAndSaveFile(OutputDiasPackage diasPackage)
+        public void CreateAndSaveFile(OutputDiasPackage outputDiasPackage)
         {
-            premisComplexType premis = Create(diasPackage.Id);
+            premisComplexType premis = Create(outputDiasPackage.Id);
 
             var namespaces = new XmlSerializerNamespaces();
             namespaces.Add("premis", "http://arkivverket.no/standarder/PREMIS");
             namespaces.Add("xlink", "http://www.w3.org/1999/xlink");
             namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            FileInfo targetFileName = diasPackage.Archive.DiasPackageWorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.DiasPremisXmlFileName);
+            FileInfo targetFileName = outputDiasPackage.WorkingDirectory.AdministrativeMetadata().WithFile(ArkadeConstants.DiasPremisXmlFileName);
             SerializeUtil.SerializeToFile(premis, targetFileName, namespaces);
 
             Log.Debug($"Created {ArkadeConstants.DiasPremisXmlFileName}");

@@ -323,9 +323,9 @@ namespace Arkivverket.Arkade.CLI
         {
             ArchiveProcessing archiveProcessing = null; // TODO: Provide
 
-            var outputDiasPackage = new OutputDiasPackage(InformationPackageCreator.ParsePackageType(packageType), archive, MetadataLoader.Load(metadataFile), archiveProcessing.ProcessingDirectory);
+            archive.OutputDiasPackage = new OutputDiasPackage(InformationPackageCreator.ParsePackageType(packageType), MetadataLoader.Load(metadataFile), archiveProcessing.ProcessingDirectory);
 
-            Arkade.CreatePackage(outputDiasPackage, outputDirectory); //, workingDirectory);
+            Arkade.CreatePackage(archive, outputLanguage, generateFileFormatInfo, outputDirectory); //, workingDirectory);
 
             return true;
         }

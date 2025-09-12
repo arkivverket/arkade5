@@ -27,7 +27,8 @@ namespace Arkivverket.Arkade.Core.Base
         public bool IsNoark5TarArchive => ArchiveFileFullName != null && ArchiveType is ArchiveType.Noark5;
 
         public ArkadeDirectory Content { get; }
-        public DiasPackageWorkingDirectory DiasPackageWorkingDirectory { get; }
+        public InputDiasPackage InputDiasPackage { get; set; }
+        public OutputDiasPackage OutputDiasPackage { get; set; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
         private string DocumentsDirectoryName { get; set; }
@@ -36,6 +37,9 @@ namespace Arkivverket.Arkade.Core.Base
         public AddmlInfo AddmlInfo { get; }
         public IArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
+
+
+        // TODO: Instasiere med enten (external) content directory eller InputDiasPackage(FileFullName)?
 
         public Archive(ArchiveType archiveType, ArkadeDirectory content,
             IStatusEventHandler statusEventHandler, string archiveFileFullName=null)

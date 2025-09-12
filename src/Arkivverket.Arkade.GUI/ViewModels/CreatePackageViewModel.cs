@@ -290,7 +290,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     IncludeFormatInfoFile = MetaDataGUI.CreateDocumentFileInfoText;
 
                 FileInfo includedMetadataFile =
-                    _archive.DiasPackageWorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
+                    _archive.InputDiasPackage.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
 
                 LoadMetadataIntoForm(includedMetadataFile,
                     delegate { Log.Error("Not able to load metadata from file: " + includedMetadataFile.FullName); }
@@ -488,15 +488,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 ExtractionDate = ArchiveMetadataMapper.MapToExtractionDate(_metaDataExtractionDate),
             };
 
-            var informationPackage = new OutputDiasPackage(packageType, _archive, archiveMetadata, _archiveProcessing.ProcessingDirectory); // NB! UUID-origin
-
+            _archive.OutputDiasPackage = new OutputDiasPackage(packageType, archiveMetadata, _archiveProcessing.ProcessingDirectory); // NB! UUID-origin
+            
             ArkadeProcessingState.PackingIsStarted = true;
             MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
             
             CreatePackageCommand.RaiseCanExecuteChanged();
             MainWindow.ProgressBarWorker.ReportProgress(0);
 
-            Task.Factory.StartNew(() => CreatePackageRunEngine(informationPackage, outputDirectory)).ContinueWith(t => OnCompletedCreatePackage());
+            Task.Factory.StartNew(() => CreatePackageRunEngine(_archive, outputDirectory)).ContinueWith(t => OnCompletedCreatePackage());
         }
 
         private void OnCompletedCreatePackage()
@@ -507,12 +507,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
 
-        private void CreatePackageRunEngine(OutputDiasPackage diasPackage, string outputDirectory)
+        private void CreatePackageRunEngine(Archive archive, string outputDirectory)
         {
             try
             {
                 string packageFilePath = _arkadeCoreApi.CreatePackage(
-                    diasPackage, LanguageSettingHelper.GetOutputLanguage(),
+                    archive, LanguageSettingHelper.GetOutputLanguage(),
                     GenerateFileFormatInfoSelected, outputDirectory
                 );
 

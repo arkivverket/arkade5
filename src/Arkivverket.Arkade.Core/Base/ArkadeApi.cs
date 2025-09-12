@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Core.Base
             MetadataFilesCreator metadataFilesCreator, InformationPackageCreator informationPackageCreator,
             TestSessionXmlGenerator testSessionXmlGenerator, SiardMetadataFileHelper siardMetadataFileHelper,
             IArchiveTypeIdentifier archiveTypeIdentifier, IArchiveFormatValidator archiveFormatValidator,
-            IFileFormatIdentifier fileFormatIdentifier, IFileFormatInfoFilesGenerator fileFormatInfoGenerator, 
+            IFileFormatIdentifier fileFormatIdentifier, IFileFormatInfoFilesGenerator fileFormatInfoGenerator,
             ISiardXmlTableReader siardXmlTableReader, MetadataExampleGenerator metadataExampleGenerator)
         {
             _testSessionFactory = testSessionFactory;
@@ -75,7 +75,7 @@ namespace Arkivverket.Arkade.Core.Base
         //    RunTests(testSession);
         //    return testSession;
         //}
-        
+
         //public TestSession CreateTestSession(ArchiveDirectory archiveDirectory)
         //{
         //    return _testSessionFactory.NewSession(archiveDirectory);
@@ -103,73 +103,73 @@ namespace Arkivverket.Arkade.Core.Base
             testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
             Log.Information("Testing of archive finished.");
 
-            //_testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession); // TODO: Is this file relevant any longer?
+            _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession); // TODO: Is this file relevant any longer?
         }
 
-        public string CreatePackage(OutputDiasPackage diasPackage, string outputDirectory)
-        {
-            string packageType = diasPackage.PackageType.Equals(PackageType.SubmissionInformationPackage)
-                ? "SIP"
-                : "AIP";
+        //public string CreatePackage(OutputDiasPackage diasPackage, string outputDirectory)
+        //{
+        //    string packageType = diasPackage.PackageType.Equals(PackageType.SubmissionInformationPackage)
+        //        ? "SIP"
+        //        : "AIP";
 
-            Log.Information($"Creating {packageType}.");
+        //    Log.Information($"Creating {packageType}.");
 
-            //LanguageManager.SetResourceLanguageForPackageCreation(diasPackage.Language);
+        //    LanguageManager.SetResourceLanguageForPackageCreation(diasPackage.Language);
 
-            //if (diasPackage.GenerateFileFormatInfo)
-            //{
-            //    GenerateFileFormatInfoFiles(diasPackage.Archive);
-            //}
+        //    if (diasPackage.GenerateFileFormatInfo)
+        //    {
+        //        GenerateFileFormatInfoFiles(diasPackage.Archive);
+        //    }
 
-            if (diasPackage.Archive.ArchiveType is ArchiveType.Siard)
-            {
-                _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(diasPackage.Archive);
-            }
+        //    if (diasPackage.Archive.ArchiveType is ArchiveType.Siard)
+        //    {
+        //        _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(diasPackage.Archive);
+        //    }
 
-            // Delete any existing dias-mets.xml extracted from input tar-file
-            diasPackage.Archive.DiasPackageWorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
+        //    Delete any existing dias-mets.xml extracted from input tar-file
+        //    diasPackage.Archive.DiasPackageWorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
 
-            _metadataFilesCreator.Create(diasPackage);
+        //    _metadataFilesCreator.Create(diasPackage);
 
-            string packageFilePath;
+        //    string packageFilePath;
 
-            if (diasPackage.PackageType == PackageType.SubmissionInformationPackage)
-            {
-                packageFilePath = _informationPackageCreator.CreateSip(
-                    diasPackage, outputDirectory
-                );
-            }
-            else // ArchivalInformationPackage
-            {
-                packageFilePath = _informationPackageCreator.CreateAip(
-                    diasPackage, outputDirectory
-                );
-            }
+        //    if (diasPackage.PackageType == PackageType.SubmissionInformationPackage)
+        //    {
+        //        packageFilePath = _informationPackageCreator.CreateSip(
+        //            diasPackage, outputDirectory
+        //        );
+        //    }
+        //    else // ArchivalInformationPackage
+        //    {
+        //        packageFilePath = _informationPackageCreator.CreateAip(
+        //            diasPackage, outputDirectory
+        //        );
+        //    }
 
-            Log.Information($"{packageType} created at: {packageFilePath}");
+        //    Log.Information($"{packageType} created at: {packageFilePath}");
 
-            return packageFilePath;
-        }
+        //    return packageFilePath;
+        //}
 
-        public void SaveReport(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone, 
+        public void SaveReport(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone,
             int testResultDisplayLimit)
         {
-            //if(testReportDirectory.Exists)
-            //    testReportDirectory.Delete(recursive: true);
-            
-            //testReportDirectory.Create();
+            if (testReportDirectory.Exists)
+                testReportDirectory.Delete(recursive: true);
 
-            //if (testSession.Archive.ArchiveType == ArchiveType.Siard)
-            //    File.Move(
-            //        sourceFileName: Path.Combine(testSession.Archive.Content.RepositoryOperations().ToString(),
-            //            OutputFileNames.DbptkValidationReportFile),
-            //        destFileName: Path.Combine(testReportDirectory.FullName, OutputFileNames.DbptkValidationReportFile)
-            //    );
+            testReportDirectory.Create();
 
-            //Uuid diasPackageId = Uuid.Random(); // Noko m� gjerast ...
+            if (testSession.Archive.ArchiveType == ArchiveType.Siard)
+                File.Move(
+                    sourceFileName: Path.Combine(testSession.Archive.Content.RepositoryOperations().ToString(),
+                        OutputFileNames.DbptkValidationReportFile),
+                    destFileName: Path.Combine(testReportDirectory.FullName, OutputFileNames.DbptkValidationReportFile)
+                );
 
-            //TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory, standalone,
-            //    testResultDisplayLimit, diasPackageId);
+            Uuid diasPackageId = Uuid.Random(); // Noko m� gjerast ...
+
+            TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory, standalone,
+                testResultDisplayLimit, diasPackageId);
 
             throw new NotImplementedException();
         }
@@ -193,15 +193,15 @@ namespace Arkivverket.Arkade.Core.Base
         {
             return _fileFormatIdentifier.IdentifyFormats(targetPath, scanMode);
         }
-        
+
         public IEnumerable<IFileFormatInfo> AnalyseFileFormats(IEnumerable<KeyValuePair<string, IEnumerable<byte>>> filePathsAndByteContent)
         {
             return _fileFormatIdentifier.IdentifyFormats(filePathsAndByteContent);
         }
-        
+
         public void GenerateFileFormatInfoFiles(Archive archive)
         {
-            DiasPackageWorkingDirectory diasPackageWorkingDirectory = archive.DiasPackageWorkingDirectory;
+            DiasPackageWorkingDirectory diasPackageWorkingDirectory = archive.OutputDiasPackage.WorkingDirectory;
             try
             {
                 var resultFileDirectoryPath = diasPackageWorkingDirectory.AdministrativeMetadata().ToString();
