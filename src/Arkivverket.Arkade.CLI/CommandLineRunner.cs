@@ -157,7 +157,7 @@ namespace Arkivverket.Arkade.CLI
                 bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, testSession,
                     createStandAloneTestReport: false);
 
-                InputDiasPackage inputDiasPackage = archiveProcessing.InputDiasPackage;
+                InputDiasPackage inputDiasPackage = archiveProcessing.Archive.InputDiasPackage;
 
                 bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, archiveProcessing.Archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis);
 
@@ -213,7 +213,7 @@ namespace Arkivverket.Arkade.CLI
 
                 ArchiveProcessing archiveProcessing = LoadArchiveInput(options.Archive, options.ArchiveType, command);
 
-                InputDiasPackage inputDiasPackage = archiveProcessing.InputDiasPackage;
+                InputDiasPackage inputDiasPackage = archiveProcessing.Archive.InputDiasPackage;
                 
                 LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, archiveProcessing.Archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis));
             }
@@ -383,7 +383,7 @@ namespace Arkivverket.Arkade.CLI
                     archiveProcessing.Archive = Arkade.LoadArchiveExtraction(archiveSource, archiveType);
                     break;
                 case FileInfo { Extension: ".tar" } tarFile:
-                    archiveProcessing.InputDiasPackage = Arkade.LoadDiasPackage(tarFile, archiveType, archiveProcessing.ProcessingDirectory);
+                    archiveProcessing.Archive = Arkade.LoadArchiveAsDiasPackage(tarFile, archiveType, archiveProcessing.ProcessingDirectory);
                     break;
                 default:
                     throw new ArgumentException("Unsupported archive input or input + archive type combination");
@@ -419,7 +419,7 @@ namespace Arkivverket.Arkade.CLI
         private static void SaveTestReport(TestSession testSession, string outputDirectory,
             bool createStandAloneTestReport, int testResultDisplayLimit, Uuid diasPackageId = null)
         {
-            DirectoryInfo packageTestReportDirectory = testSession.Archive.GetTestReportDirectory();
+            DirectoryInfo packageTestReportDirectory = testSession.Archive.OutputDiasPackage.GetTestReportDirectory();
 
             if (createStandAloneTestReport)
             {

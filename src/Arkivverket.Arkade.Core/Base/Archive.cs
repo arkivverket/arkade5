@@ -102,16 +102,6 @@ namespace Arkivverket.Arkade.Core.Base
             return null;
         }
 
-        public DirectoryInfo GetTestReportDirectory()
-        {
-            //return WorkingDirectory.RepositoryOperations().WithSubDirectory(OutputFileNames.TestReportDirectory)
-            //    .DirectoryInfo();
-
-            throw new NotImplementedException();
-        }
-
-
-
         public ArchiveXmlFile GetArchiveXmlFile(string fileName)
         {
             return XmlUnits.FirstOrDefault(xmlUnit => xmlUnit.File.Name.Equals(fileName))?.File;

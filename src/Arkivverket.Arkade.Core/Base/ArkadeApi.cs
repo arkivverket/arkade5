@@ -154,8 +154,8 @@ namespace Arkivverket.Arkade.Core.Base
         public void SaveReport(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone,
             int testResultDisplayLimit)
         {
-            if (testReportDirectory.Exists)
-                testReportDirectory.Delete(recursive: true);
+            //if (testReportDirectory.Exists)
+            //    testReportDirectory.Delete(recursive: true);
 
             testReportDirectory.Create();
 

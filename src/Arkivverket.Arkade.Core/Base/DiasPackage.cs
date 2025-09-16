@@ -1,5 +1,7 @@
+using System;
 using System.IO;
 using Arkivverket.Arkade.Core.ExternalModels.Noark5;
+using Arkivverket.Arkade.Core.Resources;
 
 namespace Arkivverket.Arkade.Core.Base;
 
@@ -21,6 +23,11 @@ public abstract class DiasPackage
         
         DirectoryInfo workingDirectoryRoot = archiveProcessingDirectory.CreateSubdirectory(id.GetValue());
         WorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
+    }
+
+    public DirectoryInfo GetTestReportDirectory()
+    {
+        return WorkingDirectory.RepositoryOperations().WithSubDirectory(OutputFileNames.TestReportDirectory).DirectoryInfo();
     }
 }
 
