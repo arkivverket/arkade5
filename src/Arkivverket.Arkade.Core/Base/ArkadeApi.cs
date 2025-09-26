@@ -154,6 +154,7 @@ namespace Arkivverket.Arkade.Core.Base
         public void SaveReport(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone,
             int testResultDisplayLimit)
         {
+            //Unødvendig nå, ikke sant?
             //if (testReportDirectory.Exists)
             //    testReportDirectory.Delete(recursive: true);
 
@@ -161,12 +162,12 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (testSession.Archive.ArchiveType == ArchiveType.Siard)
                 File.Move(
-                    sourceFileName: Path.Combine(testSession.Archive.Content.RepositoryOperations().ToString(),
+                    sourceFileName: Path.Combine(testSession.Archive.OutputDiasPackage.WorkingDirectory.RepositoryOperations().ToString(),
                         OutputFileNames.DbptkValidationReportFile),
                     destFileName: Path.Combine(testReportDirectory.FullName, OutputFileNames.DbptkValidationReportFile)
                 );
 
-            Uuid diasPackageId = Uuid.Random(); // Noko m� gjerast ...
+            Uuid diasPackageId = null; // Håndter!
 
             TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory, standalone,
                 testResultDisplayLimit, diasPackageId);

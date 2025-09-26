@@ -114,9 +114,9 @@ namespace Arkivverket.Arkade.Core.Base
             return packageFilePath;
         }
 
-        private void CopyTestReportsToStandaloneDirectory(OutputDiasPackage diasPackage, string resultDirectory)
+        private void CopyTestReportsToStandaloneDirectory(OutputDiasPackage diasPackage, string resultDirectory) // TODO: Generer testrapport direkte til riktig sted!
         {
-            DirectoryInfo testReportDirectory = diasPackage.Archive.GetTestReportDirectory();
+            DirectoryInfo testReportDirectory = diasPackage.GetTestReportDirectory();
 
             if (testReportDirectory.Exists)
             {

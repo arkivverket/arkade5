@@ -157,8 +157,6 @@ namespace Arkivverket.Arkade.CLI
                 bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, testSession,
                     createStandAloneTestReport: false);
 
-                InputDiasPackage inputDiasPackage = archiveProcessing.Archive.InputDiasPackage;
-
                 bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, archiveProcessing.Archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis);
 
                 LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess && packSuccess);
@@ -212,8 +210,6 @@ namespace Arkivverket.Arkade.CLI
                 string command = GetRunningCommand(options.GetType().Name);
 
                 ArchiveProcessing archiveProcessing = LoadArchiveInput(options.Archive, options.ArchiveType, command);
-
-                InputDiasPackage inputDiasPackage = archiveProcessing.Archive.InputDiasPackage;
                 
                 LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, archiveProcessing.Archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis));
             }
@@ -313,7 +309,7 @@ namespace Arkivverket.Arkade.CLI
             if (_testRunHasFailed)
                 return false;
 
-            Uuid diasPackageId = Uuid.Random(); // Noko må gjerast ...
+            Uuid diasPackageId = testSession.Archive.InputDiasPackage?.Id; // Sjekk!
 
             SaveTestReport(testSession, outputDirectory, createStandAloneTestReport, testResultDisplayLimit, diasPackageId);
             return true;

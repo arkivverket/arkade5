@@ -451,7 +451,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     return;
                 }
 
-                SaveTestReports(_testSession.Archive.GetTestReportDirectory());
+                SaveTestReports(_testSession.Archive.OutputDiasPackage.GetTestReportDirectory());
 
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedOperation, null, OperationMessageStatus.Ok);
@@ -553,11 +553,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             });
         }
 
-        private void ShowTestReportDialog()
+        private void ShowTestReportDialog() // TODO: Generer testrapport direkte til riktig sted!
         {
-            Uuid diasPackageId = Uuid.Random(); // Noko må gjerast ...
-
-            new TestReportDialog(_testSession.Archive.GetTestReportDirectory(), diasPackageId).ShowDialog(); // NB! UUID-transfer
+            Uuid diasPackageId = _archiveProcessing.Archive.InputDiasPackage?.Id;
+            new TestReportDialog(_testSession.Archive.OutputDiasPackage.GetTestReportDirectory(), diasPackageId).ShowDialog(); // NB! UUID-transfer
         }
 
         private void SaveTestReports(DirectoryInfo testReportDirectory)
