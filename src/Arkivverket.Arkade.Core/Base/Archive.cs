@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Core.Base
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
 
 
-        // TODO: Instasiere med enten (external) content directory eller InputDiasPackage(FileFullName)?
+        // TODO: Instansiere med enten (external) content directory eller InputDiasPackage(FileFullName)?
 
         public Archive(ArchiveType archiveType, ArkadeDirectory content,
             IStatusEventHandler statusEventHandler, string archiveFileFullName=null)

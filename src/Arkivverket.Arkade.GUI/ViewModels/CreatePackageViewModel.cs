@@ -284,6 +284,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 _archiveProcessing = (ArchiveProcessing) context.Parameters["archiveProcessing"];
                 
+                _archive = _archiveProcessing.Archive;
+
                 if (_archive.ArchiveType == ArchiveType.Siard)
                     IncludeFormatInfoFile = MetaDataGUI.CreateLobFormatInfoFileText;
                 else

@@ -85,7 +85,7 @@ namespace Arkivverket.Arkade.Core.Base
                 outputDiasPackage, outputDiasPackage.WorkingDirectory.Root().DirectoryInfo(), outputDiasPackage.PackageType, tarArchive, packageRootDirectory
             );
 
-            if (outputDiasPackage.WorkingDirectory.HasExternalContentDirectory())
+            //if (outputDiasPackage.WorkingDirectory.HasExternalContentDirectory()) // TODO: Handle!
             {
                 Log.Debug($"Archive has external content directory, including files from {archive.Content}");
 
