@@ -68,8 +68,6 @@ public class ArkadeCoreApi(
             withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: inputDiasPackageId.ToString());
         //TarExtractionFinishedEvent(workingDirectory);
 
-        // Archive trenger content og content trenger InputDiasPackage sin workingDirectory men InputDiasPackage trenger archive ...
-
         ArkadeDirectory contentDirectory = diasPackageWorkingDirectory.WithSubDirectory(ArkadeConstants.DirectoryNameContent);
 
         var archive = new Archive(archiveType, contentDirectory, statusEventHandler, diasPackageFile.FullName);
