@@ -37,6 +37,7 @@ namespace Arkivverket.Arkade.Core.Base
         public AddmlInfo AddmlInfo { get; }
         public IArchiveDetails Details { get; }
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
+        public TestSession TestSession { get; set; }
 
 
         // TODO: Instansiere med enten (external) content directory eller InputDiasPackage(FileFullName)?

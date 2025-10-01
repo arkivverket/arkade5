@@ -3,35 +3,12 @@ using System.IO;
 
 namespace Arkivverket.Arkade.Core.Base;
 
-public class ArchiveProcessing()
+public class ArchiveProcessing(Archive archive)
 {
-    public Archive Archive
-    {
-        get => _archive;
-        set
-        {
-            if (_archive is not null)
-                throw new ArgumentException("Archive already set");
-            _archive = value;
-        }
-    }
-
-    public TestSession TestSession
-    {
-        get => _testSession;
-        set
-        {
-            PreventDifferentArchiveInstances(value.Archive);
-            _archive = value.Archive;
-            _testSession = value;
-        }
-    }
+    private Archive _archive = archive;
+    private DirectoryInfo _processingDirectory;
 
     public DirectoryInfo ProcessingDirectory => _processingDirectory ?? CreateProcessingDirectory();
-
-    private Archive _archive;
-    private TestSession _testSession;
-    private DirectoryInfo _processingDirectory;
 
     private DirectoryInfo CreateProcessingDirectory()
     {
@@ -42,11 +19,5 @@ public class ArchiveProcessing()
         _processingDirectory.Create();
 
         return _processingDirectory;
-    }
-
-    private void PreventDifferentArchiveInstances(Archive incomingArchiveObject)
-    {
-        if (_archive != null && !_archive.Equals(incomingArchiveObject))
-            throw new ArgumentException("Archive instance mismatch");
     }
 }

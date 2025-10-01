@@ -85,6 +85,26 @@ public class ArkadeCoreApi(
         return testSessionFactory.NewSession(archive);
     }
 
+    public void RunTests(Archive archive)
+    {
+        archive.TestSession.AddLogEntry(Messages.LogMessageStartTesting);
+
+        Log.Information("Starting testing of archive.");
+
+        LanguageManager.SetResourcesLanguageForTesting(archive.TestSession.OutputLanguage);
+
+        if (archive.TestSession.TestRunContainsDocumentFileDependentTests)
+            archive.DocumentFiles.Register(includeChecksums: archive.TestSession.TestRunContainsChecksumControl);
+
+        ITestEngine testEngine = _testEngineFactory.GetTestEngine(testSession);
+        testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
+
+        testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
+        Log.Information("Testing of archive finished.");
+
+        _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession); // TODO: Is this file relevant any longer?
+    }
+
     public string CreatePackage(Archive archive, SupportedLanguage language, bool generateFileFormatInfo, string outputDirectory)
     {
         string packageTypeAbbreviation = archive.OutputDiasPackage.PackageType.Equals(PackageType.SubmissionInformationPackage)

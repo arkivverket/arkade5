@@ -86,25 +86,25 @@ namespace Arkivverket.Arkade.Core.Base
         //    return _testSessionFactory.NewSession(archive);
         //}
 
-        public void RunTests(TestSession testSession)
-        {
-            testSession.AddLogEntry(Messages.LogMessageStartTesting);
+        //public void RunTests(TestSession testSession)
+        //{
+        //    testSession.AddLogEntry(Messages.LogMessageStartTesting);
 
-            Log.Information("Starting testing of archive.");
+        //    Log.Information("Starting testing of archive.");
 
-            LanguageManager.SetResourcesLanguageForTesting(testSession.OutputLanguage);
+        //    LanguageManager.SetResourcesLanguageForTesting(testSession.OutputLanguage);
 
-            if (testSession.TestRunContainsDocumentFileDependentTests)
-                testSession.Archive.DocumentFiles.Register(includeChecksums: testSession.TestRunContainsChecksumControl);
+        //    if (testSession.TestRunContainsDocumentFileDependentTests)
+        //        testSession.Archive.DocumentFiles.Register(includeChecksums: testSession.TestRunContainsChecksumControl);
 
-            ITestEngine testEngine = _testEngineFactory.GetTestEngine(testSession);
-            testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
+        //    ITestEngine testEngine = _testEngineFactory.GetTestEngine(testSession);
+        //    testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
 
-            testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
-            Log.Information("Testing of archive finished.");
+        //    testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
+        //    Log.Information("Testing of archive finished.");
 
-            _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession); // TODO: Is this file relevant any longer?
-        }
+        //    _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession); // TODO: Is this file relevant any longer?
+        //}
 
         //public string CreatePackage(OutputDiasPackage diasPackage, string outputDirectory)
         //{

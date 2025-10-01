@@ -21,8 +21,6 @@ namespace Arkivverket.Arkade.Core.Base
             TestId.Create("N5.64")
         };
 
-        public Archive Archive { get; }
-
         public List<TestId> TestsToRun { get; set; } = new List<TestId>();
 
         public TestSuite TestSuite { get; set; }
@@ -44,9 +42,8 @@ namespace Arkivverket.Arkade.Core.Base
         public bool TestRunContainsChecksumControl =>
             TestsToRun.Contains(TestId.Create("N5.30"));
 
-        public TestSession(Archive archive)
+        public TestSession()
         {
-            Archive = archive;
             DateOfTesting = DateTime.Now;
         }
 
