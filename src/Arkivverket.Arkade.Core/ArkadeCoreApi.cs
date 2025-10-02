@@ -17,6 +17,8 @@ namespace Arkivverket.Arkade.Core;
 /// <summary>Interact with the Arkade Core using Autofac.</summary>
 public class ArkadeCoreApi(
     TestSessionFactory testSessionFactory,
+    TestEngineFactory testEngineFactory,
+    TestSessionXmlGenerator testSessionXmlGenerator,
     MetadataFilesCreator metadataFilesCreator,
     InformationPackageCreator informationPackageCreator,
     SiardMetadataFileHelper siardMetadataFileHelper,
@@ -32,7 +34,7 @@ public class ArkadeCoreApi(
 
         ArchiveInformationEvent(archiveSource.FullName, archiveType);
 
-        ArkadeDirectory content;
+        ArkadeDirectory archiveExtractionDirectory;
 
         if (archiveType == ArchiveType.Siard && archiveSource is FileInfo { Exists: true, Extension: ".siard" } siardFile)
         {
@@ -42,40 +44,33 @@ public class ArkadeCoreApi(
         }
         else if (archiveSource is DirectoryInfo { Exists: true } directory)
         {
-            content = new ArkadeDirectory(directory);
+            archiveExtractionDirectory = new ArkadeDirectory(directory);
         }
         else
         {
             throw new ArkadeException(""); // TODO: ...
         }
 
-        return new Archive(archiveType, content, statusEventHandler);
+        return new Archive(archiveType, archiveExtractionDirectory, statusEventHandler);
     }
 
     public Archive LoadArchiveAsDiasPackage(FileInfo diasPackageFile, ArchiveType archiveType, DirectoryInfo archiveProcessingDirectory)
     {
         Log.Debug($"Loading Dias Package [file: {diasPackageFile.FullName}] [archiveType: {archiveType}]");
 
-        if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(diasPackageFile.Name), out Uuid inputDiasPackageId)) // NB! UUID-orig
-            throw new ArkadeException("Could not extract an UUID from filename: " + diasPackageFile.Name);
-        
-        ArchiveInformationEvent(diasPackageFile.FullName, archiveType, inputDiasPackageId);
-
-        var diasPackageWorkingDirectory = new ArkadeDirectory(archiveProcessingDirectory.CreateSubdirectory(inputDiasPackageId.ToString()));
-
-        //TarExtractionStartedEvent();
-        compressionUtility.ExtractFolderFromArchive(diasPackageFile, diasPackageWorkingDirectory.DirectoryInfo(),
-            withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: inputDiasPackageId.ToString());
-        //TarExtractionFinishedEvent(workingDirectory);
-
-        ArkadeDirectory contentDirectory = diasPackageWorkingDirectory.WithSubDirectory(ArkadeConstants.DirectoryNameContent);
-
-        var archive = new Archive(archiveType, contentDirectory, statusEventHandler, diasPackageFile.FullName);
-
         const PackageType packageType = PackageType.ArchivalInformationPackage; // Get ..
         var archiveMetadata = new ArchiveMetadata(); // Get ..
+
+        var inputDiasPackage = new InputDiasPackage(diasPackageFile, archiveProcessingDirectory);
+
+        ArchiveInformationEvent(diasPackageFile.FullName, archiveType, inputDiasPackage.Id);
+
+        //TarExtractionStartedEvent();
+        compressionUtility.ExtractFolderFromArchive(diasPackageFile, inputDiasPackage.WorkingDirectory.Root().DirectoryInfo(),
+            withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: inputDiasPackage.Id.ToString());
+        //TarExtractionFinishedEvent(workingDirectory);
         
-        archive.InputDiasPackage = new InputDiasPackage(inputDiasPackageId, packageType, archiveMetadata, archiveProcessingDirectory);
+        var archive = new Archive(archiveType, inputDiasPackage, statusEventHandler);
         
         return archive;
     }
@@ -87,22 +82,24 @@ public class ArkadeCoreApi(
 
     public void RunTests(Archive archive)
     {
-        archive.TestSession.AddLogEntry(Messages.LogMessageStartTesting);
+        TestSession testSession = archive.TestSession;
+
+        testSession.AddLogEntry(Messages.LogMessageStartTesting);
 
         Log.Information("Starting testing of archive.");
 
-        LanguageManager.SetResourcesLanguageForTesting(archive.TestSession.OutputLanguage);
+        LanguageManager.SetResourcesLanguageForTesting(testSession.OutputLanguage);
 
-        if (archive.TestSession.TestRunContainsDocumentFileDependentTests)
-            archive.DocumentFiles.Register(includeChecksums: archive.TestSession.TestRunContainsChecksumControl);
+        if (testSession.TestRunContainsDocumentFileDependentTests)
+            archive.DocumentFiles.Register(includeChecksums: testSession.TestRunContainsChecksumControl);
 
-        ITestEngine testEngine = _testEngineFactory.GetTestEngine(testSession);
+        ITestEngine testEngine = testEngineFactory.GetTestEngine(testSession);
         testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
 
         testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
         Log.Information("Testing of archive finished.");
 
-        _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession); // TODO: Is this file relevant any longer?
+        testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession); // TODO: Is this file relevant any longer?
     }
 
     public string CreatePackage(Archive archive, SupportedLanguage language, bool generateFileFormatInfo, string outputDirectory)

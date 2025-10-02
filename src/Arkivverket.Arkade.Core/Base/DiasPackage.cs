@@ -1,5 +1,7 @@
 using System;
+using System.Formats.Tar;
 using System.IO;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.ExternalModels.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 
@@ -8,17 +10,13 @@ namespace Arkivverket.Arkade.Core.Base;
 public abstract class DiasPackage
 {
     public Uuid Id { get; }
-    public PackageType PackageType { get; }
     public ArchiveMetadata ArchiveMetadata { get; }
     public DiasPackageWorkingDirectory WorkingDirectory { get; }
-
-    protected DiasPackage(Uuid id, PackageType packageType, ArchiveMetadata archiveMetadata, DirectoryInfo archiveProcessingDirectory)
+    
+    protected DiasPackage(Uuid id, ArchiveMetadata archiveMetadata, DirectoryInfo archiveProcessingDirectory)
     {
         Id = id;
-        PackageType = packageType;
-        
-        archiveMetadata.Id = $"UUID:{Id}"; // NB! UUID-writeout (package creation)
-        archiveMetadata.PackageType = packageType;
+
         ArchiveMetadata = archiveMetadata;
         
         DirectoryInfo workingDirectoryRoot = archiveProcessingDirectory.CreateSubdirectory(id.GetValue());
@@ -31,8 +29,28 @@ public abstract class DiasPackage
     }
 }
 
-public class InputDiasPackage(Uuid id, PackageType packageType, ArchiveMetadata archiveMetadata, DirectoryInfo archiveProcessingDirectory)
-    : DiasPackage(id, packageType, archiveMetadata, archiveProcessingDirectory);
+public class InputDiasPackage(FileInfo inputDiasPackageTarFile, DirectoryInfo archiveProcessingDirectory) : DiasPackage(GetUuid(inputDiasPackageTarFile), null, null, archiveProcessingDirectory)
+{
+    public readonly FileInfo TarFile = inputDiasPackageTarFile;
 
-public class OutputDiasPackage(PackageType packageType, ArchiveMetadata archiveMetadata, DirectoryInfo archiveProcessingDirectory)
-    : DiasPackage(Uuid.Random(), packageType, archiveMetadata, archiveProcessingDirectory);
+    private static Uuid GetUuid(FileInfo inputDiasPackageTarFile)
+    {
+        if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(inputDiasPackageTarFile.Name), out Uuid uuid)) // NB! UUID-orig
+            throw new ArkadeException("Could not extract an UUID from filename: " + inputDiasPackageTarFile.Name);
+
+        return uuid;
+    }
+}
+
+public class OutputDiasPackage(PackageType packageType, ArchiveMetadata archiveMetadata, DirectoryInfo archiveProcessingDirectory) : DiasPackage(_uuid, AlignWithIp(archiveMetadata), archiveProcessingDirectory)
+{
+    private Uuid _uuid = Uuid.Random();
+
+    private static ArchiveMetadata AlignWithIp(ArchiveMetadata archiveMetadata)
+    {
+        archiveMetadata.Id = $"UUID:{_uuid.ToString()}"; // NB! UUID-writeout (package creation)
+        archiveMetadata.PackageType = packageType;
+
+        return archiveMetadata;
+    }
+}

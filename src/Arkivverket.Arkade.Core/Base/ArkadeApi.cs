@@ -225,15 +225,15 @@ namespace Arkivverket.Arkade.Core.Base
                 else if (archive.IsNoark5TarArchive)
                 {
                     IEnumerable<IFileFormatInfo> analysedTarContents = _fileFormatIdentifier
-                        .IdentifyFormats(archive.ArchiveFileFullName, FileFormatScanMode.Archive).ToList();
+                        .IdentifyFormats(archive.InputDiasPackageTarFile.FullName, FileFormatScanMode.Archive).ToList();
 
-                    string tarRootDirectoryName = Path.GetFileNameWithoutExtension(archive.ArchiveFileFullName);
+                    string tarRootDirectoryName = Path.GetFileNameWithoutExtension(archive.InputDiasPackageTarFile.FullName);
                     string documentsDirectoryName = archive.GetDocumentsDirectoryName();
 
                     string tarFileRelativeDocumentsDirectoryPath = Path.Combine(tarRootDirectoryName!,
                         ArkadeConstants.DirectoryNameContent, documentsDirectoryName);
 
-                    var fullDocumentsDirectoryTarPath = $"{archive.ArchiveFileFullName}#{tarFileRelativeDocumentsDirectoryPath}";
+                    var fullDocumentsDirectoryTarPath = $"{archive.InputDiasPackageTarFile}#{tarFileRelativeDocumentsDirectoryPath}";
 
                     bool IsDocumentFile(IFileFormatInfo fileFormatInfo) => fileFormatInfo.FileName.StartsWith(fullDocumentsDirectoryTarPath);
 

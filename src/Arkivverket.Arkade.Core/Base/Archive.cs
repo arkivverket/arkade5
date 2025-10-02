@@ -22,12 +22,15 @@ namespace Arkivverket.Arkade.Core.Base
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private static IStatusEventHandler _statusEventHandler;
 
-        internal string? ArchiveFileFullName { get; }
+        private DirectoryInfo _processingDirectory;
+        public DirectoryInfo ProcessingDirectory => _processingDirectory ?? CreateProcessingDirectory();
 
-        public bool IsNoark5TarArchive => ArchiveFileFullName != null && ArchiveType is ArchiveType.Noark5;
+        internal FileInfo InputDiasPackageTarFile { get; }
+
+        public bool IsNoark5TarArchive => InputDiasPackageTarFile != null && ArchiveType is ArchiveType.Noark5;
 
         public ArkadeDirectory Content { get; }
-        public InputDiasPackage InputDiasPackage { get; set; }
+        public InputDiasPackage InputDiasPackage { get; private set; }
         public OutputDiasPackage OutputDiasPackage { get; set; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
@@ -39,23 +42,18 @@ namespace Arkivverket.Arkade.Core.Base
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
         public TestSession TestSession { get; set; }
 
-
-        // TODO: Instansiere med enten (external) content directory eller InputDiasPackage(FileFullName)?
-
-        public Archive(ArchiveType archiveType, ArkadeDirectory content,
-            IStatusEventHandler statusEventHandler, string archiveFileFullName=null)
+        public Archive(ArchiveType archiveType, ArkadeDirectory archiveExtractionDirectory,
+            IStatusEventHandler statusEventHandler)
         {
             _statusEventHandler = statusEventHandler;
 
             ArchiveType = archiveType;
 
-            Content = content;
-
-            ArchiveFileFullName = archiveFileFullName;
-
+            Content = archiveExtractionDirectory;
+            
             if (archiveType == ArchiveType.Siard)
             {
-                Details = SetupSiardArchiveDetails(content);
+                Details = SetupSiardArchiveDetails(archiveExtractionDirectory);
                 return;
             }
             
@@ -79,10 +77,27 @@ namespace Arkivverket.Arkade.Core.Base
 
                 SetupArchiveXmlUnits();
 
-                DocumentFiles = archiveFileFullName == null
+                DocumentFiles = InputDiasPackageTarFile == null
                     ? new DocumentFiles(GetDocumentsDirectory())
-                    : new DocumentFiles(archiveFileFullName);
+                    : new DocumentFiles(InputDiasPackageTarFile.FullName);
             }
+        }
+
+        public Archive(ArchiveType archiveType, InputDiasPackage inputDiasPackage, IStatusEventHandler statusEventHandler) :
+            this(archiveType, inputDiasPackage.WorkingDirectory.ContentWorkDirectory(), statusEventHandler)
+        {
+            InputDiasPackageTarFile = inputDiasPackage.TarFile;
+        }
+        
+        private DirectoryInfo CreateProcessingDirectory()
+        {
+            string workDirectoryFullName = ArkadeProcessingArea.WorkDirectory.FullName;
+            var nowTimeStampString = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            _processingDirectory = new DirectoryInfo(Path.Combine(workDirectoryFullName, nowTimeStampString));
+            _processingDirectory.Create();
+
+            return _processingDirectory;
         }
 
         private static IArchiveDetails SetupSiardArchiveDetails(ArkadeDirectory content)
@@ -131,11 +146,11 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (IsNoark5TarArchive)
             {
-                var tarInputStream = new TarInputStream(File.OpenRead(ArchiveFileFullName!), Encoding.UTF8);
+                var tarInputStream = new TarInputStream(File.OpenRead(InputDiasPackageTarFile.FullName!), Encoding.UTF8);
 
                 while (tarInputStream.GetNextEntry() is { Name: not null } entry)
                 {
-                    string archiveRootDirectoryName = Path.GetFileNameWithoutExtension(ArchiveFileFullName);
+                    string archiveRootDirectoryName = Path.GetFileNameWithoutExtension(InputDiasPackageTarFile.FullName);
 
                     if (!entry.IsDirectory && entry.IsNoark5DocumentsEntry(archiveRootDirectoryName))
                     {

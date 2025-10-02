@@ -150,14 +150,14 @@ namespace Arkivverket.Arkade.CLI
             {
                 string command = GetRunningCommand(options.GetType().Name);
 
-                ArchiveProcessing archiveProcessing = LoadArchiveInput(options.Archive, options.ArchiveType, command);
+                Archive archive = LoadArchive(options.Archive, options.ArchiveType, command);
 
-                TestSession testSession = CreateTestSession(archiveProcessing.Archive, options.OutputLanguage, options.TestSelectionFile);
+                TestSession testSession = CreateTestSession(archive, options.OutputLanguage, options.TestSelectionFile);
 
                 bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, testSession,
                     createStandAloneTestReport: false);
 
-                bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, archiveProcessing.Archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis);
+                bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis);
 
                 LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess && packSuccess);
             }
@@ -181,7 +181,7 @@ namespace Arkivverket.Arkade.CLI
             {
                 string command = GetRunningCommand(options.GetType().Name);
 
-                Archive archive = LoadArchiveInput(options.Archive, options.ArchiveType, command).Archive;
+                Archive archive = LoadArchive(options.Archive, options.ArchiveType, command);
 
                 TestSession testSession = CreateTestSession(archive, options.OutputLanguage, options.TestSelectionFile);
 
@@ -209,7 +209,7 @@ namespace Arkivverket.Arkade.CLI
             {
                 string command = GetRunningCommand(options.GetType().Name);
 
-                ArchiveProcessing archiveProcessing = LoadArchiveInput(options.Archive, options.ArchiveType, command);
+                ArchiveProcessing archiveProcessing = LoadArchive(options.Archive, options.ArchiveType, command);
                 
                 LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, archiveProcessing.Archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis));
             }
@@ -290,15 +290,15 @@ namespace Arkivverket.Arkade.CLI
             Arkade.Dispose();
         }
 
-        private static bool Test(string outputDirectory, int testResultDisplayLimit, TestSession testSession,
+        private static bool Test(string outputDirectory, int testResultDisplayLimit, Archive archive,
             bool createStandAloneTestReport = true)
         {
-            if (!TestSession.IsTestableArchive(testSession.Archive, testSession.AddmlDefinition, out _))
+            if (!TestSession.IsTestableArchive(archive, testSession.AddmlDefinition, out _))
                 return false;
 
             try
             {
-                Arkade.RunTests(testSession);
+                Arkade.RunTests(archive);
             }
             catch (Exception e)
             {
@@ -309,7 +309,7 @@ namespace Arkivverket.Arkade.CLI
             if (_testRunHasFailed)
                 return false;
 
-            Uuid diasPackageId = testSession.Archive.InputDiasPackage?.Id; // Sjekk!
+            Uuid diasPackageId = archive.InputDiasPackage?.Id; // Sjekk!
 
             SaveTestReport(testSession, outputDirectory, createStandAloneTestReport, testResultDisplayLimit, diasPackageId);
             return true;
@@ -360,7 +360,7 @@ namespace Arkivverket.Arkade.CLI
             return language;
         }
 
-        private static ArchiveProcessing LoadArchiveInput(string archiveSourcePath, string archiveTypeString, string command)
+        private static Archive LoadArchive(string archiveSourcePath, string archiveTypeString, string command)
         {
             FileSystemInfo archiveSource = File.Exists(archiveSourcePath) ? new FileInfo(archiveSourcePath)
                 : Directory.Exists(archiveSourcePath) ? new DirectoryInfo(archiveSourcePath)
@@ -371,21 +371,16 @@ namespace Arkivverket.Arkade.CLI
 
             Log.Information($"{{{command}ing}} {archiveType} archive from source: {archiveSource.FullName}");
 
-            var archiveProcessing = new ArchiveProcessing();
-
             switch (archiveSource)
             {
                 case DirectoryInfo or FileInfo { Extension: ".siard" }:
-                    archiveProcessing.Archive = Arkade.LoadArchiveExtraction(archiveSource, archiveType);
-                    break;
+                    return Arkade.LoadArchiveExtraction(archiveSource, archiveType);
                 case FileInfo { Extension: ".tar" } tarFile:
-                    archiveProcessing.Archive = Arkade.LoadArchiveAsDiasPackage(tarFile, archiveType, archiveProcessing.ProcessingDirectory);
-                    break;
+                    return Arkade.LoadArchiveAsDiasPackage(tarFile, archiveType);
+
                 default:
                     throw new ArgumentException("Unsupported archive input or input + archive type combination");
             }
-
-            return archiveProcessing;
         }
 
         private static TestSession CreateTestSession(Archive archive, string selectedOutputLanguage, string testSelectionFilePath = null)

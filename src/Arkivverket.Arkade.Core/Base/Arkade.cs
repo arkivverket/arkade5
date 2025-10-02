@@ -80,9 +80,9 @@ namespace Arkivverket.Arkade.Core.Base
         //    return _arkadeApi.RunTests(archiveDirectory);
         //}
 
-        public void RunTests(TestSession testSession)
+        public void RunTests(Archive archive)
         {
-            _arkadeApi.RunTests(testSession);
+            _arkadeCoreApi.RunTests(archive);
         }
 
         public void CreatePackage(Archive archive, SupportedLanguage language, bool generateFileFormatInfo, string outputDirectory)
