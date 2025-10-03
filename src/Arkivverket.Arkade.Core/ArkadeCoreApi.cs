@@ -58,9 +58,6 @@ public class ArkadeCoreApi(
     {
         Log.Debug($"Loading Dias Package [file: {diasPackageFile.FullName}] [archiveType: {archiveType}]");
 
-        const PackageType packageType = PackageType.ArchivalInformationPackage; // Get ..
-        var archiveMetadata = new ArchiveMetadata(); // Get ..
-
         var inputDiasPackage = new InputDiasPackage(diasPackageFile, archiveProcessingDirectory);
 
         ArchiveInformationEvent(diasPackageFile.FullName, archiveType, inputDiasPackage.Id);

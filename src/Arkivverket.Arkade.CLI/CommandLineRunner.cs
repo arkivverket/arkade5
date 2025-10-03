@@ -209,9 +209,9 @@ namespace Arkivverket.Arkade.CLI
             {
                 string command = GetRunningCommand(options.GetType().Name);
 
-                ArchiveProcessing archiveProcessing = LoadArchive(options.Archive, options.ArchiveType, command);
+                Archive archive = LoadArchive(options.Archive, options.ArchiveType, command);
                 
-                LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, archiveProcessing.Archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis));
+                LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis));
             }
             finally
             {
@@ -317,9 +317,7 @@ namespace Arkivverket.Arkade.CLI
 
         private static bool Pack(string metadataFile, string packageType, Archive archive, string outputDirectory, SupportedLanguage outputLanguage, bool generateFileFormatInfo)
         {
-            ArchiveProcessing archiveProcessing = null; // TODO: Provide
-
-            archive.OutputDiasPackage = new OutputDiasPackage(InformationPackageCreator.ParsePackageType(packageType), MetadataLoader.Load(metadataFile), archiveProcessing.ProcessingDirectory);
+            archive.OutputDiasPackage = new OutputDiasPackage(InformationPackageCreator.ParsePackageType(packageType), MetadataLoader.Load(metadataFile), archive.ProcessingDirectory);
 
             Arkade.CreatePackage(archive, outputLanguage, generateFileFormatInfo, outputDirectory); //, workingDirectory);
 

@@ -1,26 +1,23 @@
-using System;
-using System.Formats.Tar;
 using System.IO;
-using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.ExternalModels.Noark5;
 using Arkivverket.Arkade.Core.Resources;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Base;
 
-public abstract class DiasPackage
+public abstract class DiasPackage(DirectoryInfo locationForWorkingDirectory)
 {
-    public Uuid Id { get; }
-    public ArchiveMetadata ArchiveMetadata { get; }
-    public DiasPackageWorkingDirectory WorkingDirectory { get; }
+    public Uuid Id { get; protected init; }
+    public ArchiveMetadata ArchiveMetadata { get; protected init; }
+    public DiasPackageWorkingDirectory WorkingDirectory => _workingDirectory ?? CreateAndGetWorkingDirectory();
     
-    protected DiasPackage(Uuid id, ArchiveMetadata archiveMetadata, DirectoryInfo archiveProcessingDirectory)
-    {
-        Id = id;
+    private DiasPackageWorkingDirectory _workingDirectory;
 
-        ArchiveMetadata = archiveMetadata;
-        
-        DirectoryInfo workingDirectoryRoot = archiveProcessingDirectory.CreateSubdirectory(id.GetValue());
-        WorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
+    private DiasPackageWorkingDirectory CreateAndGetWorkingDirectory()
+    {
+        DirectoryInfo workingDirectoryRoot = locationForWorkingDirectory.CreateSubdirectory(Id.GetValue());
+        _workingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
+
+        return WorkingDirectory;
     }
 
     public DirectoryInfo GetTestReportDirectory()
@@ -29,28 +26,39 @@ public abstract class DiasPackage
     }
 }
 
-public class InputDiasPackage(FileInfo inputDiasPackageTarFile, DirectoryInfo archiveProcessingDirectory) : DiasPackage(GetUuid(inputDiasPackageTarFile), null, null, archiveProcessingDirectory)
+public sealed class InputDiasPackage : DiasPackage
 {
-    public readonly FileInfo TarFile = inputDiasPackageTarFile;
+    public readonly FileInfo TarFile;
 
-    private static Uuid GetUuid(FileInfo inputDiasPackageTarFile)
+    public InputDiasPackage(FileInfo tarFile, DirectoryInfo locationForWorkingDirectory) : base(locationForWorkingDirectory)
     {
-        if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(inputDiasPackageTarFile.Name), out Uuid uuid)) // NB! UUID-orig
-            throw new ArkadeException("Could not extract an UUID from filename: " + inputDiasPackageTarFile.Name);
+        if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(tarFile.Name), out Uuid id)) // NB! UUID-orig
+            throw new ArkadeException("Could not extract an UUID from filename: " + tarFile.Name);
 
-        return uuid;
+        Id = id;
+        TarFile = tarFile;
     }
 }
 
-public class OutputDiasPackage(PackageType packageType, ArchiveMetadata archiveMetadata, DirectoryInfo archiveProcessingDirectory) : DiasPackage(_uuid, AlignWithIp(archiveMetadata), archiveProcessingDirectory)
+public sealed class OutputDiasPackage : DiasPackage
 {
-    private Uuid _uuid = Uuid.Random();
-
-    private static ArchiveMetadata AlignWithIp(ArchiveMetadata archiveMetadata)
+    public readonly PackageType PackageType;
+    
+    public OutputDiasPackage(PackageType packageType, ArchiveMetadata archiveMetadata, DirectoryInfo locationForWorkingDirectory) : base(locationForWorkingDirectory)
     {
-        archiveMetadata.Id = $"UUID:{_uuid.ToString()}"; // NB! UUID-writeout (package creation)
-        archiveMetadata.PackageType = packageType;
+        Id = Uuid.Random(); // NB! UUID-orig
 
-        return archiveMetadata;
+        PackageType = packageType;
+
+        ArchiveMetadata = archiveMetadata;
+
+        ArchiveMetadata.Id = $"UUID:{Id}"; // NB! UUID-writeout (package creation)
+        ArchiveMetadata.PackageType = PackageType;
+
+        if (archiveMetadata.Id != ArchiveMetadata.Id)
+            Log.Warning($"Metadata ID was set to IP ID ({Id})");
+
+        if (archiveMetadata.PackageType != ArchiveMetadata.PackageType)
+            Log.Warning($"Metadata package type was set to IP package type ({PackageType})");
     }
 }
