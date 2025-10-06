@@ -58,14 +58,9 @@ public class ArkadeCoreApi(
     {
         Log.Debug($"Loading Dias Package [file: {diasPackageFile.FullName}] [archiveType: {archiveType}]");
 
-        var inputDiasPackage = new InputDiasPackage(diasPackageFile, archiveProcessingDirectory);
+        var inputDiasPackage = new InputDiasPackage(diasPackageFile, archiveType, archiveProcessingDirectory, compressionUtility); // DI for comporessionUtility?
 
         ArchiveInformationEvent(diasPackageFile.FullName, archiveType, inputDiasPackage.Id);
-
-        //TarExtractionStartedEvent();
-        compressionUtility.ExtractFolderFromArchive(diasPackageFile, inputDiasPackage.WorkingDirectory.Root().DirectoryInfo(),
-            withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: inputDiasPackage.Id.ToString());
-        //TarExtractionFinishedEvent(workingDirectory);
         
         var archive = new Archive(archiveType, inputDiasPackage, statusEventHandler);
         

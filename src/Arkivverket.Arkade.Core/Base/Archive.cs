@@ -25,12 +25,10 @@ namespace Arkivverket.Arkade.Core.Base
         private DirectoryInfo _processingDirectory;
         public DirectoryInfo ProcessingDirectory => _processingDirectory ?? CreateProcessingDirectory();
 
-        internal FileInfo InputDiasPackageTarFile { get; }
-
-        public bool IsNoark5TarArchive => InputDiasPackageTarFile != null && ArchiveType is ArchiveType.Noark5;
+        public bool IsNoark5TarArchive => InputDiasPackage.TarFile != null && ArchiveType is ArchiveType.Noark5;
 
         public ArkadeDirectory Content { get; }
-        public InputDiasPackage InputDiasPackage { get; private set; }
+        public InputDiasPackage InputDiasPackage { get; }
         public OutputDiasPackage OutputDiasPackage { get; set; }
         public ArchiveType ArchiveType { get; }
         private DirectoryInfo DocumentsDirectory { get; set; }
@@ -77,16 +75,16 @@ namespace Arkivverket.Arkade.Core.Base
 
                 SetupArchiveXmlUnits();
 
-                DocumentFiles = InputDiasPackageTarFile == null
+                DocumentFiles = InputDiasPackage.TarFile == null
                     ? new DocumentFiles(GetDocumentsDirectory())
-                    : new DocumentFiles(InputDiasPackageTarFile.FullName);
+                    : new DocumentFiles(InputDiasPackage.TarFile.FullName);
             }
         }
 
         public Archive(ArchiveType archiveType, InputDiasPackage inputDiasPackage, IStatusEventHandler statusEventHandler) :
             this(archiveType, inputDiasPackage.WorkingDirectory.ContentWorkDirectory(), statusEventHandler)
         {
-            InputDiasPackageTarFile = inputDiasPackage.TarFile;
+            InputDiasPackage = inputDiasPackage;
         }
         
         private DirectoryInfo CreateProcessingDirectory()
@@ -146,11 +144,11 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (IsNoark5TarArchive)
             {
-                var tarInputStream = new TarInputStream(File.OpenRead(InputDiasPackageTarFile.FullName!), Encoding.UTF8);
+                var tarInputStream = new TarInputStream(File.OpenRead(InputDiasPackage.TarFile.FullName!), Encoding.UTF8);
 
                 while (tarInputStream.GetNextEntry() is { Name: not null } entry)
                 {
-                    string archiveRootDirectoryName = Path.GetFileNameWithoutExtension(InputDiasPackageTarFile.FullName);
+                    string archiveRootDirectoryName = Path.GetFileNameWithoutExtension(InputDiasPackage.TarFile.FullName);
 
                     if (!entry.IsDirectory && entry.IsNoark5DocumentsEntry(archiveRootDirectoryName))
                     {

@@ -1,23 +1,22 @@
 using System.IO;
+using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Base;
 
-public abstract class DiasPackage(DirectoryInfo locationForWorkingDirectory)
+public abstract class DiasPackage
 {
     public Uuid Id { get; protected init; }
+    public PackageType PackageType { get; protected init; }
     public ArchiveMetadata ArchiveMetadata { get; protected init; }
-    public DiasPackageWorkingDirectory WorkingDirectory => _workingDirectory ?? CreateAndGetWorkingDirectory();
-    
-    private DiasPackageWorkingDirectory _workingDirectory;
-
-    private DiasPackageWorkingDirectory CreateAndGetWorkingDirectory()
+    public readonly DiasPackageWorkingDirectory WorkingDirectory;
+ 
+    protected DiasPackage(DirectoryInfo locationForWorkingDirectory)
     {
         DirectoryInfo workingDirectoryRoot = locationForWorkingDirectory.CreateSubdirectory(Id.GetValue());
-        _workingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
-
-        return WorkingDirectory;
+        WorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
     }
 
     public DirectoryInfo GetTestReportDirectory()
@@ -26,24 +25,34 @@ public abstract class DiasPackage(DirectoryInfo locationForWorkingDirectory)
     }
 }
 
-public sealed class InputDiasPackage : DiasPackage
+public class InputDiasPackage : DiasPackage
 {
     public readonly FileInfo TarFile;
 
-    public InputDiasPackage(FileInfo tarFile, DirectoryInfo locationForWorkingDirectory) : base(locationForWorkingDirectory)
+    public InputDiasPackage(FileInfo tarFile, ArchiveType archiveType, DirectoryInfo locationForWorkingDirectory, ICompressionUtility compressionUtility) : base(locationForWorkingDirectory)
     {
         if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(tarFile.Name), out Uuid id)) // NB! UUID-orig
             throw new ArkadeException("Could not extract an UUID from filename: " + tarFile.Name);
 
         Id = id;
         TarFile = tarFile;
+
+        //TarExtractionStartedEvent();
+        compressionUtility.ExtractFolderFromArchive(tarFile, WorkingDirectory.Root().DirectoryInfo(),
+            withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: Id.ToString());
+        //TarExtractionFinishedEvent(workingDirectory);
+
+        ArchiveMetadata = MetadataLoader.Load(WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).FullName);
+
+        if (ArchiveMetadata.Id != $"UUID:{Id}") // NB! UUID-readin (package loading)
+            Log.Warning($"Metadata ID ({ArchiveMetadata.Id}) does not match IP ID ({Id})");
+
+        PackageType = ArchiveMetadata.PackageType;
     }
 }
 
-public sealed class OutputDiasPackage : DiasPackage
+public class OutputDiasPackage : DiasPackage
 {
-    public readonly PackageType PackageType;
-    
     public OutputDiasPackage(PackageType packageType, ArchiveMetadata archiveMetadata, DirectoryInfo locationForWorkingDirectory) : base(locationForWorkingDirectory)
     {
         Id = Uuid.Random(); // NB! UUID-orig
