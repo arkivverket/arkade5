@@ -152,14 +152,14 @@ namespace Arkivverket.Arkade.CLI
 
                 Archive archive = LoadArchive(options.Archive, options.ArchiveType, command);
 
-                TestSession testSession = CreateTestSession(archive, options.OutputLanguage, options.TestSelectionFile);
+                archive.TestSession = CreateTestSession(archive, options.OutputLanguage, options.TestSelectionFile);
 
-                bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, testSession,
+                bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, archive,
                     createStandAloneTestReport: false);
 
                 bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis);
 
-                LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess && packSuccess);
+                LogFinishedStatus(command, RanWithoutErrors(archive.TestSession) && testSuccess && packSuccess);
             }
             catch (SiardArchiveReaderException siardEx)
             {
@@ -183,11 +183,11 @@ namespace Arkivverket.Arkade.CLI
 
                 Archive archive = LoadArchive(options.Archive, options.ArchiveType, command);
 
-                TestSession testSession = CreateTestSession(archive, options.OutputLanguage, options.TestSelectionFile);
+                archive.TestSession = CreateTestSession(archive, options.OutputLanguage, options.TestSelectionFile);
 
-                bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, testSession);
+                bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, archive);
 
-                LogFinishedStatus(command, RanWithoutErrors(testSession) && testSuccess);
+                LogFinishedStatus(command, RanWithoutErrors(archive.TestSession) && testSuccess);
             }
             catch (SiardArchiveReaderException siardEx)
             {
@@ -293,7 +293,7 @@ namespace Arkivverket.Arkade.CLI
         private static bool Test(string outputDirectory, int testResultDisplayLimit, Archive archive,
             bool createStandAloneTestReport = true)
         {
-            if (!TestSession.IsTestableArchive(archive, testSession.AddmlDefinition, out _))
+            if (!TestSession.IsTestableArchive(archive, archive.TestSession.AddmlDefinition, out _))
                 return false;
 
             try
@@ -311,7 +311,7 @@ namespace Arkivverket.Arkade.CLI
 
             Uuid diasPackageId = archive.InputDiasPackage?.Id; // Sjekk!
 
-            SaveTestReport(testSession, outputDirectory, createStandAloneTestReport, testResultDisplayLimit, diasPackageId);
+            SaveTestReport(archive.TestSession, outputDirectory, createStandAloneTestReport, testResultDisplayLimit, diasPackageId);
             return true;
         }
 

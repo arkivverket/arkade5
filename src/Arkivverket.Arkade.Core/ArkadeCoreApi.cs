@@ -51,18 +51,20 @@ public class ArkadeCoreApi(
             throw new ArkadeException(""); // TODO: ...
         }
 
-        return new Archive(archiveType, archiveExtractionDirectory, statusEventHandler);
+        return new Archive(archiveType, archiveExtractionDirectory, CreateProcessingDirectory(), statusEventHandler);
     }
 
-    public Archive LoadArchiveAsDiasPackage(FileInfo diasPackageFile, ArchiveType archiveType, DirectoryInfo archiveProcessingDirectory)
+    public Archive LoadArchiveAsDiasPackage(FileInfo diasPackageFile, ArchiveType archiveType)
     {
         Log.Debug($"Loading Dias Package [file: {diasPackageFile.FullName}] [archiveType: {archiveType}]");
 
-        var inputDiasPackage = new InputDiasPackage(diasPackageFile, archiveType, archiveProcessingDirectory, compressionUtility); // DI for comporessionUtility?
+        DirectoryInfo processingDirectory = CreateProcessingDirectory();
+
+        var inputDiasPackage = new InputDiasPackage(diasPackageFile, archiveType, processingDirectory, compressionUtility); // DI for comporessionUtility?
 
         ArchiveInformationEvent(diasPackageFile.FullName, archiveType, inputDiasPackage.Id);
         
-        var archive = new Archive(archiveType, inputDiasPackage, statusEventHandler);
+        var archive = new Archive(archiveType, inputDiasPackage, processingDirectory, statusEventHandler);
         
         return archive;
     }
@@ -183,5 +185,15 @@ public class ArkadeCoreApi(
             statusEventHandler.RaiseEventOperationMessage("", SiardMessages.ExternalLobsNotCopiedWarning, OperationMessageStatus.Warning);
         }
     }
+    private DirectoryInfo CreateProcessingDirectory()
+    {
+        string workDirectoryFullName = ArkadeProcessingArea.WorkDirectory.FullName;
+        var nowTimeStampString = DateTime.Now.ToString("yyyyMMddHHmmss");
 
+        var processingDirectory = new DirectoryInfo(Path.Combine(workDirectoryFullName, nowTimeStampString));
+        
+        processingDirectory.Create();
+
+        return processingDirectory;
+    }
 }

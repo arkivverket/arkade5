@@ -50,9 +50,9 @@ namespace Arkivverket.Arkade.Core.Base
             return _arkadeCoreApi.LoadArchiveExtraction(archiveSource, archiveType);
         }
 
-        public Archive LoadArchiveAsDiasPackage(FileInfo diasPackage, ArchiveType archiveType, DirectoryInfo archiveProcessingDirectory)
+        public Archive LoadArchiveAsDiasPackage(FileInfo diasPackage, ArchiveType archiveType)
         {
-            return _arkadeCoreApi.LoadArchiveAsDiasPackage(diasPackage, archiveType, archiveProcessingDirectory);
+            return _arkadeCoreApi.LoadArchiveAsDiasPackage(diasPackage, archiveType);
         }
 
         //public TestSession CreateTestSession(ArchiveDirectory archiveDirectory)

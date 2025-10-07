@@ -75,8 +75,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             new (){RecordStatus = metsTypeMetsHdrRECORDSTATUS.OTHER, TooltipText = MetadataToolTips.RecordStatusOTHER },
         };
 
-        private ArchiveProcessing _archiveProcessing;
-
         public string ArkadeNameAndCurrentVersion { get; } = $"Arkade 5 {ArkadeVersion.Current}";
 
         public DelegateCommand CreatePackageCommand { get; set; }
@@ -282,10 +280,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             try
             {
-                _archiveProcessing = (ArchiveProcessing) context.Parameters["archiveProcessing"];
+                _archive = (Archive) context.Parameters["archive"];
                 
-                _archive = _archiveProcessing.Archive;
-
                 if (_archive.ArchiveType == ArchiveType.Siard)
                     IncludeFormatInfoFile = MetaDataGUI.CreateLobFormatInfoFileText;
                 else
@@ -490,7 +486,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 ExtractionDate = ArchiveMetadataMapper.MapToExtractionDate(_metaDataExtractionDate),
             };
 
-            _archive.OutputDiasPackage = new OutputDiasPackage(packageType, archiveMetadata, _archiveProcessing.ProcessingDirectory); // NB! UUID-origin
+            _archive.OutputDiasPackage = new OutputDiasPackage(packageType, archiveMetadata, _archive.ProcessingDirectory); // NB! UUID-origin
             
             ArkadeProcessingState.PackingIsStarted = true;
             MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();

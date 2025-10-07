@@ -22,8 +22,7 @@ namespace Arkivverket.Arkade.Core.Base
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private static IStatusEventHandler _statusEventHandler;
 
-        private DirectoryInfo _processingDirectory;
-        public DirectoryInfo ProcessingDirectory => _processingDirectory ?? CreateProcessingDirectory();
+        public DirectoryInfo ProcessingDirectory { get; }
 
         public bool IsNoark5TarArchive => InputDiasPackage.TarFile != null && ArchiveType is ArchiveType.Noark5;
 
@@ -41,13 +40,15 @@ namespace Arkivverket.Arkade.Core.Base
         public TestSession TestSession { get; set; }
 
         public Archive(ArchiveType archiveType, ArkadeDirectory archiveExtractionDirectory,
-            IStatusEventHandler statusEventHandler)
+            DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler)
         {
             _statusEventHandler = statusEventHandler;
 
             ArchiveType = archiveType;
 
             Content = archiveExtractionDirectory;
+            
+            ProcessingDirectory = processingDirectory;
             
             if (archiveType == ArchiveType.Siard)
             {
@@ -81,22 +82,12 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        public Archive(ArchiveType archiveType, InputDiasPackage inputDiasPackage, IStatusEventHandler statusEventHandler) :
-            this(archiveType, inputDiasPackage.WorkingDirectory.ContentWorkDirectory(), statusEventHandler)
+        public Archive(ArchiveType archiveType, InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) :
+            this(archiveType, inputDiasPackage.WorkingDirectory.ContentWorkDirectory(), processingDirectory, statusEventHandler)
         {
             InputDiasPackage = inputDiasPackage;
         }
         
-        private DirectoryInfo CreateProcessingDirectory()
-        {
-            string workDirectoryFullName = ArkadeProcessingArea.WorkDirectory.FullName;
-            var nowTimeStampString = DateTime.Now.ToString("yyyyMMddHHmmss");
-
-            _processingDirectory = new DirectoryInfo(Path.Combine(workDirectoryFullName, nowTimeStampString));
-            _processingDirectory.Create();
-
-            return _processingDirectory;
-        }
 
         private static IArchiveDetails SetupSiardArchiveDetails(ArkadeDirectory content)
         {

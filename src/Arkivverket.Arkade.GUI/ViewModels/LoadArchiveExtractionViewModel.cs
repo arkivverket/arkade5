@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private IArchiveTypeIdentifier _archiveTypeIdentifier;
         private readonly ArkadeCoreApi _arkadeCoreApi;
         private FileSystemInfo _archiveSource;
-        private ArchiveProcessing _archiveProcessing;
+        private Archive _archive;
 
         public string ArchiveFileName
         {
@@ -90,9 +90,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             var archiveType = (ArchiveType)ArchiveType;
 
             if (_archiveSource is FileInfo { Extension: ".tar" } tarFile)
-                _archiveProcessing = new ArchiveProcessing(_arkadeCoreApi.LoadArchiveAsDiasPackage(tarFile, archiveType, _archiveProcessing.ProcessingDirectory));
+                _archive = _arkadeCoreApi.LoadArchiveAsDiasPackage(tarFile, archiveType);
             else
-                _archiveProcessing = new ArchiveProcessing(_arkadeCoreApi.LoadArchiveExtraction(_archiveSource, archiveType));
+                _archive = _arkadeCoreApi.LoadArchiveExtraction(_archiveSource, archiveType);
 
             if(NavigateToTestRunnerCommand.CanExecute())
                 NavigateToTestRunnerCommand.Execute();
@@ -108,14 +108,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _log.Information("User action: Navigate to test runner window with archive file {ArchiveFile} and archive type {ArchiveType}", ArchiveFileName, ArchiveType);
 
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add("archiveProcessing", _archiveProcessing);
+            navigationParameters.Add("archiveProcessing", _archive);
 
             _regionManager.RequestNavigate("MainContentRegion", "TestRunner", navigationParameters);
         }
 
         private bool CanRunTests()
         {
-            return TestSession.IsTestableArchive(_archiveProcessing.Archive, null, out _);
+            return TestSession.IsTestableArchive(_archive, null, out _);
         }
 
         private void OpenArchiveFileDialog()
