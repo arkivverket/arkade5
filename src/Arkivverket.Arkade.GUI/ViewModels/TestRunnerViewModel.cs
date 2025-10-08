@@ -46,10 +46,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand ShowReportCommand { get; set; }
         public DelegateCommand NewProgramSessionCommand { get; set; }
 
-        private ArchiveProcessing _archiveProcessing;
-        private string _archiveFileName;
+        private Archive _archive;
         private ArchiveType _archiveType;
-        private TestSession _testSession;
         private bool _testRunHasBeenExecuted;
         private bool _isRunningTests;
         private bool _testRunCompletedSuccessfully;
@@ -239,13 +237,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _log.Information("User action: Navigate to create package window");
 
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add("archiveProcessing", _archiveProcessing);
+            navigationParameters.Add("archiveProcessing", _archive);
             _regionManager.RequestNavigate("MainContentRegion", "CreatePackage", navigationParameters);
         }
 
         private bool CanStartTestRun()
         {
-            return _testSession != null && TestSession.IsTestableArchive(_testSession.Archive, _testSession.AddmlDefinition, out _) && !_testRunHasBeenExecuted;
+            return _archive.TestSession != null && TestSession.IsTestableArchive(_archive, _archive.TestSession.AddmlDefinition, out _) && !_testRunHasBeenExecuted;
         }
 
         private bool CanCreatePackage()
@@ -267,9 +265,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             try
             {
-                _archiveProcessing = (ArchiveProcessing)context.Parameters["archiveProcessing"];
+                _archive = (Archive)context.Parameters["archive"];
                 
-                _testSession = _arkadeCoreApi.CreateTestSession(_archiveProcessing?.Archive);
+                _archive.TestSession = _arkadeCoreApi.CreateTestSession(_archive);
                     
                 //_archiveType = (ArchiveType) context.Parameters["archiveType"];
                 //_archiveFileName = (string) context.Parameters["archiveFileName"];
@@ -278,10 +276,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 //    ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
                 //    : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
 
-                if (!TestSession.IsTestableArchive(_testSession.Archive, _testSession.AddmlDefinition, out string disqualifyingCause))
+                if (!TestSession.IsTestableArchive(_archive, _archive.TestSession.AddmlDefinition, out string disqualifyingCause))
                     LogNotTestableArchiveOperationMessage(disqualifyingCause);
 
-                if (_testSession.Archive.ArchiveType == ArchiveType.Noark5)
+                if (_archive.ArchiveType == ArchiveType.Noark5)
                 {
                     SupportedLanguage uiLanguage = LanguageSettingHelper.GetUILanguage();
 
@@ -437,13 +435,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 NotifyStartRunningTests();
 
-                _testSession.TestsToRun = GetSelectedTests();
+                _archive.TestSession.TestsToRun = GetSelectedTests();
                 
-                _testSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
+                _archive.TestSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
 
-                _arkadeApi.RunTests(_testSession);
+                _arkadeCoreApi.RunTests(_archive);
 
-                _testSession.AddLogEntry("Test run completed.");
+                _archive.TestSession.AddLogEntry("Test run completed.");
 
                 if (_testRunHasFailed)
                 {
@@ -451,7 +449,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     return;
                 }
 
-                SaveTestReports(_testSession.Archive.OutputDiasPackage.GetTestReportDirectory());
+                SaveTestReports(_archive.OutputDiasPackage.GetTestReportDirectory());
 
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedOperation, null, OperationMessageStatus.Ok);
@@ -459,14 +457,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             }
             catch (ArkadeException e)
             {
-                _testSession?.AddLogEntry("Test run failed: " + e.Message);
+                _archive.TestSession?.AddLogEntry("Test run failed: " + e.Message);
                 _log.Error(e.Message, e);
                 _statusEventHandler.RaiseEventTestProgressUpdated(string.Empty, true, e.Message);
                 NotifyFinishedRunningTests();
             }
             catch (Exception e)
             {
-                _testSession?.AddLogEntry("Test run failed: " + e.Message);
+                _archive.TestSession?.AddLogEntry("Test run failed: " + e.Message);
                 _log.Error(e.Message, e);
 
                 var operationMessageBuilder = new StringBuilder();
@@ -555,8 +553,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ShowTestReportDialog() // TODO: Generer testrapport direkte til riktig sted!
         {
-            Uuid diasPackageId = _archiveProcessing.Archive.InputDiasPackage?.Id;
-            new TestReportDialog(_testSession.Archive.OutputDiasPackage.GetTestReportDirectory(), diasPackageId).ShowDialog(); // NB! UUID-transfer
+            Uuid diasPackageId = _archive.InputDiasPackage?.Id;
+            new TestReportDialog(_archive.OutputDiasPackage.GetTestReportDirectory(), diasPackageId).ShowDialog(); // NB! UUID-transfer
         }
 
         private void SaveTestReports(DirectoryInfo testReportDirectory)
@@ -564,7 +562,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             string eventId = TestRunnerGUI.EventIdCreatingReport;
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
 
-            _arkadeApi.SaveReport(_testSession, testReportDirectory, false, Settings.Default.TestResultDisplayLimit);
+            _arkadeApi.SaveReport(_archive.TestSession, testReportDirectory, false, Settings.Default.TestResultDisplayLimit);
 
             _statusEventHandler.RaiseEventOperationMessage(eventId, TestRunnerGUI.TestReportIsSavedMessage, OperationMessageStatus.Ok);
         }
