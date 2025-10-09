@@ -159,7 +159,7 @@ namespace Arkivverket.Arkade.CLI
 
                 bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis);
 
-                LogFinishedStatus(command, RanWithoutErrors(archive.TestSession) && testSuccess && packSuccess);
+                LogFinishedStatus(command, RanWithoutErrors(archive) && testSuccess && packSuccess);
             }
             catch (SiardArchiveReaderException siardEx)
             {
@@ -187,7 +187,7 @@ namespace Arkivverket.Arkade.CLI
 
                 bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, archive);
 
-                LogFinishedStatus(command, RanWithoutErrors(archive.TestSession) && testSuccess);
+                LogFinishedStatus(command, RanWithoutErrors(archive) && testSuccess);
             }
             catch (SiardArchiveReaderException siardEx)
             {
@@ -306,12 +306,12 @@ namespace Arkivverket.Arkade.CLI
                 return false;
             }
 
-            if (_testRunHasFailed)
+            if (_testRunHasFailed) // What happens when a new Arkade-session is started? Is this reset?
                 return false;
 
             Uuid diasPackageId = archive.InputDiasPackage?.Id; // Sjekk!
 
-            SaveTestReport(archive.TestSession, outputDirectory, createStandAloneTestReport, testResultDisplayLimit, diasPackageId);
+            SaveTestReport(archive, outputDirectory, createStandAloneTestReport, testResultDisplayLimit, diasPackageId);
             return true;
         }
 
@@ -405,10 +405,10 @@ namespace Arkivverket.Arkade.CLI
             return testSession;
         }
 
-        private static void SaveTestReport(TestSession testSession, string outputDirectory,
+        private static void SaveTestReport(Archive archive, string outputDirectory,
             bool createStandAloneTestReport, int testResultDisplayLimit, Uuid diasPackageId = null)
         {
-            DirectoryInfo packageTestReportDirectory = testSession.Archive.OutputDiasPackage.GetTestReportDirectory();
+            DirectoryInfo packageTestReportDirectory = archive.OutputDiasPackage.GetTestReportDirectory();
 
             if (createStandAloneTestReport)
             {
@@ -417,7 +417,7 @@ namespace Arkivverket.Arkade.CLI
                 packageTestReportDirectory.Create();
             }
 
-            Arkade.SaveReport(testSession, packageTestReportDirectory, createStandAloneTestReport, testResultDisplayLimit);
+            Arkade.SaveReport(archive, packageTestReportDirectory, createStandAloneTestReport, testResultDisplayLimit);
 
             if (createStandAloneTestReport)
                 Log.Information($"Test reports generated at: {packageTestReportDirectory.FullName}");
@@ -437,9 +437,9 @@ namespace Arkivverket.Arkade.CLI
             return optionType.Remove(optionsStartIndex).ToLower();
         }
 
-        private static bool RanWithoutErrors(TestSession testSession)
+        private static bool RanWithoutErrors(Archive archive)
         {
-            if (!TestSession.IsTestableArchive(testSession.Archive, testSession.AddmlDefinition, out string disqualifyingCause))
+            if (!TestSession.IsTestableArchive(archive, archive.TestSession.AddmlDefinition, out string disqualifyingCause))
             {
                 Log.Error("Archive is not testable: " + disqualifyingCause);
                 return false;

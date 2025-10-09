@@ -6,16 +6,16 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public static class TestReportGeneratorRunner
     {
-        public static void RunAllGenerators(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone,
+        public static void RunAllGenerators(Archive archive, DirectoryInfo testReportDirectory, bool standalone,
             int testResultDisplayLimit, Uuid diasPackageId)
         {
-            TestReport testReport = testSession.Archive.ArchiveType.Equals(ArchiveType.Siard)
-                ? TestReportFactory.CreateForSiard(testSession)
-                : TestReportFactory.Create(testSession);
+            TestReport testReport = archive.ArchiveType.Equals(ArchiveType.Siard)
+                ? TestReportFactory.CreateForSiard(archive.TestSession)
+                : TestReportFactory.Create(archive.TestSession);
 
             foreach (TestReportFormat testReportFormat in Enum.GetValues<TestReportFormat>())
             {
-                string archiveIdentifier = diasPackageId?.ToString() ?? DateTime.Now.ToString("yyyyMMddHHmmss"); // NB! UUID-writeout (test results)
+                string archiveIdentifier = archive. diasPackageId?.ToString() ?? DateTime.Now.ToString("yyyyMMddHHmmss"); // NB! UUID-writeout (test results)
 
                 string testReportFileName = Path.Combine(testReportDirectory.FullName, standalone
                     ? string.Format(Resources.OutputFileNames.StandaloneTestReportFile, archiveIdentifier, testReportFormat.ToString())

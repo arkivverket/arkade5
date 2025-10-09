@@ -90,10 +90,10 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeCoreApi.CreatePackage(archive, language, generateFileFormatInfo, outputDirectory);
         }
 
-        public void SaveReport(TestSession testSession, DirectoryInfo directory, bool standalone, 
+        public void SaveReport(Archive archive, DirectoryInfo directory, bool standalone, 
             int testResultDisplayLimit)
         {
-            _arkadeApi.SaveReport(testSession, directory, standalone, testResultDisplayLimit);
+            _arkadeApi.SaveReport(archive, directory, standalone, testResultDisplayLimit);
         }
 
         public IFileFormatInfo AnalyseFileFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)

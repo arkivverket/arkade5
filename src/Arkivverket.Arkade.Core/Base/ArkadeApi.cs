@@ -151,7 +151,7 @@ namespace Arkivverket.Arkade.Core.Base
         //    return packageFilePath;
         //}
 
-        public void SaveReport(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone,
+        public void SaveReport(Archive archive, DirectoryInfo testReportDirectory, bool standalone,
             int testResultDisplayLimit)
         {
             //Unødvendig nå, ikke sant?
@@ -160,16 +160,16 @@ namespace Arkivverket.Arkade.Core.Base
 
             testReportDirectory.Create();
 
-            if (testSession.Archive.ArchiveType == ArchiveType.Siard)
+            if (archive.ArchiveType == ArchiveType.Siard)
                 File.Move(
-                    sourceFileName: Path.Combine(testSession.Archive.OutputDiasPackage.WorkingDirectory.RepositoryOperations().ToString(),
+                    sourceFileName: Path.Combine(archive.OutputDiasPackage.WorkingDirectory.RepositoryOperations().ToString(),
                         OutputFileNames.DbptkValidationReportFile),
                     destFileName: Path.Combine(testReportDirectory.FullName, OutputFileNames.DbptkValidationReportFile)
                 );
 
             Uuid diasPackageId = null; // Håndter!
 
-            TestReportGeneratorRunner.RunAllGenerators(testSession, testReportDirectory, standalone,
+            TestReportGeneratorRunner.RunAllGenerators(archive, testReportDirectory, standalone,
                 testResultDisplayLimit, diasPackageId);
 
             throw new NotImplementedException();

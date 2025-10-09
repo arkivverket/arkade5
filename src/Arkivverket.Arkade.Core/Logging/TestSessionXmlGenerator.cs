@@ -16,13 +16,13 @@ namespace Arkivverket.Arkade.Core.Logging
     {
         private static ILogger _log = Log.ForContext<TestSessionXmlGenerator>();
 
-        public void GenerateXmlAndSaveToFile(TestSession testSession)
+        public void GenerateXmlAndSaveToFile(Archive archive)
         {
-            string pathToLogFile = testSession.Archive.OutputDiasPackage.WorkingDirectory.RepositoryOperations()
+            string pathToLogFile = archive.OutputDiasPackage.WorkingDirectory.RepositoryOperations()
                 .WithFile(ArkadeConstants.ArkadeXmlLogFileName)
                 .FullName;
 
-            testSessionLog log = GetTestSessionLog(testSession);
+            testSessionLog log = GetTestSessionLog(archive);
             FileStream fs = new FileStream(pathToLogFile, FileMode.Create);
 
             XmlSerializer xmls = new XmlSerializer(typeof(testSessionLog));
@@ -30,22 +30,22 @@ namespace Arkivverket.Arkade.Core.Logging
             fs.Close();
         }
 
-        public static string GenerateXml(TestSession testSession)
+        public static string GenerateXml(Archive archive)
         {
-            return CreateXml(GetTestSessionLog(testSession));
+            return CreateXml(GetTestSessionLog(archive));
         }
 
-        private static testSessionLog GetTestSessionLog(TestSession testSession)
+        private static testSessionLog GetTestSessionLog(Archive archive)
         {
             testSessionLog log = new testSessionLog();
             log.timestamp = DateTime.Now;
             log.arkadeVersion = ArkadeVersion.Current;
 
-            log.archiveType = testSession?.Archive?.ArchiveType.ToString();
+            log.archiveType = archive.ArchiveType.ToString();
            // log.archiveUuid = testSession?.Archive?.OriginalUuid?.GetValue(); // NB! UUID-writeout (test results)
 
-            log.logEntries = GetLogEntries(testSession);
-            log.testResults = GetTestResults(testSession);
+            log.logEntries = GetLogEntries(archive.TestSession);
+            log.testResults = GetTestResults(archive.TestSession);
 
             return log;
         }
