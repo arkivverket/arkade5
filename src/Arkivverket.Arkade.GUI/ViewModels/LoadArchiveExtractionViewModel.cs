@@ -108,7 +108,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _log.Information("User action: Navigate to test runner window with archive file {ArchiveFile} and archive type {ArchiveType}", ArchiveFileName, ArchiveType);
 
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add("archiveProcessing", _archive);
+            navigationParameters.Add("archive", _archive);
 
             _regionManager.RequestNavigate("MainContentRegion", "TestRunner", navigationParameters);
         }

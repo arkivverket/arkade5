@@ -237,7 +237,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _log.Information("User action: Navigate to create package window");
 
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add("archiveProcessing", _archive);
+            navigationParameters.Add("archive", _archive);
             _regionManager.RequestNavigate("MainContentRegion", "CreatePackage", navigationParameters);
         }
 
