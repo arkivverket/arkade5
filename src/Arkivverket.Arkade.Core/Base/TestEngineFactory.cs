@@ -20,11 +20,11 @@ namespace Arkivverket.Arkade.Core.Base
             _siardTestEngine = siardTestEngine;
         }
 
-        public ITestEngine GetTestEngine(TestSession testSession)
+        public ITestEngine GetTestEngine(Archive archive)
         {
-            _log.Debug("Find test engine for archive {archiveType}", testSession.Archive.ArchiveType);
+            _log.Debug("Find test engine for archive {archiveType}", archive.ArchiveType);
 
-            return testSession.Archive.ArchiveType switch
+            return archive.ArchiveType switch
             {
                 ArchiveType.Siard => _siardTestEngine,
                 ArchiveType.Noark5 => _noark5TestEngine,

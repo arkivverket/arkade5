@@ -87,13 +87,13 @@ public class ArkadeCoreApi(
         if (testSession.TestRunContainsDocumentFileDependentTests)
             archive.DocumentFiles.Register(includeChecksums: testSession.TestRunContainsChecksumControl);
 
-        ITestEngine testEngine = testEngineFactory.GetTestEngine(testSession);
-        testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
+        ITestEngine testEngine = testEngineFactory.GetTestEngine(archive);
+        testSession.TestSuite = testEngine.RunTestsOnArchive(archive);
 
         testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
         Log.Information("Testing of archive finished.");
 
-        testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession); // TODO: Is this file relevant any longer?
+        testSessionXmlGenerator.GenerateXmlAndSaveToFile(archive); // TODO: Is this file relevant any longer?
     }
 
     public string CreatePackage(Archive archive, SupportedLanguage language, bool generateFileFormatInfo, string outputDirectory)

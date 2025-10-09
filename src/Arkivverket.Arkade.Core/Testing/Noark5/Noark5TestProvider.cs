@@ -16,11 +16,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             new TestId(TestId.TestKind.Noark5, 28)
         };
 
-        public List<IArkadeStructureTest> GetStructureTests(TestSession testSession)
+        public List<IArkadeStructureTest> GetStructureTests(Archive archive)
         {
-            var noark5TestFactory = new Noark5TestFactory(testSession.Archive);
+            var noark5TestFactory = new Noark5TestFactory(archive);
 
-            IEnumerable<TestId> testIds = testSession.TestsToRun.Intersect(_structureTests);
+            IEnumerable<TestId> testIds = archive.TestSession.TestsToRun.Intersect(_structureTests);
 
             var structureTests = new List<IArkadeStructureTest>();
 
@@ -34,11 +34,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return structureTests;
         }
 
-        public List<INoark5Test> GetContentTests(TestSession testSession)
+        public List<INoark5Test> GetContentTests(Archive archive)
         {
-            var noark5TestFactory = new Noark5TestFactory(testSession.Archive);
+            var noark5TestFactory = new Noark5TestFactory(archive);
 
-            IEnumerable<TestId> testIds = testSession.TestsToRun.Except(_structureTests);
+            IEnumerable<TestId> testIds = archive.TestSession.TestsToRun.Except(_structureTests);
 
             var contentTests = new List<INoark5Test>();
 

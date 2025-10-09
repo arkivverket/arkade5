@@ -7,15 +7,15 @@ namespace Arkivverket.Arkade.Core.Report
     public static class TestReportGeneratorRunner
     {
         public static void RunAllGenerators(Archive archive, DirectoryInfo testReportDirectory, bool standalone,
-            int testResultDisplayLimit, Uuid diasPackageId)
+            int testResultDisplayLimit, Uuid diasPackageId) // TODO: Find out how to determine context of call ...
         {
             TestReport testReport = archive.ArchiveType.Equals(ArchiveType.Siard)
-                ? TestReportFactory.CreateForSiard(archive.TestSession)
-                : TestReportFactory.Create(archive.TestSession);
+                ? TestReportFactory.CreateForSiard(archive)
+                : TestReportFactory.Create(archive);
 
             foreach (TestReportFormat testReportFormat in Enum.GetValues<TestReportFormat>())
             {
-                string archiveIdentifier = archive. diasPackageId?.ToString() ?? DateTime.Now.ToString("yyyyMMddHHmmss"); // NB! UUID-writeout (test results)
+                string archiveIdentifier = diasPackageId?.ToString() ?? DateTime.Now.ToString("yyyyMMddHHmmss"); // NB! UUID-writeout (test results)
 
                 string testReportFileName = Path.Combine(testReportDirectory.FullName, standalone
                     ? string.Format(Resources.OutputFileNames.StandaloneTestReportFile, archiveIdentifier, testReportFormat.ToString())

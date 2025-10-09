@@ -26,11 +26,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             _testProgressReporter = testProgressReporter;
         }
 
-        public TestSuite RunTestsOnArchive(TestSession testSession)
+        public TestSuite RunTestsOnArchive(Archive archive)
         {
-            _testProgressReporter.Begin(testSession.Archive.ArchiveType);
+            _testProgressReporter.Begin(archive.ArchiveType);
 
-            AddmlDefinition addmlDefinition = testSession.AddmlDefinition;
+            AddmlDefinition addmlDefinition = archive.TestSession.AddmlDefinition;
 
             _addmlProcessRunner.Init(addmlDefinition);
 
@@ -64,7 +64,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 _addmlProcessRunner.RunProcesses(file);
 
                 IRecordEnumerator recordEnumerator =
-                    _flatFileReaderFactory.GetRecordEnumerator(testSession.Archive, file);
+                    _flatFileReaderFactory.GetRecordEnumerator(archive, file);
 
                 int numberOfRecordsWithFieldDelimiterError = 0;
 
@@ -146,10 +146,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             TestSuite testSuite = _addmlProcessRunner.GetTestSuite();
 
-            testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, testSession.Archive).GetTestRun());
+            testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, archive).GetTestRun());
             testSuite.AddTestRun(new AH_03_ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
 
-            testSession.TestSummary = new TestSummary((int) fileCounter, numberOfProcessedRecords,
+            archive.TestSession.TestSummary = new TestSummary((int) fileCounter, numberOfProcessedRecords,
                 testSuite.TestRuns.Count(), testSuite.FindNumberOfErrors(), 0);
 
             _testProgressReporter.Finish();

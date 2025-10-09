@@ -10,50 +10,50 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public static class TestReportFactory
     {
-        public static TestReport Create(TestSession testSession)
+        public static TestReport Create(Archive archive)
         {
             var testReport = new TestReport
             {
-                Summary = CreateTestReportSummary(testSession),
-                TestsResults = GetTestReportResults(testSession),
+                Summary = CreateTestReportSummary(archive),
+                TestsResults = GetTestReportResults(archive.TestSession),
             };
 
             return testReport;
         }
 
-        public static TestReport CreateForSiard(TestSession testSession)
+        public static TestReport CreateForSiard(Archive archive)
         {
             var testReport = new TestReport
             {
-                Summary = CreateTestReportSummary(testSession),
-                TestsResults = GetSiardTestReportResults(testSession.TestSuite.TestTool),
+                Summary = CreateTestReportSummary(archive),
+                TestsResults = GetSiardTestReportResults(archive.TestSession.TestSuite.TestTool),
             };
 
             return testReport;
         }
 
-        private static TestReportSummary CreateTestReportSummary(TestSession testSession, Uuid packageId = null)
+        private static TestReportSummary CreateTestReportSummary(Archive archive, Uuid packageId = null)
         {
             var norwegianCulture = new CultureInfo("nb-NO");
-            int numberOfExecutedTests = testSession.TestSuite.TestRuns.Count();
-            int numberOfAvailableTests = testSession.Archive.ArchiveType is ArchiveType.Noark5 ? Noark5TestProvider.GetAllTestIds().Count : 0;
+            int numberOfExecutedTests = archive.TestSession.TestSuite.TestRuns.Count();
+            int numberOfAvailableTests = archive.ArchiveType is ArchiveType.Noark5 ? Noark5TestProvider.GetAllTestIds().Count : 0;
 
             var summary = new TestReportSummary
             {
                 Uuid = packageId?.ToString() ?? "-",
-                ArchiveCreators = testSession.Archive.Details.ArchiveCreators,
-                ArchivalPeriod = testSession.Archive.Details.ArchivalPeriod,
-                SystemName = testSession.Archive.Details.SystemName,
-                SystemType = testSession.Archive.Details.SystemType,
-                ArchiveType = testSession.Archive.ArchiveType,
-                DateOfTesting = testSession.DateOfTesting.ToString(Resources.Report.DateFormat, norwegianCulture),
+                ArchiveCreators = archive.Details.ArchiveCreators,
+                ArchivalPeriod = archive.Details.ArchivalPeriod,
+                SystemName = archive.Details.SystemName,
+                SystemType = archive.Details.SystemType,
+                ArchiveType = archive.ArchiveType,
+                DateOfTesting = archive.TestSession.DateOfTesting.ToString(Resources.Report.DateFormat, norwegianCulture),
                 NumberOfTestsRun = string.Format(Resources.Report.ValueNumberOfTestsExecuted, numberOfExecutedTests, numberOfAvailableTests),
-                NumberOfProcessedFiles = testSession.TestSummary.NumberOfProcessedFiles,
-                NumberOfProcessedRecords = testSession.TestSummary.NumberOfProcessedRecords,
-                NumberOfWarnings = testSession.TestSummary.NumberOfWarnings,
-                NumberOfErrors = testSession.Archive.ArchiveType is ArchiveType.Siard
-                    ? testSession.TestSummary.NumberOfErrors
-                    : testSession.TestSuite.FindNumberOfErrors().ToString(),
+                NumberOfProcessedFiles = archive.TestSession.TestSummary.NumberOfProcessedFiles,
+                NumberOfProcessedRecords = archive.TestSession.TestSummary.NumberOfProcessedRecords,
+                NumberOfWarnings = archive.TestSession.TestSummary.NumberOfWarnings,
+                NumberOfErrors = archive.ArchiveType is ArchiveType.Siard
+                    ? archive.TestSession.TestSummary.NumberOfErrors
+                    : archive.TestSession.TestSuite.FindNumberOfErrors().ToString(),
         };
 
             return summary;
