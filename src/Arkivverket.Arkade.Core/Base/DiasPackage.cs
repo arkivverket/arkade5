@@ -11,9 +11,9 @@ public abstract class DiasPackage
     public Uuid Id { get; protected init; }
     public PackageType PackageType { get; protected init; }
     public ArchiveMetadata ArchiveMetadata { get; protected init; }
-    public readonly DiasPackageWorkingDirectory WorkingDirectory;
- 
-    protected DiasPackage(DirectoryInfo locationForWorkingDirectory)
+    public DiasPackageWorkingDirectory WorkingDirectory { get; private set; }
+
+    protected void CreateWorkingDirectory(DirectoryInfo locationForWorkingDirectory)
     {
         DirectoryInfo workingDirectoryRoot = locationForWorkingDirectory.CreateSubdirectory(Id.GetValue());
         WorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
@@ -29,13 +29,16 @@ public class InputDiasPackage : DiasPackage
 {
     public readonly FileInfo TarFile;
 
-    public InputDiasPackage(FileInfo tarFile, ArchiveType archiveType, DirectoryInfo locationForWorkingDirectory, ICompressionUtility compressionUtility) : base(locationForWorkingDirectory)
+    public InputDiasPackage(FileInfo tarFile, ArchiveType archiveType, DirectoryInfo locationForWorkingDirectory, ICompressionUtility compressionUtility)
     {
-        if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(tarFile.Name), out Uuid id)) // NB! UUID-orig
+        TarFile = tarFile;
+
+        if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(TarFile.Name), out Uuid id)) // NB! UUID-orig
             throw new ArkadeException("Could not extract an UUID from filename: " + tarFile.Name);
 
         Id = id;
-        TarFile = tarFile;
+        
+        CreateWorkingDirectory(locationForWorkingDirectory);
 
         //TarExtractionStartedEvent();
         compressionUtility.ExtractFolderFromArchive(tarFile, WorkingDirectory.Root().DirectoryInfo(),
@@ -53,9 +56,11 @@ public class InputDiasPackage : DiasPackage
 
 public class OutputDiasPackage : DiasPackage
 {
-    public OutputDiasPackage(PackageType packageType, ArchiveMetadata archiveMetadata, DirectoryInfo locationForWorkingDirectory) : base(locationForWorkingDirectory)
+    public OutputDiasPackage(PackageType packageType, ArchiveMetadata archiveMetadata, DirectoryInfo locationForWorkingDirectory)
     {
         Id = Uuid.Random(); // NB! UUID-orig
+
+        CreateWorkingDirectory(locationForWorkingDirectory);
 
         PackageType = packageType;
 
