@@ -171,8 +171,6 @@ namespace Arkivverket.Arkade.Core.Base
 
             TestReportGeneratorRunner.RunAllGenerators(archive, testReportDirectory, standalone,
                 testResultDisplayLimit, diasPackageId);
-
-            throw new NotImplementedException();
         }
 
         public IEnumerable<KeyValuePair<string, IEnumerable<byte>>> GetSiardLobsAsByteArrays(string siardFileFullPath)

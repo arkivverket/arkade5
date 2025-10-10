@@ -41,7 +41,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private string _statusMessagePath;
         private string _includeFormatInfoFile;
         private Archive _archive;
-        private string _archiveFileName;
         private readonly IRegionManager _regionManager;
 
 
@@ -411,7 +410,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             Log.Information("User action: Open metadata file");
 
-            string suggestedMetadataFileDirectory = new FileInfo(_archiveFileName).DirectoryName;
+            string suggestedMetadataFileDirectory = _archive.InputDiasPackage != null
+                ? new FileInfo(_archive.InputDiasPackage.TarFile.FullName).DirectoryName
+                : null;
 
             var selectMetadataFileDialog = new OpenFileDialog
             {

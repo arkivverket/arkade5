@@ -449,7 +449,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     return;
                 }
 
-                SaveTestReports(_archive.OutputDiasPackage.GetTestReportDirectory());
+                SaveTestReports(_archive.TestSession.TemporaryTestResultFilesDirectory);
 
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedOperation, null, OperationMessageStatus.Ok);
