@@ -42,8 +42,9 @@ namespace Arkivverket.Arkade.Core.Base
         public bool TestRunContainsChecksumControl =>
             TestsToRun.Contains(TestId.Create("N5.30"));
 
-        public TestSession()
+        public TestSession(DirectoryInfo temporaryTestResultFilesDirectory)
         {
+            TemporaryTestResultFilesDirectory = temporaryTestResultFilesDirectory;
             DateOfTesting = DateTime.Now;
         }
 

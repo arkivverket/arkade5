@@ -243,7 +243,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private bool CanStartTestRun()
         {
-            return _archive.TestSession != null && TestSession.IsTestableArchive(_archive, _archive.TestSession.AddmlDefinition, out _) && !_testRunHasBeenExecuted;
+           return _archive?.TestSession != null && TestSession.IsTestableArchive(_archive, _archive.TestSession.AddmlDefinition, out _) && !_testRunHasBeenExecuted;
         }
 
         private bool CanCreatePackage()

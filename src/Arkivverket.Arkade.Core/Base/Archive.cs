@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         public DirectoryInfo ProcessingDirectory { get; }
 
-        public bool IsNoark5TarArchive => InputDiasPackage.TarFile != null && ArchiveType is ArchiveType.Noark5;
+        public bool IsNoark5TarArchive => InputDiasPackage?.TarFile != null && ArchiveType is ArchiveType.Noark5;
 
         public ArkadeDirectory Content { get; }
         public InputDiasPackage InputDiasPackage { get; }
@@ -76,7 +76,7 @@ namespace Arkivverket.Arkade.Core.Base
 
                 SetupArchiveXmlUnits();
 
-                DocumentFiles = InputDiasPackage.TarFile == null
+                DocumentFiles = InputDiasPackage == null
                     ? new DocumentFiles(GetDocumentsDirectory())
                     : new DocumentFiles(InputDiasPackage.TarFile.FullName);
             }

@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Logging
 
         public void GenerateXmlAndSaveToFile(Archive archive)
         {
-            string pathToLogFile = archive.OutputDiasPackage.WorkingDirectory.RepositoryOperations()
+            string pathToLogFile = new ArkadeDirectory(archive.TestSession.TemporaryTestResultFilesDirectory)
                 .WithFile(ArkadeConstants.ArkadeXmlLogFileName)
                 .FullName;
 
