@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Core.Base
         public TestSession TestSession { get; set; }
 
         public Archive(ArchiveType archiveType, ArkadeDirectory archiveExtractionDirectory,
-            DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler)
+            DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler,InputDiasPackage inputDiasPackage = null)
         {
             _statusEventHandler = statusEventHandler;
 
@@ -49,6 +49,8 @@ namespace Arkivverket.Arkade.Core.Base
             Content = archiveExtractionDirectory;
             
             ProcessingDirectory = processingDirectory;
+
+            InputDiasPackage = inputDiasPackage;
             
             if (archiveType == ArchiveType.Siard)
             {
@@ -83,9 +85,8 @@ namespace Arkivverket.Arkade.Core.Base
         }
 
         public Archive(ArchiveType archiveType, InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) :
-            this(archiveType, inputDiasPackage.WorkingDirectory.ContentWorkDirectory(), processingDirectory, statusEventHandler)
+            this(archiveType, inputDiasPackage.WorkingDirectory.ContentWorkDirectory(), processingDirectory, statusEventHandler, inputDiasPackage)
         {
-            InputDiasPackage = inputDiasPackage;
         }
         
 
