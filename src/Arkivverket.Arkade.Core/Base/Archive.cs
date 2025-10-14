@@ -138,10 +138,10 @@ namespace Arkivverket.Arkade.Core.Base
             {
                 var tarInputStream = new TarInputStream(File.OpenRead(InputDiasPackage.TarFile.FullName!), Encoding.UTF8);
 
+                string archiveRootDirectoryName = Path.GetFileNameWithoutExtension(InputDiasPackage.TarFile.FullName);
+
                 while (tarInputStream.GetNextEntry() is { Name: not null } entry)
                 {
-                    string archiveRootDirectoryName = Path.GetFileNameWithoutExtension(InputDiasPackage.TarFile.FullName);
-
                     if (!entry.IsDirectory && entry.IsNoark5DocumentsEntry(archiveRootDirectoryName))
                     {
                         DocumentsDirectoryName = PathUtil.GetChild(DirectoryNameContent, entry.Name);
