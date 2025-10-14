@@ -99,7 +99,7 @@ namespace Arkivverket.Arkade.Core.Base
             }
 
             if (archive.IsNoark5TarArchive)
-                archive.DocumentFiles.TransferFromTarToInformationPackage(tarOutputStream);
+                archive.DocumentFiles.TransferFromTarToInformationPackage(tarOutputStream, packageRootDirectory);
 
             tarArchive.Close();
 

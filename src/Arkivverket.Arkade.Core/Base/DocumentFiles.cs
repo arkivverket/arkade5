@@ -41,14 +41,17 @@ namespace Arkivverket.Arkade.Core.Base
             return _areRegistered && _haveCheckSums;
         }
 
-        public void TransferFromTarToInformationPackage(TarOutputStream tarOutputStream)
+        public void TransferFromTarToInformationPackage(TarOutputStream tarOutputStream, string packageRootDirectory)
         {
             using var tarInputStream = new TarInputStream(File.OpenRead(_tarArchiveFullFileName), Encoding.UTF8);
 
             while (tarInputStream.GetNextEntry() is { Name: not null } entry)
             {
-                if (!entry.IsNoark5DocumentsEntry(Path.GetFileNameWithoutExtension(_tarArchiveFullFileName)))
+                string archiveRootDirectoryName = Path.GetFileNameWithoutExtension(_tarArchiveFullFileName);
+                if (!entry.IsNoark5DocumentsEntry(archiveRootDirectoryName))
                     continue;
+
+                entry.Name = entry.Name.Replace(archiveRootDirectoryName, packageRootDirectory.Trim('/', '\\'));
 
                 tarOutputStream.PutNextEntry(entry);
 
