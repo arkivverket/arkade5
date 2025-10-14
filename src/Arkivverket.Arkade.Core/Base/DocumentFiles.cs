@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Arkivverket.Arkade.Core.Base
 {
-    internal class DocumentFiles
+    internal class DocumentFiles // TODO: Split this class into DirectoryDocumentFiles and TarFileDocumentFiles (either interfaced or with abstract class)?
     {
         private readonly SortedDictionary<string, DocumentFile> _documentFiles = new();
 

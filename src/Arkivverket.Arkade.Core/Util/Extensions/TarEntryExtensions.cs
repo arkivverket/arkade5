@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Core.Util
 {
     public static class TarEntryExtensions
     {
-        public static bool IsNoark5DocumentsEntry(this TarEntry tarEntry, string archiveRootDirectoryName)
+        public static bool IsNoark5DocumentsEntry(this TarEntry tarEntry, string archiveRootDirectoryName) // TODO: Ensure archiveRootDirectoryName is not only the file name without extension, but also the actual root directory name inside the tar file
         {
             string entryName = tarEntry.Name.Replace('\\', '/');
 
