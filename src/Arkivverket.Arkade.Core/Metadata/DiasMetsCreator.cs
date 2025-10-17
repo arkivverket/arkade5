@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Metadata
                 metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip: filesToSkip, directoriesToSkip: directoriesToSkip);
             }
 
-            if (outputDiasPackage.WorkingDirectory.HasExternalContentDirectory())
+            //if (outputDiasPackage.WorkingDirectory.HasExternalContentDirectory())
             {
                 DirectoryInfo externalContentDirectory = archive.Content.DirectoryInfo();
 

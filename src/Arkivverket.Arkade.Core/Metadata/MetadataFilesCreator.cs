@@ -1,41 +1,31 @@
+using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Metadata
 {
-    public class MetadataFilesCreator
+    public class MetadataFilesCreator(
+        DiasMetsCreator diasMetsCreator,
+        DiasPremisCreator diasPremisCreator,
+        EadCreator eadCreator,
+        EacCpfCreator eacCpfCreator,
+        LogCreator logCreator)
     {
-        private readonly DiasMetsCreator _diasMetsCreator;
-        private readonly DiasPremisCreator _diasPremisCreator;
-        private readonly LogCreator _logCreator;
-        private readonly EacCpfCreator _eacCpfCreator;
-        private readonly EadCreator _eadCreator;
-
-        public MetadataFilesCreator(DiasMetsCreator diasMetsCreator, DiasPremisCreator diasPremisCreator,
-            EadCreator eadCreator, EacCpfCreator eacCpfCreator, LogCreator logCreator)
-        {
-            _diasMetsCreator = diasMetsCreator;
-            _diasPremisCreator = diasPremisCreator;
-            _logCreator = logCreator;
-            _eadCreator = eadCreator;
-            _eacCpfCreator = eacCpfCreator;
-        }
+        private readonly List<IMetadataCreator> _metadataCreators = [diasPremisCreator, logCreator, eadCreator, eacCpfCreator];
 
         public void Create(Archive archive)
         {
             OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
 
-            _diasPremisCreator.CreateAndSaveFile(outputDiasPackage);
-            _logCreator.CreateAndSaveFile(outputDiasPackage);
-            // EAD is not included in v1.0
-            _eadCreator.CreateAndSaveFile(outputDiasPackage);
-            // EAC-CPF is not included in v1.0
-            _eacCpfCreator.CreateAndSaveFile(outputDiasPackage);
+            outputDiasPackage.WorkingDirectory.CreateAllFolders(); // Experimental!
 
+            foreach (IMetadataCreator metadataCreator in _metadataCreators)
+                metadataCreator.CreateAndSaveFile(outputDiasPackage);
+            
             AddXsdFiles(outputDiasPackage.WorkingDirectory);
 
             // Generate mets-file last for it to describe all other package content
-            _diasMetsCreator.CreateAndSaveFile(archive);
+            diasMetsCreator.CreateAndSaveFile(archive);
         }
 
         private static void AddXsdFiles(DiasPackageWorkingDirectory diasPackageWorkingDirectory)

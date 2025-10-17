@@ -8,7 +8,7 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Core.Metadata
 {
-    public class DiasPremisCreator
+    public class DiasPremisCreator : IMetadataCreator
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 

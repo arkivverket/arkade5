@@ -31,10 +31,10 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<TestSessionFactory>().AsSelf();
             builder.RegisterType<MetadataFilesCreator>().AsSelf();
             builder.RegisterType<DiasMetsCreator>().AsSelf();
-            builder.RegisterType<DiasPremisCreator>().AsSelf();
-            builder.RegisterType<LogCreator>().AsSelf();
-            builder.RegisterType<EadCreator>().AsSelf();
-            builder.RegisterType<EacCpfCreator>().AsSelf();
+            builder.RegisterType<DiasPremisCreator>().As<IMetadataCreator>();
+            builder.RegisterType<LogCreator>().As<IMetadataCreator>();
+            builder.RegisterType<EadCreator>().As<IMetadataCreator>();
+            builder.RegisterType<EacCpfCreator>().As<IMetadataCreator>();
             builder.RegisterType<SubmissionDescriptionCreator>().AsSelf();
             builder.RegisterType<InformationPackageCreator>().AsSelf();
             builder.RegisterType<ArkadeApi>().AsSelf();

@@ -52,9 +52,12 @@ namespace Arkivverket.Arkade.Core.Base
             return packageFilePath;
         }
 
-        private string CreatePackage(Archive archive, string outputDirectory)
+        private string CreatePackage(Archive archive, string outputDirectory) // TODO: Generate and collect all files from/to the right places
         {
             OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
+
+            if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.Fagsystem)
+                outputDiasPackage.WorkingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(archive.AddmlXmlUnit.File.Name, archive); // Last parameter is experimental ..
 
             try
             {
@@ -69,7 +72,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             if (outputDiasPackage.PackageType == PackageType.SubmissionInformationPackage)
             {
-                CopyTestReportsToStandaloneDirectory(outputDiasPackage, resultDirectory);
+               // CopyTestReportsToStandaloneDirectory(outputDiasPackage, resultDirectory); // TODO: Generate test reports to standalone directory
             }
 
             string packageFilePath = Path.Combine(resultDirectory, outputDiasPackage.Id + ".tar"); // NB! UUID-writeout (package creation)

@@ -116,7 +116,7 @@ public class ArkadeCoreApi(
             siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(archive);
         }
 
-        // metadataFilesCreator.Create(archive); // TODO: Handle!
+        metadataFilesCreator.Create(archive); // TODO: Check!
 
         string packageFilePath;
 

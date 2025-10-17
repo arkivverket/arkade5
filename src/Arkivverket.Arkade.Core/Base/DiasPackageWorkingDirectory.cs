@@ -12,46 +12,46 @@ namespace Arkivverket.Arkade.Core.Base
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly ArkadeDirectory _root;
-        private readonly ArkadeDirectory _externalContentDirectory;
+        //private readonly ArkadeDirectory _externalContentDirectory;
 
         public DiasPackageWorkingDirectory(DirectoryInfo root)
         {
             _root = new ArkadeDirectory(root);
         }
-        public DiasPackageWorkingDirectory(DirectoryInfo root, DirectoryInfo externalContentDirectory)
-        {
-            _root = new ArkadeDirectory(root);
-            if (externalContentDirectory != null)
-            {
-                _externalContentDirectory = new ArkadeDirectory(externalContentDirectory);
-                Log.Debug("Setting up working directory with external content directory: " + externalContentDirectory.FullName);
-            }
-        }
+        //public DiasPackageWorkingDirectory(DirectoryInfo root, DirectoryInfo externalContentDirectory)
+        //{
+        //    _root = new ArkadeDirectory(root);
+        //    if (externalContentDirectory != null)
+        //    {
+        //        _externalContentDirectory = new ArkadeDirectory(externalContentDirectory);
+        //        Log.Debug("Setting up working directory with external content directory: " + externalContentDirectory.FullName);
+        //    }
+        //}
 
-        public static DiasPackageWorkingDirectory FromArchiveFile()
-        {
-            return FromExternalDirectory(null);
-        }
+        //public static DiasPackageWorkingDirectory FromArchiveFile()
+        //{
+        //    return FromExternalDirectory(null);
+        //}
 
-        /// <summary>
-        /// Initializes a new working directory for this archive using the timestamp as the identifier. An empty folder structure is created on disk.
-        /// </summary>
-        /// <param name="externalContentDirectory">optional external content directory</param>
-        /// <returns></returns>
-        internal static DiasPackageWorkingDirectory FromExternalDirectory(DirectoryInfo externalContentDirectory)
-        {
-            if (ArkadeProcessingArea.WorkDirectory == null)
-                throw new IOException(Resources.ExceptionMessages.ArkadeProcessAreaNotSet);
+        ///// <summary>
+        ///// Initializes a new working directory for this archive using the timestamp as the identifier. An empty folder structure is created on disk.
+        ///// </summary>
+        ///// <param name="externalContentDirectory">optional external content directory</param>
+        ///// <returns></returns>
+        //internal static DiasPackageWorkingDirectory FromExternalDirectory(DirectoryInfo externalContentDirectory)
+        //{
+        //    if (ArkadeProcessingArea.WorkDirectory == null)
+        //        throw new IOException(Resources.ExceptionMessages.ArkadeProcessAreaNotSet);
 
-            string dateString = DateTime.Now.ToString("yyyyMMddHHmmss");
-            var rootDirectory = new DirectoryInfo(
-                Path.Combine(ArkadeProcessingArea.WorkDirectory.FullName, dateString)
-            );
+        //    string dateString = DateTime.Now.ToString("yyyyMMddHHmmss");
+        //    var rootDirectory = new DirectoryInfo(
+        //        Path.Combine(ArkadeProcessingArea.WorkDirectory.FullName, dateString)
+        //    );
 
-            var workingDirectory = new DiasPackageWorkingDirectory(rootDirectory, externalContentDirectory);
-            workingDirectory.CreateAllFolders();
-            return workingDirectory;
-        }
+        //    var workingDirectory = new DiasPackageWorkingDirectory(rootDirectory, externalContentDirectory);
+        //    workingDirectory.CreateAllFolders();
+        //    return workingDirectory;
+        //}
 
         public ArkadeDirectory Root()
         {
@@ -93,39 +93,39 @@ namespace Arkivverket.Arkade.Core.Base
             return AdministrativeMetadata().WithSubDirectory(ArkadeConstants.DirectoryNameRepositoryOperations);
         }
 
-        private void CreateAllFolders()
+        public void CreateAllFolders() // Experimentally set to public
         {
-            Root().Create();
+            //Root().Create();
             DescriptiveMetadata().Create(); // TODO: Create at package creation
             AdministrativeMetadata().Create(); // TODO: Create at package creation
             RepositoryOperations().Create(); // TODO: Create at package creation
             ContentWorkDirectory().Create(); // TODO: Create at package creation
         }
 
-        public bool HasExternalContentDirectory()
-        {
-            return _externalContentDirectory != null;
-        }
+        //public bool HasExternalContentDirectory()
+        //{
+        //    return _externalContentDirectory != null;
+        //}
 
-        public void EnsureAdministrativeMetadataHasAddmlFiles(string addmlFileName)
+        public void EnsureAdministrativeMetadataHasAddmlFiles(string addmlFileName, Archive archive)
         {
-            TryCopyAddmlFileToAdministrativeMetadata(addmlFileName);
+            TryCopyAddmlFileToAdministrativeMetadata(addmlFileName, archive);
 
-            if (!TryCopyAddmlFileToAdministrativeMetadata(AddmlXsdFileName))
+            if (!TryCopyAddmlFileToAdministrativeMetadata(AddmlXsdFileName, archive))
             {
                 AdministrativeMetadata().AddFileFromResources(AddmlXsdResource, AddmlXsdFileName);
                 Log.Debug($"Adding {AddmlXsdFileName} from Arkade built-in resources to administrative_metadata.");
             }
         }
 
-        private bool TryCopyAddmlFileToAdministrativeMetadata(string addmlFileName)
+        private bool TryCopyAddmlFileToAdministrativeMetadata(string addmlFileName, Archive archive)
         {
             FileInfo targetAddmlFile = AdministrativeMetadata().WithFile(addmlFileName);
 
             if (targetAddmlFile.Exists)
                 return false;
 
-            ArkadeDirectory content = null; // TODO: Provide
+            ArkadeDirectory content = archive.Content; // TODO: Follow up ...
 
             FileInfo contentAddml = content.WithFile(addmlFileName);
 
