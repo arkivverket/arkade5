@@ -28,7 +28,7 @@ public class ArkadeCoreApi(
 {
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-    public Archive LoadArchiveExtraction(FileSystemInfo archiveSource, ArchiveType archiveType)
+    public Archive LoadArchiveExtraction(FileSystemInfo archiveSource, ArchiveType archiveType) // Merge?
     {
         Log.Debug($"Loading Archive Extraction [sourcePath: {archiveSource.FullName}] [archiveType: {archiveType}]");
 
@@ -38,6 +38,7 @@ public class ArkadeCoreApi(
 
         if (archiveType == ArchiveType.Siard && archiveSource is FileInfo { Exists: true, Extension: ".siard" } siardFile)
         {
+            // TODO: Consider to handle the Siard-file and any external lobs in place (at least until packing)
             // CopySiardFilesToContentDirectory(siardFile, workingDirectory.Content().ToString());
 
            throw new NotImplementedException();
@@ -54,7 +55,7 @@ public class ArkadeCoreApi(
         return new Archive(archiveType, archiveExtractionDirectory, CreateProcessingDirectory(), statusEventHandler);
     }
 
-    public Archive LoadArchiveAsDiasPackage(FileInfo diasPackageFile, ArchiveType archiveType)
+    public Archive LoadArchiveAsDiasPackage(FileInfo diasPackageFile, ArchiveType archiveType) // Merge?
     {
         Log.Debug($"Loading Dias Package [file: {diasPackageFile.FullName}] [archiveType: {archiveType}]");
 

@@ -372,9 +372,9 @@ namespace Arkivverket.Arkade.CLI
             switch (archiveSource)
             {
                 case DirectoryInfo or FileInfo { Extension: ".siard" }:
-                    return Arkade.LoadArchiveExtraction(archiveSource, archiveType);
+                    return Arkade.LoadArchiveExtraction(archiveSource, archiveType); // Merge?
                 case FileInfo { Extension: ".tar" } tarFile:
-                    return Arkade.LoadArchiveAsDiasPackage(tarFile, archiveType);
+                    return Arkade.LoadArchiveAsDiasPackage(tarFile, archiveType); // Merge?
 
                 default:
                     throw new ArgumentException("Unsupported archive input or input + archive type combination");
