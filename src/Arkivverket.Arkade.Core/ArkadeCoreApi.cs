@@ -34,25 +34,33 @@ public class ArkadeCoreApi(
 
         ArchiveInformationEvent(archiveSource.FullName, archiveType);
 
-        ArkadeDirectory archiveExtractionDirectory;
+        DirectoryInfo processingDirectory = CreateProcessingDirectory();
 
+        InputDiasPackage inputDiasPackage = null;
+        if (archiveSource is FileInfo { Extension: ".tar" } tarFile)
+        {
+            inputDiasPackage = new InputDiasPackage(tarFile, archiveType, processingDirectory, compressionUtility);
+
+             ArchiveInformationEvent(tarFile.FullName, archiveType, inputDiasPackage.Id);
+        }
+        
         if (archiveType == ArchiveType.Siard && archiveSource is FileInfo { Exists: true, Extension: ".siard" } siardFile)
         {
             // TODO: Consider to handle the Siard-file and any external lobs in place (at least until packing)
             // CopySiardFilesToContentDirectory(siardFile, workingDirectory.Content().ToString());
 
-           throw new NotImplementedException();
-        }
-        else if (archiveSource is DirectoryInfo { Exists: true } directory)
-        {
-            archiveExtractionDirectory = new ArkadeDirectory(directory);
-        }
-        else
-        {
-            throw new ArkadeException(""); // TODO: ...
+            return new SiardArchive(siardFile, processingDirectory, statusEventHandler, inputDiasPackage);
         }
 
-        return new Archive(archiveType, archiveExtractionDirectory, CreateProcessingDirectory(), statusEventHandler);
+        if (archiveSource is DirectoryInfo { Exists: true } directory)
+        {
+            if (archiveType == ArchiveType.Noark5)
+                return new Noark5Archive(directory, processingDirectory, statusEventHandler, inputDiasPackage);
+            
+            return new AddmlArchive(directory, processingDirectory, statusEventHandler, inputDiasPackage);
+        }
+
+        throw new ArkadeException(""); // TODO: ...
     }
 
     public Archive LoadArchiveAsDiasPackage(FileInfo diasPackageFile, ArchiveType archiveType) // Merge?

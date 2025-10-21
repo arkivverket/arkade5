@@ -17,7 +17,7 @@ using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base
 {
-    public class Archive
+    public abstract class Archive
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private static IStatusEventHandler _statusEventHandler;
@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         public bool IsNoark5TarArchive => InputDiasPackage?.TarFile != null && ArchiveType is ArchiveType.Noark5;
 
-        public ArkadeDirectory Content { get; }
+        public ArchiveContent Content { get; }
         public InputDiasPackage InputDiasPackage { get; }
         public OutputDiasPackage OutputDiasPackage { get; set; }
         public ArchiveType ArchiveType { get; }
@@ -39,14 +39,15 @@ namespace Arkivverket.Arkade.Core.Base
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
         public TestSession TestSession { get; set; }
 
-        public Archive(ArchiveType archiveType, ArkadeDirectory archiveExtractionDirectory,
-            DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler,InputDiasPackage inputDiasPackage = null)
+        public Archive(ArkadeDirectory archiveExtractionDirectory,
+            DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler, InputDiasPackage inputDiasPackage = null)
         {
             _statusEventHandler = statusEventHandler;
 
-            ArchiveType = archiveType;
+            ArchiveType archiveType; // TODO: Remove!
+            ArchiveType = archiveType = ArchiveType.Noark5; // TODO: Remove!
 
-            Content = archiveExtractionDirectory;
+            Content = new ArchiveContent(archiveExtractionDirectory.DirectoryInfo()); // TODO: Follow up!
             
             ProcessingDirectory = processingDirectory;
 
