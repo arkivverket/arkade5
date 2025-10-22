@@ -25,8 +25,8 @@ namespace Arkivverket.Arkade.Core.Base
         public DirectoryInfo ProcessingDirectory { get; }
 
         public bool IsNoark5TarArchive => InputDiasPackage?.TarFile != null && ArchiveType is ArchiveType.Noark5;
-
-        public ArchiveContent Content { get; }
+        public ArkadeDirectory Content { get; }
+        //public ArchiveContent Content { get; }
         public InputDiasPackage InputDiasPackage { get; }
         public OutputDiasPackage OutputDiasPackage { get; set; }
         public ArchiveType ArchiveType { get; }
@@ -39,15 +39,14 @@ namespace Arkivverket.Arkade.Core.Base
         public List<ArchiveXmlUnit> XmlUnits { get; private set; }
         public TestSession TestSession { get; set; }
 
-        public Archive(ArkadeDirectory archiveExtractionDirectory,
-            DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler, InputDiasPackage inputDiasPackage = null)
+        protected Archive(ArchiveType archiveType, DirectoryInfo archiveExtractionDirectory,
+            DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler,InputDiasPackage inputDiasPackage = null)
         {
             _statusEventHandler = statusEventHandler;
 
-            ArchiveType archiveType; // TODO: Remove!
-            ArchiveType = archiveType = ArchiveType.Noark5; // TODO: Remove!
+            ArchiveType = archiveType;
 
-            Content = new ArchiveContent(archiveExtractionDirectory.DirectoryInfo()); // TODO: Follow up!
+            Content = new ArkadeDirectory(archiveExtractionDirectory);
             
             ProcessingDirectory = processingDirectory;
 
@@ -55,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Base
             
             if (archiveType == ArchiveType.Siard)
             {
-                Details = SetupSiardArchiveDetails(archiveExtractionDirectory);
+                Details = SetupSiardArchiveDetails(Content);
                 return;
             }
             
@@ -84,12 +83,6 @@ namespace Arkivverket.Arkade.Core.Base
                     : new DocumentFiles(InputDiasPackage.TarFile.FullName);
             }
         }
-
-        public Archive(ArchiveType archiveType, InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) :
-            this(archiveType, inputDiasPackage.WorkingDirectory.ContentWorkDirectory(), processingDirectory, statusEventHandler, inputDiasPackage)
-        {
-        }
-        
 
         private static IArchiveDetails SetupSiardArchiveDetails(ArkadeDirectory content)
         {

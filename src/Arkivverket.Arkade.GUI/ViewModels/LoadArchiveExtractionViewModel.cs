@@ -89,10 +89,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             var archiveType = (ArchiveType)ArchiveType;
 
-            if (_archiveSource is FileInfo { Extension: ".tar" } tarFile)
-                _archive = _arkadeCoreApi.LoadArchiveAsDiasPackage(tarFile, archiveType); // Merge?
-            else
-                _archive = _arkadeCoreApi.LoadArchiveExtraction(_archiveSource, archiveType); // Merge?
+           _archive = _arkadeCoreApi.LoadArchiveExtraction(_archiveSource, archiveType);
 
             if(NavigateToTestRunnerCommand.CanExecute())
                 NavigateToTestRunnerCommand.Execute();

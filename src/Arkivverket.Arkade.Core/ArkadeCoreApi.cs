@@ -28,11 +28,12 @@ public class ArkadeCoreApi(
 {
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-    public Archive LoadArchiveExtraction(FileSystemInfo archiveSource, ArchiveType archiveType) // Merge?
+    public Archive LoadArchiveExtraction(FileSystemInfo archiveSource, ArchiveType archiveType)
     {
-        Log.Debug($"Loading Archive Extraction [sourcePath: {archiveSource.FullName}] [archiveType: {archiveType}]");
+        if(!archiveSource.Exists)
+            throw new ArkadeException($"{archiveSource.FullName} was not found.");
 
-        ArchiveInformationEvent(archiveSource.FullName, archiveType);
+        Log.Debug($"Loading Archive Extraction [sourcePath: {archiveSource.FullName}] [archiveType: {archiveType}]");
 
         DirectoryInfo processingDirectory = CreateProcessingDirectory();
 
@@ -41,13 +42,18 @@ public class ArkadeCoreApi(
         {
             inputDiasPackage = new InputDiasPackage(tarFile, archiveType, processingDirectory, compressionUtility);
 
-             ArchiveInformationEvent(tarFile.FullName, archiveType, inputDiasPackage.Id);
+            ArchiveInformationEvent(tarFile.FullName, archiveType, inputDiasPackage.Id);
         }
         
-        if (archiveType == ArchiveType.Siard && archiveSource is FileInfo { Exists: true, Extension: ".siard" } siardFile)
+        if (archiveType == ArchiveType.Siard)
         {
+            if (archiveSource is not FileInfo { Extension: ".siard" } siardFile)
+                throw new ArkadeException($"{archiveSource.FullName} was not recognized as a Siard archive file.");
+
             // TODO: Consider to handle the Siard-file and any external lobs in place (at least until packing)
             // CopySiardFilesToContentDirectory(siardFile, workingDirectory.Content().ToString());
+
+            ArchiveInformationEvent(archiveSource.FullName, archiveType);
 
             return new SiardArchive(siardFile, processingDirectory, statusEventHandler, inputDiasPackage);
         }
@@ -57,25 +63,10 @@ public class ArkadeCoreApi(
             if (archiveType == ArchiveType.Noark5)
                 return new Noark5Archive(directory, processingDirectory, statusEventHandler, inputDiasPackage);
             
-            return new AddmlArchive(directory, processingDirectory, statusEventHandler, inputDiasPackage);
+            return new AddmlArchive(archiveType, directory, processingDirectory, statusEventHandler, inputDiasPackage);
         }
 
         throw new ArkadeException(""); // TODO: ...
-    }
-
-    public Archive LoadArchiveAsDiasPackage(FileInfo diasPackageFile, ArchiveType archiveType) // Merge?
-    {
-        Log.Debug($"Loading Dias Package [file: {diasPackageFile.FullName}] [archiveType: {archiveType}]");
-
-        DirectoryInfo processingDirectory = CreateProcessingDirectory();
-
-        var inputDiasPackage = new InputDiasPackage(diasPackageFile, archiveType, processingDirectory, compressionUtility); // DI for comporessionUtility?
-
-        ArchiveInformationEvent(diasPackageFile.FullName, archiveType, inputDiasPackage.Id);
-        
-        var archive = new Archive(archiveType, inputDiasPackage, processingDirectory, statusEventHandler);
-        
-        return archive;
     }
 
     public TestSession CreateTestSession(Archive archive)

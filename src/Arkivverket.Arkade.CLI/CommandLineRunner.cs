@@ -364,21 +364,11 @@ namespace Arkivverket.Arkade.CLI
                 : Directory.Exists(archiveSourcePath) ? new DirectoryInfo(archiveSourcePath)
                 : throw new ArgumentException("Invalid archive path: " + archiveSourcePath);
 
-
             ArchiveType archiveType = GetArchiveType(archiveTypeString, archiveSourcePath);
 
             Log.Information($"{{{command}ing}} {archiveType} archive from source: {archiveSource.FullName}");
 
-            switch (archiveSource)
-            {
-                case DirectoryInfo or FileInfo { Extension: ".siard" }:
-                    return Arkade.LoadArchiveExtraction(archiveSource, archiveType); // Merge?
-                case FileInfo { Extension: ".tar" } tarFile:
-                    return Arkade.LoadArchiveAsDiasPackage(tarFile, archiveType); // Merge?
-
-                default:
-                    throw new ArgumentException("Unsupported archive input or input + archive type combination");
-            }
+            return Arkade.LoadArchiveExtraction(archiveSource, archiveType);
         }
 
         private static TestSession CreateTestSession(Archive archive, string selectedOutputLanguage, string testSelectionFilePath = null)
