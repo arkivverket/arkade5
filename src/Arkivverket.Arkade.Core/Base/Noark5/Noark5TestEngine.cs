@@ -32,9 +32,11 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
 
         public TestSuite RunTestsOnArchive(Archive archive)
         {
-            List<IArkadeStructureTest> structureTests = RunStructureTests(archive);
+            var noark5Archive = archive as Noark5Archive;
 
-            List<INoark5Test> contentTests = RunContentTests(archive);
+            List<IArkadeStructureTest> structureTests = RunStructureTests(noark5Archive);
+
+            List<INoark5Test> contentTests = RunContentTests(noark5Archive);
 
             var testSuite = new TestSuite();
             AddTestToTestSuite(contentTests, testSuite);
@@ -51,7 +53,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
                 testSuite.AddTestRun(test.GetTestRun());
         }
 
-        private List<INoark5Test> RunContentTests(Archive archive)
+        private List<INoark5Test> RunContentTests(Noark5Archive archive)
         {
             List<INoark5Test> contentTests = _testProvider.GetContentTests(archive);
 
@@ -115,7 +117,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
             return reader.MoveToNextAttribute() || reader.Read();
         }
 
-        private List<IArkadeStructureTest> RunStructureTests(Archive archive)
+        private List<IArkadeStructureTest> RunStructureTests(Noark5Archive archive)
         {
             List<IArkadeStructureTest> structureTests = _testProvider.GetStructureTests(archive);
             foreach (var test in structureTests)

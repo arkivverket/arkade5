@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private DocumentDescription _currentDocumentDescription;
         private DocumentObject _currentDocumentObject;
 
-        public N5_64_NumberOfEmptyDocumentFiles(Archive archive)
+        public N5_64_NumberOfEmptyDocumentFiles(Noark5Archive archive)
         {
             _documentFiles = archive?.DocumentFiles;
         }

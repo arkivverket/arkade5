@@ -31,7 +31,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             };
         }
 
-        public override void Test(Archive archive)
+        public override void Test(Noark5Archive archive)
         {
             foreach (ArchiveXmlUnit xmlUnit in archive.XmlUnits)
             {

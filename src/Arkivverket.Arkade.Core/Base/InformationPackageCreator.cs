@@ -101,8 +101,8 @@ namespace Arkivverket.Arkade.Core.Base
                 );
             }
 
-            if (archive.IsNoark5TarArchive)
-                archive.DocumentFiles.TransferFromTarToInformationPackage(tarOutputStream, packageRootDirectory);
+            if (archive is Noark5Archive { InputDiasPackage.TarFile: not null } noark5Archive )
+                noark5Archive.DocumentFiles.TransferFromTarToInformationPackage(tarOutputStream, packageRootDirectory);
 
             tarArchive.Close();
 

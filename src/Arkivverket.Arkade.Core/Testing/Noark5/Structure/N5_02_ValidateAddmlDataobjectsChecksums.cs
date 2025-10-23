@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
 
         private readonly HashSet<string> _validatedSchemas = new();
 
-        public override void Test(Archive archive)
+        public override void Test(Noark5Archive archive)
         {
             addml structure = archive.AddmlInfo.Addml;
 

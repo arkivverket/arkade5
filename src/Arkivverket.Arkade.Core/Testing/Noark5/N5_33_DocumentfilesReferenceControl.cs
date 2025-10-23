@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private static Dictionary<string, DocumentFile> _documentFileNames;
         private static string _documentsDirectoryName;
 
-        public N5_33_DocumentfilesReferenceControl(Archive archive)
+        public N5_33_DocumentfilesReferenceControl(Noark5Archive archive)
         {
             _documentsDirectoryName = archive.GetDocumentsDirectoryName();
             _documentFileNames = new Dictionary<string, DocumentFile>(archive.DocumentFiles.Get());

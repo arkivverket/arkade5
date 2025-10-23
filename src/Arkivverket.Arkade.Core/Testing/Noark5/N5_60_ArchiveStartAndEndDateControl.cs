@@ -12,11 +12,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 60);
 
-        private readonly Archive _archive;
+        private readonly Noark5Archive _archive;
         private readonly SortedSet<DateTime> _registrationCreationDates;
         private readonly bool _periodSeparationIsSharp;
 
-        public N5_60_ArchiveStartAndEndDateControl(Archive archive)
+        public N5_60_ArchiveStartAndEndDateControl(Noark5Archive archive)
         {
             _archive = archive;
             _registrationCreationDates = new SortedSet<DateTime>();

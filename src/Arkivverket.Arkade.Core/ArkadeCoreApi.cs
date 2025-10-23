@@ -84,8 +84,8 @@ public class ArkadeCoreApi(
 
         LanguageManager.SetResourcesLanguageForTesting(testSession.OutputLanguage);
 
-        if (testSession.TestRunContainsDocumentFileDependentTests)
-            archive.DocumentFiles.Register(includeChecksums: testSession.TestRunContainsChecksumControl);
+        if (archive is Noark5Archive noark5Archive && testSession.TestRunContainsDocumentFileDependentTests)
+            noark5Archive.DocumentFiles.Register(includeChecksums: testSession.TestRunContainsChecksumControl);
 
         ITestEngine testEngine = testEngineFactory.GetTestEngine(archive);
         testSession.TestSuite = testEngine.RunTestsOnArchive(archive);

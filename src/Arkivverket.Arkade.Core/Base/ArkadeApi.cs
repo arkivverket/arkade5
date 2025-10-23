@@ -220,35 +220,46 @@ namespace Arkivverket.Arkade.Core.Base
                     _fileFormatIdentifier.BroadCastFinished();
                     _fileFormatInfoGenerator.Generate(formatAnalysedLobs, siardFileFullName, resultFileFullName);
                 }
-                else if (archive.IsNoark5TarArchive)
+                else if (archive is Noark5Archive noark5Archive)
                 {
-                    IEnumerable<IFileFormatInfo> analysedTarContents = _fileFormatIdentifier
-                        .IdentifyFormats(archive.InputDiasPackage.TarFile.FullName, FileFormatScanMode.Archive).ToList();
+                    if (noark5Archive.SourceIsTarFile)
+                    {
+                        IEnumerable<IFileFormatInfo> analysedTarContents = _fileFormatIdentifier
+                            .IdentifyFormats(noark5Archive.InputDiasPackage.TarFile.FullName, FileFormatScanMode.Archive)
+                            .ToList();
 
-                    string tarRootDirectoryName = Path.GetFileNameWithoutExtension(archive.InputDiasPackage.TarFile.FullName);
-                    string documentsDirectoryName = archive.GetDocumentsDirectoryName();
+                        string tarRootDirectoryName =
+                            Path.GetFileNameWithoutExtension(noark5Archive.InputDiasPackage.TarFile.FullName);
+                        string documentsDirectoryName = noark5Archive.GetDocumentsDirectoryName();
 
-                    string tarFileRelativeDocumentsDirectoryPath = Path.Combine(tarRootDirectoryName!,
-                        ArkadeConstants.DirectoryNameContent, documentsDirectoryName);
+                        string tarFileRelativeDocumentsDirectoryPath = Path.Combine(tarRootDirectoryName!,
+                            ArkadeConstants.DirectoryNameContent, documentsDirectoryName);
 
-                    var fullDocumentsDirectoryTarPath = $"{archive.InputDiasPackage.TarFile}#{tarFileRelativeDocumentsDirectoryPath}";
+                        var fullDocumentsDirectoryTarPath =
+                            $"{noark5Archive.InputDiasPackage.TarFile}#{tarFileRelativeDocumentsDirectoryPath}";
 
-                    bool IsDocumentFile(IFileFormatInfo fileFormatInfo) => fileFormatInfo.FileName.StartsWith(fullDocumentsDirectoryTarPath);
+                        bool IsDocumentFile(IFileFormatInfo fileFormatInfo) =>
+                            fileFormatInfo.FileName.StartsWith(fullDocumentsDirectoryTarPath);
 
-                    IEnumerable<IFileFormatInfo> analysedDocumentFiles = analysedTarContents.Where(IsDocumentFile);
+                        IEnumerable<IFileFormatInfo> analysedDocumentFiles = analysedTarContents.Where(IsDocumentFile);
 
-                    resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, documentsDirectoryName);
-                    resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
+                        resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, documentsDirectoryName);
+                        resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
 
-                    _fileFormatInfoGenerator.Generate(analysedDocumentFiles, tarFileRelativeDocumentsDirectoryPath, resultFileFullName);
-                }
-                else
-                {
-                    DirectoryInfo documentsDirectory = archive.GetDocumentsDirectory();
-                    resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, documentsDirectory.Name);
-                    resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
-                    IEnumerable<IFileFormatInfo> analysedFiles = _fileFormatIdentifier.IdentifyFormats(documentsDirectory.FullName, FileFormatScanMode.Directory);
-                    _fileFormatInfoGenerator.Generate(analysedFiles, documentsDirectory.FullName, resultFileFullName);
+                        _fileFormatInfoGenerator.Generate(analysedDocumentFiles, tarFileRelativeDocumentsDirectoryPath,
+                            resultFileFullName);
+                    }
+                    else
+                    {
+                        DirectoryInfo documentsDirectory = noark5Archive.GetDocumentsDirectory();
+                        resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, documentsDirectory.Name);
+                        resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
+                        IEnumerable<IFileFormatInfo> analysedFiles =
+                            _fileFormatIdentifier.IdentifyFormats(documentsDirectory.FullName,
+                                FileFormatScanMode.Directory);
+                        _fileFormatInfoGenerator.Generate(analysedFiles, documentsDirectory.FullName,
+                            resultFileFullName);
+                    }
                 }
             }
             catch (SiegfriedFileFormatIdentifierException siegfriedException)

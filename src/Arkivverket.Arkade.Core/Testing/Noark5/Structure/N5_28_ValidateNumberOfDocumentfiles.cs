@@ -33,11 +33,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             };
         }
 
-        public override void Test(Archive archive)
+        public override void Test(Noark5Archive archive)
         {
             var actualFileCount = 0;
 
-            if (!archive.IsNoark5TarArchive && !archive.GetDocumentsDirectory().Exists)
+            if (!archive.SourceIsTarFile && !archive.GetDocumentsDirectory().Exists)
             {
                 string documentDirectoryParent = archive.Content.DirectoryInfo().Name + "\\";
 

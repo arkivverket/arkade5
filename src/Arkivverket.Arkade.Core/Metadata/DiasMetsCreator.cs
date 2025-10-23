@@ -60,12 +60,12 @@ namespace Arkivverket.Arkade.Core.Metadata
                 }
             }
 
-            if (archive.ArchiveType is ArchiveType.Noark5)
+            if (archive is Noark5Archive noark5Archive)
             {
-                if (!archive.DocumentFiles.AreMetsReady())
-                    archive.DocumentFiles.Register(includeChecksums: true);
+                if (!noark5Archive.DocumentFiles.AreMetsReady())
+                    noark5Archive.DocumentFiles.Register(includeChecksums: true);
 
-                ReadOnlyDictionary<string, DocumentFile> documentFiles = archive.DocumentFiles.Get();
+                ReadOnlyDictionary<string, DocumentFile> documentFiles = noark5Archive.DocumentFiles.Get();
 
                 metadata.FileDescriptions.AddRange(GetFileDescriptionsFromDocumentFiles(documentFiles));
             }
