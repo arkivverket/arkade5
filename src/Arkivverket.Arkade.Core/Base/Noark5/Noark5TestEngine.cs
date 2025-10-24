@@ -6,17 +6,18 @@ using System.Text;
 using System.Xml;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Testing;
+using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Noark5
 {
     public class Noark5TestEngine : ITestEngine
     {
-        private readonly ITestProvider _testProvider;
+        private readonly Noark5TestProvider _testProvider;
         private readonly IStatusEventHandler _statusEventHandler;
         private readonly ITestProgressReporter _testProgressReporter;
 
-        public Noark5TestEngine(ITestProvider testProvider, IStatusEventHandler statusEventHandler,
+        public Noark5TestEngine(Noark5TestProvider testProvider, IStatusEventHandler statusEventHandler,
             ITestProgressReporter testProgressReporter)
         {
             _testProvider = testProvider;

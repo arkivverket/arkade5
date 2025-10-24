@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<StatusEventHandler>().As<IStatusEventHandler>().SingleInstance();
             builder.RegisterType<TarCompressionUtility>().As<ICompressionUtility>();
             builder.RegisterType<TestEngineFactory>().AsSelf();
-            builder.RegisterType<Noark5TestProvider>().As<ITestProvider>();
+            builder.RegisterType<Noark5TestProvider>().AsSelf();
             builder.RegisterType<TestSessionFactory>().AsSelf();
             builder.RegisterType<MetadataFilesCreator>().AsSelf();
             builder.RegisterType<DiasMetsCreator>().AsSelf();

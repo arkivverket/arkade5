@@ -6,7 +6,7 @@ using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Testing.Noark5
 {
-    public class Noark5TestProvider : ITestProvider
+    public class Noark5TestProvider
     {
         private readonly List<TestId> _structureTests = new List<TestId>
         {
