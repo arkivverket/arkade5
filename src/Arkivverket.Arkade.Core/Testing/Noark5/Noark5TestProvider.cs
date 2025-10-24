@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             new TestId(TestId.TestKind.Noark5, 28)
         };
 
-        public List<IArkadeStructureTest> GetStructureTests(Archive archive)
+        public List<IArkadeStructureTest> GetStructureTests(Noark5Archive archive)
         {
             var noark5TestFactory = new Noark5TestFactory(archive);
 
@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return structureTests;
         }
 
-        public List<INoark5Test> GetContentTests(Archive archive)
+        public List<INoark5Test> GetContentTests(Noark5Archive archive)
         {
             var noark5TestFactory = new Noark5TestFactory(archive);
 
