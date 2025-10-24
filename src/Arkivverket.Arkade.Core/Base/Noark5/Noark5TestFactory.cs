@@ -28,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
         {
             Type arkadeTestImplementation = _arkadeTestImplementationsByTestId[testId];
 
-            bool isConstructedWithArchive = arkadeTestImplementation.GetConstructor(new[] {typeof(Archive)}) != null;
+            bool isConstructedWithArchive = arkadeTestImplementation.GetConstructor([typeof(Noark5Archive)]) != null;
 
             var arkadeTestInstance = (IArkadeTest) (isConstructedWithArchive
                 ? Activator.CreateInstance(arkadeTestImplementation, _archive)

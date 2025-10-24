@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly List<long> _disposalResolutionLocations = new();
         private int _totalNumberOfDisposalResolutions;
 
-        public N5_44_NumberOfDisposalResolutions(Archive testArchive)
+        public N5_44_NumberOfDisposalResolutions(Noark5Archive testArchive)
         {
             _documentationStatesDisposalResolutions = DocumentationStatesDisposalResolutions(testArchive);
         }
@@ -137,7 +137,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 _currentArchivePart.Name = eventArgs.Value;
         }
 
-        private static bool DocumentationStatesDisposalResolutions(Archive archive)
+        private static bool DocumentationStatesDisposalResolutions(Noark5Archive archive)
         {
             addml archiveExtractionXml = archive.AddmlInfo.Addml;
 

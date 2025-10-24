@@ -11,9 +11,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 61);
 
-        private readonly Archive _archive;
+        private readonly Noark5Archive _archive;
 
-        public N5_61_NumberOfChangesLogged(Archive archive)
+        public N5_61_NumberOfChangesLogged(Noark5Archive archive)
         {
             _archive = archive;
         }

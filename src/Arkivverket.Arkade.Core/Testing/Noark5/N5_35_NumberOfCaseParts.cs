@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return archive.Details.ArchiveStandard;
         }
 
-        public N5_35_NumberOfCaseParts(Archive archive)
+        public N5_35_NumberOfCaseParts(Noark5Archive archive)
         {
             this.archive = archive;
             _id = new TestId(TestId.TestKind.Noark5, 35, GetTestVersion());

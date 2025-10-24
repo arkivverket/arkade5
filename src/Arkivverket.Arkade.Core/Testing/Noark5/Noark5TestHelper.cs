@@ -59,7 +59,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                    eventArgs.Path.Matches("moeteregistreringsstatus", "registrering");
         }
 
-        public static bool PeriodSeparationIsSharp(Archive archive)
+        public static bool PeriodSeparationIsSharp(Noark5Archive archive)
         {
             bool inboundSeparationIsSharp;
             bool outboundSeparationIsSharp;
