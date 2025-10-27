@@ -1,13 +1,9 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
-using Arkivverket.Arkade.Core.Base.Siard;
-using Arkivverket.Arkade.Core.ExternalModels.Metadata;
 using Arkivverket.Arkade.Core.Logging;
-using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
@@ -17,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Base
     public abstract class Archive
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
-        private static IStatusEventHandler _statusEventHandler;
+        protected static IStatusEventHandler StatusEventHandler { get; private set; }
 
         public DirectoryInfo ProcessingDirectory { get; }
 
@@ -30,13 +26,13 @@ namespace Arkivverket.Arkade.Core.Base
 
         public AddmlXmlUnit AddmlXmlUnit { get; }
         public AddmlInfo AddmlInfo { get; }
-        public IArchiveDetails Details { get; }
+        public IArchiveDetails Details { get; protected init; }
         public TestSession TestSession { get; set; }
 
         protected Archive(ArchiveType archiveType, DirectoryInfo archiveExtractionDirectory,
             DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler,InputDiasPackage inputDiasPackage = null)
         {
-            _statusEventHandler = statusEventHandler;
+            StatusEventHandler = statusEventHandler;
 
             ArchiveType = archiveType;
 
@@ -45,12 +41,6 @@ namespace Arkivverket.Arkade.Core.Base
             ProcessingDirectory = processingDirectory;
 
             InputDiasPackage = inputDiasPackage;
-            
-            if (archiveType == ArchiveType.Siard)
-            {
-                Details = SetupSiardArchiveDetails(Content);
-                return;
-            }
             
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
@@ -64,24 +54,6 @@ namespace Arkivverket.Arkade.Core.Base
             AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, xmlSchemaStream);
 
             Details = new ArchiveDetails(AddmlInfo.Addml);
-        }
-
-        private static IArchiveDetails SetupSiardArchiveDetails(ArkadeDirectory content)
-        {
-            FileInfo siardArchiveFile = content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
-            if (siardArchiveFile == null)
-                throw new ArkadeException("Siard file not found");
-            if (!siardArchiveFile.Exists)
-                throw new ArkadeException(string.Format(ExceptionMessages.FileNotFound, siardArchiveFile.FullName));
-
-            if (new SiardArchiveReader().TryDeserializeToSiard2_1(siardArchiveFile.FullName, out siardArchive siard2Archive, out string errorMessage))
-                return new SiardArchiveDetails(siard2Archive);
-
-            _statusEventHandler?.RaiseEventOperationMessage(null,
-                string.Format(SiardMessages.DeserializationUnsuccessfulMessage, SiardMetadataXmlFileName, "2.1", errorMessage),
-                OperationMessageStatus.Error);
-
-            return null;
         }
         
         private AddmlXmlUnit SetupAddmlXmlUnit()
