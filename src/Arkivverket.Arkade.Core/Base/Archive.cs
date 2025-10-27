@@ -1,17 +1,14 @@
 using System;
 using System.IO;
-using System.Reflection;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Util;
-using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base
 {
     public abstract class Archive
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         public DirectoryInfo ProcessingDirectory { get; }
 
         public bool SourceIsTarFile => InputDiasPackage?.TarFile != null;

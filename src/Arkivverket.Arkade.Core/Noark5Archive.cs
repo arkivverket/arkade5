@@ -4,6 +4,7 @@ using Serilog;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
@@ -13,6 +14,7 @@ namespace Arkivverket.Arkade.Core;
 
 public class Noark5Archive : Archive
 {
+    private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
     public List<ArchiveXmlUnit> XmlUnits { get; private set; }
     internal DocumentFiles DocumentFiles { get; init; }
     private DirectoryInfo DocumentsDirectory { get; set; }
