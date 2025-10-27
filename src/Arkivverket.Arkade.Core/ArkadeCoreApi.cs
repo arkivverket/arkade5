@@ -55,15 +55,15 @@ public class ArkadeCoreApi(
 
             ArchiveInformationEvent(archiveSource.FullName, archiveType);
 
-            return new SiardArchive(siardFile, processingDirectory, statusEventHandler, inputDiasPackage);
+            return new SiardArchive(siardFile, statusEventHandler, processingDirectory, inputDiasPackage);
         }
 
         if (archiveSource is DirectoryInfo { Exists: true } directory)
         {
             if (archiveType == ArchiveType.Noark5)
-                return new Noark5Archive(directory, processingDirectory, statusEventHandler, inputDiasPackage);
+                return new Noark5Archive(directory, processingDirectory, inputDiasPackage);
             
-            return new AddmlArchive(archiveType, directory, processingDirectory, statusEventHandler, inputDiasPackage);
+            return new AddmlArchive(archiveType, directory, processingDirectory, inputDiasPackage);
         }
 
         throw new ArkadeException(""); // TODO: ...

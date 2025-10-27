@@ -11,8 +11,8 @@ namespace Arkivverket.Arkade.Core;
 
 public class SiardArchive : Archive
 {
-    public SiardArchive(FileInfo siardFile, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler, InputDiasPackage inputDiasPackage) :
-        base(ArchiveType.Siard, null, processingDirectory, statusEventHandler, inputDiasPackage)
+    public SiardArchive(FileInfo siardFile, IStatusEventHandler statusEventHandler, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage) :
+        base(ArchiveType.Siard, null, processingDirectory, inputDiasPackage)
     {
         FileInfo siardArchiveFile = Content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
         if (siardArchiveFile == null)
@@ -25,7 +25,7 @@ public class SiardArchive : Archive
             Details = new SiardArchiveDetails(siard2Archive);
         else
         {
-            StatusEventHandler?.RaiseEventOperationMessage(null,
+            statusEventHandler?.RaiseEventOperationMessage(null,
                 string.Format(SiardMessages.DeserializationUnsuccessfulMessage, SiardMetadataXmlFileName, "2.1",
                     errorMessage),
                 OperationMessageStatus.Error);

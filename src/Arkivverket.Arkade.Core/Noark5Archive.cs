@@ -1,5 +1,4 @@
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Serilog;
 using System.Collections.Generic;
@@ -19,8 +18,8 @@ public class Noark5Archive : Archive
     private DirectoryInfo DocumentsDirectory { get; set; }
     private string DocumentsDirectoryName { get; set; }
 
-    public Noark5Archive(DirectoryInfo contentDirectory, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler, InputDiasPackage inputDiasPackage) :
-        base(ArchiveType.Noark5, contentDirectory, processingDirectory, statusEventHandler, inputDiasPackage)
+    public Noark5Archive(DirectoryInfo contentDirectory, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage) :
+        base(ArchiveType.Noark5, contentDirectory, processingDirectory, inputDiasPackage)
     {
         if (AddmlXmlUnit.HasNoDefinedSchema())
             AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);

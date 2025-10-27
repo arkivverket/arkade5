@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
-using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
@@ -13,8 +12,6 @@ namespace Arkivverket.Arkade.Core.Base
     public abstract class Archive
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
-        protected static IStatusEventHandler StatusEventHandler { get; private set; }
-
         public DirectoryInfo ProcessingDirectory { get; }
 
         public bool SourceIsTarFile => InputDiasPackage?.TarFile != null;
@@ -30,10 +27,8 @@ namespace Arkivverket.Arkade.Core.Base
         public TestSession TestSession { get; set; }
 
         protected Archive(ArchiveType archiveType, DirectoryInfo archiveExtractionDirectory,
-            DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler,InputDiasPackage inputDiasPackage = null)
+            DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
         {
-            StatusEventHandler = statusEventHandler;
-
             ArchiveType = archiveType;
 
             Content = new ArkadeDirectory(archiveExtractionDirectory);
