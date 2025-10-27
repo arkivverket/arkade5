@@ -112,7 +112,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private bool CanRunTests()
         {
-            return TestSession.IsTestableArchive(_archive, null, out _);
+            return _archive.IsTestable(out _);
         }
 
         private void OpenArchiveFileDialog()

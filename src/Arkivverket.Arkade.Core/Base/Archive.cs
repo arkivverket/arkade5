@@ -22,6 +22,7 @@ namespace Arkivverket.Arkade.Core.Base
         public AddmlInfo AddmlInfo { get; }
         public IArchiveDetails Details { get; protected init; }
         public TestSession TestSession { get; set; }
+        public abstract bool IsTestable(out string disqualifyingCause);
 
         protected Archive(ArchiveType archiveType, DirectoryInfo archiveExtractionDirectory,
             DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)

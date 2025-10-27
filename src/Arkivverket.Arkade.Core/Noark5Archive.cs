@@ -116,4 +116,16 @@ public class Noark5Archive : Archive
             DocumentDirectoryNames[0]
         ).DirectoryInfo();
     }
+
+    public override bool IsTestable(out string disqualifyingCause)
+    {
+        if (!AddmlXmlUnit.File.Exists)
+        {
+            disqualifyingCause = Noark5Messages.CouldNotFindValidSpecificationFile;
+            return false;
+        }
+        
+        disqualifyingCause = null;
+        return true;
+    }
 }

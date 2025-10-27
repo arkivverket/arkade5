@@ -57,45 +57,5 @@ namespace Arkivverket.Arkade.Core.Base
         {
             return LogEntries;
         }
-
-        public static bool IsTestableArchive(Archive archive, AddmlDefinition addmlDefinition, out string disqualifyingCause)
-        {
-            disqualifyingCause = "";
-
-            switch (archive.ArchiveType)
-            {
-                case ArchiveType.Siard:
-                    FileInfo[] fileInfos = archive.Content.DirectoryInfo().GetFiles("*.siard");
-                    if (fileInfos.FirstOrDefault() == default)
-                        disqualifyingCause = Resources.SiardMessages.CouldNotFindASiardFile;
-                    else if (archive.Details == null)
-                        disqualifyingCause = Resources.SiardMessages.ValidatorDoesNotSupportVersionMessage;
-                    else
-                        return true;
-                    return false;
-
-                case ArchiveType.Noark5:
-                    if (!archive.AddmlXmlUnit.File.Exists)
-                    {
-                        disqualifyingCause = Resources.Noark5Messages.CouldNotFindValidSpecificationFile;
-                        return false;
-                    }
-                    break;
-
-                case ArchiveType.Noark4:
-                    disqualifyingCause = Resources.Messages.Noark4ValidationNotSupported;
-                    return false;
-
-                default:
-                    if (addmlDefinition == null)
-                    {
-                        disqualifyingCause = Resources.Noark5Messages.CouldNotFindValidSpecificationFile;
-                        return false;
-                    }
-                    break;
-            }
-
-            return true;
-        }
     }
 }

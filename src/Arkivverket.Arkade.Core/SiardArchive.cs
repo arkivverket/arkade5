@@ -11,9 +11,12 @@ namespace Arkivverket.Arkade.Core;
 
 public class SiardArchive : Archive
 {
+    private readonly FileInfo _siardFile;
+
     public SiardArchive(FileInfo siardFile, IStatusEventHandler statusEventHandler, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage) :
         base(ArchiveType.Siard, null, processingDirectory, inputDiasPackage)
     {
+        _siardFile = siardFile;
         FileInfo siardArchiveFile = Content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
         if (siardArchiveFile == null)
             throw new ArkadeException("Siard file not found");
@@ -32,5 +35,23 @@ public class SiardArchive : Archive
 
             Details = null;
         }
+    }
+
+    public override bool IsTestable(out string disqualifyingCause)
+    {
+        if (!_siardFile.Exists)
+        {
+            disqualifyingCause = SiardMessages.CouldNotFindASiardFile;
+            return false;
+        }
+        
+        if (Details == null)
+        {
+            disqualifyingCause = SiardMessages.ValidatorDoesNotSupportVersionMessage;
+            return false;
+        }
+        
+        disqualifyingCause = null;
+        return true;
     }
 }
