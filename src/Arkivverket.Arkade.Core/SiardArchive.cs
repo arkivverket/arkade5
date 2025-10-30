@@ -13,10 +13,9 @@ public class SiardArchive : Archive
 {
     private readonly FileInfo _siardFile;
 
-    public SiardArchive(FileInfo siardFile, IStatusEventHandler statusEventHandler, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage) :
-        base(ArchiveType.Siard, null, processingDirectory, inputDiasPackage)
+    public SiardArchive(FileSystemInfo archiveSource, IStatusEventHandler statusEventHandler) : base(ArchiveType.Siard)
     {
-        _siardFile = siardFile;
+        _siardFile = archiveSource as FileInfo; // MAYBE!!
         FileInfo siardArchiveFile = Content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
         if (siardArchiveFile == null)
             throw new ArkadeException("Siard file not found");

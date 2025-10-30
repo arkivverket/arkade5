@@ -12,7 +12,9 @@ namespace Arkivverket.Arkade.Core.Base
         public DirectoryInfo ProcessingDirectory { get; }
 
         public bool SourceIsTarFile => InputDiasPackage?.TarFile != null;
-        public ArkadeDirectory Content { get; }
+
+        public ArkadeDirectory Content { get; protected init; }
+
         //public ArchiveContent Content { get; }
         public InputDiasPackage InputDiasPackage { get; }
         public OutputDiasPackage OutputDiasPackage { get; set; }
@@ -24,17 +26,16 @@ namespace Arkivverket.Arkade.Core.Base
         public TestSession TestSession { get; set; }
         public abstract bool IsTestable(out string disqualifyingCause);
 
-        protected Archive(ArchiveType archiveType, DirectoryInfo archiveExtractionDirectory,
-            DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
+        protected Archive(ArchiveType archiveType, InputDiasPackage inputDiasPackage = null)
         {
             ArchiveType = archiveType;
 
-            Content = new ArkadeDirectory(archiveExtractionDirectory);
-            
-            ProcessingDirectory = processingDirectory;
+            //Content = new ArkadeDirectory(archiveExtractionDirectory);
+
+            ProcessingDirectory = CreateProcessingDirectory();
 
             InputDiasPackage = inputDiasPackage;
-            
+
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
             if (!AddmlXmlUnit.File.Exists)
@@ -48,7 +49,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             Details = new ArchiveDetails(AddmlInfo.Addml);
         }
-        
+
         private AddmlXmlUnit SetupAddmlXmlUnit()
         {
             FileInfo addmlFileInfo = Content.WithFile(AddmlXmlFileName);
@@ -67,6 +68,18 @@ namespace Arkivverket.Arkade.Core.Base
                 : null;
 
             return new AddmlXmlUnit(addmlXmlFile, addmlSchema);
+        }
+
+        private static DirectoryInfo CreateProcessingDirectory()
+        {
+            string workDirectoryFullName = ArkadeProcessingArea.WorkDirectory.FullName;
+            var nowTimeStampString = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            var processingDirectory = new DirectoryInfo(Path.Combine(workDirectoryFullName, nowTimeStampString));
+
+            processingDirectory.Create();
+
+            return processingDirectory;
         }
     }
 

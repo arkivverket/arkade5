@@ -35,7 +35,14 @@ public class ArkadeCoreApi(
 
         Log.Debug($"Loading Archive Extraction [sourcePath: {archiveSource.FullName}] [archiveType: {archiveType}]");
 
-        DirectoryInfo processingDirectory = CreateProcessingDirectory();
+        return archiveType switch
+        {
+            ArchiveType.Fagsystem or ArchiveType.Noark3 => new AddmlArchive(archiveType, archiveSource),
+            ArchiveType.Noark4 => new Noark4Archive(archiveSource),
+            ArchiveType.Noark5 => new Noark5Archive(archiveSource),
+            ArchiveType.Siard => new SiardArchive(archiveSource, statusEventHandler),
+            _ => throw new ArgumentOutOfRangeException(nameof(archiveType), archiveType, null)
+        };
 
         InputDiasPackage inputDiasPackage = null;
         if (archiveSource is FileInfo { Extension: ".tar" } tarFile)
@@ -48,7 +55,7 @@ public class ArkadeCoreApi(
         if (archiveType == ArchiveType.Siard)
         {
             if (archiveSource is not FileInfo { Extension: ".siard" } siardFile)
-                throw new ArkadeException($"{archiveSource.FullName} was not recognized as a Siard archive file.");
+                throw new ArkadeException($"{archiveSource.FullName} was not recognized as a Siard archive file."); // Dettan gjeng'kje! Må jo støtte Siard-arkiv lastet som SIP/AIP!
 
             // TODO: Consider to handle the Siard-file and any external lobs in place (at least until packing)
             // CopySiardFilesToContentDirectory(siardFile, workingDirectory.Content().ToString());
@@ -58,7 +65,7 @@ public class ArkadeCoreApi(
             return new SiardArchive(siardFile, statusEventHandler, processingDirectory, inputDiasPackage);
         }
 
-        if (archiveSource is DirectoryInfo { Exists: true } directory)
+        if (archiveSource is DirectoryInfo { Exists: true } directory) // Dettan gjeng'kje ...
         {
             if (archiveType == ArchiveType.Noark5)
                 return new Noark5Archive(directory, processingDirectory, inputDiasPackage);
@@ -185,15 +192,5 @@ public class ArkadeCoreApi(
             statusEventHandler.RaiseEventOperationMessage("", SiardMessages.ExternalLobsNotCopiedWarning, OperationMessageStatus.Warning);
         }
     }
-    private DirectoryInfo CreateProcessingDirectory()
-    {
-        string workDirectoryFullName = ArkadeProcessingArea.WorkDirectory.FullName;
-        var nowTimeStampString = DateTime.Now.ToString("yyyyMMddHHmmss");
 
-        var processingDirectory = new DirectoryInfo(Path.Combine(workDirectoryFullName, nowTimeStampString));
-        
-        processingDirectory.Create();
-
-        return processingDirectory;
-    }
 }
