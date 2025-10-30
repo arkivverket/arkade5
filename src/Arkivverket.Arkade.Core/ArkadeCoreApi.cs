@@ -37,43 +37,34 @@ public class ArkadeCoreApi(
 
         return archiveType switch
         {
-            ArchiveType.Fagsystem or ArchiveType.Noark3 => new AddmlArchive(archiveType, archiveSource),
-            ArchiveType.Noark4 => new Noark4Archive(archiveSource),
-            ArchiveType.Noark5 => new Noark5Archive(archiveSource),
-            ArchiveType.Siard => new SiardArchive(archiveSource, statusEventHandler),
+            // TODO: Consider to DI the compressionUtility at Archive or InputDiasPackage
+            
+            ArchiveType.Fagsystem or ArchiveType.Noark3 => new AddmlArchive(archiveType, archiveSource, compressionUtility),
+            ArchiveType.Noark4 => new Noark4Archive(archiveSource, compressionUtility),
+            ArchiveType.Noark5 => new Noark5Archive(archiveSource, compressionUtility),
+            ArchiveType.Siard => new SiardArchive(archiveSource, statusEventHandler, compressionUtility),
             _ => throw new ArgumentOutOfRangeException(nameof(archiveType), archiveType, null)
         };
 
-        InputDiasPackage inputDiasPackage = null;
-        if (archiveSource is FileInfo { Extension: ".tar" } tarFile)
-        {
-            inputDiasPackage = new InputDiasPackage(tarFile, archiveType, processingDirectory, compressionUtility);
-
-            ArchiveInformationEvent(tarFile.FullName, archiveType, inputDiasPackage.Id);
-        }
-        
-        if (archiveType == ArchiveType.Siard)
-        {
-            if (archiveSource is not FileInfo { Extension: ".siard" } siardFile)
-                throw new ArkadeException($"{archiveSource.FullName} was not recognized as a Siard archive file."); // Dettan gjeng'kje! Må jo støtte Siard-arkiv lastet som SIP/AIP!
-
-            // TODO: Consider to handle the Siard-file and any external lobs in place (at least until packing)
-            // CopySiardFilesToContentDirectory(siardFile, workingDirectory.Content().ToString());
-
-            ArchiveInformationEvent(archiveSource.FullName, archiveType);
-
-            return new SiardArchive(siardFile, statusEventHandler, processingDirectory, inputDiasPackage);
-        }
-
-        if (archiveSource is DirectoryInfo { Exists: true } directory) // Dettan gjeng'kje ...
-        {
-            if (archiveType == ArchiveType.Noark5)
-                return new Noark5Archive(directory, processingDirectory, inputDiasPackage);
-            
-            return new AddmlArchive(archiveType, directory, processingDirectory, inputDiasPackage);
-        }
-
-        throw new ArkadeException(""); // TODO: ...
+        // InputDiasPackage inputDiasPackage = null;
+        // if (archiveSource is FileInfo { Extension: ".tar" } tarFile)
+        // {
+        //     inputDiasPackage = new InputDiasPackage(tarFile, archiveType, processingDirectory, compressionUtility);
+        //
+        //     ArchiveInformationEvent(tarFile.FullName, archiveType, inputDiasPackage.Id);
+        // }
+        //
+        //
+        //
+        // if (archiveSource is DirectoryInfo { Exists: true } directory) // Dettan gjeng'kje ...
+        // {
+        //     if (archiveType == ArchiveType.Noark5)
+        //         return new Noark5Archive(directory, processingDirectory, inputDiasPackage);
+        //     
+        //     return new AddmlArchive(archiveType, directory, processingDirectory, inputDiasPackage);
+        // }
+        //
+        // throw new ArkadeException(""); // TODO: ...
     }
 
     public TestSession CreateTestSession(Archive archive)

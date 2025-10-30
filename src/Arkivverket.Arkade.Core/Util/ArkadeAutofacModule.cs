@@ -40,6 +40,7 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<ArkadeApi>().AsSelf();
 
             builder.RegisterType<ArkadeCoreApi>().AsSelf();
+            builder.RegisterType<InputDiasPackage>().AsSelf();
             
             builder.RegisterType<TestSessionXmlGenerator>().AsSelf();
             builder.RegisterType<ArkadeVersion>().AsSelf();

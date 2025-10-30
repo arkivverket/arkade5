@@ -40,10 +40,7 @@ public class InputDiasPackage : DiasPackage
         
         CreateWorkingDirectory(locationForWorkingDirectory);
 
-        //TarExtractionStartedEvent();
-        compressionUtility.ExtractFolderFromArchive(tarFile, WorkingDirectory.Root().DirectoryInfo(),
-            withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: Id.ToString());
-        //TarExtractionFinishedEvent(workingDirectory);
+        ExtractTarArchive(compressionUtility);
 
         ArchiveMetadata = MetadataLoader.Load(WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).FullName);
 
@@ -51,6 +48,14 @@ public class InputDiasPackage : DiasPackage
             Log.Warning($"Metadata ID ({ArchiveMetadata.Id}) does not match IP ID ({Id})");
 
         PackageType = ArchiveMetadata.PackageType;
+    }
+
+    private void ExtractTarArchive(ICompressionUtility compressionUtility)
+    {
+        //TarExtractionStartedEvent();
+        compressionUtility.ExtractFolderFromArchive(TarFile, WorkingDirectory.Root().DirectoryInfo(),
+            withoutDocumentFiles: false, archiveRootDirectoryName: Id.ToString());
+        //TarExtractionFinishedEvent(workingDirectory);
     }
 }
 

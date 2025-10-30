@@ -16,9 +16,9 @@ namespace Arkivverket.Arkade.Core.Base
         public ArkadeDirectory Content { get; protected init; }
 
         //public ArchiveContent Content { get; }
-        public InputDiasPackage InputDiasPackage { get; }
+        public InputDiasPackage InputDiasPackage { get; protected init; }
         public OutputDiasPackage OutputDiasPackage { get; set; }
-        public ArchiveType ArchiveType { get; }
+        public ArchiveType ArchiveType { get; protected init; }
 
         public AddmlXmlUnit AddmlXmlUnit { get; }
         public AddmlInfo AddmlInfo { get; }
@@ -26,15 +26,13 @@ namespace Arkivverket.Arkade.Core.Base
         public TestSession TestSession { get; set; }
         public abstract bool IsTestable(out string disqualifyingCause);
 
-        protected Archive(ArchiveType archiveType, InputDiasPackage inputDiasPackage = null)
+        protected Archive(ArchiveType archiveType, ICompressionUtility compressionUtility)
         {
             ArchiveType = archiveType;
 
             //Content = new ArkadeDirectory(archiveExtractionDirectory);
 
             ProcessingDirectory = CreateProcessingDirectory();
-
-            InputDiasPackage = inputDiasPackage;
 
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
