@@ -1,11 +1,10 @@
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Resources;
-using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core;
 
-public class Noark4Archive(FileSystemInfo archiveSource, ICompressionUtility compressionUtility) : Archive(ArchiveType.Noark4, compressionUtility)
+public class Noark4Archive(FileSystemInfo archiveSource, DirectoryInfo processingDirectory) : Archive(processingDirectory)
 {
     public override bool IsTestable(out string disqualifyingCause)
     {

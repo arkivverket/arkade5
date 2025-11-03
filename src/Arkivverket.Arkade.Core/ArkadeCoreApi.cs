@@ -9,7 +9,6 @@ using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
-using Arkivverket.Arkade.Core.Util;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core;
@@ -22,7 +21,7 @@ public class ArkadeCoreApi(
     MetadataFilesCreator metadataFilesCreator,
     InformationPackageCreator informationPackageCreator,
     SiardMetadataFileHelper siardMetadataFileHelper,
-    ICompressionUtility compressionUtility,
+    ArchiveFactory archiveFactory,
     IStatusEventHandler statusEventHandler,
     ArkadeApi arkadeApi)
 {
@@ -35,24 +34,8 @@ public class ArkadeCoreApi(
 
         Log.Debug($"Loading Archive Extraction [sourcePath: {archiveSource.FullName}] [archiveType: {archiveType}]");
 
-        return archiveType switch
-        {
-            // TODO: Consider to DI the compressionUtility at Archive or InputDiasPackage
-            
-            ArchiveType.Fagsystem or ArchiveType.Noark3 => new AddmlArchive(archiveType, archiveSource, compressionUtility),
-            ArchiveType.Noark4 => new Noark4Archive(archiveSource, compressionUtility),
-            ArchiveType.Noark5 => new Noark5Archive(archiveSource, compressionUtility),
-            ArchiveType.Siard => new SiardArchive(archiveSource, statusEventHandler, compressionUtility),
-            _ => throw new ArgumentOutOfRangeException(nameof(archiveType), archiveType, null)
-        };
+        return archiveFactory.Create(archiveSource, archiveType);
 
-        // InputDiasPackage inputDiasPackage = null;
-        // if (archiveSource is FileInfo { Extension: ".tar" } tarFile)
-        // {
-        //     inputDiasPackage = new InputDiasPackage(tarFile, archiveType, processingDirectory, compressionUtility);
-        //
-        //     ArchiveInformationEvent(tarFile.FullName, archiveType, inputDiasPackage.Id);
-        // }
         //
         //
         //
@@ -136,11 +119,7 @@ public class ArkadeCoreApi(
         return packageFilePath;
     }
 
-    private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType, Uuid inputDiasPackageUuid = null)
-    {
-        statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
-            archiveType.ToString(), inputDiasPackageUuid?.ToString() ?? "-", archiveFileName)); // NB! UUID-writeout (right after UUID init)
-    }
+
 
     private void CopySiardFilesToContentDirectory(FileInfo siardArchiveFile, string contentDirectoryPath)
     {

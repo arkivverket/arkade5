@@ -14,24 +14,10 @@ public class SiardArchive : Archive
 {
     private readonly FileInfo _siardFile;
 
-    public SiardArchive(FileSystemInfo archiveSource, IStatusEventHandler statusEventHandler,
-        ICompressionUtility compressionUtility) : base(ArchiveType.Siard, compressionUtility)
+    public SiardArchive(FileInfo siardFile, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory)
     {
-            if (archiveSource is FileInfo { Extension: ".siard" } siardFile)
-            {
-                _siardFile = siardFile;
-            }
-            else if (archiveSource is FileInfo { Extension: ".tar" } tarFile)
-            {
-                InputDiasPackage =
-                    new InputDiasPackage(tarFile, ArchiveType.Siard, ProcessingDirectory, compressionUtility);
-            }
-            else
-            {
-                throw new ArkadeException(
-                    $"{archiveSource.FullName} was not recognized as a Siard archive file."); // Dettan gjeng'kje! Må jo støtte Siard-arkiv lastet som SIP/AIP!
-            }
-
+           _siardFile = siardFile;
+           
         // TODO: Consider to handle the Siard-file and any external lobs in place (at least until packing)
         // CopySiardFilesToContentDirectory(siardFile, workingDirectory.Content().ToString());
 
@@ -55,6 +41,11 @@ public class SiardArchive : Archive
 
             Details = null;
         }
+    }
+
+    public SiardArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory)
+    {
+        _siardFile = inputDiasPackage.WorkingDirectory.ContentWorkDirectory().WithFile("*.siard");
     }
 
     public override bool IsTestable(out string disqualifyingCause)

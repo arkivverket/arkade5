@@ -20,7 +20,7 @@ public class Noark5Archive : Archive
     private DirectoryInfo DocumentsDirectory { get; set; }
     private string DocumentsDirectoryName { get; set; }
 
-    public Noark5Archive(FileSystemInfo archiveSource, ICompressionUtility compressionUtility) : base(ArchiveType.Noark5, compressionUtility)
+    public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
         if (AddmlXmlUnit.HasNoDefinedSchema())
             AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);

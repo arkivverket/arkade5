@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Base
         //public ArchiveContent Content { get; }
         public InputDiasPackage InputDiasPackage { get; protected init; }
         public OutputDiasPackage OutputDiasPackage { get; set; }
-        public ArchiveType ArchiveType { get; protected init; }
+        public ArchiveType ArchiveType => Enum.Parse<ArchiveType>(GetType().FullName ?? string.Empty); // Follow up ..
 
         public AddmlXmlUnit AddmlXmlUnit { get; }
         public AddmlInfo AddmlInfo { get; }
@@ -26,13 +26,9 @@ namespace Arkivverket.Arkade.Core.Base
         public TestSession TestSession { get; set; }
         public abstract bool IsTestable(out string disqualifyingCause);
 
-        protected Archive(ArchiveType archiveType, ICompressionUtility compressionUtility)
+        protected Archive(DirectoryInfo processingDirectory)
         {
-            ArchiveType = archiveType;
-
             //Content = new ArkadeDirectory(archiveExtractionDirectory);
-
-            ProcessingDirectory = CreateProcessingDirectory();
 
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
@@ -50,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         private AddmlXmlUnit SetupAddmlXmlUnit()
         {
-            FileInfo addmlFileInfo = Content.WithFile(AddmlXmlFileName);
+            FileInfo addmlFileInfo = Content?.WithFile(AddmlXmlFileName);
 
             // .................Move to Noark5Archive.......................
             if (!addmlFileInfo.Exists && ArchiveType == ArchiveType.Noark5)
@@ -66,18 +62,6 @@ namespace Arkivverket.Arkade.Core.Base
                 : null;
 
             return new AddmlXmlUnit(addmlXmlFile, addmlSchema);
-        }
-
-        private static DirectoryInfo CreateProcessingDirectory()
-        {
-            string workDirectoryFullName = ArkadeProcessingArea.WorkDirectory.FullName;
-            var nowTimeStampString = DateTime.Now.ToString("yyyyMMddHHmmss");
-
-            var processingDirectory = new DirectoryInfo(Path.Combine(workDirectoryFullName, nowTimeStampString));
-
-            processingDirectory.Create();
-
-            return processingDirectory;
         }
     }
 

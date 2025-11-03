@@ -88,7 +88,7 @@ namespace Arkivverket.Arkade.Core.Identify
             //if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.Fagsystem)
             //    archive.WorkingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(archive.AddmlXmlUnit.File.Name); // TODO: Wait until package creation
 
-            var testSession = new TestSession(archive.ProcessingDirectory.CreateSubdirectory("tmp-testresults"));
+            var testSession = new TestSession(Archive.ProcessingDirectory.CreateSubdirectory("tmp-testresults"));
 
             if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.Siard)
             {
