@@ -487,7 +487,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 ExtractionDate = ArchiveMetadataMapper.MapToExtractionDate(_metaDataExtractionDate),
             };
 
-            _archive.OutputDiasPackage = new OutputDiasPackage(packageType, archiveMetadata, Archive.ProcessingDirectory); // NB! UUID-origin
+            _archive.OutputDiasPackage = new OutputDiasPackage(packageType, archiveMetadata, _archive.ProcessingDirectory); // NB! UUID-origin
             
             ArkadeProcessingState.PackingIsStarted = true;
             MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
