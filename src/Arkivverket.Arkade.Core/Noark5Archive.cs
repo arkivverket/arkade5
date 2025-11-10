@@ -22,21 +22,36 @@ public class Noark5Archive : Archive
 
     public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
-        Content = new ArkadeDirectory(archiveExtractionDirectory); 
+        ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
         
-        if (AddmlXmlUnit.HasNoDefinedSchema())
-            AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
+        Content = new ArkadeDirectory(archiveExtractionDirectory);
+        
+        SetupConstructorCommonThingsAndOfCourseGiveThisMethodABetterName();
 
-        SetupArchiveXmlUnits();
-
-        DocumentFiles = InputDiasPackage == null
-            ? new DocumentFiles(GetDocumentsDirectory())
-            : new DocumentFiles(InputDiasPackage.TarFile.FullName);
+        DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
     }
 
     public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
+        ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
+
         Content = inputDiasPackage.WorkingDirectory.ContentWorkDirectory();
+
+        SetupConstructorCommonThingsAndOfCourseGiveThisMethodABetterName();
+
+        InputDiasPackage = inputDiasPackage;
+        
+        DocumentFiles = new DocumentFiles(InputDiasPackage.TarFile.FullName);
+    }
+    
+    private void SetupConstructorCommonThingsAndOfCourseGiveThisMethodABetterName()
+    {
+        SetupAddmlXmlUnitAndAddmlInfoAndDetailsAndSoonRenameThisMethod();
+
+        if (AddmlXmlUnit.HasNoDefinedSchema())
+            AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
+
+        SetupArchiveXmlUnits();
     }
     
     public ArchiveXmlFile GetArchiveXmlFile(string fileName)

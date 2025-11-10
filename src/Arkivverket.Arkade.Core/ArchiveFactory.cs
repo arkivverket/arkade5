@@ -23,21 +23,10 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
     private SiardArchive CreateSiardArchive(FileSystemInfo archiveSource)
     {
         DirectoryInfo processingDirectory = CreateProcessingDirectory();
-
+        
         if (IsTarFile(archiveSource, out FileInfo tarFile))
         {
-            if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(tarFile.Name), out Uuid id)) // NB! UUID-orig
-                throw new ArkadeException("Could not extract an UUID from filename: " + tarFile.Name);
-
-            DirectoryInfo workingDirectoryRoot = processingDirectory.CreateSubdirectory(id.GetValue());
-            var diasPackageWorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
-
-            //TarExtractionStartedEvent();
-            compressionUtility.ExtractFolderFromArchive(tarFile, diasPackageWorkingDirectory.Root().DirectoryInfo(),
-                withoutDocumentFiles: false, archiveRootDirectoryName: id.ToString());
-            //TarExtractionFinishedEvent(workingDirectory);
-
-            var inputDiasPackage = new InputDiasPackage(id, diasPackageWorkingDirectory, tarFile);
+            InputDiasPackage inputDiasPackage = CreateInputDiasPackage(tarFile, processingDirectory);
 
             return new SiardArchive(inputDiasPackage, processingDirectory, statusEventHandler);
         }
@@ -55,6 +44,13 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
     {
         DirectoryInfo processingDirectory = CreateProcessingDirectory();
 
+        if (IsTarFile(archiveSource, out FileInfo tarFile))
+        {
+            InputDiasPackage inputDiasPackage = CreateInputDiasPackage(tarFile, processingDirectory, true);
+
+            return new Noark5Archive(inputDiasPackage, processingDirectory);
+        }
+        
         var archiveExtractionDirectory = archiveSource as DirectoryInfo;
 
         return new Noark5Archive(archiveExtractionDirectory, processingDirectory);
@@ -64,6 +60,13 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
     {
         DirectoryInfo processingDirectory = CreateProcessingDirectory();
 
+        if (IsTarFile(archiveSource, out FileInfo tarFile))
+        {
+            InputDiasPackage inputDiasPackage = CreateInputDiasPackage(tarFile, processingDirectory, true);
+
+            return new Noark4Archive(inputDiasPackage, processingDirectory);
+        }
+        
         var archiveExtractionDirectory = archiveSource as DirectoryInfo;
 
         return new Noark4Archive(archiveExtractionDirectory, processingDirectory);
@@ -73,6 +76,13 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
     {
         DirectoryInfo processingDirectory = CreateProcessingDirectory();
 
+        if (IsTarFile(archiveSource, out FileInfo tarFile))
+        {
+            InputDiasPackage inputDiasPackage = CreateInputDiasPackage(tarFile, processingDirectory);
+
+            return new AddmlArchive(archiveType, inputDiasPackage, processingDirectory);
+        }
+        
         var archiveExtractionDirectory = archiveSource as DirectoryInfo;
 
         return new AddmlArchive(archiveType, archiveExtractionDirectory, processingDirectory);
@@ -102,6 +112,25 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
         return false;
     }
 
+    private InputDiasPackage CreateInputDiasPackage(FileInfo tarFile, DirectoryInfo processingDirectory,
+        bool extractWithoutDocumentFiles = false)
+    {
+        if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(tarFile.Name), out Uuid id)) // NB! UUID-orig
+            throw new ArkadeException("Could not extract an UUID from filename: " + tarFile.Name);
+
+        DirectoryInfo workingDirectoryRoot = processingDirectory.CreateSubdirectory(id.GetValue());
+        var diasPackageWorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
+
+        //TarExtractionStartedEvent();
+            
+        compressionUtility.ExtractFolderFromArchive(tarFile, diasPackageWorkingDirectory.Root().DirectoryInfo(),
+            withoutDocumentFiles: extractWithoutDocumentFiles, archiveRootDirectoryName: id.ToString());
+        //TarExtractionFinishedEvent(workingDirectory);
+
+        var inputDiasPackage = new InputDiasPackage(id, diasPackageWorkingDirectory, tarFile);
+        return inputDiasPackage;
+    }
+    
     //ArchiveInformationEvent(tarFile.FullName, archiveType, inputDiasPackage.Id);
     //ArchiveInformationEvent(archiveSource.FullName, archiveType);
     

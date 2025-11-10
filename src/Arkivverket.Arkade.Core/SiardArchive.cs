@@ -16,7 +16,11 @@ public class SiardArchive : Archive
 
     public SiardArchive(FileInfo siardFile, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory)
     {
-           SiardFile = siardFile;
+        ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
+
+        //Content = ...
+        
+        SiardFile = siardFile;
            
         // TODO: Consider to handle the Siard-file and any external lobs in place (at least until packing)
         // CopySiardFilesToContentDirectory(siardFile, workingDirectory.Content().ToString());
@@ -24,14 +28,12 @@ public class SiardArchive : Archive
         //ArchiveInformationEvent(archiveSource.FullName, archiveType);
         
         Details = GetArchiveDetails(siardFile, statusEventHandler);
-        
-        //Content = ...
-
-        ArchiveType = ArchiveType.Siard; // TODO: Remove ..
     }
     
     public SiardArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory)
     {
+        ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
+        
         Content = inputDiasPackage.WorkingDirectory.ContentWorkDirectory();
         
         FileInfo siardFile = Content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
@@ -39,8 +41,6 @@ public class SiardArchive : Archive
         SiardFile = siardFile ?? throw new ArkadeException("Siard file not found");
         
         Details = GetArchiveDetails(siardFile, statusEventHandler);
-        
-        ArchiveType = ArchiveType.Siard; // TODO: Remove ..
     }
     
     private static SiardArchiveDetails GetArchiveDetails(FileInfo siardArchiveFile, IStatusEventHandler statusEventHandler)

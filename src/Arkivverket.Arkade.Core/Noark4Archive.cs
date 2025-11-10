@@ -8,11 +8,15 @@ public class Noark4Archive : Archive
 {
     public Noark4Archive(FileSystemInfo archiveSource, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
+        ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...
+        
         //Content = ...
     }
     
     public Noark4Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
+        ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...
+        
         Content = inputDiasPackage.WorkingDirectory.ContentWorkDirectory();
     }
 
