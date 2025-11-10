@@ -44,8 +44,9 @@ public class OutputDiasPackage : DiasPackage
     {
         Id = Uuid.Random(); // NB! UUID-orig
 
-        //CreateWorkingDirectory(locationForWorkingDirectory);
-
+        DirectoryInfo workingDirectoryRoot = locationForWorkingDirectory.CreateSubdirectory(Id.GetValue());
+        WorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
+        
         PackageType = packageType;
 
         ArchiveMetadata = archiveMetadata;
