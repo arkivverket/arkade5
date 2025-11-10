@@ -22,6 +22,8 @@ public class Noark5Archive : Archive
 
     public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
+        Content = new ArkadeDirectory(archiveExtractionDirectory); 
+        
         if (AddmlXmlUnit.HasNoDefinedSchema())
             AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
 
@@ -32,6 +34,11 @@ public class Noark5Archive : Archive
             : new DocumentFiles(InputDiasPackage.TarFile.FullName);
     }
 
+    public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory)
+    {
+        Content = inputDiasPackage.WorkingDirectory.ContentWorkDirectory();
+    }
+    
     public ArchiveXmlFile GetArchiveXmlFile(string fileName)
     {
         return XmlUnits.FirstOrDefault(xmlUnit => xmlUnit.File.Name.Equals(fileName))?.File;

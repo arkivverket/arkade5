@@ -23,29 +23,33 @@ public class SiardArchive : Archive
 
         //ArchiveInformationEvent(archiveSource.FullName, archiveType);
         
-        FileInfo siardArchiveFile = Content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
-        if (siardArchiveFile == null)
-            throw new ArkadeException("Siard file not found");
-        if (!siardArchiveFile.Exists)
-            throw new ArkadeException(string.Format(ExceptionMessages.FileNotFound, siardArchiveFile.FullName));
-
-        if (new SiardArchiveReader().TryDeserializeToSiard2_1(siardArchiveFile.FullName, out siardArchive siard2Archive,
-                out string errorMessage))
-            Details = new SiardArchiveDetails(siard2Archive);
-        else
-        {
-            statusEventHandler?.RaiseEventOperationMessage(null,
-                string.Format(SiardMessages.DeserializationUnsuccessfulMessage, SiardMetadataXmlFileName, "2.1",
-                    errorMessage),
-                OperationMessageStatus.Error);
-
-            Details = null;
-        }
+        Details = GetArchiveDetails(siardFile, statusEventHandler);
+        
+        //Content = ...
     }
-
-    public SiardArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory)
+    
+    public SiardArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory)
     {
-        _siardFile = inputDiasPackage.WorkingDirectory.ContentWorkDirectory().WithFile("*.siard");
+        Content = inputDiasPackage.WorkingDirectory.ContentWorkDirectory();
+        
+        FileInfo siardFile = Content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
+
+        _siardFile = siardFile ?? throw new ArkadeException("Siard file not found");
+        
+        Details = GetArchiveDetails(siardFile, statusEventHandler);
+    }
+    
+    private static SiardArchiveDetails GetArchiveDetails(FileInfo siardArchiveFile, IStatusEventHandler statusEventHandler)
+    {
+        if (new SiardArchiveReader().TryDeserializeToSiard2_1(
+                siardArchiveFile.FullName, out siardArchive siard2Archive, out string errorMessage))
+            return new SiardArchiveDetails(siard2Archive);
+
+        statusEventHandler?.RaiseEventOperationMessage(null, string.Format(
+            SiardMessages.DeserializationUnsuccessfulMessage, SiardMetadataXmlFileName,
+            "2.1", errorMessage), OperationMessageStatus.Error);
+
+        return null;
     }
 
     public override bool IsTestable(out string disqualifyingCause)

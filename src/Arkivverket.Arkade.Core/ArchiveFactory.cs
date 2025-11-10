@@ -39,7 +39,7 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
 
             var inputDiasPackage = new InputDiasPackage(id, diasPackageWorkingDirectory, tarFile);
 
-            return new SiardArchive(inputDiasPackage, processingDirectory);
+            return new SiardArchive(inputDiasPackage, processingDirectory, statusEventHandler);
         }
 
         if (archiveSource is FileInfo { Extension: ".siard" } siardFile)
@@ -48,7 +48,7 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
         }
 
         throw new ArkadeException(
-            $"{archiveSource.FullName} was not recognized as a Siard archive file."); // Dettan gjeng'kje! Må jo støtte Siard-arkiv lastet som SIP/AIP!
+            $"{archiveSource.FullName} was not recognized as a Siard archive file.");
     }
 
     private Noark5Archive CreateNoark5Archive(FileSystemInfo archiveSource)

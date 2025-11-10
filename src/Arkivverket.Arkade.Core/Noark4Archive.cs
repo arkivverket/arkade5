@@ -4,8 +4,18 @@ using Arkivverket.Arkade.Core.Resources;
 
 namespace Arkivverket.Arkade.Core;
 
-public class Noark4Archive(FileSystemInfo archiveSource, DirectoryInfo processingDirectory) : Archive(processingDirectory)
+public class Noark4Archive : Archive
 {
+    public Noark4Archive(FileSystemInfo archiveSource, DirectoryInfo processingDirectory) : base(processingDirectory)
+    {
+        //Content = ...
+    }
+    
+    public Noark4Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory)
+    {
+        Content = inputDiasPackage.WorkingDirectory.ContentWorkDirectory();
+    }
+
     public override bool IsTestable(out string disqualifyingCause)
     {
         disqualifyingCause = Messages.Noark4ValidationNotSupported;

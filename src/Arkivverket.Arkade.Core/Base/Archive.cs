@@ -9,27 +9,29 @@ namespace Arkivverket.Arkade.Core.Base
 {
     public abstract class Archive
     {
-        public DirectoryInfo ProcessingDirectory { get; }
+        public DirectoryInfo ProcessingDirectory { get; private init; }
 
         public bool SourceIsTarFile => InputDiasPackage?.TarFile != null;
 
         public ArkadeDirectory Content { get; protected init; }
 
-        //public ArchiveContent Content { get; }
+        public ArchiveContent WipContent { get; }
         public InputDiasPackage InputDiasPackage { get; protected init; }
         public OutputDiasPackage OutputDiasPackage { get; set; }
         public ArchiveType ArchiveType => Enum.Parse<ArchiveType>(GetType().FullName ?? string.Empty); // Follow up ..
-
-        public AddmlXmlUnit AddmlXmlUnit { get; }
-        public AddmlInfo AddmlInfo { get; }
-        public IArchiveDetails Details { get; protected init; }
+        public AddmlXmlUnit AddmlXmlUnit { get; protected set; }
+        public AddmlInfo AddmlInfo { get; protected set; }
+        public IArchiveDetails Details { get; protected set; }
         public TestSession TestSession { get; set; }
         public abstract bool IsTestable(out string disqualifyingCause);
 
         protected Archive(DirectoryInfo processingDirectory)
         {
-            //Content = new ArkadeDirectory(archiveExtractionDirectory);
+            ProcessingDirectory = processingDirectory;
+        }
 
+        protected void SetupAddmlXmlUnitAndAddmlInfoAndDetailsAndSoonRenameThisMethod()
+        {
             AddmlXmlUnit = SetupAddmlXmlUnit();
 
             if (!AddmlXmlUnit.File.Exists)
@@ -44,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Base
             Details = new ArchiveDetails(AddmlInfo.Addml);
         }
 
-        private AddmlXmlUnit SetupAddmlXmlUnit()
+        protected AddmlXmlUnit SetupAddmlXmlUnit()
         {
             FileInfo addmlFileInfo = Content?.WithFile(AddmlXmlFileName);
 
