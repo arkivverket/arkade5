@@ -18,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Base
         public ArchiveContent WipContent { get; }
         public InputDiasPackage InputDiasPackage { get; protected init; }
         public OutputDiasPackage OutputDiasPackage { get; set; }
-        public ArchiveType ArchiveType => Enum.Parse<ArchiveType>(GetType().FullName ?? string.Empty); // Follow up ..
+        public ArchiveType ArchiveType { get; protected init; } // TODO: Consider to liquidate
         public AddmlXmlUnit AddmlXmlUnit { get; protected set; }
         public AddmlInfo AddmlInfo { get; protected set; }
         public IArchiveDetails Details { get; protected set; }

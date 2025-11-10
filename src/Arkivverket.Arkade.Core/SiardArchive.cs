@@ -12,11 +12,11 @@ namespace Arkivverket.Arkade.Core;
 
 public class SiardArchive : Archive
 {
-    private readonly FileInfo _siardFile;
+    public readonly FileInfo SiardFile;
 
     public SiardArchive(FileInfo siardFile, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory)
     {
-           _siardFile = siardFile;
+           SiardFile = siardFile;
            
         // TODO: Consider to handle the Siard-file and any external lobs in place (at least until packing)
         // CopySiardFilesToContentDirectory(siardFile, workingDirectory.Content().ToString());
@@ -26,6 +26,8 @@ public class SiardArchive : Archive
         Details = GetArchiveDetails(siardFile, statusEventHandler);
         
         //Content = ...
+
+        ArchiveType = ArchiveType.Siard; // TODO: Remove ..
     }
     
     public SiardArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory)
@@ -34,9 +36,11 @@ public class SiardArchive : Archive
         
         FileInfo siardFile = Content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
 
-        _siardFile = siardFile ?? throw new ArkadeException("Siard file not found");
+        SiardFile = siardFile ?? throw new ArkadeException("Siard file not found");
         
         Details = GetArchiveDetails(siardFile, statusEventHandler);
+        
+        ArchiveType = ArchiveType.Siard; // TODO: Remove ..
     }
     
     private static SiardArchiveDetails GetArchiveDetails(FileInfo siardArchiveFile, IStatusEventHandler statusEventHandler)
@@ -54,7 +58,7 @@ public class SiardArchive : Archive
 
     public override bool IsTestable(out string disqualifyingCause)
     {
-        if (!_siardFile.Exists)
+        if (!SiardFile.Exists)
         {
             disqualifyingCause = SiardMessages.CouldNotFindASiardFile;
             return false;

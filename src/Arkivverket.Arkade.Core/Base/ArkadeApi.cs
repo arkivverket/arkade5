@@ -154,6 +154,8 @@ namespace Arkivverket.Arkade.Core.Base
         public void SaveReport(Archive archive, DirectoryInfo testReportDirectory, bool standalone,
             int testResultDisplayLimit)
         {
+            return; // TODO: Remove test-return!
+            
             //Unødvendig nå, ikke sant?
             //if (testReportDirectory.Exists)
             //    testReportDirectory.Delete(recursive: true);

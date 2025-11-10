@@ -18,9 +18,9 @@ namespace Arkivverket.Arkade.Core.Base.Siard
 
         public TestSuite RunTestsOnArchive(Archive archive)
         {
-            FileInfo siardFileInfo = archive.Content.DirectoryInfo().GetFiles()
-                .First(f => f.Extension.Equals(".siard"));
-            string inputFilePath = siardFileInfo.FullName;
+            var siardArchive = (SiardArchive)archive;
+            
+            string inputFilePath = siardArchive.SiardFile.FullName;
             string reportFilePath = Path.Combine(archive.TestSession.TemporaryTestResultFilesDirectory.FullName,
                 Resources.OutputFileNames.DbptkValidationReportFile);
 
