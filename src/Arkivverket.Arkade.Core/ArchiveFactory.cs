@@ -10,82 +10,52 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
 {
     public Archive Create(FileSystemInfo archiveSource, ArchiveType archiveType)
     {
+        DirectoryInfo processingDirectory = CreateProcessingDirectory();
+
+        InputDiasPackage inputDiasPackage = IsTarFile(archiveSource, out FileInfo tarFile)
+            ? CreateInputDiasPackage(tarFile, processingDirectory)
+            : null;
+        
         return archiveType switch
         {
-            ArchiveType.Siard => CreateSiardArchive(archiveSource),
-            ArchiveType.Noark5 => CreateNoark5Archive(archiveSource),
-            ArchiveType.Noark4 => CreateNoark4Archive(archiveSource),
-            ArchiveType.Noark3 or ArchiveType.Fagsystem => CreateAddmlArchive(archiveSource, archiveType),
+            ArchiveType.Siard => CreateSiardArchive(archiveSource, processingDirectory, inputDiasPackage),
+            ArchiveType.Noark5 => CreateNoark5Archive(archiveSource, processingDirectory, inputDiasPackage),
+            ArchiveType.Noark4 => CreateNoark4Archive(archiveSource, processingDirectory, inputDiasPackage),
+            ArchiveType.Noark3 or ArchiveType.Fagsystem => CreateAddmlArchive(archiveSource, archiveType, processingDirectory, inputDiasPackage),
             _ => throw new ArgumentOutOfRangeException(nameof(archiveType), archiveType, null)
         };
     }
 
-    private SiardArchive CreateSiardArchive(FileSystemInfo archiveSource)
+    private SiardArchive CreateSiardArchive(FileSystemInfo archiveSource, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
     {
-        DirectoryInfo processingDirectory = CreateProcessingDirectory();
-        
-        if (IsTarFile(archiveSource, out FileInfo tarFile))
-        {
-            InputDiasPackage inputDiasPackage = CreateInputDiasPackage(tarFile, processingDirectory);
-
+        if (inputDiasPackage != null)
             return new SiardArchive(inputDiasPackage, processingDirectory, statusEventHandler);
-        }
 
         if (archiveSource is FileInfo { Extension: ".siard" } siardFile)
-        {
             return new SiardArchive(siardFile, processingDirectory, statusEventHandler);
-        }
 
-        throw new ArkadeException(
-            $"{archiveSource.FullName} was not recognized as a Siard archive file.");
+        throw new ArkadeException($"{archiveSource.FullName} was not recognized as a Siard archive file.");
     }
 
-    private Noark5Archive CreateNoark5Archive(FileSystemInfo archiveSource)
+    private static Noark5Archive CreateNoark5Archive(FileSystemInfo archiveSource, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
     {
-        DirectoryInfo processingDirectory = CreateProcessingDirectory();
-
-        if (IsTarFile(archiveSource, out FileInfo tarFile))
-        {
-            InputDiasPackage inputDiasPackage = CreateInputDiasPackage(tarFile, processingDirectory, true);
-
-            return new Noark5Archive(inputDiasPackage, processingDirectory);
-        }
-        
-        var archiveExtractionDirectory = archiveSource as DirectoryInfo;
-
-        return new Noark5Archive(archiveExtractionDirectory, processingDirectory);
+        return inputDiasPackage != null
+            ? new Noark5Archive(inputDiasPackage, processingDirectory)
+            : new Noark5Archive(archiveSource as DirectoryInfo, processingDirectory);
     }
 
-    private Noark4Archive CreateNoark4Archive(FileSystemInfo archiveSource)
+    private static Noark4Archive CreateNoark4Archive(FileSystemInfo archiveSource, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
     {
-        DirectoryInfo processingDirectory = CreateProcessingDirectory();
-
-        if (IsTarFile(archiveSource, out FileInfo tarFile))
-        {
-            InputDiasPackage inputDiasPackage = CreateInputDiasPackage(tarFile, processingDirectory, true);
-
-            return new Noark4Archive(inputDiasPackage, processingDirectory);
-        }
-        
-        var archiveExtractionDirectory = archiveSource as DirectoryInfo;
-
-        return new Noark4Archive(archiveExtractionDirectory, processingDirectory);
+        return inputDiasPackage != null
+            ? new Noark4Archive(inputDiasPackage, processingDirectory)
+            : new Noark4Archive(archiveSource as DirectoryInfo, processingDirectory);
     }
 
-    private AddmlArchive CreateAddmlArchive(FileSystemInfo archiveSource, ArchiveType archiveType)
+    private static AddmlArchive CreateAddmlArchive(FileSystemInfo archiveSource, ArchiveType archiveType, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
     {
-        DirectoryInfo processingDirectory = CreateProcessingDirectory();
-
-        if (IsTarFile(archiveSource, out FileInfo tarFile))
-        {
-            InputDiasPackage inputDiasPackage = CreateInputDiasPackage(tarFile, processingDirectory);
-
-            return new AddmlArchive(archiveType, inputDiasPackage, processingDirectory);
-        }
-        
-        var archiveExtractionDirectory = archiveSource as DirectoryInfo;
-
-        return new AddmlArchive(archiveType, archiveExtractionDirectory, processingDirectory);
+        return inputDiasPackage != null
+            ? new AddmlArchive(archiveType, inputDiasPackage, processingDirectory)
+            : new AddmlArchive(archiveType, archiveSource as DirectoryInfo, processingDirectory);
     }
 
     private static DirectoryInfo CreateProcessingDirectory()
