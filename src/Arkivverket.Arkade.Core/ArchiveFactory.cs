@@ -3,6 +3,8 @@ using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
+using iText.Layout.Splitting;
+using static Arkivverket.Arkade.Core.Base.ArchiveType;
 
 namespace Arkivverket.Arkade.Core;
 
@@ -12,50 +14,30 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
     {
         DirectoryInfo processingDirectory = CreateProcessingDirectory();
 
-        InputDiasPackage inputDiasPackage = IsTarFile(archiveSource, out FileInfo tarFile)
-            ? CreateInputDiasPackage(tarFile, processingDirectory)
-            : null;
-        
-        return archiveType switch
+        return (archiveType, archiveSource) switch
         {
-            ArchiveType.Siard => CreateSiardArchive(archiveSource, processingDirectory, inputDiasPackage),
-            ArchiveType.Noark5 => CreateNoark5Archive(archiveSource, processingDirectory, inputDiasPackage),
-            ArchiveType.Noark4 => CreateNoark4Archive(archiveSource, processingDirectory, inputDiasPackage),
-            ArchiveType.Noark3 or ArchiveType.Fagsystem => CreateAddmlArchive(archiveSource, archiveType, processingDirectory, inputDiasPackage),
+            (Siard, FileInfo { Extension: ".siard" } siardFile) =>
+                new SiardArchive(siardFile, processingDirectory, statusEventHandler),
+            (Siard, FileInfo { Extension: ".tar" } tarFile) =>
+                new SiardArchive(CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory, statusEventHandler),
+
+            (Noark5, DirectoryInfo extractionDirectory) =>
+                new Noark5Archive(extractionDirectory, processingDirectory),
+            (Noark5, FileInfo { Extension: ".tar" } tarFile) =>
+                new Noark5Archive(CreateInputDiasPackage(tarFile, processingDirectory, true), processingDirectory),
+
+            (Noark4, DirectoryInfo extractionDirectory) =>
+                new Noark4Archive(extractionDirectory, processingDirectory),
+            (Noark4, FileInfo { Extension: ".tar" } tarFile) =>
+                new Noark4Archive(CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory),
+
+            (Noark3, DirectoryInfo extractionDirectory) =>
+                new AddmlArchive(archiveType, extractionDirectory, processingDirectory),
+            (Noark3, FileInfo { Extension: ".tar" } tarFile) =>
+                new AddmlArchive(archiveType, CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory),
+
             _ => throw new ArgumentOutOfRangeException(nameof(archiveType), archiveType, null)
         };
-    }
-
-    private SiardArchive CreateSiardArchive(FileSystemInfo archiveSource, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
-    {
-        if (inputDiasPackage != null)
-            return new SiardArchive(inputDiasPackage, processingDirectory, statusEventHandler);
-
-        if (archiveSource is FileInfo { Extension: ".siard" } siardFile)
-            return new SiardArchive(siardFile, processingDirectory, statusEventHandler);
-
-        throw new ArkadeException($"{archiveSource.FullName} was not recognized as a Siard archive file.");
-    }
-
-    private static Noark5Archive CreateNoark5Archive(FileSystemInfo archiveSource, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
-    {
-        return inputDiasPackage != null
-            ? new Noark5Archive(inputDiasPackage, processingDirectory)
-            : new Noark5Archive(archiveSource as DirectoryInfo, processingDirectory);
-    }
-
-    private static Noark4Archive CreateNoark4Archive(FileSystemInfo archiveSource, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
-    {
-        return inputDiasPackage != null
-            ? new Noark4Archive(inputDiasPackage, processingDirectory)
-            : new Noark4Archive(archiveSource as DirectoryInfo, processingDirectory);
-    }
-
-    private static AddmlArchive CreateAddmlArchive(FileSystemInfo archiveSource, ArchiveType archiveType, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
-    {
-        return inputDiasPackage != null
-            ? new AddmlArchive(archiveType, inputDiasPackage, processingDirectory)
-            : new AddmlArchive(archiveType, archiveSource as DirectoryInfo, processingDirectory);
     }
 
     private static DirectoryInfo CreateProcessingDirectory()
@@ -68,18 +50,6 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
         processingDirectory.Create();
 
         return processingDirectory;
-    }
-
-    private static bool IsTarFile(FileSystemInfo archiveSource, out FileInfo file)
-    {
-        if (archiveSource is FileInfo { Extension: ".tar" } tarFile)
-        {
-            file = tarFile;
-            return true;
-        }
-
-        file = null;
-        return false;
     }
 
     private InputDiasPackage CreateInputDiasPackage(FileInfo tarFile, DirectoryInfo processingDirectory,
