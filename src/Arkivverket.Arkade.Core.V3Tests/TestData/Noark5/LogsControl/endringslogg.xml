@@ -1,0 +1,18 @@
+﻿<endringslogg xmlns="http://www.arkivverket.no/standarder/noark5/endringslogg">
+  <endring>
+    <referanseArkivenhet>734b493f-c64e-4fc5-a988-56be11e2ee10</referanseArkivenhet>
+    <referanseMetadata>tittel</referanseMetadata>
+    <endretDato>2013-10-11T16:05:06</endretDato>
+    <endretAv>system</endretAv>
+    <tidligereVerdi>NULL</tidligereVerdi>
+    <nyVerdi>Byggesaker</nyVerdi>
+    </endring>
+    <endring>
+    <referanseArkivenhet>214e27a2-5e7f-484b-b2c2-dea4e50524a3</referanseArkivenhet>
+    <referanseMetadata>tittel</referanseMetadata>
+    <endretDato>2013-10-11T16:06:06</endretDato>
+    <endretAv>system</endretAv>
+    <tidligereVerdi>NULL</tidligereVerdi>
+    <nyVerdi>Vei og trafikk</nyVerdi>
+    </endring>
+    </endringslogg>

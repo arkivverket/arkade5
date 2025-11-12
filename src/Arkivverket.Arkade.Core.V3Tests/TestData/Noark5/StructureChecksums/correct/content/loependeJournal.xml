@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<loependeJournal xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.arkivverket.no/standarder/noark5/loependeJournal" xmlns:n5mdk="http://www.arkivverket.no/standarder/noark5/metadatakatalog" xsi:schemaLocation="http://www.arkivverket.no/standarder/noark5/loependeJournal loependeJournal.xsd">
+  <journalhode>
+    <journalStartDato>2011-09-09</journalStartDato>
+    <journalSluttDato>2012-10-10</journalSluttDato>
+    <antallJournalposter>4</antallJournalposter>
+    <arkivskaper>
+      <arkivskaperID>964963193</arkivskaperID>
+      <arkivskaperNavn>023984</arkivskaperNavn>
+      <beskrivelse>tekniske tjenester arkiv</beskrivelse>
+    </arkivskaper>
+  </journalhode>
+  <journalregistrering>
+    <saksmappe>
+      <saksaar>2011</saksaar>
+      <sakssekvensnummer>1</sakssekvensnummer>
+      <tittel>Byggesaker</tittel>
+    </saksmappe>
+    <journalpost>
+      <systemID>dbf32e5e-f6a2-4366-8ffa-5adb9ea54328</systemID>
+      <journalaar>2011</journalaar>
+      <journalsekvensnummer>0</journalsekvensnummer>
+      <journalpostnummer>0</journalpostnummer>
+      <tittel>Søknad om tilbygg</tittel>
+      <journaldato>2011-09-09</journaldato>
+      <korrespondansepart>
+        <korrespondanseparttype>Mottaker</korrespondanseparttype>
+        <korrespondansepartNavn>Petter Strand</korrespondansepartNavn>
+      </korrespondansepart>
+    </journalpost>
+  </journalregistrering>
+  <journalregistrering>
+    <saksmappe>
+      <saksaar>2011</saksaar>
+      <sakssekvensnummer>1</sakssekvensnummer>
+      <tittel>Byggesaker</tittel>
+    </saksmappe>
+    <journalpost>
+      <systemID>3062c3c1-83f7-4fb1-9a80-11bab7c06165</systemID>
+      <journalaar>2011</journalaar>
+      <journalsekvensnummer>2</journalsekvensnummer>
+      <journalpostnummer>2011</journalpostnummer>
+      <tittel>Vedtak på tilbygg</tittel>
+      <journaldato>2011-09-10</journaldato>
+      <korrespondansepart>
+        <korrespondanseparttype>Avsender</korrespondanseparttype>
+        <korrespondansepartNavn>Lars H.Hansen</korrespondansepartNavn>
+      </korrespondansepart>
+    </journalpost>
+  </journalregistrering>
+  <journalregistrering>
+    <saksmappe>
+      <saksaar>2012</saksaar>
+      <sakssekvensnummer>1</sakssekvensnummer>
+      <tittel>Vei og trafikk</tittel>
+    </saksmappe>
+    <journalpost>
+      <systemID>2b962a88-23b2-475e-bce3-a438d9db25db</systemID>
+      <journalaar>2012</journalaar>
+      <journalsekvensnummer>1</journalsekvensnummer>
+      <journalpostnummer>2012</journalpostnummer>
+      <tittel>Klage på vei</tittel>
+      <journaldato>2012-10-10</journaldato>
+      <korrespondansepart>
+        <korrespondanseparttype>Mottaker</korrespondanseparttype>
+        <korrespondansepartNavn>Knut Nærum</korrespondansepartNavn>
+      </korrespondansepart>
+    </journalpost>
+  </journalregistrering>
+  <journalregistrering>
+    <saksmappe>
+      <saksaar>2012</saksaar>
+      <sakssekvensnummer>1</sakssekvensnummer>
+      <tittel>Vei og trafikk</tittel>
+    </saksmappe>
+    <journalpost>
+      <systemID>ae3828bc-73e8-4722-b7c5-1b010f3f77f6</systemID>
+      <journalaar>2012</journalaar>
+      <journalsekvensnummer>2</journalsekvensnummer>
+      <journalpostnummer>2012</journalpostnummer>
+      <tittel>Vedtak etter klage</tittel>
+      <journaldato>2012-10-10</journaldato>
+      <korrespondansepart>
+        <korrespondanseparttype>Avsender</korrespondanseparttype>
+        <korrespondansepartNavn>Linda Hansen</korrespondansepartNavn>
+      </korrespondansepart>
+    </journalpost>
+  </journalregistrering>
+</loependeJournal>

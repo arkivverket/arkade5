@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table xsi:schemaLocation="http://www.bar.admin.ch/xmlns/siard/2/table.xsd table5.xsd" version="2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.bar.admin.ch/xmlns/siard/2/table.xsd">
+	<row>
+		<c1>1</c1>
+		<c2>2</c2>
+		<c3>L0001</c3>
+		<c4>Møtebok</c4>
+		<c6>19761101</c6>
+		<c7>19790326</c7>
+	</row>
+	<row>
+		<c1>14</c1>
+		<c2>1</c2>
+		<c3>L0001</c3>
+		<c4>Møtebok</c4>
+		<c6>19761026</c6>
+		<c7>19811214</c7>
+	</row>
+	<row>
+		<c1>16</c1>
+		<c2>3</c2>
+		<c3>L0001</c3>
+		<c4>Sakslister\u0020\u0020Del 1</c4>
+		<c6>1977</c6>
+		<c7>1977</c7>
+	</row>
+	<row>
+		<c1>100</c1>
+		<c2>4</c2>
+		<c3>L0001</c3>
+		<c4>Postjournal</c4>
+		<c6>19770104</c6>
+		<c7>19781031</c7>
+	</row>
+	<row>
+		<c1>119</c1>
+		<c2>5</c2>
+		<c3>L0001</c3>
+		<c4>Arkivkode 000-046</c4>
+		<c6>1963</c6>
+		<c7>1965</c7>
+		<c8>0</c8>
+		<c9>46</c9>
+	</row>
+	<row>
+		<c1>120</c1>
+		<c2>5</c2>
+		<c3>L0002</c3>
+		<c4>Arkivkode 210-210</c4>
+		<c6>1963</c6>
+		<c7>1965</c7>
+		<c8>210</c8>
+		<c9>210</c9>
+	</row>
+	<row>
+		<c1>121</c1>
+		<c2>6</c2>
+		<c3>L0003</c3>
+		<c4>Arkivkode 504-505.1</c4>
+		<c6>1966</c6>
+		<c7>1967</c7>
+		<c8>504</c8>
+		<c9>505.1</c9>
+	</row>
+	<row>
+		<c1>122</c1>
+		<c2>6</c2>
+		<c3>L0002</c3>
+		<c4>Arkivkode 210-533</c4>
+		<c6>1966</c6>
+		<c7>1967</c7>
+		<c8>210</c8>
+		<c9>533</c9>
+	</row>
+	<row>
+		<c1>123</c1>
+		<c2>6</c2>
+		<c3>L0001</c3>
+		<c4>Arkivkode 022-221</c4>
+		<c6>1966</c6>
+		<c7>1967</c7>
+		<c8>22</c8>
+		<c9>221</c9>
+	</row>
+</table>

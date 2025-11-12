@@ -1,0 +1,111 @@
+<addml
+  xmlns="http://www.arkivverket.no/standarder/addml"
+  name="Noark 5-arkivuttrekk">
+  <dataset>
+    <description>Noark 5-arkivuttrekk</description>
+    <reference>
+      <context>
+        <additionalElements>
+          <additionalElement name="recordCreators">
+            <additionalElements>
+              <additionalElement name="recordCreator">
+                <value>Oslo Kommune</value>
+              </additionalElement>
+            </additionalElements>
+          </additionalElement>
+          <additionalElement name="systemType">
+            <value>Sakarkiv (Noark-5)</value>
+          </additionalElement>
+          <additionalElement name="systemName">
+            <value>arkivlab</value>
+          </additionalElement>
+          <additionalElement name="archive">
+            <value>Oslo Kommune</value>
+          </additionalElement>
+        </additionalElements>
+      </context>
+      <content>
+        <additionalElements>
+          <additionalElement name="archivalPeriod">
+            <properties>
+              <property name="startDate">
+                <value>2011-09-09</value>
+              </property>
+              <property name="endDate">
+                <value>2012-10-10</value>
+              </property>
+            </properties>
+          </additionalElement>
+        </additionalElements>
+      </content>
+    </reference>
+    <dataObjects>
+      <dataObject name="Noark 5 arkivuttrekk">
+        <properties>
+          <property name="info">
+            <properties>
+              <property name="type">
+                <value>Noark 5</value>
+                <properties>
+                  <property name="version">
+                    <value>3.0</value>
+                  </property>
+                </properties>
+              </property>
+              <property name="additionalInfo">
+                <properties>
+                  <property name="periode">
+                    <properties>
+                      <property name="inngaaendeSkille">
+                        <value>mykt</value>
+                      </property>
+                      <property name="utgaaendeSkille">
+                        <value>mykt</value>
+                      </property>
+                    </properties>
+                  </property>
+                  <property dataType="boolean" name="inneholderSkjermetInformasjon">
+                    <value>false</value>
+                  </property>
+                  <property dataType="boolean" name="omfatterDokumenterSomErKassert">
+                    <value>false</value>
+                  </property>
+                  <property dataType="boolean" name="inneholderDokumenterSomSkalKasseres">
+                    <value>false</value>
+                  </property>
+                  <property dataType="boolean" name="inneholderVirksomhetsspesifikkeMetadata">
+                    <value>false</value>
+                  </property>
+                  <property dataType="integer" name="antallDokumentfiler">
+                    <value>4</value>
+                  </property>
+                </properties>
+              </property>
+            </properties>
+          </property>
+        </properties>
+        <dataObjects>
+          <dataObject name="arkivstruktur">
+            <properties>
+              <property name="file">
+                <properties>
+                  <property name="name">
+                    <value>arkivstruktur.xml</value>
+                  </property>
+                  <property name="format">
+                    <value>XML</value>
+                    <properties>
+                      <property name="version">
+                        <value>1.0</value>
+                      </property>
+                    </properties>
+                  </property>
+                </properties>
+              </property>
+            </properties>
+           </dataObject>
+          </dataObjects>
+      </dataObject>
+    </dataObjects>
+  </dataset>
+</addml>

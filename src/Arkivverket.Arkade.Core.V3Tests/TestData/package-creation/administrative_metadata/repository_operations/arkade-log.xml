@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<testSessionLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.arkivverket.no/dataextracttools/arkade5/testsessionlog">
+  <timestamp xsi:type="xsd:dateTime">2016-12-15T15:29:59.0492928+01:00</timestamp>
+  <archiveUuid>ee07a0f9-4564-43ab-b80d-ac975ba12aed</archiveUuid>
+  <archiveType>Noark5</archiveType>
+  <arkadeVersion>0.0.0.0</arkadeVersion>
+  <testResults>
+    <testResult>
+      <testName>Finn antall arkiv</testName>
+      <durationMillis>1</durationMillis>
+      <status>SUCCESS</status>
+      <message>Antall arkiv: 1
+</message>
+    </testResult>
+    <testResult>
+      <testName>Finn antall arkivdeler</testName>
+      <durationMillis>0</durationMillis>
+      <status>SUCCESS</status>
+      <message>Antall arkivdeler: 1
+</message>
+    </testResult>
+    <testResult>
+      <testName>Finn status på arkivdeler</testName>
+      <durationMillis>1</durationMillis>
+      <status>SUCCESS</status>
+      <message>Alice 1863-1864: Avsluttet periode
+</message>
+    </testResult>
+    <testResult>
+      <testName>Finn antall klasser</testName>
+      <durationMillis>0</durationMillis>
+      <status>SUCCESS</status>
+      <message>Antall klasser: 3
+</message>
+    </testResult>
+    <testResult>
+      <testName>Finn antall mapper</testName>
+      <durationMillis>0</durationMillis>
+      <status>SUCCESS</status>
+      <message>Antall mapper: 1
+</message>
+    </testResult>
+    <testResult>
+      <testName>Finn antall klassifikasjonssystem</testName>
+      <durationMillis>0</durationMillis>
+      <status>SUCCESS</status>
+      <message>Antall klassifikasjonssystem: 1
+</message>
+    </testResult>
+    <testResult>
+      <testName>Finn antall registreringer</testName>
+      <durationMillis>0</durationMillis>
+      <status>SUCCESS</status>
+      <message>Antall registreringer: 2
+</message>
+    </testResult>
+    <testResult>
+      <testName>Kontrollér at refererte dokumenter eksisterer</testName>
+      <durationMillis>0</durationMillis>
+      <status>SUCCESS</status>
+      <message />
+    </testResult>
+    <testResult>
+      <testName>Valider sjekksummer</testName>
+      <durationMillis>0</durationMillis>
+      <status>SUCCESS</status>
+      <message>[arkivstruktur.xml] Sjekksum er kontrollert med algoritmen SHA-256.
+</message>
+    </testResult>
+    <testResult>
+      <testName>Valider xml i henhold til skjema (ADDML)</testName>
+      <durationMillis>0</durationMillis>
+      <status>SUCCESS</status>
+      <message>[arkivuttrekk.xml] Validert i henhold til XML-skjema.
+[arkivstruktur.xml] Validert i henhold til XML-skjema.
+</message>
+    </testResult>
+  </testResults>
+  <logEntries>
+    <logEntry>
+      <timestamp>2016-12-15T15:29:58.8493427+01:00</timestamp>
+      <message>Test run completed.</message>
+    </logEntry>
+  </logEntries>
+</testSessionLog>

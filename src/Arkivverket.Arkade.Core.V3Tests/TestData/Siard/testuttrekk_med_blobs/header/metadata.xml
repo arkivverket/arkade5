@@ -1,0 +1,600 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<siardArchive xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bar.admin.ch/xmlns/siard/2/metadata.xsd metadata.xsd" version="2.1" xmlns="http://www.bar.admin.ch/xmlns/siard/2/metadata.xsd">
+	<!--Total tables: 6-->
+	<!--Total rows: 37-->
+	<dbname>user99@localhost.testdb99</dbname>
+	<description>Some description</description>
+	<archiver>Archiver Archivist</archiver>
+	<archiverContact>archiver@archivist.archive</archiverContact>
+	<dataOwner>archivist inc</dataOwner>
+	<dataOriginTimespan>01.01.2020 - 31.12.2020</dataOriginTimespan>
+	<lobFolder>content</lobFolder>
+	<producerApplication>Some producer application</producerApplication>
+	<archivalDate>2020-12-31</archivalDate>
+	<clientMachine>ARCHIVE_M99</clientMachine>
+	<databaseProduct>Some product information</databaseProduct>
+	<connection>Some connection</connection>
+	<databaseUser>user99</databaseUser>
+	<schemas>
+		<schema>
+			<name></name>
+			<folder>schema0</folder>
+			<tables>
+				<table>
+					<name>arkiv</name>
+					<folder>table0</folder>
+					<description />
+					<!--path:  schema0/table0-->
+					<!--table: arkiv-->
+					<columns>
+						<column>
+							<name>arkivID</name>
+							<type>INT</type>
+							<typeOriginal>INT</typeOriginal>
+							<nullable>false</nullable>
+							<description />
+						</column>
+						<column>
+							<name>arkivskaperID</name>
+							<type>INT</type>
+							<typeOriginal>INT</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>depinstID</name>
+							<type>VARCHAR(4)</type>
+							<typeOriginal>VARCHAR(4)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>identifikator</name>
+							<type>VARCHAR(15)</type>
+							<typeOriginal>VARCHAR(15)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>navn</name>
+							<type>VARCHAR(255)</type>
+							<typeOriginal>VARCHAR(255)</typeOriginal>
+							<nullable>false</nullable>
+							<description />
+						</column>
+						<column>
+							<name>innhold</name>
+							<type>VARCHAR(4000)</type>
+							<typeOriginal>VARCHAR(4000)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>startdato</name>
+							<type>VARCHAR(8)</type>
+							<typeOriginal>VARCHAR(8)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>sluttdato</name>
+							<type>VARCHAR(8)</type>
+							<typeOriginal>VARCHAR(8)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>arkivkodefra</name>
+							<type>VARCHAR(12)</type>
+							<typeOriginal>VARCHAR(12)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>arkivkodetil</name>
+							<type>VARCHAR(12)</type>
+							<typeOriginal>VARCHAR(12)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>merknad</name>
+							<type>VARCHAR(4000)</type>
+							<typeOriginal>VARCHAR(4000)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+					</columns>
+					<primaryKey>
+						<name>pk_arkiv</name>
+						<column>arkivID</column>
+					</primaryKey>
+					<foreignKeys>
+						<foreignKey>
+							<name>arkiv_ibfk_1</name>
+							<referencedSchema></referencedSchema>
+							<referencedTable>arkivskaper</referencedTable>
+							<reference>
+								<column>arkivskaperID</column>
+								<referenced>arkivskaperID</referenced>
+							</reference>
+							<deleteAction>NO ACTION</deleteAction>
+							<updateAction>NO ACTION</updateAction>
+						</foreignKey>
+					</foreignKeys>
+					<candidateKeys>
+						<candidateKey>
+							<name>arkiv</name>
+							<column>identifikator</column>
+							<column>depinstID</column>
+						</candidateKey>
+					</candidateKeys>
+					<rows>2</rows>
+				</table>
+				<table>
+					<name>arkivskaper</name>
+					<folder>table1</folder>
+					<description />
+					<!--path:  schema0/table1-->
+					<!--table: arkivskaper-->
+					<columns>
+						<column>
+							<name>arkivskaperID</name>
+							<type>INT</type>
+							<typeOriginal>INT</typeOriginal>
+							<nullable>false</nullable>
+							<description />
+						</column>
+						<column>
+							<name>identifikator</name>
+							<type>VARCHAR(15)</type>
+							<typeOriginal>VARCHAR(15)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>navn</name>
+							<type>VARCHAR(255)</type>
+							<typeOriginal>VARCHAR(255)</typeOriginal>
+							<nullable>false</nullable>
+							<description />
+						</column>
+						<column>
+							<name>innhold</name>
+							<type>VARCHAR(4000)</type>
+							<typeOriginal>VARCHAR(4000)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>merknad</name>
+							<type>VARCHAR(4000)</type>
+							<typeOriginal>VARCHAR(4000)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+					</columns>
+					<primaryKey>
+						<name>pk_arkivskaper</name>
+						<column>arkivskaperID</column>
+					</primaryKey>
+					<candidateKeys>
+						<candidateKey>
+							<name>arkivskaper</name>
+							<column>identifikator</column>
+						</candidateKey>
+					</candidateKeys>
+					<rows>2</rows>
+				</table>
+				<table>
+					<name>mappe</name>
+					<folder>table2</folder>
+					<description />
+					<!--path:  schema0/table2-->
+					<!--table: mappe-->
+					<columns>
+						<column>
+							<name>mappeID</name>
+							<type>INT</type>
+							<typeOriginal>INT</typeOriginal>
+							<nullable>false</nullable>
+							<description />
+						</column>
+						<column>
+							<name>stykkeID</name>
+							<type>INT</type>
+							<typeOriginal>INT</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>identifikator</name>
+							<type>VARCHAR(15)</type>
+							<typeOriginal>VARCHAR(15)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>navn</name>
+							<type>VARCHAR(255)</type>
+							<typeOriginal>VARCHAR(255)</typeOriginal>
+							<nullable>false</nullable>
+							<description />
+						</column>
+						<column>
+							<name>innhold</name>
+							<type>VARCHAR(4000)</type>
+							<typeOriginal>VARCHAR(4000)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>startdato</name>
+							<type>VARCHAR(8)</type>
+							<typeOriginal>VARCHAR(8)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>sluttdato</name>
+							<type>VARCHAR(8)</type>
+							<typeOriginal>VARCHAR(8)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>arkivkodefra</name>
+							<type>VARCHAR(12)</type>
+							<typeOriginal>VARCHAR(12)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>arkivkodetil</name>
+							<type>VARCHAR(12)</type>
+							<typeOriginal>VARCHAR(12)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>merknad</name>
+							<type>VARCHAR(4000)</type>
+							<typeOriginal>VARCHAR(4000)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+					</columns>
+					<primaryKey>
+						<name>pk_mappe</name>
+						<column>mappeID</column>
+					</primaryKey>
+					<foreignKeys>
+						<foreignKey>
+							<name>mappe_ibfk_1</name>
+							<referencedSchema></referencedSchema>
+							<referencedTable>stykke</referencedTable>
+							<reference>
+								<column>stykkeID</column>
+								<referenced>stykkeID</referenced>
+							</reference>
+							<deleteAction>NO ACTION</deleteAction>
+							<updateAction>NO ACTION</updateAction>
+						</foreignKey>
+					</foreignKeys>
+					<candidateKeys>
+						<candidateKey>
+							<name>mappe</name>
+							<column>identifikator</column>
+							<column>mappeID</column>
+						</candidateKey>
+					</candidateKeys>
+					<rows>9</rows>
+				</table>
+				<table>
+					<name>objekt</name>
+					<folder>table3</folder>
+					<description />
+					<!--path:  schema0/table3-->
+					<!--table: objekt-->
+					<columns>
+						<column>
+							<name>objektID</name>
+							<type>INT</type>
+							<typeOriginal>INT</typeOriginal>
+							<nullable>false</nullable>
+							<description />
+						</column>
+						<column>
+							<name>mappeID</name>
+							<type>INT</type>
+							<typeOriginal>INT</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>navn</name>
+							<type>VARCHAR(255)</type>
+							<typeOriginal>VARCHAR(255)</typeOriginal>
+							<nullable>false</nullable>
+							<description />
+						</column>
+						<column>
+							<name>innhold</name>
+							<type>VARCHAR(4000)</type>
+							<typeOriginal>VARCHAR(4000)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>merknad</name>
+							<type>VARCHAR(4000)</type>
+							<typeOriginal>VARCHAR(4000)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>filObjekt</name>
+							<lobFolder>schema0/table3/lob6</lobFolder>
+							<type>BLOB</type>
+							<typeOriginal>MEDIUMBLOB</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>filNavn</name>
+							<type>VARCHAR(50)</type>
+							<typeOriginal>VARCHAR(50)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>filtypeExtention</name>
+							<type>VARCHAR(12)</type>
+							<typeOriginal>VARCHAR(12)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>filtypeNavn</name>
+							<type>VARCHAR(30)</type>
+							<typeOriginal>VARCHAR(30)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+					</columns>
+					<primaryKey>
+						<name>pk_objekt</name>
+						<column>objektID</column>
+					</primaryKey>
+					<foreignKeys>
+						<foreignKey>
+							<name>objekt_ibfk_1</name>
+							<referencedSchema></referencedSchema>
+							<referencedTable>mappe</referencedTable>
+							<reference>
+								<column>mappeID</column>
+								<referenced>mappeID</referenced>
+							</reference>
+							<deleteAction>NO ACTION</deleteAction>
+							<updateAction>NO ACTION</updateAction>
+						</foreignKey>
+					</foreignKeys>
+					<rows>9</rows>
+				</table>
+				<table>
+					<name>serie</name>
+					<folder>table4</folder>
+					<description />
+					<!--path:  schema0/table4-->
+					<!--table: serie-->
+					<columns>
+						<column>
+							<name>serieID</name>
+							<type>INT</type>
+							<typeOriginal>INT</typeOriginal>
+							<nullable>false</nullable>
+							<description />
+						</column>
+						<column>
+							<name>arkivID</name>
+							<type>INT</type>
+							<typeOriginal>INT</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>identifikator</name>
+							<type>VARCHAR(15)</type>
+							<typeOriginal>VARCHAR(15)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>navn</name>
+							<type>VARCHAR(255)</type>
+							<typeOriginal>VARCHAR(255)</typeOriginal>
+							<nullable>false</nullable>
+							<description />
+						</column>
+						<column>
+							<name>innhold</name>
+							<type>VARCHAR(4000)</type>
+							<typeOriginal>VARCHAR(4000)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>startdato</name>
+							<type>VARCHAR(8)</type>
+							<typeOriginal>VARCHAR(8)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>sluttdato</name>
+							<type>VARCHAR(8)</type>
+							<typeOriginal>VARCHAR(8)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>arkivkodefra</name>
+							<type>VARCHAR(12)</type>
+							<typeOriginal>VARCHAR(12)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>arkivkodetil</name>
+							<type>VARCHAR(12)</type>
+							<typeOriginal>VARCHAR(12)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>merknad</name>
+							<type>VARCHAR(4000)</type>
+							<typeOriginal>VARCHAR(4000)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+					</columns>
+					<primaryKey>
+						<name>pk_serie</name>
+						<column>serieID</column>
+					</primaryKey>
+					<foreignKeys>
+						<foreignKey>
+							<name>serie_ibfk_1</name>
+							<referencedSchema></referencedSchema>
+							<referencedTable>arkiv</referencedTable>
+							<reference>
+								<column>arkivID</column>
+								<referenced>arkivID</referenced>
+							</reference>
+							<deleteAction>NO ACTION</deleteAction>
+							<updateAction>NO ACTION</updateAction>
+						</foreignKey>
+					</foreignKeys>
+					<candidateKeys>
+						<candidateKey>
+							<name>serie</name>
+							<column>identifikator</column>
+							<column>serieID</column>
+						</candidateKey>
+					</candidateKeys>
+					<rows>6</rows>
+				</table>
+				<table>
+					<name>stykke</name>
+					<folder>table5</folder>
+					<description />
+					<!--path:  schema0/table5-->
+					<!--table: stykke-->
+					<columns>
+						<column>
+							<name>stykkeID</name>
+							<type>INT</type>
+							<typeOriginal>INT</typeOriginal>
+							<nullable>false</nullable>
+							<description />
+						</column>
+						<column>
+							<name>serieID</name>
+							<type>INT</type>
+							<typeOriginal>INT</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>identifikator</name>
+							<type>VARCHAR(15)</type>
+							<typeOriginal>VARCHAR(15)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>navn</name>
+							<type>VARCHAR(255)</type>
+							<typeOriginal>VARCHAR(255)</typeOriginal>
+							<nullable>false</nullable>
+							<description />
+						</column>
+						<column>
+							<name>innhold</name>
+							<type>VARCHAR(4000)</type>
+							<typeOriginal>VARCHAR(4000)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>startdato</name>
+							<type>VARCHAR(8)</type>
+							<typeOriginal>VARCHAR(8)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>sluttdato</name>
+							<type>VARCHAR(8)</type>
+							<typeOriginal>VARCHAR(8)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>arkivkodefra</name>
+							<type>VARCHAR(12)</type>
+							<typeOriginal>VARCHAR(12)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>arkivkodetil</name>
+							<type>VARCHAR(12)</type>
+							<typeOriginal>VARCHAR(12)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+						<column>
+							<name>merknad</name>
+							<type>VARCHAR(4000)</type>
+							<typeOriginal>VARCHAR(4000)</typeOriginal>
+							<nullable>true</nullable>
+							<description />
+						</column>
+					</columns>
+					<primaryKey>
+						<name>pk_stykke</name>
+						<column>stykkeID</column>
+					</primaryKey>
+					<foreignKeys>
+						<foreignKey>
+							<name>stykke_ibfk_1</name>
+							<referencedSchema></referencedSchema>
+							<referencedTable>serie</referencedTable>
+							<reference>
+								<column>serieID</column>
+								<referenced>serieID</referenced>
+							</reference>
+							<deleteAction>NO ACTION</deleteAction>
+							<updateAction>NO ACTION</updateAction>
+						</foreignKey>
+					</foreignKeys>
+					<candidateKeys>
+						<candidateKey>
+							<name>stykke</name>
+							<column>identifikator</column>
+							<column>stykkeID</column>
+						</candidateKey>
+					</candidateKeys>
+					<rows>9</rows>
+				</table>
+			</tables>
+		</schema>
+	</schemas>
+	<users>
+		<user>
+			<name>user04</name>
+		</user>
+	</users>
+</siardArchive>

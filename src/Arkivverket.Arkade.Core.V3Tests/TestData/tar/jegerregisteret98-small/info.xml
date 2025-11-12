@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<info pakkeID="anySimpleType" xmlns="www.arkivverket.no/standarder/info">
+  <aktor>
+    <aktorType>
+      <rolle navn="anySimpleType" />
+      <kontaktperson navn="anySimpleType">
+        <telefon>telefon1</telefon>
+        <ePost>ePost1</ePost>
+      </kontaktperson>
+    </aktorType>
+  </aktor>
+  <uttrekk>
+    <type>Fagsystem</type>
+    <typeVersjon>anyType</typeVersjon>
+  </uttrekk>
+  <system>
+    <systemType>Fagsystem</systemType>
+    <systemNavn>systemNavn1</systemNavn>
+    <versjon>versjon1</versjon>
+  </system>
+  <sjekksummer>
+    <fil filnavn="filnavn1">
+      <sjekksum>sjekksum1</sjekksum>
+      <algoritme>algoritme1</algoritme>
+    </fil>
+    <fil filnavn="filnavn2">
+      <sjekksum>sjekksum2</sjekksum>
+      <algoritme>algoritme2</algoritme>
+    </fil>
+    <fil filnavn="filnavn3">
+      <sjekksum>sjekksum3</sjekksum>
+      <algoritme>algoritme3</algoritme>
+    </fil>
+  </sjekksummer>
+  <integritetsInfo>
+    <konverteringsHistorikk>konverteringsHistorikk1</konverteringsHistorikk>
+    <kommentar></kommentar>
+  </integritetsInfo>
+  <kryptering>
+    <nokkel>nokkel1</nokkel>
+    <nokkel>nokkel2</nokkel>
+    <nokkel>nokkel3</nokkel>
+  </kryptering>
+  <kommentar>kommentar1</kommentar>
+  <kommentar>kommentar2</kommentar>
+  <kommentar>kommentar3</kommentar>
+</info>

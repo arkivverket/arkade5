@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arkiv xmlns="http://www.arkivverket.no/standarder/noark5/arkivstruktur" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <systemID>arkiv56fd39c3074716.49489520</systemID>
+ <tittel>Alice in wonderland</tittel>
+ <beskrivelse>Case archive relating to Alice's behaviour, while in wonderland</beskrivelse>
+ <arkivstatus>Avsluttet</arkivstatus>
+ <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+ <opprettetDato>1863-03-27T00:00:00Z</opprettetDato>
+ <opprettetAv>Steve Jackson</opprettetAv>
+ <avsluttetDato>1863-02-11T00:00:00Z</avsluttetDato>
+ <avsluttetAv>Kristian Hunskaar</avsluttetAv>
+</arkiv>
+ 

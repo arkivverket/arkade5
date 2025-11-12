@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Create time: 08.09.2020 09.47.54-->
+<!--Table schema0/table3 corresponds to the actual table objekt-->
+<table xsi:schemaLocation="http://www.bar.admin.ch/xmlns/siard/2/table.xsd table3.xsd" version="2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.bar.admin.ch/xmlns/siard/2/table.xsd">
+	<row>
+		<c1>1</c1>
+		<c2>1</c2>
+		<c3>Dokument 1</c3>
+		<c4>Rådet for trygg trafikk</c4>
+		<c5>Merknad dokument 1</c5>
+		<c6 file="seg0/rec1.bin" length="1922" digestType="MD5" digest="8AB663653CD42207F4F5C823569091F2" />
+		<c7>Vedlikehold av Noark 5.txt</c7>
+		<c8>TXT</c8>
+		<c9>TXT-dokument</c9>
+	</row>
+	<row>
+		<c1>2</c1>
+		<c2>2</c2>
+		<c3>Dokument 2</c3>
+		<c5>Merknad dokument 2</c5>
+		<c6 file="seg0/rec2.bin" length="2080" digestType="MD5" digest="0C93086B4A613768020C1DC1664B2DDB" />
+		<c7>utvalg_k2000v01_addml_7.3.XML</c7>
+		<c8>XML</c8>
+		<c9>XML-dokument</c9>
+	</row>
+	<row>
+		<c1>3</c1>
+		<c2>3</c2>
+		<c3>Dokument 3</c3>
+		<c4>Brannstyret</c4>
+		<c5>Merknad dokument 3</c5>
+		<c6 file="seg0/rec3.bin" length="128690" digestType="MD5" digest="9DF645D0F94ED03F825BA3AC7D61D6CC" />
+		<c7>1.pdf</c7>
+		<c8>PDF</c8>
+		<c9>PDF-dokument</c9>
+	</row>
+	<row>
+		<c1>4</c1>
+		<c2>4</c2>
+		<c3>Dokument 4</c3>
+		<c4>Teknisk utval</c4>
+		<c5>Merknad dokument 4</c5>
+		<c6 file="seg0/rec4.bin" length="84951" digestType="MD5" digest="2AEB2D3201F0F3C64E12B82E2DDDD822" />
+		<c7>2.pdf</c7>
+		<c8>PDF</c8>
+		<c9>PDF-dokument</c9>
+	</row>
+	<row>
+		<c1>5</c1>
+		<c2>5</c2>
+		<c3>Dokument 5</c3>
+		<c4>Møter i vassforyningsnemnda</c4>
+		<c5>Merknad dokument 5</c5>
+		<c6 file="seg0/rec5.bin" length="85382" digestType="MD5" digest="BBA74A3539CE9101A1B83026FFF63901" />
+		<c7>5.pdf</c7>
+		<c8>PDF</c8>
+		<c9>PDF-dokument</c9>
+	</row>
+	<row>
+		<c1>6</c1>
+		<c2>214</c2>
+		<c3>Dokument </c3>
+		<c4>Oppføring av branngarasje i Andeby</c4>
+		<c5>Merknad dokument 6</c5>
+		<c6 file="seg0/rec6.bin" length="44304" digestType="MD5" digest="A22A732974392C6E59CAEFD16FD9E92C" />
+		<c7>Noark 5v3.1 a5 Eks Arkivuttrekk xml.docx</c7>
+		<c8>DOCX</c8>
+		<c9>Word 2003-dokument</c9>
+	</row>
+	<row>
+		<c1>7</c1>
+		<c2>259</c2>
+		<c3>Dokument </c3>
+		<c4>Branngarasje på Gåsehaugen</c4>
+		<c5>Merknad dokument 7</c5>
+		<c6 file="seg0/rec7.bin" length="377344" digestType="MD5" digest="BA83B778F77EF0B2E24F145D529F3BB1" />
+		<c7>Noark-5v3.1_a2_Metadatakatalog _objektsortert.doc</c7>
+		<c8>DOC</c8>
+		<c9>Word-dokument</c9>
+	</row>
+	<row>
+		<c1>8</c1>
+		<c2>308</c2>
+		<c3>Dokument </c3>
+		<c4>Vegar - vedlikehald diverse papir</c4>
+		<c5>Merknad dokument 8</c5>
+		<c6 file="seg0/rec8.bin" length="37665" digestType="MD5" digest="A4DCFB414C6B4930E139EB9C63C2E08D" />
+		<c7>Noark-5v3.1_a4_Eks_Virksomhetsspesifikke_metadata.</c7>
+		<c8>DOCX</c8>
+		<c9>Word-dokument</c9>
+	</row>
+	<row>
+		<c1>9</c1>
+		<c2>328</c2>
+		<c3>Dokument </c3>
+		<c4>Nye vegar med kommunalt sommarvedlikehald</c4>
+		<c5>Merknad dokument 9</c5>
+		<c6 file="seg0/rec9.bin" length="168659" digestType="MD5" digest="4BDB4DF79FBC66AAC4988A5546DE2F7E" />
+		<c7>Samlet oversikt over krav i Noark5_egenerklæring_3</c7>
+		<c8>XLSX</c8>
+		<c9>Word-dokument</c9>
+	</row>
+	<!--Row count: 9-->
+	<!--Finished at: 08.09.2020 09.47.54-->
+</table>
