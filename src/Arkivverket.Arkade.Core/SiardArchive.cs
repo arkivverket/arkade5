@@ -34,7 +34,9 @@ public class SiardArchive : Archive
     {
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
         
-        Content = inputDiasPackage.WorkingDirectory.ContentWorkDirectory();
+        InputDiasPackage = inputDiasPackage;
+        
+        Content = InputDiasPackage.WorkingDirectory.ContentWorkDirectory();
         
         FileInfo siardFile = Content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
 
