@@ -1127,6 +1127,18 @@
       <None Update="TestData\noark5-info.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="TestData\Noark5\Noark5_liten_AIP\c0ada300-e5f2-48f2-8ad6-4303a28ff2d2.tar">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="TestData\Noark5\Noark5_liten_AIP\c0ada300-e5f2-48f2-8ad6-4303a28ff2d2.xml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="TestData\Siard\Siard-utrekk_som_SIP\e27fdbc9-93f7-46ad-865c-66699316400d.tar">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="TestData\Siard\Siard-utrekk_som_SIP\e27fdbc9-93f7-46ad-865c-66699316400d.xml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
