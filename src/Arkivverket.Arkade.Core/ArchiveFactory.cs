@@ -35,6 +35,11 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
                 new AddmlArchive(archiveType, extractionDirectory, processingDirectory),
             (Noark3, FileInfo { Extension: ".tar" } tarFile) =>
                 new AddmlArchive(archiveType, CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory),
+            
+            (Fagsystem, DirectoryInfo extractionDirectory) =>
+                new AddmlArchive(archiveType, extractionDirectory, processingDirectory),
+            (Fagsystem, FileInfo { Extension: ".tar" } tarFile) =>
+                new AddmlArchive(archiveType, CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory),
 
             _ => throw new ArgumentOutOfRangeException(nameof(archiveType), archiveType, null)
         };
