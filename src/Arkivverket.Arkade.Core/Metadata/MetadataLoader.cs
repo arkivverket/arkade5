@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.ExternalModels.DiasMets;
+using diasMets = Arkivverket.Arkade.Core.ExternalModels.DiasMets.mets;
+using submDescMets = Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription.mets;
 using Arkivverket.Arkade.Core.Util;
 using Newtonsoft.Json;
 
@@ -12,19 +13,24 @@ namespace Arkivverket.Arkade.Core.Metadata
     {
         public static ArchiveMetadata Load(string metadataFilePath)
         {
-            switch ((char) new StreamReader(metadataFilePath).Read()) // First character in file contents
+            using var streamReader = new StreamReader(metadataFilePath);
+            string metadataFileContents = streamReader.ReadToEnd();
+
+            switch (metadataFileContents[0]) // First character in file contents
             {
                 case '{': // JSON
                 case '[': // JSON
-                    var metadata = JsonConvert.DeserializeObject<ArchiveMetadata>(File.ReadAllText(metadataFilePath));
+                    var metadata = JsonConvert.DeserializeObject<ArchiveMetadata>(metadataFileContents);
                     HandleLabelPlaceholder(metadata);
                     return metadata;
-                case '<': // METS
-                    return SerializeUtil.TryDeserializeFromFile<mets>(metadataFilePath, out _)
-                        ? DiasMetsLoader.Load(metadataFilePath)
-                        : SubmissionDescriptionLoader.Load(metadataFilePath);
-
+                case '<' // METS
+                    when SerializeUtil.TryDeserializeFromString(metadataFileContents, out diasMets diasMets):
+                    return DiasMetsLoader.Load(diasMets);
                 // HandleLabelPlaceholder called from DiasMetsLoader
+                case '<': // METS
+                    var submissionDescription = SerializeUtil.DeserializeFromString<submDescMets>(metadataFileContents);
+                    return SubmissionDescriptionLoader.Load(submissionDescription);
+                // HandleLabelPlaceholder called from SubmissionDescriptionLoader
                 default:
                     throw new ArkadeException($"The contents of {metadataFilePath} was not recognized as metadata");
             }

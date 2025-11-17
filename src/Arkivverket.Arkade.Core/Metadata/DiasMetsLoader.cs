@@ -9,10 +9,8 @@ namespace Arkivverket.Arkade.Core.Metadata
 {
     public static class DiasMetsLoader
     {
-        public static ArchiveMetadata Load(string diasMetsFile)
+        public static ArchiveMetadata Load(mets diasMets)
         {
-            var diasMets = SerializeUtil.DeserializeFromFile<mets>(diasMetsFile);
-
             var archiveMetadata = new ArchiveMetadata(); // NB! Metadata-origin (metadata loading)
 
             LoadMetsElementAttributes(archiveMetadata, diasMets);

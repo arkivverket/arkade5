@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
-using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Metadata
 {
     public static class SubmissionDescriptionLoader
     {
-        public static ArchiveMetadata Load(string submissionDescriptionFile)
+        public static ArchiveMetadata Load(mets submissionDescription)
         {
-            var submissionDescription = SerializeUtil.DeserializeFromFile<mets>(submissionDescriptionFile);
-
             var archiveMetadata = new ArchiveMetadata(); // NB! Metadata-origin (metadata loading)
 
             LoadMetsElementAttributes(archiveMetadata, submissionDescription);

@@ -3,6 +3,7 @@ using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.ExternalModels.DiasMets;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;
 
@@ -17,7 +18,9 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
                 AppDomain.CurrentDomain.BaseDirectory, "TestData", "Metadata", "DiasMetsLoader", "dias-mets.xml"
             );
 
-            ArchiveMetadata archiveMetadata = DiasMetsLoader.Load(diasMetsFile);
+            var diasMets = SerializeUtil.DeserializeFromFile<mets>(diasMetsFile);
+            
+            ArchiveMetadata archiveMetadata = DiasMetsLoader.Load(diasMets);
 
             archiveMetadata.Label.Should().Be("Some system name (2017 - 2020)");
 

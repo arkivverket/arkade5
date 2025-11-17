@@ -91,5 +91,19 @@ namespace Arkivverket.Arkade.Core.Util
             }
         }
 
+        public static bool TryDeserializeFromString<T>(string objectData, out T serialized)
+        {
+            try
+            {
+                serialized = DeserializeFromString<T>(objectData);
+                return true;
+            }
+            catch
+            {
+                serialized = default;
+                return false;
+            }
+        }
+
     }
 }
