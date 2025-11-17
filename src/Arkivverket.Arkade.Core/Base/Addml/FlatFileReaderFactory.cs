@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             switch (archive.ArchiveType)
             {
                 case ArchiveType.Noark3:
-                case ArchiveType.Fagsystem:
+                case ArchiveType.SpecializedSystem:
                     {
                         AddmlFlatFileFormat format = flatFile.Definition.Format;
                         switch (format)

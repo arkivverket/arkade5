@@ -421,7 +421,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     ProcessingFileVisibility = Visibility.Visible;
                     NumberOfProcessedRecordsVisibility = Visibility.Visible;
                     break;
-                case ArchiveType.Noark3 or ArchiveType.Fagsystem:
+                case ArchiveType.Noark3 or ArchiveType.SpecializedSystem:
                     AddmlFlatFileStatusVisibility = Visibility.Visible;
                     ProcessingFileVisibility = Visibility.Visible;
                     NumberOfProcessedRecordsVisibility = Visibility.Visible;

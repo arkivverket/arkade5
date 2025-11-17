@@ -22,9 +22,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
         }
 
         [Fact(Skip = "flatFile == null wont work!")]
-        public void ShouldReturnFlatFileReaderForFagsystem()
+        public void ShouldReturnFlatFileReaderForSpecializedSystem()
         {
-            var reader = new FlatFileReaderFactory().GetRecordEnumerator(CreateArchive(ArchiveType.Fagsystem), null);
+            var reader = new FlatFileReaderFactory().GetRecordEnumerator(CreateArchive(ArchiveType.SpecializedSystem), null);
             reader.GetType().Should().Be(typeof(FixedFileFormatReader));
         }
 

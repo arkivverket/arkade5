@@ -56,7 +56,7 @@ namespace Arkivverket.Arkade.Core.Base
         {
             OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
 
-            if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.Fagsystem)
+            if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.SpecializedSystem)
                 outputDiasPackage.WorkingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(archive.AddmlXmlUnit.File.Name, archive); // Last parameter is experimental ..
 
             try
