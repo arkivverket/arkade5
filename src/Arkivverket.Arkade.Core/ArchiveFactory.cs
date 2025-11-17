@@ -32,14 +32,14 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
                 new Noark4Archive(CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory),
 
             (Noark3, DirectoryInfo extractionDirectory) =>
-                new AddmlArchive(archiveType, extractionDirectory, processingDirectory),
+                new Noark3Archive(extractionDirectory, processingDirectory),
             (Noark3, FileInfo { Extension: ".tar" } tarFile) =>
-                new AddmlArchive(archiveType, CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory),
+                new Noark3Archive(CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory),
             
             (SpecializedSystem, DirectoryInfo extractionDirectory) =>
-                new AddmlArchive(archiveType, extractionDirectory, processingDirectory),
+                new SpecializedSystemArchive(extractionDirectory, processingDirectory),
             (SpecializedSystem, FileInfo { Extension: ".tar" } tarFile) =>
-                new AddmlArchive(archiveType, CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory),
+                new SpecializedSystemArchive(CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory),
 
             _ => throw new ArgumentOutOfRangeException(nameof(archiveType), archiveType, null)
         };

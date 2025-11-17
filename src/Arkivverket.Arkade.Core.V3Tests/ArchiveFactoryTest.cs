@@ -55,24 +55,24 @@ public class ArchiveFactoryTest
 
         var noark3ArchiveDirectory = new DirectoryInfo(TestDataDirectory);
         Archive noark3Archive = ArchiveFactory.Create(noark3ArchiveDirectory, ArchiveType.Noark3);
-        noark3Archive.GetType().Should().Be(typeof(AddmlArchive));
+        noark3Archive.GetType().Should().Be(typeof(Noark3Archive));
         noark3Archive.ProcessingDirectory.Delete(true);
 
         var noark3ArchiveInDiasTarFile = new DirectoryInfo(TestDataDirectory);
         Archive noark3ArchiveFromDias = ArchiveFactory.Create(noark3ArchiveInDiasTarFile, ArchiveType.Noark3);
-        noark3ArchiveFromDias.GetType().Should().Be(typeof(AddmlArchive));
+        noark3ArchiveFromDias.GetType().Should().Be(typeof(Noark3Archive));
         noark3ArchiveFromDias.ProcessingDirectory.Delete(true);
 
         // Specialized system
 
         var specializedSystemArchiveDirectory = new DirectoryInfo(TestDataDirectory);
         Archive specializedSystemArchive = ArchiveFactory.Create(specializedSystemArchiveDirectory, ArchiveType.SpecializedSystem);
-        specializedSystemArchive.GetType().Should().Be(typeof(AddmlArchive));
+        specializedSystemArchive.GetType().Should().Be(typeof(SpecializedSystemArchive));
         specializedSystemArchive.ProcessingDirectory.Delete(true);
 
         var specializedSystemArchiveInDiasTarFile = new DirectoryInfo(TestDataDirectory);
         Archive specializedSystemArchiveFromDias = ArchiveFactory.Create(specializedSystemArchiveInDiasTarFile, ArchiveType.SpecializedSystem);
-        specializedSystemArchiveFromDias.GetType().Should().Be(typeof(AddmlArchive));
+        specializedSystemArchiveFromDias.GetType().Should().Be(typeof(SpecializedSystemArchive));
         specializedSystemArchiveFromDias.ProcessingDirectory.Delete(true);
 
         ArkadeProcessingArea.Destroy(); // Release resources so that this can be destroyed.
