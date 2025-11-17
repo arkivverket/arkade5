@@ -52,6 +52,9 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
 
         var processingDirectory = new DirectoryInfo(Path.Combine(workDirectoryFullName, nowTimeStampString));
 
+        if(processingDirectory.Exists)
+            throw new IOException("Processing directory already exists: " + processingDirectory.FullName);
+        
         processingDirectory.Create();
 
         return processingDirectory;
