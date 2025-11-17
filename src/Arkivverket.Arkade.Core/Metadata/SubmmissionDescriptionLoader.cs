@@ -9,16 +9,16 @@ namespace Arkivverket.Arkade.Core.Metadata
 {
     public static class SubmissionDescriptionLoader
     {
-        public static ArchiveMetadata Load(string diasMetsFile)
+        public static ArchiveMetadata Load(string submissionDescriptionFile)
         {
-            var mets = SerializeUtil.DeserializeFromFile<mets>(diasMetsFile);
+            var submissionDescription = SerializeUtil.DeserializeFromFile<mets>(submissionDescriptionFile);
 
             var archiveMetadata = new ArchiveMetadata(); // NB! Metadata-origin (metadata loading)
 
-            LoadMetsElementAttributes(archiveMetadata, mets);
+            LoadMetsElementAttributes(archiveMetadata, submissionDescription);
 
-            if (mets.metsHdr != null)
-                LoadMetsHdr(archiveMetadata, mets.metsHdr);
+            if (submissionDescription.metsHdr != null)
+                LoadMetsHdr(archiveMetadata, submissionDescription.metsHdr);
 
             MetadataLoader.HandleLabelPlaceholder(archiveMetadata);
 

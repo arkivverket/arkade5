@@ -11,17 +11,17 @@ namespace Arkivverket.Arkade.Core.Metadata
     {
         public static ArchiveMetadata Load(string diasMetsFile)
         {
-            var mets = SerializeUtil.DeserializeFromFile<mets>(diasMetsFile);
+            var diasMets = SerializeUtil.DeserializeFromFile<mets>(diasMetsFile);
 
             var archiveMetadata = new ArchiveMetadata(); // NB! Metadata-origin (metadata loading)
 
-            LoadMetsElementAttributes(archiveMetadata, mets);
+            LoadMetsElementAttributes(archiveMetadata, diasMets);
 
-            if (mets.metsHdr != null)
-                LoadMetsHdr(archiveMetadata, mets.metsHdr);
+            if (diasMets.metsHdr != null)
+                LoadMetsHdr(archiveMetadata, diasMets.metsHdr);
 
-            if (mets.fileSec?.fileGrp != null)
-                LoadExtractionDate(archiveMetadata, mets.fileSec?.fileGrp);
+            if (diasMets.fileSec?.fileGrp != null)
+                LoadExtractionDate(archiveMetadata, diasMets.fileSec?.fileGrp);
 
             MetadataLoader.HandleLabelPlaceholder(archiveMetadata);
 

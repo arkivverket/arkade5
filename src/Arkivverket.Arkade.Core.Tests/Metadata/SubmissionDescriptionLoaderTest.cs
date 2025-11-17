@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
@@ -13,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
         [Fact]
         public void DiasMetsIsSuccessfullyLoadedIntoArchiveMetadataObject()
         {
-            string diasMetsFile = Path.Combine(
+            string submissionDescriptionFile = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory, "TestData", "Metadata", "SubmissionDescriptionLoader", "submissionDescription.xml"
             );
 
