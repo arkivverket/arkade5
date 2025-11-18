@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Core;
 
 public class Noark4Archive : Archive
 {
-    public Noark4Archive(FileSystemInfo archiveSource, DirectoryInfo processingDirectory) : base(processingDirectory)
+    public Noark4Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
         ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...
         

@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Core;
 
 public class Noark3Archive : Archive
 {
-    public Noark3Archive(DirectoryInfo extractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
+    public Noark3Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
         throw new NotImplementedException();
     }

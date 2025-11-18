@@ -56,9 +56,9 @@ namespace Arkivverket.Arkade.Core.Base
         {
             OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
 
-            if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.SpecializedSystem)
-                outputDiasPackage.WorkingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(archive.AddmlXmlUnit.File.Name, archive); // Last parameter is experimental ..
-
+            if (archive is AddmlBasedArchive addmlArchive && archive is Noark5Archive or SpecializedSystemArchive)
+                outputDiasPackage.WorkingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(addmlArchive.AddmlXmlUnit.File.Name, addmlArchive); // Last parameter is experimental ..
+            
             try
             {
                 EnsureSufficientDiskSpace(outputDiasPackage, outputDirectory);

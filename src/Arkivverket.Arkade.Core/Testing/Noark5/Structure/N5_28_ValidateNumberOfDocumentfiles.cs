@@ -83,7 +83,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             }
         }
 
-        private static int GetDocumentedFileCount(Archive archive)
+        private static int GetDocumentedFileCount(Noark5Archive archive)
         {
             addml archiveExtractionXml = archive.AddmlInfo.Addml;
 

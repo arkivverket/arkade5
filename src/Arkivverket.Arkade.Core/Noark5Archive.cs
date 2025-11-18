@@ -12,7 +12,7 @@ using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core;
 
-public class Noark5Archive : Archive
+public class Noark5Archive : AddmlBasedArchive
 {
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
     public List<ArchiveXmlUnit> XmlUnits { get; private set; }
@@ -46,8 +46,6 @@ public class Noark5Archive : Archive
     
     private void SetupConstructorCommonThingsAndOfCourseGiveThisMethodABetterName()
     {
-        SetupAddmlXmlUnitAndAddmlInfoAndDetailsAndSoonRenameThisMethod();
-
         if (AddmlXmlUnit.HasNoDefinedSchema())
             AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
 

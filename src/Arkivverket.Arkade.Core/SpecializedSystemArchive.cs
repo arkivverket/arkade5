@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Core;
 
 public class SpecializedSystemArchive : Archive
 {
-    public SpecializedSystemArchive(DirectoryInfo extractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
+    public SpecializedSystemArchive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
         throw new NotImplementedException();
     }

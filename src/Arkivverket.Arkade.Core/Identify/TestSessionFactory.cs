@@ -73,9 +73,8 @@ namespace Arkivverket.Arkade.Core.Identify
 
         public TestSession NewSession(Archive archive)
         {
-
-            if (archive.ArchiveType == ArchiveType.Noark5 && archive.AddmlXmlUnit.File.Exists &&
-                archive.AddmlXmlUnit.Schema.IsArkadeBuiltIn())
+            if (archive.ArchiveType == ArchiveType.Noark5 && ((AddmlBasedArchive)archive).AddmlXmlUnit.File.Exists &&
+                ((AddmlBasedArchive)archive).AddmlXmlUnit.Schema.IsArkadeBuiltIn())
             {
                 _statusEventHandler?.RaiseEventOperationMessage(
                     Noark5Messages.MissingAddmlSchema,
@@ -85,9 +84,6 @@ namespace Arkivverket.Arkade.Core.Identify
                     AddmlXsdFileName, BuiltInAddmlSchemaVersion));
             }
 
-            //if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.SpecializedSystem)
-            //    archive.WorkingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(archive.AddmlXmlUnit.File.Name); // TODO: Wait until package creation
-
             var testSession = new TestSession(archive.ProcessingDirectory.CreateSubdirectory("tmp-testresults"));
 
             if (archive.ArchiveType is ArchiveType.Noark5 or ArchiveType.Siard)
@@ -95,17 +91,20 @@ namespace Arkivverket.Arkade.Core.Identify
                 return testSession;
             }
 
-            AddmlInfo addml = archive.AddmlInfo;
+            if(archive is not AddmlBasedArchive addmlBasedArchive)
+                throw new ArgumentException("Archive must be an AddmlBasedArchive from here ..."); // TODO: Follow up
+            
+            AddmlInfo addml = addmlBasedArchive.AddmlInfo;
 
             try
             {
-                var addmlDefinitionParser = new AddmlDefinitionParser(addml, archive.Content, _statusEventHandler);
+                var addmlDefinitionParser = new AddmlDefinitionParser(addml, addmlBasedArchive.Content, _statusEventHandler);
 
                 testSession.AddmlDefinition = addmlDefinitionParser.GetAddmlDefinition();
             }
             catch (Exception exception)
             {
-                var message = string.Format(ExceptionMessages.FileNotRead, archive.AddmlXmlUnit.File.Name) + " " + exception.Message;
+                var message = string.Format(ExceptionMessages.FileNotRead, addmlBasedArchive.AddmlXmlUnit.File.Name) + " " + exception.Message;
                 _log.Warning(message);//exception, message);
                 _statusEventHandler.RaiseEventOperationMessage(null, message, OperationMessageStatus.Error);
             }
