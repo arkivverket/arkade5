@@ -47,16 +47,4 @@ public abstract class AddmlBasedArchive : Archive
 
         return new AddmlXmlUnit(addmlXmlFile, addmlSchema);
     }
-    
-    public override bool IsTestable(out string disqualifyingCause)
-    {
-        if (TestSession.AddmlDefinition == null) // TODO: Follow up this
-        {
-            disqualifyingCause = Noark5Messages.CouldNotFindValidSpecificationFile;
-            return false;
-        }
-        
-        disqualifyingCause = null;
-        return true;
-    }   
 }
