@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 
 namespace Arkivverket.Arkade.Core.Report
 {

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing;

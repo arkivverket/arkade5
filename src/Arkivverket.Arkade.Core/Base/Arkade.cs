@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;

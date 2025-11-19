@@ -1,12 +1,10 @@
 using System;
 using System.IO;
-using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
-using iText.Layout.Splitting;
-using static Arkivverket.Arkade.Core.Base.ArchiveType;
+using static Arkivverket.Arkade.Core.Base.Archives.ArchiveType;
 
-namespace Arkivverket.Arkade.Core;
+namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEventHandler statusEventHandler)
 {
@@ -16,14 +14,14 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
 
         return (archiveType, archiveSource) switch
         {
-            (Siard, FileInfo { Extension: ".siard" } siardFile) =>
+            (ArchiveType.Siard, FileInfo { Extension: ".siard" } siardFile) =>
                 new SiardArchive(siardFile, processingDirectory, statusEventHandler),
-            (Siard, FileInfo { Extension: ".tar" } tarFile) =>
+            (ArchiveType.Siard, FileInfo { Extension: ".tar" } tarFile) =>
                 new SiardArchive(CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory, statusEventHandler),
 
-            (Noark5, DirectoryInfo extractionDirectory) =>
+            (ArchiveType.Noark5, DirectoryInfo extractionDirectory) =>
                 new Noark5Archive(extractionDirectory, processingDirectory),
-            (Noark5, FileInfo { Extension: ".tar" } tarFile) =>
+            (ArchiveType.Noark5, FileInfo { Extension: ".tar" } tarFile) =>
                 new Noark5Archive(CreateInputDiasPackage(tarFile, processingDirectory, true), processingDirectory),
 
             (Noark4, DirectoryInfo extractionDirectory) =>

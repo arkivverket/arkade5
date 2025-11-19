@@ -1,3 +1,5 @@
+using Arkivverket.Arkade.Core.Base.Archives;
+
 namespace Arkivverket.Arkade.Core.Base.Noark5
 {
     public abstract class Noark5StructureBaseTest : Noark5BaseTest, IArkadeStructureTest

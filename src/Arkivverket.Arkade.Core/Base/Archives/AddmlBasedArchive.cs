@@ -1,13 +1,11 @@
-using System;
 using System.IO;
-using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
-namespace Arkivverket.Arkade.Core;
+namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public abstract class AddmlBasedArchive : Archive
 {

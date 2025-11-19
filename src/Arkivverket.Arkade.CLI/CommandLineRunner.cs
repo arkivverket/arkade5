@@ -10,6 +10,7 @@ using Arkivverket.Arkade.CLI.Options;
 using Arkivverket.Arkade.CLI.Utils;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;

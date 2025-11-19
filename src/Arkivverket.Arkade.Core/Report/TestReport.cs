@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Testing;
 
 namespace Arkivverket.Arkade.Core.Report

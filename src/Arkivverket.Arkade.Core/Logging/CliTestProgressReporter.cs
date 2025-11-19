@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
 

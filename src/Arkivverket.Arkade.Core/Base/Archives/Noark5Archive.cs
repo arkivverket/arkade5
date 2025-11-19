@@ -1,16 +1,15 @@
-using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Resources;
-using Serilog;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
+using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
-namespace Arkivverket.Arkade.Core;
+namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public class Noark5Archive : AddmlBasedArchive
 {

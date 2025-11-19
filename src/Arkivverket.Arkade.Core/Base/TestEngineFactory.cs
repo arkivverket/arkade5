@@ -1,4 +1,5 @@
 using Arkivverket.Arkade.Core.Base.Addml;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Serilog;

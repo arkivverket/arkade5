@@ -10,6 +10,7 @@ using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
 using System.Runtime.Serialization;
+using Arkivverket.Arkade.Core.Base.Archives;
 
 namespace Arkivverket.Arkade.Core.Base
 {

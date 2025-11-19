@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.GUI.Models;
 using Prism.Commands;

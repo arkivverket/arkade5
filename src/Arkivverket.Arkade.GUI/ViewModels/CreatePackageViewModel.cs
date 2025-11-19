@@ -18,6 +18,7 @@ using Serilog;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Arkivverket.Arkade.Core;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.GUI.Languages;

@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Util;
 
-namespace Arkivverket.Arkade.Core.Base
+namespace Arkivverket.Arkade.Core.Base.Archives
 {
     public abstract class Archive
     {

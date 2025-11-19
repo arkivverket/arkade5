@@ -1,14 +1,12 @@
 using System.IO;
 using System.Linq;
-using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.ExternalModels.Metadata;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
-using Arkivverket.Arkade.Core.Util;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
-namespace Arkivverket.Arkade.Core;
+namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public class SiardArchive : Archive
 {

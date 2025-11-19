@@ -5,6 +5,7 @@ using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Util;
 using System.IO;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base.Archives;
 
 namespace Arkivverket.Arkade.Core.Report
 {

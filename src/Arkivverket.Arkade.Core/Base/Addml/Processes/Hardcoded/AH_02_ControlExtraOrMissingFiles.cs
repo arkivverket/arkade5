@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using System.IO;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Core.Testing;
 using System.Text;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Logging

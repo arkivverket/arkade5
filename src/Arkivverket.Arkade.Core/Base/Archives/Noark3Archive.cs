@@ -1,8 +1,7 @@
 using System;
 using System.IO;
-using Arkivverket.Arkade.Core.Base;
 
-namespace Arkivverket.Arkade.Core;
+namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public class Noark3Archive : Archive
 {
