@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
@@ -11,16 +13,23 @@ using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
 
-public class Noark5Archive : AddmlBasedArchive
+public sealed class Noark5Archive : AddmlBasedArchive
 {
+    public override required AddmlXmlUnit AddmlXmlUnit { get; init; }
+    public override required AddmlInfo AddmlInfo { get; init; }
+    
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
     public List<ArchiveXmlUnit> XmlUnits { get; private set; }
     internal DocumentFiles DocumentFiles { get; init; }
     private DirectoryInfo DocumentsDirectory { get; set; }
     private string DocumentsDirectoryName { get; set; }
 
+    [SetsRequiredMembers]
     public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
+        AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
+        AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
+        
         ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
         
         Content = new ArkadeDirectory(archiveExtractionDirectory);
@@ -30,8 +39,12 @@ public class Noark5Archive : AddmlBasedArchive
         DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
     }
 
+    [SetsRequiredMembers]
     public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
+        AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
+        AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
+        
         ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
 
         Content = inputDiasPackage.WorkingDirectory.ContentWorkDirectory();
