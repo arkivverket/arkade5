@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Identify;
@@ -12,7 +11,7 @@ using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
 using Serilog;
 
-namespace Arkivverket.Arkade.Core;
+namespace Arkivverket.Arkade.Core.Base;
 
 /// <summary>Interact with the Arkade Core using Autofac.</summary>
 public class ArkadeCoreApi(
