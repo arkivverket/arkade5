@@ -8,7 +8,7 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly string _xmlSchemaName;
         private readonly string _archiveTypeVersion;
 
-        public ArkadeBuiltInXmlSchema(string xmlSchemaName, string archiveTypeVersion)
+        public ArkadeBuiltInXmlSchema(string xmlSchemaName, string archiveTypeVersion) // TODO: Accept construction without version
         {
             _xmlSchemaName = xmlSchemaName;
             _archiveTypeVersion = archiveTypeVersion;
@@ -24,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Base
             return _archiveTypeVersion;
         }
         
-        public override Stream AsStream()
+        public override Stream AsStream() // TODO: Rewrite to handle schemas other than Noark5 (like addml.xsd ...)
         {
             string pathCompatibleVersionString = "v" + _archiveTypeVersion.Replace('.', '_');
 
