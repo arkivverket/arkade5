@@ -18,7 +18,7 @@ public sealed class SiardArchive : Archive
     {
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
 
-        //Content = ...
+        //Content = ... // TODO: Find a way to do this (using ArchiveContent class?)
         
         SiardFile = siardFile;
            

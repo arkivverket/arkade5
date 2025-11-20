@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
 
@@ -11,7 +12,7 @@ public sealed class Noark4Archive : Archive
     {
         ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...
         
-        //Content = ...
+        Content = new ArkadeDirectory(archiveExtractionDirectory);
     }
     
     [SetsRequiredMembers]
