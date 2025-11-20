@@ -1,10 +1,12 @@
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Arkivverket.Arkade.Core.Resources;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
 
-public class Noark4Archive : Archive
+public sealed class Noark4Archive : Archive
 {
+    [SetsRequiredMembers]
     public Noark4Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
         ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...
@@ -12,6 +14,7 @@ public class Noark4Archive : Archive
         //Content = ...
     }
     
+    [SetsRequiredMembers]
     public Noark4Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory)
     {
         ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...

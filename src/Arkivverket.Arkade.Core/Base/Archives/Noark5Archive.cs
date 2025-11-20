@@ -15,8 +15,6 @@ namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public sealed class Noark5Archive : AddmlBasedArchive
 {
-    public override required AddmlXmlUnit AddmlXmlUnit { get; init; }
-    public override required AddmlInfo AddmlInfo { get; init; }
     
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
     public List<ArchiveXmlUnit> XmlUnits { get; private set; }

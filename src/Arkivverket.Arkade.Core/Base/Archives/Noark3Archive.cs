@@ -7,8 +7,6 @@ namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public sealed class Noark3Archive : AddmlDefinitionTestedArchive
 {
-    public override required AddmlXmlUnit AddmlXmlUnit { get; init; }
-    public override required AddmlInfo AddmlInfo { get; init; }
     
     [SetsRequiredMembers]
     public Noark3Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
