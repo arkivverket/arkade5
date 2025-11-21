@@ -128,7 +128,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             ArkadeDirectory content = archive.Content; // TODO: Follow up ...
 
-            FileInfo contentAddml = content.WithFile(addmlFileName);
+            FileInfo contentAddml = content.WithFile(addmlFileName); // TODO: Get from AddmlBasedArchive.AddmlXmlUnit instead?
 
             if (!contentAddml.Exists)
                 return false;

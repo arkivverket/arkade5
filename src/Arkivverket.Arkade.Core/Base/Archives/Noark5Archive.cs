@@ -56,8 +56,8 @@ public sealed class Noark5Archive : AddmlBasedArchive
     
     private void SetupConstructorCommonThingsAndOfCourseGiveThisMethodABetterName()
     {
-        if (AddmlXmlUnit.HasNoDefinedSchema())
-            AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
+        // if (AddmlXmlUnit.HasNoDefinedSchema())
+        //     AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
 
         SetupArchiveXmlUnits();
     }

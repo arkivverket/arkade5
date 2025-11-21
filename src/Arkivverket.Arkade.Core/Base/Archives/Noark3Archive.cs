@@ -53,7 +53,7 @@ public sealed class Noark3Archive : AddmlDefinitionTestedArchive
 
         ArchiveXmlSchema addmlSchema = addmlXsdFileInfo.Exists
             ? ArchiveXmlSchema.Create(addmlXsdFileInfo)
-            : new ArkadeBuiltInXmlSchema(ArkadeConstants.AddmlXsdFileName, null);
+            : new ArkadeBuiltInXmlSchema(ArkadeConstants.AddmlXsdFileName);
 
         return new AddmlXmlUnit(addmlXmlFile, addmlSchema);
     }
