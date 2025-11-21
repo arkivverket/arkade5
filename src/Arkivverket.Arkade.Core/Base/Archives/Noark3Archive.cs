@@ -19,11 +19,11 @@ public sealed class Noark3Archive : AddmlDefinitionTestedArchive
         
         AddmlXmlUnit = SetupAddmlXmlUnit();
 
-        using Stream xmlSchemaStream = AddmlXmlUnit.HasNoDefinedSchema()
-            ? ResourceUtil.GetResourceAsStream(ArkadeConstants.AddmlXsdResource)  // TODO: Use AsStream() when re-written to handle non-Noark5 schemas
-            : AddmlXmlUnit.Schema.AsStream(); 
+        // using Stream xmlSchemaStream = AddmlXmlUnit.HasNoDefinedSchema()
+        //     ? ResourceUtil.GetResourceAsStream(ArkadeConstants.AddmlXsdResource)  // TODO: Use AsStream() when re-written to handle non-Noark5 schemas
+        //     : AddmlXmlUnit.Schema.AsStream(); 
 
-        AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, xmlSchemaStream);
+        AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, AddmlXmlUnit.Schema.AsStream());
 
         Details = new ArchiveDetails(AddmlInfo.Addml);
     }
