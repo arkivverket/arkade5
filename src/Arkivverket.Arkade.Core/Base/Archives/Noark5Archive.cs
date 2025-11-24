@@ -76,9 +76,14 @@ public sealed class Noark5Archive : AddmlBasedArchive
             IEnumerable<ArchiveXmlSchema> userProvidedSchemas =
                 documentedXmlSchemas.Select(s => ArchiveXmlSchema.Create(Content.WithFile(s)));
 
+            string archiveTypeVersion = AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version;
+            string pathCompatibleVersionString = "v" + archiveTypeVersion.Replace('.', '_');
+            var xsdResourceLocalPath = $"{string.Format(LocalDirectoryPathNoark5XsdResources, pathCompatibleVersionString)}";
+
             IEnumerable<ArchiveXmlSchema> arkadeSuppliedSchemas = Details.StandardXmlUnits[documentedXmlFileName]
-                .Except(documentedXmlSchemas).Select(s => ArchiveXmlSchema
-                    .Create(s, AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version));
+                .Except(documentedXmlSchemas).Select(s => ArchiveXmlSchema.Create(
+                    s, new ArkadeBuiltInXmlSchema.Version(archiveTypeVersion, xsdResourceLocalPath)
+                ));
 
             var archiveXmlSchemas = new List<ArchiveXmlSchema>(userProvidedSchemas.Concat(arkadeSuppliedSchemas));
 

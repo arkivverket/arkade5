@@ -70,11 +70,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
         private void ReportFallbackOnBuiltInSchemas(ArchiveXmlUnit archiveXmlUnit)
         {
             foreach (ArchiveXmlSchema schema in archiveXmlUnit.Schemas)
-                if (schema.IsArkadeBuiltIn())
+                if (schema is ArkadeBuiltInXmlSchema builtInSchema)
                     _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
                         // TODO: Consider implementing and using ResultType.Warning
-                        string.Format(Noark5Messages.InternalSchemaFileIsUsed, schema.FileName,
-                            (schema as ArkadeBuiltInXmlSchema).GetArchiveTypeVersion())));
+                        string.Format(Noark5Messages.InternalSchemaFileIsUsed, builtInSchema.FileName, builtInSchema.SchemaVersion.Name)));
         }
 
         private static string GetFileNameForReport(ArchiveXmlUnit archiveXmlUnit)
