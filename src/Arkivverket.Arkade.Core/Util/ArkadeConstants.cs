@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Util
         public const string ArchiveFileFormatsJsonResource = "Arkivverket.Arkade.Core.Resources.ArchiveFileFormats.json";
 
         public const string DirectoryPathBuiltInXsdResources = "Arkivverket.Arkade.Core.ExternalModels.xsd";
-        public const string DirectoryPathNoark5XsdResources = "Arkivverket.Arkade.Core.ExternalModels.Noark5.{0}";
+        public const string LocalDirectoryPathNoark5XsdResources = "Noark5.{0}";
 
         public const string LatestNoark5Version = "5.0";
         public static readonly string[] SupportedNoark5Versions =
