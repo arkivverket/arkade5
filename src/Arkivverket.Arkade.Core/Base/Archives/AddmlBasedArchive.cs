@@ -3,6 +3,7 @@ using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
+using static Arkivverket.Arkade.Core.Base.ArkadeBuiltInXmlSchema;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
@@ -42,9 +43,9 @@ public abstract class AddmlBasedArchive : Archive
         FileInfo addmlXsdFileInfo = Content.WithFile(AddmlXsdFileName);
 
         ArchiveXmlSchema addmlSchema = addmlXsdFileInfo.Exists
-            ? ArchiveXmlSchema.Create(addmlXsdFileInfo)
-            : null;
-
+            ? new UserProvidedXmlSchema(addmlXsdFileInfo)
+            : new ArkadeBuiltInXmlSchema(AddmlXsdFileName, new Version(BuiltInAddmlSchemaVersion));
+        
         return new AddmlXmlUnit(addmlXmlFile, addmlSchema);
     }
 }

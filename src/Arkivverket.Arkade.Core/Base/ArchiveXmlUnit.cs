@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Base
             missingFiles.AddRange(
                 from schema in
                     from schema in Schemas
-                    where schema.IsUserProvided()
+                    where schema is UserProvidedXmlSchema
                     select (UserProvidedXmlSchema) schema
                 where !schema.FileExists
                 select schema.FullName

@@ -9,6 +9,7 @@ using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
+using static Arkivverket.Arkade.Core.Base.ArkadeBuiltInXmlSchema;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
@@ -74,16 +75,15 @@ public sealed class Noark5Archive : AddmlBasedArchive
         foreach ((string documentedXmlFileName, IEnumerable<string> documentedXmlSchemas) in Details.DocumentedXmlUnits)
         {
             IEnumerable<ArchiveXmlSchema> userProvidedSchemas =
-                documentedXmlSchemas.Select(s => ArchiveXmlSchema.Create(Content.WithFile(s)));
+                documentedXmlSchemas.Select(s => new UserProvidedXmlSchema(Content.WithFile(s)));
 
             string archiveTypeVersion = AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version;
             string pathCompatibleVersionString = "v" + archiveTypeVersion.Replace('.', '_');
             var xsdResourceLocalPath = $"{string.Format(LocalDirectoryPathNoark5XsdResources, pathCompatibleVersionString)}";
 
             IEnumerable<ArchiveXmlSchema> arkadeSuppliedSchemas = Details.StandardXmlUnits[documentedXmlFileName]
-                .Except(documentedXmlSchemas).Select(s => ArchiveXmlSchema.Create(
-                    s, new ArkadeBuiltInXmlSchema.Version(archiveTypeVersion, xsdResourceLocalPath)
-                ));
+                .Except(documentedXmlSchemas).Select(schemaName =>
+                    new ArkadeBuiltInXmlSchema(schemaName, new Version(archiveTypeVersion, xsdResourceLocalPath)));
 
             var archiveXmlSchemas = new List<ArchiveXmlSchema>(userProvidedSchemas.Concat(arkadeSuppliedSchemas));
 
