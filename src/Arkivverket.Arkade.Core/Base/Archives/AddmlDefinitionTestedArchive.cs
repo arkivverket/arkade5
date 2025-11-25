@@ -4,9 +4,18 @@ using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
 
-public abstract class AddmlDefinitionTestedArchive(DirectoryInfo processingDirectory, ArkadeDirectory content)
-    : AddmlBasedArchive(processingDirectory, content)
+public abstract class AddmlDefinitionTestedArchive : AddmlBasedArchive
 {
+    protected AddmlDefinitionTestedArchive(DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage) : base(processingDirectory, inputDiasPackage)
+    {
+        // ...
+    }
+
+    protected AddmlDefinitionTestedArchive(DirectoryInfo processingDirectory, DirectoryInfo extractionDirectory) : base(processingDirectory, extractionDirectory)
+    {
+        // ...
+    }
+
     public override bool IsTestable(out string disqualifyingCause)
     {
         if (TestSession.AddmlDefinition == null) // TODO: Follow up this

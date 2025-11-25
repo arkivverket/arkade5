@@ -4,13 +4,18 @@ using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Archives
 {
-    public abstract class Archive(DirectoryInfo processingDirectory, ArkadeDirectory content)
+    public abstract class Archive(DirectoryInfo processingDirectory, DirectoryInfo archiveExtractionDirectory)
     {
+        protected Archive(DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage) : this(processingDirectory, inputDiasPackage.WorkingDirectory.ContentWorkDirectory().DirectoryInfo())
+        {
+            // ..
+        }
+
         public DirectoryInfo ProcessingDirectory { get; private init; } = processingDirectory;
 
         public bool SourceIsTarFile => InputDiasPackage?.TarFile != null;
 
-        public ArkadeDirectory Content { get; private init; } = content;
+        public ArkadeDirectory Content { get; private init; } = new(archiveExtractionDirectory);
 
         public ArchiveContent WipContent { get; }
         public InputDiasPackage InputDiasPackage { get; protected init; }
