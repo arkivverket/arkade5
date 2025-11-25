@@ -13,7 +13,7 @@ public abstract class AddmlBasedArchive : Archive
     public required AddmlXmlUnit AddmlXmlUnit { get; init; }
     public required AddmlInfo AddmlInfo { get; init; }
     
-    protected AddmlBasedArchive(DirectoryInfo processingDirectory, DirectoryInfo archiveExtractionDirectory) : base(processingDirectory, archiveExtractionDirectory)
+    protected AddmlBasedArchive(DirectoryInfo processingDirectory, FileSystemInfo[] content) : base(processingDirectory, content)
     {
         AddmlXmlUnit = SetupAddmlXmlUnit();
 
@@ -27,11 +27,6 @@ public abstract class AddmlBasedArchive : Archive
         AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, xmlSchemaStream);
 
         Details = new ArchiveDetails(AddmlInfo.Addml);
-    }
-
-    protected AddmlBasedArchive(DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage) : base(processingDirectory, inputDiasPackage)
-    {
-        // ...
     }
 
     protected AddmlXmlUnit SetupAddmlXmlUnit()

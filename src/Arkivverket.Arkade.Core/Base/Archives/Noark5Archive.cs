@@ -24,7 +24,7 @@ public sealed class Noark5Archive : AddmlBasedArchive
     private string DocumentsDirectoryName { get; set; }
 
     [SetsRequiredMembers]
-    public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory, archiveExtractionDirectory)
+    public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory, GetContent(archiveExtractionDirectory))
     {
         AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
         AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
@@ -37,7 +37,7 @@ public sealed class Noark5Archive : AddmlBasedArchive
     }
 
     [SetsRequiredMembers]
-    public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory, inputDiasPackage)
+    public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory, GetContent(inputDiasPackage))
     {
         AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
         AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!

@@ -8,13 +8,13 @@ namespace Arkivverket.Arkade.Core.Base.Archives;
 public sealed class Noark4Archive : Archive
 {
     [SetsRequiredMembers]
-    public Noark4Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory, archiveExtractionDirectory)
+    public Noark4Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory, GetContent(archiveExtractionDirectory))
     {
         ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...
     }
     
     [SetsRequiredMembers]
-    public Noark4Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory, inputDiasPackage)
+    public Noark4Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory, GetContent(inputDiasPackage))
     {
         ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...
     }
