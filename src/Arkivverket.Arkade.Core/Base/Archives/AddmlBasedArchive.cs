@@ -13,7 +13,7 @@ public abstract class AddmlBasedArchive : Archive
     public required AddmlXmlUnit AddmlXmlUnit { get; init; }
     public required AddmlInfo AddmlInfo { get; init; }
     
-    protected AddmlBasedArchive(DirectoryInfo processingDirectory) : base(processingDirectory)
+    protected AddmlBasedArchive(DirectoryInfo processingDirectory, ArkadeDirectory content) : base(processingDirectory, content)
     {
         AddmlXmlUnit = SetupAddmlXmlUnit();
 
@@ -31,7 +31,7 @@ public abstract class AddmlBasedArchive : Archive
 
     protected AddmlXmlUnit SetupAddmlXmlUnit()
     {
-        FileInfo addmlFileInfo = Content?.WithFile(AddmlXmlFileName);
+        FileInfo addmlFileInfo = Content.WithFile(AddmlXmlFileName);
 
         // .................Move to Noark5Archive.......................
         if (!addmlFileInfo.Exists && ArchiveType == ArchiveType.Noark5)

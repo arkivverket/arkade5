@@ -24,14 +24,12 @@ public sealed class Noark5Archive : AddmlBasedArchive
     private string DocumentsDirectoryName { get; set; }
 
     [SetsRequiredMembers]
-    public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
+    public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory, new ArkadeDirectory(archiveExtractionDirectory))
     {
         AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
         AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
         
         ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
-        
-        Content = new ArkadeDirectory(archiveExtractionDirectory);
         
         SetupConstructorCommonThingsAndOfCourseGiveThisMethodABetterName();
 
@@ -39,14 +37,12 @@ public sealed class Noark5Archive : AddmlBasedArchive
     }
 
     [SetsRequiredMembers]
-    public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory)
+    public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory, inputDiasPackage.WorkingDirectory.ContentWorkDirectory())
     {
         AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
         AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
         
         ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
-
-        Content = inputDiasPackage.WorkingDirectory.ContentWorkDirectory();
 
         SetupConstructorCommonThingsAndOfCourseGiveThisMethodABetterName();
 

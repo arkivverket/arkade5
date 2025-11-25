@@ -1,10 +1,11 @@
 using System.IO;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
 
-public abstract class AddmlDefinitionTestedArchive(DirectoryInfo processingDirectory)
-    : AddmlBasedArchive(processingDirectory)
+public abstract class AddmlDefinitionTestedArchive(DirectoryInfo processingDirectory, ArkadeDirectory content)
+    : AddmlBasedArchive(processingDirectory, content)
 {
     public override bool IsTestable(out string disqualifyingCause)
     {

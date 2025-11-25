@@ -5,6 +5,7 @@ using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.ExternalModels.Metadata;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
@@ -14,11 +15,9 @@ public sealed class SiardArchive : Archive
     public readonly FileInfo SiardFile;
 
     [SetsRequiredMembers]
-    public SiardArchive(FileInfo siardFile, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory)
+    public SiardArchive(FileInfo siardFile, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory, null) // TODO: Find a way to provide Siard Content (using ArchiveContent class?)
     {
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
-
-        //Content = ... // TODO: Find a way to do this (using ArchiveContent class?)
         
         SiardFile = siardFile;
            
@@ -31,13 +30,11 @@ public sealed class SiardArchive : Archive
     }
     
     [SetsRequiredMembers]
-    public SiardArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory)
+    public SiardArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory, inputDiasPackage.WorkingDirectory.ContentWorkDirectory())
     {
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
         
         InputDiasPackage = inputDiasPackage;
-        
-        Content = InputDiasPackage.WorkingDirectory.ContentWorkDirectory();
         
         FileInfo siardFile = Content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
 

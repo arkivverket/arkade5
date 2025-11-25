@@ -10,19 +10,15 @@ public sealed class SpecializedSystemArchive : AddmlDefinitionTestedArchive
 {
     
     [SetsRequiredMembers]
-    public SpecializedSystemArchive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory)
+    public SpecializedSystemArchive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory, new ArkadeDirectory(archiveExtractionDirectory))
     {
-        Content = new ArkadeDirectory(archiveExtractionDirectory);
-        
         AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
         AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
     }
 
     [SetsRequiredMembers]
-    public SpecializedSystemArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory)
+    public SpecializedSystemArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory, inputDiasPackage.WorkingDirectory.ContentWorkDirectory())
     {
-        Content = inputDiasPackage.WorkingDirectory.ContentWorkDirectory();
-        
         AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
         AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
     }
