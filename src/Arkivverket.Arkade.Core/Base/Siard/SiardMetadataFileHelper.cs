@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.Core.Base.Siard
         {
             var administrativeMetadataPath = archive.OutputDiasPackage.WorkingDirectory.AdministrativeMetadata().ToString();
             string archiveFilePath =
-                archive.Content.DirectoryInfo().GetFiles("*.siard")[0].FullName;
+                archive.Content.GetFile("*.siard").FullName;
             ExtractSiardMetadataFile(ArkadeConstants.SiardMetadataXmlFileName, administrativeMetadataPath,
                 archiveFilePath);
             ExtractSiardMetadataFile(ArkadeConstants.SiardMetadataXsdFileName, administrativeMetadataPath,

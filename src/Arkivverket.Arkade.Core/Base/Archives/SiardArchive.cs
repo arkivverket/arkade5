@@ -34,8 +34,6 @@ public sealed class SiardArchive : Archive
     {
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
         
-        InputDiasPackage = inputDiasPackage;
-        
         FileInfo siardFile = Content.GetFile("*.siard");
 
         SiardFile = siardFile ?? throw new ArkadeException("Siard file not found");

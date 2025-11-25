@@ -46,8 +46,6 @@ public sealed class Noark5Archive : AddmlBasedArchive
 
         SetupConstructorCommonThingsAndOfCourseGiveThisMethodABetterName();
 
-        InputDiasPackage = inputDiasPackage;
-        
         DocumentFiles = new DocumentFiles(InputDiasPackage.TarFile.FullName);
     }
     

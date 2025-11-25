@@ -1,17 +1,19 @@
 using System;
 using System.IO;
-using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Archives
 {
     public abstract class Archive(DirectoryInfo processingDirectory, ArchiveContent content)
     {
+        protected Archive(DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage) : this(processingDirectory, SetupContent(inputDiasPackage))
+        {
+            InputDiasPackage = inputDiasPackage;
+        }
+
         public DirectoryInfo ProcessingDirectory { get; private init; } = processingDirectory;
-
-        public bool SourceIsTarFile => InputDiasPackage?.TarFile != null;
-
         public ArchiveContent Content { get; private init; } = content;
-        public InputDiasPackage InputDiasPackage { get; protected init; }
+        public bool SourceIsTarFile => InputDiasPackage?.TarFile != null;
+        public InputDiasPackage InputDiasPackage { get; private init; } // Why is private init different here than for Content?
         public OutputDiasPackage OutputDiasPackage { get; set; }
         public ArchiveType ArchiveType { get; protected init; } // TODO: Consider to liquidate
 
