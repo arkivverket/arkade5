@@ -3,7 +3,7 @@ using Arkivverket.Arkade.Core.Resources;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
 
-public abstract class AddmlDefinitionTestedArchive(DirectoryInfo processingDirectory, FileSystemInfo[] content)
+public abstract class AddmlDefinitionTestedArchive(DirectoryInfo processingDirectory, ArchiveContent content)
     : AddmlBasedArchive(processingDirectory, content)
 {
     public override bool IsTestable(out string disqualifyingCause)

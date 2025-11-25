@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Resources;
@@ -13,7 +14,7 @@ public abstract class AddmlBasedArchive : Archive
     public required AddmlXmlUnit AddmlXmlUnit { get; init; }
     public required AddmlInfo AddmlInfo { get; init; }
     
-    protected AddmlBasedArchive(DirectoryInfo processingDirectory, FileSystemInfo[] content) : base(processingDirectory, content)
+    protected AddmlBasedArchive(DirectoryInfo processingDirectory, ArchiveContent content) : base(processingDirectory, content)
     {
         AddmlXmlUnit = SetupAddmlXmlUnit();
 
@@ -31,16 +32,16 @@ public abstract class AddmlBasedArchive : Archive
 
     protected AddmlXmlUnit SetupAddmlXmlUnit()
     {
-        FileInfo addmlFileInfo = Content.WithFile(AddmlXmlFileName);
+        var addmlFileInfo = Content.GetFile(AddmlXmlFileName);
 
         // .................Move to Noark5Archive.......................
         if (!addmlFileInfo.Exists && ArchiveType == ArchiveType.Noark5)
-            addmlFileInfo = Content.WithFile(ArkivuttrekkXmlFileName);
+            addmlFileInfo = Content.GetFile(ArkivuttrekkXmlFileName);
         // .............................................................
 
         var addmlXmlFile = new ArchiveXmlFile(addmlFileInfo);
 
-        FileInfo addmlXsdFileInfo = Content.WithFile(AddmlXsdFileName);
+        FileInfo addmlXsdFileInfo = Content.GetFile(AddmlXsdFileName);
 
         ArchiveXmlSchema addmlSchema = addmlXsdFileInfo.Exists
             ? new UserProvidedXmlSchema(addmlXsdFileInfo)

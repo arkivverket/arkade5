@@ -36,7 +36,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             var testResultSet = new TestResultSet();
 
             string changelogFullFilename = _archive.Content
-                .WithFile(ArkadeConstants.ChangeLogXmlFileName).FullName;
+                .GetFile(ArkadeConstants.ChangeLogXmlFileName).FullName;
 
             try
             {

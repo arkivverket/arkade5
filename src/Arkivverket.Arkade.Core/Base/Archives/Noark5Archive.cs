@@ -24,7 +24,7 @@ public sealed class Noark5Archive : AddmlBasedArchive
     private string DocumentsDirectoryName { get; set; }
 
     [SetsRequiredMembers]
-    public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory, GetContent(archiveExtractionDirectory))
+    public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory, SetupContent(archiveExtractionDirectory))
     {
         AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
         AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
@@ -37,7 +37,7 @@ public sealed class Noark5Archive : AddmlBasedArchive
     }
 
     [SetsRequiredMembers]
-    public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory, GetContent(inputDiasPackage))
+    public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory, SetupContent(inputDiasPackage))
     {
         AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
         AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
@@ -71,7 +71,7 @@ public sealed class Noark5Archive : AddmlBasedArchive
         foreach ((string documentedXmlFileName, IEnumerable<string> documentedXmlSchemas) in Details.DocumentedXmlUnits)
         {
             IEnumerable<ArchiveXmlSchema> userProvidedSchemas =
-                documentedXmlSchemas.Select(s => new UserProvidedXmlSchema(Content.WithFile(s)));
+                documentedXmlSchemas.Select(s => new UserProvidedXmlSchema(Content.GetFile(s)));
 
             string archiveTypeVersion = AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version;
             string pathCompatibleVersionString = "v" + archiveTypeVersion.Replace('.', '_');
@@ -83,7 +83,7 @@ public sealed class Noark5Archive : AddmlBasedArchive
 
             var archiveXmlSchemas = new List<ArchiveXmlSchema>(userProvidedSchemas.Concat(arkadeSuppliedSchemas));
 
-            var archiveXmlFile = new ArchiveXmlFile(Content.WithFile(documentedXmlFileName));
+            var archiveXmlFile = new ArchiveXmlFile(Content.GetFile(documentedXmlFileName));
 
             XmlUnits.Add(new ArchiveXmlUnit(archiveXmlFile, archiveXmlSchemas));
         }
@@ -106,12 +106,17 @@ public sealed class Noark5Archive : AddmlBasedArchive
         if (DocumentsDirectory != null)
             return DocumentsDirectory;
 
-        foreach (DirectoryInfo directory in Content.DirectoryInfo().EnumerateDirectories())
-        foreach (string documentDirectoryName in DocumentDirectoryNames)
-            if (directory.Name.Equals(documentDirectoryName))
-                DocumentsDirectory = directory;
 
-        return DocumentsDirectory ?? DefaultNamedDocumentsDirectory();
+        foreach (string documentDirectoryName in DocumentDirectoryNames)
+        {
+            if (Content.GetDirectory(documentDirectoryName) is not { } foundDocumentsDirectory)
+                continue;
+
+            DocumentsDirectory = foundDocumentsDirectory;
+            return DocumentsDirectory;
+        }
+
+        return null;
     }
 
     public string GetDocumentsDirectoryName()
@@ -142,9 +147,9 @@ public sealed class Noark5Archive : AddmlBasedArchive
 
     private DirectoryInfo DefaultNamedDocumentsDirectory()
     {
-        return Content.WithSubDirectory(
-            DocumentDirectoryNames[0]
-        ).DirectoryInfo();
+        return /*Content.WithSubDirectory(*/
+            new DirectoryInfo(DocumentDirectoryNames[0]);
+        //).DirectoryInfo();
     }
 
     public override bool IsTestable(out string disqualifyingCause)

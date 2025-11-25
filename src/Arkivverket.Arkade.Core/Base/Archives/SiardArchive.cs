@@ -15,7 +15,7 @@ public sealed class SiardArchive : Archive
     public readonly FileInfo SiardFile;
 
     [SetsRequiredMembers]
-    public SiardArchive(FileInfo siardFile, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory, [siardFile]) // TODO: Find a way to provide Siard Content (using ArchiveContent class?)
+    public SiardArchive(FileInfo siardFile, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory, new ArchiveContent([siardFile]))
     {
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
         
@@ -30,14 +30,13 @@ public sealed class SiardArchive : Archive
     }
     
     [SetsRequiredMembers]
-    public SiardArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory, GetContent(inputDiasPackage))
+    public SiardArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler) : base(processingDirectory, SetupContent(inputDiasPackage))
     {
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
         
         InputDiasPackage = inputDiasPackage;
         
-        FileInfo siardFile = Content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
-        //FileInfo siardFile = Content.DirectoryInfo().GetFiles("*.siard").FirstOrDefault();
+        FileInfo siardFile = Content.GetFile("*.siard");
 
         SiardFile = siardFile ?? throw new ArkadeException("Siard file not found");
         

@@ -8,13 +8,13 @@ public sealed class SpecializedSystemArchive : AddmlDefinitionTestedArchive
     
     [SetsRequiredMembers]
     public SpecializedSystemArchive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory)
-        : base(processingDirectory, GetContent(archiveExtractionDirectory))
+        : base(processingDirectory, SetupContent(archiveExtractionDirectory))
     {
     }
 
     [SetsRequiredMembers]
     public SpecializedSystemArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory)
-        : base(processingDirectory, GetContent(inputDiasPackage))
+        : base(processingDirectory, SetupContent(inputDiasPackage))
     {
     }
 }

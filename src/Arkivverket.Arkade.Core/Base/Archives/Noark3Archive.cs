@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Base.Archives;
 public sealed class Noark3Archive : AddmlDefinitionTestedArchive
 {
     [SetsRequiredMembers]
-    public Noark3Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory, GetContent(archiveExtractionDirectory))
+    public Noark3Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory, SetupContent(archiveExtractionDirectory))
     {
         AddmlXmlUnit = SetupAddmlXmlUnit();
 
@@ -26,7 +26,7 @@ public sealed class Noark3Archive : AddmlDefinitionTestedArchive
     }
 
     [SetsRequiredMembers]
-    public Noark3Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory, GetContent(inputDiasPackage))
+    public Noark3Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory, SetupContent(inputDiasPackage))
     {
         AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
         AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
@@ -34,7 +34,7 @@ public sealed class Noark3Archive : AddmlDefinitionTestedArchive
 
     private new AddmlXmlUnit SetupAddmlXmlUnit()
     {
-        FileInfo addmlFileInfo = Content.WithFile(AddmlXmlFileName);
+        FileInfo addmlFileInfo = Content.GetFile(AddmlXmlFileName);
 
         if (!addmlFileInfo.Exists)
         {
@@ -44,7 +44,7 @@ public sealed class Noark3Archive : AddmlDefinitionTestedArchive
 
         var addmlXmlFile = new ArchiveXmlFile(addmlFileInfo);
 
-        FileInfo addmlXsdFileInfo = Content.WithFile(AddmlXsdFileName);
+        FileInfo addmlXsdFileInfo = Content.GetFile(AddmlXsdFileName);
 
         ArchiveXmlSchema addmlSchema = addmlXsdFileInfo.Exists
             ? new UserProvidedXmlSchema(addmlXsdFileInfo)
