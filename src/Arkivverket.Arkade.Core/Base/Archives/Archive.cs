@@ -5,7 +5,7 @@ namespace Arkivverket.Arkade.Core.Base.Archives
 {
     public abstract class Archive(ArchiveContent content, DirectoryInfo processingDirectory)
     {
-        protected Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : this(SetupContent(inputDiasPackage), processingDirectory)
+        protected Archive(InputDiasPackage inputDiasPackage, ArchiveContent content, DirectoryInfo processingDirectory) : this(content, processingDirectory)
         {
             InputDiasPackage = inputDiasPackage;
         }
@@ -20,16 +20,6 @@ namespace Arkivverket.Arkade.Core.Base.Archives
         public required IArchiveDetails Details { get; init; }
         public TestSession TestSession { get; set; }
         public abstract bool IsTestable(out string disqualifyingCause);
-        
-        protected static ArchiveContent SetupContent(InputDiasPackage inputDiasPackage)
-        {
-            return SetupContent(inputDiasPackage.WorkingDirectory.ContentWorkDirectory().DirectoryInfo());
-        }
-        
-        protected static ArchiveContent SetupContent(DirectoryInfo archiveExtractionDirectory)
-        {
-            return new ArchiveContent(archiveExtractionDirectory.GetFileSystemInfos());
-        }
     }
 
     [Flags]
