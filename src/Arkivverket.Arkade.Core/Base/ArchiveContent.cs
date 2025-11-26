@@ -7,13 +7,13 @@ public class ArchiveContent(FileSystemInfo[] contentItems)
 {
     private FileSystemInfo[] ContentItems { get; } = contentItems;
     
-    public FileInfo GetFile(string fileName)
+    public FileInfo GetFile(string filePath)
     {
-        return ContentItems.FirstOrDefault(f => f.FullName.EndsWith(fileName)) as FileInfo;
+        return ContentItems.FirstOrDefault(f => f.FullName.EndsWith(filePath)) as FileInfo;
     }
 
-    public DirectoryInfo GetDirectory(string directoryName)
+    public DirectoryInfo GetDirectory(string directoryPath)
     {
-        return ContentItems.FirstOrDefault(f => f.FullName.EndsWith(directoryName)) as DirectoryInfo;
+        return ContentItems.FirstOrDefault(f => f.FullName.EndsWith(directoryPath)) as DirectoryInfo;
     }
 }
