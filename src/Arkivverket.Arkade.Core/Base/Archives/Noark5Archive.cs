@@ -37,7 +37,7 @@ public sealed class Noark5Archive : AddmlBasedArchive
     }
 
     [SetsRequiredMembers]
-    public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(new ArchiveContent(inputDiasPackage), processingDirectory)
+    public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
     {
         AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
         AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!

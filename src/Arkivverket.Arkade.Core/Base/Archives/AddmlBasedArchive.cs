@@ -14,7 +14,8 @@ public abstract class AddmlBasedArchive : Archive
     public required AddmlXmlUnit AddmlXmlUnit { get; init; }
     public required AddmlInfo AddmlInfo { get; init; }
     
-    protected AddmlBasedArchive(ArchiveContent content, DirectoryInfo processingDirectory) : base(content, processingDirectory)
+    protected AddmlBasedArchive(ArchiveContent content, DirectoryInfo processingDirectory,
+        InputDiasPackage inputDiasPackage = null) : base(content, processingDirectory, inputDiasPackage)
     {
         AddmlXmlUnit = SetupAddmlXmlUnit();
 

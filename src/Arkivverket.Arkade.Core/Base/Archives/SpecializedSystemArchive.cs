@@ -14,7 +14,7 @@ public sealed class SpecializedSystemArchive : AddmlDefinitionTestedArchive
 
     [SetsRequiredMembers]
     public SpecializedSystemArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory)
-        : base(new ArchiveContent(inputDiasPackage), processingDirectory)
+        : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
     {
     }
 }

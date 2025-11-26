@@ -14,7 +14,7 @@ public sealed class Noark4Archive : Archive
     }
     
     [SetsRequiredMembers]
-    public Noark4Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(new ArchiveContent(inputDiasPackage), processingDirectory)
+    public Noark4Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
     {
         ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...
     }

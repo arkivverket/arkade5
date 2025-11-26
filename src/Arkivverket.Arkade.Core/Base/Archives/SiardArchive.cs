@@ -30,7 +30,7 @@ public sealed class SiardArchive : Archive
     }
     
     [SetsRequiredMembers]
-    public SiardArchive(InputDiasPackage inputDiasPackage, IStatusEventHandler statusEventHandler, DirectoryInfo processingDirectory) : base(new ArchiveContent(inputDiasPackage), processingDirectory)
+    public SiardArchive(InputDiasPackage inputDiasPackage, IStatusEventHandler statusEventHandler, DirectoryInfo processingDirectory) : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
     {
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
         

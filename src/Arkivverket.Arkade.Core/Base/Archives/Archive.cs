@@ -3,17 +3,12 @@ using System.IO;
 
 namespace Arkivverket.Arkade.Core.Base.Archives
 {
-    public abstract class Archive(ArchiveContent content, DirectoryInfo processingDirectory)
+    public abstract class Archive(ArchiveContent content, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
     {
-        protected Archive(InputDiasPackage inputDiasPackage, ArchiveContent content, DirectoryInfo processingDirectory) : this(content, processingDirectory)
-        {
-            InputDiasPackage = inputDiasPackage;
-        }
-
         public DirectoryInfo ProcessingDirectory { get; private init; } = processingDirectory;
         public ArchiveContent Content { get; private init; } = content;
         public bool SourceIsTarFile => InputDiasPackage?.TarFile != null;
-        public InputDiasPackage InputDiasPackage { get; private init; } // Why is private init different here than for Content?
+        public InputDiasPackage InputDiasPackage { get; private init; } = inputDiasPackage; // Why is private init different here than for Content?
         public OutputDiasPackage OutputDiasPackage { get; set; }
         public ArchiveType ArchiveType { get; protected init; } // TODO: Consider to liquidate
 
