@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -26,35 +27,49 @@ public sealed class Noark5Archive : AddmlBasedArchive
     [SetsRequiredMembers]
     public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(new ArchiveContent(archiveExtractionDirectory), processingDirectory)
     {
-        AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
-        AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
+        if (AddmlXmlUnit == null)
+        {
+            if (Content.GetFile(ArkivuttrekkXmlFileName) is not { } n5AddmlFile)
+            {
+                Log.Error("No archive description file found in archive.");
+                return;
+            }
+
+            AddmlXmlUnit = SetupAddmlXmlUnit(n5AddmlFile);
+        }
+
+        AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, AddmlXmlUnit.Schema.AsStream());
+        Details = new ArchiveDetails(AddmlInfo.Addml);
+        
+        DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
+        
+        SetupArchiveXmlUnits();
         
         ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
-        
-        SetupConstructorCommonThingsAndOfCourseGiveThisMethodABetterName();
-
-        DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
     }
 
     [SetsRequiredMembers]
     public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
     {
-        AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
-        AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
+        if (AddmlXmlUnit == null)
+        {
+            if (Content.GetFile(ArkivuttrekkXmlFileName) is not { } n5AddmlFile)
+            {
+                Log.Error("No archive description file found in archive.");
+                return;
+            }
+
+            AddmlXmlUnit = SetupAddmlXmlUnit(n5AddmlFile);
+        }
+
+        AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, AddmlXmlUnit.Schema.AsStream());
+        Details = new ArchiveDetails(AddmlInfo.Addml);
+        
+        DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
+        
+        SetupArchiveXmlUnits();
         
         ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
-
-        SetupConstructorCommonThingsAndOfCourseGiveThisMethodABetterName();
-
-        DocumentFiles = new DocumentFiles(InputDiasPackage.TarFile.FullName);
-    }
-    
-    private void SetupConstructorCommonThingsAndOfCourseGiveThisMethodABetterName()
-    {
-        // if (AddmlXmlUnit.HasNoDefinedSchema())
-        //     AddmlXmlUnit.Schema = new ArkadeBuiltInXmlSchema(AddmlXsdFileName, Details.ArchiveStandard);
-
-        SetupArchiveXmlUnits();
     }
     
     public ArchiveXmlFile GetArchiveXmlFile(string fileName)

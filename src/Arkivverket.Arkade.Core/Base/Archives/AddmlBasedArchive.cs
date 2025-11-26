@@ -1,9 +1,7 @@
 using System.IO;
-using System.Linq;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
-using Arkivverket.Arkade.Core.Resources;
-using Arkivverket.Arkade.Core.Util;
+using Serilog;
 using static Arkivverket.Arkade.Core.Base.ArkadeBuiltInXmlSchema;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
@@ -17,29 +15,19 @@ public abstract class AddmlBasedArchive : Archive
     protected AddmlBasedArchive(ArchiveContent content, DirectoryInfo processingDirectory,
         InputDiasPackage inputDiasPackage = null) : base(content, processingDirectory, inputDiasPackage)
     {
-        AddmlXmlUnit = SetupAddmlXmlUnit();
-
-        if (!AddmlXmlUnit.File.Exists)
+        if (Content.GetFile(AddmlXmlFileName) is not { } addmlFileInfo)
+        {
+            Log.Error("No addml file found in archive.");
             return;
-
-        using Stream xmlSchemaStream = AddmlXmlUnit.HasNoDefinedSchema()
-            ? ResourceUtil.GetResourceAsStream(AddmlXsdResource)
-            : AddmlXmlUnit.Schema.AsStream();
-
-        AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, xmlSchemaStream);
-
+        }
+        
+        AddmlXmlUnit = SetupAddmlXmlUnit(addmlFileInfo);
+        AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, AddmlXmlUnit.Schema.AsStream());
         Details = new ArchiveDetails(AddmlInfo.Addml);
     }
 
-    protected AddmlXmlUnit SetupAddmlXmlUnit()
+    protected AddmlXmlUnit SetupAddmlXmlUnit(FileInfo addmlFileInfo)
     {
-        var addmlFileInfo = Content.GetFile(AddmlXmlFileName);
-
-        // .................Move to Noark5Archive.......................
-        if (!addmlFileInfo.Exists && ArchiveType == ArchiveType.Noark5)
-            addmlFileInfo = Content.GetFile(ArkivuttrekkXmlFileName);
-        // .............................................................
-
         var addmlXmlFile = new ArchiveXmlFile(addmlFileInfo);
 
         FileInfo addmlXsdFileInfo = Content.GetFile(AddmlXsdFileName);
