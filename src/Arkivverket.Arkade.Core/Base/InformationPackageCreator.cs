@@ -98,7 +98,7 @@ namespace Arkivverket.Arkade.Core.Base
                                           Path.DirectorySeparatorChar;
 
                 AddFilesInDirectory(
-                    outputDiasPackage, archive.Content.DirectoryInfo(), null, tarArchive, contentDirectory
+                    outputDiasPackage, archive.Content.RootDirectory, null, tarArchive, contentDirectory
                 );
             }
 

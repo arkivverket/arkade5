@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Core.Base;
 public class ArchiveContent(FileSystemInfo[] contentItems)
 {
     private FileSystemInfo[] ContentItems { get; } = contentItems;
-    private DirectoryInfo RootDirectory { get; }
+    public DirectoryInfo RootDirectory { get; }
     private InputDiasPackage InputDiasPackage { get; } // TODO: Consider if needed (for content tar-entry operations)
 
     public ArchiveContent(DirectoryInfo contentDirectory) : this(contentDirectory.GetFileSystemInfos())

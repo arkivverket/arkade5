@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         private readonly ILogger _log = Log.ForContext<AddmlDefinitionParser>();
 
         private readonly AddmlInfo _addmlInfo;
-        private readonly ArkadeDirectory _content;
+        private readonly ArchiveContent _content;
         private readonly IStatusEventHandler _statusEventHandler;
 
         private readonly Dictionary<string, flatFileType> _flatFileTypes = new Dictionary<string, flatFileType>();
@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _allFieldDefinitions =
             new Dictionary<FieldIndex, AddmlFieldDefinition>();
 
-        public AddmlDefinitionParser(AddmlInfo addmlInfo, ArkadeDirectory content, IStatusEventHandler statusEventHandler)
+        public AddmlDefinitionParser(AddmlInfo addmlInfo, ArchiveContent content, IStatusEventHandler statusEventHandler)
         {
             Assert.AssertNotNull(Resources.AddmlMessages.AddmlInfo, addmlInfo);
             _addmlInfo = addmlInfo;
@@ -144,7 +144,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         public AddmlDefinition GetAddmlDefinition()
         {
             List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = GetAddmlFlatFileDefinitions();
-            List<FileInfo> fileInfos = _content.DirectoryInfo().GetFiles("*", SearchOption.AllDirectories).ToList();
+            List<FileInfo> fileInfos = _content.RootDirectory.GetFiles("*", SearchOption.AllDirectories).ToList();
 
             List<AddmlFlatFileDefinition> addmlFlatFilesExistingInDirectory = GetFlatFileDefinitionsWhereReferencedFileExistsInDirectory(addmlFlatFileDefinitions, fileInfos);
 
@@ -181,7 +181,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
                 string fieldSeparator = GetFieldSeparator(flatFileDefinition.typeReference);
                 string quotingChar = GetQuotingChar(flatFileDefinition.typeReference);
                 AddmlDefinitionFlatFileName fileName = GetFileName(flatFileDefinition.name);
-                FileInfo fileInfo = _content.WithFile(fileName.RelativeFilename);
+                FileInfo fileInfo = _content.GetFile(fileName.RelativeFilename);
                 string charset = GetCharset(flatFileDefinition.typeReference);
                 string recordDefinitionFieldIdentifier = flatFileDefinition.recordDefinitionFieldIdentifier;
                 int? numberOfRecords = GetNumberOfRecords(flatFileDefinition.name);

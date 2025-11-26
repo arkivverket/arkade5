@@ -46,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
 
         protected override List<TestResult> GetTestResults()
         {
-            HashSet<string> allFilesInWorkingDirectory = _archive.Content;  GetAllFilesInDirectory(_archive.Content.DirectoryInfo());
+            HashSet<string> allFilesInWorkingDirectory = GetAllFilesInDirectory(_archive.Content.RootDirectory);
             HashSet<string> allFilesInAddml = GetAllFilesInAddmlDefinition(_addmlDefinition);
 
             allFilesInWorkingDirectory.ExceptWith(_knownFiles);
