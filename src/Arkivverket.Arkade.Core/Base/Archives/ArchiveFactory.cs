@@ -15,9 +15,9 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
         return (archiveType, archiveSource) switch
         {
             (ArchiveType.Siard, FileInfo { Extension: ".siard" } siardFile) =>
-                new SiardArchive(siardFile, processingDirectory, statusEventHandler),
+                new SiardArchive(siardFile, statusEventHandler, processingDirectory),
             (ArchiveType.Siard, FileInfo { Extension: ".tar" } tarFile) =>
-                new SiardArchive(CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory, statusEventHandler),
+                new SiardArchive(CreateInputDiasPackage(tarFile, processingDirectory), statusEventHandler, processingDirectory),
 
             (ArchiveType.Noark5, DirectoryInfo extractionDirectory) =>
                 new Noark5Archive(extractionDirectory, processingDirectory),

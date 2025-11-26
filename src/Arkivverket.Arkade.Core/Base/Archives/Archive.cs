@@ -3,9 +3,9 @@ using System.IO;
 
 namespace Arkivverket.Arkade.Core.Base.Archives
 {
-    public abstract class Archive(DirectoryInfo processingDirectory, ArchiveContent content)
+    public abstract class Archive(ArchiveContent content, DirectoryInfo processingDirectory)
     {
-        protected Archive(DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage) : this(processingDirectory, SetupContent(inputDiasPackage))
+        protected Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : this(SetupContent(inputDiasPackage), processingDirectory)
         {
             InputDiasPackage = inputDiasPackage;
         }

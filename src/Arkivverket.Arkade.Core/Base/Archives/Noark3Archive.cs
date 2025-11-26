@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Base.Archives;
 public sealed class Noark3Archive : AddmlDefinitionTestedArchive
 {
     [SetsRequiredMembers]
-    public Noark3Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(processingDirectory, SetupContent(archiveExtractionDirectory))
+    public Noark3Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(SetupContent(archiveExtractionDirectory), processingDirectory)
     {
         AddmlXmlUnit = SetupAddmlXmlUnit();
 
@@ -26,7 +26,7 @@ public sealed class Noark3Archive : AddmlDefinitionTestedArchive
     }
 
     [SetsRequiredMembers]
-    public Noark3Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(processingDirectory, SetupContent(inputDiasPackage))
+    public Noark3Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(SetupContent(inputDiasPackage), processingDirectory)
     {
         AddmlXmlUnit = new AddmlXmlUnit(null, null); // TODO: Implement!
         AddmlInfo = new AddmlInfo(null, null); // TODO: Implement!
