@@ -13,8 +13,8 @@ public abstract class AddmlDefinitionTestedArchive(ArchiveContent content, Direc
             disqualifyingCause = Noark5Messages.CouldNotFindValidSpecificationFile;
             return false;
         }
-        
+
         disqualifyingCause = null;
         return true;
-    } 
-};
+    }
+}

@@ -11,16 +11,16 @@ public abstract class AddmlBasedArchive : Archive
 {
     public AddmlXmlUnit AddmlXmlUnit { get; protected init; }
     public AddmlInfo AddmlInfo { get; protected init; }
-    
-    protected AddmlBasedArchive(ArchiveContent content, DirectoryInfo processingDirectory,
-        InputDiasPackage inputDiasPackage = null) : base(content, processingDirectory, inputDiasPackage)
+
+    protected AddmlBasedArchive(ArchiveContent content, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
+        : base(content, processingDirectory, inputDiasPackage)
     {
         if (Content.GetFile(AddmlXmlFileName) is not { } addmlFileInfo)
         {
             Log.Error("No addml file found in archive.");
             return;
         }
-        
+
         AddmlXmlUnit = SetupAddmlXmlUnit(addmlFileInfo);
         AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, AddmlXmlUnit.Schema.AsStream());
         Details = new ArchiveDetails(AddmlInfo.Addml);
@@ -35,7 +35,7 @@ public abstract class AddmlBasedArchive : Archive
         ArchiveXmlSchema addmlSchema = addmlXsdFileInfo.Exists
             ? new UserProvidedXmlSchema(addmlXsdFileInfo)
             : new ArkadeBuiltInXmlSchema(AddmlXsdFileName, new Version(BuiltInAddmlSchemaVersion));
-        
+
         return new AddmlXmlUnit(addmlXmlFile, addmlSchema);
     }
 }

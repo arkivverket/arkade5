@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,14 +15,14 @@ namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public sealed class Noark5Archive : AddmlBasedArchive
 {
-    
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
     public List<ArchiveXmlUnit> XmlUnits { get; private set; }
     internal DocumentFiles DocumentFiles { get; init; }
     private DirectoryInfo DocumentsDirectory { get; set; }
     private string DocumentsDirectoryName { get; set; }
 
-    public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(new ArchiveContent(archiveExtractionDirectory), processingDirectory)
+    public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory)
+        : base(new ArchiveContent(archiveExtractionDirectory), processingDirectory)
     {
         if (AddmlXmlUnit == null)
         {
@@ -38,15 +37,16 @@ public sealed class Noark5Archive : AddmlBasedArchive
 
         AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, AddmlXmlUnit.Schema.AsStream());
         Details = new ArchiveDetails(AddmlInfo.Addml);
-        
+
         DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
-        
+
         SetupArchiveXmlUnits();
-        
+
         ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
     }
 
-    public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
+    public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory)
+        : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
     {
         if (AddmlXmlUnit == null)
         {
@@ -61,14 +61,14 @@ public sealed class Noark5Archive : AddmlBasedArchive
 
         AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, AddmlXmlUnit.Schema.AsStream());
         Details = new ArchiveDetails(AddmlInfo.Addml);
-        
+
         DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
-        
+
         SetupArchiveXmlUnits();
-        
+
         ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
     }
-    
+
     public ArchiveXmlFile GetArchiveXmlFile(string fileName)
     {
         return XmlUnits.FirstOrDefault(xmlUnit => xmlUnit.File.Name.Equals(fileName))?.File;
@@ -85,7 +85,8 @@ public sealed class Noark5Archive : AddmlBasedArchive
 
             string archiveTypeVersion = AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version;
             string pathCompatibleVersionString = "v" + archiveTypeVersion.Replace('.', '_');
-            var xsdResourceLocalPath = $"{string.Format(LocalDirectoryPathNoark5XsdResources, pathCompatibleVersionString)}";
+            var xsdResourceLocalPath =
+                $"{string.Format(LocalDirectoryPathNoark5XsdResources, pathCompatibleVersionString)}";
 
             IEnumerable<ArchiveXmlSchema> arkadeSuppliedSchemas = Details.StandardXmlUnits[documentedXmlFileName]
                 .Except(documentedXmlSchemas).Select(schemaName =>
@@ -169,7 +170,7 @@ public sealed class Noark5Archive : AddmlBasedArchive
             disqualifyingCause = Noark5Messages.CouldNotFindValidSpecificationFile;
             return false;
         }
-        
+
         disqualifyingCause = null;
         return true;
     }

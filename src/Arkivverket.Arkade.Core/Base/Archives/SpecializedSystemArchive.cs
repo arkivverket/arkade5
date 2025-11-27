@@ -4,7 +4,6 @@ namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public sealed class SpecializedSystemArchive : AddmlDefinitionTestedArchive
 {
-    
     public SpecializedSystemArchive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory)
         : base(new ArchiveContent(archiveExtractionDirectory), processingDirectory)
     {
