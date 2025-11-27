@@ -16,4 +16,9 @@ public class ArchiveContent(DirectoryInfo rootDirectory)
     {
         return RootDirectory.EnumerateDirectories(directoryPath, SearchOption.AllDirectories).FirstOrDefault();
     }
+    
+    public static DirectoryInfo GetContentDirectory(InputDiasPackage diasPackage)
+    {
+        return diasPackage.WorkingDirectory.ContentWorkDirectory().DirectoryInfo();
+    }
 }

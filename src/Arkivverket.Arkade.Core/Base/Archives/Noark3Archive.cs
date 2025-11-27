@@ -10,7 +10,7 @@ public sealed class Noark3Archive : AddmlDefinitionTestedArchive
     }
 
     public Noark3Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory)
-        : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
+        : base(new ArchiveContent(ArchiveContent.GetContentDirectory(inputDiasPackage)), processingDirectory, inputDiasPackage)
     {
     }
 }

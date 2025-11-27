@@ -10,7 +10,7 @@ public sealed class SpecializedSystemArchive : AddmlDefinitionTestedArchive
     }
 
     public SpecializedSystemArchive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory)
-        : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
+        : base(new ArchiveContent(ArchiveContent.GetContentDirectory(inputDiasPackage)), processingDirectory, inputDiasPackage)
     {
     }
 }

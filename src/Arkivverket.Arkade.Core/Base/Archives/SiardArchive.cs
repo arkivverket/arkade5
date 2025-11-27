@@ -12,7 +12,8 @@ public sealed class SiardArchive : Archive
     public readonly FileInfo SiardFile;
 
     public SiardArchive(FileInfo siardFile, IStatusEventHandler statusEventHandler, DirectoryInfo processingDirectory)
-        : base(new ArchiveContent([siardFile]), processingDirectory)
+        : base(null, processingDirectory)
+        //: base(new ArchiveContent([siardFile]), processingDirectory)
     {
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
 
@@ -27,7 +28,7 @@ public sealed class SiardArchive : Archive
     }
 
     public SiardArchive(InputDiasPackage inputDiasPackage, IStatusEventHandler statusEventHandler, DirectoryInfo processingDirectory)
-        : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
+        : base(new ArchiveContent(ArchiveContent.GetContentDirectory(inputDiasPackage)), processingDirectory, inputDiasPackage)
     {
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
 

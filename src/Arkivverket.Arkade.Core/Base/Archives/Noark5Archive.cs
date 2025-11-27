@@ -46,7 +46,7 @@ public sealed class Noark5Archive : AddmlBasedArchive
     }
 
     public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory)
-        : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
+        : base(new ArchiveContent(ArchiveContent.GetContentDirectory(inputDiasPackage)), processingDirectory, inputDiasPackage)
     {
         if (AddmlXmlUnit == null)
         {

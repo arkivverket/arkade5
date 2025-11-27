@@ -12,7 +12,7 @@ public sealed class Noark4Archive : Archive
     }
 
     public Noark4Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory)
-        : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
+        : base(new ArchiveContent(ArchiveContent.GetContentDirectory(inputDiasPackage)), processingDirectory, inputDiasPackage)
     {
         ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...
     }
