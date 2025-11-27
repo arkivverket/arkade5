@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base.Siard;
@@ -14,7 +13,6 @@ public sealed class SiardArchive : Archive
 {
     public readonly FileInfo SiardFile;
 
-    [SetsRequiredMembers]
     public SiardArchive(FileInfo siardFile, IStatusEventHandler statusEventHandler, DirectoryInfo processingDirectory) : base(new ArchiveContent([siardFile]), processingDirectory)
     {
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
@@ -29,7 +27,6 @@ public sealed class SiardArchive : Archive
         Details = GetArchiveDetails(siardFile, statusEventHandler);
     }
     
-    [SetsRequiredMembers]
     public SiardArchive(InputDiasPackage inputDiasPackage, IStatusEventHandler statusEventHandler, DirectoryInfo processingDirectory) : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
     {
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...

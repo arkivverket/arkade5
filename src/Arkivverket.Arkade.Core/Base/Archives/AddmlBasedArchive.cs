@@ -9,8 +9,8 @@ namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public abstract class AddmlBasedArchive : Archive
 {
-    public required AddmlXmlUnit AddmlXmlUnit { get; init; }
-    public required AddmlInfo AddmlInfo { get; init; }
+    public AddmlXmlUnit AddmlXmlUnit { get; protected init; }
+    public AddmlInfo AddmlInfo { get; protected init; }
     
     protected AddmlBasedArchive(ArchiveContent content, DirectoryInfo processingDirectory,
         InputDiasPackage inputDiasPackage = null) : base(content, processingDirectory, inputDiasPackage)

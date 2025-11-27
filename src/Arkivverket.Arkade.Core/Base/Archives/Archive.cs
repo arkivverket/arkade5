@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.Core.Base.Archives
         public OutputDiasPackage OutputDiasPackage { get; set; }
         public ArchiveType ArchiveType { get; protected init; } // TODO: Consider to liquidate
 
-        public required IArchiveDetails Details { get; init; }
+        public IArchiveDetails Details { get; protected init; }
         public TestSession TestSession { get; set; }
         public abstract bool IsTestable(out string disqualifyingCause);
     }

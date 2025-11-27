@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Base.Addml;
-using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
@@ -24,7 +23,6 @@ public sealed class Noark5Archive : AddmlBasedArchive
     private DirectoryInfo DocumentsDirectory { get; set; }
     private string DocumentsDirectoryName { get; set; }
 
-    [SetsRequiredMembers]
     public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory) : base(new ArchiveContent(archiveExtractionDirectory), processingDirectory)
     {
         if (AddmlXmlUnit == null)
@@ -48,7 +46,6 @@ public sealed class Noark5Archive : AddmlBasedArchive
         ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
     }
 
-    [SetsRequiredMembers]
     public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory) : base(new ArchiveContent(inputDiasPackage), processingDirectory, inputDiasPackage)
     {
         if (AddmlXmlUnit == null)
