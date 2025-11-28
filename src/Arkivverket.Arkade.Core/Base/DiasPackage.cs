@@ -13,6 +13,11 @@ public abstract class DiasPackage
     public ArchiveMetadata ArchiveMetadata { get; protected init; }
     public DiasPackageWorkingDirectory WorkingDirectory { get; protected init; }
 
+    public DirectoryInfo GetContentDirectory()
+    {
+        return WorkingDirectory.ContentWorkDirectory().DirectoryInfo();
+    }
+    
     public DirectoryInfo GetTestReportDirectory()
     {
         return WorkingDirectory.RepositoryOperations().WithSubDirectory(OutputFileNames.TestReportDirectory).DirectoryInfo();

@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
-using static Arkivverket.Arkade.Core.Base.Archives.ArchiveType;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
 
@@ -12,33 +11,31 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
     {
         DirectoryInfo processingDirectory = CreateProcessingDirectory();
 
-        return (archiveType, archiveSource) switch
+        IArchiveContent archiveContent;
+        InputDiasPackage inputDiasPackage = null;
+        
+        switch (archiveSource)
         {
-            (ArchiveType.Siard, FileInfo { Extension: ".siard" } siardFile) =>
-                new SiardArchive(siardFile, statusEventHandler, processingDirectory),
-            (ArchiveType.Siard, FileInfo { Extension: ".tar" } tarFile) =>
-                new SiardArchive(CreateInputDiasPackage(tarFile, processingDirectory), statusEventHandler, processingDirectory),
-
-            (ArchiveType.Noark5, DirectoryInfo extractionDirectory) =>
-                new Noark5Archive(extractionDirectory, processingDirectory),
-            (ArchiveType.Noark5, FileInfo { Extension: ".tar" } tarFile) =>
-                new Noark5Archive(CreateInputDiasPackage(tarFile, processingDirectory, true), processingDirectory),
-
-            (Noark4, DirectoryInfo extractionDirectory) =>
-                new Noark4Archive(extractionDirectory, processingDirectory),
-            (Noark4, FileInfo { Extension: ".tar" } tarFile) =>
-                new Noark4Archive(CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory),
-
-            (Noark3, DirectoryInfo extractionDirectory) =>
-                new Noark3Archive(extractionDirectory, processingDirectory),
-            (Noark3, FileInfo { Extension: ".tar" } tarFile) =>
-                new Noark3Archive(CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory),
-            
-            (SpecializedSystem, DirectoryInfo extractionDirectory) =>
-                new SpecializedSystemArchive(extractionDirectory, processingDirectory),
-            (SpecializedSystem, FileInfo { Extension: ".tar" } tarFile) =>
-                new SpecializedSystemArchive(CreateInputDiasPackage(tarFile, processingDirectory), processingDirectory),
-
+            case DirectoryInfo directory: archiveContent = new DirectoryArchiveContent(directory);
+                break;
+            case FileInfo { Extension: ".siard" } siardFileInput: archiveContent = new FileArchiveContent(siardFileInput);
+                break;
+            case FileInfo { Extension: ".tar" } tarFile when CreateInputDiasPackage(tarFile, processingDirectory) is var diasPackage:
+            {
+                archiveContent = new DirectoryArchiveContent(diasPackage.GetContentDirectory());
+                inputDiasPackage = diasPackage;
+                break;
+            }
+            default: throw new ArgumentOutOfRangeException(nameof(archiveSource));
+        }
+        
+        return (archiveType, archiveContent) switch
+        {
+            (ArchiveType.Siard, DirectoryArchiveContent or FileArchiveContent) => new SiardArchive(archiveContent, processingDirectory, statusEventHandler, inputDiasPackage),
+            (ArchiveType.Noark5, DirectoryArchiveContent content) => new Noark5Archive(content, processingDirectory, inputDiasPackage),
+            (ArchiveType.Noark4, DirectoryArchiveContent content) => new Noark4Archive(content, processingDirectory, inputDiasPackage),
+            (ArchiveType.Noark3, DirectoryArchiveContent content) => new Noark3Archive(content, processingDirectory, inputDiasPackage),
+            (ArchiveType.SpecializedSystem, DirectoryArchiveContent content) => new SpecializedSystemArchive(content, processingDirectory, inputDiasPackage),
             _ => throw new ArgumentOutOfRangeException(nameof(archiveType), archiveType, null)
         };
     }

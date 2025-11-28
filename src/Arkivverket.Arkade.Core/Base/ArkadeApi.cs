@@ -210,9 +210,9 @@ namespace Arkivverket.Arkade.Core.Base
                 string resultFileName;
                 string resultFileFullName;
 
-                if (archive.ArchiveType == ArchiveType.Siard)
+                if (archive is SiardArchive siardArchive)
                 {
-                    string siardFileFullName = archive.Content.GetFile("*.siard").FullName;
+                    string siardFileFullName = siardArchive.SiardFile.FullName;
 
                     resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, Path.GetFileNameWithoutExtension(siardFileFullName));
                     resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);

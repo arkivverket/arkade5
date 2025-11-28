@@ -29,6 +29,8 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
         public TestSuite RunTestsOnArchive(Archive archive)
         {
+            var addmlDefinitionTestedArchive = (AddmlDefinitionTestedArchive)archive;
+            
             _testProgressReporter.Begin(archive.ArchiveType);
 
             AddmlDefinition addmlDefinition = archive.TestSession.AddmlDefinition;
@@ -147,7 +149,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             TestSuite testSuite = _addmlProcessRunner.GetTestSuite();
 
-            testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, archive).GetTestRun());
+            testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, addmlDefinitionTestedArchive).GetTestRun());
             testSuite.AddTestRun(new AH_03_ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
 
             archive.TestSession.TestSummary = new TestSummary((int) fileCounter, numberOfProcessedRecords,

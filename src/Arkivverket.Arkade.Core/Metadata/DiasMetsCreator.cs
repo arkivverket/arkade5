@@ -40,7 +40,11 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             //if (outputDiasPackage.WorkingDirectory.HasExternalContentDirectory())
             {
-                DirectoryInfo externalContentDirectory = archive.Content.RootDirectory;
+                IEnumerable<FileSystemInfo> allContentsInArchive = archive.Content.GetAllContents(); // TODO: Implement use if this
+
+                var archiveContent = (DirectoryArchiveContent)archive.Content; // TODO: Support FileArchiveContent
+
+                DirectoryInfo externalContentDirectory = archiveContent.RootDirectory;
 
                 if (externalContentDirectory.Exists)
                 {

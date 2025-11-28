@@ -1,11 +1,17 @@
-using System.IO;
+using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace Arkivverket.Arkade.Core.Base;
 
-public class ArchiveContent(DirectoryInfo rootDirectory)
+public interface IArchiveContent
 {
-    public DirectoryInfo RootDirectory { get; } = rootDirectory;
+    public IEnumerable<FileSystemInfo> GetAllContents();
+}
+
+public class DirectoryArchiveContent(DirectoryInfo contentDirectory) : IArchiveContent
+{
+    public DirectoryInfo RootDirectory { get; } = contentDirectory;
 
     public FileInfo GetFile(string filePath)
     {
@@ -16,9 +22,19 @@ public class ArchiveContent(DirectoryInfo rootDirectory)
     {
         return RootDirectory.EnumerateDirectories(directoryPath, SearchOption.AllDirectories).FirstOrDefault();
     }
-    
-    public static DirectoryInfo GetContentDirectory(InputDiasPackage diasPackage)
+
+    public IEnumerable<FileSystemInfo> GetAllContents()
     {
-        return diasPackage.WorkingDirectory.ContentWorkDirectory().DirectoryInfo();
+        return RootDirectory.EnumerateFileSystemInfos("*", SearchOption.AllDirectories);
+    }
+}
+
+public class FileArchiveContent(FileInfo contentFile) : IArchiveContent
+{
+    public FileInfo RootFile { get; } = contentFile;
+
+    public IEnumerable<FileSystemInfo> GetAllContents()
+    {
+        return [RootFile];
     }
 }

@@ -5,14 +5,10 @@ namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public sealed class Noark4Archive : Archive
 {
-    public Noark4Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory)
-        : base(new ArchiveContent(archiveExtractionDirectory), processingDirectory)
-    {
-        ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...
-    }
-
-    public Noark4Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory)
-        : base(new ArchiveContent(ArchiveContent.GetContentDirectory(inputDiasPackage)), processingDirectory, inputDiasPackage)
+    public new readonly DirectoryArchiveContent Content;
+    
+    public Noark4Archive(DirectoryArchiveContent content, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
+        : base(content, processingDirectory, inputDiasPackage)
     {
         ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...
     }

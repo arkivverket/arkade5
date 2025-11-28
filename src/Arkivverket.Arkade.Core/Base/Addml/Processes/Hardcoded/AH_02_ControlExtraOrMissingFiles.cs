@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
         public const string Name = "Control_ExtraOrMissingFiles";
 
         private readonly AddmlDefinition _addmlDefinition;
-        private readonly Archive _archive;
+        private readonly AddmlDefinitionTestedArchive _archive;
 
         private readonly List<string> _knownFiles = new List<string> {
             "addml.xml",
@@ -86,7 +86,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
         {
         }
 
-        public AH_02_ControlExtraOrMissingFiles(AddmlDefinition addmlDefinition, Archive archive)
+        public AH_02_ControlExtraOrMissingFiles(AddmlDefinition addmlDefinition, AddmlDefinitionTestedArchive archive)
         {
             _addmlDefinition = addmlDefinition;
             _archive = archive;

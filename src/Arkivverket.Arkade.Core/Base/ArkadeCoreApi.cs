@@ -92,9 +92,9 @@ public class ArkadeCoreApi(
           arkadeApi.GenerateFileFormatInfoFiles(archive); // TODO: Integrate in ArkadeCoreApi
         }
 
-        if (archive.ArchiveType is ArchiveType.Siard)
+        if (archive is SiardArchive siardArchive)
         {
-            siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(archive);
+            siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(siardArchive);
         }
 
         metadataFilesCreator.Create(archive); // TODO: Check!

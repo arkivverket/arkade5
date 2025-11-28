@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.ExternalModels.Metadata;
@@ -11,32 +12,21 @@ public sealed class SiardArchive : Archive
 {
     public readonly FileInfo SiardFile;
 
-    public SiardArchive(FileInfo siardFile, IStatusEventHandler statusEventHandler, DirectoryInfo processingDirectory)
-        : base(null, processingDirectory)
-        //: base(new ArchiveContent([siardFile]), processingDirectory)
+    public SiardArchive(IArchiveContent content, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler, InputDiasPackage inputDiasPackage = null)
+        : base(content, processingDirectory, inputDiasPackage)
     {
+        SiardFile = content switch
+        {
+            FileArchiveContent fileArchiveContent => fileArchiveContent.RootFile,
+            DirectoryArchiveContent directoryArchiveContent => directoryArchiveContent.GetFile("*.siard"),
+            _ => throw new ArgumentOutOfRangeException(nameof(content), content, null)
+        };
+        
+        Details = GetArchiveDetails(SiardFile, statusEventHandler);
+        
+        // TODO: CopySiardFilesToContentDirectory handles external lobs (we don't just now) ...
+        
         ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
-
-        SiardFile = siardFile;
-
-        // TODO: Consider to handle the Siard-file and any external lobs in place (at least until packing)
-        // CopySiardFilesToContentDirectory(siardFile, workingDirectory.Content().ToString());
-
-        //ArchiveInformationEvent(archiveSource.FullName, archiveType);
-
-        Details = GetArchiveDetails(siardFile, statusEventHandler);
-    }
-
-    public SiardArchive(InputDiasPackage inputDiasPackage, IStatusEventHandler statusEventHandler, DirectoryInfo processingDirectory)
-        : base(new ArchiveContent(ArchiveContent.GetContentDirectory(inputDiasPackage)), processingDirectory, inputDiasPackage)
-    {
-        ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
-
-        FileInfo siardFile = Content.GetFile("*.siard");
-
-        SiardFile = siardFile ?? throw new ArkadeException("Siard file not found");
-
-        Details = GetArchiveDetails(siardFile, statusEventHandler);
     }
 
     private static SiardArchiveDetails GetArchiveDetails(FileInfo siardArchiveFile,

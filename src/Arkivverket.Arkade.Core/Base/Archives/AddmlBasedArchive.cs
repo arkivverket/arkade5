@@ -9,12 +9,15 @@ namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public abstract class AddmlBasedArchive : Archive
 {
+    public new readonly DirectoryArchiveContent Content;
     public AddmlXmlUnit AddmlXmlUnit { get; protected init; }
     public AddmlInfo AddmlInfo { get; protected init; }
 
-    protected AddmlBasedArchive(ArchiveContent content, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
+    protected AddmlBasedArchive(DirectoryArchiveContent content, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
         : base(content, processingDirectory, inputDiasPackage)
     {
+        Content = content;
+
         if (Content.GetFile(AddmlXmlFileName) is not { } addmlFileInfo)
         {
             Log.Error("No addml file found in archive.");

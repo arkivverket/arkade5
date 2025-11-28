@@ -108,7 +108,7 @@ namespace Arkivverket.Arkade.Core.Base
         //    return _externalContentDirectory != null;
         //}
 
-        public void EnsureAdministrativeMetadataHasAddmlFiles(string addmlFileName, Archive archive)
+        public void EnsureAdministrativeMetadataHasAddmlFiles(string addmlFileName, AddmlBasedArchive archive)
         {
             TryCopyAddmlFileToAdministrativeMetadata(addmlFileName, archive);
 
@@ -119,7 +119,7 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        private bool TryCopyAddmlFileToAdministrativeMetadata(string addmlFileName, Archive archive)
+        private bool TryCopyAddmlFileToAdministrativeMetadata(string addmlFileName, AddmlBasedArchive archive)
         {
             FileInfo targetAddmlFile = AdministrativeMetadata().WithFile(addmlFileName);
 

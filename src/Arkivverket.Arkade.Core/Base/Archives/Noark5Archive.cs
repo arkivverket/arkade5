@@ -21,32 +21,8 @@ public sealed class Noark5Archive : AddmlBasedArchive
     private DirectoryInfo DocumentsDirectory { get; set; }
     private string DocumentsDirectoryName { get; set; }
 
-    public Noark5Archive(DirectoryInfo archiveExtractionDirectory, DirectoryInfo processingDirectory)
-        : base(new ArchiveContent(archiveExtractionDirectory), processingDirectory)
-    {
-        if (AddmlXmlUnit == null)
-        {
-            if (Content.GetFile(ArkivuttrekkXmlFileName) is not { } n5AddmlFile)
-            {
-                Log.Error("No archive description file found in archive.");
-                return;
-            }
-
-            AddmlXmlUnit = SetupAddmlXmlUnit(n5AddmlFile);
-        }
-
-        AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, AddmlXmlUnit.Schema.AsStream());
-        Details = new ArchiveDetails(AddmlInfo.Addml);
-
-        DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
-
-        SetupArchiveXmlUnits();
-
-        ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
-    }
-
-    public Noark5Archive(InputDiasPackage inputDiasPackage, DirectoryInfo processingDirectory)
-        : base(new ArchiveContent(ArchiveContent.GetContentDirectory(inputDiasPackage)), processingDirectory, inputDiasPackage)
+    public Noark5Archive(DirectoryArchiveContent content, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
+        : base(content, processingDirectory, inputDiasPackage)
     {
         if (AddmlXmlUnit == null)
         {

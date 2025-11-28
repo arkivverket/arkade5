@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         private readonly ILogger _log = Log.ForContext<AddmlDefinitionParser>();
 
         private readonly AddmlInfo _addmlInfo;
-        private readonly ArchiveContent _content;
+        private readonly DirectoryArchiveContent _content;
         private readonly IStatusEventHandler _statusEventHandler;
 
         private readonly Dictionary<string, flatFileType> _flatFileTypes = new Dictionary<string, flatFileType>();
@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _allFieldDefinitions =
             new Dictionary<FieldIndex, AddmlFieldDefinition>();
 
-        public AddmlDefinitionParser(AddmlInfo addmlInfo, ArchiveContent content, IStatusEventHandler statusEventHandler)
+        public AddmlDefinitionParser(AddmlInfo addmlInfo, DirectoryArchiveContent content, IStatusEventHandler statusEventHandler)
         {
             Assert.AssertNotNull(Resources.AddmlMessages.AddmlInfo, addmlInfo);
             _addmlInfo = addmlInfo;

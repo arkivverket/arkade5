@@ -97,8 +97,12 @@ namespace Arkivverket.Arkade.Core.Base
                                           ArkadeConstants.DirectoryNameContent +
                                           Path.DirectorySeparatorChar;
 
+                IEnumerable<FileSystemInfo> allContentsInArchive = archive.Content.GetAllContents(); // TODO: Implement use if this
+
+                var archiveContent = (DirectoryArchiveContent)archive.Content; // TODO: Support FileArchiveContent
+                
                 AddFilesInDirectory(
-                    outputDiasPackage, archive.Content.RootDirectory, null, tarArchive, contentDirectory
+                    outputDiasPackage, archiveContent.RootDirectory, null, tarArchive, contentDirectory
                 );
             }
 
