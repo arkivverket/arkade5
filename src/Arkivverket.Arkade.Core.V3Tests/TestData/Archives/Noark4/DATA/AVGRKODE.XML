@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE AVGRADKODE.TAB SYSTEM "AVGRKODE.DTD">
+<AVGRADKODE.TAB VERSJON="1.0">
+   <AVGRADKODE>
+      <AG.KODE>A</AG.KODE>
+      <AG.BETEGN>Avgraderes ved funksjon kjørt etter avgraderingstidspunkt</AG.BETEGN>
+   </AVGRADKODE>
+   <AVGRADKODE>
+      <AG.KODE>G</AG.KODE>
+      <AG.BETEGN>Gjennomgås for vurdering ved avgraderingstidspunkt</AG.BETEGN>
+   </AVGRADKODE>
+   <AVGRADKODE>
+      <AG.KODE>S</AG.KODE>
+      <AG.BETEGN>Sperrefrist, avgraderes automatisk på avgraderingsdato</AG.BETEGN>
+   </AVGRADKODE>
+   <AVGRADKODE>
+      <AG.KODE>AU</AG.KODE>
+      <AG.BETEGN>Avgradering utført</AG.BETEGN>
+   </AVGRADKODE>
+   <AVGRADKODE>
+      <AG.KODE>U</AG.KODE>
+      <AG.BETEGN>Unntatt fra automatisk avgradering</AG.BETEGN>
+   </AVGRADKODE>
+</AVGRADKODE.TAB>

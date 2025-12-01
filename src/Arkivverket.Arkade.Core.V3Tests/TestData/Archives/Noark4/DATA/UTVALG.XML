@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE UTVALG.TAB SYSTEM "UTVALG.DTD">
+<UTVALG.TAB VERSJON="1.0">
+   <UTVALG>
+      <UT.ID>189</UT.ID>
+      <UT.KODE>ADM</UT.KODE>
+      <UT.NAVN>Administrasjonsutvalget</UT.NAVN>
+      <UT.BESKR>Dette er et viktig utvalg</UT.BESKR>
+      <UT.ADMID>168</UT.ADMID>
+      <UT.ETABLERT>19950101</UT.ETABLERT>
+      <UT.ARKDEL>ADM98-02</UT.ARKDEL>
+      <UT.ARKKODE>ADMIN</UT.ARKKODE>
+      <UT.MONUMSER>189</UT.MONUMSER>
+   </UTVALG>
+   <UTVALG>
+      <UT.ID>190</UT.ID>
+      <UT.KODE>FSK</UT.KODE>
+      <UT.NAVN>Formannskap</UT.NAVN>
+      <UT.BESKR>Her er en merknad til utvalget.</UT.BESKR>
+      <UT.ADMID>0</UT.ADMID>
+      <UT.ARKDEL>EA2000</UT.ARKDEL>
+      <UT.ARKKODE>RP FSK2002</UT.ARKKODE>
+      <UT.MONUMSER>190</UT.MONUMSER>
+   </UTVALG>
+   <UTVALG>
+      <UT.ID>132</UT.ID>
+      <UT.KODE>KST</UT.KODE>
+      <UT.NAVN>Kommunestyret</UT.NAVN>
+      <UT.ADMID>0</UT.ADMID>
+      <UT.ARKDEL>HA</UT.ARKDEL>
+      <UT.MONUMSER>132</UT.MONUMSER>
+   </UTVALG>
+   <UTVALG>
+      <UT.ID>169</UT.ID>
+      <UT.KODE>HOS</UT.KODE>
+      <UT.NAVN>Hovedutvalg for helse og sosial</UT.NAVN>
+      <UT.ADMID>0</UT.ADMID>
+      <UT.ETABLERT>19950101</UT.ETABLERT>
+      <UT.NEDLAGT>20020601</UT.NEDLAGT>
+      <UT.ARKDEL>EA2000</UT.ARKDEL>
+      <UT.MONUMSER>169</UT.MONUMSER>
+   </UTVALG>
+   <UTVALG>
+      <UT.ID>170</UT.ID>
+      <UT.KODE>TEK</UT.KODE>
+      <UT.NAVN>Hovedutvalg for teknikk og miljø</UT.NAVN>
+      <UT.BESKR>Utvalget behandler både byggesaker og plansaker</UT.BESKR>
+      <UT.ADMID>174</UT.ADMID>
+      <UT.ARKDEL>FELLES</UT.ARKDEL>
+      <UT.MONUMSER>170</UT.MONUMSER>
+   </UTVALG>
+   <UTVALG>
+      <UT.ID>171</UT.ID>
+      <UT.KODE>KUL</UT.KODE>
+      <UT.NAVN>Hovedutvalg for Kultur</UT.NAVN>
+      <UT.ADMID>0</UT.ADMID>
+      <UT.MONUMSER>171</UT.MONUMSER>
+   </UTVALG>
+   <UTVALG>
+      <UT.ID>187</UT.ID>
+      <UT.KODE>ANS</UT.KODE>
+      <UT.NAVN>Ansettelsesrådet</UT.NAVN>
+      <UT.ADMID>0</UT.ADMID>
+      <UT.ETABLERT>19990101</UT.ETABLERT>
+      <UT.NEDLAGT>20011231</UT.NEDLAGT>
+      <UT.MONUMSER>187</UT.MONUMSER>
+   </UTVALG>
+</UTVALG.TAB>

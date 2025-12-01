@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE AVSKRMAATE.TAB SYSTEM "AVSKRM.DTD">
+<AVSKRMAATE.TAB VERSJON="1.0">
+   <AVSKRMAATE>
+      <AV.KODE>BU</AV.KODE>
+      <AV.BETEGN>Besvart med utgående brev</AV.BETEGN>
+      <AV.MIDLERTID>0</AV.MIDLERTID>
+      <AV.BESVART>1</AV.BESVART>
+   </AVSKRMAATE>
+   <AVSKRMAATE>
+      <AV.KODE>SA</AV.KODE>
+      <AV.BETEGN>Saken er avsluttet</AV.BETEGN>
+      <AV.MIDLERTID>0</AV.MIDLERTID>
+      <AV.BESVART>0</AV.BESVART>
+   </AVSKRMAATE>
+   <AVSKRMAATE>
+      <AV.KODE>TE</AV.KODE>
+      <AV.BETEGN>Brevet er tatt til etteretning</AV.BETEGN>
+      <AV.MIDLERTID>0</AV.MIDLERTID>
+      <AV.BESVART>0</AV.BESVART>
+   </AVSKRMAATE>
+   <AVSKRMAATE>
+      <AV.KODE>TO</AV.KODE>
+      <AV.BETEGN>Brevet er tatt til orientering</AV.BETEGN>
+      <AV.MIDLERTID>0</AV.MIDLERTID>
+      <AV.BESVART>0</AV.BESVART>
+   </AVSKRMAATE>
+   <AVSKRMAATE>
+      <AV.KODE>TLF</AV.KODE>
+      <AV.BETEGN>Besvart telefonisk</AV.BETEGN>
+      <AV.MIDLERTID>0</AV.MIDLERTID>
+      <AV.BESVART>0</AV.BESVART>
+   </AVSKRMAATE>
+   <AVSKRMAATE>
+      <AV.KODE>NN</AV.KODE>
+      <AV.BETEGN>Notatet er besvart med nytt notat</AV.BETEGN>
+      <AV.MIDLERTID>0</AV.MIDLERTID>
+      <AV.BESVART>1</AV.BESVART>
+   </AVSKRMAATE>
+   <AVSKRMAATE>
+      <AV.KODE>***</AV.KODE>
+      <AV.BETEGN>Foreløbig svar</AV.BETEGN>
+      <AV.MIDLERTID>1</AV.MIDLERTID>
+      <AV.BESVART>1</AV.BESVART>
+   </AVSKRMAATE>
+   <AVSKRMAATE>
+      <AV.KODE>ALL</AV.KODE>
+      <AV.BETEGN>Alle adressater er avskrevet</AV.BETEGN>
+      <AV.MIDLERTID>0</AV.MIDLERTID>
+      <AV.BESVART>0</AV.BESVART>
+   </AVSKRMAATE>
+</AVSKRMAATE.TAB>

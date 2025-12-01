@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE JOURNENHET.TAB SYSTEM "JOURNENH.DTD">
+<JOURNENHET.TAB VERSJON="1.0">
+   <JOURNENHET>
+      <JE.JENHET>AD</JE.JENHET>
+      <JE.BETEGN>Administrasjonen</JE.BETEGN>
+   </JOURNENHET>
+   <JOURNENHET>
+      <JE.JENHET>HOS</JE.JENHET>
+      <JE.BETEGN>Helse og sosial</JE.BETEGN>
+   </JOURNENHET>
+   <JOURNENHET>
+      <JE.JENHET>TEK</JE.JENHET>
+      <JE.BETEGN>Teknisk</JE.BETEGN>
+   </JOURNENHET>
+   <JOURNENHET>
+      <JE.JENHET>EA</JE.JENHET>
+      <JE.BETEGN>Standard journalenhet for eArkiv</JE.BETEGN>
+   </JOURNENHET>
+</JOURNENHET.TAB>

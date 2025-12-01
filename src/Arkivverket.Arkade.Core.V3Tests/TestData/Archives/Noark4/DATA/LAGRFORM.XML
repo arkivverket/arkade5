@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE LAGRFORMAT.TAB SYSTEM "LAGRFORM.DTD">
+<LAGRFORMAT.TAB VERSJON="1.0">
+   <LAGRFORMAT>
+      <LF.KODE>Excel 5.0</LF.KODE>
+      <LF.BESKRIV>Excel regneark</LF.BESKRIV>
+      <LF.ARKIV>0</LF.ARKIV>
+      <LF.FILTYPE>XLS</LF.FILTYPE>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>Excel 7.0</LF.KODE>
+      <LF.BESKRIV>Excel regneark</LF.BESKRIV>
+      <LF.ARKIV>0</LF.ARKIV>
+      <LF.FILTYPE>XLS</LF.FILTYPE>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>Excel 97</LF.KODE>
+      <LF.BESKRIV>Excel regneark</LF.BESKRIV>
+      <LF.ARKIV>0</LF.ARKIV>
+      <LF.FILTYPE>XLS</LF.FILTYPE>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>K2000 Scan</LF.KODE>
+      <LF.BESKRIV>Kontor 2000 Skanning</LF.BESKRIV>
+      <LF.ARKIV>0</LF.ARKIV>
+      <LF.FILTYPE>TIF</LF.FILTYPE>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>QuickView 3.0</LF.KODE>
+      <LF.BESKRIV>QuickView Plus 3.0</LF.BESKRIV>
+      <LF.ARKIV>0</LF.ARKIV>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>RA-PDF</LF.KODE>
+      <LF.BESKRIV>Portable Document Format</LF.BESKRIV>
+      <LF.ARKIV>1</LF.ARKIV>
+      <LF.FILTYPE>PDF</LF.FILTYPE>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>RA-SGML</LF.KODE>
+      <LF.BESKRIV>SGML med tilhørende DTD</LF.BESKRIV>
+      <LF.ARKIV>1</LF.ARKIV>
+      <LF.FILTYPE>SGM</LF.FILTYPE>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>RA-TEKST</LF.KODE>
+      <LF.BESKRIV>ISO 8859-1</LF.BESKRIV>
+      <LF.ARKIV>1</LF.ARKIV>
+      <LF.FILTYPE>TXT</LF.FILTYPE>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>RA-TIFF6</LF.KODE>
+      <LF.BESKRIV>TIFF versjon 6</LF.BESKRIV>
+      <LF.ARKIV>1</LF.ARKIV>
+      <LF.FILTYPE>TIF</LF.FILTYPE>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>TabQuik</LF.KODE>
+      <LF.BESKRIV>Utskrift av TabQuik-etiketter</LF.BESKRIV>
+      <LF.ARKIV>0</LF.ARKIV>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>Word 6.0 NO</LF.KODE>
+      <LF.BESKRIV>Microsoft Word 6.0/7.0 norsk makrotolk</LF.BESKRIV>
+      <LF.ARKIV>0</LF.ARKIV>
+      <LF.FILTYPE>DOC</LF.FILTYPE>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>Word 97</LF.KODE>
+      <LF.BESKRIV>Microsoft Word 97 makrotolk</LF.BESKRIV>
+      <LF.ARKIV>0</LF.ARKIV>
+      <LF.FILTYPE>DOC</LF.FILTYPE>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>WordPro 97</LF.KODE>
+      <LF.BESKRIV>Lotus WordPro 97 / 9 (millennium) makrotolk</LF.BESKRIV>
+      <LF.ARKIV>0</LF.ARKIV>
+      <LF.FILTYPE>LWP</LF.FILTYPE>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>WP 6.1</LF.KODE>
+      <LF.BESKRIV>WordPerfect 6.1 engelsk makrotolk</LF.BESKRIV>
+      <LF.ARKIV>0</LF.ARKIV>
+      <LF.FILTYPE>WPD</LF.FILTYPE>
+   </LAGRFORMAT>
+   <LAGRFORMAT>
+      <LF.KODE>WP 9</LF.KODE>
+      <LF.BESKRIV>WordPerfect 9 via PerfectScript 9</LF.BESKRIV>
+      <LF.ARKIV>0</LF.ARKIV>
+      <LF.FILTYPE>WPD</LF.FILTYPE>
+   </LAGRFORMAT>
+</LAGRFORMAT.TAB>

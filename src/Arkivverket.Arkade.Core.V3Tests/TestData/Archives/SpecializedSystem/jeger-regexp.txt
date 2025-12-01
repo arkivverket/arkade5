@@ -1,0 +1,20 @@
+# jeger.dat - 11 fnr + 25 etternavn + 25 fornavn 30 adresse
+# /^.\{91}/123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890A/
+/^.\{91}/12345678901Johansen                 Johan                    Johansens vei 12              /
+# ut_jeger: 11 plassnummer, 12 landkort, navn 50 adresse 32 adresse2 32 adresse3 32 adresse4 32 landlang 22 pnr. 6
+/^\(.\{16}\)\(.\{178}\)\(.\{22}\)\(.\{6}\)/\1Holger Danske                                     Adresse 1                       Adresse 2                       Adresse 3                       Adresse 4                       \3999999/
+# ikkejeg fnr 11 + 25 etternavn + 25 fornavn 30 adresse
+/^.\{91}/12345678901Johansen                 Johan                    Johansens vei 12              /
+# jegerK (jegerkort): 11 + IDnummer 15 + navn 50 adresse 32 adresse2 32 adresse3 32 adresse4 32 
+/^\(.\{11}\)\(.\{15}\)\(.\{178}\)/01234567891\2Per Pettersen                                     Adresse 1                       Adresse 2                       Adresse 3                       Adresse 4                       /
+# betalinf - er anonym
+# betalt.dat - fn 11 - arkiv 11 - 10 la stå - 7 kontonr. men er blankt
+/^\(.\{11}\)/99999999999/
+# feilreg - 33 urørt - 11 fnr.
+/^\(.\{33}\)\(.\{11}\)/\122222222222/
+# jegstat1 er anonym
+# jegstat2 er anonym
+# ut_jegst er anonym
+
+
+
