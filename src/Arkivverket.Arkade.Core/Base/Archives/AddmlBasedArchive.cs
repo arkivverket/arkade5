@@ -33,10 +33,8 @@ public abstract class AddmlBasedArchive : Archive
     {
         var addmlXmlFile = new ArchiveXmlFile(addmlFileInfo);
 
-        FileInfo addmlXsdFileInfo = Content.GetFile(AddmlXsdFileName);
-
-        ArchiveXmlSchema addmlSchema = addmlXsdFileInfo.Exists
-            ? new UserProvidedXmlSchema(addmlXsdFileInfo)
+        ArchiveXmlSchema addmlSchema = Content.GetFile(AddmlXsdFileName) is { } addmlXsdFile
+            ? new UserProvidedXmlSchema(addmlXsdFile)
             : new ArkadeBuiltInXmlSchema(AddmlXsdFileName, new Version(BuiltInAddmlSchemaVersion));
 
         return new AddmlXmlUnit(addmlXmlFile, addmlSchema);
