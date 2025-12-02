@@ -15,12 +15,12 @@ public class DirectoryArchiveContent(DirectoryInfo contentDirectory) : IArchiveC
 
     public FileInfo GetFile(string filePath)
     {
-        return RootDirectory.EnumerateFiles(filePath, SearchOption.AllDirectories).FirstOrDefault();
+        return RootDirectory.EnumerateFiles(filePath).FirstOrDefault();
     }
 
     public DirectoryInfo GetDirectory(string directoryPath)
     {
-        return RootDirectory.EnumerateDirectories(directoryPath, SearchOption.AllDirectories).FirstOrDefault();
+        return RootDirectory.EnumerateDirectories(directoryPath).FirstOrDefault();
     }
 
     public IEnumerable<FileSystemInfo> GetAllContents()
