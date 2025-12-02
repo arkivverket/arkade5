@@ -111,7 +111,7 @@ public class ArchiveFactoryTest : IDisposable
     public void CreateSpecializedSystemArchiveFromDiasTest()
     {
         var specializedSystemArchiveInDiasTarFile = new FileInfo(Path.Combine(TestDataDirectory,
-            "Archives", "SpecializedSystem", "diasPackage", "c76c20b9-a176-4ab4-8922-6b35ac50dae0.tar"));
+            "Archives", "SpecializedSystem", "diasPackage", "bf193afe-4483-4481-b457-e9ba4f19681c.tar"));
         Archive specializedSystemArchiveFromDias =
             ArchiveFactory.Create(specializedSystemArchiveInDiasTarFile, ArchiveType.SpecializedSystem);
         specializedSystemArchiveFromDias.GetType().Should().Be(typeof(SpecializedSystemArchive));
