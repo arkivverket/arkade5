@@ -26,6 +26,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Update="TestData\Archives\**\*">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+  
+    <ItemGroup>
       <None Update="TestData\DocumentDirectoryTest\content\arkivuttrekk.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>

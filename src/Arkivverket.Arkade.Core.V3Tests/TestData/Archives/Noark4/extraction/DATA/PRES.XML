@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE PRESEDENS.TAB SYSTEM "PRES.DTD">
+<PRESEDENS.TAB VERSJON="1.0">
+   <PRESEDENS>
+      <PS.ID>200071</PS.ID>
+      <PS.EKSTERN>0</PS.EKSTERN>
+      <PS.SAID>200071</PS.SAID>
+      <PS.DATO>20020304</PS.DATO>
+      <PS.FORELDET>0</PS.FORELDET>
+      <PS.TITTEL>BYGGING AV NY UTEPLASS VED HAMAR BÅTHAVN</PS.TITTEL>
+      <PS.TYPE>STD STD</PS.TYPE>
+      <PS.ADMID>107</PS.ADMID>
+      <PS.TGKODE> </PS.TGKODE>
+      <PS.TGGRUPPE>143</PS.TGGRUPPE>
+      <PS.HJEMMEL>Med hjemmel i plan og bygningslovens §19b for bestemmelser av brygger ved båthavner i hele Norge Er det samme nedfelt i våre rutiner for bygging av brygger fra før kansje? 3 linjer mulig</PS.HJEMMEL>
+      <PS.TEKST>Det tillates i denne kommunen at brygger bygges 4 meter utover grenser som er satt i PLB §19b Hvis du vil uttype denne teksten ytterligere er det plass til flere tegn enn det som umiddelbart vises i feltet for beskrivelse Utnytt all plassen hvis behov 256</PS.TEKST>
+   </PRESEDENS>
+   <PRESEDENS>
+      <PS.ID>200074</PS.ID>
+      <PS.EKSTERN>0</PS.EKSTERN>
+      <PS.SAID>200074</PS.SAID>
+      <PS.DATO>20020305</PS.DATO>
+      <PS.FORELDET>0</PS.FORELDET>
+      <PS.TITTEL>Søknad om forenklet behandling</PS.TITTEL>
+      <PS.TYPE>STD STD</PS.TYPE>
+      <PS.ADMID>107</PS.ADMID>
+      <PS.TGGRUPPE>143</PS.TGGRUPPE>
+      <PS.HJEMMEL>Ja kanskje det...</PS.HJEMMEL>
+      <PS.TEKST>Kjekt å ha</PS.TEKST>
+   </PRESEDENS>
+   <PRESEDENS>
+      <PS.ID>200122</PS.ID>
+      <PS.EKSTERN>0</PS.EKSTERN>
+      <PS.SAID>200122</PS.SAID>
+      <PS.JPID>2000281</PS.JPID>
+      <PS.DATO>20020601</PS.DATO>
+      <PS.FORELDET>0</PS.FORELDET>
+      <PS.TITTEL>GAVE TIL PRINSESSEBRYLLUPET</PS.TITTEL>
+      <PS.TYPE>STD STD</PS.TYPE>
+      <PS.ADMID>185</PS.ADMID>
+      <PS.TGKODE>F</PS.TGKODE>
+      <PS.TGGRUPPE>0</PS.TGGRUPPE>
+      <PS.UOFF>Ofl §5a Besk.instr.</PS.UOFF>
+      <PS.HJEMMEL>øljk ølkj </PS.HJEMMEL>
+      <PS.TEKST>ølkj ølkj </PS.TEKST>
+   </PRESEDENS>
+   <PRESEDENS>
+      <PS.ID>200128</PS.ID>
+      <PS.EKSTERN>0</PS.EKSTERN>
+      <PS.SAID>200128</PS.SAID>
+      <PS.JPID>2000282</PS.JPID>
+      <PS.DATO>20020902</PS.DATO>
+      <PS.FORELDET>0</PS.FORELDET>
+      <PS.TITTEL>TESTING</PS.TITTEL>
+      <PS.TYPE>STD STD</PS.TYPE>
+      <PS.ADMID>107</PS.ADMID>
+      <PS.TGGRUPPE>141</PS.TGGRUPPE>
+      <PS.HJEMMEL>Her er hjemmelen for presedens</PS.HJEMMEL>
+      <PS.TEKST>Her er beskrivelsen av ølj ølj ølkj ølkj </PS.TEKST>
+   </PRESEDENS>
+   <PRESEDENS>
+      <PS.ID>200130</PS.ID>
+      <PS.EKSTERN>0</PS.EKSTERN>
+      <PS.SAID>200130</PS.SAID>
+      <PS.JPID>2000291</PS.JPID>
+      <PS.DATO>20020920</PS.DATO>
+      <PS.FORELDET>0</PS.FORELDET>
+      <PS.TITTEL>SØKNAD OM ØKONOMISK STØTTE TIL INNKJØP AV LEKEAPPARATER</PS.TITTEL>
+      <PS.TYPE>STD STD</PS.TYPE>
+      <PS.ADMID>185</PS.ADMID>
+      <PS.TGGRUPPE>0</PS.TGGRUPPE>
+      <PS.HJEMMEL>Her er hjemmelen </PS.HJEMMEL>
+      <PS.TEKST>Her er beskrivelsen</PS.TEKST>
+   </PRESEDENS>
+   <PRESEDENS>
+      <PS.ID>200131</PS.ID>
+      <PS.EKSTERN>0</PS.EKSTERN>
+      <PS.SAID>200131</PS.SAID>
+      <PS.JPID>2000293</PS.JPID>
+      <PS.DATO>20020901</PS.DATO>
+      <PS.FORELDET>0</PS.FORELDET>
+      <PS.TITTEL>SØKNAD OM Å FÅ SELGE BOLLER PÅ TORGET </PS.TITTEL>
+      <PS.TYPE>STD STD</PS.TYPE>
+      <PS.ADMID>185</PS.ADMID>
+      <PS.TGGRUPPE>0</PS.TGGRUPPE>
+      <PS.HJEMMEL>Her er hjemmelen.</PS.HJEMMEL>
+      <PS.TEKST>Handel på torget kan godtas i de fleste tilfeller.</PS.TEKST>
+   </PRESEDENS>
+</PRESEDENS.TAB>
