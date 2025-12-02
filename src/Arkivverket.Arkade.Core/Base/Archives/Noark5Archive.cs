@@ -34,8 +34,10 @@ public sealed class Noark5Archive : AddmlBasedArchive
 
             AddmlXmlUnit = SetupAddmlXmlUnit(n5AddmlFile);
         }
-
-        AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, AddmlXmlUnit.Schema.AsStream());
+        
+        using (Stream schemaStream = AddmlXmlUnit.Schema.AsStream())
+            AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, schemaStream);
+        
         Details = new ArchiveDetails(AddmlInfo.Addml);
 
         DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
