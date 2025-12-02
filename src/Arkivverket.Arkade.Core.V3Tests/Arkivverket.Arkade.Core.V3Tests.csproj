@@ -26,7 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="TestData\Archives\**\*">
+      <None Update="TestData\**\*">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
