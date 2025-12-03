@@ -5,40 +5,42 @@ namespace Arkivverket.Arkade.Core.V3Tests;
 
 public class DirectoryArchiveContentTest
 {
-    private readonly DirectoryInfo _testContentDirectory =
-        new(Path.Combine(Environment.CurrentDirectory, "TestData", "Archives", "Noark5", "extraction"));
-    
+    private static readonly DirectoryInfo TestDirectory = new(
+        Path.Combine(Environment.CurrentDirectory, "TestData", "Archives", "Noark5", "extraction"));
+
+    private readonly DirectoryArchiveContent _content = new(TestDirectory);
+
     [Fact]
     public void RootDirectoryTest()
     {
-        var content = new DirectoryArchiveContent(_testContentDirectory);
-        
-        content.RootDirectory.FullName.Should().Be(_testContentDirectory.FullName);
+        _content.RootDirectory.FullName.Should().Be(TestDirectory.FullName);
     }
 
     [Fact]
     public void GetFileTest()
     {
-        var content = new DirectoryArchiveContent(_testContentDirectory);
-    
-        content.GetFile("dokumenter/5000000.pdf").Should().NotBeNull();
-        content.GetFile("5000000.pdf").Should().BeNull();
-        content.GetFile("dokumenter/nonExisting/5000000.pdf").Should().BeNull(); // Works with caught exception 
+        _content.GetFile("dokumenter/5000000.pdf").Should().NotBeNull();
+        _content.GetFile("5000000.pdf").Should().BeNull();
+        _content.GetFile("nonExisting/5000000.pdf").Should().BeNull();
+        _content.Invoking(c => c.GetFile(null)).Should().Throw();
     }
 
     [Fact]
     public void GetDirectoryTest()
     {
-        var content = new DirectoryArchiveContent(_testContentDirectory);
-
-        content.GetDirectory("dokumenter").Should().NotBeNull();
-        content.GetDirectory("nonExisting").Should().BeNull();
-        content.GetDirectory("dokumenter/nonExisting").Should().BeNull(); // Why does it work without catching exception? 
+        _content.GetDirectory("dokumenter").Should().NotBeNull();
+        _content.GetDirectory("nonExisting").Should().BeNull();
+        _content.GetDirectory("nonExisting/dokumenter").Should().BeNull();
+        _content.Invoking(c => c.GetDirectory(null)).Should().Throw();
     }
 
     [Fact]
     public void GetAllContentsTest()
     {
-        //return RootDirectory.EnumerateFileSystemInfos("*", SearchOption.AllDirectories);
+        FileSystemInfo[] allContents = _content.GetAllContents().ToArray();
+
+        allContents.Should().Contain(f => f.Name.Equals("addml.xsd"));
+        allContents.Should().Contain(f => f.Name.Equals("5000000.pdf"));
+        allContents.Should().Contain(f => f.Name.Equals("dokumenter"));
     }
 }
