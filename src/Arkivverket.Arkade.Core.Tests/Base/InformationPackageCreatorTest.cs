@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
 using FluentAssertions;
@@ -28,9 +29,16 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         {
             DeleteOldUnitTestResultsBeforeNewRun();
 
-            Archive archive = new ArchiveBuilder().WithUuid(Uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
+            var content = new DirectoryArchiveContent(new DirectoryInfo(Path.Combine(_workingDirectory, "content")));
+            
+            Archive archive = new ArchiveBuilder(content, null) // Set processing directory!
+                //.WithInputDiasPackage(_archiveMetadata)
+                .Build<Noark5Archive>();
 
-            string packageFilePath = new InformationPackageCreator().CreateSip(archive, _archiveMetadata, _outputDirectory);
+            archive.OutputDiasPackage = new OutputDiasPackage( // NB! UUID-origin
+                PackageType.SubmissionInformationPackage, _archiveMetadata, archive.ProcessingDirectory);
+            
+            string packageFilePath = new InformationPackageCreator().CreateSip(archive, _outputDirectory);
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
@@ -59,9 +67,13 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         [Trait("Category", "Integration")]
         public void Test02_ShouldCreateAip() // TODO: Remove the created packages
         {
-            Archive archive = new ArchiveBuilder().WithUuid(Uuid).WithWorkingDirectoryRoot(_workingDirectory).Build();
+            var content = new DirectoryArchiveContent(new DirectoryInfo(Path.Combine(_workingDirectory, "content")));
+            
+            Archive archive = new ArchiveBuilder(content, null)
+                //.WithInputDiasPackage(_archiveMetadata)
+                .Build<Noark5Archive>();
 
-            string packageFilePath = new InformationPackageCreator().CreateAip(archive, _archiveMetadata, _outputDirectory);
+            string packageFilePath = new InformationPackageCreator().CreateAip(archive, _outputDirectory);
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 

@@ -1,11 +1,18 @@
+using System;
 using System.IO;
+using System.Reflection.Emit;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Moq;
 
 namespace Arkivverket.Arkade.Core.Tests.Base
 {
-    public class ArchiveBuilder
+    public class ArchiveBuilder(IArchiveContent content, DirectoryInfo processingDirectory)
     {
+        private IArchiveContent _content = content;
+        private DirectoryInfo _processingDirectory = processingDirectory;
+        private InputDiasPackage _inputDiasPackage;
+        
         private ArchiveType _archiveType = ArchiveType.Noark5;
         private ArchiveDetails _archiveDetails;
 
@@ -50,23 +57,55 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             return this;
         }
 
-        public ArchiveBuilder WithArchiveDetails(string standardVersion)
+        // public ArchiveBuilder WithArchiveDetails(string standardVersion)
+        // {
+        //     var mock = new Mock<ArchiveDetails>(Build().AddmlInfo.Addml);
+        //     mock.Setup(x => x.ArchiveStandard).Returns(standardVersion);
+        //     _archiveDetails = mock.Object;
+        //     return this;
+        // }
+
+        public ArchiveBuilder WithProcessingDirectory()
         {
-            var mock = new Mock<ArchiveDetails>(Build().AddmlInfo.Addml);
-            mock.Setup(x => x.ArchiveStandard).Returns(standardVersion);
-            _archiveDetails = mock.Object;
+            _processingDirectory = new DirectoryInfo(Path.Combine(_workingDirectory.FullName, _uuid.ToString())); // øh ..
+            
             return this;
         }
-        public ArchiveBuilder WithArchiveFileFullName(string archiveFileFullName)
+        
+        public ArchiveBuilder WithContent<T>(string pathToContent) where T : IArchiveContent
         {
-            _archiveFileFullName = archiveFileFullName;
+            _content = typeof(T) switch
+            {
+                var t when t == typeof(DirectoryArchiveContent)
+                    => new Mock<DirectoryArchiveContent>(new DirectoryInfo(pathToContent)).Object,
+                
+                var t when t == typeof(FileArchiveContent)
+                    => new Mock<FileArchiveContent>(new FileInfo(pathToContent)).Object,
+                
+                _ => throw new ArgumentException($"Unknown content type: {typeof(T)}")
+            };
+
             return this;
         }
 
-        public Archive Build()
+        public ArchiveBuilder WithInputDiasPackage(ArchiveMetadata archiveMetadata)
         {
-            var archive = new Archive(_archiveType, _uuid, null, new WorkingDirectory(_workingDirectory, _workingDirectoryContent), null, _archiveFileFullName);
-            return archive;
+            var mock = new Mock<InputDiasPackage>(); //_uuid, null!, null!);
+            //mock.Setup(x => x.ArchiveMetadata).Returns(archiveMetadata);
+            _inputDiasPackage = mock.Object;
+            
+            return this;
+        }
+
+        public Archive Build<T>() where T : Archive
+        {
+            if (_content == null)
+                throw new Exception("Content is required for all types of archives");
+            
+            // if (_processingDirectory == null)
+            //     throw new Exception("ProcessingDirectory is required for all types of archives");
+            
+            return (Archive)Activator.CreateInstance(typeof(T), _content, _processingDirectory, _inputDiasPackage);
         }
     }
 }
