@@ -27,6 +27,13 @@
     <None Remove="Properties\**" />
   </ItemGroup>
 
+  <!-- - - - - - - -  Keep during v3 adpation  - - - - - - - -->
+  <ItemGroup>
+    <Compile Remove="*\**" />
+    <None Include="*\**" />
+  </ItemGroup>
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  
   <ItemGroup>
     <None Remove="TestData\DiskUsage\docx.docx" />
     <None Remove="TestData\DiskUsage\pdf.pdf" />
