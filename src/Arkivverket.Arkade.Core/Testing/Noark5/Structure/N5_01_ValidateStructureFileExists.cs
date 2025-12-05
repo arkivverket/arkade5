@@ -3,6 +3,7 @@ using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using System.Collections.Generic;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base.Archives;
 
 namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
@@ -32,11 +33,16 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
 
         public override void Test(Noark5Archive archive)
         {
-            foreach (ArchiveXmlUnit xmlUnit in archive.XmlUnits)
+            foreach (KeyValuePair<string, IEnumerable<string>> documentedXmlUnit in archive.Details.DocumentedXmlUnits)
             {
-                foreach (string missingFile in xmlUnit.GetMissingFiles())
-                    _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
-                        string.Format(Noark5Messages.ValidateStructureFileExists_FileMissing, missingFile)));
+                foreach (string documentedXmlFile in documentedXmlUnit.Value.Concat([documentedXmlUnit.Key]))
+                {
+                    if (archive.Content.GetFile(documentedXmlFile) is null)
+                    {
+                        _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
+                            string.Format(Noark5Messages.ValidateStructureFileExists_FileMissing, documentedXmlFile)));
+                    }
+                }
             }
         }
     }
