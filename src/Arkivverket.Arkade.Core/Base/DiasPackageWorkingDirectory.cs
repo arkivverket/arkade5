@@ -126,9 +126,7 @@ namespace Arkivverket.Arkade.Core.Base
             if (targetAddmlFile.Exists)
                 return false;
 
-            FileInfo contentAddml = archive.Content.GetFile(addmlFileName); // TODO: Get from AddmlBasedArchive.AddmlXmlUnit instead?
-
-            if (!contentAddml.Exists)
+            if (archive.Content.GetFile(addmlFileName) is not {} contentAddml) // TODO: Get from AddmlBasedArchive.AddmlXmlUnit instead?
                 return false;
 
             Log.Debug($"Copying ADDML file {contentAddml.FullName} to administrative_metadata.");
