@@ -18,8 +18,6 @@ namespace Arkivverket.Arkade.Core.Metadata
         {
             OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
 
-            outputDiasPackage.WorkingDirectory.CreateAllFolders(); // Experimental!
-
             foreach (IMetadataCreator metadataCreator in _metadataCreators)
                 metadataCreator.CreateAndSaveFile(outputDiasPackage);
             

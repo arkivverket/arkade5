@@ -57,6 +57,8 @@ namespace Arkivverket.Arkade.Core.Base
         {
             OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
             
+            outputDiasPackage.WorkingDirectory.CreateAllFolders();
+            
             metadataFilesCreator.Create(archive);
 
             if (archive is AddmlBasedArchive addmlArchive && archive is Noark5Archive or SpecializedSystemArchive)
