@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             archive.OutputDiasPackage = new OutputDiasPackage( // NB! UUID-origin
                 PackageType.SubmissionInformationPackage, _archiveMetadata, archive.ProcessingDirectory);
             
-            string packageFilePath = new InformationPackageCreator().CreateSip(archive, _outputDirectory);
+            string packageFilePath = CreateInformationPackageCreator().CreateSip(archive, _outputDirectory);
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
@@ -79,7 +79,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             archive.OutputDiasPackage = new OutputDiasPackage( // NB! UUID-origin
                 PackageType.ArchivalInformationPackage, _archiveMetadata, archive.ProcessingDirectory);
             
-            string packageFilePath = new InformationPackageCreator().CreateAip(archive, _outputDirectory);
+            string packageFilePath = CreateInformationPackageCreator().CreateAip(archive, _outputDirectory);
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
 
@@ -104,6 +104,15 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             fileList.Contains(rootDir + "descriptive_metadata/eac-cpf.xml").Should().BeTrue();
             
             Directory.Delete(_processingDirectoryPath, true);
+        }
+
+        private static InformationPackageCreator CreateInformationPackageCreator()
+        {
+            var metadataFilesCreator = new MetadataFilesCreator(
+                new DiasMetsCreator(), new DiasPremisCreator(), new EadCreator(), new EacCpfCreator(), new LogCreator()
+            );
+
+            return new InformationPackageCreator(metadataFilesCreator);
         }
 
         private static List<string> GetFileListFromArchive(string targetFileName)

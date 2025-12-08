@@ -18,7 +18,6 @@ public class ArkadeCoreApi(
     TestSessionFactory testSessionFactory,
     TestEngineFactory testEngineFactory,
     TestSessionXmlGenerator testSessionXmlGenerator,
-    MetadataFilesCreator metadataFilesCreator,
     InformationPackageCreator informationPackageCreator,
     SiardMetadataFileHelper siardMetadataFileHelper,
     ArchiveFactory archiveFactory,
@@ -96,8 +95,6 @@ public class ArkadeCoreApi(
         {
             siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(siardArchive);
         }
-
-        metadataFilesCreator.Create(archive); // TODO: Check!
 
         string packageFilePath;
 

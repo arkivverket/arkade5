@@ -14,7 +14,7 @@ using Arkivverket.Arkade.Core.Base.Archives;
 
 namespace Arkivverket.Arkade.Core.Base
 {
-    public class InformationPackageCreator
+    public class InformationPackageCreator(MetadataFilesCreator metadataFilesCreator)
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -56,6 +56,8 @@ namespace Arkivverket.Arkade.Core.Base
         private string CreatePackage(Archive archive, string outputDirectory) // TODO: Generate and collect all files from/to the right places
         {
             OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
+            
+            metadataFilesCreator.Create(archive);
 
             if (archive is AddmlBasedArchive addmlArchive && archive is Noark5Archive or SpecializedSystemArchive)
                 outputDiasPackage.WorkingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(addmlArchive.AddmlXmlUnit.File.Name, addmlArchive); // Last parameter is experimental ..
