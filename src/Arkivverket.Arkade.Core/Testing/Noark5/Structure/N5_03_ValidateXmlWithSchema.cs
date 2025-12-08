@@ -35,10 +35,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
         {
             foreach (ArchiveXmlUnit xmlUnit in archive.XmlUnits)
             {
-                if (xmlUnit.AllFilesExists())
-                    Validate(xmlUnit);
-                else
-                    ReportMissingFiles(xmlUnit);
+                Validate(xmlUnit);
             }
         }
 
@@ -81,13 +78,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             return archiveXmlUnit.File.Name.Equals(ArkadeConstants.AddmlXmlFileName)
                 ? ArkadeConstants.ArkivuttrekkXmlFileName
                 : archiveXmlUnit.File.Name;
-        }
-
-        private void ReportMissingFiles(ArchiveXmlUnit xmlUnit)
-        {
-            foreach (string missingFile in xmlUnit.GetMissingFiles())
-                _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
-                    string.Format(ExceptionMessages.FileNotFound, missingFile)));
         }
     }
 }

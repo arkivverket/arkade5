@@ -18,29 +18,5 @@ namespace Arkivverket.Arkade.Core.Base
             : this(file, new List<ArchiveXmlSchema> {schema})
         {
         }
-
-        public bool AllFilesExists()
-        {
-            return !GetMissingFiles().Any();
-        }
-
-        public IEnumerable<string> GetMissingFiles()
-        {
-            var missingFiles = new List<string>();
-
-            if (!File.Exists)
-                missingFiles.Add(File.Name);
-
-            missingFiles.AddRange(
-                from schema in
-                    from schema in Schemas
-                    where schema.IsUserProvided()
-                    select (UserProvidedXmlSchema) schema
-                where !schema.FileExists
-                select schema.FullName
-            );
-
-            return missingFiles;
-        }
     }
 }
