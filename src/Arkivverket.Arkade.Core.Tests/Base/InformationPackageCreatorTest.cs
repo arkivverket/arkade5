@@ -16,13 +16,15 @@ namespace Arkivverket.Arkade.Core.Tests.Base
     /// <summary>
     /// Integration test of package creation. Should possibly be moved to separate package to avoid slow down of test running. File operations are performed during testing.
     /// </summary>
-    public class InformationPackageCreatorTest
+    public class InformationPackageCreatorTest : IDisposable
     {
         private readonly string _workingDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\package-creation";
         private readonly string _processingDirectoryPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\IPCreatorTestProcessing";
         private static readonly Uuid Uuid = Uuid.Random(); // NB! UUID-origin
         private readonly ArchiveMetadata _archiveMetadata = MetadataExampleCreator.Create(MetadataExamplePurpose.InternalTesting);
         private readonly string _outputDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        
+        public void Dispose() => Directory.Delete(_processingDirectoryPath, true);
 
         [Fact]
         [Trait("Category", "Integration")]
@@ -62,8 +64,6 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/report.html").Should().BeFalse();
             fileList.Contains(rootDir + "descriptive_metadata/ead.xml").Should().BeFalse();
             fileList.Contains(rootDir + "descriptive_metadata/eac-cpf.xml").Should().BeFalse();
-
-            Directory.Delete(_processingDirectoryPath, true);
         }
 
         [Fact]
@@ -102,8 +102,6 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/report.html").Should().BeTrue();
             fileList.Contains(rootDir + "descriptive_metadata/ead.xml").Should().BeTrue();
             fileList.Contains(rootDir + "descriptive_metadata/eac-cpf.xml").Should().BeTrue();
-            
-            Directory.Delete(_processingDirectoryPath, true);
         }
 
         private static InformationPackageCreator CreateInformationPackageCreator()
