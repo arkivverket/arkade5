@@ -19,6 +19,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
     public class InformationPackageCreatorTest
     {
         private readonly string _workingDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\package-creation";
+        private readonly string _processingDirectoryPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\IPCreatorTestProcessing";
         private static readonly Uuid Uuid = Uuid.Random(); // NB! UUID-origin
         private readonly ArchiveMetadata _archiveMetadata = MetadataExampleCreator.Create(MetadataExamplePurpose.InternalTesting);
         private readonly string _outputDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -31,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
             var content = new DirectoryArchiveContent(new DirectoryInfo(Path.Combine(_workingDirectory, "content")));
             
-            Archive archive = new ArchiveBuilder(content, null) // Set processing directory!
+            Archive archive = new ArchiveBuilder(content, Directory.CreateDirectory(_processingDirectoryPath))
                 //.WithInputDiasPackage(_archiveMetadata)
                 .Build<Noark5Archive>();
 
@@ -61,6 +62,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/report.html").Should().BeFalse();
             fileList.Contains(rootDir + "descriptive_metadata/ead.xml").Should().BeFalse();
             fileList.Contains(rootDir + "descriptive_metadata/eac-cpf.xml").Should().BeFalse();
+
+            Directory.Delete(_processingDirectoryPath, true);
         }
 
         [Fact]
@@ -69,7 +72,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         {
             var content = new DirectoryArchiveContent(new DirectoryInfo(Path.Combine(_workingDirectory, "content")));
             
-            Archive archive = new ArchiveBuilder(content, null)
+            Archive archive = new ArchiveBuilder(content, Directory.CreateDirectory(_processingDirectoryPath))
                 //.WithInputDiasPackage(_archiveMetadata)
                 .Build<Noark5Archive>();
 
@@ -96,6 +99,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             fileList.Contains(rootDir + "administrative_metadata/repository_operations/report.html").Should().BeTrue();
             fileList.Contains(rootDir + "descriptive_metadata/ead.xml").Should().BeTrue();
             fileList.Contains(rootDir + "descriptive_metadata/eac-cpf.xml").Should().BeTrue();
+            
+            Directory.Delete(_processingDirectoryPath, true);
         }
 
         private static List<string> GetFileListFromArchive(string targetFileName)
