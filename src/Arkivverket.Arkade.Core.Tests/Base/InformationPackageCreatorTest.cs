@@ -76,6 +76,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base
                 //.WithInputDiasPackage(_archiveMetadata)
                 .Build<Noark5Archive>();
 
+            archive.OutputDiasPackage = new OutputDiasPackage( // NB! UUID-origin
+                PackageType.ArchivalInformationPackage, _archiveMetadata, archive.ProcessingDirectory);
+            
             string packageFilePath = new InformationPackageCreator().CreateAip(archive, _outputDirectory);
 
             List<string> fileList = GetFileListFromArchive(packageFilePath);
