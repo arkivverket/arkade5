@@ -18,20 +18,20 @@ public abstract class AddmlBasedArchive : Archive
     {
         Content = content;
 
-        if (Content.GetFile(AddmlXmlFileName) is not { } addmlFileInfo)
+        if (Content.GetFile(AddmlXmlFileName) is not { } addmlFile)
         {
             Log.Error("No addml file found in archive.");
             return;
         }
 
-        AddmlXmlUnit = SetupAddmlXmlUnit(addmlFileInfo);
+        AddmlXmlUnit = SetupAddmlXmlUnit(addmlFile);
         AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, AddmlXmlUnit.Schema.AsStream());
         Details = new ArchiveDetails(AddmlInfo.Addml);
     }
 
-    protected AddmlXmlUnit SetupAddmlXmlUnit(FileInfo addmlFileInfo)
+    protected AddmlXmlUnit SetupAddmlXmlUnit(FileInfo addmlFile)
     {
-        var addmlXmlFile = new ArchiveXmlFile(addmlFileInfo);
+        var addmlXmlFile = new ArchiveXmlFile(addmlFile);
 
         ArchiveXmlSchema addmlSchema = Content.GetFile(AddmlXsdFileName) is { } addmlXsdFile
             ? new UserProvidedXmlSchema(addmlXsdFile)
