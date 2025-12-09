@@ -229,6 +229,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _log.Information("User action: Leave test session and return to load archive window");
 
+            _archive?.ProcessingDirectory.Delete(true);
+            
             _regionManager.RequestNavigate("MainContentRegion", "LoadArchiveExtraction");
         }
 

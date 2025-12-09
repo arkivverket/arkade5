@@ -88,6 +88,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void LoadSelectedArchiveInput()
         {
+            _archive?.ProcessingDirectory.Delete(true);
+
             var archiveType = (ArchiveType)ArchiveType;
 
            _archive = _arkadeCoreApi.LoadArchiveExtraction(_archiveSource, archiveType);
