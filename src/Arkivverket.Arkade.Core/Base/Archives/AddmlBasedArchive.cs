@@ -20,7 +20,7 @@ public abstract class AddmlBasedArchive : Archive
 
         if (Content.GetFile(AddmlXmlFileName) is not { } addmlFile)
         {
-            Log.Error("No addml file found in archive.");
+            Log.Warning("addml.xml not found in archive");
             return;
         }
 
