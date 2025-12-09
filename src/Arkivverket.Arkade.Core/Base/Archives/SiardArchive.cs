@@ -8,7 +8,7 @@ using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
 
-public sealed class SiardArchive : Archive
+public class SiardArchive : Archive
 {
     public readonly FileInfo SiardFile;
 

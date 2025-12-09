@@ -13,7 +13,7 @@ using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
 
-public sealed class Noark5Archive : AddmlBasedArchive
+public class Noark5Archive : AddmlBasedArchive
 {
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
     public List<ArchiveXmlUnit> XmlUnits { get; private set; }

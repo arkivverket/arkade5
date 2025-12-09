@@ -3,7 +3,7 @@ using Arkivverket.Arkade.Core.Resources;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
 
-public sealed class Noark4Archive : Archive
+public class Noark4Archive : Archive
 {
     public new readonly DirectoryArchiveContent Content;
     
