@@ -174,7 +174,7 @@ public sealed class Noark5Archive : AddmlBasedArchive
 
     public override bool IsTestable(out string disqualifyingCause)
     {
-        if (!AddmlXmlUnit.File.Exists)
+        if (AddmlXmlUnit == null)
         {
             disqualifyingCause = Noark5Messages.CouldNotFindValidSpecificationFile;
             return false;
