@@ -5,8 +5,6 @@ namespace Arkivverket.Arkade.Core.Base.Archives;
 
 public class Noark4Archive : Archive
 {
-    public new readonly DirectoryArchiveContent Content;
-    
     public Noark4Archive(DirectoryArchiveContent content, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
         : base(content, processingDirectory, inputDiasPackage)
     {
