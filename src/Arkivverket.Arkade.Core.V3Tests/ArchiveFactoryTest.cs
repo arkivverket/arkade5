@@ -23,6 +23,7 @@ public class ArchiveFactoryTest : IDisposable
             "Archives", "Siard", "extraction", "dbptk.siard"));
         Archive siardArchive = ArchiveFactory.Create(siardArchiveFile, ArchiveType.Siard);
         siardArchive.GetType().Should().Be(typeof(SiardArchive));
+        siardArchive.Content.GetType().Should().Be(typeof(FileArchiveContent));
         siardArchive.ProcessingDirectory.Delete(true);
     }
 
@@ -33,6 +34,7 @@ public class ArchiveFactoryTest : IDisposable
             "Archives", "Siard", "diasPackage", "841c0a18-7308-4407-b421-3efaa420d891.tar"));
         Archive siardArchiveFromDias = ArchiveFactory.Create(siardArchiveInDiasTarFile, ArchiveType.Siard);
         siardArchiveFromDias.GetType().Should().Be(typeof(SiardArchive));
+        siardArchiveFromDias.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         siardArchiveFromDias.ProcessingDirectory.Delete(true);
     }
 
@@ -43,6 +45,7 @@ public class ArchiveFactoryTest : IDisposable
             "Archives", "Noark5", "extraction"));
         Archive noark5Archive = ArchiveFactory.Create(noark5ArchiveDirectory, ArchiveType.Noark5);
         noark5Archive.GetType().Should().Be(typeof(Noark5Archive));
+        noark5Archive.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         noark5Archive.ProcessingDirectory.Delete(true);
     }
 
@@ -53,6 +56,7 @@ public class ArchiveFactoryTest : IDisposable
             "Archives", "Noark5", "diasPackage", "4b73981c-1fab-4d4c-91e7-fcc6a3bc057f.tar"));
         Archive noark5ArchiveFromDias = ArchiveFactory.Create(noark5ArchiveInDiasTarFile, ArchiveType.Noark5);
         noark5ArchiveFromDias.GetType().Should().Be(typeof(Noark5Archive));
+        noark5ArchiveFromDias.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         noark5ArchiveFromDias.ProcessingDirectory.Delete(true);
     }
 
@@ -63,6 +67,7 @@ public class ArchiveFactoryTest : IDisposable
             "Archives", "Noark4", "extraction"));
         Archive noark4Archive = ArchiveFactory.Create(noark4ArchiveDirectory, ArchiveType.Noark4);
         noark4Archive.GetType().Should().Be(typeof(Noark4Archive));
+        noark4Archive.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         noark4Archive.ProcessingDirectory.Delete(true);
     }
 
@@ -73,6 +78,7 @@ public class ArchiveFactoryTest : IDisposable
             "Archives", "Noark4", "diasPackage", "ffb1fda0-5b13-478f-9e4a-d68e8a944399.tar"));
         Archive noark4ArchiveFromDias = ArchiveFactory.Create(noark4ArchiveInDiasTarFile, ArchiveType.Noark4);
         noark4ArchiveFromDias.GetType().Should().Be(typeof(Noark4Archive));
+        noark4ArchiveFromDias.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         noark4ArchiveFromDias.ProcessingDirectory.Delete(true);
     }
 
@@ -83,6 +89,7 @@ public class ArchiveFactoryTest : IDisposable
             "Archives", "Noark3", "extraction"));
         Archive noark3Archive = ArchiveFactory.Create(noark3ArchiveDirectory, ArchiveType.Noark3);
         noark3Archive.GetType().Should().Be(typeof(Noark3Archive));
+        noark3Archive.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         noark3Archive.ProcessingDirectory.Delete(true);
     }
 
@@ -93,6 +100,7 @@ public class ArchiveFactoryTest : IDisposable
             "Archives", "Noark3", "diasPackage", "8851c420-80e0-4681-b838-8eeb542d46f1.tar"));
         Archive noark3ArchiveFromDias = ArchiveFactory.Create(noark3ArchiveInDiasTarFile, ArchiveType.Noark3);
         noark3ArchiveFromDias.GetType().Should().Be(typeof(Noark3Archive));
+        noark3ArchiveFromDias.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         noark3ArchiveFromDias.ProcessingDirectory.Delete(true);
     }
 
@@ -104,6 +112,7 @@ public class ArchiveFactoryTest : IDisposable
         Archive specializedSystemArchive =
             ArchiveFactory.Create(specializedSystemArchiveDirectory, ArchiveType.SpecializedSystem);
         specializedSystemArchive.GetType().Should().Be(typeof(SpecializedSystemArchive));
+        specializedSystemArchive.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         specializedSystemArchive.ProcessingDirectory.Delete(true);
     }
 
@@ -115,6 +124,7 @@ public class ArchiveFactoryTest : IDisposable
         Archive specializedSystemArchiveFromDias =
             ArchiveFactory.Create(specializedSystemArchiveInDiasTarFile, ArchiveType.SpecializedSystem);
         specializedSystemArchiveFromDias.GetType().Should().Be(typeof(SpecializedSystemArchive));
+        specializedSystemArchiveFromDias.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         specializedSystemArchiveFromDias.ProcessingDirectory.Delete(true);
     }
 }
