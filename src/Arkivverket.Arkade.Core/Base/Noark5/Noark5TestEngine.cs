@@ -70,7 +70,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
 
             RaiseEventStartParsingFile();
 
-            _testProgressReporter.Begin(archive.ArchiveType);
+            _testProgressReporter.Begin(ArchiveType.Noark5);
 
             var path = new Stack<string>();
 

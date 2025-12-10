@@ -378,7 +378,7 @@ namespace Arkivverket.Arkade.CLI
 
             TestSession testSession = Arkade.CreateTestSession(archive);
             
-            if (archive.ArchiveType == ArchiveType.Noark5)
+            if (archive is Noark5Archive)
             {
                 testSession.TestsToRun = File.Exists(testSelectionFilePath)
                     ? Noark5TestSelectionFileReader.GetUserSelectedTestIds(testSelectionFilePath)

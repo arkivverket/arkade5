@@ -48,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
                 if (externalContentDirectory.Exists)
                 {
-                    string[] directoriesToSkip = archive.ArchiveType == ArchiveType.Noark5
+                    string[] directoriesToSkip = archive is Noark5Archive
                         ? ArkadeConstants.DocumentDirectoryNames
                         : null;
 

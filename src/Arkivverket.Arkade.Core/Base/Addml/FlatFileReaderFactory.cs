@@ -24,10 +24,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 return null;
             }
 
-            switch (archive.ArchiveType)
+            switch (archive)
             {
-                case ArchiveType.Noark3:
-                case ArchiveType.SpecializedSystem:
+                case Noark3Archive:
+                case SpecializedSystemArchive:
                     {
                         AddmlFlatFileFormat format = flatFile.Definition.Format;
                         switch (format)
@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                     }
                 default:
                     {
-                        throw new ArgumentException("No such enum: " + archive.ArchiveType);
+                        throw new ArgumentException("Unsupported archive: " + archive.GetType().Name);
                     }
             }
         }

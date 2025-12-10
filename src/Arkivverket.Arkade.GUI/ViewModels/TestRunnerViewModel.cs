@@ -282,7 +282,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 if (!_archive.IsTestable(out string disqualifyingCause))
                     LogNotTestableArchiveOperationMessage(disqualifyingCause);
 
-                if (_archive.ArchiveType == ArchiveType.Noark5)
+                if (_archive is Noark5Archive)
                 {
                     SupportedLanguage uiLanguage = LanguageSettingHelper.GetUILanguage();
 

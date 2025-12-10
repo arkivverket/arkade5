@@ -10,8 +10,8 @@ namespace Arkivverket.Arkade.Core.Report
         public static void RunAllGenerators(Archive archive, DirectoryInfo testReportDirectory, bool standalone,
             int testResultDisplayLimit, Uuid diasPackageId) // TODO: Find out how to determine context of call ...
         {
-            TestReport testReport = archive.ArchiveType.Equals(ArchiveType.Siard)
-                ? TestReportFactory.CreateForSiard(archive)
+            TestReport testReport = archive is SiardArchive siardArchive
+                ? TestReportFactory.CreateForSiard(siardArchive)
                 : TestReportFactory.Create(archive);
 
             foreach (TestReportFormat testReportFormat in Enum.GetValues<TestReportFormat>())

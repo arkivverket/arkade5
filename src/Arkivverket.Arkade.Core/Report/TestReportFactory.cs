@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Report
             return testReport;
         }
 
-        public static TestReport CreateForSiard(Archive archive)
+        public static TestReport CreateForSiard(SiardArchive archive)
         {
             var testReport = new TestReport
             {
@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Report
         {
             var norwegianCulture = new CultureInfo("nb-NO");
             int numberOfExecutedTests = archive.TestSession.TestSuite.TestRuns.Count();
-            int numberOfAvailableTests = archive.ArchiveType is ArchiveType.Noark5 ? Noark5TestProvider.GetAllTestIds().Count : 0;
+            int numberOfAvailableTests = archive is Noark5Archive ? Noark5TestProvider.GetAllTestIds().Count : 0;
 
             var summary = new TestReportSummary
             {
@@ -52,7 +52,7 @@ namespace Arkivverket.Arkade.Core.Report
                 NumberOfProcessedFiles = archive.TestSession.TestSummary.NumberOfProcessedFiles,
                 NumberOfProcessedRecords = archive.TestSession.TestSummary.NumberOfProcessedRecords,
                 NumberOfWarnings = archive.TestSession.TestSummary.NumberOfWarnings,
-                NumberOfErrors = archive.ArchiveType is ArchiveType.Siard
+                NumberOfErrors = archive is SiardArchive
                     ? archive.TestSession.TestSummary.NumberOfErrors
                     : archive.TestSession.TestSuite.FindNumberOfErrors().ToString(),
         };

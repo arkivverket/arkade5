@@ -282,7 +282,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 _archive = (Archive) context.Parameters["archive"];
                 
-                if (_archive.ArchiveType == ArchiveType.Siard)
+                if (_archive is SiardArchive)
                     IncludeFormatInfoFile = MetaDataGUI.CreateLobFormatInfoFileText;
                 else
                     IncludeFormatInfoFile = MetaDataGUI.CreateDocumentFileInfoText;

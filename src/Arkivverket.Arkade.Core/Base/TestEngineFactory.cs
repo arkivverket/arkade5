@@ -1,3 +1,4 @@
+using System;
 using Arkivverket.Arkade.Core.Base.Addml;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
@@ -23,13 +24,14 @@ namespace Arkivverket.Arkade.Core.Base
 
         public ITestEngine GetTestEngine(Archive archive)
         {
-            _log.Debug("Find test engine for archive {archiveType}", archive.ArchiveType);
+            _log.Debug("Find test engine for {archiveTypeName}", archive.GetType().Name);
 
-            return archive.ArchiveType switch
+            return archive switch
             {
-                ArchiveType.Siard => _siardTestEngine,
-                ArchiveType.Noark5 => _noark5TestEngine,
-                _ => _addmlDatasetTestEngine
+                SiardArchive => _siardTestEngine,
+                Noark5Archive => _noark5TestEngine,
+                AddmlDefinitionTestedArchive => _addmlDatasetTestEngine,
+                _ => throw new ArgumentOutOfRangeException(nameof(archive))
             };
         }
     }

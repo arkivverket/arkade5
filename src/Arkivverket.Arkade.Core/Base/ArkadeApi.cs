@@ -163,7 +163,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             testReportDirectory.Create();
 
-            if (archive.ArchiveType == ArchiveType.Siard)
+            if (archive is SiardArchive)
                 File.Move(
                     sourceFileName: Path.Combine(archive.OutputDiasPackage.WorkingDirectory.RepositoryOperations().ToString(),
                         OutputFileNames.DbptkValidationReportFile),
