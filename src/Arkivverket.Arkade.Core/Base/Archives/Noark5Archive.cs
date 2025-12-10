@@ -44,7 +44,6 @@ public class Noark5Archive : AddmlBasedArchive
 
         SetupArchiveXmlUnits();
 
-        ArchiveType = ArchiveType.Noark5; // TODO: Get rid of this ...
     }
 
     public ArchiveXmlFile GetArchiveXmlFile(string fileName)

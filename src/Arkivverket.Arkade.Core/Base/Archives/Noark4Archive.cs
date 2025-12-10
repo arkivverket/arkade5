@@ -8,7 +8,6 @@ public class Noark4Archive : Archive
     public Noark4Archive(DirectoryArchiveContent content, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
         : base(content, processingDirectory, inputDiasPackage)
     {
-        ArchiveType = ArchiveType.Noark4; // TODO: Get rid of this ...
     }
 
     public override bool IsTestable(out string disqualifyingCause)

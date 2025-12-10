@@ -26,7 +26,6 @@ public class SiardArchive : Archive
         
         // TODO: CopySiardFilesToContentDirectory handles external lobs (we don't just now) ...
         
-        ArchiveType = ArchiveType.Siard; // TODO: Get rid of this ...
     }
 
     private static SiardArchiveDetails GetArchiveDetails(FileInfo siardArchiveFile,

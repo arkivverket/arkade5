@@ -10,7 +10,7 @@ public abstract class Archive(IArchiveContent content, DirectoryInfo processingD
     public bool SourceIsTarFile => InputDiasPackage?.TarFile != null;
     public InputDiasPackage InputDiasPackage { get; } = inputDiasPackage; // Why is private init different here than for Content?
     public OutputDiasPackage OutputDiasPackage { get; set; }
-    public ArchiveType ArchiveType { get; protected init; } // TODO: Consider to liquidate
+    public ArchiveType ArchiveType => Enum.Parse<ArchiveType>(GetType().Name[..^"Archive".Length]);
     public IArchiveDetails Details { get; protected init; }
     public TestSession TestSession { get; set; }
     public abstract bool IsTestable(out string disqualifyingCause);
