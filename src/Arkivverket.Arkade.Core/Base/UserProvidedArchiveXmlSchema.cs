@@ -6,8 +6,6 @@ public class UserProvidedXmlSchema(FileSystemInfo schemaFile) : ArchiveXmlSchema
 {
     private readonly ArchiveXmlFile _archiveXmlFile = new(schemaFile);
 
-    public string FullName => _archiveXmlFile.FullName;
-
     protected override string GetFileName()
     {
         return _archiveXmlFile.Name;
