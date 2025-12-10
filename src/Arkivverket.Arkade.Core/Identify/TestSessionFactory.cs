@@ -74,8 +74,7 @@ namespace Arkivverket.Arkade.Core.Identify
 
         public TestSession NewSession(Archive archive)
         {
-            if (archive is Noark5Archive noark5Archive && noark5Archive.AddmlXmlUnit.File.Exists &&
-                noark5Archive.AddmlXmlUnit.Schema is ArkadeBuiltInXmlSchema)
+            if (archive is Noark5Archive { AddmlXmlUnit.Schema: ArkadeBuiltInXmlSchema })
             {
                 // TODO: Use version info from Version object in messages
                 _statusEventHandler?.RaiseEventOperationMessage(
