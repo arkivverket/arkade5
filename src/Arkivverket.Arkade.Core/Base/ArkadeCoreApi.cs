@@ -34,19 +34,6 @@ public class ArkadeCoreApi(
         Log.Debug($"Loading Archive Extraction [sourcePath: {archiveSource.FullName}] [archiveType: {archiveType}]");
 
         return archiveFactory.Create(archiveSource, archiveType);
-
-        //
-        //
-        //
-        // if (archiveSource is DirectoryInfo { Exists: true } directory) // Dettan gjeng'kje ...
-        // {
-        //     if (archiveType == ArchiveType.Noark5)
-        //         return new Noark5Archive(directory, processingDirectory, inputDiasPackage);
-        //     
-        //     return new AddmlArchive(archiveType, directory, processingDirectory, inputDiasPackage);
-        // }
-        //
-        // throw new ArkadeException(""); // TODO: ...
     }
 
     public TestSession CreateTestSession(Archive archive)
