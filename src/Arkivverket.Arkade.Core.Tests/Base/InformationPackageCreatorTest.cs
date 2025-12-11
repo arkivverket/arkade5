@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
+using Arkivverket.Arkade.Core.Base.Siard;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
 using FluentAssertions;
@@ -109,8 +111,10 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             var metadataFilesCreator = new MetadataFilesCreator(
                 new DiasMetsCreator(), new DiasPremisCreator(), new EadCreator(), new EacCpfCreator(), new LogCreator()
             );
+            var statusEventHandler = new StatusEventHandler();
+            var siardMetadataFileHelper = new SiardMetadataFileHelper(new SiardArchiveReader());
 
-            return new InformationPackageCreator(metadataFilesCreator);
+            return new InformationPackageCreator(metadataFilesCreator, statusEventHandler, siardMetadataFileHelper);
         }
 
         private static List<string> GetFileListFromArchive(string targetFileName)

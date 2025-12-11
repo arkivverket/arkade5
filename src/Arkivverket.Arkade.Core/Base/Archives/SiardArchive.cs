@@ -23,9 +23,6 @@ public class SiardArchive : Archive
         };
         
         Details = GetArchiveDetails(SiardFile, statusEventHandler);
-        
-        // TODO: CopySiardFilesToContentDirectory handles external lobs (we don't just now) ...
-        
     }
 
     private static SiardArchiveDetails GetArchiveDetails(FileInfo siardArchiveFile,

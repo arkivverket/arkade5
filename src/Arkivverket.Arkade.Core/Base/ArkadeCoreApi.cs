@@ -19,9 +19,7 @@ public class ArkadeCoreApi(
     TestEngineFactory testEngineFactory,
     TestSessionXmlGenerator testSessionXmlGenerator,
     InformationPackageCreator informationPackageCreator,
-    SiardMetadataFileHelper siardMetadataFileHelper,
     ArchiveFactory archiveFactory,
-    IStatusEventHandler statusEventHandler,
     ArkadeApi arkadeApi)
 {
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
@@ -78,11 +76,6 @@ public class ArkadeCoreApi(
           arkadeApi.GenerateFileFormatInfoFiles(archive); // TODO: Integrate in ArkadeCoreApi
         }
 
-        if (archive is SiardArchive siardArchive)
-        {
-            siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(siardArchive);
-        }
-
         string packageFilePath;
 
         if (archive.OutputDiasPackage.PackageType == PackageType.SubmissionInformationPackage)
@@ -102,49 +95,4 @@ public class ArkadeCoreApi(
 
         return packageFilePath;
     }
-
-
-
-    private void CopySiardFilesToContentDirectory(FileInfo siardArchiveFile, string contentDirectoryPath)
-    {
-        var siardTableXmlReader = new SiardXmlTableReader(new SiardArchiveReader());
-
-        siardArchiveFile.CopyTo(Path.Combine(contentDirectoryPath, siardArchiveFile.Name));
-
-        try
-        {
-            IEnumerable<string> fullPathsToExternalLobs =
-                siardTableXmlReader.GetFullPathsToExternalLobs(siardArchiveFile.FullName);
-
-            foreach (string fullPathToExternalLob in fullPathsToExternalLobs)
-            {
-                if (!File.Exists(fullPathToExternalLob))
-                {
-                    string message = string.Format(SiardMessages.ExternalLobFileNotFoundMessage, fullPathToExternalLob);
-                    statusEventHandler.RaiseEventOperationMessage("", message, OperationMessageStatus.Error);
-                    Log.Error(message);
-                    continue;
-                }
-
-                string relativePathFromSiardFileToExternalLob =
-                    Path.GetRelativePath(siardArchiveFile.DirectoryName, fullPathToExternalLob);
-
-                string externalLobDestinationPath =
-                    Path.Combine(contentDirectoryPath, relativePathFromSiardFileToExternalLob);
-
-                var destinationDirectoryForExternalLob = Path.GetDirectoryName(externalLobDestinationPath);
-
-                Directory.CreateDirectory(destinationDirectoryForExternalLob);
-
-                File.Copy(fullPathToExternalLob, externalLobDestinationPath);
-
-                Log.Debug("'{0}' has been added to Arkade temporary work area", fullPathToExternalLob);
-            }
-        }
-        catch (SiardArchiveReaderException)
-        {
-            statusEventHandler.RaiseEventOperationMessage("", SiardMessages.ExternalLobsNotCopiedWarning, OperationMessageStatus.Warning);
-        }
-    }
-
 }
