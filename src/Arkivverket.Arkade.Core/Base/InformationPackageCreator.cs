@@ -61,8 +61,6 @@ namespace Arkivverket.Arkade.Core.Base
             
             outputDiasPackage.WorkingDirectory.CreateAllFolders();
             
-            metadataFilesCreator.Create(archive);
-
             if (archive is AddmlBasedArchive addmlArchive && archive is Noark5Archive or SpecializedSystemArchive)
                 outputDiasPackage.WorkingDirectory.EnsureAdministrativeMetadataHasAddmlFiles(addmlArchive.AddmlXmlUnit.File.Name, addmlArchive); // Last parameter is experimental ..
             
@@ -74,6 +72,8 @@ namespace Arkivverket.Arkade.Core.Base
                 
                 siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(siardArchive);
             }
+            
+            metadataFilesCreator.Create(archive);
             
             try
             {
