@@ -34,8 +34,11 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
 
         return (archiveType, archiveContent) switch
         {
-            (ArchiveType.Siard, DirectoryArchiveContent or FileArchiveContent)
-                => new SiardArchive(archiveContent, processingDirectory, statusEventHandler, inputDiasPackage),
+            (ArchiveType.Siard, FileArchiveContent fileArchiveContent)
+                => new SiardArchive(fileArchiveContent, processingDirectory, statusEventHandler),
+            
+            (ArchiveType.Siard, DirectoryArchiveContent directoryArchiveContent)
+                => new SiardArchive(directoryArchiveContent, processingDirectory, statusEventHandler, inputDiasPackage),
 
             (ArchiveType.Noark5, DirectoryArchiveContent directoryArchiveContent)
                 => new Noark5Archive(directoryArchiveContent, processingDirectory, inputDiasPackage),

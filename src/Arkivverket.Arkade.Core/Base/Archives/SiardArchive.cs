@@ -12,15 +12,18 @@ public class SiardArchive : Archive
 {
     public readonly FileInfo SiardFile;
 
-    public SiardArchive(IArchiveContent content, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler, InputDiasPackage inputDiasPackage = null)
+    public SiardArchive(FileArchiveContent content, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler)
+        : base(content, processingDirectory)
+    {
+        SiardFile = content.RootFile;
+        
+        Details = GetArchiveDetails(SiardFile, statusEventHandler);
+    }
+    
+    public SiardArchive(DirectoryArchiveContent content, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler, InputDiasPackage inputDiasPackage)
         : base(content, processingDirectory, inputDiasPackage)
     {
-        SiardFile = content switch
-        {
-            FileArchiveContent fileArchiveContent => fileArchiveContent.RootFile,
-            DirectoryArchiveContent directoryArchiveContent => directoryArchiveContent.GetFile("*.siard"),
-            _ => throw new ArgumentOutOfRangeException(nameof(content), content, null)
-        };
+        SiardFile = content.GetFile("*.siard");
         
         Details = GetArchiveDetails(SiardFile, statusEventHandler);
     }
