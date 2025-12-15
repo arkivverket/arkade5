@@ -58,37 +58,6 @@ public class Noark5Archive : AddmlBasedArchive
         foreach ((string documentedXmlFileName, IEnumerable<string> documentedXmlSchemas) in Details.DocumentedXmlUnits)
         {
             IEnumerable<ArchiveXmlSchema> userProvidedSchemas =
-                documentedXmlSchemas.Select(s =>
-                {
-                    if(Content.GetFile(s) is { } foundSchemaFile)
-                        return new UserProvidedXmlSchema(foundSchemaFile);
-                    return null;
-                });
-
-            string archiveTypeVersion = AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version;
-            string pathCompatibleVersionString = "v" + archiveTypeVersion.Replace('.', '_');
-            var xsdResourceLocalPath =
-                $"{string.Format(LocalDirectoryPathNoark5XsdResources, pathCompatibleVersionString)}";
-
-            IEnumerable<ArchiveXmlSchema> arkadeSuppliedSchemas = Details.StandardXmlUnits[documentedXmlFileName]
-                .Except(documentedXmlSchemas).Select(schemaName =>
-                    new ArkadeBuiltInXmlSchema(schemaName, new Version(archiveTypeVersion, xsdResourceLocalPath)));
-
-            var archiveXmlSchemas = new List<ArchiveXmlSchema>(userProvidedSchemas.Concat(arkadeSuppliedSchemas));
-
-            var archiveXmlFile = new ArchiveXmlFile(Content.GetFile(documentedXmlFileName));
-
-            XmlUnits.Add(new ArchiveXmlUnit(archiveXmlFile, archiveXmlSchemas));
-        }
-    }
-    
-    private void SetupArchiveXmlUnitsOld()
-    {
-        XmlUnits = new List<ArchiveXmlUnit>();
-
-        foreach ((string documentedXmlFileName, IEnumerable<string> documentedXmlSchemas) in Details.DocumentedXmlUnits)
-        {
-            IEnumerable<ArchiveXmlSchema> userProvidedSchemas =
                 documentedXmlSchemas.Select(s => new UserProvidedXmlSchema(Content.GetFile(s)));
 
             string archiveTypeVersion = AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version;
