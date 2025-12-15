@@ -53,32 +53,40 @@ public class Noark5Archive : AddmlBasedArchive
 
     private void SetupArchiveXmlUnits()
     {
-        XmlUnits = new List<ArchiveXmlUnit>();
-
-        foreach ((string documentedXmlFileName, IEnumerable<string> documentedXmlSchemas) in Details.DocumentedXmlUnits)
+        foreach (string documentedXmlFileName in Details.DocumentedXmlUnits.Keys)
         {
-            IEnumerable<ArchiveXmlSchema> userProvidedSchemas =
-                documentedXmlSchemas.Select(s =>
+            if (Content.GetFile(documentedXmlFileName) is { } xmlFileInArchive)
+            {
+                var archiveXmlFile = new ArchiveXmlFile(xmlFileInArchive);
+                var archiveXmlSchemas = new List<ArchiveXmlSchema>();
+
+                foreach (string standardSchemaName in Details.StandardXmlUnits[archiveXmlFile.Name])
                 {
-                    if(Content.GetFile(s) is { } foundSchemaFile)
-                        return new UserProvidedXmlSchema(foundSchemaFile);
-                    return null;
-                });
+                    if (Content.GetFile(standardSchemaName) is { } schemaFileInArchive)
+                    {
+                        archiveXmlSchemas.Add(new UserProvidedXmlSchema(schemaFileInArchive));
+                    }
+                    else
+                    {
+                        Log.Warning(string.Format(Noark5Messages.FileNotFound, standardSchemaName));
 
-            string archiveTypeVersion = AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version;
-            string pathCompatibleVersionString = "v" + archiveTypeVersion.Replace('.', '_');
-            var xsdResourceLocalPath =
-                $"{string.Format(LocalDirectoryPathNoark5XsdResources, pathCompatibleVersionString)}";
+                        string archiveTypeVersion =
+                            AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version;
+                        string pathCompatibleVersionString = "v" + archiveTypeVersion.Replace('.', '_');
+                        var xsdResourceLocalPath =
+                            $"{string.Format(LocalDirectoryPathNoark5XsdResources, pathCompatibleVersionString)}";
 
-            IEnumerable<ArchiveXmlSchema> arkadeSuppliedSchemas = Details.StandardXmlUnits[documentedXmlFileName]
-                .Except(documentedXmlSchemas).Select(schemaName =>
-                    new ArkadeBuiltInXmlSchema(schemaName, new Version(archiveTypeVersion, xsdResourceLocalPath)));
+                        archiveXmlSchemas.Add(new ArkadeBuiltInXmlSchema(standardSchemaName,
+                            new Version(archiveTypeVersion, xsdResourceLocalPath)));
+                    }
+                }
 
-            var archiveXmlSchemas = new List<ArchiveXmlSchema>(userProvidedSchemas.Concat(arkadeSuppliedSchemas));
-
-            var archiveXmlFile = new ArchiveXmlFile(Content.GetFile(documentedXmlFileName));
-
-            XmlUnits.Add(new ArchiveXmlUnit(archiveXmlFile, archiveXmlSchemas));
+                XmlUnits.Add(new ArchiveXmlUnit(archiveXmlFile, archiveXmlSchemas));
+            }
+            else
+            {
+                Log.Error(string.Format(Noark5Messages.FileNotFound, documentedXmlFileName));
+            }
         }
     }
 
