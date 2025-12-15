@@ -58,7 +58,12 @@ public class Noark5Archive : AddmlBasedArchive
         foreach ((string documentedXmlFileName, IEnumerable<string> documentedXmlSchemas) in Details.DocumentedXmlUnits)
         {
             IEnumerable<ArchiveXmlSchema> userProvidedSchemas =
-                documentedXmlSchemas.Select(s => new UserProvidedXmlSchema(Content.GetFile(s)));
+                documentedXmlSchemas.Select(s =>
+                {
+                    if(Content.GetFile(s) is { } foundSchemaFile)
+                        return new UserProvidedXmlSchema(foundSchemaFile);
+                    return null;
+                });
 
             string archiveTypeVersion = AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version;
             string pathCompatibleVersionString = "v" + archiveTypeVersion.Replace('.', '_');
