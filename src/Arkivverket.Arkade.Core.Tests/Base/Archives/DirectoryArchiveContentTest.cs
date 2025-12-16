@@ -1,7 +1,11 @@
+using System;
+using System.IO;
+using System.Linq;
 using Arkivverket.Arkade.Core.Base;
 using FluentAssertions;
+using Xunit;
 
-namespace Arkivverket.Arkade.Core.V3Tests;
+namespace Arkivverket.Arkade.Core.Tests.Base.Archives;
 
 public class DirectoryArchiveContentTest
 {

@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
@@ -14,8 +14,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arkivverket.Arkade.CLI.Tests", "Arkivverket.Arkade.CLI.Tests\Arkivverket.Arkade.CLI.Tests.csproj", "{A9D00B2A-35EB-40C1-BF87-88E5BAB2440F}"
 EndProject
 Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "Arkivverket.Arkade.GUI.Installer", "Arkivverket.Arkade.GUI.Installer\Arkivverket.Arkade.GUI.Installer.wixproj", "{CA709E9C-6863-47B8-8DB1-03B4B5C43100}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arkivverket.Arkade.Core.V3Tests", "Arkivverket.Arkade.Core.V3Tests\Arkivverket.Arkade.Core.V3Tests.csproj", "{AC9D281D-0E97-43BE-A8D8-7A8C4CE08429}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,14 +71,6 @@ Global
 		{CA709E9C-6863-47B8-8DB1-03B4B5C43100}.Release|Any CPU.Build.0 = Release|x64
 		{CA709E9C-6863-47B8-8DB1-03B4B5C43100}.Release|x86.ActiveCfg = Release|x86
 		{CA709E9C-6863-47B8-8DB1-03B4B5C43100}.Release|x86.Build.0 = Release|x86
-		{AC9D281D-0E97-43BE-A8D8-7A8C4CE08429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC9D281D-0E97-43BE-A8D8-7A8C4CE08429}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC9D281D-0E97-43BE-A8D8-7A8C4CE08429}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AC9D281D-0E97-43BE-A8D8-7A8C4CE08429}.Debug|x86.Build.0 = Debug|Any CPU
-		{AC9D281D-0E97-43BE-A8D8-7A8C4CE08429}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC9D281D-0E97-43BE-A8D8-7A8C4CE08429}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC9D281D-0E97-43BE-A8D8-7A8C4CE08429}.Release|x86.ActiveCfg = Release|Any CPU
-		{AC9D281D-0E97-43BE-A8D8-7A8C4CE08429}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

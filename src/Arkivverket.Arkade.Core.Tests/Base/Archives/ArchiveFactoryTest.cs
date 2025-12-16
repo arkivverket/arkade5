@@ -1,10 +1,13 @@
+using System;
+using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
+using Xunit;
 
-namespace Arkivverket.Arkade.Core.V3Tests;
+namespace Arkivverket.Arkade.Core.Tests.Base.Archives;
 
 public class ArchiveFactoryTest : IDisposable
 {
