@@ -33,6 +33,7 @@
     <None Include="*\**" />
     <Compile Include="Base\ArchiveBuilder.cs" />
     <Compile Include="Base\InformationPackageCreatorTest.cs" />
+    <Compile Include="Base\Archives\Noark5XmlUnitsTest.cs" />
   </ItemGroup>
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
   

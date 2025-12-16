@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Base.Addml;
@@ -8,7 +6,6 @@ using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
-using static Arkivverket.Arkade.Core.Base.ArkadeBuiltInXmlSchema;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
@@ -16,7 +13,7 @@ namespace Arkivverket.Arkade.Core.Base.Archives;
 public class Noark5Archive : AddmlBasedArchive
 {
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
-    public List<ArchiveXmlUnit> XmlUnits { get; private set; }
+    public Noark5XmlUnits XmlUnits { get; }
     internal DocumentFiles DocumentFiles { get; init; }
     private DirectoryInfo DocumentsDirectory { get; set; }
     private string DocumentsDirectoryName { get; set; }
@@ -42,61 +39,12 @@ public class Noark5Archive : AddmlBasedArchive
 
         DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
 
-        SetupArchiveXmlUnits();
-
+        XmlUnits = new Noark5XmlUnits(Content, Details as ArchiveDetails);
     }
 
     public ArchiveXmlFile GetArchiveXmlFile(string fileName)
     {
-        return XmlUnits.FirstOrDefault(xmlUnit => xmlUnit.File.Name.Equals(fileName))?.File;
-    }
-
-    private void SetupArchiveXmlUnits()
-    {
-        foreach (string documentedXmlFileName in Details.DocumentedXmlUnits.Keys)
-        {
-            if (Content.GetFile(documentedXmlFileName) is { } xmlFileInArchive)
-            {
-                var archiveXmlFile = new ArchiveXmlFile(xmlFileInArchive);
-                var archiveXmlSchemas = new List<ArchiveXmlSchema>();
-
-                foreach (string standardSchemaName in Details.StandardXmlUnits[archiveXmlFile.Name])
-                {
-                    if (Content.GetFile(standardSchemaName) is { } schemaFileInArchive)
-                    {
-                        archiveXmlSchemas.Add(new UserProvidedXmlSchema(schemaFileInArchive));
-                    }
-                    else
-                    {
-                        Log.Warning(string.Format(Noark5Messages.FileNotFound, standardSchemaName));
-
-                        string archiveTypeVersion =
-                            AddmlVersionIsSupported() ? Details.ArchiveStandard : LatestNoark5Version;
-                        string pathCompatibleVersionString = "v" + archiveTypeVersion.Replace('.', '_');
-                        var xsdResourceLocalPath =
-                            $"{string.Format(LocalDirectoryPathNoark5XsdResources, pathCompatibleVersionString)}";
-
-                        archiveXmlSchemas.Add(new ArkadeBuiltInXmlSchema(standardSchemaName,
-                            new Version(archiveTypeVersion, xsdResourceLocalPath)));
-                    }
-                }
-
-                XmlUnits.Add(new ArchiveXmlUnit(archiveXmlFile, archiveXmlSchemas));
-            }
-            else
-            {
-                Log.Error(string.Format(Noark5Messages.FileNotFound, documentedXmlFileName));
-            }
-        }
-    }
-
-    private bool AddmlVersionIsSupported()
-    {
-        if (SupportedNoark5Versions.Contains(Details.ArchiveStandard))
-            return true;
-
-        Log.Warning(string.Format(Noark5Messages.Noark5VersionNotSupportedForBuiltInSchemas, Details.ArchiveStandard));
-        return false;
+        return XmlUnits.Get(fileName)?.File;
     }
 
     public DirectoryInfo GetDocumentsDirectory()
