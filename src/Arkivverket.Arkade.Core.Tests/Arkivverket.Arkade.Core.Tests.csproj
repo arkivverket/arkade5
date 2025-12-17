@@ -616,6 +616,7 @@
   <ItemGroup>
     <Compile Remove="*\**" />
     <None Include="*\**" />
+    <Compile Include="UnitTestUtilities\TestData.cs" />
     <Compile Include="Base\ArchiveBuilder.cs" />
     <Compile Include="Base\InformationPackageCreatorTest.cs" />
     <Compile Include="Base\Archives\ArchiveFactoryTest.cs" />
