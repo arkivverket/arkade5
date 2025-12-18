@@ -1,21 +1,16 @@
-namespace Arkivverket.Arkade.Core.Base
+namespace Arkivverket.Arkade.Core.Base;
+
+public class AddmlXmlUnit(ArchiveXmlFile archiveXmlFile, ArchiveXmlSchema archiveXmlSchema)
+    : ArchiveXmlUnit(archiveXmlFile, archiveXmlSchema)
 {
-    public class AddmlXmlUnit : ArchiveXmlUnit
+    public ArchiveXmlSchema Schema
     {
-        public ArchiveXmlSchema Schema
-        {
-            get => Schemas[0];
-            set => Schemas[0] = value;
-        }
+        get => Schemas[0];
+        set => Schemas[0] = value;
+    }
 
-        public AddmlXmlUnit(ArchiveXmlFile archiveXmlFile, ArchiveXmlSchema archiveXmlSchema)
-        : base(archiveXmlFile, archiveXmlSchema)
-        {
-        }
-
-        internal bool HasNoDefinedSchema()
-        {
-            return Schema == null;
-        }
+    internal bool HasNoDefinedSchema()
+    {
+        return Schema == null;
     }
 }
