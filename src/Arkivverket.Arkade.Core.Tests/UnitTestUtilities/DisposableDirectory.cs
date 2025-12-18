@@ -7,10 +7,6 @@ public class DisposableDirectory : IDisposable
 {
     private readonly DirectoryInfo _directory;
 
-    public DisposableDirectory(string directoryPath) : this(new DirectoryInfo(directoryPath))
-    {
-    }
-    
     public DisposableDirectory(DirectoryInfo directory)
     {
         if (directory.Exists)
