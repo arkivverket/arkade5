@@ -1,155 +1,148 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
-using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Tests.UnitTestUtilities;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Tar;
 using Xunit;
 
-namespace Arkivverket.Arkade.Core.Tests.Base
+namespace Arkivverket.Arkade.Core.Tests.Base;
+
+public class InformationPackageCreatorTest
 {
-    /// <summary>
-    /// Integration test of package creation. Should possibly be moved to separate package to avoid slow down of test running. File operations are performed during testing.
-    /// </summary>
-    public class InformationPackageCreatorTest : IDisposable
+    private readonly DirectoryArchiveContent _archiveContent =
+        new(TestData.Directory(Path.Combine("Archives", "Noark5", "extraction")));
+
+    private readonly ArchiveMetadata _archiveMetadata =
+        MetadataExampleCreator.Create(MetadataExamplePurpose.InternalTesting);
+
+    private readonly DirectoryInfo _tmpDirectory = TestData.Directory(".tmp");
+
+    public InformationPackageCreatorTest()
     {
-        private readonly string _workingDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\package-creation";
-        private readonly string _processingDirectoryPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\IPCreatorTestProcessing";
-        private static readonly Uuid Uuid = Uuid.Random(); // NB! UUID-origin
-        private readonly ArchiveMetadata _archiveMetadata = MetadataExampleCreator.Create(MetadataExamplePurpose.InternalTesting);
-        private readonly string _outputDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        
-        public void Dispose() => Directory.Delete(_processingDirectoryPath, true);
+        if (_tmpDirectory.Exists)
+            _tmpDirectory.Delete(true);
+    }
 
-        [Fact]
-        [Trait("Category", "Integration")]
-        public void Test01_ShouldCreateSip() // TODO: Remove the created packages
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void CreateSipTest()
+    {
+        (Uuid outputPackageId, List<string> packageFileList) = CreatePackage(PackageType.SubmissionInformationPackage);
+
+        string rootDir = outputPackageId + "/";
+
+        packageFileList.Count.Should().Be(19); // Including directories implicit tested by subentries
+
+        // Arkade-generated files/directories:
+        packageFileList.Should().Contain(rootDir);
+        packageFileList.Should().Contain(rootDir + "dias-mets.xml");
+        packageFileList.Should().Contain(rootDir + "dias-mets.xsd");
+        packageFileList.Should().Contain(rootDir + "log.xml");
+        packageFileList.Should().Contain(rootDir + "descriptive_metadata/"); // TODO: Should this empty directory be included?
+        packageFileList.Should().Contain(rootDir + "administrative_metadata/");
+        packageFileList.Should().Contain(rootDir + "administrative_metadata/addml.xsd");
+        packageFileList.Should().Contain(rootDir + "administrative_metadata/arkivuttrekk.xml");
+        packageFileList.Should().Contain(rootDir + "administrative_metadata/dias-premis.xml");
+        packageFileList.Should().Contain(rootDir + "administrative_metadata/dias-premis.xsd");
+
+        // Files from the input archive (content):
+        packageFileList.Should().Contain(rootDir + "content/addml.xsd");
+        packageFileList.Should().Contain(rootDir + "content/arkivstruktur.xml");
+        packageFileList.Should().Contain(rootDir + "content/arkivstruktur.xsd");
+        packageFileList.Should().Contain(rootDir + "content/arkivuttrekk.xml");
+        packageFileList.Should().Contain(rootDir + "content/dokumenter/5000000.pdf");
+        packageFileList.Should().Contain(rootDir + "content/dokumenter/5000001.pdf");
+        packageFileList.Should().Contain(rootDir + "content/metadatakatalog.xsd");
+
+        // Files that are not part of an SIP:
+        packageFileList.Should().NotContain(rootDir + "administrative_metadata/repository_operations/");
+        packageFileList.Should().NotContain(rootDir + "descriptive_metadata/eac-cpf.xml");
+        packageFileList.Should().NotContain(rootDir + "descriptive_metadata/ead.xml");
+    }
+
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void CreateAipTest()
+    {
+        (Uuid outputPackageId, List<string> packageFileList) = CreatePackage(PackageType.ArchivalInformationPackage);
+
+        string rootDir = outputPackageId + "/";
+
+        packageFileList.Count.Should().Be(22); // Including directories implicit tested by subentries
+
+        // Arkade-generated files/directories:
+        packageFileList.Should().Contain(rootDir);
+        packageFileList.Should().Contain(rootDir + "dias-mets.xml");
+        packageFileList.Should().Contain(rootDir + "dias-mets.xsd");
+        packageFileList.Should().Contain(rootDir + "log.xml");
+        packageFileList.Should().Contain(rootDir + "descriptive_metadata/"); // TODO: Should this empty directory be included?
+        packageFileList.Should().Contain(rootDir + "administrative_metadata/");
+        packageFileList.Should().Contain(rootDir + "administrative_metadata/addml.xsd");
+        packageFileList.Should().Contain(rootDir + "administrative_metadata/arkivuttrekk.xml");
+        packageFileList.Should().Contain(rootDir + "administrative_metadata/dias-premis.xml");
+        packageFileList.Should().Contain(rootDir + "administrative_metadata/dias-premis.xsd");
+
+        // Files from the input archive (content):
+        packageFileList.Should().Contain(rootDir + "content/addml.xsd");
+        packageFileList.Should().Contain(rootDir + "content/arkivstruktur.xml");
+        packageFileList.Should().Contain(rootDir + "content/arkivstruktur.xsd");
+        packageFileList.Should().Contain(rootDir + "content/arkivuttrekk.xml");
+        packageFileList.Should().Contain(rootDir + "content/dokumenter/5000000.pdf");
+        packageFileList.Should().Contain(rootDir + "content/dokumenter/5000001.pdf");
+        packageFileList.Should().Contain(rootDir + "content/metadatakatalog.xsd");
+
+        // Files that only are part of an AIP:
+        packageFileList.Should().Contain(rootDir + "administrative_metadata/repository_operations/");
+        packageFileList.Should().Contain(rootDir + "descriptive_metadata/eac-cpf.xml");
+        packageFileList.Should().Contain(rootDir + "descriptive_metadata/ead.xml");
+    }
+
+    private (Uuid outputPackageId, List<string> packageFileList) CreatePackage(PackageType packageType)
+    {
+        using var disposableDirectory = new DisposableDirectory(_tmpDirectory);
+        DirectoryInfo processingDirectory = disposableDirectory.Get().CreateSubdirectory("processing");
+        Archive archive = new ArchiveBuilder(_archiveContent, processingDirectory).Build<Noark5Archive>();
+
+        archive.OutputDiasPackage = new OutputDiasPackage(packageType, _archiveMetadata, archive.ProcessingDirectory);
+
+        string outputDirectory = disposableDirectory.Get().CreateSubdirectory("output").FullName;
+
+        string packageFilePath = packageType switch // NB! UUID-origin
         {
-            DeleteOldUnitTestResultsBeforeNewRun();
+            PackageType.SubmissionInformationPackage => InformationPackageCreator().CreateSip(archive, outputDirectory),
+            PackageType.ArchivalInformationPackage => InformationPackageCreator().CreateAip(archive, outputDirectory),
+            _ => null
+        };
 
-            var content = new DirectoryArchiveContent(new DirectoryInfo(Path.Combine(_workingDirectory, "content")));
-            
-            Archive archive = new ArchiveBuilder(content, Directory.CreateDirectory(_processingDirectoryPath))
-                //.WithInputDiasPackage(_archiveMetadata)
-                .Build<Noark5Archive>();
+        return (archive.OutputDiasPackage.Id, GetFileListFromTarArchive(packageFilePath)); // NB! UUID-writeout (unit testing)
+    }
 
-            archive.OutputDiasPackage = new OutputDiasPackage( // NB! UUID-origin
-                PackageType.SubmissionInformationPackage, _archiveMetadata, archive.ProcessingDirectory);
-            
-            string packageFilePath = CreateInformationPackageCreator().CreateSip(archive, _outputDirectory);
+    private static InformationPackageCreator InformationPackageCreator()
+    {
+        var metadataFilesCreator = new MetadataFilesCreator(
+            new DiasMetsCreator(), new DiasPremisCreator(), new EadCreator(), new EacCpfCreator(), new LogCreator()
+        );
+        var statusEventHandler = new StatusEventHandler();
+        var siardMetadataFileHelper = new SiardMetadataFileHelper(new SiardArchiveReader());
 
-            List<string> fileList = GetFileListFromArchive(packageFilePath);
+        return new InformationPackageCreator(metadataFilesCreator, statusEventHandler, siardMetadataFileHelper);
+    }
 
-            string rootDir = archive.OutputDiasPackage.Id + "/"; // NB! UUID-writeout (unit testing)
+    private static List<string> GetFileListFromTarArchive(string tarArchiveFilePath)
+    {
+        var fileList = new List<string>();
 
-            //fileList.Count.Should().Be(9);
-            fileList.Contains(rootDir).Should().BeTrue();
-            fileList.Contains(rootDir + "content/").Should().BeTrue();
-            fileList.Contains(rootDir + "content/arkivstruktur.xml").Should().BeTrue();
-            fileList.Contains(rootDir + "content/arkivuttrekk.xml").Should().BeTrue();
-            fileList.Contains(rootDir + "content/dokumenter/").Should().BeTrue();
-            fileList.Contains(rootDir + "content/dokumenter/5000000.pdf").Should().BeTrue();
-            fileList.Contains(rootDir + "content/dokumenter/5000001.pdf").Should().BeTrue();
-            fileList.Contains(rootDir + "descriptive_metadata/").Should().BeTrue();
-            fileList.Contains(rootDir + "administrative_metadata/").Should().BeTrue();
+        using Stream inStream = File.OpenRead(tarArchiveFilePath);
+        using var tarArchive = TarArchive.CreateInputTarArchive(inStream, Encoding.Latin1);
+        tarArchive.ProgressMessageEvent += (_, entry, _) => fileList.Add(entry.Name);
+        tarArchive.ListContents();
 
-            // sip should not contain these files
-            fileList.Contains(rootDir + "administrative_metadata/repository_operations/").Should().BeFalse();
-            fileList.Contains(rootDir + "administrative_metadata/repository_operations/arkade-log.xml").Should().BeFalse();
-            fileList.Contains(rootDir + "administrative_metadata/repository_operations/report.html").Should().BeFalse();
-            fileList.Contains(rootDir + "descriptive_metadata/ead.xml").Should().BeFalse();
-            fileList.Contains(rootDir + "descriptive_metadata/eac-cpf.xml").Should().BeFalse();
-        }
-
-        [Fact]
-        [Trait("Category", "Integration")]
-        public void Test02_ShouldCreateAip() // TODO: Remove the created packages
-        {
-            var content = new DirectoryArchiveContent(new DirectoryInfo(Path.Combine(_workingDirectory, "content")));
-            
-            Archive archive = new ArchiveBuilder(content, Directory.CreateDirectory(_processingDirectoryPath))
-                //.WithInputDiasPackage(_archiveMetadata)
-                .Build<Noark5Archive>();
-
-            archive.OutputDiasPackage = new OutputDiasPackage( // NB! UUID-origin
-                PackageType.ArchivalInformationPackage, _archiveMetadata, archive.ProcessingDirectory);
-            
-            string packageFilePath = CreateInformationPackageCreator().CreateAip(archive, _outputDirectory);
-
-            List<string> fileList = GetFileListFromArchive(packageFilePath);
-
-            string rootDir = archive.OutputDiasPackage.Id + "/"; // NB! UUID-writeout (unit testing)
-
-            //fileList.Count.Should().Be(14);
-            fileList.Contains(rootDir).Should().BeTrue();
-            fileList.Contains(rootDir + "content/").Should().BeTrue();
-            fileList.Contains(rootDir + "content/arkivstruktur.xml").Should().BeTrue();
-            fileList.Contains(rootDir + "content/arkivuttrekk.xml").Should().BeTrue();
-            fileList.Contains(rootDir + "content/dokumenter/").Should().BeTrue();
-            fileList.Contains(rootDir + "content/dokumenter/5000000.pdf").Should().BeTrue();
-            fileList.Contains(rootDir + "content/dokumenter/5000001.pdf").Should().BeTrue();
-            fileList.Contains(rootDir + "descriptive_metadata/").Should().BeTrue();
-            fileList.Contains(rootDir + "administrative_metadata/").Should().BeTrue();
-
-            // additional files for aip
-            fileList.Contains(rootDir + "administrative_metadata/repository_operations/").Should().BeTrue();
-            //fileList.Contains(rootDir + "administrative_metadata/repository_operations/arkade-log.xml").Should().BeTrue(); // TODO: Should this file really be here without testing being run?
-            //fileList.Contains(rootDir + "administrative_metadata/repository_operations/report.html").Should().BeTrue(); // TODO: Should this file really be here without testing being run?
-            fileList.Contains(rootDir + "descriptive_metadata/ead.xml").Should().BeTrue();
-            fileList.Contains(rootDir + "descriptive_metadata/eac-cpf.xml").Should().BeTrue();
-        }
-
-        private static InformationPackageCreator CreateInformationPackageCreator()
-        {
-            var metadataFilesCreator = new MetadataFilesCreator(
-                new DiasMetsCreator(), new DiasPremisCreator(), new EadCreator(), new EacCpfCreator(), new LogCreator()
-            );
-            var statusEventHandler = new StatusEventHandler();
-            var siardMetadataFileHelper = new SiardMetadataFileHelper(new SiardArchiveReader());
-
-            return new InformationPackageCreator(metadataFilesCreator, statusEventHandler, siardMetadataFileHelper);
-        }
-
-        private static List<string> GetFileListFromArchive(string targetFileName)
-        {
-            List<string> fileList = new List<string>();
-
-            using Stream inStream = File.OpenRead(targetFileName);
-            using TarArchive tarArchive = TarArchive.CreateInputTarArchive(inStream, Encoding.Latin1);
-            tarArchive.ProgressMessageEvent += delegate(TarArchive archive1, TarEntry entry, string message)
-            {
-                fileList.Add(entry.Name);
-            };
-            tarArchive.ListContents();
-            return fileList;
-        }
-
-        private void DeleteOldUnitTestResultsBeforeNewRun()
-        {
-            DeleteOldTestDirectories();
-            DeletePreviouslyCreatedTestPackages();
-        }
-
-        private void DeleteOldTestDirectories()
-        {
-            string repositoryOperationsDirectory =
-                Path.Combine(_workingDirectory, "administrative_metadata", "repository_operations");
-
-            foreach (string directory in Directory.EnumerateDirectories(repositoryOperationsDirectory))
-                Directory.Delete(directory);
-        }
-
-        private void DeletePreviouslyCreatedTestPackages()
-        {
-            foreach (string directory in Directory.EnumerateDirectories(_outputDirectory)
-                .Where(d => d.Contains(OutputFileNames.ResultOutputDirectory))) Directory.Delete(directory, true);
-        }
+        return fileList;
     }
 }
