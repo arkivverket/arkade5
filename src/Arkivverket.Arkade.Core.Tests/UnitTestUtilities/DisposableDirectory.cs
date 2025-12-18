@@ -28,6 +28,7 @@ public class DisposableDirectory : IDisposable
 
     public void Dispose()
     {
-        _directory.Delete(true);
+        if (_directory.Exists)
+            _directory.Delete(true);
     }
 }
