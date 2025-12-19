@@ -21,6 +21,8 @@ public class Noark5Archive : AddmlBasedArchive
     public Noark5Archive(DirectoryArchiveContent content, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
         : base(content, processingDirectory, inputDiasPackage)
     {
+        DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
+        
         if (AddmlXmlUnit == null)
         {
             if (Content.GetFile(ArkivuttrekkXmlFileName) is not { } n5AddmlFile)
@@ -36,8 +38,6 @@ public class Noark5Archive : AddmlBasedArchive
             AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, schemaStream);
         
         Details = new ArchiveDetails(AddmlInfo.Addml);
-
-        DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
 
         XmlUnits = new Noark5XmlUnits(Content, Details as ArchiveDetails);
     }
