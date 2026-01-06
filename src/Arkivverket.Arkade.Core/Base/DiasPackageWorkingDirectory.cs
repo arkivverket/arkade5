@@ -108,32 +108,6 @@ namespace Arkivverket.Arkade.Core.Base
         //    return _externalContentDirectory != null;
         //}
 
-        public void EnsureAdministrativeMetadataHasAddmlFiles(string addmlFileName, AddmlBasedArchive archive)
-        {
-            TryCopyAddmlFileToAdministrativeMetadata(addmlFileName, archive);
-
-            if (!TryCopyAddmlFileToAdministrativeMetadata(AddmlXsdFileName, archive))
-            {
-                AdministrativeMetadata().AddFileFromResources(AddmlXsdResource, AddmlXsdFileName);
-                Log.Debug($"Adding {AddmlXsdFileName} from Arkade built-in resources to administrative_metadata.");
-            }
-        }
-
-        private bool TryCopyAddmlFileToAdministrativeMetadata(string addmlFileName, AddmlBasedArchive archive)
-        {
-            FileInfo targetAddmlFile = AdministrativeMetadata().WithFile(addmlFileName);
-
-            if (targetAddmlFile.Exists)
-                return false;
-
-            if (archive.Content.GetFile(addmlFileName) is not {} contentAddml) // TODO: Get from AddmlBasedArchive.AddmlXmlUnit instead?
-                return false;
-
-            Log.Debug($"Copying ADDML file {contentAddml.FullName} to administrative_metadata.");
-            contentAddml.CopyTo(targetAddmlFile.FullName);
-            return true;
-        }
-
         public long GetSize()
         {
             ArkadeDirectory content = null; // TODO: Provide
