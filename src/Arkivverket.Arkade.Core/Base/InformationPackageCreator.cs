@@ -61,8 +61,8 @@ namespace Arkivverket.Arkade.Core.Base
             
             outputDiasPackage.WorkingDirectory.CreateAllFolders();
 
-            if (archive is AddmlBasedArchive { AddmlXmlUnit: not null } addmlArchive && archive is Noark5Archive or SpecializedSystemArchive)
-                addmlArchive.AddmlXmlUnit.WriteFiles(outputDiasPackage.WorkingDirectory.AdministrativeMetadata());
+            if (archive is (Noark5Archive or SpecializedSystemArchive) and AddmlBasedArchive { AddmlXmlUnit: not null } addmlBasedArchive)
+                addmlBasedArchive.AddmlXmlUnit.WriteFiles(outputDiasPackage.WorkingDirectory.AdministrativeMetadata());
             
             if(archive is SiardArchive siardArchive)
             {
