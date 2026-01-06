@@ -51,6 +51,7 @@ public class OutputDiasPackage : DiasPackage
 
         DirectoryInfo workingDirectoryRoot = locationForWorkingDirectory.CreateSubdirectory(Id.GetValue());
         WorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
+        WorkingDirectory.CreateAllFolders();
         
         PackageType = packageType;
 
