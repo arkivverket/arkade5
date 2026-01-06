@@ -94,7 +94,7 @@ namespace Arkivverket.Arkade.Core.Base
             return AdministrativeMetadata().WithSubDirectory(ArkadeConstants.DirectoryNameRepositoryOperations);
         }
 
-        public void CreateAllFolders()
+        public void CreateDirectories()
         {
             //Root().Create();
             DescriptiveMetadata().Create();
