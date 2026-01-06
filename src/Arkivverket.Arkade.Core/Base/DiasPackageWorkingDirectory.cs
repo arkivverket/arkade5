@@ -94,12 +94,13 @@ namespace Arkivverket.Arkade.Core.Base
             return AdministrativeMetadata().WithSubDirectory(ArkadeConstants.DirectoryNameRepositoryOperations);
         }
 
-        public void CreateDirectories()
+        public void CreateDirectories(PackageType packageType)
         {
             //Root().Create();
             DescriptiveMetadata().Create();
             AdministrativeMetadata().Create();
-            RepositoryOperations().Create();
+            if (packageType == PackageType.ArchivalInformationPackage)
+                RepositoryOperations().Create();
             ContentWorkDirectory().Create();
         }
 
