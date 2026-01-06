@@ -97,10 +97,10 @@ namespace Arkivverket.Arkade.Core.Base
         public void CreateAllFolders() // Experimentally set to public
         {
             //Root().Create();
-            DescriptiveMetadata().Create(); // TODO: Create at package creation
-            AdministrativeMetadata().Create(); // TODO: Create at package creation
-            RepositoryOperations().Create(); // TODO: Create at package creation
-            ContentWorkDirectory().Create(); // TODO: Create at package creation
+            DescriptiveMetadata().Create();
+            AdministrativeMetadata().Create();
+            RepositoryOperations().Create();
+            ContentWorkDirectory().Create();
         }
 
         //public bool HasExternalContentDirectory()
