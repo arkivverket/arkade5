@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
+using static Arkivverket.Arkade.Core.Base.PackageType;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Metadata
@@ -12,13 +13,18 @@ namespace Arkivverket.Arkade.Core.Metadata
         EacCpfCreator eacCpfCreator,
         LogCreator logCreator)
     {
-        private readonly List<IMetadataCreator> _metadataCreators = [diasPremisCreator, logCreator, eadCreator, eacCpfCreator];
 
         public void Create(Archive archive)
         {
             OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
 
-            foreach (IMetadataCreator metadataCreator in _metadataCreators)
+            List<IMetadataCreator> metadataCreators = outputDiasPackage.PackageType switch
+            {
+                SubmissionInformationPackage => [diasPremisCreator, logCreator],
+                ArchivalInformationPackage => [diasPremisCreator, logCreator, eadCreator, eacCpfCreator],
+            };
+
+            foreach (IMetadataCreator metadataCreator in metadataCreators)
                 metadataCreator.CreateAndSaveFile(outputDiasPackage);
             
             AddXsdFiles(outputDiasPackage.WorkingDirectory);
