@@ -11,9 +11,11 @@ public class AddmlXmlUnit(ArchiveXmlFile archiveXmlFile, ArchiveXmlSchema archiv
     public void WriteFiles(ArkadeDirectory destinationDirectory)
     {
         using Stream addmlFileStream = File.AsStream();
-        addmlFileStream.CopyTo(System.IO.File.Create(destinationDirectory.WithFile(File.Name).FullName));
+        using Stream destinationAddmlFileStream = System.IO.File.Create(destinationDirectory.WithFile(File.Name).FullName);
+        addmlFileStream.CopyTo(destinationAddmlFileStream);
 
         using Stream addmlSchemaStream = Schema.AsStream();
-        addmlSchemaStream.CopyTo(System.IO.File.Create(destinationDirectory.WithFile(Schema.FileName).FullName));
+        using Stream destinationAddmlSchemaStream = System.IO.File.Create(destinationDirectory.WithFile(Schema.FileName).FullName);
+        addmlSchemaStream.CopyTo(destinationAddmlSchemaStream);
     }
 }
