@@ -40,7 +40,7 @@ public class Noark5XmlUnitsTest
         unit.Schemas.Should().HaveCount(2);
         unit.Schemas.Select(s => s.GetType().Name).Should()
             .OnlyContain(t => t == nameof(UserProvidedXmlSchema));
-        unit.Schemas.Select(s => s.FileName).Should().BeEquivalentTo(
+        unit.Schemas.Select(s => s.Name).Should().BeEquivalentTo(
             new[] { ArkadeConstants.ArkivstrukturXsdFileName, ArkadeConstants.MetadatakatalogXsdFileName });
     }
 
@@ -65,7 +65,7 @@ public class Noark5XmlUnitsTest
         unit!.Schemas.Should().HaveCount(2);
         unit.Schemas.Select(s => s.GetType().Name).Should()
             .OnlyContain(t => t == nameof(ArkadeBuiltInXmlSchema));
-        unit.Schemas.Select(s => s.FileName).Should().BeEquivalentTo(
+        unit.Schemas.Select(s => s.Name).Should().BeEquivalentTo(
             new[] { ArkadeConstants.ArkivstrukturXsdFileName, ArkadeConstants.MetadatakatalogXsdFileName });
     }
 

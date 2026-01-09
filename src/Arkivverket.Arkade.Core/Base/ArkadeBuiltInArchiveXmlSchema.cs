@@ -18,7 +18,7 @@ public class ArkadeBuiltInXmlSchema : ArchiveXmlSchema
         SchemaVersion = version;
     }
 
-    protected override string GetFileName()
+    protected override string GetName()
     {
         return _xmlSchemaName;
     }

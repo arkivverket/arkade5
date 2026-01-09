@@ -4,8 +4,8 @@ namespace Arkivverket.Arkade.Core.Base
 {
     public abstract class ArchiveXmlSchema
     {
-        public string FileName => GetFileName();
-        protected abstract string GetFileName();
+        public string Name => GetName();
+        protected abstract string GetName();
         public abstract Stream AsStream();
     }
 }

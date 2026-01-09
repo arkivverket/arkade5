@@ -11,7 +11,7 @@ public class AddmlXmlUnit(ArchiveXmlFile archiveXmlFile, ArchiveXmlSchema archiv
     public void WriteFiles(ArkadeDirectory targetDirectory)
     {
         WriteFile(File.AsStream(), File.Name, targetDirectory);
-        WriteFile(Schema.AsStream(), Schema.FileName, targetDirectory);
+        WriteFile(Schema.AsStream(), Schema.Name, targetDirectory);
     }
 
     private static void WriteFile(Stream sourceFileStream, string sourceFileName, ArkadeDirectory targetDirectory)
