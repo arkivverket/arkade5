@@ -27,11 +27,11 @@ namespace Arkivverket.Arkade.Core.Metadata
         }
 
         protected List<FileDescription> GetFileDescriptions(DirectoryInfo directory,
-            DirectoryInfo pathRoot, string[] directoriesToSkip = null, string[] filesToSkip = null)
+            DirectoryInfo pathRoot, string[] directoriesToSkip = null, string[] filesToSkip = null) // TODO: Remove need for skipping
         {
             var fileDescriptions = new List<FileDescription>();
 
-            foreach (FileInfo file in GetFilesToDescribe(directory, directoriesToSkip, filesToSkip))
+            foreach (FileInfo file in GetFilesToDescribe(directory, directoriesToSkip, filesToSkip)) // TODO: Remove need for skipping
                 fileDescriptions.Add(GetFileDescription(file, pathRoot));
 
             return fileDescriptions;

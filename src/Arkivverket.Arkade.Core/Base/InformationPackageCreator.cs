@@ -20,13 +20,13 @@ namespace Arkivverket.Arkade.Core.Base
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private static readonly List<string> FilesToSkipForSipPackages = new List<string>
+        private static readonly List<string> FilesToSkipForSipPackages = new List<string> // TODO: Remove need for skipping
         {
             ArkadeConstants.EadXmlFileName,
             ArkadeConstants.EacCpfXmlFileName
         };
 
-        private static readonly List<string> DirectoriesToSkipForSipPackages = new List<string>
+        private static readonly List<string> DirectoriesToSkipForSipPackages = new List<string> // TODO: Remove need for skipping
         {
             ArkadeConstants.DirectoryNameRepositoryOperations
         };
@@ -254,7 +254,7 @@ namespace Arkivverket.Arkade.Core.Base
             foreach (DirectoryInfo currentDirectory in directory.GetDirectories())
             {
                 if ((packageType != null) && (packageType == PackageType.SubmissionInformationPackage) &&
-                    DirectoriesToSkipForSipPackages.Contains(currentDirectory.Name))
+                    DirectoriesToSkipForSipPackages.Contains(currentDirectory.Name)) // TODO: Remove need for skipping
                 {     
                     continue;
                 }
@@ -270,7 +270,7 @@ namespace Arkivverket.Arkade.Core.Base
                     continue;
                 }
 
-                if (FileIsInSkipList(packageType, file))
+                if (FileIsInSkipList(packageType, file)) // TODO: Remove need for skipping
                 {
                     continue;
                 }
@@ -310,7 +310,7 @@ namespace Arkivverket.Arkade.Core.Base
             return filename.Replace(rootDirectory, "");
         }
 
-        private static bool FileIsInSkipList(PackageType? packageType, FileInfo file)
+        private static bool FileIsInSkipList(PackageType? packageType, FileInfo file) // TODO: Remove need for skipping
         {
             return packageType.HasValue
                    && (packageType == PackageType.SubmissionInformationPackage)
