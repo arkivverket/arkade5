@@ -8,14 +8,17 @@ public class AddmlXmlUnit(ArchiveXmlFile archiveXmlFile, ArchiveXmlSchema archiv
 {
     public ArchiveXmlSchema Schema => Schemas[0];
 
-    public void WriteFiles(ArkadeDirectory destinationDirectory)
+    public void WriteFiles(ArkadeDirectory targetDirectory)
     {
-        using Stream addmlFileStream = File.AsStream();
-        using Stream destinationAddmlFileStream = System.IO.File.Create(destinationDirectory.WithFile(File.Name).FullName);
-        addmlFileStream.CopyTo(destinationAddmlFileStream);
+        WriteFile(File.AsStream(), File.Name, targetDirectory);
+        WriteFile(Schema.AsStream(), Schema.FileName, targetDirectory);
+    }
 
-        using Stream addmlSchemaStream = Schema.AsStream();
-        using Stream destinationAddmlSchemaStream = System.IO.File.Create(destinationDirectory.WithFile(Schema.FileName).FullName);
-        addmlSchemaStream.CopyTo(destinationAddmlSchemaStream);
+    private static void WriteFile(Stream sourceFileStream, string sourceFileName, ArkadeDirectory targetDirectory)
+    {
+        string targetFilePath = targetDirectory.WithFile(sourceFileName).FullName;
+
+        using Stream targetFileStream = System.IO.File.Create(targetFilePath);
+        using (sourceFileStream) sourceFileStream.CopyTo(targetFileStream);
     }
 }
