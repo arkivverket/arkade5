@@ -27,11 +27,11 @@ namespace Arkivverket.Arkade.Core.Metadata
         }
 
         protected List<FileDescription> GetFileDescriptions(DirectoryInfo directory,
-            DirectoryInfo pathRoot, string[] directoriesToSkip = null, string[] filesToSkip = null) // TODO: Remove need for skipping
+            DirectoryInfo pathRoot, string[] directoriesToSkip = null)
         {
             var fileDescriptions = new List<FileDescription>();
 
-            foreach (FileInfo file in GetFilesToDescribe(directory, directoriesToSkip, filesToSkip)) // TODO: Remove need for skipping
+            foreach (FileInfo file in GetFilesToDescribe(directory, directoriesToSkip))
                 fileDescriptions.Add(GetFileDescription(file, pathRoot));
 
             return fileDescriptions;
@@ -51,19 +51,16 @@ namespace Arkivverket.Arkade.Core.Metadata
             };
         }
 
-        private static IEnumerable<FileInfo> GetFilesToDescribe(DirectoryInfo directory, string[] directoriesToSkip, string[] filesToSkip)
+        private static IEnumerable<FileInfo> GetFilesToDescribe(DirectoryInfo directory, string[] directoriesToSkip)
         {
             IEnumerable<FileInfo> filesToDescribe = directory.EnumerateFiles(".", SearchOption.TopDirectoryOnly);
-
-            if (filesToSkip != null)
-                filesToDescribe = filesToDescribe.Where(f => !filesToSkip.Contains(f.Name));
 
             foreach (DirectoryInfo subDirectory in directory.EnumerateDirectories())
             {
                 if (directoriesToSkip?.Contains(subDirectory.Name) == true)
                     continue;
 
-                var filesInSubDirectory = GetFilesToDescribe(subDirectory, directoriesToSkip, filesToSkip);
+                var filesInSubDirectory = GetFilesToDescribe(subDirectory, directoriesToSkip);
                 filesToDescribe = filesToDescribe.Concat(filesInSubDirectory);
             }
 

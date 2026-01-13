@@ -20,17 +20,6 @@ namespace Arkivverket.Arkade.Core.Base
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private static readonly List<string> FilesToSkipForSipPackages = new List<string> // TODO: Remove need for skipping
-        {
-            ArkadeConstants.EadXmlFileName,
-            ArkadeConstants.EacCpfXmlFileName
-        };
-
-        private static readonly List<string> DirectoriesToSkipForSipPackages = new List<string> // TODO: Remove need for skipping
-        {
-            ArkadeConstants.DirectoryNameRepositoryOperations
-        };
-
         /// <summary>
         /// Create SIP (Submission Information Package). 
         /// Package- and metafile are written to the given output directory
@@ -253,12 +242,6 @@ namespace Arkivverket.Arkade.Core.Base
         {
             foreach (DirectoryInfo currentDirectory in directory.GetDirectories())
             {
-                if ((packageType != null) && (packageType == PackageType.SubmissionInformationPackage) &&
-                    DirectoriesToSkipForSipPackages.Contains(currentDirectory.Name)) // TODO: Remove need for skipping
-                {     
-                    continue;
-                }
-                
                 CreateEntry(currentDirectory.FullName, true, rootDirectory, tarArchive, fileNamePrefix, Path.DirectorySeparatorChar.ToString());
                 AddFilesInDirectory(diasPackage, currentDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
             }
@@ -266,11 +249,6 @@ namespace Arkivverket.Arkade.Core.Base
             foreach (FileInfo file in directory.GetFiles())
             {
                 if (file.Name == diasPackage.Id + ".tar") // don't try to add the tar file into the tar file...  // NB! UUID-writeout (package creation)
-                {
-                    continue;
-                }
-
-                if (FileIsInSkipList(packageType, file)) // TODO: Remove need for skipping
                 {
                     continue;
                 }
@@ -308,13 +286,6 @@ namespace Arkivverket.Arkade.Core.Base
                 rootDirectory += Path.DirectorySeparatorChar;
 
             return filename.Replace(rootDirectory, "");
-        }
-
-        private static bool FileIsInSkipList(PackageType? packageType, FileInfo file) // TODO: Remove need for skipping
-        {
-            return packageType.HasValue
-                   && (packageType == PackageType.SubmissionInformationPackage)
-                   && FilesToSkipForSipPackages.Contains(file.Name);
         }
 
         public static PackageType ParsePackageType(string packageType)

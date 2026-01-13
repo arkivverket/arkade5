@@ -27,15 +27,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             if (rootDirectory.Exists)
             {
-                string[] filesToSkip = outputDiasPackage.PackageType == PackageType.SubmissionInformationPackage // TODO: Remove need for skipping
-                    ? new[] { ArkadeConstants.EadXmlFileName, ArkadeConstants.EacCpfXmlFileName }
-                    : null;
-
-                string[] directoriesToSkip = outputDiasPackage.PackageType == PackageType.SubmissionInformationPackage // TODO: Remove need for skipping
-                    ? new[] { ArkadeConstants.DirectoryNameRepositoryOperations }
-                    : null;
-
-                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory, filesToSkip: filesToSkip, directoriesToSkip: directoriesToSkip);
+                metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory);
             }
 
             //if (outputDiasPackage.WorkingDirectory.HasExternalContentDirectory())
@@ -48,7 +40,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
                 if (externalContentDirectory.Exists)
                 {
-                    string[] directoriesToSkip = archive is Noark5Archive // TODO: Remove need for skipping
+                    string[] directoriesToSkip = archive is Noark5Archive
                         ? ArkadeConstants.DocumentDirectoryNames
                         : null;
 
