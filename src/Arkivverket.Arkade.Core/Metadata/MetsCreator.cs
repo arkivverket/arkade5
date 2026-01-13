@@ -53,18 +53,17 @@ namespace Arkivverket.Arkade.Core.Metadata
 
         private static IEnumerable<FileInfo> GetFilesToDescribe(DirectoryInfo directory, string[] directoriesToSkip)
         {
-            IEnumerable<FileInfo> filesToDescribe = directory.EnumerateFiles(".", SearchOption.TopDirectoryOnly);
+            foreach (FileInfo file in directory.EnumerateFiles(".", SearchOption.TopDirectoryOnly))
+                yield return file;
 
             foreach (DirectoryInfo subDirectory in directory.EnumerateDirectories())
             {
                 if (directoriesToSkip?.Contains(subDirectory.Name) == true)
                     continue;
 
-                var filesInSubDirectory = GetFilesToDescribe(subDirectory, directoriesToSkip);
-                filesToDescribe = filesToDescribe.Concat(filesInSubDirectory);
+                foreach (FileInfo file in GetFilesToDescribe(subDirectory, directoriesToSkip))
+                    yield return file;
             }
-
-            return filesToDescribe;
         }
 
         protected static void AutoIncrementFileIds(IEnumerable<FileDescription> fileDescriptions, int offset = 0)
