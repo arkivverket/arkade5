@@ -118,7 +118,9 @@ namespace Arkivverket.Arkade.Core.Base
                 ArkadeConstants.DiasMetsXmlFileName
             );
 
-            new SubmissionDescriptionCreator().CreateAndSaveFile(outputDiasPackage.ArchiveMetadata, packageFilePath, diasMetsFilePath,
+            ArchiveMetadata metadataForSubmissionDescription = outputDiasPackage.ArchiveMetadata.Clone();
+
+            new SubmissionDescriptionCreator().CreateAndSaveFile(metadataForSubmissionDescription, packageFilePath, diasMetsFilePath,
                 outputDiasPackage.Id + ".xml"); // NB! UUID-writeout (package creation)
 
             return packageFilePath;
