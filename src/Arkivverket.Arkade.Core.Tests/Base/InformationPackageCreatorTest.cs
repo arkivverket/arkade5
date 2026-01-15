@@ -37,8 +37,6 @@ public class InformationPackageCreatorTest
 
         string rootDir = outputPackageId + "/";
 
-        packageFileList.Count.Should().Be(19); // Including directories implicit tested by subentries
-
         // Arkade-generated files/directories:
         packageFileList.Should().Contain(rootDir);
         packageFileList.Should().Contain(rootDir + "dias-mets.xml");
@@ -64,6 +62,9 @@ public class InformationPackageCreatorTest
         packageFileList.Should().NotContain(rootDir + "administrative_metadata/repository_operations/");
         packageFileList.Should().NotContain(rootDir + "descriptive_metadata/eac-cpf.xml");
         packageFileList.Should().NotContain(rootDir + "descriptive_metadata/ead.xml");
+
+        // Files in total, including the directories implicit tested by subentries (above)
+        packageFileList.Count.Should().Be(19);
     }
 
     [Fact]
@@ -73,8 +74,6 @@ public class InformationPackageCreatorTest
         (Uuid outputPackageId, List<string> packageFileList) = CreatePackage(PackageType.ArchivalInformationPackage);
 
         string rootDir = outputPackageId + "/";
-
-        packageFileList.Count.Should().Be(22); // Including directories implicit tested by subentries
 
         // Arkade-generated files/directories:
         packageFileList.Should().Contain(rootDir);
@@ -101,6 +100,9 @@ public class InformationPackageCreatorTest
         packageFileList.Should().Contain(rootDir + "administrative_metadata/repository_operations/");
         packageFileList.Should().Contain(rootDir + "descriptive_metadata/eac-cpf.xml");
         packageFileList.Should().Contain(rootDir + "descriptive_metadata/ead.xml");
+
+        // Files in total, including the directories implicit tested by subentries (above)
+        packageFileList.Count.Should().Be(22);
     }
 
     private (Uuid outputPackageId, List<string> packageFileList) CreatePackage(PackageType packageType)
