@@ -723,31 +723,10 @@
     <None Update="TestData\kvotekontroll89\kvotekontroll89.XML">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\Metadata\DiasMetsCreator\content\arkivuttrekk.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\Metadata\DiasMetsCreator\content\dokumenter\5000000.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\Metadata\DiasMetsCreator\content\dokumenter\5000001.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\Metadata\DiasMetsCreator\content\dokumenter\underkatalog\5000002.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\Metadata\DiasMetsCreator\descriptive_metadata\eac-cpf.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\Metadata\DiasMetsCreator\descriptive_metadata\ead.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="TestData\Metadata\DiasMetsLoader\dias-mets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Metadata\DiasMets\directorykeeper.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\Metadata\SubmissionDescriptionCreator\directorykeeper.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Metadata\SubmissionDescriptionLoader\submissionDescription.xml">

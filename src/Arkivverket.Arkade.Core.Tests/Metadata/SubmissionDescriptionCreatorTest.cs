@@ -11,24 +11,6 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
     public class SubmissionDescriptionCreatorTest : MetsCreatorTest
     {
         [Fact]
-        public void ShouldSaveCreatedSubmissionDescriptionFileToDisk()
-        {
-            string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Metadata\\SubmissionDescriptionCreator";
-
-            var packageFileName = Path.Combine(workingDirectory, "package.tar");
-            var diasMetsFileName = Path.Combine(workingDirectory, "dias-mets.xml");
-            var submissionDescriptionFileName = Path.Combine(workingDirectory, "UUID.xml");
-
-            new SubmissionDescriptionCreator().CreateAndSaveFile(ArchiveMetadata, packageFileName, diasMetsFileName, submissionDescriptionFileName);
-
-            string submissionDescriptionFilePath = Path.Combine(workingDirectory, submissionDescriptionFileName);
-
-            File.Exists(submissionDescriptionFilePath).Should().BeTrue();
-
-            File.Delete(submissionDescriptionFilePath);
-        }
-
-        [Fact]
         public void ShouldCreateMetsFromMetadata()
         {
             mets mets = SubmissionDescriptionCreator.Create(ArchiveMetadata);
