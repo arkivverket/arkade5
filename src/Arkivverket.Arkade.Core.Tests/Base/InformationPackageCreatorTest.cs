@@ -7,6 +7,7 @@ using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Tests.UnitTestUtilities;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Tar;
@@ -132,6 +133,11 @@ public class InformationPackageCreatorTest
             PackageType.ArchivalInformationPackage => InformationPackageCreator().CreateAip(archive, outputDirectory),
             _ => null
         };
+        
+        List<string> resultFiles = GetFileListFromResultsDirectory(outputDirectory, archive.OutputDiasPackage.Id);
+        resultFiles.Should().Contain($"{archive.OutputDiasPackage.Id}.tar"); // package file
+        resultFiles.Should().Contain($"{archive.OutputDiasPackage.Id}.xml"); // metadata file
+        resultFiles.Should().HaveCount(2);
 
         return (
             archive.OutputDiasPackage.Id, // NB! UUID-writeout (unit testing)
@@ -149,6 +155,14 @@ public class InformationPackageCreatorTest
         var siardMetadataFileHelper = new SiardMetadataFileHelper(new SiardArchiveReader());
 
         return new InformationPackageCreator(metadataFilesCreator, statusEventHandler, siardMetadataFileHelper);
+    }
+    
+    private static List<string> GetFileListFromResultsDirectory(string outputDirectory, Uuid packageId)
+    {
+        string resultsDirectoryName = string.Format(OutputFileNames.ResultOutputDirectory, packageId);
+        string resultsDirectoryPath = Path.Combine(outputDirectory, resultsDirectoryName);
+        
+        return Directory.GetFiles(resultsDirectoryPath).Select(Path.GetFileName).ToList();
     }
 
     private static List<string> GetFileListFromMetadata(OutputDiasPackage outputDiasPackage)
