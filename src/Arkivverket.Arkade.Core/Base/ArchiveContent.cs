@@ -6,7 +6,7 @@ namespace Arkivverket.Arkade.Core.Base;
 
 public interface IArchiveContent
 {
-    public IEnumerable<FileSystemInfo> GetAllContents();
+    public IEnumerable<(string FullPath, string RelativePath, bool IsDirectory)> FetchAll();
 }
 
 public class DirectoryArchiveContent(DirectoryInfo contentDirectory) : IArchiveContent
@@ -37,9 +37,25 @@ public class DirectoryArchiveContent(DirectoryInfo contentDirectory) : IArchiveC
         }
     }
 
-    public IEnumerable<FileSystemInfo> GetAllContents()
+    public IEnumerable<(string FullPath, string RelativePath, bool IsDirectory)> FetchAll()
     {
-        return RootDirectory.EnumerateFileSystemInfos("*", SearchOption.AllDirectories);
+        foreach (FileSystemInfo contentItem in RootDirectory.EnumerateFileSystemInfos("*", SearchOption.AllDirectories))
+            yield return (contentItem.FullName, GetRelativePath(contentItem), IsDirectory(contentItem));
+        yield break;
+
+        string GetRelativePath(FileSystemInfo fileSystemInfo)
+        {
+            int offset = Path.EndsInDirectorySeparator(RootDirectory.FullName)
+                ? RootDirectory.FullName.Length
+                : RootDirectory.FullName.Length + 1;
+
+            return fileSystemInfo.FullName[offset..].Replace('\\', '/');
+        }
+
+        bool IsDirectory(FileSystemInfo fileSystemInfo)
+        {
+            return fileSystemInfo.Attributes.HasFlag(FileAttributes.Directory);
+        }
     }
 }
 
@@ -47,8 +63,8 @@ public class FileArchiveContent(FileInfo contentFile) : IArchiveContent
 {
     public FileInfo RootFile { get; } = contentFile;
 
-    public IEnumerable<FileSystemInfo> GetAllContents()
+    public IEnumerable<(string FullPath, string RelativePath, bool IsDirectory)> FetchAll()
     {
-        return [RootFile];
+        yield return (RootFile.FullName, RootFile.Name, false);
     }
 }

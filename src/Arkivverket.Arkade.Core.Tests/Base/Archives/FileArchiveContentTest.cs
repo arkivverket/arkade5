@@ -21,11 +21,13 @@ public class FileArchiveContentTest
     }
 
     [Fact]
-    public void GetAllContentsTest()
+    public void FetchAllTest()
     {
-        FileSystemInfo[] allContents = _content.GetAllContents().ToArray();
+        var contentItems = _content.FetchAll().ToArray();
 
-        allContents.Should().HaveCount(1);
-        allContents[0].Should().Be(_content.RootFile);
+        contentItems.Should().HaveCount(1);
+        contentItems[0].FullPath.Should().Be(_content.RootFile.FullName);
+        contentItems[0].RelativePath.Should().Be(_content.RootFile.Name);
+        contentItems[0].IsDirectory.Should().BeFalse();
     }
 }

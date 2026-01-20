@@ -39,12 +39,23 @@ public class DirectoryArchiveContentTest
     }
 
     [Fact]
-    public void GetAllContentsTest()
+    public void FetchAllTest()
     {
-        FileSystemInfo[] allContents = _content.GetAllContents().ToArray();
+        var contentItems = _content.FetchAll().ToArray();
 
-        allContents.Should().Contain(f => f.Name.Equals("addml.xsd"));
-        allContents.Should().Contain(f => f.Name.Equals("5000000.pdf"));
-        allContents.Should().Contain(f => f.Name.Equals("dokumenter"));
+        contentItems.Should().Contain(p =>
+            p.FullPath == Path.Combine(TestDirectory.FullName, p.RelativePath) &&
+            p.RelativePath == "addml.xsd" &&
+            !p.IsDirectory);
+
+        contentItems.Should().Contain(p =>
+            p.FullPath == Path.Combine(TestDirectory.FullName, p.RelativePath) &&
+            p.RelativePath == "dokumenter/5000000.pdf" &&
+            !p.IsDirectory);
+
+        contentItems.Should().Contain(p =>
+            p.FullPath == Path.Combine(TestDirectory.FullName, p.RelativePath) &&
+            p.RelativePath == "dokumenter" &&
+            p.IsDirectory);
     }
 }
