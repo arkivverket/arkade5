@@ -95,17 +95,25 @@ namespace Arkivverket.Arkade.Core.Base
             {
                 Log.Debug($"Archive has external content directory, including files from {archive.Content}");
 
-                string contentDirectory = packageRootDirectory +
-                                          ArkadeConstants.DirectoryNameContent +
-                                          Path.DirectorySeparatorChar;
+                var contentDirectoryPath = $"{outputDiasPackage.Id}/{ArkadeConstants.DirectoryNameContent}";
 
-                IEnumerable<FileSystemInfo> allContentsInArchive = archive.Content.GetAllContents(); // TODO: Implement use if this
+                foreach (var contentItem in archive.Content.FetchAll())
+                {
+                    TarEntry tarEntry;
+                    if (contentItem.IsDirectory)
+                    {
+                        tarEntry = TarEntry.CreateTarEntry(contentItem.FullPath);
+                        tarEntry.TarHeader.TypeFlag = TarHeader.LF_DIR;
+                    }
+                    else
+                    {
+                        tarEntry = TarEntry.CreateEntryFromFile(contentItem.FullPath);
+                    }
 
-                var archiveContent = (DirectoryArchiveContent)archive.Content; // TODO: Support FileArchiveContent
-                
-                AddFilesInDirectory(
-                    outputDiasPackage, archiveContent.RootDirectory, null, tarArchive, contentDirectory
-                );
+                    tarEntry.Name = $"{contentDirectoryPath}/{contentItem.RelativePath}";
+                    
+                    tarArchive.WriteEntry(tarEntry, false);
+                }
             }
 
             if (archive is Noark5Archive { InputDiasPackage.TarFile: not null } noark5Archive )
