@@ -44,18 +44,18 @@ public class DirectoryArchiveContentTest
         var contentItems = _content.FetchAll().ToArray();
 
         contentItems.Should().Contain(p =>
-            p.FullPath == Path.Combine(TestDirectory.FullName, p.RelativePath) &&
+            p.FullPath == Path.Combine(TestDirectory.FullName, "addml.xsd") &&
             p.RelativePath == "addml.xsd" &&
-            !p.IsDirectory);
+            p.IsDirectory == false);
 
         contentItems.Should().Contain(p =>
-            p.FullPath == Path.Combine(TestDirectory.FullName, p.RelativePath) &&
+            p.FullPath == Path.Combine(TestDirectory.FullName, "dokumenter", "5000000.pdf") &&
             p.RelativePath == "dokumenter/5000000.pdf" &&
-            !p.IsDirectory);
+            p.IsDirectory == false);
 
         contentItems.Should().Contain(p =>
-            p.FullPath == Path.Combine(TestDirectory.FullName, p.RelativePath) &&
+            p.FullPath == Path.Combine(TestDirectory.FullName, "dokumenter") &&
             p.RelativePath == "dokumenter" &&
-            p.IsDirectory);
+            p.IsDirectory == true);
     }
 }
