@@ -17,9 +17,6 @@ namespace Arkivverket.Arkade.Core.Tests.Base;
 
 public class InformationPackageCreatorTest
 {
-    private readonly DirectoryArchiveContent _archiveContent =
-        new(TestData.Directory(Path.Combine("Archives", "Noark5", "extraction")));
-
     private readonly ArchiveMetadata _archiveMetadata =
         MetadataExampleCreator.Create(MetadataExamplePurpose.InternalTesting);
 
@@ -35,8 +32,10 @@ public class InformationPackageCreatorTest
     [Trait("Category", "Integration")]
     public void CreateSipTest()
     {
+        var content = new DirectoryArchiveContent(TestData.Directory(Path.Combine("Archives", "Noark5", "extraction")));
+
         (Uuid outputPackageId, List<string> metadataFileList, List<string> packageFileList) =
-            CreatePackage(PackageType.SubmissionInformationPackage);
+            CreatePackage<Noark5Archive>(content, PackageType.SubmissionInformationPackage);
 
         string rootDir = outputPackageId + "/";
 
@@ -78,8 +77,10 @@ public class InformationPackageCreatorTest
     [Trait("Category", "Integration")]
     public void CreateAipTest()
     {
+        var content = new DirectoryArchiveContent(TestData.Directory(Path.Combine("Archives", "Noark5", "extraction")));
+
         (Uuid outputPackageId, List<string> metadataFileList, List<string> packageFileList) =
-            CreatePackage(PackageType.ArchivalInformationPackage);
+            CreatePackage<Noark5Archive>(content, PackageType.ArchivalInformationPackage);
 
         string rootDir = outputPackageId + "/";
 
@@ -117,11 +118,11 @@ public class InformationPackageCreatorTest
         metadataFileList.Should().BeEquivalentTo(packageFilesExpectedInMetadata);
     }
 
-    private (Uuid, List<string>, List<string>) CreatePackage(PackageType packageType)
+    private (Uuid, List<string>, List<string>) CreatePackage<TArchive>(IArchiveContent content, PackageType packageType) where TArchive : Archive
     {
         using var disposableDirectory = new DisposableDirectory(_tmpDirectory);
         DirectoryInfo processingDirectory = disposableDirectory.Get().CreateSubdirectory("processing");
-        Archive archive = new ArchiveBuilder(_archiveContent, processingDirectory).Build<Noark5Archive>();
+        Archive archive = new ArchiveBuilder(content, processingDirectory).Build<TArchive>();
 
         archive.OutputDiasPackage = new OutputDiasPackage(packageType, _archiveMetadata, archive.ProcessingDirectory);
 
