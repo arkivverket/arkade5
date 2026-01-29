@@ -65,7 +65,7 @@ public class InformationPackageCreatorTest
         packageFileList.Should().NotContain(rootDir + "descriptive_metadata/eac-cpf.xml");
         packageFileList.Should().NotContain(rootDir + "descriptive_metadata/ead.xml");
 
-        // Files in total, including the directories implicit tested by subentries (above)
+        // Files in total, including the directories implicitly tested by subentries (above)
         packageFileList.Count.Should().Be(19);
 
         // All files in the package (except the metadata file itself) should be described in its metadata:
@@ -110,7 +110,7 @@ public class InformationPackageCreatorTest
         packageFileList.Should().Contain(rootDir + "descriptive_metadata/eac-cpf.xml");
         packageFileList.Should().Contain(rootDir + "descriptive_metadata/ead.xml");
 
-        // Files in total, including the directories implicit tested by subentries (above)
+        // Files in total, including the directories implicitly tested by subentries (above)
         packageFileList.Count.Should().Be(22);
 
         // All files in the package (except the metadata file itself) should be described in its metadata:
@@ -141,7 +141,7 @@ public class InformationPackageCreatorTest
         resultFiles.Should().HaveCount(2);
 
         return (
-            archive.OutputDiasPackage.Id, // NB! UUID-writeout (unit testing)
+            archive.OutputDiasPackage.Id, // NB! UUID-transfer (unit testing)
             GetFileListFromMetadata(archive.OutputDiasPackage),
             GetFileListFromTarArchive(packageFilePath)
         );
