@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Tests.UnitTestUtilities;
 using FluentAssertions;
 using Xunit;
 
@@ -9,8 +10,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Archives;
 
 public class DirectoryArchiveContentTest
 {
-    private static readonly DirectoryInfo TestDirectory = new(
-        Path.Combine(Environment.CurrentDirectory, "TestData", "Archives", "Noark5", "extraction"));
+    private static readonly DirectoryInfo TestDirectory = TestData.Directory(
+        Path.Combine("Archives", "Noark5", "extraction"));
 
     private readonly DirectoryArchiveContent _content = new(TestDirectory);
 
