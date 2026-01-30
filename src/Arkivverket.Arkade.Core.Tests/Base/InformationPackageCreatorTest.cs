@@ -118,6 +118,62 @@ public class InformationPackageCreatorTest
         metadataFileList.Should().BeEquivalentTo(packageFilesExpectedInMetadata);
     }
 
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void Noark5ExtractionDirectoryInputBasedPackageHasExpectedContent()
+    {
+        var content = new DirectoryArchiveContent(TestData.Directory("Archives", "Noark5", "extraction"));
+
+        (Uuid outputPackageId, List<string> metadataFileList, List<string> packageFileList) =
+            CreatePackage<Noark5Archive>(content, PackageType.SubmissionInformationPackage);
+
+        string rootDir = outputPackageId + "/";
+
+        // Files from the input archive (content):
+        packageFileList.Should().Contain(rootDir + "content/addml.xsd");
+        packageFileList.Should().Contain(rootDir + "content/arkivstruktur.xml");
+        packageFileList.Should().Contain(rootDir + "content/arkivstruktur.xsd");
+        packageFileList.Should().Contain(rootDir + "content/arkivuttrekk.xml");
+        packageFileList.Should().Contain(rootDir + "content/dokumenter/5000000.pdf");
+        packageFileList.Should().Contain(rootDir + "content/dokumenter/5000001.pdf");
+        packageFileList.Should().Contain(rootDir + "content/metadatakatalog.xsd");
+
+        // Content files in total, including the directories implicitly tested by subentries (above)
+        packageFileList.Where(f => f.Contains("content/")).ToList().Count.Should().Be(9);
+
+        // All files in the package (except the metadata file itself) should be described in its metadata:
+        List<string> packageFilesExpectedInMetadata = GetPackageItemsExpectedInMetadata(packageFileList);
+        metadataFileList.Should().BeEquivalentTo(packageFilesExpectedInMetadata);
+    }
+    
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void SiardExtractionFileInputBasedPackageHasExpectedContent()
+    {
+        var content = new FileArchiveContent(TestData.File("Archives", "Siard", "extraction", "dbptk.siard"));
+
+        (Uuid outputPackageId, List<string> metadataFileList, List<string> packageFileList) =
+            CreatePackage<SiardArchive>(content, PackageType.SubmissionInformationPackage);
+
+        string rootDir = outputPackageId + "/";
+
+        // Files from the input archive (content):
+        packageFileList.Should().Contain(rootDir + "content/dbptk.siard");
+
+        // Content files in total, including the directories implicitly tested by subentries (above)
+        packageFileList.Where(f => f.Contains("content/")).ToList().Count.Should().Be(44);
+
+        // External lobs including subdirectories for lobs
+        const string externalLobDirectoryLocalPath = "content/t01bclob12_dbptk-desktop-2.5.9_ext.siard_lobseg_1/";
+        List<string> externalLobs = packageFileList.Where(f => f.Contains(externalLobDirectoryLocalPath)).ToList();
+        externalLobs.Count.Should().Be(42);
+
+        // All files in the package (except the metadata file itself) should be described in its metadata:
+        List<string> packageFilesExpectedInMetadata = GetPackageItemsExpectedInMetadata(packageFileList);
+        metadataFileList.Count.Should().Be(packageFilesExpectedInMetadata.Count); // For failing test result readability
+        metadataFileList.Should().BeEquivalentTo(packageFilesExpectedInMetadata);
+    }
+
     private (Uuid, List<string>, List<string>) CreatePackage<TArchive>(IArchiveContent content, PackageType packageType) where TArchive : Archive
     {
         using var disposableDirectory = new DisposableDirectory(_tmpDirectory);

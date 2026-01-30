@@ -127,7 +127,7 @@ namespace Arkivverket.Arkade.Core.Base
         {
             var siardTableXmlReader = new SiardXmlTableReader(new SiardArchiveReader());
 
-            siardArchiveFile.CopyTo(Path.Combine(contentDirectoryPath, siardArchiveFile.Name));
+            // siardArchiveFile.CopyTo(Path.Combine(contentDirectoryPath, siardArchiveFile.Name)); // TODO: Follow up!
 
             try
             {
