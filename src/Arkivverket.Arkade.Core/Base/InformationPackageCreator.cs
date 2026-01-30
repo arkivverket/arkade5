@@ -99,16 +99,7 @@ namespace Arkivverket.Arkade.Core.Base
 
                 foreach (var contentItem in archive.Content.FetchAll())
                 {
-                    TarEntry tarEntry;
-                    if (contentItem.IsDirectory)
-                    {
-                        tarEntry = TarEntry.CreateTarEntry(contentItem.FullPath);
-                        tarEntry.TarHeader.TypeFlag = TarHeader.LF_DIR;
-                    }
-                    else
-                    {
-                        tarEntry = TarEntry.CreateEntryFromFile(contentItem.FullPath);
-                    }
+                    var tarEntry = TarEntry.CreateEntryFromFile(contentItem.FullPath);
 
                     tarEntry.Name = $"{contentDirectoryPath}/{contentItem.RelativePath}";
                     
