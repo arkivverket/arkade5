@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -6,7 +7,8 @@ namespace Arkivverket.Arkade.Core.Base;
 
 public interface IArchiveContent
 {
-    public IEnumerable<(string FullPath, string RelativePath, bool IsDirectory)> FetchAll();
+    public IEnumerable<FileSystemInfo> GetAll();
+    public string GetContentRelativePath(FileSystemInfo contentItem);
 }
 
 public class DirectoryArchiveContent(DirectoryInfo contentDirectory) : IArchiveContent
@@ -37,25 +39,21 @@ public class DirectoryArchiveContent(DirectoryInfo contentDirectory) : IArchiveC
         }
     }
 
-    public IEnumerable<(string FullPath, string RelativePath, bool IsDirectory)> FetchAll()
+    public IEnumerable<FileSystemInfo> GetAll()
     {
-        foreach (FileSystemInfo contentItem in RootDirectory.EnumerateFileSystemInfos("*", SearchOption.AllDirectories))
-            yield return (contentItem.FullName, GetRelativePath(contentItem), IsDirectory(contentItem));
-        yield break;
+        return RootDirectory.EnumerateFileSystemInfos("*", SearchOption.AllDirectories);
+    }
 
-        string GetRelativePath(FileSystemInfo fileSystemInfo)
-        {
-            int offset = Path.EndsInDirectorySeparator(RootDirectory.FullName)
-                ? RootDirectory.FullName.Length
-                : RootDirectory.FullName.Length + 1;
+    public string GetContentRelativePath(FileSystemInfo contentItem)
+    {
+        if (!contentItem.FullName.StartsWith(RootDirectory.FullName))
+            throw new ArgumentException("The item is not part of the archive content");
+        
+        int offset = Path.EndsInDirectorySeparator(RootDirectory.FullName)
+            ? RootDirectory.FullName.Length
+            : RootDirectory.FullName.Length + 1;
 
-            return fileSystemInfo.FullName[offset..].Replace('\\', '/');
-        }
-
-        bool IsDirectory(FileSystemInfo fileSystemInfo)
-        {
-            return fileSystemInfo.Attributes.HasFlag(FileAttributes.Directory);
-        }
+        return contentItem.FullName[offset..].Replace('\\', '/');
     }
 }
 
@@ -63,8 +61,15 @@ public class FileArchiveContent(FileInfo contentFile) : IArchiveContent
 {
     public FileInfo RootFile { get; } = contentFile;
 
-    public IEnumerable<(string FullPath, string RelativePath, bool IsDirectory)> FetchAll()
+    public IEnumerable<FileSystemInfo> GetAll()
     {
-        yield return (RootFile.FullName, RootFile.Name, false);
+        return [RootFile];
+    }
+
+    public string GetContentRelativePath(FileSystemInfo contentItem)
+    {
+        return !contentItem.FullName.Equals(RootFile.FullName)
+            ? throw new ArgumentException("The item is not part of the archive content")
+            : RootFile.Name;
     }
 }

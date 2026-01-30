@@ -22,13 +22,25 @@ public class FileArchiveContentTest
     }
 
     [Fact]
-    public void FetchAllTest()
+    public void GetAllContentsTest()
     {
-        var contentItems = _content.FetchAll().ToArray();
+        FileSystemInfo[] allContents = _content.GetAll().ToArray();
 
-        contentItems.Should().HaveCount(1);
-        contentItems[0].FullPath.Should().Be(_content.RootFile.FullName);
-        contentItems[0].RelativePath.Should().Be(_content.RootFile.Name);
-        contentItems[0].IsDirectory.Should().BeFalse();
+        allContents.Should().HaveCount(1);
+        allContents[0].Should().Be(_content.RootFile);
+    }
+
+    [Fact]
+    public void GetContentRelativePathTest()
+    {
+        _content.GetContentRelativePath(TestFile).Should().Be(TestFile.Name);
+
+        FileInfo outsideFile = TestData.File(Path.Combine("Archives", "Noark3", "extraction", "ARKIV.DAT"));
+        _content.Invoking(c => c.GetContentRelativePath(outsideFile))
+            .Should().Throw<ArgumentException>().WithMessage("The item is not part of the archive content");
+        
+        DirectoryInfo outsideDirectory = TestData.Directory(Path.Combine("Archives", "Noark3", "extraction"));
+        _content.Invoking(c => c.GetContentRelativePath(outsideDirectory))
+            .Should().Throw<ArgumentException>().WithMessage("The item is not part of the archive content");
     }
 }

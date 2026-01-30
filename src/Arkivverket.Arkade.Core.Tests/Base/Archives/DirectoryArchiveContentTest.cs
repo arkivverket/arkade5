@@ -40,23 +40,32 @@ public class DirectoryArchiveContentTest
     }
 
     [Fact]
-    public void FetchAllTest()
+    public void GetAllContentsTest()
     {
-        var contentItems = _content.FetchAll().ToArray();
+        FileSystemInfo[] allContents = _content.GetAll().ToArray();
 
-        contentItems.Should().Contain(p =>
-            p.FullPath == Path.Combine(TestDirectory.FullName, "addml.xsd") &&
-            p.RelativePath == "addml.xsd" &&
-            p.IsDirectory == false);
+        allContents.Should().Contain(f => f.Name.Equals("addml.xsd"));
+        allContents.Should().Contain(f => f.Name.Equals("5000000.pdf"));
+        allContents.Should().Contain(f => f.Name.Equals("dokumenter"));
+    }
 
-        contentItems.Should().Contain(p =>
-            p.FullPath == Path.Combine(TestDirectory.FullName, "dokumenter", "5000000.pdf") &&
-            p.RelativePath == "dokumenter/5000000.pdf" &&
-            p.IsDirectory == false);
+    [Fact]
+    public void GetContentRelativePathTest()
+    {
+        string fileFullName = Path.Combine(TestDirectory.FullName, "dokumenter", "5000000.pdf");
+        FileInfo file = new(fileFullName);
+        _content.GetContentRelativePath(file).Should().Be("dokumenter/5000000.pdf");
 
-        contentItems.Should().Contain(p =>
-            p.FullPath == Path.Combine(TestDirectory.FullName, "dokumenter") &&
-            p.RelativePath == "dokumenter" &&
-            p.IsDirectory == true);
+        string directoryFullName = Path.Combine(TestDirectory.FullName, "dokumenter");
+        DirectoryInfo directory = new(directoryFullName);
+        _content.GetContentRelativePath(directory).Should().Be("dokumenter");
+
+        FileInfo outsideFile = TestData.File(Path.Combine("Archives", "Noark3", "extraction", "ARKIV.DAT"));
+        _content.Invoking(c => c.GetContentRelativePath(outsideFile))
+            .Should().Throw<ArgumentException>().WithMessage("The item is not part of the archive content");
+
+        DirectoryInfo outsideDirectory = TestData.Directory(Path.Combine("Archives", "Noark3", "extraction"));
+        _content.Invoking(c => c.GetContentRelativePath(outsideDirectory))
+            .Should().Throw<ArgumentException>().WithMessage("The item is not part of the archive content");
     }
 }
