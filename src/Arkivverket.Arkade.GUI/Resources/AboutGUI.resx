@@ -130,7 +130,7 @@
     <value>http://www.apache.org/licenses/LICENSE-2.0</value>
   </data>
   <data name="ArkadeCopyrightInformationText" xml:space="preserve">
-    <value>Copyright © {0} Arkivverket. Licensed under</value>
+    <value>Copyright © {0} Nasjonalarkivet. Licensed under</value>
     <comment>{0} = Year</comment>
   </data>
   <data name="ThirdPartySoftwareInformation_1" xml:space="preserve">

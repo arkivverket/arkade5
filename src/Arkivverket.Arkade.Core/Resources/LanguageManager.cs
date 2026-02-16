@@ -44,6 +44,11 @@ namespace Arkivverket.Arkade.Core.Languages
         {
             Resources.ArchiveFormatValidationMessages.Culture = CultureInfo.CreateSpecificCulture(language.ToString());
         }
+        
+        public static void SetResourceLanguageForTemporaryMessages(SupportedLanguage language)
+        {
+            Resources.TemporaryMessages.Culture = CultureInfo.CreateSpecificCulture(language.ToString());
+        }
     }
 
     public enum SupportedLanguage

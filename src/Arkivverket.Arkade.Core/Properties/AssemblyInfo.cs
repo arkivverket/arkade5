@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("Arkivverket.Arkade.Core")]
 [assembly: AssemblyDescription("Test and package tool for archive data")]
-[assembly: AssemblyCompany("Arkivverket")]
+[assembly: AssemblyCompany("Nasjonalarkivet")]
 [assembly: AssemblyProduct("Arkade 5")]
-[assembly: AssemblyCopyright("Copyright © 2016-2025")]
+[assembly: AssemblyCopyright("Copyright © 2016-2026")]
 
 [assembly: InternalsVisibleTo("Arkivverket.Arkade.Core.Test")]
 

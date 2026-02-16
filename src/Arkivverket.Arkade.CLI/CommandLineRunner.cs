@@ -52,7 +52,7 @@ namespace Arkivverket.Arkade.CLI
             Log.Information($"\n" +
                             $"********************************************************************************\n" +
                             $"* ARKADE 5 CLI v{ArkadeVersion.Current}                                                          *\n" +
-                            $"* Copyright © 2017 Arkivverket                                                 *\n" +
+                            $"* Copyright © 2026 Nasjonalarkivet                                             *\n" +
                             $"* Licensed under the GNU Affero General Public License (GNU AGPL), Version 3.0 *\n" +
                             $"********************************************************************************\n");
 

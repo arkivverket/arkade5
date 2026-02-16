@@ -366,6 +366,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private async void ValidateArchiveFormat()
         {
+            // TODO: Resolve issues and re-enable PDF/A-validation
+            if (ArchiveFormatValidationFormat == ArchiveFormat.PdfA.GetDescription())
+            {
+                LanguageManager.SetResourceLanguageForTemporaryMessages(LanguageSettingHelper.GetUILanguage());
+                
+                MessageBox.Show(TemporaryMessages.PdfAValidationUnavailable,
+                    string.Empty, MessageBoxButton.OK, MessageBoxImage.Warning);
+                
+                return;
+            }
+
             var resultFileDirectoryPath = "";
             if (ArchiveFormatValidationFormat == ArchiveFormat.PdfA.GetDescription() && _archiveFormatValidationItem is DirectoryInfo)
             {

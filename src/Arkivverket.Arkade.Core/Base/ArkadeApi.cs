@@ -286,6 +286,10 @@ namespace Arkivverket.Arkade.Core.Base
         public async Task<ArchiveFormatValidationReport> ValidateArchiveFormatAsync(
             FileSystemInfo item, ArchiveFormat format, string resultFileDirectoryPath, SupportedLanguage language)
         {
+            // TODO: Resolve issues and re-enable PDF/A-validation
+            if (format == ArchiveFormat.PdfA)
+                throw new ArkadeException("Validation request with format PDF/A was rejected: 3rd party library issue");
+
             LanguageManager.SetResourceLanguageForArchiveFormatValidation(language);
 
             return await _archiveFormatValidator.ValidateAsync(item, format, resultFileDirectoryPath);

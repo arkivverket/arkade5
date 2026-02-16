@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<addml xmlns="http://www.arkivverket.no/standarder/addml"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.arkivverket.no/standarder/addml addml.xsd">
+
+    <!-- No sub-elements make addml invalid but still serializable -->
+
+</addml>

@@ -4,6 +4,7 @@ using System.IO;
 using Arkivverket.Arkade.CLI.Options;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using CommandLine;
@@ -98,6 +99,15 @@ namespace Arkivverket.Arkade.CLI
 
         private static void RunValidateOptions(ValidateOptions validateOptions, out bool canRun)
         {
+            // TODO: Resolve issues and re-enable PDF/A-validation
+            if (validateOptions.Format.ToUpper().Equals(ArchiveFormat.PdfA.GetDescription()))
+            {
+                LanguageManager.SetResourceLanguageForTemporaryMessages(SupportedLanguage.en);
+                Log.Warning(TemporaryMessages.PdfAValidationUnavailable);
+                canRun = false;
+                return;
+            }
+            
             canRun = ReadyToRun(validateOptions);
             if (!canRun)
                 return;

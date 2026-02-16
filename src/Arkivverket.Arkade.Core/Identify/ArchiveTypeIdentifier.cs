@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
@@ -28,7 +28,10 @@ namespace Arkivverket.Arkade.Core.Identify
                 return ArchiveType.Siard;
 
             if (!File.Exists(addmlFile?.FullName))
+            {
+                LogWarning(ArkadeConstants.AddmlXmlFileName + " was not found in the chosen archive directory");
                 return null;
+            }
 
             try
             {
@@ -45,11 +48,13 @@ namespace Arkivverket.Arkade.Core.Identify
                 if (TypeOfChosenArchiveDirectoryIsNoark5(addml))
                     return ArchiveType.Noark5;
             }
-            catch(ArkadeException arkadeException)
+            catch(Exception exception)
             {
-                Log.Error("Arkade could not automatically identify the type of the chosen archive:\n" + arkadeException.Message);
+                LogWarning(exception.Message);
+                return null;
             }
             
+            LogWarning();
             return null;
         }
 
@@ -62,6 +67,7 @@ namespace Arkivverket.Arkade.Core.Identify
 
             if (!File.Exists(infoFilePath))
             {
+                LogWarning($"No info file found for archive package file [path: {archiveFileName}]");
                 return null;
             }
 
@@ -74,7 +80,10 @@ namespace Arkivverket.Arkade.Core.Identify
                      a.OTHERTYPE == metsTypeMetsHdrAgentOTHERTYPE.SOFTWARE);
 
             if (archiveExtractionTypeAgent == default)
+            {
+                LogWarning($"No archive type information found in package info file [path: {archiveFileName}]");
                 return null;
+            }
 
             foreach (string note in archiveExtractionTypeAgent.note)
             {
@@ -94,6 +103,7 @@ namespace Arkivverket.Arkade.Core.Identify
                     return ArchiveType.Noark5;
             }
 
+            LogWarning();
             return null;
         }
 
@@ -123,8 +133,8 @@ namespace Arkivverket.Arkade.Core.Identify
 
         private static bool TypeOfChosenArchiveDirectoryIsNoark5(addml addml)
         {
-            string archiveExtractionType = addml.dataset[0].dataObjects?.dataObject[0].properties
-                .FirstOrDefault(p => p.name.Equals("info"))?.properties
+            string archiveExtractionType = addml.dataset[0].dataObjects?.dataObject[0].properties?
+                .FirstOrDefault(p => p.name.Equals("info"))?.properties?
                 .FirstOrDefault(p => p.name.Equals("type"))?.value;
 
             return archiveExtractionType != null &&
@@ -147,6 +157,16 @@ namespace Arkivverket.Arkade.Core.Identify
                 return false;
 
             return (bool)isSiard;
+        }
+
+        private static void LogWarning(string details = null)
+        {
+            const string warning = "Arkade could not automatically identify the type of the chosen archive";
+
+            if (!string.IsNullOrEmpty(details))
+                Log.Warning(warning + ":\n" + details);
+
+            Log.Warning(warning);
         }
     }
 }

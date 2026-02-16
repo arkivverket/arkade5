@@ -124,7 +124,7 @@
     <value>Om Arkade 5</value>
   </data>
   <data name="ArkadeCopyrightInformationText" xml:space="preserve">
-    <value>Opphavsrett © {0} Arkivverket. Lisensiert under</value>
+    <value>Opphavsrett © {0} Nasjonalarkivet. Lisensiert under</value>
     <comment>{0} - årstall</comment>
   </data>
   <data name="ThirdPartySoftwareInformation_1" xml:space="preserve">
