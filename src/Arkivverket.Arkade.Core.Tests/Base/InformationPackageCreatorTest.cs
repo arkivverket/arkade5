@@ -32,7 +32,7 @@ public class InformationPackageCreatorTest
     [Trait("Category", "Integration")]
     public void CreateSipTest()
     {
-        var content = new DirectoryArchiveContent(TestData.Directory(Path.Combine("Archives", "Noark5", "extraction")));
+        var content = new DirectoryArchiveContent(TestData.Directory("Archives", "Noark5", "extraction"));
 
         (Uuid outputPackageId, List<string> metadataFileList, List<string> packageFileList) =
             CreatePackage<Noark5Archive>(content, PackageType.SubmissionInformationPackage);
@@ -77,7 +77,7 @@ public class InformationPackageCreatorTest
     [Trait("Category", "Integration")]
     public void CreateAipTest()
     {
-        var content = new DirectoryArchiveContent(TestData.Directory(Path.Combine("Archives", "Noark5", "extraction")));
+        var content = new DirectoryArchiveContent(TestData.Directory("Archives", "Noark5", "extraction"));
 
         (Uuid outputPackageId, List<string> metadataFileList, List<string> packageFileList) =
             CreatePackage<Noark5Archive>(content, PackageType.ArchivalInformationPackage);

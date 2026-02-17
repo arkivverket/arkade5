@@ -10,8 +10,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Archives;
 
 public class DirectoryArchiveContentTest
 {
-    private static readonly DirectoryInfo TestDirectory = TestData.Directory(
-        Path.Combine("Archives", "Noark5", "extraction"));
+    private static readonly DirectoryInfo TestDirectory = TestData.Directory("Archives", "Noark5", "extraction");
 
     private readonly DirectoryArchiveContent _content = new(TestDirectory);
 
@@ -60,11 +59,11 @@ public class DirectoryArchiveContentTest
         DirectoryInfo directory = new(directoryFullName);
         _content.GetContentRelativePath(directory).Should().Be("dokumenter");
 
-        FileInfo outsideFile = TestData.File(Path.Combine("Archives", "Noark3", "extraction", "ARKIV.DAT"));
+        FileInfo outsideFile = TestData.File("Archives", "Noark3", "extraction", "ARKIV.DAT");
         _content.Invoking(c => c.GetContentRelativePath(outsideFile))
             .Should().Throw<ArgumentException>().WithMessage("The item is not part of the archive content");
 
-        DirectoryInfo outsideDirectory = TestData.Directory(Path.Combine("Archives", "Noark3", "extraction"));
+        DirectoryInfo outsideDirectory = TestData.Directory("Archives", "Noark3", "extraction");
         _content.Invoking(c => c.GetContentRelativePath(outsideDirectory))
             .Should().Throw<ArgumentException>().WithMessage("The item is not part of the archive content");
     }
