@@ -8,8 +8,6 @@ public static class TestData
     private static readonly string TestDataDirectoryPath =
         Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData");
 
-    public static DirectoryInfo Directory() => new(TestDataDirectoryPath);
-
     public static DirectoryInfo Directory(params string[] testDataDirectorySubPathSegments) =>
         new(Path.Combine([TestDataDirectoryPath, .. testDataDirectorySubPathSegments]));
 
