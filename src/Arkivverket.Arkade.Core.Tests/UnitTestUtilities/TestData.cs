@@ -5,12 +5,10 @@ namespace Arkivverket.Arkade.Core.Tests.UnitTestUtilities;
 
 public static class TestData
 {
-    private static readonly string TestDataDirectoryPath =
-        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData");
+    public static DirectoryInfo Directory(params string[] subPathSegments) => new(PrependTestDataPath(subPathSegments));
 
-    public static DirectoryInfo Directory(params string[] testDataDirectorySubPathSegments) =>
-        new(Path.Combine([TestDataDirectoryPath, .. testDataDirectorySubPathSegments]));
+    public static FileInfo File(params string[] subPathSegments) => new(PrependTestDataPath(subPathSegments));
 
-    public static FileInfo File(params string[] testDataDirectorySubPathSegments) =>
-        new(Path.Combine([TestDataDirectoryPath, .. testDataDirectorySubPathSegments]));
+    private static string PrependTestDataPath(string[] subPathSegments) =>
+        Path.Combine([AppDomain.CurrentDomain.BaseDirectory, "TestData", .. subPathSegments]);
 }
