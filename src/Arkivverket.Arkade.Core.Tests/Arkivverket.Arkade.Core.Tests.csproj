@@ -624,6 +624,7 @@
     <Compile Include="Base\Archives\DirectoryArchiveContentTest.cs" />
     <Compile Include="Base\Archives\FileArchiveContentTest.cs" />
     <Compile Include="Base\Archives\Noark5XmlUnitsTest.cs" />
+    <Compile Include="Identify\ArchiveTypeIdentifierTests.cs" />
     <Compile Include="Metadata\DiasMetsCreatorTest.cs" />
     <Compile Include="Metadata\SubmissionDescriptionCreatorTest.cs" />
     <Compile Include="Metadata\MetsCreatorTest.cs" />
