@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Identify;
 using FluentAssertions;
 using Xunit;
