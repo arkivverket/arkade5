@@ -620,6 +620,7 @@
     <Compile Include="UnitTestUtilities\DisposableDirectory.cs" />
     <Compile Include="Base\ArchiveBuilder.cs" />
     <Compile Include="Base\InformationPackageCreatorTest.cs" />
+    <Compile Include="Base\Archives\ArchiveTest.cs" />
     <Compile Include="Base\Archives\ArchiveFactoryTest.cs" />
     <Compile Include="Base\Archives\DirectoryArchiveContentTest.cs" />
     <Compile Include="Base\Archives\FileArchiveContentTest.cs" />
