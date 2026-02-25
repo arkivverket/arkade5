@@ -37,6 +37,18 @@ namespace Arkivverket.Arkade.Core.Metadata
             return fileDescriptions;
         }
 
+        protected FileDescription GetFileDescription(FileInfo file, string contentRelativeFileName)
+        {
+            return new FileDescription
+            {
+                Name = contentRelativeFileName,
+                Extension = file.Extension,
+                Sha256Checksum = GetSha256Checksum(file),
+                Size = file.Length,
+                ModifiedTime = file.LastWriteTime
+            };
+        }
+        
         protected FileDescription GetFileDescription(FileInfo file, DirectoryInfo pathRoot)
         {
             string name = pathRoot != null ? Path.GetRelativePath(pathRoot.FullName, file.FullName) : file.FullName;

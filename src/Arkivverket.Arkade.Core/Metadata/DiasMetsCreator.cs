@@ -32,29 +32,26 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             //if (outputDiasPackage.WorkingDirectory.HasExternalContentDirectory())
             {
-                IEnumerable<FileSystemInfo> archiveContentItems = archive.Content.GetAll(); // TODO: Implement use if this
+                IEnumerable<FileSystemInfo> archiveContentItems = archive.Content.GetAll();
 
-                var archiveContent = (DirectoryArchiveContent)archive.Content; // TODO: Support FileArchiveContent
+                string[] directoriesToSkip = archive is Noark5Archive ? ArkadeConstants.DocumentDirectoryNames : null;
 
-                DirectoryInfo externalContentDirectory = archiveContent.RootDirectory;
+                var fileDescriptions = new List<FileDescription>();
 
-                if (externalContentDirectory.Exists)
+                foreach (FileSystemInfo archiveContentItem in archiveContentItems)
                 {
-                    string[] directoriesToSkip = archive is Noark5Archive
-                        ? ArkadeConstants.DocumentDirectoryNames
-                        : null;
+                    if (archiveContentItem is not FileInfo archiveContentFile)
+                        continue;
 
-                    // The loaded archive (as dictionary) might have a name different from "content", therefore it is
-                    // necessary to strip the name of the source "content" directory from the file descriptions, 
-                    // before prepending "content/" to their names - to ensure the files are correctly referred in
-                    // the dias-mets.xml of the produced IP.
-                    List<FileDescription> fileDescriptions = GetFileDescriptions(externalContentDirectory, 
-                        externalContentDirectory, directoriesToSkip);
+                    string contentRelativeFilePath = archive.Content.GetContentRelativePath(archiveContentFile);
 
-                    PrependFileDescriptionsNameWithContent(fileDescriptions);
+                    if (directoriesToSkip?.Any(skipDir => contentRelativeFilePath.Contains(skipDir)) == true)
+                        continue;
 
-                    metadata.FileDescriptions.AddRange(fileDescriptions);
+                    fileDescriptions.Add(GetFileDescription(archiveContentFile, $"{ArkadeConstants.DirectoryNameContent}/{contentRelativeFilePath}"));
                 }
+
+                metadata.FileDescriptions.AddRange(fileDescriptions);
             }
 
             if (archive is Noark5Archive noark5Archive)
@@ -81,11 +78,6 @@ namespace Arkivverket.Arkade.Core.Metadata
             Log.Debug($"Created {ArkadeConstants.DiasMetsXmlFileName}");
         }
 
-        private static void PrependFileDescriptionsNameWithContent(List<FileDescription> fileDescriptions)
-        {
-            foreach (FileDescription fileDescription in fileDescriptions)
-                fileDescription.Name = Path.Combine(ArkadeConstants.DirectoryNameContent, fileDescription.Name);
-        }
 
         private static IEnumerable<FileDescription> GetFileDescriptionsFromDocumentFiles(ReadOnlyDictionary<string, DocumentFile> documentFiles)
         {
