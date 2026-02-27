@@ -16,7 +16,7 @@ public class DirectoryArchiveContentTest
     [Fact]
     public void RootDirectoryTest()
     {
-        _content.RootDirectory.FullName.Should().Be(TestDirectory.FullName);
+        _content.RootDirectory.FullName.TrimEnd('\\', '/').Should().Be(TestDirectory.FullName.TrimEnd('\\', '/'));
     }
 
     [Fact]

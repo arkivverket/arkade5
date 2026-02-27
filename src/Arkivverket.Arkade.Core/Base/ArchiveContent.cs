@@ -11,7 +11,7 @@ public interface IArchiveContent
 
 public class DirectoryArchiveContent(DirectoryInfo contentDirectory) : IArchiveContent
 {
-    public DirectoryInfo RootDirectory { get; } = contentDirectory;
+    public DirectoryInfo RootDirectory { get; } = new(contentDirectory.FullName.TrimEnd('\\', '/') + '/'); //Ensures '/'
 
     public FileInfo GetFile(string filePath)
     {
@@ -39,14 +39,8 @@ public class DirectoryArchiveContent(DirectoryInfo contentDirectory) : IArchiveC
 
     public IEnumerable<(FileSystemInfo Item, string RelativePath)> GetAll()
     {
-        return RootDirectory.EnumerateFileSystemInfos("*", SearchOption.AllDirectories)
-            .Select(contentItem =>
-            {
-                int offset = Path.EndsInDirectorySeparator(RootDirectory.FullName)
-                    ? RootDirectory.FullName.Length
-                    : RootDirectory.FullName.Length + 1;
-                return (contentItem, contentItem.FullName[offset..].Replace('\\', '/'));
-            });
+        return RootDirectory.EnumerateFileSystemInfos("*", SearchOption.AllDirectories).Select(contentItem =>
+            (contentItem, contentItem.FullName[RootDirectory.FullName.Length..].Replace('\\', '/')));
     }
 }
 
