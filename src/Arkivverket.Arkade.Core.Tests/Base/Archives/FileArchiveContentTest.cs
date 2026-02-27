@@ -20,6 +20,16 @@ public class FileArchiveContentTest
     }
 
     [Fact]
+    public void GetFilesTest()
+    {
+        (FileInfo File, string RelativePath)[] contentFiles = _content.GetFiles().ToArray();
+
+        contentFiles.Should().HaveCount(1);
+        contentFiles[0].File.FullName.Should().Be(_content.RootFile.FullName);
+        contentFiles[0].RelativePath.Should().Be(_content.RootFile.Name);
+    }
+    
+    [Fact]
     public void GetAllContentsTest()
     {
         (FileSystemInfo Item, string RelativePath)[] contentItems = _content.Get().ToArray();

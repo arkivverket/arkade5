@@ -6,6 +6,7 @@ namespace Arkivverket.Arkade.Core.Base;
 
 public interface IArchiveContent
 {
+    public IEnumerable<(FileInfo File, string RelativePath)> GetFiles();
     public IEnumerable<(FileSystemInfo Item, string RelativePath)> Get();
 }
 
@@ -37,16 +38,32 @@ public class DirectoryArchiveContent(DirectoryInfo contentDirectory) : IArchiveC
         }
     }
 
+    public IEnumerable<(FileInfo File, string RelativePath)> GetFiles()
+    {
+        return RootDirectory.EnumerateFiles("*", SearchOption.AllDirectories)
+            .Select(contentFile => (contentFile, GetRelativePath(contentFile)));
+    }
+
     public IEnumerable<(FileSystemInfo Item, string RelativePath)> Get()
     {
-        return RootDirectory.EnumerateFileSystemInfos("*", SearchOption.AllDirectories).Select(contentItem =>
-            (contentItem, contentItem.FullName[RootDirectory.FullName.Length..].Replace('\\', '/')));
+        return RootDirectory.EnumerateFileSystemInfos("*", SearchOption.AllDirectories)
+            .Select(contentItem => (contentItem, GetRelativePath(contentItem)));
+    }
+
+    private string GetRelativePath(FileSystemInfo contentItem)
+    {
+        return contentItem.FullName[RootDirectory.FullName.Length..].Replace('\\', '/');
     }
 }
 
 public class FileArchiveContent(FileInfo contentFile) : IArchiveContent
 {
     public FileInfo RootFile { get; } = contentFile;
+
+    public IEnumerable<(FileInfo File, string RelativePath)> GetFiles()
+    {
+        return [(File: RootFile, RelativePath: RootFile.Name)];
+    }
 
     public IEnumerable<(FileSystemInfo Item, string RelativePath)> Get()
     {

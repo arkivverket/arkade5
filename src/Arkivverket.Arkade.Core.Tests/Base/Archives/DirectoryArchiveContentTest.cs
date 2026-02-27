@@ -38,6 +38,22 @@ public class DirectoryArchiveContentTest
     }
 
     [Fact]
+    public void GetFilesTest()
+    {
+        (FileInfo File, string RelativePath)[] contentFiles = _content.GetFiles().ToArray();
+
+        contentFiles.Should().Contain(f =>
+            f.File.FullName == Path.Combine(TestDirectory.FullName, "addml.xsd") &&
+            f.RelativePath == "addml.xsd");
+
+        contentFiles.Should().Contain(f =>
+            f.File.FullName == Path.Combine(TestDirectory.FullName, "dokumenter", "5000000.pdf") &&
+            f.RelativePath == "dokumenter/5000000.pdf");
+
+        contentFiles.Should().NotContain(d => d.RelativePath == "dokumenter");
+    }
+    
+    [Fact]
     public void GetAllContentsTest()
     {
         (FileSystemInfo Item, string RelativePath)[] contentItems = _content.Get().ToArray();
