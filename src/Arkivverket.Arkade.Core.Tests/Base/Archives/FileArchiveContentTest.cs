@@ -22,7 +22,7 @@ public class FileArchiveContentTest
     [Fact]
     public void GetAllContentsTest()
     {
-        (FileSystemInfo Item, string RelativePath)[] contentItems = _content.GetAll().ToArray();
+        (FileSystemInfo Item, string RelativePath)[] contentItems = _content.Get().ToArray();
 
         contentItems.Should().HaveCount(1);
         contentItems[0].Item.FullName.Should().Be(_content.RootFile.FullName);

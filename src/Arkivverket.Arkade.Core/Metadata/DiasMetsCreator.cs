@@ -32,7 +32,7 @@ namespace Arkivverket.Arkade.Core.Metadata
 
             //if (outputDiasPackage.WorkingDirectory.HasExternalContentDirectory())
             {
-                IEnumerable<(FileSystemInfo Item, string RelativePath)> archiveContentItems = archive.Content.GetAll();
+                IEnumerable<(FileSystemInfo Item, string RelativePath)> archiveContentItems = archive.Content.Get();
 
                 string[] directoriesToSkip = archive is Noark5Archive ? ArkadeConstants.DocumentDirectoryNames : null;
 

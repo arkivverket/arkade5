@@ -40,7 +40,7 @@ public class DirectoryArchiveContentTest
     [Fact]
     public void GetAllContentsTest()
     {
-        (FileSystemInfo Item, string RelativePath)[] contentItems = _content.GetAll().ToArray();
+        (FileSystemInfo Item, string RelativePath)[] contentItems = _content.Get().ToArray();
 
         contentItems.Should().Contain(p =>
             p.Item.FullName == Path.Combine(TestDirectory.FullName, "addml.xsd") &&
