@@ -26,7 +26,7 @@ public class ArchiveTest
         var content = new DirectoryArchiveContent(TestData.Directory("Archives", "Noark3", "extraction"));
         var archive = (Noark3Archive)new ArchiveBuilder(content, processingDirectory.Get()).Build<Noark3Archive>();
 
-        List<string> archiveContent = archive.Content.GetAll().Select(i => content.GetContentRelativePath(i)).ToList();
+        List<string> archiveContent = archive.Content.GetAll().Select(i => i.RelativePath).ToList();
 
         archiveContent.Should().Contain("addml.xml");
         archiveContent.Should().Contain("ARKIV.DAT");
@@ -41,7 +41,7 @@ public class ArchiveTest
         var content = new DirectoryArchiveContent(TestData.Directory("Archives", "Noark4", "extraction"));
         var archive = (Noark4Archive)new ArchiveBuilder(content, processingDirectory.Get()).Build<Noark4Archive>();
 
-        List<string> archiveContent = archive.Content.GetAll().Select(i => content.GetContentRelativePath(i)).ToList();
+        List<string> archiveContent = archive.Content.GetAll().Select(i => i.RelativePath).ToList();
 
         archiveContent.Should().Contain("INFO.TXT");
         archiveContent.Should().Contain("NOARKIH.XML");
@@ -56,7 +56,7 @@ public class ArchiveTest
         var content = new DirectoryArchiveContent(TestData.Directory("Archives", "Noark5", "extraction"));
         var archive = (Noark5Archive)new ArchiveBuilder(content, processingDirectory.Get()).Build<Noark5Archive>();
 
-        List<string> archiveContent = archive.Content.GetAll().Select(i => content.GetContentRelativePath(i)).ToList();
+        List<string> archiveContent = archive.Content.GetAll().Select(i => i.RelativePath).ToList();
 
         archiveContent.Should().Contain("addml.xsd");
         archiveContent.Should().Contain("arkivstruktur.xml");
@@ -74,7 +74,7 @@ public class ArchiveTest
         var content = new FileArchiveContent(TestData.File("Archives", "Siard", "extraction", "dbptk.siard"));
         var archive = (SiardArchive)new ArchiveBuilder(content, processingDirectory.Get()).Build<SiardArchive>();
 
-        List<string> archiveContent = archive.Content.GetAll().Select(i => content.GetContentRelativePath(i)).ToList();
+        List<string> archiveContent = archive.Content.GetAll().Select(i => i.RelativePath).ToList();
 
         archiveContent.Should().Contain("dbptk.siard");
         archiveContent.Count.Should().Be(1);
@@ -87,7 +87,7 @@ public class ArchiveTest
         var content = new DirectoryArchiveContent(TestData.Directory("Archives", "SpecializedSystem", "extraction"));
         var archive = (SpecializedSystemArchive)new ArchiveBuilder(content, processingDirectory.Get()).Build<SpecializedSystemArchive>();
 
-        List<string> archiveContent = archive.Content.GetAll().Select(i => content.GetContentRelativePath(i)).ToList();
+        List<string> archiveContent = archive.Content.GetAll().Select(i => i.RelativePath).ToList();
 
         archiveContent.Should().Contain("addml.xml");
         archiveContent.Should().Contain("ut_jeger.dat");

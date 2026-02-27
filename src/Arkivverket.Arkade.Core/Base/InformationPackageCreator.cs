@@ -97,10 +97,10 @@ namespace Arkivverket.Arkade.Core.Base
 
                 var contentDirectoryPath = $"{outputDiasPackage.Id}/{ArkadeConstants.DirectoryNameContent}";
 
-                foreach (FileSystemInfo contentItem in archive.Content.GetAll())
+                foreach ((FileSystemInfo contentItem, string contentRelativeFilePath) in archive.Content.GetAll())
                 {
                     var tarEntry = TarEntry.CreateEntryFromFile(contentItem.FullName);
-                        tarEntry.Name = $"{contentDirectoryPath}/{archive.Content.GetContentRelativePath(contentItem)}";
+                        tarEntry.Name = $"{contentDirectoryPath}/{contentRelativeFilePath}";
                         tarArchive.WriteEntry(tarEntry, false);
                 }
             }

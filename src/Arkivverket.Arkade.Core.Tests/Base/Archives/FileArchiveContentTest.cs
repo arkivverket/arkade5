@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
@@ -23,23 +22,10 @@ public class FileArchiveContentTest
     [Fact]
     public void GetAllContentsTest()
     {
-        FileSystemInfo[] allContents = _content.GetAll().ToArray();
+        (FileSystemInfo Item, string RelativePath)[] contentItems = _content.GetAll().ToArray();
 
-        allContents.Should().HaveCount(1);
-        allContents[0].Should().Be(_content.RootFile);
-    }
-
-    [Fact]
-    public void GetContentRelativePathTest()
-    {
-        _content.GetContentRelativePath(TestFile).Should().Be(TestFile.Name);
-
-        FileInfo outsideFile = TestData.File("Archives", "Noark3", "extraction", "ARKIV.DAT");
-        _content.Invoking(c => c.GetContentRelativePath(outsideFile))
-            .Should().Throw<ArgumentException>().WithMessage("The item is not part of the archive content");
-        
-        DirectoryInfo outsideDirectory = TestData.Directory("Archives", "Noark3", "extraction");
-        _content.Invoking(c => c.GetContentRelativePath(outsideDirectory))
-            .Should().Throw<ArgumentException>().WithMessage("The item is not part of the archive content");
+        contentItems.Should().HaveCount(1);
+        contentItems[0].Item.FullName.Should().Be(_content.RootFile.FullName);
+        contentItems[0].RelativePath.Should().Be(_content.RootFile.Name);
     }
 }
