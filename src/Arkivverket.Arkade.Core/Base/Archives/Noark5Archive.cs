@@ -21,7 +21,9 @@ public class Noark5Archive : AddmlBasedArchive
     public Noark5Archive(DirectoryArchiveContent content, DirectoryInfo processingDirectory, InputDiasPackage inputDiasPackage = null)
         : base(content, processingDirectory, inputDiasPackage)
     {
-        DocumentFiles = new DocumentFiles(GetDocumentsDirectory());
+        DocumentFiles = SourceIsTarFile
+            ? new DocumentFiles(InputDiasPackage.TarFile.FullName)
+            : new DocumentFiles(GetDocumentsDirectory());
         
         if (AddmlXmlUnit == null)
         {
