@@ -61,6 +61,7 @@ public class ArchiveFactoryTest : IDisposable
         Archive noark5ArchiveFromDias = ArchiveFactory.Create(noark5ArchiveInDiasTarFile, ArchiveType.Noark5);
         noark5ArchiveFromDias.GetType().Should().Be(typeof(Noark5Archive));
         noark5ArchiveFromDias.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
+        ((DirectoryArchiveContent)noark5ArchiveFromDias.Content).GetDirectory("dokumenter").Should().BeNull(); // tar-ed
         noark5ArchiveFromDias.ArchiveType.Should().Be(ArchiveType.Noark5);
         noark5ArchiveFromDias.ProcessingDirectory.Delete(true);
     }

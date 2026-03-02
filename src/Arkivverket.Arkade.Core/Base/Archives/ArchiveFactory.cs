@@ -23,7 +23,7 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
                 archiveContent = new FileArchiveContent(siardFileInput);
                 break;
             case FileInfo { Extension: ".tar" } tarFile
-                when CreateInputDiasPackage(tarFile, processingDirectory) is var diasPackage:
+                when CreateInputDiasPackage(tarFile, processingDirectory, archiveType) is var diasPackage:
             {
                 archiveContent = new DirectoryArchiveContent(diasPackage.GetContentDirectory());
                 inputDiasPackage = diasPackage;
@@ -72,7 +72,7 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
     }
 
     private InputDiasPackage CreateInputDiasPackage(FileInfo tarFile, DirectoryInfo processingDirectory,
-        bool extractWithoutDocumentFiles = false)
+        ArchiveType archiveType)
     {
         if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(tarFile.Name), out Uuid id)) // NB! UUID-orig
             throw new ArkadeException("Could not extract an UUID from filename: " + tarFile.Name);
@@ -83,7 +83,7 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
         //TarExtractionStartedEvent();
 
         compressionUtility.ExtractFolderFromArchive(tarFile, diasPackageWorkingDirectory.Root().DirectoryInfo(),
-            withoutDocumentFiles: extractWithoutDocumentFiles, archiveRootDirectoryName: id.ToString());
+            withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: id.ToString());
         //TarExtractionFinishedEvent(workingDirectory);
 
         var inputDiasPackage = new InputDiasPackage(id, diasPackageWorkingDirectory, tarFile);
