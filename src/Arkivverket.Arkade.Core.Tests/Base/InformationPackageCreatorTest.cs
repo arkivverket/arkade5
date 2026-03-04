@@ -9,6 +9,7 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Tests.UnitTestUtilities;
+using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Tar;
 using Xunit;
@@ -316,17 +317,11 @@ public class InformationPackageCreatorTest
     {
         return packageFileList.Where(item => IsNotADirectoryItem(item) && IsNotTheMetadataFile(item)).ToList();
 
-        bool IsNotADirectoryItem(string fileListItem)
-        {
-            return !Path.EndsInDirectorySeparator(fileListItem) &&
-                   Path.HasExtension(fileListItem) &&
-                   !packageFileList.Any(item =>
-                       item.StartsWith(fileListItem + '/') || item.StartsWith(fileListItem + '\\'));
-        }
+        bool IsNotADirectoryItem(string fileCandidate) =>
+            !Path.EndsInDirectorySeparator(fileCandidate) &&
+            Path.HasExtension(fileCandidate) &&
+            !packageFileList.Any(item => item.StartsWith(fileCandidate + '/') || item.StartsWith(fileCandidate + '\\'));
 
-        bool IsNotTheMetadataFile(string fileListItem)
-        {
-            return !fileListItem.EndsWith("dias-mets.xml");
-        }
+        bool IsNotTheMetadataFile(string fileListItem) => !fileListItem.EndsWith(ArkadeConstants.DiasMetsXmlFileName);
     }
 }
