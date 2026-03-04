@@ -318,7 +318,10 @@ public class InformationPackageCreatorTest
 
         bool IsNotADirectoryItem(string fileListItem)
         {
-            return Path.HasExtension(fileListItem);
+            return !Path.EndsInDirectorySeparator(fileListItem) &&
+                   Path.HasExtension(fileListItem) &&
+                   !packageFileList.Any(item =>
+                       item.StartsWith(fileListItem + '/') || item.StartsWith(fileListItem + '\\'));
         }
 
         bool IsNotTheMetadataFile(string fileListItem)
