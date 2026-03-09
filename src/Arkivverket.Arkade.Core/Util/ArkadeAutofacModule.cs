@@ -1,5 +1,6 @@
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Identify;
@@ -41,6 +42,7 @@ namespace Arkivverket.Arkade.Core.Util
 
             builder.RegisterType<ArkadeCoreApi>().AsSelf();
             
+            builder.RegisterType<ArchiveFactory>().AsSelf();
             builder.RegisterType<TestSessionXmlGenerator>().AsSelf();
             builder.RegisterType<ArkadeVersion>().AsSelf();
             builder.RegisterType<GitHubReleaseInfoReader>().As<IReleaseInfoReader>();
