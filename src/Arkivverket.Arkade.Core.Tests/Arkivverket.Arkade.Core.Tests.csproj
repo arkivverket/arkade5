@@ -618,6 +618,7 @@
     <None Include="*\**" />
     <Compile Include="UnitTestUtilities\TestData.cs" />
     <Compile Include="UnitTestUtilities\DisposableDirectory.cs" />
+    <Compile Include="UnitTestUtilities\TestSessionLifeTimeFilesFixture.cs" />
     <Compile Include="Base\ArchiveBuilder.cs" />
     <Compile Include="Base\InformationPackageCreatorTest.cs" />
     <Compile Include="Base\Archives\ArchiveTest.cs" />
