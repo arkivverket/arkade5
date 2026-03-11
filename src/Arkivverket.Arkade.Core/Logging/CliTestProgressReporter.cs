@@ -119,7 +119,9 @@ namespace Arkivverket.Arkade.Core.Logging
 
         private void SetConsoleCursorToTestProgressWriteLocation()
         {
-            Console.SetCursorPosition(_progressPercentageConsoleCursorLeftLocation, _progressPercentageConsoleCursorTopLocation);
+            Console.SetCursorPosition(
+                Math.Clamp(_progressPercentageConsoleCursorLeftLocation, 0, Console.BufferWidth - 1),
+                Math.Clamp(_progressPercentageConsoleCursorTopLocation, 0, Console.BufferHeight - 1));
         }
 
         private static void ResetCursorPositionToPreviousWriteLocation(int cursorLeft, int cursorTop)
