@@ -1,5 +1,5 @@
-using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Logging;
@@ -10,16 +10,14 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Archives;
 
-public class ArchiveFactoryTest : IDisposable
+public class ArchiveFactoryTest(TestSessionLifeTimeFilesFixture fixture)
 {
     private static readonly ArchiveFactory ArchiveFactory = new(new TarCompressionUtility(), new StatusEventHandler());
-
-    public ArchiveFactoryTest() => ArkadeProcessingArea.Establish(TestData.DirectoryPath());
-    public void Dispose() => ArkadeProcessingArea.Destroy();
 
     [Fact]
     public void CreateSiardArchiveTest()
     {
+        PrepareForTemporaryFiles();
         var siardArchiveFile = new FileInfo(TestData.DirectoryPath(
             "Archives", "Siard", "extraction", "dbptk.siard"));
         Archive siardArchive = ArchiveFactory.Create(siardArchiveFile, ArchiveType.Siard);
@@ -32,6 +30,7 @@ public class ArchiveFactoryTest : IDisposable
     [Fact]
     public void CreateSiardArchiveFromDiasTest()
     {
+        PrepareForTemporaryFiles();
         var siardArchiveInDiasTarFile = new FileInfo(TestData.DirectoryPath(
             "Archives", "Siard", "diasPackage", "841c0a18-7308-4407-b421-3efaa420d891.tar"));
         Archive siardArchiveFromDias = ArchiveFactory.Create(siardArchiveInDiasTarFile, ArchiveType.Siard);
@@ -44,6 +43,7 @@ public class ArchiveFactoryTest : IDisposable
     [Fact]
     public void CreateNoark5ArchiveTest()
     {
+        PrepareForTemporaryFiles();
         var noark5ArchiveDirectory = new DirectoryInfo(TestData.DirectoryPath(
             "Archives", "Noark5", "extraction"));
         Archive noark5Archive = ArchiveFactory.Create(noark5ArchiveDirectory, ArchiveType.Noark5);
@@ -56,6 +56,7 @@ public class ArchiveFactoryTest : IDisposable
     [Fact]
     public void CreateNoark5ArchiveFromDiasTest()
     {
+        PrepareForTemporaryFiles();
         var noark5ArchiveInDiasTarFile = new FileInfo(TestData.DirectoryPath(
             "Archives", "Noark5", "diasPackage", "4b73981c-1fab-4d4c-91e7-fcc6a3bc057f.tar"));
         Archive noark5ArchiveFromDias = ArchiveFactory.Create(noark5ArchiveInDiasTarFile, ArchiveType.Noark5);
@@ -69,6 +70,7 @@ public class ArchiveFactoryTest : IDisposable
     [Fact]
     public void CreateNoark4ArchiveTest()
     {
+        PrepareForTemporaryFiles();
         var noark4ArchiveDirectory = new DirectoryInfo(TestData.DirectoryPath(
             "Archives", "Noark4", "extraction"));
         Archive noark4Archive = ArchiveFactory.Create(noark4ArchiveDirectory, ArchiveType.Noark4);
@@ -81,6 +83,7 @@ public class ArchiveFactoryTest : IDisposable
     [Fact]
     public void CreateNoark4ArchiveFromDiasTest()
     {
+        PrepareForTemporaryFiles();
         var noark4ArchiveInDiasTarFile = new FileInfo(TestData.DirectoryPath(
             "Archives", "Noark4", "diasPackage", "ffb1fda0-5b13-478f-9e4a-d68e8a944399.tar"));
         Archive noark4ArchiveFromDias = ArchiveFactory.Create(noark4ArchiveInDiasTarFile, ArchiveType.Noark4);
@@ -93,6 +96,7 @@ public class ArchiveFactoryTest : IDisposable
     [Fact]
     public void CreateNoark3ArchiveTest()
     {
+        PrepareForTemporaryFiles();
         var noark3ArchiveDirectory = new DirectoryInfo(TestData.DirectoryPath(
             "Archives", "Noark3", "extraction"));
         Archive noark3Archive = ArchiveFactory.Create(noark3ArchiveDirectory, ArchiveType.Noark3);
@@ -105,6 +109,7 @@ public class ArchiveFactoryTest : IDisposable
     [Fact]
     public void CreateNoark3ArchiveFromDiasTest()
     {
+        PrepareForTemporaryFiles();
         var noark3ArchiveInDiasTarFile = new FileInfo(TestData.DirectoryPath(
             "Archives", "Noark3", "diasPackage", "8851c420-80e0-4681-b838-8eeb542d46f1.tar"));
         Archive noark3ArchiveFromDias = ArchiveFactory.Create(noark3ArchiveInDiasTarFile, ArchiveType.Noark3);
@@ -117,6 +122,7 @@ public class ArchiveFactoryTest : IDisposable
     [Fact]
     public void CreateSpecializedSystemArchiveTest()
     {
+        PrepareForTemporaryFiles();
         var specializedSystemArchiveDirectory = new DirectoryInfo(TestData.DirectoryPath(
             "Archives", "SpecializedSystem", "extraction"));
         Archive specializedSystemArchive =
@@ -130,6 +136,8 @@ public class ArchiveFactoryTest : IDisposable
     [Fact]
     public void CreateSpecializedSystemArchiveFromDiasTest()
     {
+        PrepareForTemporaryFiles();
+        
         var specializedSystemArchiveInDiasTarFile = new FileInfo(TestData.DirectoryPath(
             "Archives", "SpecializedSystem", "diasPackage", "bf193afe-4483-4481-b457-e9ba4f19681c.tar"));
         Archive specializedSystemArchiveFromDias =
@@ -138,5 +146,12 @@ public class ArchiveFactoryTest : IDisposable
         specializedSystemArchiveFromDias.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         specializedSystemArchiveFromDias.ArchiveType.Should().Be(ArchiveType.SpecializedSystem);
         specializedSystemArchiveFromDias.ProcessingDirectory.Delete(true);
+    }
+
+    private void PrepareForTemporaryFiles([CallerMemberName] string testName = null)
+    {
+        string isolatedTemporaryDirectoryPath = fixture.CreateIsolatedDirectory<ArchiveFactoryTest>(testName).FullName;
+        
+        ArkadeProcessingArea.Establish(isolatedTemporaryDirectoryPath);
     }
 }

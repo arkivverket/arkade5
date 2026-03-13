@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
@@ -16,18 +17,10 @@ using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base;
 
-public class InformationPackageCreatorTest
+public class InformationPackageCreatorTest(TestSessionLifeTimeFilesFixture testSessionLifeTimeFilesFixture)
 {
     private readonly ArchiveMetadata _archiveMetadata =
         MetadataExampleCreator.Create(MetadataExamplePurpose.InternalTesting);
-
-    private readonly DirectoryInfo _tmpDirectory = TestData.Directory(".tmp");
-
-    public InformationPackageCreatorTest()
-    {
-        if (_tmpDirectory.Exists)
-            _tmpDirectory.Delete(true);
-    }
 
     [Fact]
     [Trait("Category", "Integration")]
@@ -119,15 +112,18 @@ public class InformationPackageCreatorTest
         metadataFileList.Should().BeEquivalentTo(packageFilesExpectedInMetadata);
     }
 
-   private (Uuid, List<string>, List<string>) CreatePackage<TArchive>(IArchiveContent content, PackageType packageType) where TArchive : Archive
-    {
-        using var disposableDirectory = new DisposableDirectory(_tmpDirectory);
-        DirectoryInfo processingDirectory = disposableDirectory.Get().CreateSubdirectory("processing");
+    private (Uuid, List<string>, List<string>) CreatePackage<TArchive>(IArchiveContent content, PackageType packageType,
+        [CallerMemberName] string callerMemberName = null) where TArchive : Archive
+   {
+       DirectoryInfo isolatedDirectory =
+           testSessionLifeTimeFilesFixture.CreateIsolatedDirectory<InformationPackageCreatorTest>(callerMemberName);
+        
+        DirectoryInfo processingDirectory = isolatedDirectory.CreateSubdirectory("processing");
         Archive archive = new ArchiveBuilder(content, processingDirectory).Build<TArchive>();
 
         archive.OutputDiasPackage = new OutputDiasPackage(packageType, _archiveMetadata, archive.ProcessingDirectory);
 
-        string outputDirectory = disposableDirectory.Get().CreateSubdirectory("output").FullName;
+        string outputDirectory = isolatedDirectory.CreateSubdirectory("output").FullName;
 
         string packageFilePath = packageType switch // NB! UUID-origin
         {
