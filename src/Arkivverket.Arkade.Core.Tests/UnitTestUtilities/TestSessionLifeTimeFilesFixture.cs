@@ -18,7 +18,7 @@ public class TestSessionLifeTimeFilesFixture : IDisposable
         _tmpDirectory = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".tmp"));
 
         if (_tmpDirectory.Exists)
-            Dispose();
+            DeleteTemporaryDirectory();
 
         _tmpDirectory.Create();
     }
@@ -56,21 +56,25 @@ public class TestSessionLifeTimeFilesFixture : IDisposable
 
     public void Dispose()
     {
-        var tries = 3;
-        while (_tmpDirectory.Exists && tries-- > 0)
-        {
-            try
-            {
-                _tmpDirectory.Delete(true);
-                return;
-            }
-            catch (IOException exception)
-            {
-                Console.WriteLine($@"Having trouble deleting '{_tmpDirectory}': {exception.Message}. Trying again ...");
-                System.Threading.Thread.Sleep(100);
-            }
-        }
+        if (_tmpDirectory.Exists)
+            DeleteTemporaryDirectory();
+    }
 
-        Console.WriteLine($@"Failed to delete directory '{_tmpDirectory}'");
+    private void DeleteTemporaryDirectory(int tryNumber = 1)
+    {
+        try
+        {
+            _tmpDirectory.Delete(true);
+        }
+        catch (IOException exception)
+        {
+            Console.WriteLine($@"Having trouble deleting '{_tmpDirectory}': {exception.Message}. Trying again ...");
+            System.Threading.Thread.Sleep(1000);
+                
+            if (tryNumber < 3)
+                DeleteTemporaryDirectory(tryNumber + 1);
+            else
+                Console.WriteLine($@"Failed to delete directory '{_tmpDirectory}'");
+        }
     }
 }
