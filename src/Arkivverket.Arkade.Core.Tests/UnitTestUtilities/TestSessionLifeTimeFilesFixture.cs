@@ -11,16 +11,16 @@ namespace Arkivverket.Arkade.Core.Tests.UnitTestUtilities;
 
 public class TestSessionLifeTimeFilesFixture : IDisposable
 {
-    private readonly DirectoryInfo _tmpDirectory;
+    private readonly DirectoryInfo _temporaryDirectory;
 
     public TestSessionLifeTimeFilesFixture()
     {
-        _tmpDirectory = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".tmp"));
+        _temporaryDirectory = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".tmp"));
 
-        if (_tmpDirectory.Exists)
-            DeleteTemporaryDirectory();
+        if (_temporaryDirectory.Exists)
+            TryDeleteTemporaryDirectory();
 
-        _tmpDirectory.Create();
+        _temporaryDirectory.Create();
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public class TestSessionLifeTimeFilesFixture : IDisposable
     /// The directory's lifetime is limited to the duration of a test session's execution of tests within this assembly.
     /// </summary>
     /// <returns>A <see cref="DirectoryInfo"/> representing the newly created isolated directory.</returns>
-    public DirectoryInfo CreateIsolatedDirectory() => _tmpDirectory.CreateSubdirectory(Guid.NewGuid().ToString());
+    public DirectoryInfo CreateIsolatedDirectory() => _temporaryDirectory.CreateSubdirectory(Guid.NewGuid().ToString());
 
     /// <summary>
     /// Creates a directory to serve as a sandbox for tests requiring isolation of temporary files.
@@ -42,10 +42,10 @@ public class TestSessionLifeTimeFilesFixture : IDisposable
     public DirectoryInfo CreateIsolatedDirectory<T>([CallerMemberName] string callerMemberName = null)
     {
         string assemblyRelativeClassFullName = typeof(T).FullName?[(typeof(T).Assembly.GetName().Name!.Length + 1)..];
-        
+
         var isolatedDirectoryName = $"{assemblyRelativeClassFullName}.{callerMemberName}";
-        
-        var isolatedDirectory = new DirectoryInfo(Path.Combine(_tmpDirectory.FullName, isolatedDirectoryName));
+
+        var isolatedDirectory = new DirectoryInfo(Path.Combine(_temporaryDirectory.FullName, isolatedDirectoryName));
 
         if (isolatedDirectory.Exists)
             throw new InvalidOperationException($"Directory '{isolatedDirectory.FullName}' already exists.");
@@ -56,25 +56,25 @@ public class TestSessionLifeTimeFilesFixture : IDisposable
 
     public void Dispose()
     {
-        if (_tmpDirectory.Exists)
-            DeleteTemporaryDirectory();
+        if (_temporaryDirectory.Exists)
+            TryDeleteTemporaryDirectory();
     }
 
-    private void DeleteTemporaryDirectory(int tryNumber = 1)
+    private void TryDeleteTemporaryDirectory(int tryNumber = 1)
     {
         try
         {
-            _tmpDirectory.Delete(true);
+            _temporaryDirectory.Delete(true);
         }
         catch (IOException exception)
         {
-            Console.WriteLine($@"Having trouble deleting '{_tmpDirectory}': {exception.Message}. Trying again ...");
+            Console.WriteLine($@"Struggling to delete '{_temporaryDirectory}': {exception.Message}. Trying again ...");
             System.Threading.Thread.Sleep(1000);
-                
+
             if (tryNumber < 3)
-                DeleteTemporaryDirectory(tryNumber + 1);
+                TryDeleteTemporaryDirectory(tryNumber + 1);
             else
-                Console.WriteLine($@"Failed to delete directory '{_tmpDirectory}'");
+                Console.WriteLine($@"Failed to delete directory '{_temporaryDirectory}'");
         }
     }
 }
