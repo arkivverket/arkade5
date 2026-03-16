@@ -24,7 +24,6 @@ public class ArchiveFactoryTest(TestSessionLifeTimeFilesFixture fixture)
         siardArchive.GetType().Should().Be(typeof(SiardArchive));
         siardArchive.Content.GetType().Should().Be(typeof(FileArchiveContent));
         siardArchive.ArchiveType.Should().Be(ArchiveType.Siard);
-        siardArchive.ProcessingDirectory.Delete(true);
     }
 
     [Fact]
@@ -37,7 +36,6 @@ public class ArchiveFactoryTest(TestSessionLifeTimeFilesFixture fixture)
         siardArchiveFromDias.GetType().Should().Be(typeof(SiardArchive));
         siardArchiveFromDias.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         siardArchiveFromDias.ArchiveType.Should().Be(ArchiveType.Siard);
-        siardArchiveFromDias.ProcessingDirectory.Delete(true);
     }
 
     [Fact]
@@ -50,7 +48,6 @@ public class ArchiveFactoryTest(TestSessionLifeTimeFilesFixture fixture)
         noark5Archive.GetType().Should().Be(typeof(Noark5Archive));
         noark5Archive.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         noark5Archive.ArchiveType.Should().Be(ArchiveType.Noark5);
-        noark5Archive.ProcessingDirectory.Delete(true);
     }
 
     [Fact]
@@ -64,7 +61,6 @@ public class ArchiveFactoryTest(TestSessionLifeTimeFilesFixture fixture)
         noark5ArchiveFromDias.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         ((DirectoryArchiveContent)noark5ArchiveFromDias.Content).GetDirectory("dokumenter").Should().BeNull(); // tar-ed
         noark5ArchiveFromDias.ArchiveType.Should().Be(ArchiveType.Noark5);
-        noark5ArchiveFromDias.ProcessingDirectory.Delete(true);
     }
 
     [Fact]
@@ -77,7 +73,6 @@ public class ArchiveFactoryTest(TestSessionLifeTimeFilesFixture fixture)
         noark4Archive.GetType().Should().Be(typeof(Noark4Archive));
         noark4Archive.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         noark4Archive.ArchiveType.Should().Be(ArchiveType.Noark4);
-        noark4Archive.ProcessingDirectory.Delete(true);
     }
 
     [Fact]
@@ -90,7 +85,6 @@ public class ArchiveFactoryTest(TestSessionLifeTimeFilesFixture fixture)
         noark4ArchiveFromDias.GetType().Should().Be(typeof(Noark4Archive));
         noark4ArchiveFromDias.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         noark4ArchiveFromDias.ArchiveType.Should().Be(ArchiveType.Noark4);
-        noark4ArchiveFromDias.ProcessingDirectory.Delete(true);
     }
 
     [Fact]
@@ -103,7 +97,6 @@ public class ArchiveFactoryTest(TestSessionLifeTimeFilesFixture fixture)
         noark3Archive.GetType().Should().Be(typeof(Noark3Archive));
         noark3Archive.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         noark3Archive.ArchiveType.Should().Be(ArchiveType.Noark3);
-        noark3Archive.ProcessingDirectory.Delete(true);
     }
 
     [Fact]
@@ -116,7 +109,6 @@ public class ArchiveFactoryTest(TestSessionLifeTimeFilesFixture fixture)
         noark3ArchiveFromDias.GetType().Should().Be(typeof(Noark3Archive));
         noark3ArchiveFromDias.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         noark3ArchiveFromDias.ArchiveType.Should().Be(ArchiveType.Noark3);
-        noark3ArchiveFromDias.ProcessingDirectory.Delete(true);
     }
 
     [Fact]
@@ -130,7 +122,6 @@ public class ArchiveFactoryTest(TestSessionLifeTimeFilesFixture fixture)
         specializedSystemArchive.GetType().Should().Be(typeof(SpecializedSystemArchive));
         specializedSystemArchive.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         specializedSystemArchive.ArchiveType.Should().Be(ArchiveType.SpecializedSystem);
-        specializedSystemArchive.ProcessingDirectory.Delete(true);
     }
 
     [Fact]
@@ -145,7 +136,6 @@ public class ArchiveFactoryTest(TestSessionLifeTimeFilesFixture fixture)
         specializedSystemArchiveFromDias.GetType().Should().Be(typeof(SpecializedSystemArchive));
         specializedSystemArchiveFromDias.Content.GetType().Should().Be(typeof(DirectoryArchiveContent));
         specializedSystemArchiveFromDias.ArchiveType.Should().Be(ArchiveType.SpecializedSystem);
-        specializedSystemArchiveFromDias.ProcessingDirectory.Delete(true);
     }
 
     private void PrepareForTemporaryFiles([CallerMemberName] string testName = null)
