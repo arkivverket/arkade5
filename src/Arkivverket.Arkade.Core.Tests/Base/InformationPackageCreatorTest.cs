@@ -12,7 +12,7 @@ using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Tests.UnitTestUtilities;
 using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
-using ICSharpCode.SharpZipLib.Tar;
+using System.Formats.Tar;
 using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base;
@@ -63,7 +63,7 @@ public class InformationPackageCreatorTest(TestSessionLifeTimeFilesFixture testS
         packageFileList.Count.Should().Be(19);
 
         // All files in the package (except the metadata file itself) should be described in its metadata:
-        List<string> packageFilesExpectedInMetadata = GetPackageItemsExpectedInMetadata(packageFileList);
+        List<string> packageFilesExpectedInMetadata = DiasTarArchiveUtility.GetPackageItemsExpectedInMetadata(packageFileList);
         metadataFileList.Should().BeEquivalentTo(packageFilesExpectedInMetadata);
     }
 
@@ -108,7 +108,7 @@ public class InformationPackageCreatorTest(TestSessionLifeTimeFilesFixture testS
         packageFileList.Count.Should().Be(22);
 
         // All files in the package (except the metadata file itself) should be described in its metadata:
-        List<string> packageFilesExpectedInMetadata = GetPackageItemsExpectedInMetadata(packageFileList);
+        List<string> packageFilesExpectedInMetadata = DiasTarArchiveUtility.GetPackageItemsExpectedInMetadata(packageFileList);
         metadataFileList.Should().BeEquivalentTo(packageFilesExpectedInMetadata);
     }
 
@@ -140,7 +140,7 @@ public class InformationPackageCreatorTest(TestSessionLifeTimeFilesFixture testS
         return (
             archive.OutputDiasPackage.Id, // NB! UUID-transfer (unit testing)
             GetFileListFromMetadata(archive.OutputDiasPackage),
-            GetFileListFromTarArchive(packageFilePath)
+            DiasTarArchiveUtility.GetFileList(packageFilePath)
         );
     }
 
@@ -168,29 +168,5 @@ public class InformationPackageCreatorTest(TestSessionLifeTimeFilesFixture testS
         List<FileDescription> fileDescriptions = outputDiasPackage.ArchiveMetadata.FileDescriptions;
 
         return fileDescriptions.Select(f => (outputDiasPackage.Id + "/" + f.Name).Replace('\\', '/')).ToList();
-    }
-
-    private static List<string> GetFileListFromTarArchive(string tarArchiveFilePath)
-    {
-        var fileList = new List<string>();
-
-        using Stream inStream = File.OpenRead(tarArchiveFilePath);
-        using var tarArchive = TarArchive.CreateInputTarArchive(inStream, Encoding.Latin1);
-        tarArchive.ProgressMessageEvent += (_, entry, _) => fileList.Add(entry.Name);
-        tarArchive.ListContents();
-
-        return fileList;
-    }
-
-    private static List<string> GetPackageItemsExpectedInMetadata(List<string> packageFileList)
-    {
-        return packageFileList.Where(item => IsNotADirectoryItem(item) && IsNotTheMetadataFile(item)).ToList();
-
-        bool IsNotADirectoryItem(string fileCandidate) =>
-            !Path.EndsInDirectorySeparator(fileCandidate) &&
-            Path.HasExtension(fileCandidate) &&
-            !packageFileList.Any(item => item.StartsWith(fileCandidate + '/') || item.StartsWith(fileCandidate + '\\'));
-
-        bool IsNotTheMetadataFile(string fileListItem) => !fileListItem.EndsWith(ArkadeConstants.DiasMetsXmlFileName);
     }
 }

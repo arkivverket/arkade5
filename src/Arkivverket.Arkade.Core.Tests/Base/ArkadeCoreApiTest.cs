@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Resources;
@@ -10,7 +9,6 @@ using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Tests.UnitTestUtilities;
 using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
-using ICSharpCode.SharpZipLib.Tar;
 using Xunit;
 
 namespace Arkivverket.Arkade.Core.Tests.Base;
@@ -21,141 +19,121 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
     [Trait("Category", "Integration")]
     public void Noark3_DirectoryInput_ProducesValidPackage()
     {
-        DirectoryInfo input = TestData.Directory("Archives", "Noark3", "extraction");
+        DirectoryInfo extractionDirectory = TestData.Directory("Archives", "Noark3", "extraction");
 
-        RunScenario(input, ArchiveType.Noark3, expectedContentFiles:
-        [
-            "content/addml.xml",
-            "content/ARKIV.DAT",
-            "content/DOK.DAT",
-            "content/SAK.DAT"
-        ]);
+        string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
+
+        RunScenario(extractionDirectory, ArchiveType.Noark3, expectedContentPaths);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
     public void Noark3_DiasTarInput_ProducesValidPackage()
     {
-        FileInfo input =
+        FileInfo diasTarFile =
             TestData.File("Archives", "Noark3", "diasPackage", "8851c420-80e0-4681-b838-8eeb542d46f1.tar");
 
-        RunScenario(input, ArchiveType.Noark3, expectedContentFiles:
-        [
-            "content/addml.xml",
-            "content/ARKIV.DAT",
-            "content/DOK.DAT",
-            "content/SAK.DAT"
-        ]);
+        string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
+
+        RunScenario(diasTarFile, ArchiveType.Noark3, expectedContentFiles);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
     public void Noark4_DirectoryInput_ProducesValidPackage()
     {
-        DirectoryInfo input = TestData.Directory("Archives", "Noark4", "extraction");
+        DirectoryInfo extractionDirectory = TestData.Directory("Archives", "Noark4", "extraction");
 
-        RunScenario(input, ArchiveType.Noark4, expectedContentFiles:
-        [
-            "content/NOARKIH.XML",
-            "content/DATA/ARKIV.XML"
-        ]);
+        string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
+
+        RunScenario(extractionDirectory, ArchiveType.Noark4, expectedContentPaths);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
     public void Noark4_DiasTarInput_ProducesValidPackage()
     {
-        FileInfo input =
+        FileInfo diasTarFile =
             TestData.File("Archives", "Noark4", "diasPackage", "ffb1fda0-5b13-478f-9e4a-d68e8a944399.tar");
 
-        RunScenario(input, ArchiveType.Noark4, expectedContentFiles:
-        [
-            "content/NOARKIH.XML",
-            "content/DATA/ARKIV.XML"
-        ]);
+        string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
+
+        RunScenario(diasTarFile, ArchiveType.Noark4, expectedContentFiles);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
     public void Noark5_DirectoryInput_ProducesValidPackage()
     {
-        DirectoryInfo input = TestData.Directory("Archives", "Noark5", "extraction");
+        DirectoryInfo extractionDirectory = TestData.Directory("Archives", "Noark5", "extraction");
 
-        RunScenario(input, ArchiveType.Noark5, expectedContentFiles:
-        [
-            "content/addml.xsd",
-            "content/arkivstruktur.xml",
-            "content/arkivuttrekk.xml",
-            "content/dokumenter/5000000.pdf",
-            "content/dokumenter/5000001.pdf"
-        ]);
+        string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
+
+        RunScenario(extractionDirectory, ArchiveType.Noark5, expectedContentPaths);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
     public void Noark5_DiasTarInput_ProducesValidPackage()
     {
-        FileInfo input = TestData.File("Archives", "Noark5", "diasPackage", "4b73981c-1fab-4d4c-91e7-fcc6a3bc057f.tar");
+        FileInfo diasTarFile =
+            TestData.File("Archives", "Noark5", "diasPackage", "4b73981c-1fab-4d4c-91e7-fcc6a3bc057f.tar");
 
-        RunScenario(input, ArchiveType.Noark5, expectedContentFiles:
-        [
-            "content/addml.xsd",
-            "content/arkivstruktur.xml",
-            "content/arkivuttrekk.xml",
-            "content/dokumenter/5000000.pdf",
-            "content/dokumenter/5000001.pdf"
-        ]);
+        string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
+
+        RunScenario(diasTarFile, ArchiveType.Noark5, expectedContentFiles);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
     public void SpecializedSystem_DirectoryInput_ProducesValidPackage()
     {
-        DirectoryInfo input = TestData.Directory("Archives", "SpecializedSystem", "extraction");
+        DirectoryInfo extractionDirectory = TestData.Directory("Archives", "SpecializedSystem", "extraction");
 
-        RunScenario(input, ArchiveType.SpecializedSystem, expectedContentFiles:
-        [
-            "content/addml.xml",
-            "content/ut_jeger.dat"
-        ]);
+        string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
+
+        RunScenario(extractionDirectory, ArchiveType.SpecializedSystem, expectedContentPaths);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
     public void SpecializedSystem_DiasTarInput_ProducesValidPackage()
     {
-        FileInfo input = TestData.File("Archives", "SpecializedSystem", "diasPackage",
+        FileInfo diasTarFile = TestData.File("Archives", "SpecializedSystem", "diasPackage",
             "bf193afe-4483-4481-b457-e9ba4f19681c.tar");
 
-        RunScenario(input, ArchiveType.SpecializedSystem, expectedContentFiles:
-        [
-            "content/addml.xml",
-            "content/ut_jeger.dat"
-        ]);
+        string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
+
+        RunScenario(diasTarFile, ArchiveType.SpecializedSystem, expectedContentFiles);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
     public void Siard_FileInput_ProducesValidPackage()
     {
-        FileInfo input = TestData.File("Archives", "Siard", "extraction", "dbptk.siard");
+        FileInfo siardFile = TestData.File("Archives", "Siard", "extraction", "dbptk.siard");
 
-        RunScenario(input, ArchiveType.Siard, expectedContentFiles:
-        [
-            "content/dbptk.siard"
-        ]);
+        DirectoryInfo directoryWithExpectedContentFiles = TestData.Directory("Archives", "Siard", "extraction");
+
+        const string unReferencedFile =
+            "t01bclob12_dbptk-desktop-2.5.9_ext.siard_lobseg_1/content/schema1/table1/lob9/unreferenced-file.bin";
+
+        string[] expectedContentFilePaths = GetPathsAsWhenInTar(directoryWithExpectedContentFiles, filePathsOnly: true)
+            .Except([unReferencedFile]).ToArray();
+
+        RunScenario(siardFile, ArchiveType.Siard, expectedContentFilePaths);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
     public void Siard_DiasTarInput_ProducesValidPackage()
     {
-        FileInfo input = TestData.File("Archives", "Siard", "diasPackage", "841c0a18-7308-4407-b421-3efaa420d891.tar");
+        FileInfo diasTarFile =
+            TestData.File("Archives", "Siard", "diasPackage", "841c0a18-7308-4407-b421-3efaa420d891.tar");
 
-        RunScenario(input, ArchiveType.Siard, expectedContentFiles:
-        [
-            "content/dbptk.siard"
-        ]);
+        string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
+
+        RunScenario(diasTarFile, ArchiveType.Siard, expectedContentFiles);
     }
 
     private void RunScenario(FileSystemInfo input, ArchiveType archiveType, string[] expectedContentFiles,
@@ -211,47 +189,51 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         resultFiles.Should().Contain($"{packageId}.xml");
 
         string tarFilePath = Path.Combine(resultsDirectoryPath, $"{packageId}.tar");
-        List<string> packageFileList = GetFileListFromTarArchive(tarFilePath);
+        var tarFileRootDirectory = $"{packageId}/";
 
-        string rootDirInTar = packageId + "/";
-        foreach (string expectedFile in expectedContentFiles)
-        {
-            packageFileList.Should().Contain(rootDirInTar + expectedFile);
-        }
+        List<string> packageFileList =
+            DiasTarArchiveUtility.GetFileList(tarFilePath)
+                .Select(Path.TrimEndingDirectorySeparator).ToList();
+
+        List<string> expectedPackageFileList =
+            CreateExpectedPackageFileList(archive.ArchiveType, tarFileRootDirectory, expectedContentFiles)
+                .Select(Path.TrimEndingDirectorySeparator).ToList();
+
+        // Use to examine the actual difference between produced and expected package file contents:
+        //IEnumerable<string> filesInPackageNotExpected = packageFileList.ExceptOnce(expectedPackageFileList);
+        //IEnumerable<string> expectedFilesNotInPackage = expectedPackageFileList.ExceptOnce(packageFileList);
+        //filesInPackageNotExpected.Should().BeEmpty();
+        //expectedFilesNotInPackage.Should().BeEmpty();
+
+        packageFileList.Should().BeEquivalentTo(expectedPackageFileList);
 
         // Verify metadata (inspired by InformationPackageCreatorTest.GetFileListFromMetadata)
         List<string> metadataFileList = archive.OutputDiasPackage.ArchiveMetadata.FileDescriptions
             .Select(f => (packageId + "/" + f.Name).Replace('\\', '/')).ToList();
 
-        List<string> packageFilesExpectedInMetadata = GetPackageItemsExpectedInMetadata(packageFileList);
+        List<string> packageFilesExpectedInMetadata =
+            DiasTarArchiveUtility.GetPackageItemsExpectedInMetadata(packageFileList);
 
         metadataFileList.Should().BeEquivalentTo(packageFilesExpectedInMetadata);
     }
 
-    private static List<string> GetFileListFromTarArchive(string tarArchiveFilePath)
+    private static string[] CreateExpectedPackageFileList(ArchiveType archiveType, string rootDirectory, string[] expectedContentFiles)
     {
-        var fileList = new List<string>();
-        using Stream inStream = File.OpenRead(tarArchiveFilePath);
-        using var tarArchive = TarArchive.CreateInputTarArchive(inStream, Encoding.Latin1);
-        tarArchive.ProgressMessageEvent += (_, entry, _) => fileList.Add(entry.Name);
-        tarArchive.ListContents();
-        return fileList;
+        return
+        [
+            rootDirectory,
+            .. DiasTarArchiveUtility.GetArkadeAppliedAipFilesList(archiveType).Select(file => rootDirectory + file),
+            .. expectedContentFiles.Select(file => $"{rootDirectory}{ArkadeConstants.DirectoryNameContent}/{file}")
+        ];
     }
 
-    private static List<string>
-        GetPackageItemsExpectedInMetadata(
-            List<string> packageFileList) // TODO: Reuse together with InformationPackageCreatorTest.GetPackageItemsExpectedInMetadata
+    private static string[] GetPathsAsWhenInTar(DirectoryInfo directory, bool filePathsOnly = false)
     {
-        return packageFileList.Where(item => IsNotADirectoryItem(item) && IsNotTheMetadataFile(item)).ToList();
+        IEnumerable<FileSystemInfo> items = filePathsOnly
+            ? directory.EnumerateFiles("*", SearchOption.AllDirectories)
+            : directory.EnumerateFileSystemInfos("*", SearchOption.AllDirectories);
 
-        bool IsNotADirectoryItem(string fileCandidate) =>
-            !Path.EndsInDirectorySeparator(fileCandidate) &&
-            Path.HasExtension(fileCandidate) &&
-            !packageFileList.Any(item => item.StartsWith(fileCandidate + '/') || item.StartsWith(fileCandidate + '\\'));
-
-        bool IsNotTheMetadataFile(string fileListItem)
-        {
-            return !fileListItem.EndsWith(ArkadeConstants.DiasMetsXmlFileName);
-        }
+        return items.Select(item =>
+            item.FullName[(directory.FullName.TrimEnd('/').Length + 1)..].Replace('\\', '/')).ToArray();
     }
 }
