@@ -12,7 +12,7 @@ public class SiardArchive : Archive
 {
     public readonly FileInfo SiardFile;
 
-    public SiardArchive(FileArchiveContent content, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler)
+    public SiardArchive(SiardFileArchiveContent content, DirectoryInfo processingDirectory, IStatusEventHandler statusEventHandler)
         : base(content, processingDirectory)
     {
         SiardFile = content.RootFile;

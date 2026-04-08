@@ -20,7 +20,7 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
                 archiveContent = new DirectoryArchiveContent(directory);
                 break;
             case FileInfo { Extension: ".siard" } siardFileInput:
-                archiveContent = new FileArchiveContent(siardFileInput);
+                archiveContent = new SiardFileArchiveContent(siardFileInput);
                 break;
             case FileInfo { Extension: ".tar" } tarFile
                 when CreateInputDiasPackage(tarFile, processingDirectory, archiveType) is var diasPackage:
@@ -34,7 +34,7 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
 
         return (archiveType, archiveContent) switch
         {
-            (ArchiveType.Siard, FileArchiveContent fileArchiveContent)
+            (ArchiveType.Siard, SiardFileArchiveContent fileArchiveContent)
                 => new SiardArchive(fileArchiveContent, processingDirectory, statusEventHandler),
             
             (ArchiveType.Siard, DirectoryArchiveContent directoryArchiveContent)

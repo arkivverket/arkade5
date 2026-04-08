@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using Arkivverket.Arkade.Core.Base.Siard;
+using Serilog;
 
 namespace Arkivverket.Arkade.Core.Base;
 
@@ -60,13 +62,45 @@ public class FileArchiveContent(FileInfo contentFile) : IArchiveContent
 {
     public FileInfo RootFile { get; } = contentFile;
 
-    public IEnumerable<(FileInfo File, string RelativePath)> GetFiles()
+    public virtual IEnumerable<(FileInfo File, string RelativePath)> GetFiles()
     {
         return [(File: RootFile, RelativePath: RootFile.Name)];
     }
 
-    public IEnumerable<(FileSystemInfo Item, string RelativePath)> Get()
+    public virtual IEnumerable<(FileSystemInfo Item, string RelativePath)> Get()
     {
         return [(RootFile, RootFile.Name)];
     }
+}
+
+public class SiardFileArchiveContent(FileInfo siardFile) : FileArchiveContent(siardFile)
+{
+    private readonly SiardXmlTableReader _siardTableXmlReader = new(new SiardArchiveReader());
+
+    public override IEnumerable<(FileInfo File, string RelativePath)> GetFiles()
+    {
+        FileInfo siardFile = RootFile;
+
+        IEnumerable<string> externalLobsFullPaths = _siardTableXmlReader.GetFullPathsToExternalLobs(siardFile.FullName);
+
+        ILookup<bool, string> lobsFullPathsGroupedByFileExistence = externalLobsFullPaths.ToLookup(File.Exists);
+        IEnumerable<string> existingLobsFullPaths = lobsFullPathsGroupedByFileExistence[true];
+        IEnumerable<string> missingLobsFullPaths = lobsFullPathsGroupedByFileExistence[false];
+
+        int numberOfMissingLobs = missingLobsFullPaths.Count();
+        if (numberOfMissingLobs > 0)
+            Log.Error("{NumberOfMissingLobs} external lobs could not be found", numberOfMissingLobs);
+        
+        int siardFileLocationPathLength = siardFile.DirectoryName!.TrimEnd(Path.DirectorySeparatorChar).Length + 1;
+        
+        IEnumerable<(FileInfo, string)> externalLobsTuples = existingLobsFullPaths.Select(lobFullPath
+            => (new FileInfo(lobFullPath), lobFullPath[siardFileLocationPathLength..].Replace('\\', '/')));
+
+        (FileInfo siardFile, string Name) siardFileTuple = (siardFile, siardFile.Name);
+
+        return [siardFileTuple, ..externalLobsTuples];
+    }
+
+    public override IEnumerable<(FileSystemInfo Item, string RelativePath)> Get()
+        => GetFiles().Select(t => ((FileSystemInfo)t.File, t.RelativePath));
 }

@@ -22,7 +22,7 @@ public class ArchiveFactoryTest(TestSessionLifeTimeFilesFixture fixture)
             "Archives", "Siard", "extraction", "dbptk.siard"));
         Archive siardArchive = ArchiveFactory.Create(siardArchiveFile, ArchiveType.Siard);
         siardArchive.GetType().Should().Be(typeof(SiardArchive));
-        siardArchive.Content.GetType().Should().Be(typeof(FileArchiveContent));
+        siardArchive.Content.GetType().Should().Be(typeof(SiardFileArchiveContent));
         siardArchive.ArchiveType.Should().Be(ArchiveType.Siard);
     }
 

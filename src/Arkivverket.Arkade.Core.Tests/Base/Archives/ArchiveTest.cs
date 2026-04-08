@@ -71,13 +71,14 @@ public class ArchiveTest
     public void SiardArchiveTest()
     {
         using var processingDirectory = new DisposableDirectory(_tmpDirectory);
-        var content = new FileArchiveContent(TestData.File("Archives", "Siard", "extraction", "dbptk.siard"));
+        var content = new SiardFileArchiveContent(TestData.File("Archives", "Siard", "extraction", "dbptk.siard"));
         var archive = (SiardArchive)new ArchiveBuilder(content, processingDirectory.Get()).Build<SiardArchive>();
 
         List<string> archiveContent = archive.Content.Get().Select(i => i.RelativePath).ToList();
 
         archiveContent.Should().Contain("dbptk.siard");
-        archiveContent.Count.Should().Be(1);
+        archiveContent.Should().Contain("t01bclob12_dbptk-desktop-2.5.9_ext.siard_lobseg_1/content/schema1/table1/lob9/record1.bin");
+        archiveContent.Should().Contain("t01bclob12_dbptk-desktop-2.5.9_ext.siard_lobseg_1/content/schema1/table2/lob9/record1.txt");
     }
 
     [Fact]
