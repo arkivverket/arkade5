@@ -287,12 +287,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 else
                     IncludeFormatInfoFile = MetaDataGUI.CreateDocumentFileInfoText;
 
-                FileInfo includedMetadataFile =
-                    _archive.InputDiasPackage.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
-
-                LoadMetadataIntoForm(includedMetadataFile,
-                    delegate { Log.Error("Not able to load metadata from file: " + includedMetadataFile.FullName); }
-                );
+                if (_archive?.InputDiasPackage?.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName) is { Exists: true } includedMetadataFile)
+                    LoadMetadataIntoForm(includedMetadataFile, delegate { Log.Error("Not able to load metadata from file: " + includedMetadataFile.FullName); });
 
                 // Pre populate metadata objects that require at least one entry
                 RunAddMetadataArchiveCreatorEntry();
