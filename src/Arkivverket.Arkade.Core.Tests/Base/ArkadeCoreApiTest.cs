@@ -234,6 +234,6 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
             : directory.EnumerateFileSystemInfos("*", SearchOption.AllDirectories);
 
         return items.Select(item =>
-            item.FullName[(directory.FullName.TrimEnd('/').Length + 1)..].Replace('\\', '/')).ToArray();
+            item.FullName[(directory.FullName.TrimEnd('/', '\\').Length + 1)..].Replace('\\', '/')).ToArray();
     }
 }
