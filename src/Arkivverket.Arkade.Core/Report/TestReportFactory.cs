@@ -11,29 +11,29 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public static class TestReportFactory
     {
-        public static TestReport Create(Archive archive)
+        public static TestReport Create(Archive archive, Uuid packageId)
         {
             var testReport = new TestReport
             {
-                Summary = CreateTestReportSummary(archive),
+                Summary = CreateTestReportSummary(archive, packageId),
                 TestsResults = GetTestReportResults(archive.TestSession),
             };
 
             return testReport;
         }
 
-        public static TestReport CreateForSiard(SiardArchive archive)
+        public static TestReport CreateForSiard(SiardArchive archive, Uuid packageId)
         {
             var testReport = new TestReport
             {
-                Summary = CreateTestReportSummary(archive),
+                Summary = CreateTestReportSummary(archive, packageId),
                 TestsResults = GetSiardTestReportResults(archive.TestSession.TestSuite.TestTool),
             };
 
             return testReport;
         }
 
-        private static TestReportSummary CreateTestReportSummary(Archive archive, Uuid packageId = null)
+        private static TestReportSummary CreateTestReportSummary(Archive archive, Uuid packageId)
         {
             var norwegianCulture = new CultureInfo("nb-NO");
             int numberOfExecutedTests = archive.TestSession.TestSuite.TestRuns.Count();
