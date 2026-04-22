@@ -616,6 +616,7 @@
   <ItemGroup>
     <Compile Remove="*\**" />
     <None Include="*\**" />
+    <Compile Include="Report\TestReportGeneratorRunnerTests.cs" />
     <Compile Include="UnitTestUtilities\DiasTarArchiveUtility.cs" />
     <Compile Include="UnitTestUtilities\CollectionExtensions.cs" />
     <Compile Include="UnitTestUtilities\TestData.cs" />
