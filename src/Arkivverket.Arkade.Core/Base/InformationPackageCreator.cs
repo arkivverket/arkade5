@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.Core.Base
             return packageFilePath;
         }
 
-        private string CreatePackage(Archive archive, string outputDirectory) // TODO: Generate and collect all files from/to the right places
+        private string CreatePackage(Archive archive, string outputDirectoryPath) // TODO: Generate and collect all files from/to the right places
         {
             OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
             
@@ -60,14 +60,14 @@ namespace Arkivverket.Arkade.Core.Base
             
             try
             {
-                EnsureSufficientDiskSpace(outputDiasPackage, outputDirectory);
+                EnsureSufficientDiskSpace(outputDiasPackage, outputDirectoryPath);
             }
             catch
             {
                 Log.Warning("Could not verify sufficient disk space at package destination.");
             }
 
-            string resultDirectory = CreateResultDirectory(outputDiasPackage.Id, outputDirectory);
+            string resultDirectory = CreateResultDirectory(outputDiasPackage.Id, outputDirectoryPath);
 
             if (outputDiasPackage.PackageType == PackageType.SubmissionInformationPackage)
             {
