@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
-    public class DiasDirectory : DiasEntry
+    public record DiasDirectory : DiasEntry
     {
         private readonly HashSet<DiasEntry> _entries;
 

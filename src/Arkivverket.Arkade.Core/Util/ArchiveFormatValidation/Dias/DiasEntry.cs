@@ -1,6 +1,6 @@
 ﻿namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
-    public abstract class DiasEntry
+    public abstract record DiasEntry
     {
         public readonly string Name;
 
