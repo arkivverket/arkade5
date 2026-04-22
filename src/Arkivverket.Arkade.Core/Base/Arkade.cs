@@ -89,7 +89,7 @@ namespace Arkivverket.Arkade.Core.Base
         public void SaveReport(Archive archive, DirectoryInfo directory, bool standalone, 
             int testResultDisplayLimit)
         {
-            _arkadeApi.SaveReport(archive, directory, standalone, testResultDisplayLimit);
+            //_arkadeApi.SaveReport(archive, directory, standalone, testResultDisplayLimit);
         }
 
         public IFileFormatInfo AnalyseFileFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)

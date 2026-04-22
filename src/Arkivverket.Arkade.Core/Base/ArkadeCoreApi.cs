@@ -8,6 +8,7 @@ using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
+using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
 using Serilog;
 
@@ -59,6 +60,20 @@ public class ArkadeCoreApi(
         Log.Information("Testing of archive finished.");
 
         testSessionXmlGenerator.GenerateXmlAndSaveToFile(archive); // TODO: Is this file relevant any longer?
+    }
+    
+    public static DirectoryInfo GenerateTestReport(Archive archive, DirectoryInfo outputDirectory, bool standalone, int testResultDisplayLimit, DiasPackage diasPackage)
+    {
+        TestReportGeneratorRunner.RunAllGenerators(archive, outputDirectory, standalone, testResultDisplayLimit, diasPackage, out DirectoryInfo reportsDirectory);
+        
+        if (archive is SiardArchive)
+            File.Copy(
+                sourceFileName: Path.Combine(archive.TestSession.TemporaryTestResultFilesDirectory.FullName, OutputFileNames.DbptkValidationReportFile),
+                destFileName: Path.Combine(reportsDirectory.FullName, OutputFileNames.DbptkValidationReportFile),
+                overwrite: true
+            );
+
+        return reportsDirectory;
     }
 
     public string CreatePackage(Archive archive, SupportedLanguage language, bool generateFileFormatInfo, string outputDirectory)

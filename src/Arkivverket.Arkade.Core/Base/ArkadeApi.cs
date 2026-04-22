@@ -10,7 +10,6 @@ using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
-using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
@@ -151,30 +150,6 @@ namespace Arkivverket.Arkade.Core.Base
 
         //    return packageFilePath;
         //}
-
-        public void SaveReport(Archive archive, DirectoryInfo testReportDirectory, bool standalone,
-            int testResultDisplayLimit)
-        {
-            return; // TODO: Remove test-return!
-            
-            //Unødvendig nå, ikke sant?
-            //if (testReportDirectory.Exists)
-            //    testReportDirectory.Delete(recursive: true);
-
-            testReportDirectory.Create();
-
-            if (archive is SiardArchive)
-                File.Move(
-                    sourceFileName: Path.Combine(archive.OutputDiasPackage.WorkingDirectory.RepositoryOperations().ToString(),
-                        OutputFileNames.DbptkValidationReportFile),
-                    destFileName: Path.Combine(testReportDirectory.FullName, OutputFileNames.DbptkValidationReportFile)
-                );
-
-            Uuid diasPackageId = null; // Håndter!
-
-            TestReportGeneratorRunner.RunAllGenerators(archive, testReportDirectory, standalone,
-                testResultDisplayLimit, diasPackageId);
-        }
 
         public IEnumerable<KeyValuePair<string, IEnumerable<byte>>> GetSiardLobsAsByteArrays(string siardFileFullPath)
         {
