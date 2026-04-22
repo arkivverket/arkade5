@@ -82,24 +82,19 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 
         public void Merge(DiasDirectory directory)
         {
-            
-            foreach (DiasEntry directoryEntry in directory._entries)
+            foreach (DiasEntry entry in directory._entries)
             {
-                if (directoryEntry is DiasDirectory diasDirectory)
+                switch (entry)
                 {
-                    var existingEntry = (DiasDirectory)_entries.FirstOrDefault(e => e.Name.Equals(directoryEntry.Name));
-                    if (existingEntry == default(DiasEntry))
-                    {
+                    case DiasFile diasFile:
+                        _entries.Add(diasFile);
+                        break;
+                    case DiasDirectory diasDirectory when GetSubDirectory(diasDirectory.Name) is { } existingDirectory:
+                        existingDirectory.Merge(diasDirectory);
+                        break;
+                    case DiasDirectory diasDirectory:
                         _entries.Add(diasDirectory);
-                    }
-                    else
-                    {
-                        existingEntry.Merge(diasDirectory);
-                    }
-                }
-                else
-                {
-                    _entries.Add(directoryEntry);
+                        break;
                 }
             }
         }
