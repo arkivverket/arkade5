@@ -13,6 +13,7 @@ using System.Runtime.Serialization;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Report;
 
 namespace Arkivverket.Arkade.Core.Base
 {
@@ -47,6 +48,21 @@ namespace Arkivverket.Arkade.Core.Base
         private string CreatePackage(Archive archive, string outputDirectoryPath) // TODO: Generate and collect all files from/to the right places
         {
             OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
+
+            if (archive.TestSession?.TestSuite != null)
+            {
+                var outputDirectory = new DirectoryInfo(outputDirectoryPath);
+                bool standalone = outputDiasPackage.PackageType == PackageType.SubmissionInformationPackage;
+                
+                TestReportGeneratorRunner.RunAllGenerators(archive, outputDirectory, standalone, 100 /*TODO: fix!*/, outputDiasPackage, out DirectoryInfo reportsDirectory);
+        
+                if (archive is SiardArchive)
+                    File.Copy(
+                        sourceFileName: Path.Combine(archive.TestSession.TemporaryTestResultFilesDirectory.FullName, OutputFileNames.DbptkValidationReportFile),
+                        destFileName: Path.Combine(reportsDirectory.FullName, OutputFileNames.DbptkValidationReportFile),
+                        overwrite: true
+                    );
+            }
             
             if (archive is (Noark5Archive or SpecializedSystemArchive) and AddmlBasedArchive { AddmlXmlUnit: not null } addmlBasedArchive)
                 addmlBasedArchive.AddmlXmlUnit.WriteFiles(outputDiasPackage.WorkingDirectory.AdministrativeMetadata());
