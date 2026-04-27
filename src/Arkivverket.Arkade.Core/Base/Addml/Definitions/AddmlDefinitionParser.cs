@@ -144,7 +144,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         public AddmlDefinition GetAddmlDefinition()
         {
             List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = GetAddmlFlatFileDefinitions();
-            List<FileInfo> fileInfos = _content.RootDirectory.GetFiles("*", SearchOption.AllDirectories).ToList();
+            List<FileInfo> fileInfos = _content.RootDirectory.GetFiles("*", SearchOption.AllDirectories).ToList(); // TODO: Handle potential performance bottleneck
 
             List<AddmlFlatFileDefinition> addmlFlatFilesExistingInDirectory = GetFlatFileDefinitionsWhereReferencedFileExistsInDirectory(addmlFlatFileDefinitions, fileInfos);
 
