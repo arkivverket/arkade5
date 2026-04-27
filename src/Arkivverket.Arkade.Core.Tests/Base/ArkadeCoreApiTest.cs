@@ -15,6 +15,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base;
 
 public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
 {
+    private const SupportedLanguage OutputLanguage = SupportedLanguage.en;
+    
     [Fact]
     [Trait("Category", "Integration")]
     public void Noark3_DirectoryInput_ProducesValidPackage()
@@ -154,7 +156,8 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         {
             TestSession testSession = arkade.CreateTestSession(archive);
             archive.TestSession = testSession;
-
+            archive.TestSession.OutputLanguage = OutputLanguage;
+            
             if (archive.IsTestable(out _))
             {
                 arkade.RunTests(archive);
@@ -171,7 +174,7 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
 
         string outputDirectory = isolatedTemporaryDirectory.CreateSubdirectory("output").FullName;
 
-        arkade.CreatePackage(archive, SupportedLanguage.nb, generateFileFormatInfo: false, outputDirectory);
+        arkade.CreatePackage(archive, OutputLanguage, generateFileFormatInfo: false, outputDirectory);
 
         // 5. Verify Package Content
         VerifyPackage(archive, outputDirectory, expectedContentFiles);
