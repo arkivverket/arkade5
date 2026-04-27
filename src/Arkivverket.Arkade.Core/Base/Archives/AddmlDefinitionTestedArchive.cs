@@ -8,9 +8,9 @@ public abstract class AddmlDefinitionTestedArchive(DirectoryArchiveContent conte
 {
     public override bool IsTestable(out string disqualifyingCause)
     {
-        if (TestSession.AddmlDefinition == null) // TODO: Follow up this
+        if (AddmlXmlUnit == null)
         {
-            disqualifyingCause = Noark5Messages.CouldNotFindValidSpecificationFile;
+            disqualifyingCause = Noark5Messages.CouldNotFindValidSpecificationFile; // Move to some addml resource file
             return false;
         }
 
