@@ -64,10 +64,10 @@ namespace Arkivverket.Arkade.Core.Base
                     );
             }
             
-            if (archive is (Noark5Archive or SpecializedSystemArchive) and AddmlBasedArchive { AddmlXmlUnit: not null } addmlBasedArchive)
+            if (outputDiasPackage.PackageType == PackageType.ArchivalInformationPackage && archive is (Noark5Archive or SpecializedSystemArchive) and AddmlBasedArchive { AddmlXmlUnit: not null } addmlBasedArchive)
                 addmlBasedArchive.AddmlXmlUnit.WriteFiles(outputDiasPackage.WorkingDirectory.AdministrativeMetadata());
             
-            if(archive is SiardArchive siardArchive)
+            if(archive is SiardArchive siardArchive && outputDiasPackage.PackageType == PackageType.ArchivalInformationPackage)
             {
                 siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(siardArchive);
             }

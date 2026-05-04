@@ -387,32 +387,7 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
 
         if (packageType == SIP) // Test reports are expected outside the package
         {
-            var administrativeMetadataDirectoryPath = $"{packageRootDirectoryName}/{DirectoryNameAdministrativeMetadata}";
-
-            IEnumerable<string> expectedIrregularFilesPaths = archiveType switch
-            {
-                // These files should, according to the specification, not be part of SIP packages. Nevertheless, Arkade has
-                // included them for a long time, so we expect them in these integration tests until the practice is clarified.
-                
-                ArchiveType.Noark5 when packageType == SIP =>
-                [
-                    $"{administrativeMetadataDirectoryPath}/{ArkivuttrekkXmlFileName}",
-                    $"{administrativeMetadataDirectoryPath}/{AddmlXsdFileName}"
-                ],
-                ArchiveType.SpecializedSystem when packageType == SIP =>
-                [
-                    $"{administrativeMetadataDirectoryPath}/{AddmlXmlFileName}",
-                    $"{administrativeMetadataDirectoryPath}/{AddmlXsdFileName}"
-                ],
-                ArchiveType.Siard when packageType == SIP =>
-                [
-                    $"{administrativeMetadataDirectoryPath}/{SiardMetadataXmlFileName}",
-                    $"{administrativeMetadataDirectoryPath}/{SiardMetadataXsdFileName}"
-                ],
-                _ => []
-            };
-
-            return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths, .. expectedIrregularFilesPaths];
+            return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths];
         }
 
         if (expectedTestReportFileNames.Length == 0)

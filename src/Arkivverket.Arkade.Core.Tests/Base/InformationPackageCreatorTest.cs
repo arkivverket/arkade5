@@ -40,8 +40,6 @@ public class InformationPackageCreatorTest(TestSessionLifeTimeFilesFixture testS
         packageFileList.Should().Contain(rootDir + "log.xml");
         packageFileList.Should().Contain(rootDir + "descriptive_metadata/"); // TODO: Should this empty directory be included?
         packageFileList.Should().Contain(rootDir + "administrative_metadata/");
-        packageFileList.Should().Contain(rootDir + "administrative_metadata/addml.xsd");
-        packageFileList.Should().Contain(rootDir + "administrative_metadata/arkivuttrekk.xml");
         packageFileList.Should().Contain(rootDir + "administrative_metadata/dias-premis.xml");
         packageFileList.Should().Contain(rootDir + "administrative_metadata/dias-premis.xsd");
 
@@ -55,12 +53,14 @@ public class InformationPackageCreatorTest(TestSessionLifeTimeFilesFixture testS
         packageFileList.Should().Contain(rootDir + "content/metadatakatalog.xsd");
 
         // Files that are not part of an SIP:
+        packageFileList.Should().NotContain(rootDir + "administrative_metadata/addml.xsd");
+        packageFileList.Should().NotContain(rootDir + "administrative_metadata/arkivuttrekk.xml");
         packageFileList.Should().NotContain(rootDir + "administrative_metadata/repository_operations/");
         packageFileList.Should().NotContain(rootDir + "descriptive_metadata/eac-cpf.xml");
         packageFileList.Should().NotContain(rootDir + "descriptive_metadata/ead.xml");
 
         // Files in total, including the directories implicitly tested by subentries (above)
-        packageFileList.Count.Should().Be(19);
+        packageFileList.Count.Should().Be(17);
 
         // All files in the package (except the metadata file itself) should be described in its metadata:
         List<string> packageFilesExpectedInMetadata = DiasTarArchiveUtility.GetPackageItemsExpectedInMetadata(packageFileList);
