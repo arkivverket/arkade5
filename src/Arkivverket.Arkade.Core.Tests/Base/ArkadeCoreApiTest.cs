@@ -21,7 +21,16 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
     private static PackageType SIP => PackageType.SubmissionInformationPackage;
     private static PackageType AIP => PackageType.ArchivalInformationPackage;
     
-    // TODO: Test creation of both SIP and AIP packages for every archive type
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void Noark3_DirectoryInput_ProducesValidSIP()
+    {
+        DirectoryInfo extractionDirectory = TestData.Directory("Archives", "Noark3", "extraction");
+
+        string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
+
+        RunScenario(extractionDirectory, ArchiveType.Noark3, expectedContentPaths, packageType: SIP);
+    }
     
     [Fact]
     [Trait("Category", "Integration")]
@@ -36,6 +45,18 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
 
     [Fact]
     [Trait("Category", "Integration")]
+    public void Noark3_DiasTarInput_ProducesValidSIP()
+    {
+        FileInfo diasTarFile =
+            TestData.File("Archives", "Noark3", "diasPackage", "8851c420-80e0-4681-b838-8eeb542d46f1.tar");
+
+        string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
+
+        RunScenario(diasTarFile, ArchiveType.Noark3, expectedContentFiles, packageType: SIP);
+    }
+    
+    [Fact]
+    [Trait("Category", "Integration")]
     public void Noark3_DiasTarInput_ProducesValidAIP()
     {
         FileInfo diasTarFile =
@@ -48,6 +69,17 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
 
     [Fact]
     [Trait("Category", "Integration")]
+    public void Noark4_DirectoryInput_ProducesValidSIP()
+    {
+        DirectoryInfo extractionDirectory = TestData.Directory("Archives", "Noark4", "extraction");
+
+        string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
+
+        RunScenario(extractionDirectory, ArchiveType.Noark4, expectedContentPaths, packageType: SIP);
+    }
+    
+    [Fact]
+    [Trait("Category", "Integration")]
     public void Noark4_DirectoryInput_ProducesValidAIP()
     {
         DirectoryInfo extractionDirectory = TestData.Directory("Archives", "Noark4", "extraction");
@@ -57,6 +89,18 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         RunScenario(extractionDirectory, ArchiveType.Noark4, expectedContentPaths, packageType: AIP);
     }
 
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void Noark4_DiasTarInput_ProducesValidSIP()
+    {
+        FileInfo diasTarFile =
+            TestData.File("Archives", "Noark4", "diasPackage", "ffb1fda0-5b13-478f-9e4a-d68e8a944399.tar");
+
+        string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
+
+        RunScenario(diasTarFile, ArchiveType.Noark4, expectedContentFiles, packageType: SIP);
+    }
+    
     [Fact]
     [Trait("Category", "Integration")]
     public void Noark4_DiasTarInput_ProducesValidAIP()
@@ -71,6 +115,17 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
 
     [Fact]
     [Trait("Category", "Integration")]
+    public void Noark5_DirectoryInput_ProducesValidSIP()
+    {
+        DirectoryInfo extractionDirectory = TestData.Directory("Archives", "Noark5", "extraction");
+
+        string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
+
+        RunScenario(extractionDirectory, ArchiveType.Noark5, expectedContentPaths, packageType: SIP);
+    }
+
+    [Fact]
+    [Trait("Category", "Integration")]
     public void Noark5_DirectoryInput_ProducesValidAIP()
     {
         DirectoryInfo extractionDirectory = TestData.Directory("Archives", "Noark5", "extraction");
@@ -78,6 +133,18 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
 
         RunScenario(extractionDirectory, ArchiveType.Noark5, expectedContentPaths, packageType: AIP);
+    }
+
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void Noark5_DiasTarInput_ProducesValidSIP()
+    {
+        FileInfo diasTarFile =
+            TestData.File("Archives", "Noark5", "diasPackage", "4b73981c-1fab-4d4c-91e7-fcc6a3bc057f.tar");
+
+        string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
+
+        RunScenario(diasTarFile, ArchiveType.Noark5, expectedContentFiles, packageType: SIP);
     }
 
     [Fact]
@@ -94,6 +161,17 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
 
     [Fact]
     [Trait("Category", "Integration")]
+    public void SpecializedSystem_DirectoryInput_ProducesValidSIP()
+    {
+        DirectoryInfo extractionDirectory = TestData.Directory("Archives", "SpecializedSystem", "extraction");
+
+        string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
+
+        RunScenario(extractionDirectory, ArchiveType.SpecializedSystem, expectedContentPaths, packageType: SIP);
+    }
+    
+    [Fact]
+    [Trait("Category", "Integration")]
     public void SpecializedSystem_DirectoryInput_ProducesValidAIP()
     {
         DirectoryInfo extractionDirectory = TestData.Directory("Archives", "SpecializedSystem", "extraction");
@@ -103,6 +181,18 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         RunScenario(extractionDirectory, ArchiveType.SpecializedSystem, expectedContentPaths, packageType: AIP);
     }
 
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void SpecializedSystem_DiasTarInput_ProducesValidSIP()
+    {
+        FileInfo diasTarFile = TestData.File("Archives", "SpecializedSystem", "diasPackage",
+            "bf193afe-4483-4481-b457-e9ba4f19681c.tar");
+
+        string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
+
+        RunScenario(diasTarFile, ArchiveType.SpecializedSystem, expectedContentFiles, packageType: SIP);
+    }
+    
     [Fact]
     [Trait("Category", "Integration")]
     public void SpecializedSystem_DiasTarInput_ProducesValidAIP()
@@ -115,6 +205,23 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         RunScenario(diasTarFile, ArchiveType.SpecializedSystem, expectedContentFiles, packageType: AIP);
     }
 
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void Siard_FileInput_ProducesValidSIP()
+    {
+        FileInfo siardFile = TestData.File("Archives", "Siard", "extraction", "dbptk.siard");
+
+        DirectoryInfo directoryWithExpectedContentFiles = TestData.Directory("Archives", "Siard", "extraction");
+
+        const string unReferencedFile =
+            "t01bclob12_dbptk-desktop-2.5.9_ext.siard_lobseg_1/content/schema1/table1/lob9/unreferenced-file.bin";
+
+        string[] expectedContentFilePaths = GetPathsAsWhenInTar(directoryWithExpectedContentFiles, filePathsOnly: true)
+            .Except([unReferencedFile]).ToArray();
+
+        RunScenario(siardFile, ArchiveType.Siard, expectedContentFilePaths, packageType: SIP);
+    }
+    
     [Fact]
     [Trait("Category", "Integration")]
     public void Siard_FileInput_ProducesValidAIP()
@@ -130,6 +237,18 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
             .Except([unReferencedFile]).ToArray();
 
         RunScenario(siardFile, ArchiveType.Siard, expectedContentFilePaths, packageType: AIP);
+    }
+    
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void Siard_DiasTarInput_ProducesValidSIP()
+    {
+        FileInfo diasTarFile =
+            TestData.File("Archives", "Siard", "diasPackage", "841c0a18-7308-4407-b421-3efaa420d891.tar");
+
+        string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
+
+        RunScenario(diasTarFile, ArchiveType.Siard, expectedContentFiles, packageType: SIP);
     }
     
     [Fact]
