@@ -293,7 +293,7 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
             // TODO: Expect exported test reports
 
             string[] arkadeTestReportFileNames = Enum.GetValues<TestReportFormat>().Select(format =>
-                packageType == PackageType.SubmissionInformationPackage
+                packageType == SIP
                     ? string.Format(OutputFileNames.StandaloneTestReportFile, packageId, format)
                     : string.Format(OutputFileNames.TestReportFile, format)).ToArray();
 
@@ -325,7 +325,7 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
             Path.Combine(resultsDirectoryPath, $"{packageId}.xml"),
         };
         
-        if(packageType == PackageType.SubmissionInformationPackage)
+        if(packageType == SIP)
         {
             string standaloneReportsDirectory = string.Format(OutputFileNames.StandaloneTestReportDirectory, packageId);
 
@@ -391,7 +391,7 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         IEnumerable<string> contentFilesPaths = expectedContentFilePaths.Select(contentFileName =>
             $"{packageRootDirectoryName}/{ArkadeConstants.DirectoryNameContent}/{contentFileName}");
 
-        if (packageType == PackageType.SubmissionInformationPackage) // Test reports are expected outside the package
+        if (packageType == SIP) // Test reports are expected outside the package
             return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths];
 
         if (expectedTestReportFileNames.Length == 0)
