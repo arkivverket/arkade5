@@ -9,9 +9,9 @@ using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Tests.UnitTestUtilities;
-using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;
+using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Tests.Base;
 
@@ -389,7 +389,7 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         } 
         
         IEnumerable<string> contentFilesPaths = expectedContentFilePaths.Select(contentFileName =>
-            $"{packageRootDirectoryName}/{ArkadeConstants.DirectoryNameContent}/{contentFileName}");
+            $"{packageRootDirectoryName}/{DirectoryNameContent}/{contentFileName}");
 
         if (packageType == SIP) // Test reports are expected outside the package
             return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths];
@@ -398,8 +398,8 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
             return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths];
         
         string testReportDirectory =
-            $"{packageRootDirectoryName}/{ArkadeConstants.DirectoryNameAdministrativeMetadata}" +
-            $"/{ArkadeConstants.DirectoryNameRepositoryOperations}/" +
+            $"{packageRootDirectoryName}/{DirectoryNameAdministrativeMetadata}" +
+            $"/{DirectoryNameRepositoryOperations}/" +
             $"{OutputFileNames.TestReportDirectory}";
 
         IEnumerable<string> testReportFilePaths =
