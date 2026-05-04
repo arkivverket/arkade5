@@ -18,102 +18,106 @@ namespace Arkivverket.Arkade.Core.Tests.Base;
 public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
 {
     private const SupportedLanguage OutputLanguage = SupportedLanguage.en;
+    private static PackageType SIP => PackageType.SubmissionInformationPackage;
+    private static PackageType AIP => PackageType.ArchivalInformationPackage;
+    
+    // TODO: Test creation of both SIP and AIP packages for every archive type
     
     [Fact]
     [Trait("Category", "Integration")]
-    public void Noark3_DirectoryInput_ProducesValidPackage()
+    public void Noark3_DirectoryInput_ProducesValidAIP()
     {
         DirectoryInfo extractionDirectory = TestData.Directory("Archives", "Noark3", "extraction");
 
         string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
 
-        RunScenario(extractionDirectory, ArchiveType.Noark3, expectedContentPaths);
+        RunScenario(extractionDirectory, ArchiveType.Noark3, expectedContentPaths, packageType: AIP);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
-    public void Noark3_DiasTarInput_ProducesValidPackage()
+    public void Noark3_DiasTarInput_ProducesValidAIP()
     {
         FileInfo diasTarFile =
             TestData.File("Archives", "Noark3", "diasPackage", "8851c420-80e0-4681-b838-8eeb542d46f1.tar");
 
         string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
 
-        RunScenario(diasTarFile, ArchiveType.Noark3, expectedContentFiles);
+        RunScenario(diasTarFile, ArchiveType.Noark3, expectedContentFiles, packageType: AIP);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
-    public void Noark4_DirectoryInput_ProducesValidPackage()
+    public void Noark4_DirectoryInput_ProducesValidAIP()
     {
         DirectoryInfo extractionDirectory = TestData.Directory("Archives", "Noark4", "extraction");
 
         string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
 
-        RunScenario(extractionDirectory, ArchiveType.Noark4, expectedContentPaths);
+        RunScenario(extractionDirectory, ArchiveType.Noark4, expectedContentPaths, packageType: AIP);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
-    public void Noark4_DiasTarInput_ProducesValidPackage()
+    public void Noark4_DiasTarInput_ProducesValidAIP()
     {
         FileInfo diasTarFile =
             TestData.File("Archives", "Noark4", "diasPackage", "ffb1fda0-5b13-478f-9e4a-d68e8a944399.tar");
 
         string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
 
-        RunScenario(diasTarFile, ArchiveType.Noark4, expectedContentFiles);
+        RunScenario(diasTarFile, ArchiveType.Noark4, expectedContentFiles, packageType: AIP);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
-    public void Noark5_DirectoryInput_ProducesValidPackage()
+    public void Noark5_DirectoryInput_ProducesValidAIP()
     {
         DirectoryInfo extractionDirectory = TestData.Directory("Archives", "Noark5", "extraction");
 
         string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
 
-        RunScenario(extractionDirectory, ArchiveType.Noark5, expectedContentPaths);
+        RunScenario(extractionDirectory, ArchiveType.Noark5, expectedContentPaths, packageType: AIP);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
-    public void Noark5_DiasTarInput_ProducesValidPackage()
+    public void Noark5_DiasTarInput_ProducesValidAIP()
     {
         FileInfo diasTarFile =
             TestData.File("Archives", "Noark5", "diasPackage", "4b73981c-1fab-4d4c-91e7-fcc6a3bc057f.tar");
 
         string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
 
-        RunScenario(diasTarFile, ArchiveType.Noark5, expectedContentFiles);
+        RunScenario(diasTarFile, ArchiveType.Noark5, expectedContentFiles, packageType: AIP);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
-    public void SpecializedSystem_DirectoryInput_ProducesValidPackage()
+    public void SpecializedSystem_DirectoryInput_ProducesValidAIP()
     {
         DirectoryInfo extractionDirectory = TestData.Directory("Archives", "SpecializedSystem", "extraction");
 
         string[] expectedContentPaths = GetPathsAsWhenInTar(extractionDirectory);
 
-        RunScenario(extractionDirectory, ArchiveType.SpecializedSystem, expectedContentPaths);
+        RunScenario(extractionDirectory, ArchiveType.SpecializedSystem, expectedContentPaths, packageType: AIP);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
-    public void SpecializedSystem_DiasTarInput_ProducesValidPackage()
+    public void SpecializedSystem_DiasTarInput_ProducesValidAIP()
     {
         FileInfo diasTarFile = TestData.File("Archives", "SpecializedSystem", "diasPackage",
             "bf193afe-4483-4481-b457-e9ba4f19681c.tar");
 
         string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
 
-        RunScenario(diasTarFile, ArchiveType.SpecializedSystem, expectedContentFiles);
+        RunScenario(diasTarFile, ArchiveType.SpecializedSystem, expectedContentFiles, packageType: AIP);
     }
 
     [Fact]
     [Trait("Category", "Integration")]
-    public void Siard_FileInput_ProducesValidPackage()
+    public void Siard_FileInput_ProducesValidAIP()
     {
         FileInfo siardFile = TestData.File("Archives", "Siard", "extraction", "dbptk.siard");
 
@@ -125,23 +129,23 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         string[] expectedContentFilePaths = GetPathsAsWhenInTar(directoryWithExpectedContentFiles, filePathsOnly: true)
             .Except([unReferencedFile]).ToArray();
 
-        RunScenario(siardFile, ArchiveType.Siard, expectedContentFilePaths);
+        RunScenario(siardFile, ArchiveType.Siard, expectedContentFilePaths, packageType: AIP);
     }
-
+    
     [Fact]
     [Trait("Category", "Integration")]
-    public void Siard_DiasTarInput_ProducesValidPackage()
+    public void Siard_DiasTarInput_ProducesValidAIP()
     {
         FileInfo diasTarFile =
             TestData.File("Archives", "Siard", "diasPackage", "841c0a18-7308-4407-b421-3efaa420d891.tar");
 
         string[] expectedContentFiles = DiasTarArchiveUtility.GetContentFileList(diasTarFile.FullName);
 
-        RunScenario(diasTarFile, ArchiveType.Siard, expectedContentFiles);
+        RunScenario(diasTarFile, ArchiveType.Siard, expectedContentFiles, packageType: AIP);
     }
 
     private void RunScenario(FileSystemInfo input, ArchiveType archiveType, string[] expectedContentFiles,
-        PackageType packageType = PackageType.ArchivalInformationPackage, [CallerMemberName] string callerMemberName = null) // TODO: Expect package type
+        PackageType packageType, [CallerMemberName] string callerMemberName = null)
     {
         DirectoryInfo isolatedTemporaryDirectory = fixture.CreateIsolatedDirectory<ArkadeCoreApiTest>(callerMemberName);
         
