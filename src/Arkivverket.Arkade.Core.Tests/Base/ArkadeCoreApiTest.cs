@@ -290,8 +290,44 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
             arkade.RunTests(archive);
             archive.TestSession.TestSuite.Should().NotBeNull();
 
-            // TODO: Expect exported test reports
+            // Test generation of test reports exported
+            ArkadeCoreApi.GenerateTestReport(archive, isolatedTemporaryDirectory, true, 100, archive.InputDiasPackage);
+            
+            string baseReportsDirectoryName =
+                OutputFileNames.StandaloneTestReportDirectory[
+                    ..OutputFileNames.StandaloneTestReportDirectory.LastIndexOf('_')]; // Package id / timestamp cut off
+            
+            string reportsDirectoryPathStart = Path.Combine(isolatedTemporaryDirectory.FullName, baseReportsDirectoryName);
+            
+            string testReportExportDirectoryPath = Directory.GetDirectories(isolatedTemporaryDirectory.FullName)
+                .Single(dir => dir.StartsWith(reportsDirectoryPathStart));
+                
+            IEnumerable<string> exportedTestReportFilePaths = Directory.GetFiles(testReportExportDirectoryPath);
 
+            exportedTestReportFilePaths.Count().Should().Be(archiveType == ArchiveType.Siard ? 5 : 4); // (dbptk report)
+
+            foreach (TestReportFormat testReportFormat in Enum.GetValues<TestReportFormat>())
+            {
+                string baseReportFileName =
+                    OutputFileNames.StandaloneTestReportFile[
+                        ..OutputFileNames.StandaloneTestReportFile.LastIndexOf('_')]; // Package id / timestamp cut off
+
+                string reportFilePathStart = Path.Combine(testReportExportDirectoryPath, baseReportFileName);
+                
+                exportedTestReportFilePaths.Should().Contain(testReportFilePath =>
+                    testReportFilePath.StartsWith(reportFilePathStart) &&
+                    testReportFilePath.EndsWith(testReportFormat.ToString()));
+            }
+
+            if (archiveType == ArchiveType.Siard)
+            {
+                string dbptkValidationReportFilePath =
+                    Path.Combine(testReportExportDirectoryPath, OutputFileNames.DbptkValidationReportFile);
+                
+                exportedTestReportFilePaths.Should().Contain(path => path.Equals(dbptkValidationReportFilePath));
+            }
+            
+            // Prepare test report file paths to expect within the package being created
             string[] arkadeTestReportFileNames = Enum.GetValues<TestReportFormat>().Select(format =>
                 packageType == SIP
                     ? string.Format(OutputFileNames.StandaloneTestReportFile, packageId, format)
