@@ -1,8 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Formats.Tar;
 using System.IO;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
+using Arkivverket.Arkade.Core.Base.Siard;
+using Arkivverket.Arkade.Core.Report;
+using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
+using FluentAssertions;
+using static Arkivverket.Arkade.Core.Resources.OutputFileNames;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Tests.UnitTestUtilities;
@@ -40,37 +47,43 @@ public static class DiasTarArchiveUtility
         return tarArchiveFileList;
     }
 
-    public static string[] GetArkadeAppliedAipFilesList(ArchiveType archiveType)
+    public static string[] GetArkadeAppliedPackageFilesList(ArchiveType archiveType, PackageType packageType)
     {
-        List<string> fileList =
-        [
-            DiasMetsXmlFileName,
-            DiasMetsXsdFileName,
-            $"{DirectoryNameAdministrativeMetadata}/",
-            $"{DirectoryNameDescriptiveMetadata}/",
-            $"{DirectoryNameContent}/",
-            $"{DirectoryNameAdministrativeMetadata}/{DiasPremisXmlFileName}",
-            $"{DirectoryNameAdministrativeMetadata}/{DiasPremisXsdFileName}",
-            LogXmlFileName
-        ];
-
-        switch (archiveType)
+        ArchiveFormat archiveFormat = (archiveType, packageType) switch
         {
-            case ArchiveType.Noark5:
-                fileList.Add($"{DirectoryNameAdministrativeMetadata}/{ArkivuttrekkXmlFileName}");
-                fileList.Add($"{DirectoryNameAdministrativeMetadata}/{AddmlXsdFileName}");
-                break;
-            case ArchiveType.SpecializedSystem:
-                fileList.Add($"{DirectoryNameAdministrativeMetadata}/{AddmlXmlFileName}");
-                fileList.Add($"{DirectoryNameAdministrativeMetadata}/{AddmlXsdFileName}");
-                break;
-            case ArchiveType.Siard:
-                fileList.Add($"{DirectoryNameAdministrativeMetadata}/{SiardMetadataXmlFileName}");
-                fileList.Add($"{DirectoryNameAdministrativeMetadata}/{SiardMetadataXsdFileName}");
-                break;
+            (ArchiveType.Noark5, PackageType.ArchivalInformationPackage) => ArchiveFormat.DiasAipN5,
+            (ArchiveType.Noark5, PackageType.SubmissionInformationPackage) => ArchiveFormat.DiasSipN5,
+            (ArchiveType.Siard, PackageType.ArchivalInformationPackage) => ArchiveFormat.DiasAipSiard,
+            (ArchiveType.Siard, PackageType.SubmissionInformationPackage) => ArchiveFormat.DiasSipSiard,
+            (_, PackageType.ArchivalInformationPackage) => ArchiveFormat.DiasAip, // Treated as SpecializedSystem
+            (_, PackageType.SubmissionInformationPackage) => ArchiveFormat.DiasSip, // Treated as SpecializedSystem
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        // DiasProvider-supplied list of mandatory files: 
+        var arkadeAppliedPackageFilesList = new List<string>(DiasProvider.ProvideForFormat(archiveFormat)
+            .GetEntryPaths(recursive: true)
+            .Where(d => !d.StartsWith(DirectoryNameContent + Path.DirectorySeparatorChar)) // Skipping content files
+            .Select(p => p.Replace('\\', '/')));
+
+        // EAD and EAC-CPF schemas are not included by Arkade during package creation
+        arkadeAppliedPackageFilesList.Remove($"{DirectoryNameDescriptiveMetadata}/{EadXsdFileName}");
+        arkadeAppliedPackageFilesList.Remove($"{DirectoryNameDescriptiveMetadata}/{EacCpfXsdFileName}");
+
+        // Noark3 and Noark4 are not specifically supported by the DiasProvider.
+        // For these archive types we are therefore calling its ProvideForFormat with DiasAip/DiasSip as archive format.
+        // The DiasProvider is treating DiasAip/DiasSip as SpecializedSystem and includes addml files in adm. metadata.
+        // Hence, these addml files need to be removed as they are not to be expected in a Noark3/Noark4-based package.
+        if (archiveType is ArchiveType.Noark3 or ArchiveType.Noark4)
+        {
+            arkadeAppliedPackageFilesList.Remove($"{DirectoryNameAdministrativeMetadata}/{AddmlXmlFileName}"); 
+            arkadeAppliedPackageFilesList.Remove($"{DirectoryNameAdministrativeMetadata}/{AddmlXsdFileName}");
         }
 
-        return fileList.ToArray();
+        // Not supplied by DiasProvider but always generated during package creation: 
+        arkadeAppliedPackageFilesList.Add(LogXmlFileName);
+        
+        return arkadeAppliedPackageFilesList.ToArray();
     }
 
     public static List<string> GetPackageItemsExpectedInMetadata(List<string> packageFileList)

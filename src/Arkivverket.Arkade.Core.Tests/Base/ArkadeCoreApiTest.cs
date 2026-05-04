@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,6 +7,7 @@ using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Tests.UnitTestUtilities;
 using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
@@ -139,7 +141,7 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
     }
 
     private void RunScenario(FileSystemInfo input, ArchiveType archiveType, string[] expectedContentFiles,
-        [CallerMemberName] string callerMemberName = null)
+        PackageType packageType = PackageType.ArchivalInformationPackage, [CallerMemberName] string callerMemberName = null) // TODO: Expect package type
     {
         DirectoryInfo isolatedTemporaryDirectory = fixture.CreateIsolatedDirectory<ArkadeCoreApiTest>(callerMemberName);
         
@@ -151,56 +153,85 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         Archive archive = arkade.LoadArchiveExtraction(input, archiveType);
         archive.ArchiveType.Should().Be(archiveType);
 
+        // Instantiate OutputDiasPackage to generate the package ID expected in test reports
+        var archiveMetadata = new ArchiveMetadata();
+        archive.OutputDiasPackage = new OutputDiasPackage(packageType, archiveMetadata, archive.ProcessingDirectory);
+        Uuid packageId = archive.OutputDiasPackage.Id;
+        
         // 2. Create Test Session and 3. Run Tests (if supported)
-        if (archiveType != ArchiveType.Noark4)
+        string[] expectedTestReportFileNames = []; 
+        if (archive.IsTestable(out _))
         {
-            TestSession testSession = arkade.CreateTestSession(archive);
-            archive.TestSession = testSession;
+            archive.TestSession = arkade.CreateTestSession(archive);
             archive.TestSession.OutputLanguage = OutputLanguage;
-            
-            if (archive.IsTestable(out _))
-            {
-                arkade.RunTests(archive);
-                archive.TestSession.TestSuite.Should().NotBeNull();
-            }
+            arkade.RunTests(archive);
+            archive.TestSession.TestSuite.Should().NotBeNull();
+
+            // TODO: Expect exported test reports
+
+            string[] arkadeTestReportFileNames = Enum.GetValues<TestReportFormat>().Select(format =>
+                packageType == PackageType.SubmissionInformationPackage
+                    ? string.Format(OutputFileNames.StandaloneTestReportFile, packageId, format)
+                    : string.Format(OutputFileNames.TestReportFile, format)).ToArray();
+
+            expectedTestReportFileNames = archiveType == ArchiveType.Siard
+                ? [..arkadeTestReportFileNames, OutputFileNames.DbptkValidationReportFile]
+                : arkadeTestReportFileNames;
         }
 
         // 4. Create Package
-        // Need to set OutputDiasPackage before CreatePackage, normally done in GUI/CLI
-        // Inspired by InformationPackageCreatorTest.cs:254
-        var archiveMetadata = new ArchiveMetadata();
-        archive.OutputDiasPackage = new OutputDiasPackage(
-            PackageType.SubmissionInformationPackage, archiveMetadata, archive.ProcessingDirectory);
-
         string outputDirectory = isolatedTemporaryDirectory.CreateSubdirectory("output").FullName;
 
         arkade.CreatePackage(archive, OutputLanguage, generateFileFormatInfo: false, outputDirectory);
 
-        // 5. Verify Package Content
-        VerifyPackage(archive, outputDirectory, expectedContentFiles);
+        // 5. Verify Package creation results
+        VerifyPackage(archive, outputDirectory, expectedContentFiles, expectedTestReportFileNames);
     }
 
-    private static void VerifyPackage(Archive archive, string outputDirectory, string[] expectedContentFiles)
+    private static void VerifyPackage(Archive archive, string outputDirectory, string[] expectedContentFilePaths,
+        string[] expectedTestReportFileNames)
     {
         Uuid packageId = archive.OutputDiasPackage.Id;
+        PackageType packageType = archive.OutputDiasPackage.PackageType;
         string resultsDirectoryName = string.Format(OutputFileNames.ResultOutputDirectory, packageId);
         string resultsDirectoryPath = Path.Combine(outputDirectory, resultsDirectoryName);
 
+        var expectedResultFilePaths = new List<string>
+        {
+            Path.Combine(resultsDirectoryPath, $"{packageId}.tar"),
+            Path.Combine(resultsDirectoryPath, $"{packageId}.xml"),
+        };
+        
+        if(packageType == PackageType.SubmissionInformationPackage)
+        {
+            string standaloneReportsDirectory = string.Format(OutputFileNames.StandaloneTestReportDirectory, packageId);
+
+            IEnumerable<string> standAloneTestReportFilePaths = expectedTestReportFileNames.Select(testReportFileName =>
+                Path.Combine(resultsDirectoryPath, standaloneReportsDirectory, testReportFileName));
+
+            expectedResultFilePaths.AddRange(standAloneTestReportFilePaths);
+        }
+        
         // Verify files in the result directory
-        List<string> resultFiles = Directory.GetFiles(resultsDirectoryPath).Select(Path.GetFileName).ToList();
-        resultFiles.Should().Contain($"{packageId}.tar");
-        resultFiles.Should().Contain($"{packageId}.xml");
+        List<string> resultFilePaths = Directory.GetFiles(resultsDirectoryPath, "*", SearchOption.AllDirectories).ToList();
 
+        // Use to examine the actual difference between produced and expected result files:
+        //IEnumerable<string> filesInResultsNotExpected = resultFilePaths.ExceptOnce(expectedResultFilePaths);
+        //IEnumerable<string> expectedFilesNotInResults = expectedResultFilePaths.ExceptOnce(resultFilePaths);
+        //filesInResultsNotExpected.Should().BeEmpty();
+        //expectedFilesNotInResults.Should().BeEmpty();
+
+        resultFilePaths.Should().BeEquivalentTo(expectedResultFilePaths);
+
+        // Verify package file contents
         string tarFilePath = Path.Combine(resultsDirectoryPath, $"{packageId}.tar");
-        var tarFileRootDirectory = $"{packageId}/";
 
-        List<string> packageFileList =
-            DiasTarArchiveUtility.GetFileList(tarFilePath)
-                .Select(Path.TrimEndingDirectorySeparator).ToList();
+        List<string> packageFileList = DiasTarArchiveUtility.GetFileList(tarFilePath)
+            .Select(Path.TrimEndingDirectorySeparator).ToList();
 
-        List<string> expectedPackageFileList =
-            CreateExpectedPackageFileList(archive.ArchiveType, tarFileRootDirectory, expectedContentFiles)
-                .Select(Path.TrimEndingDirectorySeparator).ToList();
+        List<string> expectedPackageFileList = CreateExpectedPackageFileList(
+            archive.ArchiveType, packageId, expectedContentFilePaths, expectedTestReportFileNames, packageType)
+            .Select(Path.TrimEndingDirectorySeparator).ToList();
 
         // Use to examine the actual difference between produced and expected package file contents:
         //IEnumerable<string> filesInPackageNotExpected = packageFileList.ExceptOnce(expectedPackageFileList);
@@ -220,14 +251,41 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         metadataFileList.Should().BeEquivalentTo(packageFilesExpectedInMetadata);
     }
 
-    private static string[] CreateExpectedPackageFileList(ArchiveType archiveType, string rootDirectory, string[] expectedContentFiles)
+    private static string[] CreateExpectedPackageFileList(ArchiveType archiveType, Uuid packageId,
+        string[] expectedContentFilePaths, string[] expectedTestReportFileNames, PackageType packageType)
     {
-        return
+        var packageRootDirectoryName = packageId.ToString();
+
+        IEnumerable<string> arkadeAppliedPackageFilePaths = DiasTarArchiveUtility.GetArkadeAppliedPackageFilesList(archiveType, packageType)
+            .Select(arkadeAppliedAipFilePath => $"{packageRootDirectoryName}/{arkadeAppliedAipFilePath}");
+
+        IEnumerable<string> copiedFilesPaths = null;
+        if (archiveType == ArchiveType.Noark5 || archiveType == ArchiveType.SpecializedSystem)
+        {
+            //copiedFilesPaths = // 
+        } 
+        
+        IEnumerable<string> contentFilesPaths = expectedContentFilePaths.Select(contentFileName =>
+            $"{packageRootDirectoryName}/{ArkadeConstants.DirectoryNameContent}/{contentFileName}");
+
+        if (packageType == PackageType.SubmissionInformationPackage) // Test reports are expected outside the package
+            return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths];
+
+        if (expectedTestReportFileNames.Length == 0)
+            return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths];
+        
+        string testReportDirectory =
+            $"{packageRootDirectoryName}/{ArkadeConstants.DirectoryNameAdministrativeMetadata}" +
+            $"/{ArkadeConstants.DirectoryNameRepositoryOperations}/" +
+            $"{OutputFileNames.TestReportDirectory}";
+
+        IEnumerable<string> testReportFilePaths =
         [
-            rootDirectory,
-            .. DiasTarArchiveUtility.GetArkadeAppliedAipFilesList(archiveType).Select(file => rootDirectory + file),
-            .. expectedContentFiles.Select(file => $"{rootDirectory}{ArkadeConstants.DirectoryNameContent}/{file}")
+            testReportDirectory,
+            .. expectedTestReportFileNames.Select(testReportFileName => $"{testReportDirectory}/{testReportFileName}")
         ];
+
+        return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths, .. testReportFilePaths];
     }
 
     private static string[] GetPathsAsWhenInTar(DirectoryInfo directory, bool filePathsOnly = false)
