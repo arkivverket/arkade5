@@ -382,17 +382,38 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         IEnumerable<string> arkadeAppliedPackageFilePaths = DiasTarArchiveUtility.GetArkadeAppliedPackageFilesList(archiveType, packageType)
             .Select(arkadeAppliedAipFilePath => $"{packageRootDirectoryName}/{arkadeAppliedAipFilePath}");
 
-        IEnumerable<string> copiedFilesPaths = null;
-        if (archiveType == ArchiveType.Noark5 || archiveType == ArchiveType.SpecializedSystem)
-        {
-            //copiedFilesPaths = // 
-        } 
-        
         IEnumerable<string> contentFilesPaths = expectedContentFilePaths.Select(contentFileName =>
             $"{packageRootDirectoryName}/{DirectoryNameContent}/{contentFileName}");
 
         if (packageType == SIP) // Test reports are expected outside the package
-            return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths];
+        {
+            var administrativeMetadataDirectoryPath = $"{packageRootDirectoryName}/{DirectoryNameAdministrativeMetadata}";
+
+            IEnumerable<string> expectedIrregularFilesPaths = archiveType switch
+            {
+                // These files should, according to the specification, not be part of SIP packages. Nevertheless, Arkade has
+                // included them for a long time, so we expect them in these integration tests until the practice is clarified.
+                
+                ArchiveType.Noark5 when packageType == SIP =>
+                [
+                    $"{administrativeMetadataDirectoryPath}/{ArkivuttrekkXmlFileName}",
+                    $"{administrativeMetadataDirectoryPath}/{AddmlXsdFileName}"
+                ],
+                ArchiveType.SpecializedSystem when packageType == SIP =>
+                [
+                    $"{administrativeMetadataDirectoryPath}/{AddmlXmlFileName}",
+                    $"{administrativeMetadataDirectoryPath}/{AddmlXsdFileName}"
+                ],
+                ArchiveType.Siard when packageType == SIP =>
+                [
+                    $"{administrativeMetadataDirectoryPath}/{SiardMetadataXmlFileName}",
+                    $"{administrativeMetadataDirectoryPath}/{SiardMetadataXsdFileName}"
+                ],
+                _ => []
+            };
+
+            return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths, .. expectedIrregularFilesPaths];
+        }
 
         if (expectedTestReportFileNames.Length == 0)
             return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths];
