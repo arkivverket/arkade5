@@ -246,7 +246,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private bool CanStartTestRun()
         {
-           return _archive?.TestSession != null && _archive.IsTestable(out _) && !_testRunHasBeenExecuted;
+           return _archive != null && _archive.IsTestable(out _) && !_testRunHasBeenExecuted;
         }
 
         private bool CanCreatePackage()
@@ -270,7 +270,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 _archive = (Archive)context.Parameters["archive"];
                 
-                _archive.TestSession = _arkadeCoreApi.CreateTestSession(_archive);
                     
                 if (!_archive.IsTestable(out string disqualifyingCause))
                     LogNotTestableArchiveOperationMessage(disqualifyingCause);
@@ -293,7 +292,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 }
 
 
-                StartTestingCommand.RaiseCanExecuteChanged(); // testSession has been updated, reevaluate command
+                StartTestingCommand.RaiseCanExecuteChanged(); // _archive is assigned, reevaluate command
             }
             catch (SiardArchiveReaderException siardArchiveReaderException)
             {
@@ -429,6 +428,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             try
             {
+                _archive.TestSession = _arkadeCoreApi.CreateTestSession(_archive);
+                
                 NotifyStartRunningTests();
 
                 _archive.TestSession.TestsToRun = GetSelectedTests();
