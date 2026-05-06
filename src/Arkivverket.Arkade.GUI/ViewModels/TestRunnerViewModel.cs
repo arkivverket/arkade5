@@ -554,7 +554,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ShowTestReportDialog()
         {
-            new TestReportDialog(_archive).ShowDialog();
+            new TestReportDialog(_archive).ShowDialog(); // TODO: Consider to inline
         }
     }
 }

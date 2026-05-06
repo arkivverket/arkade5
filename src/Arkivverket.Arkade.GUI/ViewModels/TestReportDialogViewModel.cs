@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             FileInfo testReportFile = testReportDirectory.GetFiles()
                 .FirstOrDefault(f => f.Extension.Contains(TestReportFormat.html.ToString()));
 
-            if (testReportFile == default)
+            if (testReportFile == default) // TODO: Consider to remove ...
                 testReportFile = testReportDirectory.GetFiles().First(f => f.Extension.Equals(".txt"));
                 
             testReportFile.FullName.LaunchUrl();
