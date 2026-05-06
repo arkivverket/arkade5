@@ -452,8 +452,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     return;
                 }
 
-                SaveTestReports(_archive.TestSession.TemporaryTestResultFilesDirectory);
-
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedOperation, null, OperationMessageStatus.Ok);
                 NotifyFinishedRunningTests();
@@ -554,21 +552,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             });
         }
 
-        private void ShowTestReportDialog() // TODO: Generer testrapport direkte til riktig sted!
+        private void ShowTestReportDialog()
         {
-            Uuid diasPackageId = _archive.InputDiasPackage?.Id;
-            new TestReportDialog(_archive.OutputDiasPackage.GetTestReportDirectory(), diasPackageId).ShowDialog(); // NB! UUID-transfer
+            new TestReportDialog(_archive).ShowDialog();
         }
-
-        private void SaveTestReports(DirectoryInfo testReportDirectory)
-        {
-            string eventId = TestRunnerGUI.EventIdCreatingReport;
-            _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
-
-            _arkadeApi.SaveReport(_archive, testReportDirectory, false, Settings.Default.TestResultDisplayLimit);
-
-            _statusEventHandler.RaiseEventOperationMessage(eventId, TestRunnerGUI.TestReportIsSavedMessage, OperationMessageStatus.Ok);
-        }
-
     }
 }

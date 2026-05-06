@@ -2,25 +2,30 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Util;
 using Prism.Commands;
 using Prism.Mvvm;
 using Serilog;
+using Settings = Arkivverket.Arkade.GUI.Properties.Settings;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
     public class TestReportDialogViewModel : BindableBase
     {
+        private readonly IStatusEventHandler _statusEventHandler;
         private readonly ILogger _log = Log.ForContext<TestReportDialogViewModel>();
+        public Archive Archive { get; set; }
         public DelegateCommand ShowTestReportCommand { get; }
         public DelegateCommand ExportTestReportFilesCommand { get; }
-        public DirectoryInfo TestReportDirectory { get; set; }
-        public Uuid Uuid { get; set; }
 
-        public TestReportDialogViewModel()
+        public TestReportDialogViewModel(IStatusEventHandler statusEventHandler)
         {
+            _statusEventHandler = statusEventHandler;
+            
             ShowTestReportCommand = new DelegateCommand(ShowTestReport);
 
             ExportTestReportFilesCommand = new DelegateCommand(ExportTestReport);
@@ -29,12 +34,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private void ShowTestReport()
         {
             _log.Information("User action: Show HTML test report");
+            
+            var tmpResultsDirectory = new DirectoryInfo(Archive.TestSession.TemporaryTestResultFilesDirectory.FullName);
+            
+            DirectoryInfo testReportDirectory = GenerateTestReport(tmpResultsDirectory);
 
-            FileInfo testReportFile = TestReportDirectory.GetFiles()
+            FileInfo testReportFile = testReportDirectory.GetFiles()
                 .FirstOrDefault(f => f.Extension.Contains(TestReportFormat.html.ToString()));
 
             if (testReportFile == default)
-                testReportFile = TestReportDirectory.GetFiles().First(f => f.Extension.Equals(".txt"));
+                testReportFile = testReportDirectory.GetFiles().First(f => f.Extension.Equals(".txt"));
                 
             testReportFile.FullName.LaunchUrl();
         }
@@ -58,24 +67,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _log.Information($"User action: Chose directory for {action}: {testReportExportDestination}");
 
-            var testReportExportDirectory = new DirectoryInfo(Path.Combine(testReportExportDestination,
-                string.Format(Core.Resources.OutputFileNames.StandaloneTestReportDirectory, Uuid))); // NB! UUID-writeout (test results) (from TestReportDialogViewModel)
-
-            if (!testReportExportDirectory.Exists)
-                testReportExportDirectory.Create();
-
-            foreach (FileInfo testReportFile in TestReportDirectory.GetFiles())
-            {
-                string destinationTestReportFileName = Path.Combine(
-                    testReportExportDirectory.FullName,
-                    testReportFile.Name.Equals(Core.Resources.OutputFileNames.DbptkValidationReportFile)
-                        ? testReportFile.Name
-                        : string.Format(Core.Resources.OutputFileNames.StandaloneTestReportFile, Uuid, // NB! UUID-writeout (test results) (from TestReportDialogViewModel)
-                            testReportFile.Extension.Trim('.'))
-                );
-
-                testReportFile.CopyTo(destinationTestReportFileName, overwrite: true);
-            }
+            DirectoryInfo testReportExportDirectory = GenerateTestReport(new DirectoryInfo(testReportExportDestination));
 
             string argument = "/select, \"" + testReportExportDirectory + "\"";
             System.Diagnostics.Process.Start("explorer.exe", argument);
@@ -104,6 +96,19 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             }
 
             // TODO: "Merge" with ToolsDialogViewModel.DirectoryPicker
+        }
+        
+        private DirectoryInfo GenerateTestReport(DirectoryInfo targetDirectory)
+        {
+            string eventId = TestRunnerGUI.EventIdCreatingReport;
+            
+            _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
+            
+            DirectoryInfo testReportDirectory = ArkadeCoreApi.GenerateTestReport(Archive, targetDirectory, standalone: true, Settings.Default.TestResultDisplayLimit, Archive.InputDiasPackage);
+            
+            _statusEventHandler.RaiseEventOperationMessage(eventId, TestRunnerGUI.TestReportIsSavedMessage, OperationMessageStatus.Ok);
+            
+            return testReportDirectory;
         }
     }
 }

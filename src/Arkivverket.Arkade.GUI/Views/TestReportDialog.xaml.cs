@@ -1,6 +1,5 @@
-﻿using System.IO;
-using System.Windows;
-using Arkivverket.Arkade.Core.Base;
+﻿using System.Windows;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.GUI.ViewModels;
 using Application = System.Windows.Application;
 
@@ -11,7 +10,7 @@ namespace Arkivverket.Arkade.GUI.Views
     /// </summary>
     public partial class TestReportDialog
     {
-        public TestReportDialog(DirectoryInfo testReportDirectory, Uuid uuid)
+        public TestReportDialog(Archive archive)
         {
             InitializeComponent();
 
@@ -19,8 +18,7 @@ namespace Arkivverket.Arkade.GUI.Views
 
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
-            ((TestReportDialogViewModel) DataContext).TestReportDirectory = testReportDirectory;
-            ((TestReportDialogViewModel) DataContext).Uuid = uuid; // NB! UUID-transfer
+            ((TestReportDialogViewModel) DataContext).Archive = archive;
         }
     }
 }
