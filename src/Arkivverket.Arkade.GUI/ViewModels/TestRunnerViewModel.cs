@@ -272,13 +272,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 
                 _archive.TestSession = _arkadeCoreApi.CreateTestSession(_archive);
                     
-                //_archiveType = (ArchiveType) context.Parameters["archiveType"];
-                //_archiveFileName = (string) context.Parameters["archiveFileName"];
-
-                //_testSession = Directory.Exists(_archiveFileName)
-                //    ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
-                //    : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
-
                 if (!_archive.IsTestable(out string disqualifyingCause))
                     LogNotTestableArchiveOperationMessage(disqualifyingCause);
 
