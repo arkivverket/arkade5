@@ -62,9 +62,9 @@ public class ArkadeCoreApi(
         testSessionXmlGenerator.GenerateXmlAndSaveToFile(archive); // TODO: Is this file relevant any longer?
     }
     
-    public static DirectoryInfo GenerateTestReport(Archive archive, DirectoryInfo outputDirectory, bool standalone, int testResultDisplayLimit, DiasPackage diasPackage)
+    public static DirectoryInfo GenerateTestReport(Archive archive, DirectoryInfo outputDirectory, int testResultDisplayLimit, DiasPackage diasPackage)
     {
-        TestReportGeneratorRunner.RunAllGenerators(archive, outputDirectory, standalone, testResultDisplayLimit, diasPackage, out DirectoryInfo reportsDirectory);
+        TestReportGeneratorRunner.RunAllGenerators(archive, outputDirectory, testResultDisplayLimit, diasPackage, out DirectoryInfo reportsDirectory);
         
         if (archive is SiardArchive)
             File.Copy(

@@ -104,7 +104,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
             
-            DirectoryInfo testReportDirectory = ArkadeCoreApi.GenerateTestReport(Archive, targetDirectory, standalone: true, Settings.Default.TestResultDisplayLimit, Archive.InputDiasPackage);
+            DirectoryInfo testReportDirectory = ArkadeCoreApi.GenerateTestReport(Archive, targetDirectory, Settings.Default.TestResultDisplayLimit, Archive.InputDiasPackage);
             
             _statusEventHandler.RaiseEventOperationMessage(eventId, TestRunnerGUI.TestReportIsSavedMessage, OperationMessageStatus.Ok);
             

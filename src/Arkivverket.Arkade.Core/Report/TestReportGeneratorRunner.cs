@@ -8,14 +8,14 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public static class TestReportGeneratorRunner
     {
-        public static void RunAllGenerators(Archive archive, DirectoryInfo outputDirectory, bool standalone,
+        public static void RunAllGenerators(Archive archive, DirectoryInfo outputDirectory,
             int testResultDisplayLimit, DiasPackage diasPackage, out DirectoryInfo reportsDirectory)
         {
             TestReport testReport = archive is SiardArchive siardArchive
                 ? TestReportFactory.CreateForSiard(siardArchive, diasPackage?.Id)
                 : TestReportFactory.Create(archive, diasPackage?.Id);
 
-            string extensionReadyTestReportFullName = GetExtensionReadyTestReportFullName(outputDirectory, standalone,
+            string extensionReadyTestReportFullName = GetExtensionReadyTestReportFullName(outputDirectory,
                 diasPackage, out string reportsDirectoryPath);
 
             reportsDirectory = Directory.CreateDirectory(reportsDirectoryPath);
@@ -29,8 +29,7 @@ namespace Arkivverket.Arkade.Core.Report
             }
         }
 
-        public static string GetExtensionReadyTestReportFullName(DirectoryInfo outputDirectory, bool standalone,
-            DiasPackage diasPackage, out string reportDirectoryPath)
+        public static string GetExtensionReadyTestReportFullName(DirectoryInfo outputDirectory, DiasPackage diasPackage, out string reportDirectoryPath)
         {
             switch (diasPackage)
             {

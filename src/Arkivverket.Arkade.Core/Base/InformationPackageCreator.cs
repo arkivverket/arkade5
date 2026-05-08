@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Base
                 var outputDirectory = new DirectoryInfo(outputDirectoryPath);
                 bool standalone = outputDiasPackage.PackageType == PackageType.SubmissionInformationPackage;
                 
-                TestReportGeneratorRunner.RunAllGenerators(archive, outputDirectory, standalone, 100 /*TODO: fix!*/, outputDiasPackage, out DirectoryInfo reportsDirectory);
+                TestReportGeneratorRunner.RunAllGenerators(archive, outputDirectory, 100 /*TODO: fix!*/, outputDiasPackage, out DirectoryInfo reportsDirectory);
         
                 if (archive is SiardArchive)
                     File.Copy(

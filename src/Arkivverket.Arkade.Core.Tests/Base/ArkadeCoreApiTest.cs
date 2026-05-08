@@ -291,7 +291,7 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
             archive.TestSession.TestSuite.Should().NotBeNull();
 
             // Test generation of test reports exported
-            ArkadeCoreApi.GenerateTestReport(archive, isolatedTemporaryDirectory, true, 100, archive.InputDiasPackage);
+            ArkadeCoreApi.GenerateTestReport(archive, isolatedTemporaryDirectory, 100, archive.InputDiasPackage);
             
             string baseReportsDirectoryName =
                 OutputFileNames.StandaloneTestReportDirectory[
