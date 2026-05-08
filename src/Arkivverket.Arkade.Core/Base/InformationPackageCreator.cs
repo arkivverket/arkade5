@@ -52,7 +52,6 @@ namespace Arkivverket.Arkade.Core.Base
             if (archive.TestSession?.TestSuite != null)
             {
                 var outputDirectory = new DirectoryInfo(outputDirectoryPath);
-                bool standalone = outputDiasPackage.PackageType == PackageType.SubmissionInformationPackage;
                 
                 TestReportGeneratorRunner.RunAllGenerators(archive, outputDirectory, 100 /*TODO: fix!*/, outputDiasPackage, out DirectoryInfo reportsDirectory);
         
