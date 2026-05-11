@@ -270,6 +270,16 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 _archive = (Archive)context.Parameters["archive"] ?? throw new Exception("No archive provided");
                 
+                FileSystemInfo archiveSource = _archive switch
+                {
+                    { SourceIsTarFile: true } => _archive.InputDiasPackage.TarFile,
+                    SiardArchive siardArchive => siardArchive.SiardFile,
+                    _ => ((DirectoryArchiveContent)_archive.Content).RootDirectory
+                };
+
+                _statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
+                    _archive.ArchiveType.ToString(), _archive.InputDiasPackage?.Id?.ToString() ?? "-",
+                    archiveSource.FullName));
                     
                 if (!_archive.IsTestable(out string disqualifyingCause))
                     LogNotTestableArchiveOperationMessage(disqualifyingCause);
