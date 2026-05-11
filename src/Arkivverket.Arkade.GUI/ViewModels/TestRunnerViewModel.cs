@@ -268,7 +268,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             try
             {
-                _archive = (Archive)context.Parameters["archive"];
+                _archive = (Archive)context.Parameters["archive"] ?? throw new Exception("No archive provided");
                 
                     
                 if (!_archive.IsTestable(out string disqualifyingCause))
