@@ -1,5 +1,6 @@
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
@@ -21,23 +22,24 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public Archive Archive { get; set; }
         public DelegateCommand ShowTestReportCommand { get; }
         public DelegateCommand ExportTestReportFilesCommand { get; }
+        private bool _isGeneratingTestReport = false;
 
         public TestReportDialogViewModel(IStatusEventHandler statusEventHandler)
         {
             _statusEventHandler = statusEventHandler;
             
-            ShowTestReportCommand = new DelegateCommand(ShowTestReport);
+            ShowTestReportCommand = new DelegateCommand(ShowTestReport, () => !_isGeneratingTestReport);
 
-            ExportTestReportFilesCommand = new DelegateCommand(ExportTestReport);
+            ExportTestReportFilesCommand = new DelegateCommand(ExportTestReport, () => !_isGeneratingTestReport);
         }
 
-        private void ShowTestReport()
+        private async void ShowTestReport()
         {
             _log.Information("User action: Show HTML test report");
             
             var tmpResultsDirectory = new DirectoryInfo(Archive.TestSession.TemporaryTestResultFilesDirectory.FullName);
             
-            DirectoryInfo testReportDirectory = GenerateTestReport(tmpResultsDirectory);
+            DirectoryInfo testReportDirectory = await GenerateTestReport(tmpResultsDirectory);
 
             FileInfo testReportFile = testReportDirectory.GetFiles()
                 .FirstOrDefault(f => f.Extension.Contains(TestReportFormat.html.ToString()));
@@ -48,7 +50,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             testReportFile.FullName.LaunchUrl();
         }
 
-        private void ExportTestReport()
+        private async void ExportTestReport()
         {
             const string action = "export test report";
 
@@ -67,7 +69,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _log.Information($"User action: Chose directory for {action}: {testReportExportDestination}");
 
-            DirectoryInfo testReportExportDirectory = GenerateTestReport(new DirectoryInfo(testReportExportDestination));
+            DirectoryInfo testReportExportDirectory = await GenerateTestReport(new DirectoryInfo(testReportExportDestination));
 
             string argument = "/select, \"" + testReportExportDirectory + "\"";
             System.Diagnostics.Process.Start("explorer.exe", argument);
@@ -98,15 +100,23 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             // TODO: "Merge" with ToolsDialogViewModel.DirectoryPicker
         }
         
-        private DirectoryInfo GenerateTestReport(DirectoryInfo targetDirectory)
+        private async Task<DirectoryInfo> GenerateTestReport(DirectoryInfo targetDirectory)
         {
+            _isGeneratingTestReport = true;
+            ShowTestReportCommand.RaiseCanExecuteChanged();
+            ExportTestReportFilesCommand.RaiseCanExecuteChanged();
+            
             string eventId = TestRunnerGUI.EventIdCreatingReport;
             
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
             
-            DirectoryInfo testReportDirectory = ArkadeCoreApi.GenerateTestReport(Archive, targetDirectory, Settings.Default.TestResultDisplayLimit, Archive.InputDiasPackage);
+            DirectoryInfo testReportDirectory = await Task.Run(() => ArkadeCoreApi.GenerateTestReport(Archive, targetDirectory, Settings.Default.TestResultDisplayLimit, Archive.InputDiasPackage));
             
             _statusEventHandler.RaiseEventOperationMessage(eventId, TestRunnerGUI.TestReportIsSavedMessage, OperationMessageStatus.Ok);
+
+            _isGeneratingTestReport = false;
+            ShowTestReportCommand.RaiseCanExecuteChanged();
+            ExportTestReportFilesCommand.RaiseCanExecuteChanged();
             
             return testReportDirectory;
         }
