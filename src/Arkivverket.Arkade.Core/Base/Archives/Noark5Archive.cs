@@ -24,21 +24,21 @@ public class Noark5Archive : AddmlBasedArchive
         DocumentFiles = SourceIsTarFile
             ? new DocumentFiles(InputDiasPackage.TarFile.FullName)
             : new DocumentFiles(GetDocumentsDirectory());
-        
-        if (AddmlXmlUnit == null)
-        {
-            if (Content.GetFile(ArkivuttrekkXmlFileName) is not { } n5AddmlFile)
-            {
-                Log.Error("No archive description file found in archive.");
-                return;
-            }
 
-            AddmlXmlUnit = SetupAddmlXmlUnit(n5AddmlFile);
+        if (AddmlXmlUnit != null)
+            return;
+
+        if (Content.GetFile(ArkivuttrekkXmlFileName) is not { } n5AddmlFile)
+        {
+            Log.Error("No archive description file found in archive.");
+            return;
         }
-        
+
+        AddmlXmlUnit = SetupAddmlXmlUnit(n5AddmlFile);
+
         using (Stream schemaStream = AddmlXmlUnit.Schema.AsStream())
             AddmlInfo = AddmlUtil.ReadFromFile(AddmlXmlUnit.File.FullName, schemaStream);
-        
+
         Details = new ArchiveDetails(AddmlInfo.Addml);
 
         XmlUnits = new Noark5XmlUnits(Content, Details as ArchiveDetails);
