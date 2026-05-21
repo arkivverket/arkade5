@@ -16,7 +16,6 @@ public abstract class Archive(IArchiveContent content, DirectoryInfo processingD
     public abstract bool IsTestable(out string disqualifyingCause);
 }
 
-[Flags]
 public enum ArchiveType
 {
     Noark3,
