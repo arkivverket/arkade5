@@ -35,7 +35,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private ObservableCollection<OperationMessage> _operationMessages = new ObservableCollection<OperationMessage>();
         private ObservableCollection<SelectableTest> _selectableTests = new ObservableCollection<SelectableTest>();
 
-        private readonly ArkadeApi _arkadeApi;
         private readonly IRegionManager _regionManager;
 
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
@@ -178,9 +177,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _archiveCurrentProcessing, value);
         }
 
-        public TestRunnerViewModel(ArkadeApi arkadeApi, ArkadeCoreApi arkadeCoreApi, IRegionManager regionManager,  IStatusEventHandler statusEventHandler)
+        public TestRunnerViewModel(ArkadeCoreApi arkadeCoreApi, IRegionManager regionManager,  IStatusEventHandler statusEventHandler)
         {
-            _arkadeApi = arkadeApi;
             _arkadeCoreApi = arkadeCoreApi;
             _regionManager = regionManager;
             _statusEventHandler = statusEventHandler;
