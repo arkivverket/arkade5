@@ -151,29 +151,9 @@ namespace Arkivverket.Arkade.Core.Base
         //    return packageFilePath;
         //}
 
-        public IEnumerable<KeyValuePair<string, IEnumerable<byte>>> GetSiardLobsAsByteArrays(string siardFileFullPath)
-        {
-            return _siardXmlTableReader.CreateLobByteArrays(siardFileFullPath);
-        }
-
-        public IFileFormatInfo AnalyseFileFormat(FileInfo file)
-        {
-            return _fileFormatIdentifier.IdentifyFormat(file);
-        }
-
-        public IFileFormatInfo AnalyseFileFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
-        {
-            return _fileFormatIdentifier.IdentifyFormat(filePathAndByteContent);
-        }
-
         public IEnumerable<IFileFormatInfo> AnalyseFileFormats(string targetPath, FileFormatScanMode scanMode)
         {
             return _fileFormatIdentifier.IdentifyFormats(targetPath, scanMode);
-        }
-
-        public IEnumerable<IFileFormatInfo> AnalyseFileFormats(IEnumerable<KeyValuePair<string, IEnumerable<byte>>> filePathsAndByteContent)
-        {
-            return _fileFormatIdentifier.IdentifyFormats(filePathsAndByteContent);
         }
 
         public void GenerateFileFormatInfoFiles(Archive archive)

@@ -92,16 +92,6 @@ namespace Arkivverket.Arkade.Core.Base
             //_arkadeApi.SaveReport(archive, directory, standalone, testResultDisplayLimit);
         }
 
-        public IFileFormatInfo AnalyseFileFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
-        {
-            return _arkadeApi.AnalyseFileFormat(filePathAndByteContent);
-        }
-
-        public IFileFormatInfo AnalyseFileFormat(FileInfo file)
-        {
-            return _arkadeApi.AnalyseFileFormat(file);
-        }
-        
         public IEnumerable<IFileFormatInfo> AnalyseFileFormats(string targetPath, FileFormatScanMode scanMode)
         {
             return _arkadeApi.AnalyseFileFormats(targetPath, scanMode);
