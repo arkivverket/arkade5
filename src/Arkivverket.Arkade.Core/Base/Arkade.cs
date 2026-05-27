@@ -100,7 +100,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         public ArchiveType? DetectArchiveType(string archiveFileName)
         {
-            return _arkadeApi.DetectArchiveType(archiveFileName);
+            return _arkadeCoreApi.DetectArchiveType(archiveFileName);
         }
     }
 }

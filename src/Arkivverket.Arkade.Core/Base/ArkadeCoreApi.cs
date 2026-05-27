@@ -21,6 +21,7 @@ public class ArkadeCoreApi(
     TestSessionXmlGenerator testSessionXmlGenerator,
     InformationPackageCreator informationPackageCreator,
     ArchiveFactory archiveFactory,
+    IArchiveTypeIdentifier archiveTypeIdentifier,
     ArkadeApi arkadeApi)
 {
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
@@ -33,6 +34,13 @@ public class ArkadeCoreApi(
         Log.Debug($"Loading Archive Extraction [sourcePath: {archiveSource.FullName}] [archiveType: {archiveType}]");
 
         return archiveFactory.Create(archiveSource, archiveType);
+    }
+
+    public ArchiveType? DetectArchiveType(string archiveFileName)
+    {
+        return !Path.HasExtension(archiveFileName)
+            ? archiveTypeIdentifier.IdentifyTypeOfChosenArchiveDirectory(archiveFileName)
+            : archiveTypeIdentifier.IdentifyTypeOfChosenArchiveFile(archiveFileName);
     }
 
     public TestSession CreateTestSession(Archive archive)

@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Siard;
-using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
@@ -28,18 +27,16 @@ namespace Arkivverket.Arkade.Core.Base
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-        private readonly IArchiveTypeIdentifier _archiveTypeIdentifier;
         private readonly IArchiveFormatValidator _archiveFormatValidator;
         private readonly IFileFormatIdentifier _fileFormatIdentifier;
         private readonly IFileFormatInfoFilesGenerator _fileFormatInfoGenerator;
         private readonly ISiardXmlTableReader _siardXmlTableReader;
         private readonly MetadataExampleGenerator _metadataExampleGenerator;
 
-        public ArkadeApi(IArchiveTypeIdentifier archiveTypeIdentifier, IArchiveFormatValidator archiveFormatValidator,
+        public ArkadeApi(IArchiveFormatValidator archiveFormatValidator,
             IFileFormatIdentifier fileFormatIdentifier, IFileFormatInfoFilesGenerator fileFormatInfoGenerator,
             ISiardXmlTableReader siardXmlTableReader, MetadataExampleGenerator metadataExampleGenerator)
         {
-            _archiveTypeIdentifier = archiveTypeIdentifier;
             _archiveFormatValidator = archiveFormatValidator;
             _fileFormatIdentifier = fileFormatIdentifier;
             _fileFormatInfoGenerator = fileFormatInfoGenerator;
@@ -149,13 +146,6 @@ namespace Arkivverket.Arkade.Core.Base
         public void GenerateMetadataExampleFile(string outputFileName)
         {
             _metadataExampleGenerator.Generate(outputFileName);
-        }
-
-        public ArchiveType? DetectArchiveType(string archiveFileName)
-        {
-            return !Path.HasExtension(archiveFileName)
-                ? _archiveTypeIdentifier.IdentifyTypeOfChosenArchiveDirectory(archiveFileName)
-                : _archiveTypeIdentifier.IdentifyTypeOfChosenArchiveFile(archiveFileName);
         }
     }
 }
