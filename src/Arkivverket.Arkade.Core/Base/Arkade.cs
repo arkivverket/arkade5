@@ -17,7 +17,6 @@ namespace Arkivverket.Arkade.Core.Base
     /// </summary>
     public class Arkade : IDisposable
     {
-        private readonly ArkadeApi _arkadeApi;
         private readonly ArkadeCoreApi _arkadeCoreApi;
         private readonly ArkadeVersion _arkadeVersion;
         private readonly IContainer _container;
@@ -34,7 +33,6 @@ namespace Arkivverket.Arkade.Core.Base
             _container = builder.Build();
 
             _scope = _container.BeginLifetimeScope();
-            _arkadeApi = _container.Resolve<ArkadeApi>();
             _arkadeCoreApi = _container.Resolve<ArkadeCoreApi>();
             _arkadeVersion = _container.Resolve<ArkadeVersion>();
             StatusEventHandler = _container.Resolve<IStatusEventHandler>();
@@ -79,7 +77,7 @@ namespace Arkivverket.Arkade.Core.Base
         
         public void GenerateFileFormatInfoFiles(Archive archive)
         {
-           // _arkadeApi.GenerateFileFormatInfoFiles(archive); // Not in use?
+           // _arkadeCoreApi.GenerateFileFormatInfoFiles(archive); // Not in use?
         }
 
         public void GenerateFileFormatInfoFiles(IEnumerable<IFileFormatInfo> fileFormatInfos, string relativePathRoot, string resultFileFullName, SupportedLanguage language)

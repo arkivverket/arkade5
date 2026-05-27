@@ -38,7 +38,6 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<EacCpfCreator>().AsSelf();
             builder.RegisterType<SubmissionDescriptionCreator>().AsSelf();
             builder.RegisterType<InformationPackageCreator>().AsSelf();
-            builder.RegisterType<ArkadeApi>().AsSelf();
 
             builder.RegisterType<ArkadeCoreApi>().AsSelf();
             

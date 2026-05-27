@@ -29,7 +29,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 {
     public class CreatePackageViewModel : BindableBase, INavigationAware
     {
-        //private readonly ArkadeApi _arkadeApi;
         private readonly ArkadeCoreApi _arkadeCoreApi;
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private bool _generateFileFormatInfoSelected;

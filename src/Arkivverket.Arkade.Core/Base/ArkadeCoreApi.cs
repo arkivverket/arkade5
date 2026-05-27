@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Arkivverket.Arkade.Core.Base.Archives;
@@ -11,6 +12,7 @@ using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Metadata;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.Core.Resources;
+using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
 using Serilog;
@@ -28,8 +30,8 @@ public class ArkadeCoreApi(
     IArchiveFormatValidator archiveFormatValidator,
     IFileFormatIdentifier fileFormatIdentifier,
     IFileFormatInfoFilesGenerator fileFormatInfoGenerator,
-    MetadataExampleGenerator metadataExampleGenerator,
-    ArkadeApi arkadeApi)
+    ISiardXmlTableReader siardXmlTableReader,
+    MetadataExampleGenerator metadataExampleGenerator)
 {
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
@@ -103,7 +105,7 @@ public class ArkadeCoreApi(
 
         if (generateFileFormatInfo)
         {
-          arkadeApi.GenerateFileFormatInfoFiles(archive); // TODO: Integrate in ArkadeCoreApi
+          GenerateFileFormatInfoFiles(archive);
         }
 
         string packageFilePath;
@@ -124,6 +126,81 @@ public class ArkadeCoreApi(
         Log.Information($"{packageTypeAbbreviation} created at: {packageFilePath}");
 
         return packageFilePath;
+    }
+
+    public void GenerateFileFormatInfoFiles(Archive archive)
+    {
+        DiasPackageWorkingDirectory diasPackageWorkingDirectory = archive.OutputDiasPackage.WorkingDirectory;
+        try
+        {
+            var resultFileDirectoryPath = diasPackageWorkingDirectory.AdministrativeMetadata().ToString();
+            string resultFileName;
+            string resultFileFullName;
+
+            if (archive is SiardArchive siardArchive)
+            {
+                string siardFileFullName = siardArchive.SiardFile.FullName;
+
+                resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, Path.GetFileNameWithoutExtension(siardFileFullName));
+                resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
+
+                IEnumerable<KeyValuePair<string, IEnumerable<byte>>> lobsAsByte = siardXmlTableReader.CreateLobByteArrays(siardFileFullName);
+                fileFormatIdentifier.BroadCastStarted();
+                IEnumerable<IFileFormatInfo> formatAnalysedLobs = fileFormatIdentifier.IdentifyFormats(lobsAsByte);
+                fileFormatIdentifier.BroadCastFinished();
+                fileFormatInfoGenerator.Generate(formatAnalysedLobs, siardFileFullName, resultFileFullName);
+            }
+            else if (archive is Noark5Archive noark5Archive)
+            {
+                if (noark5Archive.SourceIsTarFile)
+                {
+                    IEnumerable<IFileFormatInfo> analysedTarContents = fileFormatIdentifier
+                        .IdentifyFormats(noark5Archive.InputDiasPackage.TarFile.FullName, FileFormatScanMode.Archive)
+                        .ToList();
+
+                    string tarRootDirectoryName =
+                        Path.GetFileNameWithoutExtension(noark5Archive.InputDiasPackage.TarFile.FullName);
+                    string documentsDirectoryName = noark5Archive.GetDocumentsDirectoryName();
+
+                    string tarFileRelativeDocumentsDirectoryPath = Path.Combine(tarRootDirectoryName!,
+                        ArkadeConstants.DirectoryNameContent, documentsDirectoryName);
+
+                    var fullDocumentsDirectoryTarPath =
+                        $"{noark5Archive.InputDiasPackage.TarFile}#{tarFileRelativeDocumentsDirectoryPath}";
+
+                    bool IsDocumentFile(IFileFormatInfo fileFormatInfo) =>
+                        fileFormatInfo.FileName.StartsWith(fullDocumentsDirectoryTarPath);
+
+                    IEnumerable<IFileFormatInfo> analysedDocumentFiles = analysedTarContents.Where(IsDocumentFile);
+
+                    resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, documentsDirectoryName);
+                    resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
+
+                    fileFormatInfoGenerator.Generate(analysedDocumentFiles, tarFileRelativeDocumentsDirectoryPath,
+                        resultFileFullName);
+                }
+                else
+                {
+                    DirectoryInfo documentsDirectory = noark5Archive.GetDocumentsDirectory();
+                    resultFileName = string.Format(OutputFileNames.FileFormatInfoFile, documentsDirectory.Name);
+                    resultFileFullName = Path.Combine(resultFileDirectoryPath, resultFileName);
+                    IEnumerable<IFileFormatInfo> analysedFiles =
+                        fileFormatIdentifier.IdentifyFormats(documentsDirectory.FullName,
+                            FileFormatScanMode.Directory);
+                    fileFormatInfoGenerator.Generate(analysedFiles, documentsDirectory.FullName,
+                        resultFileFullName);
+                }
+            }
+        }
+        catch (SiegfriedFileFormatIdentifierException siegfriedException)
+        {
+            Log.Error(siegfriedException.Message);
+        }
+        catch (Exception e)
+        {
+            Log.Debug(e.ToString());
+            Log.Error("An unforeseen error related to document file format analysis has occured. As a result, document file format analysis was aborted. Please see /arkade-tmp/logs for details.");
+        }
     }
 
     public IEnumerable<IFileFormatInfo> AnalyseFileFormats(string targetPath, FileFormatScanMode scanMode)
