@@ -74,7 +74,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         public IEnumerable<IFileFormatInfo> AnalyseFileFormats(string targetPath, FileFormatScanMode scanMode)
         {
-            return _arkadeApi.AnalyseFileFormats(targetPath, scanMode);
+            return _arkadeCoreApi.AnalyseFileFormats(targetPath, scanMode);
         }
         
         public void GenerateFileFormatInfoFiles(Archive archive)
@@ -84,18 +84,18 @@ namespace Arkivverket.Arkade.Core.Base
 
         public void GenerateFileFormatInfoFiles(IEnumerable<IFileFormatInfo> fileFormatInfos, string relativePathRoot, string resultFileFullName, SupportedLanguage language)
         {
-            _arkadeApi.GenerateFileFormatInfoFiles(fileFormatInfos, relativePathRoot, resultFileFullName, language);
+            _arkadeCoreApi.GenerateFileFormatInfoFiles(fileFormatInfos, relativePathRoot, resultFileFullName, language);
         }
 
         public async Task<ArchiveFormatValidationReport> ValidateArchiveFormatAsync(
             FileSystemInfo item, ArchiveFormat format, string resultFileDirectoryPath, SupportedLanguage language)
         {
-            return await _arkadeApi.ValidateArchiveFormatAsync(item, format, resultFileDirectoryPath, language);
+            return await _arkadeCoreApi.ValidateArchiveFormatAsync(item, format, resultFileDirectoryPath, language);
         }
 
         public void GenerateMetadataExampleFile(string outputFileName)
         {
-            _arkadeApi.GenerateMetadataExampleFile(outputFileName);
+            _arkadeCoreApi.GenerateMetadataExampleFile(outputFileName);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)
