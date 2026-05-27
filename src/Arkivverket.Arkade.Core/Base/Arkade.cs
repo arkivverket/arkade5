@@ -51,30 +51,10 @@ namespace Arkivverket.Arkade.Core.Base
             return _arkadeCoreApi.LoadArchiveExtraction(archiveSource, archiveType);
         }
 
-        //public TestSession CreateTestSession(ArchiveDirectory archiveDirectory)
-        //{
-        //    return _arkadeApi.CreateTestSession(archiveDirectory);
-        //}
-
-        //public TestSession CreateTestSession(ArchiveFile archive)
-        //{
-        //    return _arkadeApi.CreateTestSession(archive);
-        //}
-
         public TestSession CreateTestSession(Archive archive)
         {
             return _arkadeCoreApi.CreateTestSession(archive);
         }
-
-        //public TestSession RunTests(ArchiveFile archiveFile)
-        //{
-        //    return _arkadeApi.RunTests(archiveFile);
-        //}
-
-        //public TestSession RunTests(ArchiveDirectory archiveDirectory)
-        //{
-        //    return _arkadeApi.RunTests(archiveDirectory);
-        //}
 
         public void RunTests(Archive archive)
         {

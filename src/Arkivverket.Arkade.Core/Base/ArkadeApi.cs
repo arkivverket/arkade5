@@ -28,12 +28,6 @@ namespace Arkivverket.Arkade.Core.Base
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-        private readonly TestSessionFactory _testSessionFactory;
-        private readonly TestEngineFactory _testEngineFactory;
-        private readonly MetadataFilesCreator _metadataFilesCreator;
-        private readonly InformationPackageCreator _informationPackageCreator;
-        private readonly TestSessionXmlGenerator _testSessionXmlGenerator;
-        private readonly SiardMetadataFileHelper _siardMetadataFileHelper;
         private readonly IArchiveTypeIdentifier _archiveTypeIdentifier;
         private readonly IArchiveFormatValidator _archiveFormatValidator;
         private readonly IFileFormatIdentifier _fileFormatIdentifier;
@@ -41,19 +35,10 @@ namespace Arkivverket.Arkade.Core.Base
         private readonly ISiardXmlTableReader _siardXmlTableReader;
         private readonly MetadataExampleGenerator _metadataExampleGenerator;
 
-        public ArkadeApi(TestSessionFactory testSessionFactory, TestEngineFactory testEngineFactory,
-            MetadataFilesCreator metadataFilesCreator, InformationPackageCreator informationPackageCreator,
-            TestSessionXmlGenerator testSessionXmlGenerator, SiardMetadataFileHelper siardMetadataFileHelper,
-            IArchiveTypeIdentifier archiveTypeIdentifier, IArchiveFormatValidator archiveFormatValidator,
+        public ArkadeApi(IArchiveTypeIdentifier archiveTypeIdentifier, IArchiveFormatValidator archiveFormatValidator,
             IFileFormatIdentifier fileFormatIdentifier, IFileFormatInfoFilesGenerator fileFormatInfoGenerator,
             ISiardXmlTableReader siardXmlTableReader, MetadataExampleGenerator metadataExampleGenerator)
         {
-            _testSessionFactory = testSessionFactory;
-            _testEngineFactory = testEngineFactory;
-            _metadataFilesCreator = metadataFilesCreator;
-            _informationPackageCreator = informationPackageCreator;
-            _testSessionXmlGenerator = testSessionXmlGenerator;
-            _siardMetadataFileHelper = siardMetadataFileHelper;
             _archiveTypeIdentifier = archiveTypeIdentifier;
             _archiveFormatValidator = archiveFormatValidator;
             _fileFormatIdentifier = fileFormatIdentifier;
@@ -61,95 +46,6 @@ namespace Arkivverket.Arkade.Core.Base
             _siardXmlTableReader = siardXmlTableReader;
             _metadataExampleGenerator = metadataExampleGenerator;
         }
-
-        //public TestSession RunTests(ArchiveDirectory archiveDirectory)
-        //{
-        //    TestSession testSession = CreateTestSession(archiveDirectory);
-        //    RunTests(testSession);
-        //    return testSession;
-        //}
-
-        //public TestSession RunTests(ArchiveFile archive)
-        //{
-        //    TestSession testSession = CreateTestSession(archive);
-        //    RunTests(testSession);
-        //    return testSession;
-        //}
-
-        //public TestSession CreateTestSession(ArchiveDirectory archiveDirectory)
-        //{
-        //    return _testSessionFactory.NewSession(archiveDirectory);
-        //}
-
-        //public TestSession CreateTestSession(ArchiveFile archive)
-        //{
-        //    return _testSessionFactory.NewSession(archive);
-        //}
-
-        //public void RunTests(TestSession testSession)
-        //{
-        //    testSession.AddLogEntry(Messages.LogMessageStartTesting);
-
-        //    Log.Information("Starting testing of archive.");
-
-        //    LanguageManager.SetResourcesLanguageForTesting(testSession.OutputLanguage);
-
-        //    if (testSession.TestRunContainsDocumentFileDependentTests)
-        //        testSession.Archive.DocumentFiles.Register(includeChecksums: testSession.TestRunContainsChecksumControl);
-
-        //    ITestEngine testEngine = _testEngineFactory.GetTestEngine(testSession);
-        //    testSession.TestSuite = testEngine.RunTestsOnArchive(testSession);
-
-        //    testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
-        //    Log.Information("Testing of archive finished.");
-
-        //    _testSessionXmlGenerator.GenerateXmlAndSaveToFile(testSession); // TODO: Is this file relevant any longer?
-        //}
-
-        //public string CreatePackage(OutputDiasPackage diasPackage, string outputDirectory)
-        //{
-        //    string packageType = diasPackage.PackageType.Equals(PackageType.SubmissionInformationPackage)
-        //        ? "SIP"
-        //        : "AIP";
-
-        //    Log.Information($"Creating {packageType}.");
-
-        //    LanguageManager.SetResourceLanguageForPackageCreation(diasPackage.Language);
-
-        //    if (diasPackage.GenerateFileFormatInfo)
-        //    {
-        //        GenerateFileFormatInfoFiles(diasPackage.Archive);
-        //    }
-
-        //    if (diasPackage.Archive.ArchiveType is ArchiveType.Siard)
-        //    {
-        //        _siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(diasPackage.Archive);
-        //    }
-
-        //    Delete any existing dias-mets.xml extracted from input tar-file
-        //    diasPackage.Archive.DiasPackageWorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName).Delete();
-
-        //    _metadataFilesCreator.Create(diasPackage);
-
-        //    string packageFilePath;
-
-        //    if (diasPackage.PackageType == PackageType.SubmissionInformationPackage)
-        //    {
-        //        packageFilePath = _informationPackageCreator.CreateSip(
-        //            diasPackage, outputDirectory
-        //        );
-        //    }
-        //    else // ArchivalInformationPackage
-        //    {
-        //        packageFilePath = _informationPackageCreator.CreateAip(
-        //            diasPackage, outputDirectory
-        //        );
-        //    }
-
-        //    Log.Information($"{packageType} created at: {packageFilePath}");
-
-        //    return packageFilePath;
-        //}
 
         public IEnumerable<IFileFormatInfo> AnalyseFileFormats(string targetPath, FileFormatScanMode scanMode)
         {
