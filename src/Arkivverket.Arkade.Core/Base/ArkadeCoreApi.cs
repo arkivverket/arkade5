@@ -79,7 +79,7 @@ public class ArkadeCoreApi(
         testSessionXmlGenerator.GenerateXmlAndSaveToFile(archive); // TODO: Is this file relevant any longer?
     }
     
-    public static DirectoryInfo GenerateTestReport(Archive archive, DirectoryInfo outputDirectory, int testResultDisplayLimit, DiasPackage diasPackage)
+    public DirectoryInfo GenerateTestReport(Archive archive, DirectoryInfo outputDirectory, int testResultDisplayLimit, DiasPackage diasPackage)
     {
         TestReportGeneratorRunner.RunAllGenerators(archive, outputDirectory, testResultDisplayLimit, diasPackage, out DirectoryInfo reportsDirectory);
         

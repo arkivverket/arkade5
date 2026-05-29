@@ -17,6 +17,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 {
     public class TestReportDialogViewModel : BindableBase
     {
+        private readonly ArkadeCoreApi _arkadeCoreApi;
         private readonly IStatusEventHandler _statusEventHandler;
         private readonly ILogger _log = Log.ForContext<TestReportDialogViewModel>();
         public Archive Archive { get; set; }
@@ -24,8 +25,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand ExportTestReportFilesCommand { get; }
         private bool _isGeneratingTestReport = false;
 
-        public TestReportDialogViewModel(IStatusEventHandler statusEventHandler)
+        public TestReportDialogViewModel(ArkadeCoreApi arkadeCoreApi, IStatusEventHandler statusEventHandler)
         {
+            _arkadeCoreApi = arkadeCoreApi;
             _statusEventHandler = statusEventHandler;
             
             ShowTestReportCommand = new DelegateCommand(ShowTestReport, () => !_isGeneratingTestReport);
@@ -110,7 +112,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             
             _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
             
-            DirectoryInfo testReportDirectory = await Task.Run(() => ArkadeCoreApi.GenerateTestReport(Archive, targetDirectory, Settings.Default.TestResultDisplayLimit, Archive.InputDiasPackage));
+            DirectoryInfo testReportDirectory = await Task.Run(() => _arkadeCoreApi.GenerateTestReport(Archive, targetDirectory, Settings.Default.TestResultDisplayLimit, Archive.InputDiasPackage));
             
             _statusEventHandler.RaiseEventOperationMessage(eventId, TestRunnerGUI.TestReportIsSavedMessage, OperationMessageStatus.Ok);
 

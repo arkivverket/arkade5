@@ -59,6 +59,11 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeCoreApi.RunTests(archive);
         }
 
+        public DirectoryInfo GenerateTestReport(Archive archive, DirectoryInfo outputDirectory, int testResultDisplayLimit, DiasPackage diasPackage)
+        {
+            return _arkadeCoreApi.GenerateTestReport(archive, outputDirectory, testResultDisplayLimit, diasPackage);
+        }
+
         public void CreatePackage(Archive archive, SupportedLanguage language, bool generateFileFormatInfo, string outputDirectory)
         {
             _arkadeCoreApi.CreatePackage(archive, language, generateFileFormatInfo, outputDirectory);
