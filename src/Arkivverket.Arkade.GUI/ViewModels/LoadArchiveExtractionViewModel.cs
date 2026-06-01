@@ -1,7 +1,5 @@
-using System;
 using System.IO;
 using System.Windows.Forms;
-using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Identify;

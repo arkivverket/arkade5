@@ -17,10 +17,8 @@ using Prism.Navigation.Regions;
 using Serilog;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
-using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Views;
 using MessageBox = System.Windows.MessageBox;
@@ -280,7 +278,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             try
             {
                 _archive = (Archive) context.Parameters["archive"];
-                
+
                 if (_archive is SiardArchive)
                     IncludeFormatInfoFile = MetaDataGUI.CreateLobFormatInfoFileText;
                 else
@@ -385,7 +383,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             Log.Information("User action: Leave test session and return to load archive window");
 
             _archive?.ProcessingDirectory.Delete(true);
-            
+
             _regionManager.RequestNavigate("MainContentRegion", "LoadArchiveExtraction");
         }
 
@@ -461,7 +459,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             PackageType packageType = SelectedPackageTypeSip
                 ? PackageType.SubmissionInformationPackage
                 : PackageType.ArchivalInformationPackage;
-            
+
             var archiveMetadata = new ArchiveMetadata // NB! Metadata-origin (metadata creation)
             {
                 Label = ArchiveMetadataMapper.MapToLabel(_metaDataNoarkSection, StandardLabelIsSelected),
@@ -486,7 +484,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             };
 
             _archive.OutputDiasPackage = new OutputDiasPackage(packageType, archiveMetadata, _archive.ProcessingDirectory); // NB! UUID-origin
-            
+
             ArkadeProcessingState.PackingIsStarted = true;
             MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
             
