@@ -44,11 +44,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             DirectoryInfo testReportDirectory = await GenerateTestReport(tmpResultsDirectory);
 
             FileInfo testReportFile = testReportDirectory.GetFiles()
-                .FirstOrDefault(f => f.Extension.Contains(TestReportFormat.html.ToString()));
+                .First(f => f.Extension.Contains(TestReportFormat.html.ToString()));
 
-            if (testReportFile == default) // TODO: Consider to remove ...
-                testReportFile = testReportDirectory.GetFiles().First(f => f.Extension.Equals(".txt"));
-                
             testReportFile.FullName.LaunchUrl();
         }
 
