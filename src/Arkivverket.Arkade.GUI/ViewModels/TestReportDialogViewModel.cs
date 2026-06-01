@@ -44,7 +44,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             DirectoryInfo testReportDirectory = await GenerateTestReport(tmpResultsDirectory);
 
             FileInfo testReportFile = testReportDirectory.GetFiles()
-                .First(f => f.Extension.Contains(TestReportFormat.html.ToString()));
+                .First(f => f.Extension.Equals($".{nameof(TestReportFormat.html)}"));
 
             testReportFile.FullName.LaunchUrl();
         }
