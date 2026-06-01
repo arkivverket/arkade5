@@ -113,12 +113,6 @@ namespace Arkivverket.Arkade.Core.Identify
             return testSession;
         }
 
-        private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType, Uuid inputDiasPackageUuid = null)
-        {
-            _statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
-                archiveType.ToString(), inputDiasPackageUuid?.ToString()?? "-", archiveFileName)); // NB! UUID-writeout (right after UUID init)
-        }
-
         private void TarExtractionStartedEvent()
         {
             _statusEventHandler.RaiseEventOperationMessage(

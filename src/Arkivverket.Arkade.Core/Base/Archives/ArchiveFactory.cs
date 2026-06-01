@@ -89,15 +89,4 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
         var inputDiasPackage = new InputDiasPackage(id, diasPackageWorkingDirectory, tarFile);
         return inputDiasPackage;
     }
-
-    //ArchiveInformationEvent(tarFile.FullName, archiveType, inputDiasPackage.Id);
-    //ArchiveInformationEvent(archiveSource.FullName, archiveType);
-
-    private void ArchiveInformationEvent(string archiveFileName, ArchiveType archiveType,
-        Uuid inputDiasPackageUuid = null)
-    {
-        statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
-            archiveType.ToString(), inputDiasPackageUuid?.ToString() ?? "-",
-            archiveFileName)); // NB! UUID-writeout (right after UUID init)
-    }
 }

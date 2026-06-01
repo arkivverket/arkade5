@@ -13,8 +13,6 @@ namespace Arkivverket.Arkade.Core.Logging
         void RaiseEventRecordProcessingStart();
         void RaiseEventRecordProcessingStopped();
 
-        void RaiseEventNewArchiveInformation(ArchiveInformationEventArgs archiveInformationEventArgArgs);
-
         void RaiseEventTestProgressUpdated(string testProgress, bool hasFailed = false, string failMessage = null);
 
         void RaiseEventSiardValidationFinished(List<string> errors);
@@ -39,8 +37,6 @@ namespace Arkivverket.Arkade.Core.Logging
 
         event EventHandler<EventArgs> RecordProcessingStartedEvent;
         event EventHandler<EventArgs> RecordProcessingFinishedEvent;
-
-        event EventHandler<ArchiveInformationEventArgs> NewArchiveProcessEvent;
         
         event EventHandler<TestProgressEventArgs> TestProgressUpdatedEvent;
 

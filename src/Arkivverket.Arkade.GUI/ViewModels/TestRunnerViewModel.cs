@@ -189,7 +189,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _statusEventHandler.FileProcessFinishedEvent += OnFileProcessFinishedEvent;
             _statusEventHandler.RecordProcessingStartedEvent += OnRecordProcessingStartedEvent;
             _statusEventHandler.RecordProcessingFinishedEvent += OnRecordProcessingFinishedEvent;
-            _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveInformationEvent;
             _statusEventHandler.SiardValidationFinishedEvent += OnSiardValidationFinished;
             _statusEventHandler.ReadXmlEndElementEvent += OnReadXmlEndElementEvent;
 
@@ -276,7 +275,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                         $"Cannot determine archive source for {_archive.GetType().Name}")
                 };
 
-                _statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
+                UpdateArchiveInformationDisplay(new ArchiveInformationEventArgs(
                     _archive.ArchiveType.ToString(), _archive.InputDiasPackage?.Id?.ToString() ?? "-",
                     archiveSource.FullName));
                     
@@ -411,7 +410,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             NumberOfProcessedRecords = NumberOfProcessedRecords + 1;
         }
 
-        private void OnNewArchiveInformationEvent(object sender, ArchiveInformationEventArgs eventArgs)
+        private void UpdateArchiveInformationDisplay(ArchiveInformationEventArgs eventArgs)
         {
             ArchiveInformationStatus.Update(eventArgs);
             ArchiveCurrentProcessing = Visibility.Visible;
