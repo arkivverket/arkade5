@@ -115,11 +115,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private bool CanRunTests()
         {
-            //return _archive.IsTestable(out _); // TODO: Enable when other processing is independent of test window
+            return _archive != null; // TODO: Remove this line when other processing is independent of test window
 
-            _archive.IsTestable(out string disqualifyingCause);
+            if (_archive.IsTestable(out string disqualifyingCause))
+                return true;
+
             _log.Warning("Archive is not testable: {DisqualifyingCause}", disqualifyingCause);
-            return true;
+            return false;
         }
 
         private void OpenArchiveFileDialog()
