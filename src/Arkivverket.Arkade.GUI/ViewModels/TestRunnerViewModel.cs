@@ -272,7 +272,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 {
                     { SourceIsTarFile: true } => _archive.InputDiasPackage.TarFile,
                     SiardArchive siardArchive => siardArchive.SiardFile,
-                    _ => ((DirectoryArchiveContent)_archive.Content).RootDirectory
+                    { Content: DirectoryArchiveContent directoryContent } => directoryContent.RootDirectory,
+                    _ => throw new InvalidOperationException(
+                        $"Cannot determine archive source for {_archive.GetType().Name}")
                 };
 
                 _statusEventHandler.RaiseEventNewArchiveInformation(new ArchiveInformationEventArgs(
