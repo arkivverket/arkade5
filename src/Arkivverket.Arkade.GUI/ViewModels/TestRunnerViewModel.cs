@@ -266,19 +266,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 _archive = (Archive)context.Parameters["archive"] ?? throw new Exception("No archive provided");
                 
-                FileSystemInfo archiveSource = _archive switch
-                {
-                    { SourceIsTarFile: true } => _archive.InputDiasPackage.TarFile,
-                    SiardArchive siardArchive => siardArchive.SiardFile,
-                    { Content: DirectoryArchiveContent directoryContent } => directoryContent.RootDirectory,
-                    _ => throw new InvalidOperationException(
-                        $"Cannot determine archive source for {_archive.GetType().Name}")
-                };
-
-                UpdateArchiveInformationDisplay(
-                    archiveSource.FullName,
-                    _archive.ArchiveType.ToString(),
-                    _archive.InputDiasPackage?.Id?.ToString() ?? "-");
+                UpdateArchiveInformationDisplay();
                     
                 if (!_archive.IsTestable(out string disqualifyingCause))
                     LogNotTestableArchiveOperationMessage(disqualifyingCause);
@@ -411,14 +399,25 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             NumberOfProcessedRecords = NumberOfProcessedRecords + 1;
         }
 
-        private void UpdateArchiveInformationDisplay(string archiveFileName, string archiveType, string uuid)
+        private void UpdateArchiveInformationDisplay()
         {
+            FileSystemInfo archiveSource = _archive switch
+            {
+                { SourceIsTarFile: true } => _archive.InputDiasPackage.TarFile,
+                SiardArchive siardArchive => siardArchive.SiardFile,
+                { Content: DirectoryArchiveContent directoryContent } => directoryContent.RootDirectory,
+                _ => throw new InvalidOperationException(
+                    $"Cannot determine archive source for {_archive.GetType().Name}")
+            };
+
+            string archiveFileName = archiveSource.FullName;
+            var archiveType = _archive.ArchiveType.ToString();
+            string uuid = _archive.InputDiasPackage?.Id.ToString() ?? "-";
+            
             ArchiveInformationStatus.Update(archiveFileName, archiveType, uuid);
             ArchiveCurrentProcessing = Visibility.Visible;
 
-            Enum.TryParse(archiveType, out ArchiveType parsedArchiveType);
-
-            switch (parsedArchiveType)
+            switch (_archive.ArchiveType)
             {
                 case ArchiveType.Noark5:
                     AddmlDataObjectStatusVisibility = Visibility.Visible;
