@@ -74,11 +74,6 @@ namespace Arkivverket.Arkade.Core.Base
             return _arkadeCoreApi.AnalyseFileFormats(targetPath, scanMode);
         }
         
-        public void GenerateFileFormatInfoFiles(Archive archive)
-        {
-           // _arkadeCoreApi.GenerateFileFormatInfoFiles(archive); // Not in use?
-        }
-
         public void GenerateFileFormatInfoFiles(IEnumerable<IFileFormatInfo> fileFormatInfos, string relativePathRoot, string resultFileFullName, SupportedLanguage language)
         {
             _arkadeCoreApi.GenerateFileFormatInfoFiles(fileFormatInfos, relativePathRoot, resultFileFullName, language);
