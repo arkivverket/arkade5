@@ -275,9 +275,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                         $"Cannot determine archive source for {_archive.GetType().Name}")
                 };
 
-                UpdateArchiveInformationDisplay(new ArchiveInformationEventArgs(
-                    _archive.ArchiveType.ToString(), _archive.InputDiasPackage?.Id?.ToString() ?? "-",
-                    archiveSource.FullName));
+                UpdateArchiveInformationDisplay(
+                    archiveSource.FullName,
+                    _archive.ArchiveType.ToString(),
+                    _archive.InputDiasPackage?.Id?.ToString() ?? "-");
                     
                 if (!_archive.IsTestable(out string disqualifyingCause))
                     LogNotTestableArchiveOperationMessage(disqualifyingCause);
@@ -410,14 +411,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             NumberOfProcessedRecords = NumberOfProcessedRecords + 1;
         }
 
-        private void UpdateArchiveInformationDisplay(ArchiveInformationEventArgs eventArgs)
+        private void UpdateArchiveInformationDisplay(string archiveFileName, string archiveType, string uuid)
         {
-            ArchiveInformationStatus.Update(eventArgs);
+            ArchiveInformationStatus.Update(archiveFileName, archiveType, uuid);
             ArchiveCurrentProcessing = Visibility.Visible;
 
-            Enum.TryParse(eventArgs.ArchiveType, out ArchiveType archiveType);
+            Enum.TryParse(archiveType, out ArchiveType parsedArchiveType);
 
-            switch (archiveType)
+            switch (parsedArchiveType)
             {
                 case ArchiveType.Noark5:
                     AddmlDataObjectStatusVisibility = Visibility.Visible;
