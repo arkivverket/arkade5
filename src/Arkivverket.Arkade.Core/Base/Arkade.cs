@@ -69,12 +69,6 @@ namespace Arkivverket.Arkade.Core.Base
             _arkadeCoreApi.CreatePackage(archive, language, generateFileFormatInfo, outputDirectory);
         }
 
-        public void SaveReport(Archive archive, DirectoryInfo directory, bool standalone, 
-            int testResultDisplayLimit)
-        {
-            //_arkadeApi.SaveReport(archive, directory, standalone, testResultDisplayLimit);
-        }
-
         public IEnumerable<IFileFormatInfo> AnalyseFileFormats(string targetPath, FileFormatScanMode scanMode)
         {
             return _arkadeCoreApi.AnalyseFileFormats(targetPath, scanMode);

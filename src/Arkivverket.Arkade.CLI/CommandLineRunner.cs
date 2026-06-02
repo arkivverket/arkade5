@@ -310,9 +310,11 @@ namespace Arkivverket.Arkade.CLI
             if (_testRunHasFailed) // What happens when a new Arkade-session is started? Is this reset?
                 return false;
 
-            Uuid diasPackageId = archive.InputDiasPackage?.Id; // Sjekk!
+            // The 'process' verb goes on to package the archive, and the package creator emits the
+            // in-package test report itself. Only the stand-alone 'test' verb writes a report here.
+            if (createStandAloneTestReport)
+                SaveTestReport(archive, outputDirectory, testResultDisplayLimit);
 
-            SaveTestReport(archive, outputDirectory, createStandAloneTestReport, testResultDisplayLimit, diasPackageId);
             return true;
         }
 
@@ -396,22 +398,15 @@ namespace Arkivverket.Arkade.CLI
             return testSession;
         }
 
-        private static void SaveTestReport(Archive archive, string outputDirectory,
-            bool createStandAloneTestReport, int testResultDisplayLimit, Uuid diasPackageId = null)
+        private static void SaveTestReport(Archive archive, string outputDirectory, int testResultDisplayLimit)
         {
-            DirectoryInfo packageTestReportDirectory = archive.OutputDiasPackage.GetTestReportDirectory();
+            // The report generator derives the stand-alone report directory from the DIAS package:
+            // a uuid-named directory when the archive came from a package, a timestamp-named one when
+            // it was a loose extraction (input package is null).
+            DirectoryInfo testReportDirectory = Arkade.GenerateTestReport(
+                archive, new DirectoryInfo(outputDirectory), testResultDisplayLimit, archive.InputDiasPackage);
 
-            if (createStandAloneTestReport)
-            {
-                string testReportDirectoryName = string.Format(OutputFileNames.StandaloneTestReportDirectory, diasPackageId); // NB! UUID-writeout (test results)
-                packageTestReportDirectory = new DirectoryInfo(Path.Combine(outputDirectory, testReportDirectoryName));
-                packageTestReportDirectory.Create();
-            }
-
-            Arkade.SaveReport(archive, packageTestReportDirectory, createStandAloneTestReport, testResultDisplayLimit);
-
-            if (createStandAloneTestReport)
-                Log.Information($"Test reports generated at: {packageTestReportDirectory.FullName}");
+            Log.Information($"Test reports generated at: {testReportDirectory.FullName}");
         }
 
         private static void LogFinishedStatus(string command, bool withoutErrors = true)
