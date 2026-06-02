@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading;
 using Arkivverket.Arkade.CLI.Options;
 using Arkivverket.Arkade.CLI.Utils;
 using Arkivverket.Arkade.Core;
@@ -158,7 +157,7 @@ namespace Arkivverket.Arkade.CLI
                 bool testSuccess = Test(options.OutputDirectory, options.TestResultDisplayLimit, archive,
                     createStandAloneTestReport: false);
 
-                bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis);
+                bool packSuccess = Pack(options.MetadataFile, options.InformationPackageType, archive, options.OutputDirectory, GetSupportedLanguage(options.OutputLanguage), options.PerformFileFormatAnalysis);
 
                 LogFinishedStatus(command, RanWithoutErrors(archive) && testSuccess && packSuccess);
             }
@@ -212,7 +211,7 @@ namespace Arkivverket.Arkade.CLI
 
                 Archive archive = LoadArchive(options.Archive, options.ArchiveType, command);
                 
-                LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, archive, options.OutputDirectory, SupportedLanguage.en, options.PerformFileFormatAnalysis));
+                LogFinishedStatus(command, Pack(options.MetadataFile, options.InformationPackageType, archive, options.OutputDirectory, GetSupportedLanguage(options.OutputLanguage), options.PerformFileFormatAnalysis));
             }
             finally
             {
@@ -390,10 +389,7 @@ namespace Arkivverket.Arkade.CLI
                     throw new ArgumentException($"No tests selected in {testSelectionFilePath}");
             }
 
-            selectedOutputLanguage ??= Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
-            if (!Enum.TryParse(selectedOutputLanguage, out SupportedLanguage outputLanguage))
-                outputLanguage = SupportedLanguage.en;
-            testSession.OutputLanguage = outputLanguage;
+            testSession.OutputLanguage = GetSupportedLanguage(selectedOutputLanguage);
 
             return testSession;
         }
