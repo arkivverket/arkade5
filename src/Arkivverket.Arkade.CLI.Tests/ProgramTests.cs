@@ -13,165 +13,171 @@ namespace Arkivverket.Arkade.CLI.Tests
 {
     public class ProgramTests : IDisposable
     {
-        // Setup language
+        // Output files and directories are named after the chosen language; we pin it to get
+        // deterministic names that match the OutputFileNames resource constants below.
         private const SupportedLanguage Language = SupportedLanguage.en;
 
-        // Establish needed paths:
-        private static readonly string workingDirectoryPath;
-        private static readonly string metadataFilePath;
-        private static readonly string noark5TestSelectionFilePath;
-        private static readonly string testDataDirectoryPath;
-        private static readonly string archiveDirectoryPath;
-        private static readonly string outputDirectoryPath;
+        private readonly string _testRootDirectory;
+        private readonly string _processingAreaPath;
+        private readonly string _outputDirectoryPath;
+        private readonly string _metadataFilePath;
+        private readonly string _archiveDirectoryPath;
 
-        static ProgramTests()
+        public ProgramTests()
         {
             OutputFileNames.Culture = new CultureInfo(Language.ToString());
 
-            workingDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
-            metadataFilePath = Path.Combine(workingDirectoryPath, OutputFileNames.MetadataExampleFile);
-            noark5TestSelectionFilePath = Path.Combine(workingDirectoryPath, OutputFileNames.Noark5TestSelectionFile);
-            testDataDirectoryPath = Path.Combine(workingDirectoryPath, "TestData");
-            archiveDirectoryPath = Path.Combine(testDataDirectoryPath, "N5-archive");
-            outputDirectoryPath = Path.Combine(testDataDirectoryPath, "output");
+            _archiveDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData", "N5-archive");
 
-            ClearAllPaths();
+            // Each test gets its own isolated working area to avoid cross-test interference
+            // through the shared ArkadeProcessingArea state and the Serilog log file.
+            _testRootDirectory = Path.Combine(Path.GetTempPath(), "arkade-cli-tests", Guid.NewGuid().ToString("N"));
+            _processingAreaPath = Path.Combine(_testRootDirectory, "processing");
+            _outputDirectoryPath = Path.Combine(_testRootDirectory, "output");
+            _metadataFilePath = Path.Combine(_testRootDirectory, OutputFileNames.MetadataExampleFile);
+
+            Directory.CreateDirectory(_processingAreaPath);
+            Directory.CreateDirectory(_outputDirectoryPath);
         }
 
-        [Fact(Skip = "IO-issues")]
+        [Fact]
         [Trait("Category", "Integration")]
         public void GenerateCommandTest()
         {
-            // Run commands and store results:
-
             Program.Main(new[]
             {
                 "generate",
                 "-m",
                 "-s",
-                "-o", workingDirectoryPath
+                "-o", _outputDirectoryPath,
+                "-l", Language.ToString()
             });
 
-            bool metadataWasGenerated = File.Exists(metadataFilePath);
-            bool noark5TestSelectionFileGenerated = File.Exists(noark5TestSelectionFilePath);
-
-            // Control result:
-
-            metadataWasGenerated.Should().BeTrue();
-            noark5TestSelectionFileGenerated.Should().BeTrue();
+            File.Exists(Path.Combine(_outputDirectoryPath, OutputFileNames.MetadataExampleFile)).Should().BeTrue();
+            File.Exists(Path.Combine(_outputDirectoryPath, OutputFileNames.Noark5TestSelectionFile)).Should().BeTrue();
         }
 
-        [Fact(Skip = "IO-issues")]
+        [Fact]
         [Trait("Category", "Integration")]
         public void TestCommandTest()
         {
-            // Prepare needed files and/or directories
-
-            Noark5TestSelectionFileGenerator.Generate(OutputFileNames.Noark5TestSelectionFile, Language);
-            Directory.CreateDirectory(outputDirectoryPath);
-
-            // Run commands and store results:
+            // Exercises the -s path: the selection file is read into TestSession.TestsToRun.
+            string testSelectionFile = CreateTestSelectionFile();
 
             Program.Main(new[]
             {
                 "test",
-                "-a", archiveDirectoryPath,
+                "-a", _archiveDirectoryPath,
                 "-t", "noark5",
-                "-p", testDataDirectoryPath,
-                "-o", outputDirectoryPath,
-                "-s", noark5TestSelectionFilePath
+                "-p", _processingAreaPath,
+                "-o", _outputDirectoryPath,
+                "-s", testSelectionFile,
+                "-l", Language.ToString()
             });
 
-            FileSystemInfo[] outputDirectoryItems = new DirectoryInfo(outputDirectoryPath).GetFileSystemInfos();
-            bool testReportWasCreated = outputDirectoryItems.Any(item => item.Name.StartsWith("Arkade-report"));
+            // The 'test' verb writes a stand-alone test report directory directly to the output directory.
+            DirectoryInfo reportDirectory = StandaloneTestReportDirectoryIn(_outputDirectoryPath);
 
-            // Control result:
-
-            testReportWasCreated.Should().BeTrue();
+            reportDirectory.Should().NotBeNull("the test verb should produce a stand-alone test report directory");
+            reportDirectory.GetFiles("*.html").Should().NotBeEmpty();
         }
 
-        [Fact(Skip = "IO-issues")]
+        [Fact]
         [Trait("Category", "Integration")]
         public void PackCommandTest()
         {
-            // Prepare needed files and/or directories
-
-            new MetadataExampleGenerator().Generate(OutputFileNames.MetadataExampleFile);
-            Directory.CreateDirectory(outputDirectoryPath);
-
-            // Run commands and store results:
+            new MetadataExampleGenerator().Generate(_metadataFilePath);
 
             Program.Main(new[]
             {
                 "pack",
-                "-a", archiveDirectoryPath,
+                "-a", _archiveDirectoryPath,
                 "-t", "noark5",
-                "-m", metadataFilePath,
-                "-p", testDataDirectoryPath,
-                "-o", outputDirectoryPath
+                "-m", _metadataFilePath,
+                "-p", _processingAreaPath,
+                "-o", _outputDirectoryPath,
+                "-l", Language.ToString()
             });
 
-            FileSystemInfo[] outputDirectoryItems = new DirectoryInfo(outputDirectoryPath).GetFileSystemInfos();
-            bool packageWasCreated = outputDirectoryItems.Any(item =>
-                item.Name.StartsWith(OutputFileNames.ResultOutputDirectory));
+            DirectoryInfo resultDirectory = ResultDirectoryIn(_outputDirectoryPath);
 
-            // Control result:
-
-            packageWasCreated.Should().BeTrue();
+            resultDirectory.Should().NotBeNull("the pack verb should produce a result directory containing the package");
+            resultDirectory.GetFiles("*.tar").Should().NotBeEmpty();
         }
 
-        [Fact(Skip = "IO-issues")]
+        [Fact]
         [Trait("Category", "Integration")]
         public void ProcessCommandTest()
         {
-            // Prepare needed files and/or directories
+            new MetadataExampleGenerator().Generate(_metadataFilePath);
 
-            new MetadataExampleGenerator().Generate(OutputFileNames.MetadataExampleFile);
-            Noark5TestSelectionFileGenerator.Generate(OutputFileNames.Noark5TestSelectionFile, Language);
-            Directory.CreateDirectory(outputDirectoryPath);
-
-            // Run commands and store results:
-
+            // No -s here: exercises the default path where all tests are run (Noark5TestProvider.GetAllTestIds).
             Program.Main(new[]
             {
                 "process",
-                "-a", archiveDirectoryPath,
+                "-a", _archiveDirectoryPath,
                 "-t", "noark5",
-                "-m", metadataFilePath,
-                "-p", testDataDirectoryPath,
-                "-o", outputDirectoryPath,
-                "-s", noark5TestSelectionFilePath,
-                "-l", "nb"
+                "-m", _metadataFilePath,
+                "-p", _processingAreaPath,
+                "-o", _outputDirectoryPath,
+                "-l", Language.ToString()
             });
 
-            FileSystemInfo[] outputDirectoryItems = new DirectoryInfo(outputDirectoryPath).GetFileSystemInfos();
-            bool testReportWasCreated = outputDirectoryItems.Any(item => item.Name.StartsWith("Arkade-rapport"));
-            bool packageWasCreated = outputDirectoryItems.Any(item =>
-                item.Name.StartsWith(OutputFileNames.ResultOutputDirectory));
+            DirectoryInfo resultDirectory = ResultDirectoryIn(_outputDirectoryPath);
 
-            // Control results:
+            resultDirectory.Should().NotBeNull("the process verb should produce a result directory");
+            resultDirectory.GetFiles("*.tar").Should().NotBeEmpty("process should create the information package");
 
-            testReportWasCreated.Should().BeTrue();
-            packageWasCreated.Should().BeTrue();
+            // For 'process' the test report is nested inside the result directory (not stand-alone).
+            DirectoryInfo reportDirectory = StandaloneTestReportDirectoryIn(resultDirectory.FullName);
+
+            reportDirectory.Should().NotBeNull("process should nest the test report inside the result directory");
+            reportDirectory.GetFiles("*.html").Should().NotBeEmpty();
         }
 
-        private static void ClearAllPaths()
+        // Writes a Noark5 test-selection file with every test enabled, so the -s argument and the
+        // selection-file reader (Noark5TestSelectionFileReader) are exercised end to end.
+        private string CreateTestSelectionFile()
         {
-            if (File.Exists(noark5TestSelectionFilePath))
-                File.Delete(noark5TestSelectionFilePath);
+            string path = Path.Combine(_testRootDirectory, OutputFileNames.Noark5TestSelectionFile);
 
-            if (File.Exists(metadataFilePath))
-                File.Delete(metadataFilePath);
+            Noark5TestSelectionFileGenerator.Generate(path, Language, allTestsEnabled: true);
 
-            if (Directory.Exists(outputDirectoryPath))
-                Directory.Delete(outputDirectoryPath, true);
+            return path;
+        }
+
+        private static DirectoryInfo ResultDirectoryIn(string parentDirectory)
+            => SingleDirectoryStartingWith(parentDirectory, OutputFileNames.ResultOutputDirectory);
+
+        private static DirectoryInfo StandaloneTestReportDirectoryIn(string parentDirectory)
+            => SingleDirectoryStartingWith(parentDirectory, OutputFileNames.StandaloneTestReportDirectory);
+
+        // The directory names embed an id/timestamp via a "{0}" placeholder; match on the literal prefix.
+        private static DirectoryInfo SingleDirectoryStartingWith(string parentDirectory, string nameFormat)
+        {
+            string prefix = nameFormat.Replace("{0}", string.Empty);
+
+            return new DirectoryInfo(parentDirectory)
+                .GetDirectories()
+                .SingleOrDefault(directory => directory.Name.StartsWith(prefix));
         }
 
         public void Dispose()
         {
+            // Releases the Serilog log file handle (via CloseAndFlush) so the working area can be removed.
             ArkadeProcessingArea.Destroy();
 
-            ClearAllPaths();
+            try
+            {
+                if (Directory.Exists(_testRootDirectory))
+                    Directory.Delete(_testRootDirectory, recursive: true);
+            }
+            catch (IOException)
+            {
+                // Best-effort cleanup: on some platforms a lingering handle (e.g. from an external
+                // format-identification process) can briefly keep a file locked. The temp files are
+                // harmless and will be cleared by the OS.
+            }
         }
     }
 }
