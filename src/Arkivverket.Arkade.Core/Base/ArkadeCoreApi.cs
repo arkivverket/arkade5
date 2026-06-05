@@ -76,7 +76,10 @@ public class ArkadeCoreApi(
         testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
         Log.Information("Testing of archive finished.");
 
-        testSessionXmlGenerator.GenerateXmlAndSaveToFile(archive); // TODO: Is this file relevant any longer?
+        // TODO: Decide whether the arkade-log.xml test-session log is still needed in the package.
+        // This is a pre-existing, product-level question (does anything downstream still consume it?)
+        // and is unrelated to the model-renewal refactor that moved this call here.
+        testSessionXmlGenerator.GenerateXmlAndSaveToFile(archive);
     }
     
     public DirectoryInfo GenerateTestReport(Archive archive, DirectoryInfo outputDirectory, int testResultDisplayLimit, DiasPackage diasPackage)
