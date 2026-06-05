@@ -111,9 +111,12 @@ namespace Arkivverket.Arkade.Core.Base
 
         public long GetSize()
         {
-            ArkadeDirectory content = null; // TODO: Provide
-
-            return Root().GetSize() + content.GetSize();
+            // Returns the size of the files staged in the working directory (package metadata and
+            // similar). NOTE: this does NOT include the archive content/document files - those are
+            // streamed straight into the package TAR from the source (Archive.Content) at packaging
+            // time and are never staged under Root. Since that content is normally the bulk of the
+            // package, this is a significant underestimate of the final package size.
+            return Root().GetSize();
         }
     }
 }
