@@ -102,9 +102,13 @@ namespace Arkivverket.Arkade.Core.Base
                 outputDiasPackage, outputDiasPackage.WorkingDirectory.Root().DirectoryInfo(), outputDiasPackage.PackageType, tarArchive, packageRootDirectory
             );
 
-            //if (outputDiasPackage.WorkingDirectory.HasExternalContentDirectory()) // TODO: Handle!
+            // Stream the archive content straight into the package's content directory. The content is
+            // read in place from its source (Archive.Content) rather than being staged in the work
+            // directory, so large extractions are never copied to disk. The empty content directory
+            // created under the work directory (see DiasPackageWorkingDirectory.CreateDirectories)
+            // guarantees the package always contains a content directory, even with no content files.
             {
-                Log.Debug($"Archive has external content directory, including files from {archive.Content}");
+                Log.Debug($"Writing archive content to the package content directory from {archive.Content}");
 
                 var contentDirectoryPath = $"{outputDiasPackage.Id}/{ArkadeConstants.DirectoryNameContent}";
 
