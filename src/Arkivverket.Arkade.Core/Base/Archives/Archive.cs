@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
 
@@ -14,6 +15,13 @@ public abstract class Archive(IArchiveContent content, DirectoryInfo processingD
     public IArchiveDetails Details { get; protected init; }
     public TestSession TestSession { get; set; }
     public abstract bool IsTestable(out string disqualifyingCause);
+
+    /// <summary>
+    /// Total size in bytes of the archive content that will be written into the package. Walks the content
+    /// (and, for SIARD, its external LOBs) for an accurate figure. Overridden where an at-least-as-accurate
+    /// but cheaper size source exists.
+    /// </summary>
+    public virtual long GetContentSize() => Content.GetFiles().Sum(contentFile => contentFile.File.Length);
 }
 
 public enum ArchiveType

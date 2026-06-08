@@ -75,7 +75,7 @@ namespace Arkivverket.Arkade.Core.Base
             
             try
             {
-                EnsureSufficientDiskSpace(outputDiasPackage, outputDirectoryPath);
+                EnsureSufficientDiskSpace(archive, outputDirectoryPath);
             }
             catch
             {
@@ -166,10 +166,10 @@ namespace Arkivverket.Arkade.Core.Base
             }
         }
 
-        private static void EnsureSufficientDiskSpace(DiasPackage diasPackage, string outputDirectory)
+        private static void EnsureSufficientDiskSpace(Archive archive, string outputDirectory)
         {
             long driveSpace = SystemInfo.GetAvailableDiskSpaceInBytes(outputDirectory);
-            long packageSize = diasPackage.WorkingDirectory.GetSize();
+            long packageSize = EstimatePackageSize(archive);
 
             if (packageSize > driveSpace)
             {
@@ -181,6 +181,14 @@ namespace Arkivverket.Arkade.Core.Base
 
                 throw new InsufficientDiskSpaceException(errorMessage);
             }
+        }
+
+        private static long EstimatePackageSize(Archive archive)
+        {
+            // Work-directory staged files (package metadata and similar) plus the archive content, which is
+            // streamed into the package from its source rather than staged in the work directory (see
+            // CreatePackage). Each archive type knows how to size its own content (see Archive.GetContentSize).
+            return archive.OutputDiasPackage.WorkingDirectory.GetSize() + archive.GetContentSize();
         }
         
         private string CreateResultDirectory(Uuid informationPackageUuid, string outputDirectory)

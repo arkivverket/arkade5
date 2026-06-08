@@ -49,6 +49,12 @@ public class Noark5Archive : AddmlBasedArchive
         return XmlUnits.Get(fileName)?.File;
     }
 
+    // When re-packing from a tar, the content (including the document files) is streamed straight from
+    // that tar and is not all present in Content, so the source tar's length is the accurate, O(1) size
+    // source. Otherwise fall back to walking the content directory.
+    public override long GetContentSize() =>
+        SourceIsTarFile ? InputDiasPackage.TarFile.Length : base.GetContentSize();
+
     public DirectoryInfo GetDocumentsDirectory()
     {
         if (SourceIsTarFile)
