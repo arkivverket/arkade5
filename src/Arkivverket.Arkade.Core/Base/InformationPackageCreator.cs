@@ -115,8 +115,8 @@ namespace Arkivverket.Arkade.Core.Base
                 foreach ((FileSystemInfo contentItem, string contentRelativeFilePath) in archive.Content.Get())
                 {
                     var tarEntry = TarEntry.CreateEntryFromFile(contentItem.FullName);
-                        tarEntry.Name = $"{contentDirectoryPath}/{contentRelativeFilePath}";
-                        tarArchive.WriteEntry(tarEntry, false);
+                    tarEntry.Name = $"{contentDirectoryPath}/{contentRelativeFilePath}";
+                    tarArchive.WriteEntry(tarEntry, false);
                 }
             }
 
