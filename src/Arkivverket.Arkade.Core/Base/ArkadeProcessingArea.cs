@@ -13,7 +13,6 @@ namespace Arkivverket.Arkade.Core.Base
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        // NB! Follow up this to-do before release! 
         // TODO: Ensure this async local setup (convenient for testing) is not causing any production operation issues
         private static readonly AsyncLocal<DirectoryInfo> AsyncLocalLocation = new();
         private static readonly AsyncLocal<DirectoryInfo> AsyncLocalRootDirectory = new();
