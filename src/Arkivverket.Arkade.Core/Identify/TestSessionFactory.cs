@@ -14,7 +14,7 @@ using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Identify
 {
-    public class TestSessionFactory : ITestSessionFactory
+    public class TestSessionFactory
     {
         private readonly ICompressionUtility _compressionUtility;
         private readonly ILogger _log = Log.ForContext<TestSessionFactory>();
@@ -25,52 +25,6 @@ namespace Arkivverket.Arkade.Core.Identify
             _compressionUtility = compressionUtility;
             _statusEventHandler = statusEventHandler;
         }
-
-        //public TestSession NewSession(ArchiveDirectory archiveDirectory) // TODO: Remake as Archive-factory?
-        //{
-        //    ArchiveType archiveType = archiveDirectory.ArchiveType;
-        //    _log.Debug(
-        //        $"Building new TestSession from directory [archiveType: {archiveType}] [directory: {archiveDirectory.Directory.FullName}]");
-
-        //    ArchiveInformationEvent(archiveDirectory.Directory.FullName, archiveType);
-        //    WorkingDirectory workingDirectory = WorkingDirectory.FromExternalDirectory(archiveDirectory.Directory);
-
-        //    var archive = new Archive(archiveType, workingDirectory, _statusEventHandler); // ...
-
-        //    TestSession testSession = NewSession(archive);
-
-        //    return testSession;
-        //}
-
-        //public TestSession NewSession(ArchiveFile archiveFile) // TODO: Remake as Archive-factory?
-        //{
-        //    _log.Debug(
-        //        $"Building new TestSession from file [archiveType: {archiveFile.ArchiveType}] [directory: {archiveFile.File.FullName}]");
-
-        //    Uuid.TryParse(Path.GetFileNameWithoutExtension(archiveFile.File.Name), out Uuid inputDiasPackageId); // NB! UUID-orig
-            
-        //    ArchiveInformationEvent(archiveFile.File.FullName, archiveFile.ArchiveType, inputDiasPackageId);
-
-        //    WorkingDirectory workingDirectory = WorkingDirectory.FromArchiveFile();
-
-        //    if (archiveFile.ArchiveType == ArchiveType.Siard && archiveFile.File.Extension.Equals(".siard"))
-        //    {
-        //        CopySiardFilesToContentDirectory(archiveFile, workingDirectory.Content().ToString());
-        //    }
-        //    else
-        //    {
-        //        TarExtractionStartedEvent();
-        //        _compressionUtility.ExtractFolderFromArchive(archiveFile.File, workingDirectory.Root().DirectoryInfo(),
-        //            withoutDocumentFiles: archiveFile.ArchiveType == ArchiveType.Noark5, archiveRootDirectoryName: inputDiasPackageId?.ToString());
-        //        TarExtractionFinishedEvent(workingDirectory);
-        //    }
-
-        //    var archive = new Archive(archiveFile.ArchiveType, workingDirectory, _statusEventHandler, archiveFile.File.FullName); // ...
-
-        //    TestSession testSession = NewSession(archive);
-
-        //    return testSession;
-        //}
 
         public TestSession NewSession(Archive archive)
         {
@@ -111,20 +65,6 @@ namespace Arkivverket.Arkade.Core.Identify
             }
 
             return testSession;
-        }
-
-        private void TarExtractionStartedEvent()
-        {
-            _statusEventHandler.RaiseEventOperationMessage(
-                Messages.ReadingArchiveEvent,
-                Messages.TarExtractionMessageStarted, OperationMessageStatus.Started);
-        }
-
-        private void TarExtractionFinishedEvent(DiasPackageWorkingDirectory diasPackageWorkingDirectory)
-        {
-            _statusEventHandler.RaiseEventOperationMessage(Messages.ReadingArchiveEvent,
-                string.Format(Messages.TarExtractionMessageFinished, diasPackageWorkingDirectory.ContentWorkDirectory().DirectoryInfo().FullName),
-                OperationMessageStatus.Ok);
         }
     }
 }

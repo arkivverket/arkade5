@@ -113,13 +113,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private bool CanRunTests()
         {
-            return _archive != null; // TODO: Remove this line when other processing is independent of test window
-
-            if (_archive.IsTestable(out string disqualifyingCause))
-                return true;
-
-            _log.Warning("Archive is not testable: {DisqualifyingCause}", disqualifyingCause);
-            return false;
+            // Navigation to the test runner is intentionally allowed for any loaded archive, including ones
+            // that are not testable (e.g. Noark4) — the test runner is also the route to packaging. The real
+            // testability gate, and the "not testable" warning, live in TestRunnerViewModel.CanStartTestRun.
+            return _archive != null;
         }
 
         private void OpenArchiveFileDialog()

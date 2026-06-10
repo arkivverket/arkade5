@@ -30,7 +30,6 @@ namespace Arkivverket.Arkade.Core.Metadata
                 metadata.FileDescriptions = GetFileDescriptions(rootDirectory, rootDirectory);
             }
 
-            //if (outputDiasPackage.WorkingDirectory.HasExternalContentDirectory())
             {
                 IEnumerable<(FileInfo File, string RelativePath)> archiveContentFiles = archive.Content.GetFiles();
 

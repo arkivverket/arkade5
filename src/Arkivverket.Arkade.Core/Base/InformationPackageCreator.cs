@@ -64,7 +64,7 @@ namespace Arkivverket.Arkade.Core.Base
 
                 // Ship the test-session log inside the package (AIP only; SIP omits repository_operations),
                 // freshly written here so it carries the output package's UUID.
-                if (outputDiasPackage.PackageType == PackageType.ArchivalInformationPackage)
+                if (outputDiasPackage.PackageType == PackageType.ArchivalInformationPackage)    
                     testSessionXmlGenerator.GenerateXmlAndSaveToFile(archive, outputDiasPackage);
             }
             
@@ -88,11 +88,6 @@ namespace Arkivverket.Arkade.Core.Base
             }
 
             string resultDirectory = CreateResultDirectory(outputDiasPackage.Id, outputDirectoryPath);
-
-            if (outputDiasPackage.PackageType == PackageType.SubmissionInformationPackage)
-            {
-               // CopyTestReportsToStandaloneDirectory(outputDiasPackage, resultDirectory); // TODO: Generate test reports to standalone directory
-            }
 
             string packageFilePath = Path.Combine(resultDirectory, outputDiasPackage.Id + ".tar"); // NB! UUID-writeout (package creation)
 
@@ -141,34 +136,6 @@ namespace Arkivverket.Arkade.Core.Base
                 outputDiasPackage.Id + ".xml"); // NB! UUID-writeout (package creation)
 
             return packageFilePath;
-        }
-
-        private void CopyTestReportsToStandaloneDirectory(OutputDiasPackage diasPackage, string resultDirectory) // TODO: Generer testrapport direkte til riktig sted!
-        {
-            DirectoryInfo testReportDirectory = diasPackage.GetTestReportDirectory();
-
-            if (testReportDirectory.Exists)
-            {
-                FileInfo[] testReportFiles = testReportDirectory.GetFiles();
-
-                if (testReportFiles.Any())
-                {
-                    DirectoryInfo testReportResultDirectory = Directory.CreateDirectory(Path.Combine(
-                        resultDirectory, string.Format(OutputFileNames.StandaloneTestReportDirectory, diasPackage.Id) // NB! UUID-writeout (package creation)
-                    ));
-
-                    foreach (FileInfo file in testReportFiles)
-                    {
-                        file.CopyTo(
-                            Path.Combine(testReportResultDirectory.FullName,
-                                file.Name.Equals(OutputFileNames.DbptkValidationReportFile)
-                                    ? file.Name
-                                    : string.Format(OutputFileNames.StandaloneTestReportFile, diasPackage.Id, // NB! UUID-writeout (package creation)
-                                        file.Extension.TrimStart('.'))),
-                            overwrite: true);
-                    }
-                }
-            }
         }
 
         private static void EnsureSufficientDiskSpace(Archive archive, string outputDirectory)
