@@ -454,10 +454,11 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         if (expectedTestReportFileNames.Length == 0)
             return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths];
         
-        string testReportDirectory =
+        string repositoryOperationsDirectory =
             $"{packageRootDirectoryName}/{DirectoryNameAdministrativeMetadata}" +
-            $"/{DirectoryNameRepositoryOperations}/" +
-            $"{OutputFileNames.TestReportDirectory}";
+            $"/{DirectoryNameRepositoryOperations}";
+
+        string testReportDirectory = $"{repositoryOperationsDirectory}/{OutputFileNames.TestReportDirectory}";
 
         IEnumerable<string> testReportFilePaths =
         [
@@ -465,7 +466,10 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
             .. expectedTestReportFileNames.Select(testReportFileName => $"{testReportDirectory}/{testReportFileName}")
         ];
 
-        return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths, .. testReportFilePaths];
+        // The test-session log ships in the AIP's repository_operations, beside the test reports.
+        string arkadeLogFilePath = $"{repositoryOperationsDirectory}/{ArkadeXmlLogFileName}";
+
+        return [packageRootDirectoryName, .. arkadeAppliedPackageFilePaths, .. contentFilesPaths, .. testReportFilePaths, arkadeLogFilePath];
     }
 
     private static string[] GetPathsAsWhenInTar(DirectoryInfo directory, bool filePathsOnly = false)

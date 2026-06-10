@@ -152,7 +152,7 @@ public class InformationPackageCreatorTest(TestSessionLifeTimeFilesFixture testS
         var statusEventHandler = new StatusEventHandler();
         var siardMetadataFileHelper = new SiardMetadataFileHelper(new SiardArchiveReader());
 
-        return new InformationPackageCreator(metadataFilesCreator, statusEventHandler, siardMetadataFileHelper);
+        return new InformationPackageCreator(metadataFilesCreator, statusEventHandler, siardMetadataFileHelper, new TestSessionXmlGenerator());
     }
     
     private static List<string> GetFileListFromResultsDirectory(string outputDirectory, Uuid packageId)

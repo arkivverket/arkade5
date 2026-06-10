@@ -23,7 +23,6 @@ namespace Arkivverket.Arkade.Core.Base;
 public class ArkadeCoreApi(
     TestSessionFactory testSessionFactory,
     TestEngineFactory testEngineFactory,
-    TestSessionXmlGenerator testSessionXmlGenerator,
     InformationPackageCreator informationPackageCreator,
     ArchiveFactory archiveFactory,
     IArchiveTypeIdentifier archiveTypeIdentifier,
@@ -75,11 +74,6 @@ public class ArkadeCoreApi(
 
         testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
         Log.Information("Testing of archive finished.");
-
-        // TODO: Decide whether the arkade-log.xml test-session log is still needed in the package.
-        // This is a pre-existing, product-level question (does anything downstream still consume it?)
-        // and is unrelated to the model-renewal refactor that moved this call here.
-        testSessionXmlGenerator.GenerateXmlAndSaveToFile(archive);
     }
     
     public DirectoryInfo GenerateTestReport(Archive archive, DirectoryInfo outputDirectory, int testResultDisplayLimit, DiasPackage diasPackage)

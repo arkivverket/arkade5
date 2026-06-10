@@ -17,7 +17,7 @@ using Arkivverket.Arkade.Core.Report;
 
 namespace Arkivverket.Arkade.Core.Base
 {
-    public class InformationPackageCreator(MetadataFilesCreator metadataFilesCreator, IStatusEventHandler statusEventHandler, SiardMetadataFileHelper siardMetadataFileHelper)
+    public class InformationPackageCreator(MetadataFilesCreator metadataFilesCreator, IStatusEventHandler statusEventHandler, SiardMetadataFileHelper siardMetadataFileHelper, TestSessionXmlGenerator testSessionXmlGenerator)
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -61,6 +61,11 @@ namespace Arkivverket.Arkade.Core.Base
                         destFileName: Path.Combine(reportsDirectory.FullName, OutputFileNames.DbptkValidationReportFile),
                         overwrite: true
                     );
+
+                // Ship the test-session log inside the package (AIP only; SIP omits repository_operations),
+                // freshly written here so it carries the output package's UUID.
+                if (outputDiasPackage.PackageType == PackageType.ArchivalInformationPackage)
+                    testSessionXmlGenerator.GenerateXmlAndSaveToFile(archive, outputDiasPackage);
             }
             
             if (archive is (Noark5Archive or SpecializedSystemArchive) and AddmlBasedArchive { AddmlXmlUnit: not null } addmlBasedArchive)
