@@ -30,7 +30,7 @@ namespace Arkivverket.Arkade.Core.Util
 
                 while (tarInputStream.GetNextEntry() is { } tarEntry)
                 {
-                    if (withoutDocumentFiles && tarEntry.IsNoark5DocumentsEntry(singleRootDirectory.Name)) // Hvorfor er ikke singleRootDirectory.Name her brukt tidligere?
+                    if (withoutDocumentFiles && tarEntry.IsNoark5DocumentsEntry(singleRootDirectory.Name))
                         continue;
 
                     if (tarEntry.IsDirectory)

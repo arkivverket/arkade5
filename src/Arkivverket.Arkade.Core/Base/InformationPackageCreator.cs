@@ -99,7 +99,7 @@ namespace Arkivverket.Arkade.Core.Base
             CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
-                outputDiasPackage, outputDiasPackage.WorkingDirectory.Root().DirectoryInfo(), outputDiasPackage.PackageType, tarArchive, packageRootDirectory
+                outputDiasPackage, outputDiasPackage.WorkingDirectory.Root().DirectoryInfo(), tarArchive, packageRootDirectory
             );
 
             // Stream the archive content straight into the package's content directory. The content is
@@ -174,10 +174,10 @@ namespace Arkivverket.Arkade.Core.Base
             return resultDirectory.FullName;
         }
 
-        private void AddFilesInDirectory(OutputDiasPackage diasPackage, DirectoryInfo rootDirectory, PackageType? packageType, TarArchive tarArchive,
+        private void AddFilesInDirectory(OutputDiasPackage diasPackage, DirectoryInfo rootDirectory, TarArchive tarArchive,
             string fileNamePrefix)
         {
-            AddFilesInDirectory(diasPackage, rootDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
+            AddFilesInDirectory(diasPackage, rootDirectory, rootDirectory, tarArchive, fileNamePrefix);
         }
 
         /// <summary>
@@ -186,16 +186,15 @@ namespace Arkivverket.Arkade.Core.Base
         /// <param name="diasPackage">the information package we are working on</param>
         /// <param name="directory">the directory we want to add files from</param>
         /// <param name="rootDirectory">this path is stripped from the filename used in tar file</param>
-        /// <param name="packageType">the package type - used for filtering some files that are not needed for SIP-packages</param>
         /// <param name="tarArchive">the archive to add files to</param>
         /// <param name="fileNamePrefix">a prefix to add to all files after removing the root directory.</param>
-        private void AddFilesInDirectory(OutputDiasPackage diasPackage, DirectoryInfo directory, DirectoryInfo rootDirectory, PackageType? packageType,
+        private void AddFilesInDirectory(OutputDiasPackage diasPackage, DirectoryInfo directory, DirectoryInfo rootDirectory,
             TarArchive tarArchive, string fileNamePrefix)
         {
             foreach (DirectoryInfo currentDirectory in directory.GetDirectories())
             {
                 CreateEntry(currentDirectory.FullName, true, rootDirectory, tarArchive, fileNamePrefix, Path.DirectorySeparatorChar.ToString());
-                AddFilesInDirectory(diasPackage, currentDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
+                AddFilesInDirectory(diasPackage, currentDirectory, rootDirectory, tarArchive, fileNamePrefix);
             }
 
             foreach (FileInfo file in directory.GetFiles())

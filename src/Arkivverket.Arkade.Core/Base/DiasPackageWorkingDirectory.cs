@@ -1,16 +1,11 @@
 using System.IO;
-using System.Reflection;
-using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Util;
-using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Base
 {
     public class DiasPackageWorkingDirectory
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
-
         private readonly ArkadeDirectory _root;
 
         public DiasPackageWorkingDirectory(DirectoryInfo root)

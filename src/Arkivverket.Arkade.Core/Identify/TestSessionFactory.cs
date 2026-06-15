@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Archives;
@@ -8,7 +6,6 @@ using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing.Noark5;
-using Arkivverket.Arkade.Core.Util;
 using Serilog;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
@@ -16,13 +13,11 @@ namespace Arkivverket.Arkade.Core.Identify
 {
     public class TestSessionFactory
     {
-        private readonly ICompressionUtility _compressionUtility;
         private readonly ILogger _log = Log.ForContext<TestSessionFactory>();
         private readonly IStatusEventHandler _statusEventHandler;
 
-        public TestSessionFactory(ICompressionUtility compressionUtility, IStatusEventHandler statusEventHandler)
+        public TestSessionFactory(IStatusEventHandler statusEventHandler)
         {
-            _compressionUtility = compressionUtility;
             _statusEventHandler = statusEventHandler;
         }
 

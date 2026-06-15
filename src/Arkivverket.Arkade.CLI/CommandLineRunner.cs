@@ -19,7 +19,6 @@ using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 using Arkivverket.Arkade.Core.Util.ArchiveFormatValidation;
 using Arkivverket.Arkade.Core.Util.FileFormatIdentification;
-using Org.BouncyCastle.Tls;
 using Serilog;
 
 namespace Arkivverket.Arkade.CLI
