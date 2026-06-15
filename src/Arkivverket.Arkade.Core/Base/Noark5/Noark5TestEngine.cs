@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
 
         public TestSuite RunTestsOnArchive(Archive archive)
         {
-            var noark5Archive = archive as Noark5Archive;
+            var noark5Archive = (Noark5Archive)archive;
 
             List<IArkadeStructureTest> structureTests = RunStructureTests(noark5Archive);
 
