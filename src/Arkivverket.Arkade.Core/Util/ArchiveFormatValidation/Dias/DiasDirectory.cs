@@ -6,6 +6,8 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
     public record DiasDirectory : DiasEntry
     {
+        // Equality is effectively by Name (see DiasEntry); _entries is not relied upon for equality —
+        // directory de-duplication and merging are handled explicitly in Merge().
         private readonly HashSet<DiasEntry> _entries;
 
         public DiasDirectory(string directoryName, params DiasEntry[] diasEntries) : base(directoryName)
