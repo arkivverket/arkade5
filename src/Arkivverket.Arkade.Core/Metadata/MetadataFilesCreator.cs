@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
@@ -22,6 +23,7 @@ namespace Arkivverket.Arkade.Core.Metadata
             {
                 SubmissionInformationPackage => [diasPremisCreator, logCreator],
                 ArchivalInformationPackage => [diasPremisCreator, logCreator, eadCreator, eacCpfCreator],
+                _ => throw new ArgumentOutOfRangeException(nameof(outputDiasPackage), outputDiasPackage.PackageType, null)
             };
 
             foreach (IMetadataCreator metadataCreator in metadataCreators)
