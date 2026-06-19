@@ -48,6 +48,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private Archive _archive;
         private ArchiveType _archiveType;
         private bool _testRunHasBeenExecuted;
+        private bool _isLoading;
         private bool _isRunningTests;
         private bool _testRunCompletedSuccessfully;
         private bool _testRunHasFailed;
@@ -242,17 +243,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private bool CanStartTestRun()
         {
-           return _archive != null && _archive.IsTestable(out _) && !_testRunHasBeenExecuted;
+           return !_isLoading && _archive != null && _archive.IsTestable(out _) && !_testRunHasBeenExecuted;
         }
 
         private bool CanCreatePackage()
         {
-            return !_isRunningTests;
+            return !_isLoading && !_isRunningTests && _archive != null;
         }
 
         private bool IsFinishedRunningTests()
         {
-            return !_isRunningTests;
+            return !_isLoading && !_isRunningTests;
         }
 
         private bool CanContinueOperationOnTestRun()
@@ -262,10 +263,32 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public void OnNavigatedTo(NavigationContext context)
         {
+            var archiveSource = (FileSystemInfo)context.Parameters["archiveSource"];
+            var archiveType = (ArchiveType)context.Parameters["archiveType"];
+
+            // Until the archive has finished loading, _archive is still null. Block every action that would
+            // hand it onwards (start tests, navigate to Create Package, leave the session) so the user can't
+            // enter the create-package flow mid-load and crash on a null archive — and block Settings, whose
+            // restart-on-change would kill the in-progress load.
+            SetLoadingState(true);
+
+            // Loading/extraction happens here (it no longer lives in the load window), off the UI thread so a
+            // large .tar extraction doesn't freeze the window. ArchiveFactory raises the "Reading archive"
+            // OperationMessages we already subscribe to, so progress shows up in the message list below. The
+            // continuation runs back on the UI thread to touch bound state safely.
+            Task.Run(() => _arkadeCoreApi.LoadArchiveExtraction(archiveSource, archiveType))
+                .ContinueWith(OnArchiveLoaded, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private void OnArchiveLoaded(Task<Archive> loadTask)
+        {
             try
             {
-                _archive = (Archive)context.Parameters["archive"] ?? throw new Exception("No archive provided");
-                
+                if (loadTask.IsFaulted)
+                    throw loadTask.Exception?.GetBaseException() ?? new Exception("No archive provided");
+
+                _archive = loadTask.Result;
+
                 UpdateArchiveInformationDisplay();
                     
                 if (!_archive.IsTestable(out string disqualifyingCause))
@@ -287,9 +310,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                     CanSelectTests = true;
                 }
-
-
-                StartTestingCommand.RaiseCanExecuteChanged(); // _archive is assigned, reevaluate command
             }
             catch (SiardArchiveReaderException siardArchiveReaderException)
             {
@@ -304,6 +324,23 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 if (e is ArkadeException)
                     LogNotTestableArchiveOperationMessage(TestRunnerGUI.ValidSpecificationFileNotFound);
             }
+            finally
+            {
+                // Loading is done (success or failure) — re-enable the gated commands. Their own guards
+                // (_archive != null, testability) decide which actually become available.
+                SetLoadingState(false);
+            }
+        }
+
+        private void SetLoadingState(bool isLoading)
+        {
+            _isLoading = isLoading;
+            ArkadeProcessingState.LoadingIsStarted = isLoading;
+
+            StartTestingCommand.RaiseCanExecuteChanged();
+            NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
+            NewProgramSessionCommand.RaiseCanExecuteChanged();
+            MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
         }
 
         private void LogNotTestableArchiveOperationMessage(string disqualifyingCause)

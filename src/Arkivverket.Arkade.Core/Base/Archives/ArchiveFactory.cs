@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Archives;
@@ -80,11 +81,17 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
         DirectoryInfo workingDirectoryRoot = processingDirectory.CreateSubdirectory(id.GetValue());
         var diasPackageWorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
 
-        //TarExtractionStartedEvent();
+        statusEventHandler.RaiseEventOperationMessage(
+            Messages.ReadingArchiveEvent, Messages.TarExtractionMessageStarted, OperationMessageStatus.Started);
 
         compressionUtility.ExtractFolderFromArchive(tarFile, diasPackageWorkingDirectory.Root().DirectoryInfo(),
             withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: id.ToString());
-        //TarExtractionFinishedEvent(workingDirectory);
+
+        statusEventHandler.RaiseEventOperationMessage(
+            Messages.ReadingArchiveEvent,
+            string.Format(Messages.TarExtractionMessageFinished,
+                diasPackageWorkingDirectory.ContentWorkDirectory().DirectoryInfo().FullName),
+            OperationMessageStatus.Ok);
 
         var inputDiasPackage = new InputDiasPackage(id, diasPackageWorkingDirectory, tarFile);
         return inputDiasPackage;

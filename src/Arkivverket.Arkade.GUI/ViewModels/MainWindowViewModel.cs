@@ -101,7 +101,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private static bool CanChangeSettings()
         {
-            return !ArkadeProcessingState.TestingIsStarted && !ArkadeProcessingState.PackingIsStarted;
+            // Loading is gated too: a settings change (processing-area location or UI language) can trigger an
+            // Arkade restart, which would kill an in-progress off-thread archive load. See RestartArkadeIfNeededAndWanted.
+            return !ArkadeProcessingState.LoadingIsStarted
+                   && !ArkadeProcessingState.TestingIsStarted
+                   && !ArkadeProcessingState.PackingIsStarted;
         }
 
         private void Navigate(string uri)

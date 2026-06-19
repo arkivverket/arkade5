@@ -26,7 +26,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private IArchiveTypeIdentifier _archiveTypeIdentifier;
         private readonly ArkadeCoreApi _arkadeCoreApi;
         private FileSystemInfo _archiveSource;
-        private Archive _archive;
 
         public string ArchiveFileName
         {
@@ -86,12 +85,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void LoadSelectedArchiveInput()
         {
-            _archive?.ProcessingDirectory.Delete(true);
-
-            var archiveType = (ArchiveType)ArchiveType;
-
-           _archive = _arkadeCoreApi.LoadArchiveExtraction(_archiveSource, archiveType);
-
+            // The actual loading/extraction is deferred to the test runner (TestRunnerViewModel.OnNavigatedTo),
+            // where it runs off the UI thread and surfaces "Reading archive" progress. Here we only carry the
+            // chosen source and type across the navigation.
             if(NavigateToTestRunnerCommand.CanExecute())
                 NavigateToTestRunnerCommand.Execute();
         }
@@ -106,17 +102,19 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _log.Information("User action: Navigate to test runner window with archive file {ArchiveFile} and archive type {ArchiveType}", ArchiveFileName, ArchiveType);
 
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add("archive", _archive);
+            navigationParameters.Add("archiveSource", _archiveSource);
+            navigationParameters.Add("archiveType", (ArchiveType)ArchiveType);
 
             _regionManager.RequestNavigate("MainContentRegion", "TestRunner", navigationParameters);
         }
 
         private bool CanRunTests()
         {
-            // Navigation to the test runner is intentionally allowed for any loaded archive, including ones
-            // that are not testable (e.g. Noark4) — the test runner is also the route to packaging. The real
-            // testability gate, and the "not testable" warning, live in TestRunnerViewModel.CanStartTestRun.
-            return _archive != null;
+            // Navigation to the test runner is intentionally allowed for any chosen archive, including ones
+            // that turn out not to be testable (e.g. Noark4) — the test runner is also the route to packaging,
+            // and it is where the archive is actually loaded. The real testability gate, and the "not testable"
+            // warning, live in TestRunnerViewModel (CanStartTestRun / OnNavigatedTo).
+            return _archiveSource != null && _isArchiveTypeSelected;
         }
 
         private void OpenArchiveFileDialog()
