@@ -1,6 +1,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
@@ -24,6 +25,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand ShowTestReportCommand { get; }
         public DelegateCommand ExportTestReportFilesCommand { get; }
         private bool _isGeneratingTestReport = false;
+
+        private Visibility _reportGenerationProgressVisibility = Visibility.Collapsed;
+        public Visibility ReportGenerationProgressVisibility
+        {
+            get => _reportGenerationProgressVisibility;
+            set => SetProperty(ref _reportGenerationProgressVisibility, value);
+        }
 
         public TestReportDialogViewModel(ArkadeCoreApi arkadeCoreApi, IStatusEventHandler statusEventHandler)
         {
@@ -102,6 +110,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private async Task<DirectoryInfo> GenerateTestReport(DirectoryInfo targetDirectory)
         {
             _isGeneratingTestReport = true;
+            ReportGenerationProgressVisibility = Visibility.Visible;
             ShowTestReportCommand.RaiseCanExecuteChanged();
             ExportTestReportFilesCommand.RaiseCanExecuteChanged();
             
@@ -114,6 +123,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _statusEventHandler.RaiseEventOperationMessage(eventId, TestRunnerGUI.TestReportIsSavedMessage, OperationMessageStatus.Ok);
 
             _isGeneratingTestReport = false;
+            ReportGenerationProgressVisibility = Visibility.Collapsed;
             ShowTestReportCommand.RaiseCanExecuteChanged();
             ExportTestReportFilesCommand.RaiseCanExecuteChanged();
             
