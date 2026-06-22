@@ -210,4 +210,7 @@
   <data name="LabelNumberOfWarnings" xml:space="preserve">
     <value>Number of warnings</value>
   </data>
+  <data name="DateAndTimeFormat" xml:space="preserve">
+    <value>dd. MMMM yyyy HH:mm</value>
+  </data>
 </root>

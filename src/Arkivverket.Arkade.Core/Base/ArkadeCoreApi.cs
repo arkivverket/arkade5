@@ -72,6 +72,8 @@ public class ArkadeCoreApi(
         ITestEngine testEngine = testEngineFactory.GetTestEngine(archive);
         testSession.TestSuite = testEngine.RunTestsOnArchive(archive);
 
+        testSession.TimeOfTesting = DateTime.Now;
+
         testSession.AddLogEntry(Messages.LogMessageFinishedTesting);
         Log.Information("Testing of archive finished.");
     }

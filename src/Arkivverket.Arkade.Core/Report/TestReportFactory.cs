@@ -47,7 +47,7 @@ namespace Arkivverket.Arkade.Core.Report
                 SystemName = archive.Details.SystemName,
                 SystemType = archive.Details.SystemType,
                 ArchiveType = archive.ArchiveType,
-                DateOfTesting = archive.TestSession.DateOfTesting.ToString(Resources.Report.DateFormat, norwegianCulture),
+                TimeOfTesting = archive.TestSession.TimeOfTesting.ToString(Resources.Report.DateAndTimeFormat, norwegianCulture),
                 NumberOfTestsRun = string.Format(Resources.Report.ValueNumberOfTestsExecuted, numberOfExecutedTests, numberOfAvailableTests),
                 NumberOfProcessedFiles = archive.TestSession.TestSummary.NumberOfProcessedFiles,
                 NumberOfProcessedRecords = archive.TestSession.TestSummary.NumberOfProcessedRecords,

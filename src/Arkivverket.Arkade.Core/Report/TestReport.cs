@@ -19,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Report
         public string ArchivalPeriod { get; set; }
         public string SystemName { get; set; }
         public string SystemType { get; set; }
-        public string DateOfTesting { get; set; }
+        public string TimeOfTesting { get; set; }
         public string NumberOfProcessedFiles { get; set; }
         public string NumberOfProcessedRecords { get; set; }
         public string NumberOfTestsRun { get; set; }

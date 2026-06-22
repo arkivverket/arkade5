@@ -273,7 +273,7 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(Resources.Report.LabelDateOfTesting);
             stream.WriteLine("                </td>");
             stream.WriteLine(@"                <td>");
-            stream.WriteLine(testReport.Summary.DateOfTesting);
+            stream.WriteLine(testReport.Summary.TimeOfTesting);
             stream.WriteLine("                </td>");
             stream.WriteLine(@"            </tr>");
 

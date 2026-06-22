@@ -29,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         public AddmlDefinition AddmlDefinition { get; set; }
 
-        public DateTime DateOfTesting { get; }
+        public DateTime TimeOfTesting { get; set; }
         
         public SupportedLanguage OutputLanguage { get; set; }
 
@@ -45,7 +45,6 @@ namespace Arkivverket.Arkade.Core.Base
         public TestSession(DirectoryInfo temporaryTestResultFilesDirectory)
         {
             TemporaryTestResultFilesDirectory = temporaryTestResultFilesDirectory;
-            DateOfTesting = DateTime.Now;
         }
 
         public void AddLogEntry(string message)
