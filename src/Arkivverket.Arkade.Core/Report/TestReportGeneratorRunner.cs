@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Report
                 : TestReportFactory.Create(archive, diasPackage?.Id);
 
             string extensionReadyTestReportFullName = GetExtensionReadyTestReportFullName(outputDirectory,
-                diasPackage, out string reportsDirectoryPath);
+                diasPackage, archive.TestSession.TimeOfTesting, out string reportsDirectoryPath);
 
             reportsDirectory = Directory.CreateDirectory(reportsDirectoryPath);
 
@@ -29,7 +29,8 @@ namespace Arkivverket.Arkade.Core.Report
             }
         }
 
-        public static string GetExtensionReadyTestReportFullName(DirectoryInfo outputDirectory, DiasPackage diasPackage, out string reportDirectoryPath)
+        public static string GetExtensionReadyTestReportFullName(DirectoryInfo outputDirectory, DiasPackage diasPackage,
+            DateTime timeOfTesting, out string reportDirectoryPath)
         {
             switch (diasPackage)
             {
@@ -65,7 +66,7 @@ namespace Arkivverket.Arkade.Core.Report
                 }
                 case null: // Test-report export - archive extraction input (not within a DIAS package) 
                 {
-                    var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    var timestamp = timeOfTesting.ToString("yyyyMMddHHmmss");
                     string standAloneDirectoryName = string.Format(StandaloneTestReportDirectory, timestamp);
 
                     reportDirectoryPath = Path.Combine(outputDirectory.FullName, standAloneDirectoryName);
