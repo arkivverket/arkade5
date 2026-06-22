@@ -25,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Report
             var streamWriter = new StreamWriter(stream);
             streamWriter.WriteLine(@"<!DOCTYPE html>");
             streamWriter.WriteLine(@"<html lang=""no"">");
-            Head(testReport.Summary.Uuid, streamWriter); // NB! UUID-writeout (test results) (from TestReportSummary)
+            Head(ComposeDocumentTitle(testReport.Summary), streamWriter);
             Body(testReport, streamWriter);
             streamWriter.WriteLine(@"</html>");
             streamWriter.Flush();
@@ -369,6 +369,15 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(@"        </table>");
             stream.WriteLine(@"    </div>");
             stream.WriteLine(@"    </div>");
+        }
+
+        private static string ComposeDocumentTitle(TestReportSummary summary)
+        {
+            // The package UUID identifies the report when present; for input without a DIAS
+            // package (directory / .siard) the UUID is "-", so fall back to the time of testing.
+            string identifier = summary.Uuid is null or "-" ? summary.TimeOfTesting : summary.Uuid;
+
+            return $"{Resources.Report.HeadingTestReport} — {identifier}";
         }
 
         private static void Head(string title, StreamWriter stream)
