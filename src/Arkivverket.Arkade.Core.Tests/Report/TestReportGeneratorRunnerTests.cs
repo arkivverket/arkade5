@@ -31,7 +31,7 @@ public class TestReportGeneratorRunnerTests(TestSessionLifeTimeFilesFixture fixt
         
         // Run
         string extensionReadyTestReportFilePath = TestReportGeneratorRunner.GetExtensionReadyTestReportFullName(
-            outputDirectory, outputDiasPackage, out string testReportsDirectoryPath);
+            outputDirectory, outputDiasPackage, default, out string testReportsDirectoryPath);
         
         // Test
         testReportsDirectoryPath.Should().Be(expectedTestReportsDirectoryPath);
@@ -53,7 +53,7 @@ public class TestReportGeneratorRunnerTests(TestSessionLifeTimeFilesFixture fixt
         string expectedExtensionReadyTestReportFilePath = Path.Combine(expectedTestReportsDirectoryPath, OutputFileNames.TestReportFile);
 
         // Run
-        string extensionReadyTestReportFilePath = TestReportGeneratorRunner.GetExtensionReadyTestReportFullName(null, outputDiasAip, out string testReportsDirectoryPath); // Droppe outputDirectory?
+        string extensionReadyTestReportFilePath = TestReportGeneratorRunner.GetExtensionReadyTestReportFullName(null, outputDiasAip, default, out string testReportsDirectoryPath); // Droppe outputDirectory?
 
         // Test
         testReportsDirectoryPath.Should().Be(expectedTestReportsDirectoryPath);
@@ -66,8 +66,9 @@ public class TestReportGeneratorRunnerTests(TestSessionLifeTimeFilesFixture fixt
         DirectoryInfo isolatedDirectory = fixture.CreateIsolatedDirectory<TestReportGeneratorRunnerTests>();
         DirectoryInfo outputDirectory = isolatedDirectory.CreateSubdirectory("output");
 
-        var nowTimestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-        
+        var timeOfTesting = DateTime.Now;
+        var nowTimestamp = timeOfTesting.ToString("yyyyMMddHHmmss");
+
         // Expected paths setup
         string expectedTestReportsDirectoryName = string.Format(OutputFileNames.StandaloneTestReportDirectory, nowTimestamp);
         string expectedTestReportsDirectoryPath = Path.Combine(outputDirectory.FullName, expectedTestReportsDirectoryName);
@@ -75,7 +76,7 @@ public class TestReportGeneratorRunnerTests(TestSessionLifeTimeFilesFixture fixt
         string expectedExtensionReadyTestReportFilePath = Path.Combine(expectedTestReportsDirectoryPath, expectedExtensionReadyTestReportFileName);
         
         // Run
-        string extensionReadyTestReportFilePath = TestReportGeneratorRunner.GetExtensionReadyTestReportFullName(outputDirectory, null, out string testReportsDirectoryPath);
+        string extensionReadyTestReportFilePath = TestReportGeneratorRunner.GetExtensionReadyTestReportFullName(outputDirectory, null, timeOfTesting, out string testReportsDirectoryPath);
         
         // Test
         testReportsDirectoryPath.Should().Be(expectedTestReportsDirectoryPath);
@@ -106,7 +107,7 @@ public class TestReportGeneratorRunnerTests(TestSessionLifeTimeFilesFixture fixt
         string expectedExtensionReadyTestReportFilePath = Path.Combine(expectedTestReportsDirectoryPath, expectedExtensionReadyTestReportFileName);
 
         // Run
-        string extensionReadyTestReportFilePath = TestReportGeneratorRunner.GetExtensionReadyTestReportFullName(outputDirectory, inputDiasPackage, out string testReportsDirectoryPath);
+        string extensionReadyTestReportFilePath = TestReportGeneratorRunner.GetExtensionReadyTestReportFullName(outputDirectory, inputDiasPackage, default, out string testReportsDirectoryPath);
 
         // Test
         testReportsDirectoryPath.Should().Be(expectedTestReportsDirectoryPath);
