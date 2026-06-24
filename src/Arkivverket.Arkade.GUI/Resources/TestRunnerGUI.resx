@@ -161,8 +161,8 @@ It can still be created a package from the extract.</value>
   <data name="HeaderFilePath" xml:space="preserve">
     <value>Path to file:</value>
   </data>
-  <data name="HeaderUUID" xml:space="preserve">
-    <value>UUID:</value>
+  <data name="HeaderInformationPackageUuid" xml:space="preserve">
+    <value>Information package:</value>
   </data>
   <data name="HeaderArchiveType" xml:space="preserve">
     <value>Archive type:</value>

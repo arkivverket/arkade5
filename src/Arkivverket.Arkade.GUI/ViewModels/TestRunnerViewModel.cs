@@ -57,6 +57,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool _isProcessingRecord;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
+        private Visibility _informationPackageUuidVisibility = Visibility.Collapsed;
         private Visibility _numberOfProcessedRecordsVisibility = Visibility.Collapsed;
         private Visibility _processingFileVisibility = Visibility.Collapsed;
         private Visibility _addmlDataObjectStatusVisibilty = Visibility.Collapsed;
@@ -69,6 +70,12 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private string _currentlyRunningTest;
         private string _testProgressPercentage;
         private readonly ArkadeCoreApi _arkadeCoreApi;
+
+        public Visibility InformationPackageUuidVisibility
+        {
+            get => _informationPackageUuidVisibility;
+            set => SetProperty(ref _informationPackageUuidVisibility, value);
+        }
 
         public Visibility NumberOfProcessedRecordsVisibility
         {
@@ -449,9 +456,11 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             string archiveFileName = archiveSource.FullName;
             var archiveType = _archive.ArchiveType.ToString();
-            string uuid = _archive.InputDiasPackage?.Id.ToString() ?? "-";
-            
-            ArchiveInformationStatus.Update(archiveFileName, archiveType, uuid);
+            string informationPackageUuid = _archive.InputDiasPackage?.Id.ToString(); // NB! UUID-transfer
+
+            InformationPackageUuidVisibility = informationPackageUuid is null ? Visibility.Collapsed : Visibility.Visible;
+
+            ArchiveInformationStatus.Update(archiveFileName, archiveType, informationPackageUuid);
             ArchiveCurrentProcessing = Visibility.Visible;
 
             switch (_archive.ArchiveType)

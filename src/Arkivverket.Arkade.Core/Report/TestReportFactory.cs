@@ -41,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Report
 
             var summary = new TestReportSummary
             {
-                Uuid = packageId?.ToString() ?? "-",
+                InformationPackageUuid = packageId?.ToString(),
                 ArchiveCreators = archive.Details.ArchiveCreators,
                 ArchivalPeriod = archive.Details.ArchivalPeriod,
                 SystemName = archive.Details.SystemName,

@@ -214,15 +214,18 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(@"        <table class=""table"">");
             stream.WriteLine(@"            <tbody>");
 
-            stream.WriteLine(@"            <tr>");
-            stream.WriteLine(@"                <td>");
-            stream.WriteLine(Resources.Report.LabelUuid);
-            stream.WriteLine("                </td>");
-            stream.WriteLine(@"                <td>");
-            stream.WriteLine(testReport.Summary.Uuid); // NB! UUID-writeout (test results) (from TestReportSummary)
-            stream.WriteLine("                </td>");
-            stream.WriteLine(@"            </tr>");
-            
+            if (testReport.Summary.InformationPackageUuid != null)
+            {
+                stream.WriteLine(@"            <tr>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(Resources.Report.LabelInformationPackageUuid);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(testReport.Summary.InformationPackageUuid); // NB! UUID-writeout (test results) (from TestReportSummary)
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"            </tr>");
+            }
+
             stream.WriteLine(@"            <tr>");
             stream.WriteLine(@"                <td>");
             stream.WriteLine(Resources.Report.LabelArchiveCreators);
@@ -374,8 +377,8 @@ namespace Arkivverket.Arkade.Core.Report
         private static string ComposeDocumentTitle(TestReportSummary summary)
         {
             // The package UUID identifies the report when present; for input without a DIAS
-            // package (directory / .siard) the UUID is "-", so fall back to the time of testing.
-            string identifier = summary.Uuid is null or "-" ? summary.TimeOfTesting : summary.Uuid;
+            // package (directory / .siard) there is no UUID, so fall back to the time of testing.
+            string identifier = summary.InformationPackageUuid is null ? summary.TimeOfTesting : summary.InformationPackageUuid;
 
             return $"{Resources.Report.HeadingTestReport} — {identifier}";
         }

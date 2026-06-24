@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Testing;
@@ -13,7 +14,11 @@ namespace Arkivverket.Arkade.Core.Report
 
     public class TestReportSummary
     {
-        public string Uuid { get; set; }
+        // Omitted from the report entirely when there is no relevant DIAS package (directory / .siard
+        // input). JSON omits it via the attribute below; XmlSerializer omits a null string element;
+        // the HTML/PDF generator skips the row. All four formats stay content-identical.
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string InformationPackageUuid { get; set; }
         public ArchiveType ArchiveType { get; set; }
         public string ArchiveCreators { get; set; }
         public string ArchivalPeriod { get; set; }

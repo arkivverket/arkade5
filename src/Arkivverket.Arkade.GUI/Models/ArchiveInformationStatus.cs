@@ -6,13 +6,13 @@ namespace Arkivverket.Arkade.GUI.Models
     {
         private string _archiveFileName;
         private string _archiveType;
-        private string _uuid;
+        private string _informationPackageUuid;
 
-        public void Update(string archiveFileName, string archiveType, string uuid)
+        public void Update(string archiveFileName, string archiveType, string informationPackageUuid)
         {
             ArchiveFileName = archiveFileName;
             ArchiveType = archiveType;
-            Uuid = uuid; // NB! UUID-transfer
+            InformationPackageUuid = informationPackageUuid; // NB! UUID-transfer
         }
 
         public string ArchiveType
@@ -21,10 +21,10 @@ namespace Arkivverket.Arkade.GUI.Models
             set => SetProperty(ref _archiveType, value);
         }
 
-        public string Uuid
+        public string InformationPackageUuid
         {
-            get => _uuid;
-            set => SetProperty(ref _uuid, value);
+            get => _informationPackageUuid;
+            set => SetProperty(ref _informationPackageUuid, value);
         }
 
         public string ArchiveFileName

@@ -161,8 +161,8 @@ Det kan fortsatt lages en pakke av uttrekket.</value>
   <data name="HeaderFilePath" xml:space="preserve">
     <value>Filsti:</value>
   </data>
-  <data name="HeaderUUID" xml:space="preserve">
-    <value>UUID:</value>
+  <data name="HeaderInformationPackageUuid" xml:space="preserve">
+    <value>Informasjonspakke:</value>
   </data>
   <data name="HeaderArchiveType" xml:space="preserve">
     <value>Arkivtype:</value>

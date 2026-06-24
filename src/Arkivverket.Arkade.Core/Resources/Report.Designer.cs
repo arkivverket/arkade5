@@ -241,11 +241,11 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uuid.
+        ///   Looks up a localized string similar to Information package.
         /// </summary>
-        public static string LabelUuid {
+        public static string LabelInformationPackageUuid {
             get {
-                return ResourceManager.GetString("LabelUuid", resourceCulture);
+                return ResourceManager.GetString("LabelInformationPackageUuid", resourceCulture);
             }
         }
         

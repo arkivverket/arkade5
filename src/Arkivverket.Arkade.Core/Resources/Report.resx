@@ -150,8 +150,8 @@
   <data name="LabelNumberOfTestsRun" xml:space="preserve">
     <value>Number of tests run</value>
   </data>
-  <data name="LabelUuid" xml:space="preserve">
-    <value>Uuid</value>
+  <data name="LabelInformationPackageUuid" xml:space="preserve">
+    <value>Information package</value>
   </data>
   <data name="TestLocation" xml:space="preserve">
     <value>Location</value>

@@ -198,11 +198,11 @@ namespace Arkivverket.Arkade.GUI.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UUID:.
+        ///   Looks up a localized string similar to Information package:.
         /// </summary>
-        public static string HeaderUUID {
+        public static string HeaderInformationPackageUuid {
             get {
-                return ResourceManager.GetString("HeaderUUID", resourceCulture);
+                return ResourceManager.GetString("HeaderInformationPackageUuid", resourceCulture);
             }
         }
         

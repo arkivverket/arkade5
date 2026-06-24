@@ -165,8 +165,8 @@
   <data name="LabelSystemType" xml:space="preserve">
     <value>Systemtype</value>
   </data>
-  <data name="LabelUuid" xml:space="preserve">
-    <value>Uuid</value>
+  <data name="LabelInformationPackageUuid" xml:space="preserve">
+    <value>Informasjonspakke</value>
   </data>
   <data name="TestLocation" xml:space="preserve">
     <value>Lokasjon</value>
