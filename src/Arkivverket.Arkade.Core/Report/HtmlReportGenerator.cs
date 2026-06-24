@@ -37,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(@"");
             stream.WriteLine(@"<div class=""container"">");
             stream.WriteLine(@"");
-            ArkivverketImage(stream);
+            NasjonalarkivetImage(stream);
             stream.WriteLine(@"    <h1>" + Resources.Report.HeadingTestReport + "</h1>");
             Summary(testReport, stream);
 
@@ -64,14 +64,14 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine("</p>");
         }
 
-        private static void ArkivverketImage(StreamWriter stream)
+        private static void NasjonalarkivetImage(StreamWriter stream)
         {
-            byte[] imageBytes = ResourceUtil.ReadResourceBytes("Arkivverket.Arkade.Core.Resources.arkivverket.gif");
+            byte[] imageBytes = ResourceUtil.ReadResourceBytes("Arkivverket.Arkade.Core.Resources.Nasjonalarkivet-logo.png");
             string imageBase64 = Convert.ToBase64String(imageBytes, Base64FormattingOptions.None);
 
-            stream.WriteLine(@"<img src=""data:image/gif;base64,");
+            stream.WriteLine(@"<img src=""data:image/png;base64,");
             stream.WriteLine(imageBase64);
-            stream.WriteLine(@""" class=""img-responsive"" alt=""Arkivverket"" width=""481"" height=""82"" />");
+            stream.WriteLine(@""" class=""img-responsive"" alt=""Nasjonalarkivet"" width=""381"" height=""128"" />");
         }
 
         private static void Test(ExecutedTest test, StreamWriter stream)

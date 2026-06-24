@@ -63,7 +63,8 @@ namespace Arkivverket.Arkade.Core.Util
         public const string DirectoryNameTemporaryLogsLocation = ".arkade-tmplogs";
         public const string DirectoryNameRepositoryOperations = "repository_operations";
         public const string DirectoryNameContent = "content";
-        public const string DirectoryNameAppDataArkadeSubFolder = "Arkivverket";
+        public const string DirectoryNameAppDataArkadeSubFolder = "Nasjonalarkivet";
+        public const string LegacyDirectoryNameAppDataArkadeSubFolder = "Arkivverket"; // pre-rebranding LocalAppData folder; migrated away from in LocalInfo
         public const string DirectoryNameDescriptiveMetadata = "descriptive_metadata";
         public const string DirectoryNameAdministrativeMetadata = "administrative_metadata";
 

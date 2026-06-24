@@ -6,7 +6,7 @@
     <AssemblyName>Arkivverket.Arkade.Core</AssemblyName>
     <RootNamespace>Arkivverket.Arkade.Core</RootNamespace>
     <OutputType>Library</OutputType>
-    <Authors>Arkitektum AS for Arkivverket</Authors>
+    <Authors>Arkitektum AS for Nasjonalarkivet</Authors>
     <PackageLicenseExpression>GNU GPL</PackageLicenseExpression>
     <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
     <PackageIcon>Arkade5_2.0.ico</PackageIcon>
@@ -106,7 +106,7 @@
     <EmbeddedResource Include="ExternalModels\xsd\xlink.xsd" />
     <EmbeddedResource Include="ExternalModels\xsl\noarkih-to-addml.xsl" />
     <EmbeddedResource Include="Resources\arkade.css" />
-    <EmbeddedResource Include="Resources\arkivverket.gif" />
+    <EmbeddedResource Include="Resources\Nasjonalarkivet-logo.png" />
     <EmbeddedResource Include="Resources\bootstrap.min.css" />
     <EmbeddedResource Include="Resources\ArchiveFileFormats.json" />
     <EmbeddedResource Include="Resources\FreeSans.ttf" />
