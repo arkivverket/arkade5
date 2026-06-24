@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Arkade5_2.0.ico</ApplicationIcon>
-    <Authors>Arkitektum AS for Arkivverket</Authors>
+    <Authors>Arkitektum AS for Nasjonalarkivet</Authors>
     <PackageLicenseExpression>GNU GPL</PackageLicenseExpression>
     <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
     <PackageIcon>Arkade5_2.0.ico</PackageIcon>
