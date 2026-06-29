@@ -5,10 +5,10 @@
     <TargetFramework>net10.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
+    <RepositoryUrl>https://github.com/nasjonalarkivet/arkade5</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>https://github.com/arkivverket/arkade5/tags</PackageTags>
-    <PackageReleaseNotes>https://github.com/arkivverket/arkade5/releases</PackageReleaseNotes>
+    <PackageTags>https://github.com/nasjonalarkivet/arkade5/tags</PackageTags>
+    <PackageReleaseNotes>https://github.com/nasjonalarkivet/arkade5/releases</PackageReleaseNotes>
     <ApplicationIcon>Arkade5_2.0.ico</ApplicationIcon>
     <Authors>Arkitektum AS for Nasjonalarkivet</Authors>
     <PackageId>Arkivverket.Arkade.CLI</PackageId>

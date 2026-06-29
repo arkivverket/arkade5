@@ -11,10 +11,10 @@
     <PackageLicenseExpression>GNU GPL</PackageLicenseExpression>
     <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
     <PackageIcon>Arkade5_2.0.ico</PackageIcon>
-    <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
+    <RepositoryUrl>https://github.com/nasjonalarkivet/arkade5</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>https://github.com/arkivverket/arkade5/tags</PackageTags>
-    <PackageReleaseNotes>https://github.com/arkivverket/arkade5/releases</PackageReleaseNotes>
+    <PackageTags>https://github.com/nasjonalarkivet/arkade5/tags</PackageTags>
+    <PackageReleaseNotes>https://github.com/nasjonalarkivet/arkade5/releases</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

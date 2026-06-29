@@ -22,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Util
         {
             var restClient = new RestClient("https://api.github.com/");
 
-            var request = new RestRequest("repos/arkivverket/arkade5/releases/latest");
+            var request = new RestRequest("repos/nasjonalarkivet/arkade5/releases/latest");
 
             RestResponse<GitHubReleaseInfo> gitHubResponse = restClient.ExecuteGetAsync<GitHubReleaseInfo>(request).Result;
 
