@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Arkade 5 is a testing and packaging tool for archival extractions used by Nasjonalarkivet (the Norwegian National Archives). It validates archive extractions against the [ADDML](https://www.arkivverket.no/forvaltning-og-utvikling/regelverk-og-standarder/andre-arkivstandarder/addml-archival-data-description-markup-language) standard and produces information packages (SIP/AIP) based on archival metadata standards. End-user documentation lives at https://arkade.arkivverket.no.
+Arkade 5 is a testing and packaging tool for archival extractions used by Nasjonalarkivet (the Norwegian National Archives). It validates archive extractions against the [ADDML](https://www.nasjonalarkivet.no/offentlig-forvaltning/regelverk-og-standarder/andre-arkivstandarder-dias/addml-archival-data-description-markup-language) standard and produces information packages (SIP/AIP) based on archival metadata standards. End-user documentation lives at https://arkade.arkivverket.no.
 
 ## Build, test, run
 
