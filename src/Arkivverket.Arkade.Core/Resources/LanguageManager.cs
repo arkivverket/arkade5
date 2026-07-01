@@ -4,6 +4,17 @@ namespace Arkivverket.Arkade.Core.Languages
 {
     public static class LanguageManager
     {
+        
+        internal static void SetResourceLanguageForLoading(SupportedLanguage language)
+        {
+            CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture(language.ToString());
+
+            Resources.ExceptionMessages.Culture = cultureInfo;
+            Resources.Messages.Culture = cultureInfo;
+            Resources.SiardMessages.Culture = cultureInfo;
+            Resources.Noark5Messages.Culture = cultureInfo;
+        }
+        
         internal static void SetResourcesLanguageForTesting(SupportedLanguage language)
         {
             CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture(language.ToString());

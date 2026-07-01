@@ -88,6 +88,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not extract an UUID from the filename: {0}.
+        /// </summary>
+        public static string FileNameUuidExtractionError {
+            get {
+                return ResourceManager.GetString("FileNameUuidExtractionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot find the file: {0}.
         /// </summary>
         public static string FileNotFound {
@@ -102,6 +111,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string FileNotRead {
             get {
                 return ResourceManager.GetString("FileNotRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} was not found..
+        /// </summary>
+        public static string FileSystemItemNotFound {
+            get {
+                return ResourceManager.GetString("FileSystemItemNotFound", resourceCulture);
             }
         }
         
@@ -176,6 +194,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string SiardValidatorOpenError {
             get {
                 return ResourceManager.GetString("SiardValidatorOpenError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected root directory name in the tar archive.
+        /// </summary>
+        public static string UnexpectedTarArchiveRootDirectoryName {
+            get {
+                return ResourceManager.GetString("UnexpectedTarArchiveRootDirectoryName", resourceCulture);
             }
         }
         

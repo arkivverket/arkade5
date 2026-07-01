@@ -283,7 +283,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             // large .tar extraction doesn't freeze the window. ArchiveFactory raises the "Reading archive"
             // OperationMessages we already subscribe to, so progress shows up in the message list below. The
             // continuation runs back on the UI thread to touch bound state safely.
-            Task.Run(() => _arkadeCoreApi.LoadArchiveExtraction(archiveSource, archiveType))
+            Task.Run(() => _arkadeCoreApi.LoadArchiveExtraction(archiveSource, archiveType, LanguageSettingHelper.GetUILanguage()))
                 .ContinueWith(OnArchiveLoaded, TaskScheduler.FromCurrentSynchronizationContext());
         }
 

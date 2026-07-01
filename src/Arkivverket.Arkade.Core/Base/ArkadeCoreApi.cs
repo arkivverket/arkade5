@@ -34,10 +34,12 @@ public class ArkadeCoreApi(
 {
     private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-    public Archive LoadArchiveExtraction(FileSystemInfo archiveSource, ArchiveType archiveType)
+    public Archive LoadArchiveExtraction(FileSystemInfo archiveSource, ArchiveType archiveType, SupportedLanguage language)
     {
+        LanguageManager.SetResourceLanguageForLoading(language);
+
         if(!archiveSource.Exists)
-            throw new ArkadeException($"{archiveSource.FullName} was not found.");
+            throw new ArkadeException(string.Format(ExceptionMessages.FileSystemItemNotFound, archiveSource.FullName));
 
         Log.Debug($"Loading Archive Extraction [sourcePath: {archiveSource.FullName}] [archiveType: {archiveType}]");
 

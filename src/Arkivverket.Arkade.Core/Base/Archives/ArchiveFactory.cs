@@ -76,7 +76,7 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
         ArchiveType archiveType)
     {
         if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(tarFile.Name), out Uuid id)) // NB! UUID-orig
-            throw new ArkadeException("Could not extract an UUID from filename: " + tarFile.Name);
+            throw new ArkadeException(string.Format(ExceptionMessages.FileNameUuidExtractionError, tarFile.Name));
 
         DirectoryInfo workingDirectoryRoot = processingDirectory.CreateSubdirectory(id.GetValue());
         var diasPackageWorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);

@@ -369,7 +369,7 @@ namespace Arkivverket.Arkade.CLI
 
             Log.Information($"{{{command}ing}} {archiveType} archive from source: {archiveSource.FullName}");
 
-            return Arkade.LoadArchiveExtraction(archiveSource, archiveType);
+            return Arkade.LoadArchiveExtraction(archiveSource, archiveType, SupportedLanguage.en);
         }
 
         private static TestSession CreateTestSession(Archive archive, string selectedOutputLanguage, string testSelectionFilePath = null)

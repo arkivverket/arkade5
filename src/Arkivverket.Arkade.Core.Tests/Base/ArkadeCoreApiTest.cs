@@ -273,7 +273,7 @@ public class ArkadeCoreApiTest(TestSessionLifeTimeFilesFixture fixture)
         using var arkade = new Core.Base.Arkade();
 
         // 1. Load Archive
-        Archive archive = arkade.LoadArchiveExtraction(input, archiveType);
+        Archive archive = arkade.LoadArchiveExtraction(input, archiveType, SupportedLanguage.en);
         archive.ArchiveType.Should().Be(archiveType);
 
         // Instantiate OutputDiasPackage to generate the package ID expected in test reports

@@ -44,9 +44,9 @@ namespace Arkivverket.Arkade.Core.Base
             _container.Dispose();
         }
 
-        public Archive LoadArchiveExtraction(FileSystemInfo archiveSource, ArchiveType archiveType)
+        public Archive LoadArchiveExtraction(FileSystemInfo archiveSource, ArchiveType archiveType, SupportedLanguage language)
         {
-            return _arkadeCoreApi.LoadArchiveExtraction(archiveSource, archiveType);
+            return _arkadeCoreApi.LoadArchiveExtraction(archiveSource, archiveType, language);
         }
 
         public TestSession CreateTestSession(Archive archive)
