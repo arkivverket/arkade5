@@ -635,28 +635,18 @@
     <Compile Remove="Logging\TestSessionXmlGeneratorTest.cs" />
     <Compile Remove="Report\HtmlReportGeneratorTest.cs" />
     <Compile Remove="Report\ReportGeneratorTests.cs" />
-    <Compile Remove="Testing\Noark5\N5_10_NumberOfFoldersTest.cs" />
-    <Compile Remove="Testing\Noark5\N5_16_NumberOfRegistrationsTest.cs" />
-    <Compile Remove="Testing\Noark5\N5_30_DocumentFilesChecksumControlTest.cs" />
     <Compile Remove="Testing\Noark5\N5_32_ControlDocumentFilesExistsTest.cs" />
-    <Compile Remove="Testing\Noark5\N5_33_DocumentfilesReferenceControlTest.cs" />
-    <Compile Remove="Testing\Noark5\N5_35_NumberOfCasePartsTests.cs" />
-    <Compile Remove="Testing\Noark5\N5_42_NumberOfRestrictionsTest.cs" />
-    <Compile Remove="Testing\Noark5\N5_44_NumberOfDisposalResolutionsTest.cs" />
-    <Compile Remove="Testing\Noark5\N5_45_NumberOfDisposalsExecutedTest.cs" />
-    <Compile Remove="Testing\Noark5\N5_59_NumberOfJournalPostsTest.cs" />
-    <Compile Remove="Testing\Noark5\N5_60_ArchiveStartAndEndDateControlTest.cs" />
-    <Compile Remove="Testing\Noark5\N5_61_NumberOfChangesLoggedTest.cs" />
-    <Compile Remove="Testing\Noark5\N5_62_ChangeLogArchiveReferenceControlTest.cs" />
     <Compile Remove="Testing\Noark5\N5_64_NumberOfEmptyDocumentFilesTest.cs" />
     <Compile Remove="Testing\Noark5\Noark5TestFactoryTests.cs" />
     <Compile Remove="Testing\Noark5\Noark5TestProviderTests.cs" />
     <Compile Remove="Testing\Noark5\Structure\N5_01_ValidateStructureFileExistsTest.cs" />
     <Compile Remove="Testing\Noark5\Structure\N5_02_ValidateAddmlDataobjectsChecksumsTest.cs" />
+    <Compile Remove="Util\XmlValidatorTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_10_NumberOfFoldersTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_61_NumberOfChangesLoggedTest.cs" />
     <Compile Remove="Testing\Noark5\Structure\N5_03_ValidateXmlWithSchemaTest.cs" />
     <Compile Remove="Testing\Noark5\Structure\N5_28_ValidateNumberOfDocumentfilesTest.cs" />
-    <Compile Remove="Testing\Noark5\TestUtil.cs" />
-    <Compile Remove="Util\XmlValidatorTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_35_NumberOfCasePartsTests.cs" />
     <!-- B4-EXCLUDE-END -->
   </ItemGroup>
 

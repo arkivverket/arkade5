@@ -1,25 +1,37 @@
 using System;
 using System.IO;
-using System.Reflection.Emit;
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Archives;
 using Moq;
+using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Tests.Base
 {
-    public class ArchiveBuilder(IArchiveContent content, DirectoryInfo processingDirectory)
+    /// <summary>
+    /// Builds archives for tests. Supports two styles:
+    ///  - new ArchiveBuilder(content, processingDirectory).Build&lt;TArchive&gt;()  (renewed-Core style)
+    ///  - new ArchiveBuilder().WithArchiveType(..).WithWorkingDirectory*(..).Build()  (legacy fluent style)
+    /// </summary>
+    public class ArchiveBuilder
     {
-        private IArchiveContent _content = content;
-        private DirectoryInfo _processingDirectory = processingDirectory;
+        private IArchiveContent _content;
+        private DirectoryInfo _processingDirectory;
         private InputDiasPackage _inputDiasPackage;
-        
-        private ArchiveType _archiveType = ArchiveType.Noark5;
-        private ArchiveDetails _archiveDetails;
 
-        private Uuid _uuid = Uuid.Random(); // NB! UUID-origin
-        private DirectoryInfo _workingDirectoryContent;
-        private DirectoryInfo _workingDirectory;
+        private ArchiveType _archiveType = ArchiveType.Noark5;
+        private Uuid _uuid = Uuid.Random();
+        private DirectoryInfo _contentDirectory;
         private string _archiveFileFullName;
+
+        public ArchiveBuilder()
+        {
+        }
+
+        public ArchiveBuilder(IArchiveContent content, DirectoryInfo processingDirectory)
+        {
+            _content = content;
+            _processingDirectory = processingDirectory;
+        }
 
         public ArchiveBuilder WithUuid(string uuid)
         {
@@ -29,25 +41,27 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
         public ArchiveBuilder WithUuid(Uuid uuid)
         {
-            _uuid = uuid; // NB! UUID-transfer
+            _uuid = uuid;
             return this;
         }
 
+        // Legacy "working directory root": an Arkade working directory that holds a 'content' sub-directory.
         public ArchiveBuilder WithWorkingDirectoryRoot(string workingDirectory)
         {
-            _workingDirectory = new DirectoryInfo(workingDirectory);
+            _contentDirectory = new DirectoryInfo(Path.Combine(Resolve(workingDirectory), DirectoryNameContent));
             return this;
         }
 
+        // Legacy "external content": the content directory itself.
         public ArchiveBuilder WithWorkingDirectoryExternalContent(string workingDirectory)
         {
-            _workingDirectoryContent = new DirectoryInfo(workingDirectory);
+            _contentDirectory = new DirectoryInfo(Resolve(workingDirectory));
             return this;
         }
 
         public ArchiveBuilder WithWorkingDirectoryExternalContent(DirectoryInfo workingDirectory)
         {
-            _workingDirectoryContent = workingDirectory;
+            _contentDirectory = workingDirectory;
             return this;
         }
 
@@ -57,55 +71,72 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             return this;
         }
 
-        // public ArchiveBuilder WithArchiveDetails(string standardVersion)
-        // {
-        //     var mock = new Mock<ArchiveDetails>(Build().AddmlInfo.Addml);
-        //     mock.Setup(x => x.ArchiveStandard).Returns(standardVersion);
-        //     _archiveDetails = mock.Object;
-        //     return this;
-        // }
-
-        public ArchiveBuilder WithProcessingDirectory()
+        public ArchiveBuilder WithArchiveFileFullName(string archiveFileFullName)
         {
-            _processingDirectory = new DirectoryInfo(Path.Combine(_workingDirectory.FullName, _uuid.ToString())); // øh ..
-            
+            _archiveFileFullName = archiveFileFullName;
             return this;
         }
-        
-        public ArchiveBuilder WithContent<T>(string pathToContent) where T : IArchiveContent
-        {
-            _content = typeof(T) switch
-            {
-                var t when t == typeof(DirectoryArchiveContent)
-                    => new Mock<DirectoryArchiveContent>(new DirectoryInfo(pathToContent)).Object,
-                
-                var t when t == typeof(FileArchiveContent)
-                    => new Mock<FileArchiveContent>(new FileInfo(pathToContent)).Object,
-                
-                _ => throw new ArgumentException($"Unknown content type: {typeof(T)}")
-            };
 
+        // NOTE: renewed Core derives Archive.Details from the parsed ADDML at construction (init-only),
+        // so a forced standard version is no longer honoured here. Kept so callers compile; revisit if a
+        // test genuinely needs to override the archive standard. (B4 tail)
+        public ArchiveBuilder WithArchiveDetails(string standardVersion)
+        {
             return this;
         }
 
         public ArchiveBuilder WithInputDiasPackage(ArchiveMetadata archiveMetadata)
         {
-            var mock = new Mock<InputDiasPackage>(); //_uuid, null!, null!);
-            //mock.Setup(x => x.ArchiveMetadata).Returns(archiveMetadata);
-            _inputDiasPackage = mock.Object;
-            
+            _inputDiasPackage = new Mock<InputDiasPackage>().Object;
             return this;
         }
 
-        public Archive Build<T>() where T : Archive
+        public T Build<T>() where T : Archive
         {
-            if (_content == null)
-                throw new Exception("Content is required for all types of archives");
-            
-            // if (_processingDirectory == null)
-            //     throw new Exception("ProcessingDirectory is required for all types of archives");
-            
-            return (Archive)Activator.CreateInstance(typeof(T), _content, _processingDirectory, _inputDiasPackage);
+            return (T)Activator.CreateInstance(typeof(T), ResolveContent(), ResolveProcessingDirectory(), _inputDiasPackage);
+        }
+
+        public Archive Build()
+        {
+            Type archiveClrType = _archiveType switch
+            {
+                ArchiveType.Noark3 => typeof(Noark3Archive),
+                ArchiveType.Noark4 => typeof(Noark4Archive),
+                ArchiveType.Noark5 => typeof(Noark5Archive),
+                ArchiveType.SpecializedSystem => typeof(SpecializedSystemArchive),
+                ArchiveType.Siard => typeof(SiardArchive),
+                _ => throw new ArgumentOutOfRangeException(nameof(_archiveType), _archiveType, null)
+            };
+
+            return (Archive)Activator.CreateInstance(archiveClrType, ResolveContent(), ResolveProcessingDirectory(), _inputDiasPackage);
+        }
+
+        private IArchiveContent ResolveContent()
+        {
+            if (_content != null)
+                return _content;
+
+            if (_contentDirectory == null)
+                throw new InvalidOperationException(
+                    "Archive content is required — supply it via the constructor or WithWorkingDirectory*.");
+
+            return new DirectoryArchiveContent(_contentDirectory);
+        }
+
+        private DirectoryInfo ResolveProcessingDirectory()
+        {
+            if (_processingDirectory != null)
+                return _processingDirectory;
+
+            var directory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), "arkade-tests", _uuid.ToString()));
+            directory.Create();
+            return directory;
+        }
+
+        private static string Resolve(string path)
+        {
+            path = path.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar);
+            return Path.IsPathRooted(path) ? path : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
         }
     }
 }
