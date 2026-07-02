@@ -21,7 +21,7 @@ namespace Arkivverket.Arkade.Core.Util
             {
                 DirectoryInfo singleRootDirectory = GetSingleRootDirectory(inputStream);
 
-                if (singleRootDirectory.Name != targetDirectory.Name)
+                if (singleRootDirectory != null && singleRootDirectory.Name != targetDirectory.Name)
                     throw new ArkadeException(Resources.ExceptionMessages.UnexpectedTarArchiveRootDirectoryName);
 
                 inputStream.Position = 0; // Needs resetting after GetSingleRootDirectory()
