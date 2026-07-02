@@ -73,7 +73,7 @@ public class Noark5Archive : AddmlBasedArchive
             return DocumentsDirectory;
         }
 
-        return null;
+        return DefaultNamedDocumentsDirectory();
     }
 
     public string GetDocumentsDirectoryName()
