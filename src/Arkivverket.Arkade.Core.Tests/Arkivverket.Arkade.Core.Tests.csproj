@@ -612,32 +612,54 @@
     </None>
   </ItemGroup>
 
-  <!-- - - - - - - -  Keep during v3 adpation  - - - - - - - -->
+  <!-- B4-TAIL: tests not yet adapted to the renewed Core API (ARKADE-782).
+       Excluded so the majority of the suite compiles & runs. Re-enable as each is rewritten. -->
   <ItemGroup>
-    <Compile Remove="*\**" />
-    <None Include="*\**" />
-    <Compile Include="Report\TestReportGeneratorRunnerTests.cs" />
-    <Compile Include="UnitTestUtilities\DiasTarArchiveUtility.cs" />
-    <Compile Include="UnitTestUtilities\CollectionExtensions.cs" />
-    <Compile Include="UnitTestUtilities\TestData.cs" />
-    <Compile Include="UnitTestUtilities\DisposableDirectory.cs" />
-    <Compile Include="UnitTestUtilities\TestSessionLifeTimeFilesFixture.cs" />
-    <Compile Include="Base\ArkadeCoreApiTest.cs" />
-    <Compile Include="Base\ArchiveBuilder.cs" />
-    <Compile Include="Base\InformationPackageCreatorTest.cs" />
-    <Compile Include="Base\Archives\ArchiveTest.cs" />
-    <Compile Include="Base\Archives\ArchiveFactoryTest.cs" />
-    <Compile Include="Base\Archives\DirectoryArchiveContentTest.cs" />
-    <Compile Include="Base\Archives\FileArchiveContentTest.cs" />
-    <Compile Include="Base\Archives\Noark5XmlUnitsTest.cs" />
-    <Compile Include="Identify\ArchiveTypeIdentifierTests.cs" />
-    <Compile Include="Util\FileFormatIdentification\FileFormatIdentifierTests.cs" />
-    <Compile Include="Metadata\DiasMetsCreatorTest.cs" />
-    <Compile Include="Metadata\SubmissionDescriptionCreatorTest.cs" />
-    <Compile Include="Metadata\MetsCreatorTest.cs" />
+    <!-- B4-EXCLUDE-START -->
+    <Compile Remove="Base\Addml\Definitions\AddmlDefinitionParserExceptionTest.cs" />
+    <Compile Remove="Base\Addml\Definitions\AddmlDefinitionParserTest.cs" />
+    <Compile Remove="Base\Addml\FlatFileReaderFactoryTest.cs" />
+    <Compile Remove="Base\Addml\FlatFileReaderTest.cs" />
+    <Compile Remove="Base\Addml\Jegerreg98Test.cs" />
+    <Compile Remove="Base\Addml\Processes\Hardcoded\AH_01_ControlChecksumTest.cs" />
+    <Compile Remove="Base\Addml\Processes\Hardcoded\AH_02_ControlExtraOrMissingFilesTest.cs" />
+    <Compile Remove="Base\ArchiveUuidOriginTests.cs" />
+    <Compile Remove="Base\ArkadeProcessingAreaTest.cs" />
+    <Compile Remove="Base\DocumentsDirectoryTest.cs" />
+    <Compile Remove="Base\OutputInformationPackageTest.cs" />
+    <Compile Remove="Base\TestSessionBuilder.cs" />
+    <Compile Remove="Identify\ArchiveExctractionReaderTest.cs" />
+    <Compile Remove="Integration\FiskermanntalletAnonIntegrationTest.cs" />
+    <Compile Remove="Integration\Jegerregisteret98IntegrationTest.cs" />
+    <Compile Remove="Integration\Noark3IntegrationTest.cs" />
+    <Compile Remove="Logging\TestSessionXmlGeneratorTest.cs" />
+    <Compile Remove="Report\HtmlReportGeneratorTest.cs" />
+    <Compile Remove="Report\ReportGeneratorTests.cs" />
+    <Compile Remove="Testing\Noark5\N5_10_NumberOfFoldersTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_16_NumberOfRegistrationsTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_30_DocumentFilesChecksumControlTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_32_ControlDocumentFilesExistsTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_33_DocumentfilesReferenceControlTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_35_NumberOfCasePartsTests.cs" />
+    <Compile Remove="Testing\Noark5\N5_42_NumberOfRestrictionsTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_44_NumberOfDisposalResolutionsTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_45_NumberOfDisposalsExecutedTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_59_NumberOfJournalPostsTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_60_ArchiveStartAndEndDateControlTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_61_NumberOfChangesLoggedTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_62_ChangeLogArchiveReferenceControlTest.cs" />
+    <Compile Remove="Testing\Noark5\N5_64_NumberOfEmptyDocumentFilesTest.cs" />
+    <Compile Remove="Testing\Noark5\Noark5TestFactoryTests.cs" />
+    <Compile Remove="Testing\Noark5\Noark5TestProviderTests.cs" />
+    <Compile Remove="Testing\Noark5\Structure\N5_01_ValidateStructureFileExistsTest.cs" />
+    <Compile Remove="Testing\Noark5\Structure\N5_02_ValidateAddmlDataobjectsChecksumsTest.cs" />
+    <Compile Remove="Testing\Noark5\Structure\N5_03_ValidateXmlWithSchemaTest.cs" />
+    <Compile Remove="Testing\Noark5\Structure\N5_28_ValidateNumberOfDocumentfilesTest.cs" />
+    <Compile Remove="Testing\Noark5\TestUtil.cs" />
+    <Compile Remove="Util\XmlValidatorTest.cs" />
+    <!-- B4-EXCLUDE-END -->
   </ItemGroup>
-  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-  
+
   <ItemGroup>
     <None Remove="TestData\DiskUsage\docx.docx" />
     <None Remove="TestData\DiskUsage\pdf.pdf" />
@@ -682,6 +704,7 @@
     <PackageReference Include="Serilog.Sinks.Observable" Version="3.0.0" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
     <PackageReference Include="xunit.v3.core" Version="3.2.2" />
+    <PackageReference Include="xunit.v3.assert" Version="3.2.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

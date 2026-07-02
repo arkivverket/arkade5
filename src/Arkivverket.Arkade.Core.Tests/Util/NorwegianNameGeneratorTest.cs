@@ -1,6 +1,5 @@
 ﻿using Arkivverket.Arkade.Core.Util;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Arkivverket.Arkade.Core.Tests.Util
 {
