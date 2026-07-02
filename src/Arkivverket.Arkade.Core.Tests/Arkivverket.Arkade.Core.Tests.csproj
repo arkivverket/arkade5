@@ -616,11 +616,7 @@
        Excluded so the majority of the suite compiles & runs. Re-enable as each is rewritten. -->
   <ItemGroup>
     <!-- B4-EXCLUDE-START -->
-    <Compile Remove="Base\Addml\Definitions\AddmlDefinitionParserExceptionTest.cs" />
-    <Compile Remove="Base\Addml\Definitions\AddmlDefinitionParserTest.cs" />
     <Compile Remove="Base\Addml\FlatFileReaderFactoryTest.cs" />
-    <Compile Remove="Base\Addml\FlatFileReaderTest.cs" />
-    <Compile Remove="Base\Addml\Jegerreg98Test.cs" />
     <Compile Remove="Base\Addml\Processes\Hardcoded\AH_01_ControlChecksumTest.cs" />
     <Compile Remove="Base\Addml\Processes\Hardcoded\AH_02_ControlExtraOrMissingFilesTest.cs" />
     <Compile Remove="Base\ArchiveUuidOriginTests.cs" />
