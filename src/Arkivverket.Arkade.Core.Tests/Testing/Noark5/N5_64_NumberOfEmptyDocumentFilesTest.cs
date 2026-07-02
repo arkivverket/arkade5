@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
@@ -34,7 +35,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 .Add("referanseDokumentfil", "dokumenter/empty.txt")
                                                 .Add("filstoerrelse", "0")))))))));
 
-            Archive testArchive = CreateTestArchive(
+            var testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "EmptyFiles")
             );
 
@@ -69,7 +70,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 .Add("referanseDokumentfil", "dokumenter/empty.txt")
                                                 .Add("filstoerrelse", "1")))))))));
 
-            Archive testArchive = CreateTestArchive(
+            var testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "EmptyFiles")
             );
 
@@ -101,7 +102,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 .Add("referanseDokumentfil", "dokumenter/5000000.pdf")
                                                 .Add("filstoerrelse", "20637")))))))));
 
-            Archive testArchive = CreateTestArchive(
+            var testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "EmptyFiles")
             );
 
@@ -136,7 +137,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         .Add("saksstatus", folderStatus))
                                     .Add("saksstatus", superFolderStatus))))));
 
-            Archive testArchive = CreateTestArchive(
+            var testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "EmptyFiles")
             );
 
@@ -177,7 +178,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("referanseDokumentfil", "dokumenter/5000000.pdf")
                                             .Add("filstoerrelse", "20637")))))))));
 
-            Archive testArchive = CreateTestArchive(
+            var testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "EmptyFiles")
             );
 
@@ -218,7 +219,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 .Add("referanseDokumentfil", "dokumenter\\5000000.pdf")
                                                 .Add("filstoerrelse", "20637")))))))));
 
-            Archive testArchive = CreateTestArchive(
+            var testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "EmptyFiles")
             );
 
@@ -245,7 +246,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                 .Add("referanseDokumentfil", "dokumenter/5000000.pdf")
                                                 .Add("filstoerrelse", "0")))))))));
 
-            Archive testArchive = CreateTestArchive(
+            var testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "EmptyFiles")
             );
 
@@ -271,7 +272,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("dokumentobjekt", new XmlElementHelper()
                                                 .Add("referanseDokumentfil", "non-existing.file")))))))));
 
-            Archive testArchive = CreateTestArchive(
+            var testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "EmptyFiles")
             );
 
@@ -282,9 +283,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.TestResults.GetNumberOfResults().Should().Be(1);
         }
 
-        private static Archive CreateTestArchive(string pathToArchive)
+        private static Noark5Archive CreateTestArchive(string pathToArchive)
         {
-            Archive archive = TestUtil.CreateArchiveExtraction(pathToArchive);
+            var archive = TestUtil.CreateArchiveExtraction(pathToArchive);
 
             archive.DocumentFiles.Register(false);
 
