@@ -620,10 +620,6 @@
     <Compile Remove="Base\OutputInformationPackageTest.cs" />
     <Compile Remove="Testing\Noark5\N5_10_NumberOfFoldersTest.cs" />
     <Compile Remove="Testing\Noark5\N5_61_NumberOfChangesLoggedTest.cs" />
-    <Compile Remove="Testing\Noark5\Structure\N5_03_ValidateXmlWithSchemaTest.cs" />
-    <Compile Remove="Testing\Noark5\N5_35_NumberOfCasePartsTests.cs" />
-    <Compile Remove="Testing\Noark5\Structure\N5_02_ValidateAddmlDataobjectsChecksumsTest.cs" />
-    <Compile Remove="Base\DocumentsDirectoryTest.cs" />
     <!-- B4-EXCLUDE-END -->
   </ItemGroup>
 
@@ -691,6 +687,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\DocumentDirectoryTest\content\arkivuttrekk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\DocumentDirectoryTest\dias-mets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\DocumentDirectoryTest\some_IP.tar">

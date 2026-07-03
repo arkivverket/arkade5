@@ -55,11 +55,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
 
         private static TestRun CreateTestRun(string workingDirectory)
         {
-            Archive archive = new ArchiveBuilder()
+            Noark5Archive archive = new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent(workingDirectory)
-                .Build();
+                .Build<Noark5Archive>();
 
             var validateXmlWithSchema = new N5_03_ValidateXmlWithSchema();
 

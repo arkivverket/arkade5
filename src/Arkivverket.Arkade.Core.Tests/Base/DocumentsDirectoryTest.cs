@@ -39,7 +39,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             documentsDirectoryD.Exists.Should().BeTrue();
 
             // Singular, uppercase documents directory name - IP is tar-file:
-            Archive archive = SetupArchive(Path.Combine(_workingDirectory.FullName, "some_IP.tar"));
+            Noark5Archive archive = SetupArchive(Path.Combine(_workingDirectory.FullName, "some_IP.tar"));
 
             /*
             some_IP.tar contains:
@@ -68,7 +68,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             documentsDirectoryB.Name.Should().Be("dokumenter");
 
             // English documents directory name - IP is tar-file:
-            Archive archive = SetupArchive(
+            Noark5Archive archive = SetupArchive(
                 Path.Combine(_workingDirectory.FullName, "some_IP_invalid_documents-directory-name.tar"));
 
             /*
@@ -101,7 +101,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             RemoveDirectoriesWithinContentsDirectory();
 
             // Make new archive to reset any existing documentsdirectory reference:
-            Archive archive = SetupArchive();
+            Noark5Archive archive = SetupArchive();
 
             // Create an actual documentsdirectory for the archive to look for:
             CreatePhysicalDocumentsDirectory(documentsDirectoryName);
@@ -117,13 +117,13 @@ namespace Arkivverket.Arkade.Core.Tests.Base
                     directory.Delete(true);
         }
 
-        private static Archive SetupArchive(string archiveFileFullName = null)
+        private static Noark5Archive SetupArchive(string archiveFileFullName = null)
         {
             return new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(_workingDirectory.FullName)
                 .WithArchiveFileFullName(archiveFileFullName)
-                .Build();
+                .Build<Noark5Archive>();
         }
 
         private static void CreatePhysicalDocumentsDirectory(string documentsDirectoryName)

@@ -21,6 +21,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         private ArchiveType _archiveType = ArchiveType.Noark5;
         private Uuid _uuid = Uuid.Random();
         private DirectoryInfo _contentDirectory;
+        private DirectoryInfo _workingDirectoryRoot;
         private string _archiveFileFullName;
 
         public ArchiveBuilder()
@@ -48,7 +49,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         // Legacy "working directory root": an Arkade working directory that holds a 'content' sub-directory.
         public ArchiveBuilder WithWorkingDirectoryRoot(string workingDirectory)
         {
-            _contentDirectory = new DirectoryInfo(Path.Combine(Resolve(workingDirectory), DirectoryNameContent));
+            _workingDirectoryRoot = new DirectoryInfo(Resolve(workingDirectory));
+            _contentDirectory = new DirectoryInfo(Path.Combine(_workingDirectoryRoot.FullName, DirectoryNameContent));
             return this;
         }
 
@@ -93,7 +95,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
         public T Build<T>() where T : Archive
         {
-            return (T)Activator.CreateInstance(typeof(T), ResolveContent(), ResolveProcessingDirectory(), _inputDiasPackage);
+            return (T)Activator.CreateInstance(typeof(T), ResolveContent(), ResolveProcessingDirectory(), ResolveInputDiasPackage());
         }
 
         public Archive Build()
@@ -108,7 +110,22 @@ namespace Arkivverket.Arkade.Core.Tests.Base
                 _ => throw new ArgumentOutOfRangeException(nameof(_archiveType), _archiveType, null)
             };
 
-            return (Archive)Activator.CreateInstance(archiveClrType, ResolveContent(), ResolveProcessingDirectory(), _inputDiasPackage);
+            return (Archive)Activator.CreateInstance(archiveClrType, ResolveContent(), ResolveProcessingDirectory(), ResolveInputDiasPackage());
+        }
+
+        // A tar full name (legacy fluent style) means the archive stems from a DIAS package. The package
+        // working directory must hold a dias-mets.xml — point WithWorkingDirectoryRoot at its location.
+        private InputDiasPackage ResolveInputDiasPackage()
+        {
+            if (_inputDiasPackage != null || _archiveFileFullName == null)
+                return _inputDiasPackage;
+
+            if (_workingDirectoryRoot == null)
+                throw new InvalidOperationException(
+                    "WithArchiveFileFullName requires WithWorkingDirectoryRoot (the dias-mets.xml location).");
+
+            return new InputDiasPackage(_uuid, new DiasPackageWorkingDirectory(_workingDirectoryRoot),
+                new FileInfo(Resolve(_archiveFileFullName)));
         }
 
         private IArchiveContent ResolveContent()
