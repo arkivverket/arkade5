@@ -1,5 +1,6 @@
-﻿using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Arkivverket.Arkade.Core.Tests.Base
 {
@@ -44,10 +45,13 @@ namespace Arkivverket.Arkade.Core.Tests.Base
         {
             if (_archive == null)
             {
-                _archive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark3).Build();
+                _archive = new ArchiveBuilder()
+                    .WithArchiveType(ArchiveType.Noark3)
+                    .WithWorkingDirectoryExternalContent(Path.Combine("TestData", "noark3"))
+                    .Build();
             }
 
-            var testSession = new TestSession(_archive);
+            var testSession = new TestSession(_archive.ProcessingDirectory.CreateSubdirectory("tmp-testresults"));
             foreach (var logEntry in _logEntries)
             {
                 testSession.AddLogEntry(logEntry);
@@ -72,6 +76,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base
                 _testSummary = new TestSummary(0,0,0,0,0);
 
             testSession.TestSummary = _testSummary;
+
+            _archive.TestSession = testSession;
 
             return testSession;
         }

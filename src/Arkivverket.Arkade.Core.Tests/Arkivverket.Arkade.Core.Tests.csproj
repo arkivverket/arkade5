@@ -620,14 +620,10 @@
     <Compile Remove="Base\ArchiveUuidOriginTests.cs" />
     <Compile Remove="Base\ArkadeProcessingAreaTest.cs" />
     <Compile Remove="Base\OutputInformationPackageTest.cs" />
-    <Compile Remove="Base\TestSessionBuilder.cs" />
     <Compile Remove="Identify\ArchiveExctractionReaderTest.cs" />
     <Compile Remove="Integration\FiskermanntalletAnonIntegrationTest.cs" />
     <Compile Remove="Integration\Jegerregisteret98IntegrationTest.cs" />
     <Compile Remove="Integration\Noark3IntegrationTest.cs" />
-    <Compile Remove="Logging\TestSessionXmlGeneratorTest.cs" />
-    <Compile Remove="Report\HtmlReportGeneratorTest.cs" />
-    <Compile Remove="Report\ReportGeneratorTests.cs" />
     <Compile Remove="Testing\Noark5\N5_10_NumberOfFoldersTest.cs" />
     <Compile Remove="Testing\Noark5\N5_61_NumberOfChangesLoggedTest.cs" />
     <Compile Remove="Testing\Noark5\Structure\N5_03_ValidateXmlWithSchemaTest.cs" />
