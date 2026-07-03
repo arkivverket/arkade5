@@ -16,15 +16,15 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
         [Fact]
         public void ShouldReportWhenFileInArchiveIsNotReferencedInAddml()
         {
-            WorkingDirectory workingDirectory = new WorkingDirectory(null, new DirectoryInfo(Path.Combine(TestUtil.TestDataDirectory, "noark3")));
+            var contentDirectory = new DirectoryInfo(Path.Combine(TestUtil.TestDataDirectory, "noark3"));
 
             AddmlFlatFileDefinition flatFileDefinition1 = new AddmlFlatFileDefinitionBuilder()
-                .WithFileInfo(new FileInfo(Path.Combine(workingDirectory.Content().DirectoryInfo().FullName, "nosuchfile.txt")))
+                .WithFileInfo(new FileInfo(Path.Combine(contentDirectory.FullName, "nosuchfile.txt")))
                 .WithRelativeFileName("nosuchfile.txt")
                 .Build();
 
             AddmlFlatFileDefinition flatFileDefinition2 = new AddmlFlatFileDefinitionBuilder()
-                .WithFileInfo(new FileInfo(Path.Combine(workingDirectory.Content().DirectoryInfo().FullName, "ARKIV.DAT")))
+                .WithFileInfo(new FileInfo(Path.Combine(contentDirectory.FullName, "ARKIV.DAT")))
                 .WithRelativeFileName("ARKIV.DAT")
                 .Build();
 
@@ -38,7 +38,9 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Processes.Hardcoded
                  })
                 .Build();
 
-            Archive archive = new Archive(ArchiveType.Fagsystem, null, Uuid.Random(), workingDirectory, null); // NB! UUID-origin
+            var archive = new ArchiveBuilder()
+                .WithWorkingDirectoryExternalContent(contentDirectory.FullName)
+                .Build<SpecializedSystemArchive>();
 
             AH_02_ControlExtraOrMissingFiles test = new AH_02_ControlExtraOrMissingFiles(addmlDefinition, archive);
 
