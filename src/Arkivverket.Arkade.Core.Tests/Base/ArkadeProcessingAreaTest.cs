@@ -19,18 +19,22 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             _location.Create();
         }
 
-        [Fact(Skip = "IO-issues")]
+        [Fact]
         public void ProcessingAreaIsEstablished()
         {
             ArkadeProcessingArea.Establish(_locationPath);
 
+            string rootName = ArkadeConstants.DirectoryNameArkadeProcessingAreaRoot;
+
             ArkadeProcessingArea.Location.FullName.Should().Be(_locationPath);
-            ArkadeProcessingArea.RootDirectory.FullName.Should().Be(_locationPath + "\\Arkade");
-            ArkadeProcessingArea.WorkDirectory.FullName.Should().Be(_locationPath + "\\Arkade\\work");
-            ArkadeProcessingArea.LogsDirectory.FullName.Should().Be(_locationPath + "\\Arkade\\logs");
+            ArkadeProcessingArea.RootDirectory.FullName.Should().Be(Path.Combine(_locationPath, rootName));
+            ArkadeProcessingArea.WorkDirectory.FullName.Should().Be(
+                Path.Combine(_locationPath, rootName, ArkadeConstants.DirectoryNameArkadeProcessingAreaWork));
+            ArkadeProcessingArea.LogsDirectory.FullName.Should().Be(
+                Path.Combine(_locationPath, rootName, ArkadeConstants.DirectoryNameArkadeProcessingAreaLogs));
         }
 
-        [Fact(Skip = "IO-issues")]
+        [Fact]
         public void ProcessingAreaIsEstablishedWithMissingLocation()
         {
             try
@@ -46,7 +50,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly().Should().BeTrue();
         }
 
-        [Fact(Skip = "IO-issues")]
+        [Fact]
         public void ProcessingAreaIsEstablishedWithInvalidLocation()
         {
             string nonExistingLocation = Path.Combine(Environment.CurrentDirectory, "TestData", "NonExistingDirectory");
@@ -67,7 +71,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             ProcessingAreaIsSetupWithTemporaryLogsDirectoryOnly().Should().BeTrue();
         }
 
-        [Fact(Skip = "IO-issues")]
+        [Fact]
         public void ProcessingAreaIsCleanedUp()
         {
             ArkadeProcessingArea.Establish(_locationPath);
@@ -118,7 +122,7 @@ namespace Arkivverket.Arkade.Core.Tests.Base
             ArkadeProcessingArea.LogsDirectory.GetFiles().Should().NotContain(log => log.Name.Equals(fileNameOldErrorLog));
         }
 
-        [Fact(Skip = "IO-issues")]
+        [Fact]
         public void ProcessingAreaIsDestroyed()
         {
             ArkadeProcessingArea.Establish(_locationPath);
@@ -143,11 +147,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base
 
         public void Dispose()
         {
-            ArkadeProcessingArea.Location = null;
-            ArkadeProcessingArea.RootDirectory = null;
-            ArkadeProcessingArea.WorkDirectory = null;
-            ArkadeProcessingArea.LogsDirectory = null;
-
+            // ArkadeProcessingArea state is AsyncLocal — each test's assignments are isolated
+            // to its own execution context, so no static reset is needed here.
             _location.Delete(true);
         }
     }

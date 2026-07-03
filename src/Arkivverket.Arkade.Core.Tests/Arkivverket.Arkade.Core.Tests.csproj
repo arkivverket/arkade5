@@ -618,7 +618,6 @@
     <!-- B4-EXCLUDE-START -->
     <Compile Remove="Base\Addml\FlatFileReaderFactoryTest.cs" />
     <Compile Remove="Base\ArchiveUuidOriginTests.cs" />
-    <Compile Remove="Base\ArkadeProcessingAreaTest.cs" />
     <Compile Remove="Base\OutputInformationPackageTest.cs" />
     <Compile Remove="Identify\ArchiveExctractionReaderTest.cs" />
     <Compile Remove="Integration\FiskermanntalletAnonIntegrationTest.cs" />
