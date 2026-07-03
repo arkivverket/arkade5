@@ -17,22 +17,27 @@ public class Noark5XmlUnits
 
     public Noark5XmlUnits(DirectoryArchiveContent archiveContent, ArchiveDetails archiveDetails)
     {
-        foreach (string documentedXmlFileName in archiveDetails.DocumentedXmlUnits.Keys)
+        foreach ((string documentedXmlFileName, IEnumerable<string> documentedSchemaNames) in archiveDetails.DocumentedXmlUnits)
         {
             if (archiveContent.GetFile(documentedXmlFileName) is { } xmlFileInArchive)
             {
                 var archiveXmlFile = new ArchiveXmlFile(xmlFileInArchive);
                 var archiveXmlSchemas = new List<ArchiveXmlSchema>();
+                List<string> standardSchemaNames = archiveDetails.StandardXmlUnits[archiveXmlFile.Name].ToList();
 
-                foreach (string standardSchemaName in archiveDetails.StandardXmlUnits[archiveXmlFile.Name])
+                // The ADDML-documented schemas include any custom schemas beside the standard ones
+                foreach (string schemaName in documentedSchemaNames.Union(standardSchemaNames))
                 {
-                    if (archiveContent.GetFile(standardSchemaName) is { } schemaFileInArchive)
+                    if (archiveContent.GetFile(schemaName) is { } schemaFileInArchive)
                     {
                         archiveXmlSchemas.Add(new UserProvidedXmlSchema(schemaFileInArchive));
                     }
                     else
                     {
-                        Log.Warning(Format(Noark5Messages.FileNotFound, standardSchemaName));
+                        Log.Warning(Format(Noark5Messages.FileNotFound, schemaName));
+
+                        if (!standardSchemaNames.Contains(schemaName))
+                            continue; // custom schema missing from the archive — no built-in to fall back on
 
                         string archiveTypeVersion = GetArchiveTypeVersion(archiveDetails);
 
@@ -41,7 +46,7 @@ public class Noark5XmlUnits
                             $"{Format(ArkadeConstants.LocalDirectoryPathNoark5XsdResources, pathVersionString)}";
 
                         var schemaVersion = new ArkadeBuiltInXmlSchema.Version(archiveTypeVersion, xsdResourceSubPath);
-                        archiveXmlSchemas.Add(new ArkadeBuiltInXmlSchema(standardSchemaName, schemaVersion));
+                        archiveXmlSchemas.Add(new ArkadeBuiltInXmlSchema(schemaName, schemaVersion));
                     }
                 }
 
