@@ -102,10 +102,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
 
         private HashSet<string> GetAllFilesInDirectory(DirectoryInfo directory)
         {
+            // DirectoryArchiveContent.RootDirectory carries a trailing separator — trim before measuring
+            string rootPath = directory.FullName.TrimEnd('\\', '/');
+
             string[] files = Directory.GetFiles(directory.FullName, "*", SearchOption.AllDirectories);
 
             return new HashSet<string>(
-                files.Select(f => f.Substring(directory.FullName.Length + 1))
+                files.Select(f => f.Substring(rootPath.Length + 1))
                 .AsEnumerable());
         }
     }
