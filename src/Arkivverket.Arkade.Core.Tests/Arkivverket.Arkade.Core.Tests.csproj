@@ -616,8 +616,6 @@
        Excluded so the majority of the suite compiles & runs. Re-enable as each is rewritten. -->
   <ItemGroup>
     <!-- B4-EXCLUDE-START -->
-    <Compile Remove="Base\ArchiveUuidOriginTests.cs" />
-    <Compile Remove="Base\OutputInformationPackageTest.cs" />
     <Compile Remove="Testing\Noark5\N5_10_NumberOfFoldersTest.cs" />
     <Compile Remove="Testing\Noark5\N5_61_NumberOfChangesLoggedTest.cs" />
     <!-- B4-EXCLUDE-END -->

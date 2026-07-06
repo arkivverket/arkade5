@@ -1,80 +1,84 @@
 using System;
-using System.IO;
+using System.Runtime.CompilerServices;
 using Arkivverket.Arkade.Core.Base;
-using Arkivverket.Arkade.Core.Tests.Testing.Noark5;
+using Arkivverket.Arkade.Core.Base.Archives;
+using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Tests.UnitTestUtilities;
+using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;
 
-namespace Arkivverket.Arkade.Core.Tests.Base
+namespace Arkivverket.Arkade.Core.Tests.Base;
+
+// A UUID identifies a DIAS package, not an archive extraction: identity is read from a DIAS
+// package at load, never invented for other input — and output packages mint their own.
+public class ArchiveUuidOriginTests(TestSessionLifeTimeFilesFixture fixture)
 {
-    public class UuidOriginTests
+    private static readonly ArchiveFactory ArchiveFactory = new(new TarCompressionUtility(), new StatusEventHandler());
+
+    [Fact]
+    public void NoPackageIdentityWhenInputIsArchiveContentDirectory()
     {
-        private static readonly string TestDataDirectory =
-            Path.Combine(TestUtil.TestDataDirectory, "UUID-origin-control");
+        PrepareForTemporaryFiles();
+        var contentDirectory = TestData.Directory("UUID-origin-control", "Noark5-extract", "content");
 
-        [Fact]
-        public void NewUuidIsGeneratedWhenInputIsArchiveContentDirectory()
-        {
-            string n5ExtractContentDirectory = Path.Combine(TestDataDirectory, "Noark5-extract", "content"); // No UUID
+        Archive archive = ArchiveFactory.Create(contentDirectory, ArchiveType.Noark5);
 
-            ArchiveDirectory archiveDirectory = ArchiveDirectory.Read(n5ExtractContentDirectory, ArchiveType.Noark5);
+        archive.InputDiasPackage.Should().BeNull();
+    }
 
-            Archive archive = GetResultingArchive(archiveDirectory);
+    [Fact]
+    public void NoPackageIdentityWhenInputIsSiardArchiveFile()
+    {
+        PrepareForTemporaryFiles();
+        var siardFile = TestData.File("UUID-origin-control", "Siard-extract.siard");
 
-            archive.NewUuid.Should().BeOfType<Uuid>();
-            archive.OriginalUuid.Should().BeNull();
-        }
+        Archive archive = ArchiveFactory.Create(siardFile, ArchiveType.Siard);
 
-        [Fact]
-        public void OriginalUuidIsPreservedWhenInputIsDiasTarFile()
-        {
-            string n5ExtractTarFile = Path.Combine(TestDataDirectory, "258e3353-cef2-407f-92ac-264ad887527b.tar");
+        archive.InputDiasPackage.Should().BeNull();
+    }
 
-            ArchiveFile archiveFile = ArchiveFile.Read(n5ExtractTarFile, ArchiveType.Noark5);
+    [Fact]
+    public void InputPackageIdIsReadFromDiasTarFileName()
+    {
+        PrepareForTemporaryFiles();
+        var diasTarFile = TestData.File("UUID-origin-control", "258e3353-cef2-407f-92ac-264ad887527b.tar");
 
-            Archive archive = GetResultingArchive(archiveFile);
+        Archive archive = ArchiveFactory.Create(diasTarFile, ArchiveType.Noark5);
 
-            archive.OriginalUuid.ToString().Should().Be("258e3353-cef2-407f-92ac-264ad887527b");
-            archive.NewUuid.Should().BeNull();
-        }
+        archive.InputDiasPackage.Id.ToString().Should().Be("258e3353-cef2-407f-92ac-264ad887527b");
+    }
 
-        [Fact]
-        public void NewUuidIsGeneratedWhenInputIsDiasTarFileWithOriginalUuidMissing()
-        {
-            string n5ExtractTarFile = Path.Combine(TestDataDirectory, "invalid-uuid.tar");
+    [Fact]
+    public void DiasTarFileWithoutUuidFileNameIsRejectedAtLoad()
+    {
+        PrepareForTemporaryFiles();
+        var diasTarFile = TestData.File("UUID-origin-control", "invalid-uuid.tar");
 
-            ArchiveFile archiveFile = ArchiveFile.Read(n5ExtractTarFile, ArchiveType.Noark5);
+        Action loadingDiasTarFile = () => ArchiveFactory.Create(diasTarFile, ArchiveType.Noark5);
 
-            Archive archive = GetResultingArchive(archiveFile);
+        loadingDiasTarFile.Should().Throw<ArkadeException>().WithMessage("*invalid-uuid.tar*");
+    }
 
-            archive.NewUuid.Should().BeOfType<Uuid>();
-            archive.OriginalUuid.Should().BeNull();
-        }
+    [Fact]
+    public void OutputPackageIdIsNotInheritedFromInputPackage()
+    {
+        PrepareForTemporaryFiles();
+        var diasTarFile = TestData.File("UUID-origin-control", "258e3353-cef2-407f-92ac-264ad887527b.tar");
+        Archive archive = ArchiveFactory.Create(diasTarFile, ArchiveType.Noark5);
 
-        [Fact]
-        public void NewUuidIsGeneratedWhenInputIsSiardArchiveFile()
-        {
-            string siardArchiveFile = Path.Combine(TestDataDirectory, "Siard-extract.siard");
+        archive.OutputDiasPackage = new OutputDiasPackage(
+            PackageType.ArchivalInformationPackage, new ArchiveMetadata(), archive.ProcessingDirectory);
 
-            ArchiveFile archiveFile = ArchiveFile.Read(siardArchiveFile, ArchiveType.Siard);
+        archive.OutputDiasPackage.Id.Should().NotBeNull();
+        archive.OutputDiasPackage.Id.Should().NotBe(archive.InputDiasPackage.Id);
+    }
 
-            Archive archive = GetResultingArchive(archiveFile);
+    private void PrepareForTemporaryFiles([CallerMemberName] string testName = null)
+    {
+        string isolatedTemporaryDirectoryPath =
+            fixture.CreateIsolatedDirectory<ArchiveUuidOriginTests>(testName).FullName;
 
-            archive.NewUuid.Should().BeOfType<Uuid>();
-            archive.OriginalUuid.Should().BeNull();
-        }
-
-        private static Archive GetResultingArchive(object archiveExtract)
-        {
-            ArkadeProcessingArea.Establish(TestDataDirectory);
-
-            TestSession testSession = archiveExtract is ArchiveDirectory archiveDirectory
-                ? new Core.Base.Arkade().CreateTestSession(archiveDirectory)
-                : new Core.Base.Arkade().CreateTestSession((ArchiveFile)archiveExtract);
-
-            ArkadeProcessingArea.Destroy();
-
-            return testSession.Archive;
-        }
+        ArkadeProcessingArea.Establish(isolatedTemporaryDirectoryPath);
     }
 }
