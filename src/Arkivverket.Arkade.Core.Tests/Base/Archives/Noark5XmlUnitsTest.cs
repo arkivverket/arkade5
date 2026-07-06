@@ -13,11 +13,12 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Archives;
 public class Noark5XmlUnitsTest
 {
     [Fact]
-    public void Uses_user_provided_schemas_when_present()
+    public void Uses_user_provided_schemas_when_documented_and_present()
     {
         ArchiveDetails archiveDetails = CreateArchiveDetails(
             ArkadeConstants.LatestNoark5Version,
-            ArkadeConstants.ArkivstrukturXmlFileName
+            ArkadeConstants.ArkivstrukturXmlFileName,
+            ArkadeConstants.ArkivstrukturXsdFileName, ArkadeConstants.MetadatakatalogXsdFileName
         );
 
         DirectoryArchiveContent content = CreateContentDirectory(dir =>
@@ -25,7 +26,7 @@ public class Noark5XmlUnitsTest
             // XML file present
             File.WriteAllText(Path.Combine(dir.FullName, ArkadeConstants.ArkivstrukturXmlFileName), "<root/>");
 
-            // Both expected schemas present
+            // Both documented schemas present
             File.WriteAllText(Path.Combine(dir.FullName, ArkadeConstants.ArkivstrukturXsdFileName), "");
             File.WriteAllText(Path.Combine(dir.FullName, ArkadeConstants.MetadatakatalogXsdFileName), "");
         });
@@ -40,6 +41,37 @@ public class Noark5XmlUnitsTest
         unit.Schemas.Should().HaveCount(2);
         unit.Schemas.Select(s => s.GetType().Name).Should()
             .OnlyContain(t => t == nameof(UserProvidedXmlSchema));
+        unit.Schemas.Select(s => s.Name).Should().BeEquivalentTo(
+            new[] { ArkadeConstants.ArkivstrukturXsdFileName, ArkadeConstants.MetadatakatalogXsdFileName });
+    }
+
+    [Fact]
+    public void Disregards_undocumented_schema_files_present_in_content()
+    {
+        ArchiveDetails archiveDetails = CreateArchiveDetails(
+            ArkadeConstants.LatestNoark5Version,
+            ArkadeConstants.ArkivstrukturXmlFileName
+        );
+
+        DirectoryArchiveContent content = CreateContentDirectory(dir =>
+        {
+            // XML file present
+            File.WriteAllText(Path.Combine(dir.FullName, ArkadeConstants.ArkivstrukturXmlFileName), "<root/>");
+
+            // Both standard schemas present on disk, but neither is documented in the addml
+            File.WriteAllText(Path.Combine(dir.FullName, ArkadeConstants.ArkivstrukturXsdFileName), "");
+            File.WriteAllText(Path.Combine(dir.FullName, ArkadeConstants.MetadatakatalogXsdFileName), "");
+        });
+
+        var units = new Noark5XmlUnits(content, archiveDetails);
+
+        ArchiveXmlUnit unit = units.Get(ArkadeConstants.ArkivstrukturXmlFileName);
+        unit.Should().NotBeNull();
+
+        // Undocumented schema files are not part of the declared contract: the built-ins apply
+        unit!.Schemas.Should().HaveCount(2);
+        unit.Schemas.Select(s => s.GetType().Name).Should()
+            .OnlyContain(t => t == nameof(ArkadeBuiltInXmlSchema));
         unit.Schemas.Select(s => s.Name).Should().BeEquivalentTo(
             new[] { ArkadeConstants.ArkivstrukturXsdFileName, ArkadeConstants.MetadatakatalogXsdFileName });
     }
@@ -89,8 +121,10 @@ public class Noark5XmlUnitsTest
     }
 
     private static ArchiveDetails CreateArchiveDetails(string archiveStandardVersion,
-        params string[] documentedXmlFiles)
+        string documentedXmlFile, params string[] documentedSchemaNames)
     {
+        string[] documentedXmlFiles = [documentedXmlFile];
+
         // Root dataObject with archive info and nested dataObjects for each documented xml file
         var root = new dataObject
         {
@@ -115,9 +149,19 @@ public class Noark5XmlUnitsTest
                 {
                     properties =
                     [
-                        new property { name = "file", properties = [new property { name = "name", value = fileName }] }
-                        // Note: schema properties in addml are not required for Noark5XmlUnits
-                        // which relies on StandardXmlUnits for expected schema names.
+                        new property { name = "file", properties = [new property { name = "name", value = fileName }] },
+                        .. documentedSchemaNames.Select(schemaName => new property
+                        {
+                            name = "schema",
+                            properties =
+                            [
+                                new property
+                                {
+                                    name = "file",
+                                    properties = [new property { name = "name", value = schemaName }]
+                                }
+                            ]
+                        })
                     ]
                 }).ToArray()
             }

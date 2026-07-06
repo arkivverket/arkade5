@@ -23,18 +23,24 @@ public class Noark5XmlUnits
             {
                 var archiveXmlFile = new ArchiveXmlFile(xmlFileInArchive);
                 var archiveXmlSchemas = new List<ArchiveXmlSchema>();
+                List<string> documentedNames = documentedSchemaNames.ToList();
                 List<string> standardSchemaNames = archiveDetails.StandardXmlUnits[archiveXmlFile.Name].ToList();
 
                 // The ADDML-documented schemas include any custom schemas beside the standard ones
-                foreach (string schemaName in documentedSchemaNames.Union(standardSchemaNames))
+                foreach (string schemaName in documentedNames.Union(standardSchemaNames))
                 {
-                    if (archiveContent.GetFile(schemaName) is { } schemaFileInArchive)
+                    // Only ADDML-documented schema files are used from the archive; an undocumented
+                    // standard-named schema file is disregarded in favour of the built-in
+                    bool isDocumented = documentedNames.Contains(schemaName);
+
+                    if (isDocumented && archiveContent.GetFile(schemaName) is { } schemaFileInArchive)
                     {
                         archiveXmlSchemas.Add(new UserProvidedXmlSchema(schemaFileInArchive));
                     }
                     else
                     {
-                        Log.Warning(Format(Noark5Messages.FileNotFound, schemaName));
+                        if (isDocumented)
+                            Log.Warning(Format(Noark5Messages.FileNotFound, schemaName));
 
                         if (!standardSchemaNames.Contains(schemaName))
                             continue; // custom schema missing from the archive — no built-in to fall back on
