@@ -69,6 +69,10 @@ public class Noark5Archive : AddmlBasedArchive
             if (Content.GetDirectory(documentDirectoryName) is not { } foundDocumentsDirectory)
                 continue;
 
+            // The directory search is case-insensitive on Windows; a supported name is an exact-case match only
+            if (foundDocumentsDirectory.Name != documentDirectoryName)
+                continue;
+
             DocumentsDirectory = foundDocumentsDirectory;
             return DocumentsDirectory;
         }
