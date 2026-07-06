@@ -305,7 +305,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <None Update="ThirdPartySoftware\DBPTK\dbptk-app-2.11.0.jar">
+    <None Update="ThirdPartySoftware\DBPTK\dbptk-app-4.4.0.jar">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

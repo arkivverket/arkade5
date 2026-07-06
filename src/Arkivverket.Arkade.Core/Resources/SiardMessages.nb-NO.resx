@@ -124,7 +124,7 @@
     <value>{0} blir validert med Database Preservation Toolkit Developer versjon {1}</value>
   </data>
   <data name="ValidatorDoesNotSupportVersionMessage" xml:space="preserve">
-    <value>SIARD validatoren støtter kun versjon 2.1 av SIARD</value>
+    <value>SIARD-filens versjon støttes ikke av validatoren</value>
   </data>
   <data name="ErrorMessage" xml:space="preserve">
     <value>ERROR</value>

@@ -127,7 +127,13 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
             var errors = new List<string>();
 
             process.OutputDataReceived += (_, args) => results.Add(args.Data);
-            process.ErrorDataReceived += (_, args) => errors.Add(args.Data);
+            process.ErrorDataReceived += (_, args) =>
+            {
+                // Newer Java runtimes (24+) interleave blank lines with their own warnings on stderr;
+                // a blank line would otherwise read as a validation-run error. Null marks end-of-stream.
+                if (args.Data == null || !string.IsNullOrWhiteSpace(args.Data))
+                    errors.Add(args.Data);
+            };
             try
             {
                 ExternalProcessManager.Start(process);
@@ -158,7 +164,8 @@ namespace Arkivverket.Arkade.Core.Testing.Siard
 
         private static void HandleValidationErrors(IEnumerable<string> errors, ICollection<string> results)
         {
-            if (errors.Any(e => e != null && e.Contains("validator only supports: SIARD 2.1 version")))
+            // Message tail varies with DBPTK version ("SIARD 2.1 version" / "SIARD 2.1 or 2.2 versions")
+            if (errors.Any(e => e != null && e.Contains("validator only supports")))
             {
                 results.Clear();
                 results.Add(SiardMessages.ErrorMessage);
