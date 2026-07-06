@@ -108,7 +108,7 @@ public class Noark5Archive : AddmlBasedArchive
 
     private DirectoryInfo DefaultNamedDocumentsDirectory()
     {
-        return new DirectoryInfo(DocumentDirectoryNames[0]);
+        return new DirectoryInfo(Path.Combine(Content.RootDirectory.FullName, DocumentDirectoryNames[0]));
     }
 
     public override bool IsTestable(out string disqualifyingCause)
