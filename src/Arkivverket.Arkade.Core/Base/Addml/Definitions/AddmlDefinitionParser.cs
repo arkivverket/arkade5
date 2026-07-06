@@ -144,29 +144,23 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         public AddmlDefinition GetAddmlDefinition()
         {
             List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = GetAddmlFlatFileDefinitions();
-            List<FileInfo> fileInfos = _content.RootDirectory.GetFiles("*", SearchOption.AllDirectories).ToList(); // TODO: Handle potential performance bottleneck
 
-            List<AddmlFlatFileDefinition> addmlFlatFilesExistingInDirectory = GetFlatFileDefinitionsWhereReferencedFileExistsInDirectory(addmlFlatFileDefinitions, fileInfos);
+            List<AddmlFlatFileDefinition> addmlFlatFilesExistingInDirectory = GetFlatFileDefinitionsWhereReferencedFileExistsInDirectory(addmlFlatFileDefinitions);
 
             return new AddmlDefinition(addmlFlatFileDefinitions, addmlFlatFilesExistingInDirectory);
         }
 
-        private List<AddmlFlatFileDefinition> GetFlatFileDefinitionsWhereReferencedFileExistsInDirectory(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions, List<FileInfo> fileInfos)
+        private List<AddmlFlatFileDefinition> GetFlatFileDefinitionsWhereReferencedFileExistsInDirectory(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
         {
-            List<AddmlFlatFileDefinition> filesExistingInDirectory = new List<AddmlFlatFileDefinition>();
+            // A flat file can only ever match by plain name directly beside the ADDML file, so listing
+            // that single directory replaces a recursive scan of the entire extraction
+            var fileNamesInAddmlDirectory =
+                new HashSet<string>(_addmlInfo.AddmlFile.Directory!.EnumerateFiles().Select(file => file.Name));
 
-            string addmlInfoDirectoryPath = _addmlInfo.AddmlFile.Directory.FullName;
-            var fileInfosPathsRelativeFromArchiveFolder = new HashSet<string>(fileInfos.Select(f => Path.GetRelativePath(addmlInfoDirectoryPath, f.FullName)));
-
-            foreach (var addmlFlatFileDefinition in addmlFlatFileDefinitions)
-            {
-                int relativePathStart = Path.GetDirectoryName(addmlFlatFileDefinition.FileName.FullFileName)?.Length ?? 0;
-                string flatFileDefinitionRelativeName = addmlFlatFileDefinition.FileName.FullFileName.Remove(0, relativePathStart);
-                if (fileInfosPathsRelativeFromArchiveFolder.Contains(Path.GetFileName(flatFileDefinitionRelativeName)))
-                    filesExistingInDirectory.Add(addmlFlatFileDefinition);
-            }
-
-            return filesExistingInDirectory;
+            return addmlFlatFileDefinitions
+                .Where(definition =>
+                    fileNamesInAddmlDirectory.Contains(Path.GetFileName(definition.FileName.FullFileName)))
+                .ToList();
         }
 
         private List<AddmlFlatFileDefinition> GetAddmlFlatFileDefinitions()
