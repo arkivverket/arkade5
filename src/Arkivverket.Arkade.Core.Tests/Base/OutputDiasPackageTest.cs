@@ -17,7 +17,7 @@ public class OutputDiasPackageTest(TestSessionLifeTimeFilesFixture fixture)
         var outputDiasPackage = new OutputDiasPackage(PackageType.SubmissionInformationPackage,
             archiveMetadata, fixture.CreateIsolatedDirectory<OutputDiasPackageTest>());
 
-        outputDiasPackage.ArchiveMetadata.Id.Should().Be($"UUID:{outputDiasPackage.Id}");
+        outputDiasPackage.ArchiveMetadata.Id.Should().Be(outputDiasPackage.Id.ToString());
     }
 
     [Fact]

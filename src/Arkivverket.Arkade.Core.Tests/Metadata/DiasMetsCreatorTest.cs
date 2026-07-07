@@ -15,7 +15,7 @@ namespace Arkivverket.Arkade.Core.Tests.Metadata
             mets mets = DiasMetsCreator.Create(ArchiveMetadata);
 
             mets.LABEL.Should().Be("Some system name (2017 - 2020)");
-            mets.OBJID.Should().Be("UUID:12345-12345-12345-12345-12345-12345");
+            mets.OBJID.Should().Be("12345-12345-12345-12345-12345-12345");
 
             metsTypeMetsHdr metsHdr = mets.metsHdr;
 

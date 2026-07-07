@@ -111,7 +111,8 @@ public class OutputDiasPackage : DiasPackage
 
         ArchiveMetadata = archiveMetadata;
 
-        ArchiveMetadata.Id = $"UUID:{Id}"; // NB! UUID-writeout (package creation)
+        // Written to METS OBJID as a bare value, without the conventional "UUID:" prefix
+        ArchiveMetadata.Id = Id.ToString(); // NB! UUID-writeout (package creation)
         ArchiveMetadata.PackageType = PackageType;
 
         if (archiveMetadata.Id != ArchiveMetadata.Id)
