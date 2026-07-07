@@ -164,6 +164,9 @@ Det kan fortsatt lages en pakke av uttrekket.</value>
   <data name="HeaderInformationPackageUuid" xml:space="preserve">
     <value>Informasjonspakke:</value>
   </data>
+  <data name="ValueUnknownPackageIdentity" xml:space="preserve">
+    <value>Ukjent identitet</value>
+  </data>
   <data name="HeaderArchiveType" xml:space="preserve">
     <value>Arkivtype:</value>
   </data>

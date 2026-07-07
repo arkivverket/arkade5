@@ -456,7 +456,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             string archiveFileName = archiveSource.FullName;
             var archiveType = _archive.ArchiveType.ToString();
-            string informationPackageUuid = _archive.InputDiasPackage?.Id.ToString(); // NB! UUID-transfer
+            // Three states: no package (row hidden), identified package (UUID), package whose METS
+            // lacks a valid identity (explicit unknown-marker — hiding the row would disguise the
+            // package as a loose archive-extraction input)
+            string informationPackageUuid = _archive.InputDiasPackage is null
+                ? null
+                : _archive.InputDiasPackage.Id?.ToString() // NB! UUID-transfer
+                  ?? TestRunnerGUI.ValueUnknownPackageIdentity;
 
             InformationPackageUuidVisibility = informationPackageUuid is null ? Visibility.Collapsed : Visibility.Visible;
 

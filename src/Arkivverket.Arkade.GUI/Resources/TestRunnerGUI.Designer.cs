@@ -367,5 +367,14 @@ namespace Arkivverket.Arkade.GUI.Languages {
                 return ResourceManager.GetString("ValidSpecificationFileNotFound", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown identity.
+        /// </summary>
+        public static string ValueUnknownPackageIdentity {
+            get {
+                return ResourceManager.GetString("ValueUnknownPackageIdentity", resourceCulture);
+            }
+        }
     }
 }
