@@ -170,13 +170,7 @@ For å være sikker på at alle temporærfiler fra kjøringen blir fjernet fra s
   <data name="InvalidUUID" xml:space="preserve">
     <value>{0} er ikke en gyldig UUID</value>
   </data>
-  <data name="FileNameUuidExtractionError" xml:space="preserve">
-    <value>Kunne ikke hente ut en UUID fra filnavnet {0}</value>
-  </data>
   <data name="FileSystemItemNotFound" xml:space="preserve">
     <value>{0} ble ikke funnet.</value>
-  </data>
-  <data name="UnexpectedTarArchiveRootDirectoryName" xml:space="preserve">
-    <value>Uventet rotkatalog-navn i tar-arkivet</value>
   </data>
 </root>

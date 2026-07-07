@@ -14,23 +14,23 @@ namespace Arkivverket.Arkade.Core.Util
     {
         private readonly ILogger _log = Log.ForContext<TarCompressionUtility>();
 
-        public void ExtractFolderFromArchive(FileInfo file, DirectoryInfo targetDirectory, bool withoutDocumentFiles, 
+        public string GetRootDirectoryName(FileInfo file)
+        {
+            using var inputStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read);
+
+            return GetSingleRootDirectory(inputStream)?.Name;
+        }
+
+        public void ExtractFolderFromArchive(FileInfo file, DirectoryInfo targetDirectory, bool withoutDocumentFiles,
             string archiveRootDirectoryName)
         {
             using (var inputStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read))
             {
-                DirectoryInfo singleRootDirectory = GetSingleRootDirectory(inputStream);
-
-                if (singleRootDirectory != null && singleRootDirectory.Name != targetDirectory.Name)
-                    throw new ArkadeException(Resources.ExceptionMessages.UnexpectedTarArchiveRootDirectoryName);
-
-                inputStream.Position = 0; // Needs resetting after GetSingleRootDirectory()
-
                 var tarInputStream = new TarInputStream(inputStream, Encoding.UTF8);
 
                 while (tarInputStream.GetNextEntry() is { } tarEntry)
                 {
-                    if (withoutDocumentFiles && tarEntry.IsNoark5DocumentsEntry(singleRootDirectory.Name))
+                    if (withoutDocumentFiles && tarEntry.IsNoark5DocumentsEntry(archiveRootDirectoryName))
                         continue;
 
                     if (tarEntry.IsDirectory)
@@ -38,8 +38,8 @@ namespace Arkivverket.Arkade.Core.Util
 
                     string name = tarEntry.Name.Replace('/', Path.DirectorySeparatorChar);
 
-                    if (singleRootDirectory != null)
-                        name = name[singleRootDirectory.Name.Length..];
+                    if (archiveRootDirectoryName != null)
+                        name = name[archiveRootDirectoryName.Length..];
 
                     if (Path.IsPathRooted(name))
                         name = name[Path.GetPathRoot(name).Length..];
@@ -66,7 +66,7 @@ namespace Arkivverket.Arkade.Core.Util
             var tarInputStream = new TarInputStream(inputStream, Encoding.UTF8);
             TarEntry firstEntry = tarInputStream.GetNextEntry();
 
-            if (!firstEntry.IsDirectory)
+            if (firstEntry is not { IsDirectory: true })
                 return null;
 
             while (tarInputStream.GetNextEntry() is { } tarEntry)

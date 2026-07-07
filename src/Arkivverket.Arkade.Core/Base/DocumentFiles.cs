@@ -16,6 +16,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         private readonly DirectoryInfo _documentsDirectory;
         private readonly string _tarArchiveFullFileName;
+        private readonly string _tarRootDirectoryName;
 
         public int Count => _documentFiles.Count;
 
@@ -24,9 +25,10 @@ namespace Arkivverket.Arkade.Core.Base
             _documentsDirectory = documentsDirectory;
         }
 
-        public DocumentFiles(string tarArchiveFileFullName)
+        public DocumentFiles(string tarArchiveFileFullName, string tarRootDirectoryName)
         {
             _tarArchiveFullFileName = tarArchiveFileFullName;
+            _tarRootDirectoryName = tarRootDirectoryName;
         }
 
         public ReadOnlyDictionary<string, DocumentFile> Get()
@@ -47,11 +49,14 @@ namespace Arkivverket.Arkade.Core.Base
 
             while (tarInputStream.GetNextEntry() is { Name: not null } entry)
             {
-                string archiveRootDirectoryName = Path.GetFileNameWithoutExtension(_tarArchiveFullFileName);
-                if (!entry.IsNoark5DocumentsEntry(archiveRootDirectoryName))
+                if (!entry.IsNoark5DocumentsEntry(_tarRootDirectoryName))
                     continue;
 
-                entry.Name = entry.Name.Replace(archiveRootDirectoryName, packageRootDirectory.Trim('/', '\\'));
+                string trimmedPackageRootDirectory = packageRootDirectory.Trim('/', '\\');
+
+                entry.Name = _tarRootDirectoryName == null
+                    ? $"{trimmedPackageRootDirectory}/{entry.Name}"
+                    : entry.Name.Replace(_tarRootDirectoryName, trimmedPackageRootDirectory);
 
                 tarOutputStream.PutNextEntry(entry);
 
@@ -136,8 +141,6 @@ namespace Arkivverket.Arkade.Core.Base
         /// <param name="includeChecksums"></param>
         private void RegisterFromTar(bool includeChecksums)
         {
-            string tarRootDirectory = Path.GetFileNameWithoutExtension(_tarArchiveFullFileName);
-
             IChecksumGenerator checksumGenerator = includeChecksums
                 ? new Sha256ChecksumGenerator()
                 : null;
@@ -145,7 +148,7 @@ namespace Arkivverket.Arkade.Core.Base
             using var tarInputStream = new TarInputStream(File.OpenRead(_tarArchiveFullFileName!), Encoding.UTF8);
             while (tarInputStream.GetNextEntry() is { Name: not null } entry)
             {
-                if (!entry.IsNoark5DocumentsEntry(tarRootDirectory) || entry.IsDirectory)
+                if (!entry.IsNoark5DocumentsEntry(_tarRootDirectoryName) || entry.IsDirectory)
                     continue;
 
                 string checkSum = includeChecksums
@@ -173,15 +176,13 @@ namespace Arkivverket.Arkade.Core.Base
 
         private void RegisterSha256ChecksumsFromTar()
         {
-            string tarRootDirectory = Path.GetFileNameWithoutExtension(_tarArchiveFullFileName);
-
             IChecksumGenerator checksumGenerator = new Sha256ChecksumGenerator();
 
             using var tarInputStream = new TarInputStream(File.OpenRead(_tarArchiveFullFileName!), Encoding.UTF8);
 
             while (tarInputStream.GetNextEntry() is { Name: not null } entry)
             {
-                if (!entry.IsNoark5DocumentsEntry(tarRootDirectory) || entry.IsDirectory)
+                if (!entry.IsNoark5DocumentsEntry(_tarRootDirectoryName) || entry.IsDirectory)
                     continue;
 
                 string checkSum = tarInputStream.GenerateChecksumForEntry(checksumGenerator);

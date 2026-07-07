@@ -19,6 +19,14 @@ namespace Arkivverket.Arkade.Core.Report
         // the HTML/PDF generator skips the row. All four formats stay content-identical.
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string InformationPackageUuid { get; set; }
+
+        // A DIAS package whose METS lacks a valid identity (UUID) still IS a package: the report's
+        // package row is then rendered with an explicit unknown-identity marker, never dropped —
+        // dropping it would disguise the package as a loose archive-extraction input. Omitted from
+        // serialized reports when false, keeping identified-package and no-package reports unchanged.
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public bool PackageIdentityIsUnknown { get; set; }
+        public bool ShouldSerializePackageIdentityIsUnknown() => PackageIdentityIsUnknown;
         public ArchiveType ArchiveType { get; set; }
         public string ArchiveCreators { get; set; }
         public string ArchivalPeriod { get; set; }

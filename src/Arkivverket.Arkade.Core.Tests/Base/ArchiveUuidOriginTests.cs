@@ -39,7 +39,7 @@ public class ArchiveUuidOriginTests(TestSessionLifeTimeFilesFixture fixture)
     }
 
     [Fact]
-    public void InputPackageIdIsReadFromDiasTarFileName()
+    public void InputPackageIdIsReadFromDiasPackageMets()
     {
         PrepareForTemporaryFiles();
         var diasTarFile = TestData.File("UUID-origin-control", "258e3353-cef2-407f-92ac-264ad887527b.tar");
@@ -47,17 +47,54 @@ public class ArchiveUuidOriginTests(TestSessionLifeTimeFilesFixture fixture)
         Archive archive = ArchiveFactory.Create(diasTarFile, ArchiveType.Noark5);
 
         archive.InputDiasPackage.Id.ToString().Should().Be("258e3353-cef2-407f-92ac-264ad887527b");
+        archive.InputDiasPackage.TarRootDirectoryName.Should().Be("258e3353-cef2-407f-92ac-264ad887527b");
     }
 
     [Fact]
-    public void DiasTarFileWithoutUuidFileNameIsRejectedAtLoad()
+    public void DiasTarFileWithoutUuidFileNameIsLoaded()
     {
         PrepareForTemporaryFiles();
         var diasTarFile = TestData.File("UUID-origin-control", "invalid-uuid.tar");
 
-        Action loadingDiasTarFile = () => ArchiveFactory.Create(diasTarFile, ArchiveType.Noark5);
+        Archive archive = ArchiveFactory.Create(diasTarFile, ArchiveType.Noark5);
 
-        loadingDiasTarFile.Should().Throw<ArkadeException>().WithMessage("*invalid-uuid.tar*");
+        archive.InputDiasPackage.Id.ToString().Should().Be("258e3353-cef2-407f-92ac-264ad887527b");
+    }
+
+    [Fact]
+    public void DiasTarFileWithRenamedInternalRootIsLoadedWithContentLocatedFromActualStructure()
+    {
+        PrepareForTemporaryFiles();
+        var diasTarFile = TestData.File("UUID-origin-control", "renamed-root.tar");
+
+        Archive archive = ArchiveFactory.Create(diasTarFile, ArchiveType.Noark5);
+
+        archive.InputDiasPackage.Id.ToString().Should().Be("258e3353-cef2-407f-92ac-264ad887527b");
+        archive.InputDiasPackage.TarRootDirectoryName.Should().Be("my-renamed-archive");
+        ((DirectoryArchiveContent)archive.Content).GetFile(ArkadeConstants.ArkivuttrekkXmlFileName).Should().NotBeNull();
+    }
+
+    [Fact]
+    public void InputPackageIdIsReadFromMetsObjidWithoutUuidPrefix()
+    {
+        PrepareForTemporaryFiles();
+        var diasTarFile = TestData.File("UUID-origin-control", "bare-objid.tar");
+
+        Archive archive = ArchiveFactory.Create(diasTarFile, ArchiveType.Noark5);
+
+        archive.InputDiasPackage.Id.ToString().Should().Be("258e3353-cef2-407f-92ac-264ad887527b");
+    }
+
+    [Fact]
+    public void DiasTarFileWithoutMetsIsLoadedWithoutPackageIdentity()
+    {
+        PrepareForTemporaryFiles();
+        var diasTarFile = TestData.File("UUID-origin-control", "no-mets.tar");
+
+        Archive archive = ArchiveFactory.Create(diasTarFile, ArchiveType.Noark5);
+
+        archive.InputDiasPackage.Should().NotBeNull(); // Still recognized as a package ...
+        archive.InputDiasPackage.Id.Should().BeNull(); // ... but with no established identity
     }
 
     [Fact]

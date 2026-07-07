@@ -11,29 +11,29 @@ namespace Arkivverket.Arkade.Core.Report
 {
     public static class TestReportFactory
     {
-        public static TestReport Create(Archive archive, Uuid packageId)
+        public static TestReport Create(Archive archive, DiasPackage diasPackage)
         {
             var testReport = new TestReport
             {
-                Summary = CreateTestReportSummary(archive, packageId),
+                Summary = CreateTestReportSummary(archive, diasPackage),
                 TestsResults = GetTestReportResults(archive.TestSession),
             };
 
             return testReport;
         }
 
-        public static TestReport CreateForSiard(SiardArchive archive, Uuid packageId)
+        public static TestReport CreateForSiard(SiardArchive archive, DiasPackage diasPackage)
         {
             var testReport = new TestReport
             {
-                Summary = CreateTestReportSummary(archive, packageId),
+                Summary = CreateTestReportSummary(archive, diasPackage),
                 TestsResults = GetSiardTestReportResults(archive.TestSession.TestSuite.TestTool),
             };
 
             return testReport;
         }
 
-        private static TestReportSummary CreateTestReportSummary(Archive archive, Uuid packageId)
+        private static TestReportSummary CreateTestReportSummary(Archive archive, DiasPackage diasPackage)
         {
             var norwegianCulture = new CultureInfo("nb-NO");
             int numberOfExecutedTests = archive.TestSession.TestSuite.TestRuns.Count();
@@ -41,7 +41,8 @@ namespace Arkivverket.Arkade.Core.Report
 
             var summary = new TestReportSummary
             {
-                InformationPackageUuid = packageId?.ToString(),
+                InformationPackageUuid = diasPackage?.Id?.ToString(),
+                PackageIdentityIsUnknown = diasPackage is { Id: null },
                 ArchiveCreators = archive.Details.ArchiveCreators,
                 ArchivalPeriod = archive.Details.ArchivalPeriod,
                 SystemName = archive.Details.SystemName,

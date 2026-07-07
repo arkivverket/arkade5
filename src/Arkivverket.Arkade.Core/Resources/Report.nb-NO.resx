@@ -204,6 +204,9 @@
   <data name="ValueNumberOfTestsExecuted" xml:space="preserve">
     <value>{0} av {1}</value>
   </data>
+  <data name="ValueUnknownPackageIdentity" xml:space="preserve">
+    <value>Ukjent identitet</value>
+  </data>
   <data name="VersionText" xml:space="preserve">
     <value>versjon</value>
   </data>

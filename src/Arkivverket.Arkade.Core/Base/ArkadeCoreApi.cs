@@ -159,12 +159,13 @@ public class ArkadeCoreApi(
                         .IdentifyFormats(noark5Archive.InputDiasPackage.TarFile.FullName, FileFormatScanMode.Archive)
                         .ToList();
 
-                    string tarRootDirectoryName =
-                        Path.GetFileNameWithoutExtension(noark5Archive.InputDiasPackage.TarFile.FullName);
+                    string tarRootDirectoryName = noark5Archive.InputDiasPackage.TarRootDirectoryName;
                     string documentsDirectoryName = noark5Archive.GetDocumentsDirectoryName();
 
-                    string tarFileRelativeDocumentsDirectoryPath = Path.Combine(tarRootDirectoryName!,
-                        ArkadeConstants.DirectoryNameContent, documentsDirectoryName);
+                    string tarFileRelativeDocumentsDirectoryPath = tarRootDirectoryName == null
+                        ? Path.Combine(ArkadeConstants.DirectoryNameContent, documentsDirectoryName)
+                        : Path.Combine(tarRootDirectoryName, ArkadeConstants.DirectoryNameContent,
+                            documentsDirectoryName);
 
                     var fullDocumentsDirectoryTarPath =
                         $"{noark5Archive.InputDiasPackage.TarFile}#{tarFileRelativeDocumentsDirectoryPath}";

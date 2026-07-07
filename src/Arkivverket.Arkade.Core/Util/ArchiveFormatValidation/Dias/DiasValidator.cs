@@ -19,10 +19,17 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         public async Task<ArchiveFormatValidationReport> ValidateAsync(FileSystemInfo item, ArchiveFormat format)
         {
             List<string> missingEntries;
+            string tarRootDirectoryName = null;
 
             try
             {
-                missingEntries = await GetMissingEntriesAsync(item, format);
+                // The expected entry paths are anchored at the tar's actual internal root
+                // directory — the tar's file name carries no authority over its structure
+                if (item is FileInfo { Extension: ".tar" } tarArchive)
+                    tarRootDirectoryName = new TarCompressionUtility().GetRootDirectoryName(tarArchive)
+                                           ?? Path.GetFileNameWithoutExtension(tarArchive.Name);
+
+                missingEntries = await GetMissingEntriesAsync(item, format, tarRootDirectoryName);
             }
             catch (Exception e)
             {
@@ -41,7 +48,7 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
                 resultIsAcceptable = DetermineAcceptability(missingEntries, format);
 
                 string rootPath = item.Extension == ".tar"
-                    ? $"{Path.GetFileNameWithoutExtension(item.Name)}{Path.DirectorySeparatorChar}"
+                    ? $"{tarRootDirectoryName}{Path.DirectorySeparatorChar}"
                     : item.FullName;
 
                 // Excluding DIAS root directory name from entry paths
@@ -53,18 +60,19 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             return new ArchiveFormatValidationReport(item, format, result, resultIsAcceptable, validationInfo);
         }
 
-        private async Task<List<string>> GetMissingEntriesAsync(FileSystemInfo item, ArchiveFormat format)
+        private async Task<List<string>> GetMissingEntriesAsync(FileSystemInfo item, ArchiveFormat format,
+            string tarRootDirectoryName)
         {
             DiasDirectory dias = DiasProvider.ProvideForFormat(format);
 
             return item is FileInfo { Extension: ".tar" } tarArchive
-                ? await Task.Run(() => GetEntryPathsNotInTarArchiveAsync(tarArchive, dias))
+                ? await Task.Run(() => GetEntryPathsNotInTarArchiveAsync(tarArchive, dias, tarRootDirectoryName))
                 : await Task.Run(() => dias.GetEntryPaths(item.FullName, getNonExistingOnly: true, recursive: true));
         }
 
-        private async Task<List<string>> GetEntryPathsNotInTarArchiveAsync(FileInfo tarArchive, DiasDirectory validDias)
+        private async Task<List<string>> GetEntryPathsNotInTarArchiveAsync(FileInfo tarArchive, DiasDirectory validDias,
+            string tarArchiveRootDirectoryName)
         {
-            string tarArchiveRootDirectoryName = Path.GetFileNameWithoutExtension(tarArchive.Name);
             List<string> diasEntryPaths = validDias.GetEntryPaths(tarArchiveRootDirectoryName, recursive: true);
 
             await using var tarInputStream = new TarInputStream(File.OpenRead(tarArchive.FullName), Encoding.Latin1);

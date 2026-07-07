@@ -59,7 +59,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
         private static string GenerateReport(Archive archive)
         {
             var ms = new MemoryStream();
-            TestReport testReport = TestReportFactory.Create(archive, packageId: null);
+            TestReport testReport = TestReportFactory.Create(archive, diasPackage: null);
             new HtmlReportGenerator(TestResultDisplayLimit).Generate(testReport, ms);
             return Encoding.UTF8.GetString(ms.ToArray());
         }

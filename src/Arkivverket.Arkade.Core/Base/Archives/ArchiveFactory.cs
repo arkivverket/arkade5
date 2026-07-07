@@ -75,17 +75,20 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
     private InputDiasPackage CreateInputDiasPackage(FileInfo tarFile, DirectoryInfo processingDirectory,
         ArchiveType archiveType)
     {
-        if (!Uuid.TryParse(Path.GetFileNameWithoutExtension(tarFile.Name), out Uuid id)) // NB! UUID-orig
-            throw new ArkadeException(string.Format(ExceptionMessages.FileNameUuidExtractionError, tarFile.Name));
+        // The package's content is located from the tar's actual internal structure, and its
+        // identity is read from the package's METS (OBJID) after extraction — the tar's file name
+        // carries no authority (a valid DIAS package is UUID-named, but renamed packages load too).
+        string tarRootDirectoryName = compressionUtility.GetRootDirectoryName(tarFile);
 
-        DirectoryInfo workingDirectoryRoot = processingDirectory.CreateSubdirectory(id.GetValue());
+        DirectoryInfo workingDirectoryRoot = processingDirectory.CreateSubdirectory(
+            tarRootDirectoryName ?? Path.GetFileNameWithoutExtension(tarFile.Name));
         var diasPackageWorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
 
         statusEventHandler.RaiseEventOperationMessage(
             Messages.ReadingArchiveEvent, Messages.TarExtractionMessageStarted, OperationMessageStatus.Started);
 
         compressionUtility.ExtractFolderFromArchive(tarFile, diasPackageWorkingDirectory.Root().DirectoryInfo(),
-            withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: id.ToString());
+            withoutDocumentFiles: archiveType == ArchiveType.Noark5, archiveRootDirectoryName: tarRootDirectoryName);
 
         statusEventHandler.RaiseEventOperationMessage(
             Messages.ReadingArchiveEvent,
@@ -93,7 +96,12 @@ public class ArchiveFactory(ICompressionUtility compressionUtility, IStatusEvent
                 diasPackageWorkingDirectory.ContentWorkDirectory().DirectoryInfo().FullName),
             OperationMessageStatus.Ok);
 
-        var inputDiasPackage = new InputDiasPackage(id, diasPackageWorkingDirectory, tarFile);
+        var inputDiasPackage = new InputDiasPackage(diasPackageWorkingDirectory, tarFile, tarRootDirectoryName);
+
+        if (inputDiasPackage.Id == null)
+            statusEventHandler.RaiseEventOperationMessage(
+                Messages.ReadingArchiveEvent, Messages.DiasPackageIdentityNotFound, OperationMessageStatus.Warning);
+
         return inputDiasPackage;
     }
 }

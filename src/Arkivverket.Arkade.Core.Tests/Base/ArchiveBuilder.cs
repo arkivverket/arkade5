@@ -124,8 +124,10 @@ namespace Arkivverket.Arkade.Core.Tests.Base
                 throw new InvalidOperationException(
                     "WithArchiveFileFullName requires WithWorkingDirectoryRoot (the dias-mets.xml location).");
 
-            return new InputDiasPackage(_uuid, new DiasPackageWorkingDirectory(_workingDirectoryRoot),
-                new FileInfo(Resolve(_archiveFileFullName)));
+            // The package identity is read from the dias-mets.xml in the working directory root;
+            // the tar's internal root name is taken from the file name, as for a well-formed package
+            return new InputDiasPackage(new DiasPackageWorkingDirectory(_workingDirectoryRoot),
+                new FileInfo(Resolve(_archiveFileFullName)), Path.GetFileNameWithoutExtension(_archiveFileFullName));
         }
 
         private IArchiveContent ResolveContent()

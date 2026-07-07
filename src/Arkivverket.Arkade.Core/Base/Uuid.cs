@@ -24,6 +24,26 @@ namespace Arkivverket.Arkade.Core.Base
             return false;
         }
 
+        // The DIAS identity as declared in a METS OBJID attribute — conventionally prefixed
+        // ("UUID:xxx…"), but a bare value must also be accepted: Arkade itself will drop the
+        // prefix on write-out, and must keep loading its own output.
+        public static bool TryParseFromMetsObjid(string objid, out Uuid uuid)
+        {
+            uuid = null;
+
+            if (objid == null)
+                return false;
+
+            const string conventionalPrefix = "UUID:";
+
+            string uuidString = objid.Trim();
+
+            if (uuidString.StartsWith(conventionalPrefix, StringComparison.OrdinalIgnoreCase))
+                uuidString = uuidString[conventionalPrefix.Length..];
+
+            return TryParse(uuidString, out uuid);
+        }
+
         public static Uuid Random()
         {
             Guid guid = Guid.NewGuid();

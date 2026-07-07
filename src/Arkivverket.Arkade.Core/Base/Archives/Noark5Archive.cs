@@ -22,7 +22,7 @@ public class Noark5Archive : AddmlBasedArchive
         : base(content, processingDirectory, inputDiasPackage)
     {
         DocumentFiles = SourceIsTarFile
-            ? new DocumentFiles(InputDiasPackage.TarFile.FullName)
+            ? new DocumentFiles(InputDiasPackage.TarFile.FullName, InputDiasPackage.TarRootDirectoryName)
             : new DocumentFiles(GetDocumentsDirectory());
 
         if (AddmlXmlUnit != null)
@@ -89,11 +89,9 @@ public class Noark5Archive : AddmlBasedArchive
         {
             var tarInputStream = new TarInputStream(File.OpenRead(InputDiasPackage.TarFile.FullName!), Encoding.UTF8);
 
-            string archiveRootDirectoryName = Path.GetFileNameWithoutExtension(InputDiasPackage.TarFile.FullName);
-
             while (tarInputStream.GetNextEntry() is { Name: not null } entry)
             {
-                if (!entry.IsDirectory && entry.IsNoark5DocumentsEntry(archiveRootDirectoryName))
+                if (!entry.IsDirectory && entry.IsNoark5DocumentsEntry(InputDiasPackage.TarRootDirectoryName))
                 {
                     DocumentsDirectoryName = PathUtil.GetChild(DirectoryNameContent, entry.Name);
                     break;

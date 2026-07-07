@@ -12,8 +12,8 @@ namespace Arkivverket.Arkade.Core.Report
             int testResultDisplayLimit, DiasPackage diasPackage, out DirectoryInfo reportsDirectory)
         {
             TestReport testReport = archive is SiardArchive siardArchive
-                ? TestReportFactory.CreateForSiard(siardArchive, diasPackage?.Id)
-                : TestReportFactory.Create(archive, diasPackage?.Id);
+                ? TestReportFactory.CreateForSiard(siardArchive, diasPackage)
+                : TestReportFactory.Create(archive, diasPackage);
 
             string extensionReadyTestReportFullName = GetExtensionReadyTestReportFullName(outputDirectory,
                 diasPackage, archive.TestSession.TimeOfTesting, out string reportsDirectoryPath);
@@ -54,7 +54,7 @@ namespace Arkivverket.Arkade.Core.Report
                     string extensionReadyReportFileName = string.Format(StandaloneTestReportFile, outputSip.Id, "{0}");
                     return Path.Combine(reportDirectoryPath, extensionReadyReportFileName); // NB! UUID-writeout (test results)
                 }
-                case InputDiasPackage inputIp: // Test-report export 
+                case InputDiasPackage { Id: not null } inputIp: // Test-report export
                 {
                     string standAloneDirectoryName =
                         string.Format(StandaloneTestReportDirectory, inputIp.Id); // NB! UUID-writeout (test results)
@@ -64,7 +64,8 @@ namespace Arkivverket.Arkade.Core.Report
                     string extensionReadyReportFileName = string.Format(StandaloneTestReportFile, inputIp.Id, "{0}");
                     return Path.Combine(reportDirectoryPath, extensionReadyReportFileName); // NB! UUID-writeout (test results)
                 }
-                case null: // Test-report export - archive extraction input (not within a DIAS package) 
+                case InputDiasPackage: // Test-report export - package without an established identity (no valid METS UUID)
+                case null: // Test-report export - archive extraction input (not within a DIAS package)
                 {
                     var timestamp = timeOfTesting.ToString("yyyyMMddHHmmss");
                     string standAloneDirectoryName = string.Format(StandaloneTestReportDirectory, timestamp);

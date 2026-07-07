@@ -98,7 +98,7 @@ public class TestReportGeneratorRunnerTests(TestSessionLifeTimeFilesFixture fixt
             Path.Combine(workingDirectoryRoot.FullName, ArkadeConstants.DiasMetsXmlFileName),
             $"{{\"Id\": \"UUID:{inputIpUuid}\"}}"
         );
-        var inputDiasPackage = new InputDiasPackage(inputIpUuid, new DiasPackageWorkingDirectory(workingDirectoryRoot), null);
+        var inputDiasPackage = new InputDiasPackage(new DiasPackageWorkingDirectory(workingDirectoryRoot), null, inputIpUuid.GetValue());
 
         // Expected paths setup
         string expectedTestReportsDirectoryName = string.Format(OutputFileNames.StandaloneTestReportDirectory, inputDiasPackage.Id);

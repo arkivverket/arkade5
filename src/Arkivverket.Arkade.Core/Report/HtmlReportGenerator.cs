@@ -214,14 +214,15 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(@"        <table class=""table"">");
             stream.WriteLine(@"            <tbody>");
 
-            if (testReport.Summary.InformationPackageUuid != null)
+            if (testReport.Summary.InformationPackageUuid != null || testReport.Summary.PackageIdentityIsUnknown)
             {
                 stream.WriteLine(@"            <tr>");
                 stream.WriteLine(@"                <td>");
                 stream.WriteLine(Resources.Report.LabelInformationPackageUuid);
                 stream.WriteLine("                </td>");
                 stream.WriteLine(@"                <td>");
-                stream.WriteLine(testReport.Summary.InformationPackageUuid); // NB! UUID-writeout (test results) (from TestReportSummary)
+                stream.WriteLine(testReport.Summary.InformationPackageUuid // NB! UUID-writeout (test results) (from TestReportSummary)
+                                 ?? Resources.Report.ValueUnknownPackageIdentity);
                 stream.WriteLine("                </td>");
                 stream.WriteLine(@"            </tr>");
             }

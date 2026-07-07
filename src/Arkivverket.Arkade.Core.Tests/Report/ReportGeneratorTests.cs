@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
         private static string GenerateReport(Archive archive, TestReportFormat reportType)
         {
             var memoryStream = new MemoryStream();
-            TestReport testReport = TestReportFactory.Create(archive, packageId: null);
+            TestReport testReport = TestReportFactory.Create(archive, diasPackage: null);
             IReportGenerator reportGenerator = SelectReportGenerator(reportType);
             reportGenerator.Generate(testReport, memoryStream);
             return Encoding.UTF8.GetString(memoryStream.ToArray());

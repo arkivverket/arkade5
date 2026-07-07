@@ -169,6 +169,15 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Information package.
+        /// </summary>
+        public static string LabelInformationPackageUuid {
+            get {
+                return ResourceManager.GetString("LabelInformationPackageUuid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of deviations found.
         /// </summary>
         public static string LabelNumberOfErrors {
@@ -237,15 +246,6 @@ namespace Arkivverket.Arkade.Core.Resources {
         public static string LabelSystemType {
             get {
                 return ResourceManager.GetString("LabelSystemType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Information package.
-        /// </summary>
-        public static string LabelInformationPackageUuid {
-            get {
-                return ResourceManager.GetString("LabelInformationPackageUuid", resourceCulture);
             }
         }
         
@@ -330,6 +330,15 @@ namespace Arkivverket.Arkade.Core.Resources {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown identity.
+        /// </summary>
+        public static string ValueUnknownPackageIdentity {
+            get {
+                return ResourceManager.GetString("ValueUnknownPackageIdentity", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to version.
         /// </summary>
