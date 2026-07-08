@@ -44,7 +44,6 @@ namespace Arkivverket.Arkade.Core.Base
 
         public void CreateDirectories(PackageType packageType)
         {
-            //Root().Create();
             DescriptiveMetadata().Create();
             AdministrativeMetadata().Create();
             if (packageType == PackageType.ArchivalInformationPackage)

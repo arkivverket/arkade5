@@ -305,7 +305,7 @@ namespace Arkivverket.Arkade.CLI
                 return false;
             }
 
-            if (_testRunHasFailed) // What happens when a new Arkade-session is started? Is this reset?
+            if (_testRunHasFailed)
                 return false;
 
             // The 'process' verb goes on to package the archive, and the package creator emits the

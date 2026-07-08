@@ -117,7 +117,7 @@ public class ArkadeCoreApi(
                 archive, outputDirectory
             );
         }
-        else // ArchivalInformationPackage
+        else
         {
             packageFilePath = informationPackageCreator.CreateAip(
                 archive, outputDirectory

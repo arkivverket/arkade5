@@ -31,7 +31,6 @@ namespace Arkivverket.Arkade.Core.Base
         
         public ArchiveMetadata Clone()
         {
-            // MemberwiseClone creates a shallow copy
             return (ArchiveMetadata)this.MemberwiseClone();
         }
     }

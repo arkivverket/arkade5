@@ -153,7 +153,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         private List<AddmlFlatFileDefinition> GetFlatFileDefinitionsWhereReferencedFileExistsInDirectory(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
         {
             // A flat file can only ever match by plain name directly beside the ADDML file, so listing
-            // that single directory replaces a recursive scan of the entire extraction
+            // that single directory is sufficient
             var fileNamesInAddmlDirectory =
                 new HashSet<string>(_addmlInfo.AddmlFile.Directory!.EnumerateFiles().Select(file => file.Name));
 

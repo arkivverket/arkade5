@@ -279,7 +279,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             // restart-on-change would kill the in-progress load.
             SetLoadingState(true);
 
-            // Loading/extraction happens here (it no longer lives in the load window), off the UI thread so a
+            // Loading/extraction happens here, off the UI thread so a
             // large .tar extraction doesn't freeze the window. ArchiveFactory raises the "Reading archive"
             // OperationMessages we already subscribe to, so progress shows up in the message list below. The
             // continuation runs back on the UI thread to touch bound state safely.

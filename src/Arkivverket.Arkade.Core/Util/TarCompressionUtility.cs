@@ -76,7 +76,7 @@ namespace Arkivverket.Arkade.Core.Util
             return new DirectoryInfo(firstEntry.Name);
         }
 
-        public void CompressFolderContentToArchiveFile(FileInfo targetFileName, DirectoryInfo sourceFileFolder) // TODO: Is this method in use at all?
+        public void CompressFolderContentToArchiveFile(FileInfo targetFileName, DirectoryInfo sourceFileFolder)
         {
             Stream outStream = File.Create(targetFileName.FullName);
             var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);

@@ -42,7 +42,7 @@ namespace Arkivverket.Arkade.Core.Identify
             }
 
             if(archive is not AddmlBasedArchive addmlBasedArchive)
-                throw new ArgumentException("Archive must be an AddmlBasedArchive from here ..."); // TODO: Follow up
+                throw new ArgumentException("Archive must be an AddmlBasedArchive");
             
             AddmlInfo addml = addmlBasedArchive.AddmlInfo;
 

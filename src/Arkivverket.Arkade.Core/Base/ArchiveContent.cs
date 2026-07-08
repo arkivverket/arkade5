@@ -22,7 +22,7 @@ public class DirectoryArchiveContent(DirectoryInfo contentDirectory) : IArchiveC
         {
             return RootDirectory.EnumerateFiles(filePath).FirstOrDefault();
         }
-        catch (DirectoryNotFoundException) // Part of the path not found
+        catch (DirectoryNotFoundException)
         {
             return null;
         }
@@ -34,7 +34,7 @@ public class DirectoryArchiveContent(DirectoryInfo contentDirectory) : IArchiveC
         {
             return RootDirectory.EnumerateDirectories(directoryPath).FirstOrDefault();
         }
-        catch (DirectoryNotFoundException) // Part of the path not found
+        catch (DirectoryNotFoundException)
         {
             return null;
         }

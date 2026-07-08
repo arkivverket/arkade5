@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Core.Base
             return packageFilePath;
         }
 
-        private string CreatePackage(Archive archive, string outputDirectoryPath) // TODO: Generate and collect all files from/to the right places
+        private string CreatePackage(Archive archive, string outputDirectoryPath)
         {
             OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
 
