@@ -12,7 +12,7 @@ namespace Arkivverket.Arkade.GUI.Models
         {
             ArchiveFileName = archiveFileName;
             ArchiveType = archiveType;
-            InformationPackageUuid = informationPackageUuid; // NB! UUID-transfer
+            InformationPackageUuid = informationPackageUuid;
         }
 
         public string ArchiveType

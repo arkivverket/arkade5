@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Metadata
         {
             return new ead()
             {
-                control = new control() {recordid = new recordid() { Text = new[] { outputPackageUuid.ToString() } } } // NB! UUID-writeout (package creation)
+                control = new control() {recordid = new recordid() { Text = new[] { outputPackageUuid.ToString() } } }
             };
         }
 

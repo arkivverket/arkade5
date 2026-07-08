@@ -49,7 +49,7 @@ namespace Arkivverket.Arkade.Core.Logging
             // archiveUuid is required by testSessionLog.xsd (minOccurs=1), so the element must always be present.
             // The log carries the output package's UUID; coalesce to "-" defensively (matching the test
             // report's placeholder), though a package being created always has an Id.
-            log.archiveUuid = packageUuid?.GetValue() ?? "-"; // NB! UUID-writeout (package creation)
+            log.archiveUuid = packageUuid?.GetValue() ?? "-";
 
             log.logEntries = GetLogEntries(archive.TestSession);
             log.testResults = GetTestResults(archive.TestSession);

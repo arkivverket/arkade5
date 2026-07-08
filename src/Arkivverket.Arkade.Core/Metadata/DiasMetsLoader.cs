@@ -11,7 +11,7 @@ namespace Arkivverket.Arkade.Core.Metadata
     {
         public static ArchiveMetadata Load(mets diasMets)
         {
-            var archiveMetadata = new ArchiveMetadata(); // NB! Metadata-origin (metadata loading)
+            var archiveMetadata = new ArchiveMetadata();
 
             LoadMetsElementAttributes(archiveMetadata, diasMets);
 

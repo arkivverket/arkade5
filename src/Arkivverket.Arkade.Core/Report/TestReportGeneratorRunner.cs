@@ -44,25 +44,25 @@ namespace Arkivverket.Arkade.Core.Report
                 }
                 case OutputDiasPackage { PackageType: PackageType.SubmissionInformationPackage } outputSip:
                 {
-                    string standAloneDirectoryName = string.Format(StandaloneTestReportDirectory, outputSip.Id); // NB! UUID-writeout (test results)
-                    string resultOutputDirectoryName = string.Format(ResultOutputDirectory, outputSip.Id); // NB! UUID-writeout (test results)
+                    string standAloneDirectoryName = string.Format(StandaloneTestReportDirectory, outputSip.Id);
+                    string resultOutputDirectoryName = string.Format(ResultOutputDirectory, outputSip.Id);
 
                     reportDirectoryPath =
                         Path.Combine(outputDirectory.FullName, resultOutputDirectoryName,
                             standAloneDirectoryName);
 
                     string extensionReadyReportFileName = string.Format(StandaloneTestReportFile, outputSip.Id, "{0}");
-                    return Path.Combine(reportDirectoryPath, extensionReadyReportFileName); // NB! UUID-writeout (test results)
+                    return Path.Combine(reportDirectoryPath, extensionReadyReportFileName);
                 }
                 case InputDiasPackage { Id: not null } inputIp: // Test-report export
                 {
                     string standAloneDirectoryName =
-                        string.Format(StandaloneTestReportDirectory, inputIp.Id); // NB! UUID-writeout (test results)
+                        string.Format(StandaloneTestReportDirectory, inputIp.Id);
 
                     reportDirectoryPath = Path.Combine(outputDirectory.FullName, standAloneDirectoryName);
 
                     string extensionReadyReportFileName = string.Format(StandaloneTestReportFile, inputIp.Id, "{0}");
-                    return Path.Combine(reportDirectoryPath, extensionReadyReportFileName); // NB! UUID-writeout (test results)
+                    return Path.Combine(reportDirectoryPath, extensionReadyReportFileName);
                 }
                 case InputDiasPackage: // Test-report export - package without an established identity (no valid METS UUID)
                 case null: // Test-report export - archive extraction input (not within a DIAS package)

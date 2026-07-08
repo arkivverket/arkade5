@@ -125,7 +125,7 @@ public class InformationPackageCreatorTest(TestSessionLifeTimeFilesFixture testS
 
         string outputDirectory = isolatedDirectory.CreateSubdirectory("output").FullName;
 
-        string packageFilePath = packageType switch // NB! UUID-origin
+        string packageFilePath = packageType switch
         {
             PackageType.SubmissionInformationPackage => InformationPackageCreator().CreateSip(archive, outputDirectory),
             PackageType.ArchivalInformationPackage => InformationPackageCreator().CreateAip(archive, outputDirectory),
@@ -138,7 +138,7 @@ public class InformationPackageCreatorTest(TestSessionLifeTimeFilesFixture testS
         resultFiles.Should().HaveCount(2);
 
         return (
-            archive.OutputDiasPackage.Id, // NB! UUID-transfer (unit testing)
+            archive.OutputDiasPackage.Id,
             GetFileListFromMetadata(archive.OutputDiasPackage),
             DiasTarArchiveUtility.GetFileList(packageFilePath)
         );

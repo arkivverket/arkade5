@@ -9,7 +9,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         private Uuid(Guid uuid)
         {
-            _uuid = uuid; // NB! UUID-transfer
+            _uuid = uuid;
         }
 
         public static bool TryParse(string uuidString, out Uuid uuid)

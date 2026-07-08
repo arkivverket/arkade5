@@ -461,7 +461,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             // package as a loose archive-extraction input)
             string informationPackageUuid = _archive.InputDiasPackage is null
                 ? null
-                : _archive.InputDiasPackage.Id?.ToString() // NB! UUID-transfer
+                : _archive.InputDiasPackage.Id?.ToString()
                   ?? TestRunnerGUI.ValueUnknownPackageIdentity;
 
             InformationPackageUuidVisibility = informationPackageUuid is null ? Visibility.Collapsed : Visibility.Visible;

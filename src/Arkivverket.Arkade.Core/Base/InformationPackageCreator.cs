@@ -89,13 +89,13 @@ namespace Arkivverket.Arkade.Core.Base
 
             string resultDirectory = CreateResultDirectory(outputDiasPackage.Id, outputDirectoryPath);
 
-            string packageFilePath = Path.Combine(resultDirectory, outputDiasPackage.Id + ".tar"); // NB! UUID-writeout (package creation)
+            string packageFilePath = Path.Combine(resultDirectory, outputDiasPackage.Id + ".tar");
 
             using Stream outStream = File.Create(packageFilePath);
             using var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);
             using var tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
 
-            string packageRootDirectory = outputDiasPackage.Id.GetValue() + Path.DirectorySeparatorChar; // NB! UUID-writeout (package creation)
+            string packageRootDirectory = outputDiasPackage.Id.GetValue() + Path.DirectorySeparatorChar;
             CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
@@ -133,7 +133,7 @@ namespace Arkivverket.Arkade.Core.Base
             ArchiveMetadata metadataForSubmissionDescription = outputDiasPackage.ArchiveMetadata.Clone();
 
             new SubmissionDescriptionCreator().CreateAndSaveFile(metadataForSubmissionDescription, packageFilePath, diasMetsFilePath,
-                outputDiasPackage.Id + ".xml"); // NB! UUID-writeout (package creation)
+                outputDiasPackage.Id + ".xml");
 
             return packageFilePath;
         }
@@ -166,7 +166,7 @@ namespace Arkivverket.Arkade.Core.Base
         private string CreateResultDirectory(Uuid informationPackageUuid, string outputDirectory)
         {
             var resultDirectory = new DirectoryInfo(
-                Path.Combine(outputDirectory, string.Format(OutputFileNames.ResultOutputDirectory, informationPackageUuid)) // NB! UUID-writeout (package creation)
+                Path.Combine(outputDirectory, string.Format(OutputFileNames.ResultOutputDirectory, informationPackageUuid))
             );
 
             resultDirectory.Create();
@@ -199,7 +199,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             foreach (FileInfo file in directory.GetFiles())
             {
-                if (file.Name == diasPackage.Id + ".tar") // don't try to add the tar file into the tar file...  // NB! UUID-writeout (package creation)
+                if (file.Name == diasPackage.Id + ".tar") // don't try to add the tar file into the tar file...
                 {
                     continue;
                 }

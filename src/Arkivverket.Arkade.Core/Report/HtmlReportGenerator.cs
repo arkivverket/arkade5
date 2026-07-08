@@ -221,7 +221,7 @@ namespace Arkivverket.Arkade.Core.Report
                 stream.WriteLine(Resources.Report.LabelInformationPackageUuid);
                 stream.WriteLine("                </td>");
                 stream.WriteLine(@"                <td>");
-                stream.WriteLine(testReport.Summary.InformationPackageUuid // NB! UUID-writeout (test results) (from TestReportSummary)
+                stream.WriteLine(testReport.Summary.InformationPackageUuid
                                  ?? Resources.Report.ValueUnknownPackageIdentity);
                 stream.WriteLine("                </td>");
                 stream.WriteLine(@"            </tr>");

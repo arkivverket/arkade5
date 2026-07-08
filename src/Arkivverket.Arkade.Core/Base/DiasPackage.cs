@@ -61,7 +61,7 @@ public class InputDiasPackage : DiasPackage
         else
             Log.Warning($"The package contains no {ArkadeConstants.DiasMetsXmlFileName}");
 
-        if (Uuid.TryParseFromMetsObjid(ArchiveMetadata?.Id, out Uuid id) || // NB! UUID-readin (package loading)
+        if (Uuid.TryParseFromMetsObjid(ArchiveMetadata?.Id, out Uuid id) ||
             Uuid.TryParseFromMetsObjid(ReadMetsRootObjid(metsFile), out id))
             Id = id;
         else
@@ -101,7 +101,7 @@ public class OutputDiasPackage : DiasPackage
 {
     public OutputDiasPackage(PackageType packageType, ArchiveMetadata archiveMetadata, DirectoryInfo locationForWorkingDirectory)
     {
-        Id = Uuid.Random(); // NB! UUID-orig
+        Id = Uuid.Random();
 
         DirectoryInfo workingDirectoryRoot = locationForWorkingDirectory.CreateSubdirectory(Id.GetValue());
         WorkingDirectory = new DiasPackageWorkingDirectory(workingDirectoryRoot);
@@ -112,7 +112,7 @@ public class OutputDiasPackage : DiasPackage
         ArchiveMetadata = archiveMetadata;
 
         // Written to METS OBJID as a bare value, without the conventional "UUID:" prefix
-        ArchiveMetadata.Id = Id.ToString(); // NB! UUID-writeout (package creation)
+        ArchiveMetadata.Id = Id.ToString();
         ArchiveMetadata.PackageType = PackageType;
 
         if (archiveMetadata.Id != ArchiveMetadata.Id)

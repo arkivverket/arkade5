@@ -460,7 +460,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 ? PackageType.SubmissionInformationPackage
                 : PackageType.ArchivalInformationPackage;
 
-            var archiveMetadata = new ArchiveMetadata // NB! Metadata-origin (metadata creation)
+            var archiveMetadata = new ArchiveMetadata
             {
                 Label = ArchiveMetadataMapper.MapToLabel(_metaDataNoarkSection, StandardLabelIsSelected),
                 ArchiveDescription = ArchiveMetadataMapper.MapToArchiveDescription(_metaDataArchiveDescription),
@@ -483,7 +483,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 ExtractionDate = ArchiveMetadataMapper.MapToExtractionDate(_metaDataExtractionDate),
             };
 
-            _archive.OutputDiasPackage = new OutputDiasPackage(packageType, archiveMetadata, _archive.ProcessingDirectory); // NB! UUID-origin
+            _archive.OutputDiasPackage = new OutputDiasPackage(packageType, archiveMetadata, _archive.ProcessingDirectory);
 
             ArkadeProcessingState.PackingIsStarted = true;
             MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
