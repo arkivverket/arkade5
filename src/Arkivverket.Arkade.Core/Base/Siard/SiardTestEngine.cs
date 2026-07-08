@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Testing.Siard;
 
 namespace Arkivverket.Arkade.Core.Base.Siard
@@ -16,12 +17,12 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             _validator = validator;
         }
 
-        public TestSuite RunTestsOnArchive(TestSession testSession)
+        public TestSuite RunTestsOnArchive(Archive archive)
         {
-            FileInfo siardFileInfo = testSession.Archive.WorkingDirectory.Content().DirectoryInfo().GetFiles()
-                .First(f => f.Extension.Equals(".siard"));
-            string inputFilePath = siardFileInfo.FullName;
-            string reportFilePath = Path.Combine(testSession.Archive.WorkingDirectory.RepositoryOperations().ToString(),
+            var siardArchive = (SiardArchive)archive;
+            
+            string inputFilePath = siardArchive.SiardFile.FullName;
+            string reportFilePath = Path.Combine(archive.TestSession.TemporaryTestResultFilesDirectory.FullName,
                 Resources.OutputFileNames.DbptkValidationReportFile);
 
             SiardValidationReport report = _validator.Validate(inputFilePath, reportFilePath);
@@ -42,7 +43,7 @@ namespace Arkivverket.Arkade.Core.Base.Siard
                 numberOfValidationWarnings = GetNumberOfXFromSummary("warnings", summary);
             }
 
-            testSession.TestSummary = new TestSummary(0, 0, 0, numberOfValidationErrors, numberOfValidationWarnings);
+            archive.TestSession.TestSummary = new TestSummary(0, 0, 0, numberOfValidationErrors, numberOfValidationWarnings);
 
             return new TestSuite(report.TestingTool);
         }

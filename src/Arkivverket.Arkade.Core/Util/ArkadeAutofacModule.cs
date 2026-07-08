@@ -1,5 +1,6 @@
 using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Base.Addml;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Identify;
@@ -27,7 +28,7 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<StatusEventHandler>().As<IStatusEventHandler>().SingleInstance();
             builder.RegisterType<TarCompressionUtility>().As<ICompressionUtility>();
             builder.RegisterType<TestEngineFactory>().AsSelf();
-            builder.RegisterType<Noark5TestProvider>().As<ITestProvider>();
+            builder.RegisterType<Noark5TestProvider>().AsSelf();
             builder.RegisterType<TestSessionFactory>().AsSelf();
             builder.RegisterType<MetadataFilesCreator>().AsSelf();
             builder.RegisterType<DiasMetsCreator>().AsSelf();
@@ -37,7 +38,10 @@ namespace Arkivverket.Arkade.Core.Util
             builder.RegisterType<EacCpfCreator>().AsSelf();
             builder.RegisterType<SubmissionDescriptionCreator>().AsSelf();
             builder.RegisterType<InformationPackageCreator>().AsSelf();
-            builder.RegisterType<ArkadeApi>().AsSelf();
+
+            builder.RegisterType<ArkadeCoreApi>().AsSelf();
+            
+            builder.RegisterType<ArchiveFactory>().AsSelf();
             builder.RegisterType<TestSessionXmlGenerator>().AsSelf();
             builder.RegisterType<ArkadeVersion>().AsSelf();
             builder.RegisterType<GitHubReleaseInfoReader>().As<IReleaseInfoReader>();

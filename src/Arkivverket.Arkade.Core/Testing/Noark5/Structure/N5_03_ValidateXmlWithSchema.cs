@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -31,14 +32,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             };
         }
 
-        public override void Test(Archive archive)
+        public override void Test(Noark5Archive archive)
         {
-            foreach (ArchiveXmlUnit xmlUnit in archive.XmlUnits)
+            foreach (ArchiveXmlUnit xmlUnit in archive.XmlUnits.Get())
             {
-                if (xmlUnit.AllFilesExists())
-                    Validate(xmlUnit);
-                else
-                    ReportMissingFiles(xmlUnit);
+                Validate(xmlUnit);
             }
         }
 
@@ -69,11 +67,10 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
         private void ReportFallbackOnBuiltInSchemas(ArchiveXmlUnit archiveXmlUnit)
         {
             foreach (ArchiveXmlSchema schema in archiveXmlUnit.Schemas)
-                if (schema.IsArkadeBuiltIn())
+                if (schema is ArkadeBuiltInXmlSchema builtInSchema)
                     _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
                         // TODO: Consider implementing and using ResultType.Warning
-                        string.Format(Noark5Messages.InternalSchemaFileIsUsed, schema.FileName,
-                            (schema as ArkadeBuiltInXmlSchema).GetArchiveTypeVersion())));
+                        string.Format(Noark5Messages.InternalSchemaFileIsUsed, builtInSchema.Name, builtInSchema.SchemaVersion.Name)));
         }
 
         private static string GetFileNameForReport(ArchiveXmlUnit archiveXmlUnit)
@@ -81,13 +78,6 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             return archiveXmlUnit.File.Name.Equals(ArkadeConstants.AddmlXmlFileName)
                 ? ArkadeConstants.ArkivuttrekkXmlFileName
                 : archiveXmlUnit.File.Name;
-        }
-
-        private void ReportMissingFiles(ArchiveXmlUnit xmlUnit)
-        {
-            foreach (string missingFile in xmlUnit.GetMissingFiles())
-                _testResults.Add(new TestResult(ResultType.Error, new Location(string.Empty),
-                    string.Format(ExceptionMessages.FileNotFound, missingFile)));
         }
     }
 }

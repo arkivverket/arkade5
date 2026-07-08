@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Arkivverket.Arkade.Core.Util;
 using Serilog;
 
@@ -12,11 +13,35 @@ namespace Arkivverket.Arkade.Core.Base
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static DirectoryInfo Location;
+        // TODO: Ensure this async local setup (convenient for testing) is not causing any production operation issues
+        private static readonly AsyncLocal<DirectoryInfo> AsyncLocalLocation = new();
+        private static readonly AsyncLocal<DirectoryInfo> AsyncLocalRootDirectory = new();
+        private static readonly AsyncLocal<DirectoryInfo> AsyncLocalWorkDirectory = new();
+        private static readonly AsyncLocal<DirectoryInfo> AsyncLocalLogsDirectory = new();
 
-        public static DirectoryInfo RootDirectory;
-        public static DirectoryInfo WorkDirectory;
-        public static DirectoryInfo LogsDirectory;
+        public static DirectoryInfo Location
+        {
+            get => AsyncLocalLocation.Value;
+            private set => AsyncLocalLocation.Value = value;
+        }
+
+        public static DirectoryInfo RootDirectory
+        {
+            get => AsyncLocalRootDirectory.Value;
+            private set => AsyncLocalRootDirectory.Value = value;
+        }
+
+        public static DirectoryInfo WorkDirectory
+        {
+            get => AsyncLocalWorkDirectory.Value;
+            private set => AsyncLocalWorkDirectory.Value = value;
+        }
+
+        public static DirectoryInfo LogsDirectory
+        {
+            get => AsyncLocalLogsDirectory.Value;
+            private set => AsyncLocalLogsDirectory.Value = value;
+        }
 
         /// <summary>
         /// Establish processing area for Arkade in the given location.

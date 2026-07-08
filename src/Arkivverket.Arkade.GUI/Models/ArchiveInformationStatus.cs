@@ -1,4 +1,3 @@
-using Arkivverket.Arkade.Core.Logging;
 using Prism.Mvvm;
 
 namespace Arkivverket.Arkade.GUI.Models
@@ -7,13 +6,13 @@ namespace Arkivverket.Arkade.GUI.Models
     {
         private string _archiveFileName;
         private string _archiveType;
-        private string _uuid;
+        private string _informationPackageUuid;
 
-        public void Update(ArchiveInformationEventArgs archiveInformationEvent)
+        public void Update(string archiveFileName, string archiveType, string informationPackageUuid)
         {
-            ArchiveFileName = archiveInformationEvent.ArchiveFileName;
-            ArchiveType = archiveInformationEvent.ArchiveType;
-            Uuid = archiveInformationEvent.Uuid;
+            ArchiveFileName = archiveFileName;
+            ArchiveType = archiveType;
+            InformationPackageUuid = informationPackageUuid;
         }
 
         public string ArchiveType
@@ -22,10 +21,10 @@ namespace Arkivverket.Arkade.GUI.Models
             set => SetProperty(ref _archiveType, value);
         }
 
-        public string Uuid
+        public string InformationPackageUuid
         {
-            get => _uuid;
-            set => SetProperty(ref _uuid, value);
+            get => _informationPackageUuid;
+            set => SetProperty(ref _informationPackageUuid, value);
         }
 
         public string ArchiveFileName

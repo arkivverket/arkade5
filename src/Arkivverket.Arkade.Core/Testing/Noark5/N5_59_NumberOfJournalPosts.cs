@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -17,7 +18,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly List<TestResult> _testResults = new List<TestResult>();
         private readonly bool _periodSeparationIsSharp;
 
-        public N5_59_NumberOfJournalPosts(Archive archive)
+        public N5_59_NumberOfJournalPosts(Noark5Archive archive)
         {
             ArchiveXmlFile publicJournal = archive.GetArchiveXmlFile(ArkadeConstants.PublicJournalXmlFileName);
             ArchiveXmlFile runningJournal = archive.GetArchiveXmlFile(ArkadeConstants.RunningJournalXmlFileName);

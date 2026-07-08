@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE ARKIV.TAB SYSTEM "ARKIV.DTD">
+<ARKIV.TAB VERSJON="1.0">
+   <ARKIV>
+      <AR.ARKIV>EARKIV</AR.ARKIV>
+      <AR.BETEGN>Arkiv for eArkiv-prosjektet</AR.BETEGN>
+      <AR.NUMSER>1</AR.NUMSER>
+   </ARKIV>
+   <ARKIV>
+      <AR.ARKIV>EIENDOM</AR.ARKIV>
+      <AR.BETEGN>Eiendomsregister</AR.BETEGN>
+      <AR.SKAPER>Teknisk etat</AR.SKAPER>
+      <AR.PRIMNOK>GNR</AR.PRIMNOK>
+      <AR.NUMSER>1</AR.NUMSER>
+      <AR.FRADATO>20020101</AR.FRADATO>
+      <AR.TILDATO>20020601</AR.TILDATO>
+      <AR.MERKNAD>Registeret er organisert på gårds- og bruksnummer</AR.MERKNAD>
+   </ARKIV>
+   <ARKIV>
+      <AR.ARKIV>PERSONAL</AR.ARKIV>
+      <AR.BETEGN>Personalmapper</AR.BETEGN>
+      <AR.SKAPER>Administrasjon</AR.SKAPER>
+      <AR.PRIMNOK>LNR</AR.PRIMNOK>
+      <AR.NUMSER>1</AR.NUMSER>
+      <AR.FRADATO>19980101</AR.FRADATO>
+      <AR.TILDATO>20020601</AR.TILDATO>
+      <AR.MERKNAD>Registeret er organisert på lønnsnummer</AR.MERKNAD>
+   </ARKIV>
+   <ARKIV>
+      <AR.ARKIV>HA</AR.ARKIV>
+      <AR.BETEGN>Hovedarkiv</AR.BETEGN>
+      <AR.NUMSER>1</AR.NUMSER>
+      <AR.FRADATO>20020116</AR.FRADATO>
+      <AR.MERKNAD>For saker der arkivdel ikke er satt</AR.MERKNAD>
+   </ARKIV>
+   <ARKIV>
+      <AR.ARKIV>FELLES</AR.ARKIV>
+      <AR.BETEGN>Fellesarkiv</AR.BETEGN>
+      <AR.SKAPER>Administrasjon</AR.SKAPER>
+      <AR.NUMSER>1</AR.NUMSER>
+      <AR.ABASEID>1234</AR.ABASEID>
+      <AR.FRADATO>20020116</AR.FRADATO>
+      <AR.TILDATO>20100101</AR.TILDATO>
+      <AR.MERKNAD>For saker lagret i emnearkivet</AR.MERKNAD>
+   </ARKIV>
+   <ARKIV>
+      <AR.ARKIV>UTVALG</AR.ARKIV>
+      <AR.BETEGN>Utvalgsarkiv</AR.BETEGN>
+      <AR.SKAPER>Formannskapskontoret</AR.SKAPER>
+      <AR.PRIMNOK>UTV</AR.PRIMNOK>
+      <AR.NUMSER>1</AR.NUMSER>
+      <AR.FRADATO>20020101</AR.FRADATO>
+      <AR.MERKNAD>Registeret er organisert på gårds- og bruksnummer</AR.MERKNAD>
+   </ARKIV>
+</ARKIV.TAB>

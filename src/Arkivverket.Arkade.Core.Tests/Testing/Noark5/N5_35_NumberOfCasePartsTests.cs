@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         [Fact]
         public void NumberOfCasePartsIsOne()
         {
-            Archive testArchive = TestUtil.CreateArchiveExtraction(TestDataDirectory);
+            var testArchive = TestUtil.CreateArchiveExtraction(TestDataDirectory);
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
@@ -40,7 +40,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         [Fact]
         public void NumberOfCasePartsIsOnePerArchivePart()
         {
-            Archive testArchive = TestUtil.CreateArchiveExtraction(TestDataDirectory);
+            var testArchive = TestUtil.CreateArchiveExtraction(TestDataDirectory);
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
@@ -85,7 +85,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         [Fact]
         public void NumberOfCasePartsIsZero()
         {
-            Archive testArchive = TestUtil.CreateArchiveExtraction(TestDataDirectory);
+            var testArchive = TestUtil.CreateArchiveExtraction(TestDataDirectory);
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
@@ -106,7 +106,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         [Fact]
         public void NumberOfCasePartsIsOneNoark5_5()
         {
-            Archive testArchive = TestUtil.CreateArchiveExtractionV5_5(TestDataDirectoryV5_5);
+            var testArchive = TestUtil.CreateArchiveExtractionV5_5(TestDataDirectoryV5_5);
 
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv", new XmlElementHelper()
@@ -131,7 +131,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         [Fact]
         public void NumberOfCasePartsIsOnePerArchivePartNoark5_5()
         {
-            Archive testArchive = TestUtil.CreateArchiveExtractionV5_5(TestDataDirectoryV5_5);
+            var testArchive = TestUtil.CreateArchiveExtractionV5_5(TestDataDirectoryV5_5);
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv", new XmlElementHelper()
                     .Add("arkivdel", new XmlElementHelper()
@@ -176,7 +176,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         [Fact]
         public void NumberOfCasePartsIsZeroNoark5_5()
         {
-            Archive testArchive = TestUtil.CreateArchiveExtractionV5_5(TestDataDirectoryV5_5);
+            var testArchive = TestUtil.CreateArchiveExtractionV5_5(TestDataDirectoryV5_5);
 
             XmlElementHelper helper = new XmlElementHelper()
                 .Add("arkiv", new XmlElementHelper()

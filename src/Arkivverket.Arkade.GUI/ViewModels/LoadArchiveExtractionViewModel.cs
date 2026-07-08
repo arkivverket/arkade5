@@ -1,6 +1,7 @@
 using System.IO;
 using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Identify;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Models;
@@ -23,6 +24,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private ArchiveType? _archiveType;
         private bool _isArchiveTypeSelected;
         private IArchiveTypeIdentifier _archiveTypeIdentifier;
+        private readonly ArkadeCoreApi _arkadeCoreApi;
+        private FileSystemInfo _archiveSource;
 
         public string ArchiveFileName
         {
@@ -30,7 +33,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set
             {
                 SetProperty(ref _archiveFileName, value);
-                NavigateToTestRunnerCommand.RaiseCanExecuteChanged();
+                LoadSelectedArchiveInputCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -40,7 +43,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set
             {
                 SetProperty(ref _archiveFileNameGuiRepresentation, value);
-                NavigateToTestRunnerCommand.RaiseCanExecuteChanged();
+                LoadSelectedArchiveInputCommand.RaiseCanExecuteChanged();
                 IsArchiveFileNameSelected = !string.IsNullOrWhiteSpace(value);
             }
         }
@@ -58,23 +61,40 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             {
                 SetProperty(ref _archiveType, value);
                 _isArchiveTypeSelected = value != null;
-                NavigateToTestRunnerCommand.RaiseCanExecuteChanged();
+                LoadSelectedArchiveInputCommand.RaiseCanExecuteChanged();
             }
         }
 
+        public DelegateCommand LoadSelectedArchiveInputCommand { get; set; }
         public DelegateCommand NavigateToTestRunnerCommand { get; set; }
         public DelegateCommand OpenArchiveFileCommand { get; set; }
         public DelegateCommand OpenArchiveFolderCommand { get; set; }
 
-        public LoadArchiveExtractionViewModel(IRegionManager regionManager, IArchiveTypeIdentifier archiveTypeIdentifier)
+        public LoadArchiveExtractionViewModel(IRegionManager regionManager, IArchiveTypeIdentifier archiveTypeIdentifier, ArkadeCoreApi arkadeCoreApi)
         {
+            _arkadeCoreApi = arkadeCoreApi;
             _regionManager = regionManager;
             _archiveTypeIdentifier = archiveTypeIdentifier;
             OpenArchiveFileCommand = new DelegateCommand(OpenArchiveFileDialog);
             OpenArchiveFolderCommand = new DelegateCommand(OpenArchiveFolderDialog);
 
+            LoadSelectedArchiveInputCommand = new DelegateCommand(LoadSelectedArchiveInput, CanLoadSelectedArchiveInput);
             NavigateToTestRunnerCommand = new DelegateCommand(NavigateToTestRunner, CanRunTests);
             _isArchiveTypeSelected = false;
+        }
+
+        private void LoadSelectedArchiveInput()
+        {
+            // The actual loading/extraction is deferred to the test runner (TestRunnerViewModel.OnNavigatedTo),
+            // where it runs off the UI thread and surfaces "Reading archive" progress. Here we only carry the
+            // chosen source and type across the navigation.
+            if(NavigateToTestRunnerCommand.CanExecute())
+                NavigateToTestRunnerCommand.Execute();
+        }
+
+        private bool CanLoadSelectedArchiveInput()
+        {
+            return !string.IsNullOrEmpty(_archiveFileName) && _isArchiveTypeSelected;
         }
 
         private void NavigateToTestRunner()
@@ -82,15 +102,19 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _log.Information("User action: Navigate to test runner window with archive file {ArchiveFile} and archive type {ArchiveType}", ArchiveFileName, ArchiveType);
 
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add("archiveFileName", ArchiveFileName);
-            navigationParameters.Add("archiveType", ArchiveType);
+            navigationParameters.Add("archiveSource", _archiveSource);
+            navigationParameters.Add("archiveType", (ArchiveType)ArchiveType);
 
             _regionManager.RequestNavigate("MainContentRegion", "TestRunner", navigationParameters);
         }
 
         private bool CanRunTests()
         {
-            return !string.IsNullOrEmpty(_archiveFileName) && _isArchiveTypeSelected;
+            // Navigation to the test runner is intentionally allowed for any chosen archive, including ones
+            // that turn out not to be testable (e.g. Noark4) — the test runner is also the route to packaging,
+            // and it is where the archive is actually loaded. The real testability gate, and the "not testable"
+            // warning, live in TestRunnerViewModel (CanStartTestRun / OnNavigatedTo).
+            return _archiveSource != null && _isArchiveTypeSelected;
         }
 
         private void OpenArchiveFileDialog()
@@ -101,6 +125,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 return;
 
             ArchiveFileName = archiveFileName;
+            _archiveSource = new FileInfo(archiveFileName);
 
             _log.Information("User action: Choose archive file {ArchiveFileName}", ArchiveFileName);
 
@@ -117,6 +142,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 return;
 
             ArchiveFileName = archiveFolderName;
+            _archiveSource = new DirectoryInfo(archiveFolderName);
 
             _log.Information("User action: Choose archive folder {ArchiveFileName}", ArchiveFileName);
 

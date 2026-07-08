@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<arkiv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.arkivverket.no/standarder/noark5/arkivstruktur" xmlns:n5mdk="http://www.arkivverket.no/standarder/noark5/metadatakatalog" xsi:schemaLocation="http://www.arkivverket.no/standarder/noark5/arkivstruktur arkivstruktur.xsd">
+
+  <systemID>e7bc7dc4-7d7e-4c8d-8a50-b4271f685199</systemID>
+  <tittel>Oslo Kommune</tittel>
+  <beskrivelse>arkiv</beskrivelse>
+  <arkivstatus>Avsluttet</arkivstatus>
+  <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+  <opprettetDato>2011-09-09T12:01:20</opprettetDato>
+  <opprettetAv>Arkivleder</opprettetAv>
+  <avsluttetDato>2014-09-09T12:01:20</avsluttetDato>
+  <avsluttetAv>Arkivleder</avsluttetAv>
+  <arkivskaper>
+    <arkivskaperID>023984</arkivskaperID>
+    <arkivskaperNavn>Oslo Kommune Tekniske tjenester</arkivskaperNavn>
+    <beskrivelse>tekniske tjenester arkiv</beskrivelse>
+  </arkivskaper>
+  <arkivdel>
+    <systemID>6f25c136-9abc-450a-8394-30a13e6bf1c8</systemID>
+    <tittel>Tekniske tjenester</tittel>
+    <beskrivelse>Søknader/Vedtak</beskrivelse>
+    <arkivdelstatus>Avsluttet periode</arkivdelstatus>
+    <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+    <opprettetDato>2011-09-09T12:02:40</opprettetDato>
+    <opprettetAv>Arkivleder</opprettetAv>
+    <avsluttetDato>2013-09-09T12:00:00</avsluttetDato>
+    <avsluttetAv>Arkivleder</avsluttetAv>
+    <mappe xsi:type="saksmappe">
+      <systemID>734b493f-c64e-4fc5-a988-56be11e2ee10</systemID>
+      <mappeID>2011/230</mappeID>
+      <tittel>Byggesaker</tittel>
+      <beskrivelse>Byggesaker</beskrivelse>
+      <opprettetDato>2011-09-09T14:00:00</opprettetDato>
+      <opprettetAv>Arkivleder</opprettetAv>
+      <avsluttetDato>2012-09-09T14:00:00</avsluttetDato>
+      <avsluttetAv>Arkivleder</avsluttetAv>
+      <registrering xsi:type="journalpost">
+        <systemID>dbf32e5e-f6a2-4366-8ffa-5adb9ea54328</systemID>
+        <opprettetDato>2011-09-09T14:09:00</opprettetDato>
+        <opprettetAv>Postmottak</opprettetAv>
+        <arkivertDato>2011-09-09T16:59:00</arkivertDato>
+        <arkivertAv>arkivleder</arkivertAv>
+        <dokumentbeskrivelse>
+          <systemID>2872a56c-7e3a-416c-8cad-3ffb9e8f49ce</systemID>
+          <dokumenttype>pdf/a</dokumenttype>
+          <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
+          <tittel>Søknad om tilbygg</tittel>
+          <beskrivelse>Søknad om tilbygg i drammensveien</beskrivelse>
+          <forfatter>Petter Strand</forfatter>
+          <opprettetDato>2011-09-09T14:05:05</opprettetDato>
+          <opprettetAv>Postmottak</opprettetAv>
+          <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+          <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
+          <dokumentnummer>1</dokumentnummer>
+          <tilknyttetDato>2011-09-09T14:14:14</tilknyttetDato>
+          <tilknyttetAv>Lars H.Hansen</tilknyttetAv>
+          <dokumentobjekt>
+            <versjonsnummer>1</versjonsnummer>
+            <variantformat>Arkivformat</variantformat>
+            <format>pdf/a</format>
+            <opprettetDato>2011-09-09T14:09:13</opprettetDato>
+            <opprettetAv>Lars H.Hansen</opprettetAv>
+            <referanseDokumentfil>dokumenter/1c555c2e-7f2f-492c-a770-c7bc18c902c6.pdf</referanseDokumentfil>
+            <sjekksum>9169d5aa04f63a0ca7f52aae1435d208528d2b6ef8f96c35d8f33086872eca19</sjekksum>
+            <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
+            <filstoerrelse>87 kB</filstoerrelse>
+          </dokumentobjekt>
+        </dokumentbeskrivelse>
+        <registreringsID>d946d375-3533-4c44-9558-557446bf8ef8</registreringsID>
+        <tittel>Søknad om tilbygg</tittel>
+        <offentligTittel>Søknad om tilbygg i drammensveien</offentligTittel>
+        <forfatter>Petter Strand</forfatter>
+        <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+        <journalaar>2011</journalaar>
+        <journalsekvensnummer>1</journalsekvensnummer>
+        <journalpostnummer>2011</journalpostnummer>
+        <journalposttype>Inngående dokument</journalposttype>
+        <journalstatus>Arkivert</journalstatus>
+        <journaldato>2011-09-09</journaldato>
+        <dokumentetsDato>2011-09-08</dokumentetsDato>
+        <mottattDato>2011-09-09T09:10:00</mottattDato>
+        <antallVedlegg>0</antallVedlegg>
+        <journalenhet>arkivtjenesten</journalenhet>
+        <korrespondansepart>
+          <korrespondanseparttype>Mottaker</korrespondanseparttype>
+          <korrespondansepartNavn>Petter Strand</korrespondansepartNavn>
+          <postadresse> drammensveien 7</postadresse>
+          <postnummer>0271</postnummer>
+          <epostadresse>pstrand@gmail.com</epostadresse>
+          <telefonnummer>43654388</telefonnummer>
+          <administrativEnhet>arkivtjenesten</administrativEnhet>
+          <saksbehandler>Lars H.Hansen</saksbehandler>
+        </korrespondansepart>
+        <avskrivning>
+        	<avskrivningsdato>2011-09-09</avskrivningsdato>
+        	<avskrevetAv>Lars H.Hansen</avskrevetAv>
+        	<avskrivningsmaate>Besvart med e-post</avskrivningsmaate>
+        </avskrivning>
+      </registrering>
+      <registrering xsi:type="journalpost">
+        <systemID>f080dee0-97c8-4d15-8832-622f93de318b</systemID>
+        <opprettetDato>2011-09-10T14:00:00</opprettetDato>
+        <opprettetAv>Lars H. Hansen</opprettetAv>
+        <arkivertDato>2011-10-09T16:00:00</arkivertDato>
+        <arkivertAv>arkivleder</arkivertAv>
+        <dokumentbeskrivelse>
+          <systemID>2872a56c-7e3a-416c-8cad-3ffb9e8f49ce</systemID>
+          <dokumenttype>pdf/a</dokumenttype>
+          <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
+          <tittel>Vedtak om tilbygg</tittel>
+          <beskrivelse>Vedtak om tilbygg i drammensveien</beskrivelse>
+          <forfatter>Lars H.Hansen</forfatter>
+          <opprettetDato>2011-10-09T14:05:00</opprettetDato>
+          <opprettetAv>Lars H.Hansen</opprettetAv>
+          <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+          <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
+          <dokumentnummer>1</dokumentnummer>
+          <tilknyttetDato>2011-10-09T14:14:14</tilknyttetDato>
+          <tilknyttetAv>Lars H. Hansen</tilknyttetAv>
+          <dokumentobjekt>
+            <versjonsnummer>1</versjonsnummer>
+            <variantformat>Arkivformat</variantformat>
+            <format>pdf/a</format>
+            <opprettetDato>2011-10-09T14:49:10</opprettetDato>
+            <opprettetAv>Lars H. Hansen</opprettetAv>
+            <referanseDokumentfil>dokumenter/14305c90-99a2-4444-bb76-63ddae8a2e98.pdf</referanseDokumentfil>
+            <sjekksum>2ce321351a886f089220a9adac0f3d1b07c872b08343fa5a3af708ff0f805911</sjekksum>
+            <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
+            <filstoerrelse>87kB</filstoerrelse>
+          </dokumentobjekt>
+        </dokumentbeskrivelse>
+        <registreringsID>3062c3c1-83f7-4fb1-9a80-11bab7c06165</registreringsID>
+        <tittel>Vedtak på tilbygg</tittel>
+        <offentligTittel>vedtak på tilbygg,drammensveien</offentligTittel>
+        <forfatter>Lars H Hansen</forfatter>
+        <journalaar>2011</journalaar>
+        <journalsekvensnummer>2</journalsekvensnummer>
+        <journalpostnummer>2011</journalpostnummer>
+        <journalposttype>Utgående dokument</journalposttype>
+        <journalstatus>Arkivert</journalstatus>
+        <journaldato>2011-09-10</journaldato>
+        <dokumentetsDato>2011-09-10</dokumentetsDato>
+        <sendtDato>2011-09-10T16:00:00</sendtDato>
+        <antallVedlegg>0</antallVedlegg>
+        <journalenhet>arkivtjenesten</journalenhet>
+        <korrespondansepart>
+          <korrespondanseparttype>Avsender</korrespondanseparttype>
+          <korrespondansepartNavn>Lars H. Hansen</korrespondansepartNavn>
+          <postadresse> rådhuset</postadresse>
+          <postnummer>0037</postnummer>
+          <epostadresse>lars@raadhuset.no</epostadresse>
+          <telefonnummer>NULL</telefonnummer>
+          <kontaktperson>NULL</kontaktperson>
+          <administrativEnhet>arkivtjenesten</administrativEnhet>
+          <saksbehandler>Lars H.Hansen</saksbehandler>
+        </korrespondansepart>
+      </registrering>
+      <saksaar>2011</saksaar>
+      <sakssekvensnummer>1</sakssekvensnummer>
+      <saksdato>2011-09-09</saksdato>
+      <administrativEnhet>arkivtjenesten</administrativEnhet>
+      <saksansvarlig>Lars H.Hansen</saksansvarlig>
+      <saksstatus>Avsluttet</saksstatus>
+    </mappe>
+    <mappe xsi:type="saksmappe">
+      <systemID>214e27a2-5e7f-484b-b2c2-dea4e50524a3</systemID>
+      <mappeID>2012/200</mappeID>
+      <tittel>Vei og trafikk</tittel>
+      <beskrivelse>Vei og trafikk saksarkiv</beskrivelse>
+      <opprettetDato>2012-09-09T14:00:00</opprettetDato>
+      <opprettetAv>Arkivleder</opprettetAv>
+      <avsluttetDato>2013-09-09T14:00:00</avsluttetDato>
+      <avsluttetAv>Arkivleder</avsluttetAv>
+      <registrering xsi:type="journalpost">
+        <systemID>2b962a88-23b2-475e-bce3-a438d9db25db</systemID>
+        <opprettetDato>2012-10-10T12:00:00</opprettetDato>
+        <opprettetAv>Postmottak</opprettetAv>
+        <arkivertDato>2012-10-10T16:00:01</arkivertDato>
+        <arkivertAv>arkivleder</arkivertAv>
+        <dokumentbeskrivelse>
+          <systemID>942486fd-c763-47c2-a75c-48a62a727e81</systemID>
+          <dokumenttype>pdf/a</dokumenttype>
+          <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
+          <tittel>Klage på vei</tittel>
+          <beskrivelse>Klage på dårlig vei drammensveien</beskrivelse>
+          <forfatter>knut nærum</forfatter>
+          <opprettetDato>2012-10-10T14:09:05</opprettetDato>
+          <opprettetAv>Postmottak</opprettetAv>
+          <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+          <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
+          <dokumentnummer>1</dokumentnummer>
+          <tilknyttetDato>2012-10-10T14:14:14</tilknyttetDato>
+          <tilknyttetAv>postmottak</tilknyttetAv>
+          <dokumentobjekt>
+            <versjonsnummer>1</versjonsnummer>
+            <variantformat>Arkivformat</variantformat>
+            <format>pdf/a</format>
+            <opprettetDato>2012-10-10T14:09:13</opprettetDato>
+            <opprettetAv>Postmottak</opprettetAv>
+            <referanseDokumentfil>dokumenter/61677fa2-659b-4200-9438-6c43e4826d3f.pdf</referanseDokumentfil>
+            <sjekksum>c9d8c2722a1a1005bd4e4bd298f53e0a9e7429485b0a78020939dc8c37194e71</sjekksum>
+            <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
+            <filstoerrelse>87 kB</filstoerrelse>
+          </dokumentobjekt>
+        </dokumentbeskrivelse>
+        <registreringsID>9a88df40-faff-4bae-8ab2-806c50aa44ac</registreringsID>
+        <tittel>klage på vei</tittel>
+        <offentligTittel>klage på vei drammensveien</offentligTittel>
+        <forfatter>Knut Nærum</forfatter>
+        <journalaar>2012</journalaar>
+        <journalsekvensnummer>1</journalsekvensnummer>
+        <journalpostnummer>2012</journalpostnummer>
+        <journalposttype>Inngående dokument</journalposttype>
+        <journalstatus>Arkivert</journalstatus>
+        <journaldato>2012-10-10</journaldato>
+        <dokumentetsDato>2012-10-01</dokumentetsDato>
+        <mottattDato>2012-10-10T11:55:01</mottattDato>
+        <antallVedlegg>0</antallVedlegg>
+        <journalenhet>arkivtjenesten</journalenhet>
+        <korrespondansepart>
+          <korrespondanseparttype>Avsender</korrespondanseparttype>
+          <korrespondansepartNavn>Knut Nærum</korrespondansepartNavn>
+          <postadresse> rådhuset</postadresse>
+          <postnummer>0037</postnummer>
+          <epostadresse>lars@raadhuset.no</epostadresse>
+          <telefonnummer>NULL</telefonnummer>
+          <kontaktperson>NULL</kontaktperson>
+          <administrativEnhet>arkivtjenesten</administrativEnhet>
+          <saksbehandler>Lars H.Hansen</saksbehandler>
+        </korrespondansepart>
+      </registrering>
+      <registrering xsi:type="journalpost">
+        <systemID>ae3828bc-73e8-4722-b7c5-1b010f3f77f6</systemID>
+        <opprettetDato>2012-10-10T14:00:00</opprettetDato>
+        <opprettetAv>Linda Hansen</opprettetAv>
+        <arkivertDato>2012-10-10T16:00:00</arkivertDato>
+        <arkivertAv>arkivleder</arkivertAv>
+        <dokumentbeskrivelse>
+          <systemID>6a71028c-5023-4768-95bf-733a706ae06e</systemID>
+          <dokumenttype>pdf-a</dokumenttype>
+          <dokumentstatus>Dokumentet er ferdigstilt</dokumentstatus>
+          <tittel>Vedtak etter klage</tittel>
+          <beskrivelse>Vedtak om utbedring av vei drammensveien</beskrivelse>
+          <forfatter>Linda Hansen</forfatter>
+          <opprettetDato>2012-10-10T14:05:00</opprettetDato>
+          <opprettetAv>Linda Hansen</opprettetAv>
+          <dokumentmedium>Elektronisk arkiv</dokumentmedium>
+          <tilknyttetRegistreringSom>Hoveddokument</tilknyttetRegistreringSom>
+          <dokumentnummer>1</dokumentnummer>
+          <tilknyttetDato>2012-10-10T14:14:14</tilknyttetDato>
+          <tilknyttetAv>system</tilknyttetAv>
+          <dokumentobjekt>
+            <versjonsnummer>1</versjonsnummer>
+            <variantformat>Arkivformat</variantformat>
+            <format>pdf</format>
+            <opprettetDato>2012-10-10T14:10:13</opprettetDato>
+            <opprettetAv>Linda Hansen</opprettetAv>
+            <referanseDokumentfil>dokumenter/1755a60f-c9c0-4943-924f-59a6601484a9.pdf</referanseDokumentfil>
+            <sjekksum>4cb6d852bae043e1583c34a4d0c5567d45180c5435f37d0c58f3f77b2d21537e</sjekksum>
+            <sjekksumAlgoritme>SHA-256</sjekksumAlgoritme>
+            <filstoerrelse>87 kB</filstoerrelse>
+          </dokumentobjekt>
+        </dokumentbeskrivelse>
+        <registreringsID>c0d5a561-11a6-4677-9fa0-fc53e5f9930e</registreringsID>
+        <tittel>Svar på klage</tittel>
+        <offentligTittel>Vedtak etter klage dårlig vei drammensveien</offentligTittel>
+        <forfatter>Linda Hansen</forfatter>
+        <journalaar>2012</journalaar>
+        <journalsekvensnummer>1</journalsekvensnummer>
+        <journalpostnummer>2011</journalpostnummer>
+        <journalposttype>Utgående dokument</journalposttype>
+        <journalstatus>Arkivert</journalstatus>
+        <journaldato>2012-10-10</journaldato>
+        <dokumentetsDato>2012-10-10</dokumentetsDato>
+        <sendtDato>2012-10-10T15:00:00</sendtDato>
+        <antallVedlegg>0</antallVedlegg>
+        <journalenhet>vei og trafikk</journalenhet>
+        <korrespondansepart>
+          <korrespondanseparttype>Mottaker</korrespondanseparttype>
+          <korrespondansepartNavn>Linda Hansen</korrespondansepartNavn>
+          <postadresse> rådhuset</postadresse>
+          <postnummer>0037</postnummer>
+          <epostadresse>linda@raadhuset.no</epostadresse>
+          <telefonnummer>NULL</telefonnummer>
+          <kontaktperson>NULL</kontaktperson>
+          <administrativEnhet>arkivtjenesten</administrativEnhet>
+          <saksbehandler>Linda Hansen</saksbehandler>
+        </korrespondansepart>
+      </registrering>
+      <saksaar>2012</saksaar>
+      <sakssekvensnummer>1</sakssekvensnummer>
+      <saksdato>2012-10-10</saksdato>
+      <administrativEnhet>vei og trafikk</administrativEnhet>
+      <saksansvarlig>Linda Hansen</saksansvarlig>
+      <saksstatus>Avsluttet</saksstatus>
+    </mappe>
+  </arkivdel>
+</arkiv>

@@ -10,8 +10,12 @@ namespace Arkivverket.Arkade.Core.Util
         {
             string entryName = tarEntry.Name.Replace('\\', '/');
 
+            // archiveRootDirectoryName is the tar's actual internal root directory; null means the
+            // tar has no single root and its entry paths start at the package level
             return ArkadeConstants.DocumentDirectoryNames.Any(documentDirectoryName =>
-                entryName.StartsWith($"{archiveRootDirectoryName}/content/{documentDirectoryName}"));
+                entryName.StartsWith(archiveRootDirectoryName == null
+                    ? $"content/{documentDirectoryName}"
+                    : $"{archiveRootDirectoryName}/content/{documentDirectoryName}"));
         }
 
         public static string GetRelativePathForNoark5DocumentEntry(this TarEntry tarEntry)

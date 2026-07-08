@@ -10,32 +10,25 @@ using Arkivverket.Arkade.Core.Util;
 using ICSharpCode.SharpZipLib.Tar;
 using Serilog;
 using System.Runtime.Serialization;
+using Arkivverket.Arkade.Core.Base.Archives;
+using Arkivverket.Arkade.Core.Base.Siard;
+using Arkivverket.Arkade.Core.Logging;
+using Arkivverket.Arkade.Core.Report;
 
 namespace Arkivverket.Arkade.Core.Base
 {
-    public class InformationPackageCreator
+    public class InformationPackageCreator(MetadataFilesCreator metadataFilesCreator, IStatusEventHandler statusEventHandler, SiardMetadataFileHelper siardMetadataFileHelper, TestSessionXmlGenerator testSessionXmlGenerator)
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
-
-        private static readonly List<string> FilesToSkipForSipPackages = new List<string>
-        {
-            ArkadeConstants.EadXmlFileName,
-            ArkadeConstants.EacCpfXmlFileName
-        };
-
-        private static readonly List<string> DirectoriesToSkipForSipPackages = new List<string>
-        {
-            ArkadeConstants.DirectoryNameRepositoryOperations
-        };
 
         /// <summary>
         /// Create SIP (Submission Information Package). 
         /// Package- and metafile are written to the given output directory
         /// The full path of the created package is returned
         /// </summary>
-        public string CreateSip(Archive archive, ArchiveMetadata metadata, string outputDirectory)
+        public string CreateSip(Archive archive, string outputDirectory)
         {
-            string packageFilePath = CreatePackage(PackageType.SubmissionInformationPackage, archive, metadata, outputDirectory);
+            string packageFilePath = CreatePackage(archive, outputDirectory);
 
             return packageFilePath;
         }
@@ -45,105 +38,110 @@ namespace Arkivverket.Arkade.Core.Base
         /// Package- and metafile are written to the given output directory
         /// The full path of the created package is returned
         /// </summary>
-        public string CreateAip(Archive archive, ArchiveMetadata metadata, string outputDirectory)
+        public string CreateAip(Archive archive, string outputDirectory)
         {
-            string packageFilePath = CreatePackage(PackageType.ArchivalInformationPackage, archive, metadata, outputDirectory);
+            string packageFilePath = CreatePackage(archive, outputDirectory);
 
             return packageFilePath;
         }
 
-        private string CreatePackage(PackageType packageType, Archive archive, ArchiveMetadata metadata, string outputDirectory)
+        private string CreatePackage(Archive archive, string outputDirectoryPath)
         {
+            OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
+
+            if (archive.TestSession?.TestSuite != null)
+            {
+                var outputDirectory = new DirectoryInfo(outputDirectoryPath);
+                
+                TestReportGeneratorRunner.RunAllGenerators(archive, outputDirectory, 100 /*TODO: fix!*/, outputDiasPackage, out DirectoryInfo reportsDirectory);
+        
+                if (archive is SiardArchive)
+                    File.Copy(
+                        sourceFileName: Path.Combine(archive.TestSession.TemporaryTestResultFilesDirectory.FullName, OutputFileNames.DbptkValidationReportFile),
+                        destFileName: Path.Combine(reportsDirectory.FullName, OutputFileNames.DbptkValidationReportFile),
+                        overwrite: true
+                    );
+
+                // Ship the test-session log inside the package (AIP only; SIP omits repository_operations),
+                // freshly written here so it carries the output package's UUID.
+                if (outputDiasPackage.PackageType == PackageType.ArchivalInformationPackage)    
+                    testSessionXmlGenerator.GenerateXmlAndSaveToFile(archive, outputDiasPackage);
+            }
+            
+            if (archive is (Noark5Archive or SpecializedSystemArchive) and AddmlBasedArchive { AddmlXmlUnit: not null } addmlBasedArchive)
+                addmlBasedArchive.AddmlXmlUnit.WriteFiles(outputDiasPackage.WorkingDirectory.AdministrativeMetadata());
+            
+            if(archive is SiardArchive siardArchive)
+            {
+                siardMetadataFileHelper.ExtractSiardMetadataFilesToAdministrativeMetadata(siardArchive);
+            }
+            
+            metadataFilesCreator.Create(archive);
+            
             try
             {
-                EnsureSufficientDiskSpace(archive, outputDirectory);
+                EnsureSufficientDiskSpace(archive, outputDirectoryPath);
             }
             catch
             {
                 Log.Warning("Could not verify sufficient disk space at package destination.");
             }
 
-            string resultDirectory = CreateResultDirectory(archive, outputDirectory);
+            string resultDirectory = CreateResultDirectory(outputDiasPackage.Id, outputDirectoryPath);
 
-            if (packageType == PackageType.SubmissionInformationPackage)
-            {
-                CopyTestReportsToStandaloneDirectory(archive, resultDirectory);
-            }
-
-            string packageFilePath = Path.Combine(resultDirectory, archive.GetInformationPackageFileName());
+            string packageFilePath = Path.Combine(resultDirectory, outputDiasPackage.Id + ".tar");
 
             using Stream outStream = File.Create(packageFilePath);
             using var tarOutputStream = new TarOutputStream(outStream, Encoding.UTF8);
             using var tarArchive = TarArchive.CreateOutputTarArchive(tarOutputStream);
 
-            string packageRootDirectory = archive.Uuid.GetValue() + Path.DirectorySeparatorChar;
+            string packageRootDirectory = outputDiasPackage.Id.GetValue() + Path.DirectorySeparatorChar;
             CreateEntry(packageRootDirectory, true, new DirectoryInfo("none"), tarArchive, string.Empty, string.Empty);
 
             AddFilesInDirectory(
-                archive, archive.WorkingDirectory.Root().DirectoryInfo(), packageType, tarArchive, packageRootDirectory
+                outputDiasPackage, outputDiasPackage.WorkingDirectory.Root().DirectoryInfo(), tarArchive, packageRootDirectory
             );
 
-            if (archive.WorkingDirectory.HasExternalContentDirectory())
+            // Stream the archive content straight into the package's content directory. The content is
+            // read in place from its source (Archive.Content) rather than being staged in the work
+            // directory — packaging adds no extra copy of the content on disk. The empty content directory
+            // created under the work directory (see DiasPackageWorkingDirectory.CreateDirectories)
+            // guarantees the package always contains a content directory, even with no content files.
             {
-                Log.Debug($"Archive has external content directory, including files from {archive.WorkingDirectory.Content()}");
+                Log.Debug($"Writing archive content to the package content directory from {archive.Content}");
 
-                string contentDirectory = packageRootDirectory +
-                                          ArkadeConstants.DirectoryNameContent +
-                                          Path.DirectorySeparatorChar;
+                var contentDirectoryPath = $"{outputDiasPackage.Id}/{ArkadeConstants.DirectoryNameContent}";
 
-                AddFilesInDirectory(
-                    archive, archive.WorkingDirectory.Content().DirectoryInfo(), null, tarArchive, contentDirectory
-                );
+                foreach ((FileSystemInfo contentItem, string contentRelativeFilePath) in archive.Content.Get())
+                {
+                    var tarEntry = TarEntry.CreateEntryFromFile(contentItem.FullName);
+                    tarEntry.Name = $"{contentDirectoryPath}/{contentRelativeFilePath}";
+                    tarArchive.WriteEntry(tarEntry, false);
+                }
             }
 
-            if (archive.IsNoark5TarArchive)
-                archive.DocumentFiles.TransferFromTarToInformationPackage(tarOutputStream);
+            if (archive is Noark5Archive { InputDiasPackage.TarFile: not null } noark5Archive )
+                noark5Archive.DocumentFiles.TransferFromTarToInformationPackage(tarOutputStream, packageRootDirectory);
 
             tarArchive.Close();
 
             var diasMetsFilePath = Path.Combine(
-                archive.WorkingDirectory.Root().DirectoryInfo().FullName,
+                archive.OutputDiasPackage.WorkingDirectory.Root().DirectoryInfo().FullName,
                 ArkadeConstants.DiasMetsXmlFileName
             );
 
-            new SubmissionDescriptionCreator().CreateAndSaveFile(metadata, packageFilePath, diasMetsFilePath,
-                archive.GetSubmissionDescriptionFileName());
+            ArchiveMetadata metadataForSubmissionDescription = outputDiasPackage.ArchiveMetadata.Clone();
+
+            new SubmissionDescriptionCreator().CreateAndSaveFile(metadataForSubmissionDescription, packageFilePath, diasMetsFilePath,
+                outputDiasPackage.Id + ".xml");
 
             return packageFilePath;
-        }
-
-        private void CopyTestReportsToStandaloneDirectory(Archive archive, string resultDirectory)
-        {
-            DirectoryInfo testReportDirectory = archive.GetTestReportDirectory();
-
-            if (testReportDirectory.Exists)
-            {
-                FileInfo[] testReportFiles = testReportDirectory.GetFiles();
-
-                if (testReportFiles.Any())
-                {
-                    DirectoryInfo testReportResultDirectory = Directory.CreateDirectory(Path.Combine(
-                        resultDirectory, string.Format(OutputFileNames.StandaloneTestReportDirectory, archive.Uuid)
-                    ));
-
-                    foreach (FileInfo file in testReportFiles)
-                    {
-                        file.CopyTo(
-                            Path.Combine(testReportResultDirectory.FullName,
-                                file.Name.Equals(OutputFileNames.DbptkValidationReportFile)
-                                    ? file.Name
-                                    : string.Format(OutputFileNames.StandaloneTestReportFile, archive.Uuid,
-                                        file.Extension.TrimStart('.'))),
-                            overwrite: true);
-                    }
-                }
-            }
         }
 
         private static void EnsureSufficientDiskSpace(Archive archive, string outputDirectory)
         {
             long driveSpace = SystemInfo.GetAvailableDiskSpaceInBytes(outputDirectory);
-            long packageSize = archive.WorkingDirectory.GetSize();
+            long packageSize = EstimatePackageSize(archive);
 
             if (packageSize > driveSpace)
             {
@@ -156,11 +154,19 @@ namespace Arkivverket.Arkade.Core.Base
                 throw new InsufficientDiskSpaceException(errorMessage);
             }
         }
+
+        private static long EstimatePackageSize(Archive archive)
+        {
+            // Work-directory staged files (package metadata and similar) plus the archive content, which is
+            // streamed into the package from its source rather than staged in the work directory (see
+            // CreatePackage). Each archive type knows how to size its own content (see Archive.GetContentSize).
+            return archive.OutputDiasPackage.WorkingDirectory.GetSize() + archive.GetContentSize();
+        }
         
-        private string CreateResultDirectory(Archive archive, string outputDirectory)
+        private string CreateResultDirectory(Uuid informationPackageUuid, string outputDirectory)
         {
             var resultDirectory = new DirectoryInfo(
-                Path.Combine(outputDirectory, string.Format(OutputFileNames.ResultOutputDirectory, archive.Uuid))
+                Path.Combine(outputDirectory, string.Format(OutputFileNames.ResultOutputDirectory, informationPackageUuid))
             );
 
             resultDirectory.Create();
@@ -168,44 +174,32 @@ namespace Arkivverket.Arkade.Core.Base
             return resultDirectory.FullName;
         }
 
-        private void AddFilesInDirectory(Archive archive, DirectoryInfo rootDirectory, PackageType? packageType, TarArchive tarArchive,
+        private void AddFilesInDirectory(OutputDiasPackage diasPackage, DirectoryInfo rootDirectory, TarArchive tarArchive,
             string fileNamePrefix)
         {
-            AddFilesInDirectory(archive, rootDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
+            AddFilesInDirectory(diasPackage, rootDirectory, rootDirectory, tarArchive, fileNamePrefix);
         }
 
         /// <summary>
         ///     Recursively add all files and directories to the given tar archive.
         /// </summary>
-        /// <param name="archive">the archive we are working on</param>
+        /// <param name="diasPackage">the information package we are working on</param>
         /// <param name="directory">the directory we want to add files from</param>
         /// <param name="rootDirectory">this path is stripped from the filename used in tar file</param>
-        /// <param name="packageType">the package type - used for filtering some files that are not needed for SIP-packages</param>
         /// <param name="tarArchive">the archive to add files to</param>
         /// <param name="fileNamePrefix">a prefix to add to all files after removing the root directory.</param>
-        private void AddFilesInDirectory(Archive archive, DirectoryInfo directory, DirectoryInfo rootDirectory, PackageType? packageType,
+        private void AddFilesInDirectory(OutputDiasPackage diasPackage, DirectoryInfo directory, DirectoryInfo rootDirectory,
             TarArchive tarArchive, string fileNamePrefix)
         {
             foreach (DirectoryInfo currentDirectory in directory.GetDirectories())
             {
-                if ((packageType != null) && (packageType == PackageType.SubmissionInformationPackage) &&
-                    DirectoriesToSkipForSipPackages.Contains(currentDirectory.Name))
-                {     
-                    continue;
-                }
-                
                 CreateEntry(currentDirectory.FullName, true, rootDirectory, tarArchive, fileNamePrefix, Path.DirectorySeparatorChar.ToString());
-                AddFilesInDirectory(archive, currentDirectory, rootDirectory, packageType, tarArchive, fileNamePrefix);
+                AddFilesInDirectory(diasPackage, currentDirectory, rootDirectory, tarArchive, fileNamePrefix);
             }
 
             foreach (FileInfo file in directory.GetFiles())
             {
-                if (file.Name == archive.GetInformationPackageFileName()) // don't try to add the tar file into the tar file...
-                {
-                    continue;
-                }
-
-                if (FileIsInSkipList(packageType, file))
+                if (file.Name == diasPackage.Id + ".tar") // don't try to add the tar file into the tar file...
                 {
                     continue;
                 }
@@ -243,13 +237,6 @@ namespace Arkivverket.Arkade.Core.Base
                 rootDirectory += Path.DirectorySeparatorChar;
 
             return filename.Replace(rootDirectory, "");
-        }
-
-        private static bool FileIsInSkipList(PackageType? packageType, FileInfo file)
-        {
-            return packageType.HasValue
-                   && (packageType == PackageType.SubmissionInformationPackage)
-                   && FilesToSkipForSipPackages.Contains(file.Name);
         }
 
         public static PackageType ParsePackageType(string packageType)

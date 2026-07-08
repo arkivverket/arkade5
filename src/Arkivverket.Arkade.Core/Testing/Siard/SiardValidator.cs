@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;

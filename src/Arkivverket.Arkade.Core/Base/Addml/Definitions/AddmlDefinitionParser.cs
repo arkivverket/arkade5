@@ -16,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         private readonly ILogger _log = Log.ForContext<AddmlDefinitionParser>();
 
         private readonly AddmlInfo _addmlInfo;
-        private readonly WorkingDirectory _workingDirectory;
+        private readonly DirectoryArchiveContent _content;
         private readonly IStatusEventHandler _statusEventHandler;
 
         private readonly Dictionary<string, flatFileType> _flatFileTypes = new Dictionary<string, flatFileType>();
@@ -29,11 +29,11 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         private readonly Dictionary<FieldIndex, AddmlFieldDefinition> _allFieldDefinitions =
             new Dictionary<FieldIndex, AddmlFieldDefinition>();
 
-        public AddmlDefinitionParser(AddmlInfo addmlInfo, WorkingDirectory workingDirectory, IStatusEventHandler statusEventHandler)
+        public AddmlDefinitionParser(AddmlInfo addmlInfo, DirectoryArchiveContent content, IStatusEventHandler statusEventHandler)
         {
             Assert.AssertNotNull(Resources.AddmlMessages.AddmlInfo, addmlInfo);
             _addmlInfo = addmlInfo;
-            _workingDirectory = workingDirectory;
+            _content = content;
             _statusEventHandler = statusEventHandler;
 
             PopulateFlatFileTypes();
@@ -144,29 +144,23 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
         public AddmlDefinition GetAddmlDefinition()
         {
             List<AddmlFlatFileDefinition> addmlFlatFileDefinitions = GetAddmlFlatFileDefinitions();
-            List<FileInfo> fileInfos = _workingDirectory.Content().DirectoryInfo().GetFiles("*", SearchOption.AllDirectories).ToList();
 
-            List<AddmlFlatFileDefinition> addmlFlatFilesExistingInDirectory = GetFlatFileDefinitionsWhereReferencedFileExistsInDirectory(addmlFlatFileDefinitions, fileInfos);
+            List<AddmlFlatFileDefinition> addmlFlatFilesExistingInDirectory = GetFlatFileDefinitionsWhereReferencedFileExistsInDirectory(addmlFlatFileDefinitions);
 
             return new AddmlDefinition(addmlFlatFileDefinitions, addmlFlatFilesExistingInDirectory);
         }
 
-        private List<AddmlFlatFileDefinition> GetFlatFileDefinitionsWhereReferencedFileExistsInDirectory(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions, List<FileInfo> fileInfos)
+        private List<AddmlFlatFileDefinition> GetFlatFileDefinitionsWhereReferencedFileExistsInDirectory(List<AddmlFlatFileDefinition> addmlFlatFileDefinitions)
         {
-            List<AddmlFlatFileDefinition> filesExistingInDirectory = new List<AddmlFlatFileDefinition>();
+            // A flat file can only ever match by plain name directly beside the ADDML file, so listing
+            // that single directory is sufficient
+            var fileNamesInAddmlDirectory =
+                new HashSet<string>(_addmlInfo.AddmlFile.Directory!.EnumerateFiles().Select(file => file.Name));
 
-            string addmlInfoDirectoryPath = _addmlInfo.AddmlFile.Directory.FullName;
-            var fileInfosPathsRelativeFromArchiveFolder = new HashSet<string>(fileInfos.Select(f => Path.GetRelativePath(addmlInfoDirectoryPath, f.FullName)));
-
-            foreach (var addmlFlatFileDefinition in addmlFlatFileDefinitions)
-            {
-                int relativePathStart = Path.GetDirectoryName(addmlFlatFileDefinition.FileName.FullFileName)?.Length ?? 0;
-                string flatFileDefinitionRelativeName = addmlFlatFileDefinition.FileName.FullFileName.Remove(0, relativePathStart);
-                if (fileInfosPathsRelativeFromArchiveFolder.Contains(Path.GetFileName(flatFileDefinitionRelativeName)))
-                    filesExistingInDirectory.Add(addmlFlatFileDefinition);
-            }
-
-            return filesExistingInDirectory;
+            return addmlFlatFileDefinitions
+                .Where(definition =>
+                    fileNamesInAddmlDirectory.Contains(Path.GetFileName(definition.FileName.FullFileName)))
+                .ToList();
         }
 
         private List<AddmlFlatFileDefinition> GetAddmlFlatFileDefinitions()
@@ -181,7 +175,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Definitions
                 string fieldSeparator = GetFieldSeparator(flatFileDefinition.typeReference);
                 string quotingChar = GetQuotingChar(flatFileDefinition.typeReference);
                 AddmlDefinitionFlatFileName fileName = GetFileName(flatFileDefinition.name);
-                FileInfo fileInfo = _workingDirectory.Content().WithFile(fileName.RelativeFilename);
+                FileInfo fileInfo = _content.GetFile(fileName.RelativeFilename);
                 string charset = GetCharset(flatFileDefinition.typeReference);
                 string recordDefinitionFieldIdentifier = flatFileDefinition.recordDefinitionFieldIdentifier;
                 int? numberOfRecords = GetNumberOfRecords(flatFileDefinition.name);

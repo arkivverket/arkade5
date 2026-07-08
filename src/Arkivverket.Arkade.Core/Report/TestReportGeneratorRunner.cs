@@ -1,32 +1,86 @@
-﻿using System;
+using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
+using static Arkivverket.Arkade.Core.Resources.OutputFileNames;
 
 namespace Arkivverket.Arkade.Core.Report
 {
     public static class TestReportGeneratorRunner
     {
-        public static void RunAllGenerators(TestSession testSession, DirectoryInfo testReportDirectory, bool standalone,
-            int testResultDisplayLimit)
+        public static void RunAllGenerators(Archive archive, DirectoryInfo outputDirectory,
+            int testResultDisplayLimit, DiasPackage diasPackage, out DirectoryInfo reportsDirectory)
         {
-            TestReport testReport = testSession.Archive.ArchiveType.Equals(ArchiveType.Siard)
-                ? TestReportFactory.CreateForSiard(testSession)
-                : TestReportFactory.Create(testSession);
+            TestReport testReport = archive is SiardArchive siardArchive
+                ? TestReportFactory.CreateForSiard(siardArchive, diasPackage)
+                : TestReportFactory.Create(archive, diasPackage);
+
+            string extensionReadyTestReportFullName = GetExtensionReadyTestReportFullName(outputDirectory,
+                diasPackage, archive.TestSession.TimeOfTesting, out string reportsDirectoryPath);
+
+            reportsDirectory = Directory.CreateDirectory(reportsDirectoryPath);
 
             foreach (TestReportFormat testReportFormat in Enum.GetValues<TestReportFormat>())
             {
-                string testReportFileName = Path.Combine(testReportDirectory.FullName, standalone
-                    ? string.Format(Resources.OutputFileNames.StandaloneTestReportFile, testReport.Summary.Uuid, testReportFormat.ToString())
-                    : string.Format(Resources.OutputFileNames.TestReportFile, testReportFormat.ToString()));
-
-                using FileStream fileStream = new FileInfo(testReportFileName).OpenWrite();
-                
+                string testReportFullName = string.Format(extensionReadyTestReportFullName, testReportFormat);
+                using FileStream fileStream = new FileInfo(testReportFullName).OpenWrite();
                 IReportGenerator reportGenerator = GetReportGenerator(testReportFormat, testResultDisplayLimit);
                 reportGenerator.Generate(testReport, fileStream);
             }
         }
 
-        private static IReportGenerator GetReportGenerator(TestReportFormat testReportFormat, int testResultDisplayLimit)
+        public static string GetExtensionReadyTestReportFullName(DirectoryInfo outputDirectory, DiasPackage diasPackage,
+            DateTime timeOfTesting, out string reportDirectoryPath)
+        {
+            switch (diasPackage)
+            {
+                case OutputDiasPackage { PackageType: PackageType.ArchivalInformationPackage } outputAip:
+                {
+                    reportDirectoryPath = outputAip.WorkingDirectory.RepositoryOperations()
+                        .WithSubDirectory(TestReportDirectory).ToString();
+
+                    string extensionReadyReportFileName = TestReportFile;
+                    return Path.Combine(reportDirectoryPath, extensionReadyReportFileName);
+                }
+                case OutputDiasPackage { PackageType: PackageType.SubmissionInformationPackage } outputSip:
+                {
+                    string standAloneDirectoryName = string.Format(StandaloneTestReportDirectory, outputSip.Id);
+                    string resultOutputDirectoryName = string.Format(ResultOutputDirectory, outputSip.Id);
+
+                    reportDirectoryPath =
+                        Path.Combine(outputDirectory.FullName, resultOutputDirectoryName,
+                            standAloneDirectoryName);
+
+                    string extensionReadyReportFileName = string.Format(StandaloneTestReportFile, outputSip.Id, "{0}");
+                    return Path.Combine(reportDirectoryPath, extensionReadyReportFileName);
+                }
+                case InputDiasPackage { Id: not null } inputIp: // Test-report export
+                {
+                    string standAloneDirectoryName =
+                        string.Format(StandaloneTestReportDirectory, inputIp.Id);
+
+                    reportDirectoryPath = Path.Combine(outputDirectory.FullName, standAloneDirectoryName);
+
+                    string extensionReadyReportFileName = string.Format(StandaloneTestReportFile, inputIp.Id, "{0}");
+                    return Path.Combine(reportDirectoryPath, extensionReadyReportFileName);
+                }
+                case InputDiasPackage: // Test-report export - package without an established identity (no valid METS UUID)
+                case null: // Test-report export - archive extraction input (not within a DIAS package)
+                {
+                    var timestamp = timeOfTesting.ToString("yyyyMMddHHmmss");
+                    string standAloneDirectoryName = string.Format(StandaloneTestReportDirectory, timestamp);
+
+                    reportDirectoryPath = Path.Combine(outputDirectory.FullName, standAloneDirectoryName);
+
+                    string extensionReadyReportFileName = string.Format(StandaloneTestReportFile, timestamp, "{0}");
+                    return Path.Combine(reportDirectoryPath, extensionReadyReportFileName);
+                }
+                default: throw new NotSupportedException();
+            }
+        }
+
+        private static IReportGenerator GetReportGenerator(TestReportFormat testReportFormat,
+            int testResultDisplayLimit)
         {
             return testReportFormat switch
             {

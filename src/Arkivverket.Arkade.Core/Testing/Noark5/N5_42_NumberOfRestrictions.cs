@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.Resources;
@@ -19,7 +20,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly List<long> _restrictionLocations = new();
         private int _totalNumberOfRestrictions;
 
-        public N5_42_NumberOfRestrictions(Archive testArchive)
+        public N5_42_NumberOfRestrictions(Noark5Archive testArchive)
         {
             _documentationStatesRestrictions = DocumentationStatesRestrictions(testArchive);
         }
@@ -136,7 +137,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 _currentArchivePart.Name = eventArgs.Value;
         }
 
-        private static bool DocumentationStatesRestrictions(Archive archive)
+        private static bool DocumentationStatesRestrictions(Noark5Archive archive)
         {
             addml archiveExtractionXml = archive.AddmlInfo.Addml;
 

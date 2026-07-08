@@ -97,7 +97,6 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.RegisterSingleton<IStatusEventHandler, StatusEventHandler>();
             containerRegistry.Register<ICompressionUtility, TarCompressionUtility>();
             containerRegistry.Register<TestEngineFactory>();
-            containerRegistry.Register<ITestProvider, Noark5TestProvider>();
             containerRegistry.Register<TestSessionFactory>();
             containerRegistry.Register<MetadataFilesCreator>();
             containerRegistry.Register<DiasMetsCreator>();
@@ -107,7 +106,7 @@ namespace Arkivverket.Arkade.GUI
             containerRegistry.Register<EacCpfCreator>();
             containerRegistry.Register<SubmissionDescriptionCreator>();
             containerRegistry.Register<InformationPackageCreator>();
-            containerRegistry.Register<ArkadeApi>();
+            containerRegistry.Register<ArkadeCoreApi>();
             containerRegistry.Register<TestSessionXmlGenerator>();
             containerRegistry.Register<IReleaseInfoReader, GitHubReleaseInfoReader>();
             containerRegistry.Register<ArkadeVersion>();

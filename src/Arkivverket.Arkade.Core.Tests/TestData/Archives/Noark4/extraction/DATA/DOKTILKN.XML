@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE DOKTILKN.TAB SYSTEM "DOKTILKN.DTD">
+<DOKTILKN.TAB VERSJON="1.0">
+   <DOKTILKN>
+      <DT.KODE>H</DT.KODE>
+      <DT.BETEGN>Hoveddokument</DT.BETEGN>	
+      <DT.JOURNAL>1</DT.JOURNAL>
+      <DT.MOTEDOK>0</DT.MOTEDOK>
+   </DOKTILKN>
+   <DOKTILKN>
+      <DT.KODE>FH</DT.KODE>
+      <DT.BETEGN>Forside av hoveddokument</DT.BETEGN>	
+      <DT.JOURNAL>1</DT.JOURNAL>
+      <DT.MOTEDOK>0</DT.MOTEDOK>
+   </DOKTILKN>
+   <DOKTILKN>
+      <DT.KODE>V</DT.KODE>
+      <DT.BETEGN>Vedlegg</DT.BETEGN>	
+      <DT.JOURNAL>1</DT.JOURNAL>
+      <DT.MOTEDOK>0</DT.MOTEDOK>
+   </DOKTILKN>
+   <DOKTILKN>
+      <DT.KODE>F</DT.KODE>
+      <DT.BETEGN>Følgeskriv</DT.BETEGN>	
+      <DT.JOURNAL>1</DT.JOURNAL>
+      <DT.MOTEDOK>0</DT.MOTEDOK>
+   </DOKTILKN>
+   <DOKTILKN>
+      <DT.KODE>A</DT.KODE>
+      <DT.BETEGN>Andre tilleggsdokument</DT.BETEGN>	
+      <DT.JOURNAL>1</DT.JOURNAL>
+      <DT.MOTEDOK>0</DT.MOTEDOK>
+   </DOKTILKN>
+   <DOKTILKN>
+      <DT.KODE>SF</DT.KODE>
+      <DT.BETEGN>Hoveddokument for saksframlegg</DT.BETEGN>	
+      <DT.JOURNAL>1</DT.JOURNAL>
+      <DT.MOTEDOK>0</DT.MOTEDOK>
+   </DOKTILKN>
+   <DOKTILKN>
+      <DT.KODE>SP</DT.KODE>
+      <DT.BETEGN>Saksprotokoll</DT.BETEGN>	
+      <DT.JOURNAL>1</DT.JOURNAL>
+      <DT.MOTEDOK>0</DT.MOTEDOK>
+   </DOKTILKN>
+   <DOKTILKN>
+      <DT.KODE>PH</DT.KODE>
+      <DT.BETEGN>Hoveddokument møteprotokoll</DT.BETEGN>	
+      <DT.JOURNAL>1</DT.JOURNAL>
+      <DT.MOTEDOK>0</DT.MOTEDOK>
+   </DOKTILKN>
+</DOKTILKN.TAB>

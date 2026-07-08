@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.Resources;
@@ -18,7 +19,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly List<long> _executedDisposalsLocations = new();
         private int _totalNumberOfDisposalsExecuted;
 
-        public N5_45_NumberOfDisposalsExecuted(Archive archive)
+        public N5_45_NumberOfDisposalsExecuted(Noark5Archive archive)
         {
             _numberOfDisposalsExecutedPerArchivePart = new Dictionary<ArchivePart, int>();
             _disposalsAreDocumented = DisposalsAreDocumented(archive);
@@ -107,7 +108,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                 _currentArchivePart.Name = eventArgs.Value;
         }
 
-        private static bool DisposalsAreDocumented(Archive archive)
+        private static bool DisposalsAreDocumented(Noark5Archive archive)
         {
             addml archiveExtractionXml = archive.AddmlInfo.Addml;
 

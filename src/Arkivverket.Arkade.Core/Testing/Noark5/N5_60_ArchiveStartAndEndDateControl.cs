@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -12,11 +13,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 60);
 
-        private readonly Archive _archive;
+        private readonly Noark5Archive _archive;
         private readonly SortedSet<DateTime> _registrationCreationDates;
         private readonly bool _periodSeparationIsSharp;
 
-        public N5_60_ArchiveStartAndEndDateControl(Archive archive)
+        public N5_60_ArchiveStartAndEndDateControl(Noark5Archive archive)
         {
             _archive = archive;
             _registrationCreationDates = new SortedSet<DateTime>();

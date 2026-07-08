@@ -28,6 +28,11 @@ namespace Arkivverket.Arkade.Core.Base
         public DateTime? ExtractionDate { get; set; }
         public List<FileDescription> FileDescriptions { get; set; }
         public PackageType PackageType { get; set; }
+        
+        public ArchiveMetadata Clone()
+        {
+            return (ArchiveMetadata)this.MemberwiseClone();
+        }
     }
 
 

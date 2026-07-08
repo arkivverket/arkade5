@@ -3,7 +3,6 @@ using Arkivverket.Arkade.Core.Base;
 using Arkivverket.Arkade.Core.Testing.Noark5.Structure;
 using FluentAssertions;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
 {
@@ -25,7 +24,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
-                .Build();
+                .Build<Noark5Archive>();
 
             var validateAddmlDataobjectsChecksums = new N5_02_ValidateAddmlDataobjectsChecksums();
             validateAddmlDataobjectsChecksums.Test(archive);
@@ -46,7 +45,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
-                .Build();
+                .Build<Noark5Archive>();
 
             var validateAddmlDataobjectsChecksums = new N5_02_ValidateAddmlDataobjectsChecksums();
             validateAddmlDataobjectsChecksums.Test(archive);
@@ -63,7 +62,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
-                .Build();
+                .Build<Noark5Archive>();
 
             var validateAddmlDataobjectsChecksums = new N5_02_ValidateAddmlDataobjectsChecksums();
             validateAddmlDataobjectsChecksums.Test(archive);
@@ -80,7 +79,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
-                .Build();
+                .Build<Noark5Archive>();
 
             var validateAddmlDataobjectsChecksums = new N5_02_ValidateAddmlDataobjectsChecksums();
             validateAddmlDataobjectsChecksums.Test(archive);
@@ -100,14 +99,14 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
-                .Build();
+                .Build<Noark5Archive>();
 
             var validateAddmlDataobjectsChecksums = new N5_02_ValidateAddmlDataobjectsChecksums();
             validateAddmlDataobjectsChecksums.Test(archive);
             var testRun = validateAddmlDataobjectsChecksums.GetTestRun();
             testRun.TestResults.GetNumberOfResults().Should().Be(1);
             testRun.TestResults.TestsResults[0].Message.Should()
-                .Be("Oppgitt sjekksumalgoritme ('SHA1') for 'arkivstruktur.xml' er ikke støttet av Arkade.");
+                .Be("Oppgitt sjekksumalgoritme ('SHA1') for 'arkivstruktur.xml' er ikke stÃ¸ttet av Arkade.");
             testRun.IsSuccess().Should().BeFalse();
         }
 
@@ -119,7 +118,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
-                .Build();
+                .Build<Noark5Archive>();
 
             var validateAddmlDataobjectsChecksums = new N5_02_ValidateAddmlDataobjectsChecksums();
             validateAddmlDataobjectsChecksums.Test(archive);
@@ -138,7 +137,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
-                .Build();
+                .Build<Noark5Archive>();
 
             var validateAddmlDataobjectsChecksums = new N5_02_ValidateAddmlDataobjectsChecksums();
             validateAddmlDataobjectsChecksums.Test(archive);

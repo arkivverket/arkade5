@@ -165,8 +165,8 @@
   <data name="LabelSystemType" xml:space="preserve">
     <value>Systemtype</value>
   </data>
-  <data name="LabelUuid" xml:space="preserve">
-    <value>Uuid</value>
+  <data name="LabelInformationPackageUuid" xml:space="preserve">
+    <value>Informasjonspakke</value>
   </data>
   <data name="TestLocation" xml:space="preserve">
     <value>Lokasjon</value>
@@ -204,10 +204,16 @@
   <data name="ValueNumberOfTestsExecuted" xml:space="preserve">
     <value>{0} av {1}</value>
   </data>
+  <data name="ValueUnknownPackageIdentity" xml:space="preserve">
+    <value>Ukjent identitet</value>
+  </data>
   <data name="VersionText" xml:space="preserve">
     <value>versjon</value>
   </data>
   <data name="LabelNumberOfWarnings" xml:space="preserve">
     <value>Antall advarsler</value>
+  </data>
+  <data name="DateAndTimeFormat" xml:space="preserve">
+    <value>dd. MMMM yyyy HH:mm</value>
   </data>
 </root>

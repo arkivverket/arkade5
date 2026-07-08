@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -11,9 +12,9 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 61);
 
-        private readonly Archive _archive;
+        private readonly Noark5Archive _archive;
 
-        public N5_61_NumberOfChangesLogged(Archive archive)
+        public N5_61_NumberOfChangesLogged(Noark5Archive archive)
         {
             _archive = archive;
         }
@@ -34,8 +35,8 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
 
             var testResultSet = new TestResultSet();
 
-            string changelogFullFilename = _archive.WorkingDirectory.Content()
-                .WithFile(ArkadeConstants.ChangeLogXmlFileName).FullName;
+            string changelogFullFilename = _archive.Content
+                .GetFile(ArkadeConstants.ChangeLogXmlFileName)?.FullName ?? string.Empty;
 
             try
             {

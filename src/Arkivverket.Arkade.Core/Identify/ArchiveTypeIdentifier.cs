@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 using Arkivverket.Arkade.Core.Util;
@@ -41,8 +42,8 @@ namespace Arkivverket.Arkade.Core.Identify
                 if (TypeOfChosenArchiveDirectoryIsNoark4(addml))
                     return ArchiveType.Noark4;
 
-                if (TypeOfChosenArchiveDirectoryIsFagsystem(addml))
-                    return ArchiveType.Fagsystem;
+                if (TypeOfChosenArchiveDirectoryIsSpecializedSystem(addml))
+                    return ArchiveType.SpecializedSystem;
 
                 if (TypeOfChosenArchiveDirectoryIsNoark5(addml))
                     return ArchiveType.Noark5;
@@ -87,7 +88,7 @@ namespace Arkivverket.Arkade.Core.Identify
             foreach (string note in archiveExtractionTypeAgent.note)
             {
                 if (note.Contains("fagsystem", StringComparison.OrdinalIgnoreCase))
-                    return ArchiveType.Fagsystem;
+                    return ArchiveType.SpecializedSystem;
 
                 if (note.Contains("siard", StringComparison.OrdinalIgnoreCase))
                     return ArchiveType.Siard;
@@ -141,7 +142,7 @@ namespace Arkivverket.Arkade.Core.Identify
                    archiveExtractionType.Contains("5");
         }
 
-        private static bool TypeOfChosenArchiveDirectoryIsFagsystem(addml addml)
+        private static bool TypeOfChosenArchiveDirectoryIsSpecializedSystem(addml addml)
         {
             return addml.dataset[0].flatFiles != null;
         }

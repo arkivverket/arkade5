@@ -5,6 +5,7 @@ using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Util;
 using System.IO;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base.Archives;
 
 namespace Arkivverket.Arkade.Core.Report
 {
@@ -24,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Report
             var streamWriter = new StreamWriter(stream);
             streamWriter.WriteLine(@"<!DOCTYPE html>");
             streamWriter.WriteLine(@"<html lang=""no"">");
-            Head(testReport.Summary.Uuid, streamWriter);
+            Head(ComposeDocumentTitle(testReport.Summary), streamWriter);
             Body(testReport, streamWriter);
             streamWriter.WriteLine(@"</html>");
             streamWriter.Flush();
@@ -213,15 +214,19 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(@"        <table class=""table"">");
             stream.WriteLine(@"            <tbody>");
 
-            stream.WriteLine(@"            <tr>");
-            stream.WriteLine(@"                <td>");
-            stream.WriteLine(Resources.Report.LabelUuid);
-            stream.WriteLine("                </td>");
-            stream.WriteLine(@"                <td>");
-            stream.WriteLine(testReport.Summary.Uuid);
-            stream.WriteLine("                </td>");
-            stream.WriteLine(@"            </tr>");
-            
+            if (testReport.Summary.InformationPackageUuid != null || testReport.Summary.PackageIdentityIsUnknown)
+            {
+                stream.WriteLine(@"            <tr>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(Resources.Report.LabelInformationPackageUuid);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(testReport.Summary.InformationPackageUuid
+                                 ?? Resources.Report.ValueUnknownPackageIdentity);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"            </tr>");
+            }
+
             stream.WriteLine(@"            <tr>");
             stream.WriteLine(@"                <td>");
             stream.WriteLine(Resources.Report.LabelArchiveCreators);
@@ -272,7 +277,7 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(Resources.Report.LabelDateOfTesting);
             stream.WriteLine("                </td>");
             stream.WriteLine(@"                <td>");
-            stream.WriteLine(testReport.Summary.DateOfTesting);
+            stream.WriteLine(testReport.Summary.TimeOfTesting);
             stream.WriteLine("                </td>");
             stream.WriteLine(@"            </tr>");
 
@@ -368,6 +373,15 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(@"        </table>");
             stream.WriteLine(@"    </div>");
             stream.WriteLine(@"    </div>");
+        }
+
+        private static string ComposeDocumentTitle(TestReportSummary summary)
+        {
+            // The package UUID identifies the report when present; for input without a DIAS
+            // package (directory / .siard) there is no UUID, so fall back to the time of testing.
+            string identifier = summary.InformationPackageUuid is null ? summary.TimeOfTesting : summary.InformationPackageUuid;
+
+            return $"{Resources.Report.HeadingTestReport} — {identifier}";
         }
 
         private static void Head(string title, StreamWriter stream)

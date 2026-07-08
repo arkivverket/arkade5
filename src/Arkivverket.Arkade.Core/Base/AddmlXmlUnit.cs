@@ -1,21 +1,24 @@
-namespace Arkivverket.Arkade.Core.Base
+using System.IO;
+using Arkivverket.Arkade.Core.Util;
+
+namespace Arkivverket.Arkade.Core.Base;
+
+public class AddmlXmlUnit(ArchiveXmlFile archiveXmlFile, ArchiveXmlSchema archiveXmlSchema)
+    : ArchiveXmlUnit(archiveXmlFile, [archiveXmlSchema])
 {
-    public class AddmlXmlUnit : ArchiveXmlUnit
+    public ArchiveXmlSchema Schema => Schemas[0];
+
+    public void WriteFiles(ArkadeDirectory targetDirectory)
     {
-        public ArchiveXmlSchema Schema
-        {
-            get => Schemas[0];
-            set => Schemas[0] = value;
-        }
+        WriteFile(File.AsStream(), File.Name, targetDirectory);
+        WriteFile(Schema.AsStream(), Schema.Name, targetDirectory);
+    }
 
-        public AddmlXmlUnit(ArchiveXmlFile archiveXmlFile, ArchiveXmlSchema archiveXmlSchema)
-        : base(archiveXmlFile, archiveXmlSchema)
-        {
-        }
+    private static void WriteFile(Stream sourceFileStream, string sourceFileName, ArkadeDirectory targetDirectory)
+    {
+        string targetFilePath = targetDirectory.WithFile(sourceFileName).FullName;
 
-        internal bool HasNoDefinedSchema()
-        {
-            return Schema == null;
-        }
+        using Stream targetFileStream = System.IO.File.Create(targetFilePath);
+        using (sourceFileStream) sourceFileStream.CopyTo(targetFileStream);
     }
 }

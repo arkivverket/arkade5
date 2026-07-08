@@ -43,6 +43,19 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
         }
 
         [Fact]
+        public void PresentButUndocumentedStandardSchemaFileIsDisregarded()
+        {
+            // The fixture contains loependeJournal.xsd but does not document it in arkivuttrekk.xml:
+            // the built-in schema must be used, and its use must be visible in the test results.
+            string workingDirectory =
+                $"{AppDomain.CurrentDomain.BaseDirectory}\\TestData\\Noark5\\StructureValidation\\undocumented";
+
+            TestRun testRun = CreateTestRun(workingDirectory);
+
+            testRun.TestResults.TestsResults.Should().Contain(r => r.Message.Contains("loependeJournal.xsd"));
+        }
+
+        [Fact]
         public void XmlFilesAreNotValidAccordingToCustomSchema()
         {
             string workingDirectory =
@@ -55,11 +68,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
 
         private static TestRun CreateTestRun(string workingDirectory)
         {
-            Archive archive = new ArchiveBuilder()
+            Noark5Archive archive = new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent(workingDirectory)
-                .Build();
+                .Build<Noark5Archive>();
 
             var validateXmlWithSchema = new N5_03_ValidateXmlWithSchema();
 

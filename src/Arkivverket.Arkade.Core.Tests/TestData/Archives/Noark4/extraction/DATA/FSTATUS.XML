@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE FSTATUS.TAB SYSTEM "FSTATUS.DTD">
+<FSTATUS.TAB VERSJON="1.0">
+   <FSTATUS>
+      <FS.STATUS>S</FS.STATUS>
+      <FS.BETEGN>Sendt</FS.BETEGN>	
+   </FSTATUS>
+   <FSTATUS>
+      <FS.STATUS>L</FS.STATUS>
+      <FS.BETEGN>Levert</FS.BETEGN>	
+   </FSTATUS>
+   <FSTATUS>
+      <FS.STATUS>Å</FS.STATUS>
+      <FS.BETEGN>Åpnet</FS.BETEGN>	
+   </FSTATUS>
+   <FSTATUS>
+      <FS.STATUS>M</FS.STATUS>
+      <FS.BETEGN>Motatt via e-post</FS.BETEGN>	
+   </FSTATUS>
+   <FSTATUS>
+      <FS.STATUS>F</FS.STATUS>
+      <FS.BETEGN>Overføring feilet</FS.BETEGN>	
+   </FSTATUS>
+</FSTATUS.TAB>

@@ -58,7 +58,7 @@ namespace Arkivverket.Arkade.Core.Tests.Logging
 
         public TestSessionLogXmlAssert AssertArkadeVersionIsSet()
         {
-            _testSessionLog.arkadeVersion.Should().MatchRegex("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");
+            _testSessionLog.arkadeVersion.Should().MatchRegex("[0-9]+\\.[0-9]+\\.[0-9]+"); // ArkadeVersion.Current is three-part
             return this;
         }
 

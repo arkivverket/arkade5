@@ -6,7 +6,6 @@ using Arkivverket.Arkade.Core.Base.Addml.Processes.Internal;
 using Arkivverket.Arkade.Core.Tests.Base.Addml.Builders;
 using FluentAssertions;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions
 {

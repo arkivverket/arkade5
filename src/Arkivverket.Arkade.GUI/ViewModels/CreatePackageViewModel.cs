@@ -17,6 +17,7 @@ using Prism.Navigation.Regions;
 using Serilog;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.ExternalModels.SubmissionDescription;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Views;
@@ -26,7 +27,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 {
     public class CreatePackageViewModel : BindableBase, INavigationAware
     {
-        private readonly ArkadeApi _arkadeApi;
+        private readonly ArkadeCoreApi _arkadeCoreApi;
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
         private bool _generateFileFormatInfoSelected;
         private bool _selectedPackageTypeAip;
@@ -37,8 +38,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private string _statusMessageText;
         private string _statusMessagePath;
         private string _includeFormatInfoFile;
-        private TestSession _testSession;
-        private string _archiveFileName;
+        private Archive _archive;
         private readonly IRegionManager _regionManager;
 
 
@@ -230,9 +230,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
 
-        public CreatePackageViewModel(ArkadeApi arkadeApi, IRegionManager regionManager)
+        public CreatePackageViewModel(ArkadeCoreApi arkadeCoreApi, IRegionManager regionManager)
         {
-            _arkadeApi = arkadeApi;
+            _arkadeCoreApi = arkadeCoreApi;
             _regionManager = regionManager;
 
             LoadExternalMetadataCommand = new DelegateCommand(RunLoadExternalMetadata, CanLoadMetadata);
@@ -277,20 +277,15 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             try
             {
-                _testSession = (TestSession) context.Parameters["TestSession"];
-                _archiveFileName = (string) context.Parameters["archiveFileName"];
+                _archive = (Archive) context.Parameters["archive"];
 
-                if (_testSession.Archive.ArchiveType == ArchiveType.Siard)
+                if (_archive is SiardArchive)
                     IncludeFormatInfoFile = MetaDataGUI.CreateLobFormatInfoFileText;
                 else
                     IncludeFormatInfoFile = MetaDataGUI.CreateDocumentFileInfoText;
 
-                FileInfo includedMetadataFile =
-                    _testSession.Archive.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName);
-
-                LoadMetadataIntoForm(includedMetadataFile,
-                    delegate { Log.Error("Not able to load metadata from file: " + includedMetadataFile.FullName); }
-                );
+                if (_archive?.InputDiasPackage?.WorkingDirectory.Root().WithFile(ArkadeConstants.DiasMetsXmlFileName) is { Exists: true } includedMetadataFile)
+                    LoadMetadataIntoForm(includedMetadataFile, delegate { Log.Error("Not able to load metadata from file: " + includedMetadataFile.FullName); });
 
                 // Pre populate metadata objects that require at least one entry
                 RunAddMetadataArchiveCreatorEntry();
@@ -387,6 +382,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             Log.Information("User action: Leave test session and return to load archive window");
 
+            _archive?.ProcessingDirectory.Delete(true);
+
             _regionManager.RequestNavigate("MainContentRegion", "LoadArchiveExtraction");
         }
 
@@ -409,7 +406,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             Log.Information("User action: Open metadata file");
 
-            string suggestedMetadataFileDirectory = new FileInfo(_archiveFileName).DirectoryName;
+            string suggestedMetadataFileDirectory = _archive.InputDiasPackage != null
+                ? new FileInfo(_archive.InputDiasPackage.TarFile.FullName).DirectoryName
+                : null;
 
             var selectMetadataFileDialog = new OpenFileDialog
             {
@@ -456,11 +455,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             
             ProgressBarVisibility = Visibility.Visible;
             Log.Information("User action: Choose package destination {informationPackageDestination}", outputDirectory);
-            
-            _testSession.ArchiveMetadata = new ArchiveMetadata
-            {
-                Id = $"UUID:{_testSession.Archive.Uuid}",
 
+            PackageType packageType = SelectedPackageTypeSip
+                ? PackageType.SubmissionInformationPackage
+                : PackageType.ArchivalInformationPackage;
+
+            var archiveMetadata = new ArchiveMetadata
+            {
                 Label = ArchiveMetadataMapper.MapToLabel(_metaDataNoarkSection, StandardLabelIsSelected),
                 ArchiveDescription = ArchiveMetadataMapper.MapToArchiveDescription(_metaDataArchiveDescription),
                 AgreementNumber = ArchiveMetadataMapper.MapToAgreementNumber(_metaDataArchiveDescription),
@@ -480,10 +481,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 StartDate = ArchiveMetadataMapper.MapToStartDate(_metaDataNoarkSection),
                 EndDate = ArchiveMetadataMapper.MapToEndDate(_metaDataNoarkSection),
                 ExtractionDate = ArchiveMetadataMapper.MapToExtractionDate(_metaDataExtractionDate),
-                PackageType = ArchiveMetadataMapper.MapToPackageType(SelectedPackageTypeSip)
             };
 
-            _testSession.GenerateFileFormatInfo = GenerateFileFormatInfoSelected;
+            _archive.OutputDiasPackage = new OutputDiasPackage(packageType, archiveMetadata, _archive.ProcessingDirectory);
 
             ArkadeProcessingState.PackingIsStarted = true;
             MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
@@ -491,7 +491,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             CreatePackageCommand.RaiseCanExecuteChanged();
             MainWindow.ProgressBarWorker.ReportProgress(0);
 
-            Task.Factory.StartNew(() => CreatePackageRunEngine(outputDirectory)).ContinueWith(t => OnCompletedCreatePackage());
+            Task.Factory.StartNew(() => CreatePackageRunEngine(_archive, outputDirectory)).ContinueWith(t => OnCompletedCreatePackage());
         }
 
         private void OnCompletedCreatePackage()
@@ -502,13 +502,14 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         }
 
 
-        private void CreatePackageRunEngine(string outputDirectory)
+        private void CreatePackageRunEngine(Archive archive, string outputDirectory)
         {
             try
             {
-                _testSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
-
-                string packageFilePath = _arkadeApi.CreatePackage(_testSession, outputDirectory);
+                string packageFilePath = _arkadeCoreApi.CreatePackage(
+                    archive, LanguageSettingHelper.GetOutputLanguage(),
+                    GenerateFileFormatInfoSelected, outputDirectory
+                );
 
                 string packageOutputContainer = new FileInfo(packageFilePath).DirectoryName;
 

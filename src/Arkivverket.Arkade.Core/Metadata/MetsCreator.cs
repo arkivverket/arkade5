@@ -27,16 +27,28 @@ namespace Arkivverket.Arkade.Core.Metadata
         }
 
         protected List<FileDescription> GetFileDescriptions(DirectoryInfo directory,
-            DirectoryInfo pathRoot, string[] directoriesToSkip = null, string[] filesToSkip = null)
+            DirectoryInfo pathRoot, string[] directoriesToSkip = null)
         {
             var fileDescriptions = new List<FileDescription>();
 
-            foreach (FileInfo file in GetFilesToDescribe(directory, directoriesToSkip, filesToSkip))
+            foreach (FileInfo file in GetFilesToDescribe(directory, directoriesToSkip))
                 fileDescriptions.Add(GetFileDescription(file, pathRoot));
 
             return fileDescriptions;
         }
 
+        protected FileDescription GetFileDescription(FileInfo file, string contentRelativeFileName)
+        {
+            return new FileDescription
+            {
+                Name = contentRelativeFileName,
+                Extension = file.Extension,
+                Sha256Checksum = GetSha256Checksum(file),
+                Size = file.Length,
+                ModifiedTime = file.LastWriteTime
+            };
+        }
+        
         protected FileDescription GetFileDescription(FileInfo file, DirectoryInfo pathRoot)
         {
             string name = pathRoot != null ? Path.GetRelativePath(pathRoot.FullName, file.FullName) : file.FullName;
@@ -51,23 +63,19 @@ namespace Arkivverket.Arkade.Core.Metadata
             };
         }
 
-        private static IEnumerable<FileInfo> GetFilesToDescribe(DirectoryInfo directory, string[] directoriesToSkip, string[] filesToSkip)
+        private static IEnumerable<FileInfo> GetFilesToDescribe(DirectoryInfo directory, string[] directoriesToSkip)
         {
-            IEnumerable<FileInfo> filesToDescribe = directory.EnumerateFiles(".", SearchOption.TopDirectoryOnly);
-
-            if (filesToSkip != null)
-                filesToDescribe = filesToDescribe.Where(f => !filesToSkip.Contains(f.Name));
+            foreach (FileInfo file in directory.EnumerateFiles(".", SearchOption.TopDirectoryOnly))
+                yield return file;
 
             foreach (DirectoryInfo subDirectory in directory.EnumerateDirectories())
             {
                 if (directoriesToSkip?.Contains(subDirectory.Name) == true)
                     continue;
 
-                var filesInSubDirectory = GetFilesToDescribe(subDirectory, directoriesToSkip, filesToSkip);
-                filesToDescribe = filesToDescribe.Concat(filesInSubDirectory);
+                foreach (FileInfo file in GetFilesToDescribe(subDirectory, directoriesToSkip))
+                    yield return file;
             }
-
-            return filesToDescribe;
         }
 
         protected static void AutoIncrementFileIds(IEnumerable<FileDescription> fileDescriptions, int offset = 0)

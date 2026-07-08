@@ -8,20 +8,15 @@ namespace Arkivverket.Arkade.Core.Base
     {
         public string Name { get; }
         public string FullName { get; }
-        public bool Exists { get; }
 
         public ArchiveXmlFile(FileSystemInfo fileInfo)
         {
             Name = fileInfo.Name;
             FullName = fileInfo.FullName;
-            Exists = fileInfo.Exists;
         }
 
         public Stream AsStream()
         {
-            if (!Exists)
-                throw new ArkadeException(string.Format(ExceptionMessages.FileNotFound, FullName));
-            
             try
             {
                 return File.OpenRead(FullName);

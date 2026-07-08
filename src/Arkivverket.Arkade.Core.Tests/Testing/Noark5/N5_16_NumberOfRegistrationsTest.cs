@@ -49,7 +49,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                             ""
                                                         ))))));
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(
+            var testArchive = TestUtil.CreateArchiveExtraction(
                 Path.Combine("TestData", "Noark5", "RegistrationControl", "FiveRegistrations")
             );
             TestRun testRun = helper.RunEventsOnTest(new N5_16_NumberOfRegistrations(testArchive));
@@ -130,7 +130,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                            new[] { "xsi:type", "journalpost" },
                                                            ""
                                                        ))))));
-            Archive testArchive = TestUtil.CreateArchiveExtraction(
+            var testArchive = TestUtil.CreateArchiveExtraction(
                 Path.Combine("TestData", "Noark5", "RegistrationControl", "NineRegistrations")
             );
             TestRun testRun = helper.RunEventsOnTest(new N5_16_NumberOfRegistrations(testArchive));
@@ -165,7 +165,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                         ""
                                         )))));
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(
+            var testArchive = TestUtil.CreateArchiveExtraction(
                 Path.Combine("TestData", "Noark5", "RegistrationControl", "FiveRegistrations")
             );
             TestRun testRun = helper.RunEventsOnTest(new N5_16_NumberOfRegistrations(testArchive));
@@ -210,7 +210,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                                .Add("mappe",
                                                    new XmlElementHelper())))));
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(
+            var testArchive = TestUtil.CreateArchiveExtraction(
                 Path.Combine("TestData", "Noark5", "RegistrationControl", "ZeroRegistrations")
             );
             TestRun testRun = helper.RunEventsOnTest(new N5_16_NumberOfRegistrations(testArchive));

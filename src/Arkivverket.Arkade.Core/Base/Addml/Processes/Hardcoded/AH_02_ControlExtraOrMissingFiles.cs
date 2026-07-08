@@ -4,6 +4,7 @@ using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using System.IO;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
@@ -15,7 +16,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
         public const string Name = "Control_ExtraOrMissingFiles";
 
         private readonly AddmlDefinition _addmlDefinition;
-        private readonly Archive _archive;
+        private readonly AddmlDefinitionTestedArchive _archive;
 
         private readonly List<string> _knownFiles = new List<string> {
             "addml.xml",
@@ -45,7 +46,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
 
         protected override List<TestResult> GetTestResults()
         {
-            HashSet<string> allFilesInWorkingDirectory = GetAllFilesInDirectory(_archive.WorkingDirectory.Content().DirectoryInfo());
+            HashSet<string> allFilesInWorkingDirectory = GetAllFilesInDirectory(_archive.Content.RootDirectory);
             HashSet<string> allFilesInAddml = GetAllFilesInAddmlDefinition(_addmlDefinition);
 
             allFilesInWorkingDirectory.ExceptWith(_knownFiles);
@@ -85,7 +86,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
         {
         }
 
-        public AH_02_ControlExtraOrMissingFiles(AddmlDefinition addmlDefinition, Archive archive)
+        public AH_02_ControlExtraOrMissingFiles(AddmlDefinition addmlDefinition, AddmlDefinitionTestedArchive archive)
         {
             _addmlDefinition = addmlDefinition;
             _archive = archive;
@@ -101,10 +102,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded
 
         private HashSet<string> GetAllFilesInDirectory(DirectoryInfo directory)
         {
+            // DirectoryArchiveContent.RootDirectory carries a trailing separator — trim before measuring
+            string rootPath = directory.FullName.TrimEnd('\\', '/');
+
             string[] files = Directory.GetFiles(directory.FullName, "*", SearchOption.AllDirectories);
 
             return new HashSet<string>(
-                files.Select(f => f.Substring(directory.FullName.Length + 1))
+                files.Select(f => f.Substring(rootPath.Length + 1))
                 .AsEnumerable());
         }
     }

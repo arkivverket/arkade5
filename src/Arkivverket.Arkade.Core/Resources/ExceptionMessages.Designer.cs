@@ -106,11 +106,29 @@ namespace Arkivverket.Arkade.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} was not found..
+        /// </summary>
+        public static string FileSystemItemNotFound {
+            get {
+                return ResourceManager.GetString("FileSystemItemNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid field format &apos;{0}&apos; for data type &apos;{1}&apos;. Accepted field formats are: {2}.
         /// </summary>
         public static string InvalidFieldFormatMessage {
             get {
                 return ResourceManager.GetString("InvalidFieldFormatMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is not a valid UUID.
+        /// </summary>
+        public static string InvalidUUID {
+            get {
+                return ResourceManager.GetString("InvalidUUID", resourceCulture);
             }
         }
         

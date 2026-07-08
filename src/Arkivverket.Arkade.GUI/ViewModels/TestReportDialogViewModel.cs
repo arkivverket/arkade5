@@ -1,45 +1,63 @@
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
+using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Report;
 using Arkivverket.Arkade.GUI.Languages;
 using Arkivverket.Arkade.GUI.Util;
 using Prism.Commands;
 using Prism.Mvvm;
 using Serilog;
+using Settings = Arkivverket.Arkade.GUI.Properties.Settings;
 
 namespace Arkivverket.Arkade.GUI.ViewModels
 {
     public class TestReportDialogViewModel : BindableBase
     {
+        private readonly ArkadeCoreApi _arkadeCoreApi;
+        private readonly IStatusEventHandler _statusEventHandler;
         private readonly ILogger _log = Log.ForContext<TestReportDialogViewModel>();
+        public Archive Archive { get; set; }
         public DelegateCommand ShowTestReportCommand { get; }
         public DelegateCommand ExportTestReportFilesCommand { get; }
-        public DirectoryInfo TestReportDirectory { get; set; }
-        public Uuid Uuid { get; set; }
+        private bool _isGeneratingTestReport = false;
 
-        public TestReportDialogViewModel()
+        private Visibility _reportGenerationProgressVisibility = Visibility.Collapsed;
+        public Visibility ReportGenerationProgressVisibility
         {
-            ShowTestReportCommand = new DelegateCommand(ShowTestReport);
-
-            ExportTestReportFilesCommand = new DelegateCommand(ExportTestReport);
+            get => _reportGenerationProgressVisibility;
+            set => SetProperty(ref _reportGenerationProgressVisibility, value);
         }
 
-        private void ShowTestReport()
+        public TestReportDialogViewModel(ArkadeCoreApi arkadeCoreApi, IStatusEventHandler statusEventHandler)
+        {
+            _arkadeCoreApi = arkadeCoreApi;
+            _statusEventHandler = statusEventHandler;
+            
+            ShowTestReportCommand = new DelegateCommand(ShowTestReport, () => !_isGeneratingTestReport);
+
+            ExportTestReportFilesCommand = new DelegateCommand(ExportTestReport, () => !_isGeneratingTestReport);
+        }
+
+        private async void ShowTestReport()
         {
             _log.Information("User action: Show HTML test report");
+            
+            var tmpResultsDirectory = new DirectoryInfo(Archive.TestSession.TemporaryTestResultFilesDirectory.FullName);
+            
+            DirectoryInfo testReportDirectory = await GenerateTestReport(tmpResultsDirectory);
 
-            FileInfo testReportFile = TestReportDirectory.GetFiles()
-                .FirstOrDefault(f => f.Extension.Contains(TestReportFormat.html.ToString()));
+            FileInfo testReportFile = testReportDirectory.GetFiles()
+                .First(f => f.Extension.Equals($".{nameof(TestReportFormat.html)}"));
 
-            if (testReportFile == default)
-                testReportFile = TestReportDirectory.GetFiles().First(f => f.Extension.Equals(".txt"));
-                
             testReportFile.FullName.LaunchUrl();
         }
 
-        private void ExportTestReport()
+        private async void ExportTestReport()
         {
             const string action = "export test report";
 
@@ -58,24 +76,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _log.Information($"User action: Chose directory for {action}: {testReportExportDestination}");
 
-            var testReportExportDirectory = new DirectoryInfo(Path.Combine(testReportExportDestination,
-                string.Format(Core.Resources.OutputFileNames.StandaloneTestReportDirectory, Uuid)));
-
-            if (!testReportExportDirectory.Exists)
-                testReportExportDirectory.Create();
-
-            foreach (FileInfo testReportFile in TestReportDirectory.GetFiles())
-            {
-                string destinationTestReportFileName = Path.Combine(
-                    testReportExportDirectory.FullName,
-                    testReportFile.Name.Equals(Core.Resources.OutputFileNames.DbptkValidationReportFile)
-                        ? testReportFile.Name
-                        : string.Format(Core.Resources.OutputFileNames.StandaloneTestReportFile, Uuid,
-                            testReportFile.Extension.Trim('.'))
-                );
-
-                testReportFile.CopyTo(destinationTestReportFileName, overwrite: true);
-            }
+            DirectoryInfo testReportExportDirectory = await GenerateTestReport(new DirectoryInfo(testReportExportDestination));
 
             string argument = "/select, \"" + testReportExportDirectory + "\"";
             System.Diagnostics.Process.Start("explorer.exe", argument);
@@ -104,6 +105,29 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             }
 
             // TODO: "Merge" with ToolsDialogViewModel.DirectoryPicker
+        }
+        
+        private async Task<DirectoryInfo> GenerateTestReport(DirectoryInfo targetDirectory)
+        {
+            _isGeneratingTestReport = true;
+            ReportGenerationProgressVisibility = Visibility.Visible;
+            ShowTestReportCommand.RaiseCanExecuteChanged();
+            ExportTestReportFilesCommand.RaiseCanExecuteChanged();
+            
+            string eventId = TestRunnerGUI.EventIdCreatingReport;
+            
+            _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
+            
+            DirectoryInfo testReportDirectory = await Task.Run(() => _arkadeCoreApi.GenerateTestReport(Archive, targetDirectory, Settings.Default.TestResultDisplayLimit, Archive.InputDiasPackage));
+            
+            _statusEventHandler.RaiseEventOperationMessage(eventId, TestRunnerGUI.TestReportIsSavedMessage, OperationMessageStatus.Ok);
+
+            _isGeneratingTestReport = false;
+            ReportGenerationProgressVisibility = Visibility.Collapsed;
+            ShowTestReportCommand.RaiseCanExecuteChanged();
+            ExportTestReportFilesCommand.RaiseCanExecuteChanged();
+            
+            return testReportDirectory;
         }
     }
 }

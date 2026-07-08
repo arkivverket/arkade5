@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE KASSKODE.TAB SYSTEM "KASSKODE.DTD">
+<KASSKODE.TAB VERSJON="1.0">
+   <KASSKODE>
+      <KK.KODE>B</KK.KODE>
+      <KK.BETEGN>Bevares</KK.BETEGN>
+   </KASSKODE>
+   <KASSKODE>
+      <KK.KODE>K</KK.KODE>
+      <KK.BETEGN>Kasseres</KK.BETEGN>
+   </KASSKODE>
+   <KASSKODE>
+      <KK.KODE>G</KK.KODE>
+      <KK.BETEGN>Gjennomgås for vurdering av kassasjon</KK.BETEGN>
+   </KASSKODE>
+   <KASSKODE>
+      <KK.KODE>U</KK.KODE>
+      <KK.BETEGN>Kassasjon utført</KK.BETEGN>
+   </KASSKODE>
+</KASSKODE.TAB>

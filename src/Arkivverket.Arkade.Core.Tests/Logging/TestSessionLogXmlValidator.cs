@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
+using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Tests.Logging
 {
     class TestSessionLogXmlValidator
     {
-        private static string schemaFileName = $"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\..\\Arkivverket.Arkade\\ExternalModels\\xsd\\testSessionLog.xsd";
+        private const string SchemaResourceName = "Arkivverket.Arkade.Core.ExternalModels.xsd.testSessionLog.xsd";
         private static string schemaNamespace = "http://www.arkivverket.no/dataextracttools/arkade5/testsessionlog";
 
         public static void Validate(string xml)
@@ -31,7 +34,9 @@ namespace Arkivverket.Arkade.Core.Tests.Logging
         {
 
             XmlSchemaSet schemas = new XmlSchemaSet();
-            schemas.Add(schemaNamespace, schemaFileName);
+            using (Stream schemaStream = ResourceUtil.GetResourceAsStream(SchemaResourceName))
+            using (XmlReader schemaReader = XmlReader.Create(schemaStream))
+                schemas.Add(schemaNamespace, schemaReader);
 
             XDocument doc = XDocument.Parse(xml);
 

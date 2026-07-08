@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.Util;
@@ -59,7 +60,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
                    eventArgs.Path.Matches("moeteregistreringsstatus", "registrering");
         }
 
-        public static bool PeriodSeparationIsSharp(Archive archive)
+        public static bool PeriodSeparationIsSharp(Noark5Archive archive)
         {
             bool inboundSeparationIsSharp;
             bool outboundSeparationIsSharp;

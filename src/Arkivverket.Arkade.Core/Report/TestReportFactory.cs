@@ -2,57 +2,60 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing;
+using Arkivverket.Arkade.Core.Testing.Noark5;
 
 namespace Arkivverket.Arkade.Core.Report
 {
     public static class TestReportFactory
     {
-        public static TestReport Create(TestSession testSession)
+        public static TestReport Create(Archive archive, DiasPackage diasPackage)
         {
             var testReport = new TestReport
             {
-                Summary = CreateTestReportSummary(testSession),
-                TestsResults = GetTestReportResults(testSession),
+                Summary = CreateTestReportSummary(archive, diasPackage),
+                TestsResults = GetTestReportResults(archive.TestSession),
             };
 
             return testReport;
         }
 
-        public static TestReport CreateForSiard(TestSession testSession)
+        public static TestReport CreateForSiard(SiardArchive archive, DiasPackage diasPackage)
         {
             var testReport = new TestReport
             {
-                Summary = CreateTestReportSummary(testSession),
-                TestsResults = GetSiardTestReportResults(testSession.TestSuite.TestTool),
+                Summary = CreateTestReportSummary(archive, diasPackage),
+                TestsResults = GetSiardTestReportResults(archive.TestSession.TestSuite.TestTool),
             };
 
             return testReport;
         }
 
-        private static TestReportSummary CreateTestReportSummary(TestSession testSession)
+        private static TestReportSummary CreateTestReportSummary(Archive archive, DiasPackage diasPackage)
         {
             var norwegianCulture = new CultureInfo("nb-NO");
-            int numberOfExecutedTests = testSession.TestSuite.TestRuns.Count();
-            int numberOfAvailableTests = testSession.AvailableTests.Count;
+            int numberOfExecutedTests = archive.TestSession.TestSuite.TestRuns.Count();
+            int numberOfAvailableTests = archive is Noark5Archive ? Noark5TestProvider.GetAllTestIds().Count : 0;
 
             var summary = new TestReportSummary
             {
-                Uuid = testSession.Archive.Uuid.ToString(),
-                ArchiveCreators = testSession.Archive.Details.ArchiveCreators,
-                ArchivalPeriod = testSession.Archive.Details.ArchivalPeriod,
-                SystemName = testSession.Archive.Details.SystemName,
-                SystemType = testSession.Archive.Details.SystemType,
-                ArchiveType = testSession.Archive.ArchiveType,
-                DateOfTesting = testSession.DateOfTesting.ToString(Resources.Report.DateFormat, norwegianCulture),
+                InformationPackageUuid = diasPackage?.Id?.ToString(),
+                PackageIdentityIsUnknown = diasPackage is { Id: null },
+                ArchiveCreators = archive.Details.ArchiveCreators,
+                ArchivalPeriod = archive.Details.ArchivalPeriod,
+                SystemName = archive.Details.SystemName,
+                SystemType = archive.Details.SystemType,
+                ArchiveType = archive.ArchiveType,
+                TimeOfTesting = archive.TestSession.TimeOfTesting.ToString(Resources.Report.DateAndTimeFormat, norwegianCulture),
                 NumberOfTestsRun = string.Format(Resources.Report.ValueNumberOfTestsExecuted, numberOfExecutedTests, numberOfAvailableTests),
-                NumberOfProcessedFiles = testSession.TestSummary.NumberOfProcessedFiles,
-                NumberOfProcessedRecords = testSession.TestSummary.NumberOfProcessedRecords,
-                NumberOfWarnings = testSession.TestSummary.NumberOfWarnings,
-                NumberOfErrors = testSession.Archive.ArchiveType is ArchiveType.Siard
-                    ? testSession.TestSummary.NumberOfErrors
-                    : testSession.TestSuite.FindNumberOfErrors().ToString(),
+                NumberOfProcessedFiles = archive.TestSession.TestSummary.NumberOfProcessedFiles,
+                NumberOfProcessedRecords = archive.TestSession.TestSummary.NumberOfProcessedRecords,
+                NumberOfWarnings = archive.TestSession.TestSummary.NumberOfWarnings,
+                NumberOfErrors = archive is SiardArchive
+                    ? archive.TestSession.TestSummary.NumberOfErrors
+                    : archive.TestSession.TestSuite.FindNumberOfErrors().ToString(),
         };
 
             return summary;

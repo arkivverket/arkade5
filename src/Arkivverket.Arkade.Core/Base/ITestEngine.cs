@@ -1,7 +1,9 @@
+using Arkivverket.Arkade.Core.Base.Archives;
+
 namespace Arkivverket.Arkade.Core.Base
 {
     public interface ITestEngine
     {
-        TestSuite RunTestsOnArchive(TestSession testSession);
+        TestSuite RunTestsOnArchive(Archive archive);
     }
 }

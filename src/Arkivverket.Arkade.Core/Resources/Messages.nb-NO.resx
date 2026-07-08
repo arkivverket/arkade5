@@ -328,6 +328,9 @@ Aktuell sjekksum: {1}</value>
   <data name="LogMessageStartTesting" xml:space="preserve">
     <value>Starter testing av arkivet.</value>
   </data>
+  <data name="DiasPackageIdentityNotFound" xml:space="preserve">
+    <value>Fant ingen gyldig pakkeidentitet (UUID) i den innlastede pakkens METS</value>
+  </data>
   <data name="NumberOfRecordsWithFieldDelimiterErrorDescription" xml:space="preserve">
     <value>Oppsummering av antall poster som har feil tilknyttet feltseparator og/eller postseparator.</value>
   </data>

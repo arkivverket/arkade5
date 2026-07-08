@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Arkivverket.Arkade.Core.Base
 {
-    internal class DocumentFiles
+    internal class DocumentFiles // TODO: Split this class into DirectoryDocumentFiles and TarFileDocumentFiles (either interfaced or with abstract class)?
     {
         private readonly SortedDictionary<string, DocumentFile> _documentFiles = new();
 
@@ -16,6 +16,7 @@ namespace Arkivverket.Arkade.Core.Base
 
         private readonly DirectoryInfo _documentsDirectory;
         private readonly string _tarArchiveFullFileName;
+        private readonly string _tarRootDirectoryName;
 
         public int Count => _documentFiles.Count;
 
@@ -24,9 +25,10 @@ namespace Arkivverket.Arkade.Core.Base
             _documentsDirectory = documentsDirectory;
         }
 
-        public DocumentFiles(string tarArchiveFileFullName)
+        public DocumentFiles(string tarArchiveFileFullName, string tarRootDirectoryName)
         {
             _tarArchiveFullFileName = tarArchiveFileFullName;
+            _tarRootDirectoryName = tarRootDirectoryName;
         }
 
         public ReadOnlyDictionary<string, DocumentFile> Get()
@@ -41,14 +43,20 @@ namespace Arkivverket.Arkade.Core.Base
             return _areRegistered && _haveCheckSums;
         }
 
-        public void TransferFromTarToInformationPackage(TarOutputStream tarOutputStream)
+        public void TransferFromTarToInformationPackage(TarOutputStream tarOutputStream, string packageRootDirectory)
         {
             using var tarInputStream = new TarInputStream(File.OpenRead(_tarArchiveFullFileName), Encoding.UTF8);
 
             while (tarInputStream.GetNextEntry() is { Name: not null } entry)
             {
-                if (!entry.IsNoark5DocumentsEntry(Path.GetFileNameWithoutExtension(_tarArchiveFullFileName)))
+                if (!entry.IsNoark5DocumentsEntry(_tarRootDirectoryName))
                     continue;
+
+                string trimmedPackageRootDirectory = packageRootDirectory.Trim('/', '\\');
+
+                entry.Name = _tarRootDirectoryName == null
+                    ? $"{trimmedPackageRootDirectory}/{entry.Name}"
+                    : entry.Name.Replace(_tarRootDirectoryName, trimmedPackageRootDirectory);
 
                 tarOutputStream.PutNextEntry(entry);
 
@@ -133,8 +141,6 @@ namespace Arkivverket.Arkade.Core.Base
         /// <param name="includeChecksums"></param>
         private void RegisterFromTar(bool includeChecksums)
         {
-            string tarRootDirectory = Path.GetFileNameWithoutExtension(_tarArchiveFullFileName);
-
             IChecksumGenerator checksumGenerator = includeChecksums
                 ? new Sha256ChecksumGenerator()
                 : null;
@@ -142,7 +148,7 @@ namespace Arkivverket.Arkade.Core.Base
             using var tarInputStream = new TarInputStream(File.OpenRead(_tarArchiveFullFileName!), Encoding.UTF8);
             while (tarInputStream.GetNextEntry() is { Name: not null } entry)
             {
-                if (!entry.IsNoark5DocumentsEntry(tarRootDirectory) || entry.IsDirectory)
+                if (!entry.IsNoark5DocumentsEntry(_tarRootDirectoryName) || entry.IsDirectory)
                     continue;
 
                 string checkSum = includeChecksums
@@ -170,15 +176,13 @@ namespace Arkivverket.Arkade.Core.Base
 
         private void RegisterSha256ChecksumsFromTar()
         {
-            string tarRootDirectory = Path.GetFileNameWithoutExtension(_tarArchiveFullFileName);
-
             IChecksumGenerator checksumGenerator = new Sha256ChecksumGenerator();
 
             using var tarInputStream = new TarInputStream(File.OpenRead(_tarArchiveFullFileName!), Encoding.UTF8);
 
             while (tarInputStream.GetNextEntry() is { Name: not null } entry)
             {
-                if (!entry.IsNoark5DocumentsEntry(tarRootDirectory) || entry.IsDirectory)
+                if (!entry.IsNoark5DocumentsEntry(_tarRootDirectoryName) || entry.IsDirectory)
                     continue;
 
                 string checkSum = tarInputStream.GenerateChecksumForEntry(checksumGenerator);

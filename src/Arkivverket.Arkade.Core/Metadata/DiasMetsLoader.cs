@@ -53,6 +53,7 @@ namespace Arkivverket.Arkade.Core.Metadata
         private static void LoadMetsElementAttributes(ArchiveMetadata archiveMetadata, mets mets)
         {
             archiveMetadata.Label = mets.LABEL;
+            archiveMetadata.Id = mets.OBJID; // TODO: Skip when mets is reused as template on package creation
         }
 
         private static void LoadMetsHdr(ArchiveMetadata archiveMetadata, metsTypeMetsHdr metsHdr)

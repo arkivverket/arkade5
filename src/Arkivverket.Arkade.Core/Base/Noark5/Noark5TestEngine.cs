@@ -4,19 +4,21 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Testing;
+using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Noark5
 {
     public class Noark5TestEngine : ITestEngine
     {
-        private readonly ITestProvider _testProvider;
+        private readonly Noark5TestProvider _testProvider;
         private readonly IStatusEventHandler _statusEventHandler;
         private readonly ITestProgressReporter _testProgressReporter;
 
-        public Noark5TestEngine(ITestProvider testProvider, IStatusEventHandler statusEventHandler,
+        public Noark5TestEngine(Noark5TestProvider testProvider, IStatusEventHandler statusEventHandler,
             ITestProgressReporter testProgressReporter)
         {
             _testProvider = testProvider;
@@ -30,17 +32,19 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
         public event EventHandler<ReadElementEventArgs> ReadEndElementEvent;
 
 
-        public TestSuite RunTestsOnArchive(TestSession testSession)
+        public TestSuite RunTestsOnArchive(Archive archive)
         {
-            List<IArkadeStructureTest> structureTests = RunStructureTests(testSession);
+            var noark5Archive = (Noark5Archive)archive;
 
-            List<INoark5Test> contentTests = RunContentTests(testSession);
+            List<IArkadeStructureTest> structureTests = RunStructureTests(noark5Archive);
+
+            List<INoark5Test> contentTests = RunContentTests(noark5Archive);
 
             var testSuite = new TestSuite();
             AddTestToTestSuite(contentTests, testSuite);
             AddTestToTestSuite(structureTests, testSuite);
 
-            testSession.TestSummary = new TestSummary(0, 0, testSuite.TestRuns.Count(), testSuite.FindNumberOfErrors(), 0);
+            archive.TestSession.TestSummary = new TestSummary(0, 0, testSuite.TestRuns.Count(), testSuite.FindNumberOfErrors(), 0);
 
             return testSuite;
         }
@@ -51,13 +55,13 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
                 testSuite.AddTestRun(test.GetTestRun());
         }
 
-        private List<INoark5Test> RunContentTests(TestSession testSession)
+        private List<INoark5Test> RunContentTests(Noark5Archive archive)
         {
-            List<INoark5Test> contentTests = _testProvider.GetContentTests(testSession);
+            List<INoark5Test> contentTests = _testProvider.GetContentTests(archive);
 
             SubscribeTestsToReadElementEvent(contentTests);
 
-            ArchiveXmlFile archiveStructureFile = testSession.Archive.GetArchiveXmlFile(ArkadeConstants.ArkivstrukturXmlFileName);
+            ArchiveXmlFile archiveStructureFile = archive.GetArchiveXmlFile(ArkadeConstants.ArkivstrukturXmlFileName);
 
             using Stream stream = archiveStructureFile.AsStream();
             using var reader = XmlReader.Create(stream);
@@ -66,7 +70,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
 
             RaiseEventStartParsingFile();
 
-            _testProgressReporter.Begin(testSession.Archive.ArchiveType);
+            _testProgressReporter.Begin(ArchiveType.Noark5);
 
             var path = new Stack<string>();
 
@@ -115,9 +119,9 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
             return reader.MoveToNextAttribute() || reader.Read();
         }
 
-        private List<IArkadeStructureTest> RunStructureTests(TestSession testSession)
+        private List<IArkadeStructureTest> RunStructureTests(Noark5Archive archive)
         {
-            List<IArkadeStructureTest> structureTests = _testProvider.GetStructureTests(testSession);
+            List<IArkadeStructureTest> structureTests = _testProvider.GetStructureTests(archive);
             foreach (var test in structureTests)
             {
                 string testName = ArkadeTestNameProvider.GetDisplayName(test);
@@ -125,7 +129,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
                 try
                 {
                     _statusEventHandler.RaiseEventOperationMessage(testName, "", OperationMessageStatus.Started);
-                    test.Test(testSession.Archive);
+                    test.Test(archive);
 
                     List<TestResult> errorTestResults = test.GetTestRun().TestResults.GetErrorResults();
 

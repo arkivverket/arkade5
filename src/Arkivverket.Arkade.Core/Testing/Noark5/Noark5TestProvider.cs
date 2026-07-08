@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Testing.Noark5
 {
-    public class Noark5TestProvider : ITestProvider
+    public class Noark5TestProvider
     {
         private readonly List<TestId> _structureTests = new List<TestId>
         {
@@ -16,11 +17,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             new TestId(TestId.TestKind.Noark5, 28)
         };
 
-        public List<IArkadeStructureTest> GetStructureTests(TestSession testSession)
+        public List<IArkadeStructureTest> GetStructureTests(Noark5Archive archive)
         {
-            var noark5TestFactory = new Noark5TestFactory(testSession.Archive);
+            var noark5TestFactory = new Noark5TestFactory(archive);
 
-            IEnumerable<TestId> testIds = testSession.TestsToRun.Intersect(_structureTests);
+            IEnumerable<TestId> testIds = archive.TestSession.TestsToRun.Intersect(_structureTests);
 
             var structureTests = new List<IArkadeStructureTest>();
 
@@ -34,11 +35,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
             return structureTests;
         }
 
-        public List<INoark5Test> GetContentTests(TestSession testSession)
+        public List<INoark5Test> GetContentTests(Noark5Archive archive)
         {
-            var noark5TestFactory = new Noark5TestFactory(testSession.Archive);
+            var noark5TestFactory = new Noark5TestFactory(archive);
 
-            IEnumerable<TestId> testIds = testSession.TestsToRun.Except(_structureTests);
+            IEnumerable<TestId> testIds = archive.TestSession.TestsToRun.Except(_structureTests);
 
             var contentTests = new List<INoark5Test>();
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5.Structure;
 using Arkivverket.Arkade.Core.Tests.Base;
@@ -105,11 +106,11 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
 
         private static TestRun CreateTestRun(string workingDirectory)
         {
-            Archive archive = new ArchiveBuilder()
+            var archive = new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent(workingDirectory + "\\content")
-                .Build();
+                .Build<Noark5Archive>();
 
             archive.DocumentFiles.Register(false);
 
