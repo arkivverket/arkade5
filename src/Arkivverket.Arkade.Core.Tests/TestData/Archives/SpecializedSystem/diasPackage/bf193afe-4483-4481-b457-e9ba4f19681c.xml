@@ -102,10 +102,10 @@
   </mets:metsHdr>
   <mets:fileSec>
     <mets:fileGrp ID="fileGroup001" USE="FILES">
-      <mets:file ID="fileId_0" MIMETYPE="application/.tar" SIZE="7424000" CREATED="2025-12-02T14:40:00.2740944+01:00" CHECKSUM="2205151e33fd97d00f4512e6a1f46ccf89d1e6f243c6df6cfd8501e6a572a24c" CHECKSUMTYPE="SHA-256" USE="Datafile">
+      <mets:file ID="fileId_0" MIMETYPE="application/.tar" SIZE="7424000" CREATED="2025-12-02T14:40:00.2740944+01:00" CHECKSUM="063980c51e4fdca7a1ac678feb800b99e0b63ffd10cc898759e54b6a0ac395e6" CHECKSUMTYPE="SHA-256" USE="Datafile">
         <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:bf193afe-4483-4481-b457-e9ba4f19681c.tar" />
       </mets:file>
-      <mets:file ID="fileId_1" MIMETYPE="application/.xml" SIZE="13088" CREATED="2025-12-02T14:40:00.2452826+01:00" CHECKSUM="4773a2992976dfa1c644d1dc6cf8e7208e09f80869e1475ef6776460712d2b38" CHECKSUMTYPE="SHA-256" USE="Datafile">
+      <mets:file ID="fileId_1" MIMETYPE="application/.xml" SIZE="13088" CREATED="2025-12-02T14:40:00.2452826+01:00" CHECKSUM="f66066932c608d6abd0d9444aeb61c23d4ce9823f46549490487d32b2b29d841" CHECKSUMTYPE="SHA-256" USE="Datafile">
         <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file:bf193afe-4483-4481-b457-e9ba4f19681c/dias-mets.xml" />
       </mets:file>
     </mets:fileGrp>
