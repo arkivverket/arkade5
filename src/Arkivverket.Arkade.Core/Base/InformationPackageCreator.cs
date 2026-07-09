@@ -104,7 +104,7 @@ namespace Arkivverket.Arkade.Core.Base
 
             // Stream the archive content straight into the package's content directory. The content is
             // read in place from its source (Archive.Content) rather than being staged in the work
-            // directory, so large extractions are never copied to disk. The empty content directory
+            // directory — packaging adds no extra copy of the content on disk. The empty content directory
             // created under the work directory (see DiasPackageWorkingDirectory.CreateDirectories)
             // guarantees the package always contains a content directory, even with no content files.
             {
